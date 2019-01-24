@@ -1,0 +1,54 @@
+﻿#pragma once
+
+#include "il2cpp-config.h"
+
+#ifndef _MSC_VER
+# include <alloca.h>
+#else
+# include <malloc.h>
+#endif
+
+#include <stdint.h>
+
+#include "mscorlib_System_Object2689449295.h"
+
+// System.Collections.Generic.Dictionary`2<System.Type,FullSerializer.Internal.fsOption`1<FullSerializer.Internal.fsVersionedType>>
+struct Dictionary_2_t2909366393;
+
+
+
+
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Winvalid-offsetof"
+#pragma clang diagnostic ignored "-Wunused-variable"
+#endif
+
+// FullSerializer.Internal.fsVersionManager
+struct  fsVersionManager_t2158286414  : public Il2CppObject
+{
+public:
+
+public:
+};
+
+struct fsVersionManager_t2158286414_StaticFields
+{
+public:
+	// System.Collections.Generic.Dictionary`2<System.Type,FullSerializer.Internal.fsOption`1<FullSerializer.Internal.fsVersionedType>> FullSerializer.Internal.fsVersionManager::_cache
+	Dictionary_2_t2909366393 * ____cache_0;
+
+public:
+	inline static int32_t get_offset_of__cache_0() { return static_cast<int32_t>(offsetof(fsVersionManager_t2158286414_StaticFields, ____cache_0)); }
+	inline Dictionary_2_t2909366393 * get__cache_0() const { return ____cache_0; }
+	inline Dictionary_2_t2909366393 ** get_address_of__cache_0() { return &____cache_0; }
+	inline void set__cache_0(Dictionary_2_t2909366393 * value)
+	{
+		____cache_0 = value;
+		Il2CppCodeGenWriteBarrier(&____cache_0, value);
+	}
+};
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif

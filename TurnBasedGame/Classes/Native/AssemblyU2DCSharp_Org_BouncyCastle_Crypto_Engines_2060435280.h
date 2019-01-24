@@ -1,0 +1,35 @@
+﻿#pragma once
+
+#include "il2cpp-config.h"
+
+#ifndef _MSC_VER
+# include <alloca.h>
+#else
+# include <malloc.h>
+#endif
+
+#include <stdint.h>
+
+#include "AssemblyU2DCSharp_Org_BouncyCastle_Crypto_Engines_3896743154.h"
+
+
+
+
+
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Winvalid-offsetof"
+#pragma clang diagnostic ignored "-Wunused-variable"
+#endif
+
+// Org.BouncyCastle.Crypto.Engines.ChaChaEngine
+struct  ChaChaEngine_t2060435280  : public Salsa20Engine_t3896743154
+{
+public:
+
+public:
+};
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif

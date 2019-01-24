@@ -1,0 +1,9287 @@
+﻿#include "il2cpp-config.h"
+
+#ifndef _MSC_VER
+# include <alloca.h>
+#else
+# include <malloc.h>
+#endif
+
+#include <cstring>
+#include <string.h>
+#include <stdio.h>
+#include <cmath>
+#include <limits>
+#include <assert.h>
+
+#include "class-internals.h"
+#include "codegen/il2cpp-codegen.h"
+#include "mscorlib_System_Array3829468939.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3492882535.h"
+#include "mscorlib_System_Void1841601450.h"
+#include "mscorlib_System_Object2689449295.h"
+#include "mscorlib_System_RuntimeTypeHandle2330101084.h"
+#include "mscorlib_System_Type1303803226.h"
+#include "mscorlib_System_Boolean3825574718.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2246210129.h"
+#include "mscorlib_System_Int322071877448.h"
+#include "AssemblyU2DCSharp_BestHTTP_SignalR_Messages_ClientM624279968.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3221883668.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1975211262.h"
+#include "AssemblyU2DCSharp_BtnLoadHistoryUI_UIData_State353281101.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare284329552.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3332624442.h"
+#include "AssemblyU2DCSharp_BtnUpdateUser_UIData_State1710694281.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3652233790.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2405561384.h"
+#include "AssemblyU2DCSharp_ChatMessage_State783631223.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar4232654905.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2985982499.h"
+#include "AssemblyU2DCSharp_ChatNormalContent_Message1364052338.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2256883968.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1010211562.h"
+#include "AssemblyU2DCSharp_ChatRoomUserStateContent_Action3683248697.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1858787297.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare612114891.h"
+#include "AssemblyU2DCSharp_Chess_Common_Piece3285152026.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3461497824.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2214825418.h"
+#include "AssemblyU2DCSharp_ClientInputSend_State592895257.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1068935575.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar4117230465.h"
+#include "AssemblyU2DCSharp_Com_MyBool2495300304.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3813394621.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2566722215.h"
+#include "AssemblyU2DCSharp_Data_ChangeState944792054.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3662921288.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2416248882.h"
+#include "AssemblyU2DCSharp_Data_EditType794318721.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3530825074.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2284152668.h"
+#include "AssemblyU2DCSharp_Data_SI662222507.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare253856280.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3302151170.h"
+#include "AssemblyU2DCSharp_DataIdentity_MyByte1680221009.h"
+#include "mscorlib_System_Collections_Generic_EqualityComparer21569327.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3069864217.h"
+#include "AssemblyU2DCSharp_DataIdentity_MyInt641447934056.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar4024913275.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2778240869.h"
+#include "AssemblyU2DCSharp_DataIdentity_MySByte1156310708.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2124383186.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare877710780.h"
+#include "AssemblyU2DCSharp_DataIdentity_MyUInt643550747915.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare477764585.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3526059475.h"
+#include "AssemblyU2DCSharp_DataIdentity_MyUShort1904129314.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar4136544489.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2889872083.h"
+#include "AssemblyU2DCSharp_FairyChess_Common_Color1267941922.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3370397998.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2123725592.h"
+#include "AssemblyU2DCSharp_FairyChess_Common_Piece501795431.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1424286790.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare177614384.h"
+#include "AssemblyU2DCSharp_FairyChess_Common_PieceType2850651519.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare462267495.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3510562385.h"
+#include "AssemblyU2DCSharp_FairyChess_Common_Square1888632224.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2144530083.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare897857677.h"
+#include "AssemblyU2DCSharp_FairyChess_Common_VariantType3570894812.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1474224767.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare227552361.h"
+#include "AssemblyU2DCSharp_FileSystem_ActionEdit_Action2900589496.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar4280258771.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3033586365.h"
+#include "AssemblyU2DCSharp_FileSystem_ActionEditProcess_Sta1411656204.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1143013274.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar4191308164.h"
+#include "AssemblyU2DCSharp_FileSystem_ActionNone_State2569378003.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1103483124.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar4151778014.h"
+#include "AssemblyU2DCSharp_FileSystem_ShowDirectory_State2529847853.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1040459978.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar4088754868.h"
+#include "AssemblyU2DCSharp_Foundation_Databinding_AudioLaye2466824707.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2365852400.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1119179994.h"
+#include "AssemblyU2DCSharp_Foundation_Debuging_TerminalItem3792217129.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1060406954.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar4108701844.h"
+#include "AssemblyU2DCSharp_Foundation_Example_ExampleQualit2486771683.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare138409458.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3186704348.h"
+#include "AssemblyU2DCSharp_Foundation_Tasks_TaskManager_Cor1564774187.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare372705560.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3421000450.h"
+#include "AssemblyU2DCSharp_Foundation_Tasks_TaskManager_Log1799070289.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1088472563.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar4136767453.h"
+#include "AssemblyU2DCSharp_FriendStateAcceptUI_UIData_State2514837292.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare672543268.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3720838158.h"
+#include "AssemblyU2DCSharp_FriendStateBanUI_UIData_State2098907997.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2692233616.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1445561210.h"
+#include "AssemblyU2DCSharp_FriendStateCancel_State4118598345.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1054347368.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar4102642258.h"
+#include "AssemblyU2DCSharp_FriendStateChangeContent_Action2480712097.h"
+#include "mscorlib_System_Collections_Generic_EqualityComparer31536933.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3079831823.h"
+#include "AssemblyU2DCSharp_FriendStateNoneUI_UIData_State1457901662.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1449756680.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare203084274.h"
+#include "AssemblyU2DCSharp_FriendStateRequestUI_UIData_Stat2876121409.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1679390110.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare432717704.h"
+#include "AssemblyU2DCSharp_FullSerializer_fsAotConfiguratio3105754839.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3840611063.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2593938657.h"
+#include "AssemblyU2DCSharp_FullSerializer_Internal_fsOption_972008496.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3472901047.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2226228641.h"
+#include "AssemblyU2DCSharp_FullSerializer_Internal_fsPortabl604298480.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3523352925.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2276680519.h"
+#include "AssemblyU2DCSharp_FullSerializer_Internal_fsVersion654750358.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare953216207.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar4001511097.h"
+#include "AssemblyU2DCSharp_GameManager_ContestManager_Reque2379580936.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare680104145.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3728399035.h"
+#include "AssemblyU2DCSharp_GameManager_ContestManager_Reque2106468874.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2411118981.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1164446575.h"
+#include "AssemblyU2DCSharp_GameManager_ContestManager_Reque3837483710.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare856524299.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3904819189.h"
+#include "AssemblyU2DCSharp_GameManager_Match_AdminEditLobby2282889028.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1368863471.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare122191065.h"
+#include "AssemblyU2DCSharp_GameManager_Match_AdminEditLobby2795228200.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1372280309.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare125607903.h"
+#include "AssemblyU2DCSharp_GameManager_Match_ContestManager2798645038.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2374161122.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1127488716.h"
+#include "AssemblyU2DCSharp_GameManager_Match_Elimination_Re3800525851.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2187019436.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare940347030.h"
+#include "AssemblyU2DCSharp_GameManager_Match_Elimination_Re3613384165.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare912532364.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3960827254.h"
+#include "AssemblyU2DCSharp_GameManager_Match_Elimination_Re2338897093.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1659758408.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare413086002.h"
+#include "AssemblyU2DCSharp_GameManager_Match_LobbyBtnStart_3086123137.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2139438106.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare892765700.h"
+#include "AssemblyU2DCSharp_GameManager_Match_LobbyPlayerBtn3565802835.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3467650323.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2220977917.h"
+#include "AssemblyU2DCSharp_GameManager_Match_NormalEditLobby599047756.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare694665830.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3742960720.h"
+#include "AssemblyU2DCSharp_GameManager_Match_NormalEditLobb2121030559.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare622689580.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3670984470.h"
+#include "AssemblyU2DCSharp_GameManager_Match_RequestNewRoun2049054309.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar4195221482.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2948549076.h"
+#include "AssemblyU2DCSharp_GameManager_Match_RequestNewRoun1326618915.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare848598470.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3896893360.h"
+#include "AssemblyU2DCSharp_GameManager_Match_RequestNewRoun2274963199.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1738043144.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare491370738.h"
+#include "AssemblyU2DCSharp_GameManager_Match_RoundRobin_Req3164407873.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1188959842.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar4237254732.h"
+#include "AssemblyU2DCSharp_GameManager_Match_RoundRobin_Req2615324571.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3763588854.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2516916448.h"
+#include "AssemblyU2DCSharp_GameManager_Match_RoundRobin_Requ894986287.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3968437678.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2721765272.h"
+#include "AssemblyU2DCSharp_GameManager_Match_Swap_AdminRequ1099835111.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare303657386.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3351952276.h"
+#include "AssemblyU2DCSharp_GameManager_Match_Swap_SwapReque1730022115.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare410431061.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3458725951.h"
+#include "AssemblyU2DCSharp_GamePlayer_Inform_Type1836795790.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2736079764.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1489407358.h"
+#include "AssemblyU2DCSharp_GameState_PlayNormalUI_UIData_St4162444493.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3782514839.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2535842433.h"
+#include "AssemblyU2DCSharp_GameState_PlayPauseUI_UIData_Stat913912272.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare132318470.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3180613360.h"
+#include "AssemblyU2DCSharp_GameState_Result_Reason1558683199.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare923707430.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3972002320.h"
+#include "AssemblyU2DCSharp_GameType_Type2350072159.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1200754074.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar4249048964.h"
+#include "AssemblyU2DCSharp_GlobalViewUI_UIData_Show2627118803.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3486870077.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2240197671.h"
+#include "AssemblyU2DCSharp_Gomoku_Common_Type618267510.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1595241358.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare348568952.h"
+#include "AssemblyU2DCSharp_GuildUser_Role3021606087.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2478996185.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1232323779.h"
+#include "AssemblyU2DCSharp_GuildUser_State3905360914.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1600625255.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare353952849.h"
+#include "AssemblyU2DCSharp_HEX_Common_Color3026989984.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2202332386.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare955659980.h"
+#include "AssemblyU2DCSharp_InternationalDraught_Common_Piec3628697115.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1401135529.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare154463123.h"
+#include "AssemblyU2DCSharp_JoinRoomUI_UIData_State2827500258.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3465300061.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2218627655.h"
+#include "AssemblyU2DCSharp_LanClientMenuUI_UIData_State596697494.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare130919626.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3179214516.h"
+#include "AssemblyU2DCSharp_LoadDataTask_TaskData_State1557284355.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare600713258.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3649008148.h"
+#include "AssemblyU2DCSharp_LoginState_NotConnect_State2027077987.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare763301633.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3811596523.h"
+#include "AssemblyU2DCSharp_LoginState_StateFail_Reason2189666362.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare596572231.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3644867121.h"
+#include "AssemblyU2DCSharp_LoginState_StepGetDataFacebook_S2022936960.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare992491268.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar4040786158.h"
+#include "AssemblyU2DCSharp_LoginState_StepLogin_State2418855997.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare144857394.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3193152284.h"
+#include "AssemblyU2DCSharp_Makruk_Common_Piece1571222123.h"
+#include "mscorlib_System_Collections_Generic_EqualityComparer85210827.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3133505717.h"
+#include "AssemblyU2DCSharp_MineSweeper_MineSweeperAI_FirstM1511575556.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2787216995.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1540544589.h"
+#include "AssemblyU2DCSharp_Peregrine_Engine_TournamentComma4213581724.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar4080912643.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2834240237.h"
+#include "AssemblyU2DCSharp_Peregrine_Engine_TournamentState1212310076.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2322266254.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1075593848.h"
+#include "AssemblyU2DCSharp_Posture_BtnSetEditPostureGameDat3748630983.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3139026475.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1892354069.h"
+#include "AssemblyU2DCSharp_Posture_ChoosePostureUI_UIData_St270423908.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2722442355.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1475769949.h"
+#include "AssemblyU2DCSharp_ProcessMoveAction_State4148807084.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare831819292.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3880114182.h"
+#include "AssemblyU2DCSharp_Record_DataRecordTask_State2258184021.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3184534592.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1937862186.h"
+#include "AssemblyU2DCSharp_Record_LoadRecordTask_TaskData_St315932025.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2344409529.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1097737123.h"
+#include "AssemblyU2DCSharp_Record_SaveRecordTask_TaskData_S3770774258.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2651293397.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1404620991.h"
+#include "AssemblyU2DCSharp_Record_ViewRecordControllerState4077658126.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3516639125.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2269966719.h"
+#include "AssemblyU2DCSharp_RemoteConfig_State648036558.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1040384392.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar4088679282.h"
+#include "AssemblyU2DCSharp_RequestChangeUseRuleStateAskBtnA2466749121.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar4284911118.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3038238712.h"
+#include "AssemblyU2DCSharp_RequestChangeUseRuleStateAskBtnR1416308551.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3156146811.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1909474405.h"
+#include "AssemblyU2DCSharp_RequestChangeUseRuleStateNoneUI_U287544244.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2655949790.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1409277384.h"
+#include "AssemblyU2DCSharp_RockScissorPaper_Player_Result4082314519.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2698882712.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1452210306.h"
+#include "AssemblyU2DCSharp_RockScissorPaper_Player_State4125247441.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompare290715491.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3339010381.h"
+#include "AssemblyU2DCSharp_Room_AllowHint1717080220.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2870584380.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar1623911974.h"
+#include "AssemblyU2DCSharp_RoomBtnBackUI_UIData_State1981813.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar3900819748.h"
+#include "mscorlib_System_Collections_Generic_EqualityCompar2654147342.h"
+#include "AssemblyU2DCSharp_RoomStateNormalFreezeUI_UIData_S1032217181.h"
+
+// System.Collections.Generic.EqualityComparer`1<BestHTTP.SignalR.Messages.ClientMessage>
+struct EqualityComparer_1_t3492882535;
+// System.Object
+struct Il2CppObject;
+// System.Type
+struct Type_t;
+// System.Collections.Generic.EqualityComparer`1<BtnLoadHistoryUI/UIData/State>
+struct EqualityComparer_1_t3221883668;
+// System.Collections.Generic.EqualityComparer`1<BtnUpdateUser/UIData/State>
+struct EqualityComparer_1_t284329552;
+// System.Collections.Generic.EqualityComparer`1<ChatMessage/State>
+struct EqualityComparer_1_t3652233790;
+// System.Collections.Generic.EqualityComparer`1<ChatNormalContent/Message>
+struct EqualityComparer_1_t4232654905;
+// System.Collections.Generic.EqualityComparer`1<ChatRoomUserStateContent/Action>
+struct EqualityComparer_1_t2256883968;
+// System.Collections.Generic.EqualityComparer`1<Chess.Common/Piece>
+struct EqualityComparer_1_t1858787297;
+// System.Collections.Generic.EqualityComparer`1<ClientInputSend/State>
+struct EqualityComparer_1_t3461497824;
+// System.Collections.Generic.EqualityComparer`1<Com/MyBool>
+struct EqualityComparer_1_t1068935575;
+// System.Collections.Generic.EqualityComparer`1<Data/ChangeState>
+struct EqualityComparer_1_t3813394621;
+// System.Collections.Generic.EqualityComparer`1<Data/EditType>
+struct EqualityComparer_1_t3662921288;
+// System.Collections.Generic.EqualityComparer`1<Data/SI>
+struct EqualityComparer_1_t3530825074;
+// System.Collections.Generic.EqualityComparer`1<DataIdentity/MyByte>
+struct EqualityComparer_1_t253856280;
+// System.Collections.Generic.EqualityComparer`1<DataIdentity/MyInt64>
+struct EqualityComparer_1_t21569327;
+// System.Collections.Generic.EqualityComparer`1<DataIdentity/MySByte>
+struct EqualityComparer_1_t4024913275;
+// System.Collections.Generic.EqualityComparer`1<DataIdentity/MyUInt64>
+struct EqualityComparer_1_t2124383186;
+// System.Collections.Generic.EqualityComparer`1<DataIdentity/MyUShort>
+struct EqualityComparer_1_t477764585;
+// System.Collections.Generic.EqualityComparer`1<FairyChess.Common/Color>
+struct EqualityComparer_1_t4136544489;
+// System.Collections.Generic.EqualityComparer`1<FairyChess.Common/Piece>
+struct EqualityComparer_1_t3370397998;
+// System.Collections.Generic.EqualityComparer`1<FairyChess.Common/PieceType>
+struct EqualityComparer_1_t1424286790;
+// System.Collections.Generic.EqualityComparer`1<FairyChess.Common/Square>
+struct EqualityComparer_1_t462267495;
+// System.Collections.Generic.EqualityComparer`1<FairyChess.Common/VariantType>
+struct EqualityComparer_1_t2144530083;
+// System.Collections.Generic.EqualityComparer`1<FileSystem.ActionEdit/Action>
+struct EqualityComparer_1_t1474224767;
+// System.Collections.Generic.EqualityComparer`1<FileSystem.ActionEditProcess/State>
+struct EqualityComparer_1_t4280258771;
+// System.Collections.Generic.EqualityComparer`1<FileSystem.ActionNone/State>
+struct EqualityComparer_1_t1143013274;
+// System.Collections.Generic.EqualityComparer`1<FileSystem.ShowDirectory/State>
+struct EqualityComparer_1_t1103483124;
+// System.Collections.Generic.EqualityComparer`1<Foundation.Databinding.AudioLayer>
+struct EqualityComparer_1_t1040459978;
+// System.Collections.Generic.EqualityComparer`1<Foundation.Debuging.TerminalItem>
+struct EqualityComparer_1_t2365852400;
+// System.Collections.Generic.EqualityComparer`1<Foundation.Example.ExampleQuality>
+struct EqualityComparer_1_t1060406954;
+// System.Collections.Generic.EqualityComparer`1<Foundation.Tasks.TaskManager/CoroutineCommand>
+struct EqualityComparer_1_t138409458;
+// System.Collections.Generic.EqualityComparer`1<Foundation.Tasks.TaskManager/LogCommand>
+struct EqualityComparer_1_t372705560;
+// System.Collections.Generic.EqualityComparer`1<FriendStateAcceptUI/UIData/State>
+struct EqualityComparer_1_t1088472563;
+// System.Collections.Generic.EqualityComparer`1<FriendStateBanUI/UIData/State>
+struct EqualityComparer_1_t672543268;
+// System.Collections.Generic.EqualityComparer`1<FriendStateCancel/State>
+struct EqualityComparer_1_t2692233616;
+// System.Collections.Generic.EqualityComparer`1<FriendStateChangeContent/Action>
+struct EqualityComparer_1_t1054347368;
+// System.Collections.Generic.EqualityComparer`1<FriendStateNoneUI/UIData/State>
+struct EqualityComparer_1_t31536933;
+// System.Collections.Generic.EqualityComparer`1<FriendStateRequestUI/UIData/State>
+struct EqualityComparer_1_t1449756680;
+// System.Collections.Generic.EqualityComparer`1<FullSerializer.fsAotConfiguration/Entry>
+struct EqualityComparer_1_t1679390110;
+// System.Collections.Generic.EqualityComparer`1<FullSerializer.Internal.fsOption`1<FullSerializer.Internal.fsVersionedType>>
+struct EqualityComparer_1_t3840611063;
+// System.Collections.Generic.EqualityComparer`1<FullSerializer.Internal.fsPortableReflection/AttributeQuery>
+struct EqualityComparer_1_t3472901047;
+// System.Collections.Generic.EqualityComparer`1<FullSerializer.Internal.fsVersionedType>
+struct EqualityComparer_1_t3523352925;
+// System.Collections.Generic.EqualityComparer`1<GameManager.ContestManager.RequestNewContestManagerAskBtnAcceptUI/UIData/State>
+struct EqualityComparer_1_t953216207;
+// System.Collections.Generic.EqualityComparer`1<GameManager.ContestManager.RequestNewContestManagerAskBtnCancelUI/UIData/State>
+struct EqualityComparer_1_t680104145;
+// System.Collections.Generic.EqualityComparer`1<GameManager.ContestManager.RequestNewContestManagerStateAskUI/UIData/Visibility>
+struct EqualityComparer_1_t2411118981;
+// System.Collections.Generic.EqualityComparer`1<GameManager.Match.AdminEditLobbyPlayerComputerUI/UIData/State>
+struct EqualityComparer_1_t856524299;
+// System.Collections.Generic.EqualityComparer`1<GameManager.Match.AdminEditLobbyPlayerEmptyUI/UIData/State>
+struct EqualityComparer_1_t1368863471;
+// System.Collections.Generic.EqualityComparer`1<GameManager.Match.ContestManager/State/Type>
+struct EqualityComparer_1_t1372280309;
+// System.Collections.Generic.EqualityComparer`1<GameManager.Match.Elimination.RequestNewEliminationRoundAskBtnAcceptUI/UIData/State>
+struct EqualityComparer_1_t2374161122;
+// System.Collections.Generic.EqualityComparer`1<GameManager.Match.Elimination.RequestNewEliminationRoundAskBtnCancelUI/UIData/State>
+struct EqualityComparer_1_t2187019436;
+// System.Collections.Generic.EqualityComparer`1<GameManager.Match.Elimination.RequestNewEliminationRoundStateAskUI/UIData/Visibility>
+struct EqualityComparer_1_t912532364;
+// System.Collections.Generic.EqualityComparer`1<GameManager.Match.LobbyBtnStart/UIData/State>
+struct EqualityComparer_1_t1659758408;
+// System.Collections.Generic.EqualityComparer`1<GameManager.Match.LobbyPlayerBtnSetReady/UIData/State>
+struct EqualityComparer_1_t2139438106;
+// System.Collections.Generic.EqualityComparer`1<GameManager.Match.NormalEditLobbyPlayerBtnEmptyUI/UIData/State>
+struct EqualityComparer_1_t3467650323;
+// System.Collections.Generic.EqualityComparer`1<GameManager.Match.NormalEditLobbyPlayerBtnSetUI/UIData/State>
+struct EqualityComparer_1_t694665830;
+// System.Collections.Generic.EqualityComparer`1<GameManager.Match.RequestNewRoundAskBtnAcceptUI/UIData/State>
+struct EqualityComparer_1_t622689580;
+// System.Collections.Generic.EqualityComparer`1<GameManager.Match.RequestNewRoundAskBtnCancelUI/UIData/State>
+struct EqualityComparer_1_t4195221482;
+// System.Collections.Generic.EqualityComparer`1<GameManager.Match.RequestNewRoundStateAskUI/UIData/Visibility>
+struct EqualityComparer_1_t848598470;
+// System.Collections.Generic.EqualityComparer`1<GameManager.Match.RoundRobin.RequestNewRoundRobinAskBtnAcceptUI/UIData/State>
+struct EqualityComparer_1_t1738043144;
+// System.Collections.Generic.EqualityComparer`1<GameManager.Match.RoundRobin.RequestNewRoundRobinAskBtnCancelUI/UIData/State>
+struct EqualityComparer_1_t1188959842;
+// System.Collections.Generic.EqualityComparer`1<GameManager.Match.RoundRobin.RequestNewRoundRobinStateAskUI/UIData/Visibility>
+struct EqualityComparer_1_t3763588854;
+// System.Collections.Generic.EqualityComparer`1<GameManager.Match.Swap.AdminRequestSwapPlayerComputerUI/UIData/State>
+struct EqualityComparer_1_t3968437678;
+// System.Collections.Generic.EqualityComparer`1<GameManager.Match.Swap.SwapRequestStateAskUI/UIData/Action>
+struct EqualityComparer_1_t303657386;
+// System.Collections.Generic.EqualityComparer`1<GamePlayer/Inform/Type>
+struct EqualityComparer_1_t410431061;
+// System.Collections.Generic.EqualityComparer`1<GameState.PlayNormalUI/UIData/State>
+struct EqualityComparer_1_t2736079764;
+// System.Collections.Generic.EqualityComparer`1<GameState.PlayPauseUI/UIData/State>
+struct EqualityComparer_1_t3782514839;
+// System.Collections.Generic.EqualityComparer`1<GameState.Result/Reason>
+struct EqualityComparer_1_t132318470;
+// System.Collections.Generic.EqualityComparer`1<GameType/Type>
+struct EqualityComparer_1_t923707430;
+// System.Collections.Generic.EqualityComparer`1<GlobalViewUI/UIData/Show>
+struct EqualityComparer_1_t1200754074;
+// System.Collections.Generic.EqualityComparer`1<Gomoku.Common/Type>
+struct EqualityComparer_1_t3486870077;
+// System.Collections.Generic.EqualityComparer`1<GuildUser/Role>
+struct EqualityComparer_1_t1595241358;
+// System.Collections.Generic.EqualityComparer`1<GuildUser/State>
+struct EqualityComparer_1_t2478996185;
+// System.Collections.Generic.EqualityComparer`1<HEX.Common/Color>
+struct EqualityComparer_1_t1600625255;
+// System.Collections.Generic.EqualityComparer`1<InternationalDraught.Common/Piece_Side>
+struct EqualityComparer_1_t2202332386;
+// System.Collections.Generic.EqualityComparer`1<JoinRoomUI/UIData/State>
+struct EqualityComparer_1_t1401135529;
+// System.Collections.Generic.EqualityComparer`1<LanClientMenuUI/UIData/State>
+struct EqualityComparer_1_t3465300061;
+// System.Collections.Generic.EqualityComparer`1<LoadDataTask/TaskData/State>
+struct EqualityComparer_1_t130919626;
+// System.Collections.Generic.EqualityComparer`1<LoginState.NotConnect/State>
+struct EqualityComparer_1_t600713258;
+// System.Collections.Generic.EqualityComparer`1<LoginState.StateFail/Reason>
+struct EqualityComparer_1_t763301633;
+// System.Collections.Generic.EqualityComparer`1<LoginState.StepGetDataFacebook/State>
+struct EqualityComparer_1_t596572231;
+// System.Collections.Generic.EqualityComparer`1<LoginState.StepLogin/State>
+struct EqualityComparer_1_t992491268;
+// System.Collections.Generic.EqualityComparer`1<Makruk.Common/Piece>
+struct EqualityComparer_1_t144857394;
+// System.Collections.Generic.EqualityComparer`1<MineSweeper.MineSweeperAI/FirstMoveType>
+struct EqualityComparer_1_t85210827;
+// System.Collections.Generic.EqualityComparer`1<Peregrine.Engine.TournamentCommand>
+struct EqualityComparer_1_t2787216995;
+// System.Collections.Generic.EqualityComparer`1<Peregrine.Engine.TournamentState>
+struct EqualityComparer_1_t4080912643;
+// System.Collections.Generic.EqualityComparer`1<Posture.BtnSetEditPostureGameData/UIData/State>
+struct EqualityComparer_1_t2322266254;
+// System.Collections.Generic.EqualityComparer`1<Posture.ChoosePostureUI/UIData/State>
+struct EqualityComparer_1_t3139026475;
+// System.Collections.Generic.EqualityComparer`1<ProcessMoveAction/State>
+struct EqualityComparer_1_t2722442355;
+// System.Collections.Generic.EqualityComparer`1<Record.DataRecordTask/State>
+struct EqualityComparer_1_t831819292;
+// System.Collections.Generic.EqualityComparer`1<Record.LoadRecordTask/TaskData/State>
+struct EqualityComparer_1_t3184534592;
+// System.Collections.Generic.EqualityComparer`1<Record.SaveRecordTask/TaskData/State>
+struct EqualityComparer_1_t2344409529;
+// System.Collections.Generic.EqualityComparer`1<Record.ViewRecordControllerStatePlay/State>
+struct EqualityComparer_1_t2651293397;
+// System.Collections.Generic.EqualityComparer`1<RemoteConfig/State>
+struct EqualityComparer_1_t3516639125;
+// System.Collections.Generic.EqualityComparer`1<RequestChangeUseRuleStateAskBtnAcceptUI/UIData/State>
+struct EqualityComparer_1_t1040384392;
+// System.Collections.Generic.EqualityComparer`1<RequestChangeUseRuleStateAskBtnRefuseUI/UIData/State>
+struct EqualityComparer_1_t4284911118;
+// System.Collections.Generic.EqualityComparer`1<RequestChangeUseRuleStateNoneUI/UIData/State>
+struct EqualityComparer_1_t3156146811;
+// System.Collections.Generic.EqualityComparer`1<RockScissorPaper/Player/Result>
+struct EqualityComparer_1_t2655949790;
+// System.Collections.Generic.EqualityComparer`1<RockScissorPaper/Player/State>
+struct EqualityComparer_1_t2698882712;
+// System.Collections.Generic.EqualityComparer`1<Room/AllowHint>
+struct EqualityComparer_1_t290715491;
+// System.Collections.Generic.EqualityComparer`1<RoomBtnBackUI/UIData/State>
+struct EqualityComparer_1_t2870584380;
+// System.Collections.Generic.EqualityComparer`1<RoomStateNormalFreezeUI/UIData/State>
+struct EqualityComparer_1_t3900819748;
+extern const Il2CppType* GenericEqualityComparer_1_t2202941003_0_0_0_var;
+extern Il2CppClass* Type_t_il2cpp_TypeInfo_var;
+extern Il2CppClass* TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var;
+extern const uint32_t EqualityComparer_1__cctor_m2311841674_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m4132147025_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m3384306433_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m3447668083_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2549366168_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m3738080241_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m3861429616_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m1908561169_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m1815330326_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m4103555444_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2562095945_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m959701959_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m3351837529_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m4016251294_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m3122336990_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m3370915047_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m478530628_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m3727243300_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m133380963_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m3141826171_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m566017182_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2520036946_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m220839382_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m1315743030_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m1196335667_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m1475908549_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2280456021_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2369021277_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m1772542876_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2762069207_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m4185982841_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2856223370_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2239165589_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m847333569_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m3909144729_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m1505675424_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m1598932069_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2806760467_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2929514193_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2907850250_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m1350815132_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2804488034_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m1878841968_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2051950032_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m661384782_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m818731826_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2013346380_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m3622414839_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2379025977_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2131582285_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m475462537_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2080774671_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m1151047306_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2918199823_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m4057953165_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m4237781919_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m3148230447_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2488962005_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2535463355_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m839020395_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m1192036359_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2116214307_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m1734717316_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m3214268993_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m4131186062_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m70336059_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m3222578463_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2555306867_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m435026760_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m981809175_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m809754512_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2676453126_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m474329111_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m941107572_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2934702324_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m675863075_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m814174767_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2137871996_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m718226410_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m1072137077_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m1505041051_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m782143554_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m1240963551_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m329103535_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m4219289971_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m2371485134_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m800935542_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m1755332781_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m98307634_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m36719880_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m970442596_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m228916604_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m746372133_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m4022315219_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m1850564826_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m3120238467_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m179599829_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m62008986_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m853467529_MetadataUsageId;
+extern const uint32_t EqualityComparer_1__cctor_m842854129_MetadataUsageId;
+
+// System.Type[]
+struct TypeU5BU5D_t1664964607  : public Il2CppArray
+{
+public:
+	ALIGN_FIELD (8) Type_t * m_Items[1];
+
+public:
+	inline Type_t * GetAt(il2cpp_array_size_t index) const
+	{
+		IL2CPP_ARRAY_BOUNDS_CHECK(index, (uint32_t)(this)->max_length);
+		return m_Items[index];
+	}
+	inline Type_t ** GetAddressAt(il2cpp_array_size_t index)
+	{
+		IL2CPP_ARRAY_BOUNDS_CHECK(index, (uint32_t)(this)->max_length);
+		return m_Items + index;
+	}
+	inline void SetAt(il2cpp_array_size_t index, Type_t * value)
+	{
+		IL2CPP_ARRAY_BOUNDS_CHECK(index, (uint32_t)(this)->max_length);
+		m_Items[index] = value;
+		Il2CppCodeGenWriteBarrier(m_Items + index, value);
+	}
+	inline Type_t * GetAtUnchecked(il2cpp_array_size_t index) const
+	{
+		return m_Items[index];
+	}
+	inline Type_t ** GetAddressAtUnchecked(il2cpp_array_size_t index)
+	{
+		return m_Items + index;
+	}
+	inline void SetAtUnchecked(il2cpp_array_size_t index, Type_t * value)
+	{
+		m_Items[index] = value;
+		Il2CppCodeGenWriteBarrier(m_Items + index, value);
+	}
+};
+
+
+
+// System.Void System.Object::.ctor()
+extern "C"  void Object__ctor_m2551263788 (Il2CppObject * __this, const MethodInfo* method) IL2CPP_METHOD_ATTR;
+// System.Type System.Type::GetTypeFromHandle(System.RuntimeTypeHandle)
+extern "C"  Type_t * Type_GetTypeFromHandle_m432505302 (Il2CppObject * __this /* static, unused */, RuntimeTypeHandle_t2330101084  ___handle0, const MethodInfo* method) IL2CPP_METHOD_ATTR;
+// System.Object System.Activator::CreateInstance(System.Type)
+extern "C"  Il2CppObject * Activator_CreateInstance_m383294261 (Il2CppObject * __this /* static, unused */, Type_t * ___type0, const MethodInfo* method) IL2CPP_METHOD_ATTR;
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Winvalid-offsetof"
+#pragma clang diagnostic ignored "-Wunused-variable"
+#endif
+// System.Void System.Collections.Generic.EqualityComparer`1<BestHTTP.SignalR.Messages.ClientMessage>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m4005025157_gshared (EqualityComparer_1_t3492882535 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<BestHTTP.SignalR.Messages.ClientMessage>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2311841674_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2311841674_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t3492882535_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t3492882535 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t2246210129 * L_8 = (DefaultComparer_t2246210129 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t2246210129 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t3492882535_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<BestHTTP.SignalR.Messages.ClientMessage>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1318520596_gshared (EqualityComparer_1_t3492882535 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t3492882535 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, ClientMessage_t624279968  >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<BestHTTP.SignalR.Messages.ClientMessage>::GetHashCode(T) */, (EqualityComparer_1_t3492882535 *)__this, (ClientMessage_t624279968 )((*(ClientMessage_t624279968 *)((ClientMessage_t624279968 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<BestHTTP.SignalR.Messages.ClientMessage>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m3339192010_gshared (EqualityComparer_1_t3492882535 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t3492882535 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, ClientMessage_t624279968 , ClientMessage_t624279968  >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<BestHTTP.SignalR.Messages.ClientMessage>::Equals(T,T) */, (EqualityComparer_1_t3492882535 *)__this, (ClientMessage_t624279968 )((*(ClientMessage_t624279968 *)((ClientMessage_t624279968 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (ClientMessage_t624279968 )((*(ClientMessage_t624279968 *)((ClientMessage_t624279968 *)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<BestHTTP.SignalR.Messages.ClientMessage>::get_Default()
+extern "C"  EqualityComparer_1_t3492882535 * EqualityComparer_1_get_Default_m3478076885_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t3492882535 * L_0 = ((EqualityComparer_1_t3492882535_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<BtnLoadHistoryUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m927392112_gshared (EqualityComparer_1_t3221883668 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<BtnLoadHistoryUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m4132147025_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m4132147025_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t3221883668_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t3221883668 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t1975211262 * L_8 = (DefaultComparer_t1975211262 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t1975211262 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t3221883668_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<BtnLoadHistoryUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1951343417_gshared (EqualityComparer_1_t3221883668 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t3221883668 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<BtnLoadHistoryUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t3221883668 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<BtnLoadHistoryUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m4170067663_gshared (EqualityComparer_1_t3221883668 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t3221883668 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<BtnLoadHistoryUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t3221883668 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<BtnLoadHistoryUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t3221883668 * EqualityComparer_1_get_Default_m316525812_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t3221883668 * L_0 = ((EqualityComparer_1_t3221883668_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<BtnUpdateUser/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m2587560512_gshared (EqualityComparer_1_t284329552 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<BtnUpdateUser/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m3384306433_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m3384306433_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t284329552_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t284329552 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3332624442 * L_8 = (DefaultComparer_t3332624442 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3332624442 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t284329552_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<BtnUpdateUser/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m470499893_gshared (EqualityComparer_1_t284329552 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t284329552 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<BtnUpdateUser/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t284329552 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<BtnUpdateUser/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1875199707_gshared (EqualityComparer_1_t284329552 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t284329552 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<BtnUpdateUser/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t284329552 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<BtnUpdateUser/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t284329552 * EqualityComparer_1_get_Default_m370869764_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t284329552 * L_0 = ((EqualityComparer_1_t284329552_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<ChatMessage/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m2563235924_gshared (EqualityComparer_1_t3652233790 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<ChatMessage/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m3447668083_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m3447668083_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t3652233790_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t3652233790 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t2405561384 * L_8 = (DefaultComparer_t2405561384 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t2405561384 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t3652233790_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<ChatMessage/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m3954646527_gshared (EqualityComparer_1_t3652233790 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t3652233790 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<ChatMessage/State>::GetHashCode(T) */, (EqualityComparer_1_t3652233790 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<ChatMessage/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m542272909_gshared (EqualityComparer_1_t3652233790 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t3652233790 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<ChatMessage/State>::Equals(T,T) */, (EqualityComparer_1_t3652233790 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<ChatMessage/State>::get_Default()
+extern "C"  EqualityComparer_1_t3652233790 * EqualityComparer_1_get_Default_m1597657672_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t3652233790 * L_0 = ((EqualityComparer_1_t3652233790_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<ChatNormalContent/Message>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m1318048253_gshared (EqualityComparer_1_t4232654905 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<ChatNormalContent/Message>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2549366168_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2549366168_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t4232654905_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t4232654905 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t2985982499 * L_8 = (DefaultComparer_t2985982499 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t2985982499 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t4232654905_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<ChatNormalContent/Message>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1328091830_gshared (EqualityComparer_1_t4232654905 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t4232654905 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, Message_t1364052338  >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<ChatNormalContent/Message>::GetHashCode(T) */, (EqualityComparer_1_t4232654905 *)__this, (Message_t1364052338 )((*(Message_t1364052338 *)((Message_t1364052338 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<ChatNormalContent/Message>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m2651219616_gshared (EqualityComparer_1_t4232654905 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t4232654905 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, Message_t1364052338 , Message_t1364052338  >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<ChatNormalContent/Message>::Equals(T,T) */, (EqualityComparer_1_t4232654905 *)__this, (Message_t1364052338 )((*(Message_t1364052338 *)((Message_t1364052338 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (Message_t1364052338 )((*(Message_t1364052338 *)((Message_t1364052338 *)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<ChatNormalContent/Message>::get_Default()
+extern "C"  EqualityComparer_1_t4232654905 * EqualityComparer_1_get_Default_m2135523605_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t4232654905 * L_0 = ((EqualityComparer_1_t4232654905_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<ChatRoomUserStateContent/Action>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m955216476_gshared (EqualityComparer_1_t2256883968 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<ChatRoomUserStateContent/Action>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m3738080241_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m3738080241_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t2256883968_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t2256883968 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t1010211562 * L_8 = (DefaultComparer_t1010211562 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t1010211562 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t2256883968_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<ChatRoomUserStateContent/Action>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m3560771809_gshared (EqualityComparer_1_t2256883968 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t2256883968 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<ChatRoomUserStateContent/Action>::GetHashCode(T) */, (EqualityComparer_1_t2256883968 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<ChatRoomUserStateContent/Action>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m3871559587_gshared (EqualityComparer_1_t2256883968 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t2256883968 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<ChatRoomUserStateContent/Action>::Equals(T,T) */, (EqualityComparer_1_t2256883968 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<ChatRoomUserStateContent/Action>::get_Default()
+extern "C"  EqualityComparer_1_t2256883968 * EqualityComparer_1_get_Default_m2038242568_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t2256883968 * L_0 = ((EqualityComparer_1_t2256883968_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Chess.Common/Piece>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m3215428509_gshared (EqualityComparer_1_t1858787297 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Chess.Common/Piece>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m3861429616_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m3861429616_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t1858787297_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t1858787297 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t612114891 * L_8 = (DefaultComparer_t612114891 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t612114891 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t1858787297_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<Chess.Common/Piece>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m2073221094_gshared (EqualityComparer_1_t1858787297 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t1858787297 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<Chess.Common/Piece>::GetHashCode(T) */, (EqualityComparer_1_t1858787297 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<Chess.Common/Piece>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1800727948_gshared (EqualityComparer_1_t1858787297 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t1858787297 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<Chess.Common/Piece>::Equals(T,T) */, (EqualityComparer_1_t1858787297 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<Chess.Common/Piece>::get_Default()
+extern "C"  EqualityComparer_1_t1858787297 * EqualityComparer_1_get_Default_m2645068825_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t1858787297 * L_0 = ((EqualityComparer_1_t1858787297_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<ClientInputSend/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m756368050_gshared (EqualityComparer_1_t3461497824 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<ClientInputSend/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m1908561169_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m1908561169_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t3461497824_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t3461497824 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t2214825418 * L_8 = (DefaultComparer_t2214825418 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t2214825418 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t3461497824_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<ClientInputSend/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m982733633_gshared (EqualityComparer_1_t3461497824 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t3461497824 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<ClientInputSend/State>::GetHashCode(T) */, (EqualityComparer_1_t3461497824 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<ClientInputSend/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1521118187_gshared (EqualityComparer_1_t3461497824 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t3461497824 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<ClientInputSend/State>::Equals(T,T) */, (EqualityComparer_1_t3461497824 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<ClientInputSend/State>::get_Default()
+extern "C"  EqualityComparer_1_t3461497824 * EqualityComparer_1_get_Default_m1703539430_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t3461497824 * L_0 = ((EqualityComparer_1_t3461497824_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Com/MyBool>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m66061881_gshared (EqualityComparer_1_t1068935575 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Com/MyBool>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m1815330326_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m1815330326_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t1068935575_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t1068935575 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t4117230465 * L_8 = (DefaultComparer_t4117230465 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t4117230465 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t1068935575_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<Com/MyBool>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m3970429104_gshared (EqualityComparer_1_t1068935575 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t1068935575 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<Com/MyBool>::GetHashCode(T) */, (EqualityComparer_1_t1068935575 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<Com/MyBool>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m3400193386_gshared (EqualityComparer_1_t1068935575 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t1068935575 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<Com/MyBool>::Equals(T,T) */, (EqualityComparer_1_t1068935575 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<Com/MyBool>::get_Default()
+extern "C"  EqualityComparer_1_t1068935575 * EqualityComparer_1_get_Default_m838235325_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t1068935575 * L_0 = ((EqualityComparer_1_t1068935575_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Data/ChangeState>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m1284716071_gshared (EqualityComparer_1_t3813394621 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Data/ChangeState>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m4103555444_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m4103555444_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t3813394621_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t3813394621 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t2566722215 * L_8 = (DefaultComparer_t2566722215 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t2566722215 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t3813394621_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<Data/ChangeState>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m2846486262_gshared (EqualityComparer_1_t3813394621 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t3813394621 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<Data/ChangeState>::GetHashCode(T) */, (EqualityComparer_1_t3813394621 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<Data/ChangeState>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m567253392_gshared (EqualityComparer_1_t3813394621 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t3813394621 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<Data/ChangeState>::Equals(T,T) */, (EqualityComparer_1_t3813394621 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<Data/ChangeState>::get_Default()
+extern "C"  EqualityComparer_1_t3813394621 * EqualityComparer_1_get_Default_m2199131431_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t3813394621 * L_0 = ((EqualityComparer_1_t3813394621_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Data/EditType>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m1537454410_gshared (EqualityComparer_1_t3662921288 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Data/EditType>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2562095945_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2562095945_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t3662921288_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t3662921288 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t2416248882 * L_8 = (DefaultComparer_t2416248882 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t2416248882 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t3662921288_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<Data/EditType>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m3997979009_gshared (EqualityComparer_1_t3662921288 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t3662921288 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<Data/EditType>::GetHashCode(T) */, (EqualityComparer_1_t3662921288 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<Data/EditType>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m829639883_gshared (EqualityComparer_1_t3662921288 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t3662921288 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<Data/EditType>::Equals(T,T) */, (EqualityComparer_1_t3662921288 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<Data/EditType>::get_Default()
+extern "C"  EqualityComparer_1_t3662921288 * EqualityComparer_1_get_Default_m1340205958_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t3662921288 * L_0 = ((EqualityComparer_1_t3662921288_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Data/SI>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m239916962_gshared (EqualityComparer_1_t3530825074 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Data/SI>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m959701959_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m959701959_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t3530825074_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t3530825074 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t2284152668 * L_8 = (DefaultComparer_t2284152668 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t2284152668 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t3530825074_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<Data/SI>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1404285011_gshared (EqualityComparer_1_t3530825074 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t3530825074 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, SI_t662222507  >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<Data/SI>::GetHashCode(T) */, (EqualityComparer_1_t3530825074 *)__this, (SI_t662222507 )((*(SI_t662222507 *)((SI_t662222507 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<Data/SI>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m2807946977_gshared (EqualityComparer_1_t3530825074 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t3530825074 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, SI_t662222507 , SI_t662222507  >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<Data/SI>::Equals(T,T) */, (EqualityComparer_1_t3530825074 *)__this, (SI_t662222507 )((*(SI_t662222507 *)((SI_t662222507 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (SI_t662222507 )((*(SI_t662222507 *)((SI_t662222507 *)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<Data/SI>::get_Default()
+extern "C"  EqualityComparer_1_t3530825074 * EqualityComparer_1_get_Default_m2816125142_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t3530825074 * L_0 = ((EqualityComparer_1_t3530825074_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<DataIdentity/MyByte>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m3500571124_gshared (EqualityComparer_1_t253856280 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<DataIdentity/MyByte>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m3351837529_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m3351837529_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t253856280_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t253856280 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3302151170 * L_8 = (DefaultComparer_t3302151170 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3302151170 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t253856280_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<DataIdentity/MyByte>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m3923243801_gshared (EqualityComparer_1_t253856280 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t253856280 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, MyByte_t1680221009  >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<DataIdentity/MyByte>::GetHashCode(T) */, (EqualityComparer_1_t253856280 *)__this, (MyByte_t1680221009 )((*(MyByte_t1680221009 *)((MyByte_t1680221009 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<DataIdentity/MyByte>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m360150971_gshared (EqualityComparer_1_t253856280 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t253856280 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, MyByte_t1680221009 , MyByte_t1680221009  >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<DataIdentity/MyByte>::Equals(T,T) */, (EqualityComparer_1_t253856280 *)__this, (MyByte_t1680221009 )((*(MyByte_t1680221009 *)((MyByte_t1680221009 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (MyByte_t1680221009 )((*(MyByte_t1680221009 *)((MyByte_t1680221009 *)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<DataIdentity/MyByte>::get_Default()
+extern "C"  EqualityComparer_1_t253856280 * EqualityComparer_1_get_Default_m4211235376_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t253856280 * L_0 = ((EqualityComparer_1_t253856280_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<DataIdentity/MyInt64>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m3560255281_gshared (EqualityComparer_1_t21569327 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<DataIdentity/MyInt64>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m4016251294_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m4016251294_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t21569327_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t21569327 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3069864217 * L_8 = (DefaultComparer_t3069864217 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3069864217 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t21569327_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<DataIdentity/MyInt64>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m906008096_gshared (EqualityComparer_1_t21569327 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t21569327 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, MyInt64_t1447934056  >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<DataIdentity/MyInt64>::GetHashCode(T) */, (EqualityComparer_1_t21569327 *)__this, (MyInt64_t1447934056 )((*(MyInt64_t1447934056 *)((MyInt64_t1447934056 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<DataIdentity/MyInt64>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1146699898_gshared (EqualityComparer_1_t21569327 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t21569327 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, MyInt64_t1447934056 , MyInt64_t1447934056  >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<DataIdentity/MyInt64>::Equals(T,T) */, (EqualityComparer_1_t21569327 *)__this, (MyInt64_t1447934056 )((*(MyInt64_t1447934056 *)((MyInt64_t1447934056 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (MyInt64_t1447934056 )((*(MyInt64_t1447934056 *)((MyInt64_t1447934056 *)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<DataIdentity/MyInt64>::get_Default()
+extern "C"  EqualityComparer_1_t21569327 * EqualityComparer_1_get_Default_m416736525_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t21569327 * L_0 = ((EqualityComparer_1_t21569327_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<DataIdentity/MySByte>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m479872189_gshared (EqualityComparer_1_t4024913275 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<DataIdentity/MySByte>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m3122336990_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m3122336990_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t4024913275_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t4024913275 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t2778240869 * L_8 = (DefaultComparer_t2778240869 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t2778240869 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t4024913275_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<DataIdentity/MySByte>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m2426389192_gshared (EqualityComparer_1_t4024913275 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t4024913275 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, MySByte_t1156310708  >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<DataIdentity/MySByte>::GetHashCode(T) */, (EqualityComparer_1_t4024913275 *)__this, (MySByte_t1156310708 )((*(MySByte_t1156310708 *)((MySByte_t1156310708 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<DataIdentity/MySByte>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m2033930638_gshared (EqualityComparer_1_t4024913275 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t4024913275 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, MySByte_t1156310708 , MySByte_t1156310708  >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<DataIdentity/MySByte>::Equals(T,T) */, (EqualityComparer_1_t4024913275 *)__this, (MySByte_t1156310708 )((*(MySByte_t1156310708 *)((MySByte_t1156310708 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (MySByte_t1156310708 )((*(MySByte_t1156310708 *)((MySByte_t1156310708 *)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<DataIdentity/MySByte>::get_Default()
+extern "C"  EqualityComparer_1_t4024913275 * EqualityComparer_1_get_Default_m3777223929_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t4024913275 * L_0 = ((EqualityComparer_1_t4024913275_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<DataIdentity/MyUInt64>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m2914068200_gshared (EqualityComparer_1_t2124383186 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<DataIdentity/MyUInt64>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m3370915047_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m3370915047_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t2124383186_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t2124383186 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t877710780 * L_8 = (DefaultComparer_t877710780 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t877710780 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t2124383186_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<DataIdentity/MyUInt64>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1483729835_gshared (EqualityComparer_1_t2124383186 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t2124383186 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, MyUInt64_t3550747915  >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<DataIdentity/MyUInt64>::GetHashCode(T) */, (EqualityComparer_1_t2124383186 *)__this, (MyUInt64_t3550747915 )((*(MyUInt64_t3550747915 *)((MyUInt64_t3550747915 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<DataIdentity/MyUInt64>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1626049_gshared (EqualityComparer_1_t2124383186 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t2124383186 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, MyUInt64_t3550747915 , MyUInt64_t3550747915  >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<DataIdentity/MyUInt64>::Equals(T,T) */, (EqualityComparer_1_t2124383186 *)__this, (MyUInt64_t3550747915 )((*(MyUInt64_t3550747915 *)((MyUInt64_t3550747915 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (MyUInt64_t3550747915 )((*(MyUInt64_t3550747915 *)((MyUInt64_t3550747915 *)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<DataIdentity/MyUInt64>::get_Default()
+extern "C"  EqualityComparer_1_t2124383186 * EqualityComparer_1_get_Default_m1996592828_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t2124383186 * L_0 = ((EqualityComparer_1_t2124383186_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<DataIdentity/MyUShort>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m2377779727_gshared (EqualityComparer_1_t477764585 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<DataIdentity/MyUShort>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m478530628_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m478530628_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t477764585_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t477764585 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3526059475 * L_8 = (DefaultComparer_t3526059475 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3526059475 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t477764585_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<DataIdentity/MyUShort>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m3518426658_gshared (EqualityComparer_1_t477764585 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t477764585 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, MyUShort_t1904129314  >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<DataIdentity/MyUShort>::GetHashCode(T) */, (EqualityComparer_1_t477764585 *)__this, (MyUShort_t1904129314 )((*(MyUShort_t1904129314 *)((MyUShort_t1904129314 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<DataIdentity/MyUShort>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m2430024972_gshared (EqualityComparer_1_t477764585 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t477764585 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, MyUShort_t1904129314 , MyUShort_t1904129314  >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<DataIdentity/MyUShort>::Equals(T,T) */, (EqualityComparer_1_t477764585 *)__this, (MyUShort_t1904129314 )((*(MyUShort_t1904129314 *)((MyUShort_t1904129314 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (MyUShort_t1904129314 )((*(MyUShort_t1904129314 *)((MyUShort_t1904129314 *)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<DataIdentity/MyUShort>::get_Default()
+extern "C"  EqualityComparer_1_t477764585 * EqualityComparer_1_get_Default_m2488657895_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t477764585 * L_0 = ((EqualityComparer_1_t477764585_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FairyChess.Common/Color>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m990077935_gshared (EqualityComparer_1_t4136544489 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FairyChess.Common/Color>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m3727243300_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m3727243300_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t4136544489_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t4136544489 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t2889872083 * L_8 = (DefaultComparer_t2889872083 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t2889872083 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t4136544489_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<FairyChess.Common/Color>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m3189964034_gshared (EqualityComparer_1_t4136544489 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t4136544489 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<FairyChess.Common/Color>::GetHashCode(T) */, (EqualityComparer_1_t4136544489 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<FairyChess.Common/Color>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m3268776588_gshared (EqualityComparer_1_t4136544489 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t4136544489 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<FairyChess.Common/Color>::Equals(T,T) */, (EqualityComparer_1_t4136544489 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<FairyChess.Common/Color>::get_Default()
+extern "C"  EqualityComparer_1_t4136544489 * EqualityComparer_1_get_Default_m3139157415_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t4136544489 * L_0 = ((EqualityComparer_1_t4136544489_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FairyChess.Common/Piece>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m2155324804_gshared (EqualityComparer_1_t3370397998 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FairyChess.Common/Piece>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m133380963_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m133380963_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t3370397998_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t3370397998 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t2123725592 * L_8 = (DefaultComparer_t2123725592 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t2123725592 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t3370397998_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<FairyChess.Common/Piece>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m4131986543_gshared (EqualityComparer_1_t3370397998 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t3370397998 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<FairyChess.Common/Piece>::GetHashCode(T) */, (EqualityComparer_1_t3370397998 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<FairyChess.Common/Piece>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1462385309_gshared (EqualityComparer_1_t3370397998 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t3370397998 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<FairyChess.Common/Piece>::Equals(T,T) */, (EqualityComparer_1_t3370397998 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<FairyChess.Common/Piece>::get_Default()
+extern "C"  EqualityComparer_1_t3370397998 * EqualityComparer_1_get_Default_m614063768_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t3370397998 * L_0 = ((EqualityComparer_1_t3370397998_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FairyChess.Common/PieceType>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m1878751404_gshared (EqualityComparer_1_t1424286790 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FairyChess.Common/PieceType>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m3141826171_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m3141826171_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t1424286790_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t1424286790 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t177614384 * L_8 = (DefaultComparer_t177614384 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t177614384 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t1424286790_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<FairyChess.Common/PieceType>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m963078847_gshared (EqualityComparer_1_t1424286790 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t1424286790 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<FairyChess.Common/PieceType>::GetHashCode(T) */, (EqualityComparer_1_t1424286790 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<FairyChess.Common/PieceType>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m827536637_gshared (EqualityComparer_1_t1424286790 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t1424286790 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<FairyChess.Common/PieceType>::Equals(T,T) */, (EqualityComparer_1_t1424286790 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<FairyChess.Common/PieceType>::get_Default()
+extern "C"  EqualityComparer_1_t1424286790 * EqualityComparer_1_get_Default_m2901807432_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t1424286790 * L_0 = ((EqualityComparer_1_t1424286790_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FairyChess.Common/Square>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m670886299_gshared (EqualityComparer_1_t462267495 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FairyChess.Common/Square>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m566017182_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m566017182_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t462267495_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t462267495 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3510562385 * L_8 = (DefaultComparer_t3510562385 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3510562385 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t462267495_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<FairyChess.Common/Square>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1341487852_gshared (EqualityComparer_1_t462267495 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t462267495 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<FairyChess.Common/Square>::GetHashCode(T) */, (EqualityComparer_1_t462267495 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<FairyChess.Common/Square>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m2922128850_gshared (EqualityComparer_1_t462267495 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t462267495 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<FairyChess.Common/Square>::Equals(T,T) */, (EqualityComparer_1_t462267495 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<FairyChess.Common/Square>::get_Default()
+extern "C"  EqualityComparer_1_t462267495 * EqualityComparer_1_get_Default_m717631387_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t462267495 * L_0 = ((EqualityComparer_1_t462267495_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FairyChess.Common/VariantType>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m3893155293_gshared (EqualityComparer_1_t2144530083 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FairyChess.Common/VariantType>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2520036946_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2520036946_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t2144530083_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t2144530083 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t897857677 * L_8 = (DefaultComparer_t897857677 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t897857677 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t2144530083_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<FairyChess.Common/VariantType>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m2234356540_gshared (EqualityComparer_1_t2144530083 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t2144530083 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<FairyChess.Common/VariantType>::GetHashCode(T) */, (EqualityComparer_1_t2144530083 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<FairyChess.Common/VariantType>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m2902395602_gshared (EqualityComparer_1_t2144530083 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t2144530083 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<FairyChess.Common/VariantType>::Equals(T,T) */, (EqualityComparer_1_t2144530083 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<FairyChess.Common/VariantType>::get_Default()
+extern "C"  EqualityComparer_1_t2144530083 * EqualityComparer_1_get_Default_m2344057453_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t2144530083 * L_0 = ((EqualityComparer_1_t2144530083_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FileSystem.ActionEdit/Action>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m502524899_gshared (EqualityComparer_1_t1474224767 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FileSystem.ActionEdit/Action>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m220839382_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m220839382_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t1474224767_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t1474224767 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t227552361 * L_8 = (DefaultComparer_t227552361 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t227552361 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t1474224767_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<FileSystem.ActionEdit/Action>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m3607499244_gshared (EqualityComparer_1_t1474224767 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t1474224767 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<FileSystem.ActionEdit/Action>::GetHashCode(T) */, (EqualityComparer_1_t1474224767 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<FileSystem.ActionEdit/Action>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m3540564530_gshared (EqualityComparer_1_t1474224767 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t1474224767 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<FileSystem.ActionEdit/Action>::Equals(T,T) */, (EqualityComparer_1_t1474224767 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<FileSystem.ActionEdit/Action>::get_Default()
+extern "C"  EqualityComparer_1_t1474224767 * EqualityComparer_1_get_Default_m1279112891_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t1474224767 * L_0 = ((EqualityComparer_1_t1474224767_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FileSystem.ActionEditProcess/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m3739501157_gshared (EqualityComparer_1_t4280258771 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FileSystem.ActionEditProcess/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m1315743030_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m1315743030_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t4280258771_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t4280258771 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3033586365 * L_8 = (DefaultComparer_t3033586365 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3033586365 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t4280258771_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<FileSystem.ActionEditProcess/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m664213400_gshared (EqualityComparer_1_t4280258771 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t4280258771 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<FileSystem.ActionEditProcess/State>::GetHashCode(T) */, (EqualityComparer_1_t4280258771 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<FileSystem.ActionEditProcess/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m4083341790_gshared (EqualityComparer_1_t4280258771 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t4280258771 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<FileSystem.ActionEditProcess/State>::Equals(T,T) */, (EqualityComparer_1_t4280258771 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<FileSystem.ActionEditProcess/State>::get_Default()
+extern "C"  EqualityComparer_1_t4280258771 * EqualityComparer_1_get_Default_m3356739977_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t4280258771 * L_0 = ((EqualityComparer_1_t4280258771_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FileSystem.ActionNone/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m662301538_gshared (EqualityComparer_1_t1143013274 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FileSystem.ActionNone/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m1196335667_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m1196335667_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t1143013274_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t1143013274 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t4191308164 * L_8 = (DefaultComparer_t4191308164 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t4191308164 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t1143013274_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<FileSystem.ActionNone/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m2314099831_gshared (EqualityComparer_1_t1143013274 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t1143013274 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<FileSystem.ActionNone/State>::GetHashCode(T) */, (EqualityComparer_1_t1143013274 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<FileSystem.ActionNone/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m3335154977_gshared (EqualityComparer_1_t1143013274 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t1143013274 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<FileSystem.ActionNone/State>::Equals(T,T) */, (EqualityComparer_1_t1143013274 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<FileSystem.ActionNone/State>::get_Default()
+extern "C"  EqualityComparer_1_t1143013274 * EqualityComparer_1_get_Default_m4137399798_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t1143013274 * L_0 = ((EqualityComparer_1_t1143013274_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FileSystem.ShowDirectory/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m1764891156_gshared (EqualityComparer_1_t1103483124 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FileSystem.ShowDirectory/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m1475908549_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m1475908549_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t1103483124_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t1103483124 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t4151778014 * L_8 = (DefaultComparer_t4151778014 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t4151778014 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t1103483124_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<FileSystem.ShowDirectory/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1183850073_gshared (EqualityComparer_1_t1103483124 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t1103483124 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<FileSystem.ShowDirectory/State>::GetHashCode(T) */, (EqualityComparer_1_t1103483124 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<FileSystem.ShowDirectory/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m2860807871_gshared (EqualityComparer_1_t1103483124 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t1103483124 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<FileSystem.ShowDirectory/State>::Equals(T,T) */, (EqualityComparer_1_t1103483124 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<FileSystem.ShowDirectory/State>::get_Default()
+extern "C"  EqualityComparer_1_t1103483124 * EqualityComparer_1_get_Default_m2846873448_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t1103483124 * L_0 = ((EqualityComparer_1_t1103483124_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Foundation.Databinding.AudioLayer>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m3503999380_gshared (EqualityComparer_1_t1040459978 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Foundation.Databinding.AudioLayer>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2280456021_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2280456021_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t1040459978_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t1040459978 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t4088754868 * L_8 = (DefaultComparer_t4088754868 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t4088754868 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t1040459978_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<Foundation.Databinding.AudioLayer>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m3736404061_gshared (EqualityComparer_1_t1040459978 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t1040459978 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<Foundation.Databinding.AudioLayer>::GetHashCode(T) */, (EqualityComparer_1_t1040459978 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<Foundation.Databinding.AudioLayer>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m2327219499_gshared (EqualityComparer_1_t1040459978 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t1040459978 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<Foundation.Databinding.AudioLayer>::Equals(T,T) */, (EqualityComparer_1_t1040459978 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<Foundation.Databinding.AudioLayer>::get_Default()
+extern "C"  EqualityComparer_1_t1040459978 * EqualityComparer_1_get_Default_m3004401296_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t1040459978 * L_0 = ((EqualityComparer_1_t1040459978_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Foundation.Debuging.TerminalItem>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m3025684746_gshared (EqualityComparer_1_t2365852400 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Foundation.Debuging.TerminalItem>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2369021277_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2369021277_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t2365852400_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t2365852400 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t1119179994 * L_8 = (DefaultComparer_t1119179994 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t1119179994 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t2365852400_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<Foundation.Debuging.TerminalItem>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m77780009_gshared (EqualityComparer_1_t2365852400 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t2365852400 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, TerminalItem_t3792217129  >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<Foundation.Debuging.TerminalItem>::GetHashCode(T) */, (EqualityComparer_1_t2365852400 *)__this, (TerminalItem_t3792217129 )((*(TerminalItem_t3792217129 *)((TerminalItem_t3792217129 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<Foundation.Debuging.TerminalItem>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m2342121007_gshared (EqualityComparer_1_t2365852400 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t2365852400 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, TerminalItem_t3792217129 , TerminalItem_t3792217129  >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<Foundation.Debuging.TerminalItem>::Equals(T,T) */, (EqualityComparer_1_t2365852400 *)__this, (TerminalItem_t3792217129 )((*(TerminalItem_t3792217129 *)((TerminalItem_t3792217129 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (TerminalItem_t3792217129 )((*(TerminalItem_t3792217129 *)((TerminalItem_t3792217129 *)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<Foundation.Debuging.TerminalItem>::get_Default()
+extern "C"  EqualityComparer_1_t2365852400 * EqualityComparer_1_get_Default_m2985066998_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t2365852400 * L_0 = ((EqualityComparer_1_t2365852400_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Foundation.Example.ExampleQuality>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m3500590635_gshared (EqualityComparer_1_t1060406954 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Foundation.Example.ExampleQuality>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m1772542876_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m1772542876_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t1060406954_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t1060406954 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t4108701844 * L_8 = (DefaultComparer_t4108701844 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t4108701844 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t1060406954_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<Foundation.Example.ExampleQuality>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m871210442_gshared (EqualityComparer_1_t1060406954 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t1060406954 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<Foundation.Example.ExampleQuality>::GetHashCode(T) */, (EqualityComparer_1_t1060406954 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<Foundation.Example.ExampleQuality>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m546311960_gshared (EqualityComparer_1_t1060406954 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t1060406954 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<Foundation.Example.ExampleQuality>::Equals(T,T) */, (EqualityComparer_1_t1060406954 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<Foundation.Example.ExampleQuality>::get_Default()
+extern "C"  EqualityComparer_1_t1060406954 * EqualityComparer_1_get_Default_m1687302307_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t1060406954 * L_0 = ((EqualityComparer_1_t1060406954_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Foundation.Tasks.TaskManager/CoroutineCommand>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m1725338696_gshared (EqualityComparer_1_t138409458 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Foundation.Tasks.TaskManager/CoroutineCommand>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2762069207_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2762069207_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t138409458_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t138409458 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3186704348 * L_8 = (DefaultComparer_t3186704348 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3186704348 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t138409458_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<Foundation.Tasks.TaskManager/CoroutineCommand>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m4276483955_gshared (EqualityComparer_1_t138409458 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t138409458 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, CoroutineCommand_t1564774187  >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<Foundation.Tasks.TaskManager/CoroutineCommand>::GetHashCode(T) */, (EqualityComparer_1_t138409458 *)__this, (CoroutineCommand_t1564774187 )((*(CoroutineCommand_t1564774187 *)((CoroutineCommand_t1564774187 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<Foundation.Tasks.TaskManager/CoroutineCommand>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m881547977_gshared (EqualityComparer_1_t138409458 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t138409458 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, CoroutineCommand_t1564774187 , CoroutineCommand_t1564774187  >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<Foundation.Tasks.TaskManager/CoroutineCommand>::Equals(T,T) */, (EqualityComparer_1_t138409458 *)__this, (CoroutineCommand_t1564774187 )((*(CoroutineCommand_t1564774187 *)((CoroutineCommand_t1564774187 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (CoroutineCommand_t1564774187 )((*(CoroutineCommand_t1564774187 *)((CoroutineCommand_t1564774187 *)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<Foundation.Tasks.TaskManager/CoroutineCommand>::get_Default()
+extern "C"  EqualityComparer_1_t138409458 * EqualityComparer_1_get_Default_m4004873748_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t138409458 * L_0 = ((EqualityComparer_1_t138409458_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Foundation.Tasks.TaskManager/LogCommand>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m2868527828_gshared (EqualityComparer_1_t372705560 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Foundation.Tasks.TaskManager/LogCommand>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m4185982841_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m4185982841_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t372705560_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t372705560 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3421000450 * L_8 = (DefaultComparer_t3421000450 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3421000450 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t372705560_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<Foundation.Tasks.TaskManager/LogCommand>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1437693649_gshared (EqualityComparer_1_t372705560 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t372705560 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, LogCommand_t1799070289  >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<Foundation.Tasks.TaskManager/LogCommand>::GetHashCode(T) */, (EqualityComparer_1_t372705560 *)__this, (LogCommand_t1799070289 )((*(LogCommand_t1799070289 *)((LogCommand_t1799070289 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<Foundation.Tasks.TaskManager/LogCommand>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m3479542915_gshared (EqualityComparer_1_t372705560 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t372705560 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, LogCommand_t1799070289 , LogCommand_t1799070289  >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<Foundation.Tasks.TaskManager/LogCommand>::Equals(T,T) */, (EqualityComparer_1_t372705560 *)__this, (LogCommand_t1799070289 )((*(LogCommand_t1799070289 *)((LogCommand_t1799070289 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (LogCommand_t1799070289 )((*(LogCommand_t1799070289 *)((LogCommand_t1799070289 *)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<Foundation.Tasks.TaskManager/LogCommand>::get_Default()
+extern "C"  EqualityComparer_1_t372705560 * EqualityComparer_1_get_Default_m3297578104_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t372705560 * L_0 = ((EqualityComparer_1_t372705560_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FriendStateAcceptUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m423267015_gshared (EqualityComparer_1_t1088472563 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FriendStateAcceptUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2856223370_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2856223370_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t1088472563_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t1088472563 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t4136767453 * L_8 = (DefaultComparer_t4136767453 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t4136767453 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t1088472563_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<FriendStateAcceptUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1577441056_gshared (EqualityComparer_1_t1088472563 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t1088472563 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<FriendStateAcceptUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t1088472563 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<FriendStateAcceptUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1251197478_gshared (EqualityComparer_1_t1088472563 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t1088472563 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<FriendStateAcceptUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t1088472563 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<FriendStateAcceptUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t1088472563 * EqualityComparer_1_get_Default_m845634927_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t1088472563 * L_0 = ((EqualityComparer_1_t1088472563_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FriendStateBanUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m2805015638_gshared (EqualityComparer_1_t672543268 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FriendStateBanUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2239165589_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2239165589_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t672543268_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t672543268 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3720838158 * L_8 = (DefaultComparer_t3720838158 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3720838158 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t672543268_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<FriendStateBanUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m417020669_gshared (EqualityComparer_1_t672543268 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t672543268 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<FriendStateBanUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t672543268 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<FriendStateBanUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1102389807_gshared (EqualityComparer_1_t672543268 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t672543268 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<FriendStateBanUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t672543268 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<FriendStateBanUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t672543268 * EqualityComparer_1_get_Default_m2017421418_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t672543268 * L_0 = ((EqualityComparer_1_t672543268_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FriendStateCancel/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m1946805666_gshared (EqualityComparer_1_t2692233616 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FriendStateCancel/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m847333569_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m847333569_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t2692233616_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t2692233616 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t1445561210 * L_8 = (DefaultComparer_t1445561210 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t1445561210 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t2692233616_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<FriendStateCancel/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m3168409585_gshared (EqualityComparer_1_t2692233616 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t2692233616 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<FriendStateCancel/State>::GetHashCode(T) */, (EqualityComparer_1_t2692233616 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<FriendStateCancel/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m3638897723_gshared (EqualityComparer_1_t2692233616 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t2692233616 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<FriendStateCancel/State>::Equals(T,T) */, (EqualityComparer_1_t2692233616 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<FriendStateCancel/State>::get_Default()
+extern "C"  EqualityComparer_1_t2692233616 * EqualityComparer_1_get_Default_m1885582198_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t2692233616 * L_0 = ((EqualityComparer_1_t2692233616_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FriendStateChangeContent/Action>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m1538667002_gshared (EqualityComparer_1_t1054347368 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FriendStateChangeContent/Action>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m3909144729_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m3909144729_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t1054347368_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t1054347368 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t4102642258 * L_8 = (DefaultComparer_t4102642258 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t4102642258 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t1054347368_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<FriendStateChangeContent/Action>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m3403316737_gshared (EqualityComparer_1_t1054347368 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t1054347368 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<FriendStateChangeContent/Action>::GetHashCode(T) */, (EqualityComparer_1_t1054347368 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<FriendStateChangeContent/Action>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m3894788971_gshared (EqualityComparer_1_t1054347368 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t1054347368 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<FriendStateChangeContent/Action>::Equals(T,T) */, (EqualityComparer_1_t1054347368 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<FriendStateChangeContent/Action>::get_Default()
+extern "C"  EqualityComparer_1_t1054347368 * EqualityComparer_1_get_Default_m1481002342_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t1054347368 * L_0 = ((EqualityComparer_1_t1054347368_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FriendStateNoneUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m860279665_gshared (EqualityComparer_1_t31536933 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FriendStateNoneUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m1505675424_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m1505675424_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t31536933_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t31536933 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3079831823 * L_8 = (DefaultComparer_t3079831823 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3079831823 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t31536933_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<FriendStateNoneUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m2972579806_gshared (EqualityComparer_1_t31536933 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t31536933 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<FriendStateNoneUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t31536933 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<FriendStateNoneUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m3160188440_gshared (EqualityComparer_1_t31536933 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t31536933 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<FriendStateNoneUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t31536933 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<FriendStateNoneUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t31536933 * EqualityComparer_1_get_Default_m2534744653_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t31536933 * L_0 = ((EqualityComparer_1_t31536933_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FriendStateRequestUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m183122346_gshared (EqualityComparer_1_t1449756680 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FriendStateRequestUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m1598932069_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m1598932069_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t1449756680_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t1449756680 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t203084274 * L_8 = (DefaultComparer_t203084274 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t203084274 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t1449756680_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<FriendStateRequestUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1284367621_gshared (EqualityComparer_1_t1449756680 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t1449756680 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<FriendStateRequestUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t1449756680 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<FriendStateRequestUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m2079124987_gshared (EqualityComparer_1_t1449756680 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t1449756680 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<FriendStateRequestUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t1449756680 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<FriendStateRequestUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t1449756680 * EqualityComparer_1_get_Default_m3628237574_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t1449756680 * L_0 = ((EqualityComparer_1_t1449756680_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FullSerializer.fsAotConfiguration/Entry>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m2680920052_gshared (EqualityComparer_1_t1679390110 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FullSerializer.fsAotConfiguration/Entry>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2806760467_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2806760467_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t1679390110_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t1679390110 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t432717704 * L_8 = (DefaultComparer_t432717704 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t432717704 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t1679390110_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<FullSerializer.fsAotConfiguration/Entry>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m411296375_gshared (EqualityComparer_1_t1679390110 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t1679390110 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, Entry_t3105754839  >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<FullSerializer.fsAotConfiguration/Entry>::GetHashCode(T) */, (EqualityComparer_1_t1679390110 *)__this, (Entry_t3105754839 )((*(Entry_t3105754839 *)((Entry_t3105754839 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<FullSerializer.fsAotConfiguration/Entry>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m148962485_gshared (EqualityComparer_1_t1679390110 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t1679390110 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, Entry_t3105754839 , Entry_t3105754839  >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<FullSerializer.fsAotConfiguration/Entry>::Equals(T,T) */, (EqualityComparer_1_t1679390110 *)__this, (Entry_t3105754839 )((*(Entry_t3105754839 *)((Entry_t3105754839 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (Entry_t3105754839 )((*(Entry_t3105754839 *)((Entry_t3105754839 *)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<FullSerializer.fsAotConfiguration/Entry>::get_Default()
+extern "C"  EqualityComparer_1_t1679390110 * EqualityComparer_1_get_Default_m2134930928_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t1679390110 * L_0 = ((EqualityComparer_1_t1679390110_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FullSerializer.Internal.fsOption`1<FullSerializer.Internal.fsVersionedType>>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m2374540482_gshared (EqualityComparer_1_t3840611063 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FullSerializer.Internal.fsOption`1<FullSerializer.Internal.fsVersionedType>>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2929514193_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2929514193_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t3840611063_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t3840611063 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t2593938657 * L_8 = (DefaultComparer_t2593938657 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t2593938657 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t3840611063_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<FullSerializer.Internal.fsOption`1<FullSerializer.Internal.fsVersionedType>>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1446527465_gshared (EqualityComparer_1_t3840611063 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t3840611063 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, fsOption_1_t972008496  >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<FullSerializer.Internal.fsOption`1<FullSerializer.Internal.fsVersionedType>>::GetHashCode(T) */, (EqualityComparer_1_t3840611063 *)__this, (fsOption_1_t972008496 )((*(fsOption_1_t972008496 *)((fsOption_1_t972008496 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<FullSerializer.Internal.fsOption`1<FullSerializer.Internal.fsVersionedType>>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1208355987_gshared (EqualityComparer_1_t3840611063 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t3840611063 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, fsOption_1_t972008496 , fsOption_1_t972008496  >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<FullSerializer.Internal.fsOption`1<FullSerializer.Internal.fsVersionedType>>::Equals(T,T) */, (EqualityComparer_1_t3840611063 *)__this, (fsOption_1_t972008496 )((*(fsOption_1_t972008496 *)((fsOption_1_t972008496 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (fsOption_1_t972008496 )((*(fsOption_1_t972008496 *)((fsOption_1_t972008496 *)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<FullSerializer.Internal.fsOption`1<FullSerializer.Internal.fsVersionedType>>::get_Default()
+extern "C"  EqualityComparer_1_t3840611063 * EqualityComparer_1_get_Default_m2096871422_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t3840611063 * L_0 = ((EqualityComparer_1_t3840611063_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FullSerializer.Internal.fsPortableReflection/AttributeQuery>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m1184435241_gshared (EqualityComparer_1_t3472901047 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FullSerializer.Internal.fsPortableReflection/AttributeQuery>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2907850250_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2907850250_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t3472901047_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t3472901047 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t2226228641 * L_8 = (DefaultComparer_t2226228641 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t2226228641 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t3472901047_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<FullSerializer.Internal.fsPortableReflection/AttributeQuery>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m2744742836_gshared (EqualityComparer_1_t3472901047 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t3472901047 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, AttributeQuery_t604298480  >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<FullSerializer.Internal.fsPortableReflection/AttributeQuery>::GetHashCode(T) */, (EqualityComparer_1_t3472901047 *)__this, (AttributeQuery_t604298480 )((*(AttributeQuery_t604298480 *)((AttributeQuery_t604298480 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<FullSerializer.Internal.fsPortableReflection/AttributeQuery>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m865137150_gshared (EqualityComparer_1_t3472901047 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t3472901047 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, AttributeQuery_t604298480 , AttributeQuery_t604298480  >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<FullSerializer.Internal.fsPortableReflection/AttributeQuery>::Equals(T,T) */, (EqualityComparer_1_t3472901047 *)__this, (AttributeQuery_t604298480 )((*(AttributeQuery_t604298480 *)((AttributeQuery_t604298480 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (AttributeQuery_t604298480 )((*(AttributeQuery_t604298480 *)((AttributeQuery_t604298480 *)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<FullSerializer.Internal.fsPortableReflection/AttributeQuery>::get_Default()
+extern "C"  EqualityComparer_1_t3472901047 * EqualityComparer_1_get_Default_m2157681753_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t3472901047 * L_0 = ((EqualityComparer_1_t3472901047_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FullSerializer.Internal.fsVersionedType>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m4022258411_gshared (EqualityComparer_1_t3523352925 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<FullSerializer.Internal.fsVersionedType>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m1350815132_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m1350815132_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t3523352925_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t3523352925 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t2276680519 * L_8 = (DefaultComparer_t2276680519 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t2276680519 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t3523352925_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<FullSerializer.Internal.fsVersionedType>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m768790474_gshared (EqualityComparer_1_t3523352925 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t3523352925 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, fsVersionedType_t654750358  >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<FullSerializer.Internal.fsVersionedType>::GetHashCode(T) */, (EqualityComparer_1_t3523352925 *)__this, (fsVersionedType_t654750358 )((*(fsVersionedType_t654750358 *)((fsVersionedType_t654750358 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<FullSerializer.Internal.fsVersionedType>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m2407853880_gshared (EqualityComparer_1_t3523352925 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t3523352925 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, fsVersionedType_t654750358 , fsVersionedType_t654750358  >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<FullSerializer.Internal.fsVersionedType>::Equals(T,T) */, (EqualityComparer_1_t3523352925 *)__this, (fsVersionedType_t654750358 )((*(fsVersionedType_t654750358 *)((fsVersionedType_t654750358 *)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (fsVersionedType_t654750358 )((*(fsVersionedType_t654750358 *)((fsVersionedType_t654750358 *)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<FullSerializer.Internal.fsVersionedType>::get_Default()
+extern "C"  EqualityComparer_1_t3523352925 * EqualityComparer_1_get_Default_m2516986819_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t3523352925 * L_0 = ((EqualityComparer_1_t3523352925_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.ContestManager.RequestNewContestManagerAskBtnAcceptUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m2296564003_gshared (EqualityComparer_1_t953216207 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.ContestManager.RequestNewContestManagerAskBtnAcceptUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2804488034_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2804488034_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t953216207_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t953216207 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t4001511097 * L_8 = (DefaultComparer_t4001511097 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t4001511097 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t953216207_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.ContestManager.RequestNewContestManagerAskBtnAcceptUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m2289258464_gshared (EqualityComparer_1_t953216207 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t953216207 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.ContestManager.RequestNewContestManagerAskBtnAcceptUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t953216207 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.ContestManager.RequestNewContestManagerAskBtnAcceptUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1731221370_gshared (EqualityComparer_1_t953216207 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t953216207 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.ContestManager.RequestNewContestManagerAskBtnAcceptUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t953216207 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GameManager.ContestManager.RequestNewContestManagerAskBtnAcceptUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t953216207 * EqualityComparer_1_get_Default_m3591447859_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t953216207 * L_0 = ((EqualityComparer_1_t953216207_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.ContestManager.RequestNewContestManagerAskBtnCancelUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m1253377773_gshared (EqualityComparer_1_t680104145 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.ContestManager.RequestNewContestManagerAskBtnCancelUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m1878841968_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m1878841968_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t680104145_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t680104145 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3728399035 * L_8 = (DefaultComparer_t3728399035 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3728399035 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t680104145_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.ContestManager.RequestNewContestManagerAskBtnCancelUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m2025350110_gshared (EqualityComparer_1_t680104145 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t680104145 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.ContestManager.RequestNewContestManagerAskBtnCancelUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t680104145 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.ContestManager.RequestNewContestManagerAskBtnCancelUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m2112931460_gshared (EqualityComparer_1_t680104145 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t680104145 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.ContestManager.RequestNewContestManagerAskBtnCancelUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t680104145 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GameManager.ContestManager.RequestNewContestManagerAskBtnCancelUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t680104145 * EqualityComparer_1_get_Default_m887256529_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t680104145 * L_0 = ((EqualityComparer_1_t680104145_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.ContestManager.RequestNewContestManagerStateAskUI/UIData/Visibility>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m744522577_gshared (EqualityComparer_1_t2411118981 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.ContestManager.RequestNewContestManagerStateAskUI/UIData/Visibility>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2051950032_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2051950032_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t2411118981_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t2411118981 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t1164446575 * L_8 = (DefaultComparer_t1164446575 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t1164446575 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t2411118981_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.ContestManager.RequestNewContestManagerStateAskUI/UIData/Visibility>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1911552902_gshared (EqualityComparer_1_t2411118981 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t2411118981 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.ContestManager.RequestNewContestManagerStateAskUI/UIData/Visibility>::GetHashCode(T) */, (EqualityComparer_1_t2411118981 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.ContestManager.RequestNewContestManagerStateAskUI/UIData/Visibility>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m2243068604_gshared (EqualityComparer_1_t2411118981 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t2411118981 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.ContestManager.RequestNewContestManagerStateAskUI/UIData/Visibility>::Equals(T,T) */, (EqualityComparer_1_t2411118981 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GameManager.ContestManager.RequestNewContestManagerStateAskUI/UIData/Visibility>::get_Default()
+extern "C"  EqualityComparer_1_t2411118981 * EqualityComparer_1_get_Default_m2570407297_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t2411118981 * L_0 = ((EqualityComparer_1_t2411118981_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.AdminEditLobbyPlayerComputerUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m2877127453_gshared (EqualityComparer_1_t856524299 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.AdminEditLobbyPlayerComputerUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m661384782_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m661384782_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t856524299_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t856524299 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3904819189 * L_8 = (DefaultComparer_t3904819189 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3904819189 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t856524299_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.AdminEditLobbyPlayerComputerUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1473973936_gshared (EqualityComparer_1_t856524299 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t856524299 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.AdminEditLobbyPlayerComputerUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t856524299 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.AdminEditLobbyPlayerComputerUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m312126386_gshared (EqualityComparer_1_t856524299 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t856524299 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.AdminEditLobbyPlayerComputerUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t856524299 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GameManager.Match.AdminEditLobbyPlayerComputerUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t856524299 * EqualityComparer_1_get_Default_m1351161661_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t856524299 * L_0 = ((EqualityComparer_1_t856524299_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.AdminEditLobbyPlayerEmptyUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m917380211_gshared (EqualityComparer_1_t1368863471 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.AdminEditLobbyPlayerEmptyUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m818731826_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m818731826_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t1368863471_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t1368863471 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t122191065 * L_8 = (DefaultComparer_t122191065 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t122191065 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t1368863471_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.AdminEditLobbyPlayerEmptyUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1548233536_gshared (EqualityComparer_1_t1368863471 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t1368863471 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.AdminEditLobbyPlayerEmptyUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t1368863471 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.AdminEditLobbyPlayerEmptyUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m736433690_gshared (EqualityComparer_1_t1368863471 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t1368863471 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.AdminEditLobbyPlayerEmptyUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t1368863471 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GameManager.Match.AdminEditLobbyPlayerEmptyUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t1368863471 * EqualityComparer_1_get_Default_m137105811_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t1368863471 * L_0 = ((EqualityComparer_1_t1368863471_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.ContestManager/State/Type>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m2121787355_gshared (EqualityComparer_1_t1372280309 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.ContestManager/State/Type>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2013346380_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2013346380_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t1372280309_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t1372280309 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t125607903 * L_8 = (DefaultComparer_t125607903 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t125607903 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t1372280309_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.ContestManager/State/Type>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m17725458_gshared (EqualityComparer_1_t1372280309 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t1372280309 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.ContestManager/State/Type>::GetHashCode(T) */, (EqualityComparer_1_t1372280309 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.ContestManager/State/Type>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1095764240_gshared (EqualityComparer_1_t1372280309 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t1372280309 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.ContestManager/State/Type>::Equals(T,T) */, (EqualityComparer_1_t1372280309 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GameManager.Match.ContestManager/State/Type>::get_Default()
+extern "C"  EqualityComparer_1_t1372280309 * EqualityComparer_1_get_Default_m3111702875_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t1372280309 * L_0 = ((EqualityComparer_1_t1372280309_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.Elimination.RequestNewEliminationRoundAskBtnAcceptUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m1232414712_gshared (EqualityComparer_1_t2374161122 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.Elimination.RequestNewEliminationRoundAskBtnAcceptUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m3622414839_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m3622414839_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t2374161122_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t2374161122 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t1127488716 * L_8 = (DefaultComparer_t1127488716 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t1127488716 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t2374161122_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.Elimination.RequestNewEliminationRoundAskBtnAcceptUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m3249571899_gshared (EqualityComparer_1_t2374161122 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t2374161122 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.Elimination.RequestNewEliminationRoundAskBtnAcceptUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t2374161122 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.Elimination.RequestNewEliminationRoundAskBtnAcceptUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m2831165105_gshared (EqualityComparer_1_t2374161122 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t2374161122 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.Elimination.RequestNewEliminationRoundAskBtnAcceptUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t2374161122 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GameManager.Match.Elimination.RequestNewEliminationRoundAskBtnAcceptUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t2374161122 * EqualityComparer_1_get_Default_m2885668524_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t2374161122 * L_0 = ((EqualityComparer_1_t2374161122_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.Elimination.RequestNewEliminationRoundAskBtnCancelUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m2157692910_gshared (EqualityComparer_1_t2187019436 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.Elimination.RequestNewEliminationRoundAskBtnCancelUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2379025977_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2379025977_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t2187019436_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t2187019436 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t940347030 * L_8 = (DefaultComparer_t940347030 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t940347030 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t2187019436_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.Elimination.RequestNewEliminationRoundAskBtnCancelUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1530438185_gshared (EqualityComparer_1_t2187019436 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t2187019436 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.Elimination.RequestNewEliminationRoundAskBtnCancelUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t2187019436 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.Elimination.RequestNewEliminationRoundAskBtnCancelUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m2165840359_gshared (EqualityComparer_1_t2187019436 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t2187019436 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.Elimination.RequestNewEliminationRoundAskBtnCancelUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t2187019436 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GameManager.Match.Elimination.RequestNewEliminationRoundAskBtnCancelUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t2187019436 * EqualityComparer_1_get_Default_m1278566818_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t2187019436 * L_0 = ((EqualityComparer_1_t2187019436_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.Elimination.RequestNewEliminationRoundStateAskUI/UIData/Visibility>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m4056127884_gshared (EqualityComparer_1_t912532364 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.Elimination.RequestNewEliminationRoundStateAskUI/UIData/Visibility>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2131582285_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2131582285_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t912532364_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t912532364 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3960827254 * L_8 = (DefaultComparer_t3960827254 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3960827254 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t912532364_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.Elimination.RequestNewEliminationRoundStateAskUI/UIData/Visibility>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m776500721_gshared (EqualityComparer_1_t912532364 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t912532364 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.Elimination.RequestNewEliminationRoundStateAskUI/UIData/Visibility>::GetHashCode(T) */, (EqualityComparer_1_t912532364 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.Elimination.RequestNewEliminationRoundStateAskUI/UIData/Visibility>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m365749719_gshared (EqualityComparer_1_t912532364 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t912532364 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.Elimination.RequestNewEliminationRoundStateAskUI/UIData/Visibility>::Equals(T,T) */, (EqualityComparer_1_t912532364 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GameManager.Match.Elimination.RequestNewEliminationRoundStateAskUI/UIData/Visibility>::get_Default()
+extern "C"  EqualityComparer_1_t912532364 * EqualityComparer_1_get_Default_m4036694272_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t912532364 * L_0 = ((EqualityComparer_1_t912532364_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.LobbyBtnStart/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m3544125350_gshared (EqualityComparer_1_t1659758408 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.LobbyBtnStart/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m475462537_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m475462537_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t1659758408_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t1659758408 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t413086002 * L_8 = (DefaultComparer_t413086002 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t413086002 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t1659758408_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.LobbyBtnStart/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m2164494157_gshared (EqualityComparer_1_t1659758408 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t1659758408 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.LobbyBtnStart/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t1659758408 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.LobbyBtnStart/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m314742131_gshared (EqualityComparer_1_t1659758408 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t1659758408 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.LobbyBtnStart/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t1659758408 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GameManager.Match.LobbyBtnStart/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t1659758408 * EqualityComparer_1_get_Default_m1572327610_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t1659758408 * L_0 = ((EqualityComparer_1_t1659758408_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.LobbyPlayerBtnSetReady/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m1451799578_gshared (EqualityComparer_1_t2139438106 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.LobbyPlayerBtnSetReady/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2080774671_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2080774671_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t2139438106_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t2139438106 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t892765700 * L_8 = (DefaultComparer_t892765700 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t892765700 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t2139438106_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.LobbyPlayerBtnSetReady/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1517086971_gshared (EqualityComparer_1_t2139438106 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t2139438106 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.LobbyPlayerBtnSetReady/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t2139438106 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.LobbyPlayerBtnSetReady/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1377554441_gshared (EqualityComparer_1_t2139438106 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t2139438106 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.LobbyPlayerBtnSetReady/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t2139438106 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GameManager.Match.LobbyPlayerBtnSetReady/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t2139438106 * EqualityComparer_1_get_Default_m3710681710_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t2139438106 * L_0 = ((EqualityComparer_1_t2139438106_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.NormalEditLobbyPlayerBtnEmptyUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m3439591303_gshared (EqualityComparer_1_t3467650323 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.NormalEditLobbyPlayerBtnEmptyUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m1151047306_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m1151047306_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t3467650323_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t3467650323 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t2220977917 * L_8 = (DefaultComparer_t2220977917 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t2220977917 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t3467650323_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.NormalEditLobbyPlayerBtnEmptyUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m2484467744_gshared (EqualityComparer_1_t3467650323 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t3467650323 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.NormalEditLobbyPlayerBtnEmptyUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t3467650323 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.NormalEditLobbyPlayerBtnEmptyUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m339172166_gshared (EqualityComparer_1_t3467650323 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t3467650323 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.NormalEditLobbyPlayerBtnEmptyUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t3467650323 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GameManager.Match.NormalEditLobbyPlayerBtnEmptyUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t3467650323 * EqualityComparer_1_get_Default_m2265664271_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t3467650323 * L_0 = ((EqualityComparer_1_t3467650323_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.NormalEditLobbyPlayerBtnSetUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m3712024044_gshared (EqualityComparer_1_t694665830 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.NormalEditLobbyPlayerBtnSetUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2918199823_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2918199823_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t694665830_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t694665830 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3742960720 * L_8 = (DefaultComparer_t3742960720 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3742960720 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t694665830_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.NormalEditLobbyPlayerBtnSetUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m2430198675_gshared (EqualityComparer_1_t694665830 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t694665830 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.NormalEditLobbyPlayerBtnSetUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t694665830 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.NormalEditLobbyPlayerBtnSetUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m3996152217_gshared (EqualityComparer_1_t694665830 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t694665830 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.NormalEditLobbyPlayerBtnSetUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t694665830 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GameManager.Match.NormalEditLobbyPlayerBtnSetUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t694665830 * EqualityComparer_1_get_Default_m3382330148_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t694665830 * L_0 = ((EqualityComparer_1_t694665830_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.RequestNewRoundAskBtnAcceptUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m222811916_gshared (EqualityComparer_1_t622689580 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.RequestNewRoundAskBtnAcceptUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m4057953165_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m4057953165_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t622689580_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t622689580 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3670984470 * L_8 = (DefaultComparer_t3670984470 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3670984470 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t622689580_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.RequestNewRoundAskBtnAcceptUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m2676641497_gshared (EqualityComparer_1_t622689580 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t622689580 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.RequestNewRoundAskBtnAcceptUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t622689580 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.RequestNewRoundAskBtnAcceptUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m3238365823_gshared (EqualityComparer_1_t622689580 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t622689580 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.RequestNewRoundAskBtnAcceptUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t622689580 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GameManager.Match.RequestNewRoundAskBtnAcceptUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t622689580 * EqualityComparer_1_get_Default_m4013590696_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t622689580 * L_0 = ((EqualityComparer_1_t622689580_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.RequestNewRoundAskBtnCancelUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m4192489186_gshared (EqualityComparer_1_t4195221482 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.RequestNewRoundAskBtnCancelUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m4237781919_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m4237781919_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t4195221482_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t4195221482 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t2948549076 * L_8 = (DefaultComparer_t2948549076 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t2948549076 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t4195221482_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.RequestNewRoundAskBtnCancelUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m117089947_gshared (EqualityComparer_1_t4195221482 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t4195221482 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.RequestNewRoundAskBtnCancelUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t4195221482 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.RequestNewRoundAskBtnCancelUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m3088686901_gshared (EqualityComparer_1_t4195221482 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t4195221482 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.RequestNewRoundAskBtnCancelUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t4195221482 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GameManager.Match.RequestNewRoundAskBtnCancelUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t4195221482 * EqualityComparer_1_get_Default_m2888277962_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t4195221482 * L_0 = ((EqualityComparer_1_t4195221482_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.RequestNewRoundStateAskUI/UIData/Visibility>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m366992292_gshared (EqualityComparer_1_t848598470 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.RequestNewRoundStateAskUI/UIData/Visibility>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m3148230447_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m3148230447_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t848598470_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t848598470 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3896893360 * L_8 = (DefaultComparer_t3896893360 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3896893360 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t848598470_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.RequestNewRoundStateAskUI/UIData/Visibility>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m41899043_gshared (EqualityComparer_1_t848598470 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t848598470 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.RequestNewRoundStateAskUI/UIData/Visibility>::GetHashCode(T) */, (EqualityComparer_1_t848598470 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.RequestNewRoundStateAskUI/UIData/Visibility>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1443884365_gshared (EqualityComparer_1_t848598470 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t848598470 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.RequestNewRoundStateAskUI/UIData/Visibility>::Equals(T,T) */, (EqualityComparer_1_t848598470 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GameManager.Match.RequestNewRoundStateAskUI/UIData/Visibility>::get_Default()
+extern "C"  EqualityComparer_1_t848598470 * EqualityComparer_1_get_Default_m4167552776_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t848598470 * L_0 = ((EqualityComparer_1_t848598470_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.RoundRobin.RequestNewRoundRobinAskBtnAcceptUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m3837060584_gshared (EqualityComparer_1_t1738043144 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.RoundRobin.RequestNewRoundRobinAskBtnAcceptUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2488962005_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2488962005_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t1738043144_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t1738043144 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t491370738 * L_8 = (DefaultComparer_t491370738 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t491370738 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t1738043144_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.RoundRobin.RequestNewRoundRobinAskBtnAcceptUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m304600065_gshared (EqualityComparer_1_t1738043144 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t1738043144 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.RoundRobin.RequestNewRoundRobinAskBtnAcceptUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t1738043144 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.RoundRobin.RequestNewRoundRobinAskBtnAcceptUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m4289957211_gshared (EqualityComparer_1_t1738043144 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t1738043144 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.RoundRobin.RequestNewRoundRobinAskBtnAcceptUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t1738043144 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GameManager.Match.RoundRobin.RequestNewRoundRobinAskBtnAcceptUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t1738043144 * EqualityComparer_1_get_Default_m3462806388_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t1738043144 * L_0 = ((EqualityComparer_1_t1738043144_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.RoundRobin.RequestNewRoundRobinAskBtnCancelUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m1693266666_gshared (EqualityComparer_1_t1188959842 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.RoundRobin.RequestNewRoundRobinAskBtnCancelUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2535463355_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2535463355_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t1188959842_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t1188959842 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t4237254732 * L_8 = (DefaultComparer_t4237254732 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t4237254732 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t1188959842_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.RoundRobin.RequestNewRoundRobinAskBtnCancelUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m3065397703_gshared (EqualityComparer_1_t1188959842 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t1188959842 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.RoundRobin.RequestNewRoundRobinAskBtnCancelUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t1188959842 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.RoundRobin.RequestNewRoundRobinAskBtnCancelUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m3478976557_gshared (EqualityComparer_1_t1188959842 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t1188959842 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.RoundRobin.RequestNewRoundRobinAskBtnCancelUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t1188959842 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GameManager.Match.RoundRobin.RequestNewRoundRobinAskBtnCancelUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t1188959842 * EqualityComparer_1_get_Default_m1755599962_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t1188959842 * L_0 = ((EqualityComparer_1_t1188959842_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.RoundRobin.RequestNewRoundRobinStateAskUI/UIData/Visibility>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m151442396_gshared (EqualityComparer_1_t3763588854 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.RoundRobin.RequestNewRoundRobinStateAskUI/UIData/Visibility>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m839020395_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m839020395_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t3763588854_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t3763588854 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t2516916448 * L_8 = (DefaultComparer_t2516916448 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t2516916448 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t3763588854_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.RoundRobin.RequestNewRoundRobinStateAskUI/UIData/Visibility>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m647594927_gshared (EqualityComparer_1_t3763588854 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t3763588854 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.RoundRobin.RequestNewRoundRobinStateAskUI/UIData/Visibility>::GetHashCode(T) */, (EqualityComparer_1_t3763588854 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.RoundRobin.RequestNewRoundRobinStateAskUI/UIData/Visibility>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m815361421_gshared (EqualityComparer_1_t3763588854 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t3763588854 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.RoundRobin.RequestNewRoundRobinStateAskUI/UIData/Visibility>::Equals(T,T) */, (EqualityComparer_1_t3763588854 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GameManager.Match.RoundRobin.RequestNewRoundRobinStateAskUI/UIData/Visibility>::get_Default()
+extern "C"  EqualityComparer_1_t3763588854 * EqualityComparer_1_get_Default_m3414336984_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t3763588854 * L_0 = ((EqualityComparer_1_t3763588854_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.Swap.AdminRequestSwapPlayerComputerUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m2490568212_gshared (EqualityComparer_1_t3968437678 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.Swap.AdminRequestSwapPlayerComputerUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m1192036359_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m1192036359_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t3968437678_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t3968437678 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t2721765272 * L_8 = (DefaultComparer_t2721765272 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t2721765272 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t3968437678_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.Swap.AdminRequestSwapPlayerComputerUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1192351195_gshared (EqualityComparer_1_t3968437678 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t3968437678 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.Swap.AdminRequestSwapPlayerComputerUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t3968437678 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.Swap.AdminRequestSwapPlayerComputerUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m3234755105_gshared (EqualityComparer_1_t3968437678 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t3968437678 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.Swap.AdminRequestSwapPlayerComputerUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t3968437678 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GameManager.Match.Swap.AdminRequestSwapPlayerComputerUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t3968437678 * EqualityComparer_1_get_Default_m3275754668_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t3968437678 * L_0 = ((EqualityComparer_1_t3968437678_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.Swap.SwapRequestStateAskUI/UIData/Action>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m1234529216_gshared (EqualityComparer_1_t303657386 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameManager.Match.Swap.SwapRequestStateAskUI/UIData/Action>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2116214307_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2116214307_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t303657386_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t303657386 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3351952276 * L_8 = (DefaultComparer_t3351952276 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3351952276 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t303657386_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.Swap.SwapRequestStateAskUI/UIData/Action>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m3765207823_gshared (EqualityComparer_1_t303657386 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t303657386 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GameManager.Match.Swap.SwapRequestStateAskUI/UIData/Action>::GetHashCode(T) */, (EqualityComparer_1_t303657386 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.Swap.SwapRequestStateAskUI/UIData/Action>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1094801301_gshared (EqualityComparer_1_t303657386 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t303657386 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GameManager.Match.Swap.SwapRequestStateAskUI/UIData/Action>::Equals(T,T) */, (EqualityComparer_1_t303657386 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GameManager.Match.Swap.SwapRequestStateAskUI/UIData/Action>::get_Default()
+extern "C"  EqualityComparer_1_t303657386 * EqualityComparer_1_get_Default_m2570486624_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t303657386 * L_0 = ((EqualityComparer_1_t303657386_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GamePlayer/Inform/Type>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m921259201_gshared (EqualityComparer_1_t410431061 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GamePlayer/Inform/Type>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m1734717316_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m1734717316_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t410431061_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t410431061 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3458725951 * L_8 = (DefaultComparer_t3458725951 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3458725951 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t410431061_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GamePlayer/Inform/Type>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m406800410_gshared (EqualityComparer_1_t410431061 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t410431061 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GamePlayer/Inform/Type>::GetHashCode(T) */, (EqualityComparer_1_t410431061 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GamePlayer/Inform/Type>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m2956929216_gshared (EqualityComparer_1_t410431061 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t410431061 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GamePlayer/Inform/Type>::Equals(T,T) */, (EqualityComparer_1_t410431061 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GamePlayer/Inform/Type>::get_Default()
+extern "C"  EqualityComparer_1_t410431061 * EqualityComparer_1_get_Default_m2791141837_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t410431061 * L_0 = ((EqualityComparer_1_t410431061_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameState.PlayNormalUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m60318918_gshared (EqualityComparer_1_t2736079764 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameState.PlayNormalUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m3214268993_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m3214268993_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t2736079764_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t2736079764 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t1489407358 * L_8 = (DefaultComparer_t1489407358 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t1489407358 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t2736079764_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GameState.PlayNormalUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1670592313_gshared (EqualityComparer_1_t2736079764 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t2736079764 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GameState.PlayNormalUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t2736079764 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GameState.PlayNormalUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1140350759_gshared (EqualityComparer_1_t2736079764 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t2736079764 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GameState.PlayNormalUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t2736079764 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GameState.PlayNormalUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t2736079764 * EqualityComparer_1_get_Default_m1149385074_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t2736079764 * L_0 = ((EqualityComparer_1_t2736079764_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameState.PlayPauseUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m3708840331_gshared (EqualityComparer_1_t3782514839 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameState.PlayPauseUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m4131186062_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m4131186062_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t3782514839_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t3782514839 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t2535842433 * L_8 = (DefaultComparer_t2535842433 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t2535842433 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t3782514839_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GameState.PlayPauseUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m2315550916_gshared (EqualityComparer_1_t3782514839 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t3782514839 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GameState.PlayPauseUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t3782514839 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GameState.PlayPauseUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m333475018_gshared (EqualityComparer_1_t3782514839 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t3782514839 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GameState.PlayPauseUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t3782514839 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GameState.PlayPauseUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t3782514839 * EqualityComparer_1_get_Default_m683604819_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t3782514839 * L_0 = ((EqualityComparer_1_t3782514839_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameState.Result/Reason>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m2311099436_gshared (EqualityComparer_1_t132318470 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameState.Result/Reason>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m70336059_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m70336059_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t132318470_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t132318470 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3180613360 * L_8 = (DefaultComparer_t3180613360 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3180613360 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t132318470_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GameState.Result/Reason>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m3169613415_gshared (EqualityComparer_1_t132318470 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t132318470 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GameState.Result/Reason>::GetHashCode(T) */, (EqualityComparer_1_t132318470 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GameState.Result/Reason>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1043239733_gshared (EqualityComparer_1_t132318470 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t132318470 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GameState.Result/Reason>::Equals(T,T) */, (EqualityComparer_1_t132318470 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GameState.Result/Reason>::get_Default()
+extern "C"  EqualityComparer_1_t132318470 * EqualityComparer_1_get_Default_m580846784_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t132318470 * L_0 = ((EqualityComparer_1_t132318470_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameType/Type>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m3976207780_gshared (EqualityComparer_1_t923707430 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GameType/Type>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m3222578463_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m3222578463_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t923707430_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t923707430 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3972002320 * L_8 = (DefaultComparer_t3972002320 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3972002320 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t923707430_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GameType/Type>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m4133997899_gshared (EqualityComparer_1_t923707430 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t923707430 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GameType/Type>::GetHashCode(T) */, (EqualityComparer_1_t923707430 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GameType/Type>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m4060439861_gshared (EqualityComparer_1_t923707430 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t923707430 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GameType/Type>::Equals(T,T) */, (EqualityComparer_1_t923707430 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GameType/Type>::get_Default()
+extern "C"  EqualityComparer_1_t923707430 * EqualityComparer_1_get_Default_m3967040480_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t923707430 * L_0 = ((EqualityComparer_1_t923707430_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GlobalViewUI/UIData/Show>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m4294105586_gshared (EqualityComparer_1_t1200754074 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GlobalViewUI/UIData/Show>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2555306867_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2555306867_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t1200754074_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t1200754074 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t4249048964 * L_8 = (DefaultComparer_t4249048964 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t4249048964 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t1200754074_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GlobalViewUI/UIData/Show>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m2200626503_gshared (EqualityComparer_1_t1200754074 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t1200754074 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GlobalViewUI/UIData/Show>::GetHashCode(T) */, (EqualityComparer_1_t1200754074 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GlobalViewUI/UIData/Show>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1433689645_gshared (EqualityComparer_1_t1200754074 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t1200754074 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GlobalViewUI/UIData/Show>::Equals(T,T) */, (EqualityComparer_1_t1200754074 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GlobalViewUI/UIData/Show>::get_Default()
+extern "C"  EqualityComparer_1_t1200754074 * EqualityComparer_1_get_Default_m3705118618_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t1200754074 * L_0 = ((EqualityComparer_1_t1200754074_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Gomoku.Common/Type>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m2630033993_gshared (EqualityComparer_1_t3486870077 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Gomoku.Common/Type>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m435026760_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m435026760_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t3486870077_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t3486870077 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t2240197671 * L_8 = (DefaultComparer_t2240197671 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t2240197671 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t3486870077_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<Gomoku.Common/Type>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1845134358_gshared (EqualityComparer_1_t3486870077 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t3486870077 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<Gomoku.Common/Type>::GetHashCode(T) */, (EqualityComparer_1_t3486870077 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<Gomoku.Common/Type>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m2344508720_gshared (EqualityComparer_1_t3486870077 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t3486870077 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<Gomoku.Common/Type>::Equals(T,T) */, (EqualityComparer_1_t3486870077 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<Gomoku.Common/Type>::get_Default()
+extern "C"  EqualityComparer_1_t3486870077 * EqualityComparer_1_get_Default_m3293215141_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t3486870077 * L_0 = ((EqualityComparer_1_t3486870077_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GuildUser/Role>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m409014278_gshared (EqualityComparer_1_t1595241358 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GuildUser/Role>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m981809175_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m981809175_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t1595241358_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t1595241358 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t348568952 * L_8 = (DefaultComparer_t348568952 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t348568952 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t1595241358_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GuildUser/Role>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1395619643_gshared (EqualityComparer_1_t1595241358 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t1595241358 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GuildUser/Role>::GetHashCode(T) */, (EqualityComparer_1_t1595241358 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GuildUser/Role>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m3582008801_gshared (EqualityComparer_1_t1595241358 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t1595241358 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GuildUser/Role>::Equals(T,T) */, (EqualityComparer_1_t1595241358 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GuildUser/Role>::get_Default()
+extern "C"  EqualityComparer_1_t1595241358 * EqualityComparer_1_get_Default_m2670202574_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t1595241358 * L_0 = ((EqualityComparer_1_t1595241358_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GuildUser/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m2093813071_gshared (EqualityComparer_1_t2478996185 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<GuildUser/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m809754512_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m809754512_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t2478996185_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t2478996185 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t1232323779 * L_8 = (DefaultComparer_t1232323779 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t1232323779 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t2478996185_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<GuildUser/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m425927550_gshared (EqualityComparer_1_t2478996185 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t2478996185 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<GuildUser/State>::GetHashCode(T) */, (EqualityComparer_1_t2478996185 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<GuildUser/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m695584340_gshared (EqualityComparer_1_t2478996185 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t2478996185 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<GuildUser/State>::Equals(T,T) */, (EqualityComparer_1_t2478996185 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<GuildUser/State>::get_Default()
+extern "C"  EqualityComparer_1_t2478996185 * EqualityComparer_1_get_Default_m9438127_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t2478996185 * L_0 = ((EqualityComparer_1_t2478996185_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<HEX.Common/Color>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m3955080553_gshared (EqualityComparer_1_t1600625255 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<HEX.Common/Color>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2676453126_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2676453126_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t1600625255_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t1600625255 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t353952849 * L_8 = (DefaultComparer_t353952849 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t353952849 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t1600625255_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<HEX.Common/Color>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m3457526496_gshared (EqualityComparer_1_t1600625255 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t1600625255 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<HEX.Common/Color>::GetHashCode(T) */, (EqualityComparer_1_t1600625255 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<HEX.Common/Color>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m733031674_gshared (EqualityComparer_1_t1600625255 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t1600625255 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<HEX.Common/Color>::Equals(T,T) */, (EqualityComparer_1_t1600625255 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<HEX.Common/Color>::get_Default()
+extern "C"  EqualityComparer_1_t1600625255 * EqualityComparer_1_get_Default_m3104370189_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t1600625255 * L_0 = ((EqualityComparer_1_t1600625255_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<InternationalDraught.Common/Piece_Side>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m3099289178_gshared (EqualityComparer_1_t2202332386 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<InternationalDraught.Common/Piece_Side>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m474329111_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m474329111_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t2202332386_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t2202332386 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t955659980 * L_8 = (DefaultComparer_t955659980 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t955659980 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t2202332386_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<InternationalDraught.Common/Piece_Side>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m3487815387_gshared (EqualityComparer_1_t2202332386 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t2202332386 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<InternationalDraught.Common/Piece_Side>::GetHashCode(T) */, (EqualityComparer_1_t2202332386 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<InternationalDraught.Common/Piece_Side>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1459608309_gshared (EqualityComparer_1_t2202332386 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t2202332386 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<InternationalDraught.Common/Piece_Side>::Equals(T,T) */, (EqualityComparer_1_t2202332386 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<InternationalDraught.Common/Piece_Side>::get_Default()
+extern "C"  EqualityComparer_1_t2202332386 * EqualityComparer_1_get_Default_m2894001034_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t2202332386 * L_0 = ((EqualityComparer_1_t2202332386_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<JoinRoomUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m3780925471_gshared (EqualityComparer_1_t1401135529 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<JoinRoomUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m941107572_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m941107572_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t1401135529_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t1401135529 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t154463123 * L_8 = (DefaultComparer_t154463123 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t154463123 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t1401135529_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<JoinRoomUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m2409810690_gshared (EqualityComparer_1_t1401135529 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t1401135529 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<JoinRoomUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t1401135529 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<JoinRoomUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1765272588_gshared (EqualityComparer_1_t1401135529 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t1401135529 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<JoinRoomUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t1401135529 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<JoinRoomUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t1401135529 * EqualityComparer_1_get_Default_m4126326439_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t1401135529 * L_0 = ((EqualityComparer_1_t1401135529_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<LanClientMenuUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m1087356071_gshared (EqualityComparer_1_t3465300061 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<LanClientMenuUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2934702324_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2934702324_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t3465300061_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t3465300061 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t2218627655 * L_8 = (DefaultComparer_t2218627655 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t2218627655 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t3465300061_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<LanClientMenuUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1575213622_gshared (EqualityComparer_1_t3465300061 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t3465300061 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<LanClientMenuUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t3465300061 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<LanClientMenuUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m2814868272_gshared (EqualityComparer_1_t3465300061 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t3465300061 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<LanClientMenuUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t3465300061 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<LanClientMenuUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t3465300061 * EqualityComparer_1_get_Default_m14062215_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t3465300061 * L_0 = ((EqualityComparer_1_t3465300061_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<LoadDataTask/TaskData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m4010134610_gshared (EqualityComparer_1_t130919626 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<LoadDataTask/TaskData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m675863075_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m675863075_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t130919626_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t130919626 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3179214516 * L_8 = (DefaultComparer_t3179214516 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3179214516 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t130919626_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<LoadDataTask/TaskData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m701385959_gshared (EqualityComparer_1_t130919626 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t130919626 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<LoadDataTask/TaskData/State>::GetHashCode(T) */, (EqualityComparer_1_t130919626 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<LoadDataTask/TaskData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m2881442673_gshared (EqualityComparer_1_t130919626 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t130919626 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<LoadDataTask/TaskData/State>::Equals(T,T) */, (EqualityComparer_1_t130919626 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<LoadDataTask/TaskData/State>::get_Default()
+extern "C"  EqualityComparer_1_t130919626 * EqualityComparer_1_get_Default_m1918609158_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t130919626 * L_0 = ((EqualityComparer_1_t130919626_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<LoginState.NotConnect/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m531872080_gshared (EqualityComparer_1_t600713258 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<LoginState.NotConnect/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m814174767_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m814174767_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t600713258_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t600713258 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3649008148 * L_8 = (DefaultComparer_t3649008148 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3649008148 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t600713258_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<LoginState.NotConnect/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m667905003_gshared (EqualityComparer_1_t600713258 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t600713258 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<LoginState.NotConnect/State>::GetHashCode(T) */, (EqualityComparer_1_t600713258 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<LoginState.NotConnect/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m3560677793_gshared (EqualityComparer_1_t600713258 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t600713258 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<LoginState.NotConnect/State>::Equals(T,T) */, (EqualityComparer_1_t600713258 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<LoginState.NotConnect/State>::get_Default()
+extern "C"  EqualityComparer_1_t600713258 * EqualityComparer_1_get_Default_m2115475740_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t600713258 * L_0 = ((EqualityComparer_1_t600713258_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<LoginState.StateFail/Reason>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m4139412685_gshared (EqualityComparer_1_t763301633 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<LoginState.StateFail/Reason>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2137871996_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2137871996_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t763301633_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t763301633 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3811596523 * L_8 = (DefaultComparer_t3811596523 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3811596523 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t763301633_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<LoginState.StateFail/Reason>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m130793530_gshared (EqualityComparer_1_t763301633 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t763301633 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<LoginState.StateFail/Reason>::GetHashCode(T) */, (EqualityComparer_1_t763301633 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<LoginState.StateFail/Reason>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m4249637112_gshared (EqualityComparer_1_t763301633 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t763301633 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<LoginState.StateFail/Reason>::Equals(T,T) */, (EqualityComparer_1_t763301633 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<LoginState.StateFail/Reason>::get_Default()
+extern "C"  EqualityComparer_1_t763301633 * EqualityComparer_1_get_Default_m2822815885_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t763301633 * L_0 = ((EqualityComparer_1_t763301633_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<LoginState.StepGetDataFacebook/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m2197962043_gshared (EqualityComparer_1_t596572231 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<LoginState.StepGetDataFacebook/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m718226410_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m718226410_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t596572231_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t596572231 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3644867121 * L_8 = (DefaultComparer_t3644867121 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3644867121 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t596572231_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<LoginState.StepGetDataFacebook/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1244026880_gshared (EqualityComparer_1_t596572231 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t596572231 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<LoginState.StepGetDataFacebook/State>::GetHashCode(T) */, (EqualityComparer_1_t596572231 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<LoginState.StepGetDataFacebook/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m3727393402_gshared (EqualityComparer_1_t596572231 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t596572231 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<LoginState.StepGetDataFacebook/State>::Equals(T,T) */, (EqualityComparer_1_t596572231 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<LoginState.StepGetDataFacebook/State>::get_Default()
+extern "C"  EqualityComparer_1_t596572231 * EqualityComparer_1_get_Default_m1709695027_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t596572231 * L_0 = ((EqualityComparer_1_t596572231_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<LoginState.StepLogin/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m1207593298_gshared (EqualityComparer_1_t992491268 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<LoginState.StepLogin/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m1072137077_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m1072137077_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t992491268_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t992491268 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t4040786158 * L_8 = (DefaultComparer_t4040786158 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t4040786158 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t992491268_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<LoginState.StepLogin/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m2418679121_gshared (EqualityComparer_1_t992491268 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t992491268 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<LoginState.StepLogin/State>::GetHashCode(T) */, (EqualityComparer_1_t992491268 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<LoginState.StepLogin/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m2995420407_gshared (EqualityComparer_1_t992491268 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t992491268 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<LoginState.StepLogin/State>::Equals(T,T) */, (EqualityComparer_1_t992491268 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<LoginState.StepLogin/State>::get_Default()
+extern "C"  EqualityComparer_1_t992491268 * EqualityComparer_1_get_Default_m2696667646_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t992491268 * L_0 = ((EqualityComparer_1_t992491268_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Makruk.Common/Piece>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m2815429360_gshared (EqualityComparer_1_t144857394 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Makruk.Common/Piece>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m1505041051_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m1505041051_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t144857394_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t144857394 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3193152284 * L_8 = (DefaultComparer_t3193152284 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3193152284 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t144857394_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<Makruk.Common/Piece>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1783087759_gshared (EqualityComparer_1_t144857394 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t144857394 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<Makruk.Common/Piece>::GetHashCode(T) */, (EqualityComparer_1_t144857394 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<Makruk.Common/Piece>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m3614134561_gshared (EqualityComparer_1_t144857394 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t144857394 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<Makruk.Common/Piece>::Equals(T,T) */, (EqualityComparer_1_t144857394 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<Makruk.Common/Piece>::get_Default()
+extern "C"  EqualityComparer_1_t144857394 * EqualityComparer_1_get_Default_m3054071964_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t144857394 * L_0 = ((EqualityComparer_1_t144857394_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<MineSweeper.MineSweeperAI/FirstMoveType>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m3885927811_gshared (EqualityComparer_1_t85210827 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<MineSweeper.MineSweeperAI/FirstMoveType>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m782143554_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m782143554_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t85210827_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t85210827 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3133505717 * L_8 = (DefaultComparer_t3133505717 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3133505717 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t85210827_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<MineSweeper.MineSweeperAI/FirstMoveType>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1115015980_gshared (EqualityComparer_1_t85210827 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t85210827 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<MineSweeper.MineSweeperAI/FirstMoveType>::GetHashCode(T) */, (EqualityComparer_1_t85210827 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<MineSweeper.MineSweeperAI/FirstMoveType>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m3658995958_gshared (EqualityComparer_1_t85210827 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t85210827 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<MineSweeper.MineSweeperAI/FirstMoveType>::Equals(T,T) */, (EqualityComparer_1_t85210827 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<MineSweeper.MineSweeperAI/FirstMoveType>::get_Default()
+extern "C"  EqualityComparer_1_t85210827 * EqualityComparer_1_get_Default_m1510159803_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t85210827 * L_0 = ((EqualityComparer_1_t85210827_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Peregrine.Engine.TournamentCommand>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m4065178512_gshared (EqualityComparer_1_t2787216995 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Peregrine.Engine.TournamentCommand>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m1240963551_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m1240963551_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t2787216995_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t2787216995 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t1540544589 * L_8 = (DefaultComparer_t1540544589 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t1540544589 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t2787216995_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<Peregrine.Engine.TournamentCommand>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m3010447627_gshared (EqualityComparer_1_t2787216995 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t2787216995 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<Peregrine.Engine.TournamentCommand>::GetHashCode(T) */, (EqualityComparer_1_t2787216995 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<Peregrine.Engine.TournamentCommand>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m3694660293_gshared (EqualityComparer_1_t2787216995 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t2787216995 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<Peregrine.Engine.TournamentCommand>::Equals(T,T) */, (EqualityComparer_1_t2787216995 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<Peregrine.Engine.TournamentCommand>::get_Default()
+extern "C"  EqualityComparer_1_t2787216995 * EqualityComparer_1_get_Default_m2784251704_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t2787216995 * L_0 = ((EqualityComparer_1_t2787216995_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Peregrine.Engine.TournamentState>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m2871096704_gshared (EqualityComparer_1_t4080912643 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Peregrine.Engine.TournamentState>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m329103535_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m329103535_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t4080912643_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t4080912643 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t2834240237 * L_8 = (DefaultComparer_t2834240237 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t2834240237 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t4080912643_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<Peregrine.Engine.TournamentState>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m872084659_gshared (EqualityComparer_1_t4080912643 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t4080912643 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<Peregrine.Engine.TournamentState>::GetHashCode(T) */, (EqualityComparer_1_t4080912643 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<Peregrine.Engine.TournamentState>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m508001197_gshared (EqualityComparer_1_t4080912643 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t4080912643 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<Peregrine.Engine.TournamentState>::Equals(T,T) */, (EqualityComparer_1_t4080912643 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<Peregrine.Engine.TournamentState>::get_Default()
+extern "C"  EqualityComparer_1_t4080912643 * EqualityComparer_1_get_Default_m2192759968_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t4080912643 * L_0 = ((EqualityComparer_1_t4080912643_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Posture.BtnSetEditPostureGameData/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m1940752070_gshared (EqualityComparer_1_t2322266254 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Posture.BtnSetEditPostureGameData/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m4219289971_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m4219289971_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t2322266254_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t2322266254 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t1075593848 * L_8 = (DefaultComparer_t1075593848 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t1075593848 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t2322266254_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<Posture.BtnSetEditPostureGameData/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1894109183_gshared (EqualityComparer_1_t2322266254 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t2322266254 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<Posture.BtnSetEditPostureGameData/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t2322266254 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<Posture.BtnSetEditPostureGameData/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m2378886809_gshared (EqualityComparer_1_t2322266254 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t2322266254 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<Posture.BtnSetEditPostureGameData/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t2322266254 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<Posture.BtnSetEditPostureGameData/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t2322266254 * EqualityComparer_1_get_Default_m878006702_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t2322266254 * L_0 = ((EqualityComparer_1_t2322266254_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Posture.ChoosePostureUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m3749713517_gshared (EqualityComparer_1_t3139026475 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Posture.ChoosePostureUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m2371485134_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m2371485134_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t3139026475_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t3139026475 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t1892354069 * L_8 = (DefaultComparer_t1892354069 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t1892354069 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t3139026475_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<Posture.ChoosePostureUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m4083654136_gshared (EqualityComparer_1_t3139026475 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t3139026475 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<Posture.ChoosePostureUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t3139026475 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<Posture.ChoosePostureUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m442621054_gshared (EqualityComparer_1_t3139026475 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t3139026475 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<Posture.ChoosePostureUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t3139026475 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<Posture.ChoosePostureUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t3139026475 * EqualityComparer_1_get_Default_m169807721_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t3139026475 * L_0 = ((EqualityComparer_1_t3139026475_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<ProcessMoveAction/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m2139477461_gshared (EqualityComparer_1_t2722442355 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<ProcessMoveAction/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m800935542_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m800935542_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t2722442355_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t2722442355 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t1475769949 * L_8 = (DefaultComparer_t1475769949 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t1475769949 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t2722442355_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<ProcessMoveAction/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m2174233232_gshared (EqualityComparer_1_t2722442355 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t2722442355 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<ProcessMoveAction/State>::GetHashCode(T) */, (EqualityComparer_1_t2722442355 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<ProcessMoveAction/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1459477762_gshared (EqualityComparer_1_t2722442355 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t2722442355 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<ProcessMoveAction/State>::Equals(T,T) */, (EqualityComparer_1_t2722442355 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<ProcessMoveAction/State>::get_Default()
+extern "C"  EqualityComparer_1_t2722442355 * EqualityComparer_1_get_Default_m1840906653_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t2722442355 * L_0 = ((EqualityComparer_1_t2722442355_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Record.DataRecordTask/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m3574139576_gshared (EqualityComparer_1_t831819292 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Record.DataRecordTask/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m1755332781_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m1755332781_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t831819292_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t831819292 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3880114182 * L_8 = (DefaultComparer_t3880114182 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3880114182 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t831819292_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<Record.DataRecordTask/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m3191095229_gshared (EqualityComparer_1_t831819292 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t831819292 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<Record.DataRecordTask/State>::GetHashCode(T) */, (EqualityComparer_1_t831819292 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<Record.DataRecordTask/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m2441389063_gshared (EqualityComparer_1_t831819292 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t831819292 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<Record.DataRecordTask/State>::Equals(T,T) */, (EqualityComparer_1_t831819292 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<Record.DataRecordTask/State>::get_Default()
+extern "C"  EqualityComparer_1_t831819292 * EqualityComparer_1_get_Default_m1577643180_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t831819292 * L_0 = ((EqualityComparer_1_t831819292_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Record.LoadRecordTask/TaskData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m2640207390_gshared (EqualityComparer_1_t3184534592 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Record.LoadRecordTask/TaskData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m98307634_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m98307634_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t3184534592_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t3184534592 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t1937862186 * L_8 = (DefaultComparer_t1937862186 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t1937862186 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t3184534592_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<Record.LoadRecordTask/TaskData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m3980261797_gshared (EqualityComparer_1_t3184534592 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t3184534592 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<Record.LoadRecordTask/TaskData/State>::GetHashCode(T) */, (EqualityComparer_1_t3184534592 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<Record.LoadRecordTask/TaskData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1765016235_gshared (EqualityComparer_1_t3184534592 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t3184534592 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<Record.LoadRecordTask/TaskData/State>::Equals(T,T) */, (EqualityComparer_1_t3184534592 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<Record.LoadRecordTask/TaskData/State>::get_Default()
+extern "C"  EqualityComparer_1_t3184534592 * EqualityComparer_1_get_Default_m935276594_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t3184534592 * L_0 = ((EqualityComparer_1_t3184534592_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Record.SaveRecordTask/TaskData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m1753159989_gshared (EqualityComparer_1_t2344409529 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Record.SaveRecordTask/TaskData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m36719880_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m36719880_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t2344409529_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t2344409529 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t1097737123 * L_8 = (DefaultComparer_t1097737123 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t1097737123 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t2344409529_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<Record.SaveRecordTask/TaskData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m2386769670_gshared (EqualityComparer_1_t2344409529 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t2344409529 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<Record.SaveRecordTask/TaskData/State>::GetHashCode(T) */, (EqualityComparer_1_t2344409529 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<Record.SaveRecordTask/TaskData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m530396588_gshared (EqualityComparer_1_t2344409529 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t2344409529 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<Record.SaveRecordTask/TaskData/State>::Equals(T,T) */, (EqualityComparer_1_t2344409529 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<Record.SaveRecordTask/TaskData/State>::get_Default()
+extern "C"  EqualityComparer_1_t2344409529 * EqualityComparer_1_get_Default_m2241958841_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t2344409529 * L_0 = ((EqualityComparer_1_t2344409529_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Record.ViewRecordControllerStatePlay/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m4103368929_gshared (EqualityComparer_1_t2651293397 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Record.ViewRecordControllerStatePlay/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m970442596_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m970442596_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t2651293397_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t2651293397 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t1404620991 * L_8 = (DefaultComparer_t1404620991 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t1404620991 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t2651293397_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<Record.ViewRecordControllerStatePlay/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m2970897530_gshared (EqualityComparer_1_t2651293397 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t2651293397 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<Record.ViewRecordControllerStatePlay/State>::GetHashCode(T) */, (EqualityComparer_1_t2651293397 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<Record.ViewRecordControllerStatePlay/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1660243456_gshared (EqualityComparer_1_t2651293397 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t2651293397 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<Record.ViewRecordControllerStatePlay/State>::Equals(T,T) */, (EqualityComparer_1_t2651293397 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<Record.ViewRecordControllerStatePlay/State>::get_Default()
+extern "C"  EqualityComparer_1_t2651293397 * EqualityComparer_1_get_Default_m2675695885_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t2651293397 * L_0 = ((EqualityComparer_1_t2651293397_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<RemoteConfig/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m1949833567_gshared (EqualityComparer_1_t3516639125 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<RemoteConfig/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m228916604_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m228916604_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t3516639125_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t3516639125 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t2269966719 * L_8 = (DefaultComparer_t2269966719 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t2269966719 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t3516639125_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<RemoteConfig/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1996552294_gshared (EqualityComparer_1_t3516639125 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t3516639125 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<RemoteConfig/State>::GetHashCode(T) */, (EqualityComparer_1_t3516639125 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<RemoteConfig/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1491152864_gshared (EqualityComparer_1_t3516639125 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t3516639125 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<RemoteConfig/State>::Equals(T,T) */, (EqualityComparer_1_t3516639125 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<RemoteConfig/State>::get_Default()
+extern "C"  EqualityComparer_1_t3516639125 * EqualityComparer_1_get_Default_m3426153143_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t3516639125 * L_0 = ((EqualityComparer_1_t3516639125_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<RequestChangeUseRuleStateAskBtnAcceptUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m3889466904_gshared (EqualityComparer_1_t1040384392 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<RequestChangeUseRuleStateAskBtnAcceptUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m746372133_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m746372133_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t1040384392_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t1040384392 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t4088679282 * L_8 = (DefaultComparer_t4088679282 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t4088679282 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t1040384392_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<RequestChangeUseRuleStateAskBtnAcceptUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m421329601_gshared (EqualityComparer_1_t1040384392 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t1040384392 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<RequestChangeUseRuleStateAskBtnAcceptUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t1040384392 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<RequestChangeUseRuleStateAskBtnAcceptUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1992090139_gshared (EqualityComparer_1_t1040384392 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t1040384392 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<RequestChangeUseRuleStateAskBtnAcceptUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t1040384392 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<RequestChangeUseRuleStateAskBtnAcceptUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t1040384392 * EqualityComparer_1_get_Default_m1012727668_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t1040384392 * L_0 = ((EqualityComparer_1_t1040384392_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<RequestChangeUseRuleStateAskBtnRefuseUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m13744292_gshared (EqualityComparer_1_t4284911118 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<RequestChangeUseRuleStateAskBtnRefuseUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m4022315219_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m4022315219_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t4284911118_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t4284911118 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3038238712 * L_8 = (DefaultComparer_t3038238712 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3038238712 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t4284911118_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<RequestChangeUseRuleStateAskBtnRefuseUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m2785441727_gshared (EqualityComparer_1_t4284911118 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t4284911118 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<RequestChangeUseRuleStateAskBtnRefuseUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t4284911118 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<RequestChangeUseRuleStateAskBtnRefuseUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m2442499257_gshared (EqualityComparer_1_t4284911118 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t4284911118 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<RequestChangeUseRuleStateAskBtnRefuseUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t4284911118 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<RequestChangeUseRuleStateAskBtnRefuseUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t4284911118 * EqualityComparer_1_get_Default_m567666668_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t4284911118 * L_0 = ((EqualityComparer_1_t4284911118_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<RequestChangeUseRuleStateNoneUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m1274204413_gshared (EqualityComparer_1_t3156146811 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<RequestChangeUseRuleStateNoneUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m1850564826_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m1850564826_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t3156146811_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t3156146811 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t1909474405 * L_8 = (DefaultComparer_t1909474405 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t1909474405 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t3156146811_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<RequestChangeUseRuleStateNoneUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1293068940_gshared (EqualityComparer_1_t3156146811 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t3156146811 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<RequestChangeUseRuleStateNoneUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t3156146811 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<RequestChangeUseRuleStateNoneUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1254680582_gshared (EqualityComparer_1_t3156146811 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t3156146811 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<RequestChangeUseRuleStateNoneUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t3156146811 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<RequestChangeUseRuleStateNoneUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t3156146811 * EqualityComparer_1_get_Default_m4032672281_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t3156146811 * L_0 = ((EqualityComparer_1_t3156146811_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<RockScissorPaper/Player/Result>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m1293697238_gshared (EqualityComparer_1_t2655949790 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<RockScissorPaper/Player/Result>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m3120238467_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m3120238467_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t2655949790_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t2655949790 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t1409277384 * L_8 = (DefaultComparer_t1409277384 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t1409277384 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t2655949790_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<RockScissorPaper/Player/Result>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m3963096399_gshared (EqualityComparer_1_t2655949790 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t2655949790 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<RockScissorPaper/Player/Result>::GetHashCode(T) */, (EqualityComparer_1_t2655949790 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<RockScissorPaper/Player/Result>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m1078992169_gshared (EqualityComparer_1_t2655949790 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t2655949790 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<RockScissorPaper/Player/Result>::Equals(T,T) */, (EqualityComparer_1_t2655949790 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<RockScissorPaper/Player/Result>::get_Default()
+extern "C"  EqualityComparer_1_t2655949790 * EqualityComparer_1_get_Default_m3004326270_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t2655949790 * L_0 = ((EqualityComparer_1_t2655949790_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<RockScissorPaper/Player/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m2678064538_gshared (EqualityComparer_1_t2698882712 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<RockScissorPaper/Player/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m179599829_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m179599829_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t2698882712_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t2698882712 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t1452210306 * L_8 = (DefaultComparer_t1452210306 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t1452210306 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t2698882712_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<RockScissorPaper/Player/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m1191914485_gshared (EqualityComparer_1_t2698882712 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t2698882712 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<RockScissorPaper/Player/State>::GetHashCode(T) */, (EqualityComparer_1_t2698882712 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<RockScissorPaper/Player/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m2837614635_gshared (EqualityComparer_1_t2698882712 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t2698882712 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<RockScissorPaper/Player/State>::Equals(T,T) */, (EqualityComparer_1_t2698882712 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<RockScissorPaper/Player/State>::get_Default()
+extern "C"  EqualityComparer_1_t2698882712 * EqualityComparer_1_get_Default_m2510248630_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t2698882712 * L_0 = ((EqualityComparer_1_t2698882712_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Room/AllowHint>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m2402203863_gshared (EqualityComparer_1_t290715491 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<Room/AllowHint>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m62008986_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m62008986_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t290715491_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t290715491 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t3339010381 * L_8 = (DefaultComparer_t3339010381 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t3339010381 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t290715491_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<Room/AllowHint>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m392162992_gshared (EqualityComparer_1_t290715491 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t290715491 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<Room/AllowHint>::GetHashCode(T) */, (EqualityComparer_1_t290715491 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<Room/AllowHint>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m107570902_gshared (EqualityComparer_1_t290715491 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t290715491 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<Room/AllowHint>::Equals(T,T) */, (EqualityComparer_1_t290715491 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<Room/AllowHint>::get_Default()
+extern "C"  EqualityComparer_1_t290715491 * EqualityComparer_1_get_Default_m907957919_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t290715491 * L_0 = ((EqualityComparer_1_t290715491_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<RoomBtnBackUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m749331770_gshared (EqualityComparer_1_t2870584380 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<RoomBtnBackUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m853467529_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m853467529_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t2870584380_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t2870584380 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t1623911974 * L_8 = (DefaultComparer_t1623911974 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t1623911974 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t2870584380_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<RoomBtnBackUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m3175818829_gshared (EqualityComparer_1_t2870584380 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t2870584380 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<RoomBtnBackUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t2870584380 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<RoomBtnBackUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m2986998439_gshared (EqualityComparer_1_t2870584380 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t2870584380 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<RoomBtnBackUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t2870584380 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<RoomBtnBackUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t2870584380 * EqualityComparer_1_get_Default_m3553392926_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t2870584380 * L_0 = ((EqualityComparer_1_t2870584380_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<RoomStateNormalFreezeUI/UIData/State>::.ctor()
+extern "C"  void EqualityComparer_1__ctor_m2423302068_gshared (EqualityComparer_1_t3900819748 * __this, const MethodInfo* method)
+{
+	{
+		NullCheck((Il2CppObject *)__this);
+		Object__ctor_m2551263788((Il2CppObject *)__this, /*hidden argument*/NULL);
+		return;
+	}
+}
+// System.Void System.Collections.Generic.EqualityComparer`1<RoomStateNormalFreezeUI/UIData/State>::.cctor()
+extern "C"  void EqualityComparer_1__cctor_m842854129_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_method (EqualityComparer_1__cctor_m842854129_MetadataUsageId);
+		s_Il2CppMethodInitialized = true;
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_0 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 0)), /*hidden argument*/NULL);
+		Type_t * L_1 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck((Type_t *)L_0);
+		bool L_2 = VirtFuncInvoker1< bool, Type_t * >::Invoke(44 /* System.Boolean System.Type::IsAssignableFrom(System.Type) */, (Type_t *)L_0, (Type_t *)L_1);
+		if (!L_2)
+		{
+			goto IL_0054;
+		}
+	}
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(Type_t_il2cpp_TypeInfo_var);
+		Type_t * L_3 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(GenericEqualityComparer_1_t2202941003_0_0_0_var), /*hidden argument*/NULL);
+		TypeU5BU5D_t1664964607* L_4 = (TypeU5BU5D_t1664964607*)((TypeU5BU5D_t1664964607*)SZArrayNew(TypeU5BU5D_t1664964607_il2cpp_TypeInfo_var, (uint32_t)1));
+		Type_t * L_5 = Type_GetTypeFromHandle_m432505302(NULL /*static, unused*/, (RuntimeTypeHandle_t2330101084 )LoadTypeToken(IL2CPP_RGCTX_TYPE(InitializedTypeInfo(method->declaring_type)->rgctx_data, 1)), /*hidden argument*/NULL);
+		NullCheck(L_4);
+		ArrayElementTypeCheck (L_4, L_5);
+		(L_4)->SetAt(static_cast<il2cpp_array_size_t>(0), (Type_t *)L_5);
+		NullCheck((Type_t *)L_3);
+		Type_t * L_6 = VirtFuncInvoker1< Type_t *, TypeU5BU5D_t1664964607* >::Invoke(96 /* System.Type System.Type::MakeGenericType(System.Type[]) */, (Type_t *)L_3, (TypeU5BU5D_t1664964607*)L_4);
+		Il2CppObject * L_7 = Activator_CreateInstance_m383294261(NULL /*static, unused*/, (Type_t *)L_6, /*hidden argument*/NULL);
+		((EqualityComparer_1_t3900819748_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(((EqualityComparer_1_t3900819748 *)Castclass(L_7, IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 2))));
+		goto IL_005e;
+	}
+
+IL_0054:
+	{
+		DefaultComparer_t2654147342 * L_8 = (DefaultComparer_t2654147342 *)il2cpp_codegen_object_new(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 4));
+		((  void (*) (DefaultComparer_t2654147342 *, const MethodInfo*))IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5)->methodPointer)(L_8, /*hidden argument*/IL2CPP_RGCTX_METHOD_INFO(InitializedTypeInfo(method->declaring_type)->rgctx_data, 5));
+		((EqualityComparer_1_t3900819748_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->set__default_0(L_8);
+	}
+
+IL_005e:
+	{
+		return;
+	}
+}
+// System.Int32 System.Collections.Generic.EqualityComparer`1<RoomStateNormalFreezeUI/UIData/State>::System.Collections.IEqualityComparer.GetHashCode(System.Object)
+extern "C"  int32_t EqualityComparer_1_System_Collections_IEqualityComparer_GetHashCode_m115957629_gshared (EqualityComparer_1_t3900819748 * __this, Il2CppObject * ___obj0, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___obj0;
+		NullCheck((EqualityComparer_1_t3900819748 *)__this);
+		int32_t L_1 = VirtFuncInvoker1< int32_t, int32_t >::Invoke(8 /* System.Int32 System.Collections.Generic.EqualityComparer`1<RoomStateNormalFreezeUI/UIData/State>::GetHashCode(T) */, (EqualityComparer_1_t3900819748 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_1;
+	}
+}
+// System.Boolean System.Collections.Generic.EqualityComparer`1<RoomStateNormalFreezeUI/UIData/State>::System.Collections.IEqualityComparer.Equals(System.Object,System.Object)
+extern "C"  bool EqualityComparer_1_System_Collections_IEqualityComparer_Equals_m3891770615_gshared (EqualityComparer_1_t3900819748 * __this, Il2CppObject * ___x0, Il2CppObject * ___y1, const MethodInfo* method)
+{
+	{
+		Il2CppObject * L_0 = ___x0;
+		Il2CppObject * L_1 = ___y1;
+		NullCheck((EqualityComparer_1_t3900819748 *)__this);
+		bool L_2 = VirtFuncInvoker2< bool, int32_t, int32_t >::Invoke(9 /* System.Boolean System.Collections.Generic.EqualityComparer`1<RoomStateNormalFreezeUI/UIData/State>::Equals(T,T) */, (EqualityComparer_1_t3900819748 *)__this, (int32_t)((*(int32_t*)((int32_t*)UnBox(L_0, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))), (int32_t)((*(int32_t*)((int32_t*)UnBox(L_1, IL2CPP_RGCTX_DATA(method->declaring_type->rgctx_data, 6))))));
+		return L_2;
+	}
+}
+// System.Collections.Generic.EqualityComparer`1<T> System.Collections.Generic.EqualityComparer`1<RoomStateNormalFreezeUI/UIData/State>::get_Default()
+extern "C"  EqualityComparer_1_t3900819748 * EqualityComparer_1_get_Default_m2001142992_gshared (Il2CppObject * __this /* static, unused */, const MethodInfo* method)
+{
+	{
+		IL2CPP_RUNTIME_CLASS_INIT(IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3));
+		EqualityComparer_1_t3900819748 * L_0 = ((EqualityComparer_1_t3900819748_StaticFields*)IL2CPP_RGCTX_DATA(InitializedTypeInfo(method->declaring_type)->rgctx_data, 3)->static_fields)->get__default_0();
+		return L_0;
+	}
+}
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
