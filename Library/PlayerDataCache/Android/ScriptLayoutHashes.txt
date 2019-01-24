@@ -16,7 +16,7 @@ cc2db7cc2af61f8e1e6fb288a81ade44 Assembly-CSharp.dll:RussianDraught.NoneRule.Rus
 5d812234e7751d15a9916a6b8c6bb737 Assembly-CSharp.dll:Shogi.UseRule.BtnChosenMoveUI
 603f446aab76d6e583b275597565545f Assembly-CSharp.dll:Khet.DefaultKhetIdentity
 0abfa107a5be1d36e911530d0089b29c Assembly-CSharp.dll:Seirawan.PieceUI
-fc32f95daea66b0c909e8cbd6173bdae Assembly-CSharp.dll:.ServerManager
+5aae575606fd7c25faf2e3f128dddccb Assembly-CSharp.dll:.ServerManager
 7afc22e178a4290d432d9d824dc98658 Assembly-CSharp.dll:Makruk.NoneRule.ClickPosUI
 51f8d470cac09a8e32d2d547963d8efc Assembly-CSharp.dll:UnityEngine.UI.Extensions.ResizePanel
 5b2fb562c2b21e7293a2bc64087d7302 Assembly-CSharp.dll:TimeControl.TimeControlUI
@@ -207,7 +207,7 @@ bcc77ded3a1d8c60468cd882c6efb872 Assembly-CSharp.dll:frame8.ScrollRectItemsAdapt
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Record.LoadRecordTask
 75a59c0b6a78ab2a1360cb38772ade04 Assembly-CSharp.dll:UnityEngine.UI.Extensions.ColorPicker.ColorPickerTester
 3b373ab9de67c881f50f37690237fa9c Assembly-CSharp.dll:Shogi.ShowHintUI
-be0a78656c6a9a2a5ec6e76ea74ab99a Mirror.dll:Mirror.NetworkManager
+18d888469de2d5ebfad273f72af3cfd9 Mirror.dll:Mirror.NetworkManager
 469b177251d9ca3e648cc02572f06b5f Assembly-CSharp.dll:UnityEngine.UI.Extensions.InputFocus
 80d1822b3495d495c6c8deb6cd769e7c Assembly-CSharp.dll:Seirawan.UseRule.GetUI
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:GameManager.Match.RequestNewContestManagerIdentity
@@ -1402,7 +1402,7 @@ aa82b3ce4c0c9b227036c0337315c5d3 Unity.TextMeshPro.dll:TMPro.TMP_FontAsset
 e51c09a4cc447f11db225afcd8e3e490 Unity.TextMeshPro.dll:TMPro.TMP_Settings
 c0bdbb27a118a25e5476eba76e63c235 Assembly-CSharp.dll:Banqi.BanqiSpriteContainer
 01aa113f1070bb4d4ec6a8b3ba818244 Assembly-CSharp.dll:Makruk.MakrukAIIdentity
-379a236d37edd89c52ca3172939e715a Assembly-CSharp.dll:.NoDatabaseServerNoneUI
+17213af49f9a3e6a76aad3f3ddb14687 Assembly-CSharp.dll:.NoDatabaseServerNoneUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:TimeControl.HourGlass.IncreasePlayerTimeUpdate
 374143e45bf0405bcee11b02d25b75fa Assembly-CSharp.dll:MineSweeper.MineSweeperMoveIdentity
 f30927debba735c03b5898b2053b2ffc Assembly-CSharp.dll:Janggi.NoneRule.SetPieceUI
@@ -1490,7 +1490,7 @@ aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:GameManager.Match.RoundStat
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:.GlobalRoomContainerIdentity
 45ef20a38dc09344483329b2c20fba9d Assembly-CSharp.dll:GameManager.Match.Elimination.ChooseBracketContestUI
 77b577dbc64632fe6a50fe12ee65775c Assembly-CSharp.dll:TimeControl.Normal.PlayerTimeInfoIdentity
-02bf45f389efff00c6590b9994989fa6 Assembly-CSharp.dll:.HaveDatabaseServerUI
+17f19d0aea7b30bfbf108faed2881249 Assembly-CSharp.dll:.HaveDatabaseServerUI
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:Shogi.DefaultShogiIdentity
 a2202f07cb9e02785ee30e6e2af68207 Assembly-CSharp.dll:Rights.UndoRedoRightUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:LoginState.StepGetDataEmailUpdate
