@@ -1,0 +1,169 @@
+BIGGEST UPDATE SO FAR 07.10.2017 - v3.0
+
+!IMPORTANT: migrating from 2.x.x requires several steps to be made and a prior full backup is mandatory. See the changes section
+
+Features:
+- the adapter's main class ScrollRecttItemsAdapter8 was renamed to SRIA and it's now a MonoBehaviour which should be attached to the ScrollRect
+- content panel's real size is now clamped to 10*viewportSize to allow smooth scrolling. This was made possible by keeping track of the "virtual" content size & position
+- 100x more items can now be added, up to 10 000 000 in the provided demos
+- item size changing is now smooth regardless of the items count
+- Snapper8 script integrated with the base adapter provides snapping functionality which can be fine-tuned via inspector
+- ScrollbarFixer8 was greatly improved and now includes animated auto-hide and optional fade in/out
+- much more cleaner & intuitive UI for the demo scenes w/ navigation
+- created LazyList<T>, which can be used to hold large amounts of item models which are constructed only when first accessed
+- items' sizes are now stored only if they differ from the "default size", which can be set in the inspector. This massively improves the performance of ChangeItemsCount() call, but also cuts RAM utilization dramatically
+- gallery effect - items can be scaled (not resized!) based on their positions relative to a set viewport point (configurable)
+- Items can now be inserted/removed from anywhere in the list without re-initializing the remaining ones. InsertItems, RemoveItems, ResetItems methods are provided 
+- added chat demo scene with message pop-up animation
+- added IncrementalItemFetching example scene & script
+- ScrollRect's inertia can now be preserved after changing the items count
+- RequestChangeItemSizeAndUpdateLayout can now be used even for items that aren't visible
+
+Changes:
+- renamed ScrollRecttItemsAdapter8 to SRIA, which implements the non-generic interface ISRIA in order to provide common functionality in any context as an interface (since generic classes can't be referenced through a base type variable)
+- ISRIA implements IScrollRectProxy
+- because the adapter is now a MonoBehaviour, the example scripts directly inherrit from it, thus needing less code to be written
+- ScrollbarFixer8 is now mandatory due to content's real size not growing past 10*viewportSize
+- items' sizes are now assumed to be Params.DefaultItemSize and they can be set per-item in the CollectItemsSizes callback, which is called each time the items count changes
+- a lot of variables/classes were refactored with different names/signatures, so a migration from a version prior 3.0 should only be done after a complete backup
+- BaseParams: deprecated the confusing minNumberOfObjectsToKeepInMemory and added recycleBinCapacity instead, which is a more adequate term, now clearly representing the maximum allowed items that can be disabled (in the 'recycle bin') at any moment
+- BaseParams: added contentGravity, which specifies the conten's prosition when the content is smaller than the viewport (it sets the viewport pivot)
+- SRIA: not implementing OnScreenSizeChangedEventDispatcher.IOnScreenSizeChangedListener anymore + not adding the OnScreenSizeChangedEventDispatcher component. the changes in size are now checked directly inside the adapter's MyUpdate. This also makes it easier to track any size change, not only the screen change + (more importantly) the user doesn't need to call Notify anymore. NotifyScrollViewSizeChanged was removed and OnScrollViewSizeChanged was added instead, which is called for you
+- SRIA: added ShouldDestroyRecyclableItem() which is called for all recyclable items after a compute visibility pass to see what recycled items to keep.
+- SRIA: renamed GetMinNumObjectsToKeepInMemory to GetMaxNumObjectsToKeepInMemory
+- SRIA: added destroyedItemsSinceLastScrollViewSizeChange to internal state, which it's used to minimize gc calls
+- SRIA: added OnBeforeRecycleOrDisableViewsHolder, which is very handy in preparing the views for potentially being recycled (thus decoupling it from UpdateViewsHolder, which is not responsible from clearing the previous data anymore)
+- SRIA: added GetItemsCount()
+- SRIA: the "Twin" pass is now done immediately after the ComputeVisibility, thus allowing the adapter to have any BaseParams.updateMode, not only MONOBEHAVIOUR_UPDATE
+- BaseParams: setting padding to be the same as spacing if looping (since here there's no concept of "start" or "end")
+- SRIA: renamed ChangeItemCountTo to ChangeItemsCount and also changed its signature to allow much more versatility, like inserting/removing items at a specific index
+- SRIA: possibility to start a new SmoothScroll, cancelling the current one by allowing another parameter "overrideCurrentScrollingAnimation"
+- SRIA: added GetViewsHolderOfClosestItemToViewportPoint()
+- ISRIA: added ScrollPositionChanged, which is the only reliable way of receiving the correct OnScroll event (similar to the standar ScrollRect.onValueChanged)
+- SRIA: Dispose is not required to be called anymore, because it's automatically called in SRIA's own OnDestroy()
+- MultiplePrefabsExample: expanding now works like a toggle group (used the newly feature of changing a non-visible item's size). max 1 item can be expanded at once
+- ExpandCollapseOnClick: fastin-slowout resizing instead of linear
+- AbstractViewsHolder: InitIfNeeded() is now also called when the ScrollView size changes and it now includes the ISRIA reference as a param
+- removed simple_tutorial from build & from navigation because it's similar to simple_pull_to_refresh
+- created new documentation for v3.0. The old one will still be available at the same link
+ 
+Bug-fixes:
+- pull-to-refresh allowed a second pull to be executed before the previous one finished
+- SimpleImageDownloader: setting the instance to null in on destroy
+- a lot more undocumented bugs
+
+
+
+HOTFIX 06.07.2017 - v2.5.1:
+- fixed a small GridParams bug that was adding additional space between cells
+
+
+UPDATE 31.05.2017:
+- support for Content Size Fitter (for items with unknown sizes at init time) + example scene
+- complete example scene demonstrating the implementation of a "select items & act" behavior, commonly used in apps/games where the user can perform an action on a subset of the items list (in this case, it can delete them).
+
+
+BIG UPDATE 10.05.2017 - v2.5:
+Features:
+- Much better support for multiple prefabs (using different view holder & models with the same adapter). Dedicated example scene & scripts
+- Creating & updating the view holder are now done in 2 different callbacks, to separate concerns
+- Pull To Refresh utility w/ dedicated example scene & scripts
+- Code reference extended to include everything + migrated online (can be accessed via Unity's menu bar)
+- SimpleImageDownloader utlity with smart queue management to decrease overall bandwidth usage
+
+!IMPORTANT! if updating from a previous version:
+You need to change a few things, although it's HIGLY recommended to just delete the previous package and import this instead,
+because you may introduce hard-to-detect bugs that can make some nuclear reactors blow, somewhere over the rainbow.
+
+All classes that were in the global namespace were moved to an appropriately-named namespace to avoid conflicts.
+
+What to delete (because it was moved in another folder or it's not used anymore or it was renamed):
+- Prefabs/LiteExample folder
+- ScrollRectItemsAdapterExample.cs and SimpleTutorial.cs from the Scripts folder
+- Scripts/Util/ScrollToPanelUI.cs
+- Scripts/Util/UpdateModesPanelUI.cs
+- Scripts/Util/ObjectsVirtualParent.cs
+- Scripts/Util/GridView/CellGroupViewHolder.cs (was replaced with CellGroupViewsHolder.cs)
+- Scripts/Util/GridView/CellViewHolder.cs (was replaced with CellViewsHolder.cs)
+
+Important syntax changes & refactorings:
+- ScrollRectItemsAdapter8.InitOrUpdateViewHolder was renamed to UpdateViewsHolder and it guarantees (if you respect the adapter's lifecycle) that the newOrRecycled.root is not null.
+Here you are not needed to instantiate the prefab anymore, only update its views.
+- ScrollRectItemsAdapter8.CreateViewsHolder was added. Here the view holder instance is created, the prefab is instantiated etc. (see the example scenes)
+- GridAdapter.UpdateCellViewHolder was renamed to GridAdapter.UpdateCellViewsHolder
+
+General, must-know code changes:
+- added 2 Init methods in AbstractViewHolder to ease the view holder creation & initialization in ScrollRectItemsAdapter8.CreateViewsHolder() callback.
+These remove the need to manually instantiate the prefab, assign the viewholder's itemIndex, call CollectViews() on it etc.
+ScrollRectItemsAdapter8:
+- added ItemsRefreshed event that has 2 ints params: first is the old count, and the second is the new count
+- added VisibleItemsCount
+- removed VisibleItemsCopy property, because it's not efficient to create a list each time. Instead, GetItemViewsHolder(int viewHolderIndex) was added together with VisibleItemsCount to allow iterating through the visible items
+- Init(): calling Dispose here, if the previous value of _Params is not null (i.e. the adapter is re-used).
+Although it wasn't intensively tested, since it's easier to just reload the entire scene or at least destroy the scroll view & re-instantiate it (a prefab can be used for it)
+- Added Refresh() that just calls ChangeItemsCountTo(<current count>), which is equivalent to a refresh.
+- Added 3rd parameter <normalizedPositionOfItemPivotToUse> to ScrollTo and SmoothScrollTo which gives maximum flexibility in terms of how far do you want the target item to be relative to the viewport's start edge
+- Removed GetItemNormalizedOffsetFromParentStart_NotAccurate()
+- Dispose(): actually releasing all the resources. Destroying all cached recyclable items & the visible ones, setting count to 0, setting _Params to null etc.
+- renamed InitOrUpdateItemViewHolder to UpdateViewsHolder, since now CreateViewsHolder() takes care of the creation.
+- added abstract CreateViewsHolder() which you must override to create the viewholder (which is no more done in InitOrUpdateItemViewHolder())
+- added ClearCachedRecyclableItems(), ClearVisibleItems(), which destroys the respective items & sets their count to 0
+- renamed InternalParams to InternalState & _InternalParams field to _InternalState.
+
+Bugfixes:
+- small issue with spacing in GridAdapter
+ScrollRectItemsAdapter8:
+- added _SmoothScrollCoroutine field to keep track of whether the ScrollTo is playing or not, in order to reject any new ScrollTo request during the execution of another
+- all the cached recyclable items & the visible ones are destroyed & their corresponding arrays are cleared when the items count changes to 0, thus most probably indicating that the user wants the scrollview to be cleared.
+
+
+PENDING for v3.0:
+-adding a "Lite" optimizer script capable to handle common use-scenarios and that will require only a few lines of code to be written by you - the main setup will be done in inspector. option for automatic json parsing may be also added, apart from the standard way of having a model class that stores the info about each item.
+
+
+UPDATE 28.04.2017 - v2.4:
+- added support for grid-like layouts in simple scenarios via the new GridAdapter utility class. GridExample.cs shows exactly how it's used. A scene grid_example.unity was also added to demo the feature.
+- added comfortable scene navigation between the examples, so you can test them all at once during runtime
+- major bugfix for the 'example.unity' scene: the FPS drop for some unity versions was due the non-optimized panel being in the same scene with the optimized one. Now there are 2 separate sub-scenes for the main example. 5.2.5f1, 5.4.1f1, 5.4.2f2, 5.4.3f1 are no more causing issues. Also, the asset was always working with these versions, only that 'example.unity' scene was slow.
+
+
+UPDATE 06.04.2017 - v2.3:
+- added item looping feature (useful for things like spinners). A new scene was added for this and the possibility to navigate to it and back from the main scene("example.unity"). The feature can be enabled by setting BaseParams.loopItems=true
+- minor bugfixes
+- major bugfixes (done in post-v2.2 updates, but not mentioned)
+
+
+UPDATE 24.01.2017 - v2.2: the biggest update so far:
+-ScrollTo() method: self-explanatory;
+-SmoothScrollTo() method: same as above, but it uses an internal Coroutine to animate the movement. scroll time can be provided, as well as an "onDone" callback;
+-RequestChangeItemSize() method: allows you to request a new height/width for a specific item if it's visible - this can optionally be done for consecutive frames in order to obtain an expand/collapse animation, which is very common;
+-added support for manually requesting a size change for a specific item, if it's visible (commonly needed for an expand/collapse animation)
+-added ScrollTo that snaps the scrollview so that the requested item is at the top
+-added SmoothScrollTo that can have the animation's duration adjustable and a callback can be provided for receiving updates for each animation step and the possibility of canceling it
+-IMPORTANT: using params to set spacing/padding. Using a LayoutGroup for this is no longer supported (should be an easy migration, though)
+-possibility to run visibility computations each frame via a MonoBehaviour.Update OR only when OnScroll event triggers OR in both cases
+-added a simple fps counter in top-left
+-added ExpandOnClick utility script in the example scenes (items now expand/shrink when clicked)
+-added ScrollbarFixer8 in the example scenes, a very handy utility that preserves the ScrollView's inertia regardless of the content's size (this is a bug with Unity itself) + autohide/hide-when-not-needed functionalities as a bonus
+-not destroying any objects, unless ChangeItemCountTo is called
+-bugfix: changing item count to 0 acted weird
+-bugfix: "teleporting" the scrollbar put items slightly outside content panel for horizontal ScrollViews when large data sets were used
+-improved the way an item's size changes dynamically when large data sets are used
+- added WebGL demo and updated the demo APK
+-other important optimizations -fixed a major bug occurring when using items of different sizes
+-fixed a lot of minor bugs
+-added much more comments and 'repaired' some of them
+-updated documentation
+
+
+UPDATE 03.12.2016 - v2.1: huge improvements. There was more than one update prior the current one(as we received a lot of features requests by email in the meantime). The link is the same. Check it to see the entire change log, but here are a few of the changes:
+- source files released
+- got rid of the DLL
+- auto-adapting for screen changes (size/orientation)
+- added simple_tutorial.unity scene with a much simpler version of the example scene (also used for the tutorial video)
+-fixed top/bottom padding not working properly
+
+
+UPDATE 27.08.2016 - v2.0: Hey guys, happy to announce V2.0 is out, improved and with horizontal scrolling support
+Additional changes in v 2.0
+- compatible with CanvasScaler

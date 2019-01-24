@@ -1,0 +1,159 @@
+
+
+
+--------------------------------------------------------------------------
+
+Based on the library "libbzip2", by Julian R Seward.
+
+http://www.bzip.org/
+
+--------------------------------------------------------------------------
+
+
+
+The scope of this library is to compress/decompress bz2 archives and buffers on Android, iOS, WSA8.1, WSA 10 Universal, Windows, OSX and Linux.
+(Blackbery support is still experimental)
+
+
+
+The ios and OSX libraries are compiled as universal. That means that they will support 32 and 64 bit builds.
+The Windows and Linux libraries are compiled for x86 and x86_64 build modes.
+The Android lib is compiled for armeabi, armeabi-v7a, x86 and x86_64.
+The Windows Phone 8.1 lib is compiled for ARM and x86.
+THE WSA lib is compiled for ARM, x86 and x86_64.
+
+WSA SDK10 is supported with NetCore with Unity version 5.2 and higher.
+
+WP81 and WSA with SDK81 can be compiled with mscorlib. If you want NetCore support there you have to provide your own
+NetCore IO compatible functions.
+
+(If the demo on a windows10 phone does not show text, create a guiskin and attach a font to it. Then use this guiskin in your gui.)
+
+
+FEATURES:
+---------
+bz2 file compression / decompression.
+bz2 buffer 2 buffer compression / decompression.
+
+Very fast compared to ICsharpZiplib.
+It is at least 6x faster at compression and 13x faster at decompression!
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+
+INSTRUCTIONS:
+-------------
+
+If you want to run a small example, compile and run the testScene.
+It will download a small bz2 file and it will perform all the functions the lib provides.
+
+See the lbz2.cs file for more comments and error codes.
+
+In your project include in the Plugins the folder the plugins you want to use and the lbz2.cs file and call the appropriate functions
+as described below and shown in the demo scene.
+
+
+THE FUNCTIONS:
+--------------
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+int decompressBz2(string inFile, string outFile);
+
+Decompress a bz2 file at given paths.
+
+inFile	: the full path to the compressed file, including the archives name.
+outFile	: the full path of the file to get decompressed.
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+int compressBz2(string inFile, string outFile, int levelOfCompression);
+
+Compress a file a given path with level of compression.
+
+inFile				: the full path to the archive to get compressed.
+outFile				: the full path of the resulting compressed file.
+levelOfCompression	: The compresion level (lower = 1 to higher = 9); 
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+bool bz2CompressBuffer(byte[] source,  ref byte[] outBuffer, int compressionLevel, bool includeSize);
+
+A function that compresses a byte buffer in a bz2 stream and writes it into the referenced byte buffer.
+Returns true or false.
+This function is prefered over the implementation that returns a new compressed byte buffer because
+of lower memory consumtion until the gc.collect kicks in.
+
+includeSize		: includes the uncompressed size of the buffer in the footer.
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+byte[] bz2CompressBuffer(byte[] source, int compressionLevel, bool includeSize);
+
+A function that compresses a byte buffer in a bz2 stream and returns the resulting buffer.
+If something goes wrong the returned buffer will be null.
+Prefer the previous implementation.
+
+includeSize		: includes the uncompressed size of the buffer in the footer.
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+int bz2DecompressBuffer(byte[] inBuffer, ref byte[] outBuffer,bool useFooter, int customLength);
+
+A function that decompresses a bz2 compressed byte buffer (or a bz2 file that was read into a byte buffer)
+into a referenced buffer. Returns 0 for ok.
+
+useFooter: 	the buffer has size information. Use it.
+customLength:	use a custom length for the decompression.
+
+Prefer this function over the next implemetation.
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+byte[] bz2DecompressBuffer(byte[] inBuffer, bool useFooter, int customLength);
+
+A function that decompresses a bz2 compressed byte buffer (or a bz2 file that was read into a byte buffer)
+and returns a new byte buffer with the uncompressed data.
+
+useFooter: 	the buffer has size information. Use it.
+customLength:	use a custom length for the decompression.
+
+Prefer the previous implemetation.
+
+-------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------
+
+
+SUPPORT:
+--------
+
+For any questions, problems and suggestions please use this email adress: elias_t@yahoo.com
+
+Forum: http://forum.unity3d.com/threads/released-free-bz2-native-multiplatform-plugin.339484/
+
+-------------------------------------------------------------------------------------------------------------------------------------
+version 1.2
+
+- added ability to add a size footer to the compressed buffers, so the uncompressed size of the buffer is not needed to be known anymore.
+
+- updated some iOS plugins.
+
+
+
+version 1.1
+
+iOS: added tvOS, watchOS and simulator plugins.
+Unity5.2: added WSA SDK10 NetCore support. That means even XboxOne is supported.
+
+
+version 1.01
+
+iOS: 		: updated the plugins.
+Unity5 Windows	: buffer operations bug fixed.
+
+
+version 1.0
+-Initial vesrion
+
+
+

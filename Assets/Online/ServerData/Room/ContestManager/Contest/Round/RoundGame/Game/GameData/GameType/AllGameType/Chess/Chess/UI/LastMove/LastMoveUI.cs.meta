@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 9d995be6ecd284246894b15b50733ab6
+timeCreated: 1525755139
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - contentContainer: {instanceID: 0}
+  - chessMovePrefab: {fileID: 114205346441929348, guid: b135e63502f1548bab81cabfc04dea37,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

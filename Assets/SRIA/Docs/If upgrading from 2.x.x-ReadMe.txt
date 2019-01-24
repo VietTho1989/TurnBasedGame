@@ -1,0 +1,1 @@
+Do NOT upgrade from 2.x.x without a doing prior backup, because the migration to v3.0 requires several steps to be made. Read the changes in release notes before doing so

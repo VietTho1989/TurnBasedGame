@@ -1,0 +1,28 @@
+fileFormatVersion: 2
+guid: 252e0151ca17a425ab38f0c40c658509
+timeCreated: 1521775693
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - chessPrefab: {fileID: 114631681694678128, guid: d73fcf15bf83049b7b02da6775db8030,
+      type: 2}
+  - goPrefab: {fileID: 114589404447546798, guid: 3c4b0c519cf7343faa6b8ddde3ef3c88,
+      type: 2}
+  - chineseChessPrefab: {fileID: 114975220870302392, guid: 23f14b89f48ee4ab6b08c4530cb90dc0,
+      type: 2}
+  - coUpPrefab: {fileID: 114080775307829564, guid: 2fbe0ab4730704b489c7c9fa7adfd1bc,
+      type: 2}
+  - othelloPrefab: {fileID: 114143134982423322, guid: ea74f739317284badb80ba5031991ecc,
+      type: 2}
+  - reversiPrefab: {fileID: 114532023480684282, guid: 2ca3a63a0f2054b48a8f44c3e5640331,
+      type: 2}
+  - shogiPrefab: {fileID: 114599319735626202, guid: 229149f89c8df4f3fbad526f8a895d9d,
+      type: 2}
+  - xiangqiPrefab: {fileID: 114192209141089808, guid: 97399ab279f21410798029e1441a9163,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

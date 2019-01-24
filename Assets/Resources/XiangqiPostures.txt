@@ -1,0 +1,566 @@
+Angler Horse 1
+3k1ab2/4aR3/1R2c4/4N4/9/4r4/9/9/3rAp3/2B1KAB2 w
+Angler Horse 2
+2bak4/3Ra4/b8/4Nn3/2p6/6P2/9/3RB4/1r2A1r2/1cBA1K3 w
+Angler Horse 3
+4ka3/4a4/4b2n1/1R7/1Nb6/5R1n1/9/B4A2B/2p4r1/3AK3c w
+Cannon Smothered 1
+4ka3/4a4/4b1n2/4c1C2/6b2/2B3B2/9/3A4C/2p1A4/3K5 w
+Cannon Smothered 2
+5a1R1/4kn3/3ab4/2R3Cp1/9/9/9/9/3rAr3/4K4 w
+Cannon Smothered 3
+2bak4/4aP3/bR7/1N2n4/9/6B2/4p4/2C4r1/5r3/2CAK4 w
+Cannon Smothered 4
+C3ka3/4aP1r1/nR2c4/p8/9/9/9/2C6/9/c1rAK4 w
+Cannon-Pawn 1
+9/1c2k4/b2P5/9/2b3p2/9/9/2p3p2/4AK3/3A3C1 w
+Cannon-Pawn 2
+3k1a3/2P1a2C1/6c2/8p/9/6B2/9/3A1K3/9/9 w
+Cannon-Pawn 3
+r1b1ka3/3Pa4/b8/9/9/9/9/1C4p2/9/c3K4 w
+Cannon-Pawn 4
+2baka3/5P3/b8/9/9/9/9/9/3K5/8C w
+Cannon-Pawn 5
+2P1ka3/4a4/9/9/9/9/8C/9/8r/2B1KA3 w
+Chariot and Cannon 1
+2bak3C/9/5a3/9/6pC1/6nR1/9/5n3/2r1A4/3K1A3 w
+Chariot and Cannon 2
+C2k1ab1r/4a4/4b4/9/9/1R7/9/4B2C1/3pAK3/2BA4r w
+Chariot and Cannon 3
+C3knN2/4a4/3ac4/3r2r2/9/9/4p4/9/4A4/CR2KAB2 w
+Chariot and Cannon 4
+3k1a3/4an3/1R2b4/9/2b6/1nB6/9/3AKAC2/5p3/1r7 w
+Chariot and Cannon 5
+5k3/9/b3R4/4C4/9/9/9/2p2A1p1/4K4/5c2r w
+Chariot and Cannon 6
+3n5/4a4/3a1k3/9/9/2C3R2/9/2p6/1p2Ar3/2B1K4 w
+Chariot and Double Cannons 1
+3a2b2/4k4/2R1c3b/C1p6/9/9/4p4/2C3n1B/2p1Ar3/3AK1B2 w
+Chariot and Double Cannons 2
+4kab2/4a4/4b4/9/2rr2p2/9/4R4/3p2CC1/4A4/1cBAK1B2 w
+Chariot and Double Cannons 3
+C3k1b2/9/5a3/4p4/6b2/2R6/p3c1p2/1C6B/3KA4/1r3AB1c w
+Chariot and Double Cannons 4
+5a3/3ka4/b8/6p1C/5Rb2/3C5/6p1r/2p2A2c/4K4/1rB6 w
+Chariot and Double Cannons 5
+3ak4/C8/3c5/9/9/2C6/9/3rB2n1/9/1R3K3 w
+Chariot and Double Cannons 6
+2ba1a3/5k1n1/8C/8p/2b6/9/9/2p1rCR2/2prAK3/1cBA2B2 w
+Chariot and Double Horses 1
+3ak1b2/4a1RN1/n3b4/9/9/6N2/9/B2p1p2B/6rc1/3AKA3 w
+Chariot and Double Horses 2
+2b6/3k2N2/3a5/3N1R3/6b2/2B6/r8/3AB4/7rc/3K1A3 w
+Chariot and Double Horses 3
+4ka3/4a4/b7b/NNR6/9/5n3/9/9/4A3c/1rcK1AB2 w
+Chariot and Double Horses 4
+3a2b2/1N2ak3/4b4/9/n4NpRp/9/9/4B4/2p1A1r2/3K1AB1c w
+Chariot and Double Horses 5
+4ka3/4a4/4b4/3c2pN1/7N1/7nr/9/5A2B/4A1r2/2R1K4 w
+Chariot and Double Horses 6
+3a1k3/1N2a4/6R2/9/2b6/1nBN5/2n6/9/6pr1/1cBAKA3 w
+Chariot and Horse 1
+4kab2/4a4/b8/4N1p2/9/1R7/9/3A5/2p3r2/4KAB1c w
+Chariot and Horse 2
+2b1k4/9/4b4/1N7/9/9/2p6/B4A1R1/1r3p3/c2K1AB2 w
+Chariot and Horse 3
+4k4/9/4ba2b/3N5/9/7R1/6p2/B3n4/2p1A1r2/3K1AB1c w
+Chariot and Horse 4
+2b5R/4k2N1/4b4/9/9/2B6/3p3p1/B1pA1A3/5r3/c3K4 w
+Chariot and Horse 5
+3a1k3/4a4/9/5NRn1/6p2/6B2/9/B8/2r1A2r1/4K4 w
+Chariot and Horse 6
+2ba1k3/4a4/4b4/5N2p/9/9/9/B1pA5/c1r1Ap3/3K3R1 w
+Chariot and Pawn 1
+5a3/9/3ak4/9/4P1R2/9/9/4B2p1/2n1A2r1/5K3 w
+Chariot and Pawn 2
+4ka3/2P1a4/9/p6R1/9/9/9/9/3r5/4K4 w
+Chariot and Pawn 3
+3a5/4a4/b2k4b/1P7/9/2R6/9/4B2p1/4A1prc/4KA3 w
+Chariot and Pawn 4
+5k3/4r1P2/7nb/4p4/9/9/9/4B4/9/2R1K4 w
+Chariot and Pawn 5
+9/r3ak3/3a5/pR2P4/9/9/9/9/4A4/4K4 w
+Chariot, Cannon and Pawn 1
+4k4/4a4/4Pa3/6C2/4p3R/9/9/1rp1c4/4A4/3K1A3 w
+Chariot, Cannon and Pawn 2
+4k4/4aP3/c3b4/5cC2/2b3nR1/9/9/9/4p4/2B2K3 w
+Chariot, Cannon and Pawn 3
+3a3r1/3kaP3/b8/C8/9/R8/9/2p3n2/4Ap3/4K4 w
+Chariot, Cannon and Pawn 4
+2bk1a3/6Rc1/2Pab4/9/2p6/6B2/9/C3B1n2/2p4r1/4KA3 w
+Chariot, Cannon and Pawn 5
+6b2/9/3k4C/4P4/9/9/9/4R4/3r1p3/4K1B2 w
+Chariot, Cannon and Pawn 6
+3a1k3/3P5/4ba3/4p4/2b6/9/9/2n1B2C1/1r1pA1p2/2BA1K1R1 w
+Chariot, Cannon and Pawn 7
+4k4/r1P6/1n1a1a3/9/9/6R2/4C4/3AK2p1/2r2p3/2B6 w
+Chariot, Cannon and Pawn 8
+3a2b2/3k5/5a2b/3Pp3R/pC7/2B6/9/2p2Ap2/3K5/r4AB1c w
+Chariot, Horse and Cannon 1
+2bak4/4a4/2c3N2/9/7C1/6r2/5R3/4n1p2/4A4/3A1K3 w
+Chariot, Horse and Cannon 10
+2ba5/1C7/3abk3/4pN3/2p6/4p4/4c4/2r1B4/2p1A4/4KABR1 w
+Chariot, Horse and Cannon 2
+5a1CN/3ka4/4b4/9/6b2/9/1R2p4/4B4/2r5r/2BAK4 w
+Chariot, Horse and Cannon 3
+2bakab2/1r3R3/9/5N3/9/C8/1r1p5/3AB4/4A1p2/5KB2 w
+Chariot, Horse and Cannon 4
+5ab2/3ka4/2Ncb3c/9/9/C8/9/3R3r1/1p1pAp3/2BAK1B2 w
+Chariot, Horse and Cannon 5
+2bak3C/9/3ac2R1/4N4/9/9/9/4p4/3KA4/cr7 w
+Chariot, Horse and Cannon 6
+3a1k3/4a2n1/8b/3n5/2b5N/2B6/5p3/B3C1R2/1r1p5/4KA3 w
+Chariot, Horse and Cannon 7
+3a5/3k5/b2a5/4p1N1R/2p3b1C/9/n8/1p2B4/3KA4/c1r2A3 w
+Chariot, Horse and Cannon 8
+3a1k3/4a4/C3b4/3Np4/2r6/5n3/3p5/7R1/4A2p1/3K1AB1c w
+Chariot, Horse and Cannon 9
+1r1ak4/4a4/c3b4/7NC/9/8R/9/2p1B1p2/3KA1n2/5A3 w
+Chariot, Horse and Pawn 1
+1Rbk1ab2/2n1aP3/2Nr5/9/9/9/9/6n2/4Ap3/2B1KA3 w
+Chariot, Horse and Pawn 2
+5a2R/5k3/3a5/4Pc2N/2b3b2/2B1n4/9/3AB4/2p2r3/4K4 w
+Chariot, Horse and Pawn 3
+3ak4/4a4/b3b4/9/3PN4/9/npp4R1/3AB4/3KA4/2r3B2 w
+Chariot, Horse and Pawn 4
+3k1a3/4a4/9/3P5/2b3b2/2B3N2/9/6r2/2p1Ap3/1R2KABc1 w
+Chariot, Horse and Pawn 5
+3ak4/4a4/b3b4/4p1pN1/3P5/2B6/2r6/4B4/cnp1A4/4KA1R1 w
+Chariot, Horse and Pawn 6
+4kab2/4a4/4b4/4P1N2/9/2B6/1R4p2/3A5/4AK2p/6r1c w
+Chariot, Horse and Pawn 7
+3a1k3/4a4/b3b4/1P2pN2p/9/2B4R1/2r1cp3/4B4/2p1A4/4KA3 w
+Chariot, Horse and Pawn 8
+4ka3/c1P1a4/4b4/9/2p3b2/1R4N2/9/3A1p3/2r6/c1BAK1B2 w
+Chariot, Horse, Cannon and Pawn 1
+1Nba1k1nc/7P1/7r1/9/9/C3R4/9/5A3/5p3/2BAK4 w
+Chariot, Horse, Cannon and Pawn 10
+5abr1/5kn2/b2a5/5P3/p8/3R5/6p2/3C5/2p1AK3/cNBA3r1 w
+Chariot, Horse, Cannon and Pawn 2
+3k1ab2/1NR1aP3/4b4/4C4/9/9/9/3A2n2/3p5/cr1AK4 w
+Chariot, Horse, Cannon and Pawn 3
+C3ka3/3Pa4/b7b/5NR2/9/9/9/9/c1r2pc2/2B1KA3 w
+Chariot, Horse, Cannon and Pawn 4
+2bak4/3Pa4/9/9/9/2N6/2r4nR/4B4/1p2Ap3/c2K1AC2 w
+Chariot, Horse, Cannon and Pawn 5
+2ba1kb2/4a4/9/9/4CP1N1/7R1/2np5/B5p2/r2r5/3AKAB2 w
+Chariot, Horse, Cannon and Pawn 6
+4ka3/C3a4/9/p3pP1N1/9/2B1c4/6r2/4B4/2p1A1pc1/1R1AK4 w
+Chariot, Horse, Cannon and Pawn 7
+2r1ka3/9/3ab1n2/7N1/4P1b2/7C1/9/5A1R1/p2pAp3/c3K4 w
+Chariot, Horse, Cannon and Pawn 8
+3k1a3/2P5R/5a3/9/2b4NC/1r3pB2/5n3/3AB4/3KAp3/1c7 w
+Chariot, Horse, Cannon and Pawn 9
+1N2k3C/3Pa4/5a3/9/6b2/6B2/9/2r6/2r3p2/1R1AKABc1 w
+Chariot-Cannon Discover 1
+1nbak4/4a2Rc/4b4/9/9/9/2C3C2/6n2/2r2p3/3AKA3 w
+Chariot-Cannon Discover 2
+1R1ak1b2/5P3/4ba1c1/2C2r3/2p6/7n1/2C6/4B4/4A1p2/4KABc1 w
+Chariot-Cannon Discover 3
+2b1k4/2P1a1C2/3ab1C1R/8p/p1p6/c5B2/8P/9/2r3p1r/2BAKA3 w
+Chariot-Horse (BA-Huang Horse) 1
+3akab2/3R5/8b/9/2N6/9/4c1r2/1C2B3n/4A1p2/2BAK4 w
+Chariot-Horse (BA-Huang Horse) 2
+3a5/4ak3/b7N/2P6/9/2B1pnR2/6P2/1Cn1B4/3p1r3/3AKA3 w
+Chariot-Horse (BA-Huang Horse) 3
+5a3/3ka4/2N6/4P4/9/9/9/4B4/3r1r1n1/2RAKAB2 w
+Chariot-Horse Zugzwang 1
+4ka3/1N1ca4/4b4/3R5/6b2/9/4p4/4B4/4Arr2/R2AK1B2 w
+Chariot-Horse Zugzwang 2
+2baka3/2R6/4b2c1/6N2/2p6/5RB2/7p1/9/2p1A1rr1/3AK1B2 w
+Chariot-Horse Zugzwang 3
+4ka3/4a4/4b4/9/5Rb2/c1P4N1/1R7/BC1A1p2C/2r3r2/1n2K4 w
+Chariot-Horse Zugzwang 4
+1N1aka3/9/4b4/9/2b3p2/R4R2p/1n1p4r/4B4/4A1r2/3AK1B2 w
+Double Cannon 1
+4k4/4aP3/4c4/CCR6/2b3b2/9/5r3/4B4/4Ap3/2BAK3c w
+Double Cannon 2
+2b2k3/4a1P2/4ba1c1/4C4/9/2CR5/4r4/6c2/3pA4/2BAK1B2 w
+Double Cannon 3
+3a1k3/2C1R4/3ab3n/1C4RNc/2b6/9/9/3ABA3/1n1r1r3/4K1B2 w
+Double Cannons 1
+3ak3C/4a4/6C1n/2p3p2/9/9/9/9/9/2B1K1B2 w
+Double Cannons 2
+2baka3/9/4c4/9/2b3C2/8C/9/4B4/2p1A4/2B1K4 w
+Double Cannons 3
+2c3c2/4k4/b2a1a3/7C1/2b6/2B6/9/9/4C4/4K4 w
+Double Cannons 4
+3ak4/3nan3/5C3/9/9/9/9/9/4KC3/9 w
+Double Cannons 5
+c2a5/4ak3/7C1/p8/9/9/8p/4K4/4A4/6C2 w
+Double Cannons and Pawn 1
+4ka3/9/3a1P3/4C4/6C2/p8/9/9/rp3p3/2BK5 w
+Double Cannons and Pawn 2
+2bk1a3/5P3/3a5/1C2p2C1/9/9/9/4B4/1p2r1p2/3K5 w
+Double Cannons and Pawn 3
+2bak4/4aP3/4b4/6C2/9/4C4/1pp6/4B4/4A2pr/2BAKp3 w
+Double Cannons and Pawn 4
+6b2/4ak1P1/5a3/9/p8/9/7p1/BCc6/p7C/c3K4 w
+Double Cannons and Pawn 5
+2P1kac2/4a4/4c4/9/9/9/9/4C4/4A4/2p1KAC2 w
+Double Chariots 1
+2ba1k3/4a4/4b2R1/1R7/9/9/9/4n4/2r1A1n2/3K1A3 w
+Double Chariots 2
+4ka3/4a4/8b/9/5n3/8R/9/4B1n2/4Ar1c1/2RAK4 w
+Double Chariots 3
+1R1akab2/6R2/3cb1n2/4pNr2/2n6/9/9/4B4/4A4/2BAK4 w
+Double Chariots 4
+2r1k2r1/4a4/b5R2/9/6b1R/9/9/B8/1p6p/4K1B2 w
+Double Chariots 5
+5k3/4a4/b2ac4/4p4/2b6/2B3R2/9/3AB4/1pp2rn2/3AK2R1 w
+Double Chariots and Pawn 1
+2bak4/4a4/4b4/2r2P1R1/9/9/4c2R1/2n1B4/4A1p2/4KAB2 w
+Double Chariots and Pawn 2
+2ba1k3/2R1a4/3cb1P2/5r3/9/9/5n3/9/3p5/2BAKABR1 w
+Double Chariots and Pawn 3
+2bk1a3/5P3/1r1a3R1/2R6/p1b6/9/5p3/5c3/5r3/2BK5 w
+Double Chariots and Pawn 4
+4kab2/2P1a1c2/4c3b/8R/4p4/1R2n4/9/4B1r2/2p1A4/4KA3 w
+Double Devils Knocking at Door 1
+3ak4/2P1a1P2/4b4/c8/6b2/8R/2r6/4B4/1p2A4/2B1KA3 w
+Double Devils Knocking at Door 2
+3aka3/5P3/b2P5/1c6N/2b6/9/9/9/2p2p3/3K5 w
+Double Devils Knocking at Door 3
+4ka3/2P2P3/c3b4/9/6bC1/9/9/9/3p5/2p1K4 w
+Double Devils Knocking at Door 4
+4kab2/3PaP3/4b4/4C4/9/9/9/2r1BA3/p3K4/9 w
+Double Horses 1
+4kab2/1N2a4/4b4/3N5/6n2/6B2/1n7/4B4/4Ap3/3AK4 w
+Double Horses 2
+3a1kb2/4a4/4b4/5NN2/9/9/9/9/2r2p3/3AK1B2 w
+Double Horses 3
+4kab2/1N1Pa4/4b4/3N5/7n1/9/9/2nA1Ap2/2p3p2/4K4 w
+Double Horses 4
+3a4N/3Pak3/4b4/9/6b2/5N3/2n6/9/2p1A1n2/3K1A3 w
+Double Horses 5
+9/9/b2ak2N1/9/N8/9/9/4B1p2/1p3p1n1/3AKABc1 w
+Double Horses and Pawn 1
+3a1kb2/3P5/4ba3/5N2N/9/7n1/5p3/3n5/9/5K3 w
+Double Horses and Pawn 2
+3aka3/9/9/4P4/6N2/2N6/8r/4n4/4A4/3A1K3 w
+Double Horses and Pawn 3
+2bnnk3/4a4/4Pa3/9/5N3/5NB2/1c7/9/3p2p2/2BAKA3 w
+Double Horses and Pawn 4
+2bak4/4a4/4b4/p2N2P1N/2p6/c1B6/9/B4Ap2/3p5/c3K4 w
+Double Horses and Pawn 5
+3an4/3Nr1N2/5k3/6n2/5P3/9/9/9/3p5/5K3 w
+Drills for Cannon-related 1
+2b2a3/2P1k4/2rP1a3/4C4/2b6/9/9/9/4p2p1/5K3 w
+Drills for Cannon-related 2
+3k1a3/4PP3/3a5/9/9/7C1/9/3A5/3p1pr2/4K4 w
+Drills for Cannon-related 3
+4k4/3P1P3/3a1a3/9/9/2C6/4c4/9/3pp4/5K3 w
+Drills for Cannon-related 4
+3kc4/4a4/4Pa3/9/9/9/9/3A5/4K4/4C4 w
+Drills for Cannon-related 5
+9/3k5/4P4/9/9/2p1c4/9/3A5/4C4/3K5 w
+Drills for Cannon-related 6
+5ab2/9/3abk3/8C/5P2C/2B6/9/2n1B4/3pp4/c4K3 w
+Drills for Cannon-related 7
+3ak1b2/4aPP2/8b/9/6p2/9/9/2p5r/1p1cA2CC/4K1c2 w
+Drills for Cannon-related 8
+3a1k1P1/6P2/5a2c/2n3C2/9/9/9/9/4pp3/3K5 w
+Drills for Chariot and Cannon Combined 1
+9/5k3/3aba1R1/9/9/9/9/9/1c1rA1p2/2pC1K3 w
+Drills for Chariot and Cannon Combined 10
+4kab2/4a4/4b2c1/CRC1R3c/9/9/9/4B1n2/5r3/2BAKA3 w
+Drills for Chariot and Cannon Combined 11
+2b3r2/1C3k3/n3ba3/1R3R1c1/9/9/9/3A5/4A3r/1C3K2c w
+Drills for Chariot and Cannon Combined 12
+R2ak4/2Pca4/4b1ncb/4C1R2/2r2n3/9/9/4p4/4A4/3K1A3 w
+Drills for Chariot and Cannon Combined 13
+2bak3C/4a4/2n1b1c2/9/9/9/9/4B1r2/3rA4/1R2KABR1 w
+Drills for Chariot and Cannon Combined 14
+4kr3/4a3R/3ab4/R8/6b2/2B1r1B2/9/4C1n2/1p2Ap3/3K1A3 w
+Drills for Chariot and Cannon Combined 15
+3aka3/9/4b1n1c/3R3C1/2p5p/7R1/2r6/4BA3/5p3/4KAB1c w
+Drills for Chariot and Cannon Combined 16
+4ka2c/9/3a5/6rr1/9/9/1RR6/4p1n2/5p3/C2AKA3 w
+Drills for Chariot and Cannon Combined 2
+9/5k3/3aba1R1/9/9/9/9/9/1c1rA1p2/2pC1K3 w
+Drills for Chariot and Cannon Combined 3
+2baka3/9/4b4/9/9/9/9/6R1C/3r1p3/3AKA1Cc w
+Drills for Chariot and Cannon Combined 4
+1c2k1C2/c4P3/5a3/7R1/9/9/9/9/3pr2C1/2B2K3 w
+Drills for Chariot and Cannon Combined 5
+2bk3C1/c3aPRC1/3ab4/9/9/9/9/4B4/1r3p3/2BK5 w
+Drills for Chariot and Cannon Combined 6
+6b2/3Pak3/3ab4/4P4/4c4/4C4/9/7R1/1r2p4/3K5 w
+Drills for Chariot and Cannon Combined 7
+4k1b2/4aP3/3a5/RC7/2b6/6B2/9/4p4/1c2A2r1/3A1K3 w
+Drills for Chariot and Cannon Combined 8
+5kb2/4a1P2/5a3/4R2C1/9/8n/9/9/3pA1r2/3A1K3 w
+Drills for Chariot and Cannon Combined 9
+3rk4/3ra4/4c4/2C3CR1/6b2/9/9/2n6/9/2BAKAB2 w
+Drills for Chariot and Horse 1
+4c4/4ak3/5a3/9/1r2N2N1/5R3/9/9/3p5/3AKA3 w
+Drills for Chariot and Horse 10
+3k1ab2/5R3/2n1bR3/2Nc5/9/r8/4c4/2p1B4/4A4/4KAB2 w
+Drills for Chariot and Horse 11
+3ak1b2/4a4/4b1c2/R4N3/6p2/8R/2r6/9/3pA1r2/3AK4 w
+Drills for Chariot and Horse 12
+2n2a3/4a1P2/3kb4/2PN5/2bR5/9/4n4/6r2/3pA4/3A1K3 w
+Drills for Chariot and Horse 13
+3akab2/5PP2/2N6/9/2b1c4/R8/2n6/3A5/4A1r2/3K5 w
+Drills for Chariot and Horse 14
+6b2/2N2k3/4b4/7R1/9/9/3p5/4B4/4rp3/3K5 w
+Drills for Chariot and Horse 15
+2b2k3/3Ra4/3aN3b/9/9/9/9/2n1B1r2/2p2r3/3AKA1R1 w
+Drills for Chariot and Horse 16
+3k1ab2/2R3N2/1r1a2R2/4p4/2p1c1b2/9/N8/9/4r4/3K5 w
+Drills for Chariot and Horse 2
+3k1a3/5P3/9/6r2/1N7/7R1/9/2n2A3/4A4/1c2K4 w
+Drills for Chariot and Horse 3
+3a1a3/5k3/3NR4/1R1r2n1c/9/9/9/9/5rp2/3AKA3 w
+Drills for Chariot and Horse 4
+3ak4/4aP3/b3b1P2/2R4N1/9/9/9/4BA3/1cp3r2/2BK5 w
+Drills for Chariot and Horse 5
+2ba1a3/5R1N1/b2k5/9/9/9/9/4p4/1r2A2r1/3AK1R2 w
+Drills for Chariot and Horse 6
+3a3r1/8R/1r2k3b/9/3R2b2/4p1N2/9/9/4A4/3K5 w
+Drills for Chariot and Horse 7
+3P5/4ak3/3a2R1b/9/5Pb1N/9/8r/5A3/5r3/2BAK4 w
+Drills for Chariot and Horse 8
+2ba1kb1N/4a1R2/6R2/9/9/9/9/2n6/3rA4/2rAK4 w
+Drills for Chariot and Horse 9
+2P1k1b1c/2R1a4/4baP2/3N5/9/9/9/4B4/6rp1/3A1KB2 w
+Drills for Chariot Related 1
+2bk5/4a4/3aP4/9/6b2/2B6/7RR/B2A5/1r3p3/4KA1r1 w
+Drills for Chariot Related 2
+3k1a3/2R6/2R2aP2/9/9/9/9/4B4/1r5r1/4K4 w
+Drills for Chariot Related 3
+4k4/4a1PRR/5a3/9/9/4r4/4r4/3ApA3/9/4K4 w
+Drills for Chariot Related 4
+9/3Pak3/3a5/7R1/9/9/9/2rpB4/4K4/2B6 w
+Drills for Chariot Related 5
+9/1P2k4/b2a1a3/4P4/7r1/9/2R1p4/3n5/9/2BA1K3 w
+Drills for Chariot Related 6
+4k1b2/1RPna2R1/4b4/4cP3/9/9/9/9/1nr4r1/3K5 w
+Drills for Chariot Related 7
+4ka3/4aP3/9/5R3/3P5/9/9/Bnr1B1p2/4K4/9 w
+Drills for Chariot Related 8
+2Pc5/2r1a1n1R/b4k2b/6P2/9/9/9/9/3p1p3/4K4 w
+Drills for Chariot, Cannon, Horse and Pawn Combined 1
+3ack3/1CR3P2/2Nn1a3/9/9/9/9/9/3r1p3/3AKA3 w
+Drills for Chariot, Cannon, Horse and Pawn Combined 10
+C3kab2/3RaR3/6c2/3N2r2/1N1n5/9/9/4BC3/4A2r1/3A1K2c w
+Drills for Chariot, Cannon, Horse and Pawn Combined 11
+3ak4/4a1RP1/4bR3/8C/2r1N1b1c/3n2N2/4c4/1n2BC3/4Ar3/4KA3 w
+Drills for Chariot, Cannon, Horse and Pawn Combined 12
+2b2kr2/3Ra2R1/3nba3/N3C2C1/1n4r2/9/9/9/2c1A4/3A1K3 w
+Drills for Chariot, Cannon, Horse and Pawn Combined 13
+1Cbaka3/1R7/2n1b4/2N1p4/9/3R5/4P4/4C1r1B/4Ar1n1/3AK3c w
+Drills for Chariot, Cannon, Horse and Pawn Combined 14
+R2a2C2/3k5/1c1nR2n1/r5NN1/9/9/9/9/2pr5/3AK4 w
+Drills for Chariot, Cannon, Horse and Pawn Combined 15
+3ckab2/4a2N1/4b2r1/p2RC4/2p6/6p2/9/r3B4/4A4/2R1KAB1c w
+Drills for Chariot, Cannon, Horse and Pawn Combined 16
+R2ak4/3Ra4/2n6/2N6/9/9/9/9/5r3/C3KA1rc w
+Drills for Chariot, Cannon, Horse and Pawn Combined 2
+5k3/C2P2R1n/2Na1a3/9/3c5/9/9/4n4/4A1r2/3AK4 w
+Drills for Chariot, Cannon, Horse and Pawn Combined 3
+1RC2kb2/3ra1N2/4ba3/5R3/9/9/9/5A3/1cc1A3r/5K3 w
+Drills for Chariot, Cannon, Horse and Pawn Combined 4
+3ak1b2/4a4/4N4/9/3R5/6C2/4c4/4B4/1n1RAr3/4KAr2 w
+Drills for Chariot, Cannon, Horse and Pawn Combined 5
+3ak1b2/4a4/4N4/9/3R5/6C2/4c4/4B4/1n1RAr3/4KAr2 w
+Drills for Chariot, Cannon, Horse and Pawn Combined 6
+2bk1a3/1R2RN3/b3na3/2n6/9/1C1p5/4c4/4B4/3rAp1r1/1C2KA3 w
+Drills for Chariot, Cannon, Horse and Pawn Combined 7
+4kab2/3Pa3C/4b3c/6N2/6p2/9/9/4B4/3rA1r2/2B1KR3 w
+Drills for Chariot, Cannon, Horse and Pawn Combined 8
+2b3b2/1Ppka4/3aN1n2/9/9/5R3/9/6CnB/3r5/2BAK3c w
+Drills for Chariot, Cannon, Horse and Pawn Combined 9
+c1bak4/9/2rab4/5N3/5R3/5C3/9/4B4/2p1A4/1n1K1AB2 w
+Drills for Horse and Cannon Combined 1
+3aka3/5c3/5c3/4NPC2/9/9/9/9/2p1p4/3K4C w
+Drills for Horse and Cannon Combined 10
+N1b1ka3/4a4/9/9/2b6/3N4n/9/C8/3pAK3/3A2r2 w
+Drills for Horse and Cannon Combined 11
+C3k4/3Na4/8b/1N7/9/9/8n/9/2n1A4/2BA1K2c w
+Drills for Horse and Cannon Combined 12
+2ba1k3/C3P4/9/3N1r3/9/2C6/4n4/9/9/3K5 w
+Drills for Horse and Cannon Combined 13
+2b1kab2/c2Pa4/4c4/4C4/9/6Br1/9/N3C1n2/5p3/4KA3 w
+Drills for Horse and Cannon Combined 14
+C3ka3/2C1a4/b1n5c/1N1c5/6b2/9/9/9/5p3/4K4 w
+Drills for Horse and Cannon Combined 15
+N1b1k1b2/4aPN2/5a3/6C2/8c/9/4r4/9/3pA4/4KA3 w
+Drills for Horse and Cannon Combined 16
+2ba1k2C/4an2N/8b/9/9/9/6C2/1n1A1p3/3p5/1cBAK4 w
+Drills for Horse and Cannon Combined 2
+3a1k3/1C7/3a1P3/4N4/9/7C1/9/4n4/1r2Ap3/3K1A3 w
+Drills for Horse and Cannon Combined 3
+3a5/4an3/2C1k4/9/9/1N2C4/9/4p4/1r1p5/3AKA3 w
+Drills for Horse and Cannon Combined 4
+9/9/3k1N3/9/1C5N1/9/1n5r1/9/3p1K3/9 w
+Drills for Horse and Cannon Combined 5
+3a1k2C/8n/5a2N/8N/9/9/9/3A2n2/5p2c/2BAK1B2 w
+Drills for Horse and Cannon Combined 6
+3a1k2C/8n/5a2N/8N/9/9/9/3A2n2/5p2c/2BAK1B2 w
+Drills for Horse and Cannon Combined 7
+5a3/4aP3/3kb1N1C/2P6/9/9/9/4c4/3r1p3/3AKA3 w
+Drills for Horse and Cannon Combined 8
+3a1a3/7C1/3kb1N2/9/6b2/2N6/9/3A5/3r1p3/4Kc3 w
+Drills for Horse and Cannon Combined 9
+3k2b2/2PN5/4bC3/8C/9/9/5r3/5n3/4p4/5K3 w
+Drills for Horse-Related 1
+3a5/9/1P1k1P3/9/6bN1/6B2/7r1/5A3/5p3/3AK4 w
+Drills for Horse-Related 2
+7r1/9/5k3/6P1N/9/9/9/9/9/4K4 w
+Drills for Horse-Related 3
+3n1a3/4a4/5k1P1/2N6/9/9/9/9/3p2p2/4K4 w
+Drills for Horse-Related 4
+5a3/3kaP3/2P1b4/2N6/6bn1/9/9/9/4p4/5K3 w
+Drills for Horse-Related 5
+5a3/4a4/3k4b/2P6/9/3N5/9/9/5p1n1/4K4 w
+Drills for Horse-Related 6
+3k2b2/2P1pP3/3a1a3/2Nc5/6b2/9/9/4B4/3p2p2/4K4 w
+Drills for Horse-Related 7
+3a5/4aN3/2N2k2r/6P2/9/2P6/5r3/9/4A4/4K1B2 w
+Drills for Horse-Related 8
+3k1P3/9/1P1a1a3/9/9/2B6/9/N5p1B/3p5/4K3c w
+Elbow Horse 1
+4kab2/3Pa4/2n1b1R2/9/6pN1/9/6C2/9/4rp3/3K5 w
+Elbow Horse 2
+3ak1bP1/4a3R/4b4/1N7/9/9/9/2p6/4pr3/3K5 w
+Elbow Horse 3
+1r1akab2/2P6/7R1/6PN1/6n2/C5B2/9/4B4/8r/3K5 w
+Exposed Cannon 1
+3ak1b2/4aR3/4b4/4p4/9/4C4/R3c1r1r/4C1n1B/4A4/1cBAK4 w
+Exposed Cannon 2
+3a1a3/3k5/4b4/2CP2p2/4R1b2/9/7r1/2p1B4/2n1A2p1/3A1K3 w
+Face-to-Face Laughing 1
+9/3ka4/5a3/2P4R1/9/9/5r1n1/C8/9/2B1KAB1c w
+Face-to-Face Laughing 2
+1r1ak1b2/4aR3/2C1b4/9/9/2R6/2C3r2/9/5p3/ccBAKAB2 w
+Face-to-Face Laughing 3
+3ak4/4a4/7R1/5P3/9/9/9/2n6/3rA4/4K4 w
+Face-to-Face Laughing 4
+5a3/3ka4/bP7/9/9/9/6p1r/C8/5p3/R3K4 w
+Fishing the Moon Under Deep Sea 1
+2R2nC2/3ka4/5a3/9/2b3b2/9/9/1r5p1/4K4/9 w
+Fishing the Moon Under Deep Sea 2
+r2k1aP2/4a4/9/7R1/9/9/9/3A5/4K4/9 w
+Flanking Trio 1
+9/3k5/2RabN2C/C3P4/2b6/9/9/4p4/8r/cr1AKA3 w
+Flanking Trio 2
+2bak4/1R1Pa4/2C1b4/2p6/9/2B6/4p4/9/2r1A1p2/c1BA1K3 w
+Flanking Trio 3
+2bak4/4a3P/2n1b2R1/6N2/2p3p2/6B2/p8/2r6/4A4/c1BAK4 w
+Smothered 1
+2bak4/4aP1C1/4n2R1/6p2/9/9/4P1r2/9/4p4/3K5 w
+Smothered 2
+3a5/4a4/3k5/9/9/1R7/p8/3Cr4/3KAr3/5A3 w
+Smothered 3
+2b1ka1n1/1R1Pa4/3nb4/6CN1/9/9/9/9/3p3r1/2BAKAB2 w
+Heavenly and Earthly Cannons 1
+4ka3/4a4/b3c4/nr7/6b2/2PR5/4C4/Bp2C4/4A4/c3KAB2 w
+Heavenly and Earthly Cannons 2
+3a1kbn1/4a4/4b4/6p2/1R7/4C3C/4p4/4B1p2/4A1r2/2BAK2c1 w
+Heavenly and Earthly Cannons 3
+2rak1b2/4a4/4b3c/1R1R5/9/7C1/9/C5p2/5r3/c1BAKA3 w
+Heavenly and Earthly Cannons 4
+2bak4/6P2/c2abP3/1C7/9/9/1C7/4B4/2r1A3r/3A1K3 w
+Horse and Cannon 1
+3k1a3/4a4/9/N8/2b3b2/9/9/5AnC1/2p3p2/4K1c2 w
+Horse and Cannon 2
+5a3/4a4/3k5/9/4p4/C5N2/9/3r5/5p3/2B1K1B2 w
+Horse and Cannon 3
+2cnk3C/4a4/b4a3/7Np/9/9/9/9/3p5/4K4 w
+Horse and Cannon 4
+3ak4/4a4/b8/1Np6/6b2/9/9/n4C3/3p5/c1BAKA3 w
+Horse and Cannon 5
+9/5k3/5a3/9/9/2N2r3/9/9/9/4KC3 w
+Horse and Cannon 6
+3a5/5k3/2N2a3/9/4C4/9/9/8B/1p1p2p2/1c2K1B2 w
+Horse and Cannon 7
+3a1a3/4k4/b3b4/9/9/6N2/6C2/p2K1A3/2p6/rnB6 w
+Horse and Cannon 8
+3a1a3/5k3/9/5N3/9/9/p6C1/3A3p1/4Ar3/4K1B2 w
+Horse, Cannon and Pawn 1
+2b1ka3/4a4/b1P6/1cp5N/9/9/9/1p6C/3p5/c3KAB2 w
+Horse, Cannon and Pawn 10
+3a1kb2/4a1P2/4b4/5N2C/9/9/9/B3B4/r2pA4/c3KA3 w
+Horse, Cannon and Pawn 2
+9/4a4/b2k1a2b/1NP1p4/9/C8/9/3ABA3/1p3p1n1/4K2c1 w
+Horse, Cannon and Pawn 3
+3c4C/3ka4/4Pa2b/7N1/2b6/4p4/2n1c4/4B4/4A4/4KA3 w
+Horse, Cannon and Pawn 4
+3a5/5P3/3ak3b/3C2p2/6b2/7N1/8p/9/2p1A3n/3K1AB1c w
+Horse, Cannon and Pawn 5
+2b2k3/4a1P2/bN3a3/1C7/9/6p2/9/3A4B/4A2p1/2p2KBnc w
+Horse, Cannon and Pawn 6
+2b1ka3/4a4/4b4/CN1P5/9/9/9/4pA1n1/3p5/4KABc1 w
+Horse, Cannon and Pawn 7
+N1bak4/4a4/4b1P2/9/4C1p2/9/4p4/8B/n5p2/c1BAK4 w
+Horse, Cannon and Pawn 8
+3a1k3/3P5/b4a3/4N4/2b1p4/4C4/9/B8/c1p4p1/4K2c1 w
+Horse, Cannon and Pawn 9
+2bak4/4a4/4b4/1N4P2/3C2c2/9/9/9/3pAp3/4KAn2 w
+Horse – Cannon 1
+3k5/9/3a1a3/3cRNC2/9/9/9/3A1A3/6r2/2n1K4 w
+Horse – Cannon 2
+C1bakaR2/P4P1n1/C3b4/9/6c2/2N6/9/4B4/3r3r1/2B1K3c w
+Horse – Cannon 3
+4kab2/4a4/4b4/1N1r5/9/1R7/9/3C2p2/2c1A2r1/3A1K3 w
+Horse-Pawn 1
+3k1a3/2P1a4/9/2N6/9/4c4/9/9/9/4K4 w
+Horse-Pawn 2
+1c3a3/4a4/b4k2b/9/5P3/2N6/6p2/3p5/2p1K4/2B3B2 w
+Horse-Pawn 3
+1Pba1kbn1/9/5a3/2p3p1N/9/9/9/9/4K4/2B3B2 w
+Horse-Pawn 4
+1c1ak3N/4aP3/9/9/p8/9/9/9/5p3/4K4 w
+Horse-Pawn 5
+1Nck5/4P4/b7b/9/9/9/2p4p1/9/9/5K3 w
+Horse-Pawn 6
+3aka3/2c1n4/4bP3/9/4N4/9/9/9/4A4/3AK4 w
+Iron-Bolt 1
+3akab2/3R5/4b1r2/8C/9/9/9/1p2B4/4Ap3/3K1AB1c w
+Iron-Bolt 2
+4kab2/2r1a4/4b4/7C1/1NpR5/4C4/7c1/B8/2p1Arn2/4KAB2 w
+Iron-Bolt 3
+4ka3/3Pa4/8b/7Cp/9/9/9/9/9/4K4 w
+Octagonal Horse 1
+3a1k3/N5P2/3a4c/4n4/9/1C7/9/9/2p1A1p2/3K1A3 w
+Octagonal Horse 2
+3PNk3/4a4/4Ra3/9/9/9/9/4p1r2/9/3K5 w
+Octagonal Horse 3
+9/3Pak1P1/5a3/9/4N4/9/9/4Bp2B/1p2r4/3K5 w
+Palcorner Horse 1
+3akab2/2R3n2/4b4/4R4/4N4/4c4/9/4B4/4Apr2/c1BAK4 w
+Palcorner Horse 2
+4ka3/4a4/1r2b2c1/9/2b6/2N6/2n4r1/4C1p2/4A4/R1BAK3R w
+Palcorner Horse 3
+3aka3/9/2r1b2R1/7N1/9/7C1/8P/8B/3pA3c/2B1K2c1 w
+Repatriation of Buddha 1
+9/4ck3/5aR2/9/5P3/9/7n1/5R3/1c2A2r1/3A1K3 w
+Repatriation of Buddha 2
+2baka3/4n4/4b4/N1p6/1nPR5/9/3C5/4B4/5pr2/2BAK4 w
+Repatriation of Buddha 3
+2b2a3/2Nka1rC1/b6c1/1R2P4/2r6/7C1/4c2n1/4B4/4A4/4KAB2 w
+Simultaneous Double 1
+3k1a3/2P6/b2a5/9/2b6/9/1N3C3/6n2/5p3/4K1c2 w
+Simultaneous Double 2
+2b1k1N2/3caP3/4ba3/5C1C1/9/2n3n2/9/9/4p4/3K5 w
+Simultaneous Double 3
+9/3k5/2RabN2C/C3P4/2b6/9/9/4p4/8r/cr1AKA3 w
+Stalemate 1
+2bak4/4a3P/2n1b2R1/6N2/2p3p2/6B2/p8/2r6/4A4/c1BAK4 w
+Stalemate 2
+5ab2/1P1k5/3a4b/9/6p2/9/6P2/9/9/4KC3 w
+Stalemate 3
+3aka3/9/9/6p2/C8/c8/4C4/4B4/9/4K1B2 w
+Throat-cutting 1
+3akr3/R3nrC2/3a5/9/9/9/9/6n2/C2pA4/1R2K4 w
+Throat-cutting 2
+3akab2/9/4b4/1R3P3/9/C1R6/9/5p3/6r2/2BAKA1rc w
+Throat-cutting 3
+2b1ka3/1R2aP1n1/6R2/9/9/2r3C2/9/6p2/3rA4/5K3 w
+Tiger Silhouette 1
+N2ak1bR1/4a4/4b4/9/6p2/2P6/2r6/4B4/3pA4/1cBAK4 w
+Tiger Silhouette 2
+4ka3/2c1a4/4b4/4C2R1/2r1N1b2/9/9/4B4/1n1rA4/2BAKR3 w
+Tiger Silhouette 3
+5k3/4a4/2ca5/4pP3/8R/1n4B2/1r7/4B3N/2p1A4/4KA3 w

@@ -1,0 +1,41 @@
+fileFormatVersion: 2
+guid: d29a2b8443f5f48b98927b9ff0564024
+timeCreated: 1527324560
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - BPawn: {fileID: 21300000, guid: f5580d8aa22b24fefbcccd355d2e36c6, type: 3}
+  - BLance: {fileID: 21300000, guid: cf66b0203784149dd8aca77194dfef82, type: 3}
+  - BKnight: {fileID: 21300000, guid: 2d95c75b1730240838be8f7ab9e55c91, type: 3}
+  - BSilver: {fileID: 21300000, guid: 000cfad4ad02f4af18d292da48799944, type: 3}
+  - BBishop: {fileID: 21300000, guid: 9d95a8ad1538d411c86eccbded9687c1, type: 3}
+  - BRook: {fileID: 21300000, guid: 265a50fe77f064cffa3e04d195793a62, type: 3}
+  - BGold: {fileID: 21300000, guid: 930633931ec394461b3265c393301ec1, type: 3}
+  - BKing: {fileID: 21300000, guid: 89b935aa871804403a886ef97e1fb0cb, type: 3}
+  - BProPawn: {fileID: 21300000, guid: f0ba98d31db7a4b22a7b30e1838a956e, type: 3}
+  - BProLance: {fileID: 21300000, guid: c3af707c12e7c491fbb8f953f7a222c3, type: 3}
+  - BProKnight: {fileID: 21300000, guid: ce54347eae65c4434ac6ff94fe377b3b, type: 3}
+  - BProSilver: {fileID: 21300000, guid: 60a827043ec6e4addb48b2d4fad7b270, type: 3}
+  - BHorse: {fileID: 21300000, guid: c65516f76e9284ea2b7933588023b9e9, type: 3}
+  - BDragon: {fileID: 21300000, guid: c2175082df7ea4edbaa8282c75d881bd, type: 3}
+  - WPawn: {fileID: 21300000, guid: 23c7ffb5878a547a8b5d785907f8a4b7, type: 3}
+  - WLance: {fileID: 21300000, guid: eeb0ce40b4dcf4d299df7d155b70206b, type: 3}
+  - WKnight: {fileID: 21300000, guid: a72f68c75b3994cca8646926cc3e4128, type: 3}
+  - WSilver: {fileID: 21300000, guid: ff5ce4af4a92545b3ab3125ac86119c5, type: 3}
+  - WBishop: {fileID: 21300000, guid: ff08fecfef5d2450d8da763f41aeec62, type: 3}
+  - WRook: {fileID: 21300000, guid: e7f9397f682ef455bb3b864233e29c06, type: 3}
+  - WGold: {fileID: 21300000, guid: 7b5f5d25a851248d28c537198f4e251d, type: 3}
+  - WKing: {fileID: 21300000, guid: 0006b9fdcbd3c49eeafbe0a55c79ed5a, type: 3}
+  - WProPawn: {fileID: 21300000, guid: d0bb2cfceeede43e9972bc8bf65e76d5, type: 3}
+  - WProLance: {fileID: 21300000, guid: 23c65224805994e8c9d46c047b934193, type: 3}
+  - WProKnight: {fileID: 21300000, guid: 25898cbed7fad4011b52648ca112a54b, type: 3}
+  - WProSilver: {fileID: 21300000, guid: 5a69a7db37c1c4e1ca6ab1f3bb707460, type: 3}
+  - WHorse: {fileID: 21300000, guid: 04d45a9eca9a14c059dab27adbf76dd0, type: 3}
+  - WDragon: {fileID: 21300000, guid: d425ad8f4ee554027aa8bae5ce15c5ac, type: 3}
+  - PieceNone: {fileID: 21300000, guid: 5986fe0b3d0e048d2bc1f1333431c07f, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
