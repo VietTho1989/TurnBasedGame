@@ -17,8 +17,6 @@ namespace EnglishDraught
 
 			public VP<byte> piece;
 
-			public int animationSquare = -1;
-
 			#region Constructor
 
 			public enum Property
@@ -41,8 +39,6 @@ namespace EnglishDraught
 
 		#region Refresh
 
-		public GameObject activeContent;
-
 		public Image imgPiece;
 
 		public override void refresh ()
@@ -50,174 +46,191 @@ namespace EnglishDraught
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {
-					// activeContent
-					bool isActive = true;
-					{
-						if (activeContent != null) {
-							if (this.data.square.v >= 0) {
-								activeContent.SetActive (true);
-								isActive = true;
-							} else {
-								activeContent.SetActive (false);
-								isActive = false;
-							}
-						} else {
-							Debug.LogError ("activeContent null: " + this);
-						}
-					}
-					if (isActive) {
-						// check load full
-						bool isLoadFull = true;
-						{
-							// animation
-							if (isLoadFull) {
-								isLoadFull = AnimationManager.IsLoadFull (this.data);
-							}
-						}
-						// process
-						if (isLoadFull) {
-							// Find MoveAnimation
-							MoveAnimation moveAnimation = null;
-							float time = 0;
-							float duration = 0;
-							{
-								GameDataBoardUI.UIData.getCurrentMoveAnimationInfo (this.data, out moveAnimation, out time, out duration);
-							}
-							// Position
-							{
-								Vector2 localPosition = Common.convertSquareToLocalPosition (this.data.square.v);
-								{
-									this.data.animationSquare = -1;
-									if (moveAnimation != null) {
-										switch (moveAnimation.getType ()) {
-										case GameMove.Type.EnglishDraughtMove:
-											{
-												EnglishDraughtMoveAnimation englishDraughtMoveAnimation = moveAnimation as EnglishDraughtMoveAnimation;
-												EnglishDraughtMove englishDraughtMove = englishDraughtMoveAnimation.move.v;
-												if (englishDraughtMove != null) {
-													if (englishDraughtMove.from () == this.data.square.v) {
-														List<int> squareList = englishDraughtMove.getMoveSquareList ();
-														if (squareList.Count >= 2) {
-															this.transform.SetAsLastSibling ();
-															// Find from, dest, time and duration
-															Vector2 from = new Vector2 (0, 0);
-															Vector2 dest = new Vector2 (0, 0);
-															float stepBegin = 0;
-															float stepEnd = 0;
-															{
-																for (int i = 0; i < squareList.Count - 1; i++) {
-																	int square = squareList [i];
-																	int nextSquare = squareList [i + 1];
-																	// get stepTime
-																	float stepDuration = EnglishDraughtMoveAnimation.getMoveDurationByDistance (Mathf.Abs (square % 8 - nextSquare % 8)) * AnimationManager.DefaultDuration;
-																	stepEnd = stepBegin + stepDuration;
-																	// get stepDuration
-																	if (time >= stepBegin && time <= stepEnd + EnglishDraughtMoveAnimation.StayDuration * AnimationManager.DefaultDuration) {
-																		from = Common.convertSquareToLocalPosition (square);
-																		dest = Common.convertSquareToLocalPosition (nextSquare);
-																		break;
-																	}
-																	stepBegin = stepEnd + EnglishDraughtMoveAnimation.StayDuration * AnimationManager.DefaultDuration;
-																}
-															}
-															// set 
-															if (stepEnd > stepBegin) {
-																// Debug.LogError ("stepTime: " + stepBegin + "; " + stepEnd);
-																localPosition = Vector2.Lerp (from, dest, MoveAnimation.getAccelerateDecelerateInterpolation ((time - stepBegin) / (stepEnd - stepBegin)));
-															} else {
-																Debug.LogError ("why stepDuration < 0: " + stepBegin + "; " + stepEnd + "; " + this);
-															}
-															this.data.animationSquare = squareList [squareList.Count - 1];
-														} else {
-															Debug.LogError ("why squareList count < 2: " + squareList.Count + "; " + this);
-														}
-													}
-												} else {
-													Debug.LogError ("englishDraughtMove null: " + this);
-												}
-											}
-											break;
-										default:
-											Debug.LogError ("unknownMoveAnimation: " + moveAnimation + "; " + this);
-											break;
-										}
-									}
-								}
-								this.transform.localPosition = localPosition;
-							}
-							// PieceSide
-							{
-								if (imgPiece != null) {
-									// sprite
-									if (moveAnimation != null) {
-										switch (moveAnimation.getType ()) {
-										case GameMove.Type.EnglishDraughtMove:
-											{
-												EnglishDraughtMoveAnimation englishDraughtMoveAnimation = moveAnimation as EnglishDraughtMoveAnimation;
-												// check dead or not
-												bool isDead = false;
-												{
-													EnglishDraughtMove englishDraughtMove = englishDraughtMoveAnimation.move.v;
-													if (englishDraughtMove != null) {
-														List<int> squareList = englishDraughtMove.getMoveSquareList ();
-														if (squareList.Count >= 2) {
-															int yourSquareX = this.data.square.v % 8;
-															int yourSquareY = this.data.square.v / 8;
-															for (int i = 0; i < squareList.Count - 1; i++) {
-																int square = squareList [i];
-																int nextSquare = squareList [i + 1];
-																if (square != this.data.square.v && nextSquare != this.data.square.v) {
-																	// get x, y
-																	int squareX = square % 8;
-																	int squareY = square / 8;
-																	int nextSquareX = nextSquare % 8;
-																	int nextSquareY = nextSquare / 8;
-																	// check
-																	if ((Mathf.Abs (yourSquareX - squareX) == Mathf.Abs (yourSquareY - squareY))
-																	    && (Mathf.Abs (yourSquareX - nextSquareX) == Mathf.Abs (yourSquareY - nextSquareY))) {
-																		if ((yourSquareX - squareX) * (yourSquareX - nextSquareX) < 0 && (yourSquareY - squareY) * (yourSquareY - nextSquareY) < 0) {
-																			isDead = true;
-																			break;
-																		}
-																	}
-																}
-															}
-														} 
-													} else {
-														Debug.LogError ("englishDraughtMove null: " + this);
-													}
-												}
-												// Process
-												if (isDead) {
-													imgPiece.sprite = EnglishDraughtSpriteContainer.get ().getDeadSprite (this.data.piece.v);
-												} else {
-													imgPiece.sprite = EnglishDraughtSpriteContainer.get ().getSprite (this.data.piece.v);
-												}
-											}
-											break;
-										default:
-											Debug.LogError ("unknown moveAnimation: " + moveAnimation + "; " + this);
-											imgPiece.sprite = EnglishDraughtSpriteContainer.get ().getSprite (this.data.piece.v);
-											break;
-										}
-									} else {
-										imgPiece.sprite = EnglishDraughtSpriteContainer.get ().getSprite (this.data.piece.v);
-									}
-									// Scale
-									{
-										int playerView = GameDataBoardUI.UIData.getPlayerView (this.data);
-										imgPiece.transform.localScale = (playerView == 0 ? new Vector3 (1, 1, 1) : new Vector3 (1, -1, 1));
-									}
-								} else {
-									Debug.LogError ("imgPieceSide null: " + this);
-								}
-							}
-						} else {
-							Debug.LogError ("not load full");
-							dirty = true;
-						}
-					}
-				} else {
+                    // check load full
+                    bool isLoadFull = true;
+                    {
+                        // animation
+                        if (isLoadFull)
+                        {
+                            isLoadFull = AnimationManager.IsLoadFull(this.data);
+                        }
+                    }
+                    // process
+                    if (isLoadFull)
+                    {
+                        // Find MoveAnimation
+                        MoveAnimation moveAnimation = null;
+                        float time = 0;
+                        float duration = 0;
+                        {
+                            GameDataBoardUI.UIData.getCurrentMoveAnimationInfo(this.data, out moveAnimation, out time, out duration);
+                        }
+                        // Position
+                        {
+                            Vector2 localPosition = Common.convertSquareToLocalPosition(this.data.square.v);
+                            {
+                                if (moveAnimation != null)
+                                {
+                                    switch (moveAnimation.getType())
+                                    {
+                                        case GameMove.Type.EnglishDraughtMove:
+                                            {
+                                                EnglishDraughtMoveAnimation englishDraughtMoveAnimation = moveAnimation as EnglishDraughtMoveAnimation;
+                                                EnglishDraughtMove englishDraughtMove = englishDraughtMoveAnimation.move.v;
+                                                if (englishDraughtMove != null)
+                                                {
+                                                    if (englishDraughtMove.from() == this.data.square.v)
+                                                    {
+                                                        List<int> squareList = englishDraughtMove.getMoveSquareList();
+                                                        if (squareList.Count >= 2)
+                                                        {
+                                                            this.transform.SetAsLastSibling();
+                                                            // Find from, dest, time and duration
+                                                            Vector2 from = new Vector2(0, 0);
+                                                            Vector2 dest = new Vector2(0, 0);
+                                                            float stepBegin = 0;
+                                                            float stepEnd = 0;
+                                                            {
+                                                                for (int i = 0; i < squareList.Count - 1; i++)
+                                                                {
+                                                                    int square = squareList[i];
+                                                                    int nextSquare = squareList[i + 1];
+                                                                    // get stepTime
+                                                                    float stepDuration = EnglishDraughtMoveAnimation.getMoveDurationByDistance(Mathf.Abs(square % 8 - nextSquare % 8)) * AnimationManager.DefaultDuration;
+                                                                    stepEnd = stepBegin + stepDuration;
+                                                                    // get stepDuration
+                                                                    if (time >= stepBegin && time <= stepEnd + EnglishDraughtMoveAnimation.StayDuration * AnimationManager.DefaultDuration)
+                                                                    {
+                                                                        from = Common.convertSquareToLocalPosition(square);
+                                                                        dest = Common.convertSquareToLocalPosition(nextSquare);
+                                                                        break;
+                                                                    }
+                                                                    stepBegin = stepEnd + EnglishDraughtMoveAnimation.StayDuration * AnimationManager.DefaultDuration;
+                                                                }
+                                                            }
+                                                            // set 
+                                                            if (stepEnd > stepBegin)
+                                                            {
+                                                                // Debug.LogError ("stepTime: " + stepBegin + "; " + stepEnd);
+                                                                localPosition = Vector2.Lerp(from, dest, MoveAnimation.getAccelerateDecelerateInterpolation((time - stepBegin) / (stepEnd - stepBegin)));
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("why stepDuration < 0: " + stepBegin + "; " + stepEnd + "; " + this);
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("why squareList count < 2: " + squareList.Count + "; " + this);
+                                                        }
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("englishDraughtMove null: " + this);
+                                                }
+                                            }
+                                            break;
+                                        default:
+                                            Debug.LogError("unknownMoveAnimation: " + moveAnimation + "; " + this);
+                                            break;
+                                    }
+                                }
+                            }
+                            this.transform.localPosition = localPosition;
+                        }
+                        // PieceSide
+                        {
+                            if (imgPiece != null)
+                            {
+                                // sprite
+                                if (moveAnimation != null)
+                                {
+                                    switch (moveAnimation.getType())
+                                    {
+                                        case GameMove.Type.EnglishDraughtMove:
+                                            {
+                                                EnglishDraughtMoveAnimation englishDraughtMoveAnimation = moveAnimation as EnglishDraughtMoveAnimation;
+                                                // check dead or not
+                                                bool isDead = false;
+                                                {
+                                                    EnglishDraughtMove englishDraughtMove = englishDraughtMoveAnimation.move.v;
+                                                    if (englishDraughtMove != null)
+                                                    {
+                                                        List<int> squareList = englishDraughtMove.getMoveSquareList();
+                                                        if (squareList.Count >= 2)
+                                                        {
+                                                            int yourSquareX = this.data.square.v % 8;
+                                                            int yourSquareY = this.data.square.v / 8;
+                                                            for (int i = 0; i < squareList.Count - 1; i++)
+                                                            {
+                                                                int square = squareList[i];
+                                                                int nextSquare = squareList[i + 1];
+                                                                if (square != this.data.square.v && nextSquare != this.data.square.v)
+                                                                {
+                                                                    // get x, y
+                                                                    int squareX = square % 8;
+                                                                    int squareY = square / 8;
+                                                                    int nextSquareX = nextSquare % 8;
+                                                                    int nextSquareY = nextSquare / 8;
+                                                                    // check
+                                                                    if ((Mathf.Abs(yourSquareX - squareX) == Mathf.Abs(yourSquareY - squareY))
+                                                                        && (Mathf.Abs(yourSquareX - nextSquareX) == Mathf.Abs(yourSquareY - nextSquareY)))
+                                                                    {
+                                                                        if ((yourSquareX - squareX) * (yourSquareX - nextSquareX) < 0 && (yourSquareY - squareY) * (yourSquareY - nextSquareY) < 0)
+                                                                        {
+                                                                            isDead = true;
+                                                                            break;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("englishDraughtMove null: " + this);
+                                                    }
+                                                }
+                                                // Process
+                                                if (isDead)
+                                                {
+                                                    imgPiece.sprite = EnglishDraughtSpriteContainer.get().getDeadSprite(this.data.piece.v);
+                                                }
+                                                else
+                                                {
+                                                    imgPiece.sprite = EnglishDraughtSpriteContainer.get().getSprite(this.data.piece.v);
+                                                }
+                                            }
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown moveAnimation: " + moveAnimation + "; " + this);
+                                            imgPiece.sprite = EnglishDraughtSpriteContainer.get().getSprite(this.data.piece.v);
+                                            break;
+                                    }
+                                }
+                                else
+                                {
+                                    imgPiece.sprite = EnglishDraughtSpriteContainer.get().getSprite(this.data.piece.v);
+                                }
+                                // Scale
+                                {
+                                    int playerView = GameDataBoardUI.UIData.getPlayerView(this.data);
+                                    imgPiece.transform.localScale = (playerView == 0 ? new Vector3(1, 1, 1) : new Vector3(1, -1, 1));
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("imgPieceSide null: " + this);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("not load full");
+                        dirty = true;
+                    }
+                } else {
 					// Debug.LogError ("data null: " + this);
 				}
 			}

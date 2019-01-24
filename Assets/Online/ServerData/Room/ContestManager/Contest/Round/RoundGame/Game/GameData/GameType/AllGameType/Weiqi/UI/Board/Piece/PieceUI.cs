@@ -51,8 +51,6 @@ namespace Weiqi
 
 		#region Refresh
 
-		public GameObject activeContainer;
-
 		public Image imgStone;
 
 		public Image imgScore;
@@ -117,12 +115,6 @@ namespace Weiqi
 						}
 						// Process
 						if (isActive) {
-							// activeContainer
-							if (activeContainer != null) {
-								this.activeContainer.SetActive (true);
-							} else {
-								Debug.LogError ("activeContainer null: " + this);
-							}
 							// Get BoardSize
 							int boardSize = 21;
 							{
@@ -393,12 +385,7 @@ namespace Weiqi
 								this.transform.localScale = new Vector3 (localScale, localScale, 1);
 							}
 						} else {
-							// activeContainer
-							if (activeContainer != null) {
-								this.activeContainer.SetActive (false);
-							} else {
-								Debug.LogError ("activeContainer null: " + this);
-							}
+							
 						}
 					} else {
 						Debug.LogError ("not load full");

@@ -245,11 +245,9 @@ namespace Reversi
 								// remove old not use
 								{
 									foreach (ReversiPieceUI.UIData oldPieceUI in oldPieceUIs) {
-										// oldPieceUI.position.v = -1;
 										this.data.pieces.remove (oldPieceUI);
 									}
 									foreach (ReversiLegalUI.UIData oldLegalUI in oldLegalUIs) {
-										// oldLegalUI.position.v = -1;
 										this.data.legals.remove (oldLegalUI);
 									}
 								}
@@ -322,7 +320,7 @@ namespace Reversi
 					{
 						UIUtils.Instantiate (piece, piecePrefab, this.transform);
 					}
-					dirty = true;
+					// dirty = true;
 					return;
 				}
 				if (data is ReversiLegalUI.UIData) {
@@ -331,7 +329,7 @@ namespace Reversi
 					{
 						UIUtils.Instantiate (legal, legalPrefab, this.transform);
 					}
-					dirty = true;
+					// dirty = true;
 					return;
 				}
 			}
@@ -407,13 +405,13 @@ namespace Reversi
 				case UIData.Property.pieces:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
+						// dirty = true;
 					}
 					break;
 				case UIData.Property.legals:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
+						// dirty = true;
 					}
 					break;
 				default:

@@ -248,7 +248,7 @@ namespace Banqi
 					{
 						UIUtils.Instantiate (pieceUIData, piecePrefab, this.transform);
 					}
-					dirty = true;
+					// dirty = true;
 					return;
 				}
 				if (data is Banqi) {
@@ -319,7 +319,7 @@ namespace Banqi
 				case UIData.Property.pieces:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
+						// dirty = true;
 					}
 					break;
 				default:

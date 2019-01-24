@@ -114,16 +114,14 @@ namespace EnglishDraught
 											PieceUI.UIData pieceUIData = null;
 											{
 												// Find old
-												{
-													foreach (PieceUI.UIData check in oldPieces) {
-														if (check.square.v == square) {
-															pieceUIData = check;
-															break;
-														} else if (check.square.v < 0 || check.animationSquare == square) {
-															pieceUIData = check;
-														}
-													}
-												}
+                                                foreach(PieceUI.UIData check in oldPieces)
+                                                {
+                                                    if (check.square.v == square)
+                                                    {
+                                                        pieceUIData = check;
+                                                        break;
+                                                    }
+                                                }
 												// Make new
 												if (pieceUIData == null) {
 													pieceUIData = new PieceUI.UIData ();
@@ -203,15 +201,14 @@ namespace EnglishDraught
 				dirty = true;
 				return;
 			}
-			// checkChange
-			{
-				if (data is AnimationManagerCheckChange<UIData>) {
-					dirty = true;
-					return;
-				}
-			}
-			// Child
-			{
+            // checkChange
+            if (data is AnimationManagerCheckChange<UIData>)
+            {
+                dirty = true;
+                return;
+            }
+            // Child
+            {
 				if (data is EnglishDraught) {
 					dirty = true;
 					return;
@@ -231,7 +228,7 @@ namespace EnglishDraught
 					{
 						UIUtils.Instantiate (pieceUIData, piecePrefab, this.transform);
 					}
-					dirty = true;
+					// dirty = true;
 					return;
 				}
 			}
@@ -260,14 +257,13 @@ namespace EnglishDraught
 				this.setDataNull (uiData);
 				return;
 			}
-			// checkChange
-			{
-				if (data is AnimationManagerCheckChange<UIData>) {
-					return;
-				}
-			}
-			// Child
-			{
+            // checkChange
+            if (data is AnimationManagerCheckChange<UIData>)
+            {
+                return;
+            }
+            // Child
+            {
 				if (data is EnglishDraught) {
 					return;
 				}
@@ -313,7 +309,7 @@ namespace EnglishDraught
 				case UIData.Property.pieces:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
+						// dirty = true;
 					}
 					break;
 				default:

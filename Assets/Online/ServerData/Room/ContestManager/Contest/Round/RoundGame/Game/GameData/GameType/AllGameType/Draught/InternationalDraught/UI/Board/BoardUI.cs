@@ -171,17 +171,14 @@ namespace InternationalDraught
 													PieceUI.UIData pieceUI = null;
 													{
 														// find old
-														{
-															for (int i = 0; i < oldPieces.Count; i++) {
-																PieceUI.UIData oldPiece = oldPieces [i];
-																if (oldPiece.square.v == sq) {
-																	pieceUI = oldPiece;
-																	break;
-																} else if (oldPiece.square.v < 0 || oldPiece.animationSquare == sq) {
-																	pieceUI = oldPiece;
-																}
-															}
-														}
+                                                        foreach(PieceUI.UIData oldPiece in oldPieces)
+                                                        {
+                                                            if (oldPiece.square.v == sq)
+                                                            {
+                                                                pieceUI = oldPiece;
+                                                                break;
+                                                            }
+                                                        }
 														// make new
 														if (pieceUI == null) {
 															// Debug.LogError ("make new piece: " + sq);
@@ -217,8 +214,7 @@ namespace InternationalDraught
 								// remove unused piece
 								{
 									foreach (PieceUI.UIData oldPiece in oldPieces) {
-										oldPiece.square.v = -1;
-										// this.data.pieces.remove (oldPiece);
+										this.data.pieces.remove (oldPiece);
 									}
 								}
 							}
@@ -365,7 +361,7 @@ namespace InternationalDraught
 					{
 						UIUtils.Instantiate (subUIData, piecePrefab, this.transform);
 					}
-					dirty = true;
+					// dirty = true;
 					return;
 				}
 			}
@@ -475,7 +471,7 @@ namespace InternationalDraught
 				case UIData.Property.pieces:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
+						// dirty = true;
 					}
 					break;
 				default:

@@ -224,7 +224,7 @@ namespace Xiangqi
 					{
 						UIUtils.Instantiate (pieceUIData, piecePrefab, this.transform);
 					}
-					dirty = true;
+					// dirty = true;
 					return;
 				}
 				if (data is XiangqiFenUI.UIData) {
@@ -317,7 +317,7 @@ namespace Xiangqi
 				case UIData.Property.pieces:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
+						// dirty = true;
 					}
 					break;
 				default:

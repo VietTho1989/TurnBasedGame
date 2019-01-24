@@ -44,7 +44,6 @@ namespace Makruk
 		#region Refresh
 
 		public Image image;
-		public GameObject contentContainer;
 
 		public static Vector2 ConvertPositionToLocalPosition(int position)
 		{
@@ -59,12 +58,6 @@ namespace Makruk
 				dirty = false;
 				if (this.data != null) {
 					if (this.data.position.v >= 0 && this.data.position.v < 64) {
-						// contentContainer
-						if (contentContainer != null) {
-							contentContainer.SetActive (true);
-						} else {
-							Debug.LogError ("contentContainer null: " + this);
-						}
 						// check load full
 						bool isLoadFull = true;
 						{
@@ -100,7 +93,7 @@ namespace Makruk
 													case Common.MoveType.PROMOTION:
 														{
 															if ((int)move.ori == this.data.position.v) {
-																float distanceDuration = MakrukMoveAnimation.GetDistanceMoveDuration (Common.GetDistance (move.ori, move.dest));
+																float distanceDuration = MoveAnimation.GetDistanceMoveDuration (Common.GetDistance (move.ori, move.dest));
 																if (time <= distanceDuration) {
 																	image.sprite = MakrukSpriteContainer.get ().getSprite (this.data.piece.v);
 																} else {
@@ -210,11 +203,6 @@ namespace Makruk
 						}
 					} else {
 						Debug.LogError ("outside board: " + this);
-						if (contentContainer != null) {
-							contentContainer.SetActive (false);
-						} else {
-							Debug.LogError ("contentContainer null: " + this);
-						}
 					}
 				} else {
 					// Debug.LogError ("data null: " + this);

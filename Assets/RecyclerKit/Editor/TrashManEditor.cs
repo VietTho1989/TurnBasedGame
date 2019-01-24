@@ -236,7 +236,60 @@ public class TrashManEditor : Editor
 
 		base.OnInspectorGUI ();
 
-		GUILayout.Space (15f);
+        if(GUILayout.Button("Refresh Prefab Id"))
+        {
+            bool needSave = false;
+            string[] assetsPaths = AssetDatabase.GetAllAssetPaths();
+            foreach (string assetPath in assetsPaths)
+            {
+                if (assetPath.Contains(".prefab"))
+                {
+                    GameObject rootPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(assetPath);
+                    if (rootPrefab != null)
+                    {
+                        TrashMan.DespawnInterface[] despawnInterfaces = rootPrefab.GetComponents<TrashMan.DespawnInterface>();
+                        if (despawnInterfaces.Length > 0)
+                        {
+                            bool haveDirty = false;
+                            for (int i = 0; i < despawnInterfaces.Length; i++)
+                            {
+                                // Debug.Log ("despawnInterface update: " + despawnInterfaces [i] + "; " + rootPrefab.GetInstanceID ());
+                                TrashMan.DespawnInterface despawnInterface = despawnInterfaces[i];
+                                int instanceId = rootPrefab.GetInstanceID();
+                                if (despawnInterface.getInstanceId() != instanceId)
+                                {
+                                    despawnInterface.setInstanceId(instanceId);
+                                    haveDirty = true;
+                                }
+                            }
+                            if (haveDirty)
+                            {
+                                needSave = true;
+                                EditorUtility.SetDirty(rootPrefab);
+                            }
+                            else
+                            {
+                                // Debug.Log ("Don't have dirty: " + rootPrefab);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("rootPrefab null: " + assetPath);
+                    }
+                }
+            }
+            if (needSave)
+            {
+                AssetDatabase.SaveAssets();
+            }
+            else
+            {
+                // Debug.Log ("Don't need save");
+            }
+        }
+
+        GUILayout.Space (15f);
 		dropAreaGUI ();
 
 		if (_trashManTarget.recycleBinCollection == null)

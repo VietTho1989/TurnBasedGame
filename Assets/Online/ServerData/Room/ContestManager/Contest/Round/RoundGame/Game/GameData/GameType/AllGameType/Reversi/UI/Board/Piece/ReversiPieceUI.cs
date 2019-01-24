@@ -19,7 +19,6 @@ namespace Reversi
 
 			public VP<int> type;
 
-			// position flip this piece
 			public VP<int> flip;
 
 			#endregion
@@ -53,8 +52,6 @@ namespace Reversi
 		private readonly Color flipColor = Color.yellow;
 		public UILineRenderer flip;
 
-		public GameObject contentContainer;
-
 		public override void refresh ()
 		{
 			if (dirty) {
@@ -62,14 +59,6 @@ namespace Reversi
 				if (this.data != null) {
 					int position = this.data.position.v;
 					if (position >= 0 && position < 64) {
-						// contentContainer
-						{
-							if (contentContainer != null) {
-								contentContainer.SetActive (true);
-							} else {
-								Debug.LogError ("contentContainer null: " + this);
-							}
-						}
 						// check load full
 						bool isLoadFull = true;
 						{
@@ -226,14 +215,7 @@ namespace Reversi
 							dirty = true;
 						}
 					} else {
-						// contentContainer
-						{
-							if (contentContainer != null) {
-								contentContainer.SetActive (false);
-							} else {
-								Debug.LogError ("contentContainer null: " + this);
-							}
-						}
+
 					}
 				} else {
 					// Debug.LogError ("data null: " + this);

@@ -117,16 +117,14 @@ namespace RussianDraught
 												PieceUI.UIData pieceUIData = null;
 												{
 													// Find old
-													{
-														foreach (PieceUI.UIData check in oldPieces) {
-															if (check.square.v == square) {
-																pieceUIData = check;
-																break;
-															} else if (check.square.v < 0 || check.animationSquare == square) {
-																pieceUIData = check;
-															}
-														}
-													}
+                                                    foreach(PieceUI.UIData check in oldPieces)
+                                                    {
+                                                        if (check.square.v == square)
+                                                        {
+                                                            pieceUIData = check;
+                                                            break;
+                                                        }
+                                                    }
 													// Make new
 													if (pieceUIData == null) {
 														pieceUIData = new PieceUI.UIData ();
@@ -153,7 +151,6 @@ namespace RussianDraught
 								}
 								// remove unused piece
 								foreach (PieceUI.UIData oldPiece in oldPieces) {
-									// oldPiece.square.v = -1;
 									this.data.pieces.remove (oldPiece);
 								}
 							}
@@ -236,7 +233,7 @@ namespace RussianDraught
 					{
 						UIUtils.Instantiate (pieceUIData, piecePrefab, this.transform);
 					}
-					dirty = true;
+					// dirty = true;
 					return;
 				}
 			}
@@ -318,7 +315,7 @@ namespace RussianDraught
 				case UIData.Property.pieces:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
+						// dirty = true;
 					}
 					break;
 				default:

@@ -205,7 +205,7 @@ namespace NineMenMorris
 					{
 						UIUtils.Instantiate (pieceUIData, piecePrefab, this.transform);
 					}
-					dirty = true;
+					// dirty = true;
 					return;
 				}
 			}
@@ -270,7 +270,7 @@ namespace NineMenMorris
 				case UIData.Property.pieces:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
+						// dirty = true;
 					}
 					break;
 				default:

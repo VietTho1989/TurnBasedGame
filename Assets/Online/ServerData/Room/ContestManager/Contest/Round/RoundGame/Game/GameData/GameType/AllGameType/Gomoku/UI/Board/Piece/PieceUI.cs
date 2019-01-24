@@ -47,8 +47,6 @@ namespace Gomoku
 
 		#region Refresh
 
-		public GameObject activeContainer;
-
 		public Image imgStone;
 
 		public Text tvLastMoveIndex;
@@ -76,18 +74,6 @@ namespace Gomoku
 						float duration = 0;
 						{
 							GameDataBoardUI.UIData.getCurrentMoveAnimationInfo (this.data, out moveAnimation, out time, out duration);
-						}
-						// active or not
-						{
-							if (activeContainer != null) {
-								if (this.data.coord.v >= 0) {
-									this.activeContainer.SetActive (true);
-								} else {
-									this.activeContainer.SetActive (false);
-								}
-							} else {
-								Debug.LogError ("activeContainer null: " + this);
-							}
 						}
 						// Get BoardSize
 						int boardSize = 19;
@@ -178,14 +164,6 @@ namespace Gomoku
 					}
 				} else {
 					// Debug.LogError ("data null: " + this);
-					// active or not
-					{
-						if (activeContainer != null) {
-							this.activeContainer.SetActive (false);
-						} else {
-							Debug.LogError ("activeContainer null: " + this);
-						}
-					}
 				}
 			}
 		}

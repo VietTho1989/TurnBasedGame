@@ -142,15 +142,14 @@ namespace CoTuongUp
 														PieceUI.UIData pieceUIData = null;
 														{
 															// find old
-															for (int i = 0; i < oldPieceUIs.Count; i++) {
-																PieceUI.UIData check = oldPieceUIs [i];
-																if (check.coord.v == coord) {
-																	pieceUIData = check;
-																	break;
-																} else if (check.animationCoord == coord) {
-																	pieceUIData = check;
-																}
-															}
+                                                            foreach(PieceUI.UIData check in oldPieceUIs)
+                                                            {
+                                                                if (check.coord.v == coord)
+                                                                {
+                                                                    pieceUIData = check;
+                                                                    break;
+                                                                }
+                                                            }
 															// make new
 															if (pieceUIData == null) {
 																pieceUIData = new PieceUI.UIData ();
@@ -322,7 +321,7 @@ namespace CoTuongUp
 					{
 						UIUtils.Instantiate (pieceUIData, piecePrefab, this.transform);
 					}
-					dirty = true;
+					// dirty = true;
 					return;
 				}
 				if (data is CaptureUI.UIData) {
@@ -428,7 +427,7 @@ namespace CoTuongUp
 				case UIData.Property.pieces:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
+						// dirty = true;
 					}
 					break;
 				case UIData.Property.captures:

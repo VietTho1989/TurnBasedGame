@@ -43,7 +43,6 @@ namespace HEX
 
 		#region Refresh
 
-		public GameObject contentContainer;
 		public Image imgPiece;
 
 		public override void refresh ()
@@ -56,12 +55,6 @@ namespace HEX
 						if (boardUIData.boardSize.v >= Hex.MIN_BOARD_SIZE && boardUIData.boardSize.v <= Hex.MAX_BOARD_SIZE) {
 							if (this.data.x.v >= 0 && this.data.x.v < boardUIData.boardSize.v
 							    && this.data.y.v >= 0 && this.data.y.v < boardUIData.boardSize.v) {
-								// inside board
-								if (contentContainer != null) {
-									contentContainer.SetActive (true);
-								} else {
-									Debug.LogError ("contentContainer null: " + this);
-								}
 								// check load full
 								bool isLoadFull = true;
 								{
@@ -150,11 +143,6 @@ namespace HEX
 								}
 							} else {
 								// outside board
-								if (contentContainer != null) {
-									contentContainer.SetActive (false);
-								} else {
-									Debug.LogError ("contentContainer null: " + this);
-								}
 							}
 						} else {
 							Debug.LogError ("boardUIData size error: " + this);

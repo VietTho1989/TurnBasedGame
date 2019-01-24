@@ -40,7 +40,6 @@ namespace NineMenMorris
 		#region Refresh
 
 		public Image image;
-		public GameObject contentContainer;
 
 		public GameObject removeAnimationIndicator;
 
@@ -50,11 +49,6 @@ namespace NineMenMorris
 				dirty = false;
 				if (this.data != null) {
 					if (this.data.position.v >= 0 && this.data.position.v < Common.BOARD_SPOT) {
-						if (contentContainer != null) {
-							contentContainer.SetActive (true);
-						} else {
-							Debug.LogError ("contentContainer null");
-						}
 						// check load full
 						bool isLoadFull = true;
 						{
@@ -200,11 +194,6 @@ namespace NineMenMorris
 						}
 					} else {
 						Debug.LogError ("outside board: " + this.data.position.v);
-						if (contentContainer != null) {
-							contentContainer.SetActive (false);
-						} else {
-							Debug.LogError ("contentContainer null");
-						}
 					}
 				} else {
 					Debug.LogError ("PieceUI: why data null");
@@ -258,18 +247,6 @@ namespace NineMenMorris
 					{
 						perspectiveChange.removeCallBack (this);
 						perspectiveChange.setData (null);
-					}
-				}
-				// UI
-				{
-					if (!alreadyDestroy) {
-						if (contentContainer != null) {
-							contentContainer.SetActive (false);
-						} else {
-							Debug.LogError ("contentContainer null");
-						}
-					} else {
-						Debug.LogError ("already destroy");
 					}
 				}
 				this.setDataNull (uiData);

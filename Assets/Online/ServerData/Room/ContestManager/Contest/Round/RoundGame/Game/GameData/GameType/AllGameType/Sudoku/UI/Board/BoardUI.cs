@@ -259,7 +259,7 @@ namespace Sudoku
 					{
 						UIUtils.Instantiate (pieceUIData, piecePrefab, pieceContainer);
 					}
-					dirty = true;
+					// dirty = true;
 					return;
 				}
 			}
@@ -338,7 +338,7 @@ namespace Sudoku
 				case UIData.Property.pieces:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
+						// dirty = true;
 					}
 					break;
 				default:

@@ -245,7 +245,7 @@ namespace Solitaire
 					{
 						UIUtils.Instantiate (cardUIData, cardPrefab, cardContainer);
 					}
-					dirty = true;
+					// dirty = true;
 					return;
 				}
 				if (data is PileLastMoveUI.UIData) {
@@ -318,7 +318,7 @@ namespace Solitaire
 				case UIData.Property.cards:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
+						// dirty = true;
 					}
 					break;
 				case UIData.Property.pileLastMoveUIData:

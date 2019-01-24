@@ -143,8 +143,6 @@ namespace HEX
 														if (oldPiece.x.v == x && oldPiece.y.v == y) {
 															pieceUIData = oldPiece;
 															break;
-														} else if (oldPiece.x.v == System.UInt16.MaxValue) {
-															pieceUIData = oldPiece;
 														}
 													}
 													// Make new
@@ -174,8 +172,6 @@ namespace HEX
 								}
 								// remove old
 								foreach (PieceUI.UIData oldPiece in oldPieces) {
-									// oldPiece.x.v = System.UInt16.MaxValue;
-									// oldPiece.y.v = System.UInt16.MaxValue;
 									this.data.pieces.remove (oldPiece);
 								}
 							}
@@ -246,7 +242,7 @@ namespace HEX
 					{
 						UIUtils.Instantiate (pieceUIData, piecePrefab, this.transform);
 					}
-					dirty = true;
+					// dirty = true;
 					return;
 				}
 			}
@@ -315,7 +311,7 @@ namespace HEX
 				case UIData.Property.pieces:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
+						// dirty = true;
 					}
 					break;
 				default:

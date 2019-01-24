@@ -18,13 +18,10 @@ namespace CoTuongUp
 
 			public VP<byte> piece;
 
-			public byte animationCoord = 255;
-
 			#region Constructor
 
 			public enum Property
 			{
-				updateTransform,
 				coord,
 				piece
 			}
@@ -44,7 +41,6 @@ namespace CoTuongUp
 		#region Refresh
 
 		public Image img;
-		public GameObject contentContainer;
 
 		public override void refresh ()
 		{
@@ -52,12 +48,6 @@ namespace CoTuongUp
 				dirty = false;
 				if (this.data != null) {
 					if (this.data.coord.v >=0 && this.data.coord.v<90) {
-						// inside board
-						if (contentContainer != null) {
-							contentContainer.SetActive (true);
-						} else {
-							Debug.LogError ("contentContainer null: " + this);
-						}
 						// check load full
 						bool isLoadFull = true;
 						{
@@ -158,7 +148,6 @@ namespace CoTuongUp
 											if (fromCoord != destCoord) {
 												if (fromCoord == this.data.coord.v) {
 													this.transform.SetAsLastSibling ();
-													this.data.animationCoord = destCoord;
 													// find moveDuration
 													float moveDuration = duration;
 													{
@@ -180,12 +169,11 @@ namespace CoTuongUp
 										}
 										break;
 									default:
-										this.data.animationCoord = 255;
 										Debug.LogError ("unknown moveAnimation: " + moveAnimation + "; " + this);
 										break;
 									}
 								} else {
-									this.data.animationCoord = 255;
+
 								}
 								this.transform.localPosition = localPosition;
 							}
@@ -237,19 +225,9 @@ namespace CoTuongUp
 						}
 					} else {
 						// outside board
-						if (contentContainer != null) {
-							contentContainer.SetActive (false);
-						} else {
-							Debug.LogError ("contentContainer null: " + this);
-						}
 					}
 				} else {
 					// Debug.LogError ("data null: " + this);
-					if (contentContainer != null) {
-						contentContainer.SetActive (false);
-					} else {
-						Debug.LogError ("contentContainer null: " + this);
-					}
 				}
 			}
 		}

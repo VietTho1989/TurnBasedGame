@@ -303,8 +303,6 @@ namespace MineSweeper
 													if (oldPiece.x.v == x && oldPiece.y.v == y) {
 														pieceUIData = oldPiece;
 														break;
-													} else if (oldPiece.x.v == -1 && oldPiece.y.v == -1) {
-														pieceUIData = oldPiece;
 													}
 												}
 												// Make new
@@ -336,8 +334,7 @@ namespace MineSweeper
 									}
 								// Remove old
 								foreach (PieceUI.UIData oldPiece in oldPieces) {
-									oldPiece.x.v = -1;
-									oldPiece.y.v = -1;
+                                    this.data.pieces.remove(oldPiece);
 								}
 							}
 							// Debug.LogError (Core.unityGetStrPosition (mineSweeper, Core.CanCorrect));
@@ -471,7 +468,7 @@ namespace MineSweeper
 					{
 						UIUtils.Instantiate (pieceUIData, piecePrefab, pieceContainer);
 					}
-					dirty = true;
+					// dirty = true;
 					return;
 				}
 			}
@@ -596,7 +593,7 @@ namespace MineSweeper
 				case UIData.Property.pieces:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
+						// dirty = true;
 					}
 					break;
 				case UIData.Property.maxWidth:

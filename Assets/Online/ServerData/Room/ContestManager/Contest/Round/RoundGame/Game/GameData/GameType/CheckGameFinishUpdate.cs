@@ -27,7 +27,7 @@ public class CheckGameFinishUpdate : UpdateBehavior<GameType>
 									if (gameAction is ProcessMoveAction) {
 										ProcessMoveAction processMoveAction = gameAction as ProcessMoveAction;
 										if (processMoveAction.state.v != ProcessMoveAction.State.End) {
-											Debug.LogError ("processMoveAction not end");
+											// Debug.LogError ("processMoveAction not end");
 											isCorrectGameAction = false;
 										}
 									}

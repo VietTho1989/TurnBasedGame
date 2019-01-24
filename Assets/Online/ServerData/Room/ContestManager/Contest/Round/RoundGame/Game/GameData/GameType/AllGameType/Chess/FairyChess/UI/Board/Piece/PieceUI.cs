@@ -47,7 +47,6 @@ namespace FairyChess
 
 		#region Refresh
 
-		public GameObject contentContainer;
 		public Image image;
 
 		public static Vector2 ConvertPositionToLocalPosition(int position)
@@ -65,12 +64,6 @@ namespace FairyChess
 				dirty = false;
 				if (this.data != null) {
 					if (this.data.position.v >= 0 && this.data.position.v < 64) {
-						// contentContainer
-						if (contentContainer != null) {
-							contentContainer.SetActive (true);
-						} else {
-							Debug.LogError ("contentContainer null: " + this);
-						}
 						// check load full
 						bool isLoadFull = true;
 						{
@@ -106,7 +99,7 @@ namespace FairyChess
 														case Common.MoveType.PROMOTION:
 															{
 																if ((int)move.ori == this.data.position.v) {
-																	float distanceDuration = FairyChessMoveAnimation.GetDistanceMoveDuration (Common.GetDistance (move.ori, move.dest));
+																	float distanceDuration = MoveAnimation.GetDistanceMoveDuration (Common.GetDistance (move.ori, move.dest));
 																	if (time <= distanceDuration) {
 																		piece = this.data.piece.v;
 																	} else {
@@ -430,11 +423,6 @@ namespace FairyChess
 						}
 					} else {
 						Debug.LogError ("outside board: " + this);
-						if (contentContainer != null) {
-							contentContainer.SetActive (false);
-						} else {
-							Debug.LogError ("contentContainer null: " + this);
-						}
 					}
 				} else {
 					// Debug.LogError ("data null: " + this);

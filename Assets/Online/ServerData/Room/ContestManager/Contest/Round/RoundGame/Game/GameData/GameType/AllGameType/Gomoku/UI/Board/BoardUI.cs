@@ -108,17 +108,14 @@ namespace Gomoku
 													PieceUI.UIData pieceUI = null;
 													{
 														// find old
-														{
-															for (int i = 0; i < oldPieces.Count; i++) {
-																PieceUI.UIData oldPiece = oldPieces [i];
-																if (oldPiece.coord.v == coord) {
-																	pieceUI = oldPiece;
-																	break;
-																} else if (oldPiece.coord.v < 0) {
-																	pieceUI = oldPiece;
-																}
-															}
-														}
+                                                        foreach(PieceUI.UIData check in oldPieces)
+                                                        {
+                                                            if (check.coord.v == coord)
+                                                            {
+                                                                pieceUI = check;
+                                                                break;
+                                                            }
+                                                        }
 														// make new
 														if (pieceUI == null) {
 															pieceUI = new PieceUI.UIData ();
@@ -289,7 +286,7 @@ namespace Gomoku
 					{
 						UIUtils.Instantiate (subUIData, piecePrefab, this.transform);
 					}
-					dirty = true;
+					// dirty = true;
 					return;
 				}
 			}
@@ -374,7 +371,7 @@ namespace Gomoku
 				case UIData.Property.pieces:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
+						// dirty = true;
 					}
 					break;
 				default:

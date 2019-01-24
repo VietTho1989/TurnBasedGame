@@ -266,7 +266,7 @@ namespace Shogi
 					{
 						UIUtils.Instantiate (subUIData, piecePrefab, this.transform);
 					}
-					dirty = true;
+					// dirty = true;
 					return;
 				}
 				if (data is HandUI.UIData) {
@@ -366,7 +366,7 @@ namespace Shogi
 				case UIData.Property.pieces:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
+						// dirty = true;
 					}
 					break;
 				case UIData.Property.hand:

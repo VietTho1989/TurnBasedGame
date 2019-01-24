@@ -44,7 +44,6 @@ namespace Chess
 		#region Refresh
 
 		public Image image;
-		public GameObject contentContainer;
 
 		private readonly Color EnPassantColor = new Color (256/256f, 256/256f, 256/256f, 72/256f);
 
@@ -61,12 +60,6 @@ namespace Chess
 				dirty = false;
 				if (this.data != null) {
 					if (this.data.position.v >= 0 && this.data.position.v < 64) {
-						// contentContainer
-						if (contentContainer != null) {
-							contentContainer.SetActive (true);
-						} else {
-							Debug.LogError ("contentContainer null: " + this);
-						}
 						// check load full
 						bool isLoadFull = true;
 						{
@@ -371,11 +364,6 @@ namespace Chess
 						}
 					} else {
 						// Debug.LogError ("outside board: " + this + "; " + this.data.piece.v);
-						if (contentContainer != null) {
-							contentContainer.SetActive (false);
-						} else {
-							Debug.LogError ("contentContainer null: " + this);
-						}
 					}
 				} else {
 					// Debug.LogError ("data null: " + this);

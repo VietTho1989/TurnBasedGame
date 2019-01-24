@@ -51,8 +51,6 @@ namespace MineSweeper
 
 		#region Refresh
 
-		public GameObject contentContainer;
-
 		public GameObject piece;
 		public Text tvPiece;
 
@@ -67,12 +65,6 @@ namespace MineSweeper
 				dirty = false;
 				if (this.data != null) {
 					if (this.data.x.v >= 0 && this.data.y.v >= 0) {
-						// contentContainer
-						if (contentContainer != null) {
-							contentContainer.SetActive (true);
-						} else {
-							Debug.LogError ("contentContainer null: " + this);
-						}
 						// check load full
 						bool isLoadFull = true;
 						{
@@ -172,11 +164,6 @@ namespace MineSweeper
 						}
 					} else {
 						// contentContainer
-						if (contentContainer != null) {
-							contentContainer.SetActive (false);
-						} else {
-							Debug.LogError ("contentContainer null: " + this);
-						}
 					}
 				} else {
 					// Debug.LogError ("data null: " + this);

@@ -114,17 +114,14 @@ namespace Makruk
 												PieceUI.UIData pieceUIData = null;
 												{
 													// Find old
-													for (int i = 0; i < oldPieceUIs.Count; i++) {
-														PieceUI.UIData check = oldPieceUIs [i];
-														if (check.position.v < 0) {
-															pieceUIData = check;
-														} else {
-															if (check.position.v == index) {
-																pieceUIData = check;
-																break;
-															}
-														}
-													}
+                                                    foreach(PieceUI.UIData check in oldPieceUIs)
+                                                    {
+                                                        if (check.position.v == index)
+                                                        {
+                                                            pieceUIData = check;
+                                                            break;
+                                                        }
+                                                    }
 													// Make new
 													if (pieceUIData == null) {
 														pieceUIData = new PieceUI.UIData ();
@@ -155,7 +152,6 @@ namespace Makruk
 								}
 								// Remove oldPieceUIs not reuse
 								foreach (PieceUI.UIData oldPieceUI in oldPieceUIs) {
-									// oldPieceUI.position.v = -1;
 									this.data.pieces.remove (oldPieceUI);
 								}
 							}
@@ -242,7 +238,7 @@ namespace Makruk
 					{
 						UIUtils.Instantiate (pieceUIData, piecePrefab, this.transform);
 					}
-					dirty = true;
+					// dirty = true;
 					return;
 				}
 			}
@@ -324,7 +320,7 @@ namespace Makruk
 				case UIData.Property.pieces:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
+						// dirty = true;
 					}
 					break;
 				default:

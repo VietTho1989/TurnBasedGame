@@ -120,17 +120,14 @@ namespace Seirawan
 												PieceUI.UIData pieceUIData = null;
 												{
 													// Find old
-													for (int i = 0; i < oldPieceUIs.Count; i++) {
-														PieceUI.UIData check = oldPieceUIs [i];
-														if (check.position.v < 0) {
-															pieceUIData = check;
-														} else {
-															if (check.position.v == index) {
-																pieceUIData = check;
-																break;
-															}
-														}
-													}
+                                                    foreach(PieceUI.UIData check in oldPieceUIs)
+                                                    {
+                                                        if (check.position.v == index)
+                                                        {
+                                                            pieceUIData = check;
+                                                            break;
+                                                        }
+                                                    }
 													// Make new
 													if (pieceUIData == null) {
 														pieceUIData = new PieceUI.UIData ();
@@ -258,7 +255,7 @@ namespace Seirawan
 					{
 						UIUtils.Instantiate (handsUIData, handsPrefab, this.transform);
 					}
-					dirty = true;
+					// dirty = true;
 					return;
 				}
 				if (data is PieceUI.UIData) {
@@ -267,7 +264,7 @@ namespace Seirawan
 					{
 						UIUtils.Instantiate (pieceUIData, piecePrefab, this.transform);
 					}
-					dirty = true;
+					// dirty = true;
 					return;
 				}
 			}
@@ -358,13 +355,13 @@ namespace Seirawan
 				case UIData.Property.hands:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
+						// dirty = true;
 					}
 					break;
 				case UIData.Property.pieces:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
+						// dirty = true;
 					}
 					break;
 				default:

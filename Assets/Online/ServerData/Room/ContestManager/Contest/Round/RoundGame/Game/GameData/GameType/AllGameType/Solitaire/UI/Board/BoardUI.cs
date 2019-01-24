@@ -200,7 +200,7 @@ namespace Solitaire
 					{
 						UIUtils.Instantiate (pileUIData, pilePrefab, this.transform);
 					}
-					dirty = true;
+					// dirty = true;
 					return;
 				}
 			}
@@ -265,7 +265,7 @@ namespace Solitaire
 				case UIData.Property.piles:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
+						// dirty = true;
 					}
 					break;
 				default:

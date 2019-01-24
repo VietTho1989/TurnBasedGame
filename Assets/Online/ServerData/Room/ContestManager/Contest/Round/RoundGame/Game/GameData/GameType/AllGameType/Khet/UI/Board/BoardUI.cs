@@ -181,7 +181,6 @@ namespace Khet
 								}
 								// Remove oldPieceUIs not reuse
 								foreach (PieceUI.UIData oldPieceUI in oldPieceUIs) {
-									// oldPieceUI.position.v = -1;
 									this.data.pieces.remove (oldPieceUI);
 								}
 							}
@@ -272,7 +271,7 @@ namespace Khet
 					{
 						UIUtils.Instantiate (pieceUIData, piecePrefab, pieceContainer);
 					}
-					dirty = true;
+					// dirty = true;
 					return;
 				}
 				if (data is LaserPathUI.UIData) {
@@ -339,10 +338,10 @@ namespace Khet
 					return;
 				}
 				if (data is PieceUI.UIData) {
-					PieceUI.UIData subUIData = data as PieceUI.UIData;
+					PieceUI.UIData pieceUIData = data as PieceUI.UIData;
 					// UI
 					{
-						subUIData.removeCallBackAndDestroy (typeof(PieceUI));
+						pieceUIData.removeCallBackAndDestroy (typeof(PieceUI));
 					}
 					return;
 				}
@@ -388,7 +387,7 @@ namespace Khet
 				case UIData.Property.pieces:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
+						// dirty = true;
 					}
 					break;
 				case UIData.Property.laserPath:
