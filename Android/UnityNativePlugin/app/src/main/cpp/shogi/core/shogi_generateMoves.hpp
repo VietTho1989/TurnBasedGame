@@ -45,13 +45,10 @@ namespace Shogi {
     };
     
     // MoveType の全ての指し手を生成
-    template <MoveType MT>
-    ExtMove* generateMoves(ExtMove* moveList, const Position& pos);
-    template <MoveType MT>
-    ExtMove* generateMoves(ExtMove* moveList, const Position& pos, const Square to);
+    template <MoveType MT> ExtMove* generateMoves(ExtMove* moveList, const Position& pos);
+    template <MoveType MT> ExtMove* generateMoves(ExtMove* moveList, const Position& pos, const Square to);
     
-    template <MoveType MT>
-    class MoveList {
+    template <MoveType MT> class MoveList {
     public:
         explicit MoveList(const Position& pos) : curr_(moveList_), last_(generateMoves<MT>(moveList_, pos)) {}
         void operator ++ () { ++curr_; }

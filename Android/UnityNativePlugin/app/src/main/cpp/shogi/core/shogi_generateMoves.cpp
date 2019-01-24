@@ -21,6 +21,7 @@
 
 #include "shogi_generateMoves.hpp"
 #include "shogi_usi.hpp"
+#include "shogi_move.hpp"
 #include "../../Platform.h"
 
 namespace Shogi
@@ -683,8 +684,7 @@ namespace Shogi
         };
     }
     
-    template <MoveType MT>
-    ExtMove* generateMoves(ExtMove* moveList, const Position& pos) {
+    template <MoveType MT> ExtMove* generateMoves(ExtMove* moveList, const Position& pos) {
 /*#ifdef Android
         __android_log_print(ANDROID_LOG_ERROR, "NativeCore", "generateMoves\n");
 #endif*/
@@ -712,8 +712,8 @@ namespace Shogi
     template ExtMove* generateMoves<Evasion           >(ExtMove* moveList, const Position& pos);
     template ExtMove* generateMoves<NonEvasion        >(ExtMove* moveList, const Position& pos);
     template ExtMove* generateMoves<Legal             >(ExtMove* moveList, const Position& pos);
-#if !defined NDEBUG || defined LEARN
+//#if !defined NDEBUG || defined LEARN
     template ExtMove* generateMoves<LegalAll          >(ExtMove* moveList, const Position& pos);
-#endif
+// #endif
     template ExtMove* generateMoves<Recapture         >(ExtMove* moveList, const Position& pos, const Square to);
 }

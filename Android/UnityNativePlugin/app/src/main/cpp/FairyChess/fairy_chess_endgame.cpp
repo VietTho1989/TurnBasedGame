@@ -65,11 +65,11 @@ namespace FairyChess
         // Pawn Rank based scaling factors used in KRPPKRP endgame
         constexpr int32_t KRPPKRPScaleFactors[RANK_NB] = { 0, 9, 10, 14, 21, 44, 0, 0 };
         
-#ifndef NDEBUG
+// #ifndef NDEBUG
         bool verify_material(Position* pos, Color c, Value npm, int32_t pawnsCnt) {
             return pos->non_pawn_material(c) == npm && pos->count<PAWN>(c) == pawnsCnt;
         }
-#endif
+// #endif
         
         // Map the square as if strongSide is white and strongSide's only pawn
         // is on the left half of the board.
