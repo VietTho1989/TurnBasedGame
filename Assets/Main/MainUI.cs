@@ -53,7 +53,7 @@ public class MainUI : UIBehavior<MainUI.UIData>
 
 		public bool processEvent(Event e)
 		{
-			// Debug.LogError ("processEvent: " + e + "; " + this);
+			Debug.LogError ("processEvent: " + e + "; " + this);
 			bool isProcessed = false;
 			{
 				// Child

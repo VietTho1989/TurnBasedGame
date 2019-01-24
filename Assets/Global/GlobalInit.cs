@@ -42,7 +42,7 @@ public class GlobalInit : MonoBehaviour
 	void Start()
 	{
 		// NativeCore
-		{
+		/*{
 			// TODO Tai sao phai them vao nhi, ko the hieu noi?
 			Chess.Core.unityInitCore();
 			Shatranj.Core.unityInitCore ();
@@ -51,7 +51,7 @@ public class GlobalInit : MonoBehaviour
 			FairyChess.Core.unityInitCore ();
 			FairyChess.VariantMap.GetStartFen (FairyChess.Common.VariantType.asean);
 			RussianDraught.Core.unityInitCore ();
-		}
+		}*/
 		// create folder Save
 		{
 			try {
