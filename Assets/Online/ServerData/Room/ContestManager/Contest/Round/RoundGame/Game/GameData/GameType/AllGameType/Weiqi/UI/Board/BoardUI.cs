@@ -133,32 +133,41 @@ namespace Weiqi
 										List<int> deadCoords = new List<int> ();
 										{
 											if (useRule) {
-												for (int i = 0; i < weiqi.deadgroup.v.moves.v; i++) {
-													int group = weiqi.deadgroup.v.getMove (i);
-													// while
-													{
-														// them count vao de phong lap vo tan
-														int count = 0;
-														// iteriate
-														int c = group;
-														int c2 = c; 
-														if (Common.groupnext_at (weiqi.b.v, c2, out c2)) {
-															do {
-																count++;
-																// add
-																deadCoords.Add (c);
-																// next
-																c = c2; 
-																if (!Common.groupnext_at (weiqi.b.v, c2, out c2)) {
-																	Debug.LogError ("group error: " + this);
-																	break;
-																}
-															} while (c != 0 && count < 361);
-														} else {
-															Debug.LogError ("group error: " + this);
-														}
-													}
-												}
+                                                if(this.data.mode.v== UIData.Mode.Score)
+                                                {
+                                                    for (int i = 0; i < weiqi.deadgroup.v.moves.v; i++)
+                                                    {
+                                                        int group = weiqi.deadgroup.v.getMove(i);
+                                                        // while
+                                                        {
+                                                            // them count vao de phong lap vo tan
+                                                            int count = 0;
+                                                            // iteriate
+                                                            int c = group;
+                                                            int c2 = c;
+                                                            if (Common.groupnext_at(weiqi.b.v, c2, out c2))
+                                                            {
+                                                                do
+                                                                {
+                                                                    count++;
+                                                                    // add
+                                                                    deadCoords.Add(c);
+                                                                    // next
+                                                                    c = c2;
+                                                                    if (!Common.groupnext_at(weiqi.b.v, c2, out c2))
+                                                                    {
+                                                                        Debug.LogError("group error: " + this);
+                                                                        break;
+                                                                    }
+                                                                } while (c != 0 && count < 361);
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("group error: " + this);
+                                                            }
+                                                        }
+                                                    }
+                                                }
 											} else {
 												Debug.LogError ("not use rule: so, cannot dead: " + this);
 											}
@@ -166,72 +175,88 @@ namespace Weiqi
 										for (int y = boardSize - 2; y >= 1; y--) {
 											for (int x = 1; x < boardSize - 1; x++) {
 												int coord = x + boardSize * y;
-												// Find piece
-												bool needAdd = false;
-												PieceUI.UIData pieceUI = null;
-												{
-													// find old
-													{
-														for (int i = 0; i < oldPieces.Count; i++) {
-															PieceUI.UIData oldPiece = oldPieces [i];
-															if (oldPiece.coord.v == coord) {
-																pieceUI = oldPiece;
-																break;
-															} else if (oldPiece.coord.v < 0) {
-																pieceUI = oldPiece;
-															}
-														}
-													}
-													// make new
-													if (pieceUI == null) {
-														pieceUI = new PieceUI.UIData ();
-														{
-															pieceUI.uid = this.data.pieces.makeId ();
-														}
-														needAdd = true;
-													} else {
-														oldPieces.Remove (pieceUI);
-													}
-												}
-												// Update
-												{
-													// coord
-													pieceUI.coord.v = coord;
-													// stone
-													{
-														Common.stone stone = Board.GetBoardStone (b, coord);
-														{
-															if (moveAnimation != null) {
-																switch (moveAnimation.getType ()) {
-																case GameMove.Type.WeiqiMove:
-																	{
-																		WeiqiMoveAnimation weiqiMoveAnimation = moveAnimation as WeiqiMoveAnimation;
-																		if (weiqiMoveAnimation.coord.v == coord) {
-																			stone = (Common.stone)weiqiMoveAnimation.color.v;
-																		}
-																	}
-																	break;
-																default:
-																	Debug.LogError ("Unknown type: " + moveAnimation + "; " + this);
-																	break;
-																}
-															} else {
-																// Debug.LogError ("moveAnimation null: " + this);
-															}
-														}
-														pieceUI.stone.v = stone;
-													}
-													// isDead
-													pieceUI.isDead.v = deadCoords.Contains (coord);
-													// owner 
-													pieceUI.owner.v = weiqi.getOwner (coord);
-													// lastMove
-													pieceUI.lastMove.v = weiqi.getLastMoveIndex (coord);
-												} 
-												// add
-												if (needAdd) {
-													this.data.pieces.add (pieceUI);
-												}
+                                                // get information
+                                                Common.stone stone = Board.GetBoardStone(b, coord);
+                                                {
+                                                    if (moveAnimation != null)
+                                                    {
+                                                        switch (moveAnimation.getType())
+                                                        {
+                                                            case GameMove.Type.WeiqiMove:
+                                                                {
+                                                                    WeiqiMoveAnimation weiqiMoveAnimation = moveAnimation as WeiqiMoveAnimation;
+                                                                    if (weiqiMoveAnimation.coord.v == coord)
+                                                                    {
+                                                                        stone = (Common.stone)weiqiMoveAnimation.color.v;
+                                                                    }
+                                                                }
+                                                                break;
+                                                            default:
+                                                                Debug.LogError("Unknown type: " + moveAnimation + "; " + this);
+                                                                break;
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        // Debug.LogError ("moveAnimation null: " + this);
+                                                    }
+                                                }
+                                                int owner = (this.data.mode.v == UIData.Mode.Score) ? weiqi.getOwner(coord) : 0;
+                                                int lastMoveIndex = weiqi.getLastMoveIndex(coord);
+                                                bool isDead = deadCoords.Contains(coord);
+                                                // make piece
+                                                if(owner!=0 || stone==Common.stone.S_BLACK || stone==Common.stone.S_WHITE || lastMoveIndex!=0 || isDead)
+                                                {
+                                                    // Find piece
+                                                    PieceUI.UIData pieceUI = null;
+                                                    bool needAdd = false;
+                                                    {
+                                                        // find old
+                                                        foreach (PieceUI.UIData oldPiece in oldPieces)
+                                                        {
+                                                            if (oldPiece.coord.v == coord)
+                                                            {
+                                                                pieceUI = oldPiece;
+                                                                break;
+                                                            }
+                                                        }
+                                                        // make new
+                                                        if (pieceUI == null)
+                                                        {
+                                                            pieceUI = new PieceUI.UIData();
+                                                            {
+                                                                pieceUI.uid = this.data.pieces.makeId();
+                                                            }
+                                                            needAdd = true;
+                                                        }
+                                                        else
+                                                        {
+                                                            oldPieces.Remove(pieceUI);
+                                                        }
+                                                    }
+                                                    // Update
+                                                    {
+                                                        // coord
+                                                        pieceUI.coord.v = coord;
+                                                        // stone
+                                                        pieceUI.stone.v = stone;
+                                                        // isDead
+                                                        pieceUI.isDead.v = isDead;
+                                                        // owner 
+                                                        pieceUI.owner.v = owner;
+                                                        // lastMove
+                                                        pieceUI.lastMove.v = lastMoveIndex;
+                                                    }
+                                                    // add
+                                                    if (needAdd)
+                                                    {
+                                                        this.data.pieces.add(pieceUI);
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    Debug.Log("Don't need show piece");
+                                                }
 											}
 										}
 									}
@@ -369,12 +394,12 @@ namespace Weiqi
 				}
 				// Piece
 				if (data is PieceUI.UIData) {
-					PieceUI.UIData subUIData = data as PieceUI.UIData;
+					PieceUI.UIData pieceUIData = data as PieceUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (subUIData, piecePrefab, this.transform);
+						UIUtils.Instantiate (pieceUIData, piecePrefab, this.transform);
 					}
-					dirty = true;
+					// dirty = true;
 					return;
 				}
 			}
@@ -508,6 +533,7 @@ namespace Weiqi
 					}
 					break;
 				case UIData.Property.mode:
+                    dirty = true;
 					break;
 				default:
 					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
