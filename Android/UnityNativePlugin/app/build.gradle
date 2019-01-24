@@ -1,0 +1,48 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
+    defaultConfig {
+        // applicationId "turnbase.mdc.com.unitynativeplugin"
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+                cppFlags "-std=c++14 -frtti -fexceptions"
+                // abiFilters 'arm64-v8a', 'armeabi-v7a', 'x86', 'x86_64'
+                abiFilters 'armeabi-v7a', 'x86'
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+    packagingOptions{
+        // doNotStrip "*/armeabi/*.so"
+        // doNotStrip "*/armeabi-v7a/*.so"
+        // doNotStrip "*/x86/*.so"
+        // doNotStrip "*/x86_64/*.so"
+    }
+}
+
+dependencies {
+    // compile fileTree(dir: 'libs', include: ['*.jar'])
+    /*androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })*/
+    // compile 'com.android.support:appcompat-v7:27.0.0'
+    // testCompile 'junit:junit:4.12'
+}
