@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "klondike/astar.h"
+            timestampString = "565336002.60105"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
+            landmarkName = "solve(const std::function&lt;bool(const SearchNode&lt;T&gt;&amp;)&gt;&amp; callback = [](const SearchNode&lt;T&gt;&amp;) { return true; })"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "klondike/astar.h"
+            timestampString = "565340029.5688159"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "238"
+            endingLineNumber = "238"
+            landmarkName = "solve(std::chrono::milliseconds timeLimit, unsigned initialDepth = 1, const std::function&lt;bool(const SearchNode&lt;T&gt;&amp;, const AStar&lt;T,H&gt;&amp;, unsigned)&gt;&amp; callback = [](const SearchNode&lt;T&gt;&amp;) { return true; })"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
