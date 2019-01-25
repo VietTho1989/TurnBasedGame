@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace Reversi
 {
-
 	public class ReversiBoardUI : UIBehavior<ReversiBoardUI.UIData>
 	{
 
