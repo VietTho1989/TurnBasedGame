@@ -192,26 +192,30 @@ public class MainUI : UIBehavior<MainUI.UIData>
 		}
 	}
 
-	#endregion
+    #endregion
 
-	#region implement callBacks
+    #region implement callBacks
 
-	public HomeUI homePrefab;
+    public const int subContainerIndex = 0;
+    public const int showSettingContainerIndex = 1;
+    public const int btnSettingIndex = 2;
+
+    public HomeUI homePrefab;
 	public PlayOnlineUI playOnlinePrefab;
 	public OfflineUI playOfflinePrefab;
 	public LanUI lanPrefab;
 	public LoadDataUI loadDataPrefab;
-	public Transform subContainer;
-
+	
 	public ShowSettingUI showSettingPrefab;
-	public Transform showSettingContainer;
+
+    public GameObject btnSetting;
 
 	public override void onAddCallBack<T> (T data)
 	{
 		if (data is UIData) {
 			UIData uiData = data as UIData;
-			// Setting
-			{
+            // Setting
+            {
 				Setting.get ().addCallBack (this);
 			}
 			// Child
@@ -219,7 +223,18 @@ public class MainUI : UIBehavior<MainUI.UIData>
 				uiData.sub.allAddCallBack (this);
 				uiData.showSettingUIData.allAddCallBack (this);
 			}
-			dirty = true;
+            // UI
+            {
+                if (btnSetting != null)
+                {
+                    btnSetting.transform.SetSiblingIndex(btnSettingIndex);
+                }
+                else
+                {
+                    Debug.LogError("btnSetting null");
+                }
+            }
+            dirty = true;
 			return;
 		}
 		// Child
@@ -232,31 +247,31 @@ public class MainUI : UIBehavior<MainUI.UIData>
 					case UIData.Sub.Type.Home:
 						{
 							HomeUI.UIData homeUIData = sub as HomeUI.UIData;
-							UIUtils.Instantiate (homeUIData, homePrefab, subContainer);
+							UIUtils.Instantiate (homeUIData, homePrefab, this.transform, subContainerIndex);
 						}
 						break;
 					case UIData.Sub.Type.Online:
 						{
 							PlayOnlineUI.UIData playOnlineUIData = sub as PlayOnlineUI.UIData;
-							UIUtils.Instantiate (playOnlineUIData, playOnlinePrefab, subContainer);
+							UIUtils.Instantiate (playOnlineUIData, playOnlinePrefab, this.transform, subContainerIndex);
 						}
 						break;
 					case UIData.Sub.Type.Offline:
 						{
 							OfflineUI.UIData playOfflineUIData = sub as OfflineUI.UIData;
-							UIUtils.Instantiate (playOfflineUIData, playOfflinePrefab, subContainer);
+							UIUtils.Instantiate (playOfflineUIData, playOfflinePrefab, this.transform, subContainerIndex);
 						}
 						break;
 					case UIData.Sub.Type.Lan:
 						{
 							LanUI.UIData lanUIData = sub as LanUI.UIData;
-							UIUtils.Instantiate (lanUIData, lanPrefab, subContainer);
+							UIUtils.Instantiate (lanUIData, lanPrefab, this.transform, subContainerIndex);
 						}
 						break;
 					case UIData.Sub.Type.LoadData:
 						{
 							LoadDataUI.UIData loadDataUIData = sub as LoadDataUI.UIData;
-							UIUtils.Instantiate (loadDataUIData, loadDataPrefab, subContainer);
+							UIUtils.Instantiate (loadDataUIData, loadDataPrefab, this.transform, subContainerIndex);
 						}
 						break;
 					default:
@@ -271,7 +286,7 @@ public class MainUI : UIBehavior<MainUI.UIData>
 				ShowSettingUI.UIData showSettingUIData = data as ShowSettingUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (showSettingUIData, showSettingPrefab, showSettingContainer);
+					UIUtils.Instantiate (showSettingUIData, showSettingPrefab, this.transform, showSettingContainerIndex);
 				}
 				dirty = true;
 				return;

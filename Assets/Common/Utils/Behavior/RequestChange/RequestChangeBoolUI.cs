@@ -60,10 +60,13 @@ public class RequestChangeBoolUI : UIBehavior<RequestChangeBoolUI.UIData>
 	}
 
 	public Button btnValue;
-	public Toggle tgValue;
-	public Text tvState;
 
-	public GameObject differentIndicator;
+    public Sprite blackCheckMark;
+    public Sprite redCheckMark;
+    public Sprite redDot;
+    public Image checkMark;
+
+	public Text tvState;
 
 	public override void refresh ()
 	{
@@ -88,12 +91,6 @@ public class RequestChangeBoolUI : UIBehavior<RequestChangeBoolUI.UIData>
 				}
 				// set value
 				{
-					// tgValue
-					if (tgValue != null) {
-						tgValue.isOn = this.data.updateData.v.current.v;
-					} else {
-						Debug.LogError ("tgValue null: " + this);
-					}
 					// tvState
 					if (tvState != null) {
 						switch (this.data.updateData.v.changeState.v) {
@@ -114,9 +111,9 @@ public class RequestChangeBoolUI : UIBehavior<RequestChangeBoolUI.UIData>
 						Debug.LogError ("tvState null: " + this);
 					}
 				}
-				// different
+				// checkMark
 				{
-					if (differentIndicator != null) {
+					if (checkMark != null) {
 						// check different
 						bool isDifferent = false;
 						{
@@ -133,12 +130,21 @@ public class RequestChangeBoolUI : UIBehavior<RequestChangeBoolUI.UIData>
 						}
 						// Process
 						if (isDifferent) {
-							differentIndicator.SetActive (true);
+                            checkMark.color = Color.white;
+                            checkMark.sprite = this.data.updateData.v.current.v ? redCheckMark : redDot;
 						} else {
-							differentIndicator.SetActive (false);
+                            if (this.data.updateData.v.current.v)
+                            {
+                                checkMark.color = Color.white;
+                                checkMark.sprite = blackCheckMark;
+                            }
+                            else
+                            {
+                                checkMark.color = Global.TransparentColor;
+                            }
 						}
 					} else {
-						Debug.LogError ("differentIndicator null: " + this);
+						Debug.LogError ("checkMark null: " + this);
 					}
 				}
 			} else {
