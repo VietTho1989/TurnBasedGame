@@ -55,14 +55,17 @@ public class RequestChangeEnumUI : UIBehavior<RequestChangeEnumUI.UIData>
 
 	public Dropdown drValues;
 
-	public override void Awake ()
+    private int tempNotRefresh = 0;
+
+    public override void Awake ()
 	{
 		base.Awake ();
 		if (drValues != null) {
 			drValues.onValueChanged.AddListener (delegate(int newValue) {
 				if (this.data != null) {
 					this.data.updateData.v.current.v = newValue;
-				} else {
+                    tempNotRefresh = 8;
+                } else {
 					Debug.LogError ("data null: " + this);
 				}
 			});
@@ -71,16 +74,24 @@ public class RequestChangeEnumUI : UIBehavior<RequestChangeEnumUI.UIData>
 		}
 	}
 
-	public Text tvState;
-	public GameObject differentIndicator;
+    public static readonly Color DifferentColor = Color.red;
+    public static readonly Color NormalColor = new Color(50/255f, 50/255f, 50/255f);
+    public static readonly Color RequestColor = new Color(52/255f, 152/255f, 13/255f);
+    public Text label;
 
 	public override void refresh ()
 	{
 		if (dirty) {
 			dirty = false;
 			if (this.data != null) {
-				// Make options
-				if (drValues != null) {
+                if (tempNotRefresh > 0)
+                {
+                    tempNotRefresh--;
+                    dirty = true;
+                    return;
+                }
+                // Make options
+                if (drValues != null) {
 					// remove 
 					{
 						if (drValues.options.Count > this.data.options.vs.Count) {
@@ -120,61 +131,65 @@ public class RequestChangeEnumUI : UIBehavior<RequestChangeEnumUI.UIData>
 						Debug.LogError ("drValues null: " + this);
 					}
 				}
-				// set value
-				{
-					// drValues
-					if (drValues != null) {
-						drValues.value = this.data.updateData.v.current.v;
-					} else {
-						Debug.LogError ("drValues null: " + this);
-					}
-					// tvState
-					if (tvState != null) {
-						switch (this.data.updateData.v.changeState.v) {
-						case Data.ChangeState.None:
-							tvState.text = "None";
-							break;
-						case Data.ChangeState.Request:
-							tvState.text = "Request";
-							break;
-						case Data.ChangeState.Requesting:
-							tvState.text = "Requesting";
-							break;
-						default:
-							Debug.LogError ("unknown state: " + this.data.updateData.v.changeState.v + "; " + this);
-							break;
-						}
-					} else {
-						Debug.LogError ("tvState null: " + this);
-					}
-				}
-				// different
-				{
-					if (differentIndicator != null) {
-						// check different
-						bool isDifferent = false;
-						{
-							if (this.data.showDifferent.v) {
-								RequestChangeIntUpdate.UpdateData updateData = this.data.updateData.v;
-								if (updateData != null) {
-									if (updateData.current.v != this.data.compare.v) {
-										isDifferent = true;
-									}
-								} else {
-									Debug.LogError ("updateData null: " + this);
-								}
-							}
-						}
-						// Process
-						if (isDifferent) {
-							differentIndicator.SetActive (true);
-						} else {
-							differentIndicator.SetActive (false);
-						}
-					} else {
-						Debug.LogError ("differentIndicator null: " + this);
-					}
-				}
+                // drValues
+                if (drValues != null)
+                {
+                    drValues.value = this.data.updateData.v.current.v;
+                }
+                else
+                {
+                    Debug.LogError("drValues null: " + this);
+                }
+                // label
+                if (label != null)
+                {
+                    switch (this.data.updateData.v.changeState.v)
+                    {
+                        case Data.ChangeState.None:
+                            {
+                                // check different
+                                bool isDifferent = false;
+                                {
+                                    if (this.data.showDifferent.v)
+                                    {
+                                        RequestChangeIntUpdate.UpdateData updateData = this.data.updateData.v;
+                                        if (updateData != null)
+                                        {
+                                            if (updateData.current.v != this.data.compare.v)
+                                            {
+                                                isDifferent = true;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("updateData null: " + this);
+                                        }
+                                    }
+                                }
+                                // Process
+                                if (isDifferent)
+                                {
+                                    label.color = DifferentColor;
+                                }
+                                else
+                                {
+                                    label.color = NormalColor;
+                                }
+                            }
+                            break;
+                        case Data.ChangeState.Request:
+                        case Data.ChangeState.Requesting:
+                            label.color = RequestColor;
+                            break;
+                        default:
+                            Debug.LogError("unknown state: " + this.data.updateData.v.changeState.v + "; " + this);
+                            break;
+                    }
+                }
+                else
+                {
+                    Debug.LogError("label null");
+                }
 			} else {
 				// Debug.Log ("data null: " + this);
 			}

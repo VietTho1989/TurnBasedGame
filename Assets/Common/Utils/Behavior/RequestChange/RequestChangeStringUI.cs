@@ -50,9 +50,8 @@ public class RequestChangeStringUI : UIBehavior<RequestChangeStringUI.UIData>
 	#region Refresh
 
 	public InputField edtValue;
-	public Text txtValue;
 
-	public override void Awake ()
+    public override void Awake ()
 	{
 		base.Awake ();
 		if (edtValue != null) {
@@ -73,126 +72,105 @@ public class RequestChangeStringUI : UIBehavior<RequestChangeStringUI.UIData>
 		}
 	}
 
-	public ContentSizeFitter contentSizeFilter;
+    public static readonly Color DifferentColor = Color.red;
+    public static readonly Color NormalColor = new Color(50 / 255f, 50 / 255f, 50 / 255f);
+    public static readonly Color RequestColor = new Color(52 / 255f, 152 / 255f, 13 / 255f);
+    public Text tvValue;
 
-	public Text tvState;
+    public Image imgBackGround;
 
-	public GameObject differentIndicator;
-
-	public override void refresh ()
+    public override void refresh ()
 	{
 		if (dirty) {
 			dirty = false;
 			if (this.data != null) {
 				// Update UI
 				{
-					// Process
-					if (this.data.updateData.v.canRequestChange.v) {
-						// txtValue
-						if (txtValue != null) {
-							txtValue.gameObject.SetActive (false);
-						} else {
-							Debug.LogError ("txtValue null: " + this);
-						}
-						// edtValue
-						if (edtValue != null) {
-							edtValue.gameObject.SetActive (true);
-							edtValue.interactable = true;
-						} else {
-							Debug.LogError ("edtValue null: " + this);
-						}
-						// tvState
-						if (tvState != null) {
-							tvState.gameObject.SetActive (true);
-						} else {
-							Debug.LogError ("tvState null: " + this);
-						}
-					} else {
-						// txtValue
-						if (txtValue != null) {
-							txtValue.gameObject.SetActive (true);
-						} else {
-							Debug.LogError ("txtValue null: " + this);
-						}
-						// disable interactable
-						if (edtValue != null) {
-							edtValue.gameObject.SetActive (false);
-							edtValue.interactable = false;
-						} else {
-							Debug.LogError ("edtValue null: " + this);
-						}
-						// tvState
-						if (tvState != null) {
-							tvState.gameObject.SetActive (false);
-						} else {
-							Debug.LogError ("tvState null: " + this);
-						}
-					}
-					// set value
-					{
+                    // interactable
+                    if (edtValue != null)
+                    {
+                        edtValue.interactable = this.data.updateData.v.canRequestChange.v;
+                    }
+                    else
+                    {
+                        Debug.LogError("edtValue null");
+                    }
+                    // background
+                    if (imgBackGround != null)
+                    {
+                        imgBackGround.enabled = this.data.updateData.v.canRequestChange.v;
+                    }
+                    else
+                    {
+                        Debug.LogError("imgBackGround null");
+                    }
+                    // set value
+                    {
 						// edtValue
 						if (edtValue != null) {
 							edtValue.text = this.data.updateData.v.current.v;
 						} else {
 							Debug.LogError ("edtValue null: " + this);
 						}
-						// txtValue
-						if (txtValue != null) {
-							txtValue.text = this.data.updateData.v.current.v;
-						} else {
-							Debug.LogError ("txtValue null: " + this);
-						}
-						// tvState
-						if (tvState != null) {
-							if (this.data.updateData.v.request.v != null) {
-								switch (this.data.updateData.v.changeState.v) {
-								case Data.ChangeState.None:
-									tvState.text = "None";
-									break;
-								case Data.ChangeState.Request:
-									tvState.text = "Request";
-									break;
-								case Data.ChangeState.Requesting:
-									tvState.text = "Requesting";
-									break;
-								default:
-									Debug.LogError ("unknown state: " + this.data.updateData.v.changeState.v + "; " + this);
-									break;
-								}
-							} else {
-								tvState.text = "None";
-							}
-						} else {
-							Debug.LogError ("tvState null: " + this);
-						}
-					}
-				}
-				// different
-				{
-					if (differentIndicator != null) {
-						// check different
-						bool isDifferent = false;
-						{
-							if (this.data.showDifferent.v) {
-								RequestChangeStringUpdate.UpdateData updateData = this.data.updateData.v;
-								if (updateData != null) {
-									if (updateData.current.v != this.data.compare.v) {
-										isDifferent = true;
-									}
-								} else {
-									Debug.LogError ("updateData null: " + this);
-								}
-							}
-						}
-						// Process
-						if (isDifferent) {
-							differentIndicator.SetActive (true);
-						} else {
-							differentIndicator.SetActive (false);
-						}
-					} else {
-						Debug.LogError ("differentIndicator null: " + this);
-					}
+                        // tvValue
+                        if (tvValue != null)
+                        {
+                            if (this.data.updateData.v.request.v != null)
+                            {
+                                switch (this.data.updateData.v.changeState.v)
+                                {
+                                    case Data.ChangeState.None:
+                                        {
+                                            // check different
+                                            bool isDifferent = false;
+                                            {
+                                                if (this.data.showDifferent.v)
+                                                {
+                                                    RequestChangeStringUpdate.UpdateData updateData = this.data.updateData.v;
+                                                    if (updateData != null)
+                                                    {
+                                                        if (updateData.current.v != this.data.compare.v)
+                                                        {
+                                                            isDifferent = true;
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("updateData null: " + this);
+                                                    }
+                                                }
+                                            }
+                                            // Process
+                                            if (isDifferent)
+                                            {
+                                                tvValue.color = DifferentColor;
+                                            }
+                                            else
+                                            {
+                                                tvValue.color = NormalColor;
+                                            }
+                                        }
+                                        break;
+                                    case Data.ChangeState.Request:
+                                    case Data.ChangeState.Requesting:
+                                        tvValue.color = RequestColor;
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown state: " + this.data.updateData.v.changeState.v + "; " + this);
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                tvValue.color = NormalColor;
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("tvValue null");
+                        }
+
+                    }
 				}
 			} else {
 				// Debug.LogError ("data null: " + this);
