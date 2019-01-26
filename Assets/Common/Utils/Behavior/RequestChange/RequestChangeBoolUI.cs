@@ -45,15 +45,18 @@ public class RequestChangeBoolUI : UIBehavior<RequestChangeBoolUI.UIData>
 
 	}
 
-	#endregion
+    #endregion
 
-	#region Refresh
+    #region Refresh
+
+    private int tempNotRefresh = 0;
 
 	public void onClickBtnChange()
 	{
 		// Debug.LogError ("onClickBtnChange: " + this);
 		if (this.data != null) {
 			this.data.updateData.v.current.v = !this.data.updateData.v.current.v;
+            tempNotRefresh = 8;
 		} else {
 			Debug.LogError ("data null: " + this);
 		}
@@ -62,19 +65,26 @@ public class RequestChangeBoolUI : UIBehavior<RequestChangeBoolUI.UIData>
 	public Button btnValue;
 
     public Sprite blackCheckMark;
+    public Sprite blueCheckMark;
     public Sprite redCheckMark;
-    public Sprite redDot;
-    public Image checkMark;
 
-	public Text tvState;
+    public Sprite redDot;
+    public Sprite blueDot;
+    public Image checkMark;
 
 	public override void refresh ()
 	{
 		if (dirty) {
 			dirty = false;
 			if (this.data != null) {
-				// interactable
-				if (this.data.updateData.v.canRequestChange.v) {
+                if (tempNotRefresh>0)
+                {
+                    tempNotRefresh--;
+                    dirty = true;
+                    return;
+                }
+                // interactable
+                if (this.data.updateData.v.canRequestChange.v) {
 					// make interactable
 					if (btnValue != null) {
 						btnValue.interactable = true;
@@ -89,65 +99,68 @@ public class RequestChangeBoolUI : UIBehavior<RequestChangeBoolUI.UIData>
 						Debug.LogError ("btnValue null: " + this);
 					}
 				}
-				// set value
-				{
-					// tvState
-					if (tvState != null) {
-						switch (this.data.updateData.v.changeState.v) {
-						case Data.ChangeState.None:
-							tvState.text = "None";
-							break;
-						case Data.ChangeState.Request:
-							tvState.text = "Request";
-							break;
-						case Data.ChangeState.Requesting:
-							tvState.text = "Requesting";
-							break;
-						default:
-							Debug.LogError ("unknown state: " + this.data.updateData.v.changeState.v + "; " + this);
-							break;
-						}
-					} else {
-						Debug.LogError ("tvState null: " + this);
-					}
-				}
-				// checkMark
-				{
-					if (checkMark != null) {
-						// check different
-						bool isDifferent = false;
-						{
-							if (this.data.showDifferent.v) {
-								RequestChangeBoolUpdate.UpdateData updateData = this.data.updateData.v;
-								if (updateData != null) {
-									if (updateData.current.v != this.data.compare.v) {
-										isDifferent = true;
-									}
-								} else {
-									Debug.LogError ("updateData null: " + this);
-								}
-							}
-						}
-						// Process
-						if (isDifferent) {
-                            checkMark.color = Color.white;
-                            checkMark.sprite = this.data.updateData.v.current.v ? redCheckMark : redDot;
-						} else {
-                            if (this.data.updateData.v.current.v)
+                // checkMark
+                if (checkMark != null)
+                {
+                    bool isTransparent = false;
+                    switch (this.data.updateData.v.changeState.v)
+                    {
+                        case Data.ChangeState.None:
                             {
-                                checkMark.color = Color.white;
-                                checkMark.sprite = blackCheckMark;
+                                // check different
+                                bool isDifferent = false;
+                                {
+                                    if (this.data.showDifferent.v)
+                                    {
+                                        RequestChangeBoolUpdate.UpdateData updateData = this.data.updateData.v;
+                                        if (updateData != null)
+                                        {
+                                            if (updateData.current.v != this.data.compare.v)
+                                            {
+                                                isDifferent = true;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("updateData null: " + this);
+                                        }
+                                    }
+                                }
+                                // Process
+                                if (isDifferent)
+                                {
+                                    checkMark.sprite = this.data.updateData.v.current.v ? redCheckMark : redDot;
+                                }
+                                else
+                                {
+                                    if (this.data.updateData.v.current.v)
+                                    {
+                                        checkMark.sprite = blackCheckMark;
+                                    }
+                                    else
+                                    {
+                                        isTransparent = true;
+                                    }
+                                }
                             }
-                            else
+                            break;
+                        case Data.ChangeState.Request:
+                        case Data.ChangeState.Requesting:
                             {
-                                checkMark.color = Global.TransparentColor;
+                                checkMark.sprite = this.data.updateData.v.current.v ? blueCheckMark : blueDot;
                             }
-						}
-					} else {
-						Debug.LogError ("checkMark null: " + this);
-					}
-				}
-			} else {
+                            break;
+                        default:
+                            Debug.LogError("unknown state: " + this.data.updateData.v.changeState.v + "; " + this);
+                            break;
+                    }
+                    checkMark.color = isTransparent ? Global.TransparentColor : Color.white;
+                }
+                else
+                {
+                    Debug.LogError("checkMark null: " + this);
+                }
+            } else {
 				// Debug.Log ("data null: " + this);
 			}
 		}
