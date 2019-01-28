@@ -7,7 +7,9 @@ namespace TimeControl.Normal
 	public class IncreasePlayerTotalTimeUpdate : UpdateBehavior<TimeControlNormal>
 	{
 
-		#region update
+        #region update
+
+        private ProcessMoveAction lastProcessMoveAction = null;
 
 		public override void update ()
 		{
@@ -45,30 +47,51 @@ namespace TimeControl.Normal
 					if (processMoveAction != null) {
 						// Find PlayerTotalTime
 						PlayerTotalTime playerTotalTime = this.data.getPlayerTotalTime(playerIndex);
-						if (playerTotalTime != null) {
-							switch (processMoveAction.state.v) {
-							case ProcessMoveAction.State.Process:
-								break;
-							case ProcessMoveAction.State.Processing:
-								break;
-							case ProcessMoveAction.State.End:
-								{
-									InputData inputData = processMoveAction.inputData.v;
-									if (inputData != null) {
-										playerTotalTime.serverTime.v = playerTotalTime.serverTime.v + inputData.serverTime.v;
-										playerTotalTime.clientTime.v = playerTotalTime.clientTime.v + inputData.clientTime.v;
-									} else {
-										Debug.LogError ("inputData null: " + this);
-									}
-								}
-								break;
-							default:
-								Debug.LogError ("unknown state: " + processMoveAction.state.v + "; " + this);
-								break;
-							}
-						} else {
-							Debug.LogError ("playerTotalTime null: " + this);
-						}
+                        if (playerTotalTime != null)
+                        {
+                            switch (processMoveAction.state.v)
+                            {
+                                case ProcessMoveAction.State.Process:
+                                    break;
+                                case ProcessMoveAction.State.Processing:
+                                    break;
+                                case ProcessMoveAction.State.WaitEnd:
+                                    {
+                                        bool needAdd = true;
+                                        {
+                                            if (lastProcessMoveAction == processMoveAction)
+                                            {
+                                                needAdd = false;
+                                            }
+                                        }
+                                        if (needAdd)
+                                        {
+                                            lastProcessMoveAction = processMoveAction;
+                                            // add time
+                                            InputData inputData = processMoveAction.inputData.v;
+                                            if (inputData != null)
+                                            {
+                                                playerTotalTime.serverTime.v = playerTotalTime.serverTime.v + inputData.serverTime.v;
+                                                playerTotalTime.clientTime.v = playerTotalTime.clientTime.v + inputData.clientTime.v;
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("inputData null: " + this);
+                                            }
+                                        }
+                                    }
+                                    break;
+                                case ProcessMoveAction.State.End:
+                                    break;
+                                default:
+                                    Debug.LogError("unknown state: " + processMoveAction.state.v + "; " + this);
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("playerTotalTime null: " + this);
+                        }
 					} else {
 						// Debug.LogError ("processMoveAction null: " + this);
 					}

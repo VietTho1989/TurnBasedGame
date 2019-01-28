@@ -1,7 +1,8 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Shogi/UI/Style/ShogiSpriteContainer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/TimeControl/Sub/Normal/TotalTime/IncreasePlayerTotalTimeUpdate.cs">
     <Files>
-      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Shogi/UI/Style/ShogiSpriteContainer.cs" Line="348" Column="25" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Shogi/UI/Style/ShogiSpriteContainer.cs" Line="355" Column="2" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/TimeControl/Sub/Normal/TotalTime/IncreasePlayerTotalTimeUpdate.cs" Line="54" Column="43" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
