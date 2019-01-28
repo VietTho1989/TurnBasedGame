@@ -324,16 +324,9 @@ namespace Shogi
 								{
 									// Find style
 									Setting.Style style = Setting.get().style.v;
-									// Process
-									{
-										ShogiGameDataUI.UIData.StyleInterface styleInterface = ShogiGameDataUI.GetStyleInterface (this.data, style);
-										if (styleInterface != null) {
-											imgHint.sprite = styleInterface.getSprite (piece);
-										} else {
-											Debug.LogError ("styleInterface null: " + this);
-										}
-									}
-								}
+                                    // Process
+                                    imgHint.sprite = ShogiSpriteContainer.get().getSprite(style, piece);
+                                }
 							}
 							// position
 							{

@@ -22,17 +22,6 @@ namespace Shogi
 
 			#endregion
 
-			#region Style
-
-			public interface StyleInterface
-			{
-				Sprite getSprite (Common.Piece piece);
-
-				Sprite getSpriteForHandPiece (Common.HandPiece handPiece, Common.Color color);
-			}
-
-			#endregion
-
 			public VP<bool> isOnAnimation;
 
 			public VP<BoardUI.UIData> board;
@@ -97,37 +86,6 @@ namespace Shogi
 				return isProcess;
 			}
 
-		}
-
-		#endregion
-
-		#region style
-
-		public SpriteNormal spriteNormal;
-		public SpriteWestern spriteWestern;
-
-		public static UIData.StyleInterface GetStyleInterface(Data data, Setting.Style style)
-		{
-			ShogiGameDataUI.UIData shogiGameDataUIData = data.findDataInParent<ShogiGameDataUI.UIData> ();
-			if (shogiGameDataUIData != null) {
-				ShogiGameDataUI shogiGameDataUI = shogiGameDataUIData.findCallBack<ShogiGameDataUI> ();
-				if (shogiGameDataUI != null) {
-					switch (style) {
-					case Setting.Style.Western:
-						return shogiGameDataUI.spriteWestern;
-					case Setting.Style.Normal:
-						return shogiGameDataUI.spriteNormal;
-					default:
-						Debug.LogError ("unknown style: " + style + "; " + data);
-						return shogiGameDataUI.spriteNormal;
-					}
-				} else {
-					Debug.LogError ("shogiGameDataUI null: " + data);
-				}
-			} else {
-				Debug.LogError ("shogiGameDataUIData null: " + data);
-			}
-			return null;
 		}
 
 		#endregion

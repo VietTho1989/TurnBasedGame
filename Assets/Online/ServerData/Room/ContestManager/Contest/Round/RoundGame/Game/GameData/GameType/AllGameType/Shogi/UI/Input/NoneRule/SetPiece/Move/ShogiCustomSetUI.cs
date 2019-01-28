@@ -73,28 +73,26 @@ namespace Shogi.NoneRule
 						if (imgHint != null) {
 							// Find style
 							Setting.Style style = Setting.get().style.v;
-							// Process
-							ShogiGameDataUI.UIData.StyleInterface styleInterface = ShogiGameDataUI.GetStyleInterface (this.data, style);
-							if (styleInterface != null) {
-								if (this.data.isHint.v) {
-									// sprite
-									imgHint.sprite = styleInterface.getSprite (shogiCustomSet.piece.v);
-									// position
-									{
-										imgHint.transform.localPosition = Common.convertSquareToLocalPosition (shogiCustomSet.square.v);
-									}
-									// scale
-									{
-										int playerView = GameDataBoardUI.UIData.getPlayerView (this.data);
-										imgHint.gameObject.transform.localScale = (playerView == 0 ? new Vector3 (1, 1, 1) : new Vector3 (1, -1, 1));
-									}
-								} else {
-									imgHint.sprite = styleInterface.getSprite (Common.Piece.Empty);
-								}
-							} else {
-								Debug.LogError ("styleInterface null: " + this);
-							}
-						} else {
+                            // Process
+                            if (this.data.isHint.v)
+                            {
+                                // sprite
+                                imgHint.sprite = ShogiSpriteContainer.get().getSprite(style, shogiCustomSet.piece.v);
+                                // position
+                                {
+                                    imgHint.transform.localPosition = Common.convertSquareToLocalPosition(shogiCustomSet.square.v);
+                                }
+                                // scale
+                                {
+                                    int playerView = GameDataBoardUI.UIData.getPlayerView(this.data);
+                                    imgHint.gameObject.transform.localScale = (playerView == 0 ? new Vector3(1, 1, 1) : new Vector3(1, -1, 1));
+                                }
+                            }
+                            else
+                            {
+                                imgHint.sprite = ShogiSpriteContainer.get().getSprite(style, Common.Piece.Empty);
+                            }
+                        } else {
 							Debug.LogError ("imgHint null: " + this);
 						}
 					} else {

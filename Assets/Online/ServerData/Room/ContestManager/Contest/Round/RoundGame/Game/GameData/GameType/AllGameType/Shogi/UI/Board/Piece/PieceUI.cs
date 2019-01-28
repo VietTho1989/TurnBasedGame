@@ -79,52 +79,53 @@ namespace Shogi
 										Setting.Style style = Setting.get().style.v;
 										// Process
 										{
-											ShogiGameDataUI.UIData.StyleInterface styleInterface = ShogiGameDataUI.GetStyleInterface (this.data, style);
-											if (styleInterface != null) {
-												// Find piece
-												Common.Piece piece = this.data.piece.v;
-												{
-													if (moveAnimation != null) {
-														switch (moveAnimation.getType ()) {
-														case GameMove.Type.ShogiMove:
-															{
-																ShogiMoveAnimation shogiMoveAnimation = moveAnimation as ShogiMoveAnimation;
-																// Get Inform
-																ShogiMove shogiMove = new ShogiMove ();
-																{
-																	shogiMove.move.v = shogiMoveAnimation.move.v;
-																}
-																if (shogiMove.from () == (Common.Square)this.data.position.v) {
-																	if (shogiMove.isPromotion () != 0) {
-																		bool showPromotion = false;
-																		{
-																			float promotionDuration = ShogiMoveAnimation.PromotionDuration * AnimationManager.DefaultDuration;
-																			float distanceDuration = duration - promotionDuration;
-																			float promotionTime = time - distanceDuration;
-																			if (promotionTime > 0) {
-																				int flipFlop = Mathf.CeilToInt (promotionTime / (promotionDuration / 4));
-																				showPromotion = (flipFlop % 2 == 0);
-																			}
-																		}
-																		if (showPromotion) {
-																			piece = Common.getPromotion (this.data.piece.v);
-																		}
-																	}
-																	// this.transform.SetAsLastSibling ();
-																}
-															}
-															break;
-														default:
-															Debug.LogError ("unknown moveAnimation: " + moveAnimation + "; " + this);
-															break;
-														}
-													}
-												}
-												image.sprite = styleInterface.getSprite (piece);
-											} else {
-												Debug.LogError ("styleInterface null: " + this);
-											}
-										}
+                                            // Find piece
+                                            Common.Piece piece = this.data.piece.v;
+                                            {
+                                                if (moveAnimation != null)
+                                                {
+                                                    switch (moveAnimation.getType())
+                                                    {
+                                                        case GameMove.Type.ShogiMove:
+                                                            {
+                                                                ShogiMoveAnimation shogiMoveAnimation = moveAnimation as ShogiMoveAnimation;
+                                                                // Get Inform
+                                                                ShogiMove shogiMove = new ShogiMove();
+                                                                {
+                                                                    shogiMove.move.v = shogiMoveAnimation.move.v;
+                                                                }
+                                                                if (shogiMove.from() == (Common.Square)this.data.position.v)
+                                                                {
+                                                                    if (shogiMove.isPromotion() != 0)
+                                                                    {
+                                                                        bool showPromotion = false;
+                                                                        {
+                                                                            float promotionDuration = ShogiMoveAnimation.PromotionDuration * AnimationManager.DefaultDuration;
+                                                                            float distanceDuration = duration - promotionDuration;
+                                                                            float promotionTime = time - distanceDuration;
+                                                                            if (promotionTime > 0)
+                                                                            {
+                                                                                int flipFlop = Mathf.CeilToInt(promotionTime / (promotionDuration / 4));
+                                                                                showPromotion = (flipFlop % 2 == 0);
+                                                                            }
+                                                                        }
+                                                                        if (showPromotion)
+                                                                        {
+                                                                            piece = Common.getPromotion(this.data.piece.v);
+                                                                        }
+                                                                    }
+                                                                    // this.transform.SetAsLastSibling ();
+                                                                }
+                                                            }
+                                                            break;
+                                                        default:
+                                                            Debug.LogError("unknown moveAnimation: " + moveAnimation + "; " + this);
+                                                            break;
+                                                    }
+                                                }
+                                            }
+                                            image.sprite = ShogiSpriteContainer.get().getSprite(style, piece);
+                                        }
 									}
 								} else {
 									Debug.LogError ("image null: " + this);

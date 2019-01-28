@@ -210,18 +210,9 @@ namespace Shogi.UseRule
 								}
 								// set
 								{
-									// Find style
 									Setting.Style style = Setting.get().style.v;
-									// Process
-									{
-										ShogiGameDataUI.UIData.StyleInterface styleInterface = ShogiGameDataUI.GetStyleInterface (this.data, style);
-										if (styleInterface != null) {
-											imgPiece.sprite = styleInterface.getSprite (piece);
-										} else {
-											Debug.LogError ("styleInterface null: " + this);
-										}
-									}
-								}
+                                    imgPiece.sprite = ShogiSpriteContainer.get().getSprite(style, piece);
+                                }
 							} else {
 								Debug.LogError ("imgPromotion null: " + this);
 							}

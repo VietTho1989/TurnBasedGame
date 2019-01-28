@@ -70,14 +70,9 @@ namespace Shogi.NoneRule
 							if (imgPiece != null) {
 								// Find style
 								Setting.Style style = Setting.get().style.v;
-								// Process
-								ShogiGameDataUI.UIData.StyleInterface styleInterface = ShogiGameDataUI.GetStyleInterface (this.data, style);
-								if (styleInterface != null) {
-									imgPiece.sprite = styleInterface.getSpriteForHandPiece (piece.handPiece, piece.color);
-								} else {
-									Debug.LogError ("styleInterface null: " + this);
-								}
-							} else {
+                                // Process
+                                imgPiece.sprite = ShogiSpriteContainer.get().getSpriteForHandPiece(style, piece.handPiece, piece.color);
+                            } else {
 								Debug.LogError ("imgPiece null: " + this);
 							}
 						}

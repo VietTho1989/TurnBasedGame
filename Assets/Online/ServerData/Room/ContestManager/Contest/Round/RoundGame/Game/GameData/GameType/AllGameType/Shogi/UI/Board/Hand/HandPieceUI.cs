@@ -70,21 +70,19 @@ namespace Shogi
 								Setting.Style style = Setting.get().style.v;
 								// Process
 								{
-									ShogiGameDataUI.UIData.StyleInterface styleInterface = ShogiGameDataUI.GetStyleInterface (this.data, style);
-									if (styleInterface != null) {
-										Common.Color color = Common.Color.Black;
-										{
-											if (this.data.color.v == Common.Color.Black) {
-												color = Common.Color.White;
-											} else {
-												color = Common.Color.Black;
-											}
-										}
-										imgPiece.sprite = styleInterface.getSpriteForHandPiece (this.data.handPiece.v, color);
-									} else {
-										Debug.LogError ("styleInterface null: " + this);
-									}
-								}
+                                    Common.Color color = Common.Color.Black;
+                                    {
+                                        if (this.data.color.v == Common.Color.Black)
+                                        {
+                                            color = Common.Color.White;
+                                        }
+                                        else
+                                        {
+                                            color = Common.Color.Black;
+                                        }
+                                    }
+                                    imgPiece.sprite = ShogiSpriteContainer.get().getSpriteForHandPiece(style, this.data.handPiece.v, color);
+                                }
 							} else {
 								Debug.LogError ("imgPiece null: " + this);
 							}
