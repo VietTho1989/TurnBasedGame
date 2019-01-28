@@ -128,7 +128,7 @@ public class ProcessMoveActionUpdate : GameActionsUpdate.Sub<ProcessMoveAction>
 						Turn turn = gameData.turn.v;
 						// Process
 						if (turn != null) {
-							gameTopic.addGameMove (turn, gameMove);
+							// TODO Co le khong nen them vao gameTopic.addGameMove (turn, gameMove);
 						} else {
 							Debug.LogError ("turn null: " + this);
 						}

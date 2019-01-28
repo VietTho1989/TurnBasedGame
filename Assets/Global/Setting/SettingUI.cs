@@ -37,11 +37,43 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 			}
 		}
 
-		#endregion
+        #endregion
 
-		#region showLastMove
+        #region style
 
-		public VP<RequestChangeBoolUI.UIData> showLastMove;
+        public VP<RequestChangeEnumUI.UIData> style;
+
+        public void makeRequestChangeStyle(RequestChangeUpdate<int>.UpdateData update, int newStyle)
+        {
+            // Find
+            Setting setting = null;
+            {
+                EditData<Setting> editSetting = this.editSetting.v;
+                if (editSetting != null)
+                {
+                    setting = editSetting.show.v.data;
+                }
+                else
+                {
+                    Debug.LogError("editSetting null: " + this);
+                }
+            }
+            // Process
+            if (setting != null)
+            {
+                setting.style.v = (Setting.Style)newStyle;
+            }
+            else
+            {
+                Debug.LogError("setting null: " + this);
+            }
+        }
+
+        #endregion
+
+        #region showLastMove
+
+        public VP<RequestChangeBoolUI.UIData> showLastMove;
 
 		public void makeRequestChangeShowLastMove (RequestChangeUpdate<bool>.UpdateData update, bool newShowLastMove)
 		{
@@ -125,6 +157,7 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 		{
 			editSetting,
 			language,
+            style,
 			showLastMove,
 			viewUrlImage,
 			animationSetting,
@@ -154,8 +187,20 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 					}
 				}
 			}
-			// showLastMove
-			{
+            // style
+            {
+                this.style = new VP<RequestChangeEnumUI.UIData>(this, (byte)Property.style, new RequestChangeEnumUI.UIData());
+                this.style.v.updateData.v.request.v = makeRequestChangeStyle;
+                // options
+                {
+                    foreach (Setting.Style style in System.Enum.GetValues(typeof(Setting.Style)))
+                    {
+                        this.style.v.options.add(""+style);
+                    }
+                }
+            }
+            // showLastMove
+            {
 				this.showLastMove = new VP<RequestChangeBoolUI.UIData>(this, (byte)Property.showLastMove, new RequestChangeBoolUI.UIData());
 				this.showLastMove.v.updateData.v.request.v = makeRequestChangeShowLastMove;
 			}
@@ -264,8 +309,43 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 										Debug.LogError ("useRule null: " + this);
 									}
 								}
-								// showLastMove
-								{
+                                // style
+                                {
+                                    RequestChangeEnumUI.UIData style = this.data.style.v;
+                                    if (style != null)
+                                    {
+                                        // update
+                                        RequestChangeUpdate<int>.UpdateData updateData = style.updateData.v;
+                                        if (updateData != null)
+                                        {
+                                            updateData.origin.v = (int)show.style.v;
+                                            updateData.canRequestChange.v = editSetting.canEdit.v;
+                                            updateData.serverState.v = serverState;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("updateData null: " + this);
+                                        }
+                                        // compare
+                                        {
+                                            if (compare != null)
+                                            {
+                                                style.showDifferent.v = true;
+                                                style.compare.v = (int)(compare.style.v);
+                                            }
+                                            else
+                                            {
+                                                style.showDifferent.v = false;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("useRule null: " + this);
+                                    }
+                                }
+                                // showLastMove
+                                {
 									RequestChangeBoolUI.UIData showLastMove = this.data.showLastMove.v;
 									if (showLastMove != null) {
 										// update
@@ -430,8 +510,30 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 									Debug.LogError ("useRule null: " + this);
 								}
 							}
-							// showLastMove
-							{
+                            // style
+                            {
+                                RequestChangeEnumUI.UIData style = this.data.style.v;
+                                if (style != null)
+                                {
+                                    // update
+                                    RequestChangeUpdate<int>.UpdateData updateData = style.updateData.v;
+                                    if (updateData != null)
+                                    {
+                                        updateData.current.v = (int)show.style.v;
+                                        updateData.changeState.v = Data.ChangeState.None;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("updateData null: " + this);
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("useRule null: " + this);
+                                }
+                            }
+                            // showLastMove
+                            {
 								RequestChangeBoolUI.UIData showLastMove = this.data.showLastMove.v;
 								if (showLastMove != null) {
 									// update
@@ -510,7 +612,10 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 	public Text tvLanguage;
 	public static readonly TxtLanguage txtLanguage = new TxtLanguage ();
 
-	public Text tvShowLastMove;
+    public Text tvStyle;
+    public static readonly TxtLanguage txtStyle = new TxtLanguage();
+
+    public Text tvShowLastMove;
 	public static readonly TxtLanguage txtShowLastMove = new TxtLanguage ();
 
 	public Text tvViewUrlImage;
@@ -523,6 +628,7 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 	{
 		txtSetting.add (Language.Type.vi, "Thiết Lập");
 		txtLanguage.add (Language.Type.vi, "Ngôn Ngữ");
+        txtStyle.add(Language.Type.vi, "Kiểu");
 		txtShowLastMove.add (Language.Type.vi, "Hiện nước đi ");
 		txtViewUrlImage.add (Language.Type.vi, "Xem ảnh url");
 		txtMaxThinkCount.add (Language.Type.vi, "Số luồng nghĩ tối đa");
@@ -540,7 +646,15 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 		} else {
 			Debug.LogError ("tvLanguage null: " + this);
 		}
-		if (tvShowLastMove != null) {
+        if (tvStyle != null)
+        {
+            tvStyle.text = txtStyle.get("Style");
+        }
+        else
+        {
+            Debug.LogError("tvStyle null: " + this);
+        }
+        if (tvShowLastMove != null) {
 			tvShowLastMove.text = txtShowLastMove.get ("Show Last Move");
 		} else {
 			Debug.LogError ("tvShowLastMove null: " + this);
@@ -567,6 +681,7 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 	public RequestChangeIntUI requestIntPrefab;
 
 	public Transform languageContainer;
+    public Transform styleContainer;
 	public Transform showLastMoveContainer;
 	public Transform viewUrlImageContainer;
 	public Transform animationSettingContainer;
@@ -586,6 +701,7 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 			{
 				uiData.editSetting.allAddCallBack (this);
 				uiData.language.allAddCallBack (this);
+                uiData.style.allAddCallBack(this);
 				uiData.showLastMove.allAddCallBack (this);
 				uiData.viewUrlImage.allAddCallBack (this);
 				uiData.animationSetting.allAddCallBack (this);
@@ -634,7 +750,7 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 					}*/
 				}
 			}
-			// language
+			// language, style
 			if (data is RequestChangeEnumUI.UIData) {
 				RequestChangeEnumUI.UIData requestChange = data as RequestChangeEnumUI.UIData;
 				// UI
@@ -642,9 +758,12 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 					WrapProperty wrapProperty = requestChange.p;
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
-						case UIData.Property.language:
-							UIUtils.Instantiate (requestChange, requestEnumPrefab, languageContainer);
-							break;
+						    case UIData.Property.language:
+							    UIUtils.Instantiate (requestChange, requestEnumPrefab, languageContainer);
+							    break;
+                            case UIData.Property.style:
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, styleContainer);
+                                break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 							break;
@@ -728,6 +847,7 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 			{
 				uiData.editSetting.allRemoveCallBack (this);
 				uiData.language.allRemoveCallBack (this);
+                uiData.style.allRemoveCallBack(this);
 				uiData.showLastMove.allRemoveCallBack (this);
 				uiData.viewUrlImage.allRemoveCallBack (this);
 				uiData.animationSetting.allRemoveCallBack (this);
@@ -771,7 +891,7 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 					}*/
 				}
 			}
-			// language
+			// language, style
 			if (data is RequestChangeEnumUI.UIData) {
 				RequestChangeEnumUI.UIData requestChange = data as RequestChangeEnumUI.UIData;
 				// UI
@@ -816,73 +936,85 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 			return;
 		}
 		if (wrapProperty.p is UIData) {
-			switch ((UIData.Property)wrapProperty.n) {
-			case UIData.Property.editSetting:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			case UIData.Property.language:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			case UIData.Property.showLastMove:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			case UIData.Property.viewUrlImage:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			case UIData.Property.animationSetting:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			case UIData.Property.maxThinkCount:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			default:
-				Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-				break;
-			}
+            switch ((UIData.Property)wrapProperty.n)
+            {
+                case UIData.Property.editSetting:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.language:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.style:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.showLastMove:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.viewUrlImage:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.animationSetting:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.maxThinkCount:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
 			return;
 		}
-		// Setting
-		if (wrapProperty.p is Setting) {
-			switch ((Setting.Property)wrapProperty.n) {
-			case Setting.Property.language:
-				dirty = true;
-				break;
-			case Setting.Property.showLastMove:
-				dirty = true;
-				break;
-			case Setting.Property.viewUrlImage:
-				dirty = true;
-				break;
-			case Setting.Property.animationSetting:
-				dirty = true;
-				break;
-			case Setting.Property.maxThinkCount:
-				dirty = true;
-				break;
-			default:
-				Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-				break;
-			}
-			return;
-		}
+        // Setting
+        if (wrapProperty.p is Setting)
+        {
+            switch ((Setting.Property)wrapProperty.n)
+            {
+                case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.style:
+                    dirty = true;
+                    break;
+                case Setting.Property.showLastMove:
+                    dirty = true;
+                    break;
+                case Setting.Property.viewUrlImage:
+                    dirty = true;
+                    break;
+                case Setting.Property.animationSetting:
+                    dirty = true;
+                    break;
+                case Setting.Property.maxThinkCount:
+                    dirty = true;
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
 		// Child
 		{
 			// editSetting
@@ -921,29 +1053,34 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 				}
 				// Child
 				{
-					if (wrapProperty.p is Setting) {
-						switch ((Setting.Property)wrapProperty.n) {
-						case Setting.Property.language:
-							dirty = true;
-							break;
-						case Setting.Property.showLastMove:
-							dirty = true;
-							break;
-						case Setting.Property.viewUrlImage:
-							dirty = true;
-							break;
-						case Setting.Property.animationSetting:
-							dirty = true;
-							break;
-						case Setting.Property.maxThinkCount:
-							dirty = true;
-							break;
-						default:
-							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-							break;
-						}
-						return;
-					}
+                    if (wrapProperty.p is Setting)
+                    {
+                        switch ((Setting.Property)wrapProperty.n)
+                        {
+                            case Setting.Property.language:
+                                dirty = true;
+                                break;
+                            case Setting.Property.style:
+                                dirty = true;
+                                break;
+                            case Setting.Property.showLastMove:
+                                dirty = true;
+                                break;
+                            case Setting.Property.viewUrlImage:
+                                dirty = true;
+                                break;
+                            case Setting.Property.animationSetting:
+                                dirty = true;
+                                break;
+                            case Setting.Property.maxThinkCount:
+                                dirty = true;
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
 					// Parent
 					/*{
 						if (wrapProperty.p is Server) {
@@ -953,7 +1090,7 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 					}*/
 				}
 			}
-			// language
+			// language, style
 			if (wrapProperty.p is RequestChangeEnumUI.UIData) {
 				return;
 			}

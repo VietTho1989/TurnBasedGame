@@ -24,7 +24,19 @@ public class Setting : Data
 
 	public VP<Language.Type> language;
 
-	public VP<bool> showLastMove;
+    #region style
+
+    public enum Style
+    {
+        Normal,
+        Western
+    }
+
+    public VP<Style> style;
+
+    #endregion
+
+    public VP<bool> showLastMove;
 
 	public VP<bool> viewUrlImage;
 
@@ -39,7 +51,8 @@ public class Setting : Data
 	public enum Property
 	{
 		language,
-		showLastMove,
+        style,
+        showLastMove,
 		viewUrlImage,
 		animationSetting,
 		maxThinkCount
@@ -48,7 +61,8 @@ public class Setting : Data
 	public Setting() : base()
 	{
 		this.language = new VP<Language.Type> (this, (byte)Property.language, Language.Type.en);
-		this.showLastMove = new VP<bool> (this, (byte)Property.showLastMove, true);
+        this.style = new VP<Style>(this, (byte)Property.style, Style.Normal);
+        this.showLastMove = new VP<bool> (this, (byte)Property.showLastMove, true);
 		this.viewUrlImage = new VP<bool> (this, (byte)Property.viewUrlImage, true);
 		this.animationSetting = new VP<AnimationSetting> (this, (byte)Property.animationSetting, new AnimationSetting ());
 		this.maxThinkCount = new VP<int> (this, (byte)Property.maxThinkCount, 12);

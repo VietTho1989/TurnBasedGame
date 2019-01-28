@@ -64,15 +64,7 @@ namespace Shogi.NoneRule
 					{
 						if (imgPiece != null) {
 							// Find style
-							ShogiGameDataUI.UIData.Style style = ShogiGameDataUI.UIData.Style.Western;
-							{
-								ShogiGameDataUI.UIData shogiGameDataUIData = this.data.findDataInParent<ShogiGameDataUI.UIData> ();
-								if (shogiGameDataUIData != null) {
-									style = shogiGameDataUIData.style.v;
-								} else {
-									Debug.LogError ("shogiGameDataUIData null: " + this);
-								}
-							}
+							Setting.Style style = Setting.get().style.v;
 							// Process
 							ShogiGameDataUI.UIData.StyleInterface styleInterface = ShogiGameDataUI.GetStyleInterface (this.data, style);
 							if (styleInterface != null) {
@@ -94,43 +86,38 @@ namespace Shogi.NoneRule
 
 		#region implement callBacks
 
-		private ShogiGameDataUI.UIData shogiGameDataUIData = null;
-
 		public override void onAddCallBack<T> (T data)
 		{
 			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Parent
-				{
-					DataUtils.addParentCallBack (uiData, this, ref this.shogiGameDataUIData);
-				}
+                // Setting
+                Setting.get().addCallBack(this);
 				dirty = true;
 				return;
 			}
-			// Parent
-			if (data is ShogiGameDataUI.UIData) {
-				dirty = true;
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
+			// Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            Debug.LogError ("Don't process: " + data + "; " + this);
 		}
 
 		public override void onRemoveCallBack<T> (T data, bool isHide)
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
-				// Parent
-				{
-					DataUtils.removeParentCallBack (uiData, this, ref this.shogiGameDataUIData);
-				}
+                // Setting
+                Setting.get().removeCallBack(this);
 				this.setDataNull (uiData);
 				return;
 			}
-			// Parent
-			if (data is ShogiGameDataUI.UIData) {
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
+			// Setting
+            if(data is Setting)
+            {
+                return;
+            }
+            Debug.LogError ("Don't process: " + data + "; " + this);
 		}
 
 		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
@@ -149,37 +136,30 @@ namespace Shogi.NoneRule
 				}
 				return;
 			}
-			// Parent
-			if (wrapProperty.p is ShogiGameDataUI.UIData) {
-				switch ((ShogiGameDataUI.UIData.Property)wrapProperty.n) {
-				case ShogiGameDataUI.UIData.Property.gameData:
-					break;
-				case ShogiGameDataUI.UIData.Property.updateTransform:
-					break;
-				case ShogiGameDataUI.UIData.Property.transformOrganizer:
-					break;
-				case ShogiGameDataUI.UIData.Property.style:
-					dirty = true;
-					break;
-				case ShogiGameDataUI.UIData.Property.btnChangeStyle:
-					break;
-				case ShogiGameDataUI.UIData.Property.isOnAnimation:
-					break;
-				case ShogiGameDataUI.UIData.Property.board:
-					break;
-				case ShogiGameDataUI.UIData.Property.lastMove:
-					break;
-				case ShogiGameDataUI.UIData.Property.showHint:
-					break;
-				case ShogiGameDataUI.UIData.Property.inputUI:
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+			// Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        break;
+                    case Setting.Property.style:
+                        dirty = true;
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+            }
+            Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
 		}
 
 		#endregion

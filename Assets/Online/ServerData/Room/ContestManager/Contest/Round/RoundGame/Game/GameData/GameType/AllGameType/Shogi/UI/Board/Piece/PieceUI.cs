@@ -12,6 +12,7 @@ namespace Shogi
 
 		public class UIData : Data
 		{
+
 			#region State
 
 			public VP<Common.Piece> piece;
@@ -35,6 +36,7 @@ namespace Shogi
 			}
 
 			#endregion
+
 		}
 
 		#endregion
@@ -74,15 +76,7 @@ namespace Shogi
 									// set
 									{
 										// Find style
-										ShogiGameDataUI.UIData.Style style = ShogiGameDataUI.UIData.Style.Western;
-										{
-											ShogiGameDataUI.UIData shogiGameDataUIData = this.data.findDataInParent<ShogiGameDataUI.UIData> ();
-											if (shogiGameDataUIData != null) {
-												style = shogiGameDataUIData.style.v;
-											} else {
-												Debug.LogError ("shogiGameDataUIData null: " + this);
-											}
-										}
+										Setting.Style style = Setting.get().style.v;
 										// Process
 										{
 											ShogiGameDataUI.UIData.StyleInterface styleInterface = ShogiGameDataUI.GetStyleInterface (this.data, style);
@@ -251,36 +245,30 @@ namespace Shogi
 
 		#region implement callBacks
 
-		private ShogiGameDataUI.UIData shogiGameDataUIData = null;
 		private GameDataBoardCheckPerspectiveChange<UIData> perspectiveChange = new GameDataBoardCheckPerspectiveChange<UIData>();
 
 		public override void onAddCallBack<T> (T data)
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
 				// CheckChange
 				{
 					perspectiveChange.addCallBack (this);
 					perspectiveChange.setData (uiData);
 				}
-				// Parent
-				{
-					DataUtils.addParentCallBack (uiData, this, ref shogiGameDataUIData);
-				}
 				dirty = true;
 				return;
 			}
-			// checkChange
-			if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
-				dirty = true;
-				return;
-			}
-			// Parent
-			if (data is ShogiGameDataUI.UIData) {
-				// ShogiGameDataUI.UIData shogiGameDataUIData = data as ShogiGameDataUI.UIData;
-				{
-
-				}
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // checkChange
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
 				dirty = true;
 				return;
 			}
@@ -291,28 +279,23 @@ namespace Shogi
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
 				// CheckChange
 				{
 					perspectiveChange.removeCallBack (this);
 					perspectiveChange.setData (null);
 				}
-				// Parent
-				{
-					DataUtils.removeParentCallBack (uiData, this, ref shogiGameDataUIData);
-				}
 				this.setDataNull (uiData);
 				return;
 			}
-			// checkChange
-			if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
-				return;
-			}
-			// Parent
-			if (data is ShogiGameDataUI.UIData) {
-				// ShogiGameDataUI.UIData shogiGameDataUIData = data as ShogiGameDataUI.UIData;
-				{
-
-				}
+            // Setting
+            if(data is Setting)
+            {
+                return;
+            }
+            // checkChange
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
 				return;
 			}
 			Debug.LogError ("Don't process: " + data + "; " + this);
@@ -332,38 +315,38 @@ namespace Shogi
 					dirty = true;
 					break;
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
 			}
-			// Check Change
-			if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>) {
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        break;
+                    case Setting.Property.style:
+                        dirty = true;
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Check Change
+            if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>) {
 				dirty = true;
-				return;
-			}
-			// Parent
-			if (wrapProperty.p is ShogiGameDataUI.UIData) {
-				switch ((ShogiGameDataUI.UIData.Property)wrapProperty.n) {
-				case ShogiGameDataUI.UIData.Property.gameData:
-					break;
-				case ShogiGameDataUI.UIData.Property.style:
-					dirty = true;
-					break;
-				case ShogiGameDataUI.UIData.Property.isOnAnimation:
-					break;
-				case ShogiGameDataUI.UIData.Property.board:
-					break;
-				case ShogiGameDataUI.UIData.Property.lastMove:
-					break;
-				case ShogiGameDataUI.UIData.Property.showHint:
-					break;
-				case ShogiGameDataUI.UIData.Property.inputUI:
-					break;
-				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-					break;
-				}
 				return;
 			}
 			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);

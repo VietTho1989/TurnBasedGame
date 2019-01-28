@@ -69,15 +69,7 @@ namespace Shogi.NoneRule
 						{
 							if (imgPiece != null) {
 								// Find style
-								ShogiGameDataUI.UIData.Style style = ShogiGameDataUI.UIData.Style.Western;
-								{
-									ShogiGameDataUI.UIData shogiGameDataUIData = this.data.findDataInParent<ShogiGameDataUI.UIData> ();
-									if (shogiGameDataUIData != null) {
-										style = shogiGameDataUIData.style.v;
-									} else {
-										Debug.LogError ("shogiGameDataUIData null: " + this);
-									}
-								}
+								Setting.Style style = Setting.get().style.v;
 								// Process
 								ShogiGameDataUI.UIData.StyleInterface styleInterface = ShogiGameDataUI.GetStyleInterface (this.data, style);
 								if (styleInterface != null) {
@@ -142,24 +134,30 @@ namespace Shogi.NoneRule
 		#region implement callBacks
 
 		private NoneRuleInputUI.UIData noneRuleInputUIData = null;
-		private ShogiGameDataUI.UIData shogiGameDataUIData = null;
 		private SetHandAdapter.UIData setHandAdapterUIData = null;
 
 		public override void onAddCallBack<T> (T data)
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
 				// Parent
 				{
 					DataUtils.addParentCallBack (uiData, this, ref this.noneRuleInputUIData);
-					DataUtils.addParentCallBack (uiData, this, ref this.shogiGameDataUIData);
 					DataUtils.addParentCallBack (uiData, this, ref this.setHandAdapterUIData);
 				}
 				dirty = true;
 				return;
 			}
-			// Parent
-			{
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // Parent
+            {
 				// noneRuleInputUIData
 				{
 					if (data is NoneRuleInputUI.UIData) {
@@ -193,17 +191,23 @@ namespace Shogi.NoneRule
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
 				// Parent
 				{
 					DataUtils.removeParentCallBack (uiData, this, ref this.noneRuleInputUIData);
-					DataUtils.removeParentCallBack (uiData, this, ref this.shogiGameDataUIData);
 					DataUtils.removeParentCallBack (uiData, this, ref this.setHandAdapterUIData);
 				}
 				this.setDataNull (uiData);
 				return;
 			}
-			// Parent
-			{
+            // Setting
+            if(data is Setting)
+            {
+                return;
+            }
+            // Parent
+            {
 				// noneRuleInputUIData
 				{
 					if (data is NoneRuleInputUI.UIData) {
@@ -218,9 +222,6 @@ namespace Shogi.NoneRule
 					if (data is Shogi) {
 						return;
 					}
-				}
-				if (data is ShogiGameDataUI.UIData) {
-					return;
 				}
 				if (data is SetHandAdapter.UIData) {
 					return;
@@ -245,8 +246,32 @@ namespace Shogi.NoneRule
 				}
 				return;
 			}
-			// Parent
-			{
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        break;
+                    case Setting.Property.style:
+                        dirty = true;
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Parent
+            {
 				// noneRuleInputUIData
 				{
 					if (wrapProperty.p is NoneRuleInputUI.UIData) {
@@ -299,35 +324,6 @@ namespace Shogi.NoneRule
 						}
 						return;
 					}
-				}
-				if (wrapProperty.p is ShogiGameDataUI.UIData) {
-					switch ((ShogiGameDataUI.UIData.Property)wrapProperty.n) {
-					case ShogiGameDataUI.UIData.Property.gameData:
-						break;
-					case ShogiGameDataUI.UIData.Property.updateTransform:
-						break;
-					case ShogiGameDataUI.UIData.Property.transformOrganizer:
-						break;
-					case ShogiGameDataUI.UIData.Property.style:
-						dirty = true;
-						break;
-					case ShogiGameDataUI.UIData.Property.btnChangeStyle:
-						break;
-					case ShogiGameDataUI.UIData.Property.isOnAnimation:
-						break;
-					case ShogiGameDataUI.UIData.Property.board:
-						break;
-					case ShogiGameDataUI.UIData.Property.lastMove:
-						break;
-					case ShogiGameDataUI.UIData.Property.showHint:
-						break;
-					case ShogiGameDataUI.UIData.Property.inputUI:
-						break;
-					default:
-						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-						break;
-					}
-					return;
 				}
 				if (wrapProperty.p is SetHandAdapter.UIData) {
 					switch ((SetHandAdapter.UIData.Property)wrapProperty.n) {

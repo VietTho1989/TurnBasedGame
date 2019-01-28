@@ -24,22 +24,12 @@ namespace Shogi
 
 			#region Style
 
-			public enum Style
-			{
-				Normal,
-				Western
-			}
-
 			public interface StyleInterface
 			{
 				Sprite getSprite (Common.Piece piece);
 
 				Sprite getSpriteForHandPiece (Common.HandPiece handPiece, Common.Color color);
 			}
-
-			public VP<Style> style;
-
-			public VP<BtnChangeStyle.UIData> btnChangeStyle;
 
 			#endregion
 
@@ -62,8 +52,6 @@ namespace Shogi
 				updateTransform,
 				transformOrganizer,
 
-				style,
-				btnChangeStyle,
 				isOnAnimation,
 				board,
 				lastMove,
@@ -78,8 +66,6 @@ namespace Shogi
 				this.updateTransform = new VP<UpdateTransform.UpdateData>(this, (byte)Property.updateTransform, new UpdateTransform.UpdateData());
 				this.transformOrganizer = new VP<UITransformOrganizer.UpdateData>(this, (byte)Property.transformOrganizer, new UITransformOrganizer.UpdateData());
 
-				this.style = new VP<Style>(this, (byte)Property.style, Style.Western);
-				this.btnChangeStyle = new VP<BtnChangeStyle.UIData>(this, (byte)Property.btnChangeStyle, new BtnChangeStyle.UIData());
 				this.isOnAnimation = new VP<bool>(this, (byte)Property.isOnAnimation, false);
 				this.board = new VP<BoardUI.UIData>(this, (byte)Property.board, new BoardUI.UIData());
 				this.lastMove = new VP<LastMoveUI.UIData>(this, (byte)Property.lastMove, new LastMoveUI.UIData());
@@ -120,16 +106,16 @@ namespace Shogi
 		public SpriteNormal spriteNormal;
 		public SpriteWestern spriteWestern;
 
-		public static UIData.StyleInterface GetStyleInterface(Data data, UIData.Style style)
+		public static UIData.StyleInterface GetStyleInterface(Data data, Setting.Style style)
 		{
 			ShogiGameDataUI.UIData shogiGameDataUIData = data.findDataInParent<ShogiGameDataUI.UIData> ();
 			if (shogiGameDataUIData != null) {
 				ShogiGameDataUI shogiGameDataUI = shogiGameDataUIData.findCallBack<ShogiGameDataUI> ();
 				if (shogiGameDataUI != null) {
 					switch (style) {
-					case UIData.Style.Western:
+					case Setting.Style.Western:
 						return shogiGameDataUI.spriteWestern;
-					case UIData.Style.Normal:
+					case Setting.Style.Normal:
 						return shogiGameDataUI.spriteNormal;
 					default:
 						Debug.LogError ("unknown style: " + style + "; " + data);
@@ -219,7 +205,6 @@ namespace Shogi
 		public LastMoveUI lastMovePrefab;
 		public ShowHintUI showHintPrefab;
 		public InputUI inputPrefab;
-		public BtnChangeStyle btnChangeStyle;
 
 		private CheckHaveAnimation<UIData> checkHaveAnimation = new CheckHaveAnimation<UIData> ();
 
@@ -239,7 +224,6 @@ namespace Shogi
 					uiData.lastMove.allAddCallBack (this);
 					uiData.showHint.allAddCallBack (this);
 					uiData.inputUI.allAddCallBack (this);
-					uiData.btnChangeStyle.allAddCallBack (this);
 					// transform
 					{
 						uiData.updateTransform.allAddCallBack (this);
@@ -306,15 +290,6 @@ namespace Shogi
 					dirty = true;
 					return;
 				}
-				// BtnChangeStyle
-				if (data is BtnChangeStyle.UIData) {
-					BtnChangeStyle.UIData btnChangeStyleUIData = data as BtnChangeStyle.UIData;
-					// UI
-					{
-						UIUtils.Instantiate (btnChangeStyleUIData, btnChangeStyle, this.transform);
-					}
-					return;
-				}
 				// Transform
 				{
 					if (data is UpdateTransform.UpdateData) {
@@ -354,7 +329,6 @@ namespace Shogi
 					uiData.lastMove.allRemoveCallBack (this);
 					uiData.showHint.allRemoveCallBack (this);
 					uiData.inputUI.allRemoveCallBack (this);
-					uiData.btnChangeStyle.allRemoveCallBack (this);
 					// Transform
 					{
 						uiData.updateTransform.allRemoveCallBack (this);
@@ -410,15 +384,6 @@ namespace Shogi
 					}
 					return;
 				}
-				// BtnChangeStyle
-				if (data is BtnChangeStyle.UIData) {
-					BtnChangeStyle.UIData btnChangeStyleUIData = data as BtnChangeStyle.UIData;
-					// UI
-					{
-						btnChangeStyleUIData.removeCallBackAndDestroy (typeof(BtnChangeStyle));
-					}
-					return;
-				}
 				// Transform
 				{
 					if (data is UpdateTransform.UpdateData) {
@@ -460,12 +425,6 @@ namespace Shogi
 					}
 					break;
 				case UIData.Property.transformOrganizer:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				case UIData.Property.btnChangeStyle:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
 						dirty = true;

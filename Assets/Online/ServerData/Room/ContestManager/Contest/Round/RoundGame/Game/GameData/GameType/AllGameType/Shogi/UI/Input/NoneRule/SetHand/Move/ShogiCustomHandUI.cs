@@ -289,10 +289,6 @@ namespace Shogi.NoneRule
 						break;
 					case ShogiGameDataUI.UIData.Property.transformOrganizer:
 						break;
-					case ShogiGameDataUI.UIData.Property.style:
-						break;
-					case ShogiGameDataUI.UIData.Property.btnChangeStyle:
-						break;
 					case ShogiGameDataUI.UIData.Property.isOnAnimation:
 						break;
 					case ShogiGameDataUI.UIData.Property.board:

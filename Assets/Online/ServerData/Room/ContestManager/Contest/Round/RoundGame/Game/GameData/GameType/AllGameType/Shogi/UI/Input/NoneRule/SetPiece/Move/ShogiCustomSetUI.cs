@@ -72,15 +72,7 @@ namespace Shogi.NoneRule
 						// imgHint
 						if (imgHint != null) {
 							// Find style
-							ShogiGameDataUI.UIData.Style style = ShogiGameDataUI.UIData.Style.Western;
-							{
-								ShogiGameDataUI.UIData shogiGameDataUIData = this.data.findDataInParent<ShogiGameDataUI.UIData> ();
-								if (shogiGameDataUIData != null) {
-									style = shogiGameDataUIData.style.v;
-								} else {
-									Debug.LogError ("shogiGameDataUIData null: " + this);
-								}
-							}
+							Setting.Style style = Setting.get().style.v;
 							// Process
 							ShogiGameDataUI.UIData.StyleInterface styleInterface = ShogiGameDataUI.GetStyleInterface (this.data, style);
 							if (styleInterface != null) {
@@ -125,20 +117,16 @@ namespace Shogi.NoneRule
 
 		private GameDataBoardCheckPerspectiveChange<UIData> perspectiveChange = new GameDataBoardCheckPerspectiveChange<UIData>();
 
-		private ShogiGameDataUI.UIData shogiGameDataUIData = null;
-
 		public override void onAddCallBack<T> (T data)
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
 				// CheckChange
 				{
 					perspectiveChange.addCallBack (this);
 					perspectiveChange.setData (uiData);
-				}
-				// Parent
-				{
-					DataUtils.addParentCallBack (uiData, this, ref this.shogiGameDataUIData);
 				}
 				// Child
 				{
@@ -147,13 +135,14 @@ namespace Shogi.NoneRule
 				dirty = true;
 				return;
 			}
-			// CheckChange
-			if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
-				dirty = true;
-				return;
-			}
-			// Parent
-			if (data is ShogiGameDataUI.UIData) {
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // CheckChange
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
 				dirty = true;
 				return;
 			}
@@ -169,14 +158,12 @@ namespace Shogi.NoneRule
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
-				// CheckChange
-				{
+                // Setting
+                Setting.get().removeCallBack(this);
+                // CheckChange
+                {
 					perspectiveChange.removeCallBack (this);
 					perspectiveChange.setData (null);
-				}
-				// Parent
-				{
-					DataUtils.removeParentCallBack (uiData, this, ref this.shogiGameDataUIData);
 				}
 				// Child
 				{
@@ -185,12 +172,13 @@ namespace Shogi.NoneRule
 				this.setDataNull (uiData);
 				return;
 			}
-			// CheckChange
-			if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
-				return;
-			}
-			// Parent
-			if (data is ShogiGameDataUI.UIData) {
+            // Setting
+            if (data is Setting)
+            {
+                return;
+            }
+            // CheckChange
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
 				return;
 			}
 			// Child
@@ -222,39 +210,33 @@ namespace Shogi.NoneRule
 				}
 				return;
 			}
-			// CheckChange
-			if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>) {
+            // Setting
+            if (wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        break;
+                    case Setting.Property.style:
+                        dirty = true;
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // CheckChange
+            if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>) {
 				dirty = true;
-				return;
-			}
-			// Parent
-			if (wrapProperty.p is ShogiGameDataUI.UIData) {
-				switch ((ShogiGameDataUI.UIData.Property)wrapProperty.n) {
-				case ShogiGameDataUI.UIData.Property.gameData:
-					break;
-				case ShogiGameDataUI.UIData.Property.updateTransform:
-					break;
-				case ShogiGameDataUI.UIData.Property.transformOrganizer:
-					break;
-				case ShogiGameDataUI.UIData.Property.style:
-					dirty = true;
-					break;
-				case ShogiGameDataUI.UIData.Property.btnChangeStyle:
-					break;
-				case ShogiGameDataUI.UIData.Property.isOnAnimation:
-					break;
-				case ShogiGameDataUI.UIData.Property.board:
-					break;
-				case ShogiGameDataUI.UIData.Property.lastMove:
-					break;
-				case ShogiGameDataUI.UIData.Property.showHint:
-					break;
-				case ShogiGameDataUI.UIData.Property.inputUI:
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
 				return;
 			}
 			// Child
