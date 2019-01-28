@@ -78,58 +78,66 @@ namespace Makruk
 							// Image
 							{
 								if (image != null) {
-									if (image != null) {
-										// sprite
-										if (moveAnimation != null) {
-											switch (moveAnimation.getType ()) {
-											case GameMove.Type.MakrukMove:
-												{
-													MakrukMoveAnimation makrukMoveAnimation = moveAnimation as MakrukMoveAnimation;
-													MakrukMove.Move move = new MakrukMove.Move (makrukMoveAnimation.move.v);
-													switch (move.type) {
-													case Common.MoveType.NORMAL:
-														image.sprite = MakrukSpriteContainer.get ().getSprite (this.data.piece.v);
-														break;
-													case Common.MoveType.PROMOTION:
-														{
-															if ((int)move.ori == this.data.position.v) {
-																float distanceDuration = MoveAnimation.GetDistanceMoveDuration (Common.GetDistance (move.ori, move.dest));
-																if (time <= distanceDuration) {
-																	image.sprite = MakrukSpriteContainer.get ().getSprite (this.data.piece.v);
-																} else {
-																	bool showPromotion = true;
-																	{
-																		float promotionTime = time - distanceDuration;
-																		int flipFlop = Mathf.CeilToInt (promotionTime / (MakrukMoveAnimation.PromotionDuration * AnimationManager.DefaultDuration / 4));
-																		showPromotion = (flipFlop % 2 == 0);
-																	}
-																	image.sprite = MakrukSpriteContainer.get ().getSprite (showPromotion ? Common.make_piece (Common.color_of (this.data.piece.v), move.promotion) : this.data.piece.v);
-																}
-															} else {
-																image.sprite = MakrukSpriteContainer.get ().getSprite (this.data.piece.v);
-															}
-														}
-														break;
-													default:
-														Debug.LogError ("unknown moveType: " + move.GetType () + "; " + this);
-														image.sprite = MakrukSpriteContainer.get ().getSprite (this.data.piece.v);
-														break;
-													}
-												}
-												break;
-											default:
-												Debug.LogError ("unknown moveAnimationType: " + moveAnimation.getType () + "; " + this);
-												image.sprite = MakrukSpriteContainer.get ().getSprite (this.data.piece.v);
-												break;
-											}
-										} else {
-											// Debug.LogError ("moveAnimation null: " + this);
-											image.sprite = MakrukSpriteContainer.get ().getSprite (this.data.piece.v);
-										}
-									} else {
-										Debug.LogError ("image null: " + this);
-									}
-								} else {
+                                    Setting.Style style = Setting.get().style.v;
+                                    // sprite
+                                    if (moveAnimation != null)
+                                    {
+                                        switch (moveAnimation.getType())
+                                        {
+                                            case GameMove.Type.MakrukMove:
+                                                {
+                                                    MakrukMoveAnimation makrukMoveAnimation = moveAnimation as MakrukMoveAnimation;
+                                                    MakrukMove.Move move = new MakrukMove.Move(makrukMoveAnimation.move.v);
+                                                    switch (move.type)
+                                                    {
+                                                        case Common.MoveType.NORMAL:
+                                                            image.sprite = MakrukSpriteContainer.get().getSprite(style, this.data.piece.v);
+                                                            break;
+                                                        case Common.MoveType.PROMOTION:
+                                                            {
+                                                                if ((int)move.ori == this.data.position.v)
+                                                                {
+                                                                    float distanceDuration = MoveAnimation.GetDistanceMoveDuration(Common.GetDistance(move.ori, move.dest));
+                                                                    if (time <= distanceDuration)
+                                                                    {
+                                                                        image.sprite = MakrukSpriteContainer.get().getSprite(style, this.data.piece.v);
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        bool showPromotion = true;
+                                                                        {
+                                                                            float promotionTime = time - distanceDuration;
+                                                                            int flipFlop = Mathf.CeilToInt(promotionTime / (MakrukMoveAnimation.PromotionDuration * AnimationManager.DefaultDuration / 4));
+                                                                            showPromotion = (flipFlop % 2 == 0);
+                                                                        }
+                                                                        image.sprite = MakrukSpriteContainer.get().getSprite(style, showPromotion ? Common.make_piece(Common.color_of(this.data.piece.v), move.promotion) : this.data.piece.v);
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    image.sprite = MakrukSpriteContainer.get().getSprite(style, this.data.piece.v);
+                                                                }
+                                                            }
+                                                            break;
+                                                        default:
+                                                            Debug.LogError("unknown moveType: " + move.GetType() + "; " + this);
+                                                            image.sprite = MakrukSpriteContainer.get().getSprite(style, this.data.piece.v);
+                                                            break;
+                                                    }
+                                                }
+                                                break;
+                                            default:
+                                                Debug.LogError("unknown moveAnimationType: " + moveAnimation.getType() + "; " + this);
+                                                image.sprite = MakrukSpriteContainer.get().getSprite(style, this.data.piece.v);
+                                                break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // Debug.LogError ("moveAnimation null: " + this);
+                                        image.sprite = MakrukSpriteContainer.get().getSprite(style, this.data.piece.v);
+                                    }
+                                } else {
 									Debug.LogError ("image null: " + this);
 								}
 							}
@@ -225,6 +233,8 @@ namespace Makruk
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
 				// CheckChange
 				{
 					// perspective
@@ -236,8 +246,14 @@ namespace Makruk
 				dirty = true;
 				return;
 			}
-			// CheckChange
-			{
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // CheckChange
+            {
 				if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
 					dirty = true;
 					return;
@@ -250,6 +266,8 @@ namespace Makruk
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
 				// CheckChange
 				{
 					// perspective
@@ -261,8 +279,13 @@ namespace Makruk
 				this.setDataNull (uiData);
 				return;
 			}
-			// CheckChange
-			{
+            // Setting
+            if(data is Setting)
+            {
+                return;
+            }
+            // CheckChange
+            {
 				if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
 					return;
 				}
@@ -284,13 +307,37 @@ namespace Makruk
 					dirty = true;
 					break;
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
 			}
-			// CheckChange
-			{
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        break;
+                    case Setting.Property.style:
+                        dirty = true;
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // CheckChange
+            {
 				if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>) {
 					dirty = true;
 					return;

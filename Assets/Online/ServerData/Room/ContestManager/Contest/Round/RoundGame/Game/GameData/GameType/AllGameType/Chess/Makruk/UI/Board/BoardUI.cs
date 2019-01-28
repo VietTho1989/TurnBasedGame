@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -14,8 +15,6 @@ namespace Makruk
 			
 			public VP<ReferenceData<Makruk>> makruk;
 
-			public VP<MakrukFenUI.UIData> makrukFen;
-
 			public LP<PieceUI.UIData> pieces;
 
 			#region Constructor
@@ -23,14 +22,12 @@ namespace Makruk
 			public enum Property
 			{
 				makruk,
-				makrukFen,
 				pieces
 			}
 
 			public UIData() : base()
 			{
 				this.makruk = new VP<ReferenceData<Makruk>>(this, (byte)Property.makruk, new ReferenceData<Makruk>(null));
-				this.makrukFen = new VP<MakrukFenUI.UIData>(this, (byte)Property.makrukFen, new MakrukFenUI.UIData());
 				this.pieces = new LP<PieceUI.UIData>(this, (byte)Property.pieces);
 			}
 
@@ -38,9 +35,11 @@ namespace Makruk
 
 		}
 
-		#endregion
+        #endregion
 
-		#region refresh
+        #region refresh
+
+        public Image bg;
 
 		public override void refresh ()
 		{
@@ -49,8 +48,17 @@ namespace Makruk
 				if (this.data != null) {
 					Makruk makruk = this.data.makruk.v.data;
 					if (makruk != null) {
-						// check load full
-						bool isLoadFull = true;
+                        // bg
+                        if(bg!=null){
+                            Setting.Style style = Setting.get().style.v;
+                            MakrukSpriteContainer.get().setBoardBackground(style, bg);
+                        }
+                        else
+                        {
+                            Debug.LogError("bg null");
+                        }
+                        // check load full
+                        bool isLoadFull = true;
 						{
 							// chess
 							if (isLoadFull) {
@@ -66,15 +74,6 @@ namespace Makruk
 						}
 						// process
 						if (isLoadFull) {
-							// makrukFen
-							{
-								MakrukFenUI.UIData makrukFenUIData = this.data.makrukFen.v;
-								if (makrukFenUIData != null) {
-									makrukFenUIData.makruk.v = new ReferenceData<Makruk> (makruk);
-								} else {
-									Debug.LogError ("makrukFenUIData null: " + this);
-								}
-							}
 							// Normal board
 							{
 								// get olds
@@ -181,9 +180,6 @@ namespace Makruk
 
 		#region implement callBacks
 
-		public MakrukFenUI makrukFenPrefab;
-		public Transform makrukFenContainer;
-
 		public PieceUI piecePrefab;
 		private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData> ();
 
@@ -191,6 +187,8 @@ namespace Makruk
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
 				// CheckChange
 				{
 					animationManagerCheckChange.needTimeChange = false;
@@ -204,14 +202,19 @@ namespace Makruk
 				// Child
 				{
 					uiData.makruk.allAddCallBack (this);
-					uiData.makrukFen.allAddCallBack (this);
 					uiData.pieces.allAddCallBack (this);
 				}
 				dirty = true;
 				return;
 			}
-			// checkChange
-			{
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // checkChange
+            {
 				if (data is AnimationManagerCheckChange<UIData>) {
 					dirty = true;
 					return;
@@ -220,15 +223,6 @@ namespace Makruk
 			// Child
 			{
 				if (data is Makruk) {
-					dirty = true;
-					return;
-				}
-				if (data is MakrukFenUI.UIData) {
-					MakrukFenUI.UIData makrukFenUIData = data as MakrukFenUI.UIData;
-					// UI
-					{
-						UIUtils.Instantiate (makrukFenUIData, makrukFenPrefab, makrukFenContainer);
-					}
 					dirty = true;
 					return;
 				}
@@ -249,6 +243,8 @@ namespace Makruk
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
 				// CheckChange
 				{
 					animationManagerCheckChange.removeCallBack (this);
@@ -261,14 +257,18 @@ namespace Makruk
 				// Child
 				{
 					uiData.makruk.allRemoveCallBack (this);
-					uiData.makrukFen.allRemoveCallBack (this);
 					uiData.pieces.allRemoveCallBack (this);
 				}
 				this.setDataNull (uiData);
 				return;
 			}
-			// checkChange
-			{
+            // Setting
+            if(data is Setting)
+            {
+                return;
+            }
+            // checkChange
+            {
 				if (data is AnimationManagerCheckChange<UIData>) {
 					return;
 				}
@@ -276,14 +276,6 @@ namespace Makruk
 			// Child
 			{
 				if (data is Makruk) {
-					return;
-				}
-				if (data is MakrukFenUI.UIData) {
-					MakrukFenUI.UIData makrukFenUIData = data as MakrukFenUI.UIData;
-					// UI
-					{
-						makrukFenUIData.removeCallBackAndDestroy (typeof(MakrukFenUI));
-					}
 					return;
 				}
 				if (data is PieceUI.UIData) {
@@ -311,12 +303,6 @@ namespace Makruk
 						dirty = true;
 					}
 					break;
-				case UIData.Property.makrukFen:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
 				case UIData.Property.pieces:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
@@ -324,13 +310,37 @@ namespace Makruk
 					}
 					break;
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
 			}
-			// Check Change
-			{
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        break;
+                    case Setting.Property.style:
+                        dirty = true;
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Check Change
+            {
 				if (wrapProperty.p is AnimationManagerCheckChange<UIData>) {
 					dirty = true;
 					return;
@@ -365,9 +375,6 @@ namespace Makruk
 						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
 						break;
 					}
-					return;
-				}
-				if (wrapProperty.p is MakrukFenUI.UIData) {
 					return;
 				}
 				if (wrapProperty.p is PieceUI.UIData) {

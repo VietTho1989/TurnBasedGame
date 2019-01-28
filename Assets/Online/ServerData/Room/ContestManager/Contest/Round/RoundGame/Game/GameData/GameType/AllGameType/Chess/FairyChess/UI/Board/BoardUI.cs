@@ -14,8 +14,6 @@ namespace FairyChess
 			
 			public VP<ReferenceData<FairyChess>> fairyChess;
 
-			public VP<FairyChessFenUI.UIData> fairyChessFen;
-
 			public LP<PieceUI.UIData> pieces;
 
 			public LP<HandPieceUI.UIData> whiteHand;
@@ -27,7 +25,6 @@ namespace FairyChess
 			public enum Property
 			{
 				fairyChess,
-				fairyChessFen,
 				pieces,
 				whiteHand,
 				blackHand
@@ -36,7 +33,6 @@ namespace FairyChess
 			public UIData() : base()
 			{
 				this.fairyChess = new VP<ReferenceData<FairyChess>>(this, (byte)Property.fairyChess, new ReferenceData<FairyChess>(null));
-				this.fairyChessFen = new VP<FairyChessFenUI.UIData>(this, (byte)Property.fairyChessFen, new FairyChessFenUI.UIData());
 				this.pieces = new LP<PieceUI.UIData>(this, (byte)Property.pieces);
 				this.whiteHand = new LP<HandPieceUI.UIData>(this, (byte)Property.whiteHand);
 				this.blackHand = new LP<HandPieceUI.UIData>(this, (byte)Property.blackHand);
@@ -73,15 +69,6 @@ namespace FairyChess
 						}
 						// process
 						if (isLoadFull) {
-							// fairyChessFen
-							{
-								FairyChessFenUI.UIData fairyChessFenUIData = this.data.fairyChessFen.v;
-								if (fairyChessFenUIData != null) {
-									fairyChessFenUIData.fairyChess.v = new ReferenceData<FairyChess> (fairyChess);
-								} else {
-									Debug.LogError ("fairyChessFenUIData null: " + this);
-								}
-							}
 							// Find board
 							List<int> board = fairyChess.board.vs;
 							Common.Piece dropPiece = Common.Piece.NO_PIECE;
@@ -311,7 +298,6 @@ namespace FairyChess
 				// Child
 				{
 					uiData.fairyChess.allAddCallBack (this);
-					uiData.fairyChessFen.allAddCallBack (this);
 					uiData.pieces.allAddCallBack (this);
 					uiData.whiteHand.allAddCallBack (this);
 					uiData.blackHand.allAddCallBack (this);
@@ -329,15 +315,6 @@ namespace FairyChess
 			// Child
 			{
 				if (data is FairyChess) {
-					dirty = true;
-					return;
-				}
-				if (data is FairyChessFenUI.UIData) {
-					FairyChessFenUI.UIData fairyChessFenUIData = data as FairyChessFenUI.UIData;
-					// UI
-					{
-						UIUtils.Instantiate (fairyChessFenUIData, fairyChessFenPrefab, fairyChessFenContainer);
-					}
 					dirty = true;
 					return;
 				}
@@ -395,7 +372,6 @@ namespace FairyChess
 				// Child
 				{
 					uiData.fairyChess.allRemoveCallBack (this);
-					uiData.fairyChessFen.allRemoveCallBack (this);
 					uiData.pieces.allRemoveCallBack (this);
 					uiData.whiteHand.allRemoveCallBack (this);
 					uiData.blackHand.allRemoveCallBack (this);
@@ -412,14 +388,6 @@ namespace FairyChess
 			// Child
 			{
 				if (data is FairyChess) {
-					return;
-				}
-				if (data is FairyChessFenUI.UIData) {
-					FairyChessFenUI.UIData fairyChessFenUIData = data as FairyChessFenUI.UIData;
-					// UI
-					{
-						fairyChessFenUIData.removeCallBackAndDestroy (typeof(FairyChessFenUI));
-					}
 					return;
 				}
 				if (data is PieceUI.UIData) {
@@ -451,12 +419,6 @@ namespace FairyChess
 			if (wrapProperty.p is UIData) {
 				switch ((UIData.Property)wrapProperty.n) {
 				case UIData.Property.fairyChess:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				case UIData.Property.fairyChessFen:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
 						dirty = true;
@@ -540,9 +502,6 @@ namespace FairyChess
 						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
 						break;
 					}
-					return;
-				}
-				if (wrapProperty.p is FairyChessFenUI.UIData) {
 					return;
 				}
 				if (wrapProperty.p is PieceUI.UIData) {

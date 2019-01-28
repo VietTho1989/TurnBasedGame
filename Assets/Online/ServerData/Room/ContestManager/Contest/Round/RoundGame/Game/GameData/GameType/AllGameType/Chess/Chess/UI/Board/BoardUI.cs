@@ -14,8 +14,6 @@ namespace Chess
 			
 			public VP<ReferenceData<Chess>> chess;
 
-			public VP<ChessFenUI.UIData> chessFen;
-
 			public LP<PieceUI.UIData> pieces;
 
 			#region Constructor
@@ -23,14 +21,12 @@ namespace Chess
 			public enum Property
 			{
 				chess,
-				chessFen,
 				pieces
 			}
 
 			public UIData() : base()
 			{
 				this.chess = new VP<ReferenceData<Chess>>(this, (byte)Property.chess, new ReferenceData<Chess>(null));
-				this.chessFen = new VP<ChessFenUI.UIData>(this, (byte)Property.chessFen, new ChessFenUI.UIData());
 				this.pieces = new LP<PieceUI.UIData>(this, (byte)Property.pieces);
 			}
 
@@ -66,15 +62,6 @@ namespace Chess
 						}
 						// process
 						if (isLoadFull) {
-							// chessFen
-							{
-								ChessFenUI.UIData chessFenUIData = this.data.chessFen.v;
-								if (chessFenUIData != null) {
-									chessFenUIData.chess.v = new ReferenceData<Chess> (chess);
-								} else {
-									Debug.LogError ("chessFenUIData null: " + this);
-								}
-							}
 							// Normal board
 							{
 								// get olds
@@ -177,9 +164,6 @@ namespace Chess
 
 		#region implement callBacks
 
-		public ChessFenUI chessFenPrefab;
-		public Transform chessFenContainer;
-
 		public PieceUI piecePrefab;
 		private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData> ();
 
@@ -200,7 +184,6 @@ namespace Chess
 				// Child
 				{
 					uiData.chess.allAddCallBack (this);
-					uiData.chessFen.allAddCallBack (this);
 					uiData.pieces.allAddCallBack (this);
 				}
 				dirty = true;
@@ -214,15 +197,6 @@ namespace Chess
 			// Child
 			{
 				if (data is Chess) {
-					dirty = true;
-					return;
-				}
-				if (data is ChessFenUI.UIData) {
-					ChessFenUI.UIData chessFenUIData = data as ChessFenUI.UIData;
-					// UI
-					{
-						UIUtils.Instantiate (chessFenUIData, chessFenPrefab, chessFenContainer);
-					}
 					dirty = true;
 					return;
 				}
@@ -255,7 +229,6 @@ namespace Chess
 				// Child
 				{
 					uiData.chess.allRemoveCallBack (this);
-					uiData.chessFen.allRemoveCallBack (this);
 					uiData.pieces.allRemoveCallBack (this);
 				}
 				this.setDataNull (uiData);
@@ -268,14 +241,6 @@ namespace Chess
 			// Child
 			{
 				if (data is Chess) {
-					return;
-				}
-				if (data is ChessFenUI.UIData) {
-					ChessFenUI.UIData chessFenUIData = data as ChessFenUI.UIData;
-					// UI
-					{
-						chessFenUIData.removeCallBackAndDestroy (typeof(ChessFenUI));
-					}
 					return;
 				}
 				if (data is PieceUI.UIData) {
@@ -298,12 +263,6 @@ namespace Chess
 			if (wrapProperty.p is UIData) {
 				switch ((UIData.Property)wrapProperty.n) {
 				case UIData.Property.chess:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				case UIData.Property.chessFen:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
 						dirty = true;
@@ -361,9 +320,6 @@ namespace Chess
 						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 						break;
 					}
-					return;
-				}
-				if (wrapProperty.p is ChessFenUI.UIData) {
 					return;
 				}
 				if (wrapProperty.p is PieceUI.UIData) {

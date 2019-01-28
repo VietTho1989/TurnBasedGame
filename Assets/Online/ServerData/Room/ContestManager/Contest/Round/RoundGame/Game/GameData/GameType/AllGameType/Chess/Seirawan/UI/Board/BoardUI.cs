@@ -14,8 +14,6 @@ namespace Seirawan
 			
 			public VP<ReferenceData<Seirawan>> seirawan;
 
-			public VP<SeirawanFenUI.UIData> seirawanFen;
-
 			public VP<HandsUI.UIData> hands;
 
 			public LP<PieceUI.UIData> pieces;
@@ -25,7 +23,6 @@ namespace Seirawan
 			public enum Property
 			{
 				seirawan,
-				seirawanFen,
 				hands,
 				pieces
 			}
@@ -33,7 +30,6 @@ namespace Seirawan
 			public UIData() : base()
 			{
 				this.seirawan = new VP<ReferenceData<Seirawan>>(this, (byte)Property.seirawan, new ReferenceData<Seirawan>(null));
-				this.seirawanFen = new VP<SeirawanFenUI.UIData>(this, (byte)Property.seirawanFen, new SeirawanFenUI.UIData());
 				this.hands = new VP<HandsUI.UIData>(this, (byte)Property.hands, new HandsUI.UIData());
 				this.pieces = new LP<PieceUI.UIData>(this, (byte)Property.pieces);
 			}
@@ -70,15 +66,6 @@ namespace Seirawan
 						}
 						// process
 						if (isLoadFull) {
-							// seirawanFen
-							{
-								SeirawanFenUI.UIData seirawanFenUIData = this.data.seirawanFen.v;
-								if (seirawanFenUIData != null) {
-									seirawanFenUIData.seirawan.v = new ReferenceData<Seirawan> (seirawan);
-								} else {
-									Debug.LogError ("seirawanFenUIData null: " + this);
-								}
-							}
 							// Find data
 							List<int> board = seirawan.board.vs;
 							List<bool> inHand = seirawan.inHand.vs;
@@ -196,9 +183,6 @@ namespace Seirawan
 
 		#region implement callBacks
 
-		public SeirawanFenUI seirawanFenPrefab;
-		public Transform seirawanFenContainer;
-
 		public PieceUI piecePrefab;
 		public HandsUI handsPrefab;
 		private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData> ();
@@ -220,7 +204,6 @@ namespace Seirawan
 				// Child
 				{
 					uiData.seirawan.allAddCallBack (this);
-					uiData.seirawanFen.allAddCallBack (this);
 					uiData.hands.allAddCallBack (this);
 					uiData.pieces.allAddCallBack (this);
 				}
@@ -237,15 +220,6 @@ namespace Seirawan
 			// Child
 			{
 				if (data is Seirawan) {
-					dirty = true;
-					return;
-				}
-				if (data is SeirawanFenUI.UIData) {
-					SeirawanFenUI.UIData seirawanFenUIData = data as SeirawanFenUI.UIData;
-					// UI
-					{
-						UIUtils.Instantiate (seirawanFenUIData, seirawanFenPrefab, seirawanFenContainer);
-					}
 					dirty = true;
 					return;
 				}
@@ -287,7 +261,6 @@ namespace Seirawan
 				// Child
 				{
 					uiData.seirawan.allRemoveCallBack (this);
-					uiData.seirawanFen.allRemoveCallBack (this);
 					uiData.hands.allRemoveCallBack (this);
 					uiData.pieces.allRemoveCallBack (this);
 				}
@@ -303,14 +276,6 @@ namespace Seirawan
 			// Child
 			{
 				if (data is Seirawan) {
-					return;
-				}
-				if (data is SeirawanFenUI.UIData) {
-					SeirawanFenUI.UIData seirawanFenUIData = data as SeirawanFenUI.UIData;
-					// UI
-					{
-						seirawanFenUIData.removeCallBackAndDestroy (typeof(SeirawanFenUI));
-					}
 					return;
 				}
 				if (data is HandsUI.UIData) {
@@ -341,12 +306,6 @@ namespace Seirawan
 			if (wrapProperty.p is UIData) {
 				switch ((UIData.Property)wrapProperty.n) {
 				case UIData.Property.seirawan:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				case UIData.Property.seirawanFen:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
 						dirty = true;
@@ -417,9 +376,6 @@ namespace Seirawan
 						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
 						break;
 					}
-					return;
-				}
-				if (wrapProperty.p is SeirawanFenUI.UIData) {
 					return;
 				}
 				if (wrapProperty.p is HandsUI.UIData) {

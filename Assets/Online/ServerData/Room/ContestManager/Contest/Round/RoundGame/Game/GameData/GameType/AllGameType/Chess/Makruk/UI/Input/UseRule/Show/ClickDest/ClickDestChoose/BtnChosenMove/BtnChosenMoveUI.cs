@@ -73,6 +73,7 @@ namespace Makruk.UseRule
 						MakrukMove.Move move = new MakrukMove.Move (makrukMove.move.v);
 						// imgPromotion
 						{
+                            Setting.Style style = Setting.get().style.v;
 							if (imgPromotion != null) {
 								if (move.type == Common.MoveType.PROMOTION) {
 									int playerIndex = 0;
@@ -91,11 +92,11 @@ namespace Makruk.UseRule
 										}
 									}
 									// Process
-									imgPromotion.sprite = MakrukSpriteContainer.get ().getSprite (
+									imgPromotion.sprite = MakrukSpriteContainer.get ().getSprite (style,
 										Common.make_piece (playerIndex == 0 ? Common.Color.WHITE : Common.Color.BLACK,
 											move.promotion));
 								} else {
-									imgPromotion.sprite = MakrukSpriteContainer.get ().getSprite (Common.Piece.NO_PIECE);
+									imgPromotion.sprite = MakrukSpriteContainer.get ().getSprite (style, Common.Piece.NO_PIECE);
 								}
 							} else {
 								Debug.LogError ("imgPromotion null: " + this);
@@ -165,6 +166,8 @@ namespace Makruk.UseRule
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
 				// Parent
 				{
 					DataUtils.addParentCallBack (uiData, this, ref this.useRuleInputUIData);
@@ -176,8 +179,14 @@ namespace Makruk.UseRule
 				dirty = true;
 				return;
 			}
-			// Parent
-			{
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // Parent
+            {
 				if (data is UseRuleInputUI.UIData) {
 					UseRuleInputUI.UIData useRuleInputUIData = data as UseRuleInputUI.UIData;
 					// Child
@@ -207,6 +216,8 @@ namespace Makruk.UseRule
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
 				// Parent
 				{
 					DataUtils.removeParentCallBack (uiData, this, ref this.useRuleInputUIData);
@@ -218,8 +229,13 @@ namespace Makruk.UseRule
 				this.setDataNull (uiData);
 				return;
 			}
-			// Parent
-			{
+            // Setting
+            if(data is Setting)
+            {
+                return;
+            }
+            // Parent
+            {
 				if (data is UseRuleInputUI.UIData) {
 					UseRuleInputUI.UIData useRuleInputUIData = data as UseRuleInputUI.UIData;
 					// Child
@@ -256,13 +272,37 @@ namespace Makruk.UseRule
 					}
 					break;
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
 			}
-			// Parent
-			{
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        break;
+                    case Setting.Property.style:
+                        dirty = true;
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Parent
+            {
 				if (wrapProperty.p is UseRuleInputUI.UIData) {
 					switch ((UseRuleInputUI.UIData.Property)wrapProperty.n) {
 					case UseRuleInputUI.UIData.Property.makruk:

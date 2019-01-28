@@ -144,6 +144,7 @@ namespace Makruk
 						}
 						// imgPromotion
 						if (imgPromotion != null) {
+                            Setting.Style style = Setting.get().style.v;
 							if (this.data.isHint.v) {
 								MakrukMove.Move move = new MakrukMove.Move (makrukMove.move.v);
 								if (move.type == Common.MoveType.PROMOTION) {
@@ -170,7 +171,7 @@ namespace Makruk
 											}
 										}
 										// process
-										imgPromotion.sprite = MakrukSpriteContainer.get ().getSprite (
+										imgPromotion.sprite = MakrukSpriteContainer.get ().getSprite (style,
 											Common.make_piece (playerIndex == 0 ? Common.Color.WHITE 
 												: Common.Color.BLACK, move.promotion));
 									}
@@ -184,11 +185,11 @@ namespace Makruk
 										imgPromotion.transform.localPosition = new Vector3 (destX - 3.5f, destY - 3.5f, 0);
 									}
 								} else {
-									imgPromotion.sprite = MakrukSpriteContainer.get ().getSprite (Common.Piece.NO_PIECE);
+									imgPromotion.sprite = MakrukSpriteContainer.get ().getSprite (style, Common.Piece.NO_PIECE);
 								}
 							} else {
 								Debug.Log ("not hint: " + this);
-								imgPromotion.sprite = MakrukSpriteContainer.get ().getSprite (Common.Piece.NO_PIECE);
+								imgPromotion.sprite = MakrukSpriteContainer.get ().getSprite (style, Common.Piece.NO_PIECE);
 							}
 						} else {
 							Debug.LogError ("imgPromotion null: " + this);
@@ -211,15 +212,17 @@ namespace Makruk
 
 		#region implement callBacks
 
-		private MakrukGameDataUI.UIData makrukGameDataUIData = null;
+		private MakrukGameDataUI.UIData parentMakrukGameDataUIData = null;
 
 		public override void onAddCallBack<T> (T data)
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
 				// Parent
 				{
-					DataUtils.addParentCallBack (uiData, this, ref this.makrukGameDataUIData);
+					DataUtils.addParentCallBack (uiData, this, ref this.parentMakrukGameDataUIData);
 				}
 				// Child
 				{
@@ -228,8 +231,14 @@ namespace Makruk
 				dirty = true;
 				return;
 			}
-			// Parent
-			{
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // Parent
+            {
 				if (data is MakrukGameDataUI.UIData) {
 					MakrukGameDataUI.UIData makrukGameDataUIData = data as MakrukGameDataUI.UIData;
 					// Child
@@ -268,9 +277,11 @@ namespace Makruk
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
 				// Parent
 				{
-					DataUtils.removeParentCallBack (uiData, this, ref this.makrukGameDataUIData);
+					DataUtils.removeParentCallBack (uiData, this, ref this.parentMakrukGameDataUIData);
 				}
 				// Child
 				{
@@ -279,8 +290,13 @@ namespace Makruk
 				this.setDataNull (uiData);
 				return;
 			}
-			// Parent
-			{
+            // Setting
+            if(data is Setting)
+            {
+                return;
+            }
+            // Parent
+            {
 				if (data is MakrukGameDataUI.UIData) {
 					MakrukGameDataUI.UIData makrukGameDataUIData = data as MakrukGameDataUI.UIData;
 					// Child
@@ -328,13 +344,37 @@ namespace Makruk
 					dirty = true;
 					break;
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
 			}
-			// Parent
-			{
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        break;
+                    case Setting.Property.style:
+                        dirty = true;
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Parent
+            {
 				if (wrapProperty.p is MakrukGameDataUI.UIData) {
 					switch ((MakrukGameDataUI.UIData.Property)wrapProperty.n) {
 					case MakrukGameDataUI.UIData.Property.gameData:
@@ -354,7 +394,7 @@ namespace Makruk
 					case MakrukGameDataUI.UIData.Property.inputUI:
 						break;
 					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 						break;
 					}
 					return;
@@ -378,7 +418,7 @@ namespace Makruk
 					case GameData.Property.state:
 						break;
 					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 						break;
 					}
 					return;
@@ -408,7 +448,7 @@ namespace Makruk
 						case Makruk.Property.chess960:
 							break;
 						default:
-							Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 							break;
 						}
 						return;
@@ -423,7 +463,7 @@ namespace Makruk
 					dirty = true;
 					break;
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;

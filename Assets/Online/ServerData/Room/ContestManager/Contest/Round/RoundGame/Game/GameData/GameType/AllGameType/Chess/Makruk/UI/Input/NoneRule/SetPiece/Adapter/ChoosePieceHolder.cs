@@ -63,7 +63,8 @@ namespace Makruk.NoneRule
 					// imgPiece
 					{
 						if (imgPiece != null) {
-							imgPiece.sprite = MakrukSpriteContainer.get ().getSprite (this.data.piece.v);
+                            Setting.Style style = Setting.get().style.v;
+							imgPiece.sprite = MakrukSpriteContainer.get ().getSprite (style, this.data.piece.v);
 						} else {
 							Debug.LogError ("imgPiece null: " + this);
 						}
@@ -81,16 +82,26 @@ namespace Makruk.NoneRule
 		public override void onAddCallBack<T> (T data)
 		{
 			if (data is UIData) {
+                // Setting
+                Setting.get().addCallBack(this);
 				dirty = true;
 				return;
 			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            Debug.LogError ("Don't process: " + data + "; " + this);
 		}
 
 		public override void onRemoveCallBack<T> (T data, bool isHide)
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
 				// Child
 				{
 
@@ -98,7 +109,12 @@ namespace Makruk.NoneRule
 				this.setDataNull (uiData);
 				return;
 			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
+            // Setting
+            if(data is Setting)
+            {
+                return;
+            }
+            Debug.LogError ("Don't process: " + data + "; " + this);
 		}
 
 		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
@@ -117,7 +133,31 @@ namespace Makruk.NoneRule
 				}
 				return;
 			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        break;
+                    case Setting.Property.style:
+                        dirty = true;
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
 		}
 
 		#endregion

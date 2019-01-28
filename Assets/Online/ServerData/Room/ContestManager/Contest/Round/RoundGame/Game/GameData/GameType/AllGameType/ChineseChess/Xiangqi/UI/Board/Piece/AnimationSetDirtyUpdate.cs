@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Xiangqi
 {
-	public class AnimationSetDirtyUpdate : UpdateBehavior<XiangqiBoardUI.UIData>
+	public class AnimationSetDirtyUpdate : UpdateBehavior<BoardUI.UIData>
 	{
 
 		#region Update
@@ -27,7 +27,7 @@ namespace Xiangqi
 							{
 								XiangqiMoveAnimation xiangqiMoveAnimation = moveAnimation as XiangqiMoveAnimation;
 								Common.MoveStruct moveStruct = new Common.MoveStruct (xiangqiMoveAnimation.move.v);
-								foreach (XiangqiPieceUI.UIData pieceUIData in this.data.pieces.vs) {
+								foreach (PieceUI.UIData pieceUIData in this.data.pieces.vs) {
 									// check need dirty
 									// TODO Test
 									bool needDirty = true;
@@ -40,7 +40,7 @@ namespace Xiangqi
 									}
 									// process
 									if (needDirty) {
-										XiangqiPieceUI pieceUI = pieceUIData.findCallBack<XiangqiPieceUI> ();
+										PieceUI pieceUI = pieceUIData.findCallBack<PieceUI> ();
 										if (pieceUI != null) {
 											pieceUI.makeDirty ();
 										} else {
@@ -72,12 +72,12 @@ namespace Xiangqi
 
 		#region implement callBacks
 
-		private AnimationManagerCheckChange<XiangqiBoardUI.UIData> animationManagerCheckChange = new AnimationManagerCheckChange<XiangqiBoardUI.UIData> ();
+		private AnimationManagerCheckChange<BoardUI.UIData> animationManagerCheckChange = new AnimationManagerCheckChange<BoardUI.UIData> ();
 
 		public override void onAddCallBack<T> (T data)
 		{
-			if (data is XiangqiBoardUI.UIData) {
-				XiangqiBoardUI.UIData boardUIData = data as XiangqiBoardUI.UIData;
+			if (data is BoardUI.UIData) {
+				BoardUI.UIData boardUIData = data as BoardUI.UIData;
 				// checkChange
 				{
 					animationManagerCheckChange.needTimeChange = true;
@@ -89,7 +89,7 @@ namespace Xiangqi
 			}
 			// checkChange
 			{
-				if (data is AnimationManagerCheckChange<XiangqiBoardUI.UIData>) {
+				if (data is AnimationManagerCheckChange<BoardUI.UIData>) {
 					dirty = true;
 					return;
 				}
@@ -99,8 +99,8 @@ namespace Xiangqi
 
 		public override void onRemoveCallBack<T> (T data, bool isHide)
 		{
-			if (data is XiangqiBoardUI.UIData) {
-				XiangqiBoardUI.UIData boardUIData = data as XiangqiBoardUI.UIData;
+			if (data is BoardUI.UIData) {
+				BoardUI.UIData boardUIData = data as BoardUI.UIData;
 				// checkChange
 				{
 					animationManagerCheckChange.removeCallBack (this);
@@ -111,7 +111,7 @@ namespace Xiangqi
 			}
 			// checkChange
 			{
-				if (data is AnimationManagerCheckChange<XiangqiBoardUI.UIData>) {
+				if (data is AnimationManagerCheckChange<BoardUI.UIData>) {
 					return;
 				}
 			}
@@ -123,11 +123,11 @@ namespace Xiangqi
 			if (WrapProperty.checkError (wrapProperty)) {
 				return;
 			}
-			if (wrapProperty.p is XiangqiBoardUI.UIData) {
-				switch ((XiangqiBoardUI.UIData.Property)wrapProperty.n) {
-				case XiangqiBoardUI.UIData.Property.xiangqi:
+			if (wrapProperty.p is BoardUI.UIData) {
+				switch ((BoardUI.UIData.Property)wrapProperty.n) {
+				case BoardUI.UIData.Property.xiangqi:
 					break;
-				case XiangqiBoardUI.UIData.Property.pieces:
+				case BoardUI.UIData.Property.pieces:
 					dirty = true;
 					break;
 				default:
@@ -138,7 +138,7 @@ namespace Xiangqi
 			}
 			// checkChange
 			{
-				if (wrapProperty.p is AnimationManagerCheckChange<XiangqiBoardUI.UIData>) {
+				if (wrapProperty.p is AnimationManagerCheckChange<BoardUI.UIData>) {
 					dirty = true;
 					return;
 				}

@@ -71,9 +71,10 @@ namespace Makruk.NoneRule
 						}
 						// imgHint
 						if (imgHint != null) {
+                            Setting.Style style = Setting.get().style.v;
 							if (this.data.isHint.v) {
 								// sprite
-								imgHint.sprite = MakrukSpriteContainer.get ().getSprite (makrukCustomSet.piece.v);
+								imgHint.sprite = MakrukSpriteContainer.get ().getSprite (style, makrukCustomSet.piece.v);
 								// position
 								{
 									imgHint.transform.localPosition = Common.convertXYToLocalPosition (makrukCustomSet.x.v, makrukCustomSet.y.v);
@@ -84,7 +85,7 @@ namespace Makruk.NoneRule
 									imgHint.gameObject.transform.localScale = (playerView == 0 ? new Vector3 (1, 1, 1) : new Vector3 (1, -1, 1));
 								}
 							} else {
-								imgHint.sprite = MakrukSpriteContainer.get ().getSprite (Common.Piece.NO_PIECE);
+								imgHint.sprite = MakrukSpriteContainer.get ().getSprite (style, Common.Piece.NO_PIECE);
 							}
 						} else {
 							Debug.LogError ("imgHint null: " + this);
@@ -113,6 +114,8 @@ namespace Makruk.NoneRule
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
 				// CheckChange
 				{
 					perspectiveChange.addCallBack (this);
@@ -125,8 +128,14 @@ namespace Makruk.NoneRule
 				dirty = true;
 				return;
 			}
-			// CheckChange
-			if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // CheckChange
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
 				dirty = true;
 				return;
 			}
@@ -142,6 +151,8 @@ namespace Makruk.NoneRule
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
 				// CheckChange
 				{
 					perspectiveChange.removeCallBack (this);
@@ -154,8 +165,13 @@ namespace Makruk.NoneRule
 				this.setDataNull (uiData);
 				return;
 			}
-			// CheckChange
-			if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
+            // Setting
+            if(data is Setting)
+            {
+                return;
+            }
+            // CheckChange
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
 				return;
 			}
 			// Child
@@ -187,8 +203,32 @@ namespace Makruk.NoneRule
 				}
 				return;
 			}
-			// CheckChange
-			if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>) {
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        break;
+                    case Setting.Property.style:
+                        dirty = true;
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // CheckChange
+            if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>) {
 				dirty = true;
 				return;
 			}

@@ -14,8 +14,6 @@ namespace Shatranj
 			
 			public VP<ReferenceData<Shatranj>> shatranj;
 
-			public VP<ShatranjFenUI.UIData> shatranjFen;
-
 			public LP<PieceUI.UIData> pieces;
 
 			#region Constructor
@@ -23,14 +21,12 @@ namespace Shatranj
 			public enum Property
 			{
 				shatranj,
-				shatranjFen,
 				pieces
 			}
 
 			public UIData() : base()
 			{
 				this.shatranj = new VP<ReferenceData<Shatranj>>(this, (byte)Property.shatranj, new ReferenceData<Shatranj>(null));
-				this.shatranjFen = new VP<ShatranjFenUI.UIData>(this, (byte)Property.shatranjFen, new ShatranjFenUI.UIData());
 				this.pieces = new LP<PieceUI.UIData>(this, (byte)Property.pieces);
 			}
 
@@ -66,15 +62,6 @@ namespace Shatranj
 						}
 						// process
 						if (isLoadFull) {
-							// shatranjFen
-							{
-								ShatranjFenUI.UIData shatranjFenUIData = this.data.shatranjFen.v;
-								if (shatranjFenUIData != null) {
-									shatranjFenUIData.shatranj.v = new ReferenceData<Shatranj> (shatranj);
-								} else {
-									Debug.LogError ("shatranjFenUIData null: " + this);
-								}
-							}
 							// Normal board
 							{
 								// get olds
@@ -152,7 +139,6 @@ namespace Shatranj
 								}
 								// Remove oldPieceUIs not reuse
 								foreach (PieceUI.UIData oldPieceUI in oldPieceUIs) {
-									// oldPieceUI.position.v = -1;
 									this.data.pieces.remove (oldPieceUI);
 								}
 							}
@@ -178,9 +164,6 @@ namespace Shatranj
 
 		#region implement callBacks
 
-		public ShatranjFenUI shatranjFenPrefab;
-		public Transform shatranjFenContainer;
-
 		public PieceUI piecePrefab;
 		private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData> ();
 
@@ -201,7 +184,6 @@ namespace Shatranj
 				// Child
 				{
 					uiData.shatranj.allAddCallBack (this);
-					uiData.shatranjFen.allAddCallBack (this);
 					uiData.pieces.allAddCallBack (this);
 				}
 				dirty = true;
@@ -217,15 +199,6 @@ namespace Shatranj
 			// Child
 			{
 				if (data is Shatranj) {
-					dirty = true;
-					return;
-				}
-				if (data is ShatranjFenUI.UIData) {
-					ShatranjFenUI.UIData shatranjFenUIData = data as ShatranjFenUI.UIData;
-					// UI
-					{
-						UIUtils.Instantiate (shatranjFenUIData, shatranjFenPrefab, shatranjFenContainer);
-					}
 					dirty = true;
 					return;
 				}
@@ -258,7 +231,6 @@ namespace Shatranj
 				// Child
 				{
 					uiData.shatranj.allRemoveCallBack (this);
-					uiData.shatranjFen.allRemoveCallBack (this);
 					uiData.pieces.allRemoveCallBack (this);
 				}
 				this.setDataNull (uiData);
@@ -273,14 +245,6 @@ namespace Shatranj
 			// Child
 			{
 				if (data is Shatranj) {
-					return;
-				}
-				if (data is ShatranjFenUI.UIData) {
-					ShatranjFenUI.UIData shatranjFenUIData = data as ShatranjFenUI.UIData;
-					// UI
-					{
-						shatranjFenUIData.removeCallBackAndDestroy (typeof(ShatranjFenUI));
-					}
 					return;
 				}
 				if (data is PieceUI.UIData) {
@@ -308,12 +272,6 @@ namespace Shatranj
 						dirty = true;
 					}
 					break;
-				case UIData.Property.shatranjFen:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
 				case UIData.Property.pieces:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
@@ -321,7 +279,7 @@ namespace Shatranj
 					}
 					break;
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
@@ -359,12 +317,9 @@ namespace Shatranj
 					case Shatranj.Property.chess960:
 						break;
 					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 						break;
 					}
-					return;
-				}
-				if (wrapProperty.p is ShatranjFenUI.UIData) {
 					return;
 				}
 				if (wrapProperty.p is PieceUI.UIData) {

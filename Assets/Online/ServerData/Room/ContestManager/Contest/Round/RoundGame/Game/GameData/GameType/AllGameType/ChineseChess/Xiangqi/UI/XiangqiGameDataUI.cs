@@ -24,7 +24,7 @@ namespace Xiangqi
 
 			public VP<bool> isOnAnimation;
 
-			public VP<XiangqiBoardUI.UIData> board;
+			public VP<BoardUI.UIData> board;
 
 			public VP<LastMoveUI.UIData> lastMove;
 
@@ -56,7 +56,7 @@ namespace Xiangqi
 				this.transformOrganizer = new VP<UITransformOrganizer.UpdateData>(this, (byte)Property.transformOrganizer, new UITransformOrganizer.UpdateData());
 
 				this.isOnAnimation = new VP<bool>(this, (byte)Property.isOnAnimation, false);
-				this.board = new VP<XiangqiBoardUI.UIData>(this, (byte)Property.board, new XiangqiBoardUI.UIData());
+				this.board = new VP<BoardUI.UIData>(this, (byte)Property.board, new BoardUI.UIData());
 				this.lastMove = new VP<LastMoveUI.UIData>(this, (byte)Property.lastMove, new LastMoveUI.UIData());
 				this.showHint = new VP<ShowHintUI.UIData>(this, (byte)Property.showHint, new ShowHintUI.UIData());
 				this.inputUI = new VP<InputUI.UIData>(this, (byte)Property.inputUI, new InputUI.UIData());
@@ -159,7 +159,7 @@ namespace Xiangqi
 
 		#region implement callBacks
 
-		public XiangqiBoardUI boardPrefab;
+		public BoardUI boardPrefab;
 		public LastMoveUI lastMovePrefab;
 		public ShowHintUI showHintPrefab;
 		public InputUI inputPrefab;
@@ -202,8 +202,8 @@ namespace Xiangqi
 					dirty = true;
 					return;
 				}
-				if (data is XiangqiBoardUI.UIData) {
-					XiangqiBoardUI.UIData boardUIData = data as XiangqiBoardUI.UIData;
+				if (data is BoardUI.UIData) {
+					BoardUI.UIData boardUIData = data as BoardUI.UIData;
 					// UI
 					{
 						UIUtils.Instantiate (boardUIData, boardPrefab, this.transform);
@@ -302,11 +302,11 @@ namespace Xiangqi
 				if (data is GameData) {
 					return;
 				}
-				if (data is XiangqiBoardUI.UIData) {
-					XiangqiBoardUI.UIData boardUIData = data as XiangqiBoardUI.UIData;
+				if (data is BoardUI.UIData) {
+					BoardUI.UIData boardUIData = data as BoardUI.UIData;
 					// UI
 					{
-						boardUIData.removeCallBackAndDestroy (typeof(XiangqiBoardUI));
+						boardUIData.removeCallBackAndDestroy (typeof(BoardUI));
 					}
 					return;
 				}
@@ -440,7 +440,7 @@ namespace Xiangqi
 					}
 					return;
 				}
-				if (wrapProperty.p is XiangqiBoardUI.UIData) {
+				if (wrapProperty.p is BoardUI.UIData) {
 					return;
 				}
 				if (wrapProperty.p is LastMoveUI.UIData) {
