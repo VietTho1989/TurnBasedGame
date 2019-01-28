@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 
 public class RequestChangeLongUI : UIBehavior<RequestChangeLongUI.UIData>
 {
@@ -95,11 +95,12 @@ public class RequestChangeLongUI : UIBehavior<RequestChangeLongUI.UIData>
 		}
 	}
 
-	public Text tvState;
+    public static readonly Color DifferentColor = Color.red;
+    public static readonly Color NormalColor = new Color(50 / 255f, 50 / 255f, 50 / 255f);
+    public static readonly Color RequestColor = new Color(52 / 255f, 152 / 255f, 13 / 255f);
+    public Text tvValue;
 
-	public GameObject differentIndicator;
-
-	public override void refresh ()
+    public override void refresh ()
 	{
 		if (dirty) {
 			dirty = false;
@@ -139,96 +140,123 @@ public class RequestChangeLongUI : UIBehavior<RequestChangeLongUI.UIData>
 						Debug.LogError ("sliderValue null: " + this);
 					}
 				}
-				// Update UI
-				{
-					// Process
-					if (this.data.updateData.v.canRequestChange.v) {
-						// make interactable
-						if (edtValue != null) {
-							edtValue.interactable = true;
-						} else {
-							Debug.LogError ("edtValue null: " + this);
-						}
-						if (sliderValue != null) {
-							sliderValue.interactable = true;
-						} else {
-							Debug.LogError ("sliderValue null: " + this);
-						}
-					} else {
-						// disable interactable
-						if (edtValue != null) {
-							edtValue.interactable = false;
-						} else {
-							Debug.LogError ("edtValue null: " + this);
-						}
-						if (sliderValue != null) {
-							sliderValue.interactable = false;
-						} else {
-							Debug.LogError ("sliderValue null: " + this);
-						}
-					}
-					// set value
-					{
-						// edtValue
-						if (edtValue != null) {
-							edtValue.text = "" + this.data.updateData.v.current.v;
-						} else {
-							Debug.LogError ("edtValue null: " + this);
-						}
-						// sliderValue
-						if (sliderValue != null) {
-							sliderValue.value = this.data.updateData.v.current.v;
-						} else {
-							Debug.LogError ("sliderValue null: " + this);
-						}
-						// tvState
-						if (tvState != null) {
-							switch (this.data.updateData.v.changeState.v) {
-							case Data.ChangeState.None:
-								tvState.text = "None";
-								break;
-							case Data.ChangeState.Request:
-								tvState.text = "Request";
-								break;
-							case Data.ChangeState.Requesting:
-								tvState.text = "Requesting";
-								break;
-							default:
-								Debug.LogError ("unknown state: " + this.data.updateData.v.changeState.v + "; " + this);
-								break;
-							}
-						} else {
-							Debug.LogError ("tvState null: " + this);
-						}
-					}
-				}
-				// different
-				{
-					if (differentIndicator != null) {
-						// check different
-						bool isDifferent = false;
-						{
-							if (this.data.showDifferent.v) {
-								RequestChangeLongUpdate.UpdateData updateData = this.data.updateData.v;
-								if (updateData != null) {
-									if (updateData.current.v != this.data.compare.v) {
-										isDifferent = true;
-									}
-								} else {
-									Debug.LogError ("updateData null: " + this);
-								}
-							}
-						}
-						// Process
-						if (isDifferent) {
-							differentIndicator.SetActive (true);
-						} else {
-							differentIndicator.SetActive (false);
-						}
-					} else {
-						Debug.LogError ("differentIndicator null: " + this);
-					}
-				}
+                // Update UI
+                {
+                    // Process
+                    if (this.data.updateData.v.canRequestChange.v)
+                    {
+                        // make interactable
+                        if (edtValue != null)
+                        {
+                            edtValue.interactable = true;
+                        }
+                        else
+                        {
+                            Debug.LogError("edtValue null: " + this);
+                        }
+                        if (sliderValue != null)
+                        {
+                            sliderValue.interactable = true;
+                        }
+                        else
+                        {
+                            Debug.LogError("sliderValue null: " + this);
+                        }
+                    }
+                    else
+                    {
+                        // disable interactable
+                        if (edtValue != null)
+                        {
+                            edtValue.interactable = false;
+                        }
+                        else
+                        {
+                            Debug.LogError("edtValue null: " + this);
+                        }
+                        if (sliderValue != null)
+                        {
+                            sliderValue.interactable = false;
+                        }
+                        else
+                        {
+                            Debug.LogError("sliderValue null: " + this);
+                        }
+                    }
+                    // set value
+                    {
+                        // edtValue
+                        if (edtValue != null)
+                        {
+                            edtValue.text = "" + this.data.updateData.v.current.v;
+                        }
+                        else
+                        {
+                            Debug.LogError("edtValue null: " + this);
+                        }
+                        // sliderValue
+                        if (sliderValue != null)
+                        {
+                            sliderValue.value = this.data.updateData.v.current.v;
+                        }
+                        else
+                        {
+                            Debug.LogError("sliderValue null: " + this);
+                        }
+                        // tvValue
+                        if (tvValue != null)
+                        {
+                            switch (this.data.updateData.v.changeState.v)
+                            {
+                                case Data.ChangeState.None:
+                                    {
+                                        // check different
+                                        bool isDifferent = false;
+                                        {
+                                            if (this.data.showDifferent.v)
+                                            {
+                                                RequestChangeLongUpdate.UpdateData updateData = this.data.updateData.v;
+                                                if (updateData != null)
+                                                {
+                                                    if (updateData.current.v != this.data.compare.v)
+                                                    {
+                                                        isDifferent = true;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("updateData null: " + this);
+                                                }
+                                            }
+                                        }
+                                        // Process
+                                        if (isDifferent)
+                                        {
+                                            tvValue.color = DifferentColor;
+                                        }
+                                        else
+                                        {
+                                            tvValue.color = NormalColor;
+                                        }
+                                    }
+                                    break;
+                                case Data.ChangeState.Request:
+                                case Data.ChangeState.Requesting:
+                                    {
+                                        tvValue.color = RequestColor;
+                                    }
+                                    break;
+                                default:
+                                    Debug.LogError("unknown state: " + this.data.updateData.v.changeState.v + "; " + this);
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("tvValue null");
+                        }
+                    }
+                }
 			} else {
 				// Debug.LogError ("data null: " + this);
 			}
