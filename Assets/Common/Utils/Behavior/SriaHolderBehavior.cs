@@ -91,7 +91,7 @@ public abstract class SriaHolderBehavior<K> : UIBehavior<K>, SriaHolderInterface
 					}
 					if (this.horizontalFit == Fit.PreferredSize) {
 						float holderSize = transformChange.updateTransform.size.v.x;
-						Debug.LogError ("refreshHolderSize: horizontal" + holderSize);
+						// Debug.LogError ("refreshHolderSize: horizontal" + holderSize);
 						if (holderSize > 0) {
 							adapter.RequestChangeItemSizeAndUpdateLayout (this.data.ItemIndex, holderSize);
 						} else {

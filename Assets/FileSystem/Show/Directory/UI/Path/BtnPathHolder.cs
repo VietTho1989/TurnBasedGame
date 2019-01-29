@@ -54,6 +54,8 @@ namespace FileSystem
 		#region Refresh
 
 		public Text tvPath;
+        public static readonly Color BoldColor = new Color(11 / 255f, 0, 0);
+        public static readonly Color NormalColor = new Color(50 / 255f, 50 / 255f, 50 / 255f);
 
 		public override void refresh ()
 		{
@@ -66,18 +68,48 @@ namespace FileSystem
                         // tvPath
                         {
                             if (tvPath != null) {
-                                string path = dir.Name;
+                                // txt
                                 {
-                                    if (string.IsNullOrEmpty(path))
+                                    string path = dir.Name;
                                     {
-                                        path = "   ";
+                                        if (string.IsNullOrEmpty(path))
+                                        {
+                                            path = "   ";
+                                        }
+                                        else if (path.Length >= 20)
+                                        {
+                                            path = path.Substring(0, 19) + "..";
+                                        }
                                     }
-                                    else if (path.Length >= 20)
-                                    {
-                                        path = path.Substring(0, 19) + "..";
-                                    }
+                                    tvPath.text = "  " + path + "  >";
                                 }
-                                tvPath.text = "/" + path;
+                                // color
+                                {
+                                    bool isBold = false;
+                                    {
+                                        BtnPathAdapter.UIData btnPathAdapterUIData = this.data.findDataInParent<BtnPathAdapter.UIData>();
+                                        if (btnPathAdapterUIData != null)
+                                        {
+                                            BtnPathAdapter btnPathAdapter = btnPathAdapterUIData.findCallBack<BtnPathAdapter>();
+                                            if (btnPathAdapter != null)
+                                            {
+                                                if(this.data.ItemIndex== btnPathAdapter.GetItemsCount() - 1)
+                                                {
+                                                    isBold = true;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("btnPathAdapter null");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("btnPathAdapterUIData null");
+                                        }
+                                    }
+                                    tvPath.color = isBold ? BoldColor : NormalColor;
+                                }
                             } else {
                                 Debug.LogError("tvPath null: " + this);
                             }
