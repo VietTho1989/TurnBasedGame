@@ -60,23 +60,34 @@ namespace FileSystem
 			base.refresh ();
 			if (dirty) {
 				dirty = false;
-				if (this.data != null) {
-					DirectoryInfo dir = this.data.dir.v;
-					if (dir != null) {
-						// tvPath
-						{
-							if (tvPath != null) {
-								tvPath.text = dir.Name;
-							} else {
-								Debug.LogError ("tvPath null: " + this);
-							}
-						}
-					} else {
-						Debug.LogError ("dir null: " + this);
-					}
-				} else {
-					// Debug.LogError ("data null: " + this);
-				}
+                if (this.data != null) {
+                    DirectoryInfo dir = this.data.dir.v;
+                    if (dir != null) {
+                        // tvPath
+                        {
+                            if (tvPath != null) {
+                                string path = dir.Name;
+                                {
+                                    if (string.IsNullOrEmpty(path))
+                                    {
+                                        path = "   ";
+                                    }
+                                    else if (path.Length >= 20)
+                                    {
+                                        path = path.Substring(0, 19) + "..";
+                                    }
+                                }
+                                tvPath.text = "/" + path;
+                            } else {
+                                Debug.LogError("tvPath null: " + this);
+                            }
+                        }
+                    } else {
+                        Debug.LogError("dir null: " + this);
+                    }
+                } else {
+                    // Debug.LogError ("data null: " + this);
+                }
 			}
 		}
 
