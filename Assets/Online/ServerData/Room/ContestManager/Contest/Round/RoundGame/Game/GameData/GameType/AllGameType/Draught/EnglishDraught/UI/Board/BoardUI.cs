@@ -15,8 +15,6 @@ namespace EnglishDraught
 			
 			public VP<ReferenceData<EnglishDraught>> englishDraught;
 
-			public VP<EnglishDraughtFenUI.UIData> englishDraughtFen;
-
 			public LP<PieceUI.UIData> pieces;
 
 			#region Constructor
@@ -24,14 +22,12 @@ namespace EnglishDraught
 			public enum Property
 			{
 				englishDraught,
-				englishDraughtFen,
 				pieces
 			}
 
 			public UIData() : base()
 			{
 				this.englishDraught = new VP<ReferenceData<EnglishDraught>>(this, (byte)Property.englishDraught, new ReferenceData<EnglishDraught>(null));
-				this.englishDraughtFen = new VP<EnglishDraughtFenUI.UIData>(this, (byte)Property.englishDraughtFen, new EnglishDraughtFenUI.UIData());
 				this.pieces = new LP<PieceUI.UIData>(this, (byte)Property.pieces);
 			}
 
@@ -67,15 +63,6 @@ namespace EnglishDraught
 						}
 						// process
 						if (isLoadFull) {
-							// englishDraughtFen
-							{
-								EnglishDraughtFenUI.UIData englishDraughtFenUIData = this.data.englishDraughtFen.v;
-								if (englishDraughtFenUIData != null) {
-									englishDraughtFenUIData.englishDraught.v = new ReferenceData<EnglishDraught> (englishDraught);
-								} else {
-									Debug.LogError ("englishDraughtFenUIData null: " + this);
-								}
-							}
 							// pieces
 							{
 								// get old
@@ -172,9 +159,6 @@ namespace EnglishDraught
 
 		#region implement callBacks
 
-		public EnglishDraughtFenUI englishDraughtFenPrefab;
-		public Transform englishDraughtFenContainer;
-
 		public PieceUI piecePrefab;
 		private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData> ();
 
@@ -195,7 +179,6 @@ namespace EnglishDraught
 				// Child
 				{
 					uiData.englishDraught.allAddCallBack (this);
-					uiData.englishDraughtFen.allAddCallBack (this);
 					uiData.pieces.allAddCallBack (this);
 				}
 				dirty = true;
@@ -210,15 +193,6 @@ namespace EnglishDraught
             // Child
             {
 				if (data is EnglishDraught) {
-					dirty = true;
-					return;
-				}
-				if (data is EnglishDraughtFenUI.UIData) {
-					EnglishDraughtFenUI.UIData englishDraughtFenUIData = data as EnglishDraughtFenUI.UIData;
-					// UI
-					{
-						UIUtils.Instantiate (englishDraughtFenUIData, englishDraughtFenPrefab, englishDraughtFenContainer);
-					}
 					dirty = true;
 					return;
 				}
@@ -251,7 +225,6 @@ namespace EnglishDraught
 				// Child
 				{
 					uiData.englishDraught.allRemoveCallBack (this);
-					uiData.englishDraughtFen.allRemoveCallBack (this);
 					uiData.pieces.allRemoveCallBack (this);
 				}
 				this.setDataNull (uiData);
@@ -265,14 +238,6 @@ namespace EnglishDraught
             // Child
             {
 				if (data is EnglishDraught) {
-					return;
-				}
-				if (data is EnglishDraughtFenUI.UIData) {
-					EnglishDraughtFenUI.UIData englishDraughtFenUIData = data as EnglishDraughtFenUI.UIData;
-					// UI
-					{
-						englishDraughtFenUIData.removeCallBackAndDestroy (typeof(EnglishDraughtFenUI));
-					}
 					return;
 				}
 				if (data is PieceUI.UIData) {
@@ -295,12 +260,6 @@ namespace EnglishDraught
 			if (wrapProperty.p is UIData) {
 				switch ((UIData.Property)wrapProperty.n) {
 				case UIData.Property.englishDraught:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				case UIData.Property.englishDraughtFen:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
 						dirty = true;
@@ -360,9 +319,6 @@ namespace EnglishDraught
 						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 						break;
 					}
-					return;
-				}
-				if (wrapProperty.p is EnglishDraughtFenUI.UIData) {
 					return;
 				}
 				if (wrapProperty.p is PieceUI.UIData) {

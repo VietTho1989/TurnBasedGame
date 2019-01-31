@@ -255,18 +255,17 @@ namespace Weiqi
                                                 }
                                                 else
                                                 {
-                                                    Debug.Log("Don't need show piece");
+                                                    // Debug.Log("Don't need show piece");
                                                 }
 											}
 										}
 									}
-									// remove unused piece
-									{
-										foreach (PieceUI.UIData oldPiece in oldPieces) {
-											this.data.pieces.remove (oldPiece);
-										}
-									}
-								}
+                                    // remove unused piece
+                                    foreach (PieceUI.UIData oldPiece in oldPieces)
+                                    {
+                                        this.data.pieces.remove(oldPiece);
+                                    }
+                                }
 							}
 						} else {
 							Debug.LogError ("not load full");

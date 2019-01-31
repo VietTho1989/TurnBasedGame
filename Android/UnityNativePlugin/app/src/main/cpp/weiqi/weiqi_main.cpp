@@ -50,7 +50,7 @@ namespace weiqi
                 if(gameFinish==0){
                     // letComputerThink
                     bool canResign = false;
-                    bool useBook = false;
+                    bool useBook = true;
                     int32_t time = 100;
                     int32_t games = -1;
                     uint8_t* moveBytes;

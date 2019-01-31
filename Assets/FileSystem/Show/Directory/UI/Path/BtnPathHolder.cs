@@ -93,7 +93,7 @@ namespace FileSystem
                                             BtnPathAdapter btnPathAdapter = btnPathAdapterUIData.findCallBack<BtnPathAdapter>();
                                             if (btnPathAdapter != null)
                                             {
-                                                if(this.data.ItemIndex== btnPathAdapter.GetItemsCount() - 1)
+                                                if(this.data.ItemIndex == btnPathAdapter.GetItemsCount() - 1)
                                                 {
                                                     isBold = true;
                                                 }

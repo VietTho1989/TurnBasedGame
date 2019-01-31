@@ -15,8 +15,6 @@ namespace InternationalDraught
 			
 			public VP<ReferenceData<InternationalDraught>> internationalDraught;
 
-			public VP<InternationalDraughtFenUI.UIData> internationalDraughtFen;
-
 			public LP<PieceUI.UIData> pieces;
 
 			#region Constructor
@@ -24,14 +22,12 @@ namespace InternationalDraught
 			public enum Property
 			{
 				internationalDraught,
-				internationalDraughtFen,
 				pieces
 			}
 
 			public UIData() : base()
 			{
 				this.internationalDraught = new VP<ReferenceData<InternationalDraught>>(this, (byte)Property.internationalDraught, new ReferenceData<InternationalDraught>(null));
-				this.internationalDraughtFen = new VP<InternationalDraughtFenUI.UIData>(this, (byte)Property.internationalDraughtFen, new InternationalDraughtFenUI.UIData());
 				this.pieces = new LP<PieceUI.UIData>(this, (byte)Property.pieces);
 			}
 
@@ -66,16 +62,6 @@ namespace InternationalDraught
 						}
 						// process
 						if (isLoadFull) {
-							// Debug.Log ("Fen: " + internationalDraught.getFen () + "; " + this);
-							// internationalDraughtFen
-							{
-								InternationalDraughtFenUI.UIData internationalDraughtFenUIData = this.data.internationalDraughtFen.v;
-								if (internationalDraughtFenUIData != null) {
-									internationalDraughtFenUIData.internationalDraught.v = new ReferenceData<InternationalDraught> (internationalDraught);
-								} else {
-									Debug.LogError ("internationalDraughtFenUIData null: " + this);
-								}
-							}
 							// pieces
 							{
 								// get old
@@ -273,9 +259,6 @@ namespace InternationalDraught
 
 		#region implement callBacks
 
-		public InternationalDraughtFenUI internationalDraughtFenPrefab;
-		public Transform internationalDraughtFenContainer;
-
 		public PieceUI piecePrefab;
 		private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData> ();
 
@@ -296,7 +279,6 @@ namespace InternationalDraught
 				// Child
 				{
 					uiData.internationalDraught.allAddCallBack (this);
-					uiData.internationalDraughtFen.allAddCallBack (this);
 					uiData.pieces.allAddCallBack (this);
 				}
 				dirty = true;
@@ -345,15 +327,6 @@ namespace InternationalDraught
 						return;
 					}
 				}
-				if (data is InternationalDraughtFenUI.UIData) {
-					InternationalDraughtFenUI.UIData internationalDraughtFenUIData = data as InternationalDraughtFenUI.UIData;
-					// UI
-					{
-						UIUtils.Instantiate (internationalDraughtFenUIData, internationalDraughtFenPrefab, internationalDraughtFenContainer);
-					}
-					dirty = true;
-					return;
-				}
 				// pieceUIData
 				if (data is PieceUI.UIData) {
 					PieceUI.UIData subUIData = data as PieceUI.UIData;
@@ -384,7 +357,6 @@ namespace InternationalDraught
 				// Child
 				{
 					uiData.internationalDraught.allRemoveCallBack (this);
-					uiData.internationalDraughtFen.allRemoveCallBack (this);
 					uiData.pieces.allRemoveCallBack (this);
 				}
 				this.setDataNull (uiData);
@@ -428,14 +400,6 @@ namespace InternationalDraught
 						return;
 					}
 				}
-				if (data is InternationalDraughtFenUI.UIData) {
-					InternationalDraughtFenUI.UIData internationalDraughtFenUIData = data as InternationalDraughtFenUI.UIData;
-					// UI
-					{
-						internationalDraughtFenUIData.removeCallBackAndDestroy (typeof(InternationalDraughtFenUI));
-					}
-					return;
-				}
 				// pieceUIData
 				if (data is PieceUI.UIData) {
 					PieceUI.UIData pieceUIData = data as PieceUI.UIData;
@@ -462,12 +426,6 @@ namespace InternationalDraught
 						dirty = true;
 					}
 					break;
-				case UIData.Property.internationalDraughtFen:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
 				case UIData.Property.pieces:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
@@ -475,7 +433,7 @@ namespace InternationalDraught
 					}
 					break;
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
@@ -517,7 +475,7 @@ namespace InternationalDraught
 							dirty = true;
 							break;
 						default:
-							Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 							break;
 						}
 						return;
@@ -535,7 +493,7 @@ namespace InternationalDraught
 							case Node.Property.p_ply:
 								break;
 							default:
-								Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 								break;
 							}
 							return;
@@ -555,7 +513,7 @@ namespace InternationalDraught
 								dirty = true;
 								break;
 							default:
-								Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 								break;
 							}
 							return;
@@ -588,14 +546,11 @@ namespace InternationalDraught
 						case Var.Property.pickBestMove:
 							break;
 						default:
-							Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 							break;
 						}
 						return;
 					}
-				}
-				if (wrapProperty.p is InternationalDraughtFenUI.UIData) {
-					return;
 				}
 				// PieceUIData
 				if (wrapProperty.p is PieceUI.UIData) {

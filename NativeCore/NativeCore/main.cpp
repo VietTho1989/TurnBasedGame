@@ -44,21 +44,21 @@ int main(int argc, const char * argv[]) {
         }
         const std::string ResourcePath = "/Users/viettho/Desktop/NewProject/TurnbaseGame/NativeCore/Resources";
         int matchCount = 5;
-        StockFishChess::chess_main(matchCount, ResourcePath);
+        // StockFishChess::chess_main(matchCount, ResourcePath);
         // Shatranj::shatranj_main(matchCount, ResourcePath);
         // Makruk::makruk_main(matchCount, ResourcePath);
         // Seirawan::seirawan_main(matchCount, ResourcePath);
         // FairyChess::fairy_chess_main(matchCount, ResourcePath);
         
-        EnglishDraught::english_draught_main(matchCount, ResourcePath);
+        // EnglishDraught::english_draught_main(matchCount, ResourcePath);
         // InternationalDraught::international_draught_main(matchCount, ResourcePath);
         // RussianDraught::russian_draught_main(matchCount, ResourcePath);
         
-        // weiqi::weiqi_main(matchCount, ResourcePath);
+        weiqi::weiqi_main(matchCount, ResourcePath);
         // gomoku::gomoku_main(matchCount, ResourcePath);
         // Reversi::reversi_main(matchCount, ResourcePath);
         // Shogi::shogi_main(matchCount, ResourcePath);
-        Xiangqi::xiangqi_main(matchCount, ResourcePath);
+        // Xiangqi::xiangqi_main(matchCount, ResourcePath);
         // MineSweeper::mine_sweeper_main(matchCount, ResourcePath);
         // Hex::hex_main(matchCount, ResourcePath);
         // Solitaire::solitaire_main(matchCount, ResourcePath);
