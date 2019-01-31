@@ -29,6 +29,7 @@
 #include "solitaire_main.hpp"
 #include "khet_main.hpp"
 #include "nmm_main.hpp"
+#include "chinese_checkers_main.hpp"
 
 int main(int argc, const char * argv[]) {
     // insert code here...
@@ -43,7 +44,7 @@ int main(int argc, const char * argv[]) {
             break;
         }
         const std::string ResourcePath = "/Users/viettho/Desktop/NewProject/TurnbaseGame/NativeCore/Resources";
-        int matchCount = 5;
+        int matchCount = 1;
         // StockFishChess::chess_main(matchCount, ResourcePath);
         // Shatranj::shatranj_main(matchCount, ResourcePath);
         // Makruk::makruk_main(matchCount, ResourcePath);
@@ -54,7 +55,7 @@ int main(int argc, const char * argv[]) {
         // InternationalDraught::international_draught_main(matchCount, ResourcePath);
         // RussianDraught::russian_draught_main(matchCount, ResourcePath);
         
-        weiqi::weiqi_main(matchCount, ResourcePath);
+        // weiqi::weiqi_main(matchCount, ResourcePath);
         // gomoku::gomoku_main(matchCount, ResourcePath);
         // Reversi::reversi_main(matchCount, ResourcePath);
         // Shogi::shogi_main(matchCount, ResourcePath);
@@ -64,6 +65,7 @@ int main(int argc, const char * argv[]) {
         // Solitaire::solitaire_main(matchCount, ResourcePath);
         // Khet::khet_main(matchCount, ResourcePath);
         // NMM::nmm_main(matchCount, ResourcePath);
+        ChineseCheckers::chinese_checkers_main(matchCount, ResourcePath);
     }
     
     return 0;

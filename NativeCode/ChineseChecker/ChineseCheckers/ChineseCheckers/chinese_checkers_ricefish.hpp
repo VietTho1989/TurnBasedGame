@@ -9,7 +9,8 @@
 namespace ChineseCheckers
 {
 
-    class Ricefish : public Protocol {
+    class Ricefish : public Protocol
+    {
     public:
         void run();
         
@@ -53,6 +54,53 @@ namespace ChineseCheckers
         void receive_string();
         
         void receive_quit();
+        
+    };
+    
+    class MyProtocol : public Protocol
+    {
+        
+    public:
+        Move bestMove;
+        Move ponderMove;
+        
+        bool isFinishSearch = false;
+        
+        void send_best_move(Move best_move, Move ponder_move)
+        {
+            // printf("send_best_move\n");
+            // std::__1::cout<<best_move << " " << ponder_move;
+            // bestMove
+            {
+                this->bestMove.from.x = best_move.from.x;
+                this->bestMove.from.y = best_move.from.y;
+                this->bestMove.to.x = best_move.to.x;
+                this->bestMove.to.y = best_move.to.y;
+            }
+            // ponderMove
+            {
+                this->ponderMove.from.x = ponder_move.from.x;
+                this->ponderMove.from.y = ponder_move.from.y;
+                this->ponderMove.to.x = ponder_move.to.x;
+                this->ponderMove.to.y = ponder_move.to.y;
+            }
+            isFinishSearch = true;
+        }
+        
+        void send_status(int current_depth, int current_max_depth, uint64_t total_nodes, Move current_move, int current_move_number)
+        {
+            
+        }
+        
+        void send_status(bool force, int current_depth, int current_max_depth, uint64_t total_nodes, Move current_move, int current_move_number)
+        {
+            
+        }
+        
+        void send_move(RootEntry entry, int current_depth, int current_max_depth, uint64_t total_nodes)
+        {
+            
+        }
         
     };
 

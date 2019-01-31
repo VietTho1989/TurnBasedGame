@@ -101,8 +101,9 @@ namespace ChineseCheckers
     }
     
     int Board::score() const {
-        return _turn == Pebble::P1 ? score_by_side<Pebble::P1>()
-        : score_by_side<Pebble::P2>();
+        int32_t score = (_turn == Pebble::P1 ? score_by_side<Pebble::P1>() : score_by_side<Pebble::P2>());
+        // printf("score: %d\n", score);
+        return score;
     }
     
     int Board::dist(const Hole &a, const Hole &b) {

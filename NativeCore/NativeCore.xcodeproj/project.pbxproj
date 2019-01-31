@@ -107,6 +107,20 @@
 		3185A76A21CA3EA8007CC722 /* khet_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31865F7D21C9D2D3001264E2 /* khet_jni.cpp */; };
 		31865F7F21C9D2D3001264E2 /* khet_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31865F7D21C9D2D3001264E2 /* khet_jni.cpp */; };
 		318F935421DE0DF400F5E111 /* nmm_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 318F935221DE0DF400F5E111 /* nmm_jni.cpp */; };
+		3195D75722030F2000C937D6 /* chinese_checkers_board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3195D74122030F2000C937D6 /* chinese_checkers_board.cpp */; };
+		3195D75822030F2000C937D6 /* chinese_checkers_board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3195D74122030F2000C937D6 /* chinese_checkers_board.cpp */; };
+		3195D75922030F2000C937D6 /* chinese_checkers_interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3195D74622030F2000C937D6 /* chinese_checkers_interface.cpp */; };
+		3195D75A22030F2000C937D6 /* chinese_checkers_interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3195D74622030F2000C937D6 /* chinese_checkers_interface.cpp */; };
+		3195D75B22030F2000C937D6 /* chinese_checkers_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3195D74822030F2000C937D6 /* chinese_checkers_jni.cpp */; };
+		3195D75C22030F2000C937D6 /* chinese_checkers_jni.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3195D74822030F2000C937D6 /* chinese_checkers_jni.cpp */; };
+		3195D75D22030F2000C937D6 /* chinese_checkers_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3195D74A22030F2000C937D6 /* chinese_checkers_main.cpp */; };
+		3195D75E22030F2000C937D6 /* chinese_checkers_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3195D74A22030F2000C937D6 /* chinese_checkers_main.cpp */; };
+		3195D75F22030F2000C937D6 /* chinese_checkers_movegenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3195D74D22030F2000C937D6 /* chinese_checkers_movegenerator.cpp */; };
+		3195D76022030F2000C937D6 /* chinese_checkers_movegenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3195D74D22030F2000C937D6 /* chinese_checkers_movegenerator.cpp */; };
+		3195D76122030F2000C937D6 /* chinese_checkers_ricefish.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3195D75222030F2000C937D6 /* chinese_checkers_ricefish.cpp */; };
+		3195D76222030F2000C937D6 /* chinese_checkers_ricefish.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3195D75222030F2000C937D6 /* chinese_checkers_ricefish.cpp */; };
+		3195D76322030F2000C937D6 /* chinese_checkers_search.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3195D75422030F2000C937D6 /* chinese_checkers_search.cpp */; };
+		3195D76422030F2000C937D6 /* chinese_checkers_search.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3195D75422030F2000C937D6 /* chinese_checkers_search.cpp */; };
 		31971759213E5E830086B388 /* mine_sweeper_board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31971750213E5E830086B388 /* mine_sweeper_board.cpp */; };
 		3197175A213E5E830086B388 /* mine_sweeper_board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31971750213E5E830086B388 /* mine_sweeper_board.cpp */; };
 		3197175B213E5E830086B388 /* mine_sweeper_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31971752213E5E830086B388 /* mine_sweeper_main.cpp */; };
@@ -711,6 +725,28 @@
 		31865F7E21C9D2D3001264E2 /* khet_jni.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = khet_jni.hpp; sourceTree = "<group>"; };
 		318F935221DE0DF400F5E111 /* nmm_jni.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nmm_jni.cpp; sourceTree = "<group>"; };
 		318F935321DE0DF400F5E111 /* nmm_jni.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nmm_jni.hpp; sourceTree = "<group>"; };
+		3195D74122030F2000C937D6 /* chinese_checkers_board.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chinese_checkers_board.cpp; sourceTree = "<group>"; };
+		3195D74222030F2000C937D6 /* chinese_checkers_board.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = chinese_checkers_board.hpp; sourceTree = "<group>"; };
+		3195D74322030F2000C937D6 /* chinese_checkers_depth.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = chinese_checkers_depth.hpp; sourceTree = "<group>"; };
+		3195D74422030F2000C937D6 /* chinese_checkers_direction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = chinese_checkers_direction.hpp; sourceTree = "<group>"; };
+		3195D74522030F2000C937D6 /* chinese_checkers_hole.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = chinese_checkers_hole.hpp; sourceTree = "<group>"; };
+		3195D74622030F2000C937D6 /* chinese_checkers_interface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chinese_checkers_interface.cpp; sourceTree = "<group>"; };
+		3195D74722030F2000C937D6 /* chinese_checkers_interface.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = chinese_checkers_interface.hpp; sourceTree = "<group>"; };
+		3195D74822030F2000C937D6 /* chinese_checkers_jni.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chinese_checkers_jni.cpp; sourceTree = "<group>"; };
+		3195D74922030F2000C937D6 /* chinese_checkers_jni.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = chinese_checkers_jni.hpp; sourceTree = "<group>"; };
+		3195D74A22030F2000C937D6 /* chinese_checkers_main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chinese_checkers_main.cpp; sourceTree = "<group>"; };
+		3195D74B22030F2000C937D6 /* chinese_checkers_main.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = chinese_checkers_main.hpp; sourceTree = "<group>"; };
+		3195D74C22030F2000C937D6 /* chinese_checkers_move.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = chinese_checkers_move.hpp; sourceTree = "<group>"; };
+		3195D74D22030F2000C937D6 /* chinese_checkers_movegenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chinese_checkers_movegenerator.cpp; sourceTree = "<group>"; };
+		3195D74E22030F2000C937D6 /* chinese_checkers_movegenerator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = chinese_checkers_movegenerator.hpp; sourceTree = "<group>"; };
+		3195D74F22030F2000C937D6 /* chinese_checkers_movelist.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = chinese_checkers_movelist.hpp; sourceTree = "<group>"; };
+		3195D75022030F2000C937D6 /* chinese_checkers_pebble.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = chinese_checkers_pebble.hpp; sourceTree = "<group>"; };
+		3195D75122030F2000C937D6 /* chinese_checkers_protocol.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = chinese_checkers_protocol.hpp; sourceTree = "<group>"; };
+		3195D75222030F2000C937D6 /* chinese_checkers_ricefish.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chinese_checkers_ricefish.cpp; sourceTree = "<group>"; };
+		3195D75322030F2000C937D6 /* chinese_checkers_ricefish.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = chinese_checkers_ricefish.hpp; sourceTree = "<group>"; };
+		3195D75422030F2000C937D6 /* chinese_checkers_search.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chinese_checkers_search.cpp; sourceTree = "<group>"; };
+		3195D75522030F2000C937D6 /* chinese_checkers_search.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = chinese_checkers_search.hpp; sourceTree = "<group>"; };
+		3195D75622030F2000C937D6 /* chinese_checkers_value.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = chinese_checkers_value.hpp; sourceTree = "<group>"; };
 		31971750213E5E830086B388 /* mine_sweeper_board.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mine_sweeper_board.cpp; sourceTree = "<group>"; };
 		31971751213E5E830086B388 /* mine_sweeper_board.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mine_sweeper_board.hpp; sourceTree = "<group>"; };
 		31971752213E5E830086B388 /* mine_sweeper_main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mine_sweeper_main.cpp; sourceTree = "<group>"; };
@@ -1397,6 +1433,36 @@
 				31848A8D20E0BEDD00B2DD4B /* Info.plist */,
 			);
 			path = UnityNativeCore;
+			sourceTree = "<group>";
+		};
+		3195D74022030F2000C937D6 /* ChineseCheckers */ = {
+			isa = PBXGroup;
+			children = (
+				3195D74822030F2000C937D6 /* chinese_checkers_jni.cpp */,
+				3195D74922030F2000C937D6 /* chinese_checkers_jni.hpp */,
+				3195D74A22030F2000C937D6 /* chinese_checkers_main.cpp */,
+				3195D74B22030F2000C937D6 /* chinese_checkers_main.hpp */,
+				3195D74122030F2000C937D6 /* chinese_checkers_board.cpp */,
+				3195D74222030F2000C937D6 /* chinese_checkers_board.hpp */,
+				3195D74322030F2000C937D6 /* chinese_checkers_depth.hpp */,
+				3195D74422030F2000C937D6 /* chinese_checkers_direction.hpp */,
+				3195D74522030F2000C937D6 /* chinese_checkers_hole.hpp */,
+				3195D74622030F2000C937D6 /* chinese_checkers_interface.cpp */,
+				3195D74722030F2000C937D6 /* chinese_checkers_interface.hpp */,
+				3195D74C22030F2000C937D6 /* chinese_checkers_move.hpp */,
+				3195D74D22030F2000C937D6 /* chinese_checkers_movegenerator.cpp */,
+				3195D74E22030F2000C937D6 /* chinese_checkers_movegenerator.hpp */,
+				3195D74F22030F2000C937D6 /* chinese_checkers_movelist.hpp */,
+				3195D75022030F2000C937D6 /* chinese_checkers_pebble.hpp */,
+				3195D75122030F2000C937D6 /* chinese_checkers_protocol.hpp */,
+				3195D75222030F2000C937D6 /* chinese_checkers_ricefish.cpp */,
+				3195D75322030F2000C937D6 /* chinese_checkers_ricefish.hpp */,
+				3195D75422030F2000C937D6 /* chinese_checkers_search.cpp */,
+				3195D75522030F2000C937D6 /* chinese_checkers_search.hpp */,
+				3195D75622030F2000C937D6 /* chinese_checkers_value.hpp */,
+			);
+			name = ChineseCheckers;
+			path = ../../Android/UnityNativePlugin/app/src/main/cpp/ChineseCheckers;
 			sourceTree = "<group>";
 		};
 		3197174F213E5E830086B388 /* MineSweeper */ = {
@@ -2186,6 +2252,7 @@
 				31FFB61020E0773500EF3959 /* main.cpp */,
 				31AC683220E9F3BD00ADE207 /* Platform.h */,
 				31AC683320E9F3BD00ADE207 /* Platform.cpp */,
+				3195D74022030F2000C937D6 /* ChineseCheckers */,
 				319E3B3021DDA50100566090 /* nmm */,
 				31D822AB21C90EA7007EF016 /* Khet */,
 				319ACC9D21B36E7900EDD61D /* Solitaire */,
@@ -2344,6 +2411,7 @@
 				31AC680D20E9EA4300ADE207 /* weiqi_timeinfo.cpp in Sources */,
 				31018FD521199917009FB831 /* fairy_chess_bitboard.cpp in Sources */,
 				31018FE321199917009FB831 /* fairy_chess_movepick.cpp in Sources */,
+				3195D75A22030F2000C937D6 /* chinese_checkers_interface.cpp in Sources */,
 				31D19C2620F2EBCF00F53C07 /* shatranj_jni.cpp in Sources */,
 				31018FF321199917009FB831 /* fairy_chess_uci.cpp in Sources */,
 				31AC670920E9EA4200ADE207 /* international_draught_hash.cpp in Sources */,
@@ -2368,6 +2436,7 @@
 				316634742100529A0072002E /* english_draught_ai.cpp in Sources */,
 				319E32EF211294DC009E14E5 /* seirawan_endgame.cpp in Sources */,
 				31018FE721199917009FB831 /* fairy_chess_position.cpp in Sources */,
+				3195D75822030F2000C937D6 /* chinese_checkers_board.cpp in Sources */,
 				31AC676B20E9EA4300ADE207 /* shogi_movePicker.cpp in Sources */,
 				31AC67AD20E9EA4300ADE207 /* weiqi_josekibase.cpp in Sources */,
 				31AC66EF20E9EA4200ADE207 /* gomoku_renju_api.cpp in Sources */,
@@ -2408,6 +2477,7 @@
 				31D19C2420F2EBCE00F53C07 /* shatranj_evaluate.cpp in Sources */,
 				31AC671120E9EA4200ADE207 /* international_draught_main.cpp in Sources */,
 				31AC67B320E9EA4300ADE207 /* weiqi_patternscan.cpp in Sources */,
+				3195D75C22030F2000C937D6 /* chinese_checkers_jni.cpp in Sources */,
 				31AC682720E9EA4300ADE207 /* xiangqi_preeval.cpp in Sources */,
 				31D86C4B212CDEAE009F1825 /* russian_draught_EdAcessImp.cpp in Sources */,
 				31AC681F20E9EA4300ADE207 /* xiangqi_genmoves.cpp in Sources */,
@@ -2496,6 +2566,7 @@
 				310F2EE62106B5E100E3B1E7 /* makruk_ucioption.cpp in Sources */,
 				310F2EC82106B5E100E3B1E7 /* makruk_endgame.cpp in Sources */,
 				31971760213E5E830086B388 /* mine_sweeper_Solver.cpp in Sources */,
+				3195D76222030F2000C937D6 /* chinese_checkers_ricefish.cpp in Sources */,
 				31018FD121199917009FB831 /* fairy_chess_benchmark.cpp in Sources */,
 				310F2ED42106B5E100E3B1E7 /* makruk_pawns.cpp in Sources */,
 				31AC66FD20E9EA4200ADE207 /* international_draught_bb_index.cpp in Sources */,
@@ -2512,6 +2583,7 @@
 				31971767213E75F60086B388 /* mine_sweeper_jni.cpp in Sources */,
 				31AC67B120E9EA4300ADE207 /* weiqi_patternplay.cpp in Sources */,
 				31AC672B20E9EA4300ADE207 /* international_draught_var.cpp in Sources */,
+				3195D75E22030F2000C937D6 /* chinese_checkers_main.cpp in Sources */,
 				31AC670120E9EA4200ADE207 /* international_draught_book.cpp in Sources */,
 				31AC66EB20E9EA4200ADE207 /* gomoku_negamax.cpp in Sources */,
 				31AC67C120E9EA4300ADE207 /* weiqi_ladder.cpp in Sources */,
@@ -2551,6 +2623,7 @@
 				310F2EE22106B5E100E3B1E7 /* makruk_tt.cpp in Sources */,
 				31AC67F920E9EA4300ADE207 /* weiqi_pattern3.cpp in Sources */,
 				31AC673D20E9EA4300ADE207 /* reversi_hash.cpp in Sources */,
+				3195D76422030F2000C937D6 /* chinese_checkers_search.cpp in Sources */,
 				31AC683120E9EA4300ADE207 /* xiangqi_main.cpp in Sources */,
 				31AC673120E9EA4300ADE207 /* reversi_common.cpp in Sources */,
 				316634762100529A0072002E /* english_draught_board.cpp in Sources */,
@@ -2585,6 +2658,7 @@
 				31AC67F120E9EA4300ADE207 /* weiqi_move.cpp in Sources */,
 				31AC674F20E9EA4300ADE207 /* reversi_testgame.cpp in Sources */,
 				31E3666F2148CF2E000A59F4 /* hex_disjointset.cpp in Sources */,
+				3195D76022030F2000C937D6 /* chinese_checkers_movegenerator.cpp in Sources */,
 				31AC672320E9EA4300ADE207 /* international_draught_sort.cpp in Sources */,
 				31AC67D320E9EA4300ADE207 /* weiqi_dynkomi.cpp in Sources */,
 				31D19C3220F2EBCF00F53C07 /* shatranj_pawns.cpp in Sources */,
@@ -2615,10 +2689,12 @@
 				31AC670820E9EA4200ADE207 /* international_draught_hash.cpp in Sources */,
 				31AC671820E9EA4200ADE207 /* international_draught_pos.cpp in Sources */,
 				31D19C2920F2EBCF00F53C07 /* shatranj_material.cpp in Sources */,
+				3195D75922030F2000C937D6 /* chinese_checkers_interface.cpp in Sources */,
 				31AC675420E9EA4300ADE207 /* reversi_wrapper.cpp in Sources */,
 				31018FD821199917009FB831 /* fairy_chess_evaluate.cpp in Sources */,
 				310F2EE92106D31100E3B1E7 /* makruk_jni.cpp in Sources */,
 				31AC682420E9EA4300ADE207 /* xiangqi_position.cpp in Sources */,
+				3195D75722030F2000C937D6 /* chinese_checkers_board.cpp in Sources */,
 				31AC681C20E9EA4300ADE207 /* xiangqi_evaluate.cpp in Sources */,
 				319E32F6211294DC009E14E5 /* seirawan_movegen.cpp in Sources */,
 				31AC676420E9EA4300ADE207 /* shogi_hand.cpp in Sources */,
@@ -2663,6 +2739,7 @@
 				31AC677620E9EA4300ADE207 /* shogi_thread.cpp in Sources */,
 				31AC675220E9EA4300ADE207 /* reversi_tuneheuristic.cpp in Sources */,
 				31D19C2320F2EBCE00F53C07 /* shatranj_evaluate.cpp in Sources */,
+				3195D75B22030F2000C937D6 /* chinese_checkers_jni.cpp in Sources */,
 				31018FE421199917009FB831 /* fairy_chess_pawns.cpp in Sources */,
 				31AC67EA20E9EA4300ADE207 /* weiqi_gogui.cpp in Sources */,
 				31018FDE21199917009FB831 /* fairy_chess_misc.cpp in Sources */,
@@ -2766,6 +2843,7 @@
 				31AC679620E9EA4300ADE207 /* chess_stock_fish_movepick.cpp in Sources */,
 				31AC66EE20E9EA4200ADE207 /* gomoku_renju_api.cpp in Sources */,
 				31AC67E420E9EA4300ADE207 /* weiqi_dcnn.cpp in Sources */,
+				3195D75F22030F2000C937D6 /* chinese_checkers_movegenerator.cpp in Sources */,
 				31E366732148CF2E000A59F4 /* hex_hexutils.cpp in Sources */,
 				31D822D121C90EA7007EF016 /* khet_Evaluator.cpp in Sources */,
 				319E33102112BA44009E14E5 /* seirawan_jni.cpp in Sources */,
@@ -2778,6 +2856,7 @@
 				31AC677A20E9EA4300ADE207 /* shogi_tt.cpp in Sources */,
 				31D19C2B20F2EBCF00F53C07 /* shatranj_misc.cpp in Sources */,
 				31F1CA592119D76400CB9525 /* fairy_chess_main.cpp in Sources */,
+				3195D76122030F2000C937D6 /* chinese_checkers_ricefish.cpp in Sources */,
 				31AC673620E9EA4300ADE207 /* reversi_endhash.cpp in Sources */,
 				31AC66EA20E9EA4200ADE207 /* gomoku_negamax.cpp in Sources */,
 				310F2EC52106B5E100E3B1E7 /* makruk_bitboard.cpp in Sources */,
@@ -2790,6 +2869,7 @@
 				31AC67DA20E9EA4300ADE207 /* weiqi_slave.cpp in Sources */,
 				31AC682A20E9EA4300ADE207 /* xiangqi_search.cpp in Sources */,
 				31AC675E20E9EA4300ADE207 /* shogi_evalList.cpp in Sources */,
+				3195D76322030F2000C937D6 /* chinese_checkers_search.cpp in Sources */,
 				319E32EA211294DC009E14E5 /* seirawan_bitbase.cpp in Sources */,
 				31AC672220E9EA4300ADE207 /* international_draught_sort.cpp in Sources */,
 				319E330A211294DC009E14E5 /* seirawan_uci.cpp in Sources */,
@@ -2813,6 +2893,7 @@
 				31AC67F420E9EA4300ADE207 /* weiqi_ownermap.cpp in Sources */,
 				319E32E8211294DC009E14E5 /* seirawan_benchmark.cpp in Sources */,
 				31AC67CE20E9EA4300ADE207 /* weiqi_ucb1.cpp in Sources */,
+				3195D75D22030F2000C937D6 /* chinese_checkers_main.cpp in Sources */,
 				31AC674820E9EA4300ADE207 /* reversi_position.cpp in Sources */,
 				31AC682C20E9EA4300ADE207 /* xiangqi_ucci.cpp in Sources */,
 				31018FEA21199917009FB831 /* fairy_chess_search.cpp in Sources */,

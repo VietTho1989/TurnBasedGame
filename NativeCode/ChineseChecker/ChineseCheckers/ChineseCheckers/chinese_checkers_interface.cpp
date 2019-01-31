@@ -8,6 +8,7 @@
 #include "chinese_checkers_board.hpp"
 #include "chinese_checkers_search.hpp"
 #include "chinese_checkers_movegenerator.hpp"
+#include "chinese_checkers_ricefish.hpp"
 
 using std::cout;
 using std::endl;
@@ -64,11 +65,23 @@ namespace ChineseCheckers
     }
     
     void self_play(Board& board) {
-        cout << board << endl;
         do {
-                    // SearchResult result = search(board);
-                    // board.make_move(result.move);
-                    // cout << board << "\nScore: " << board.score_absolute(result.score) << endl;
+            cout << board << endl;
+            MyProtocol myProtocol;
+            {
+                myProtocol.isFinishSearch = false;
+            }
+            Search* search = new Search(myProtocol);
+            search->new_time_search(board, 500);
+            search->start();
+            // wait to finish search
+            while (!myProtocol.isFinishSearch) {
+                
+            }
+            board.make_move(myProtocol.bestMove);
+            search->quit();
+            delete search;
+            printf("board get winner: %d\n", board.get_winner());
         } while (board.get_winner() == Pebble::NO_PEBBLE);
         printf("Player %c wins!\n", Pebbles::get_char(board.get_winner()));
     }
