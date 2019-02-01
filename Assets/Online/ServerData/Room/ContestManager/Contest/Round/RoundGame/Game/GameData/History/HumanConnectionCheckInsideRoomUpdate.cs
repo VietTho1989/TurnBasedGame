@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/**
+ * TODO Co le nen loai bo nhung nguoi mat ket noi nua
+ * */
 public class HumanConnectionCheckInsideRoomUpdate : UpdateBehavior<History>
 {
 

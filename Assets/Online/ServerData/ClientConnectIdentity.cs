@@ -2520,11 +2520,85 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region Reversi
+    #region ChineseCheckers
 
-	[Command]
+    [Command]
+    public void CmdChineseCheckersAIChangeType(uint networkIdentityId, uint userId, ChineseCheckers.ChineseCheckersAI.Type newType)
+    {
+        ChineseCheckers.ChineseCheckersAIIdentity chineseCheckersAIIdentity = GetDataIdentity<ChineseCheckers.ChineseCheckersAIIdentity>(networkIdentityId);
+        if (chineseCheckersAIIdentity != null)
+        {
+            chineseCheckersAIIdentity.changeType(userId, newType);
+        }
+        else
+        {
+            Debug.LogError("identity null: " + this);
+        }
+    }
+
+    [Command]
+    public void CmdChineseCheckersAIChangeDepth(uint networkIdentityId, uint userId, int newDepth)
+    {
+        ChineseCheckers.ChineseCheckersAIIdentity chineseCheckersAIIdentity = GetDataIdentity<ChineseCheckers.ChineseCheckersAIIdentity>(networkIdentityId);
+        if (chineseCheckersAIIdentity != null)
+        {
+            chineseCheckersAIIdentity.changeDepth(userId, newDepth);
+        }
+        else
+        {
+            Debug.LogError("identity null: " + this);
+        }
+    }
+
+    [Command]
+    public void CmdChineseCheckersAIChangeTime(uint networkIdentityId, uint userId, int newTime)
+    {
+        ChineseCheckers.ChineseCheckersAIIdentity chineseCheckersAIIdentity = GetDataIdentity<ChineseCheckers.ChineseCheckersAIIdentity>(networkIdentityId);
+        if (chineseCheckersAIIdentity != null)
+        {
+            chineseCheckersAIIdentity.changeTime(userId, newTime);
+        }
+        else
+        {
+            Debug.LogError("identity null: " + this);
+        }
+    }
+
+    [Command]
+    public void CmdChineseCheckersAIChangeNode(uint networkIdentityId, uint userId, int newNode)
+    {
+        ChineseCheckers.ChineseCheckersAIIdentity chineseCheckersAIIdentity = GetDataIdentity<ChineseCheckers.ChineseCheckersAIIdentity>(networkIdentityId);
+        if (chineseCheckersAIIdentity != null)
+        {
+            chineseCheckersAIIdentity.changeNode(userId, newNode);
+        }
+        else
+        {
+            Debug.LogError("identity null: " + this);
+        }
+    }
+
+    [Command]
+    public void CmdChineseCheckersAIChangePickBestMove(uint networkIdentityId, uint userId, int newPickBestMove)
+    {
+        ChineseCheckers.ChineseCheckersAIIdentity chineseCheckersAIIdentity = GetDataIdentity<ChineseCheckers.ChineseCheckersAIIdentity>(networkIdentityId);
+        if (chineseCheckersAIIdentity != null)
+        {
+            chineseCheckersAIIdentity.changePickBestMove(userId, newPickBestMove);
+        }
+        else
+        {
+            Debug.LogError("identity null: " + this);
+        }
+    }
+
+    #endregion
+
+    #region Reversi
+
+    [Command]
 	public void CmdReversiAIChangeSort(uint networkIdentityId, uint userId, int newSort)
 	{
         Reversi.ReversiAIIdentity reversiAIIdentity = GetDataIdentity<Reversi.ReversiAIIdentity>(networkIdentityId);

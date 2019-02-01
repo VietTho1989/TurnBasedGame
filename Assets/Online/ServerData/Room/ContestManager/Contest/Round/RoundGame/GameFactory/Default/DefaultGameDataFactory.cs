@@ -42,109 +42,119 @@ public class DefaultGameDataFactory : GameDataFactory
 		}
 	}
 
-	public void makeNewDefaultGameType(GameType.Type newGameType)
-	{
-		// check need new
-		bool needNew = true;
-		{
-			if (this.defaultGameType.v != null) {
-				if (this.defaultGameType.v.getType () == newGameType) {
-					needNew = false;
-				}
-			}
-		}
-		if (needNew) {
-			DefaultGameType newDefaultGameType = null;
-			{
-				// init
-				switch (newGameType) {
-				case GameType.Type.CHESS:
-					newDefaultGameType = new Chess.DefaultChess ();
-					break;
-				case GameType.Type.Shatranj:
-					newDefaultGameType = new Shatranj.DefaultShatranj ();
-					break;
-				case GameType.Type.Makruk:
-					newDefaultGameType = new Makruk.DefaultMakruk ();
-					break;
-				case GameType.Type.Seirawan:
-					newDefaultGameType = new Seirawan.DefaultSeirawan ();
-					break;
-				case GameType.Type.FairyChess:
-					newDefaultGameType = new FairyChess.DefaultFairyChess ();
-					break;
+    public void makeNewDefaultGameType(GameType.Type newGameType)
+    {
+        // check need new
+        bool needNew = true;
+        {
+            if (this.defaultGameType.v != null)
+            {
+                if (this.defaultGameType.v.getType() == newGameType)
+                {
+                    needNew = false;
+                }
+            }
+        }
+        if (needNew)
+        {
+            DefaultGameType newDefaultGameType = null;
+            {
+                // init
+                switch (newGameType)
+                {
+                    case GameType.Type.CHESS:
+                        newDefaultGameType = new Chess.DefaultChess();
+                        break;
+                    case GameType.Type.Shatranj:
+                        newDefaultGameType = new Shatranj.DefaultShatranj();
+                        break;
+                    case GameType.Type.Makruk:
+                        newDefaultGameType = new Makruk.DefaultMakruk();
+                        break;
+                    case GameType.Type.Seirawan:
+                        newDefaultGameType = new Seirawan.DefaultSeirawan();
+                        break;
+                    case GameType.Type.FairyChess:
+                        newDefaultGameType = new FairyChess.DefaultFairyChess();
+                        break;
 
-				case GameType.Type.Xiangqi:
-					newDefaultGameType = new Xiangqi.DefaultXiangqi ();
-					break;
-				case GameType.Type.CO_TUONG_UP:
-					newDefaultGameType = new CoTuongUp.DefaultCoTuongUp ();
-					break;
-				case GameType.Type.Janggi:
-					newDefaultGameType = new Janggi.DefaultJanggi ();
-					break;
-				case GameType.Type.Banqi:
-					newDefaultGameType = new Banqi.DefaultBanqi ();
-					break;
+                    case GameType.Type.Xiangqi:
+                        newDefaultGameType = new Xiangqi.DefaultXiangqi();
+                        break;
+                    case GameType.Type.CO_TUONG_UP:
+                        newDefaultGameType = new CoTuongUp.DefaultCoTuongUp();
+                        break;
+                    case GameType.Type.Janggi:
+                        newDefaultGameType = new Janggi.DefaultJanggi();
+                        break;
+                    case GameType.Type.Banqi:
+                        newDefaultGameType = new Banqi.DefaultBanqi();
+                        break;
 
-				case GameType.Type.Weiqi:
-					newDefaultGameType = new Weiqi.DefaultWeiqi ();
-					break;
-				case GameType.Type.SHOGI:
-					newDefaultGameType = new Shogi.DefaultShogi ();
-					break;
-				case GameType.Type.Reversi:
-					newDefaultGameType = new Reversi.DefaultReversi ();
-					break;
-				case GameType.Type.Gomoku:
-					newDefaultGameType = new Gomoku.DefaultGomoku ();
-					break;
+                    case GameType.Type.Weiqi:
+                        newDefaultGameType = new Weiqi.DefaultWeiqi();
+                        break;
+                    case GameType.Type.SHOGI:
+                        newDefaultGameType = new Shogi.DefaultShogi();
+                        break;
+                    case GameType.Type.Reversi:
+                        newDefaultGameType = new Reversi.DefaultReversi();
+                        break;
+                    case GameType.Type.Gomoku:
+                        newDefaultGameType = new Gomoku.DefaultGomoku();
+                        break;
 
-				case GameType.Type.EnglishDraught:
-					newDefaultGameType = new EnglishDraught.DefaultEnglishDraught ();
-					break;
-				case GameType.Type.InternationalDraught:
-					newDefaultGameType = new InternationalDraught.DefaultInternationalDraught ();
-					break;
-				case GameType.Type.RussianDraught:
-					newDefaultGameType = new RussianDraught.DefaultRussianDraught ();
-					break;
+                    case GameType.Type.EnglishDraught:
+                        newDefaultGameType = new EnglishDraught.DefaultEnglishDraught();
+                        break;
+                    case GameType.Type.InternationalDraught:
+                        newDefaultGameType = new InternationalDraught.DefaultInternationalDraught();
+                        break;
+                    case GameType.Type.RussianDraught:
+                        newDefaultGameType = new RussianDraught.DefaultRussianDraught();
+                        break;
+                    case GameType.Type.ChineseCheckers:
+                        newDefaultGameType = new ChineseCheckers.DefaultChineseCheckers();
+                        break;
 
-				case GameType.Type.MineSweeper:
-					newDefaultGameType = new MineSweeper.DefaultMineSweeper ();
-					break;
-				case GameType.Type.Hex:
-					newDefaultGameType = new HEX.DefaultHex ();
-					break;
-				case GameType.Type.Solitaire:
-					newDefaultGameType = new Solitaire.DefaultSolitaire ();
-					break;
-				case GameType.Type.Sudoku:
-					newDefaultGameType = new Sudoku.DefaultSudoku ();
-					break;
-				case GameType.Type.Khet:
-					newDefaultGameType = new Khet.DefaultKhet ();
-					break;
-				case GameType.Type.NineMenMorris:
-					newDefaultGameType = new NineMenMorris.DefaultNineMenMorris ();
-					break;
-				default:
-					Debug.LogError ("unknown gameType: " + newGameType + "; " + this);
-					break;
-				}
-				// check null
-				if (newDefaultGameType == null) {
-					Debug.LogError ("newDefaultGameType null: " + this);
-					newDefaultGameType = new Xiangqi.DefaultXiangqi ();
-				}
-				//uid
-				newDefaultGameType.uid = this.defaultGameType.makeId ();
-			}
-			this.defaultGameType.v = newDefaultGameType;
-		} else {
-			Debug.LogError ("don't need new defaultGameType: " + this);
-		}
-	}
+                    case GameType.Type.MineSweeper:
+                        newDefaultGameType = new MineSweeper.DefaultMineSweeper();
+                        break;
+                    case GameType.Type.Hex:
+                        newDefaultGameType = new HEX.DefaultHex();
+                        break;
+                    case GameType.Type.Solitaire:
+                        newDefaultGameType = new Solitaire.DefaultSolitaire();
+                        break;
+                    case GameType.Type.Sudoku:
+                        newDefaultGameType = new Sudoku.DefaultSudoku();
+                        break;
+                    case GameType.Type.Khet:
+                        newDefaultGameType = new Khet.DefaultKhet();
+                        break;
+                    case GameType.Type.NineMenMorris:
+                        newDefaultGameType = new NineMenMorris.DefaultNineMenMorris();
+                        break;
+                    default:
+                        Debug.LogError("unknown gameType: " + newGameType + "; " + this);
+                        break;
+                }
+                // check null
+                if (newDefaultGameType == null)
+                {
+                    Debug.LogError("newDefaultGameType null: " + this);
+                    newDefaultGameType = new Xiangqi.DefaultXiangqi();
+                }
+                //uid
+                newDefaultGameType.uid = this.defaultGameType.makeId();
+            }
+            this.defaultGameType.v = newDefaultGameType;
+        }
+        else
+        {
+            Debug.LogError("don't need new defaultGameType: " + this);
+        }
+    }
 
 	public override GameType.Type getGameTypeType()
 	{

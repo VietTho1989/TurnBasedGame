@@ -13,21 +13,22 @@ public class Test : MonoBehaviour
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			int matchCount = 5;
 
-			Chess.TestChess.startTestMatch (matchCount);
-			// Makruk.TestMakruk.startTestMatch (matchCount);
-			// Shatranj.TestShatranj.startTestMatch (matchCount);
-			// Seirawan.TestSeirawan.startTestMatch (matchCount);
-			// FairyChess.TestFairyChess.startTestMatch(matchCount);
+            // Chess.TestChess.startTestMatch (matchCount);
+            // Makruk.TestMakruk.startTestMatch (matchCount);
+            // Shatranj.TestShatranj.startTestMatch (matchCount);
+            // Seirawan.TestSeirawan.startTestMatch (matchCount);
+            // FairyChess.TestFairyChess.startTestMatch(matchCount);
 
-			// Gomoku.TestGomoku.startTestMatch (matchCount);
-			// Reversi.TestReversi.startTestMatch (matchCount);
-			// Shogi.TestShogi.startTestMatch (matchCount);
-			// Weiqi.TestWeiqi.startTestMatch (matchCount);
-			Xiangqi.TestXiangqi.startTestMatch (matchCount);
+            // Gomoku.TestGomoku.startTestMatch (matchCount);
+            // Reversi.TestReversi.startTestMatch (matchCount);
+            // Shogi.TestShogi.startTestMatch (matchCount);
+            // Weiqi.TestWeiqi.startTestMatch (matchCount);
+            // Xiangqi.TestXiangqi.startTestMatch (matchCount);
 
-			// InternationalDraught.TestInternationalDraught.startTestMatch (matchCount);
-			EnglishDraught.TestEnglishDraught.startTestMatch (matchCount);
-			// RussianDraught.TestRussianDraught.startTestMatch(matchCount);
+            // InternationalDraught.TestInternationalDraught.startTestMatch (matchCount);
+            // EnglishDraught.TestEnglishDraught.startTestMatch (matchCount);
+            // RussianDraught.TestRussianDraught.startTestMatch(matchCount);
+            ChineseCheckers.TestChineseCheckers.startTestMatch(matchCount);
 
 			// MineSweeper.TestMineSweeper.startTestMatch (matchCount);
 			// HEX.TestHex.startTestMatch(matchCount);

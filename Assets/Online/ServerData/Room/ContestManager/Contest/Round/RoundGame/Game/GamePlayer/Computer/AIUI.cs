@@ -494,8 +494,38 @@ public class AIUI : UIBehavior<AIUI.UIData>
 									this.data.sub.v = russianDraughtAIUIData;
 								}
 								break;
+                                case GameType.Type.ChineseCheckers:
+                                    {
+                                        ChineseCheckers.ChineseCheckersAI chineseCheckersAI = show as ChineseCheckers.ChineseCheckersAI;
+                                        // UIData
+                                        ChineseCheckers.ChineseCheckersAIUI.UIData chineseCheckersAIUIData = this.data.sub.newOrOld<ChineseCheckers.ChineseCheckersAIUI.UIData>();
+                                        {
+                                            EditData<ChineseCheckers.ChineseCheckersAI> editChineseCheckersAI = chineseCheckersAIUIData.editAI.v;
+                                            if (editChineseCheckersAI != null)
+                                            {
+                                                // origin
+                                                editChineseCheckersAI.origin.v = new ReferenceData<ChineseCheckers.ChineseCheckersAI>((ChineseCheckers.ChineseCheckersAI)editAI.origin.v.data);
+                                                // show
+                                                editChineseCheckersAI.show.v = new ReferenceData<ChineseCheckers.ChineseCheckersAI>(chineseCheckersAI);
+                                                // compare
+                                                editChineseCheckersAI.compare.v = new ReferenceData<ChineseCheckers.ChineseCheckersAI>((ChineseCheckers.ChineseCheckersAI)editAI.compare.v.data);
+                                                // compareOtherType
+                                                editChineseCheckersAI.compareOtherType.v = new ReferenceData<Data>(editAI.compareOtherType.v.data);
+                                                // canEdit
+                                                editChineseCheckersAI.canEdit.v = editAI.canEdit.v;
+                                                // editType
+                                                editChineseCheckersAI.editType.v = editAI.editType.v;
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("editChineseCheckersAI null: " + this);
+                                            }
+                                        }
+                                        this.data.sub.v = chineseCheckersAIUIData;
+                                    }
+                                    break;
 
-							case GameType.Type.MineSweeper:
+                                case GameType.Type.MineSweeper:
 								{
 									MineSweeper.MineSweeperAI mineSweeperAI = show as MineSweeper.MineSweeperAI;
 									// UIData
@@ -702,8 +732,9 @@ public class AIUI : UIBehavior<AIUI.UIData>
 	public InternationalDraught.InternationalDraughtAIUI internationalDraughtPrefab;
 	public EnglishDraught.EnglishDraughtAIUI englishDraughtPrefab;
 	public RussianDraught.RussianDraughtAIUI russianDraughtPrefab;
+    public ChineseCheckers.ChineseCheckersAIUI chineseCheckersPrefab;
 
-	public MineSweeper.MineSweeperAIUI mineSweeperPrefab;
+    public MineSweeper.MineSweeperAIUI mineSweeperPrefab;
 	public HEX.HexAIUI hexPrefab;
 	public Solitaire.SolitaireAIUI solitairePrefab;
 
@@ -723,163 +754,172 @@ public class AIUI : UIBehavior<AIUI.UIData>
 			dirty = true;
 			return;
 		}
-		// Child
-		{
-			if (data is EditData<Computer.AI>) {
-				dirty = true;
-				return;
-			}
-			if (data is UIData.Sub) {
-				UIData.Sub sub = data as UIData.Sub;
-				// UI
-				{
-					switch (sub.getType ()) {
-					case GameType.Type.CHESS:
-						{
-							Chess.ChessAIUI.UIData chessAIUIData = sub as Chess.ChessAIUI.UIData;
-							UIUtils.Instantiate (chessAIUIData, chessPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.Shatranj:
-						{
-							Shatranj.ShatranjAIUI.UIData shatranjAIUIData = sub as Shatranj.ShatranjAIUI.UIData;
-							UIUtils.Instantiate (shatranjAIUIData, shatranjPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.Makruk:
-						{
-							Makruk.MakrukAIUI.UIData makrukAIUIData = sub as Makruk.MakrukAIUI.UIData;
-							UIUtils.Instantiate (makrukAIUIData, makrukPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.Seirawan:
-						{
-							Seirawan.SeirawanAIUI.UIData seirawanAIUIData = sub as Seirawan.SeirawanAIUI.UIData;
-							UIUtils.Instantiate (seirawanAIUIData, seirawanPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.FairyChess:
-						{
-							FairyChess.FairyChessAIUI.UIData fairyChessAIUIData = sub as FairyChess.FairyChessAIUI.UIData;
-							UIUtils.Instantiate (fairyChessAIUIData, fairyChessPrefab, this.transform);
-						}
-						break;
+        // Child
+        {
+            if (data is EditData<Computer.AI>)
+            {
+                dirty = true;
+                return;
+            }
+            if (data is UIData.Sub)
+            {
+                UIData.Sub sub = data as UIData.Sub;
+                // UI
+                {
+                    switch (sub.getType())
+                    {
+                        case GameType.Type.CHESS:
+                            {
+                                Chess.ChessAIUI.UIData chessAIUIData = sub as Chess.ChessAIUI.UIData;
+                                UIUtils.Instantiate(chessAIUIData, chessPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Shatranj:
+                            {
+                                Shatranj.ShatranjAIUI.UIData shatranjAIUIData = sub as Shatranj.ShatranjAIUI.UIData;
+                                UIUtils.Instantiate(shatranjAIUIData, shatranjPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Makruk:
+                            {
+                                Makruk.MakrukAIUI.UIData makrukAIUIData = sub as Makruk.MakrukAIUI.UIData;
+                                UIUtils.Instantiate(makrukAIUIData, makrukPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Seirawan:
+                            {
+                                Seirawan.SeirawanAIUI.UIData seirawanAIUIData = sub as Seirawan.SeirawanAIUI.UIData;
+                                UIUtils.Instantiate(seirawanAIUIData, seirawanPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.FairyChess:
+                            {
+                                FairyChess.FairyChessAIUI.UIData fairyChessAIUIData = sub as FairyChess.FairyChessAIUI.UIData;
+                                UIUtils.Instantiate(fairyChessAIUIData, fairyChessPrefab, this.transform);
+                            }
+                            break;
 
-					case GameType.Type.Xiangqi:
-						{
-							Xiangqi.XiangqiAIUI.UIData xiangqiAIUIData = sub as Xiangqi.XiangqiAIUI.UIData;
-							UIUtils.Instantiate (xiangqiAIUIData, xiangqiPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.CO_TUONG_UP:
-						{
-							CoTuongUp.CoTuongUpAIUI.UIData coTuongUpAIUIData = sub as CoTuongUp.CoTuongUpAIUI.UIData;
-							UIUtils.Instantiate (coTuongUpAIUIData, coTuongUpPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.Janggi:
-						{
-							Janggi.JanggiAIUI.UIData janggiAIUIData = sub as Janggi.JanggiAIUI.UIData;
-							UIUtils.Instantiate (janggiAIUIData, janggiPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.Banqi:
-						{
-							Banqi.BanqiAIUI.UIData banqiAIUIData = sub as Banqi.BanqiAIUI.UIData;
-							UIUtils.Instantiate (banqiAIUIData, banqiPrefab, this.transform);
-						}
-						break;
+                        case GameType.Type.Xiangqi:
+                            {
+                                Xiangqi.XiangqiAIUI.UIData xiangqiAIUIData = sub as Xiangqi.XiangqiAIUI.UIData;
+                                UIUtils.Instantiate(xiangqiAIUIData, xiangqiPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.CO_TUONG_UP:
+                            {
+                                CoTuongUp.CoTuongUpAIUI.UIData coTuongUpAIUIData = sub as CoTuongUp.CoTuongUpAIUI.UIData;
+                                UIUtils.Instantiate(coTuongUpAIUIData, coTuongUpPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Janggi:
+                            {
+                                Janggi.JanggiAIUI.UIData janggiAIUIData = sub as Janggi.JanggiAIUI.UIData;
+                                UIUtils.Instantiate(janggiAIUIData, janggiPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Banqi:
+                            {
+                                Banqi.BanqiAIUI.UIData banqiAIUIData = sub as Banqi.BanqiAIUI.UIData;
+                                UIUtils.Instantiate(banqiAIUIData, banqiPrefab, this.transform);
+                            }
+                            break;
 
-					case GameType.Type.Weiqi:
-						{
-							Weiqi.WeiqiAIUI.UIData weiqiAIUIData = sub as Weiqi.WeiqiAIUI.UIData;
-							UIUtils.Instantiate (weiqiAIUIData, weiqiPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.SHOGI:
-						{
-							Shogi.ShogiAIUI.UIData shogiAIUIData = sub as Shogi.ShogiAIUI.UIData;
-							UIUtils.Instantiate (shogiAIUIData, shogiPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.Reversi:
-						{
-							Reversi.ReversiAIUI.UIData reversiAIUIData = sub as Reversi.ReversiAIUI.UIData;
-							UIUtils.Instantiate (reversiAIUIData, reversiPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.Gomoku:
-						{
-							Gomoku.GomokuAIUI.UIData gomokuAIUIData = sub as Gomoku.GomokuAIUI.UIData;
-							UIUtils.Instantiate (gomokuAIUIData, gomokuPrefab, this.transform);
-						}
-						break;
+                        case GameType.Type.Weiqi:
+                            {
+                                Weiqi.WeiqiAIUI.UIData weiqiAIUIData = sub as Weiqi.WeiqiAIUI.UIData;
+                                UIUtils.Instantiate(weiqiAIUIData, weiqiPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.SHOGI:
+                            {
+                                Shogi.ShogiAIUI.UIData shogiAIUIData = sub as Shogi.ShogiAIUI.UIData;
+                                UIUtils.Instantiate(shogiAIUIData, shogiPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Reversi:
+                            {
+                                Reversi.ReversiAIUI.UIData reversiAIUIData = sub as Reversi.ReversiAIUI.UIData;
+                                UIUtils.Instantiate(reversiAIUIData, reversiPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Gomoku:
+                            {
+                                Gomoku.GomokuAIUI.UIData gomokuAIUIData = sub as Gomoku.GomokuAIUI.UIData;
+                                UIUtils.Instantiate(gomokuAIUIData, gomokuPrefab, this.transform);
+                            }
+                            break;
 
-					case GameType.Type.InternationalDraught:
-						{
-							InternationalDraught.InternationalDraughtAIUI.UIData internationalDraughtAIUIData = sub as InternationalDraught.InternationalDraughtAIUI.UIData;
-							UIUtils.Instantiate (internationalDraughtAIUIData, internationalDraughtPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.EnglishDraught:
-						{
-							EnglishDraught.EnglishDraughtAIUI.UIData englishDraughtAIUIData = sub as EnglishDraught.EnglishDraughtAIUI.UIData;
-							UIUtils.Instantiate (englishDraughtAIUIData, englishDraughtPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.RussianDraught:
-						{
-							RussianDraught.RussianDraughtAIUI.UIData russianDraughtAIUIData = sub as RussianDraught.RussianDraughtAIUI.UIData;
-							UIUtils.Instantiate (russianDraughtAIUIData, russianDraughtPrefab, this.transform);
-						}
-						break;
+                        case GameType.Type.InternationalDraught:
+                            {
+                                InternationalDraught.InternationalDraughtAIUI.UIData internationalDraughtAIUIData = sub as InternationalDraught.InternationalDraughtAIUI.UIData;
+                                UIUtils.Instantiate(internationalDraughtAIUIData, internationalDraughtPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.EnglishDraught:
+                            {
+                                EnglishDraught.EnglishDraughtAIUI.UIData englishDraughtAIUIData = sub as EnglishDraught.EnglishDraughtAIUI.UIData;
+                                UIUtils.Instantiate(englishDraughtAIUIData, englishDraughtPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.RussianDraught:
+                            {
+                                RussianDraught.RussianDraughtAIUI.UIData russianDraughtAIUIData = sub as RussianDraught.RussianDraughtAIUI.UIData;
+                                UIUtils.Instantiate(russianDraughtAIUIData, russianDraughtPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.ChineseCheckers:
+                            {
+                                ChineseCheckers.ChineseCheckersAIUI.UIData chineseCheckersAIUIData = sub as ChineseCheckers.ChineseCheckersAIUI.UIData;
+                                UIUtils.Instantiate(chineseCheckersAIUIData, chineseCheckersPrefab, this.transform);
+                            }
+                            break;
 
-					case GameType.Type.MineSweeper:
-						{
-							MineSweeper.MineSweeperAIUI.UIData mineSweeperAIUIData = sub as MineSweeper.MineSweeperAIUI.UIData;
-							UIUtils.Instantiate (mineSweeperAIUIData, mineSweeperPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.Hex:
-						{
-							HEX.HexAIUI.UIData hexAIUIData = sub as HEX.HexAIUI.UIData;
-							UIUtils.Instantiate (hexAIUIData, hexPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.Solitaire:
-						{
-							Solitaire.SolitaireAIUI.UIData solitaireAIUIData = sub as Solitaire.SolitaireAIUI.UIData;
-							UIUtils.Instantiate (solitaireAIUIData, solitairePrefab, this.transform);
-						}
-						break;
+                        case GameType.Type.MineSweeper:
+                            {
+                                MineSweeper.MineSweeperAIUI.UIData mineSweeperAIUIData = sub as MineSweeper.MineSweeperAIUI.UIData;
+                                UIUtils.Instantiate(mineSweeperAIUIData, mineSweeperPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Hex:
+                            {
+                                HEX.HexAIUI.UIData hexAIUIData = sub as HEX.HexAIUI.UIData;
+                                UIUtils.Instantiate(hexAIUIData, hexPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Solitaire:
+                            {
+                                Solitaire.SolitaireAIUI.UIData solitaireAIUIData = sub as Solitaire.SolitaireAIUI.UIData;
+                                UIUtils.Instantiate(solitaireAIUIData, solitairePrefab, this.transform);
+                            }
+                            break;
 
-					case GameType.Type.Sudoku:
-						{
-							Sudoku.SudokuAIUI.UIData sudokuAIUIData = sub as Sudoku.SudokuAIUI.UIData;
-							UIUtils.Instantiate (sudokuAIUIData, sudokuPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.Khet:
-						{
-							Khet.KhetAIUI.UIData khetAIUIData = sub as Khet.KhetAIUI.UIData;
-							UIUtils.Instantiate (khetAIUIData, khetPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.NineMenMorris:
-						{
-							NineMenMorris.NineMenMorrisAIUI.UIData nineMenMorrisAIUIData = sub as NineMenMorris.NineMenMorrisAIUI.UIData;
-							UIUtils.Instantiate (nineMenMorrisAIUIData, nineMenMorrisPrefab, this.transform);
-						}
-						break;
-					default:
-						Debug.LogError ("unknown type: " + sub.getType () + "; " + this);
-						break;
-					}
-				}
-				dirty = true;
-				return;
-			}
-		}
+                        case GameType.Type.Sudoku:
+                            {
+                                Sudoku.SudokuAIUI.UIData sudokuAIUIData = sub as Sudoku.SudokuAIUI.UIData;
+                                UIUtils.Instantiate(sudokuAIUIData, sudokuPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Khet:
+                            {
+                                Khet.KhetAIUI.UIData khetAIUIData = sub as Khet.KhetAIUI.UIData;
+                                UIUtils.Instantiate(khetAIUIData, khetPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.NineMenMorris:
+                            {
+                                NineMenMorris.NineMenMorrisAIUI.UIData nineMenMorrisAIUIData = sub as NineMenMorris.NineMenMorrisAIUI.UIData;
+                                UIUtils.Instantiate(nineMenMorrisAIUIData, nineMenMorrisPrefab, this.transform);
+                            }
+                            break;
+                        default:
+                            Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                            break;
+                    }
+                }
+                dirty = true;
+                return;
+            }
+        }
 		Debug.LogError ("Don't process: " + data + "; " + this);
 	}
 
@@ -900,155 +940,163 @@ public class AIUI : UIBehavior<AIUI.UIData>
 			if (data is EditData<Computer.AI>) {
 				return;
 			}
-			if (data is UIData.Sub) {
-				UIData.Sub sub = data as UIData.Sub;
-				// UI
-				{
-					switch (sub.getType ()) {
-					case GameType.Type.CHESS:
-						{
-							Chess.ChessAIUI.UIData chessAIUIData = sub as Chess.ChessAIUI.UIData;
-							chessAIUIData.removeCallBackAndDestroy (typeof(Chess.ChessAIUI));
-						}
-						break;
-					case GameType.Type.Shatranj:
-						{
-							Shatranj.ShatranjAIUI.UIData shatranjAIUIData = sub as Shatranj.ShatranjAIUI.UIData;
-							shatranjAIUIData.removeCallBackAndDestroy (typeof(Shatranj.ShatranjAIUI));
-						}
-						break;
-					case GameType.Type.Makruk:
-						{
-							Makruk.MakrukAIUI.UIData makrukAIUIData = sub as Makruk.MakrukAIUI.UIData;
-							makrukAIUIData.removeCallBackAndDestroy (typeof(Makruk.MakrukAIUI));
-						}
-						break;
-					case GameType.Type.Seirawan:
-						{
-							Seirawan.SeirawanAIUI.UIData seirawanAIUIData = sub as Seirawan.SeirawanAIUI.UIData;
-							seirawanAIUIData.removeCallBackAndDestroy (typeof(Seirawan.SeirawanAIUI));
-						}
-						break;
-					case GameType.Type.FairyChess:
-						{
-							FairyChess.FairyChessAIUI.UIData fairyChessAIUIData = sub as FairyChess.FairyChessAIUI.UIData;
-							fairyChessAIUIData.removeCallBackAndDestroy (typeof(FairyChess.FairyChessAIUI));
-						}
-						break;
+            if (data is UIData.Sub)
+            {
+                UIData.Sub sub = data as UIData.Sub;
+                // UI
+                {
+                    switch (sub.getType())
+                    {
+                        case GameType.Type.CHESS:
+                            {
+                                Chess.ChessAIUI.UIData chessAIUIData = sub as Chess.ChessAIUI.UIData;
+                                chessAIUIData.removeCallBackAndDestroy(typeof(Chess.ChessAIUI));
+                            }
+                            break;
+                        case GameType.Type.Shatranj:
+                            {
+                                Shatranj.ShatranjAIUI.UIData shatranjAIUIData = sub as Shatranj.ShatranjAIUI.UIData;
+                                shatranjAIUIData.removeCallBackAndDestroy(typeof(Shatranj.ShatranjAIUI));
+                            }
+                            break;
+                        case GameType.Type.Makruk:
+                            {
+                                Makruk.MakrukAIUI.UIData makrukAIUIData = sub as Makruk.MakrukAIUI.UIData;
+                                makrukAIUIData.removeCallBackAndDestroy(typeof(Makruk.MakrukAIUI));
+                            }
+                            break;
+                        case GameType.Type.Seirawan:
+                            {
+                                Seirawan.SeirawanAIUI.UIData seirawanAIUIData = sub as Seirawan.SeirawanAIUI.UIData;
+                                seirawanAIUIData.removeCallBackAndDestroy(typeof(Seirawan.SeirawanAIUI));
+                            }
+                            break;
+                        case GameType.Type.FairyChess:
+                            {
+                                FairyChess.FairyChessAIUI.UIData fairyChessAIUIData = sub as FairyChess.FairyChessAIUI.UIData;
+                                fairyChessAIUIData.removeCallBackAndDestroy(typeof(FairyChess.FairyChessAIUI));
+                            }
+                            break;
 
-					case GameType.Type.Xiangqi:
-						{
-							Xiangqi.XiangqiAIUI.UIData xiangqiAIUIData = sub as Xiangqi.XiangqiAIUI.UIData;
-							xiangqiAIUIData.removeCallBackAndDestroy (typeof(Xiangqi.XiangqiAIUI));
-						}
-						break;
-					case GameType.Type.CO_TUONG_UP:
-						{
-							CoTuongUp.CoTuongUpAIUI.UIData coTuongUpAIUIData = sub as CoTuongUp.CoTuongUpAIUI.UIData;
-							coTuongUpAIUIData.removeCallBackAndDestroy (typeof(CoTuongUp.CoTuongUpAIUI));
-						}
-						break;
-					case GameType.Type.Janggi:
-						{
-							Janggi.JanggiAIUI.UIData janggiAIUIData = sub as Janggi.JanggiAIUI.UIData;
-							janggiAIUIData.removeCallBackAndDestroy (typeof(Janggi.JanggiAIUI));
-						}
-						break;
-					case GameType.Type.Banqi:
-						{
-							Banqi.BanqiAIUI.UIData banqiAIUIData = sub as Banqi.BanqiAIUI.UIData;
-							banqiAIUIData.removeCallBackAndDestroy (typeof(Banqi.BanqiAIUI));
-						}
-						break;
+                        case GameType.Type.Xiangqi:
+                            {
+                                Xiangqi.XiangqiAIUI.UIData xiangqiAIUIData = sub as Xiangqi.XiangqiAIUI.UIData;
+                                xiangqiAIUIData.removeCallBackAndDestroy(typeof(Xiangqi.XiangqiAIUI));
+                            }
+                            break;
+                        case GameType.Type.CO_TUONG_UP:
+                            {
+                                CoTuongUp.CoTuongUpAIUI.UIData coTuongUpAIUIData = sub as CoTuongUp.CoTuongUpAIUI.UIData;
+                                coTuongUpAIUIData.removeCallBackAndDestroy(typeof(CoTuongUp.CoTuongUpAIUI));
+                            }
+                            break;
+                        case GameType.Type.Janggi:
+                            {
+                                Janggi.JanggiAIUI.UIData janggiAIUIData = sub as Janggi.JanggiAIUI.UIData;
+                                janggiAIUIData.removeCallBackAndDestroy(typeof(Janggi.JanggiAIUI));
+                            }
+                            break;
+                        case GameType.Type.Banqi:
+                            {
+                                Banqi.BanqiAIUI.UIData banqiAIUIData = sub as Banqi.BanqiAIUI.UIData;
+                                banqiAIUIData.removeCallBackAndDestroy(typeof(Banqi.BanqiAIUI));
+                            }
+                            break;
 
-					case GameType.Type.Weiqi:
-						{
-							Weiqi.WeiqiAIUI.UIData weiqiAIUIData = sub as Weiqi.WeiqiAIUI.UIData;
-							weiqiAIUIData.removeCallBackAndDestroy (typeof(Weiqi.WeiqiAIUI));
-						}
-						break;
-					case GameType.Type.SHOGI:
-						{
-							Shogi.ShogiAIUI.UIData shogiAIUIData = sub as Shogi.ShogiAIUI.UIData;
-							shogiAIUIData.removeCallBackAndDestroy(typeof(Shogi.ShogiAIUI));
-						}
-						break;
-					case GameType.Type.Reversi:
-						{
-							Reversi.ReversiAIUI.UIData reversiAIUIData = sub as Reversi.ReversiAIUI.UIData;
-							reversiAIUIData.removeCallBackAndDestroy (typeof(Reversi.ReversiAIUI));
-						}
-						break;
-					case GameType.Type.Gomoku:
-						{
-							Gomoku.GomokuAIUI.UIData gomokuAIUIData = sub as Gomoku.GomokuAIUI.UIData;
-							gomokuAIUIData.removeCallBackAndDestroy (typeof(Gomoku.GomokuAIUI));
-						}
-						break;
+                        case GameType.Type.Weiqi:
+                            {
+                                Weiqi.WeiqiAIUI.UIData weiqiAIUIData = sub as Weiqi.WeiqiAIUI.UIData;
+                                weiqiAIUIData.removeCallBackAndDestroy(typeof(Weiqi.WeiqiAIUI));
+                            }
+                            break;
+                        case GameType.Type.SHOGI:
+                            {
+                                Shogi.ShogiAIUI.UIData shogiAIUIData = sub as Shogi.ShogiAIUI.UIData;
+                                shogiAIUIData.removeCallBackAndDestroy(typeof(Shogi.ShogiAIUI));
+                            }
+                            break;
+                        case GameType.Type.Reversi:
+                            {
+                                Reversi.ReversiAIUI.UIData reversiAIUIData = sub as Reversi.ReversiAIUI.UIData;
+                                reversiAIUIData.removeCallBackAndDestroy(typeof(Reversi.ReversiAIUI));
+                            }
+                            break;
+                        case GameType.Type.Gomoku:
+                            {
+                                Gomoku.GomokuAIUI.UIData gomokuAIUIData = sub as Gomoku.GomokuAIUI.UIData;
+                                gomokuAIUIData.removeCallBackAndDestroy(typeof(Gomoku.GomokuAIUI));
+                            }
+                            break;
 
-					case GameType.Type.InternationalDraught:
-						{
-							InternationalDraught.InternationalDraughtAIUI.UIData internationalDraughtAIUIData = sub as InternationalDraught.InternationalDraughtAIUI.UIData;
-							internationalDraughtAIUIData.removeCallBackAndDestroy (typeof(InternationalDraught.InternationalDraughtAIUI));
-						}
-						break;
-					case GameType.Type.EnglishDraught:
-						{
-							EnglishDraught.EnglishDraughtAIUI.UIData englishDraughtAIUIData = sub as EnglishDraught.EnglishDraughtAIUI.UIData;
-							englishDraughtAIUIData.removeCallBackAndDestroy (typeof(EnglishDraught.EnglishDraughtAIUI));
-						}
-						break;
-					case GameType.Type.RussianDraught:
-						{
-							RussianDraught.RussianDraughtAIUI.UIData russianDraughtAIUIData = sub as RussianDraught.RussianDraughtAIUI.UIData;
-							russianDraughtAIUIData.removeCallBackAndDestroy (typeof(RussianDraught.RussianDraughtAIUI));
-						}
-						break;
+                        case GameType.Type.InternationalDraught:
+                            {
+                                InternationalDraught.InternationalDraughtAIUI.UIData internationalDraughtAIUIData = sub as InternationalDraught.InternationalDraughtAIUI.UIData;
+                                internationalDraughtAIUIData.removeCallBackAndDestroy(typeof(InternationalDraught.InternationalDraughtAIUI));
+                            }
+                            break;
+                        case GameType.Type.EnglishDraught:
+                            {
+                                EnglishDraught.EnglishDraughtAIUI.UIData englishDraughtAIUIData = sub as EnglishDraught.EnglishDraughtAIUI.UIData;
+                                englishDraughtAIUIData.removeCallBackAndDestroy(typeof(EnglishDraught.EnglishDraughtAIUI));
+                            }
+                            break;
+                        case GameType.Type.RussianDraught:
+                            {
+                                RussianDraught.RussianDraughtAIUI.UIData russianDraughtAIUIData = sub as RussianDraught.RussianDraughtAIUI.UIData;
+                                russianDraughtAIUIData.removeCallBackAndDestroy(typeof(RussianDraught.RussianDraughtAIUI));
+                            }
+                            break;
+                        case GameType.Type.ChineseCheckers:
+                            {
+                                ChineseCheckers.ChineseCheckersAIUI.UIData chineseCheckersAIUIData = sub as ChineseCheckers.ChineseCheckersAIUI.UIData;
+                                chineseCheckersAIUIData.removeCallBackAndDestroy(typeof(ChineseCheckers.ChineseCheckersAIUI));
+                            }
+                            break;
 
-					case GameType.Type.MineSweeper:
-						{
-							MineSweeper.MineSweeperAIUI.UIData mineSweeperAIUIData = sub as MineSweeper.MineSweeperAIUI.UIData;
-							mineSweeperAIUIData.removeCallBackAndDestroy (typeof(MineSweeper.MineSweeperAIUI));
-						}
-						break;
-					case GameType.Type.Hex:
-						{
-							HEX.HexAIUI.UIData hexAIUIData = sub as HEX.HexAIUI.UIData;
-							hexAIUIData.removeCallBackAndDestroy (typeof(HEX.HexAIUI));
-						}
-						break;
-					case GameType.Type.Solitaire:
-						{
-							Solitaire.SolitaireAIUI.UIData solitaireAIUIData = sub as Solitaire.SolitaireAIUI.UIData;
-							solitaireAIUIData.removeCallBackAndDestroy (typeof(Solitaire.SolitaireAIUI));
-						}
-						break;
+                        case GameType.Type.MineSweeper:
+                            {
+                                MineSweeper.MineSweeperAIUI.UIData mineSweeperAIUIData = sub as MineSweeper.MineSweeperAIUI.UIData;
+                                mineSweeperAIUIData.removeCallBackAndDestroy(typeof(MineSweeper.MineSweeperAIUI));
+                            }
+                            break;
+                        case GameType.Type.Hex:
+                            {
+                                HEX.HexAIUI.UIData hexAIUIData = sub as HEX.HexAIUI.UIData;
+                                hexAIUIData.removeCallBackAndDestroy(typeof(HEX.HexAIUI));
+                            }
+                            break;
+                        case GameType.Type.Solitaire:
+                            {
+                                Solitaire.SolitaireAIUI.UIData solitaireAIUIData = sub as Solitaire.SolitaireAIUI.UIData;
+                                solitaireAIUIData.removeCallBackAndDestroy(typeof(Solitaire.SolitaireAIUI));
+                            }
+                            break;
 
-					case GameType.Type.Sudoku:
-						{
-							Sudoku.SudokuAIUI.UIData sudokuAIUIData = sub as Sudoku.SudokuAIUI.UIData;
-							sudokuAIUIData.removeCallBackAndDestroy (typeof(Sudoku.SudokuAIUI));
-						}
-						break;
-					case GameType.Type.Khet:
-						{
-							Khet.KhetAIUI.UIData khetAIUIData = sub as Khet.KhetAIUI.UIData;
-							khetAIUIData.removeCallBackAndDestroy (typeof(Khet.KhetAIUI));
-						}
-						break;
-					case GameType.Type.NineMenMorris:
-						{
-							NineMenMorris.NineMenMorrisAIUI.UIData nineMenMorrisAIUIData = sub as NineMenMorris.NineMenMorrisAIUI.UIData;
-							nineMenMorrisAIUIData.removeCallBackAndDestroy (typeof(NineMenMorris.NineMenMorrisAIUI));
-						}
-						break;
-					default:
-						Debug.LogError ("unknown type: " + sub.getType () + "; " + this);
-						break;
-					}
-				}
-				return;
-			}
+                        case GameType.Type.Sudoku:
+                            {
+                                Sudoku.SudokuAIUI.UIData sudokuAIUIData = sub as Sudoku.SudokuAIUI.UIData;
+                                sudokuAIUIData.removeCallBackAndDestroy(typeof(Sudoku.SudokuAIUI));
+                            }
+                            break;
+                        case GameType.Type.Khet:
+                            {
+                                Khet.KhetAIUI.UIData khetAIUIData = sub as Khet.KhetAIUI.UIData;
+                                khetAIUIData.removeCallBackAndDestroy(typeof(Khet.KhetAIUI));
+                            }
+                            break;
+                        case GameType.Type.NineMenMorris:
+                            {
+                                NineMenMorris.NineMenMorrisAIUI.UIData nineMenMorrisAIUIData = sub as NineMenMorris.NineMenMorrisAIUI.UIData;
+                                nineMenMorrisAIUIData.removeCallBackAndDestroy(typeof(NineMenMorris.NineMenMorrisAIUI));
+                            }
+                            break;
+                        default:
+                            Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                            break;
+                    }
+                }
+                return;
+            }
 		}
 		Debug.LogError ("Don't process: " + data + "; " + this);
 	}

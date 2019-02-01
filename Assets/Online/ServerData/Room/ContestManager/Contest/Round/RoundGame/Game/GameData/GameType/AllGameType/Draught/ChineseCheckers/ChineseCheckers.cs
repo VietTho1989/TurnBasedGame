@@ -9,6 +9,27 @@ namespace ChineseCheckers
     public class ChineseCheckers : GameType
     {
 
+        public const string INITIAL_POSITION =
+        "1"+
+        "11"+
+        "111"+
+        "1111"+
+        "0000000000000"+
+        "000000000000"+
+        "00000000000"+
+        "0000000000"+
+        "000000000"+
+        "0000000000"+
+        "00000000000"+
+        "000000000000"+
+        "0000000000000"+
+        "2222"+
+        "222"+
+        "22"+
+        "2"+
+        " "+
+        "x";
+
         /** std::array<std::array<Pebble, X_SIZE>, Y_SIZE> _squares;*/
         public LP<byte> _squares;
 
@@ -225,7 +246,12 @@ namespace ChineseCheckers
                 {
                     switch (gameMove.getType())
                     {
-                        // TODO Can hoan thien
+                        case GameMove.Type.ChineseCheckersMove:
+                            {
+                                ChineseCheckersMove move = gameMove as ChineseCheckersMove;
+                                return Core.unityIsLegalMove(this, Core.CanCorrect, move);
+                            }
+                        // break;
                         default:
                             Debug.LogError("unknown game move type: " + gameMove.getType() + "; " + this);
                             break;
@@ -259,7 +285,21 @@ namespace ChineseCheckers
         {
             switch (gameMove.getType())
             {
-                // TODO Can hoan thien
+                case GameMove.Type.ChineseCheckersMove:
+                    {
+                        // get information
+                        ChineseCheckersMove move = gameMove as ChineseCheckersMove;
+                        ChineseCheckers newChineseCheckers = Core.unityDoMove(this, Core.CanCorrect, move);
+                        if (newChineseCheckers != null)
+                        {
+                            DataUtils.copyData(this, newChineseCheckers, AllowNames);
+                        }
+                        else
+                        {
+                            Debug.LogError("newChineseCheckers null: " + this);
+                        }
+                    }
+                    break;
                 default:
                     Debug.LogError("unknown gameMove: " + gameMove + "; " + this);
                     this.processCustomGameMove(gameMove);
@@ -326,7 +366,26 @@ namespace ChineseCheckers
                         }
                     }
                     // get AI
-                    // TODO Can hoan thien
+                    ChineseCheckersAI ai = (computerAI != null && computerAI is ChineseCheckersAI) ? (ChineseCheckersAI)computerAI : new ChineseCheckersAI();
+                    // search
+                    ChineseCheckersMove move = Core.unityLetComputerThink(this, true, (int)ai.type.v, ai.depth.v, ai.time.v, ai.node.v, ai.pickBestMove.v);
+                    if (move != null)
+                    {
+                        ret = move;
+                    }
+                    else
+                    {
+                        Debug.LogError("move null: " + this);
+                        List<ChineseCheckersMove> legalMoves = Core.unityGetLegalMoves(this, true);
+                        if (legalMoves.Count > 0)
+                        {
+                            ret = legalMoves[0];
+                        }
+                        else
+                        {
+                            Debug.LogError("why don't have any legalMoves");
+                        }
+                    }
                 }
                 else
                 {
@@ -341,7 +400,7 @@ namespace ChineseCheckers
                     }
                 }
             }
-            Debug.LogError("nineMenMorris get ai move: " + ret);
+            Debug.LogError("chineseCheckers get ai move: " + ret);
             return ret;
         }
 
@@ -391,7 +450,7 @@ namespace ChineseCheckers
             {
                 if (GameData.IsUseRule(this))
                 {
-                    int isGameFinish = 0; // TODO Can hoan thien Core.unityIsGameFinish(this, Core.CanCorrect);
+                    int isGameFinish = Core.unityIsGameFinish(this, Core.CanCorrect);
                     switch (isGameFinish)
                     {
                         case 0:

@@ -361,7 +361,7 @@ public class DataMakeIdentityUtils
 									if (dataType != null && !dataType.IsSubclassOf (typeof(Data))) {
 										if (Data.IsSubclassOfRawGeneric (typeof(LP<>), fieldInfo.FieldType)) {
 											// this.board.Callback = OnBoardChanged;
-											builder.AppendLine (string.Format ("this.{0}.Callback = On{1}Changed;", fieldInfo.Name, UppercaseFirst (fieldInfo.Name)));
+											builder.AppendLine (string.Format ("this.{0}.Callback += On{1}Changed;", fieldInfo.Name, UppercaseFirst (fieldInfo.Name)));
 										}
 									}
 								}

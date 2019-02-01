@@ -123,7 +123,7 @@ namespace NineMenMorris
 
 			public VP<RequestChangeIntUI.UIData> pickBestMove;
 
-			public void makeRequestChangeMaxPickBestMove (RequestChangeUpdate<int>.UpdateData update, int newPickBestMove)
+			public void makeRequestChangePickBestMove (RequestChangeUpdate<int>.UpdateData update, int newPickBestMove)
 			{
 				// Find
 				NineMenMorrisAI nineMenMorrisAI = null;
@@ -238,7 +238,7 @@ namespace NineMenMorris
 						this.pickBestMove.v.limit.v = have;
 					}
 					// event
-					this.pickBestMove.v.updateData.v.request.v = makeRequestChangeMaxPickBestMove;
+					this.pickBestMove.v.updateData.v.request.v = makeRequestChangePickBestMove;
 				}
 			}
 
