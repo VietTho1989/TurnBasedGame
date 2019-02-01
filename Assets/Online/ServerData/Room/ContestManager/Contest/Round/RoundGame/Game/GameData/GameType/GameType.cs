@@ -28,6 +28,7 @@ public abstract class GameType : Data
 		InternationalDraught,
 		EnglishDraught,
 		RussianDraught,
+        ChineseCheckers,
 
 		MineSweeper,
 		Hex,
@@ -105,7 +106,7 @@ public abstract class GameType : Data
 
 	public abstract void processGameMove(GameMove gameMove);
 
-	public abstract GameMove getAIMove (Computer.AI ai, bool isFindHint);
+	public abstract GameMove getAIMove (Computer.AI computerAI, bool isFindHint);
 
 	public abstract Result isGameFinish();
 

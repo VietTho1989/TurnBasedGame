@@ -15,8 +15,6 @@ namespace RussianDraught
 
 			public VP<ReferenceData<RussianDraught>> russianDraught;
 
-			public VP<RussianDraughtFenUI.UIData> russianDraughtFen;
-
 			public LP<PieceUI.UIData> pieces;
 
 			#region Constructor
@@ -24,14 +22,12 @@ namespace RussianDraught
 			public enum Property
 			{
 				russianDraught,
-				russianDraughtFen,
 				pieces
 			}
 
 			public UIData() : base()
 			{
 				this.russianDraught = new VP<ReferenceData<RussianDraught>>(this, (byte)Property.russianDraught, new ReferenceData<RussianDraught>(null));
-				this.russianDraughtFen = new VP<RussianDraughtFenUI.UIData>(this, (byte)Property.russianDraughtFen, new RussianDraughtFenUI.UIData());
 				this.pieces = new LP<PieceUI.UIData>(this, (byte)Property.pieces);
 			}
 
@@ -63,15 +59,6 @@ namespace RussianDraught
 						}
 						// process
 						if (isLoadFull) {
-							// russianDraughtFen
-							{
-								RussianDraughtFenUI.UIData russianDraughtFenUIData = this.data.russianDraughtFen.v;
-								if (russianDraughtFenUIData != null) {
-									russianDraughtFenUIData.russianDraught.v = new ReferenceData<RussianDraught> (russianDraught);
-								} else {
-									Debug.LogError ("russianDraughtFenUIData null: " + this);
-								}
-							}
 							// pieces
 							{
 								// get old
@@ -176,9 +163,6 @@ namespace RussianDraught
 
 		#region implement callBacks
 
-		public RussianDraughtFenUI russianDraughtFenPrefab;
-		public Transform russianDraughtFenContainer;
-
 		public PieceUI piecePrefab;
 		private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData> ();
 
@@ -199,7 +183,6 @@ namespace RussianDraught
 				// Child
 				{
 					uiData.russianDraught.allAddCallBack (this);
-					uiData.russianDraughtFen.allAddCallBack (this);
 					uiData.pieces.allAddCallBack (this);
 				}
 				dirty = true;
@@ -215,15 +198,6 @@ namespace RussianDraught
 			// Child
 			{
 				if (data is RussianDraught) {
-					dirty = true;
-					return;
-				}
-				if (data is RussianDraughtFenUI.UIData) {
-					RussianDraughtFenUI.UIData russianDraughtFenUIData = data as RussianDraughtFenUI.UIData;
-					// UI
-					{
-						UIUtils.Instantiate (russianDraughtFenUIData, russianDraughtFenPrefab, russianDraughtFenContainer);
-					}
 					dirty = true;
 					return;
 				}
@@ -256,7 +230,6 @@ namespace RussianDraught
 				// Child
 				{
 					uiData.russianDraught.allRemoveCallBack (this);
-					uiData.russianDraughtFen.allRemoveCallBack (this);
 					uiData.pieces.allRemoveCallBack (this);
 				}
 				this.setDataNull (uiData);
@@ -271,14 +244,6 @@ namespace RussianDraught
 			// Child
 			{
 				if (data is RussianDraught) {
-					return;
-				}
-				if (data is RussianDraughtFenUI.UIData) {
-					RussianDraughtFenUI.UIData russianDraughtFenUIData = data as RussianDraughtFenUI.UIData;
-					// UI
-					{
-						russianDraughtFenUIData.removeCallBackAndDestroy (typeof(RussianDraughtFenUI));
-					}
 					return;
 				}
 				if (data is PieceUI.UIData) {
@@ -301,12 +266,6 @@ namespace RussianDraught
 			if (wrapProperty.p is UIData) {
 				switch ((UIData.Property)wrapProperty.n) {
 				case UIData.Property.russianDraught:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				case UIData.Property.russianDraughtFen:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
 						dirty = true;
@@ -368,9 +327,6 @@ namespace RussianDraught
 						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 						break;
 					}
-					return;
-				}
-				if (wrapProperty.p is RussianDraughtFenUI.UIData) {
 					return;
 				}
 				if (wrapProperty.p is PieceUI.UIData) {

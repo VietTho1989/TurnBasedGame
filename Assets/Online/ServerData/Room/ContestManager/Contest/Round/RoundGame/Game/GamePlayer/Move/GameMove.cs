@@ -3,6 +3,7 @@ using System.Collections;
 
 public abstract class GameMove : Data
 {
+
 	public enum Type
 	{
 		None,
@@ -77,6 +78,8 @@ public abstract class GameMove : Data
 		RussianDraughtMove,
 		RussianDraughtCustomMove,
 		RussianDraughtCustomSet,
+
+        ChineseCheckersMove,
 
 		MineSweeperMove,
 		MineSweeperCustomMove,

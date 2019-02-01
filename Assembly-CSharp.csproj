@@ -2195,6 +2195,10 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\ChineseChess\Xiangqi\XiangqiIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\ChineseChess\Xiangqi\ZobristStruct.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\ChineseChess\Xiangqi\ZobristStructIdentity.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\ChineseCheckers\ChineseCheckers.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\ChineseCheckers\Common.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\ChineseCheckers\Core.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\ChineseCheckers\Move\ChineseCheckersMove.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\EnglishDraught\AI\EnglishDraughtAI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\EnglishDraught\AI\EnglishDraughtAIIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\EnglishDraught\AI\EnglishDraughtAIUI.cs" />
@@ -3461,7 +3465,6 @@
     <Compile Include="Assets\RecycleListView\Scripts\ListItemCountry.cs" />
     <Compile Include="Assets\RecyclerKit\TrashMan.cs" />
     <Compile Include="Assets\RecyclerKit\TrashManRecycleBin.cs" />
-    <Compile Include="Assets\Resources\Scriptable\MyScriptableObjectClass.cs" />
     <Compile Include="Assets\SaveData\Save.cs" />
     <Compile Include="Assets\SaveData\SaveData.cs" />
     <Compile Include="Assets\SaveData\SaveFen.cs" />

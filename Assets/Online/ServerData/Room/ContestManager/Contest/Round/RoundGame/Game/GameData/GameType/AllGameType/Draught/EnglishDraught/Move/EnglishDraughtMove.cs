@@ -8,6 +8,7 @@ namespace EnglishDraught
 {
 	public class EnglishDraughtMove : GameMove
 	{
+
 		/** uint64_t SrcDst*/
 		public VP<System.UInt64> SrcDst;
 

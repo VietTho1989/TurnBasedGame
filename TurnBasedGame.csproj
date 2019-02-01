@@ -4105,7 +4105,6 @@
     <Compile Include="Assets\RecycleListView\Scripts\ListItemCountry.cs" />
     <Compile Include="Assets\RecyclerKit\TrashMan.cs" />
     <Compile Include="Assets\RecyclerKit\TrashManRecycleBin.cs" />
-    <Compile Include="Assets\Resources\Scriptable\MyScriptableObjectClass.cs" />
     <Compile Include="Assets\SaveData\Save.cs" />
     <Compile Include="Assets\SaveData\SaveData.cs" />
     <Compile Include="Assets\SaveData\SaveFen.cs" />
