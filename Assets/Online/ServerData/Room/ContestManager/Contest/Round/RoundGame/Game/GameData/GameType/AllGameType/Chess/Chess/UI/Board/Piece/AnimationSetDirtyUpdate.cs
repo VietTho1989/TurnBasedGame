@@ -26,7 +26,7 @@ namespace Chess
 						List<PieceUI.UIData> pieceUIDatas = new List<PieceUI.UIData>();
 						{
 							switch (moveAnimation.getType ()) {
-							/*case GameMove.Type.ChessMove:
+							case GameMove.Type.ChessMove:
 								{
 									ChessMoveAnimation chessMoveAnimation = moveAnimation as ChessMoveAnimation;
 									{
@@ -127,7 +127,7 @@ namespace Chess
 										}
 									}
 								}
-								break;*/
+								break;
 							default:
 								{
 									// Debug.LogError ("unknown moveAnimation: " + moveAnimation + "; " + this);

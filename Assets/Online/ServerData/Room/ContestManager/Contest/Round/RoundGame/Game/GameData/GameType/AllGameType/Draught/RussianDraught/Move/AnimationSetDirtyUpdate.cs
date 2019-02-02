@@ -26,7 +26,7 @@ namespace RussianDraught
 						List<PieceUI.UIData> pieceUIDatas = new List<PieceUI.UIData>();
 						{
 							switch (moveAnimation.getType ()) {
-							/*case GameMove.Type.RussianDraughtMove:
+							case GameMove.Type.RussianDraughtMove:
 								{
 									RussianDraughtMoveAnimation russianDraughtMoveAnimation = moveAnimation as RussianDraughtMoveAnimation;
 									{
@@ -64,7 +64,7 @@ namespace RussianDraught
 										}
 									}
 								}
-								break;*/
+								break;
 							default:
 								{
 									// Debug.LogError ("unknown moveAnimation: " + moveAnimation + "; " + this);

@@ -41,9 +41,9 @@ namespace EnglishDraught
 					EnglishDraughtGameDataUI.UIData englishDraughtGameDataUIData = this.data.findDataInParent<EnglishDraughtGameDataUI.UIData> ();
 					GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
 					if (englishDraughtGameDataUIData != null && gameDataBoardUIData != null) {
-						UpdateTransform.UpdateData gomokuTransform = englishDraughtGameDataUIData.updateTransform.v;
+						UpdateTransform.UpdateData englishDraughtTransform = englishDraughtGameDataUIData.updateTransform.v;
 						UpdateTransform.UpdateData boardTransform = gameDataBoardUIData.updateTransform.v;
-						if (gomokuTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
+						if (englishDraughtTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
 							float boardSizeX = 8f;
 							float boardSizeY = 8f;
 							float scale = Mathf.Min (Mathf.Abs (boardTransform.size.v.x / boardSizeX), Mathf.Abs (boardTransform.size.v.y / boardSizeY));
@@ -166,22 +166,15 @@ namespace EnglishDraught
 			if (wrapProperty.p is UpdateData) {
 				switch ((UpdateData.Property)wrapProperty.n) {
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
 			}
 			// CheckChange
 			if (wrapProperty.p is GameDataBoardCheckTransformChange<UpdateData>) {
-				switch ((GameDataBoardCheckTransformChange<UpdateData>.Property)wrapProperty.n) {
-				case GameDataBoardCheckTransformChange<UpdateData>.Property.change:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
+                dirty = true;
+                return;
 			}
 			// Parent
 			{
@@ -208,7 +201,7 @@ namespace EnglishDraught
 					case EnglishDraughtGameDataUI.UIData.Property.inputUI:
 						break;
 					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 						break;
 					}
 					return;
@@ -228,7 +221,7 @@ namespace EnglishDraught
 						dirty = true;
 						break;
 					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this + "; " + syncs);
+						Debug.LogError ("Don't process: " + wrapProperty + "; " + this + "; " + syncs);
 						break;
 					}
 					return;

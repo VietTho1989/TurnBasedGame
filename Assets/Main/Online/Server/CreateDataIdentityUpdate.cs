@@ -44,7 +44,7 @@ public class CreateDataIdentityUpdate : UpdateBehavior<Server>
 		DataIdentity dataIdentity = null;
 		if (data != null) {
 			if (!prefabDict.TryGetValue (data.GetType (), out dataIdentity)) {
-				Debug.LogError ("Cannot find prefab: " + data + "; " + this);
+				// Debug.LogError ("Cannot find prefab: " + data + "; " + this);
 			}
 		} else {
 			Debug.LogError ("data null: " + this);

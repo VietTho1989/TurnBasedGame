@@ -26,7 +26,7 @@ namespace InternationalDraught
 						List<PieceUI.UIData> pieceUIDatas = new List<PieceUI.UIData>();
 						{
 							switch (moveAnimation.getType ()) {
-							/*case GameMove.Type.InternationalDraughtMove:
+							case GameMove.Type.InternationalDraughtMove:
 								{
 									InternationalDraughtMoveAnimation internationalDraughtMoveAnimation = moveAnimation as InternationalDraughtMoveAnimation;
 									{
@@ -74,7 +74,7 @@ namespace InternationalDraught
 										}
 									}
 								}
-								break;*/
+								break;
 							default:
 								{
 									// Debug.LogError ("unknown moveAnimation: " + moveAnimation + "; " + this);

@@ -19,6 +19,10 @@ namespace ChineseCheckers
             INVALID = 123
         };
 
+        public static Vector2 ConvertXYToLocalPosition(int x, int y)
+        {
+            return new Vector2(x - 9.5f, y - 9.5f);
+        }
 
     }
 }

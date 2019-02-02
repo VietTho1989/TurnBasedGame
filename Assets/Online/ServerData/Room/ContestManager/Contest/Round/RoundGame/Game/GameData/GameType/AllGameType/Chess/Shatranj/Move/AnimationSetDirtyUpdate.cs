@@ -26,7 +26,7 @@ namespace Shatranj
 						List<PieceUI.UIData> pieceUIDatas = new List<PieceUI.UIData>();
 						{
 							switch (moveAnimation.getType ()) {
-							/*case GameMove.Type.ShatranjMove:
+							case GameMove.Type.ShatranjMove:
 								{
 									ShatranjMoveAnimation shatranjMoveAnimation = moveAnimation as ShatranjMoveAnimation;
 									{
@@ -49,7 +49,7 @@ namespace Shatranj
 										}
 									}
 								}
-								break;*/
+								break;
 							default:
 								{
 									// Debug.LogError ("unknown moveAnimation: " + moveAnimation + "; " + this);

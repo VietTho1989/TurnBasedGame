@@ -209,297 +209,329 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>
 
 	}
 
-	#endregion
+    #endregion
 
-	#region Refresh
+    #region Refresh
 
-	public override void refresh ()
-	{
-		if (dirty) {
-			dirty = false;
-			if (this.data != null) {
-				GameData gameData = this.data.gameData.v.data;
-				if (gameData != null) {
-					// check is load full
-					bool isLoadFull = true;
-					{
-						GameType gameType = gameData.gameType.v;
-						if (gameType != null) {
-							if (gameType is Xiangqi.Xiangqi) {
-								Xiangqi.Xiangqi xiangqi = gameType as Xiangqi.Xiangqi;
-								if (xiangqi.ucpcSquares.vs.Count == 0) {
-									Debug.LogError ("xiangqi ucpcSquares count = 0");
-									isLoadFull = false;
-								}
-							}
-						} else {
-							Debug.LogError ("gameType null");
-						}
-					}
-					// process
-					if (isLoadFull) {
-						// Choose sub
-						{
-							if (gameData.gameType.v != null) {
-								switch (gameData.gameType.v.getType ()) {
-								case GameType.Type.CHESS:
-									{
-										// UIData
-										Chess.ChessGameDataUI.UIData chessGameDataUIData = this.data.sub.newOrOld<Chess.ChessGameDataUI.UIData> ();
-										{
-											chessGameDataUIData.gameData.v = new ReferenceData<GameData> (gameData);
-										}
-										this.data.sub.v = chessGameDataUIData;
-									}
-									break;
-								case GameType.Type.Shatranj:
-									{
-										// UIData
-										Shatranj.ShatranjGameDataUI.UIData shatranjGameDataUIData = this.data.sub.newOrOld<Shatranj.ShatranjGameDataUI.UIData> ();
-										{
-											shatranjGameDataUIData.gameData.v = new ReferenceData<GameData> (gameData);
-										}
-										this.data.sub.v = shatranjGameDataUIData;
-									}
-									break;
-								case GameType.Type.Makruk:
-									{
-										// UIData
-										Makruk.MakrukGameDataUI.UIData makrukGameDataUIData = this.data.sub.newOrOld<Makruk.MakrukGameDataUI.UIData> ();
-										{
-											makrukGameDataUIData.gameData.v = new ReferenceData<GameData> (gameData);
-										}
-										this.data.sub.v = makrukGameDataUIData;
-									}
-									break;
-								case GameType.Type.Seirawan:
-									{
-										// UIData
-										Seirawan.SeirawanGameDataUI.UIData seirawanGameDataUIData = this.data.sub.newOrOld<Seirawan.SeirawanGameDataUI.UIData> ();
-										{
-											seirawanGameDataUIData.gameData.v = new ReferenceData<GameData> (gameData);
-										}
-										this.data.sub.v = seirawanGameDataUIData;
-									}
-									break;
-								case GameType.Type.FairyChess:
-									{
-										// UIData
-										FairyChess.FairyChessGameDataUI.UIData fairyChessGameDataUIData = this.data.sub.newOrOld<FairyChess.FairyChessGameDataUI.UIData> ();
-										{
-											fairyChessGameDataUIData.gameData.v = new ReferenceData<GameData> (gameData);
-										}
-										this.data.sub.v = fairyChessGameDataUIData;
-									}
-									break;
+    public override void refresh()
+    {
+        if (dirty)
+        {
+            dirty = false;
+            if (this.data != null)
+            {
+                GameData gameData = this.data.gameData.v.data;
+                if (gameData != null)
+                {
+                    // check is load full
+                    bool isLoadFull = true;
+                    {
+                        GameType gameType = gameData.gameType.v;
+                        if (gameType != null)
+                        {
+                            if (gameType is Xiangqi.Xiangqi)
+                            {
+                                Xiangqi.Xiangqi xiangqi = gameType as Xiangqi.Xiangqi;
+                                if (xiangqi.ucpcSquares.vs.Count == 0)
+                                {
+                                    Debug.LogError("xiangqi ucpcSquares count = 0");
+                                    isLoadFull = false;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("gameType null");
+                        }
+                    }
+                    // process
+                    if (isLoadFull)
+                    {
+                        // Choose sub
+                        {
+                            if (gameData.gameType.v != null)
+                            {
+                                switch (gameData.gameType.v.getType())
+                                {
+                                    case GameType.Type.CHESS:
+                                        {
+                                            // UIData
+                                            Chess.ChessGameDataUI.UIData chessGameDataUIData = this.data.sub.newOrOld<Chess.ChessGameDataUI.UIData>();
+                                            {
+                                                chessGameDataUIData.gameData.v = new ReferenceData<GameData>(gameData);
+                                            }
+                                            this.data.sub.v = chessGameDataUIData;
+                                        }
+                                        break;
+                                    case GameType.Type.Shatranj:
+                                        {
+                                            // UIData
+                                            Shatranj.ShatranjGameDataUI.UIData shatranjGameDataUIData = this.data.sub.newOrOld<Shatranj.ShatranjGameDataUI.UIData>();
+                                            {
+                                                shatranjGameDataUIData.gameData.v = new ReferenceData<GameData>(gameData);
+                                            }
+                                            this.data.sub.v = shatranjGameDataUIData;
+                                        }
+                                        break;
+                                    case GameType.Type.Makruk:
+                                        {
+                                            // UIData
+                                            Makruk.MakrukGameDataUI.UIData makrukGameDataUIData = this.data.sub.newOrOld<Makruk.MakrukGameDataUI.UIData>();
+                                            {
+                                                makrukGameDataUIData.gameData.v = new ReferenceData<GameData>(gameData);
+                                            }
+                                            this.data.sub.v = makrukGameDataUIData;
+                                        }
+                                        break;
+                                    case GameType.Type.Seirawan:
+                                        {
+                                            // UIData
+                                            Seirawan.SeirawanGameDataUI.UIData seirawanGameDataUIData = this.data.sub.newOrOld<Seirawan.SeirawanGameDataUI.UIData>();
+                                            {
+                                                seirawanGameDataUIData.gameData.v = new ReferenceData<GameData>(gameData);
+                                            }
+                                            this.data.sub.v = seirawanGameDataUIData;
+                                        }
+                                        break;
+                                    case GameType.Type.FairyChess:
+                                        {
+                                            // UIData
+                                            FairyChess.FairyChessGameDataUI.UIData fairyChessGameDataUIData = this.data.sub.newOrOld<FairyChess.FairyChessGameDataUI.UIData>();
+                                            {
+                                                fairyChessGameDataUIData.gameData.v = new ReferenceData<GameData>(gameData);
+                                            }
+                                            this.data.sub.v = fairyChessGameDataUIData;
+                                        }
+                                        break;
 
-								case GameType.Type.Xiangqi:
-									{
-										// UIData
-										Xiangqi.XiangqiGameDataUI.UIData xiangqiGameDataUIData = this.data.sub.newOrOld<Xiangqi.XiangqiGameDataUI.UIData> ();
-										{
-											xiangqiGameDataUIData.gameData.v = new ReferenceData<GameData> (gameData);
-										}
-										this.data.sub.v = xiangqiGameDataUIData;
-									}
-									break;
-								case GameType.Type.CO_TUONG_UP:
-									{
-										// UIData
-										CoTuongUp.CoTuongUpGameDataUI.UIData coTuongUpGameDataUIData = this.data.sub.newOrOld<CoTuongUp.CoTuongUpGameDataUI.UIData> ();
-										{
-											coTuongUpGameDataUIData.gameData.v = new ReferenceData<GameData> (gameData);
-										}
-										this.data.sub.v = coTuongUpGameDataUIData;
-									}
-									break;
-								case GameType.Type.Janggi:
-									{
-										// UIData
-										Janggi.JanggiGameDataUI.UIData janggiGameDataUIData = this.data.sub.newOrOld<Janggi.JanggiGameDataUI.UIData> ();
-										{
-											janggiGameDataUIData.gameData.v = new ReferenceData<GameData> (gameData);
-										}
-										this.data.sub.v = janggiGameDataUIData;
-									}
-									break;
-								case GameType.Type.Banqi:
-									{
-										// UIData
-										Banqi.BanqiGameDataUI.UIData banqiGameDataUIData = this.data.sub.newOrOld<Banqi.BanqiGameDataUI.UIData> ();
-										{
-											banqiGameDataUIData.gameData.v = new ReferenceData<GameData> (gameData);
-										}
-										this.data.sub.v = banqiGameDataUIData;
-									}
-									break;
+                                    case GameType.Type.Xiangqi:
+                                        {
+                                            // UIData
+                                            Xiangqi.XiangqiGameDataUI.UIData xiangqiGameDataUIData = this.data.sub.newOrOld<Xiangqi.XiangqiGameDataUI.UIData>();
+                                            {
+                                                xiangqiGameDataUIData.gameData.v = new ReferenceData<GameData>(gameData);
+                                            }
+                                            this.data.sub.v = xiangqiGameDataUIData;
+                                        }
+                                        break;
+                                    case GameType.Type.CO_TUONG_UP:
+                                        {
+                                            // UIData
+                                            CoTuongUp.CoTuongUpGameDataUI.UIData coTuongUpGameDataUIData = this.data.sub.newOrOld<CoTuongUp.CoTuongUpGameDataUI.UIData>();
+                                            {
+                                                coTuongUpGameDataUIData.gameData.v = new ReferenceData<GameData>(gameData);
+                                            }
+                                            this.data.sub.v = coTuongUpGameDataUIData;
+                                        }
+                                        break;
+                                    case GameType.Type.Janggi:
+                                        {
+                                            // UIData
+                                            Janggi.JanggiGameDataUI.UIData janggiGameDataUIData = this.data.sub.newOrOld<Janggi.JanggiGameDataUI.UIData>();
+                                            {
+                                                janggiGameDataUIData.gameData.v = new ReferenceData<GameData>(gameData);
+                                            }
+                                            this.data.sub.v = janggiGameDataUIData;
+                                        }
+                                        break;
+                                    case GameType.Type.Banqi:
+                                        {
+                                            // UIData
+                                            Banqi.BanqiGameDataUI.UIData banqiGameDataUIData = this.data.sub.newOrOld<Banqi.BanqiGameDataUI.UIData>();
+                                            {
+                                                banqiGameDataUIData.gameData.v = new ReferenceData<GameData>(gameData);
+                                            }
+                                            this.data.sub.v = banqiGameDataUIData;
+                                        }
+                                        break;
 
-								case GameType.Type.Weiqi:
-									{
-										// UIData
-										Weiqi.WeiqiGameDataUI.UIData weiqiGameDataUIData = this.data.sub.newOrOld<Weiqi.WeiqiGameDataUI.UIData> ();
-										{
-											weiqiGameDataUIData.gameData.v = new ReferenceData<GameData> (gameData);
-										}
-										this.data.sub.v = weiqiGameDataUIData;
-									}
-									break;
-								case GameType.Type.SHOGI:
-									{
-										// UIData
-										Shogi.ShogiGameDataUI.UIData shogiGameDataUIData = this.data.sub.newOrOld<Shogi.ShogiGameDataUI.UIData> ();
-										{
-											shogiGameDataUIData.gameData.v = new ReferenceData<GameData> (gameData);
-										}
-										this.data.sub.v = shogiGameDataUIData;
-									}
-									break;
-								case GameType.Type.ROCK_SCISSOR_PAPER:
-									{
-										Debug.LogError ("Can hoan thien: " + this);
-									}
-									break;
-								case GameType.Type.Reversi:
-									{
-										// UIData
-										Reversi.ReversiGameDataUI.UIData reversiGameDataUIData = this.data.sub.newOrOld<Reversi.ReversiGameDataUI.UIData> ();
-										{
-											reversiGameDataUIData.gameData.v = new ReferenceData<GameData> (gameData);
-										}
-										this.data.sub.v = reversiGameDataUIData;
-									}
-									break;
-								case GameType.Type.Gomoku:
-									{
-										// UIData
-										Gomoku.GomokuGameDataUI.UIData gomokuGameDataUIData = this.data.sub.newOrOld<Gomoku.GomokuGameDataUI.UIData> ();
-										{
-											gomokuGameDataUIData.gameData.v = new ReferenceData<GameData> (gameData);
-										}
-										this.data.sub.v = gomokuGameDataUIData;
-									}
-									break;
+                                    case GameType.Type.Weiqi:
+                                        {
+                                            // UIData
+                                            Weiqi.WeiqiGameDataUI.UIData weiqiGameDataUIData = this.data.sub.newOrOld<Weiqi.WeiqiGameDataUI.UIData>();
+                                            {
+                                                weiqiGameDataUIData.gameData.v = new ReferenceData<GameData>(gameData);
+                                            }
+                                            this.data.sub.v = weiqiGameDataUIData;
+                                        }
+                                        break;
+                                    case GameType.Type.SHOGI:
+                                        {
+                                            // UIData
+                                            Shogi.ShogiGameDataUI.UIData shogiGameDataUIData = this.data.sub.newOrOld<Shogi.ShogiGameDataUI.UIData>();
+                                            {
+                                                shogiGameDataUIData.gameData.v = new ReferenceData<GameData>(gameData);
+                                            }
+                                            this.data.sub.v = shogiGameDataUIData;
+                                        }
+                                        break;
+                                    case GameType.Type.ROCK_SCISSOR_PAPER:
+                                        {
+                                            Debug.LogError("Can hoan thien: " + this);
+                                        }
+                                        break;
+                                    case GameType.Type.Reversi:
+                                        {
+                                            // UIData
+                                            Reversi.ReversiGameDataUI.UIData reversiGameDataUIData = this.data.sub.newOrOld<Reversi.ReversiGameDataUI.UIData>();
+                                            {
+                                                reversiGameDataUIData.gameData.v = new ReferenceData<GameData>(gameData);
+                                            }
+                                            this.data.sub.v = reversiGameDataUIData;
+                                        }
+                                        break;
+                                    case GameType.Type.Gomoku:
+                                        {
+                                            // UIData
+                                            Gomoku.GomokuGameDataUI.UIData gomokuGameDataUIData = this.data.sub.newOrOld<Gomoku.GomokuGameDataUI.UIData>();
+                                            {
+                                                gomokuGameDataUIData.gameData.v = new ReferenceData<GameData>(gameData);
+                                            }
+                                            this.data.sub.v = gomokuGameDataUIData;
+                                        }
+                                        break;
 
-								case GameType.Type.InternationalDraught:
-									{
-										// UIData
-										InternationalDraught.InternationalDraughtGameDataUI.UIData internationalDraughtGameDataUIData = this.data.sub.newOrOld<InternationalDraught.InternationalDraughtGameDataUI.UIData> ();
-										{
-											internationalDraughtGameDataUIData.gameData.v = new ReferenceData<GameData> (gameData);
-										}
-										this.data.sub.v = internationalDraughtGameDataUIData;
-									}
-									break;
-								case GameType.Type.EnglishDraught:
-									{
-										// UIData
-										EnglishDraught.EnglishDraughtGameDataUI.UIData englishDraughtGameDataUIData = this.data.sub.newOrOld<EnglishDraught.EnglishDraughtGameDataUI.UIData> ();
-										{
-											englishDraughtGameDataUIData.gameData.v = new ReferenceData<GameData> (gameData);
-										}
-										this.data.sub.v = englishDraughtGameDataUIData;
-									}
-									break;
-								case GameType.Type.RussianDraught:
-									{
-										// UIData
-										RussianDraught.RussianDraughtGameDataUI.UIData russianDraughtGameDataUIData = this.data.sub.newOrOld<RussianDraught.RussianDraughtGameDataUI.UIData> ();
-										{
-											russianDraughtGameDataUIData.gameData.v = new ReferenceData<GameData> (gameData);
-										}
-										this.data.sub.v = russianDraughtGameDataUIData;
-									}
-									break;
+                                    case GameType.Type.InternationalDraught:
+                                        {
+                                            // UIData
+                                            InternationalDraught.InternationalDraughtGameDataUI.UIData internationalDraughtGameDataUIData = this.data.sub.newOrOld<InternationalDraught.InternationalDraughtGameDataUI.UIData>();
+                                            {
+                                                internationalDraughtGameDataUIData.gameData.v = new ReferenceData<GameData>(gameData);
+                                            }
+                                            this.data.sub.v = internationalDraughtGameDataUIData;
+                                        }
+                                        break;
+                                    case GameType.Type.EnglishDraught:
+                                        {
+                                            // UIData
+                                            EnglishDraught.EnglishDraughtGameDataUI.UIData englishDraughtGameDataUIData = this.data.sub.newOrOld<EnglishDraught.EnglishDraughtGameDataUI.UIData>();
+                                            {
+                                                englishDraughtGameDataUIData.gameData.v = new ReferenceData<GameData>(gameData);
+                                            }
+                                            this.data.sub.v = englishDraughtGameDataUIData;
+                                        }
+                                        break;
+                                    case GameType.Type.RussianDraught:
+                                        {
+                                            // UIData
+                                            RussianDraught.RussianDraughtGameDataUI.UIData russianDraughtGameDataUIData = this.data.sub.newOrOld<RussianDraught.RussianDraughtGameDataUI.UIData>();
+                                            {
+                                                russianDraughtGameDataUIData.gameData.v = new ReferenceData<GameData>(gameData);
+                                            }
+                                            this.data.sub.v = russianDraughtGameDataUIData;
+                                        }
+                                        break;
+                                    case GameType.Type.ChineseCheckers:
+                                        {
+                                            // UIData
+                                            ChineseCheckers.ChineseCheckersGameDataUI.UIData chineseCheckersGameDataUIData = this.data.sub.newOrOld<ChineseCheckers.ChineseCheckersGameDataUI.UIData>();
+                                            {
+                                                chineseCheckersGameDataUIData.gameData.v = new ReferenceData<GameData>(gameData);
+                                            }
+                                            this.data.sub.v = chineseCheckersGameDataUIData;
+                                        }
+                                        break;
 
-								case GameType.Type.MineSweeper:
-									{
-										// UIData
-										MineSweeper.MineSweeperGameDataUI.UIData mineSweeperGameDataUIData = this.data.sub.newOrOld<MineSweeper.MineSweeperGameDataUI.UIData> ();
-										{
-											mineSweeperGameDataUIData.gameData.v = new ReferenceData<GameData> (gameData);
-										}
-										this.data.sub.v = mineSweeperGameDataUIData;
-									}
-									break;
-								case GameType.Type.Hex:
-									{
-										// UIData
-										HEX.HexGameDataUI.UIData hexGameDataUIData = this.data.sub.newOrOld<HEX.HexGameDataUI.UIData> ();
-										{
-											hexGameDataUIData.gameData.v = new ReferenceData<GameData> (gameData);
-										}
-										this.data.sub.v = hexGameDataUIData;
-									}
-									break;
-								case GameType.Type.Solitaire:
-									{
-										// UIData
-										Solitaire.SolitaireGameDataUI.UIData solitaireGameDataUIData = this.data.sub.newOrOld<Solitaire.SolitaireGameDataUI.UIData> ();
-										{
-											solitaireGameDataUIData.gameData.v = new ReferenceData<GameData> (gameData);
-										}
-										this.data.sub.v = solitaireGameDataUIData;
-									}
-									break;
+                                    case GameType.Type.MineSweeper:
+                                        {
+                                            // UIData
+                                            MineSweeper.MineSweeperGameDataUI.UIData mineSweeperGameDataUIData = this.data.sub.newOrOld<MineSweeper.MineSweeperGameDataUI.UIData>();
+                                            {
+                                                mineSweeperGameDataUIData.gameData.v = new ReferenceData<GameData>(gameData);
+                                            }
+                                            this.data.sub.v = mineSweeperGameDataUIData;
+                                        }
+                                        break;
+                                    case GameType.Type.Hex:
+                                        {
+                                            // UIData
+                                            HEX.HexGameDataUI.UIData hexGameDataUIData = this.data.sub.newOrOld<HEX.HexGameDataUI.UIData>();
+                                            {
+                                                hexGameDataUIData.gameData.v = new ReferenceData<GameData>(gameData);
+                                            }
+                                            this.data.sub.v = hexGameDataUIData;
+                                        }
+                                        break;
+                                    case GameType.Type.Solitaire:
+                                        {
+                                            // UIData
+                                            Solitaire.SolitaireGameDataUI.UIData solitaireGameDataUIData = this.data.sub.newOrOld<Solitaire.SolitaireGameDataUI.UIData>();
+                                            {
+                                                solitaireGameDataUIData.gameData.v = new ReferenceData<GameData>(gameData);
+                                            }
+                                            this.data.sub.v = solitaireGameDataUIData;
+                                        }
+                                        break;
 
-								case GameType.Type.Sudoku:
-									{
-										// UIData
-										Sudoku.SudokuGameDataUI.UIData sudokuGameDataUIData = this.data.sub.newOrOld<Sudoku.SudokuGameDataUI.UIData> ();
-										{
-											sudokuGameDataUIData.gameData.v = new ReferenceData<GameData> (gameData);
-										}
-										this.data.sub.v = sudokuGameDataUIData;
-									}
-									break;
-								case GameType.Type.Khet:
-									{
-										// UIData
-										Khet.KhetGameDataUI.UIData khetGameDataUIData = this.data.sub.newOrOld<Khet.KhetGameDataUI.UIData> ();
-										{
-											khetGameDataUIData.gameData.v = new ReferenceData<GameData> (gameData);
-										}
-										this.data.sub.v = khetGameDataUIData;
-									}
-									break;
-								case GameType.Type.NineMenMorris:
-									{
-										// UIData
-										NineMenMorris.NineMenMorrisGameDataUI.UIData nineMenMorrisGameDataUIData = this.data.sub.newOrOld<NineMenMorris.NineMenMorrisGameDataUI.UIData> ();
-										{
-											nineMenMorrisGameDataUIData.gameData.v = new ReferenceData<GameData> (gameData);
-										}
-										this.data.sub.v = nineMenMorrisGameDataUIData;
-									}
-									break;
-								default:
-									Debug.LogError ("unknown gameType: " + gameData.gameType.v + "; " + this);
-									break;
-								}
-							} else {
-								Debug.LogError ("why gameType null: " + this);
-							}
-						}
-					} else {
-						Debug.LogError ("not load full");
-						dirty = true;
-					}
-				} else {
-					Debug.LogError ("gameData nul: " + this);
-				}
-				// Perspective
-				{
-					if (this.data.perspectiveUIData.v != null) {
-						this.data.perspectiveUIData.v.perspective.v = new ReferenceData<Perspective> (this.data.perspective.v);
-					} else {
-						// Debug.LogError ("perspectiveUIData null: " + this);
-					}
-				}
-			} else {
-				Debug.LogError ("data null: " + this);
-			}
-		}
-	}
+                                    case GameType.Type.Sudoku:
+                                        {
+                                            // UIData
+                                            Sudoku.SudokuGameDataUI.UIData sudokuGameDataUIData = this.data.sub.newOrOld<Sudoku.SudokuGameDataUI.UIData>();
+                                            {
+                                                sudokuGameDataUIData.gameData.v = new ReferenceData<GameData>(gameData);
+                                            }
+                                            this.data.sub.v = sudokuGameDataUIData;
+                                        }
+                                        break;
+                                    case GameType.Type.Khet:
+                                        {
+                                            // UIData
+                                            Khet.KhetGameDataUI.UIData khetGameDataUIData = this.data.sub.newOrOld<Khet.KhetGameDataUI.UIData>();
+                                            {
+                                                khetGameDataUIData.gameData.v = new ReferenceData<GameData>(gameData);
+                                            }
+                                            this.data.sub.v = khetGameDataUIData;
+                                        }
+                                        break;
+                                    case GameType.Type.NineMenMorris:
+                                        {
+                                            // UIData
+                                            NineMenMorris.NineMenMorrisGameDataUI.UIData nineMenMorrisGameDataUIData = this.data.sub.newOrOld<NineMenMorris.NineMenMorrisGameDataUI.UIData>();
+                                            {
+                                                nineMenMorrisGameDataUIData.gameData.v = new ReferenceData<GameData>(gameData);
+                                            }
+                                            this.data.sub.v = nineMenMorrisGameDataUIData;
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown gameType: " + gameData.gameType.v + "; " + this);
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("why gameType null: " + this);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("not load full");
+                        dirty = true;
+                    }
+                }
+                else
+                {
+                    Debug.LogError("gameData nul: " + this);
+                }
+                // Perspective
+                {
+                    if (this.data.perspectiveUIData.v != null)
+                    {
+                        this.data.perspectiveUIData.v.perspective.v = new ReferenceData<Perspective>(this.data.perspective.v);
+                    }
+                    else
+                    {
+                        // Debug.LogError ("perspectiveUIData null: " + this);
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("data null: " + this);
+            }
+        }
+    }
 
 	public override bool isShouldDisableUpdate ()
 	{
@@ -531,8 +563,9 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>
 	public InternationalDraught.InternationalDraughtGameDataUI internationalDraughtPrefab;
 	public EnglishDraught.EnglishDraughtGameDataUI englishDraughtPrefab;
 	public RussianDraught.RussianDraughtGameDataUI russianDraughtPrefab;
+    public ChineseCheckers.ChineseCheckersGameDataUI chineseCheckersPrefab;
 
-	public MineSweeper.MineSweeperGameDataUI mineSweeperPrefab;
+    public MineSweeper.MineSweeperGameDataUI mineSweeperPrefab;
 	public HEX.HexGameDataUI hexPrefab;
 	public Solitaire.SolitaireGameDataUI solitairePrefab;
 	public Sudoku.SudokuGameDataUI sudokuPrefab;
@@ -592,152 +625,159 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>
 			// Sub
 			if (data is UIData.Sub) {
 				UIData.Sub sub = data as UIData.Sub;
-				// UI
-				{
-					switch (sub.getType ()) {
-					case GameType.Type.CHESS:
-						{
-							Chess.ChessGameDataUI.UIData subUIData = sub as Chess.ChessGameDataUI.UIData;
-							UIUtils.Instantiate (subUIData, chessPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.Shatranj:
-						{
-							Shatranj.ShatranjGameDataUI.UIData subUIData = sub as Shatranj.ShatranjGameDataUI.UIData;
-							UIUtils.Instantiate (subUIData, shatranjPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.Makruk:
-						{
-							Makruk.MakrukGameDataUI.UIData subUIData = sub as Makruk.MakrukGameDataUI.UIData;
-							UIUtils.Instantiate (subUIData, makrukPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.Seirawan:
-						{
-							Seirawan.SeirawanGameDataUI.UIData subUIData = sub as Seirawan.SeirawanGameDataUI.UIData;
-							UIUtils.Instantiate (subUIData, seirawanPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.FairyChess:
-						{
-							FairyChess.FairyChessGameDataUI.UIData subUIData = sub as FairyChess.FairyChessGameDataUI.UIData;
-							UIUtils.Instantiate (subUIData, fairyChessPrefab, this.transform);
-						}
-						break;
+                // UI
+                {
+                    switch (sub.getType())
+                    {
+                        case GameType.Type.CHESS:
+                            {
+                                Chess.ChessGameDataUI.UIData subUIData = sub as Chess.ChessGameDataUI.UIData;
+                                UIUtils.Instantiate(subUIData, chessPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Shatranj:
+                            {
+                                Shatranj.ShatranjGameDataUI.UIData subUIData = sub as Shatranj.ShatranjGameDataUI.UIData;
+                                UIUtils.Instantiate(subUIData, shatranjPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Makruk:
+                            {
+                                Makruk.MakrukGameDataUI.UIData subUIData = sub as Makruk.MakrukGameDataUI.UIData;
+                                UIUtils.Instantiate(subUIData, makrukPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Seirawan:
+                            {
+                                Seirawan.SeirawanGameDataUI.UIData subUIData = sub as Seirawan.SeirawanGameDataUI.UIData;
+                                UIUtils.Instantiate(subUIData, seirawanPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.FairyChess:
+                            {
+                                FairyChess.FairyChessGameDataUI.UIData subUIData = sub as FairyChess.FairyChessGameDataUI.UIData;
+                                UIUtils.Instantiate(subUIData, fairyChessPrefab, this.transform);
+                            }
+                            break;
 
-					case GameType.Type.Xiangqi:
-						{
-							Xiangqi.XiangqiGameDataUI.UIData subUIData = sub as Xiangqi.XiangqiGameDataUI.UIData;
-							UIUtils.Instantiate (subUIData, xiangqiPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.CO_TUONG_UP:
-						{
-							CoTuongUp.CoTuongUpGameDataUI.UIData subUIData = sub as CoTuongUp.CoTuongUpGameDataUI.UIData;
-							UIUtils.Instantiate (subUIData, coTuongUpPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.Janggi:
-						{
-							Janggi.JanggiGameDataUI.UIData subUIData = sub as Janggi.JanggiGameDataUI.UIData;
-							UIUtils.Instantiate (subUIData, janggiPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.Banqi:
-						{
-							Banqi.BanqiGameDataUI.UIData subUIData = sub as Banqi.BanqiGameDataUI.UIData;
-							UIUtils.Instantiate (subUIData, banqiPrefab, this.transform);
-						}
-						break;
+                        case GameType.Type.Xiangqi:
+                            {
+                                Xiangqi.XiangqiGameDataUI.UIData subUIData = sub as Xiangqi.XiangqiGameDataUI.UIData;
+                                UIUtils.Instantiate(subUIData, xiangqiPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.CO_TUONG_UP:
+                            {
+                                CoTuongUp.CoTuongUpGameDataUI.UIData subUIData = sub as CoTuongUp.CoTuongUpGameDataUI.UIData;
+                                UIUtils.Instantiate(subUIData, coTuongUpPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Janggi:
+                            {
+                                Janggi.JanggiGameDataUI.UIData subUIData = sub as Janggi.JanggiGameDataUI.UIData;
+                                UIUtils.Instantiate(subUIData, janggiPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Banqi:
+                            {
+                                Banqi.BanqiGameDataUI.UIData subUIData = sub as Banqi.BanqiGameDataUI.UIData;
+                                UIUtils.Instantiate(subUIData, banqiPrefab, this.transform);
+                            }
+                            break;
 
-					case GameType.Type.Weiqi:
-						{
-							Weiqi.WeiqiGameDataUI.UIData subUIData = sub as Weiqi.WeiqiGameDataUI.UIData;
-							UIUtils.Instantiate (subUIData, weiqiPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.ROCK_SCISSOR_PAPER:
-						break;
-					case GameType.Type.Reversi:
-						{
-							Reversi.ReversiGameDataUI.UIData subUIData = sub as Reversi.ReversiGameDataUI.UIData;
-							UIUtils.Instantiate (subUIData, reversiPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.SHOGI:
-						{
-							Shogi.ShogiGameDataUI.UIData subUIData = sub as Shogi.ShogiGameDataUI.UIData;
-							UIUtils.Instantiate (subUIData, shogiPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.Gomoku:
-						{
-							Gomoku.GomokuGameDataUI.UIData subUIData = sub as Gomoku.GomokuGameDataUI.UIData;
-							UIUtils.Instantiate (subUIData, gomokuPrefab, this.transform);
-						}
-						break;
+                        case GameType.Type.Weiqi:
+                            {
+                                Weiqi.WeiqiGameDataUI.UIData subUIData = sub as Weiqi.WeiqiGameDataUI.UIData;
+                                UIUtils.Instantiate(subUIData, weiqiPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.ROCK_SCISSOR_PAPER:
+                            break;
+                        case GameType.Type.Reversi:
+                            {
+                                Reversi.ReversiGameDataUI.UIData subUIData = sub as Reversi.ReversiGameDataUI.UIData;
+                                UIUtils.Instantiate(subUIData, reversiPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.SHOGI:
+                            {
+                                Shogi.ShogiGameDataUI.UIData subUIData = sub as Shogi.ShogiGameDataUI.UIData;
+                                UIUtils.Instantiate(subUIData, shogiPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Gomoku:
+                            {
+                                Gomoku.GomokuGameDataUI.UIData subUIData = sub as Gomoku.GomokuGameDataUI.UIData;
+                                UIUtils.Instantiate(subUIData, gomokuPrefab, this.transform);
+                            }
+                            break;
 
-					case GameType.Type.InternationalDraught:
-						{
-							InternationalDraught.InternationalDraughtGameDataUI.UIData subUIData = sub as InternationalDraught.InternationalDraughtGameDataUI.UIData;
-							UIUtils.Instantiate (subUIData, internationalDraughtPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.EnglishDraught:
-						{
-							EnglishDraught.EnglishDraughtGameDataUI.UIData subUIData = sub as EnglishDraught.EnglishDraughtGameDataUI.UIData;
-							UIUtils.Instantiate (subUIData, englishDraughtPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.RussianDraught:
-						{
-							RussianDraught.RussianDraughtGameDataUI.UIData subUIData = sub as RussianDraught.RussianDraughtGameDataUI.UIData;
-							UIUtils.Instantiate (subUIData, russianDraughtPrefab, this.transform);
-						}
-						break;
+                        case GameType.Type.InternationalDraught:
+                            {
+                                InternationalDraught.InternationalDraughtGameDataUI.UIData subUIData = sub as InternationalDraught.InternationalDraughtGameDataUI.UIData;
+                                UIUtils.Instantiate(subUIData, internationalDraughtPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.EnglishDraught:
+                            {
+                                EnglishDraught.EnglishDraughtGameDataUI.UIData subUIData = sub as EnglishDraught.EnglishDraughtGameDataUI.UIData;
+                                UIUtils.Instantiate(subUIData, englishDraughtPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.RussianDraught:
+                            {
+                                RussianDraught.RussianDraughtGameDataUI.UIData subUIData = sub as RussianDraught.RussianDraughtGameDataUI.UIData;
+                                UIUtils.Instantiate(subUIData, russianDraughtPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.ChineseCheckers:
+                            {
+                                ChineseCheckers.ChineseCheckersGameDataUI.UIData subUIData = sub as ChineseCheckers.ChineseCheckersGameDataUI.UIData;
+                                UIUtils.Instantiate(subUIData, chineseCheckersPrefab, this.transform);
+                            }
+                            break;
 
-					case GameType.Type.MineSweeper:
-						{
-							MineSweeper.MineSweeperGameDataUI.UIData subUIData = sub as MineSweeper.MineSweeperGameDataUI.UIData;
-							UIUtils.Instantiate (subUIData, mineSweeperPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.Hex:
-						{
-							HEX.HexGameDataUI.UIData subUIData = sub as HEX.HexGameDataUI.UIData;
-							UIUtils.Instantiate (subUIData, hexPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.Solitaire:
-						{
-							Solitaire.SolitaireGameDataUI.UIData subUIData = sub as Solitaire.SolitaireGameDataUI.UIData;
-							UIUtils.Instantiate (subUIData, solitairePrefab, this.transform);
-						}
-						break;
-					case GameType.Type.Sudoku:
-						{
-							Sudoku.SudokuGameDataUI.UIData subUIData = sub as Sudoku.SudokuGameDataUI.UIData;
-							UIUtils.Instantiate (subUIData, sudokuPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.Khet:
-						{
-							Khet.KhetGameDataUI.UIData subUIData = sub as Khet.KhetGameDataUI.UIData;
-							UIUtils.Instantiate (subUIData, khetPrefab, this.transform);
-						}
-						break;
-					case GameType.Type.NineMenMorris:
-						{
-							NineMenMorris.NineMenMorrisGameDataUI.UIData subUIData = sub as NineMenMorris.NineMenMorrisGameDataUI.UIData;
-							UIUtils.Instantiate (subUIData, nineMenMorrisPrefab, this.transform);
-						}
-						break;
-					default:
-						Debug.LogError ("unknown type: " + sub.getType () + "; " + this);
-						break;
-					}
-				}
+                        case GameType.Type.MineSweeper:
+                            {
+                                MineSweeper.MineSweeperGameDataUI.UIData subUIData = sub as MineSweeper.MineSweeperGameDataUI.UIData;
+                                UIUtils.Instantiate(subUIData, mineSweeperPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Hex:
+                            {
+                                HEX.HexGameDataUI.UIData subUIData = sub as HEX.HexGameDataUI.UIData;
+                                UIUtils.Instantiate(subUIData, hexPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Solitaire:
+                            {
+                                Solitaire.SolitaireGameDataUI.UIData subUIData = sub as Solitaire.SolitaireGameDataUI.UIData;
+                                UIUtils.Instantiate(subUIData, solitairePrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Sudoku:
+                            {
+                                Sudoku.SudokuGameDataUI.UIData subUIData = sub as Sudoku.SudokuGameDataUI.UIData;
+                                UIUtils.Instantiate(subUIData, sudokuPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Khet:
+                            {
+                                Khet.KhetGameDataUI.UIData subUIData = sub as Khet.KhetGameDataUI.UIData;
+                                UIUtils.Instantiate(subUIData, khetPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.NineMenMorris:
+                            {
+                                NineMenMorris.NineMenMorrisGameDataUI.UIData subUIData = sub as NineMenMorris.NineMenMorrisGameDataUI.UIData;
+                                UIUtils.Instantiate(subUIData, nineMenMorrisPrefab, this.transform);
+                            }
+                            break;
+                        default:
+                            Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                            break;
+                    }
+                }
 				dirty = true;
 				return;
 			}
@@ -818,152 +858,159 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>
 			// Sub
 			if (data is UIData.Sub) {
 				UIData.Sub sub = data as UIData.Sub;
-				// UI
-				{
-					switch (sub.getType ()) {
-					case GameType.Type.CHESS:
-						{
-							Chess.ChessGameDataUI.UIData subUIData = sub as Chess.ChessGameDataUI.UIData;
-							subUIData.removeCallBackAndDestroy (typeof(Chess.ChessGameDataUI));
-						}
-						break;
-					case GameType.Type.Shatranj:
-						{
-							Shatranj.ShatranjGameDataUI.UIData subUIData = sub as Shatranj.ShatranjGameDataUI.UIData;
-							subUIData.removeCallBackAndDestroy (typeof(Shatranj.ShatranjGameDataUI));
-						}
-						break;
-					case GameType.Type.Makruk:
-						{
-							Makruk.MakrukGameDataUI.UIData subUIData = sub as Makruk.MakrukGameDataUI.UIData;
-							subUIData.removeCallBackAndDestroy (typeof(Makruk.MakrukGameDataUI));
-						}
-						break;
-					case GameType.Type.Seirawan:
-						{
-							Seirawan.SeirawanGameDataUI.UIData subUIData = sub as Seirawan.SeirawanGameDataUI.UIData;
-							subUIData.removeCallBackAndDestroy (typeof(Seirawan.SeirawanGameDataUI));
-						}
-						break;
-					case GameType.Type.FairyChess:
-						{
-							FairyChess.FairyChessGameDataUI.UIData subUIData = sub as FairyChess.FairyChessGameDataUI.UIData;
-							subUIData.removeCallBackAndDestroy (typeof(FairyChess.FairyChessGameDataUI));
-						}
-						break;
+                // UI
+                {
+                    switch (sub.getType())
+                    {
+                        case GameType.Type.CHESS:
+                            {
+                                Chess.ChessGameDataUI.UIData subUIData = sub as Chess.ChessGameDataUI.UIData;
+                                subUIData.removeCallBackAndDestroy(typeof(Chess.ChessGameDataUI));
+                            }
+                            break;
+                        case GameType.Type.Shatranj:
+                            {
+                                Shatranj.ShatranjGameDataUI.UIData subUIData = sub as Shatranj.ShatranjGameDataUI.UIData;
+                                subUIData.removeCallBackAndDestroy(typeof(Shatranj.ShatranjGameDataUI));
+                            }
+                            break;
+                        case GameType.Type.Makruk:
+                            {
+                                Makruk.MakrukGameDataUI.UIData subUIData = sub as Makruk.MakrukGameDataUI.UIData;
+                                subUIData.removeCallBackAndDestroy(typeof(Makruk.MakrukGameDataUI));
+                            }
+                            break;
+                        case GameType.Type.Seirawan:
+                            {
+                                Seirawan.SeirawanGameDataUI.UIData subUIData = sub as Seirawan.SeirawanGameDataUI.UIData;
+                                subUIData.removeCallBackAndDestroy(typeof(Seirawan.SeirawanGameDataUI));
+                            }
+                            break;
+                        case GameType.Type.FairyChess:
+                            {
+                                FairyChess.FairyChessGameDataUI.UIData subUIData = sub as FairyChess.FairyChessGameDataUI.UIData;
+                                subUIData.removeCallBackAndDestroy(typeof(FairyChess.FairyChessGameDataUI));
+                            }
+                            break;
 
-					case GameType.Type.Xiangqi:
-						{
-							Xiangqi.XiangqiGameDataUI.UIData subUIData = sub as Xiangqi.XiangqiGameDataUI.UIData;
-							subUIData.removeCallBackAndDestroy (typeof(Xiangqi.XiangqiGameDataUI));
-						}
-						break;
-					case GameType.Type.CO_TUONG_UP:
-						{
-							CoTuongUp.CoTuongUpGameDataUI.UIData subUIData = sub as CoTuongUp.CoTuongUpGameDataUI.UIData;
-							subUIData.removeCallBackAndDestroy (typeof(CoTuongUp.CoTuongUpGameDataUI));
-						}
-						break;
-					case GameType.Type.Janggi:
-						{
-							Janggi.JanggiGameDataUI.UIData subUIData = sub as Janggi.JanggiGameDataUI.UIData;
-							subUIData.removeCallBackAndDestroy (typeof(Janggi.JanggiGameDataUI));
-						}
-						break;
-					case GameType.Type.Banqi:
-						{
-							Banqi.BanqiGameDataUI.UIData subUIData = sub as Banqi.BanqiGameDataUI.UIData;
-							subUIData.removeCallBackAndDestroy (typeof(Banqi.BanqiGameDataUI));
-						}
-						break;
+                        case GameType.Type.Xiangqi:
+                            {
+                                Xiangqi.XiangqiGameDataUI.UIData subUIData = sub as Xiangqi.XiangqiGameDataUI.UIData;
+                                subUIData.removeCallBackAndDestroy(typeof(Xiangqi.XiangqiGameDataUI));
+                            }
+                            break;
+                        case GameType.Type.CO_TUONG_UP:
+                            {
+                                CoTuongUp.CoTuongUpGameDataUI.UIData subUIData = sub as CoTuongUp.CoTuongUpGameDataUI.UIData;
+                                subUIData.removeCallBackAndDestroy(typeof(CoTuongUp.CoTuongUpGameDataUI));
+                            }
+                            break;
+                        case GameType.Type.Janggi:
+                            {
+                                Janggi.JanggiGameDataUI.UIData subUIData = sub as Janggi.JanggiGameDataUI.UIData;
+                                subUIData.removeCallBackAndDestroy(typeof(Janggi.JanggiGameDataUI));
+                            }
+                            break;
+                        case GameType.Type.Banqi:
+                            {
+                                Banqi.BanqiGameDataUI.UIData subUIData = sub as Banqi.BanqiGameDataUI.UIData;
+                                subUIData.removeCallBackAndDestroy(typeof(Banqi.BanqiGameDataUI));
+                            }
+                            break;
 
-					case GameType.Type.Weiqi:
-						{
-							Weiqi.WeiqiGameDataUI.UIData subUIData = sub as Weiqi.WeiqiGameDataUI.UIData;
-							subUIData.removeCallBackAndDestroy (typeof(Weiqi.WeiqiGameDataUI));
-						}
-						break;
-					case GameType.Type.ROCK_SCISSOR_PAPER:
-						break;
-					case GameType.Type.Reversi:
-						{
-							Reversi.ReversiGameDataUI.UIData subUIData = sub as Reversi.ReversiGameDataUI.UIData;
-							subUIData.removeCallBackAndDestroy (typeof(Reversi.ReversiGameDataUI));
-						}
-						break;
-					case GameType.Type.SHOGI:
-						{
-							Shogi.ShogiGameDataUI.UIData subUIData = sub as Shogi.ShogiGameDataUI.UIData;
-							subUIData.removeCallBackAndDestroy (typeof(Shogi.ShogiGameDataUI));
-						}
-						break;
-					case GameType.Type.Gomoku:
-						{
-							Gomoku.GomokuGameDataUI.UIData subUIData = sub as Gomoku.GomokuGameDataUI.UIData;
-							subUIData.removeCallBackAndDestroy (typeof(Gomoku.GomokuGameDataUI));
-						}
-						break;
+                        case GameType.Type.Weiqi:
+                            {
+                                Weiqi.WeiqiGameDataUI.UIData subUIData = sub as Weiqi.WeiqiGameDataUI.UIData;
+                                subUIData.removeCallBackAndDestroy(typeof(Weiqi.WeiqiGameDataUI));
+                            }
+                            break;
+                        case GameType.Type.ROCK_SCISSOR_PAPER:
+                            break;
+                        case GameType.Type.Reversi:
+                            {
+                                Reversi.ReversiGameDataUI.UIData subUIData = sub as Reversi.ReversiGameDataUI.UIData;
+                                subUIData.removeCallBackAndDestroy(typeof(Reversi.ReversiGameDataUI));
+                            }
+                            break;
+                        case GameType.Type.SHOGI:
+                            {
+                                Shogi.ShogiGameDataUI.UIData subUIData = sub as Shogi.ShogiGameDataUI.UIData;
+                                subUIData.removeCallBackAndDestroy(typeof(Shogi.ShogiGameDataUI));
+                            }
+                            break;
+                        case GameType.Type.Gomoku:
+                            {
+                                Gomoku.GomokuGameDataUI.UIData subUIData = sub as Gomoku.GomokuGameDataUI.UIData;
+                                subUIData.removeCallBackAndDestroy(typeof(Gomoku.GomokuGameDataUI));
+                            }
+                            break;
 
-					case GameType.Type.InternationalDraught:
-						{
-							InternationalDraught.InternationalDraughtGameDataUI.UIData subUIData = sub as InternationalDraught.InternationalDraughtGameDataUI.UIData;
-							subUIData.removeCallBackAndDestroy (typeof(InternationalDraught.InternationalDraughtGameDataUI));
-						}
-						break;
-					case GameType.Type.EnglishDraught:
-						{
-							EnglishDraught.EnglishDraughtGameDataUI.UIData subUIData = sub as EnglishDraught.EnglishDraughtGameDataUI.UIData;
-							subUIData.removeCallBackAndDestroy (typeof(EnglishDraught.EnglishDraughtGameDataUI));
-						}
-						break;
-					case GameType.Type.RussianDraught:
-						{
-							RussianDraught.RussianDraughtGameDataUI.UIData subUIData = sub as RussianDraught.RussianDraughtGameDataUI.UIData;
-							subUIData.removeCallBackAndDestroy (typeof(RussianDraught.RussianDraughtGameDataUI));
-						}
-						break;
+                        case GameType.Type.InternationalDraught:
+                            {
+                                InternationalDraught.InternationalDraughtGameDataUI.UIData subUIData = sub as InternationalDraught.InternationalDraughtGameDataUI.UIData;
+                                subUIData.removeCallBackAndDestroy(typeof(InternationalDraught.InternationalDraughtGameDataUI));
+                            }
+                            break;
+                        case GameType.Type.EnglishDraught:
+                            {
+                                EnglishDraught.EnglishDraughtGameDataUI.UIData subUIData = sub as EnglishDraught.EnglishDraughtGameDataUI.UIData;
+                                subUIData.removeCallBackAndDestroy(typeof(EnglishDraught.EnglishDraughtGameDataUI));
+                            }
+                            break;
+                        case GameType.Type.RussianDraught:
+                            {
+                                RussianDraught.RussianDraughtGameDataUI.UIData subUIData = sub as RussianDraught.RussianDraughtGameDataUI.UIData;
+                                subUIData.removeCallBackAndDestroy(typeof(RussianDraught.RussianDraughtGameDataUI));
+                            }
+                            break;
+                        case GameType.Type.ChineseCheckers:
+                            {
+                                ChineseCheckers.ChineseCheckersGameDataUI.UIData subUIData = sub as ChineseCheckers.ChineseCheckersGameDataUI.UIData;
+                                subUIData.removeCallBackAndDestroy(typeof(ChineseCheckers.ChineseCheckersGameDataUI));
+                            }
+                            break;
 
-					case GameType.Type.MineSweeper:
-						{
-							MineSweeper.MineSweeperGameDataUI.UIData subUIData = sub as MineSweeper.MineSweeperGameDataUI.UIData;
-							subUIData.removeCallBackAndDestroy (typeof(MineSweeper.MineSweeperGameDataUI));
-						}
-						break;
-					case GameType.Type.Hex:
-						{
-							HEX.HexGameDataUI.UIData subUIData = sub as HEX.HexGameDataUI.UIData;
-							subUIData.removeCallBackAndDestroy (typeof(HEX.HexGameDataUI));
-						}
-						break;
-					case GameType.Type.Solitaire:
-						{
-							Solitaire.SolitaireGameDataUI.UIData subUIData = sub as Solitaire.SolitaireGameDataUI.UIData;
-							subUIData.removeCallBackAndDestroy (typeof(Solitaire.SolitaireGameDataUI));
-						}
-						break;
-					case GameType.Type.Sudoku:
-						{
-							Sudoku.SudokuGameDataUI.UIData subUIData = sub as Sudoku.SudokuGameDataUI.UIData;
-							subUIData.removeCallBackAndDestroy (typeof(Sudoku.SudokuGameDataUI));
-						}
-						break;
-					case GameType.Type.Khet:
-						{
-							Khet.KhetGameDataUI.UIData subUIData = sub as Khet.KhetGameDataUI.UIData;
-							subUIData.removeCallBackAndDestroy (typeof(Khet.KhetGameDataUI));
-						}
-						break;
-					case GameType.Type.NineMenMorris:
-						{
-							NineMenMorris.NineMenMorrisGameDataUI.UIData subUIData = sub as NineMenMorris.NineMenMorrisGameDataUI.UIData;
-							subUIData.removeCallBackAndDestroy (typeof(NineMenMorris.NineMenMorrisGameDataUI));
-						}
-						break;
-					default:
-						Debug.LogError ("unknown type: " + sub.getType () + "; " + this);
-						break;
-					}
-				}
+                        case GameType.Type.MineSweeper:
+                            {
+                                MineSweeper.MineSweeperGameDataUI.UIData subUIData = sub as MineSweeper.MineSweeperGameDataUI.UIData;
+                                subUIData.removeCallBackAndDestroy(typeof(MineSweeper.MineSweeperGameDataUI));
+                            }
+                            break;
+                        case GameType.Type.Hex:
+                            {
+                                HEX.HexGameDataUI.UIData subUIData = sub as HEX.HexGameDataUI.UIData;
+                                subUIData.removeCallBackAndDestroy(typeof(HEX.HexGameDataUI));
+                            }
+                            break;
+                        case GameType.Type.Solitaire:
+                            {
+                                Solitaire.SolitaireGameDataUI.UIData subUIData = sub as Solitaire.SolitaireGameDataUI.UIData;
+                                subUIData.removeCallBackAndDestroy(typeof(Solitaire.SolitaireGameDataUI));
+                            }
+                            break;
+                        case GameType.Type.Sudoku:
+                            {
+                                Sudoku.SudokuGameDataUI.UIData subUIData = sub as Sudoku.SudokuGameDataUI.UIData;
+                                subUIData.removeCallBackAndDestroy(typeof(Sudoku.SudokuGameDataUI));
+                            }
+                            break;
+                        case GameType.Type.Khet:
+                            {
+                                Khet.KhetGameDataUI.UIData subUIData = sub as Khet.KhetGameDataUI.UIData;
+                                subUIData.removeCallBackAndDestroy(typeof(Khet.KhetGameDataUI));
+                            }
+                            break;
+                        case GameType.Type.NineMenMorris:
+                            {
+                                NineMenMorris.NineMenMorrisGameDataUI.UIData subUIData = sub as NineMenMorris.NineMenMorrisGameDataUI.UIData;
+                                subUIData.removeCallBackAndDestroy(typeof(NineMenMorris.NineMenMorrisGameDataUI));
+                            }
+                            break;
+                        default:
+                            Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                            break;
+                    }
+                }
 				return;
 			}
 			// GameData

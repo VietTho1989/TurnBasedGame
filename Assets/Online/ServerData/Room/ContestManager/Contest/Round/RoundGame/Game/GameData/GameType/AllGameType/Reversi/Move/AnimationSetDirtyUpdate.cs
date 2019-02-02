@@ -26,7 +26,7 @@ namespace Reversi
 						List<ReversiPieceUI.UIData> pieceUIDatas = new List<ReversiPieceUI.UIData>();
 						{
 							switch (moveAnimation.getType ()) {
-							/*case GameMove.Type.ReversiMove:
+							case GameMove.Type.ReversiMove:
 								{
 									ReversiMoveAnimation reversiMoveAnimation = moveAnimation as ReversiMoveAnimation;
 									{
@@ -53,7 +53,7 @@ namespace Reversi
 									}
 
 								}
-								break;*/
+								break;
 							default:
 								{
 									// Debug.LogError ("unknown moveAnimation: " + moveAnimation + "; " + this);

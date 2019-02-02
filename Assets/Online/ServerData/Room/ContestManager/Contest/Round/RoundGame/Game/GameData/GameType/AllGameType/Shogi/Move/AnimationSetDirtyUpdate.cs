@@ -26,7 +26,7 @@ namespace Shogi
 						List<PieceUI.UIData> pieceUIDatas = new List<PieceUI.UIData>();
 						{
 							switch (moveAnimation.getType ()) {
-							/*case GameMove.Type.ShogiMove:
+							case GameMove.Type.ShogiMove:
 								{
 									ShogiMoveAnimation shogiMoveAnimation = moveAnimation as ShogiMoveAnimation;
 									{
@@ -47,7 +47,7 @@ namespace Shogi
 									}
 
 								}
-								break;*/
+								break;
 							default:
 								{
 									// Debug.LogError ("unknown moveAnimation: " + moveAnimation + "; " + this);

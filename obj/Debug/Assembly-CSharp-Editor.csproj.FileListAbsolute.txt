@@ -580,13 +580,9 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.TextMeshPro.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.TextMeshPro.Editor.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.Advertisements.dll
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.Android.Extensions.dll
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.AppleTV.Extensions.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.GoogleAudioSpatializer.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.Graphs.dll
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.iOS.Extensions.Common.dll
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.iOS.Extensions.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.iOS.Extensions.Xcode.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.LinuxStandalone.Extensions.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.Networking.dll
@@ -842,8 +838,6 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.VR.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.VR.xml
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.Graphs.dll.mdb
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.iOS.Extensions.dll.mdb
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.AppleTV.Extensions.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.LinuxStandalone.Extensions.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.OSXStandalone.Extensions.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.Advertisements.dll.mdb
@@ -851,8 +845,6 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.Analytics.StandardEvents.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.Analytics.Tracker.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.Purchasing.dll.mdb
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.iOS.Extensions.Xcode.dll.mdb
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.iOS.Extensions.Common.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.IvyParser.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Assembly-CSharp-Editor.csprojAssemblyReference.cache
@@ -860,3 +852,4 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Assembly-CSharp-Editor.csproj.CopyComplete
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Assembly-CSharp-Editor.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Assembly-CSharp-Editor.pdb
+/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.iOS.Extensions.Xcode.xml

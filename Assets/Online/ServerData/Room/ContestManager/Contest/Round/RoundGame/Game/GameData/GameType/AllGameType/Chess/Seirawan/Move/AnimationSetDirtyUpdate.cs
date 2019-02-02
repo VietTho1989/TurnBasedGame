@@ -26,7 +26,7 @@ namespace Seirawan
 						List<PieceUI.UIData> pieceUIDatas = new List<PieceUI.UIData>();
 						{
 							switch (moveAnimation.getType ()) {
-							/*case GameMove.Type.SeirawanMove:
+							case GameMove.Type.SeirawanMove:
 								{
 									SeirawanMoveAnimation seirawanMoveAnimation = moveAnimation as SeirawanMoveAnimation;
 									{
@@ -124,7 +124,7 @@ namespace Seirawan
 										}
 									}
 								}
-								break;*/
+								break;
 							default:
 								{
 									// Debug.LogError ("unknown moveAnimation: " + moveAnimation + "; " + this);

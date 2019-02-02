@@ -26,7 +26,7 @@ namespace Gomoku
 						List<PieceUI.UIData> pieceUIDatas = new List<PieceUI.UIData>();
 						{
 							switch (moveAnimation.getType ()) {
-							/*case GameMove.Type.GomokuMove:
+							case GameMove.Type.GomokuMove:
 								{
 									GomokuMoveAnimation gomokuMoveAnimation = moveAnimation as GomokuMoveAnimation;
 									{
@@ -38,7 +38,7 @@ namespace Gomoku
 										}
 									}
 								}
-								break;*/
+								break;
 							default:
 								{
 									// Debug.LogError ("unknown moveAnimation: " + moveAnimation + "; " + this);

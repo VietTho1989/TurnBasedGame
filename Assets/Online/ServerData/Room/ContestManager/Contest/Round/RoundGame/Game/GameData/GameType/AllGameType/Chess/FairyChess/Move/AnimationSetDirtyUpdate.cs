@@ -26,7 +26,7 @@ namespace FairyChess
 						List<PieceUI.UIData> pieceUIDatas = new List<PieceUI.UIData>();
 						{
 							switch (moveAnimation.getType ()) {
-							/*case GameMove.Type.FairyChessMove:
+							case GameMove.Type.FairyChessMove:
 								{
 									FairyChessMoveAnimation fairyChessMoveAnimation = moveAnimation as FairyChessMoveAnimation;
 									{
@@ -139,7 +139,7 @@ namespace FairyChess
 										}
 									}
 								}
-								break;*/
+								break;
 							default:
 								{
 									// Debug.LogError ("unknown moveAnimation: " + moveAnimation + "; " + this);

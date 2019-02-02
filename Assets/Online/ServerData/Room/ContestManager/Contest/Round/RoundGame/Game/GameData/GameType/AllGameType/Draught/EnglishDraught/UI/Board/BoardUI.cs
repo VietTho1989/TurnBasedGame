@@ -63,81 +63,90 @@ namespace EnglishDraught
 						}
 						// process
 						if (isLoadFull) {
-							// pieces
-							{
-								// get old
-								List<PieceUI.UIData> oldPieces = new List<PieceUI.UIData> ();
-								{
-									oldPieces.AddRange (this.data.pieces.vs);
-								}
-								// Find Sqs
-								List<byte> Sqs = englishDraught.Sqs.vs;
-								{
-									MoveAnimation moveAnimation = GameDataBoardUI.UIData.getCurrentMoveAnimation (this.data);
-									if (moveAnimation != null) {
-										switch (moveAnimation.getType ()) {
-										case GameMove.Type.EnglishDraughtMove:
-											{
-												EnglishDraughtMoveAnimation englishDraughtMoveAnimation = moveAnimation as EnglishDraughtMoveAnimation;
-												Sqs = englishDraughtMoveAnimation.Sqs.vs;
-											}
-											break;
-										default:
-											Debug.LogError ("unknown type: " + moveAnimation.getType () + "; " + this);
-											break;
-										}
-									} else {
-										// Debug.LogError ("moveAnimation null: " + this);
-									}
-								}
-								// update board
-								for (int y = 0; y < 8; y++) {
-									for (int x = 0; x < 8; x++) {
-										int square = x + 8 * y;
-										byte piece = EnglishDraught.getPiece (Sqs, square);
-										if (Common.isPiece (piece)) {
-											bool needAdd = false;
-											// Find PieceUI
-											PieceUI.UIData pieceUIData = null;
-											{
-												// Find old
-                                                foreach(PieceUI.UIData check in oldPieces)
+                            // get old
+                            List<PieceUI.UIData> oldPieces = new List<PieceUI.UIData>();
+                            {
+                                oldPieces.AddRange(this.data.pieces.vs);
+                            }
+                            // Find Sqs
+                            List<byte> Sqs = englishDraught.Sqs.vs;
+                            {
+                                MoveAnimation moveAnimation = GameDataBoardUI.UIData.getCurrentMoveAnimation(this.data);
+                                if (moveAnimation != null)
+                                {
+                                    switch (moveAnimation.getType())
+                                    {
+                                        case GameMove.Type.EnglishDraughtMove:
+                                            {
+                                                EnglishDraughtMoveAnimation englishDraughtMoveAnimation = moveAnimation as EnglishDraughtMoveAnimation;
+                                                Sqs = englishDraughtMoveAnimation.Sqs.vs;
+                                            }
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown type: " + moveAnimation.getType() + "; " + this);
+                                            break;
+                                    }
+                                }
+                                else
+                                {
+                                    // Debug.LogError ("moveAnimation null: " + this);
+                                }
+                            }
+                            // update board
+                            for (int y = 0; y < 8; y++)
+                            {
+                                for (int x = 0; x < 8; x++)
+                                {
+                                    int square = x + 8 * y;
+                                    byte piece = EnglishDraught.getPiece(Sqs, square);
+                                    if (Common.isPiece(piece))
+                                    {
+                                        bool needAdd = false;
+                                        // Find PieceUI
+                                        PieceUI.UIData pieceUIData = null;
+                                        {
+                                            // Find old
+                                            foreach (PieceUI.UIData check in oldPieces)
+                                            {
+                                                if (check.square.v == square)
                                                 {
-                                                    if (check.square.v == square)
-                                                    {
-                                                        pieceUIData = check;
-                                                        break;
-                                                    }
+                                                    pieceUIData = check;
+                                                    break;
                                                 }
-												// Make new
-												if (pieceUIData == null) {
-													pieceUIData = new PieceUI.UIData ();
-													{
-														pieceUIData.uid = this.data.pieces.makeId ();
-													}
-													needAdd = true;
-												} else {
-													oldPieces.Remove (pieceUIData);
-												}
-											}
-											// Update Property
-											{
-												pieceUIData.square.v = square;
-												pieceUIData.piece.v = piece;
-											}
-											// add
-											if (needAdd) {
-												this.data.pieces.add (pieceUIData);
-											}
-										}
-									}
-								}
-								// remove unused piece
-								foreach (PieceUI.UIData oldPiece in oldPieces) {
-									this.data.pieces.remove(oldPiece);
-								}
-							}
-						} else {
+                                            }
+                                            // Make new
+                                            if (pieceUIData == null)
+                                            {
+                                                pieceUIData = new PieceUI.UIData();
+                                                {
+                                                    pieceUIData.uid = this.data.pieces.makeId();
+                                                }
+                                                needAdd = true;
+                                            }
+                                            else
+                                            {
+                                                oldPieces.Remove(pieceUIData);
+                                            }
+                                        }
+                                        // Update Property
+                                        {
+                                            pieceUIData.square.v = square;
+                                            pieceUIData.piece.v = piece;
+                                        }
+                                        // add
+                                        if (needAdd)
+                                        {
+                                            this.data.pieces.add(pieceUIData);
+                                        }
+                                    }
+                                }
+                            }
+                            // remove unused piece
+                            foreach (PieceUI.UIData oldPiece in oldPieces)
+                            {
+                                this.data.pieces.remove(oldPiece);
+                            }
+                        } else {
 							Debug.LogError ("not load full");
 							dirty = true;
 						}

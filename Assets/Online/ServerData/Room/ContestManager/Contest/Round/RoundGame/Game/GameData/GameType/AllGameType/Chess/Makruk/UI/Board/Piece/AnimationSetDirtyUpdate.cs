@@ -26,7 +26,7 @@ namespace Makruk
 						List<PieceUI.UIData> pieceUIDatas = new List<PieceUI.UIData>();
 						{
 							switch (moveAnimation.getType ()) {
-							/*case GameMove.Type.MakrukMove:
+							case GameMove.Type.MakrukMove:
 								{
 									MakrukMoveAnimation makrukMoveAnimation = moveAnimation as MakrukMoveAnimation;
 									{
@@ -49,7 +49,7 @@ namespace Makruk
 										}
 									}
 								}
-								break;*/
+								break;
 							default:
 								{
 									// Debug.LogError ("unknown moveAnimation: " + moveAnimation + "; " + this);

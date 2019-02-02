@@ -17,7 +17,7 @@ public class GlobalInit : MonoBehaviour
 
 		// MakeIdentity
 		{
-			DataMakeIdentityUtils.makeIdentity (typeof(ChineseCheckersAI));
+			// DataMakeIdentityUtils.makeIdentity (typeof(ChineseCheckersAI));
 		}
 
 		// Set AssetManager

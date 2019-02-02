@@ -26,7 +26,7 @@ namespace HEX
 						List<PieceUI.UIData> pieceUIDatas = new List<PieceUI.UIData>();
 						{
 							switch (moveAnimation.getType ()) {
-							/*case GameMove.Type.HexMove:
+							case GameMove.Type.HexMove:
 								{
 									HexMoveAnimation hexMoveAnimation = moveAnimation as HexMoveAnimation;
 									{
@@ -48,7 +48,7 @@ namespace HEX
 										}
 									}
 								}
-								break;*/
+								break;
 							default:
 								{
 									// Debug.LogError ("unknown moveAnimation: " + moveAnimation.getType () + "; " + this);
