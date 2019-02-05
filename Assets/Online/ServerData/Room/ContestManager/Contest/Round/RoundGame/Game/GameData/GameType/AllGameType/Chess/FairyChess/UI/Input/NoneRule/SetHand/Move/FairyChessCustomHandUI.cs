@@ -268,8 +268,6 @@ namespace FairyChess.NoneRule
 					switch ((FairyChessGameDataUI.UIData.Property)wrapProperty.n) {
 					case FairyChessGameDataUI.UIData.Property.gameData:
 						break;
-					case FairyChessGameDataUI.UIData.Property.updateTransform:
-						break;
 					case FairyChessGameDataUI.UIData.Property.transformOrganizer:
 						break;
 					case FairyChessGameDataUI.UIData.Property.isOnAnimation:

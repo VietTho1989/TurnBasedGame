@@ -143,7 +143,7 @@ namespace Banqi
 											break;
 										}
 									} else {
-										Debug.LogError ("moveAnimation null");
+										// Debug.LogError ("moveAnimation null");
 									}
 								}
 								this.transform.localPosition = localPos;

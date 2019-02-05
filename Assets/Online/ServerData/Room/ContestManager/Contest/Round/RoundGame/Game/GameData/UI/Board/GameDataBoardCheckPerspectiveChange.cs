@@ -103,10 +103,8 @@ public class GameDataBoardCheckPerspectiveChange<K> : Data, ValueChangeCallBack 
 				break;
 			case GameDataBoardUI.UIData.Property.perspectiveUIData:
 				break;
-			case GameDataBoardUI.UIData.Property.updateTransform:
-				break;
 			default:
-				Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+				Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 				break;
 			}
 			return;
@@ -120,7 +118,7 @@ public class GameDataBoardCheckPerspectiveChange<K> : Data, ValueChangeCallBack 
 			case Perspective.Property.sub:
 				break;
 			default:
-				Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+				Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 				break;
 			}
 			return;

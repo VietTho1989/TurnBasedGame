@@ -38,12 +38,34 @@ namespace RussianDraught
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {
-					RussianDraughtGameDataUI.UIData russianDraughtGameDataUIData = this.data.findDataInParent<RussianDraughtGameDataUI.UIData> ();
+                    RussianDraughtGameDataUI russianDraughtGameDataUI = null;
+                    {
+                        RussianDraughtGameDataUI.UIData russianDraughtGameDataUIData = this.data.findDataInParent<RussianDraughtGameDataUI.UIData>();
+                        if (russianDraughtGameDataUIData != null)
+                        {
+                            russianDraughtGameDataUI = russianDraughtGameDataUIData.findCallBack<RussianDraughtGameDataUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("russianDraughtGameDataUIData null");
+                        }
+                    }
+                    GameDataBoardUI gameDataBoardUI = null;
 					GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
-					if (russianDraughtGameDataUIData != null && gameDataBoardUIData != null) {
-						UpdateTransform.UpdateData gomokuTransform = russianDraughtGameDataUIData.updateTransform.v;
-						UpdateTransform.UpdateData boardTransform = gameDataBoardUIData.updateTransform.v;
-						if (gomokuTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
+                    {
+                        if (gameDataBoardUIData != null)
+                        {
+                            gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("gameDataBoardUIData null");
+                        }
+                    }
+                    if (russianDraughtGameDataUI != null && gameDataBoardUI != null) {
+						TransformData russianDraughtTransform = russianDraughtGameDataUI.transformData;
+						TransformData boardTransform = gameDataBoardUI.transformData;
+						if (russianDraughtTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
 							float boardSizeX = 8f;
 							float boardSizeY = 8f;
 							float scale = Mathf.Min (Mathf.Abs (boardTransform.size.v.x / boardSizeX), Mathf.Abs (boardTransform.size.v.y / boardSizeY));
@@ -63,7 +85,7 @@ namespace RussianDraught
 							Debug.LogError ("why transform zero");
 						}
 					} else {
-						Debug.LogError ("russianDraughtGameDataUIData or gameDataBoardUIData null: " + this);
+						Debug.LogError ("russianDraughtGameDataUI or gameDataBoardUI null: " + this);
 					}
 				} else {
 					Debug.LogError ("data null: " + this);
@@ -108,13 +130,23 @@ namespace RussianDraught
 			{
 				if (data is RussianDraughtGameDataUI.UIData) {
 					RussianDraughtGameDataUI.UIData russianDraughtGameDataUIData = data as RussianDraughtGameDataUI.UIData;
-					{
-						russianDraughtGameDataUIData.updateTransform.allAddCallBack (this);
+					// Child
+                    {
+                        RussianDraughtGameDataUI russianDraughtGameDataUI = russianDraughtGameDataUIData.findCallBack<RussianDraughtGameDataUI>();
+                        if (russianDraughtGameDataUI != null)
+                        {
+                            russianDraughtGameDataUI.transformData.addCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("russianDraughtGameDataUI null");
+                        }
 					}
 					dirty = true;
 					return;
 				}
-				if (data is UpdateTransform.UpdateData) {
+                // Child
+				if (data is TransformData) {
 					dirty = true;
 					return;
 				}
@@ -146,12 +178,22 @@ namespace RussianDraught
 			{
 				if (data is RussianDraughtGameDataUI.UIData) {
 					RussianDraughtGameDataUI.UIData russianDraughtGameDataUIData = data as RussianDraughtGameDataUI.UIData;
-					{
-						russianDraughtGameDataUIData.updateTransform.allRemoveCallBack (this);
-					}
+					// Child
+                    {
+                        RussianDraughtGameDataUI russianDraughtGameDataUI = russianDraughtGameDataUIData.findCallBack<RussianDraughtGameDataUI>();
+                        if (russianDraughtGameDataUI != null)
+                        {
+                            russianDraughtGameDataUI.transformData.removeCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("russianDraughtGameDataUI null");
+                        }
+                    }
 					return;
 				}
-				if (data is UpdateTransform.UpdateData) {
+                // Child
+				if (data is TransformData) {
 					return;
 				}
 			}
@@ -166,69 +208,38 @@ namespace RussianDraught
 			if (wrapProperty.p is UpdateData) {
 				switch ((UpdateData.Property)wrapProperty.n) {
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
 			}
 			// CheckChange
 			if (wrapProperty.p is GameDataBoardCheckTransformChange<UpdateData>) {
-				switch ((GameDataBoardCheckTransformChange<UpdateData>.Property)wrapProperty.n) {
-				case GameDataBoardCheckTransformChange<UpdateData>.Property.change:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
+                dirty = true;
+                return;
 			}
 			// Parent
 			{
 				if (wrapProperty.p is RussianDraughtGameDataUI.UIData) {
-					switch ((RussianDraughtGameDataUI.UIData.Property)wrapProperty.n) {
-					case RussianDraughtGameDataUI.UIData.Property.gameData:
-						break;
-					case RussianDraughtGameDataUI.UIData.Property.updateTransform:
-						{
-							ValueChangeUtils.replaceCallBack(this, syncs);
-							dirty = true;
-						}
-						break;
-					case RussianDraughtGameDataUI.UIData.Property.transformOrganizer:
-						break;
-					case RussianDraughtGameDataUI.UIData.Property.isOnAnimation:
-						break;
-					case RussianDraughtGameDataUI.UIData.Property.board:
-						break;
-					case RussianDraughtGameDataUI.UIData.Property.lastMove:
-						break;
-					case RussianDraughtGameDataUI.UIData.Property.showHint:
-						break;
-					case RussianDraughtGameDataUI.UIData.Property.inputUI:
-						break;
-					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-						break;
-					}
 					return;
 				}
-				if (wrapProperty.p is UpdateTransform.UpdateData) {
-					switch ((UpdateTransform.UpdateData.Property)wrapProperty.n) {
-					case UpdateTransform.UpdateData.Property.position:
+                // Child
+				if (wrapProperty.p is TransformData) {
+					switch ((TransformData.Property)wrapProperty.n) {
+					case TransformData.Property.position:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.rotation:
+					case TransformData.Property.rotation:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.scale:
+					case TransformData.Property.scale:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.size:
+					case TransformData.Property.size:
 						dirty = true;
 						break;
 					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this + "; " + syncs);
+						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 						break;
 					}
 					return;

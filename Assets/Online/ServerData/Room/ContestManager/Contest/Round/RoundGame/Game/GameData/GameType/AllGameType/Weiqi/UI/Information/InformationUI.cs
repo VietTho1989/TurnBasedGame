@@ -234,8 +234,6 @@ namespace Weiqi
 					switch ((WeiqiGameDataUI.UIData.Property)wrapProperty.n) {
 					case WeiqiGameDataUI.UIData.Property.gameData:
 						break;
-					case WeiqiGameDataUI.UIData.Property.updateTransform:
-						break;
 					case WeiqiGameDataUI.UIData.Property.transformOrganizer:
 						break;
 					case WeiqiGameDataUI.UIData.Property.isOnAnimation:

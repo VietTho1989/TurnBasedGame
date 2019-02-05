@@ -14,15 +14,9 @@ namespace Weiqi
 			
 			public VP<ReferenceData<GameData>> gameData;
 
-			#region Transform
+            public VP<UITransformOrganizer.UpdateData> transformOrganizer;
 
-			public VP<UpdateTransform.UpdateData> updateTransform;
-
-			public VP<UITransformOrganizer.UpdateData> transformOrganizer;
-
-			#endregion
-
-			public VP<bool> isOnAnimation;
+            public VP<bool> isOnAnimation;
 
 			public VP<BoardUI.UIData> board;
 
@@ -39,11 +33,8 @@ namespace Weiqi
 			public enum Property
 			{
 				gameData,
-
-				updateTransform,
-				transformOrganizer,
-
-				isOnAnimation,
+                transformOrganizer,
+                isOnAnimation,
 				board,
 				information,
 				lastMove,
@@ -54,11 +45,8 @@ namespace Weiqi
 			public UIData() : base()
 			{
 				this.gameData = new VP<ReferenceData<GameData>>(this, (byte)Property.gameData, new ReferenceData<GameData>(null));
-
-				this.updateTransform = new VP<UpdateTransform.UpdateData>(this, (byte)Property.updateTransform, new UpdateTransform.UpdateData());
-				this.transformOrganizer = new VP<UITransformOrganizer.UpdateData>(this, (byte)Property.transformOrganizer, new UITransformOrganizer.UpdateData());
-
-				this.isOnAnimation = new VP<bool>(this, (byte)Property.isOnAnimation, false);
+                this.transformOrganizer = new VP<UITransformOrganizer.UpdateData>(this, (byte)Property.transformOrganizer, new UITransformOrganizer.UpdateData());
+                this.isOnAnimation = new VP<bool>(this, (byte)Property.isOnAnimation, false);
 				this.board = new VP<BoardUI.UIData>(this, (byte)Property.board, new BoardUI.UIData());
 				this.information = new VP<InformationUI.UIData>(this, (byte)Property.information, new InformationUI.UIData());
 				this.lastMove = new VP<LastMoveUI.UIData>(this, (byte)Property.lastMove, new LastMoveUI.UIData());
@@ -196,12 +184,8 @@ namespace Weiqi
 					uiData.lastMove.allAddCallBack (this);
 					uiData.showHint.allAddCallBack (this);
 					uiData.inputUI.allAddCallBack (this);
-					// transform
-					{
-						uiData.updateTransform.allAddCallBack (this);
-						uiData.transformOrganizer.allAddCallBack (this);
-					}
-				}
+                    uiData.transformOrganizer.allAddCallBack(this);
+                }
 				dirty = true;
 				return;
 			}
@@ -212,12 +196,10 @@ namespace Weiqi
 			}
 			// Child
 			{
-				// GameData
 				if (data is GameData) {
 					dirty = true;
 					return;
 				}
-				// Board
 				if (data is BoardUI.UIData) {
 					BoardUI.UIData boardUIData = data as BoardUI.UIData;
 					// UI
@@ -227,7 +209,6 @@ namespace Weiqi
 					dirty = true;
 					return;
 				}
-				// Information
 				if (data is InformationUI.UIData) {
 					InformationUI.UIData informationUIData = data as InformationUI.UIData;
 					// UI
@@ -237,7 +218,6 @@ namespace Weiqi
 					dirty = true;
 					return;
 				}
-				// LastMove
 				if (data is LastMoveUI.UIData) {
 					LastMoveUI.UIData lastMoveUIData = data as LastMoveUI.UIData;
 					// UI
@@ -247,7 +227,6 @@ namespace Weiqi
 					dirty = true;
 					return;
 				}
-				// ShowHint
 				if (data is ShowHintUI.UIData) {
 					ShowHintUI.UIData showHintUIData = data as ShowHintUI.UIData;
 					// UI
@@ -257,7 +236,6 @@ namespace Weiqi
 					dirty = true;
 					return;
 				}
-				// Input
 				if (data is InputUI.UIData) {
 					InputUI.UIData inputUIData = data as InputUI.UIData;
 					// UI
@@ -272,26 +250,16 @@ namespace Weiqi
 					dirty = true;
 					return;
 				}
-				// Transform
-				{
-					if (data is UpdateTransform.UpdateData) {
-						UpdateTransform.UpdateData updateTransformData = data as UpdateTransform.UpdateData;
-						{
-							UpdateUtils.makeComponentUpdate<UpdateTransform, UpdateTransform.UpdateData> (updateTransformData, this.transform);
-						}
-						dirty = true;
-						return;
-					}
-					if (data is UITransformOrganizer.UpdateData) {
-						UITransformOrganizer.UpdateData transformOrganizer = data as UITransformOrganizer.UpdateData;
-						{
-							UpdateUtils.makeComponentUpdate<UITransformOrganizer, UITransformOrganizer.UpdateData> (transformOrganizer, this.transform);
-						}
-						dirty = true;
-						return;
-					}
-				}
-			}
+                if (data is UITransformOrganizer.UpdateData)
+                {
+                    UITransformOrganizer.UpdateData transformOrganizer = data as UITransformOrganizer.UpdateData;
+                    {
+                        UpdateUtils.makeComponentUpdate<UITransformOrganizer, UITransformOrganizer.UpdateData>(transformOrganizer, this.transform);
+                    }
+                    dirty = true;
+                    return;
+                }
+            }
 			Debug.LogError ("Don't process: " + data + "; " + this);
 		}
 
@@ -312,12 +280,8 @@ namespace Weiqi
 					uiData.lastMove.allRemoveCallBack (this);
 					uiData.showHint.allRemoveCallBack (this);
 					uiData.inputUI.allRemoveCallBack (this);
-					// Transform
-					{
-						uiData.updateTransform.allRemoveCallBack (this);
-						uiData.transformOrganizer.allRemoveCallBack (this);
-					}
-				}
+                    uiData.transformOrganizer.allRemoveCallBack(this);
+                }
 				this.setDataNull (uiData);
 				return;
 			}
@@ -330,7 +294,6 @@ namespace Weiqi
 				if (data is GameData) {
 					return;
 				}
-				// Board
 				if (data is BoardUI.UIData) {
 					BoardUI.UIData boardUIData = data as BoardUI.UIData;
 					// UI
@@ -339,7 +302,6 @@ namespace Weiqi
 					}
 					return;
 				}
-				// Information
 				if (data is InformationUI.UIData) {
 					InformationUI.UIData informationUIData = data as InformationUI.UIData;
 					// UI
@@ -348,7 +310,6 @@ namespace Weiqi
 					}
 					return;
 				}
-				// LastMove
 				if (data is LastMoveUI.UIData) {
 					LastMoveUI.UIData lastMoveUIData = data as LastMoveUI.UIData;
 					// UI
@@ -357,7 +318,6 @@ namespace Weiqi
 					}
 					return;
 				}
-				// ShowHint
 				if (data is ShowHintUI.UIData) {
 					ShowHintUI.UIData showHintUIData = data as ShowHintUI.UIData;
 					// UI
@@ -366,7 +326,6 @@ namespace Weiqi
 					}
 					return;
 				}
-				// InputUI
 				if (data is InputUI.UIData) {
 					InputUI.UIData inputUIData = data as InputUI.UIData;
 					// UI
@@ -375,24 +334,15 @@ namespace Weiqi
 					}
 					return;
 				}
-				// Transform
-				{
-					if (data is UpdateTransform.UpdateData) {
-						UpdateTransform.UpdateData updateTransformData = data as UpdateTransform.UpdateData;
-						{
-							updateTransformData.removeCallBackAndRemoveComponent (typeof(UpdateTransform));
-						}
-						return;
-					}
-					if (data is UITransformOrganizer.UpdateData) {
-						UITransformOrganizer.UpdateData transformOrganizer = data as UITransformOrganizer.UpdateData;
-						{
-							transformOrganizer.removeCallBackAndRemoveComponent (typeof(UITransformOrganizer));
-						}
-						return;
-					}
-				}
-			}
+                if (data is UITransformOrganizer.UpdateData)
+                {
+                    UITransformOrganizer.UpdateData transformOrganizer = data as UITransformOrganizer.UpdateData;
+                    {
+                        transformOrganizer.removeCallBackAndRemoveComponent(typeof(UITransformOrganizer));
+                    }
+                    return;
+                }
+            }
 			Debug.LogError ("Don't process: " + data + "; " + this);
 		}
 
@@ -404,12 +354,6 @@ namespace Weiqi
 			if (wrapProperty.p is UIData) {
 				switch ((UIData.Property)wrapProperty.n) {
 				case UIData.Property.gameData:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				case UIData.Property.updateTransform:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
 						dirty = true;
@@ -454,7 +398,7 @@ namespace Weiqi
 					}
 					break;
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
@@ -466,7 +410,6 @@ namespace Weiqi
 			}
 			// Child
 			{
-				// GameData
 				if (wrapProperty.p is GameData) {
 					switch ((GameData.Property)wrapProperty.n) {
 					case GameData.Property.gameType:
@@ -483,41 +426,31 @@ namespace Weiqi
 					case GameData.Property.state:
 						break;
 					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 						break;
 					}
 					return;
 				}
-				// Board
 				if (wrapProperty.p is BoardUI.UIData) {
 					return;
 				}
-				// Information
 				if (wrapProperty.p is InformationUI.UIData) {
 					return;
 				}
-				// LastMove
 				if (wrapProperty.p is LastMoveUI.UIData) {
 					return;
 				}
-				// ShowHint
 				if (wrapProperty.p is ShowHintUI.UIData) {
 					return;
 				}
-				// InputUI
 				if (wrapProperty.p is InputUI.UIData) {
 					return;
 				}
-				// Transform
-				{
-					if (wrapProperty.p is UpdateTransform.UpdateData) {
-						return;
-					}
-					if (wrapProperty.p is UITransformOrganizer.UpdateData) {
-						return;
-					}
-				}
-			}
+                if (wrapProperty.p is UITransformOrganizer.UpdateData)
+                {
+                    return;
+                }
+            }
 			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
 		}
 

@@ -41,11 +41,33 @@ namespace CoTuongUp
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {
-					CoTuongUpGameDataUI.UIData coTuongUpGameDataUIData = this.data.findDataInParent<CoTuongUpGameDataUI.UIData> ();
+                    CoTuongUpGameDataUI coTuongUpGameDataUI = null;
+                    {
+                        CoTuongUpGameDataUI.UIData coTuongUpGameDataUIData = this.data.findDataInParent<CoTuongUpGameDataUI.UIData>();
+                        if (coTuongUpGameDataUIData != null)
+                        {
+                            coTuongUpGameDataUI = coTuongUpGameDataUIData.findCallBack<CoTuongUpGameDataUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("coTuongUpGameDataUIData null");
+                        }
+                    }
+                    GameDataBoardUI gameDataBoardUI = null;
 					GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
-					if (coTuongUpGameDataUIData != null && gameDataBoardUIData != null) {
-						UpdateTransform.UpdateData chessTransform = coTuongUpGameDataUIData.updateTransform.v;
-						UpdateTransform.UpdateData boardTransform = gameDataBoardUIData.updateTransform.v;
+                    {
+                        if (gameDataBoardUIData != null)
+                        {
+                            gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("gameDataBoardUIData null");
+                        }
+                    }
+                    if (coTuongUpGameDataUI != null && gameDataBoardUI != null) {
+						TransformData chessTransform = coTuongUpGameDataUI.transformData;
+						TransformData boardTransform = gameDataBoardUI.transformData;
 						if (chessTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
 							float scale = Mathf.Min (Mathf.Abs (boardTransform.size.v.x / 9f), Mathf.Abs (boardTransform.size.v.y / 10f));
 							// new scale
@@ -64,7 +86,7 @@ namespace CoTuongUp
 							Debug.LogError ("why transform zero");
 						}
 					} else {
-						Debug.LogError ("coTuongUpGameDataUIData or gameDataBoardUIData null: " + this);
+						Debug.LogError ("coTuongUpGameDataUI or gameDataBoardUI null: " + this);
 					}
 				} else {
 					Debug.LogError ("data null: " + this);
@@ -109,13 +131,23 @@ namespace CoTuongUp
 			{
 				if (data is CoTuongUpGameDataUI.UIData) {
 					CoTuongUpGameDataUI.UIData coTuongUpGameDataUIData = data as CoTuongUpGameDataUI.UIData;
-					{
-						coTuongUpGameDataUIData.updateTransform.allAddCallBack (this);
+					// Child
+                    {
+                        CoTuongUpGameDataUI coTuongUpGameDataUI = coTuongUpGameDataUIData.findCallBack<CoTuongUpGameDataUI>();
+                        if (coTuongUpGameDataUI != null)
+                        {
+                            coTuongUpGameDataUI.transformData.addCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("coTuongUpGameDataUI null");
+                        }
 					}
 					dirty = true;
 					return;
 				}
-				if (data is UpdateTransform.UpdateData) {
+                // Child
+				if (data is TransformData) {
 					dirty = true;
 					return;
 				}
@@ -147,12 +179,22 @@ namespace CoTuongUp
 			{
 				if (data is CoTuongUpGameDataUI.UIData) {
 					CoTuongUpGameDataUI.UIData coTuongUpGameDataUIData = data as CoTuongUpGameDataUI.UIData;
-					{
-						coTuongUpGameDataUIData.updateTransform.allRemoveCallBack (this);
-					}
+					// Child
+                    {
+                        CoTuongUpGameDataUI coTuongUpGameDataUI = coTuongUpGameDataUIData.findCallBack<CoTuongUpGameDataUI>();
+                        if (coTuongUpGameDataUI != null)
+                        {
+                            coTuongUpGameDataUI.transformData.removeCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("coTuongUpGameDataUI null");
+                        }
+                    }
 					return;
 				}
-				if (data is UpdateTransform.UpdateData) {
+                // Child
+				if (data is TransformData) {
 					return;
 				}
 			}
@@ -167,69 +209,37 @@ namespace CoTuongUp
 			if (wrapProperty.p is UpdateData) {
 				switch ((UpdateData.Property)wrapProperty.n) {
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
 			}
 			// CheckChange
 			if (wrapProperty.p is GameDataBoardCheckTransformChange<UpdateData>) {
-				switch ((GameDataBoardCheckTransformChange<UpdateData>.Property)wrapProperty.n) {
-				case GameDataBoardCheckTransformChange<UpdateData>.Property.change:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
+                dirty = true;
+                return;
 			}
 			// Parent
 			{
 				if (wrapProperty.p is CoTuongUpGameDataUI.UIData) {
-					switch ((CoTuongUpGameDataUI.UIData.Property)wrapProperty.n) {
-					case CoTuongUpGameDataUI.UIData.Property.gameData:
-						break;
-					case CoTuongUpGameDataUI.UIData.Property.updateTransform:
-						{
-							ValueChangeUtils.replaceCallBack(this, syncs);
-							dirty = true;
-						}
-						break;
-					case CoTuongUpGameDataUI.UIData.Property.transformOrganizer:
-						break;
-					case CoTuongUpGameDataUI.UIData.Property.isOnAnimation:
-						break;
-					case CoTuongUpGameDataUI.UIData.Property.board:
-						break;
-					case CoTuongUpGameDataUI.UIData.Property.lastMove:
-						break;
-					case CoTuongUpGameDataUI.UIData.Property.showHint:
-						break;
-					case CoTuongUpGameDataUI.UIData.Property.inputUI:
-						break;
-					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-						break;
-					}
 					return;
 				}
-				if (wrapProperty.p is UpdateTransform.UpdateData) {
-					switch ((UpdateTransform.UpdateData.Property)wrapProperty.n) {
-					case UpdateTransform.UpdateData.Property.position:
+				if (wrapProperty.p is TransformData) {
+					switch ((TransformData.Property)wrapProperty.n) {
+					case TransformData.Property.position:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.rotation:
+					case TransformData.Property.rotation:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.scale:
+					case TransformData.Property.scale:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.size:
+					case TransformData.Property.size:
 						dirty = true;
 						break;
 					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this + "; " + syncs);
+						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 						break;
 					}
 					return;

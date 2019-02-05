@@ -40,12 +40,34 @@ namespace ChineseCheckers
                 dirty = false;
                 if (this.data != null)
                 {
-                    ChineseCheckersGameDataUI.UIData chineseCheckersGameDataUIData = this.data.findDataInParent<ChineseCheckersGameDataUI.UIData>();
-                    GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData>();
-                    if (chineseCheckersGameDataUIData != null && gameDataBoardUIData != null)
+                    ChineseCheckersGameDataUI chineseCheckersGameDataUI = null;
                     {
-                        UpdateTransform.UpdateData chineseCheckersTransform = chineseCheckersGameDataUIData.updateTransform.v;
-                        UpdateTransform.UpdateData boardTransform = gameDataBoardUIData.updateTransform.v;
+                        ChineseCheckersGameDataUI.UIData chineseCheckersGameDataUIData = this.data.findDataInParent<ChineseCheckersGameDataUI.UIData>();
+                        if (chineseCheckersGameDataUIData != null)
+                        {
+                            chineseCheckersGameDataUI = chineseCheckersGameDataUIData.findCallBack<ChineseCheckersGameDataUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("chineseCheckersGameDataUIData null");
+                        }
+                    }
+                    GameDataBoardUI gameDataBoardUI = null;
+                    GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData>();
+                    {
+                        if (gameDataBoardUIData != null)
+                        {
+                            gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("gameDataBoardUIData null");
+                        }
+                    }
+                    if (chineseCheckersGameDataUI != null && gameDataBoardUI != null)
+                    {
+                        TransformData chineseCheckersTransform = chineseCheckersGameDataUI.transformData;
+                        TransformData boardTransform = gameDataBoardUI.transformData;
                         if (chineseCheckersTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero)
                         {
                             float boardSizeX = 19f;
@@ -71,7 +93,7 @@ namespace ChineseCheckers
                     }
                     else
                     {
-                        Debug.LogError("chineseCheckersGameDataUIData or gameDataBoardUIData null: " + this);
+                        Debug.LogError("chineseCheckersGameDataUI or gameDataBoardUI null: " + this);
                     }
                 }
                 else
@@ -121,13 +143,23 @@ namespace ChineseCheckers
                 if (data is ChineseCheckersGameDataUI.UIData)
                 {
                     ChineseCheckersGameDataUI.UIData chineseCheckersGameDataUIData = data as ChineseCheckersGameDataUI.UIData;
+                    // Child
                     {
-                        chineseCheckersGameDataUIData.updateTransform.allAddCallBack(this);
+                        ChineseCheckersGameDataUI chineseCheckersGameDataUI = chineseCheckersGameDataUIData.findCallBack<ChineseCheckersGameDataUI>();
+                        if (chineseCheckersGameDataUI != null)
+                        {
+                            chineseCheckersGameDataUI.transformData.addCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("chineseCheckersGameDataUI null");
+                        }
                     }
                     dirty = true;
                     return;
                 }
-                if (data is UpdateTransform.UpdateData)
+                // Child
+                if (data is TransformData)
                 {
                     dirty = true;
                     return;
@@ -163,12 +195,22 @@ namespace ChineseCheckers
                 if (data is ChineseCheckersGameDataUI.UIData)
                 {
                     ChineseCheckersGameDataUI.UIData chineseCheckersGameDataUIData = data as ChineseCheckersGameDataUI.UIData;
+                    // Child
                     {
-                        chineseCheckersGameDataUIData.updateTransform.allRemoveCallBack(this);
+                        ChineseCheckersGameDataUI chineseCheckersGameDataUI = chineseCheckersGameDataUIData.findCallBack<ChineseCheckersGameDataUI>();
+                        if (chineseCheckersGameDataUI != null)
+                        {
+                            chineseCheckersGameDataUI.transformData.removeCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("chineseCheckersGameDataUI null");
+                        }
                     }
                     return;
                 }
-                if (data is UpdateTransform.UpdateData)
+                // Child
+                if (data is TransformData)
                 {
                     return;
                 }
@@ -202,48 +244,23 @@ namespace ChineseCheckers
             {
                 if (wrapProperty.p is ChineseCheckersGameDataUI.UIData)
                 {
-                    switch ((ChineseCheckersGameDataUI.UIData.Property)wrapProperty.n)
-                    {
-                        case ChineseCheckersGameDataUI.UIData.Property.gameData:
-                            break;
-                        case ChineseCheckersGameDataUI.UIData.Property.updateTransform:
-                            {
-                                ValueChangeUtils.replaceCallBack(this, syncs);
-                                dirty = true;
-                            }
-                            break;
-                        case ChineseCheckersGameDataUI.UIData.Property.transformOrganizer:
-                            break;
-                        case ChineseCheckersGameDataUI.UIData.Property.isOnAnimation:
-                            break;
-                        case ChineseCheckersGameDataUI.UIData.Property.board:
-                            break;
-                        case ChineseCheckersGameDataUI.UIData.Property.lastMove:
-                            break;
-                        case ChineseCheckersGameDataUI.UIData.Property.showHint:
-                            break;
-                        case ChineseCheckersGameDataUI.UIData.Property.inputUI:
-                            break;
-                        default:
-                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                            break;
-                    }
                     return;
                 }
-                if (wrapProperty.p is UpdateTransform.UpdateData)
+                // Child
+                if (wrapProperty.p is TransformData)
                 {
-                    switch ((UpdateTransform.UpdateData.Property)wrapProperty.n)
+                    switch ((TransformData.Property)wrapProperty.n)
                     {
-                        case UpdateTransform.UpdateData.Property.position:
+                        case TransformData.Property.position:
                             dirty = true;
                             break;
-                        case UpdateTransform.UpdateData.Property.rotation:
+                        case TransformData.Property.rotation:
                             dirty = true;
                             break;
-                        case UpdateTransform.UpdateData.Property.scale:
+                        case TransformData.Property.scale:
                             dirty = true;
                             break;
-                        case UpdateTransform.UpdateData.Property.size:
+                        case TransformData.Property.size:
                             dirty = true;
                             break;
                         default:

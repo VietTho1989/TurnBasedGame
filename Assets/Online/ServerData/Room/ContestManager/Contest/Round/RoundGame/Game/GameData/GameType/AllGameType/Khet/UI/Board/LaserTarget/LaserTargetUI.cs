@@ -225,8 +225,6 @@ namespace Khet
 				switch ((KhetGameDataUI.UIData.Property)wrapProperty.n) {
 				case KhetGameDataUI.UIData.Property.gameData:
 					break;
-				case KhetGameDataUI.UIData.Property.updateTransform:
-					break;
 				case KhetGameDataUI.UIData.Property.transformOrganizer:
 					break;
 				case KhetGameDataUI.UIData.Property.isOnAnimation:

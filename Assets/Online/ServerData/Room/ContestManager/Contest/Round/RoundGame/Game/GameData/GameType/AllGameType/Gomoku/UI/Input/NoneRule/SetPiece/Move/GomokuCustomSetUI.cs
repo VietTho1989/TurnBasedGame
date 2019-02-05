@@ -283,8 +283,6 @@ namespace Gomoku.NoneRule
 					switch ((GomokuGameDataUI.UIData.Property)wrapProperty.n) {
 					case GomokuGameDataUI.UIData.Property.gameData:
 						break;
-					case GomokuGameDataUI.UIData.Property.updateTransform:
-						break;
 					case GomokuGameDataUI.UIData.Property.transformOrganizer:
 						break;
 					case GomokuGameDataUI.UIData.Property.isOnAnimation:

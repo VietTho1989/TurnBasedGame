@@ -38,11 +38,33 @@ namespace Banqi
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {
-					BanqiGameDataUI.UIData banqiGameDataUIData = this.data.findDataInParent<BanqiGameDataUI.UIData> ();
+                    BanqiGameDataUI banqiGameDataUI = null;
+                    {
+                        BanqiGameDataUI.UIData banqiGameDataUIData = this.data.findDataInParent<BanqiGameDataUI.UIData>();
+                        if (banqiGameDataUIData != null)
+                        {
+                            banqiGameDataUI = banqiGameDataUIData.findCallBack<BanqiGameDataUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("banqiGameDataUIData null");
+                        }
+                    }
+                    GameDataBoardUI gameDataBoardUI = null;
 					GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
-					if (banqiGameDataUIData != null && gameDataBoardUIData != null) {
-						UpdateTransform.UpdateData reversiTransform = banqiGameDataUIData.updateTransform.v;
-						UpdateTransform.UpdateData boardTransform = gameDataBoardUIData.updateTransform.v;
+                    {
+                        if (gameDataBoardUIData != null)
+                        {
+                            gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("gameDataBoardUIData null");
+                        }
+                    }
+                    if (banqiGameDataUI != null && gameDataBoardUI != null) {
+						TransformData reversiTransform = banqiGameDataUI.transformData;
+						TransformData boardTransform = gameDataBoardUI.transformData;
 						if (reversiTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
 							float boardSizeX = 9f;
 							float boardSizeY = 10f;
@@ -106,17 +128,26 @@ namespace Banqi
 			}
 			// Parent
 			{
-				if (data is BanqiGameDataUI.UIData) {
-					BanqiGameDataUI.UIData banqiGameDataUIData = data as BanqiGameDataUI.UIData;
-					// Child
-					{
-						banqiGameDataUIData.updateTransform.allAddCallBack (this);
-					}
-					dirty = true;
-					return;
-				}
+                if (data is BanqiGameDataUI.UIData)
+                {
+                    BanqiGameDataUI.UIData banqiGameDataUIData = data as BanqiGameDataUI.UIData;
+                    // Child
+                    {
+                        BanqiGameDataUI banqiGameDataUI = banqiGameDataUIData.findCallBack<BanqiGameDataUI>();
+                        if (banqiGameDataUI != null)
+                        {
+                            banqiGameDataUI.transformData.addCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("banqiGameDataUI null");
+                        }
+                    }
+                    dirty = true;
+                    return;
+                }
 				// Child
-				if (data is UpdateTransform.UpdateData) {
+				if (data is TransformData) {
 					dirty = true;
 					return;
 				}
@@ -150,12 +181,20 @@ namespace Banqi
 					BanqiGameDataUI.UIData banqiGameDataUIData = data as BanqiGameDataUI.UIData;
 					// Child
 					{
-						banqiGameDataUIData.updateTransform.allRemoveCallBack (this);
-					}
+                        BanqiGameDataUI banqiGameDataUI = banqiGameDataUIData.findCallBack<BanqiGameDataUI>();
+                        if (banqiGameDataUI != null)
+                        {
+                            banqiGameDataUI.transformData.removeCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("banqiGameDataUI null");
+                        }
+                    }
 					return;
 				}
 				// Child
-				if (data is UpdateTransform.UpdateData) {
+				if (data is TransformData) {
 					return;
 				}
 			}
@@ -183,45 +222,20 @@ namespace Banqi
 			// Parent
 			{
 				if (wrapProperty.p is BanqiGameDataUI.UIData) {
-					switch ((BanqiGameDataUI.UIData.Property)wrapProperty.n) {
-					case BanqiGameDataUI.UIData.Property.gameData:
-						break;
-					case BanqiGameDataUI.UIData.Property.updateTransform:
-						{
-							ValueChangeUtils.replaceCallBack(this, syncs);
-							dirty = true;
-						}
-						break;
-					case BanqiGameDataUI.UIData.Property.transformOrganizer:
-						break;
-					case BanqiGameDataUI.UIData.Property.isOnAnimation:
-						break;
-					case BanqiGameDataUI.UIData.Property.board:
-						break;
-					case BanqiGameDataUI.UIData.Property.lastMove:
-						break;
-					case BanqiGameDataUI.UIData.Property.showHint:
-						break;
-					case BanqiGameDataUI.UIData.Property.inputUI:
-						break;
-					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-						break;
-					}
 					return;
 				}
-				if (wrapProperty.p is UpdateTransform.UpdateData) {
-					switch ((UpdateTransform.UpdateData.Property)wrapProperty.n) {
-					case UpdateTransform.UpdateData.Property.position:
+				if (wrapProperty.p is TransformData) {
+					switch ((TransformData.Property)wrapProperty.n) {
+					case TransformData.Property.position:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.rotation:
+					case TransformData.Property.rotation:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.scale:
+					case TransformData.Property.scale:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.size:
+					case TransformData.Property.size:
 						dirty = true;
 						break;
 					default:

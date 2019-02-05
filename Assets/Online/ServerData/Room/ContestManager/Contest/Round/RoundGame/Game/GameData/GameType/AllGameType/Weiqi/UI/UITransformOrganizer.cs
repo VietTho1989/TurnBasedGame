@@ -38,12 +38,34 @@ namespace Weiqi
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {
-					WeiqiGameDataUI.UIData weiqiGameDataUIData = this.data.findDataInParent<WeiqiGameDataUI.UIData> ();
+                    WeiqiGameDataUI weiqiGameDataUI = null;
+                    {
+                        WeiqiGameDataUI.UIData weiqiGameDataUIData = this.data.findDataInParent<WeiqiGameDataUI.UIData>();
+                        if (weiqiGameDataUIData != null)
+                        {
+                            weiqiGameDataUI = weiqiGameDataUIData.findCallBack<WeiqiGameDataUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("weiqiGameDataUIData null");
+                        }
+                    }
+                    GameDataBoardUI gameDataBoardUI = null;
 					GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
-					if (weiqiGameDataUIData != null && gameDataBoardUIData != null) {
-						UpdateTransform.UpdateData reversiTransform = weiqiGameDataUIData.updateTransform.v;
-						UpdateTransform.UpdateData boardTransform = gameDataBoardUIData.updateTransform.v;
-						if (reversiTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
+                    {
+                        if (gameDataBoardUIData != null)
+                        {
+                            gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("gameDataBoardUIData null");
+                        }
+                    }
+                    if (weiqiGameDataUI != null && gameDataBoardUI != null) {
+						TransformData weiqiTransform = weiqiGameDataUI.transformData;
+						TransformData boardTransform = gameDataBoardUI.transformData;
+						if (weiqiTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
 							float boardSizeX = 19f;
 							float boardSizeY = 19f;
 							float scale = Mathf.Min (Mathf.Abs (boardTransform.size.v.x / boardSizeX), Mathf.Abs (boardTransform.size.v.y / boardSizeY));
@@ -63,7 +85,7 @@ namespace Weiqi
 							Debug.LogError ("why transform zero");
 						}
 					} else {
-						Debug.LogError ("weiqiGameDataUIData or gameDataBoardUIData null: " + this);
+						Debug.LogError ("weiqiGameDataUI or gameDataBoardUI null: " + this);
 					}
 				} else {
 					Debug.LogError ("data null: " + this);
@@ -108,13 +130,23 @@ namespace Weiqi
 			{
 				if (data is WeiqiGameDataUI.UIData) {
 					WeiqiGameDataUI.UIData weiqiGameDataUIData = data as WeiqiGameDataUI.UIData;
-					{
-						weiqiGameDataUIData.updateTransform.allAddCallBack (this);
+					// Child
+                    {
+                        WeiqiGameDataUI weiqiGameDataUI = weiqiGameDataUIData.findCallBack<WeiqiGameDataUI>();
+                        if (weiqiGameDataUI != null)
+                        {
+                            weiqiGameDataUI.transformData.addCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("weiqiGameDataUI null");
+                        }
 					}
 					dirty = true;
 					return;
 				}
-				if (data is UpdateTransform.UpdateData) {
+                // Child
+				if (data is TransformData) {
 					dirty = true;
 					return;
 				}
@@ -146,12 +178,22 @@ namespace Weiqi
 			{
 				if (data is WeiqiGameDataUI.UIData) {
 					WeiqiGameDataUI.UIData weiqiGameDataUIData = data as WeiqiGameDataUI.UIData;
-					{
-						weiqiGameDataUIData.updateTransform.allRemoveCallBack (this);
-					}
+					// Child
+                    {
+                        WeiqiGameDataUI weiqiGameDataUI = weiqiGameDataUIData.findCallBack<WeiqiGameDataUI>();
+                        if (weiqiGameDataUI != null)
+                        {
+                            weiqiGameDataUI.transformData.removeCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("weiqiGameDataUI null");
+                        }
+                    }
 					return;
 				}
-				if (data is UpdateTransform.UpdateData) {
+                // Child
+				if (data is TransformData) {
 					return;
 				}
 			}
@@ -166,69 +208,38 @@ namespace Weiqi
 			if (wrapProperty.p is UpdateData) {
 				switch ((UpdateData.Property)wrapProperty.n) {
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
 			}
 			// CheckChange
 			if (wrapProperty.p is GameDataBoardCheckTransformChange<UpdateData>) {
-				switch ((GameDataBoardCheckTransformChange<UpdateData>.Property)wrapProperty.n) {
-				case GameDataBoardCheckTransformChange<UpdateData>.Property.change:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
+                dirty = true;
+                return;
 			}
 			// Parent
 			{
 				if (wrapProperty.p is WeiqiGameDataUI.UIData) {
-					switch ((WeiqiGameDataUI.UIData.Property)wrapProperty.n) {
-					case WeiqiGameDataUI.UIData.Property.gameData:
-						break;
-					case WeiqiGameDataUI.UIData.Property.updateTransform:
-						{
-							ValueChangeUtils.replaceCallBack(this, syncs);
-							dirty = true;
-						}
-						break;
-					case WeiqiGameDataUI.UIData.Property.transformOrganizer:
-						break;
-					case WeiqiGameDataUI.UIData.Property.isOnAnimation:
-						break;
-					case WeiqiGameDataUI.UIData.Property.board:
-						break;
-					case WeiqiGameDataUI.UIData.Property.lastMove:
-						break;
-					case WeiqiGameDataUI.UIData.Property.showHint:
-						break;
-					case WeiqiGameDataUI.UIData.Property.inputUI:
-						break;
-					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-						break;
-					}
 					return;
 				}
-				if (wrapProperty.p is UpdateTransform.UpdateData) {
-					switch ((UpdateTransform.UpdateData.Property)wrapProperty.n) {
-					case UpdateTransform.UpdateData.Property.position:
+                // Child
+				if (wrapProperty.p is TransformData) {
+					switch ((TransformData.Property)wrapProperty.n) {
+					case TransformData.Property.position:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.rotation:
+					case TransformData.Property.rotation:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.scale:
+					case TransformData.Property.scale:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.size:
+					case TransformData.Property.size:
 						dirty = true;
 						break;
 					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this + "; " + syncs);
+						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 						break;
 					}
 					return;

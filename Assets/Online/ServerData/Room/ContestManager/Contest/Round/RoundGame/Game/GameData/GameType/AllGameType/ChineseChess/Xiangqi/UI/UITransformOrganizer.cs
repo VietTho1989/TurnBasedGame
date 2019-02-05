@@ -38,11 +38,33 @@ namespace Xiangqi
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {
-					XiangqiGameDataUI.UIData xiangqiGameDataUIData = this.data.findDataInParent<XiangqiGameDataUI.UIData> ();
-					GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
-					if (xiangqiGameDataUIData != null && gameDataBoardUIData != null) {
-						UpdateTransform.UpdateData reversiTransform = xiangqiGameDataUIData.updateTransform.v;
-						UpdateTransform.UpdateData boardTransform = gameDataBoardUIData.updateTransform.v;
+                    XiangqiGameDataUI xiangqiGameDataUI = null;
+                    {
+                        XiangqiGameDataUI.UIData xiangqiGameDataUIData = this.data.findDataInParent<XiangqiGameDataUI.UIData>();
+                        if (xiangqiGameDataUIData != null)
+                        {
+                            xiangqiGameDataUI = xiangqiGameDataUIData.findCallBack<XiangqiGameDataUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("xiangqiGameDataUIData null");
+                        }
+                    }
+                    GameDataBoardUI gameDataBoardUI = null;
+                    GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
+                    {
+                        if (gameDataBoardUIData != null)
+                        {
+                            gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("gameDataBoardUIData null");
+                        }
+                    }
+                    if (xiangqiGameDataUI != null && gameDataBoardUI != null) {
+						TransformData reversiTransform = xiangqiGameDataUI.transformData;
+						TransformData boardTransform = gameDataBoardUI.transformData;
 						if (reversiTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
 							float boardSizeX = 9f;
 							float boardSizeY = 10f;
@@ -63,7 +85,7 @@ namespace Xiangqi
 							Debug.LogError ("why transform zero");
 						}
 					} else {
-						Debug.LogError ("xiangqiGameDataUIData or gameDataBoardUIData null: " + this);
+						Debug.LogError ("xiangqiGameDataUI or gameDataBoardUI null: " + this);
 					}
 				} else {
 					Debug.LogError ("data null: " + this);
@@ -110,13 +132,21 @@ namespace Xiangqi
 					XiangqiGameDataUI.UIData xiangqiGameDataUIData = data as XiangqiGameDataUI.UIData;
 					// Child
 					{
-						xiangqiGameDataUIData.updateTransform.allAddCallBack (this);
+                        XiangqiGameDataUI xiangqiGameDataUI = xiangqiGameDataUIData.findCallBack<XiangqiGameDataUI>();
+                        if (xiangqiGameDataUI != null)
+                        {
+                            xiangqiGameDataUI.transformData.addCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("xiangqiGameDataUI null");
+                        }
 					}
 					dirty = true;
 					return;
 				}
 				// Child
-				if (data is UpdateTransform.UpdateData) {
+				if (data is TransformData) {
 					dirty = true;
 					return;
 				}
@@ -150,12 +180,20 @@ namespace Xiangqi
 					XiangqiGameDataUI.UIData xiangqiGameDataUIData = data as XiangqiGameDataUI.UIData;
 					// Child
 					{
-						xiangqiGameDataUIData.updateTransform.allRemoveCallBack (this);
-					}
+                        XiangqiGameDataUI xiangqiGameDataUI = xiangqiGameDataUIData.findCallBack<XiangqiGameDataUI>();
+                        if (xiangqiGameDataUI != null)
+                        {
+                            xiangqiGameDataUI.transformData.removeCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("xiangqiGameDataUI null");
+                        }
+                    }
 					return;
 				}
 				// Child
-				if (data is UpdateTransform.UpdateData) {
+				if (data is TransformData) {
 					return;
 				}
 			}
@@ -183,49 +221,25 @@ namespace Xiangqi
 			// Parent
 			{
 				if (wrapProperty.p is XiangqiGameDataUI.UIData) {
-					switch ((XiangqiGameDataUI.UIData.Property)wrapProperty.n) {
-					case XiangqiGameDataUI.UIData.Property.gameData:
-						break;
-					case XiangqiGameDataUI.UIData.Property.updateTransform:
-						{
-							ValueChangeUtils.replaceCallBack(this, syncs);
-							dirty = true;
-						}
-						break;
-					case XiangqiGameDataUI.UIData.Property.transformOrganizer:
-						break;
-					case XiangqiGameDataUI.UIData.Property.isOnAnimation:
-						break;
-					case XiangqiGameDataUI.UIData.Property.board:
-						break;
-					case XiangqiGameDataUI.UIData.Property.lastMove:
-						break;
-					case XiangqiGameDataUI.UIData.Property.showHint:
-						break;
-					case XiangqiGameDataUI.UIData.Property.inputUI:
-						break;
-					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-						break;
-					}
 					return;
 				}
-				if (wrapProperty.p is UpdateTransform.UpdateData) {
-					switch ((UpdateTransform.UpdateData.Property)wrapProperty.n) {
-					case UpdateTransform.UpdateData.Property.position:
+                // Child
+				if (wrapProperty.p is TransformData) {
+					switch ((TransformData.Property)wrapProperty.n) {
+					case TransformData.Property.position:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.rotation:
+					case TransformData.Property.rotation:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.scale:
+					case TransformData.Property.scale:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.size:
+					case TransformData.Property.size:
 						dirty = true;
 						break;
 					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this + "; " + syncs);
+						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 						break;
 					}
 					return;

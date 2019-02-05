@@ -38,12 +38,34 @@ namespace HEX
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {
-					HexGameDataUI.UIData hexGameDataUIData = this.data.findDataInParent<HexGameDataUI.UIData> ();
+                    HexGameDataUI hexGameDataUI = null;
+                    {
+                        HexGameDataUI.UIData hexGameDataUIData = this.data.findDataInParent<HexGameDataUI.UIData>();
+                        if (hexGameDataUIData != null)
+                        {
+                            hexGameDataUI = hexGameDataUIData.findCallBack<HexGameDataUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("hexGameDataUIData null");
+                        }
+                    }
+                    GameDataBoardUI gameDataBoardUI = null;
 					GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
-					if (hexGameDataUIData != null && gameDataBoardUIData != null) {
-						UpdateTransform.UpdateData reversiTransform = hexGameDataUIData.updateTransform.v;
-						UpdateTransform.UpdateData boardTransform = gameDataBoardUIData.updateTransform.v;
-						if (reversiTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
+                    {
+                        if (gameDataBoardUIData != null)
+                        {
+                            gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("gameDataBoardUIData null");
+                        }
+                    }
+                    if (hexGameDataUI != null && gameDataBoardUI != null) {
+						TransformData hexTransform = hexGameDataUI.transformData;
+						TransformData boardTransform = gameDataBoardUI.transformData;
+						if (hexTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
 							float boardSizeX = 11f;
 							float boardSizeY = 11f;
 							{
@@ -73,7 +95,7 @@ namespace HEX
 							Debug.LogError ("why transform zero");
 						}
 					} else {
-						Debug.LogError ("hexGameDataUIData or gameDataBoardUIData null: " + this);
+						Debug.LogError ("hexGameDataUI or gameDataBoardUI null: " + this);
 					}
 				} else {
 					Debug.LogError ("data null: " + this);
@@ -120,7 +142,18 @@ namespace HEX
 					HexGameDataUI.UIData hexGameDataUIData = data as HexGameDataUI.UIData;
 					// Child
 					{
-						hexGameDataUIData.updateTransform.allAddCallBack (this);
+                        // transformData
+                        {
+                            HexGameDataUI hexGameDataUI = hexGameDataUIData.findCallBack<HexGameDataUI>();
+                            if (hexGameDataUI != null)
+                            {
+                                hexGameDataUI.transformData.addCallBack(this);
+                            }
+                            else
+                            {
+                                Debug.LogError("hexGameDataUI null");
+                            }
+                        }
 						hexGameDataUIData.board.allAddCallBack (this);
 					}
 					dirty = true;
@@ -128,7 +161,7 @@ namespace HEX
 				}
 				// Child
 				{
-					if (data is UpdateTransform.UpdateData) {
+					if (data is TransformData) {
 						dirty = true;
 						return;
 					}
@@ -167,14 +200,25 @@ namespace HEX
 					HexGameDataUI.UIData hexGameDataUIData = data as HexGameDataUI.UIData;
 					// Child
 					{
-						hexGameDataUIData.updateTransform.allRemoveCallBack (this);
-						hexGameDataUIData.board.allRemoveCallBack (this);
+                        // transformData
+                        {
+                            HexGameDataUI hexGameDataUI = hexGameDataUIData.findCallBack<HexGameDataUI>();
+                            if (hexGameDataUI != null)
+                            {
+                                hexGameDataUI.transformData.removeCallBack(this);
+                            }
+                            else
+                            {
+                                Debug.LogError("hexGameDataUI null");
+                            }
+                        }
+                        hexGameDataUIData.board.allRemoveCallBack (this);
 					}
 					return;
 				}
 				// Child
 				{
-					if (data is UpdateTransform.UpdateData) {
+					if (data is TransformData) {
 						return;
 					}
 					if (data is BoardUI.UIData) {
@@ -193,7 +237,7 @@ namespace HEX
 			if (wrapProperty.p is UpdateData) {
 				switch ((UpdateData.Property)wrapProperty.n) {
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
@@ -209,12 +253,6 @@ namespace HEX
 					switch ((HexGameDataUI.UIData.Property)wrapProperty.n) {
 					case HexGameDataUI.UIData.Property.gameData:
 						break;
-					case HexGameDataUI.UIData.Property.updateTransform:
-						{
-							ValueChangeUtils.replaceCallBack (this, syncs);
-							dirty = true;
-						}
-						break;
 					case HexGameDataUI.UIData.Property.transformOrganizer:
 						break;
 					case HexGameDataUI.UIData.Property.isOnAnimation:
@@ -225,36 +263,36 @@ namespace HEX
 							dirty = true;
 						}
 						break;
-					/*case HexGameDataUI.UIData.Property.lastMove:
+					case HexGameDataUI.UIData.Property.lastMove:
 						break;
 					case HexGameDataUI.UIData.Property.showHint:
 						break;
 					case HexGameDataUI.UIData.Property.inputUI:
-						break;*/
+						break;
 					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 						break;
 					}
 					return;
 				}
 				// Child
 				{
-					if (wrapProperty.p is UpdateTransform.UpdateData) {
-						switch ((UpdateTransform.UpdateData.Property)wrapProperty.n) {
-						case UpdateTransform.UpdateData.Property.position:
+					if (wrapProperty.p is TransformData) {
+						switch ((TransformData.Property)wrapProperty.n) {
+						case TransformData.Property.position:
 							dirty = true;
 							break;
-						case UpdateTransform.UpdateData.Property.rotation:
+						case TransformData.Property.rotation:
 							dirty = true;
 							break;
-						case UpdateTransform.UpdateData.Property.scale:
+						case TransformData.Property.scale:
 							dirty = true;
 							break;
-						case UpdateTransform.UpdateData.Property.size:
+						case TransformData.Property.size:
 							dirty = true;
 							break;
 						default:
-							Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this + "; " + syncs);
+							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 							break;
 						}
 						return;

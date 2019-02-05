@@ -38,11 +38,33 @@ namespace Janggi
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {
-					JanggiGameDataUI.UIData janggiGameDataUIData = this.data.findDataInParent<JanggiGameDataUI.UIData> ();
+                    JanggiGameDataUI janggiGameDataUI = null;
+                    {
+                        JanggiGameDataUI.UIData janggiGameDataUIData = this.data.findDataInParent<JanggiGameDataUI.UIData>();
+                        if (janggiGameDataUIData != null)
+                        {
+                            janggiGameDataUI = janggiGameDataUIData.findCallBack<JanggiGameDataUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("janggiGameDataUIData null");
+                        }
+                    }
+                    GameDataBoardUI gameDataBoardUI = null;
 					GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
-					if (janggiGameDataUIData != null && gameDataBoardUIData != null) {
-						UpdateTransform.UpdateData reversiTransform = janggiGameDataUIData.updateTransform.v;
-						UpdateTransform.UpdateData boardTransform = gameDataBoardUIData.updateTransform.v;
+                    {
+                        if (gameDataBoardUIData != null)
+                        {
+                            gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("gameDataBoardUIData null");
+                        }
+                    }
+                    if (janggiGameDataUI != null && gameDataBoardUI != null) {
+						TransformData reversiTransform = janggiGameDataUI.transformData;
+						TransformData boardTransform = gameDataBoardUI.transformData;
 						if (reversiTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
 							float boardSizeX = 9f;
 							float boardSizeY = 10f;
@@ -63,7 +85,7 @@ namespace Janggi
 							Debug.LogError ("why transform zero");
 						}
 					} else {
-						Debug.LogError ("janggiGameDataUIData or gameDataBoardUIData null: " + this);
+						Debug.LogError ("janggiGameDataUI or gameDataBoardUI null: " + this);
 					}
 				} else {
 					Debug.LogError ("data null: " + this);
@@ -108,15 +130,23 @@ namespace Janggi
 			{
 				if (data is JanggiGameDataUI.UIData) {
 					JanggiGameDataUI.UIData janggiGameDataUIData = data as JanggiGameDataUI.UIData;
-					// Child
-					{
-						janggiGameDataUIData.updateTransform.allAddCallBack (this);
-					}
+                    // Child
+                    {
+                        JanggiGameDataUI janggiGameDataUI = janggiGameDataUIData.findCallBack<JanggiGameDataUI>();
+                        if (janggiGameDataUI != null)
+                        {
+                            janggiGameDataUI.transformData.addCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("janggiGameDataUI null");
+                        }
+                    }
 					dirty = true;
 					return;
 				}
 				// Child
-				if (data is UpdateTransform.UpdateData) {
+				if (data is TransformData) {
 					dirty = true;
 					return;
 				}
@@ -150,12 +180,20 @@ namespace Janggi
 					JanggiGameDataUI.UIData janggiGameDataUIData = data as JanggiGameDataUI.UIData;
 					// Child
 					{
-						janggiGameDataUIData.updateTransform.allRemoveCallBack (this);
-					}
+                        JanggiGameDataUI janggiGameDataUI = janggiGameDataUIData.findCallBack<JanggiGameDataUI>();
+                        if (janggiGameDataUI != null)
+                        {
+                            janggiGameDataUI.transformData.removeCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("janggiGameDataUI null");
+                        }
+                    }
 					return;
 				}
 				// Child
-				if (data is UpdateTransform.UpdateData) {
+				if (data is TransformData) {
 					return;
 				}
 			}
@@ -170,7 +208,7 @@ namespace Janggi
 			if (wrapProperty.p is UpdateData) {
 				switch ((UpdateData.Property)wrapProperty.n) {
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
@@ -183,49 +221,25 @@ namespace Janggi
 			// Parent
 			{
 				if (wrapProperty.p is JanggiGameDataUI.UIData) {
-					switch ((JanggiGameDataUI.UIData.Property)wrapProperty.n) {
-					case JanggiGameDataUI.UIData.Property.gameData:
-						break;
-					case JanggiGameDataUI.UIData.Property.updateTransform:
-						{
-							ValueChangeUtils.replaceCallBack(this, syncs);
-							dirty = true;
-						}
-						break;
-					case JanggiGameDataUI.UIData.Property.transformOrganizer:
-						break;
-					case JanggiGameDataUI.UIData.Property.isOnAnimation:
-						break;
-					case JanggiGameDataUI.UIData.Property.board:
-						break;
-					case JanggiGameDataUI.UIData.Property.lastMove:
-						break;
-					case JanggiGameDataUI.UIData.Property.showHint:
-						break;
-					case JanggiGameDataUI.UIData.Property.inputUI:
-						break;
-					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-						break;
-					}
 					return;
 				}
-				if (wrapProperty.p is UpdateTransform.UpdateData) {
-					switch ((UpdateTransform.UpdateData.Property)wrapProperty.n) {
-					case UpdateTransform.UpdateData.Property.position:
+                // Child
+				if (wrapProperty.p is TransformData) {
+					switch ((TransformData.Property)wrapProperty.n) {
+					case TransformData.Property.position:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.rotation:
+					case TransformData.Property.rotation:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.scale:
+					case TransformData.Property.scale:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.size:
+					case TransformData.Property.size:
 						dirty = true;
 						break;
 					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this + "; " + syncs);
+						Debug.LogError ("Don't process: " + wrapProperty + "; " + this + "; " + syncs);
 						break;
 					}
 					return;

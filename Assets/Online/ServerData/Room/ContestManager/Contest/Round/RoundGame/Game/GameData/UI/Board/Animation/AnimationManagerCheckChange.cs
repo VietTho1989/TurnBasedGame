@@ -135,8 +135,6 @@ public class AnimationManagerCheckChange<K> : Data, ValueChangeCallBack where K 
 				break;
 			case GameDataBoardUI.UIData.Property.perspectiveUIData:
 				break;
-			case GameDataBoardUI.UIData.Property.updateTransform:
-				break;
 			default:
 				Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 				break;

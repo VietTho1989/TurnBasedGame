@@ -269,8 +269,6 @@ namespace MineSweeper.NoneRule
 					switch ((MineSweeperGameDataUI.UIData.Property)wrapProperty.n) {
 					case MineSweeperGameDataUI.UIData.Property.gameData:
 						break;
-					case MineSweeperGameDataUI.UIData.Property.updateTransform:
-						break;
 					case MineSweeperGameDataUI.UIData.Property.transformOrganizer:
 						break;
 					case MineSweeperGameDataUI.UIData.Property.isOnAnimation:

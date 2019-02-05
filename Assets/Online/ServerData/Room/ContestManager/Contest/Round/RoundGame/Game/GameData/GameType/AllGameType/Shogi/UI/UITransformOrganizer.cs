@@ -38,12 +38,34 @@ namespace Shogi
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {
-					ShogiGameDataUI.UIData shogiGameDataUIData = this.data.findDataInParent<ShogiGameDataUI.UIData> ();
+                    ShogiGameDataUI shogiGameDataUI = null;
+                    {
+                        ShogiGameDataUI.UIData shogiGameDataUIData = this.data.findDataInParent<ShogiGameDataUI.UIData>();
+                        if (shogiGameDataUIData != null)
+                        {
+                            shogiGameDataUI = shogiGameDataUIData.findCallBack<ShogiGameDataUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("shogiGameDataUIData null");
+                        }
+                    }
+                    GameDataBoardUI gameDataBoardUI = null;
 					GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
-					if (shogiGameDataUIData != null && gameDataBoardUIData != null) {
-						UpdateTransform.UpdateData reversiTransform = shogiGameDataUIData.updateTransform.v;
-						UpdateTransform.UpdateData boardTransform = gameDataBoardUIData.updateTransform.v;
-						if (reversiTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
+                    {
+                        if (gameDataBoardUIData != null)
+                        {
+                            gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("gameDataBoardUIData null");
+                        }
+                    }
+                    if (shogiGameDataUI != null && gameDataBoardUI != null) {
+						TransformData shogiTransform = shogiGameDataUI.transformData;
+						TransformData boardTransform = gameDataBoardUI.transformData;
+						if (shogiTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
 							float boardSizeX = 9f;
 							float boardSizeY = 9f;
 							float scale = Mathf.Min (Mathf.Abs (boardTransform.size.v.x / boardSizeX), Mathf.Abs (boardTransform.size.v.y / boardSizeY));
@@ -63,7 +85,7 @@ namespace Shogi
 							Debug.LogError ("why transform zero");
 						}
 					} else {
-						Debug.LogError ("shogiGameDataUIData or gameDataBoardUIData null: " + this);
+						Debug.LogError ("shogiGameDataUI or gameDataBoardUI null: " + this);
 					}
 				} else {
 					Debug.LogError ("data null: " + this);
@@ -108,13 +130,23 @@ namespace Shogi
 			{
 				if (data is ShogiGameDataUI.UIData) {
 					ShogiGameDataUI.UIData shogiGameDataUIData = data as ShogiGameDataUI.UIData;
-					{
-						shogiGameDataUIData.updateTransform.allAddCallBack (this);
+					// Child
+                    {
+                        ShogiGameDataUI shogiGameDataUI = shogiGameDataUIData.findCallBack<ShogiGameDataUI>();
+                        if (shogiGameDataUI != null)
+                        {
+                            shogiGameDataUI.transformData.addCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("shogiGameDataUI null");
+                        }
 					}
 					dirty = true;
 					return;
 				}
-				if (data is UpdateTransform.UpdateData) {
+                // Child
+				if (data is TransformData) {
 					dirty = true;
 					return;
 				}
@@ -146,12 +178,22 @@ namespace Shogi
 			{
 				if (data is ShogiGameDataUI.UIData) {
 					ShogiGameDataUI.UIData shogiGameDataUIData = data as ShogiGameDataUI.UIData;
-					{
-						shogiGameDataUIData.updateTransform.allRemoveCallBack (this);
-					}
+					// Child
+                    {
+                        ShogiGameDataUI shogiGameDataUI = shogiGameDataUIData.findCallBack<ShogiGameDataUI>();
+                        if (shogiGameDataUI != null)
+                        {
+                            shogiGameDataUI.transformData.removeCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("shogiGameDataUI null");
+                        }
+                    }
 					return;
 				}
-				if (data is UpdateTransform.UpdateData) {
+                // Child
+				if (data is TransformData) {
 					return;
 				}
 			}
@@ -166,69 +208,38 @@ namespace Shogi
 			if (wrapProperty.p is UpdateData) {
 				switch ((UpdateData.Property)wrapProperty.n) {
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
 			}
 			// CheckChange
 			if (wrapProperty.p is GameDataBoardCheckTransformChange<UpdateData>) {
-				switch ((GameDataBoardCheckTransformChange<UpdateData>.Property)wrapProperty.n) {
-				case GameDataBoardCheckTransformChange<UpdateData>.Property.change:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
+                dirty = true;
+                return;
 			}
 			// Parent
 			{
 				if (wrapProperty.p is ShogiGameDataUI.UIData) {
-					switch ((ShogiGameDataUI.UIData.Property)wrapProperty.n) {
-					case ShogiGameDataUI.UIData.Property.gameData:
-						break;
-					case ShogiGameDataUI.UIData.Property.updateTransform:
-						{
-							ValueChangeUtils.replaceCallBack(this, syncs);
-							dirty = true;
-						}
-						break;
-					case ShogiGameDataUI.UIData.Property.transformOrganizer:
-						break;
-					case ShogiGameDataUI.UIData.Property.isOnAnimation:
-						break;
-					case ShogiGameDataUI.UIData.Property.board:
-						break;
-					case ShogiGameDataUI.UIData.Property.lastMove:
-						break;
-					case ShogiGameDataUI.UIData.Property.showHint:
-						break;
-					case ShogiGameDataUI.UIData.Property.inputUI:
-						break;
-					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-						break;
-					}
 					return;
 				}
-				if (wrapProperty.p is UpdateTransform.UpdateData) {
-					switch ((UpdateTransform.UpdateData.Property)wrapProperty.n) {
-					case UpdateTransform.UpdateData.Property.position:
+                // Child
+				if (wrapProperty.p is TransformData) {
+					switch ((TransformData.Property)wrapProperty.n) {
+					case TransformData.Property.position:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.rotation:
+					case TransformData.Property.rotation:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.scale:
+					case TransformData.Property.scale:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.size:
+					case TransformData.Property.size:
 						dirty = true;
 						break;
 					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this + "; " + syncs);
+						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 						break;
 					}
 					return;

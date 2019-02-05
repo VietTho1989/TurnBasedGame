@@ -55,21 +55,38 @@ public class GameDataBoardCheckTransformChange<K> : Data, ValueChangeCallBack wh
 	{
 		if (data is GameDataBoardUI.UIData) {
 			GameDataBoardUI.UIData gameDataBoardUIData = data as GameDataBoardUI.UIData;
+            // Child
 			{
-				gameDataBoardUIData.updateTransform.allAddCallBack (this);
+                // transformData
+                {
+                    GameDataBoardUI gameDataBoardUI = gameDataBoardUIData.findDataInParent<GameDataBoardUI>();
+                    if (gameDataBoardUI != null)
+                    {
+                        gameDataBoardUI.transformData.addCallBack(this);
+                    }
+                    else
+                    {
+                        Debug.LogError("gameDataBoardUI null");
+                    }
+                }
 				gameDataBoardUIData.perspective.allAddCallBack (this);
 			}
 			this.notifyChange ();
 			return;
 		}
-		if (data is UpdateTransform.UpdateData) {
-			this.notifyChange ();
-			return;
-		}
-		if (data is Perspective) {
-			this.notifyChange ();
-			return;
-		}
+        // Child
+        {
+            if (data is TransformData)
+            {
+                this.notifyChange();
+                return;
+            }
+            if (data is Perspective)
+            {
+                this.notifyChange();
+                return;
+            }
+        }
 		Debug.LogError ("Don't process: " + data + "; " + this);
 	}
 
@@ -77,18 +94,35 @@ public class GameDataBoardCheckTransformChange<K> : Data, ValueChangeCallBack wh
 	{
 		if (data is GameDataBoardUI.UIData) {
 			GameDataBoardUI.UIData gameDataBoardUIData = data as GameDataBoardUI.UIData;
+            // Child
 			{
-				gameDataBoardUIData.updateTransform.allRemoveCallBack (this);
-				gameDataBoardUIData.perspective.allRemoveCallBack (this);
+                // transformData
+                {
+                    GameDataBoardUI gameDataBoardUI = gameDataBoardUIData.findDataInParent<GameDataBoardUI>();
+                    if (gameDataBoardUI != null)
+                    {
+                        gameDataBoardUI.transformData.removeCallBack(this);
+                    }
+                    else
+                    {
+                        Debug.LogError("gameDataBoardUI null");
+                    }
+                }
+                gameDataBoardUIData.perspective.allRemoveCallBack (this);
 			}
 			return;
 		}
-		if (data is UpdateTransform.UpdateData) {
-			return;
-		}
-		if (data is Perspective) {
-			return;
-		}
+        // Child
+        {
+            if (data is TransformData)
+            {
+                return;
+            }
+            if (data is Perspective)
+            {
+                return;
+            }
+        }
 		Debug.LogError ("Don't process: " + data + "; " + this);
 	}
 
@@ -111,31 +145,35 @@ public class GameDataBoardCheckTransformChange<K> : Data, ValueChangeCallBack wh
 				break;
 			case GameDataBoardUI.UIData.Property.perspectiveUIData:
 				break;
-			case GameDataBoardUI.UIData.Property.updateTransform:
-				break;
 			default:
-				Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+				Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 				break;
 			}
 			return;
 		}
-		if (wrapProperty.p is UpdateTransform.UpdateData) {
-			this.notifyChange ();
-			return;
-		}
-		if (wrapProperty.p is Perspective) {
-			switch ((Perspective.Property)wrapProperty.n) {
-			case Perspective.Property.playerView:
-				this.notifyChange ();
-				break;
-			case Perspective.Property.sub:
-				break;
-			default:
-				Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-				break;
-			}
-			return;
-		}
+        // Child
+        {
+            if (wrapProperty.p is TransformData)
+            {
+                this.notifyChange();
+                return;
+            }
+            if (wrapProperty.p is Perspective)
+            {
+                switch ((Perspective.Property)wrapProperty.n)
+                {
+                    case Perspective.Property.playerView:
+                        this.notifyChange();
+                        break;
+                    case Perspective.Property.sub:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+        }
 		Debug.LogError ("Don't process: " + data + "; " + this);
 	}
 

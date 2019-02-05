@@ -57,8 +57,6 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>
 
 		#endregion
 
-		public VP<UpdateTransform.UpdateData> updateTransform;
-
 		#region Constructor
 
 		public enum Property
@@ -67,8 +65,7 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>
 			animationManager,
 			sub,
 			perspective,
-			perspectiveUIData,
-			updateTransform
+			perspectiveUIData
 		}
 
 		public UIData() : base()
@@ -78,7 +75,6 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>
 			this.sub = new VP<Sub>(this, (byte)Property.sub, null);
 			this.perspective = new VP<Perspective>(this, (byte)Property.perspective, new Perspective());
 			this.perspectiveUIData = new VP<PerspectiveUI.UIData>(this, (byte)Property.perspectiveUIData, new PerspectiveUI.UIData());
-			this.updateTransform = new VP<UpdateTransform.UpdateData>(this, (byte)Property.updateTransform, new UpdateTransform.UpdateData());
 		}
 
 		#endregion
@@ -579,7 +575,6 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>
 			// Child
 			{
 				uiData.animationManager.allAddCallBack (this);
-				uiData.updateTransform.allAddCallBack (this);
 				// Perspective
 				{
 					uiData.perspective.allAddCallBack (this);
@@ -593,15 +588,6 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>
 		}
 		// Child
 		{
-			if (data is UpdateTransform.UpdateData) {
-				UpdateTransform.UpdateData updateTransformData = data as UpdateTransform.UpdateData;
-				// Update
-				{
-					UpdateUtils.makeComponentUpdate<UpdateTransform, UpdateTransform.UpdateData> (updateTransformData, this.transform);
-				}
-				dirty = true;
-				return;
-			}
 			// Perspective
 			{
 				if (data is Perspective) {
@@ -817,7 +803,6 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>
 			UIData uiData = data as UIData;
 			{
 				uiData.animationManager.allRemoveCallBack (this);
-				uiData.updateTransform.allRemoveCallBack (this);
 				// Perspective
 				{
 					uiData.perspective.allRemoveCallBack (this);
@@ -831,13 +816,6 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>
 		}
 		// Child
 		{
-			if (data is UpdateTransform.UpdateData) {
-				UpdateTransform.UpdateData updateTransformData = data as UpdateTransform.UpdateData;
-				{
-					updateTransformData.removeCallBackAndRemoveComponent (typeof(UpdateTransform));
-				}
-				return;
-			}
 			// Perspective
 			{
 				if (data is Perspective) {
@@ -1059,12 +1037,6 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>
 					dirty = true;
 				}
 				break;
-			case UIData.Property.updateTransform:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
 			case UIData.Property.perspective:
 				{
 					ValueChangeUtils.replaceCallBack (this, syncs);
@@ -1101,9 +1073,6 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>
 				}
 			}
 			if (wrapProperty.p is UIData.Sub) {
-				return;
-			}
-			if (wrapProperty.p is UpdateTransform.UpdateData) {
 				return;
 			}
 			// GameData

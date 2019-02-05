@@ -31,7 +31,8 @@ public abstract class UIBehavior<K> : GameBehavior<K>, TrashMan.DespawnInterface
 
 	public virtual void Awake() {
 		dirty = true;
-		refresh();
+        this.transformData.update(this.transform);
+        refresh();
 	}
 
 	public override void OnEnable ()
@@ -54,6 +55,7 @@ public abstract class UIBehavior<K> : GameBehavior<K>, TrashMan.DespawnInterface
 
 	void OnGUI() 
 	{
+        updateTransformData();
 		refresh ();
 	}
 
@@ -104,6 +106,21 @@ public abstract class UIBehavior<K> : GameBehavior<K>, TrashMan.DespawnInterface
 		}
 	}
 
-	#endregion
+    #endregion
+
+    #region TransformData
+
+    public TransformData transformData = new TransformData();
+
+    private void updateTransformData()
+    {
+        if (transform.hasChanged)
+        {
+            transform.hasChanged = false;
+            this.transformData.update(this.transform);
+        }
+    }
+
+    #endregion
 
 }

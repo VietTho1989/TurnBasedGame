@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class WrapContent : UIBehavior<UpdateTransform.UpdateData>
+public class WrapContent : UIBehavior<TransformData>
 {
 
 	public static void SetAncestorDirty(Transform transform)
@@ -102,8 +102,8 @@ public class WrapContent : UIBehavior<UpdateTransform.UpdateData>
 
 	public override void onAddCallBack<T> (T data)
 	{
-		if (data is UpdateTransform.UpdateData) {
-			UpdateTransform.UpdateData updateTransform = data as UpdateTransform.UpdateData;
+		if (data is TransformData) {
+            TransformData updateTransform = data as TransformData;
 			{
 				updateTransform.update (this.transform);
 			}
@@ -114,7 +114,7 @@ public class WrapContent : UIBehavior<UpdateTransform.UpdateData>
 
 	public override void onRemoveCallBack<T> (T data, bool isHide)
 	{
-		if (data is UpdateTransform.UpdateData) {
+		if (data is TransformData) {
 			return;
 		}
 		Debug.LogError ("Don't process: " + data + "; " + this);
@@ -125,7 +125,7 @@ public class WrapContent : UIBehavior<UpdateTransform.UpdateData>
 		if (WrapProperty.checkError (wrapProperty)) {
 			return;
 		}
-		if (wrapProperty.p is UpdateTransform.UpdateData) {
+		if (wrapProperty.p is TransformData) {
 			return;
 		}
 		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);

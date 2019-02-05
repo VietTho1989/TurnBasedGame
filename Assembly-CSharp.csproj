@@ -919,9 +919,9 @@
     <Compile Include="Assets\Common\Utils\Behavior\SriaHolderBehavior.cs" />
     <Compile Include="Assets\Common\Utils\Behavior\SriaHolderInterface.cs" />
     <Compile Include="Assets\Common\Utils\Behavior\TransformChange.cs" />
+    <Compile Include="Assets\Common\Utils\Behavior\TransformData.cs" />
     <Compile Include="Assets\Common\Utils\Behavior\UIBehavior.cs" />
     <Compile Include="Assets\Common\Utils\Behavior\UpdateBehavior.cs" />
-    <Compile Include="Assets\Common\Utils\Behavior\UpdateTransform.cs" />
     <Compile Include="Assets\Common\Utils\Behavior\UpdateUtils.cs" />
     <Compile Include="Assets\Common\WrapProperty.cs" />
     <Compile Include="Assets\FacebookSDK\Examples\Scripts\ConsoleBase.cs" />

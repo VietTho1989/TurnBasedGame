@@ -38,11 +38,33 @@ namespace Seirawan
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {
-					SeirawanGameDataUI.UIData seirawanGameDataUIData = this.data.findDataInParent<SeirawanGameDataUI.UIData> ();
-					GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
-					if (seirawanGameDataUIData != null && gameDataBoardUIData != null) {
-						UpdateTransform.UpdateData seirawanTransform = seirawanGameDataUIData.updateTransform.v;
-						UpdateTransform.UpdateData boardTransform = gameDataBoardUIData.updateTransform.v;
+                    SeirawanGameDataUI seirawanGameDataUI = null;
+                    {
+                        SeirawanGameDataUI.UIData seirawanGameDataUIData = this.data.findDataInParent<SeirawanGameDataUI.UIData>();
+                        if (seirawanGameDataUIData != null)
+                        {
+                            seirawanGameDataUI = seirawanGameDataUIData.findCallBack<SeirawanGameDataUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("seirawanGameDataUIData null");
+                        }
+                    }
+                    GameDataBoardUI gameDataBoardUI = null;
+                    GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
+                    {
+                        if (gameDataBoardUIData != null)
+                        {
+                            gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("gameDataBoardUIData null");
+                        }
+                    }
+                    if (seirawanGameDataUI != null && gameDataBoardUI != null) {
+						TransformData seirawanTransform = seirawanGameDataUI.transformData;
+						TransformData boardTransform = gameDataBoardUI.transformData;
 						if (seirawanTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
 							float scale = Mathf.Min (Mathf.Abs (boardTransform.size.v.x / 8f), Mathf.Abs (boardTransform.size.v.y / 8f));
 							// new scale
@@ -106,13 +128,23 @@ namespace Seirawan
 			{
 				if (data is SeirawanGameDataUI.UIData) {
 					SeirawanGameDataUI.UIData seirawanGameDataUIData = data as SeirawanGameDataUI.UIData;
-					{
-						seirawanGameDataUIData.updateTransform.allAddCallBack (this);
-					}
+					// Child
+                    {
+                        SeirawanGameDataUI seirawanGameDataUI = seirawanGameDataUIData.findCallBack<SeirawanGameDataUI>();
+                        if (seirawanGameDataUI != null)
+                        {
+                            seirawanGameDataUI.transformData.addCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("seirawanGameDataUI null");
+                        }
+                    }
 					dirty = true;
 					return;
 				}
-				if (data is UpdateTransform.UpdateData) {
+                // Child
+				if (data is TransformData) {
 					dirty = true;
 					return;
 				}
@@ -144,12 +176,21 @@ namespace Seirawan
 			{
 				if (data is SeirawanGameDataUI.UIData) {
 					SeirawanGameDataUI.UIData seirawanGameDataUIData = data as SeirawanGameDataUI.UIData;
-					{
-						seirawanGameDataUIData.updateTransform.allRemoveCallBack (this);
-					}
+					// Child
+                    {
+                        SeirawanGameDataUI seirawanGameDataUI = seirawanGameDataUIData.findCallBack<SeirawanGameDataUI>();
+                        if (seirawanGameDataUI != null)
+                        {
+                            seirawanGameDataUI.transformData.removeCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("seirawanGameDataUI null");
+                        }
+                    }
 					return;
 				}
-				if (data is UpdateTransform.UpdateData) {
+				if (data is TransformData) {
 					return;
 				}
 			}
@@ -164,67 +205,37 @@ namespace Seirawan
 			if (wrapProperty.p is UpdateData) {
 				switch ((UpdateData.Property)wrapProperty.n) {
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
 			}
 			// CheckChange
 			if (wrapProperty.p is GameDataBoardCheckTransformChange<UpdateData>) {
-				switch ((GameDataBoardCheckTransformChange<UpdateData>.Property)wrapProperty.n) {
-				case GameDataBoardCheckTransformChange<UpdateData>.Property.change:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
+                dirty = true;
+                return;
 			}
 			// Parent
 			{
 				if (wrapProperty.p is SeirawanGameDataUI.UIData) {
-					switch ((SeirawanGameDataUI.UIData.Property)wrapProperty.n) {
-					case SeirawanGameDataUI.UIData.Property.gameData:
-						break;
-					case SeirawanGameDataUI.UIData.Property.updateTransform:
-						{
-							ValueChangeUtils.replaceCallBack (this, syncs);
-							dirty = true;
-						}
-						break;
-					case SeirawanGameDataUI.UIData.Property.isOnAnimation:
-						break;
-					case SeirawanGameDataUI.UIData.Property.board:
-						break;
-					case SeirawanGameDataUI.UIData.Property.lastMove:
-						break;
-					case SeirawanGameDataUI.UIData.Property.showHint:
-						break;
-					case SeirawanGameDataUI.UIData.Property.inputUI:
-						break;
-					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-						break;
-					}
 					return;
 				}
-				if (wrapProperty.p is UpdateTransform.UpdateData) {
-					switch ((UpdateTransform.UpdateData.Property)wrapProperty.n) {
-					case UpdateTransform.UpdateData.Property.position:
+				if (wrapProperty.p is TransformData) {
+					switch ((TransformData.Property)wrapProperty.n) {
+					case TransformData.Property.position:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.rotation:
+					case TransformData.Property.rotation:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.scale:
+					case TransformData.Property.scale:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.size:
+					case TransformData.Property.size:
 						dirty = true;
 						break;
 					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this + "; " + syncs);
+						Debug.LogError ("Don't process: " + wrapProperty + "; " + this + "; " + syncs);
 						break;
 					}
 					return;

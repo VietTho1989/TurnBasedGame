@@ -38,11 +38,33 @@ namespace EnglishDraught
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {
-					EnglishDraughtGameDataUI.UIData englishDraughtGameDataUIData = this.data.findDataInParent<EnglishDraughtGameDataUI.UIData> ();
+                    EnglishDraughtGameDataUI englishDraughtGameDataUI = null;
+                    {
+                        EnglishDraughtGameDataUI.UIData englishDraughtGameDataUIData = this.data.findDataInParent<EnglishDraughtGameDataUI.UIData>();
+                        if (englishDraughtGameDataUIData != null)
+                        {
+                            englishDraughtGameDataUI = englishDraughtGameDataUIData.findCallBack<EnglishDraughtGameDataUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("englishDraughtGameDataUI null");
+                        }
+                    }
+                    GameDataBoardUI gameDataBoardUI = null;
 					GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
-					if (englishDraughtGameDataUIData != null && gameDataBoardUIData != null) {
-						UpdateTransform.UpdateData englishDraughtTransform = englishDraughtGameDataUIData.updateTransform.v;
-						UpdateTransform.UpdateData boardTransform = gameDataBoardUIData.updateTransform.v;
+                    {
+                        if (gameDataBoardUIData != null)
+                        {
+                            gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("gameDataBoardUIData null");
+                        }
+                    }
+                    if (englishDraughtGameDataUI != null && gameDataBoardUI != null) {
+						TransformData englishDraughtTransform = englishDraughtGameDataUI.transformData;
+						TransformData boardTransform = gameDataBoardUI.transformData;
 						if (englishDraughtTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
 							float boardSizeX = 8f;
 							float boardSizeY = 8f;
@@ -63,7 +85,7 @@ namespace EnglishDraught
 							Debug.LogError ("why transform zero");
 						}
 					} else {
-						Debug.LogError ("englishDraughtGameDataUIData or gameDataBoardUIData null: " + this);
+						Debug.LogError ("englishDraughtGameDataUI or gameDataBoardUI null: " + this);
 					}
 				} else {
 					Debug.LogError ("data null: " + this);
@@ -108,13 +130,23 @@ namespace EnglishDraught
 			{
 				if (data is EnglishDraughtGameDataUI.UIData) {
 					EnglishDraughtGameDataUI.UIData englishDraughtGameDataUIData = data as EnglishDraughtGameDataUI.UIData;
-					{
-						englishDraughtGameDataUIData.updateTransform.allAddCallBack (this);
+					// Child
+                    {
+                        EnglishDraughtGameDataUI englishDraughtGameDataUI = englishDraughtGameDataUIData.findCallBack<EnglishDraughtGameDataUI>();
+                        if (englishDraughtGameDataUI != null)
+                        {
+                            englishDraughtGameDataUI.transformData.addCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("englishDraughtGameDataUI null");
+                        }
 					}
 					dirty = true;
 					return;
 				}
-				if (data is UpdateTransform.UpdateData) {
+                // Child
+				if (data is TransformData) {
 					dirty = true;
 					return;
 				}
@@ -146,12 +178,22 @@ namespace EnglishDraught
 			{
 				if (data is EnglishDraughtGameDataUI.UIData) {
 					EnglishDraughtGameDataUI.UIData englishDraughtGameDataUIData = data as EnglishDraughtGameDataUI.UIData;
-					{
-						englishDraughtGameDataUIData.updateTransform.allRemoveCallBack (this);
-					}
+					// Child
+                    {
+                        EnglishDraughtGameDataUI englishDraughtGameDataUI = englishDraughtGameDataUIData.findCallBack<EnglishDraughtGameDataUI>();
+                        if (englishDraughtGameDataUI != null)
+                        {
+                            englishDraughtGameDataUI.transformData.removeCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("englishDraughtGameDataUI null");
+                        }
+                    }
 					return;
 				}
-				if (data is UpdateTransform.UpdateData) {
+                // Child
+				if (data is TransformData) {
 					return;
 				}
 			}
@@ -179,49 +221,25 @@ namespace EnglishDraught
 			// Parent
 			{
 				if (wrapProperty.p is EnglishDraughtGameDataUI.UIData) {
-					switch ((EnglishDraughtGameDataUI.UIData.Property)wrapProperty.n) {
-					case EnglishDraughtGameDataUI.UIData.Property.gameData:
+					return;
+				}
+                // Child
+				if (wrapProperty.p is TransformData) {
+					switch ((TransformData.Property)wrapProperty.n) {
+					case TransformData.Property.position:
+						dirty = true;
 						break;
-					case EnglishDraughtGameDataUI.UIData.Property.updateTransform:
-						{
-							ValueChangeUtils.replaceCallBack(this, syncs);
-							dirty = true;
-						}
+					case TransformData.Property.rotation:
+						dirty = true;
 						break;
-					case EnglishDraughtGameDataUI.UIData.Property.transformOrganizer:
+					case TransformData.Property.scale:
+						dirty = true;
 						break;
-					case EnglishDraughtGameDataUI.UIData.Property.isOnAnimation:
-						break;
-					case EnglishDraughtGameDataUI.UIData.Property.board:
-						break;
-					case EnglishDraughtGameDataUI.UIData.Property.lastMove:
-						break;
-					case EnglishDraughtGameDataUI.UIData.Property.showHint:
-						break;
-					case EnglishDraughtGameDataUI.UIData.Property.inputUI:
+					case TransformData.Property.size:
+						dirty = true;
 						break;
 					default:
 						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-						break;
-					}
-					return;
-				}
-				if (wrapProperty.p is UpdateTransform.UpdateData) {
-					switch ((UpdateTransform.UpdateData.Property)wrapProperty.n) {
-					case UpdateTransform.UpdateData.Property.position:
-						dirty = true;
-						break;
-					case UpdateTransform.UpdateData.Property.rotation:
-						dirty = true;
-						break;
-					case UpdateTransform.UpdateData.Property.scale:
-						dirty = true;
-						break;
-					case UpdateTransform.UpdateData.Property.size:
-						dirty = true;
-						break;
-					default:
-						Debug.LogError ("Don't process: " + wrapProperty + "; " + this + "; " + syncs);
 						break;
 					}
 					return;

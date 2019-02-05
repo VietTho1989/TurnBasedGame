@@ -38,11 +38,33 @@ namespace FairyChess
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {
-					FairyChessGameDataUI.UIData fairyChessGameDataUIData = this.data.findDataInParent<FairyChessGameDataUI.UIData> ();
+                    FairyChessGameDataUI fairyChessGameDataUI = null;
+                    {
+                        FairyChessGameDataUI.UIData fairyChessGameDataUIData = this.data.findDataInParent<FairyChessGameDataUI.UIData>();
+                        if (fairyChessGameDataUIData != null)
+                        {
+                            fairyChessGameDataUI = fairyChessGameDataUIData.findCallBack<FairyChessGameDataUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("fairyChessGameDataUIData null");
+                        }
+                    }
+                    GameDataBoardUI gameDataBoardUI = null;
 					GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
-					if (fairyChessGameDataUIData != null && gameDataBoardUIData != null) {
-						UpdateTransform.UpdateData fairyChessTransform = fairyChessGameDataUIData.updateTransform.v;
-						UpdateTransform.UpdateData boardTransform = gameDataBoardUIData.updateTransform.v;
+                    {
+                        if (gameDataBoardUIData != null)
+                        {
+                            gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("gameDataBoardUIData null");
+                        }
+                    }
+                    if (fairyChessGameDataUI != null && gameDataBoardUI != null) {
+						TransformData fairyChessTransform = fairyChessGameDataUI.transformData;
+						TransformData boardTransform = gameDataBoardUI.transformData;
 						if (fairyChessTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
 							float scale = Mathf.Min (Mathf.Abs (boardTransform.size.v.x / 8f), Mathf.Abs (boardTransform.size.v.y / 8f));
 							// new scale
@@ -61,7 +83,7 @@ namespace FairyChess
 							Debug.LogError ("why transform zero");
 						}
 					} else {
-						Debug.LogError ("fairyChessGameDataUIData or gameDataBoardUIData null: " + this);
+						Debug.LogError ("fairyChessGameDataUI or gameDataBoardUI null: " + this);
 					}
 				} else {
 					Debug.LogError ("data null: " + this);
@@ -106,13 +128,23 @@ namespace FairyChess
 			{
 				if (data is FairyChessGameDataUI.UIData) {
 					FairyChessGameDataUI.UIData fairyChessGameDataUIData = data as FairyChessGameDataUI.UIData;
-					{
-						fairyChessGameDataUIData.updateTransform.allAddCallBack (this);
-					}
+                    // Child
+                    {
+                        FairyChessGameDataUI fairyChessGameDataUI = fairyChessGameDataUIData.findCallBack<FairyChessGameDataUI>();
+                        if (fairyChessGameDataUI != null)
+                        {
+                            fairyChessGameDataUI.transformData.addCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("fairyChessGameDataUI null");
+                        }
+                    }
 					dirty = true;
 					return;
 				}
-				if (data is UpdateTransform.UpdateData) {
+                // Child
+				if (data is TransformData) {
 					dirty = true;
 					return;
 				}
@@ -144,12 +176,22 @@ namespace FairyChess
 			{
 				if (data is FairyChessGameDataUI.UIData) {
 					FairyChessGameDataUI.UIData fairyChessGameDataUIData = data as FairyChessGameDataUI.UIData;
-					{
-						fairyChessGameDataUIData.updateTransform.allRemoveCallBack (this);
-					}
+					// Child
+                    {
+                        FairyChessGameDataUI fairyChessGameDataUI = fairyChessGameDataUIData.findCallBack<FairyChessGameDataUI>();
+                        if (fairyChessGameDataUI != null)
+                        {
+                            fairyChessGameDataUI.transformData.removeCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("fairyChessGameDataUI null");
+                        }
+                    }
 					return;
 				}
-				if (data is UpdateTransform.UpdateData) {
+                // Child
+				if (data is TransformData) {
 					return;
 				}
 			}
@@ -164,67 +206,38 @@ namespace FairyChess
 			if (wrapProperty.p is UpdateData) {
 				switch ((UpdateData.Property)wrapProperty.n) {
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
 			}
 			// CheckChange
 			if (wrapProperty.p is GameDataBoardCheckTransformChange<UpdateData>) {
-				switch ((GameDataBoardCheckTransformChange<UpdateData>.Property)wrapProperty.n) {
-				case GameDataBoardCheckTransformChange<UpdateData>.Property.change:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
+                dirty = true;
+                return;
 			}
 			// Parent
 			{
 				if (wrapProperty.p is FairyChessGameDataUI.UIData) {
-					switch ((FairyChessGameDataUI.UIData.Property)wrapProperty.n) {
-					case FairyChessGameDataUI.UIData.Property.gameData:
-						break;
-					case FairyChessGameDataUI.UIData.Property.updateTransform:
-						{
-							ValueChangeUtils.replaceCallBack (this, syncs);
-							dirty = true;
-						}
-						break;
-					case FairyChessGameDataUI.UIData.Property.isOnAnimation:
-						break;
-					case FairyChessGameDataUI.UIData.Property.board:
-						break;
-					case FairyChessGameDataUI.UIData.Property.lastMove:
-						break;
-					case FairyChessGameDataUI.UIData.Property.showHint:
-						break;
-					case FairyChessGameDataUI.UIData.Property.inputUI:
-						break;
-					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-						break;
-					}
 					return;
 				}
-				if (wrapProperty.p is UpdateTransform.UpdateData) {
-					switch ((UpdateTransform.UpdateData.Property)wrapProperty.n) {
-					case UpdateTransform.UpdateData.Property.position:
+                // Child
+				if (wrapProperty.p is TransformData) {
+					switch ((TransformData.Property)wrapProperty.n) {
+					case TransformData.Property.position:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.rotation:
+					case TransformData.Property.rotation:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.scale:
+					case TransformData.Property.scale:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.size:
+					case TransformData.Property.size:
 						dirty = true;
 						break;
 					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this + "; " + syncs);
+						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 						break;
 					}
 					return;

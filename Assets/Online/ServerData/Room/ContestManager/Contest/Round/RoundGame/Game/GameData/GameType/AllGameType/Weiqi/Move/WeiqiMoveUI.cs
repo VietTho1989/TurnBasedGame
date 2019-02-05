@@ -515,8 +515,6 @@ namespace Weiqi
 							dirty = true;
 						}
 						break;
-					case WeiqiGameDataUI.UIData.Property.updateTransform:
-						break;
 					case WeiqiGameDataUI.UIData.Property.transformOrganizer:
 						break;
 					case WeiqiGameDataUI.UIData.Property.isOnAnimation:

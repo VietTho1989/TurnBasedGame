@@ -38,11 +38,33 @@ namespace Sudoku
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {
-					SudokuGameDataUI.UIData sudokuGameDataUIData = this.data.findDataInParent<SudokuGameDataUI.UIData> ();
+                    SudokuGameDataUI sudokuGameDataUI = null;
+                    {
+                        SudokuGameDataUI.UIData sudokuGameDataUIData = this.data.findDataInParent<SudokuGameDataUI.UIData>();
+                        if (sudokuGameDataUIData != null)
+                        {
+                            sudokuGameDataUI = sudokuGameDataUIData.findCallBack<SudokuGameDataUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("sudokuGameDataUIData null");
+                        }
+                    }
+                    GameDataBoardUI gameDataBoardUI = null;
 					GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
-					if (sudokuGameDataUIData != null && gameDataBoardUIData != null) {
-						UpdateTransform.UpdateData sudokuTransform = sudokuGameDataUIData.updateTransform.v;
-						UpdateTransform.UpdateData boardTransform = gameDataBoardUIData.updateTransform.v;
+                    {
+                        if (gameDataBoardUIData != null)
+                        {
+                            gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("gameDataBoardUIData null");
+                        }
+                    }
+                    if (sudokuGameDataUI != null && gameDataBoardUI != null) {
+						TransformData sudokuTransform = sudokuGameDataUI.transformData;
+						TransformData boardTransform = gameDataBoardUI.transformData;
 						if (sudokuTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
 							float scale = Mathf.Min (Mathf.Abs (boardTransform.size.v.x / 9f), Mathf.Abs (boardTransform.size.v.y / 9f));
 							// new scale
@@ -61,7 +83,7 @@ namespace Sudoku
 							Debug.LogError ("why transform zero");
 						}
 					} else {
-						Debug.LogError ("sudokuGameDataUIData or gameDataBoardUIData null: " + this);
+						Debug.LogError ("sudokuGameDataUI or gameDataBoardUI null: " + this);
 					}
 				} else {
 					Debug.LogError ("data null: " + this);
@@ -108,13 +130,21 @@ namespace Sudoku
 					SudokuGameDataUI.UIData sudokuGameDataUIData = data as SudokuGameDataUI.UIData;
 					// Child
 					{
-						sudokuGameDataUIData.updateTransform.allAddCallBack (this);
+                        SudokuGameDataUI sudokuGameDataUI = sudokuGameDataUIData.findCallBack<SudokuGameDataUI>();
+                        if (sudokuGameDataUI != null)
+                        {
+                            sudokuGameDataUI.transformData.addCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("sudokuGameDataUI null");
+                        }
 					}
 					dirty = true;
 					return;
 				}
 				// Child
-				if (data is UpdateTransform.UpdateData) {
+				if (data is TransformData) {
 					dirty = true;
 					return;
 				}
@@ -148,12 +178,20 @@ namespace Sudoku
 					SudokuGameDataUI.UIData sudokuGameDataUIData = data as SudokuGameDataUI.UIData;
 					// Child
 					{
-						sudokuGameDataUIData.updateTransform.allRemoveCallBack (this);
-					}
+                        SudokuGameDataUI sudokuGameDataUI = sudokuGameDataUIData.findCallBack<SudokuGameDataUI>();
+                        if (sudokuGameDataUI != null)
+                        {
+                            sudokuGameDataUI.transformData.removeCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("sudokuGameDataUI null");
+                        }
+                    }
 					return;
 				}
 				// Child
-				if (data is UpdateTransform.UpdateData) {
+				if (data is TransformData) {
 					return;
 				}
 			}
@@ -168,7 +206,7 @@ namespace Sudoku
 			if (wrapProperty.p is UpdateData) {
 				switch ((UpdateData.Property)wrapProperty.n) {
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
@@ -181,48 +219,25 @@ namespace Sudoku
 			// Parent
 			{
 				if (wrapProperty.p is SudokuGameDataUI.UIData) {
-					switch ((SudokuGameDataUI.UIData.Property)wrapProperty.n) {
-					case SudokuGameDataUI.UIData.Property.gameData:
-						break;
-					case SudokuGameDataUI.UIData.Property.updateTransform:
-						{
-							ValueChangeUtils.replaceCallBack (this, syncs);
-							dirty = true;
-						}
-						break;
-					case SudokuGameDataUI.UIData.Property.isOnAnimation:
-						break;
-					case SudokuGameDataUI.UIData.Property.board:
-						break;
-					case SudokuGameDataUI.UIData.Property.lastMove:
-						break;
-					case SudokuGameDataUI.UIData.Property.showHint:
-						break;
-					case SudokuGameDataUI.UIData.Property.inputUI:
-						break;
-					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-						break;
-					}
 					return;
 				}
 				// Child
-				if (wrapProperty.p is UpdateTransform.UpdateData) {
-					switch ((UpdateTransform.UpdateData.Property)wrapProperty.n) {
-					case UpdateTransform.UpdateData.Property.position:
+				if (wrapProperty.p is TransformData) {
+					switch ((TransformData.Property)wrapProperty.n) {
+					case TransformData.Property.position:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.rotation:
+					case TransformData.Property.rotation:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.scale:
+					case TransformData.Property.scale:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.size:
+					case TransformData.Property.size:
 						dirty = true;
 						break;
 					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this + "; " + syncs);
+						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 						break;
 					}
 					return;

@@ -12,8 +12,6 @@ namespace CoTuongUp
 
 		public class UIData : Data
 		{
-			
-			public VP<UpdateTransform.UpdateData> updateTransform;
 
 			public VP<byte> piece;
 
@@ -21,13 +19,11 @@ namespace CoTuongUp
 
 			public enum Property
 			{
-				updateTransform,
 				piece
 			}
 
 			public UIData() : base()
 			{
-				this.updateTransform = new VP<UpdateTransform.UpdateData>(this, (byte)Property.updateTransform, new UpdateTransform.UpdateData());
 				this.piece = new VP<byte>(this, (byte)Property.piece, Common.x);
 			}
 
@@ -257,10 +253,6 @@ namespace CoTuongUp
 				{
 					DataUtils.addParentCallBack (uiData, this, ref this.boardUIData);
 				}
-				// Child
-				{
-					uiData.updateTransform.allAddCallBack (this);
-				}
 				dirty = true;
 				return;
 			}
@@ -287,15 +279,6 @@ namespace CoTuongUp
 					return;
 				}
 			}
-			// Child
-			if (data is UpdateTransform.UpdateData) {
-				UpdateTransform.UpdateData updateTransform = data as UpdateTransform.UpdateData;
-				{
-					UpdateUtils.makeComponentUpdate<UpdateTransform, UpdateTransform.UpdateData> (updateTransform, this.transform);
-				}
-				dirty = true;
-				return;
-			}
 			Debug.LogError ("Don't process: " + data + "; " + this);
 		}
 
@@ -311,10 +294,6 @@ namespace CoTuongUp
 				// Parent
 				{
 					DataUtils.removeParentCallBack (uiData, this, ref this.boardUIData);
-				}
-				// Child
-				{
-					uiData.updateTransform.allRemoveCallBack (this);
 				}
 				this.setDataNull (uiData);
 				return;
@@ -339,14 +318,6 @@ namespace CoTuongUp
 					return;
 				}
 			}
-			// Child
-			if (data is UpdateTransform.UpdateData) {
-				UpdateTransform.UpdateData updateTransform = data as UpdateTransform.UpdateData;
-				{
-					updateTransform.removeCallBackAndRemoveComponent (typeof(UpdateTransform));
-				}
-				return;
-			}
 			Debug.LogError ("Don't process: " + data + "; " + this);
 		}
 
@@ -361,7 +332,7 @@ namespace CoTuongUp
 					dirty = true;
 					break;
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
@@ -386,7 +357,7 @@ namespace CoTuongUp
 						case BoardUI.UIData.Property.captures:
 							break;
 						default:
-							Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 							break;
 						}
 						return;
@@ -410,7 +381,7 @@ namespace CoTuongUp
 						case CoTuongUp.Property.plyDraw:
 							break;
 						default:
-							Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 							break;
 						}
 						return;
@@ -418,37 +389,9 @@ namespace CoTuongUp
 				}
 				// Check Change
 				if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>) {
-					switch ((GameDataBoardCheckPerspectiveChange<UIData>.Property)wrapProperty.n) {
-					case GameDataBoardCheckPerspectiveChange<UIData>.Property.change:
-						dirty = true;
-						break;
-					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-						break;
-					}
-					return;
+                    dirty = true;
+                    return;
 				}
-			}
-			// Child
-			if (wrapProperty.p is UpdateTransform.UpdateData) {
-				switch ((UpdateTransform.UpdateData.Property)wrapProperty.n) {
-				case UpdateTransform.UpdateData.Property.position:
-					dirty = true;
-					break;
-				case UpdateTransform.UpdateData.Property.rotation:
-					dirty = true;
-					break;
-				case UpdateTransform.UpdateData.Property.scale:
-					dirty = true;
-					break;
-				case UpdateTransform.UpdateData.Property.size:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
 			}
 			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
 		}

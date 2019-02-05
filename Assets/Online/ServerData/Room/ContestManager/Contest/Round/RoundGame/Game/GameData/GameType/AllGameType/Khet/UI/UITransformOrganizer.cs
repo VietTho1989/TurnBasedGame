@@ -38,11 +38,33 @@ namespace Khet
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {
-					KhetGameDataUI.UIData khetGameDataUIData = this.data.findDataInParent<KhetGameDataUI.UIData> ();
+                    KhetGameDataUI khetGameDataUI = null;
+                    {
+                        KhetGameDataUI.UIData khetGameDataUIData = this.data.findDataInParent<KhetGameDataUI.UIData>();
+                        if (khetGameDataUIData != null)
+                        {
+                            khetGameDataUI = khetGameDataUIData.findCallBack<KhetGameDataUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("khetGameDataUIData null");
+                        }
+                    }
+                    GameDataBoardUI gameDataBoardUI = null;
 					GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
-					if (khetGameDataUIData != null && gameDataBoardUIData != null) {
-						UpdateTransform.UpdateData khetTransform = khetGameDataUIData.updateTransform.v;
-						UpdateTransform.UpdateData boardTransform = gameDataBoardUIData.updateTransform.v;
+                    {
+                        if (gameDataBoardUIData != null)
+                        {
+                            gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("gameDataBoardUIData null");
+                        }
+                    }
+                    if (khetGameDataUI != null && gameDataBoardUI != null) {
+						TransformData khetTransform = khetGameDataUI.transformData;
+						TransformData boardTransform = gameDataBoardUI.transformData;
 						if (khetTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
 							float scale = Mathf.Min (Mathf.Abs (boardTransform.size.v.x / 10f), Mathf.Abs (boardTransform.size.v.y / 8f));
 							// new scale
@@ -61,7 +83,7 @@ namespace Khet
 							Debug.LogError ("why transform zero");
 						}
 					} else {
-						Debug.LogError ("khetGameDataUIData or gameDataBoardUIData null: " + this);
+						Debug.LogError ("khetGameDataUI or gameDataBoardUI null: " + this);
 					}
 				} else {
 					Debug.LogError ("data null: " + this);
@@ -108,13 +130,21 @@ namespace Khet
 					KhetGameDataUI.UIData khetGameDataUIData = data as KhetGameDataUI.UIData;
 					// Child
 					{
-						khetGameDataUIData.updateTransform.allAddCallBack (this);
+                        KhetGameDataUI khetGameDataUI = khetGameDataUIData.findCallBack<KhetGameDataUI>();
+                        if (khetGameDataUI != null)
+                        {
+                            khetGameDataUI.transformData.addCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("khetGameDataUI null");
+                        }
 					}
 					dirty = true;
 					return;
 				}
 				// Child
-				if (data is UpdateTransform.UpdateData) {
+				if (data is TransformData) {
 					dirty = true;
 					return;
 				}
@@ -148,12 +178,20 @@ namespace Khet
 					KhetGameDataUI.UIData khetGameDataUIData = data as KhetGameDataUI.UIData;
 					// Child
 					{
-						khetGameDataUIData.updateTransform.allRemoveCallBack (this);
-					}
+                        KhetGameDataUI khetGameDataUI = khetGameDataUIData.findCallBack<KhetGameDataUI>();
+                        if (khetGameDataUI != null)
+                        {
+                            khetGameDataUI.transformData.removeCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("khetGameDataUI null");
+                        }
+                    }
 					return;
 				}
 				// Child
-				if (data is UpdateTransform.UpdateData) {
+				if (data is TransformData) {
 					return;
 				}
 			}
@@ -168,7 +206,7 @@ namespace Khet
 			if (wrapProperty.p is UpdateData) {
 				switch ((UpdateData.Property)wrapProperty.n) {
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
@@ -181,48 +219,25 @@ namespace Khet
 			// Parent
 			{
 				if (wrapProperty.p is KhetGameDataUI.UIData) {
-					switch ((KhetGameDataUI.UIData.Property)wrapProperty.n) {
-					case KhetGameDataUI.UIData.Property.gameData:
-						break;
-					case KhetGameDataUI.UIData.Property.updateTransform:
-						{
-							ValueChangeUtils.replaceCallBack (this, syncs);
-							dirty = true;
-						}
-						break;
-					case KhetGameDataUI.UIData.Property.isOnAnimation:
-						break;
-					case KhetGameDataUI.UIData.Property.board:
-						break;
-					case KhetGameDataUI.UIData.Property.lastMove:
-						break;
-					case KhetGameDataUI.UIData.Property.showHint:
-						break;
-					case KhetGameDataUI.UIData.Property.inputUI:
-						break;
-					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-						break;
-					}
 					return;
 				}
 				// Child
-				if (wrapProperty.p is UpdateTransform.UpdateData) {
-					switch ((UpdateTransform.UpdateData.Property)wrapProperty.n) {
-					case UpdateTransform.UpdateData.Property.position:
+				if (wrapProperty.p is TransformData) {
+					switch ((TransformData.Property)wrapProperty.n) {
+					case TransformData.Property.position:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.rotation:
+					case TransformData.Property.rotation:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.scale:
+					case TransformData.Property.scale:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.size:
+					case TransformData.Property.size:
 						dirty = true;
 						break;
 					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this + "; " + syncs);
+						Debug.LogError ("Don't process: " + wrapProperty + "; " + this + "; " + syncs);
 						break;
 					}
 					return;

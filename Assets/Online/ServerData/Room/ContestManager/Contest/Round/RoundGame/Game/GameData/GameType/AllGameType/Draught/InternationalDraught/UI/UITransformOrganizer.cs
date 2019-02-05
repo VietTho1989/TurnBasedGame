@@ -38,12 +38,34 @@ namespace InternationalDraught
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {
-					InternationalDraughtGameDataUI.UIData internationalDraughtGameDataUIData = this.data.findDataInParent<InternationalDraughtGameDataUI.UIData> ();
+                    InternationalDraughtGameDataUI internationalDraughtGameDataUI = null;
+                    {
+                        InternationalDraughtGameDataUI.UIData internationalDraughtGameDataUIData = this.data.findDataInParent<InternationalDraughtGameDataUI.UIData>();
+                        if (internationalDraughtGameDataUIData != null)
+                        {
+                            internationalDraughtGameDataUI = internationalDraughtGameDataUIData.findCallBack<InternationalDraughtGameDataUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("internationalDraughtGameDataUIData null");
+                        }
+                    }
+                    GameDataBoardUI gameDataBoardUI = null;
 					GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
-					if (internationalDraughtGameDataUIData != null && gameDataBoardUIData != null) {
-						UpdateTransform.UpdateData gomokuTransform = internationalDraughtGameDataUIData.updateTransform.v;
-						UpdateTransform.UpdateData boardTransform = gameDataBoardUIData.updateTransform.v;
-						if (gomokuTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
+                    {
+                        if (gameDataBoardUIData != null)
+                        {
+                            gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("gameDataBoardUIData null");
+                        }
+                    }
+                    if (internationalDraughtGameDataUI != null && gameDataBoardUI != null) {
+						TransformData internationalDraughtTransform = internationalDraughtGameDataUI.transformData;
+						TransformData boardTransform = gameDataBoardUI.transformData;
+						if (internationalDraughtTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
 							float boardSizeX = 10f;
 							float boardSizeY = 10f;
 							float scale = Mathf.Min (Mathf.Abs (boardTransform.size.v.x / boardSizeX), Mathf.Abs (boardTransform.size.v.y / boardSizeY));
@@ -63,7 +85,7 @@ namespace InternationalDraught
 							Debug.LogError ("why transform zero");
 						}
 					} else {
-						Debug.LogError ("gomokuGameDataUIData or gameDataBoardUIData null: " + this);
+						Debug.LogError ("internationalDraughtGameDataUI or gameDataBoardUI null: " + this);
 					}
 				} else {
 					Debug.LogError ("data null: " + this);
@@ -108,13 +130,23 @@ namespace InternationalDraught
 			{
 				if (data is InternationalDraughtGameDataUI.UIData) {
 					InternationalDraughtGameDataUI.UIData internationalDraughtGameDataUIData = data as InternationalDraughtGameDataUI.UIData;
-					{
-						internationalDraughtGameDataUIData.updateTransform.allAddCallBack (this);
+					// Child
+                    {
+                        InternationalDraughtGameDataUI internationalDraughtGameDataUI = internationalDraughtGameDataUIData.findCallBack<InternationalDraughtGameDataUI>();
+                        if (internationalDraughtGameDataUI != null)
+                        {
+                            internationalDraughtGameDataUI.transformData.addCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("internationalDraughtGameDataUI null");
+                        }
 					}
 					dirty = true;
 					return;
 				}
-				if (data is UpdateTransform.UpdateData) {
+                // Child
+				if (data is TransformData) {
 					dirty = true;
 					return;
 				}
@@ -146,12 +178,22 @@ namespace InternationalDraught
 			{
 				if (data is InternationalDraughtGameDataUI.UIData) {
 					InternationalDraughtGameDataUI.UIData internationalDraughtGameDataUIData = data as InternationalDraughtGameDataUI.UIData;
-					{
-						internationalDraughtGameDataUIData.updateTransform.allRemoveCallBack (this);
-					}
+					// Child
+                    {
+                        InternationalDraughtGameDataUI internationalDraughtGameDataUI = internationalDraughtGameDataUIData.findCallBack<InternationalDraughtGameDataUI>();
+                        if (internationalDraughtGameDataUI != null)
+                        {
+                            internationalDraughtGameDataUI.transformData.removeCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("internationalDraughtGameDataUI null");
+                        }
+                    }
 					return;
 				}
-				if (data is UpdateTransform.UpdateData) {
+                // Child
+				if (data is TransformData) {
 					return;
 				}
 			}
@@ -166,69 +208,37 @@ namespace InternationalDraught
 			if (wrapProperty.p is UpdateData) {
 				switch ((UpdateData.Property)wrapProperty.n) {
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
 			}
 			// CheckChange
 			if (wrapProperty.p is GameDataBoardCheckTransformChange<UpdateData>) {
-				switch ((GameDataBoardCheckTransformChange<UpdateData>.Property)wrapProperty.n) {
-				case GameDataBoardCheckTransformChange<UpdateData>.Property.change:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
+                dirty = true;
+                return;
 			}
 			// Parent
 			{
 				if (wrapProperty.p is InternationalDraughtGameDataUI.UIData) {
-					switch ((InternationalDraughtGameDataUI.UIData.Property)wrapProperty.n) {
-					case InternationalDraughtGameDataUI.UIData.Property.gameData:
-						break;
-					case InternationalDraughtGameDataUI.UIData.Property.updateTransform:
-						{
-							ValueChangeUtils.replaceCallBack(this, syncs);
-							dirty = true;
-						}
-						break;
-					case InternationalDraughtGameDataUI.UIData.Property.transformOrganizer:
-						break;
-					case InternationalDraughtGameDataUI.UIData.Property.isOnAnimation:
-						break;
-					case InternationalDraughtGameDataUI.UIData.Property.board:
-						break;
-					case InternationalDraughtGameDataUI.UIData.Property.lastMove:
-						break;
-					case InternationalDraughtGameDataUI.UIData.Property.showHint:
-						break;
-					case InternationalDraughtGameDataUI.UIData.Property.inputUI:
-						break;
-					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-						break;
-					}
 					return;
 				}
-				if (wrapProperty.p is UpdateTransform.UpdateData) {
-					switch ((UpdateTransform.UpdateData.Property)wrapProperty.n) {
-					case UpdateTransform.UpdateData.Property.position:
+				if (wrapProperty.p is TransformData) {
+					switch ((TransformData.Property)wrapProperty.n) {
+					case TransformData.Property.position:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.rotation:
+					case TransformData.Property.rotation:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.scale:
+					case TransformData.Property.scale:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.size:
+					case TransformData.Property.size:
 						dirty = true;
 						break;
 					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this + "; " + syncs);
+						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 						break;
 					}
 					return;

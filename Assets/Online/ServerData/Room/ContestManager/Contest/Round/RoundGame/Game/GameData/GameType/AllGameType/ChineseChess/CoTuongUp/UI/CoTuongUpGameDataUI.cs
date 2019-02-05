@@ -15,8 +15,6 @@ namespace CoTuongUp
 
 			#region Transform
 
-			public VP<UpdateTransform.UpdateData> updateTransform;
-
 			public VP<UITransformOrganizer.UpdateData> transformOrganizer;
 
 			#endregion
@@ -36,10 +34,7 @@ namespace CoTuongUp
 			public enum Property
 			{
 				gameData,
-
-				updateTransform,
 				transformOrganizer,
-
 				isOnAnimation,
 				board,
 				lastMove,
@@ -51,7 +46,6 @@ namespace CoTuongUp
 			{
 				this.gameData = new VP<ReferenceData<GameData>>(this, (byte)Property.gameData, new ReferenceData<GameData>(null));
 
-				this.updateTransform = new VP<UpdateTransform.UpdateData>(this, (byte)Property.updateTransform, new UpdateTransform.UpdateData());
 				this.transformOrganizer = new VP<UITransformOrganizer.UpdateData>(this, (byte)Property.transformOrganizer, new UITransformOrganizer.UpdateData());
 
 				this.isOnAnimation = new VP<bool>(this, (byte)Property.isOnAnimation, false);
@@ -181,12 +175,8 @@ namespace CoTuongUp
 					uiData.lastMove.allAddCallBack (this);
 					uiData.showHint.allAddCallBack (this);
 					uiData.inputUI.allAddCallBack (this);
-					// transform
-					{
-						uiData.updateTransform.allAddCallBack (this);
-						uiData.transformOrganizer.allAddCallBack (this);
-					}
-				}
+                    uiData.transformOrganizer.allAddCallBack(this);
+                }
 				dirty = true;
 				return;
 			}
@@ -247,26 +237,16 @@ namespace CoTuongUp
 					dirty = true;
 					return;
 				}
-				// Transform
-				{
-					if (data is UpdateTransform.UpdateData) {
-						UpdateTransform.UpdateData updateTransformData = data as UpdateTransform.UpdateData;
-						{
-							UpdateUtils.makeComponentUpdate<UpdateTransform, UpdateTransform.UpdateData> (updateTransformData, this.transform);
-						}
-						dirty = true;
-						return;
-					}
-					if (data is UITransformOrganizer.UpdateData) {
-						UITransformOrganizer.UpdateData transformOrganizer = data as UITransformOrganizer.UpdateData;
-						{
-							UpdateUtils.makeComponentUpdate<UITransformOrganizer, UITransformOrganizer.UpdateData> (transformOrganizer, this.transform);
-						}
-						dirty = true;
-						return;
-					}
-				}
-			}
+                if (data is UITransformOrganizer.UpdateData)
+                {
+                    UITransformOrganizer.UpdateData transformOrganizer = data as UITransformOrganizer.UpdateData;
+                    {
+                        UpdateUtils.makeComponentUpdate<UITransformOrganizer, UITransformOrganizer.UpdateData>(transformOrganizer, this.transform);
+                    }
+                    dirty = true;
+                    return;
+                }
+            }
 			Debug.LogError ("Don't process: " + data + "; " + this);
 		}
 
@@ -286,12 +266,8 @@ namespace CoTuongUp
 					uiData.lastMove.allRemoveCallBack (this);
 					uiData.showHint.allRemoveCallBack (this);
 					uiData.inputUI.allRemoveCallBack (this);
-					// Transform
-					{
-						uiData.updateTransform.allRemoveCallBack (this);
-						uiData.transformOrganizer.allRemoveCallBack (this);
-					}
-				}
+                    uiData.transformOrganizer.allRemoveCallBack(this);
+                }
 				this.setDataNull (uiData);
 				return;
 			}
@@ -341,24 +317,15 @@ namespace CoTuongUp
 					}
 					return;
 				}
-				// Transform
-				{
-					if (data is UpdateTransform.UpdateData) {
-						UpdateTransform.UpdateData updateTransformData = data as UpdateTransform.UpdateData;
-						{
-							updateTransformData.removeCallBackAndRemoveComponent (typeof(UpdateTransform));
-						}
-						return;
-					}
-					if (data is UITransformOrganizer.UpdateData) {
-						UITransformOrganizer.UpdateData transformOrganizer = data as UITransformOrganizer.UpdateData;
-						{
-							transformOrganizer.removeCallBackAndRemoveComponent (typeof(UITransformOrganizer));
-						}
-						return;
-					}
-				}
-			}
+                if (data is UITransformOrganizer.UpdateData)
+                {
+                    UITransformOrganizer.UpdateData transformOrganizer = data as UITransformOrganizer.UpdateData;
+                    {
+                        transformOrganizer.removeCallBackAndRemoveComponent(typeof(UITransformOrganizer));
+                    }
+                    return;
+                }
+            }
 			Debug.LogError ("Don't process: " + data + "; " + this);
 		}
 
@@ -370,12 +337,6 @@ namespace CoTuongUp
 			if (wrapProperty.p is UIData) {
 				switch ((UIData.Property)wrapProperty.n) {
 				case UIData.Property.gameData:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				case UIData.Property.updateTransform:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
 						dirty = true;
@@ -414,7 +375,7 @@ namespace CoTuongUp
 					}
 					break;
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
@@ -426,7 +387,6 @@ namespace CoTuongUp
 			}
 			// Child
 			{
-				// GameData
 				if (wrapProperty.p is GameData) {
 					switch ((GameData.Property)wrapProperty.n) {
 					case GameData.Property.gameType:
@@ -443,37 +403,28 @@ namespace CoTuongUp
 					case GameData.Property.state:
 						break;
 					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 						break;
 					}
 					return;
 				}
-				// Board
 				if (wrapProperty.p is BoardUI.UIData) {
 					return;
 				}
-				// LastMove
 				if (wrapProperty.p is LastMoveUI.UIData) {
 					return;
 				}
-				// ShowHint
 				if (wrapProperty.p is ShowHintUI.UIData) {
 					return;
 				}
-				// InputUI
 				if (wrapProperty.p is InputUI.UIData) {
 					return;
 				}
-				// Transform
-				{
-					if (wrapProperty.p is UpdateTransform.UpdateData) {
-						return;
-					}
-					if (wrapProperty.p is UITransformOrganizer.UpdateData) {
-						return;
-					}
-				}
-			}
+                if (wrapProperty.p is UITransformOrganizer.UpdateData)
+                {
+                    return;
+                }
+            }
 			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
 		}
 

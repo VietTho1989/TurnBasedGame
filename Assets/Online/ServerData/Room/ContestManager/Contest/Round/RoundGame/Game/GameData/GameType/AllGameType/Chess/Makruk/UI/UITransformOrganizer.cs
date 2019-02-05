@@ -38,11 +38,33 @@ namespace Makruk
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {
-					MakrukGameDataUI.UIData makrukGameDataUIData = this.data.findDataInParent<MakrukGameDataUI.UIData> ();
-					GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
-					if (makrukGameDataUIData != null && gameDataBoardUIData != null) {
-						UpdateTransform.UpdateData makrukTransform = makrukGameDataUIData.updateTransform.v;
-						UpdateTransform.UpdateData boardTransform = gameDataBoardUIData.updateTransform.v;
+                    MakrukGameDataUI makrukGameDataUI = null;
+                    {
+                        MakrukGameDataUI.UIData makrukGameDataUIData = this.data.findDataInParent<MakrukGameDataUI.UIData>();
+                        if (makrukGameDataUIData != null)
+                        {
+                            makrukGameDataUI = makrukGameDataUIData.findCallBack<MakrukGameDataUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("makrukGameDataUIData null");
+                        }
+                    }
+                    GameDataBoardUI gameDataBoardUI = null;
+                    GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
+                    {
+                        if (gameDataBoardUIData != null)
+                        {
+                            gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("gameDataBoardUIData null");
+                        }
+                    }
+                    if (makrukGameDataUI != null && gameDataBoardUI != null) {
+						TransformData makrukTransform = makrukGameDataUI.transformData;
+						TransformData boardTransform = gameDataBoardUI.transformData;
 						if (makrukTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
 							float scale = Mathf.Min (Mathf.Abs (boardTransform.size.v.x / 8f), Mathf.Abs (boardTransform.size.v.y / 8f));
 							// new scale
@@ -61,7 +83,7 @@ namespace Makruk
 							Debug.LogError ("why transform zero");
 						}
 					} else {
-						Debug.LogError ("makrukGameDataUIData or gameDataBoardUIData null: " + this);
+						Debug.LogError ("makrukGameDataUI or gameDataBoardUI null: " + this);
 					}
 				} else {
 					Debug.LogError ("data null: " + this);
@@ -106,13 +128,22 @@ namespace Makruk
 			{
 				if (data is MakrukGameDataUI.UIData) {
 					MakrukGameDataUI.UIData makrukGameDataUIData = data as MakrukGameDataUI.UIData;
+                    // Child
 					{
-						makrukGameDataUIData.updateTransform.allAddCallBack (this);
+                        MakrukGameDataUI makrukGameDataUI = makrukGameDataUIData.findCallBack<MakrukGameDataUI>();
+                        if (makrukGameDataUI != null)
+                        {
+                            makrukGameDataUI.transformData.addCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("makrukGameDataUI null");
+                        }
 					}
 					dirty = true;
 					return;
 				}
-				if (data is UpdateTransform.UpdateData) {
+				if (data is TransformData) {
 					dirty = true;
 					return;
 				}
@@ -144,12 +175,22 @@ namespace Makruk
 			{
 				if (data is MakrukGameDataUI.UIData) {
 					MakrukGameDataUI.UIData makrukGameDataUIData = data as MakrukGameDataUI.UIData;
-					{
-						makrukGameDataUIData.updateTransform.allRemoveCallBack (this);
-					}
+					// Child
+                    {
+                        MakrukGameDataUI makrukGameDataUI = makrukGameDataUIData.findCallBack<MakrukGameDataUI>();
+                        if (makrukGameDataUI != null)
+                        {
+                            makrukGameDataUI.transformData.removeCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("makrukGameDataUI null");
+                        }
+                    }
 					return;
 				}
-				if (data is UpdateTransform.UpdateData) {
+                // Child
+				if (data is TransformData) {
 					return;
 				}
 			}
@@ -171,60 +212,31 @@ namespace Makruk
 			}
 			// CheckChange
 			if (wrapProperty.p is GameDataBoardCheckTransformChange<UpdateData>) {
-				switch ((GameDataBoardCheckTransformChange<UpdateData>.Property)wrapProperty.n) {
-				case GameDataBoardCheckTransformChange<UpdateData>.Property.change:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
+                dirty = true;
+                return;
 			}
 			// Parent
 			{
 				if (wrapProperty.p is MakrukGameDataUI.UIData) {
-					switch ((MakrukGameDataUI.UIData.Property)wrapProperty.n) {
-					case MakrukGameDataUI.UIData.Property.gameData:
-						break;
-					case MakrukGameDataUI.UIData.Property.updateTransform:
-						{
-							ValueChangeUtils.replaceCallBack (this, syncs);
-							dirty = true;
-						}
-						break;
-					case MakrukGameDataUI.UIData.Property.isOnAnimation:
-						break;
-					case MakrukGameDataUI.UIData.Property.board:
-						break;
-					case MakrukGameDataUI.UIData.Property.lastMove:
-						break;
-					case MakrukGameDataUI.UIData.Property.showHint:
-						break;
-					case MakrukGameDataUI.UIData.Property.inputUI:
-						break;
-					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-						break;
-					}
 					return;
 				}
-				if (wrapProperty.p is UpdateTransform.UpdateData) {
-					switch ((UpdateTransform.UpdateData.Property)wrapProperty.n) {
-					case UpdateTransform.UpdateData.Property.position:
+                // Child
+				if (wrapProperty.p is TransformData) {
+					switch ((TransformData.Property)wrapProperty.n) {
+					case TransformData.Property.position:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.rotation:
+					case TransformData.Property.rotation:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.scale:
+					case TransformData.Property.scale:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.size:
+					case TransformData.Property.size:
 						dirty = true;
 						break;
 					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this + "; " + syncs);
+						Debug.LogError ("Don't process: " + wrapProperty + "; " + this + "; " + syncs);
 						break;
 					}
 					return;

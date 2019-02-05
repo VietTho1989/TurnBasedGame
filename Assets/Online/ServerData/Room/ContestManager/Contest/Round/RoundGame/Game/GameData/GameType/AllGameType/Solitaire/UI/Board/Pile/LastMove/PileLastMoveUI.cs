@@ -347,8 +347,6 @@ namespace Solitaire
 						switch ((SolitaireGameDataUI.UIData.Property)wrapProperty.n) {
 						case SolitaireGameDataUI.UIData.Property.gameData:
 							break;
-						case SolitaireGameDataUI.UIData.Property.updateTransform:
-							break;
 						case SolitaireGameDataUI.UIData.Property.transformOrganizer:
 							break;
 						case SolitaireGameDataUI.UIData.Property.isOnAnimation:

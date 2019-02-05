@@ -38,11 +38,33 @@ namespace NineMenMorris
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {
-					NineMenMorrisGameDataUI.UIData nineMenMorrisGameDataUIData = this.data.findDataInParent<NineMenMorrisGameDataUI.UIData> ();
+                    NineMenMorrisGameDataUI nineMenMorrisGameDataUI = null;
+                    {
+                        NineMenMorrisGameDataUI.UIData nineMenMorrisGameDataUIData = this.data.findDataInParent<NineMenMorrisGameDataUI.UIData>();
+                        if (nineMenMorrisGameDataUIData != null)
+                        {
+                            nineMenMorrisGameDataUI = nineMenMorrisGameDataUIData.findCallBack<NineMenMorrisGameDataUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("nineMenMorrisGameDataUIData null");
+                        }
+                    }
+                    GameDataBoardUI gameDataBoardUI = null;
 					GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
-					if (nineMenMorrisGameDataUIData != null && gameDataBoardUIData != null) {
-						UpdateTransform.UpdateData nineMenMorrisTransform = nineMenMorrisGameDataUIData.updateTransform.v;
-						UpdateTransform.UpdateData boardTransform = gameDataBoardUIData.updateTransform.v;
+                    {
+                        if (gameDataBoardUIData != null)
+                        {
+                            gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("gameDataBoardUIData null");
+                        }
+                    }
+                    if (nineMenMorrisGameDataUI != null && gameDataBoardUI != null) {
+						TransformData nineMenMorrisTransform = nineMenMorrisGameDataUI.transformData;
+						TransformData boardTransform = gameDataBoardUI.transformData;
 						if (nineMenMorrisTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
 							float scale = Mathf.Min (Mathf.Abs (boardTransform.size.v.x / 7f), Mathf.Abs (boardTransform.size.v.y / 7f));
 							// new scale
@@ -61,7 +83,7 @@ namespace NineMenMorris
 							Debug.LogError ("why transform zero");
 						}
 					} else {
-						Debug.LogError ("nineMenMorrisGameDataUIData or gameDataBoardUIData null: " + this);
+						Debug.LogError ("nineMenMorrisGameDataUI or gameDataBoardUI null: " + this);
 					}
 				} else {
 					Debug.LogError ("data null: " + this);
@@ -108,13 +130,21 @@ namespace NineMenMorris
 					NineMenMorrisGameDataUI.UIData nineMenMorrisGameDataUIData = data as NineMenMorrisGameDataUI.UIData;
 					// Child
 					{
-						nineMenMorrisGameDataUIData.updateTransform.allAddCallBack (this);
+                        NineMenMorrisGameDataUI nineMenMorrisGameDataUI = nineMenMorrisGameDataUIData.findCallBack<NineMenMorrisGameDataUI>();
+                        if (nineMenMorrisGameDataUI != null)
+                        {
+                            nineMenMorrisGameDataUI.transformData.addCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("nineMenMorrisGameDataUI null");
+                        }
 					}
 					dirty = true;
 					return;
 				}
 				// Child
-				if (data is UpdateTransform.UpdateData) {
+				if (data is TransformData) {
 					dirty = true;
 					return;
 				}
@@ -148,12 +178,20 @@ namespace NineMenMorris
 					NineMenMorrisGameDataUI.UIData nineMenMorrisGameDataUIData = data as NineMenMorrisGameDataUI.UIData;
 					// Child
 					{
-						nineMenMorrisGameDataUIData.updateTransform.allRemoveCallBack (this);
-					}
+                        NineMenMorrisGameDataUI nineMenMorrisGameDataUI = nineMenMorrisGameDataUIData.findCallBack<NineMenMorrisGameDataUI>();
+                        if (nineMenMorrisGameDataUI != null)
+                        {
+                            nineMenMorrisGameDataUI.transformData.removeCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("nineMenMorrisGameDataUI null");
+                        }
+                    }
 					return;
 				}
 				// Child
-				if (data is UpdateTransform.UpdateData) {
+				if (data is TransformData) {
 					return;
 				}
 			}
@@ -168,7 +206,7 @@ namespace NineMenMorris
 			if (wrapProperty.p is UpdateData) {
 				switch ((UpdateData.Property)wrapProperty.n) {
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
@@ -181,48 +219,25 @@ namespace NineMenMorris
 			// Parent
 			{
 				if (wrapProperty.p is NineMenMorrisGameDataUI.UIData) {
-					switch ((NineMenMorrisGameDataUI.UIData.Property)wrapProperty.n) {
-					case NineMenMorrisGameDataUI.UIData.Property.gameData:
-						break;
-					case NineMenMorrisGameDataUI.UIData.Property.updateTransform:
-						{
-							ValueChangeUtils.replaceCallBack (this, syncs);
-							dirty = true;
-						}
-						break;
-					case NineMenMorrisGameDataUI.UIData.Property.isOnAnimation:
-						break;
-					case NineMenMorrisGameDataUI.UIData.Property.board:
-						break;
-					case NineMenMorrisGameDataUI.UIData.Property.lastMove:
-						break;
-					case NineMenMorrisGameDataUI.UIData.Property.showHint:
-						break;
-					case NineMenMorrisGameDataUI.UIData.Property.inputUI:
-						break;
-					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-						break;
-					}
 					return;
 				}
 				// Child
-				if (wrapProperty.p is UpdateTransform.UpdateData) {
-					switch ((UpdateTransform.UpdateData.Property)wrapProperty.n) {
-					case UpdateTransform.UpdateData.Property.position:
+				if (wrapProperty.p is TransformData) {
+					switch ((TransformData.Property)wrapProperty.n) {
+					case TransformData.Property.position:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.rotation:
+					case TransformData.Property.rotation:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.scale:
+					case TransformData.Property.scale:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.size:
+					case TransformData.Property.size:
 						dirty = true;
 						break;
 					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this + "; " + syncs);
+						Debug.LogError ("Don't process: " + wrapProperty + "; " + this + "; " + syncs);
 						break;
 					}
 					return;

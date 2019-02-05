@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class TransformChange : ValueChangeCallBack
 {
 
-	public UpdateTransform.UpdateData updateTransform = new UpdateTransform.UpdateData ();
+	public TransformData updateTransform = new TransformData ();
 
 	public bool dirty = true;
 
@@ -18,7 +18,7 @@ public class TransformChange : ValueChangeCallBack
 
 	public void onAddCallBack<T> (T data) where T:Data
 	{
-		if (data is UpdateTransform.UpdateData) {
+		if (data is TransformData) {
 			dirty = true;
 			return;
 		}
@@ -27,7 +27,7 @@ public class TransformChange : ValueChangeCallBack
 
 	public void onRemoveCallBack<T> (T data, bool isHide) where T:Data
 	{
-		if (data is UpdateTransform.UpdateData) {
+		if (data is TransformData) {
 			return;
 		}
 		Debug.LogError ("Don't process: " + data + "; " + this);
@@ -38,18 +38,18 @@ public class TransformChange : ValueChangeCallBack
 		if (WrapProperty.checkError (wrapProperty)) {
 			return;
 		}
-		if (wrapProperty.p is UpdateTransform.UpdateData) {
-			switch ((UpdateTransform.UpdateData.Property)wrapProperty.n) {
-			case UpdateTransform.UpdateData.Property.position:
+		if (wrapProperty.p is TransformData) {
+			switch ((TransformData.Property)wrapProperty.n) {
+			case TransformData.Property.position:
 				dirty = true;
 				break;
-			case UpdateTransform.UpdateData.Property.rotation:
+			case TransformData.Property.rotation:
 				dirty = true;
 				break;
-			case UpdateTransform.UpdateData.Property.scale:
+			case TransformData.Property.scale:
 				dirty = true;
 				break;
-			case UpdateTransform.UpdateData.Property.size:
+			case TransformData.Property.size:
 				dirty = true;
 				break;
 			default:

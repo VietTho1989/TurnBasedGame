@@ -38,11 +38,33 @@ namespace Chess
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {
-					ChessGameDataUI.UIData chessGameDataUIData = this.data.findDataInParent<ChessGameDataUI.UIData> ();
-					GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
-					if (chessGameDataUIData != null && gameDataBoardUIData != null) {
-						UpdateTransform.UpdateData chessTransform = chessGameDataUIData.updateTransform.v;
-						UpdateTransform.UpdateData boardTransform = gameDataBoardUIData.updateTransform.v;
+                    ChessGameDataUI chessGameDataUI = null;
+                    {
+                        ChessGameDataUI.UIData chessGameDataUIData = this.data.findDataInParent<ChessGameDataUI.UIData>();
+                        if (chessGameDataUIData != null)
+                        {
+                            chessGameDataUI = chessGameDataUIData.findCallBack<ChessGameDataUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("chessGameDataUIData null");
+                        }
+                    }
+                    GameDataBoardUI gameDataBoardUI = null;
+                    GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData>();
+                    {
+                        if (gameDataBoardUIData != null)
+                        {
+                            gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("gameDataBoardUIData null");
+                        }
+                    }
+					if (chessGameDataUI != null && gameDataBoardUI != null) {
+						TransformData chessTransform = chessGameDataUI.transformData;
+						TransformData boardTransform = gameDataBoardUI.transformData;
 						if (chessTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
 							float scale = Mathf.Min (Mathf.Abs (boardTransform.size.v.x / 8f), Mathf.Abs (boardTransform.size.v.y / 8f));
 							// new scale
@@ -108,13 +130,21 @@ namespace Chess
 					ChessGameDataUI.UIData chessGameDataUIData = data as ChessGameDataUI.UIData;
 					// Child
 					{
-						chessGameDataUIData.updateTransform.allAddCallBack (this);
+                        ChessGameDataUI chessGameDataUI = chessGameDataUIData.findCallBack<ChessGameDataUI>();
+                        if (chessGameDataUI != null)
+                        {
+                            chessGameDataUI.transformData.addCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("chessGameDataUI null");
+                        }
 					}
 					dirty = true;
 					return;
 				}
 				// Child
-				if (data is UpdateTransform.UpdateData) {
+				if (data is TransformData) {
 					dirty = true;
 					return;
 				}
@@ -148,12 +178,20 @@ namespace Chess
 					ChessGameDataUI.UIData chessGameDataUIData = data as ChessGameDataUI.UIData;
 					// Child
 					{
-						chessGameDataUIData.updateTransform.allRemoveCallBack (this);
-					}
+                        ChessGameDataUI chessGameDataUI = chessGameDataUIData.findCallBack<ChessGameDataUI>();
+                        if (chessGameDataUI != null)
+                        {
+                            chessGameDataUI.transformData.removeCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("chessGameDataUI null");
+                        }
+                    }
 					return;
 				}
 				// Child
-				if (data is UpdateTransform.UpdateData) {
+				if (data is TransformData) {
 					return;
 				}
 			}
@@ -168,7 +206,7 @@ namespace Chess
 			if (wrapProperty.p is UpdateData) {
 				switch ((UpdateData.Property)wrapProperty.n) {
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
@@ -181,48 +219,25 @@ namespace Chess
 			// Parent
 			{
 				if (wrapProperty.p is ChessGameDataUI.UIData) {
-					switch ((ChessGameDataUI.UIData.Property)wrapProperty.n) {
-					case ChessGameDataUI.UIData.Property.gameData:
-						break;
-					case ChessGameDataUI.UIData.Property.updateTransform:
-						{
-							ValueChangeUtils.replaceCallBack (this, syncs);
-							dirty = true;
-						}
-						break;
-					case ChessGameDataUI.UIData.Property.isOnAnimation:
-						break;
-					case ChessGameDataUI.UIData.Property.board:
-						break;
-					case ChessGameDataUI.UIData.Property.lastMove:
-						break;
-					case ChessGameDataUI.UIData.Property.showHint:
-						break;
-					case ChessGameDataUI.UIData.Property.inputUI:
-						break;
-					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-						break;
-					}
 					return;
 				}
 				// Child
-				if (wrapProperty.p is UpdateTransform.UpdateData) {
-					switch ((UpdateTransform.UpdateData.Property)wrapProperty.n) {
-					case UpdateTransform.UpdateData.Property.position:
+				if (wrapProperty.p is TransformData) {
+					switch ((TransformData.Property)wrapProperty.n) {
+					case TransformData.Property.position:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.rotation:
+					case TransformData.Property.rotation:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.scale:
+					case TransformData.Property.scale:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.size:
+					case TransformData.Property.size:
 						dirty = true;
 						break;
 					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this + "; " + syncs);
+						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 						break;
 					}
 					return;

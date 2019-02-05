@@ -280,8 +280,6 @@ namespace HEX.NoneRule
 					switch ((HexGameDataUI.UIData.Property)wrapProperty.n) {
 					case HexGameDataUI.UIData.Property.gameData:
 						break;
-					case HexGameDataUI.UIData.Property.updateTransform:
-						break;
 					case HexGameDataUI.UIData.Property.transformOrganizer:
 						break;
 					case HexGameDataUI.UIData.Property.isOnAnimation:

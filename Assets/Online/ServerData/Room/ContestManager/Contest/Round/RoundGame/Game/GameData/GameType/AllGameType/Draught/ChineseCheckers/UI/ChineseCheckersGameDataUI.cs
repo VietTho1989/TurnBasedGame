@@ -14,13 +14,7 @@ namespace ChineseCheckers
 
             public VP<ReferenceData<GameData>> gameData;
 
-            #region Transform
-
-            public VP<UpdateTransform.UpdateData> updateTransform;
-
             public VP<UITransformOrganizer.UpdateData> transformOrganizer;
-
-            #endregion
 
             public VP<bool> isOnAnimation;
 
@@ -37,10 +31,7 @@ namespace ChineseCheckers
             public enum Property
             {
                 gameData,
-
-                updateTransform,
                 transformOrganizer,
-
                 isOnAnimation,
                 board,
                 lastMove,
@@ -51,10 +42,7 @@ namespace ChineseCheckers
             public UIData() : base()
             {
                 this.gameData = new VP<ReferenceData<GameData>>(this, (byte)Property.gameData, new ReferenceData<GameData>(null));
-
-                this.updateTransform = new VP<UpdateTransform.UpdateData>(this, (byte)Property.updateTransform, new UpdateTransform.UpdateData());
                 this.transformOrganizer = new VP<UITransformOrganizer.UpdateData>(this, (byte)Property.transformOrganizer, new UITransformOrganizer.UpdateData());
-
                 this.isOnAnimation = new VP<bool>(this, (byte)Property.isOnAnimation, false);
                 this.board = new VP<BoardUI.UIData>(this, (byte)Property.board, new BoardUI.UIData());
                 // this.lastMove = new VP<LastMoveUI.UIData>(this, (byte)Property.lastMove, new LastMoveUI.UIData());
@@ -208,11 +196,7 @@ namespace ChineseCheckers
                     // uiData.lastMove.allAddCallBack(this);
                     // uiData.showHint.allAddCallBack(this);
                     // uiData.inputUI.allAddCallBack(this);
-                    // transform
-                    {
-                        uiData.updateTransform.allAddCallBack(this);
-                        uiData.transformOrganizer.allAddCallBack(this);
-                    }
+                    uiData.transformOrganizer.allAddCallBack(this);
                 }
                 dirty = true;
                 return;
@@ -225,13 +209,11 @@ namespace ChineseCheckers
             }
             // Child
             {
-                // GameData
                 if (data is GameData)
                 {
                     dirty = true;
                     return;
                 }
-                // Board
                 if (data is BoardUI.UIData)
                 {
                     BoardUI.UIData boardUIData = data as BoardUI.UIData;
@@ -242,7 +224,6 @@ namespace ChineseCheckers
                     dirty = true;
                     return;
                 }
-                // LastMove
                 /*if (data is LastMoveUI.UIData)
                 {
                     LastMoveUI.UIData lastMoveUIData = data as LastMoveUI.UIData;
@@ -253,7 +234,6 @@ namespace ChineseCheckers
                     dirty = true;
                     return;
                 }*/
-                // ShowHint
                 /*if (data is ShowHintUI.UIData)
                 {
                     ShowHintUI.UIData showHintUIData = data as ShowHintUI.UIData;
@@ -264,7 +244,6 @@ namespace ChineseCheckers
                     dirty = true;
                     return;
                 }*/
-                // Input
                 /*if (data is InputUI.UIData)
                 {
                     InputUI.UIData inputUIData = data as InputUI.UIData;
@@ -283,28 +262,15 @@ namespace ChineseCheckers
                     dirty = true;
                     return;
                 }*/
-                // Transform
+                if (data is UITransformOrganizer.UpdateData)
                 {
-                    if (data is UpdateTransform.UpdateData)
+                    UITransformOrganizer.UpdateData transformOrganizer = data as UITransformOrganizer.UpdateData;
+                    // UI
                     {
-                        UpdateTransform.UpdateData updateTransformData = data as UpdateTransform.UpdateData;
-                        // UI
-                        {
-                            UpdateUtils.makeComponentUpdate<UpdateTransform, UpdateTransform.UpdateData>(updateTransformData, this.transform);
-                        }
-                        dirty = true;
-                        return;
+                        UpdateUtils.makeComponentUpdate<UITransformOrganizer, UITransformOrganizer.UpdateData>(transformOrganizer, this.transform);
                     }
-                    if (data is UITransformOrganizer.UpdateData)
-                    {
-                        UITransformOrganizer.UpdateData transformOrganizer = data as UITransformOrganizer.UpdateData;
-                        // UI
-                        {
-                            UpdateUtils.makeComponentUpdate<UITransformOrganizer, UITransformOrganizer.UpdateData>(transformOrganizer, this.transform);
-                        }
-                        dirty = true;
-                        return;
-                    }
+                    dirty = true;
+                    return;
                 }
             }
             Debug.LogError("Don't process: " + data + "; " + this);
@@ -327,11 +293,7 @@ namespace ChineseCheckers
                     // uiData.lastMove.allRemoveCallBack(this);
                     // uiData.showHint.allRemoveCallBack(this);
                     // uiData.inputUI.allRemoveCallBack(this);
-                    // Transform
-                    {
-                        uiData.updateTransform.allRemoveCallBack(this);
-                        uiData.transformOrganizer.allRemoveCallBack(this);
-                    }
+                    uiData.transformOrganizer.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
                 return;
@@ -343,12 +305,10 @@ namespace ChineseCheckers
             }
             // Child
             {
-                // GameData
                 if (data is GameData)
                 {
                     return;
                 }
-                // Board
                 if (data is BoardUI.UIData)
                 {
                     BoardUI.UIData boardUIData = data as BoardUI.UIData;
@@ -358,7 +318,6 @@ namespace ChineseCheckers
                     }
                     return;
                 }
-                // LastMove
                 /*if (data is LastMoveUI.UIData)
                 {
                     LastMoveUI.UIData lastMoveUIData = data as LastMoveUI.UIData;
@@ -368,7 +327,6 @@ namespace ChineseCheckers
                     }
                     return;
                 }*/
-                // ShowHint
                 /*if (data is ShowHintUI.UIData)
                 {
                     ShowHintUI.UIData showHintUIData = data as ShowHintUI.UIData;
@@ -378,7 +336,6 @@ namespace ChineseCheckers
                     }
                     return;
                 }*/
-                // InputUI
                 /*if (data is InputUI.UIData)
                 {
                     InputUI.UIData inputUIData = data as InputUI.UIData;
@@ -388,24 +345,13 @@ namespace ChineseCheckers
                     }
                     return;
                 }*/
-                // Transform
+                if (data is UITransformOrganizer.UpdateData)
                 {
-                    if (data is UpdateTransform.UpdateData)
+                    UITransformOrganizer.UpdateData transformOrganizer = data as UITransformOrganizer.UpdateData;
                     {
-                        UpdateTransform.UpdateData updateTransformData = data as UpdateTransform.UpdateData;
-                        {
-                            updateTransformData.removeCallBackAndRemoveComponent(typeof(UpdateTransform));
-                        }
-                        return;
+                        transformOrganizer.removeCallBackAndRemoveComponent(typeof(UITransformOrganizer));
                     }
-                    if (data is UITransformOrganizer.UpdateData)
-                    {
-                        UITransformOrganizer.UpdateData transformOrganizer = data as UITransformOrganizer.UpdateData;
-                        {
-                            transformOrganizer.removeCallBackAndRemoveComponent(typeof(UITransformOrganizer));
-                        }
-                        return;
-                    }
+                    return;
                 }
             }
             Debug.LogError("Don't process: " + data + "; " + this);
@@ -422,12 +368,6 @@ namespace ChineseCheckers
                 switch ((UIData.Property)wrapProperty.n)
                 {
                     case UIData.Property.gameData:
-                        {
-                            ValueChangeUtils.replaceCallBack(this, syncs);
-                            dirty = true;
-                        }
-                        break;
-                    case UIData.Property.updateTransform:
                         {
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
@@ -479,7 +419,6 @@ namespace ChineseCheckers
             }
             // Child
             {
-                // GameData
                 if (wrapProperty.p is GameData)
                 {
                     switch ((GameData.Property)wrapProperty.n)
@@ -503,36 +442,25 @@ namespace ChineseCheckers
                     }
                     return;
                 }
-                // Board
                 if (wrapProperty.p is BoardUI.UIData)
                 {
                     return;
                 }
-                // LastMove
                 /*if (wrapProperty.p is LastMoveUI.UIData)
                 {
                     return;
                 }*/
-                // ShowHint
                 /*if (wrapProperty.p is ShowHintUI.UIData)
                 {
                     return;
                 }*/
-                // InputUI
                 /*if (wrapProperty.p is InputUI.UIData)
                 {
                     return;
                 }*/
-                // Transform
+                if (wrapProperty.p is UITransformOrganizer.UpdateData)
                 {
-                    if (wrapProperty.p is UpdateTransform.UpdateData)
-                    {
-                        return;
-                    }
-                    if (wrapProperty.p is UITransformOrganizer.UpdateData)
-                    {
-                        return;
-                    }
+                    return;
                 }
             }
             Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);

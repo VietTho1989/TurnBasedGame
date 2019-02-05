@@ -285,8 +285,6 @@ namespace Shogi.NoneRule
 					switch ((ShogiGameDataUI.UIData.Property)wrapProperty.n) {
 					case ShogiGameDataUI.UIData.Property.gameData:
 						break;
-					case ShogiGameDataUI.UIData.Property.updateTransform:
-						break;
 					case ShogiGameDataUI.UIData.Property.transformOrganizer:
 						break;
 					case ShogiGameDataUI.UIData.Property.isOnAnimation:

@@ -38,11 +38,33 @@ namespace Reversi
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {
-					ReversiGameDataUI.UIData reversiGameDataUIData = this.data.findDataInParent<ReversiGameDataUI.UIData> ();
-					GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
-					if (reversiGameDataUIData != null && gameDataBoardUIData != null) {
-						UpdateTransform.UpdateData reversiTransform = reversiGameDataUIData.updateTransform.v;
-						UpdateTransform.UpdateData boardTransform = gameDataBoardUIData.updateTransform.v;
+                    ReversiGameDataUI reversiGameDataUI = null;
+                    {
+                        ReversiGameDataUI.UIData reversiGameDataUIData = this.data.findDataInParent<ReversiGameDataUI.UIData>();
+                        if (reversiGameDataUIData != null)
+                        {
+                            reversiGameDataUI = reversiGameDataUIData.findCallBack<ReversiGameDataUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("reversiGameDataUIData null");
+                        }
+                    }
+                    GameDataBoardUI gameDataBoardUI = null;
+                    GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
+                    {
+                        if (gameDataBoardUIData != null)
+                        {
+                            gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("gameDataBoardUIData null");
+                        }
+                    }
+                    if (reversiGameDataUI != null && gameDataBoardUI != null) {
+						TransformData reversiTransform = reversiGameDataUI.transformData;
+						TransformData boardTransform = gameDataBoardUI.transformData;
 						if (reversiTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
 							float boardSizeX = 8f;
 							float boardSizeY = 8f;
@@ -63,7 +85,7 @@ namespace Reversi
 							Debug.LogError ("why transform zero");
 						}
 					} else {
-						Debug.LogError ("gomokuGameDataUIData or gameDataBoardUIData null: " + this);
+						Debug.LogError ("reversiGameDataUI or gameDataBoardUI null: " + this);
 					}
 				} else {
 					Debug.LogError ("data null: " + this);
@@ -108,13 +130,23 @@ namespace Reversi
 			{
 				if (data is ReversiGameDataUI.UIData) {
 					ReversiGameDataUI.UIData reversiGameDataUIData = data as ReversiGameDataUI.UIData;
-					{
-						reversiGameDataUIData.updateTransform.allAddCallBack (this);
+					// Child
+                    {
+                        ReversiGameDataUI reversiGameDataUI = reversiGameDataUIData.findCallBack<ReversiGameDataUI>();
+                        if (reversiGameDataUI != null)
+                        {
+                            reversiGameDataUI.transformData.addCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("reversiGameDataUI null");
+                        }
 					}
 					dirty = true;
 					return;
 				}
-				if (data is UpdateTransform.UpdateData) {
+                // Child
+				if (data is TransformData) {
 					dirty = true;
 					return;
 				}
@@ -146,12 +178,22 @@ namespace Reversi
 			{
 				if (data is ReversiGameDataUI.UIData) {
 					ReversiGameDataUI.UIData reversiGameDataUIData = data as ReversiGameDataUI.UIData;
-					{
-						reversiGameDataUIData.updateTransform.allRemoveCallBack (this);
-					}
+					// Child
+                    {
+                        ReversiGameDataUI reversiGameDataUI = reversiGameDataUIData.findCallBack<ReversiGameDataUI>();
+                        if (reversiGameDataUI != null)
+                        {
+                            reversiGameDataUI.transformData.removeCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("reversiGameDataUI null");
+                        }
+                    }
 					return;
 				}
-				if (data is UpdateTransform.UpdateData) {
+                // Child
+				if (data is TransformData) {
 					return;
 				}
 			}
@@ -166,69 +208,38 @@ namespace Reversi
 			if (wrapProperty.p is UpdateData) {
 				switch ((UpdateData.Property)wrapProperty.n) {
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
 			}
 			// CheckChange
 			if (wrapProperty.p is GameDataBoardCheckTransformChange<UpdateData>) {
-				switch ((GameDataBoardCheckTransformChange<UpdateData>.Property)wrapProperty.n) {
-				case GameDataBoardCheckTransformChange<UpdateData>.Property.change:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
+                dirty = true;
+                return;
 			}
 			// Parent
 			{
 				if (wrapProperty.p is ReversiGameDataUI.UIData) {
-					switch ((ReversiGameDataUI.UIData.Property)wrapProperty.n) {
-					case ReversiGameDataUI.UIData.Property.gameData:
-						break;
-					case ReversiGameDataUI.UIData.Property.updateTransform:
-						{
-							ValueChangeUtils.replaceCallBack(this, syncs);
-							dirty = true;
-						}
-						break;
-					case ReversiGameDataUI.UIData.Property.transformOrganizer:
-						break;
-					case ReversiGameDataUI.UIData.Property.isOnAnimation:
-						break;
-					case ReversiGameDataUI.UIData.Property.board:
-						break;
-					case ReversiGameDataUI.UIData.Property.lastMove:
-						break;
-					case ReversiGameDataUI.UIData.Property.showHint:
-						break;
-					case ReversiGameDataUI.UIData.Property.inputUI:
-						break;
-					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-						break;
-					}
 					return;
 				}
-				if (wrapProperty.p is UpdateTransform.UpdateData) {
-					switch ((UpdateTransform.UpdateData.Property)wrapProperty.n) {
-					case UpdateTransform.UpdateData.Property.position:
+                // Child
+				if (wrapProperty.p is TransformData) {
+					switch ((TransformData.Property)wrapProperty.n) {
+					case TransformData.Property.position:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.rotation:
+					case TransformData.Property.rotation:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.scale:
+					case TransformData.Property.scale:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.size:
+					case TransformData.Property.size:
 						dirty = true;
 						break;
 					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this + "; " + syncs);
+						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 						break;
 					}
 					return;

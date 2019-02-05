@@ -38,11 +38,33 @@ namespace MineSweeper
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {
-					MineSweeperGameDataUI.UIData mineSweeperGameDataUIData = this.data.findDataInParent<MineSweeperGameDataUI.UIData> ();
+                    MineSweeperGameDataUI mineSweeperGameDataUI = null;
+                    {
+                        MineSweeperGameDataUI.UIData mineSweeperGameDataUIData = this.data.findDataInParent<MineSweeperGameDataUI.UIData>();
+                        if (mineSweeperGameDataUIData != null)
+                        {
+                            mineSweeperGameDataUI = mineSweeperGameDataUIData.findCallBack<MineSweeperGameDataUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("mineSweeperGameDataUIData null");
+                        }
+                    }
+                    GameDataBoardUI gameDataBoardUI = null;
 					GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
-					if (mineSweeperGameDataUIData != null && gameDataBoardUIData != null) {
-						UpdateTransform.UpdateData mineSweeperTransform = mineSweeperGameDataUIData.updateTransform.v;
-						UpdateTransform.UpdateData boardTransform = gameDataBoardUIData.updateTransform.v;
+                    {
+                        if (gameDataBoardUIData != null)
+                        {
+                            gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("gameDataBoardUI null");
+                        }
+                    }
+                    if (mineSweeperGameDataUI != null && gameDataBoardUI != null) {
+						TransformData mineSweeperTransform = mineSweeperGameDataUI.transformData;
+						TransformData boardTransform = gameDataBoardUI.transformData;
 						if (mineSweeperTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
 							float scale = Mathf.Min (Mathf.Abs (boardTransform.size.v.x / 20f), Mathf.Abs (boardTransform.size.v.y / 20f));
 							// new scale
@@ -61,7 +83,7 @@ namespace MineSweeper
 							Debug.LogError ("why transform zero");
 						}
 					} else {
-						Debug.LogError ("mineSweeperGameDataUIData or gameDataBoardUIData null: " + this);
+						Debug.LogError ("mineSweeperGameDataUI or gameDataBoardUI null: " + this);
 					}
 				} else {
 					Debug.LogError ("data null: " + this);
@@ -106,13 +128,23 @@ namespace MineSweeper
 			{
 				if (data is MineSweeperGameDataUI.UIData) {
 					MineSweeperGameDataUI.UIData mineSweeperGameDataUIData = data as MineSweeperGameDataUI.UIData;
-					{
-						mineSweeperGameDataUIData.updateTransform.allAddCallBack (this);
+					// Child
+                    {
+                        MineSweeperGameDataUI mineSweeperGameDataUI = mineSweeperGameDataUIData.findCallBack<MineSweeperGameDataUI>();
+                        if (mineSweeperGameDataUI != null)
+                        {
+                            mineSweeperGameDataUI.transformData.addCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("mineSweeperGameDataUI null");
+                        }
 					}
 					dirty = true;
 					return;
 				}
-				if (data is UpdateTransform.UpdateData) {
+                // Child
+				if (data is TransformData) {
 					dirty = true;
 					return;
 				}
@@ -144,12 +176,22 @@ namespace MineSweeper
 			{
 				if (data is MineSweeperGameDataUI.UIData) {
 					MineSweeperGameDataUI.UIData mineSweeperGameDataUIData = data as MineSweeperGameDataUI.UIData;
-					{
-						mineSweeperGameDataUIData.updateTransform.allRemoveCallBack (this);
-					}
+					// Child
+                    {
+                        MineSweeperGameDataUI mineSweeperGameDataUI = mineSweeperGameDataUIData.findCallBack<MineSweeperGameDataUI>();
+                        if (mineSweeperGameDataUI != null)
+                        {
+                            mineSweeperGameDataUI.transformData.removeCallBack(this);
+                        }
+                        else
+                        {
+                            Debug.LogError("mineSweeperGameDataUI null");
+                        }
+                    }
 					return;
 				}
-				if (data is UpdateTransform.UpdateData) {
+                // Child
+				if (data is TransformData) {
 					return;
 				}
 			}
@@ -164,7 +206,7 @@ namespace MineSweeper
 			if (wrapProperty.p is UpdateData) {
 				switch ((UpdateData.Property)wrapProperty.n) {
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
@@ -177,47 +219,25 @@ namespace MineSweeper
 			// Parent
 			{
 				if (wrapProperty.p is MineSweeperGameDataUI.UIData) {
-					switch ((MineSweeperGameDataUI.UIData.Property)wrapProperty.n) {
-					case MineSweeperGameDataUI.UIData.Property.gameData:
-						break;
-					case MineSweeperGameDataUI.UIData.Property.updateTransform:
-						{
-							ValueChangeUtils.replaceCallBack (this, syncs);
-							dirty = true;
-						}
-						break;
-					case MineSweeperGameDataUI.UIData.Property.isOnAnimation:
-						break;
-					/*case MineSweeperGameDataUI.UIData.Property.board:
-						break;
-					case MineSweeperGameDataUI.UIData.Property.lastMove:
-						break;
-					case MineSweeperGameDataUI.UIData.Property.showHint:
-						break;
-					case MineSweeperGameDataUI.UIData.Property.inputUI:
-						break;*/
-					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-						break;
-					}
 					return;
 				}
-				if (wrapProperty.p is UpdateTransform.UpdateData) {
-					switch ((UpdateTransform.UpdateData.Property)wrapProperty.n) {
-					case UpdateTransform.UpdateData.Property.position:
+                // Child
+				if (wrapProperty.p is TransformData) {
+					switch ((TransformData.Property)wrapProperty.n) {
+					case TransformData.Property.position:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.rotation:
+					case TransformData.Property.rotation:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.scale:
+					case TransformData.Property.scale:
 						dirty = true;
 						break;
-					case UpdateTransform.UpdateData.Property.size:
+					case TransformData.Property.size:
 						dirty = true;
 						break;
 					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this + "; " + syncs);
+						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 						break;
 					}
 					return;

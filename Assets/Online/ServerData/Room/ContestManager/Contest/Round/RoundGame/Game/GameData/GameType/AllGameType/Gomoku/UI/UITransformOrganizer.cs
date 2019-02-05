@@ -38,11 +38,33 @@ namespace Gomoku
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {
-					GomokuGameDataUI.UIData gomokuGameDataUIData = this.data.findDataInParent<GomokuGameDataUI.UIData> ();
+                    GomokuGameDataUI gomokuGameDataUI = null;
+                    {
+                        GomokuGameDataUI.UIData gomokuGameDataUIData = this.data.findDataInParent<GomokuGameDataUI.UIData>();
+                        if (gomokuGameDataUIData != null)
+                        {
+                            gomokuGameDataUI = gomokuGameDataUIData.findCallBack<GomokuGameDataUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("gomokuGameDataUIData null");
+                        }
+                    }
+                    GameDataBoardUI gameDataBoardUI = null;
 					GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
-					if (gomokuGameDataUIData != null && gameDataBoardUIData != null) {
-						UpdateTransform.UpdateData gomokuTransform = gomokuGameDataUIData.updateTransform.v;
-						UpdateTransform.UpdateData boardTransform = gameDataBoardUIData.updateTransform.v;
+                    {
+                        if (gameDataBoardUIData != null)
+                        {
+                            gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                        }
+                        else
+                        {
+                            Debug.LogError("gameDataBoardUIData null");
+                        }
+                    }
+                    if (gomokuGameDataUI != null && gameDataBoardUI != null) {
+						TransformData gomokuTransform = gomokuGameDataUI.transformData;
+						TransformData boardTransform = gameDataBoardUI.transformData;
 						if (gomokuTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
 							float boardSizeX = 19f;
 							float boardSizeY = 19f;
@@ -84,7 +106,7 @@ namespace Gomoku
 							Debug.LogError ("why transform zero");
 						}
 					} else {
-						Debug.LogError ("gomokuGameDataUIData or gameDataBoardUIData null: " + this);
+						Debug.LogError ("gomokuGameDataUI or gameDataBoardUI null: " + this);
 					}
 				} else {
 					Debug.LogError ("data null: " + this);
@@ -131,31 +153,50 @@ namespace Gomoku
 					GomokuGameDataUI.UIData gomokuGameDataUIData = data as GomokuGameDataUI.UIData;
 					// Child
 					{
-						gomokuGameDataUIData.updateTransform.allAddCallBack (this);
+                        // transformData
+                        {
+                            GomokuGameDataUI gomokuGameDataUI = gomokuGameDataUIData.findCallBack<GomokuGameDataUI>();
+                            if (gomokuGameDataUI != null)
+                            {
+                                gomokuGameDataUI.transformData.addCallBack(this);
+                            }
+                            else
+                            {
+                                Debug.LogError("gomokuGameDataUI null");
+                            }
+                        }
 						gomokuGameDataUIData.gameData.allAddCallBack (this);
 					}
 					dirty = true;
 					return;
 				}
-				if (data is UpdateTransform.UpdateData) {
-					dirty = true;
-					return;
-				}
-				// GameData
-				{
-					if (data is GameData) {
-						GameData gameData = data as GameData;
-						{
-							gameData.gameType.allAddCallBack (this);
-						}
-						dirty = true;
-						return;
-					}
-					if (data is GameType) {
-						dirty = true;
-						return;
-					}
-				}
+                // Child
+                {
+                    if (data is TransformData)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                    // GameData
+                    {
+                        if (data is GameData)
+                        {
+                            GameData gameData = data as GameData;
+                            // Child
+                            {
+                                gameData.gameType.allAddCallBack(this);
+                            }
+                            dirty = true;
+                            return;
+                        }
+                        // Child
+                        if (data is GameType)
+                        {
+                            dirty = true;
+                            return;
+                        }
+                    }
+                }
 			}
 			Debug.LogError ("Don't process: " + data + "; " + this);
 		}
@@ -186,27 +227,46 @@ namespace Gomoku
 					GomokuGameDataUI.UIData gomokuGameDataUIData = data as GomokuGameDataUI.UIData;
 					// Child
 					{
-						gomokuGameDataUIData.updateTransform.allRemoveCallBack (this);
+                        // transformData
+                        {
+                            GomokuGameDataUI gomokuGameDataUI = gomokuGameDataUIData.findCallBack<GomokuGameDataUI>();
+                            if (gomokuGameDataUI != null)
+                            {
+                                gomokuGameDataUI.transformData.removeCallBack(this);
+                            }
+                            else
+                            {
+                                Debug.LogError("gomokuGameDataUI null");
+                            }
+                        }
 						gomokuGameDataUIData.gameData.allRemoveCallBack (this);
 					}
 					return;
 				}
-				if (data is UpdateTransform.UpdateData) {
-					return;
-				}
-				// GameData
-				{
-					if (data is GameData) {
-						GameData gameData = data as GameData;
-						{
-							gameData.gameType.allRemoveCallBack (this);
-						}
-						return;
-					}
-					if (data is GameType) {
-						return;
-					}
-				}
+                // Child
+                {
+                    if (data is TransformData)
+                    {
+                        return;
+                    }
+                    // GameData
+                    {
+                        if (data is GameData)
+                        {
+                            GameData gameData = data as GameData;
+                            // Child
+                            {
+                                gameData.gameType.allRemoveCallBack(this);
+                            }
+                            return;
+                        }
+                        // Child
+                        if (data is GameType)
+                        {
+                            return;
+                        }
+                    }
+                }
 			}
 			Debug.LogError ("Don't process: " + data + "; " + this);
 		}
@@ -219,22 +279,15 @@ namespace Gomoku
 			if (wrapProperty.p is UpdateData) {
 				switch ((UpdateData.Property)wrapProperty.n) {
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
 			}
 			// CheckChange
 			if (wrapProperty.p is GameDataBoardCheckTransformChange<UpdateData>) {
-				switch ((GameDataBoardCheckTransformChange<UpdateData>.Property)wrapProperty.n) {
-				case GameDataBoardCheckTransformChange<UpdateData>.Property.change:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
+                dirty = true;
+                return;
 			}
 			// Parent
 			{
@@ -243,12 +296,6 @@ namespace Gomoku
 					case GomokuGameDataUI.UIData.Property.gameData:
 						{
 							ValueChangeUtils.replaceCallBack (this, syncs);
-							dirty = true;
-						}
-						break;
-					case GomokuGameDataUI.UIData.Property.updateTransform:
-						{
-							ValueChangeUtils.replaceCallBack(this, syncs);
 							dirty = true;
 						}
 						break;
@@ -270,79 +317,90 @@ namespace Gomoku
 					}
 					return;
 				}
-				if (wrapProperty.p is UpdateTransform.UpdateData) {
-					switch ((UpdateTransform.UpdateData.Property)wrapProperty.n) {
-					case UpdateTransform.UpdateData.Property.position:
-						dirty = true;
-						break;
-					case UpdateTransform.UpdateData.Property.rotation:
-						dirty = true;
-						break;
-					case UpdateTransform.UpdateData.Property.scale:
-						dirty = true;
-						break;
-					case UpdateTransform.UpdateData.Property.size:
-						dirty = true;
-						break;
-					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-						break;
-					}
-					return;
-				}
-				// GameData
-				{
-					if (wrapProperty.p is GameData) {
-						switch ((GameData.Property)wrapProperty.n) {
-						case GameData.Property.gameType:
-							{
-								ValueChangeUtils.replaceCallBack (this, syncs);
-								dirty = true;
-							}
-							break;
-						case GameData.Property.useRule:
-							break;
-						case GameData.Property.turn:
-							break;
-						case GameData.Property.timeControl:
-							break;
-						case GameData.Property.lastMove:
-							break;
-						case GameData.Property.state:
-							break;
-						default:
-							Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-							break;
-						}
-						return;
-					}
-					if (wrapProperty.p is GameType) {
-						if (wrapProperty.p is Gomoku) {
-							switch ((Gomoku.Property)wrapProperty.n) {
-							case Gomoku.Property.boardSize:
-								dirty = true;
-								break;
-							case Gomoku.Property.gs:
-								break;
-							case Gomoku.Property.player:
-								break;
-							case Gomoku.Property.winningPlayer:
-								break;
-							case Gomoku.Property.lastMove:
-								break;
-							case Gomoku.Property.winSize:
-								break;
-							case Gomoku.Property.winCoord:
-								break;
-							default:
-								Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-								break;
-							}
-							return;
-						}
-						return;
-					}
-				}
+                // Child
+                {
+                    if (wrapProperty.p is TransformData)
+                    {
+                        switch ((TransformData.Property)wrapProperty.n)
+                        {
+                            case TransformData.Property.position:
+                                dirty = true;
+                                break;
+                            case TransformData.Property.rotation:
+                                dirty = true;
+                                break;
+                            case TransformData.Property.scale:
+                                dirty = true;
+                                break;
+                            case TransformData.Property.size:
+                                dirty = true;
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
+                    // GameData
+                    {
+                        if (wrapProperty.p is GameData)
+                        {
+                            switch ((GameData.Property)wrapProperty.n)
+                            {
+                                case GameData.Property.gameType:
+                                    {
+                                        ValueChangeUtils.replaceCallBack(this, syncs);
+                                        dirty = true;
+                                    }
+                                    break;
+                                case GameData.Property.useRule:
+                                    break;
+                                case GameData.Property.turn:
+                                    break;
+                                case GameData.Property.timeControl:
+                                    break;
+                                case GameData.Property.lastMove:
+                                    break;
+                                case GameData.Property.state:
+                                    break;
+                                default:
+                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                    break;
+                            }
+                            return;
+                        }
+                        // Child
+                        if (wrapProperty.p is GameType)
+                        {
+                            if (wrapProperty.p is Gomoku)
+                            {
+                                switch ((Gomoku.Property)wrapProperty.n)
+                                {
+                                    case Gomoku.Property.boardSize:
+                                        dirty = true;
+                                        break;
+                                    case Gomoku.Property.gs:
+                                        break;
+                                    case Gomoku.Property.player:
+                                        break;
+                                    case Gomoku.Property.winningPlayer:
+                                        break;
+                                    case Gomoku.Property.lastMove:
+                                        break;
+                                    case Gomoku.Property.winSize:
+                                        break;
+                                    case Gomoku.Property.winCoord:
+                                        break;
+                                    default:
+                                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                        break;
+                                }
+                                return;
+                            }
+                            return;
+                        }
+                    }
+                }
 			}
 			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
 		}

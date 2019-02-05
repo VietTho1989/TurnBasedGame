@@ -14,15 +14,9 @@ namespace Solitaire
 
 			public VP<ReferenceData<GameData>> gameData;
 
-			#region Transform
+            public VP<UITransformOrganizer.UpdateData> transformOrganizer;
 
-			public VP<UpdateTransform.UpdateData> updateTransform;
-
-			public VP<UITransformOrganizer.UpdateData> transformOrganizer;
-
-			#endregion
-
-			public VP<bool> isOnAnimation;
+            public VP<bool> isOnAnimation;
 
 			public VP<BoardUI.UIData> board;
 
@@ -37,11 +31,8 @@ namespace Solitaire
 			public enum Property
 			{
 				gameData,
-
-				updateTransform,
-				transformOrganizer,
-
-				isOnAnimation,
+                transformOrganizer,
+                isOnAnimation,
 				board,
 				lastMove,
 				showHint,
@@ -51,11 +42,8 @@ namespace Solitaire
 			public UIData() : base()
 			{
 				this.gameData = new VP<ReferenceData<GameData>>(this, (byte)Property.gameData, new ReferenceData<GameData>(null));
-
-				this.updateTransform = new VP<UpdateTransform.UpdateData>(this, (byte)Property.updateTransform, new UpdateTransform.UpdateData());
-				this.transformOrganizer = new VP<UITransformOrganizer.UpdateData>(this, (byte)Property.transformOrganizer, new UITransformOrganizer.UpdateData());
-
-				this.isOnAnimation = new VP<bool>(this, (byte)Property.isOnAnimation, false);
+                this.transformOrganizer = new VP<UITransformOrganizer.UpdateData>(this, (byte)Property.transformOrganizer, new UITransformOrganizer.UpdateData());
+                this.isOnAnimation = new VP<bool>(this, (byte)Property.isOnAnimation, false);
 				this.board = new VP<BoardUI.UIData>(this, (byte)Property.board, new BoardUI.UIData());
 				this.lastMove = new VP<LastMoveUI.UIData>(this, (byte)Property.lastMove, new LastMoveUI.UIData());
 				this.showHint = new VP<ShowHintUI.UIData>(this, (byte)Property.showHint, new ShowHintUI.UIData());
@@ -182,12 +170,8 @@ namespace Solitaire
 					uiData.lastMove.allAddCallBack (this);
 					uiData.showHint.allAddCallBack (this);
 					uiData.inputUI.allAddCallBack (this);
-					// transform
-					{
-						uiData.updateTransform.allAddCallBack (this);
-						uiData.transformOrganizer.allAddCallBack (this);
-					}
-				}
+                    uiData.transformOrganizer.allAddCallBack(this);
+                }
 				dirty = true;
 				return;
 			}
@@ -198,12 +182,10 @@ namespace Solitaire
 			}
 			// Child
 			{
-				// GameData
 				if (data is GameData) {
 					dirty = true;
 					return;
 				}
-				// Board
 				if (data is BoardUI.UIData) {
 					BoardUI.UIData boardUIData = data as BoardUI.UIData;
 					// UI
@@ -213,7 +195,6 @@ namespace Solitaire
 					dirty = true;
 					return;
 				}
-				// LastMove
 				if (data is LastMoveUI.UIData) {
 					LastMoveUI.UIData lastMoveUIData = data as LastMoveUI.UIData;
 					// UI
@@ -223,7 +204,6 @@ namespace Solitaire
 					dirty = true;
 					return;
 				}
-				// ShowHint
 				if (data is ShowHintUI.UIData) {
 					ShowHintUI.UIData showHintUIData = data as ShowHintUI.UIData;
 					// UI
@@ -233,7 +213,6 @@ namespace Solitaire
 					dirty = true;
 					return;
 				}
-				// Input
 				if (data is InputUI.UIData) {
 					InputUI.UIData inputUIData = data as InputUI.UIData;
 					// UI
@@ -248,26 +227,16 @@ namespace Solitaire
 					dirty = true;
 					return;
 				}
-				// Transform
-				{
-					if (data is UpdateTransform.UpdateData) {
-						UpdateTransform.UpdateData updateTransformData = data as UpdateTransform.UpdateData;
-						{
-							UpdateUtils.makeComponentUpdate<UpdateTransform, UpdateTransform.UpdateData> (updateTransformData, this.transform);
-						}
-						dirty = true;
-						return;
-					}
-					if (data is UITransformOrganizer.UpdateData) {
-						UITransformOrganizer.UpdateData transformOrganizer = data as UITransformOrganizer.UpdateData;
-						{
-							UpdateUtils.makeComponentUpdate<UITransformOrganizer, UITransformOrganizer.UpdateData> (transformOrganizer, this.transform);
-						}
-						dirty = true;
-						return;
-					}
-				}
-			}
+                if (data is UITransformOrganizer.UpdateData)
+                {
+                    UITransformOrganizer.UpdateData transformOrganizer = data as UITransformOrganizer.UpdateData;
+                    {
+                        UpdateUtils.makeComponentUpdate<UITransformOrganizer, UITransformOrganizer.UpdateData>(transformOrganizer, this.transform);
+                    }
+                    dirty = true;
+                    return;
+                }
+            }
 			Debug.LogError ("Don't process: " + data + "; " + this);
 		}
 
@@ -287,12 +256,8 @@ namespace Solitaire
 					uiData.lastMove.allRemoveCallBack (this);
 					uiData.showHint.allRemoveCallBack (this);
 					uiData.inputUI.allRemoveCallBack (this);
-					// Transform
-					{
-						uiData.updateTransform.allRemoveCallBack (this);
-						uiData.transformOrganizer.allRemoveCallBack (this);
-					}
-				}
+                    uiData.transformOrganizer.allRemoveCallBack(this);
+                }
 				this.setDataNull (uiData);
 				return;
 			}
@@ -302,11 +267,9 @@ namespace Solitaire
 			}
 			// Child
 			{
-				// GameData
 				if (data is GameData) {
 					return;
 				}
-				// Board
 				if (data is BoardUI.UIData) {
 					BoardUI.UIData boardUIData = data as BoardUI.UIData;
 					// UI
@@ -315,7 +278,6 @@ namespace Solitaire
 					}
 					return;
 				}
-				// LastMove
 				if (data is LastMoveUI.UIData) {
 					LastMoveUI.UIData lastMoveUIData = data as LastMoveUI.UIData;
 					// UI
@@ -324,7 +286,6 @@ namespace Solitaire
 					}
 					return;
 				}
-				// ShowHint
 				if (data is ShowHintUI.UIData) {
 					ShowHintUI.UIData showHintUIData = data as ShowHintUI.UIData;
 					// UI
@@ -333,7 +294,6 @@ namespace Solitaire
 					}
 					return;
 				}
-				// InputUI
 				if (data is InputUI.UIData) {
 					InputUI.UIData inputUIData = data as InputUI.UIData;
 					// UI
@@ -342,24 +302,15 @@ namespace Solitaire
 					}
 					return;
 				}
-				// Transform
-				{
-					if (data is UpdateTransform.UpdateData) {
-						UpdateTransform.UpdateData updateTransformData = data as UpdateTransform.UpdateData;
-						{
-							updateTransformData.removeCallBackAndRemoveComponent (typeof(UpdateTransform));
-						}
-						return;
-					}
-					if (data is UITransformOrganizer.UpdateData) {
-						UITransformOrganizer.UpdateData transformOrganizer = data as UITransformOrganizer.UpdateData;
-						{
-							transformOrganizer.removeCallBackAndRemoveComponent (typeof(UITransformOrganizer));
-						}
-						return;
-					}
-				}
-			}
+                if (data is UITransformOrganizer.UpdateData)
+                {
+                    UITransformOrganizer.UpdateData transformOrganizer = data as UITransformOrganizer.UpdateData;
+                    {
+                        transformOrganizer.removeCallBackAndRemoveComponent(typeof(UITransformOrganizer));
+                    }
+                    return;
+                }
+            }
 			Debug.LogError ("Don't process: " + data + "; " + this);
 		}
 
@@ -371,12 +322,6 @@ namespace Solitaire
 			if (wrapProperty.p is UIData) {
 				switch ((UIData.Property)wrapProperty.n) {
 				case UIData.Property.gameData:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				case UIData.Property.updateTransform:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
 						dirty = true;
@@ -443,37 +388,28 @@ namespace Solitaire
 					case GameData.Property.state:
 						break;
 					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 						break;
 					}
 					return;
 				}
-				// Board
 				if (wrapProperty.p is BoardUI.UIData) {
 					return;
 				}
-				// LastMove
 				if (wrapProperty.p is LastMoveUI.UIData) {
 					return;
 				}
-				// ShowHint
 				if (wrapProperty.p is ShowHintUI.UIData) {
 					return;
 				}
-				// InputUI
 				if (wrapProperty.p is InputUI.UIData) {
 					return;
 				}
-				// Transform
-				{
-					if (wrapProperty.p is UpdateTransform.UpdateData) {
-						return;
-					}
-					if (wrapProperty.p is UITransformOrganizer.UpdateData) {
-						return;
-					}
-				}
-			}
+                if (wrapProperty.p is UITransformOrganizer.UpdateData)
+                {
+                    return;
+                }
+            }
 			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
 		}
 
