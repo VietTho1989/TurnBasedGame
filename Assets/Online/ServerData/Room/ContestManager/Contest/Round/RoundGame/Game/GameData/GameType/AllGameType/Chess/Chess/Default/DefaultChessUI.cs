@@ -282,6 +282,9 @@ namespace Chess
 
 		private Server server = null;
 
+        public UIRectTransform chess960Transform;
+        // public RectTransform chess960Transform;
+
 		public override void onAddCallBack<T> (T data)
 		{
 			if (data is UIData) {

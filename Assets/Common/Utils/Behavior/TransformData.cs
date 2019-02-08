@@ -3,6 +3,7 @@ using System.Collections;
 
 public class TransformData : Data
 {
+
     public VP<Vector3> position;
 
     public VP<Quaternion> rotation;

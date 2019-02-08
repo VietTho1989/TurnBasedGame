@@ -921,6 +921,10 @@
     <Compile Include="Assets\Common\Utils\Behavior\TransformChange.cs" />
     <Compile Include="Assets\Common\Utils\Behavior\TransformData.cs" />
     <Compile Include="Assets\Common\Utils\Behavior\UIBehavior.cs" />
+    <Compile Include="Assets\Common\Utils\Behavior\UIRefresh.cs" />
+    <Compile Include="Assets\Common\Utils\Behavior\UIRefreshEditor.cs" />
+    <Compile Include="Assets\Common\Utils\Behavior\UITransform\UIRectTransform.cs" />
+    <Compile Include="Assets\Common\Utils\Behavior\UITransform\UIRectTransformEditor.cs" />
     <Compile Include="Assets\Common\Utils\Behavior\UpdateBehavior.cs" />
     <Compile Include="Assets\Common\Utils\Behavior\UpdateUtils.cs" />
     <Compile Include="Assets\Common\WrapProperty.cs" />
