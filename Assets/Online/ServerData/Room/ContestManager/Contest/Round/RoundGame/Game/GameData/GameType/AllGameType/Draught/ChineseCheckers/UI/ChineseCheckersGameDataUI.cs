@@ -83,10 +83,26 @@ namespace ChineseCheckers
 
         #endregion
 
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            if (transform.hasChanged)
+            {
+                transform.hasChanged = false;
+                this.transformData.update(this.transform);
+            }
+        }
+
+        #endregion
+
         #region Refresh
 
         public override void refresh()
         {
+            updateTransformData();
             if (dirty)
             {
                 dirty = false;

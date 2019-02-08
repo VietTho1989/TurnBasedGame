@@ -63,9 +63,9 @@ namespace Banqi
                         }
                     }
                     if (banqiGameDataUI != null && gameDataBoardUI != null) {
-						TransformData reversiTransform = banqiGameDataUI.transformData;
+						TransformData banqiTransform = banqiGameDataUI.transformData;
 						TransformData boardTransform = gameDataBoardUI.transformData;
-						if (reversiTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
+						if (banqiTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
 							float boardSizeX = 9f;
 							float boardSizeY = 10f;
 							float scale = Mathf.Min (Mathf.Abs (boardTransform.size.v.x / boardSizeX), Mathf.Abs (boardTransform.size.v.y / boardSizeY));
