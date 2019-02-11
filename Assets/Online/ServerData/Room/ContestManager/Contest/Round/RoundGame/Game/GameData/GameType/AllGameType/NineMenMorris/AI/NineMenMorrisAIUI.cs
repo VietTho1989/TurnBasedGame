@@ -277,18 +277,28 @@ namespace NineMenMorris
 
 		static NineMenMorrisAIUI()
 		{
-			txtTitle.add (Language.Type.vi, "AI Nine Men's Morriss");
-			txtMaxNormal.add (Language.Type.vi, "Độ sâu lúc bình ");
-			txtMaxPositioning.add (Language.Type.vi, "Độ sâu lúc đặt quân");
-			txtMaxBlackAndWhite3.add (Language.Type.vi, "Độ sâu khi cả 2 bên còn 3 quân");
-			txtMaxBlackOrWhite3.add (Language.Type.vi, "Độ sâu khi 1 trong 2 bên còn 3 quân");
-			txtPickBestMove.add (Language.Type.vi, "Tỷ lệ chọn nước đi tốt nhất");
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "AI Nine Men's Morriss");
+                txtMaxNormal.add(Language.Type.vi, "Độ sâu lúc bình ");
+                txtMaxPositioning.add(Language.Type.vi, "Độ sâu lúc đặt quân");
+                txtMaxBlackAndWhite3.add(Language.Type.vi, "Độ sâu khi cả 2 bên còn 3 quân");
+                txtMaxBlackOrWhite3.add(Language.Type.vi, "Độ sâu khi 1 trong 2 bên còn 3 quân");
+                txtPickBestMove.add(Language.Type.vi, "Tỷ lệ chọn nước đi tốt nhất");
+            }
+            // rect
+            {
+                maxNormalRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                maxPositioningRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                maxBlackAndWhite3Rect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                maxBlackOrWhite3Rect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                pickBestMoveRect.setPosY(UIConstants.HeaderHeight + 4 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+            }
 		}
 
 		#endregion
 
 		private bool needReset = true;
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -302,8 +312,8 @@ namespace NineMenMorris
 						NineMenMorrisAI show = editNineMenMorrisAI.show.v.data;
 						NineMenMorrisAI compare = editNineMenMorrisAI.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editNineMenMorrisAI.compareOtherType.v.data != null) {
@@ -312,9 +322,9 @@ namespace NineMenMorris
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// get server state
 							Server.State.Type serverState = Server.State.Type.Connect;
@@ -601,11 +611,11 @@ namespace NineMenMorris
 
 		#region implement callBacks
 
-		public Transform maxNormalContainer;
-		public Transform maxPositioningContainer;
-		public Transform maxBlackAndWhite3Container;
-		public Transform maxBlackOrWhite3Container;
-		public Transform pickBestMoveContainer;
+		public static readonly UIRectTransform maxNormalRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform maxPositioningRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform maxBlackAndWhite3Rect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform maxBlackOrWhite3Rect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform pickBestMoveRect = new UIRectTransform(UIConstants.RequestRect);
 
 		public RequestChangeIntUI requestIntPrefab;
 
@@ -677,19 +687,19 @@ namespace NineMenMorris
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.MaxNormal:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, maxNormalContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, maxNormalRect);
 								break;
 							case UIData.Property.MaxPositioning:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, maxPositioningContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, maxPositioningRect);
 								break;
 							case UIData.Property.MaxBlackAndWhite3:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, maxBlackAndWhite3Container);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, maxBlackAndWhite3Rect);
 								break;
 							case UIData.Property.MaxBlackOrWhite3:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, maxBlackOrWhite3Container);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, maxBlackOrWhite3Rect);
 								break;
 							case UIData.Property.pickBestMove:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, pickBestMoveContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, pickBestMoveRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);

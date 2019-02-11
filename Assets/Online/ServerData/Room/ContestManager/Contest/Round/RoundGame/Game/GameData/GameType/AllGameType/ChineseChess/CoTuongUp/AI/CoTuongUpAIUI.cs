@@ -53,7 +53,6 @@ namespace CoTuongUp
 		#endregion
 
 		private bool needReset = true;
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -68,8 +67,8 @@ namespace CoTuongUp
 						CoTuongUpAI compare = editCoTuongUpAI.compare.v.data;
 						// show
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editCoTuongUpAI.compareOtherType.v.data != null) {
@@ -78,9 +77,9 @@ namespace CoTuongUp
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// request
 							{

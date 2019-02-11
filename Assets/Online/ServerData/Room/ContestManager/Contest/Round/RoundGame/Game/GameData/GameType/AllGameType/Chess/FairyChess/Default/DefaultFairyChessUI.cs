@@ -135,17 +135,23 @@ namespace FairyChess
 
 		static DefaultFairyChessUI()
 		{
-			txtTitle.add (Language.Type.vi, "Biến Thể Cờ Vua Mặc Định");
-			txtVariantType.add (Language.Type.vi, "Thể loại");
-			txtChess960.add (Language.Type.vi, "Chess960");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Biến Thể Cờ Vua Mặc Định");
+                txtVariantType.add(Language.Type.vi, "Thể loại");
+                txtChess960.add(Language.Type.vi, "Chess960");
+            }
+            // rect
+            {
+                variantTypeRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                chess960Rect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+            }
+        }
 
 		#endregion
 
 		private bool needReset = true;
 		private bool miniGameDataDirty = true;
-
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -160,7 +166,7 @@ namespace FairyChess
 						DefaultFairyChess compare = editDefaultFairyChess.compare.v.data;
 						if (show != null) {
 							// differentIndicator
-							if (differentIndicator != null) {
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editDefaultFairyChess.compareOtherType.v.data != null) {
@@ -169,9 +175,9 @@ namespace FairyChess
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// request
 							{
@@ -373,13 +379,12 @@ namespace FairyChess
 		#region implement callBacks
 
 		public MiniGameDataUI miniGameDataUIPrefab;
-		public Transform miniGameDataUIContainer;
 
 		public RequestChangeEnumUI requestEnumPrefab;
-		public Transform variantTypeContainer;
+		public static readonly UIRectTransform variantTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
 		public RequestChangeBoolUI requestBoolPrefab;
-		public Transform chess960Container;
+		public static readonly UIRectTransform chess960Rect = new UIRectTransform(UIConstants.RequestBoolRect);
 
 		private Server server = null;
 
@@ -449,7 +454,7 @@ namespace FairyChess
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.variantType:
-								UIUtils.Instantiate (requestChange, requestEnumPrefab, variantTypeContainer);
+								UIUtils.Instantiate (requestChange, requestEnumPrefab, this.transform, variantTypeRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -471,7 +476,7 @@ namespace FairyChess
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.chess960:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, chess960Container);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, chess960Rect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -490,7 +495,7 @@ namespace FairyChess
 						MiniGameDataUI.UIData miniGameDataUIData = data as MiniGameDataUI.UIData;
 						// UI
 						{
-							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, miniGameDataUIContainer);
+							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, this.transform, UIConstants.MiniGameDataUIRect);
 						}
 						// Child
 						{

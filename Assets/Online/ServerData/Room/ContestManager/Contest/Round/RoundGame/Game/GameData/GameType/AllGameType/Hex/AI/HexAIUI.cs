@@ -128,15 +128,22 @@ namespace HEX
 
 		static HexAIUI()
 		{
-			txtTitle.add (Language.Type.vi, "Hex AI");
-			txtLimitTime.add (Language.Type.vi, "Thời gian giới hạn");
-			txtFirstMoveCenter.add (Language.Type.vi, "Nước đầu tiên vào trung tâm");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Hex AI");
+                txtLimitTime.add(Language.Type.vi, "Thời gian giới hạn");
+                txtFirstMoveCenter.add(Language.Type.vi, "Nước đầu tiên vào trung tâm");
+            }
+            // rect
+            {
+                limitTimeRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                firstMoveCenterRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+            }
+        }
 
 		#endregion
 
 		private bool needReset = true;
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -151,8 +158,8 @@ namespace HEX
 						HexAI show = editHexAI.show.v.data;
 						HexAI compare = editHexAI.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editHexAI.compareOtherType.v.data != null) {
@@ -161,9 +168,9 @@ namespace HEX
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// get server state
 							Server.State.Type serverState = Server.State.Type.Connect;
@@ -305,8 +312,8 @@ namespace HEX
 
 		#region implement callBacks
 
-		public Transform limitTimeContainer;
-		public Transform firstMoveCenterContainer;
+		public static readonly UIRectTransform limitTimeRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform firstMoveCenterRect = new UIRectTransform(UIConstants.RequestBoolRect);
 
 		public RequestChangeIntUI requestIntPrefab;
 		public RequestChangeBoolUI requestBoolPrefab;
@@ -377,7 +384,7 @@ namespace HEX
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.limitTime:
 								{
-									UIUtils.Instantiate (requestChange, requestIntPrefab, limitTimeContainer);
+									UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, limitTimeRect);
 								}
 								break;
 							default:
@@ -400,7 +407,7 @@ namespace HEX
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.firstMoveCenter:
 								{
-									UIUtils.Instantiate (requestChange, requestBoolPrefab, firstMoveCenterContainer);
+									UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, firstMoveCenterRect);
 								}
 								break;
 							default:

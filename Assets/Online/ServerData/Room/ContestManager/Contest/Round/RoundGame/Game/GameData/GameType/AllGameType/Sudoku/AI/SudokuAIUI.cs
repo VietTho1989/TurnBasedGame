@@ -53,7 +53,6 @@ namespace Sudoku
 		#endregion
 
 		private bool needReset = true;
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -67,8 +66,8 @@ namespace Sudoku
 						SudokuAI show = editSudokuAI.show.v.data;
 						SudokuAI compare = editSudokuAI.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editSudokuAI.compareOtherType.v.data != null) {
@@ -77,9 +76,9 @@ namespace Sudoku
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// get server state
 							Server.State.Type serverState = Server.State.Type.Connect;

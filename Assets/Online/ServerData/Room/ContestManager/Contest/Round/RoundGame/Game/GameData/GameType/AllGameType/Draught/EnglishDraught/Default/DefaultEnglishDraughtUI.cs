@@ -130,17 +130,23 @@ namespace EnglishDraught
 
 		static DefaultEnglishDraughtUI()
 		{
-			txtTitle.add (Language.Type.vi, "Mặc Định Cờ Đam Kiểu Anh");
-			txtThreeMoveRandom.add (Language.Type.vi, "Ba nước đầu ngẫu nhiên");
-			txtMaxPly.add (Language.Type.vi, "Số nước đi không tiến triễn sẽ hoà cờ");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Mặc Định Cờ Đam Kiểu Anh");
+                txtThreeMoveRandom.add(Language.Type.vi, "Ba nước đầu ngẫu nhiên");
+                txtMaxPly.add(Language.Type.vi, "Số nước đi không tiến triễn sẽ hoà cờ");
+            }
+            // rect
+            {
+                threeMoveRandomRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                maxPlyRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+            }
+        }
 
 		#endregion
 
 		private bool needReset = true;
 		private bool miniGameDataDirty = true;
-
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -154,8 +160,8 @@ namespace EnglishDraught
 						DefaultEnglishDraught show = editDefaultEnglishDraught.show.v.data;
 						DefaultEnglishDraught compare = editDefaultEnglishDraught.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editDefaultEnglishDraught.compareOtherType.v.data != null) {
@@ -164,9 +170,9 @@ namespace EnglishDraught
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// request
 							{
@@ -363,12 +369,12 @@ namespace EnglishDraught
 		#region implement callBacks
 
 		public MiniGameDataUI miniGameDataUIPrefab;
-		public Transform miniGameDataUIContainer;
 
-		public RequestChangeIntUI requestIntPrefab;
 		public RequestChangeBoolUI requestBoolPrefab;
-		public Transform threeMoveRandomContainer;
-		public Transform maxPlyContainer;
+        public RequestChangeIntUI requestIntPrefab;
+
+        public static readonly UIRectTransform threeMoveRandomRect = new UIRectTransform(UIConstants.RequestBoolRect);
+		public static readonly UIRectTransform maxPlyRect = new UIRectTransform(UIConstants.RequestRect);
 
 		private Server server = null;
 
@@ -438,7 +444,7 @@ namespace EnglishDraught
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.threeMoveRandom:
 								{
-									UIUtils.Instantiate (requestChange, requestBoolPrefab, threeMoveRandomContainer);
+									UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, threeMoveRandomRect);
 								}
 								break;
 							default:
@@ -461,7 +467,7 @@ namespace EnglishDraught
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.maxPly:
 								{
-									UIUtils.Instantiate (requestChange, requestIntPrefab, maxPlyContainer);
+									UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, maxPlyRect);
 								}
 								break;
 							default:
@@ -481,7 +487,7 @@ namespace EnglishDraught
 						MiniGameDataUI.UIData miniGameDataUIData = data as MiniGameDataUI.UIData;
 						// UI
 						{
-							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, miniGameDataUIContainer);
+							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, this.transform, UIConstants.MiniGameDataUIRect);
 						}
 						// Child
 						{

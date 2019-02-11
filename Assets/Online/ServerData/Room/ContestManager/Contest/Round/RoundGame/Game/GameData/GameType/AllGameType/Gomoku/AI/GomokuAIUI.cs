@@ -178,16 +178,24 @@ namespace Gomoku
 
 		static GomokuAIUI()
 		{
-			txtTitle.add (Language.Type.vi, "Cờ Caro AI");
-			txtSearchDepth.add (Language.Type.vi, "Độ sâu tìm kiếm");
-			txtTimeLimit.add (Language.Type.vi, "Thời gian giới hạn");
-			txtLevel.add (Language.Type.vi, "Cấp độ");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Cờ Caro AI");
+                txtSearchDepth.add(Language.Type.vi, "Độ sâu tìm kiếm");
+                txtTimeLimit.add(Language.Type.vi, "Thời gian giới hạn");
+                txtLevel.add(Language.Type.vi, "Cấp độ");
+            }
+            // rect
+            {
+                searchDepthRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                timeLimitRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                levelRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+            }
+        }
 
 		#endregion
 
 		private bool needReset = true;
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -201,8 +209,8 @@ namespace Gomoku
 						GomokuAI show = editGomokuAI.show.v.data;
 						GomokuAI compare = editGomokuAI.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editGomokuAI.compareOtherType.v.data != null) {
@@ -211,9 +219,9 @@ namespace Gomoku
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// get server state
 							Server.State.Type serverState = Server.State.Type.Connect;
@@ -403,9 +411,9 @@ namespace Gomoku
 
 		#region implement callBacks
 
-		public Transform searchDepthContainer;
-		public Transform timeLimitContainer;
-		public Transform levelContainer;
+		public static readonly UIRectTransform searchDepthRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform timeLimitRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform levelRect = new UIRectTransform(UIConstants.RequestRect);
 
 		public RequestChangeIntUI requestIntPrefab;
 
@@ -476,17 +484,17 @@ namespace Gomoku
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.searchDepth:
 								{
-									UIUtils.Instantiate (requestChange, requestIntPrefab, searchDepthContainer);
+									UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, searchDepthRect);
 								}
 								break;
 							case UIData.Property.timeLimit:
 								{
-									UIUtils.Instantiate (requestChange, requestIntPrefab, timeLimitContainer);
+									UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, timeLimitRect);
 								}
 								break;
 							case UIData.Property.level:
 								{
-									UIUtils.Instantiate (requestChange, requestIntPrefab, levelContainer);
+									UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, levelRect);
 								}
 								break;
 							default:

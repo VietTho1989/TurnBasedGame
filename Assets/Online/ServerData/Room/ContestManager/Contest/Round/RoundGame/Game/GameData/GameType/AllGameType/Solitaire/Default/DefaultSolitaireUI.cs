@@ -96,16 +96,21 @@ namespace Solitaire
 
 		static DefaultSolitaireUI()
 		{
-			txtTitle.add (Language.Type.vi, "Mặc Định Solitaire");
-			txtDrawCount.add (Language.Type.vi, "Số lá bài rút");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Mặc Định Solitaire");
+                txtDrawCount.add(Language.Type.vi, "Số lá bài rút");
+            }
+            // rect
+            {
+                drawCountRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+            }
+        }
 
 		#endregion
 
 		private bool needReset = true;
 		private bool miniGameDataDirty = true;
-
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -119,8 +124,8 @@ namespace Solitaire
 						DefaultSolitaire show = editDefaultSolitaire.show.v.data;
 						DefaultSolitaire compare = editDefaultSolitaire.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editDefaultSolitaire.compareOtherType.v.data != null) {
@@ -129,9 +134,9 @@ namespace Solitaire
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// request
 							{
@@ -275,10 +280,9 @@ namespace Solitaire
 		#region implement callBacks
 
 		public MiniGameDataUI miniGameDataUIPrefab;
-		public Transform miniGameDataUIContainer;
 
 		public RequestChangeIntUI requestIntPrefab;
-		public Transform drawCountContainer;
+		public static readonly UIRectTransform drawCountRect = new UIRectTransform(UIConstants.RequestRect);
 
 		private Server server = null;
 
@@ -345,7 +349,7 @@ namespace Solitaire
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.drawCount:
 								{
-									UIUtils.Instantiate (requestChange, requestIntPrefab, drawCountContainer);
+									UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, drawCountRect);
 								}
 								break;
 							default:
@@ -365,7 +369,7 @@ namespace Solitaire
 						MiniGameDataUI.UIData miniGameDataUIData = data as MiniGameDataUI.UIData;
 						// UI
 						{
-							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, miniGameDataUIContainer);
+							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, this.transform, UIConstants.MiniGameDataUIRect);
 						}
 						// Child
 						{

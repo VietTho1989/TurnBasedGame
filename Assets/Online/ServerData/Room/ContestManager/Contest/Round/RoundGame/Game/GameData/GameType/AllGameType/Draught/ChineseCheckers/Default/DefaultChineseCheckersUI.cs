@@ -59,8 +59,6 @@ namespace ChineseCheckers
         private bool needReset = true;
         private bool miniGameDataDirty = true;
 
-        public GameObject differentIndicator;
-
         public override void refresh()
         {
             if (dirty)
@@ -77,8 +75,8 @@ namespace ChineseCheckers
                         DefaultChineseCheckers compare = editDefaultChineseCheckers.compare.v.data;
                         if (show != null)
                         {
-                            // differentIndicator
-                            if (differentIndicator != null)
+                            // different
+                            if (lbTitle != null)
                             {
                                 bool isDifferent = false;
                                 {
@@ -90,11 +88,11 @@ namespace ChineseCheckers
                                         }
                                     }
                                 }
-                                differentIndicator.SetActive(isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
                             }
                             else
                             {
-                                Debug.LogError("differentIndicator null: " + this);
+                                Debug.LogError("lbTitle null: " + this);
                             }
                             // request
                             {
@@ -214,7 +212,6 @@ namespace ChineseCheckers
         #region implement callBacks
 
         public MiniGameDataUI miniGameDataUIPrefab;
-        public Transform miniGameDataUIContainer;
 
         private Server server = null;
 
@@ -285,7 +282,7 @@ namespace ChineseCheckers
                         MiniGameDataUI.UIData miniGameDataUIData = data as MiniGameDataUI.UIData;
                         // UI
                         {
-                            UIUtils.Instantiate(miniGameDataUIData, miniGameDataUIPrefab, miniGameDataUIContainer);
+                            UIUtils.Instantiate(miniGameDataUIData, miniGameDataUIPrefab, this.transform, UIConstants.MiniGameDataUIRect);
                         }
                         // Child
                         {

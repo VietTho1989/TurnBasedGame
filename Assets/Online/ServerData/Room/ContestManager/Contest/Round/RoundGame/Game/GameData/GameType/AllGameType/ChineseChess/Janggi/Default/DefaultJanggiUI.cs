@@ -51,6 +51,7 @@ namespace Janggi
 
 		static DefaultJanggiUI()
 		{
+            // txt
 			txtTitle.add (Language.Type.vi, "Mặc Định Cờ Tướng Triều Tiên");
 		}
 
@@ -58,8 +59,6 @@ namespace Janggi
 
 		private bool needReset = true;
 		private bool miniGameDataDirty = true;
-
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -73,8 +72,8 @@ namespace Janggi
 						DefaultJanggi show = editDefaultJanggi.show.v.data;
 						DefaultJanggi compare = editDefaultJanggi.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editDefaultJanggi.compareOtherType.v.data != null) {
@@ -83,7 +82,7 @@ namespace Janggi
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
 								Debug.LogError ("differentIndicator null: " + this);
 							}
@@ -186,7 +185,6 @@ namespace Janggi
 		#region implement callBacks
 
 		public MiniGameDataUI miniGameDataUIPrefab;
-		public Transform miniGameDataUIContainer;
 
 		private Server server = null;
 
@@ -251,7 +249,7 @@ namespace Janggi
 						MiniGameDataUI.UIData miniGameDataUIData = data as MiniGameDataUI.UIData;
 						// UI
 						{
-							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, miniGameDataUIContainer);
+							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, this.transform, UIConstants.MiniGameDataUIRect);
 						}
 						// Child
 						{

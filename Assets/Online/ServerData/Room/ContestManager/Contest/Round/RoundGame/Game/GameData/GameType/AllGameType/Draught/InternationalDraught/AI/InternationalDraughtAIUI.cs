@@ -322,20 +322,32 @@ namespace InternationalDraught
 
 		static InternationalDraughtAIUI()
 		{
-			txtTitle.add (Language.Type.vi, "Cờ Đam Kiểu Quốc Tế AI");
-			txtBMove.add (Language.Type.vi, "BMove");
-			txtBook.add (Language.Type.vi, "Dùng sách");
-			txtDepth.add (Language.Type.vi, "Dộ sâu");
-			txtTime.add (Language.Type.vi, "Thời gian");
-			txtInput.add (Language.Type.vi, "Đầu vào");
-			txtUseEndGameDatabase.add (Language.Type.vi, "Dùng cơ sở dữ liệu cuối game");
-			txtPickBestMove.add (Language.Type.vi, "Chọn nước đi tốt nhất");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Cờ Đam Kiểu Quốc Tế AI");
+                txtBMove.add(Language.Type.vi, "BMove");
+                txtBook.add(Language.Type.vi, "Dùng sách");
+                txtDepth.add(Language.Type.vi, "Dộ sâu");
+                txtTime.add(Language.Type.vi, "Thời gian");
+                txtInput.add(Language.Type.vi, "Đầu vào");
+                txtUseEndGameDatabase.add(Language.Type.vi, "Dùng cơ sở dữ liệu cuối game");
+                txtPickBestMove.add(Language.Type.vi, "Chọn nước đi tốt nhất");
+            }
+            // rect
+            {
+                bMoveRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                bookRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                depthRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                timeRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                inputRect.setPosY(UIConstants.HeaderHeight + 4 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                useEndGameDatabaseRect.setPosY(UIConstants.HeaderHeight + 5 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                pickBestMoveRect.setPosY(UIConstants.HeaderHeight + 6 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+            }
+        }
 
 		#endregion
 
 		private bool needReset = true;
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -349,8 +361,8 @@ namespace InternationalDraught
 						InternationalDraughtAI show = editInternationalDraughtAI.show.v.data;
 						InternationalDraughtAI compare = editInternationalDraughtAI.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editInternationalDraughtAI.compareOtherType.v.data != null) {
@@ -359,7 +371,7 @@ namespace InternationalDraught
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
 								Debug.LogError ("differentIndicator null: " + this);
 							}
@@ -735,13 +747,13 @@ namespace InternationalDraught
 
 		#region implement callBacks
 
-		public Transform bMoveContainer;
-		public Transform bookContainer;
-		public Transform depthContainer;
-		public Transform timeContainer;
-		public Transform inputContainer;
-		public Transform useEndGameDatabaseContainer;
-		public Transform pickBestMoveContainer;
+		public static readonly UIRectTransform bMoveRect = new UIRectTransform(UIConstants.RequestBoolRect);
+        public static readonly UIRectTransform bookRect = new UIRectTransform(UIConstants.RequestBoolRect);
+		public static readonly UIRectTransform depthRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform timeRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform inputRect = new UIRectTransform(UIConstants.RequestBoolRect);
+		public static readonly UIRectTransform useEndGameDatabaseRect = new UIRectTransform(UIConstants.RequestBoolRect);
+		public static readonly UIRectTransform pickBestMoveRect = new UIRectTransform(UIConstants.RequestRect);
 
 		public RequestChangeIntUI requestIntPrefab;
 		public RequestChangeFloatUI requestFloatPrefab;
@@ -817,10 +829,10 @@ namespace InternationalDraught
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.depth:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, depthContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, depthRect);
 								break;
 							case UIData.Property.pickBestMove:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, pickBestMoveContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, pickBestMoveRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -841,16 +853,16 @@ namespace InternationalDraught
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.bMove:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, bMoveContainer);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, bMoveRect);
 								break;
 							case UIData.Property.book:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, bookContainer);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, bookRect);
 								break;
 							case UIData.Property.input:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, inputContainer);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, inputRect);
 								break;
 							case UIData.Property.useEndGameDatabase:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, useEndGameDatabaseContainer);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, useEndGameDatabaseRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -871,7 +883,7 @@ namespace InternationalDraught
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.time:
-								UIUtils.Instantiate (requestChange, requestFloatPrefab, timeContainer);
+								UIUtils.Instantiate (requestChange, requestFloatPrefab, this.transform, timeRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);

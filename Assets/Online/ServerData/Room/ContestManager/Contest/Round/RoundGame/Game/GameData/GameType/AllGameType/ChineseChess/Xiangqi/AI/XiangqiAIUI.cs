@@ -212,17 +212,26 @@ namespace Xiangqi
 
 		static XiangqiAIUI()
 		{
-			txtTitle.add (Language.Type.vi, "Cờ Tướng AI");
-			txtDepth.add (Language.Type.vi, "Độ sâu");
-			txtThinkTime.add (Language.Type.vi, "Thời gian nghĩ");
-			txtUseBook.add (Language.Type.vi, "Dùng sách");
-			txtPickBestMove.add (Language.Type.vi, "Chọn nước tốt nhất");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Cờ Tướng AI");
+                txtDepth.add(Language.Type.vi, "Độ sâu");
+                txtThinkTime.add(Language.Type.vi, "Thời gian nghĩ");
+                txtUseBook.add(Language.Type.vi, "Dùng sách");
+                txtPickBestMove.add(Language.Type.vi, "Chọn nước tốt nhất");
+            }
+            // rect
+            {
+                depthRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                thinkTimeRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                useBookRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                pickBestMoveRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+            }
+        }
 
 		#endregion
 
 		private bool needReset = true;
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -237,8 +246,8 @@ namespace Xiangqi
 						XiangqiAI show = editXiangqiAI.show.v.data;
 						XiangqiAI compare = editXiangqiAI.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editXiangqiAI.compareOtherType.v.data != null) {
@@ -247,7 +256,7 @@ namespace Xiangqi
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
 								Debug.LogError ("differentIndicator null: " + this);
 							}
@@ -485,10 +494,10 @@ namespace Xiangqi
 
 		#region implement callBacks
 
-		public Transform depthContainer;
-		public Transform thinkTimeContainer;
-		public Transform useBookContainer;
-		public Transform pickBestMoveContainer;
+		public static readonly UIRectTransform depthRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform thinkTimeRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform useBookRect = new UIRectTransform(UIConstants.RequestBoolRect);
+		public static readonly UIRectTransform pickBestMoveRect = new UIRectTransform(UIConstants.RequestRect);
 
 		public RequestChangeIntUI requestIntPrefab;
 		public RequestChangeBoolUI requestBoolPrefab;
@@ -561,17 +570,17 @@ namespace Xiangqi
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.depth:
 								{
-									UIUtils.Instantiate (requestChange, requestIntPrefab, depthContainer);
+									UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, depthRect);
 								}
 								break;
 							case UIData.Property.thinkTime:
 								{
-									UIUtils.Instantiate (requestChange, requestIntPrefab, thinkTimeContainer);
+									UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, thinkTimeRect);
 								}
 								break;
 							case UIData.Property.pickBestMove:
 								{
-									UIUtils.Instantiate (requestChange, requestIntPrefab, pickBestMoveContainer);
+									UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, pickBestMoveRect);
 								}
 								break;
 							default:
@@ -594,7 +603,7 @@ namespace Xiangqi
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.useBook:
 								{
-									UIUtils.Instantiate (requestChange, requestBoolPrefab, useBookContainer);
+									UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, useBookRect);
 								}
 								break;
 							default:

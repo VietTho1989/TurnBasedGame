@@ -59,8 +59,6 @@ namespace Reversi
 		private bool needReset = true;
 		private bool miniGameDataDirty = true;
 
-		public GameObject differentIndicator;
-
 		public override void refresh ()
 		{
 			if (dirty) {
@@ -73,8 +71,8 @@ namespace Reversi
 						DefaultReversi show = editDefaultReversi.show.v.data;
 						DefaultReversi compare = editDefaultReversi.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editDefaultReversi.compareOtherType.v.data != null) {
@@ -83,9 +81,9 @@ namespace Reversi
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// request
 							{
@@ -185,7 +183,6 @@ namespace Reversi
 		#region implement callBacks
 
 		public MiniGameDataUI miniGameDataUIPrefab;
-		public Transform miniGameDataUIContainer;
 
 		private Server server = null;
 
@@ -250,7 +247,7 @@ namespace Reversi
 						MiniGameDataUI.UIData miniGameDataUIData = data as MiniGameDataUI.UIData;
 						// UI
 						{
-							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, miniGameDataUIContainer);
+							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, this.transform, UIConstants.MiniGameDataUIRect);
 						}
 						// Child
 						{

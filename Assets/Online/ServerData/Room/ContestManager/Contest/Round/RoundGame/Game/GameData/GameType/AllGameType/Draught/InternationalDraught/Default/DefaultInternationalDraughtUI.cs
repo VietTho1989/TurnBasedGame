@@ -91,16 +91,21 @@ namespace InternationalDraught
 
 		static DefaultInternationalDraughtUI()
 		{
-			txtTitle.add (Language.Type.vi, "Mặc Định Cờ Đam Kiểu Quốc Tế");
-			txtVariant.add (Language.Type.vi, "Thể loại");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Mặc Định Cờ Đam Kiểu Quốc Tế");
+                txtVariant.add(Language.Type.vi, "Thể loại");
+            }
+            // rect
+            {
+                variantRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+            }
+        }
 
 		#endregion
 
 		private bool needReset = true;
 		private bool miniGameDataDirty = true;
-
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -114,8 +119,8 @@ namespace InternationalDraught
 						DefaultInternationalDraught show = editDefaultInternationalDraught.show.v.data;
 						DefaultInternationalDraught compare = editDefaultInternationalDraught.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editDefaultInternationalDraught.compareOtherType.v.data != null) {
@@ -124,9 +129,9 @@ namespace InternationalDraught
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("different null: " + this);
 							}
 							// request
 							{
@@ -269,10 +274,9 @@ namespace InternationalDraught
 		#region implement callBacks
 
 		public MiniGameDataUI miniGameDataUIPrefab;
-		public Transform miniGameDataUIContainer;
 
 		public RequestChangeEnumUI requestEnumPrefab;
-		public Transform variantContainer;
+        public static readonly UIRectTransform variantRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
 		private Server server = null;
 
@@ -341,7 +345,7 @@ namespace InternationalDraught
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.variant:
 								{
-									UIUtils.Instantiate (requestChange, requestEnumPrefab, variantContainer);
+									UIUtils.Instantiate (requestChange, requestEnumPrefab, this.transform, variantRect);
 								}
 								break;
 							default:
@@ -361,7 +365,7 @@ namespace InternationalDraught
 						MiniGameDataUI.UIData miniGameDataUIData = data as MiniGameDataUI.UIData;
 						// UI
 						{
-							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, miniGameDataUIContainer);
+							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, this.transform, UIConstants.MiniGameDataUIRect);
 						}
 						// Child
 						{

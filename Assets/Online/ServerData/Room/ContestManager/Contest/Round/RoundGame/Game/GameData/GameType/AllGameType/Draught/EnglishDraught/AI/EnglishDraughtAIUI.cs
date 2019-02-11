@@ -211,17 +211,26 @@ namespace EnglishDraught
 
 		static EnglishDraughtAIUI()
 		{
-			txtTitle.add (Language.Type.vi, "Cờ Đam Kiểu Anh AI");
-			txtThreeMoveRandom.add (Language.Type.vi, "Ba nước đầu ngẫu nhiên");
-			txtMaxSeconds.add (Language.Type.vi, "Số giây tối đa");
-			txtMaxDepth.add (Language.Type.vi, "Độ sâu tối đa");
-			txtPickBestMove.add (Language.Type.vi, "Chọn nước đi tốt nhất");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Cờ Đam Kiểu Anh AI");
+                txtThreeMoveRandom.add(Language.Type.vi, "Ba nước đầu ngẫu nhiên");
+                txtMaxSeconds.add(Language.Type.vi, "Số giây tối đa");
+                txtMaxDepth.add(Language.Type.vi, "Độ sâu tối đa");
+                txtPickBestMove.add(Language.Type.vi, "Chọn nước đi tốt nhất");
+            }
+            // rect
+            {
+                threeMoveRandomRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                fMaxSecondsRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                g_MaxDepthRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                pickBestMoveRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+            }
+        }
 
 		#endregion
 
 		private bool needReset = true;
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -235,8 +244,8 @@ namespace EnglishDraught
 						EnglishDraughtAI show = editEnglishDraughtAI.show.v.data;
 						EnglishDraughtAI compare = editEnglishDraughtAI.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editEnglishDraughtAI.compareOtherType.v.data != null) {
@@ -245,7 +254,7 @@ namespace EnglishDraught
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
 								Debug.LogError ("differentIndicator null: " + this);
 							}
@@ -487,10 +496,10 @@ namespace EnglishDraught
 
 		#region implement callBacks
 
-		public Transform threeMoveRandomContainer;
-		public Transform fMaxSecondsContainer;
-		public Transform g_MaxDepthContainer;
-		public Transform pickBestMoveContainer;
+		public static readonly UIRectTransform threeMoveRandomRect = new UIRectTransform(UIConstants.RequestBoolRect);
+		public static readonly UIRectTransform fMaxSecondsRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform g_MaxDepthRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform pickBestMoveRect = new UIRectTransform(UIConstants.RequestRect);
 
 		public RequestChangeIntUI requestIntPrefab;
 		public RequestChangeBoolUI requestBoolPrefab;
@@ -564,7 +573,7 @@ namespace EnglishDraught
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.threeMoveRandom:
 								{
-									UIUtils.Instantiate (requestChange, requestBoolPrefab, threeMoveRandomContainer);
+									UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, threeMoveRandomRect);
 								}
 								break;
 							default:
@@ -587,7 +596,7 @@ namespace EnglishDraught
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.fMaxSeconds:
 								{
-									UIUtils.Instantiate (requestChange, requestFloatPrefab, fMaxSecondsContainer);
+									UIUtils.Instantiate (requestChange, requestFloatPrefab, this.transform, fMaxSecondsRect);
 								}
 								break;
 							default:
@@ -610,12 +619,12 @@ namespace EnglishDraught
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.g_MaxDepth:
 								{
-									UIUtils.Instantiate (requestChange, requestIntPrefab, g_MaxDepthContainer);
+									UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, g_MaxDepthRect);
 								}
 								break;
 							case UIData.Property.pickBestMove:
 								{
-									UIUtils.Instantiate (requestChange, requestIntPrefab, pickBestMoveContainer);
+									UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, pickBestMoveRect);
 								}
 								break;
 							default:

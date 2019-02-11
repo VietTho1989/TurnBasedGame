@@ -189,7 +189,14 @@ namespace Mirror
         // virtual so that inheriting classes' OnApplicationQuit() can call base.OnApplicationQuit() too
         public virtual void OnApplicationQuit()
         {
-            Transport.layer.Shutdown();
+            if (Transport.layer != null)
+            {
+                Transport.layer.Shutdown();
+            }
+            else
+            {
+                Debug.LogError("OnApplicationQuit transport layer null");
+            }
         }
 
         // virtual so that inheriting classes' OnValidate() can call base.OnValidate() too

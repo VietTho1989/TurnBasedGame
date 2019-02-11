@@ -83,14 +83,20 @@ namespace Banqi
 
 		static BanqiAIUI()
 		{
-			txtTitle.add (Language.Type.vi, "Banqi AI");
-			txtDepth.add (Language.Type.vi, "Độ sâu");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Banqi AI");
+                txtDepth.add(Language.Type.vi, "Độ sâu");
+            }
+            // rect
+            {
+                depthRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+            }
+        }
 
 		#endregion
 
 		private bool needReset = true;
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -105,8 +111,8 @@ namespace Banqi
 						BanqiAI show = editBanqiAI.show.v.data;
 						BanqiAI compare = editBanqiAI.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editBanqiAI.compareOtherType.v.data != null) {
@@ -115,9 +121,9 @@ namespace Banqi
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("different null: " + this);
 							}
 							// get server state
 							Server.State.Type serverState = Server.State.Type.Connect;
@@ -211,11 +217,11 @@ namespace Banqi
 			return true;
 		}
 
-		#endregion
+        #endregion
 
-		#region implement callBacks
+        #region implement callBacks
 
-		public Transform depthContainer;
+        public static readonly UIRectTransform depthRect = new UIRectTransform(UIConstants.RequestRect);
 
 		public RequestChangeIntUI requestIntPrefab;
 
@@ -282,7 +288,7 @@ namespace Banqi
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.depth:
 								{
-									UIUtils.Instantiate (requestChange, requestIntPrefab, depthContainer);
+									UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, depthRect);
 								}
 								break;
 							default:

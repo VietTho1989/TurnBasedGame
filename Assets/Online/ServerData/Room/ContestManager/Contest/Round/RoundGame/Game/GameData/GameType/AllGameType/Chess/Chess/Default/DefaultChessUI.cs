@@ -86,16 +86,21 @@ namespace Chess
 
 		static DefaultChessUI()
 		{
-			txtTitle.add (Language.Type.vi, "Cờ Vua Mặc Định");
-			txtChess960.add (Language.Type.vi, "Cờ ngẫu nhiên Fischer");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Cờ Vua Mặc Định");
+                txtChess960.add(Language.Type.vi, "Cờ ngẫu nhiên Fischer");
+            }
+            // rect
+            {
+                chess960Rect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+            }
+        }
 
 		#endregion
 
 		private bool needReset = true;
 		private bool miniGameDataDirty = true;
-
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -109,8 +114,8 @@ namespace Chess
 						DefaultChess show = editDefaultChess.show.v.data;
 						DefaultChess compare = editDefaultChess.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+                            // differentIndicator
+                            if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editDefaultChess.compareOtherType.v.data != null) {
@@ -119,7 +124,7 @@ namespace Chess
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
 								Debug.LogError ("differentIndicator null: " + this);
 							}
@@ -275,17 +280,13 @@ namespace Chess
 		#region implement callBacks
 
 		public MiniGameDataUI miniGameDataUIPrefab;
-		public Transform miniGameDataUIContainer;
 
-		public RequestChangeBoolUI requestBoolPrefab;
-		public Transform chess960Container;
+        public RequestChangeBoolUI requestBoolPrefab;
+        public static readonly UIRectTransform chess960Rect = new UIRectTransform(UIConstants.RequestBoolRect);
 
 		private Server server = null;
 
-        public UIRectTransform chess960Transform;
-        // public RectTransform chess960Transform;
-
-		public override void onAddCallBack<T> (T data)
+        public override void onAddCallBack<T> (T data)
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
@@ -349,7 +350,7 @@ namespace Chess
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.chess960:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, chess960Container);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, chess960Rect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -368,7 +369,7 @@ namespace Chess
 						MiniGameDataUI.UIData miniGameDataUIData = data as MiniGameDataUI.UIData;
 						// UI
 						{
-							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, miniGameDataUIContainer);
+							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, this.transform, UIConstants.MiniGameDataUIRect);
 						}
 						// Child
 						{

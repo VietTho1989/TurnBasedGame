@@ -83,14 +83,20 @@ namespace Janggi
 
 		static JanggiAIUI()
 		{
-			txtTitle.add (Language.Type.vi, "Cờ Tướng Triều Tiên AI");
-			txtMaxVisitCount.add (Language.Type.vi, "Số nốt thăm tối đa");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Cờ Tướng Triều Tiên AI");
+                txtMaxVisitCount.add(Language.Type.vi, "Số nốt thăm tối đa");
+            }
+            // rect
+            {
+                maxVisitCountRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+            }
+        }
 
 		#endregion
 
 		private bool needReset = true;
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -105,8 +111,8 @@ namespace Janggi
 						JanggiAI show = editJanggiAI.show.v.data;
 						JanggiAI compare = editJanggiAI.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editJanggiAI.compareOtherType.v.data != null) {
@@ -115,9 +121,9 @@ namespace Janggi
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("different null: " + this);
 							}
 							// get server state
 							Server.State.Type serverState = Server.State.Type.Connect;
@@ -215,7 +221,7 @@ namespace Janggi
 
 		#region implement callBacks
 
-		public Transform maxVisitCountContainer;
+		public static readonly UIRectTransform maxVisitCountRect = new UIRectTransform(UIConstants.RequestRect);
 
 		public RequestChangeIntUI requestIntPrefab;
 
@@ -282,7 +288,7 @@ namespace Janggi
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.maxVisitCount:
 								{
-									UIUtils.Instantiate (requestChange, requestIntPrefab, maxVisitCountContainer);
+									UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, maxVisitCountRect);
 								}
 								break;
 							default:

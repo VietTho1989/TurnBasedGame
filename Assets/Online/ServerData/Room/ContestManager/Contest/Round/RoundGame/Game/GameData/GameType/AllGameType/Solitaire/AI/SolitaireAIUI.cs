@@ -165,16 +165,24 @@ namespace Solitaire
 
 		static SolitaireAIUI()
 		{
-			txtTitle.add (Language.Type.vi, "AI Solitaire");
-			txtMultiThreaded.add (Language.Type.vi, "Đa luồng");
-			txtMaxClosedCount.add (Language.Type.vi, "Max closed count");
-			txtFastMode.add (Language.Type.vi, "Kiểu nhanh");
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "AI Solitaire");
+                txtMultiThreaded.add(Language.Type.vi, "Đa luồng");
+                txtMaxClosedCount.add(Language.Type.vi, "Max closed count");
+                txtFastMode.add(Language.Type.vi, "Kiểu nhanh");
+            }
+            // rect
+            {
+                multiThreadedRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                maxClosedCountRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                fastModeRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+            }
 		}
 
 		#endregion
 
 		private bool needReset = true;
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -188,8 +196,8 @@ namespace Solitaire
 						SolitaireAI show = editSolitaireAI.show.v.data;
 						SolitaireAI compare = editSolitaireAI.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editSolitaireAI.compareOtherType.v.data != null) {
@@ -198,9 +206,9 @@ namespace Solitaire
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// get server state
 							Server.State.Type serverState = Server.State.Type.Connect;
@@ -393,9 +401,9 @@ namespace Solitaire
 
 		#region implement callBacks
 
-		public Transform multiThreadedContainer;
-		public Transform maxClosedCountContainer;
-		public Transform fastModeContainer;
+		public static readonly UIRectTransform multiThreadedRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform maxClosedCountRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform fastModeRect = new UIRectTransform(UIConstants.RequestBoolRect);
 
 		public RequestChangeIntUI requestIntPrefab;
 		public RequestChangeBoolUI requestBoolPrefab;
@@ -466,10 +474,10 @@ namespace Solitaire
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.multiThreaded:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, multiThreadedContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, multiThreadedRect);
 								break;
 							case UIData.Property.maxClosedCount:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, maxClosedCountContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, maxClosedCountRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -490,7 +498,7 @@ namespace Solitaire
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.fastMode:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, fastModeContainer);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, fastModeRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);

@@ -34,7 +34,6 @@ public class UIUtils
 
 	#endregion
 
-
 	public static UIBehavior<T> Instantiate<T>(T data, UIBehavior<T> prefab, Transform transform) where T : Data
 	{
 		if (data != null) {
@@ -60,7 +59,42 @@ public class UIUtils
 		}
 	}
 
-	public static UIBehavior<T> Instantiate<T>(T data, UIBehavior<T> prefab, Transform transform, int siblingIndex) where T : Data
+    public static UIBehavior<T> Instantiate<T>(T data, UIBehavior<T> prefab, Transform transform, UIRectTransform uiRectTransform) where T : Data
+    {
+        if (data != null)
+        {
+            if (transform != null && prefab != null)
+            {
+                UIBehavior<T> old = data.findCallBack<UIBehavior<T>>(prefab.GetType());
+                if (old == null)
+                {
+                    /*UIBehavior<T> newUI = TrashMan.normalSpawnUI (prefab, transform, data);
+                    return newUI;*/
+                    UIBehavior<T> newUI = TrashMan.normalSpawn(prefab, transform);
+                    newUI.setData(data);
+                    uiRectTransform.set((RectTransform)newUI.transform);
+                    return newUI;
+                }
+                else
+                {
+                    Debug.LogError("already have");
+                    return old;
+                }
+            }
+            else
+            {
+                Debug.LogError("transform or prefab null");
+                return null;
+            }
+        }
+        else
+        {
+            Debug.LogError("error, Instantiate: why data null");
+            return null;
+        }
+    }
+
+    public static UIBehavior<T> Instantiate<T>(T data, UIBehavior<T> prefab, Transform transform, int siblingIndex) where T : Data
 	{
 		if (data != null) {
 			if (transform != null && prefab != null) {

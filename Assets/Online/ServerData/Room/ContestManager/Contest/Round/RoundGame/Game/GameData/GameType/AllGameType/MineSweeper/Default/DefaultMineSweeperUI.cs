@@ -270,20 +270,29 @@ namespace MineSweeper
 
 		static DefaultMineSweeperUI()
 		{
-			txtTitle.add (Language.Type.vi, "Mặc Định Dò Mìn");
-			txtN.add (Language.Type.vi, "Chiều dài");
-			txtM.add (Language.Type.vi, "Chiều rộng");
-			txtMinK.add (Language.Type.vi, "Mật độ mìn tối thiểu");
-			txtMaxK.add (Language.Type.vi, "Mật độ mìn tối đa");
-			txtAllowWatchBomb.add (Language.Type.vi, "Cho phép người xem thấy bom");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Mặc Định Dò Mìn");
+                txtN.add(Language.Type.vi, "Chiều dài");
+                txtM.add(Language.Type.vi, "Chiều rộng");
+                txtMinK.add(Language.Type.vi, "Mật độ mìn tối thiểu");
+                txtMaxK.add(Language.Type.vi, "Mật độ mìn tối đa");
+                txtAllowWatchBomb.add(Language.Type.vi, "Cho phép người xem thấy bom");
+            }
+            // rect
+            {
+                NRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                MRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                minKRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                maxKRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                allowWatchBombRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 4 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+            }
+        }
 
 		#endregion
 
 		private bool needReset = true;
 		private bool miniGameDataDirty = true;
-
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -297,8 +306,8 @@ namespace MineSweeper
 						DefaultMineSweeper show = editDefaultMineSweeper.show.v.data;
 						DefaultMineSweeper compare = editDefaultMineSweeper.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editDefaultMineSweeper.compareOtherType.v.data != null) {
@@ -307,9 +316,9 @@ namespace MineSweeper
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// request
 							{
@@ -640,17 +649,16 @@ namespace MineSweeper
 		#region implement callBacks
 
 		public MiniGameDataUI miniGameDataUIPrefab;
-		public Transform miniGameDataUIContainer;
 
 		public RequestChangeIntUI requestIntPrefab;
 		public RequestChangeFloatUI requestFloatPrefab;
 		public RequestChangeBoolUI requestBoolPrefab;
 
-		public Transform NContainer;
-		public Transform MContainer;
-		public Transform minKContainer;
-		public Transform maxKContainer;
-		public Transform allowWatchBombContainer;
+		public static readonly UIRectTransform NRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform MRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform minKRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform maxKRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform allowWatchBombRect = new UIRectTransform(UIConstants.RequestBoolRect);
 
 		private Server server = null;
 
@@ -723,10 +731,10 @@ namespace MineSweeper
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.N:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, NContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, NRect);
 								break;
 							case UIData.Property.M:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, MContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, MRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -748,10 +756,10 @@ namespace MineSweeper
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.minK:
-								UIUtils.Instantiate (requestChange, requestFloatPrefab, minKContainer);
+								UIUtils.Instantiate (requestChange, requestFloatPrefab, this.transform, minKRect);
 								break;
 							case UIData.Property.maxK:
-								UIUtils.Instantiate (requestChange, requestFloatPrefab, maxKContainer);
+								UIUtils.Instantiate (requestChange, requestFloatPrefab, this.transform, maxKRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -773,7 +781,7 @@ namespace MineSweeper
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.allowWatchBomb:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, allowWatchBombContainer);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, allowWatchBombRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -792,7 +800,7 @@ namespace MineSweeper
 						MiniGameDataUI.UIData miniGameDataUIData = data as MiniGameDataUI.UIData;
 						// UI
 						{
-							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, miniGameDataUIContainer);
+							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, this.transform, UIConstants.MiniGameDataUIRect);
 						}
 						// Child
 						{

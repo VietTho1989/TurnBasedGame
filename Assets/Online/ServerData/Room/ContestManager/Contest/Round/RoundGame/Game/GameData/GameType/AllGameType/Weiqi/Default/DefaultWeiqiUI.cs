@@ -225,19 +225,27 @@ namespace Weiqi
 
 		static DefaultWeiqiUI()
 		{
-			txtTitle.add (Language.Type.vi, "Mặc Định Cờ Vây");
-			txtSize.add (Language.Type.vi, "Kích thước");
-			txtKomi.add (Language.Type.vi, "Komi");
-			txtRule.add (Language.Type.vi, "Luật");
-			txtHandicap.add (Language.Type.vi, "Chấp");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Mặc Định Cờ Vây");
+                txtSize.add(Language.Type.vi, "Kích thước");
+                txtKomi.add(Language.Type.vi, "Komi");
+                txtRule.add(Language.Type.vi, "Luật");
+                txtHandicap.add(Language.Type.vi, "Chấp");
+            }
+            // rect
+            {
+                sizeRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                komiRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                ruleRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                handicapRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+            }
+        }
 
 		#endregion
 
 		private bool needReset = true;
 		private bool miniGameDataDirty = true;
-
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -251,8 +259,8 @@ namespace Weiqi
 						DefaultWeiqi show = editDefaultWeiqi.show.v.data;
 						DefaultWeiqi compare = editDefaultWeiqi.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editDefaultWeiqi.compareOtherType.v.data != null) {
@@ -261,9 +269,9 @@ namespace Weiqi
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// request
 							{
@@ -566,16 +574,15 @@ namespace Weiqi
 		#region implement callBacks
 
 		public MiniGameDataUI miniGameDataUIPrefab;
-		public Transform miniGameDataUIContainer;
 
 		public RequestChangeIntUI requestIntPrefab;
 		public RequestChangeFloatUI requestFloatPrefab;
 		public RequestChangeEnumUI requestEnumPrefab;
 
-		public Transform sizeContainer;
-		public Transform komiContainer;
-		public Transform ruleContainer;
-		public Transform handicapContainer;
+		public static readonly UIRectTransform sizeRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform komiRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform ruleRect = new UIRectTransform(UIConstants.RequestEnumRect);
+		public static readonly UIRectTransform handicapRect = new UIRectTransform(UIConstants.RequestRect);
 
 		private Server server = null;
 
@@ -646,10 +653,10 @@ namespace Weiqi
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.size:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, sizeContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, sizeRect);
 								break;
 							case UIData.Property.handicap:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, handicapContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, handicapRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -670,7 +677,7 @@ namespace Weiqi
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.komi:
-								UIUtils.Instantiate (requestChange, requestFloatPrefab, komiContainer);
+								UIUtils.Instantiate (requestChange, requestFloatPrefab, this.transform, komiRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -691,7 +698,7 @@ namespace Weiqi
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.rule:
-								UIUtils.Instantiate (requestChange, requestEnumPrefab, ruleContainer);
+								UIUtils.Instantiate (requestChange, requestEnumPrefab, this.transform, ruleRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -710,7 +717,7 @@ namespace Weiqi
 						MiniGameDataUI.UIData miniGameDataUIData = data as MiniGameDataUI.UIData;
 						// UI
 						{
-							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, miniGameDataUIContainer);
+							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, this.transform, UIConstants.MiniGameDataUIRect);
 						}
 						// Child
 						{

@@ -139,15 +139,22 @@ namespace RussianDraught
 
 		static RussianDraughtAIUI()
 		{
-			txtTitle.add (Language.Type.vi, "Cờ Đam Kiểu Nga AI");
-			txtTimeLimit.add (Language.Type.vi, "Giới hạn thời gian");
-			txtPickBestMove.add (Language.Type.vi, "Chọn nước đi tốt nhất");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Cờ Đam Kiểu Nga AI");
+                txtTimeLimit.add(Language.Type.vi, "Giới hạn thời gian");
+                txtPickBestMove.add(Language.Type.vi, "Chọn nước đi tốt nhất");
+            }
+            // rect
+            {
+                timeLimitRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                pickBestMoveRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+            }
+        }
 
 		#endregion
 
 		private bool needReset = true;
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -161,8 +168,8 @@ namespace RussianDraught
 						RussianDraughtAI show = editRussianDraughtAI.show.v.data;
 						RussianDraughtAI compare = editRussianDraughtAI.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editRussianDraughtAI.compareOtherType.v.data != null) {
@@ -171,9 +178,9 @@ namespace RussianDraught
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// get server state
 							Server.State.Type serverState = Server.State.Type.Connect;
@@ -319,8 +326,8 @@ namespace RussianDraught
 
 		#region implement callBacks
 
-		public Transform timeLimitContainer;
-		public Transform pickBestMoveContainer;
+		public static readonly UIRectTransform timeLimitRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform pickBestMoveRect = new UIRectTransform(UIConstants.RequestRect);
 
 		public RequestChangeIntUI requestIntPrefab;
 
@@ -390,12 +397,12 @@ namespace RussianDraught
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.timeLimit:
 								{
-									UIUtils.Instantiate (requestChange, requestIntPrefab, timeLimitContainer);
+									UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, timeLimitRect);
 								}
 								break;
 							case UIData.Property.pickBestMove:
 								{
-									UIUtils.Instantiate (requestChange, requestIntPrefab, pickBestMoveContainer);
+									UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, pickBestMoveRect);
 								}
 								break;
 							default:

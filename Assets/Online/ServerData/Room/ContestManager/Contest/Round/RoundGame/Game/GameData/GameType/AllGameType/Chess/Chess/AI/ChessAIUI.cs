@@ -173,18 +173,26 @@ namespace Chess
 		public Text lbDuration;
 		public static readonly TxtLanguage txtDuration = new TxtLanguage();
 
-		static ChessAIUI()
-		{
-			txtTitle.add (Language.Type.vi, "AI Cờ Vua");
-			txtDepth.add (Language.Type.vi, "Độ sâu");
-			txtSkillLevel.add (Language.Type.vi, "Mức kỹ năng");
-			txtDuration.add (Language.Type.vi, "Thời gian");
-		}
+        static ChessAIUI()
+        {
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "AI Cờ Vua");
+                txtDepth.add(Language.Type.vi, "Độ sâu");
+                txtSkillLevel.add(Language.Type.vi, "Mức kỹ năng");
+                txtDuration.add(Language.Type.vi, "Thời gian");
+            }
+            // rect
+            {
+                depthRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                skillLevelRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                durationRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+            }
+        }
 
 		#endregion
 
 		private bool needReset = true;
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -198,8 +206,8 @@ namespace Chess
 						ChessAI show = editChessAI.show.v.data;
 						ChessAI compare = editChessAI.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editChessAI.compareOtherType.v.data != null) {
@@ -208,9 +216,9 @@ namespace Chess
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// get server state
 							Server.State.Type serverState = Server.State.Type.Connect;
@@ -396,13 +404,13 @@ namespace Chess
 			return true;
 		}
 
-		#endregion
+        #endregion
 
-		#region implement callBacks
+        #region implement callBacks
 
-		public Transform depthContainer;
-		public Transform skillLevelContainer;
-		public Transform durationContainer;
+        public static readonly UIRectTransform depthRect = new UIRectTransform(UIConstants.RequestRect);
+        public static readonly UIRectTransform skillLevelRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform durationRect = new UIRectTransform(UIConstants.RequestRect);
 
 		public RequestChangeIntUI requestIntPrefab;
 		public RequestChangeLongUI requestLongPrefab;
@@ -473,10 +481,10 @@ namespace Chess
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.depth:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, depthContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, depthRect);
 								break;
 							case UIData.Property.skillLevel:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, skillLevelContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, skillLevelRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -497,7 +505,7 @@ namespace Chess
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.duration:
-								UIUtils.Instantiate (requestChange, requestLongPrefab, durationContainer);
+								UIUtils.Instantiate (requestChange, requestLongPrefab, this.transform, durationRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);

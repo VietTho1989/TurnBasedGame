@@ -250,18 +250,28 @@ namespace Weiqi
 
 		static WeiqiAIUI()
 		{
-			txtTitle.add (Language.Type.vi, "Cờ Vây AI");
-			txtCanResign.add (Language.Type.vi, "Có thể từ bỏ");
-			txtUseBook.add (Language.Type.vi, "Dùng sách");
-			txtTime.add (Language.Type.vi, "Thời gian");
-			txtGames.add (Language.Type.vi, "Games");
-			txtEngine.add (Language.Type.vi, "Engine");
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Cờ Vây AI");
+                txtCanResign.add(Language.Type.vi, "Có thể từ bỏ");
+                txtUseBook.add(Language.Type.vi, "Dùng sách");
+                txtTime.add(Language.Type.vi, "Thời gian");
+                txtGames.add(Language.Type.vi, "Games");
+                txtEngine.add(Language.Type.vi, "Engine");
+            }
+            // rect
+            {
+                canResignRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                useBookRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                timeRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                gamesRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                engineRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+            }
 		}
 
 		#endregion
 
 		private bool needReset = true;
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -275,8 +285,8 @@ namespace Weiqi
 						WeiqiAI show = editWeiqiAI.show.v.data;
 						WeiqiAI compare = editWeiqiAI.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editWeiqiAI.compareOtherType.v.data != null) {
@@ -285,9 +295,9 @@ namespace Weiqi
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// get server state
 							Server.State.Type serverState = Server.State.Type.Connect;
@@ -649,11 +659,11 @@ namespace Weiqi
 
 		#region implement callBacks
 
-		public Transform canResignContainer;
-		public Transform useBookContainer;
-		public Transform timeContainer;
-		public Transform gamesContainer;
-		public Transform engineContainer;
+		public static readonly UIRectTransform canResignRect = new UIRectTransform(UIConstants.RequestBoolRect);
+		public static readonly UIRectTransform useBookRect = new UIRectTransform(UIConstants.RequestBoolRect);
+		public static readonly UIRectTransform timeRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform gamesRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform engineRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
 		public RequestChangeIntUI requestIntPrefab;
 		public RequestChangeBoolUI requestBoolPrefab;
@@ -727,10 +737,10 @@ namespace Weiqi
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.time:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, timeContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, timeRect);
 								break;
 							case UIData.Property.games:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, gamesContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, gamesRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -751,10 +761,10 @@ namespace Weiqi
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.canResign:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, canResignContainer);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, canResignRect);
 								break;
 							case UIData.Property.useBook:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, useBookContainer);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, useBookRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -775,7 +785,7 @@ namespace Weiqi
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.engine:
-								UIUtils.Instantiate (requestChange, requestEnumPrefab, engineContainer);
+								UIUtils.Instantiate (requestChange, requestEnumPrefab, this.transform, engineRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);

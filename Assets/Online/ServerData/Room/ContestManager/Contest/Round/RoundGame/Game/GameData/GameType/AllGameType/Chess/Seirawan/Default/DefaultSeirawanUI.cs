@@ -86,16 +86,21 @@ namespace Seirawan
 
 		static DefaultSeirawanUI()
 		{
-			txtTitle.add (Language.Type.vi, "Mặc Định Cờ Seirawan");
-			txtChess960.add (Language.Type.vi, "Chess960");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Mặc Định Cờ Seirawan");
+                txtChess960.add(Language.Type.vi, "Chess960");
+            }
+            // rect
+            {
+                chess960Rect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+            }
+        }
 
 		#endregion
 
 		private bool needReset = true;
 		private bool miniGameDataDirty = true;
-
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -109,8 +114,8 @@ namespace Seirawan
 						DefaultSeirawan show = editDefaultSeirawan.show.v.data;
 						DefaultSeirawan compare = editDefaultSeirawan.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editDefaultSeirawan.compareOtherType.v.data != null) {
@@ -119,7 +124,7 @@ namespace Seirawan
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
 								Debug.LogError ("differentIndicator null: " + this);
 							}
@@ -277,10 +282,9 @@ namespace Seirawan
 		#region implement callBacks
 
 		public MiniGameDataUI miniGameDataUIPrefab;
-		public Transform miniGameDataUIContainer;
 
 		public RequestChangeBoolUI requestBoolPrefab;
-		public Transform chess960Container;
+		public static readonly UIRectTransform chess960Rect = new UIRectTransform(UIConstants.RequestBoolRect);
 
 		private Server server = null;
 
@@ -348,7 +352,7 @@ namespace Seirawan
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.chess960:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, chess960Container);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, chess960Rect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -367,7 +371,7 @@ namespace Seirawan
 						MiniGameDataUI.UIData miniGameDataUIData = data as MiniGameDataUI.UIData;
 						// UI
 						{
-							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, miniGameDataUIContainer);
+							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, this.transform, UIConstants.MiniGameDataUIRect);
 						}
 						// Child
 						{

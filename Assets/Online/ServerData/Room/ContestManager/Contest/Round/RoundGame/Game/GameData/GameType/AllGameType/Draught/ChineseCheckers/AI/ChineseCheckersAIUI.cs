@@ -261,18 +261,28 @@ namespace ChineseCheckers
 
         static ChineseCheckersAIUI()
         {
-            txtTitle.add(Language.Type.vi, "AI Chinese Checkers");
-            txtType.add(Language.Type.vi, "Loại");
-            txtDepth.add(Language.Type.vi, "Độ sâu");
-            txtTime.add(Language.Type.vi, "Thời gian");
-            txtNode.add(Language.Type.vi, "Số node");
-            txtPickBestMove.add(Language.Type.vi, "Tỷ lệ chọn nước đi tốt nhất");
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "AI Chinese Checkers");
+                txtType.add(Language.Type.vi, "Loại");
+                txtDepth.add(Language.Type.vi, "Độ sâu");
+                txtTime.add(Language.Type.vi, "Thời gian");
+                txtNode.add(Language.Type.vi, "Số node");
+                txtPickBestMove.add(Language.Type.vi, "Tỷ lệ chọn nước đi tốt nhất");
+            }
+            // rect
+            {
+                typeRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                depthRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                timeRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                nodeRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                pickBestMoveRect.setPosY(UIConstants.HeaderHeight + 4 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+            }
         }
 
         #endregion
 
         private bool needReset = true;
-        public GameObject differentIndicator;
 
         public override void refresh ()
         {
@@ -286,8 +296,8 @@ namespace ChineseCheckers
                         ChineseCheckersAI show = editChineseCheckersAI.show.v.data;
                         ChineseCheckersAI compare = editChineseCheckersAI.compare.v.data;
                         if (show != null) {
-                            // differentIndicator
-                            if (differentIndicator != null) {
+                            // different
+                            if (lbTitle != null) {
                                 bool isDifferent = false;
                                 {
                                     if (editChineseCheckersAI.compareOtherType.v.data != null) {
@@ -296,9 +306,9 @@ namespace ChineseCheckers
                                         }
                                     }
                                 }
-                                differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
                             } else {
-                                Debug.LogError ("differentIndicator null: " + this);
+                                Debug.LogError ("different null: " + this);
                             }
                             // get server state
                             Server.State.Type serverState = Server.State.Type.Connect;
@@ -657,11 +667,11 @@ namespace ChineseCheckers
 
         #region implement callBacks
 
-        public Transform typeContainer;
-        public Transform depthContainer;
-        public Transform timeContainer;
-        public Transform nodeContainer;
-        public Transform pickBestMoveContainer;
+        public static readonly UIRectTransform typeRect = new UIRectTransform(UIConstants.RequestEnumRect);
+        public static readonly UIRectTransform depthRect = new UIRectTransform(UIConstants.RequestRect);
+        public static readonly UIRectTransform timeRect = new UIRectTransform(UIConstants.RequestRect);
+        public static readonly UIRectTransform nodeRect = new UIRectTransform(UIConstants.RequestRect);
+        public static readonly UIRectTransform pickBestMoveRect = new UIRectTransform(UIConstants.RequestRect);
 
         public RequestChangeEnumUI requestEnumPrefab;
         public RequestChangeIntUI requestIntPrefab;
@@ -737,7 +747,7 @@ namespace ChineseCheckers
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.type:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, typeContainer);
+                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, typeRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -762,16 +772,16 @@ namespace ChineseCheckers
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.depth:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, depthContainer);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, depthRect);
                                     break;
                                 case UIData.Property.time:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, timeContainer);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, timeRect);
                                     break;
                                 case UIData.Property.node:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, nodeContainer);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, nodeRect);
                                     break;
                                 case UIData.Property.pickBestMove:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, pickBestMoveContainer);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, pickBestMoveRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

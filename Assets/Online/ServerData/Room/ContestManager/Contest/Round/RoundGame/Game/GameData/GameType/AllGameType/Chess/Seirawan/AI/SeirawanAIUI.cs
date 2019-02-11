@@ -175,16 +175,24 @@ namespace Seirawan
 
 		static SeirawanAIUI()
 		{
-			txtTitle.add (Language.Type.vi, "Cờ Seirawan AI");
-			txtDepth.add (Language.Type.vi, "Độ sâu");
-			txtSkillLevel.add (Language.Type.vi, "Mức kỹ năng");
-			txtDuration.add (Language.Type.vi, "Thời gian");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Cờ Seirawan AI");
+                txtDepth.add(Language.Type.vi, "Độ sâu");
+                txtSkillLevel.add(Language.Type.vi, "Mức kỹ năng");
+                txtDuration.add(Language.Type.vi, "Thời gian");
+            }
+            // rect
+            {
+                depthRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                skillLevelRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                durationRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+            }
+        }
 
 		#endregion
 
 		private bool needReset = true;
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -198,8 +206,8 @@ namespace Seirawan
 						SeirawanAI show = editSeirawanAI.show.v.data;
 						SeirawanAI compare = editSeirawanAI.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editSeirawanAI.compareOtherType.v.data != null) {
@@ -208,7 +216,7 @@ namespace Seirawan
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
 								Debug.LogError ("differentIndicator null: " + this);
 							}
@@ -400,9 +408,9 @@ namespace Seirawan
 
 		#region implement callBacks
 
-		public Transform depthContainer;
-		public Transform skillLevelContainer;
-		public Transform durationContainer;
+		public static readonly UIRectTransform depthRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform skillLevelRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform durationRect = new UIRectTransform(UIConstants.RequestRect);
 
 		public RequestChangeIntUI requestIntPrefab;
 		public RequestChangeLongUI requestLongPrefab;
@@ -474,12 +482,12 @@ namespace Seirawan
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.depth:
 								{
-									UIUtils.Instantiate (requestChange, requestIntPrefab, depthContainer);
+									UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, depthRect);
 								}
 								break;
 							case UIData.Property.skillLevel:
 								{
-									UIUtils.Instantiate (requestChange, requestIntPrefab, skillLevelContainer);
+									UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, skillLevelRect);
 								}
 								break;
 							default:
@@ -502,7 +510,7 @@ namespace Seirawan
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.duration:
 								{
-									UIUtils.Instantiate (requestChange, requestLongPrefab, durationContainer);
+									UIUtils.Instantiate (requestChange, requestLongPrefab, this.transform, durationRect);
 								}
 								break;
 							default:

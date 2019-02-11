@@ -248,18 +248,28 @@ namespace Shogi
 
 		static ShogiAIUI()
 		{
-			txtTitle.add (Language.Type.vi, "Cờ Shogi AI");
-			txtDepth.add (Language.Type.vi, "Độ sâu");
-			txtSkillLevel.add (Language.Type.vi, "Cấp độ kỹ năng");
-			txtMr.add (Language.Type.vi, "mr");
-			txtDuration.add (Language.Type.vi, "Thời gian");
-			txtUseBook.add (Language.Type.vi, "Dùng sách");
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Cờ Shogi AI");
+                txtDepth.add(Language.Type.vi, "Độ sâu");
+                txtSkillLevel.add(Language.Type.vi, "Cấp độ kỹ năng");
+                txtMr.add(Language.Type.vi, "mr");
+                txtDuration.add(Language.Type.vi, "Thời gian");
+                txtUseBook.add(Language.Type.vi, "Dùng sách");
+            }
+            // rect
+            {
+                depthRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                skillLevelRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                mrRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                durationRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                useBookRect.setPosY(UIConstants.HeaderHeight + 4 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+            }
 		}
 
 		#endregion
 
 		private bool needReset = true;
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -273,8 +283,8 @@ namespace Shogi
 						ShogiAI show = editShogiAI.show.v.data;
 						ShogiAI compare = editShogiAI.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editShogiAI.compareOtherType.v.data != null) {
@@ -283,9 +293,9 @@ namespace Shogi
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// get server state
 							Server.State.Type serverState = Server.State.Type.Connect;
@@ -567,11 +577,11 @@ namespace Shogi
 
 		#region implement callBacks
 
-		public Transform depthContainer; 
-		public Transform skillLevelContainer; 
-		public Transform mrContainer; 
-		public Transform durationContainer; 
-		public Transform useBookContainer;
+		public static readonly UIRectTransform depthRect = new UIRectTransform(UIConstants.RequestRect); 
+		public static readonly UIRectTransform skillLevelRect = new UIRectTransform(UIConstants.RequestRect); 
+		public static readonly UIRectTransform mrRect = new UIRectTransform(UIConstants.RequestRect); 
+		public static readonly UIRectTransform durationRect = new UIRectTransform(UIConstants.RequestRect); 
+		public static readonly UIRectTransform useBookRect = new UIRectTransform(UIConstants.RequestBoolRect);
 
 		public RequestChangeIntUI requestIntPrefab;
 		public RequestChangeBoolUI requestBoolPrefab;
@@ -644,16 +654,16 @@ namespace Shogi
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.depth:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, depthContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, depthRect);
 								break;
 							case UIData.Property.skillLevel:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, skillLevelContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, skillLevelRect);
 								break;
 							case UIData.Property.mr:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, mrContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, mrRect);
 								break;
 							case UIData.Property.duration:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, durationContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, durationRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -674,7 +684,7 @@ namespace Shogi
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.useBook:
-								UIUtils.Instantiate(requestChange, requestBoolPrefab, useBookContainer);
+								UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, useBookRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);

@@ -211,17 +211,26 @@ namespace Khet
 
 		static KhetAIUI()
 		{
-			txtTitle.add (Language.Type.vi, "AI Khet");
-			txtInfinite.add (Language.Type.vi, "Vô hạn");
-			txtMoveTime.add (Language.Type.vi, "Thời gian");
-			txtDepth.add (Language.Type.vi, "Dộ sâu");
-			txtPickBestMove.add (Language.Type.vi, "Chọn nước đi tốt nhất");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "AI Khet");
+                txtInfinite.add(Language.Type.vi, "Vô hạn");
+                txtMoveTime.add(Language.Type.vi, "Thời gian");
+                txtDepth.add(Language.Type.vi, "Dộ sâu");
+                txtPickBestMove.add(Language.Type.vi, "Chọn nước đi tốt nhất");
+            }
+            // rect
+            {
+                infiniteRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                moveTimeRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                depthRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                pickBestMoveRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+            }
+        }
 
 		#endregion
 
 		private bool needReset = true;
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -235,8 +244,8 @@ namespace Khet
 						KhetAI show = editKhetAI.show.v.data;
 						KhetAI compare = editKhetAI.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editKhetAI.compareOtherType.v.data != null) {
@@ -245,9 +254,9 @@ namespace Khet
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// get server state
 							Server.State.Type serverState = Server.State.Type.Connect;
@@ -487,10 +496,10 @@ namespace Khet
 
 		#region implement callBacks
 
-		public Transform infiniteContainer;
-		public Transform moveTimeContainer;
-		public Transform depthContainer;
-		public Transform pickBestMoveContainer;
+		public static readonly UIRectTransform infiniteRect = new UIRectTransform(UIConstants.RequestBoolRect);
+		public static readonly UIRectTransform moveTimeRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform depthRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform pickBestMoveRect = new UIRectTransform(UIConstants.RequestRect);
 
 		public RequestChangeBoolUI requestBoolPrefab;
 		public RequestChangeIntUI requestIntPrefab;
@@ -562,7 +571,7 @@ namespace Khet
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.infinite:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, infiniteContainer);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, infiniteRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -583,13 +592,13 @@ namespace Khet
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.moveTime:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, moveTimeContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, moveTimeRect);
 								break;
 							case UIData.Property.depth:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, depthContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, depthRect);
 								break;
 							case UIData.Property.pickBestMove:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, pickBestMoveContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, pickBestMoveRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);

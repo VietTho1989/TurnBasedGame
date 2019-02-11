@@ -87,14 +87,20 @@ namespace MineSweeper
 
 		static MineSweeperAIUI()
 		{
-			txtTitle.add (Language.Type.vi, "Dò Mìn AI");
-			txtFirstMoveType.add (Language.Type.vi, "Loại nước đi đầu tiên");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Dò Mìn AI");
+                txtFirstMoveType.add(Language.Type.vi, "Loại nước đi đầu tiên");
+            }
+            // rect
+            {
+                firstMoveTypeRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+            }
+        }
 
 		#endregion
 
 		private bool needReset = true;
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -108,8 +114,8 @@ namespace MineSweeper
 						MineSweeperAI show = editMineSweeperAI.show.v.data;
 						MineSweeperAI compare = editMineSweeperAI.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editMineSweeperAI.compareOtherType.v.data != null) {
@@ -118,9 +124,9 @@ namespace MineSweeper
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// get server state
 							Server.State.Type serverState = Server.State.Type.Connect;
@@ -221,7 +227,7 @@ namespace MineSweeper
 
 		public RequestChangeEnumUI requestEnumPrefab;
 
-		public Transform firstMoveTypeContainer;
+		public static readonly UIRectTransform firstMoveTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
 		private Server server = null;
 
@@ -288,7 +294,7 @@ namespace MineSweeper
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.firstMoveType:
-								UIUtils.Instantiate (requestChange, requestEnumPrefab, firstMoveTypeContainer);
+								UIUtils.Instantiate (requestChange, requestEnumPrefab, this.transform, firstMoveTypeRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);

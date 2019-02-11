@@ -212,7 +212,6 @@ namespace Shogi
 			this.depth = new VP<int> (this, (byte)Property.depth, 19);
 			this.skillLevel = new VP<int> (this, (byte)Property.skillLevel, 18);
 			this.mr = new VP<int> (this, (byte)Property.mr, 0); 
-			// this.duration = new VP<int> (this, (byte)Property.duration, 12000);
 			this.duration = new VP<int> (this, (byte)Property.duration, 5000);
 			this.useBook = new VP<bool> (this, (byte)Property.useBook, true);
 		}

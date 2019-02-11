@@ -309,20 +309,32 @@ namespace Reversi
 
 		static ReversiAIUI()
 		{
-			txtTitle.add (Language.Type.vi, "Cờ Othello AI");
-			txtSort.add (Language.Type.vi, "Sắp xếp");
-			txtMin.add (Language.Type.vi, "Tối thiểu");
-			txtMax.add (Language.Type.vi, "Tối đa");
-			txtEnd.add (Language.Type.vi, "Kết thúc");
-			txtMsLeft.add (Language.Type.vi, "Mili giấy còn lại");
-			txtUseBook.add (Language.Type.vi, "Dùng sách");
-			txtPercent.add (Language.Type.vi, "Phần trăm");
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Cờ Othello AI");
+                txtSort.add(Language.Type.vi, "Sắp xếp");
+                txtMin.add(Language.Type.vi, "Tối thiểu");
+                txtMax.add(Language.Type.vi, "Tối đa");
+                txtEnd.add(Language.Type.vi, "Kết thúc");
+                txtMsLeft.add(Language.Type.vi, "Mili giấy còn lại");
+                txtUseBook.add(Language.Type.vi, "Dùng sách");
+                txtPercent.add(Language.Type.vi, "Phần trăm");
+            }
+            // rect
+            {
+                sortRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                minRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                maxRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                endRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                msLeftRect.setPosY(UIConstants.HeaderHeight + 4 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                useBookRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                percentRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+            }
 		}
 
 		#endregion
 
 		private bool needReset = true;
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -336,8 +348,8 @@ namespace Reversi
 						ReversiAI show = editReversiAI.show.v.data;
 						ReversiAI compare = editReversiAI.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// lbTitle
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editReversiAI.compareOtherType.v.data != null) {
@@ -346,9 +358,9 @@ namespace Reversi
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// get server state
 							Server.State.Type serverState = Server.State.Type.Connect;
@@ -722,13 +734,13 @@ namespace Reversi
 
 		#region implement callBacks
 
-		public Transform sortContainer;
-		public Transform minContainer;
-		public Transform maxContainer;
-		public Transform endContainer;
-		public Transform msLeftContainer;
-		public Transform useBookContainer;
-		public Transform percentContainer;
+		public static readonly UIRectTransform sortRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform minRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform maxRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform endRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform msLeftRect = new UIRectTransform(UIConstants.RequestRect);
+		public static readonly UIRectTransform useBookRect = new UIRectTransform(UIConstants.RequestBoolRect);
+		public static readonly UIRectTransform percentRect = new UIRectTransform(UIConstants.RequestRect);
 
 		public RequestChangeIntUI requestIntPrefab;
 		public RequestChangeBoolUI requestBoolPrefab;
@@ -803,22 +815,22 @@ namespace Reversi
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.sort:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, sortContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, sortRect);
 								break;
 							case UIData.Property.min:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, minContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, minRect);
 								break;
 							case UIData.Property.max:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, maxContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, maxRect);
 								break;
 							case UIData.Property.end:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, endContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, endRect);
 								break;
 							case UIData.Property.msLeft:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, msLeftContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, msLeftRect);
 								break;
 							case UIData.Property.percent:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, percentContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, percentRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -839,7 +851,7 @@ namespace Reversi
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.useBook:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, useBookContainer);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, useBookRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);

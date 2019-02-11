@@ -96,16 +96,21 @@ namespace Gomoku
 
 		static DefaultGomokuUI()
 		{
-			txtTitle.add (Language.Type.vi, "Mặc Định Cờ Caro");
-			txtBoardSize.add (Language.Type.vi, "Kích thước bàn cờ");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Mặc Định Cờ Caro");
+                txtBoardSize.add(Language.Type.vi, "Kích thước bàn cờ");
+            }
+            // rect
+            {
+                boardSizeRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+            }
+        }
 
 		#endregion
 
 		private bool needReset = true;
 		private bool miniGameDataDirty = true;
-
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -119,8 +124,8 @@ namespace Gomoku
 						DefaultGomoku show = editDefaultGomoku.show.v.data;
 						DefaultGomoku compare = editDefaultGomoku.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editDefaultGomoku.compareOtherType.v.data != null) {
@@ -129,9 +134,9 @@ namespace Gomoku
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// request
 							{
@@ -275,10 +280,9 @@ namespace Gomoku
 		#region implement callBacks
 
 		public MiniGameDataUI miniGameDataUIPrefab;
-		public Transform miniGameDataUIContainer;
 
 		public RequestChangeIntUI requestIntPrefab;
-		public Transform boardSizeContainer;
+		public static readonly UIRectTransform boardSizeRect = new UIRectTransform(UIConstants.RequestRect);
 
 		private Server server = null;
 
@@ -347,7 +351,7 @@ namespace Gomoku
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.boardSize:
 								{
-									UIUtils.Instantiate (requestChange, requestIntPrefab, boardSizeContainer);
+									UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, boardSizeRect);
 								}
 								break;
 							default:
@@ -367,7 +371,7 @@ namespace Gomoku
 						MiniGameDataUI.UIData miniGameDataUIData = data as MiniGameDataUI.UIData;
 						// UI
 						{
-							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, miniGameDataUIContainer);
+							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, this.transform, UIConstants.MiniGameDataUIRect);
 						}
 						// Child
 						{

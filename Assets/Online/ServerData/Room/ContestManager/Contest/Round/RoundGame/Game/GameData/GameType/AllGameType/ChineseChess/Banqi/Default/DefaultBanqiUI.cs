@@ -51,15 +51,20 @@ namespace Banqi
 
 		static DefaultBanqiUI()
 		{
-			txtTitle.add (Language.Type.vi, "Mặc Định Banqi");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Mặc Định Banqi");
+            }
+            // rect
+            {
+
+            }
+        }
 
 		#endregion
 
 		private bool needReset = true;
 		private bool miniGameDataDirty = true;
-
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -73,8 +78,8 @@ namespace Banqi
 						DefaultBanqi show = editDefaultBanqi.show.v.data;
 						DefaultBanqi compare = editDefaultBanqi.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editDefaultBanqi.compareOtherType.v.data != null) {
@@ -83,9 +88,9 @@ namespace Banqi
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// request
 							{
@@ -186,7 +191,6 @@ namespace Banqi
 		#region implement callBacks
 
 		public MiniGameDataUI miniGameDataUIPrefab;
-		public Transform miniGameDataUIContainer;
 
 		private Server server = null;
 
@@ -251,7 +255,7 @@ namespace Banqi
 						MiniGameDataUI.UIData miniGameDataUIData = data as MiniGameDataUI.UIData;
 						// UI
 						{
-							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, miniGameDataUIContainer);
+							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, this.transform, UIConstants.MiniGameDataUIRect);
 						}
 						// Child
 						{

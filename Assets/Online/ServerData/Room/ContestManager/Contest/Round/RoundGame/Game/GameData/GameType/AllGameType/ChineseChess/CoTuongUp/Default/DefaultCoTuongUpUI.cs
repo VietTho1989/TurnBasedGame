@@ -161,18 +161,25 @@ namespace CoTuongUp
 
 		static DefaultCoTuongUpUI()
 		{
-			txtTitle.add (Language.Type.vi, "Mặc Định Cờ Úp");
-			txtAllowViewCapture.add (Language.Type.vi, "Cho phép xem quân bị bắt");
-			txtAllowWatcherViewHidden.add (Language.Type.vi, "Cho phép người xem xem quân úp");
-			txtAllowOnlyFlip.add (Language.Type.vi, "Cho phép chỉ lập");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Mặc Định Cờ Úp");
+                txtAllowViewCapture.add(Language.Type.vi, "Cho phép xem quân bị bắt");
+                txtAllowWatcherViewHidden.add(Language.Type.vi, "Cho phép người xem xem quân úp");
+                txtAllowOnlyFlip.add(Language.Type.vi, "Cho phép chỉ lập");
+            }
+            // rect
+            {
+                allowViewCaptureRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                allowWatcherViewHiddenRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                allowOnlyFlipRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+            }
+        }
 
 		#endregion
 
 		private bool needReset = true;
 		private bool miniGameDataDirty = true;
-
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -186,8 +193,8 @@ namespace CoTuongUp
 						DefaultCoTuongUp show = editDefaultCoTuongUp.show.v.data;
 						DefaultCoTuongUp compare = editDefaultCoTuongUp.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editDefaultCoTuongUp.compareOtherType.v.data != null) {
@@ -196,7 +203,7 @@ namespace CoTuongUp
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
 								Debug.LogError ("differentIndicator null: " + this);
 							}
@@ -453,13 +460,12 @@ namespace CoTuongUp
 		#region implement callBacks
 
 		public MiniGameDataUI miniGameDataUIPrefab;
-		public Transform miniGameDataUIContainer;
 
 		public RequestChangeBoolUI requestBoolPrefab;
 
-		public Transform allowViewCaptureContainer;
-		public Transform allowWatcherViewHiddenContainer;
-		public Transform allowOnlyFlipContainer;
+		public static readonly UIRectTransform allowViewCaptureRect = new UIRectTransform(UIConstants.RequestBoolRect);
+		public static readonly UIRectTransform allowWatcherViewHiddenRect = new UIRectTransform(UIConstants.RequestBoolRect);
+		public static readonly UIRectTransform allowOnlyFlipRect = new UIRectTransform(UIConstants.RequestBoolRect);
 
 		private Server server = null;
 
@@ -529,13 +535,13 @@ namespace CoTuongUp
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.allowViewCapture:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, allowViewCaptureContainer);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, allowViewCaptureRect);
 								break;
 							case UIData.Property.allowWatcherViewHidden:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, allowWatcherViewHiddenContainer);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, allowWatcherViewHiddenRect);
 								break;
 							case UIData.Property.allowOnlyFlip:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, allowOnlyFlipContainer);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, allowOnlyFlipRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -554,7 +560,7 @@ namespace CoTuongUp
 						MiniGameDataUI.UIData miniGameDataUIData = data as MiniGameDataUI.UIData;
 						// UI
 						{
-							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, miniGameDataUIContainer);
+							UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, this.transform, UIConstants.MiniGameDataUIRect);
 						}
 						// Child
 						{

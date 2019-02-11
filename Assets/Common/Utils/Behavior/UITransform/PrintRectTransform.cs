@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[ExecuteInEditMode]
 public class PrintRectTransform : MonoBehaviour
 {
 
@@ -22,14 +23,15 @@ public class PrintRectTransform : MonoBehaviour
         RectTransform rectTransform = this.GetComponent<RectTransform>();
         if (rectTransform != null)
         {
-            Debug.LogError(string.Format("anchoredPosition: {0}; anchorMin: {1}; anchorMax: {2}; pivot: {3}; sizeDelta: {4}; rotation: {5}; scale:  {6}", 
-            rectTransform.anchoredPosition,
-            rectTransform.anchorMin,
-            rectTransform.anchorMax,
-            rectTransform.pivot,
-            rectTransform.sizeDelta,
-            rectTransform.localRotation,
-            rectTransform.localScale));
+            Debug.LogError("anchoredPosition: " + rectTransform.anchoredPosition
+            + "; anchorMin: " + rectTransform.anchorMin
+            + "; anchorMax: " + rectTransform.anchorMax
+            + "; pivot: " + rectTransform.pivot
+             + "; offsetMin: " + rectTransform.offsetMin
+             + "; offsetMax: " + rectTransform.offsetMax
+            + "; sizeDelta: " + rectTransform.sizeDelta
+            + "; localRotation: " + rectTransform.localRotation
+            + "; localScale: " + rectTransform.localScale);
         }
         else
         {
