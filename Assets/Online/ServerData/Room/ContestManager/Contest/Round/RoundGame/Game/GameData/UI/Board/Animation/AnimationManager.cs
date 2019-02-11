@@ -179,7 +179,7 @@ public class AnimationManager : Data
 						}
 					}
 				} else {
-					Debug.LogError ("animationData null");
+					// Debug.LogError ("animationData null");
 				}
 			}
 		}

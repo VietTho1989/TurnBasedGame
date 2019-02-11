@@ -373,7 +373,7 @@ public class LastMoveCheckChange<K> : Data, ValueChangeCallBack where K : Data
 						if (gameDataUIData != null) {
 							gameData = gameDataUIData.gameData.v.data;
 						} else {
-							Debug.LogError ("gameDataUIData null: ");
+							// Debug.LogError ("gameDataUIData null: ");
 						}
 					}
 					// Process
@@ -382,7 +382,7 @@ public class LastMoveCheckChange<K> : Data, ValueChangeCallBack where K : Data
 						if (lastMove != null) {
 							gameMove = lastMove.gameMove.v;
 						} else {
-							Debug.LogError ("lastMove null: " + data);
+							// Debug.LogError ("lastMove null: " + data);
 						}
 					} else {
 						// Debug.LogError ("gameData null: " + data);
