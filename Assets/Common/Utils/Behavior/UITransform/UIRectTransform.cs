@@ -85,7 +85,147 @@ public class UIRectTransform
         {
             Debug.LogError("unknown rect type");
         }
+    }
 
+    public static void SetPosY(RectTransform rectTransform, float posY)
+    {
+        if (rectTransform.anchorMin == new Vector2(0.0f, 1.0f)
+            && rectTransform.anchorMax == new Vector2(1.0f, 1.0f)
+            && rectTransform.pivot == new Vector2(0.5f, 1f))
+        {
+            rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -posY);
+            rectTransform.offsetMin = new Vector2(rectTransform.offsetMin.x, -rectTransform.sizeDelta.y - posY);
+            rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, -posY);
+        }
+        // RequestBoolRect
+        else if (rectTransform.anchorMin == new Vector2(0.0f, 1.0f)
+            && rectTransform.anchorMax == new Vector2(0.0f, 1.0f)
+            && rectTransform.pivot == new Vector2(0.0f, 1f))
+        {
+            rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -posY);
+            rectTransform.offsetMin = new Vector2(rectTransform.offsetMin.x, -rectTransform.sizeDelta.y - posY);
+            rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, -posY);
+        }
+        else
+        {
+            Debug.LogError("unknown rect type");
+        }
+    }
+
+    /**
+     * get height
+     * */
+    public static float SetPosY(Data data, UIRectTransform originRect, float posY)
+    {
+        float ret = 0;
+        if (data != null)
+        {
+            HaveTransformInterface haveTransform = data.findCallBack<HaveTransformInterface>();
+            if (haveTransform != null)
+            {
+                RectTransform rectTransform = (RectTransform)haveTransform.getTransform();
+                if (rectTransform != null)
+                {
+                    if (originRect != null)
+                    {
+                        originRect.set(rectTransform);
+                        SetPosY(rectTransform, posY);
+                        ret = rectTransform.rect.height;
+                    }
+                    else
+                    {
+                        Debug.LogError("originRect null");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("rectTransform null");
+                }
+            }
+            else
+            {
+                Debug.LogError("haveTransform null");
+            }
+        }
+        else
+        {
+            Debug.LogError("data null");
+        }
+        return ret;
+    }
+
+    /**
+     * get height
+     * */
+    public static float SetPosY(Data data, float posY)
+    {
+        float ret = 0;
+        if (data != null)
+        {
+            HaveTransformInterface haveTransform = data.findCallBack<HaveTransformInterface>();
+            if (haveTransform != null)
+            {
+                RectTransform rectTransform = (RectTransform)haveTransform.getTransform();
+                if (rectTransform != null)
+                {
+                    SetPosY(rectTransform, posY);
+                    ret = rectTransform.rect.height;
+                }
+                else
+                {
+                    Debug.LogError("rectTransform null");
+                }
+            }
+            else
+            {
+                Debug.LogError("haveTransform null");
+            }
+        }
+        else
+        {
+            Debug.LogError("data null");
+        }
+        return ret;
+    }
+
+    /*public static void SetSize(RectTransform rectTransform, Vector2 size)
+    {
+        Vector2 oldSize = rectTransform.rect.size;
+        Vector2 deltaSize = size - oldSize;
+
+        rectTransform.offsetMin = rectTransform.offsetMin - new Vector2(
+            deltaSize.x * rectTransform.pivot.x,
+            deltaSize.y * rectTransform.pivot.y);
+        rectTransform.offsetMax = rectTransform.offsetMax + new Vector2(
+            deltaSize.x * (1f - rectTransform.pivot.x),
+            deltaSize.y * (1f - rectTransform.pivot.y));
+    }
+
+    public static void SetWidth(RectTransform rectTransform, float size)
+    {
+        SetSize(rectTransform, new Vector2(size, rectTransform.rect.size.y));
+    }
+
+    public static void SetHeight(RectTransform rectTransform, float size)
+    {
+        Debug.LogError("setHeight: " + size);
+        SetSize(rectTransform, new Vector2(rectTransform.rect.size.x, size));
+    }*/
+
+    public static void SetHeight(RectTransform rectTransform, float size)
+    {
+        // Debug.LogError("setHeight: " + size);
+        if (rectTransform.anchorMin == new Vector2(0.0f, 1.0f)
+            && rectTransform.anchorMax == new Vector2(1.0f, 1.0f)
+            && rectTransform.pivot == new Vector2(0.5f, 1f))
+        {
+            rectTransform.offsetMin = new Vector2(rectTransform.offsetMin.x, rectTransform.anchoredPosition.y - size);
+            rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, size);
+        }
+        else
+        {
+            Debug.LogError("unknown rect type");
+        }
     }
 
 }

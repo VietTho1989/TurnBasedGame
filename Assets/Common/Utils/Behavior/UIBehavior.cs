@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 
 /** TODO Sau nay can co layerIndex cho cac thanh phan*/
-public abstract class UIBehavior<K> : GameBehavior<K>, TrashMan.DespawnInterface, DirtyInterface where K : Data
+public abstract class UIBehavior<K> : GameBehavior<K>, TrashMan.DespawnInterface, DirtyInterface, HaveTransformInterface where K : Data
 {
     private bool Dirty = true;
 
@@ -52,6 +52,11 @@ public abstract class UIBehavior<K> : GameBehavior<K>, TrashMan.DespawnInterface
         // watch.Stop();
         // var elapsedMs = watch.ElapsedMilliseconds;
         // Debug.Log ("UIBehaviorUpdate: " + elapsedMs + "; " + this);
+    }
+
+    void LateUpdate()
+    {
+        refresh();
     }
 
     void OnGUI()
@@ -123,5 +128,10 @@ public abstract class UIBehavior<K> : GameBehavior<K>, TrashMan.DespawnInterface
     }
 
     #endregion*/
+
+    public Transform getTransform()
+    {
+        return this.transform;
+    }
 
 }

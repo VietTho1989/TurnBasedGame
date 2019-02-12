@@ -93,8 +93,48 @@ public class RoomListUI : UIBehavior<RoomListUI.UIData>
 
 	static RoomListUI()
 	{
+        // txt
 		txtCreateRoom.add (Language.Type.vi, "Tạo phòng");
-	}
+        // rect
+        {
+            // roomAdapterRect
+            {
+                // anchoredPosition: (0.0, -15.0); anchorMin: (0.0, 0.0); anchorMax: (1.0, 1.0); pivot: (0.5, 0.5); 
+                // offsetMin: (0.0, 0.0); offsetMax: (0.0, -30.0); sizeDelta: (0.0, -30.0);
+                roomAdapterRect.anchoredPosition = new Vector3(0.0f, -15f, 0f);
+                roomAdapterRect.anchorMin = new Vector2(0.0f, 0.0f);
+                roomAdapterRect.anchorMax = new Vector2(1.0f, 1.0f);
+                roomAdapterRect.pivot = new Vector2(0.5f, 0.5f);
+                roomAdapterRect.offsetMin = new Vector2(0.0f, 0.0f);
+                roomAdapterRect.offsetMax = new Vector2(0.0f, -30.0f);
+                roomAdapterRect.sizeDelta = new Vector2(0.0f, -30.0f);
+            }
+            // btnLeaveLimitRoomContainerRect
+            {
+                // anchoredPosition: (0.0, 0.0); anchorMin: (0.0, 1.0); anchorMax: (0.0, 1.0); pivot: (0.0, 1.0);
+                // offsetMin: (0.0, -30.0); offsetMax: (160.0, 0.0); sizeDelta: (160.0, 30.0);
+                btnLeaveLimitRoomContainerRect.anchoredPosition = new Vector3(0.0f, 0f, 0f);
+                btnLeaveLimitRoomContainerRect.anchorMin = new Vector2(0.0f, 1.0f);
+                btnLeaveLimitRoomContainerRect.anchorMax = new Vector2(0.0f, 1.0f);
+                btnLeaveLimitRoomContainerRect.pivot = new Vector2(0.0f, 1.0f);
+                btnLeaveLimitRoomContainerRect.offsetMin = new Vector2(0.0f, -30.0f);
+                btnLeaveLimitRoomContainerRect.offsetMax = new Vector2(160.0f, 0.0f);
+                btnLeaveLimitRoomContainerRect.sizeDelta = new Vector2(160.0f, 30.0f);
+            }
+            // LimitRoomContainerUserListRect
+            {
+                // anchoredPosition: (0.0, -15.0); anchorMin: (0.8, 0.0); anchorMax: (1.0, 1.0); pivot: (0.5, 0.5); 
+                // offsetMin: (0.0, 0.0); offsetMax: (0.0, -30.0); sizeDelta: (0.0, -30.0);
+                limitRoomContainerUserListRect.anchoredPosition = new Vector3(0.0f, -15f, 0f);
+                limitRoomContainerUserListRect.anchorMin = new Vector2(0.8f, 0.0f);
+                limitRoomContainerUserListRect.anchorMax = new Vector2(1.0f, 1.0f);
+                limitRoomContainerUserListRect.pivot = new Vector2(0.5f, 0.5f);
+                limitRoomContainerUserListRect.offsetMin = new Vector2(0.0f, 0.0f);
+                limitRoomContainerUserListRect.offsetMax = new Vector2(0.0f, -30.0f);
+                limitRoomContainerUserListRect.sizeDelta = new Vector2(0.0f, -30.0f);
+            }
+        }
+    }
 
 	#endregion
 
@@ -157,18 +197,29 @@ public class RoomListUI : UIBehavior<RoomListUI.UIData>
 					}
 					// transform
 					{
-						// roomAdapterContainer
-						if (roomAdapterContainer != null && roomAdapterContainer is RectTransform) {
+                        // roomAdapterContainer
+                        // TODO Can hoan thien
+                        /*if (roomAdapterContainer != null && roomAdapterContainer is RectTransform) {
 							((RectTransform)roomAdapterContainer).anchorMax = (limitRoomContainer != null) ? new Vector2 (0.8f, 1f) : new Vector2 (1f, 1f);
 						} else {
 							Debug.LogError ("roomAdapterContainer null");
-						}
-						// limitRoomContainerUserListContainer
-						if (limitRoomContainerUserListContainer != null) {
-							limitRoomContainerUserListContainer.gameObject.SetActive (limitRoomContainer != null);
-						} else {
-							Debug.LogError ("limitRoomContainerUserListContainer null");
-						}
+						}*/
+                        // limitRoomContainerUserListContainer
+                        {
+                            LimitRoomContainerUserListUI.UIData userListUIData = this.data.limitRoomContainerUserListUIData.v;
+                            if (userListUIData != null)
+                            {
+                                LimitRoomContainerUserListUI userListUI = userListUIData.findCallBack<LimitRoomContainerUserListUI>();
+                                if (userListUI != null)
+                                {
+                                    userListUI.gameObject.SetActive(limitRoomContainer != null);
+                                }
+                            }
+                            else
+                            {
+                                // Debug.LogError("userListUIData null");
+                            }
+                        }
 					}
 				}
 			} else {
@@ -187,17 +238,16 @@ public class RoomListUI : UIBehavior<RoomListUI.UIData>
 	#region implement callBacks
 
 	public RoomAdapter roomAdapterPrefab;
-	public Transform roomAdapterContainer;
+    public static readonly UIRectTransform roomAdapterRect = new UIRectTransform();
 
-	public Transform subContainer;
 	public CreateRoomUI createRoomPrefab;
 	public JoinRoomUI joinRoomPrefab;
 
-	public BtnLeaveLimitRoomContainerUI btnLeaveLimitRoomContainerPrefab;
-	public Transform btnLeaveLimitRoomContainerContainer;
+    public BtnLeaveLimitRoomContainerUI btnLeaveLimitRoomContainerPrefab;
+    public static readonly UIRectTransform btnLeaveLimitRoomContainerRect = new UIRectTransform();
 
 	public LimitRoomContainerUserListUI limitRoomContainerUserListPrefab;
-	public Transform limitRoomContainerUserListContainer;
+    public static readonly UIRectTransform limitRoomContainerUserListRect = new UIRectTransform();
 
 	private LimitRoomContainerUI.UIData limitRoomContainerUIData = null;
 
@@ -237,7 +287,7 @@ public class RoomListUI : UIBehavior<RoomListUI.UIData>
 				RoomAdapter.UIData roomAdapterUIData = data as RoomAdapter.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (roomAdapterUIData, roomAdapterPrefab, roomAdapterContainer);
+					UIUtils.Instantiate (roomAdapterUIData, roomAdapterPrefab, this.transform, roomAdapterRect);
 				}
 				dirty = true;
 				return;
@@ -246,7 +296,7 @@ public class RoomListUI : UIBehavior<RoomListUI.UIData>
 				BtnLeaveLimitRoomContainerUI.UIData btnLeaveLimitRoomContainerUIData = data as BtnLeaveLimitRoomContainerUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (btnLeaveLimitRoomContainerUIData, btnLeaveLimitRoomContainerPrefab, btnLeaveLimitRoomContainerContainer);
+					UIUtils.Instantiate (btnLeaveLimitRoomContainerUIData, btnLeaveLimitRoomContainerPrefab, this.transform, btnLeaveLimitRoomContainerRect);
 				}
 				dirty = true;
 				return;
@@ -255,7 +305,7 @@ public class RoomListUI : UIBehavior<RoomListUI.UIData>
 				LimitRoomContainerUserListUI.UIData limitRoomContainerUserListUIData = data as LimitRoomContainerUserListUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (limitRoomContainerUserListUIData, limitRoomContainerUserListPrefab, limitRoomContainerUserListContainer);
+					UIUtils.Instantiate (limitRoomContainerUserListUIData, limitRoomContainerUserListPrefab, this.transform, limitRoomContainerUserListRect);
 				}
 				dirty = true;
 				return;
@@ -268,13 +318,13 @@ public class RoomListUI : UIBehavior<RoomListUI.UIData>
 					case UIData.Sub.Type.CreateRoom:
 						{
 							CreateRoomUI.UIData createRoomUIData = sub as CreateRoomUI.UIData;
-							UIUtils.Instantiate (createRoomUIData, createRoomPrefab, subContainer);
+							UIUtils.Instantiate (createRoomUIData, createRoomPrefab, this.transform);
 						}
 						break;
 					case UIData.Sub.Type.JoinRoom:
 						{
 							JoinRoomUI.UIData joinRoomUIData = sub as JoinRoomUI.UIData;
-							UIUtils.Instantiate (joinRoomUIData, joinRoomPrefab, subContainer);
+							UIUtils.Instantiate (joinRoomUIData, joinRoomPrefab, this.transform);
 						}
 						break;
 					default:

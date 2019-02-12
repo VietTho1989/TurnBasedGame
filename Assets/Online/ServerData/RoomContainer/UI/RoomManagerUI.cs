@@ -97,60 +97,97 @@ public class RoomManagerUI : UIBehavior<RoomManagerUI.UIData>
 					// show
 					{
 						if (btnGlobal != null && btnLimit != null) {
-							if (globalContainer != null && limitContainer != null) {
-								switch (this.data.show.v) {
-								case RoomContainer.Type.Global:
-									{
-										// btn
-										{
-											btnGlobal.enabled = false;
-											btnLimit.enabled = true;
-										}
-										// container
-										{
-											globalContainer.gameObject.SetActive (true);
-											limitContainer.gameObject.SetActive (false);
-										}
-										// sub
-										if (this.data.globalRoomContainerUIData.v == null) {
-											GlobalRoomContainerUI.UIData globalRoomContainerUIData = new GlobalRoomContainerUI.UIData ();
-											{
-												globalRoomContainerUIData.uid = this.data.globalRoomContainerUIData.makeId ();
-											}
-											this.data.globalRoomContainerUIData.v = globalRoomContainerUIData;
-										}
-									}
-									break;
-								case RoomContainer.Type.Limit:
-									{
-										// btn
-										{
-											btnGlobal.enabled = true;
-											btnLimit.enabled = false;
-										}
-										// container
-										{
-											globalContainer.gameObject.SetActive (false);
-											limitContainer.gameObject.SetActive (true);
-										}
-										// sub
-										if (this.data.allLimitRoomContainersUIData.v == null) {
-											AllLimitRoomContainersUI.UIData allLimitRoomContainersUIData = new AllLimitRoomContainersUI.UIData ();
-											{
-												allLimitRoomContainersUIData.uid = this.data.allLimitRoomContainersUIData.makeId ();
-											}
-											this.data.allLimitRoomContainersUIData.v = allLimitRoomContainersUIData;
-										}
-									}
-									break;
-								default:
-									Debug.LogError ("unknown show: " + this.data.show.v);
-									break;
-								}
-							} else {
-								Debug.LogError ("globalContainer, limitContainer null");
-							}
-						} else {
+                            // get UI
+                            GlobalRoomContainerUI globalRoomContainerUI = null;
+                            {
+                                GlobalRoomContainerUI.UIData globalRoomContainerUIData = this.data.globalRoomContainerUIData.v;
+                                if (globalRoomContainerUIData != null)
+                                {
+                                    globalRoomContainerUI = globalRoomContainerUIData.findCallBack<GlobalRoomContainerUI>();
+                                }
+                                else
+                                {
+                                    Debug.LogError("globalRoomContainerUIData null");
+                                }
+                            }
+                            AllLimitRoomContainersUI allLimitRoomContainersUI = null;
+                            {
+                                AllLimitRoomContainersUI.UIData allLimitRoomContainersUIData = this.data.allLimitRoomContainersUIData.v;
+                                if (allLimitRoomContainersUIData != null)
+                                {
+                                    allLimitRoomContainersUI = allLimitRoomContainersUIData.findCallBack<AllLimitRoomContainersUI>();
+                                }
+                                else
+                                {
+                                    Debug.LogError("allLimitRoomContainersUIData null");
+                                }
+                            }
+                            // show
+                            switch (this.data.show.v)
+                            {
+                                case RoomContainer.Type.Global:
+                                    {
+                                        // btn
+                                        {
+                                            btnGlobal.enabled = false;
+                                            btnLimit.enabled = true;
+                                        }
+                                        // sub
+                                        if (this.data.globalRoomContainerUIData.v == null)
+                                        {
+                                            GlobalRoomContainerUI.UIData globalRoomContainerUIData = new GlobalRoomContainerUI.UIData();
+                                            {
+                                                globalRoomContainerUIData.uid = this.data.globalRoomContainerUIData.makeId();
+                                            }
+                                            this.data.globalRoomContainerUIData.v = globalRoomContainerUIData;
+                                        }
+                                        // container
+                                        {
+                                            if (globalRoomContainerUI != null)
+                                            {
+                                                globalRoomContainerUI.gameObject.SetActive(true);
+                                            }
+                                            if (allLimitRoomContainersUI != null)
+                                            {
+                                                allLimitRoomContainersUI.gameObject.SetActive(false);
+                                            }
+                                        }
+                                    }
+                                    break;
+                                case RoomContainer.Type.Limit:
+                                    {
+                                        // btn
+                                        {
+                                            btnGlobal.enabled = true;
+                                            btnLimit.enabled = false;
+                                        }
+                                        // sub
+                                        if (this.data.allLimitRoomContainersUIData.v == null)
+                                        {
+                                            AllLimitRoomContainersUI.UIData allLimitRoomContainersUIData = new AllLimitRoomContainersUI.UIData();
+                                            {
+                                                allLimitRoomContainersUIData.uid = this.data.allLimitRoomContainersUIData.makeId();
+                                            }
+                                            this.data.allLimitRoomContainersUIData.v = allLimitRoomContainersUIData;
+                                        }
+                                        // container
+                                        {
+                                            if (globalRoomContainerUI != null)
+                                            {
+                                                globalRoomContainerUI.gameObject.SetActive(false);
+                                            }
+                                            if (allLimitRoomContainersUI != null)
+                                            {
+                                                allLimitRoomContainersUI.gameObject.SetActive(true);
+                                            }
+                                        }
+                                    }
+                                    break;
+                                default:
+                                    Debug.LogError("unknown show: " + this.data.show.v);
+                                    break;
+                            }
+                        } else {
 							Debug.LogError ("btnGlobal, btnLimit null");
 						}
 					}
@@ -191,12 +228,27 @@ public class RoomManagerUI : UIBehavior<RoomManagerUI.UIData>
 	#region implement callBacks
 
 	public GlobalRoomContainerUI globalPrefab;
-	public Transform globalContainer;
-
 	public AllLimitRoomContainersUI limitPrefab;
-	public Transform limitContainer;
 
-	public override void onAddCallBack<T> (T data)
+    public static readonly UIRectTransform subRect = new UIRectTransform();
+
+    static RoomManagerUI()
+    {
+        // subRect
+        {
+            // anchoredPosition: (0.0, -15.0); anchorMin: (0.0, 0.0); anchorMax: (1.0, 1.0); pivot: (0.5, 0.5); 
+            // offsetMin: (0.0, 0.0); offsetMax: (0.0, -30.0); sizeDelta: (0.0, -30.0);
+            subRect.anchoredPosition = new Vector3(0.0f, -15.0f, 0f);
+            subRect.anchorMin = new Vector2(0.0f, 0.0f);
+            subRect.anchorMax = new Vector2(1.0f, 1.0f);
+            subRect.pivot = new Vector2(0.5f, 0.5f);
+            subRect.offsetMin = new Vector2(0.0f, 0.0f);
+            subRect.offsetMax = new Vector2(0.0f, -30.0f);
+            subRect.sizeDelta = new Vector2(0.0f, -30.0f);
+        }
+    }
+
+    public override void onAddCallBack<T> (T data)
 	{
 		if (data is UIData) {
 			UIData uiData = data as UIData;
@@ -219,7 +271,7 @@ public class RoomManagerUI : UIBehavior<RoomManagerUI.UIData>
 				GlobalRoomContainerUI.UIData globalRoomContainerUIData = data as GlobalRoomContainerUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (globalRoomContainerUIData, globalPrefab, globalContainer);
+					UIUtils.Instantiate (globalRoomContainerUIData, globalPrefab, this.transform, subRect);
 				}
 				dirty = true;
 				return;
@@ -228,7 +280,7 @@ public class RoomManagerUI : UIBehavior<RoomManagerUI.UIData>
 				AllLimitRoomContainersUI.UIData allLimitRoomContainersUIData = data as AllLimitRoomContainersUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (allLimitRoomContainersUIData, limitPrefab, limitContainer);
+					UIUtils.Instantiate (allLimitRoomContainersUIData, limitPrefab, this.transform, subRect);
 				}
 				dirty = true;
 				return;

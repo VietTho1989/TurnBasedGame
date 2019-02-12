@@ -14,6 +14,7 @@ public class RoomUserAdapter : SRIA<RoomUserAdapter.UIData, RoomUserHolder.UIDat
 	[Serializable]
 	public class UIData : BaseParams
 	{
+
 		public VP<ReferenceData<Room>> room;
 
 		public LP<RoomUserHolder.UIData> holders;

@@ -142,9 +142,9 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
 
 		#endregion
 
-		public override RoomListUI.UIData.Sub.Type getType()
+		public override Type getType()
 		{
-			return RoomListUI.UIData.Sub.Type.CreateRoom;
+            return Type.CreateRoom;
 		}
 
 		public override bool processEvent (Event e)
@@ -193,17 +193,40 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
 
 	static CreateRoomUI()
 	{
-		txtTitle.add (Language.Type.vi, "Tạo Phòng");
-		txtGameType.add (Language.Type.vi, "Chọn trò");
-		txtRoomName.add (Language.Type.vi, "Tên phòng");
-		txtPassword.add (Language.Type.vi, "Mật khẩu");
-		txtCancel.add (Language.Type.vi, "Huỷ Bỏ");
-	}
+        // txt
+        {
+            txtTitle.add(Language.Type.vi, "Tạo Phòng");
+            txtGameType.add(Language.Type.vi, "Chọn trò");
+            txtRoomName.add(Language.Type.vi, "Tên phòng");
+            txtPassword.add(Language.Type.vi, "Mật khẩu");
+            txtCancel.add(Language.Type.vi, "Huỷ Bỏ");
+        }
+        // rect
+        {
+            // gameTypeRect
+            gameTypeRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+            // roomNameRect
+            roomNameRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+            // passwordRect
+            passwordRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+            // btnCreateRoomRect
+            {
+                // anchoredPosition: (-80.0, -220.0); anchorMin: (0.5, 1.0); anchorMax: (0.5, 1.0); pivot: (0.5, 1.0);
+                // offsetMin: (-160.0, -250.0); offsetMax: (0.0, -220.0); sizeDelta: (160.0, 30.0);
+                btnCreateRoomRect.anchoredPosition = new Vector3(-80.0f, -225.0f, 0f);
+                btnCreateRoomRect.anchorMin = new Vector2(0.5f, 1.0f);
+                btnCreateRoomRect.anchorMax = new Vector2(0.5f, 1.0f);
+                btnCreateRoomRect.pivot = new Vector2(0.5f, 1.0f);
+                btnCreateRoomRect.offsetMin = new Vector2(-160.0f, -255f);
+                btnCreateRoomRect.offsetMax = new Vector2(0.0f, -225.0f);
+                btnCreateRoomRect.sizeDelta = new Vector2(160.0f, 30.0f);
+            }
+        }
+    }
 
 	#endregion
 
 	private bool needReset = true;
-	public GameObject differentIndicator;
 
 	public override void refresh ()
 	{
@@ -217,8 +240,8 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
 					CreateRoom show = editCreateRoom.show.v.data;
 					CreateRoom compare = editCreateRoom.compare.v.data;
 					if (show != null) {
-						// differentIndicator
-						if (differentIndicator != null) {
+						// different
+						if (lbTitle != null) {
 							bool isDifferent = false;
 							{
 								if (editCreateRoom.compareOtherType.v.data != null) {
@@ -227,9 +250,9 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
 									}
 								}
 							}
-							differentIndicator.SetActive (isDifferent);
+                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 						} else {
-							Debug.LogError ("differentIndicator null: " + this);
+							Debug.LogError ("lbTitle null: " + this);
 						}
 						// request
 						{
@@ -433,12 +456,12 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
 	public RequestChangeEnumUI requestEnumPrefab;
 	public RequestChangeStringUI requestStringPrefab;
 
-	public Transform gameTypeContainer;
-	public Transform roomNameContainer;
-	public Transform passwordContainer;
+	public static readonly UIRectTransform gameTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
+    public static readonly UIRectTransform roomNameRect = new UIRectTransform(UIConstants.RequestEnumRect);
+    public static readonly UIRectTransform passwordRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
 	public BtnCreateRoomUI btnCreateRoomPrefab;
-	public Transform btnCreateRoomContainer;
+	public static readonly UIRectTransform btnCreateRoomRect = new UIRectTransform();
 
 	private Server server = null;
 
@@ -507,7 +530,7 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
 						case UIData.Property.gameType:
-							UIUtils.Instantiate (requestChange, requestEnumPrefab, gameTypeContainer);
+							UIUtils.Instantiate (requestChange, requestEnumPrefab, this.transform, gameTypeRect);
 							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -528,10 +551,10 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
 						case UIData.Property.roomName:
-							UIUtils.Instantiate (requestChange, requestStringPrefab, roomNameContainer);
+							UIUtils.Instantiate (requestChange, requestStringPrefab, this.transform, roomNameRect);
 							break;
 						case UIData.Property.password:
-							UIUtils.Instantiate (requestChange, requestStringPrefab, passwordContainer);
+							UIUtils.Instantiate (requestChange, requestStringPrefab, this.transform, passwordRect);
 							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -548,7 +571,7 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
 				BtnCreateRoomUI.UIData btnCreateRoomUIData = data as BtnCreateRoomUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (btnCreateRoomUIData, btnCreateRoomPrefab, btnCreateRoomContainer);
+					UIUtils.Instantiate (btnCreateRoomUIData, btnCreateRoomPrefab, this.transform, btnCreateRoomRect);
 				}
 				dirty = true;
 				return;

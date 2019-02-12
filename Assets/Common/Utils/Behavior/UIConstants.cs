@@ -4,6 +4,8 @@ using System.Collections;
 public static class UIConstants
 {
 
+    public static readonly UIRectTransform FullParent = new UIRectTransform();
+
     public static readonly Color NormalTitleColor = new Color(50 / 255f, 50 / 255f, 50 / 255f);
     public static readonly Color DifferentIndicatorColor = Color.red;
 
@@ -38,6 +40,18 @@ public static class UIConstants
 
     static UIConstants()
     {
+        // FullParent
+        {
+            // anchoredPosition: (0.0, 0.0); anchorMin: (0.0, 0.0); anchorMax: (1.0, 1.0); pivot: (0.5, 0.5); 
+            // offsetMin: (0.0, 0.0); offsetMax: (0.0, 0.0); sizeDelta: (0.0, 0.0);
+            FullParent.anchoredPosition = Vector2.zero;
+            FullParent.anchorMin = Vector2.zero;
+            FullParent.anchorMax = new Vector2(1.0f, 1.0f);
+            FullParent.pivot = new Vector2(0.5f, 0.5f);
+            FullParent.offsetMin = Vector2.zero;
+            FullParent.offsetMax = Vector2.zero;
+            FullParent.sizeDelta = Vector2.zero;
+        }
         // MiniGameDataUIRect
         {
             float padding = 20;

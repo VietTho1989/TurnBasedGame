@@ -86,8 +86,30 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
 
 	static ChatMessageMenuUI()
 	{
-		txtBack.add (Language.Type.vi, "Quay Lại");
-		txtEdit.add (Language.Type.vi, "Chỉnh Sửa");
+        // txt
+        {
+            txtBack.add(Language.Type.vi, "Quay Lại");
+            txtEdit.add(Language.Type.vi, "Chỉnh Sửa");
+        }
+        // rect
+        {
+            // btnDeleteRect
+            {
+                // anchoredPosition: (0.0, 30.0); anchorMin: (0.5, 0.5); anchorMax: (0.5, 0.5); pivot: (0.5, 0.5);
+                // offsetMin: (-80.0, 15.0); offsetMax: (80.0, 45.0); sizeDelta: (160.0, 30.0);
+                btnDeleteRect.anchoredPosition = new Vector3(0.0f, 30.0f, 0.0f);
+                btnDeleteRect.anchorMin = new Vector2(0.5f, 0.5f);
+                btnDeleteRect.anchorMax = new Vector2(0.5f, 0.5f);
+                btnDeleteRect.pivot = new Vector2(0.5f, 0.5f);
+                btnDeleteRect.offsetMin = new Vector2(-80.0f, 15.0f);
+                btnDeleteRect.offsetMax = new Vector2(80.0f, 45.0f);
+                btnDeleteRect.sizeDelta = new Vector2(160.0f, 30.0f);
+            }
+            // editRect
+            {
+
+            }
+        }
 	}
 
 	#endregion
@@ -188,10 +210,10 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
 	#region implement callBacks
 
 	public ChatMessageDeleteUI btnDeletePrefab;
-	public Transform btnDeleteContainer;
+    private static readonly UIRectTransform btnDeleteRect = new UIRectTransform();
 
 	public ChatMessageEditUI editPrefab;
-	public Transform editContainer;
+    private static readonly UIRectTransform editRect = new UIRectTransform(UIConstants.FullParent);
 
 	public override void onAddCallBack<T> (T data)
 	{
@@ -244,7 +266,7 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
 				ChatMessageDeleteUI.UIData btnDelete = data as ChatMessageDeleteUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (btnDelete, btnDeletePrefab, btnDeleteContainer);
+					UIUtils.Instantiate (btnDelete, btnDeletePrefab, this.transform, btnDeleteRect);
 				}
 				dirty = true;
 				return;
@@ -253,7 +275,7 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
 				ChatMessageEditUI.UIData edit = data as ChatMessageEditUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (edit, editPrefab, editContainer);
+					UIUtils.Instantiate (edit, editPrefab, this.transform, editRect);
 				}
 				dirty = true;
 				return;

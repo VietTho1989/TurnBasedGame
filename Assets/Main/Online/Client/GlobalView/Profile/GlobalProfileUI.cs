@@ -98,10 +98,10 @@ public class GlobalProfileUI : UIBehavior<GlobalProfileUI.UIData>
 	#region implement callBacks
 
 	public UserAdapter userAdapterPrefab;
-	public Transform userAdapterContainer;
+    private static readonly UIRectTransform userAdapterRect = new UIRectTransform(UIConstants.FullParent);
 
 	public UserUI userUIPrefab;
-	public Transform userUIContainer;
+	private static readonly UIRectTransform userUIRect = new UIRectTransform(UIConstants.FullParent);
 
 	public override void onAddCallBack<T> (T data)
 	{
@@ -134,7 +134,7 @@ public class GlobalProfileUI : UIBehavior<GlobalProfileUI.UIData>
 				UserAdapter.UIData userAdapterUIData = data as UserAdapter.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (userAdapterUIData, userAdapterPrefab, userAdapterContainer);
+					UIUtils.Instantiate (userAdapterUIData, userAdapterPrefab, this.transform, userAdapterRect);
 				}
 				dirty = true;
 				return;
@@ -143,7 +143,7 @@ public class GlobalProfileUI : UIBehavior<GlobalProfileUI.UIData>
 				UserUI.UIData userUIData = data as UserUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (userUIData, userUIPrefab, userUIContainer);
+					UIUtils.Instantiate (userUIData, userUIPrefab, this.transform, userUIRect);
 				}
 				dirty = true;
 				return;

@@ -89,7 +89,7 @@ public class GlobalRoomsUI : UIBehavior<GlobalRoomsUI.UIData>
 	#region implement callBacks
 
 	public RoomManagerUI roomManagerPrefab;
-	public Transform roomManagerContainer;
+	public static readonly UIRectTransform roomManagerRect = new UIRectTransform(UIConstants.FullParent);
 
 	public override void onAddCallBack<T> (T data)
 	{
@@ -113,7 +113,7 @@ public class GlobalRoomsUI : UIBehavior<GlobalRoomsUI.UIData>
 				RoomManagerUI.UIData roomManagerUIData = data as RoomManagerUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (roomManagerUIData, roomManagerPrefab, roomManagerContainer);
+					UIUtils.Instantiate (roomManagerUIData, roomManagerPrefab, this.transform, roomManagerRect);
 				}
 				dirty = true;
 				return;

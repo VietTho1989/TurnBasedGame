@@ -221,7 +221,7 @@ namespace Banqi
 
         #region implement callBacks
 
-        public static readonly UIRectTransform depthRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform depthRect = new UIRectTransform(UIConstants.RequestRect);
 
 		public RequestChangeIntUI requestIntPrefab;
 

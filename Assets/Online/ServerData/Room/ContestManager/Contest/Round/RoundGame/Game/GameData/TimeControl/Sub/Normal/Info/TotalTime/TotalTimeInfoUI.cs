@@ -60,143 +60,232 @@ namespace TimeControl.Normal
 			txtTitle.add (Language.Type.vi, "Tổng Thời Gian");
 		}
 
-		#endregion
+        #endregion
 
-		private bool needReset = true;
-		public GameObject differentIndicator;
+        #region TransformData
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
-					EditData<TotalTimeInfo> editTotalTimeInfo = this.data.editTotalTimeInfo.v;
-					if (editTotalTimeInfo != null) {
-						editTotalTimeInfo.update ();
-						// get show
-						TotalTimeInfo show = editTotalTimeInfo.show.v.data;
-						TotalTimeInfo compare = editTotalTimeInfo.compare.v.data;
-						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
-								bool isDifferent = false;
-								{
-									if (editTotalTimeInfo.compareOtherType.v.data != null) {
-										if (editTotalTimeInfo.compareOtherType.v.data.GetType () != show.GetType ()) {
-											isDifferent = true;
-										}
-									}
-								}
-								differentIndicator.SetActive (isDifferent);
-							} else {
-								Debug.LogError ("differentIndicator null: " + this);
-							}
-							// request
-							{
-								// get server state
-								Server.State.Type serverState = Server.State.Type.Connect;
-								{
-									Server server = show.findDataInParent<Server> ();
-									if (server != null) {
-										if (server.state.v != null) {
-											serverState = server.state.v.getType ();
-										} else {
-											Debug.LogError ("server state null: " + this);
-										}
-									} else {
-										Debug.LogError ("server null: " + this);
-									}
-									Debug.LogError ("serverState: " + serverState);
-								}
-								// set origin
-								{
-									// sub
-									{
-										switch (show.getType ()) {
-										case TotalTimeInfo.Type.Limit:
-											{
-												TotalTimeInfo.Limit haveLimit = show as TotalTimeInfo.Limit;
-												// UIData
-												TotalTimeInfoLimitUI.UIData haveLimitUIData = this.data.sub.newOrOld<TotalTimeInfoLimitUI.UIData> ();
-												{
-													EditData<TotalTimeInfo.Limit> editHaveLimit = haveLimitUIData.editLimit.v;
-													if (editHaveLimit != null) {
-														// origin
-														editHaveLimit.origin.v = new ReferenceData<TotalTimeInfo.Limit> ((TotalTimeInfo.Limit)editTotalTimeInfo.origin.v.data);
-														// show
-														editHaveLimit.show.v = new ReferenceData<TotalTimeInfo.Limit> (haveLimit);
-														// compare
-														editHaveLimit.compare.v = new ReferenceData<TotalTimeInfo.Limit> ((TotalTimeInfo.Limit)compare);
-														// compareOtherType
-														editHaveLimit.compareOtherType.v = new ReferenceData<Data>(editTotalTimeInfo.compareOtherType.v.data);
-														// canEdit
-														editHaveLimit.canEdit.v = editTotalTimeInfo.canEdit.v;
-														// editType
-														editHaveLimit.editType.v = editTotalTimeInfo.editType.v;
-													} else {
-														Debug.LogError ("editHaveLimit null: " + this);
-													}
-												}
-												this.data.sub.v = haveLimitUIData;
-											}
-											break;
-										case TotalTimeInfo.Type.NoLimit:
-											{
-												TotalTimeInfo.NoLimit noLimit = show as TotalTimeInfo.NoLimit;
-												// UIData
-												TotalTimeInfoNoLimitUI.UIData noLimitUIData = this.data.sub.newOrOld<TotalTimeInfoNoLimitUI.UIData> ();
-												{
-													EditData<TotalTimeInfo.NoLimit> editNoLimit = noLimitUIData.editNoLimit.v;
-													if (editNoLimit != null) {
-														// origin
-														editNoLimit.origin.v = new ReferenceData<TotalTimeInfo.NoLimit> ((TotalTimeInfo.NoLimit)editTotalTimeInfo.origin.v.data);
-														// show
-														editNoLimit.show.v = new ReferenceData<TotalTimeInfo.NoLimit> (noLimit);
-														// compare
-														editNoLimit.compare.v = new ReferenceData<TotalTimeInfo.NoLimit> ((TotalTimeInfo.NoLimit)compare);
-														// compareOtherType
-														editNoLimit.compareOtherType.v = new ReferenceData<Data>(editTotalTimeInfo.compareOtherType.v.data);
-														// canEdit
-														editNoLimit.canEdit.v = editTotalTimeInfo.canEdit.v;
-														// editType
-														editNoLimit.editType.v = editTotalTimeInfo.editType.v;
-													} else {
-														Debug.LogError ("editNoLimit null: " + this);
-													}
-												}
-												this.data.sub.v = noLimitUIData;
-											}
-											break;
-										default:
-											Debug.LogError ("unknown type: " + show.getType () + "; " + this);
-											break;
-										}
-									}
-								}
-								// reset?
-								if (needReset) {
-									needReset = false;
-								}
-							}
-						} else {
-							Debug.LogError ("show null: " + this);
-						}
-					} else {
-						Debug.LogError ("editTotalTimeInfo null: " + this);
-					}
-					// txt
-					{
-						if (lbTitle != null) {
-							lbTitle.text = txtTitle.get ("Total Time");
-						} else {
-							Debug.LogError ("lbTitle null: " + this);
-						}
-					}
-				} else {
-					Debug.LogError ("data null: " + this);
-				}
-			}
-		}
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            if (transform.hasChanged)
+            {
+                transform.hasChanged = false;
+                this.transformData.update(this.transform);
+            }
+        }
+
+        #endregion
+
+        private bool needReset = true;
+
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
+                    EditData<TotalTimeInfo> editTotalTimeInfo = this.data.editTotalTimeInfo.v;
+                    if (editTotalTimeInfo != null)
+                    {
+                        editTotalTimeInfo.update();
+                        // get show
+                        TotalTimeInfo show = editTotalTimeInfo.show.v.data;
+                        TotalTimeInfo compare = editTotalTimeInfo.compare.v.data;
+                        if (show != null)
+                        {
+                            // different
+                            if (lbTitle != null)
+                            {
+                                bool isDifferent = false;
+                                {
+                                    if (editTotalTimeInfo.compareOtherType.v.data != null)
+                                    {
+                                        if (editTotalTimeInfo.compareOtherType.v.data.GetType() != show.GetType())
+                                        {
+                                            isDifferent = true;
+                                        }
+                                    }
+                                }
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null: " + this);
+                            }
+                            // request
+                            {
+                                // get server state
+                                Server.State.Type serverState = Server.State.Type.Connect;
+                                {
+                                    Server server = show.findDataInParent<Server>();
+                                    if (server != null)
+                                    {
+                                        if (server.state.v != null)
+                                        {
+                                            serverState = server.state.v.getType();
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("server state null: " + this);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("server null: " + this);
+                                    }
+                                    // Debug.LogError("serverState: " + serverState);
+                                }
+                                // set origin
+                                {
+                                    // sub
+                                    {
+                                        switch (show.getType())
+                                        {
+                                            case TotalTimeInfo.Type.Limit:
+                                                {
+                                                    TotalTimeInfo.Limit haveLimit = show as TotalTimeInfo.Limit;
+                                                    // UIData
+                                                    TotalTimeInfoLimitUI.UIData haveLimitUIData = this.data.sub.newOrOld<TotalTimeInfoLimitUI.UIData>();
+                                                    {
+                                                        EditData<TotalTimeInfo.Limit> editHaveLimit = haveLimitUIData.editLimit.v;
+                                                        if (editHaveLimit != null)
+                                                        {
+                                                            // origin
+                                                            editHaveLimit.origin.v = new ReferenceData<TotalTimeInfo.Limit>((TotalTimeInfo.Limit)editTotalTimeInfo.origin.v.data);
+                                                            // show
+                                                            editHaveLimit.show.v = new ReferenceData<TotalTimeInfo.Limit>(haveLimit);
+                                                            // compare
+                                                            editHaveLimit.compare.v = new ReferenceData<TotalTimeInfo.Limit>((TotalTimeInfo.Limit)compare);
+                                                            // compareOtherType
+                                                            editHaveLimit.compareOtherType.v = new ReferenceData<Data>(editTotalTimeInfo.compareOtherType.v.data);
+                                                            // canEdit
+                                                            editHaveLimit.canEdit.v = editTotalTimeInfo.canEdit.v;
+                                                            // editType
+                                                            editHaveLimit.editType.v = editTotalTimeInfo.editType.v;
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("editHaveLimit null: " + this);
+                                                        }
+                                                    }
+                                                    this.data.sub.v = haveLimitUIData;
+                                                    // set UI size
+                                                    {
+                                                        TotalTimeInfoLimitUI haveLimitUI = haveLimitUIData.findCallBack<TotalTimeInfoLimitUI>();
+                                                        if (haveLimitUI != null)
+                                                        {
+                                                            RectTransform haveLimitUIRect = (RectTransform)haveLimitUI.transform;
+                                                            if (haveLimitUIRect != null)
+                                                            {
+                                                                UIRectTransform.SetPosY(haveLimitUIRect, UIConstants.HeaderHeight);
+                                                                UIRectTransform.SetHeight((RectTransform)this.transform, UIConstants.HeaderHeight + haveLimitUIRect.rect.height);
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("haveLimitUIRect null");
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("haveLimitUI null");
+                                                        }
+                                                    }
+                                                }
+                                                break;
+                                            case TotalTimeInfo.Type.NoLimit:
+                                                {
+                                                    TotalTimeInfo.NoLimit noLimit = show as TotalTimeInfo.NoLimit;
+                                                    // UIData
+                                                    TotalTimeInfoNoLimitUI.UIData noLimitUIData = this.data.sub.newOrOld<TotalTimeInfoNoLimitUI.UIData>();
+                                                    {
+                                                        EditData<TotalTimeInfo.NoLimit> editNoLimit = noLimitUIData.editNoLimit.v;
+                                                        if (editNoLimit != null)
+                                                        {
+                                                            // origin
+                                                            editNoLimit.origin.v = new ReferenceData<TotalTimeInfo.NoLimit>((TotalTimeInfo.NoLimit)editTotalTimeInfo.origin.v.data);
+                                                            // show
+                                                            editNoLimit.show.v = new ReferenceData<TotalTimeInfo.NoLimit>(noLimit);
+                                                            // compare
+                                                            editNoLimit.compare.v = new ReferenceData<TotalTimeInfo.NoLimit>((TotalTimeInfo.NoLimit)compare);
+                                                            // compareOtherType
+                                                            editNoLimit.compareOtherType.v = new ReferenceData<Data>(editTotalTimeInfo.compareOtherType.v.data);
+                                                            // canEdit
+                                                            editNoLimit.canEdit.v = editTotalTimeInfo.canEdit.v;
+                                                            // editType
+                                                            editNoLimit.editType.v = editTotalTimeInfo.editType.v;
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("editNoLimit null: " + this);
+                                                        }
+                                                    }
+                                                    this.data.sub.v = noLimitUIData;
+                                                    // set UI size
+                                                    {
+                                                        TotalTimeInfoNoLimitUI noLimitUI = noLimitUIData.findCallBack<TotalTimeInfoNoLimitUI>();
+                                                        if (noLimitUI != null)
+                                                        {
+                                                            RectTransform noLimitUIRect = (RectTransform)noLimitUI.transform;
+                                                            if (noLimitUIRect != null)
+                                                            {
+                                                                UIRectTransform.SetPosY(noLimitUIRect, UIConstants.HeaderHeight);
+                                                                UIRectTransform.SetHeight((RectTransform)this.transform, UIConstants.HeaderHeight + noLimitUIRect.rect.height);
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("noLimitUIRect null");
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("haveLimitUI null");
+                                                        }
+                                                    }
+                                                }
+                                                break;
+                                            default:
+                                                Debug.LogError("unknown type: " + show.getType() + "; " + this);
+                                                break;
+                                        }
+                                    }
+                                }
+                                // reset?
+                                if (needReset)
+                                {
+                                    needReset = false;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("show null: " + this);
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("editTotalTimeInfo null: " + this);
+                    }
+                    // txt
+                    {
+                        if (lbTitle != null)
+                        {
+                            lbTitle.text = txtTitle.get("Total Time");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null: " + this);
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogError("data null: " + this);
+                }
+            }
+            updateTransformData();
+        }
 
 		public override bool isShouldDisableUpdate ()
 		{
@@ -209,8 +298,6 @@ namespace TimeControl.Normal
 
 		public TotalTimeInfoNoLimitUI noLimitPrefab;
 		public TotalTimeInfoLimitUI limitPrefab;
-
-		public Transform subContainer;
 
 		private Server server = null;
 
@@ -277,13 +364,13 @@ namespace TimeControl.Normal
 						case TotalTimeInfo.Type.Limit:
 							{
 								TotalTimeInfoLimitUI.UIData limitUIData = sub as TotalTimeInfoLimitUI.UIData;
-								UIUtils.Instantiate (limitUIData, limitPrefab, subContainer);
+								UIUtils.Instantiate (limitUIData, limitPrefab, this.transform);
 							}
 							break;
 						case TotalTimeInfo.Type.NoLimit:
 							{
 								TotalTimeInfoNoLimitUI.UIData noLimitUIData = sub as TotalTimeInfoNoLimitUI.UIData;
-								UIUtils.Instantiate (noLimitUIData, noLimitPrefab, subContainer);
+								UIUtils.Instantiate (noLimitUIData, noLimitPrefab, this.transform);
 							}
 							break;
 						default:

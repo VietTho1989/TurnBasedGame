@@ -95,11 +95,63 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
 
 	static ChatRoomUI()
 	{
-		txtSend.add (Language.Type.vi, "Gửi");
-		txtMessagePlaceHolder.add (Language.Type.vi, "Xin hãy gõ thông điệp của bạn");
-	}
+        // txt
+        {
+            txtSend.add(Language.Type.vi, "Gửi");
+            txtMessagePlaceHolder.add(Language.Type.vi, "Xin hãy gõ thông điệp của bạn");
+        }
+        // rect
+        {
+            // topicUIRect
+            {
+                // anchoredPosition: (0.0, 0.0); anchorMin: (0.0, 1.0); anchorMax: (1.0, 1.0); pivot: (0.5, 1.0); offsetMin: (0.0, -30.0); offsetMax: (0.0, 0.0); sizeDelta: (0.0, 30.0);
+                topicUIRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                topicUIRect.anchorMin = new Vector2(0.0f, 1.0f);
+                topicUIRect.anchorMax = new Vector2(1.0f, 1.0f);
+                topicUIRect.pivot = new Vector2(0.5f, 1.0f);
+                topicUIRect.offsetMin = new Vector2(0.0f, -30.0f);
+                topicUIRect.offsetMax = new Vector2(0.0f, 0.0f);
+                topicUIRect.sizeDelta = new Vector2(0.0f, 30.0f);
+            }
+            // chatRoomAdapterRect
+            {
+                // anchoredPosition: (0.0, 25.0); anchorMin: (0.0, 0.0); anchorMax: (1.0, 1.0); pivot: (0.5, 0.5); offsetMin: (10.0, 90.0); offsetMax: (-10.0, -40.0); sizeDelta: (-20.0, -130.0);
+                chatRoomAdapterRect.anchoredPosition = new Vector3(0.0f, 25.0f, 0.0f);
+                chatRoomAdapterRect.anchorMin = new Vector2(0.0f, 0.0f);
+                chatRoomAdapterRect.anchorMax = new Vector2(1.0f, 1.0f);
+                chatRoomAdapterRect.pivot = new Vector2(0.5f, 0.5f);
+                chatRoomAdapterRect.offsetMin = new Vector2(10.0f, 90.0f);
+                chatRoomAdapterRect.offsetMax = new Vector2(-10.0f, -40.0f);
+                chatRoomAdapterRect.sizeDelta = new Vector2(-20.0f, -130.0f);
+            }
+            // btnLoadMoreRect
+            {
+                // anchoredPosition: (0.0, -30.0); anchorMin: (0.0, 1.0); anchorMax: (1.0, 1.0); pivot: (0.5, 1.0); offsetMin: (0.0, -60.0); offsetMax: (0.0, -30.0); sizeDelta: (0.0, 30.0);
+                btnLoadMoreRect.anchoredPosition = new Vector3(0.0f, -30.0f, 0.0f);
+                btnLoadMoreRect.anchorMin = new Vector2(0.0f, 1.0f);
+                btnLoadMoreRect.anchorMax = new Vector2(1.0f, 1.0f);
+                btnLoadMoreRect.pivot = new Vector2(0.5f, 1.0f);
+                btnLoadMoreRect.offsetMin = new Vector2(0.0f, -60.0f);
+                btnLoadMoreRect.offsetMax = new Vector2(0.0f, -30.0f);
+                btnLoadMoreRect.sizeDelta = new Vector2(0.0f, 30.0f);
+            }
+            // chatMessageMenuRect
+            {
+                // anchoredPosition: (0.0, 0.0); anchorMin: (0.0, 0.0); anchorMax: (1.0, 1.0); pivot: (0.5, 0.5); offsetMin: (0.0, 0.0); offsetMax: (0.0, 0.0); sizeDelta: (0.0, 0.0);
+                chatMessageMenuRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                chatMessageMenuRect.anchorMin = new Vector2(0.5f, 0.5f);
+                chatMessageMenuRect.anchorMax = new Vector2(0.5f, 0.5f);
+                chatMessageMenuRect.pivot = new Vector2(0.5f, 0.5f);
+                chatMessageMenuRect.offsetMin = new Vector2(0.0f, 0.0f);
+                chatMessageMenuRect.offsetMax = new Vector2(0.0f, 0.0f);
+                chatMessageMenuRect.sizeDelta = new Vector2(300.0f, 150.0f);
+            }
+        }
+    }
 
-	#endregion
+    #endregion
+
+    private bool needSetPlayerIndex = true;
 
 	public override void refresh ()
 	{
@@ -300,7 +352,98 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
 				// Debug.LogError ("data null: " + this);
 			}
 		}
-	}
+        if (needSetPlayerIndex)
+        {
+            needSetPlayerIndex = false;
+            if (this.data != null)
+            {
+                // chatRoomAdapter
+                {
+                    ChatRoomAdapter.UIData chatRoomAdapterUIData = this.data.chatRoomAdapter.v;
+                    if (chatRoomAdapterUIData != null)
+                    {
+                        ChatRoomAdapter chatRoomAdapter = chatRoomAdapterUIData.findCallBack<ChatRoomAdapter>();
+                        if (chatRoomAdapter != null)
+                        {
+                            chatRoomAdapter.transform.SetSiblingIndex(0);
+                        }
+                        else
+                        {
+                            Debug.LogError("chatRoomAdapter null");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("chatRoomAdapterUIData null");
+                    }
+                }
+                // topicUI
+                {
+                    TopicUI topicUI = this.data.topicUI.v;
+                    if (topicUI != null)
+                    {
+                        HaveTransformInterface haveTransform = topicUI.findCallBack<HaveTransformInterface>();
+                        if (haveTransform != null)
+                        {
+                            haveTransform.getTransform().SetSiblingIndex(2);
+                        }
+                        else
+                        {
+                            Debug.LogError("haveTransform null");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("topicUI null");
+                    }
+                }
+                // btnLoadMore
+                {
+                    ChatRoomBtnLoadMoreUI.UIData btnLoadMoreUIData = this.data.btnLoadMore.v;
+                    if (btnLoadMoreUIData != null)
+                    {
+                        ChatRoomBtnLoadMoreUI btnLoadMoreUI = btnLoadMoreUIData.findCallBack<ChatRoomBtnLoadMoreUI>();
+                        if (btnLoadMoreUI != null)
+                        {
+                            btnLoadMoreUI.transform.SetSiblingIndex(3);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnLoadMoreUI null");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("btnLoadMoreUIData null");
+                    }
+                }
+                // chatMessageMenu
+                {
+                    ChatMessageMenuUI.UIData menuUIData = this.data.chatMessageMenu.v;
+                    if (menuUIData != null)
+                    {
+                        ChatMessageMenuUI menuUI = menuUIData.findCallBack<ChatMessageMenuUI>();
+                        if (menuUI != null)
+                        {
+                            menuUI.transform.SetSiblingIndex(4);
+                        }
+                        else
+                        {
+                            Debug.LogError("menuUI null");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("menuUIData null");
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("data null");
+            }
+        }
+    }
 
 	public override bool isShouldDisableUpdate ()
 	{
@@ -322,20 +465,20 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
 	public RoomTopicUI roomTopicPrefab;
 	public GameTopicUI gameTopicPrefab;
 
-	public Transform topicUIContainer;
+    private static readonly UIRectTransform topicUIRect = new UIRectTransform();
 
 	public ChatRoomAdapter chatRoomAdapterPrefab;
-	public Transform chatRoomAdapterContainer;
+    private static readonly UIRectTransform chatRoomAdapterRect = new UIRectTransform();
 
 	public TypingUI typingUI;
 
 	public ChatMessageMenuUI chatMessageMenuPrefab;
-	public Transform dialogContainer;
+    private static readonly UIRectTransform chatMessageMenuRect = new UIRectTransform();
 
 	public ChatRoomBtnLoadMoreUI btnLoadMorePrefab;
-	public Transform btnLoadMoreContainer;
+    private static readonly UIRectTransform btnLoadMoreRect = new UIRectTransform();
 
-	public override void onAddCallBack<T> (T data)
+    public override void onAddCallBack<T> (T data)
 	{
 		if (data is UIData) {
 			UIData uiData = data as UIData;
@@ -347,11 +490,12 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
 				uiData.topicUI.allAddCallBack (this);
 				uiData.chatRoomAdapter.allAddCallBack (this);
 				uiData.typingUI.allAddCallBack (this);
-				uiData.chatMessageMenu.allAddCallBack (this);
-				uiData.btnLoadMore.allAddCallBack (this);
-			}
+                uiData.chatMessageMenu.allAddCallBack(this);
+                uiData.btnLoadMore.allAddCallBack (this);
+            }
 			dirty = true;
-			return;
+            needSetPlayerIndex = true;
+            return;
 		}
 		// Setting
 		if (data is Setting) {
@@ -380,61 +524,61 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
 					case Topic.Type.General:
 						{
 							GeneralTopicUI.UIData generalTopicUIData = topicUI as GeneralTopicUI.UIData;
-							UIUtils.Instantiate (generalTopicUIData, generalTopicPrefab, topicUIContainer);
+							UIUtils.Instantiate (generalTopicUIData, generalTopicPrefab, this.transform, topicUIRect);
 						}
 						break;
 					case Topic.Type.ShortQuestion:
 						{
 							ShortQuestionTopicUI.UIData shortQuestionTopicUIData = topicUI as ShortQuestionTopicUI.UIData;
-							UIUtils.Instantiate (shortQuestionTopicUIData, shortQuestionTopicPrefab, topicUIContainer);
+							UIUtils.Instantiate (shortQuestionTopicUIData, shortQuestionTopicPrefab, this.transform, topicUIRect);
 						}
 						break;
 					case Topic.Type.Bug:
 						{
 							BugTopicUI.UIData bugTopicUIData = topicUI as BugTopicUI.UIData;
-							UIUtils.Instantiate (bugTopicUIData, bugTopicPrefab, topicUIContainer);
+							UIUtils.Instantiate (bugTopicUIData, bugTopicPrefab, this.transform, topicUIRect);
 						}
 						break;
 					case Topic.Type.Suggestion:
 						{
 							SuggestionTopicUI.UIData suggestionTopicUIData = topicUI as SuggestionTopicUI.UIData;
-							UIUtils.Instantiate (suggestionTopicUIData, suggestionTopicPrefab, topicUIContainer);
+							UIUtils.Instantiate (suggestionTopicUIData, suggestionTopicPrefab, this.transform, topicUIRect);
 						}
 						break;
 					case Topic.Type.Off:
 						{
 							OffTopicUI.UIData offTopicUIData = topicUI as OffTopicUI.UIData;
-							UIUtils.Instantiate (offTopicUIData, offTopicPrefab, topicUIContainer);
+							UIUtils.Instantiate (offTopicUIData, offTopicPrefab, this.transform, topicUIRect);
 						}
 						break;
 					case Topic.Type.User:
 						{
 							UserTopicUI.UIData userTopicUIData = topicUI as UserTopicUI.UIData;
-							UIUtils.Instantiate (userTopicUIData, userTopicPrefab, topicUIContainer);
+							UIUtils.Instantiate (userTopicUIData, userTopicPrefab, this.transform, topicUIRect);
 						}
 						break;
 					case Topic.Type.Friend:
 						{
 							FriendTopicUI.UIData friendTopicUIData = topicUI as FriendTopicUI.UIData;
-							UIUtils.Instantiate (friendTopicUIData, friendTopicPrefab, topicUIContainer);
+							UIUtils.Instantiate (friendTopicUIData, friendTopicPrefab, this.transform, topicUIRect);
 						}
 						break;
 					case Topic.Type.Guild:
 						{
 							GuildTopicUI.UIData guildTopicUIData = topicUI as GuildTopicUI.UIData;
-							UIUtils.Instantiate (guildTopicUIData, guildTopicPrefab, topicUIContainer);
+							UIUtils.Instantiate (guildTopicUIData, guildTopicPrefab, this.transform, topicUIRect);
 						}
 						break;
 					case Topic.Type.Room:
 						{
 							RoomTopicUI.UIData roomTopicUIData = topicUI as RoomTopicUI.UIData;
-							UIUtils.Instantiate (roomTopicUIData, roomTopicPrefab, topicUIContainer);
+							UIUtils.Instantiate (roomTopicUIData, roomTopicPrefab, this.transform, topicUIRect);
 						}
 						break;
 					case Topic.Type.Game:
 						{
 							GameTopicUI.UIData gameTopicUIData = topicUI as GameTopicUI.UIData;
-							UIUtils.Instantiate (gameTopicUIData, gameTopicPrefab, topicUIContainer);
+							UIUtils.Instantiate (gameTopicUIData, gameTopicPrefab, this.transform, topicUIRect);
 						}
 						break;
 					default:
@@ -449,7 +593,7 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
 				ChatRoomAdapter.UIData chatRoomAdapterUIData = data as ChatRoomAdapter.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (chatRoomAdapterUIData, chatRoomAdapterPrefab, chatRoomAdapterContainer);
+					UIUtils.Instantiate (chatRoomAdapterUIData, chatRoomAdapterPrefab, this.transform, chatRoomAdapterRect);
 				}
 				dirty = true;
 				return;
@@ -471,7 +615,7 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
 				ChatMessageMenuUI.UIData chatMessageMenuUIData = data as ChatMessageMenuUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (chatMessageMenuUIData, chatMessageMenuPrefab, dialogContainer);
+					UIUtils.Instantiate (chatMessageMenuUIData, chatMessageMenuPrefab, this.transform, chatMessageMenuRect);
 				}
 				dirty = true;
 				return;
@@ -480,7 +624,7 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
 				ChatRoomBtnLoadMoreUI.UIData btnLoadMoreUIData = data as ChatRoomBtnLoadMoreUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (btnLoadMoreUIData, btnLoadMorePrefab, btnLoadMoreContainer);
+					UIUtils.Instantiate (btnLoadMoreUIData, btnLoadMorePrefab, this.transform, btnLoadMoreRect);
 				}
 				dirty = true;
 				return;
@@ -635,53 +779,60 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
 		if (WrapProperty.checkError (wrapProperty)) {
 			return;
 		}
-		if (wrapProperty.p is UIData) {
-			switch ((UIData.Property)wrapProperty.n) {
-			case UIData.Property.topicUI:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			case UIData.Property.chatRoom:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			case UIData.Property.chatRoomAdapter:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			case UIData.Property.typingUI:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			case UIData.Property.chatMessageMenu:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			case UIData.Property.canSendMessage:
-				dirty = true;
-				break;
-			case UIData.Property.btnLoadMore:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			default:
-				Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-				break;
-			}
-			return;
-		}
+        if (wrapProperty.p is UIData)
+        {
+            switch ((UIData.Property)wrapProperty.n)
+            {
+                case UIData.Property.topicUI:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                        needSetPlayerIndex = true;
+                    }
+                    break;
+                case UIData.Property.chatRoom:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                        needSetPlayerIndex = true;
+                    }
+                    break;
+                case UIData.Property.chatRoomAdapter:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                        needSetPlayerIndex = true;
+                    }
+                    break;
+                case UIData.Property.typingUI:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.chatMessageMenu:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                        needSetPlayerIndex = true;
+                    }
+                    break;
+                case UIData.Property.canSendMessage:
+                    dirty = true;
+                    break;
+                case UIData.Property.btnLoadMore:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                        needSetPlayerIndex = true;
+                    }
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
 		// Setting
 		if (wrapProperty.p is Setting) {
 			switch ((Setting.Property)wrapProperty.n) {
@@ -717,7 +868,7 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
 					dirty = true;
 					break;
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;

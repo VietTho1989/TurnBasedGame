@@ -165,11 +165,29 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 
 	static GlobalViewUI()
 	{
-		txtRooms.add (Language.Type.vi, "Các Phòng");
-		txtChats.add (Language.Type.vi, "Trò chuyện");
-		txtFriends.add (Language.Type.vi, "Bạn bè");
-		txtProfile.add (Language.Type.vi, "Tiểu sử");
-	}
+        // txt
+        {
+            txtRooms.add(Language.Type.vi, "Các Phòng");
+            txtChats.add(Language.Type.vi, "Trò chuyện");
+            txtFriends.add(Language.Type.vi, "Bạn bè");
+            txtProfile.add(Language.Type.vi, "Tiểu sử");
+        }
+        // rect
+        {
+            // contentRect
+            {
+                // anchoredPosition: (0.0, -30.0); anchorMin: (0.0, 0.0); anchorMax: (1.0, 1.0); pivot: (0.5, 0.5);
+                // offsetMin: (0.0, 0.0); offsetMax: (0.0, -60.0); sizeDelta: (0.0, -60.0);
+                contentRect.anchoredPosition = new Vector3(0.0f, -30.0f, 0f);
+                contentRect.anchorMin = new Vector2(0.0f, 0.0f);
+                contentRect.anchorMax = new Vector2(1.0f, 1.0f);
+                contentRect.pivot = new Vector2(0.5f, 0.5f);
+                contentRect.offsetMin = new Vector2(0.0f, 0.0f);
+                contentRect.offsetMax = new Vector2(0.0f, -60.0f);
+                contentRect.sizeDelta = new Vector2(0.0f, -60.0f);
+            }
+        }
+    }
 
 	#endregion
 
@@ -183,94 +201,6 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 		if (dirty) {
 			dirty = false;
 			if (this.data != null) {
-				// show
-				{
-					if (roomsContainer != null && chatsContainer != null && friendsContainer != null && profileContainer != null) {
-						if (btnRooms != null && btnChats != null && btnFriends != null && btnProfile != null) {
-							switch (this.data.show.v) {
-							case UIData.Show.rooms:
-								{
-									// container
-									{
-										roomsContainer.gameObject.SetActive (true);
-										chatsContainer.gameObject.SetActive (false);
-										friendsContainer.gameObject.SetActive (false);
-										profileContainer.gameObject.SetActive (false);
-									}
-									// btns
-									{
-										btnRooms.enabled = false;
-										btnChats.enabled = true;
-										btnFriends.enabled = true;
-										btnProfile.enabled = true;
-									}
-								}
-								break;
-							case UIData.Show.chats:
-								{
-									// container
-									{
-										roomsContainer.gameObject.SetActive (false);
-										chatsContainer.gameObject.SetActive (true);
-										friendsContainer.gameObject.SetActive (false);
-										profileContainer.gameObject.SetActive (false);
-									}
-									// btns
-									{
-										btnRooms.enabled = true;
-										btnChats.enabled = false;
-										btnFriends.enabled = true;
-										btnProfile.enabled = true;
-									}
-								}
-								break;
-							case UIData.Show.friends:
-								{
-									// container
-									{
-										roomsContainer.gameObject.SetActive (false);
-										chatsContainer.gameObject.SetActive (false);
-										friendsContainer.gameObject.SetActive (true);
-										profileContainer.gameObject.SetActive (false);
-									}
-									// btns
-									{
-										btnRooms.enabled = true;
-										btnChats.enabled = true;
-										btnFriends.enabled = false;
-										btnProfile.enabled = true;
-									}
-								}
-								break;
-							case UIData.Show.profile:
-								{
-									// container
-									{
-										roomsContainer.gameObject.SetActive (false);
-										chatsContainer.gameObject.SetActive (false);
-										friendsContainer.gameObject.SetActive (false);
-										profileContainer.gameObject.SetActive (true);
-									}
-									// btns
-									{
-										btnRooms.enabled = true;
-										btnChats.enabled = true;
-										btnFriends.enabled = true;
-										btnProfile.enabled = false;
-									}
-								}
-								break;
-							default:
-								Debug.LogError ("unknown show: " + this.data.show.v + "; " + this);
-								break;
-							}
-						} else {
-							Debug.LogError ("btn null: " + this);
-						}
-					} else {
-						Debug.LogError ("container null: " + this);
-					}
-				}
 				// set child ui
 				{
 					switch (this.data.show.v) {
@@ -377,8 +307,194 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 						Debug.LogError ("server null: " + this);
 					}
 				}
-				// txt
-				{
+                // show
+                {
+                    if (btnRooms != null && btnChats != null && btnFriends != null && btnProfile != null)
+                    {
+                        // get UI
+                        GlobalRoomsUI globalRoomsUI = null;
+                        {
+                            GlobalRoomsUI.UIData globalRoomsUIData = this.data.rooms.v;
+                            if (globalRoomsUIData != null)
+                            {
+                                globalRoomsUI = globalRoomsUIData.findCallBack<GlobalRoomsUI>();
+                            }
+                            else
+                            {
+                                Debug.LogError("globalRoomsUIData null");
+                            }
+                        }
+                        GlobalChatUI globalChatUI = null;
+                        {
+                            GlobalChatUI.UIData globalChatUIData = this.data.chats.v;
+                            if (globalChatUIData != null)
+                            {
+                                globalChatUI = globalChatUIData.findCallBack<GlobalChatUI>();
+                            }
+                            else
+                            {
+                                Debug.LogError("globalChatUIData null");
+                            }
+                        }
+                        GlobalFriendsUI globalFriendsUI = null;
+                        {
+                            GlobalFriendsUI.UIData globalFriendsUIData = this.data.friends.v;
+                            if (globalFriendsUIData != null)
+                            {
+                                globalFriendsUI = globalFriendsUIData.findCallBack<GlobalFriendsUI>();
+                            }
+                            else
+                            {
+                                Debug.LogError("globalFriendsUIData null");
+                            }
+                        }
+                        GlobalProfileUI globalProfileUI = null;
+                        {
+                            GlobalProfileUI.UIData globalProfileUIData = this.data.profile.v;
+                            if (globalProfileUIData != null)
+                            {
+                                globalProfileUI = globalProfileUIData.findCallBack<GlobalProfileUI>();
+                            }
+                            else
+                            {
+                                Debug.LogError("globalProfileUIData null");
+                            }
+                        }
+                        // show
+                        switch (this.data.show.v)
+                        {
+                            case UIData.Show.rooms:
+                                {
+                                    // container
+                                    {
+                                        if (globalRoomsUI != null)
+                                        {
+                                            globalRoomsUI.gameObject.SetActive(true);
+                                        }
+                                        if (globalChatUI != null)
+                                        {
+                                            globalChatUI.gameObject.SetActive(false);
+                                        }
+                                        if (globalFriendsUI != null)
+                                        {
+                                            globalFriendsUI.gameObject.SetActive(false);
+                                        }
+                                        if (globalProfileUI != null)
+                                        {
+                                            globalProfileUI.gameObject.SetActive(false);
+                                        }
+                                    }
+                                    // btns
+                                    {
+                                        btnRooms.enabled = false;
+                                        btnChats.enabled = true;
+                                        btnFriends.enabled = true;
+                                        btnProfile.enabled = true;
+                                    }
+                                }
+                                break;
+                            case UIData.Show.chats:
+                                {
+                                    // container
+                                    {
+                                        if (globalRoomsUI != null)
+                                        {
+                                            globalRoomsUI.gameObject.SetActive(false);
+                                        }
+                                        if (globalChatUI != null)
+                                        {
+                                            globalChatUI.gameObject.SetActive(true);
+                                        }
+                                        if (globalFriendsUI != null)
+                                        {
+                                            globalFriendsUI.gameObject.SetActive(false);
+                                        }
+                                        if (globalProfileUI != null)
+                                        {
+                                            globalProfileUI.gameObject.SetActive(false);
+                                        }
+                                    }
+                                    // btns
+                                    {
+                                        btnRooms.enabled = true;
+                                        btnChats.enabled = false;
+                                        btnFriends.enabled = true;
+                                        btnProfile.enabled = true;
+                                    }
+                                }
+                                break;
+                            case UIData.Show.friends:
+                                {
+                                    // container
+                                    {
+                                        if (globalRoomsUI != null)
+                                        {
+                                            globalRoomsUI.gameObject.SetActive(false);
+                                        }
+                                        if (globalChatUI != null)
+                                        {
+                                            globalChatUI.gameObject.SetActive(false);
+                                        }
+                                        if (globalFriendsUI != null)
+                                        {
+                                            globalFriendsUI.gameObject.SetActive(true);
+                                        }
+                                        if (globalProfileUI != null)
+                                        {
+                                            globalProfileUI.gameObject.SetActive(false);
+                                        }
+                                    }
+                                    // btns
+                                    {
+                                        btnRooms.enabled = true;
+                                        btnChats.enabled = true;
+                                        btnFriends.enabled = false;
+                                        btnProfile.enabled = true;
+                                    }
+                                }
+                                break;
+                            case UIData.Show.profile:
+                                {
+                                    // container
+                                    {
+                                        if (globalRoomsUI != null)
+                                        {
+                                            globalRoomsUI.gameObject.SetActive(false);
+                                        }
+                                        if (globalChatUI != null)
+                                        {
+                                            globalChatUI.gameObject.SetActive(false);
+                                        }
+                                        if (globalFriendsUI != null)
+                                        {
+                                            globalFriendsUI.gameObject.SetActive(false);
+                                        }
+                                        if (globalProfileUI != null)
+                                        {
+                                            globalProfileUI.gameObject.SetActive(true);
+                                        }
+                                    }
+                                    // btns
+                                    {
+                                        btnRooms.enabled = true;
+                                        btnChats.enabled = true;
+                                        btnFriends.enabled = true;
+                                        btnProfile.enabled = false;
+                                    }
+                                }
+                                break;
+                            default:
+                                Debug.LogError("unknown show: " + this.data.show.v + "; " + this);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("btn null: " + this);
+                    }
+                }
+                // txt
+                {
 					if (tvRooms != null) {
 						tvRooms.text = txtRooms.get ("Rooms");
 					} else {
@@ -426,10 +542,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 	public GlobalFriendsUI friendsPrefab;
 	public GlobalProfileUI profilePrefab;
 
-	public Transform roomsContainer;
-	public Transform chatsContainer;
-	public Transform friendsContainer;
-	public Transform profileContainer;
+    public static readonly UIRectTransform contentRect = new UIRectTransform();
 
 	public override void onAddCallBack<T> (T data)
 	{
@@ -491,7 +604,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 				GlobalRoomsUI.UIData rooms = data as GlobalRoomsUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (rooms, roomsPrefab, roomsContainer);
+					UIUtils.Instantiate (rooms, roomsPrefab, this.transform, contentRect);
 				}
 				dirty = true;
 				return;
@@ -500,7 +613,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 				GlobalChatUI.UIData chats = data as GlobalChatUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (chats, chatsPrefab, chatsContainer);
+					UIUtils.Instantiate (chats, chatsPrefab, this.transform, contentRect);
 				}
 				dirty = true;
 				return;
@@ -509,7 +622,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 				GlobalFriendsUI.UIData friends = data as GlobalFriendsUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (friends, friendsPrefab, friendsContainer);
+					UIUtils.Instantiate (friends, friendsPrefab, this.transform, contentRect);
 				}
 				dirty = true;
 				return;
@@ -518,7 +631,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 				GlobalProfileUI.UIData profile = data as GlobalProfileUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (profile, profilePrefab, profileContainer);
+					UIUtils.Instantiate (profile, profilePrefab, this.transform, contentRect);
 				}
 				dirty = true;
 				return;

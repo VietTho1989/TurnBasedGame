@@ -66,8 +66,21 @@ public class UserHolder : SriaHolderBehavior<UserHolder.UIData>
 
 	static UserHolder()
 	{
+        // txt
 		txtView.add (Language.Type.vi, "Xem");
-	}
+        // banRect
+        {
+            // anchoredPosition: (0.0, 0.0); anchorMin: (1.0, 0.5); anchorMax: (1.0, 0.5); pivot: (1.0, 0.5); 
+            // offsetMin: (-120.0, -60.0); offsetMax: (0.0, 60.0); sizeDelta: (120.0, 120.0);
+            banRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+            banRect.anchorMin = new Vector2(1.0f, 0.5f);
+            banRect.anchorMax = new Vector2(1.0f, 0.5f);
+            banRect.pivot = new Vector2(1.0f, 0.5f);
+            banRect.offsetMin = new Vector2(-120.0f, -60.0f);
+            banRect.offsetMax = new Vector2(0.0f, 60.0f);
+            banRect.sizeDelta = new Vector2(120.0f, 120.0f);
+        }
+    }
 
 	#endregion
 
@@ -172,7 +185,7 @@ public class UserHolder : SriaHolderBehavior<UserHolder.UIData>
 	public AccountAvatarUI avatarPrefab;
 
 	public BanUI banPrefab;
-	public Transform banContainer;
+    private static readonly UIRectTransform banRect = new UIRectTransform();
 
 	public override void onAddCallBack<T> (T data)
 	{
@@ -242,7 +255,7 @@ public class UserHolder : SriaHolderBehavior<UserHolder.UIData>
 				BanUI.UIData banUIData = data as BanUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (banUIData, banPrefab, banContainer);
+					UIUtils.Instantiate (banUIData, banPrefab, this.transform, banRect);
 				}
 				dirty = true;
 				return;

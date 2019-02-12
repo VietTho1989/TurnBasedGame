@@ -213,18 +213,23 @@ namespace TimeControl.Normal
 
 		static TimeInfoUI()
 		{
-			txtTitle.add(Language.Type.vi, "Thông Tin Thời Gian");
-			txtTimePerTurnType.add(Language.Type.vi, "Loại thời gian mỗi lượt");
-			txtTotalTimeType.add(Language.Type.vi, "Loại tổng thời gian");
-			txtOverTimePerTurnType.add(Language.Type.vi, "Loại quá thời gian mỗi lượt");
-			txtLagCompensation.add(Language.Type.vi, "Đền bù lag");
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Thông Tin Thời Gian");
+                txtTimePerTurnType.add(Language.Type.vi, "Loại thời gian mỗi lượt");
+                txtTotalTimeType.add(Language.Type.vi, "Loại tổng thời gian");
+                txtOverTimePerTurnType.add(Language.Type.vi, "Loại quá thời gian mỗi lượt");
+                txtLagCompensation.add(Language.Type.vi, "Đền bù lag");
+            }
+            // rect
+            {
+
+            }
 		}
 
 		#endregion
 
 		private bool needReset = true;
-
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -239,8 +244,8 @@ namespace TimeControl.Normal
 						TimeInfo show = editTimeInfo.show.v.data;
 						TimeInfo compare = editTimeInfo.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editTimeInfo.compareOtherType.v.data != null) {
@@ -249,9 +254,9 @@ namespace TimeControl.Normal
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// request
 							{
@@ -652,8 +657,71 @@ namespace TimeControl.Normal
 					} else {
 						Debug.LogError ("editTimeInfo null: " + this);
 					}
-					// txt
-					{
+                    // UI Position
+                    {
+                        float deltaY = UIConstants.HeaderHeight;
+                        // timePerTurnType
+                        {
+                            UIRectTransform.SetPosY(this.data.timePerTurnType.v, UIConstants.RequestEnumRect, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2);
+                            if (lbTimePerTurnType != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)lbTimePerTurnType.transform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTimePerTurnType null: " + this);
+                            }
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        // timePerTurn
+                        deltaY += UIRectTransform.SetPosY(this.data.timePerTurn.v, deltaY);
+                        // totalTimeType
+                        {
+                            UIRectTransform.SetPosY(this.data.totalTimeType.v, UIConstants.RequestEnumRect, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2);
+                            if (lbTotalTimeType != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)lbTotalTimeType.transform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTotalTimeType null: " + this);
+                            }
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        // totalTime
+                        deltaY += UIRectTransform.SetPosY(this.data.totalTime.v, deltaY);
+                        // overTimePerTurnType
+                        {
+                            UIRectTransform.SetPosY(this.data.overTimePerTurnType.v, UIConstants.RequestEnumRect, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2);
+                            if (lbOverTimePerTurnType != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)lbOverTimePerTurnType.transform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbOverTimePerTurnType null: " + this);
+                            }
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        // overTimePerTurn
+                        deltaY += UIRectTransform.SetPosY(this.data.overTimePerTurn.v, deltaY);
+                        // lagCompensation
+                        {
+                            UIRectTransform.SetPosY(this.data.lagCompensation.v, UIConstants.RequestRect, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2);
+                            if (lbLagCompensation != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)lbLagCompensation.transform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbLagCompensation null: " + this);
+                            }
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                    }
+                    // txt
+                    {
 						if (lbTitle != null) {
 							lbTitle.text = txtTitle.get ("Time Information");
 						} else {
@@ -701,13 +769,13 @@ namespace TimeControl.Normal
 		public RequestChangeFloatUI requestFloatPrefab;
 		public RequestChangeEnumUI requestEnumPrefab;
 
-		public Transform timePerTurnTypeContainer;
+		/*public Transform timePerTurnTypeContainer;
 		public Transform timePerTurnContainer;
 		public Transform totalTimeTypeContainer;
 		public Transform totalTimeContainer;
 		public Transform overTimePerTurnTypeContainer;
 		public Transform overTimePerTurnContainer;
-		public Transform lagCompensationContainer;
+		public Transform lagCompensationContainer;*/
 
 		private Server server = null;
 
@@ -779,13 +847,13 @@ namespace TimeControl.Normal
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.timePerTurnType:
-								UIUtils.Instantiate (requestChange, requestEnumPrefab, timePerTurnTypeContainer);
+								UIUtils.Instantiate (requestChange, requestEnumPrefab, this.transform);
 								break;
 							case UIData.Property.totalTimeType:
-								UIUtils.Instantiate (requestChange, requestEnumPrefab, totalTimeTypeContainer);
+								UIUtils.Instantiate (requestChange, requestEnumPrefab, this.transform);
 								break;
 							case UIData.Property.overTimePerTurnType:
-								UIUtils.Instantiate (requestChange, requestEnumPrefab, overTimePerTurnTypeContainer);
+								UIUtils.Instantiate (requestChange, requestEnumPrefab, this.transform);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -798,38 +866,70 @@ namespace TimeControl.Normal
 					dirty = true;
 					return;
 				}
-				if (data is TimePerTurnInfoUI.UIData) {
-					TimePerTurnInfoUI.UIData timePerTurnInfoUIData = data as TimePerTurnInfoUI.UIData;
-					{
-						WrapProperty wrapProperty = timePerTurnInfoUIData.p;
-						if (wrapProperty != null) {
-							switch ((UIData.Property)wrapProperty.n) {
-							case UIData.Property.timePerTurn:
-								UIUtils.Instantiate (timePerTurnInfoUIData, timePerTurnPrefab, timePerTurnContainer);
-								break;
-							case UIData.Property.overTimePerTurn:
-								UIUtils.Instantiate (timePerTurnInfoUIData, timePerTurnPrefab, overTimePerTurnContainer);
-								break;
-							default:
-								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-								break;
-							}
-						} else {
-							Debug.LogError ("wrapProperty null: " + this);
-						}
-					}
-					dirty = true;
-					return;
-				}
-				if (data is TotalTimeInfoUI.UIData) {
-					TotalTimeInfoUI.UIData totalTimeInfoUIData = data as TotalTimeInfoUI.UIData;
-					// UI
-					{
-						UIUtils.Instantiate (totalTimeInfoUIData, totalTimePrefab, totalTimeContainer);
-					}
-					dirty = true;
-					return;
-				}
+                // InfoUI
+                {
+                    if (data is TimePerTurnInfoUI.UIData)
+                    {
+                        TimePerTurnInfoUI.UIData timePerTurnInfoUIData = data as TimePerTurnInfoUI.UIData;
+                        {
+                            WrapProperty wrapProperty = timePerTurnInfoUIData.p;
+                            if (wrapProperty != null)
+                            {
+                                TimePerTurnInfoUI timePerTurnInfoUI = null;
+                                switch ((UIData.Property)wrapProperty.n)
+                                {
+                                    case UIData.Property.timePerTurn:
+                                        timePerTurnInfoUI = (TimePerTurnInfoUI)UIUtils.Instantiate(timePerTurnInfoUIData, timePerTurnPrefab, this.transform);
+                                        break;
+                                    case UIData.Property.overTimePerTurn:
+                                        timePerTurnInfoUI = (TimePerTurnInfoUI)UIUtils.Instantiate(timePerTurnInfoUIData, timePerTurnPrefab, this.transform);
+                                        break;
+                                    default:
+                                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                        break;
+                                }
+                                if (timePerTurnInfoUI != null)
+                                {
+                                    timePerTurnInfoUI.transformData.addCallBack(this);
+                                }
+                                else
+                                {
+                                    Debug.LogError("timePerTurnInfoUI null");
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("wrapProperty null: " + this);
+                            }
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    if (data is TotalTimeInfoUI.UIData)
+                    {
+                        TotalTimeInfoUI.UIData totalTimeInfoUIData = data as TotalTimeInfoUI.UIData;
+                        // UI
+                        {
+                            TotalTimeInfoUI totalTimeInfoUI = (TotalTimeInfoUI)UIUtils.Instantiate(totalTimeInfoUIData, totalTimePrefab, this.transform);
+                            if (totalTimeInfoUI != null)
+                            {
+                                totalTimeInfoUI.transformData.addCallBack(this);
+                            }
+                            else
+                            {
+                                Debug.LogError("totalTimeInfoUI null");
+                            }
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // Child
+                    if(data is TransformData)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                }
 				if (data is RequestChangeFloatUI.UIData) {
 					RequestChangeFloatUI.UIData requestChange = data as RequestChangeFloatUI.UIData;
 					// UI
@@ -838,7 +938,7 @@ namespace TimeControl.Normal
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.lagCompensation:
-								UIUtils.Instantiate (requestChange, requestFloatPrefab, lagCompensationContainer);
+								UIUtils.Instantiate (requestChange, requestFloatPrefab, this.transform);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -918,21 +1018,57 @@ namespace TimeControl.Normal
 					}
 					return;
 				}
-				if (data is TimePerTurnInfoUI.UIData) {
-					TimePerTurnInfoUI.UIData timePerTurnInfoUIData = data as TimePerTurnInfoUI.UIData;
-					{
-						timePerTurnInfoUIData.removeCallBackAndDestroy (typeof(TimePerTurnInfoUI));
-					}
-					return;
-				}
-				if (data is TotalTimeInfoUI.UIData) {
-					TotalTimeInfoUI.UIData totalTimeInfoUIData = data as TotalTimeInfoUI.UIData;
-					// UI
-					{
-						totalTimeInfoUIData.removeCallBackAndDestroy (typeof(TotalTimeInfoUI));
-					}
-					return;
-				}
+                // InfoUI
+                {
+                    if (data is TimePerTurnInfoUI.UIData)
+                    {
+                        TimePerTurnInfoUI.UIData timePerTurnInfoUIData = data as TimePerTurnInfoUI.UIData;
+                        // Child
+                        {
+                            TimePerTurnInfoUI timePerTurnInfoUI = timePerTurnInfoUIData.findCallBack<TimePerTurnInfoUI>();
+                            if (timePerTurnInfoUI != null)
+                            {
+                                timePerTurnInfoUI.transformData.removeCallBack(this);
+                            }
+                            else
+                            {
+                                Debug.LogError("timePerTurnInfoUI null");
+                            }
+                        }
+                        // UI
+                        {
+                            timePerTurnInfoUIData.removeCallBackAndDestroy(typeof(TimePerTurnInfoUI));
+                        }
+                        return;
+                    }
+                    if (data is TotalTimeInfoUI.UIData)
+                    {
+                        TotalTimeInfoUI.UIData totalTimeInfoUIData = data as TotalTimeInfoUI.UIData;
+                        // Child
+                        {
+                            TotalTimeInfoUI totalTimeInfoUI = totalTimeInfoUIData.findCallBack<TotalTimeInfoUI>();
+                            if (totalTimeInfoUI != null)
+                            {
+                                totalTimeInfoUI.transformData.removeCallBack(this);
+                            }
+                            else
+                            {
+                                Debug.LogError("totalTimeInfoUI null");
+                            }
+                        }
+                        // UI
+                        {
+                            totalTimeInfoUIData.removeCallBackAndDestroy(typeof(TotalTimeInfoUI));
+                        }
+                        return;
+                    }
+                    // Child
+                    if (data is TransformData)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                }
 				if (data is RequestChangeFloatUI.UIData) {
 					RequestChangeFloatUI.UIData requestChange = data as RequestChangeFloatUI.UIData;
 					// UI
@@ -1096,16 +1232,42 @@ namespace TimeControl.Normal
 				if (wrapProperty.p is RequestChangeEnumUI.UIData) {
 					return;
 				}
-				if (wrapProperty.p is TimePerTurnInfoUI.UIData) {
-					return;
-				}
-				if (wrapProperty.p is TotalTimeInfoUI.UIData) {
-					return;
-				}
-				if (wrapProperty.p is RequestChangeFloatUI.UIData) {
-					return;
-				}
-			}
+                // InfoUI
+                {
+                    if (wrapProperty.p is TimePerTurnInfoUI.UIData)
+                    {
+                        return;
+                    }
+                    if (wrapProperty.p is TotalTimeInfoUI.UIData)
+                    {
+                        return;
+                    }
+                    // Child
+                    if (wrapProperty.p is TransformData)
+                    {
+                        switch ((TransformData.Property)wrapProperty.n)
+                        {
+                            case TransformData.Property.position:
+                                break;
+                            case TransformData.Property.rotation:
+                                break;
+                            case TransformData.Property.scale:
+                                break;
+                            case TransformData.Property.size:
+                                dirty = true;
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
+                }
+                if (wrapProperty.p is RequestChangeFloatUI.UIData)
+                {
+                    return;
+                }
+            }
 			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
 		}
 

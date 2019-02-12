@@ -187,20 +187,27 @@ public class UserUI : UIBehavior<UserUI.UIData>
 
 	static UserUI()
 	{
-		txtTitle.add (Language.Type.vi, "Thông tin người dùng");
-		txtBack.add (Language.Type.vi, "Quay Lại");
-		txtEditType.add (Language.Type.vi, "Loại chỉnh sửa");
-		txtChat.add (Language.Type.vi, "Tán gẫu");
-		txtRole.add (Language.Type.vi, "Vai trò");
-		txtIpAddress.add(Language.Type.vi, "Địa chỉ ip");
-		txtRegisterTime.add(Language.Type.vi, "Thời điểm đăng ký");
-		txtReset.add (Language.Type.vi, "Đặt lại");
-	}
+        // txt
+        {
+            txtTitle.add(Language.Type.vi, "Thông tin người dùng");
+            txtBack.add(Language.Type.vi, "Quay Lại");
+            txtEditType.add(Language.Type.vi, "Loại chỉnh sửa");
+            txtChat.add(Language.Type.vi, "Tán gẫu");
+            txtRole.add(Language.Type.vi, "Vai trò");
+            txtIpAddress.add(Language.Type.vi, "Địa chỉ ip");
+            txtRegisterTime.add(Language.Type.vi, "Thời điểm đăng ký");
+            txtReset.add(Language.Type.vi, "Đặt lại");
+        }
+        // rect
+        {
+            // editType
+            requestEditTypeRect.setPosY(UIConstants.HeaderHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+        }
+    }
 
 	#endregion
 
 	private bool needReset = true;
-	public GameObject differentIndicator;
 
 	public GameObject bottom;
 
@@ -249,12 +256,6 @@ public class UserUI : UIBehavior<UserUI.UIData>
 					}
 					// requestEditType
 					{
-						// UI
-						if (requestEditTypeContainer != null) {
-							requestEditTypeContainer.parent.gameObject.SetActive (editUser.canEdit.v);
-						} else {
-							Debug.LogError ("editTypeContainer null: " + this);
-						}
 						// request
 						{
 							RequestChangeEnumUI.UIData requestEditType = this.data.requestEditType.v;
@@ -288,8 +289,8 @@ public class UserUI : UIBehavior<UserUI.UIData>
 					User show = editUser.show.v.data;
 					User compare = editUser.compare.v.data;
 					if (show != null) {
-						// differentIndicator
-						if (differentIndicator != null) {
+						// different
+						if (lbTitle != null) {
 							bool isDifferent = false;
 							{
 								if (editUser.compareOtherType.v.data != null) {
@@ -298,9 +299,9 @@ public class UserUI : UIBehavior<UserUI.UIData>
 									}
 								}
 							}
-							differentIndicator.SetActive (isDifferent);
+                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 						} else {
-							Debug.LogError ("differentIndicator null: " + this);
+							Debug.LogError ("lbTitle null: " + this);
 						}
 						// get server state
 						Server.State.Type serverState = Server.State.Type.Connect;
@@ -589,7 +590,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
 
 	#region implement callBacks
 
-	public Transform requestEditTypeContainer;
+	private static readonly UIRectTransform requestEditTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
 	public HumanUI humanPrefab;
 	public RequestChangeEnumUI requestEnumPrefab;
@@ -605,7 +606,6 @@ public class UserUI : UIBehavior<UserUI.UIData>
 	public Transform btnUpdateUserContainer;
 
 	public UserChatUI userChatPrefab;
-	public Transform userChatContainer;
 
 	private Server server = null;
 
@@ -688,7 +688,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
 						case UIData.Property.requestEditType:
-							UIUtils.Instantiate (requestChange, requestEnumPrefab, requestEditTypeContainer);
+							UIUtils.Instantiate (requestChange, requestEnumPrefab, this.transform, requestEditTypeRect);
 							break;
 						case UIData.Property.role:
 							UIUtils.Instantiate (requestChange, requestEnumPrefab, roleContainer);
@@ -761,7 +761,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
 				UserChatUI.UIData userChatUIData = data as UserChatUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (userChatUIData, userChatPrefab, userChatContainer);
+					UIUtils.Instantiate (userChatUIData, userChatPrefab, this.transform, UIConstants.FullParent);
 				}
 				dirty = true;
 				return;

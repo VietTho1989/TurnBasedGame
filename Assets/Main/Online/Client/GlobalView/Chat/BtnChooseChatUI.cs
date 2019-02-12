@@ -243,106 +243,125 @@ public class BtnChooseChatUI : UIBehavior<BtnChooseChatUI.UIData>
 		Debug.LogError ("Don't process: " + data + "; " + this);
 	}
 
-	public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-	{
-		if (WrapProperty.checkError (wrapProperty)) {
-			return;
-		}
-		if (wrapProperty.p is UIData) {
-			switch ((UIData.Property)wrapProperty.n) {
-			case UIData.Property.chatRoom:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			default:
-				Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-				break;
-			}
-			return;
-		}
-		// Setting
-		if (wrapProperty.p is Setting) {
-			switch ((Setting.Property)wrapProperty.n) {
-			case Setting.Property.language:
-				dirty = true;
-				break;
-			case Setting.Property.showLastMove:
-				break;
-			case Setting.Property.viewUrlImage:
-				break;
-			case Setting.Property.animationSetting:
-				break;
-			case Setting.Property.maxThinkCount:
-				break;
-			default:
-				Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-				break;
-			}
-			return;
-		}
-		// Parent
-		{
-			if (wrapProperty.p is GlobalChatUI.UIData) {
-				switch ((GlobalChatUI.UIData.Property)wrapProperty.n) {
-				case GlobalChatUI.UIData.Property.server:
-					break;
-				case GlobalChatUI.UIData.Property.chatRoomUIData:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// Child
-			if (wrapProperty.p is ChatRoomUI.UIData) {
-				switch ((ChatRoomUI.UIData.Property)wrapProperty.n) {
-				case ChatRoomUI.UIData.Property.chatRoom:
-					dirty = true;
-					break;
-				case ChatRoomUI.UIData.Property.topicUI:
-					break;
-				case ChatRoomUI.UIData.Property.chatRoomAdapter:
-					break;
-				case ChatRoomUI.UIData.Property.typingUI:
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-		}
-		// Child
-		{
-			if (wrapProperty.p is ChatRoom) {
-				switch ((ChatRoom.Property)wrapProperty.n) {
-				case ChatRoom.Property.topic:
-					dirty = true;
-					break;
-				case ChatRoom.Property.isEnable:
-					break;
-				case ChatRoom.Property.players:
-					break;
-				case ChatRoom.Property.messages:
-					break;
-				case ChatRoom.Property.typing:
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-		}
-		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-	}
+    public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+    {
+        if (WrapProperty.checkError(wrapProperty))
+        {
+            return;
+        }
+        if (wrapProperty.p is UIData)
+        {
+            switch ((UIData.Property)wrapProperty.n)
+            {
+                case UIData.Property.chatRoom:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Setting
+        if (wrapProperty.p is Setting)
+        {
+            switch ((Setting.Property)wrapProperty.n)
+            {
+                case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.showLastMove:
+                    break;
+                case Setting.Property.viewUrlImage:
+                    break;
+                case Setting.Property.animationSetting:
+                    break;
+                case Setting.Property.maxThinkCount:
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Parent
+        {
+            if (wrapProperty.p is GlobalChatUI.UIData)
+            {
+                switch ((GlobalChatUI.UIData.Property)wrapProperty.n)
+                {
+                    case GlobalChatUI.UIData.Property.server:
+                        break;
+                    case GlobalChatUI.UIData.Property.chatRoomUIData:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case GlobalChatUI.UIData.Property.btnChooseChatUIDatas:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            if (wrapProperty.p is ChatRoomUI.UIData)
+            {
+                switch ((ChatRoomUI.UIData.Property)wrapProperty.n)
+                {
+                    case ChatRoomUI.UIData.Property.chatRoom:
+                        dirty = true;
+                        break;
+                    case ChatRoomUI.UIData.Property.topicUI:
+                        break;
+                    case ChatRoomUI.UIData.Property.chatRoomAdapter:
+                        break;
+                    case ChatRoomUI.UIData.Property.typingUI:
+                        break;
+                    case ChatRoomUI.UIData.Property.chatMessageMenu:
+                        break;
+                    case ChatRoomUI.UIData.Property.canSendMessage:
+                        break;
+                    case ChatRoomUI.UIData.Property.btnLoadMore:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+        }
+        // Child
+        {
+            if (wrapProperty.p is ChatRoom)
+            {
+                switch ((ChatRoom.Property)wrapProperty.n)
+                {
+                    case ChatRoom.Property.topic:
+                        dirty = true;
+                        break;
+                    case ChatRoom.Property.isEnable:
+                        break;
+                    case ChatRoom.Property.players:
+                        break;
+                    case ChatRoom.Property.messages:
+                        break;
+                    case ChatRoom.Property.typing:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+        }
+        Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+    }
 
 	#endregion
 
