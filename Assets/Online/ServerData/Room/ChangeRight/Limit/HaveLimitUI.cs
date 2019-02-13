@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Rights
 {
-	public class HaveLimitUI : UIBehavior<HaveLimitUI.UIData>
+	public class HaveLimitUI : UIBehavior<HaveLimitUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -93,14 +93,36 @@ namespace Rights
 
 		static HaveLimitUI()
 		{
-			txtTitle.add (Language.Type.vi, "Có Giới Hạn");
-			txtLimit.add (Language.Type.vi, "Giời hạn");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Có Giới Hạn");
+                txtLimit.add(Language.Type.vi, "Giời hạn");
+            }
+            // rect
+            {
+                limitRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+            }
+        }
 
-		#endregion
+        #endregion
 
-		private bool needReset = true;
-		public GameObject differentIndicator;
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        private bool needReset = true;
 
 		public override void refresh ()
 		{
@@ -114,8 +136,8 @@ namespace Rights
 						HaveLimit show = editHaveLimit.show.v.data;
 						HaveLimit compare = editHaveLimit.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editHaveLimit.compareOtherType.v.data != null) {
@@ -124,9 +146,9 @@ namespace Rights
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// request
 							{
@@ -217,6 +239,7 @@ namespace Rights
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()
@@ -230,7 +253,7 @@ namespace Rights
 
 		public RequestChangeIntUI requestIntPrefab;
 
-		public Transform limitContainer;
+		private static readonly UIRectTransform limitRect = new UIRectTransform(UIConstants.RequestRect);
 
 		private Server server = null;
 
@@ -297,7 +320,7 @@ namespace Rights
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.limit:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, limitContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, limitRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Rights
 {
-	public class UndoRedoRightUI : UIBehavior<UndoRedoRightUI.UIData>
+	public class UndoRedoRightUI : UIBehavior<UndoRedoRightUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -154,16 +154,40 @@ namespace Rights
 
 		static UndoRedoRightUI()
 		{
-			txtTitle.add (Language.Type.vi, "Quyền đi lại");
-			txtNeedAccept.add (Language.Type.vi, "Cần chấp nhận");
-			txtNeedAdmin.add (Language.Type.vi, "Cần admin");
-			txtLimitType.add (Language.Type.vi, "Loại giới hạn");
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Quyền đi lại");
+                txtNeedAccept.add(Language.Type.vi, "Cần chấp nhận");
+                txtNeedAdmin.add(Language.Type.vi, "Cần admin");
+                txtLimitType.add(Language.Type.vi, "Loại giới hạn");
+            }
+            // rect
+            {
+                needAcceptRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                needAdminRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                limitTypeRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+            }
 		}
 
-		#endregion
+        #endregion
 
-		private bool needReset = true;
-		public GameObject differentIndicator;
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        private bool needReset = true;
 
 		public override void refresh ()
 		{
@@ -177,8 +201,8 @@ namespace Rights
 						UndoRedoRight show = editUndoRedoRight.show.v.data;
 						UndoRedoRight compare = editUndoRedoRight.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editUndoRedoRight.compareOtherType.v.data != null) {
@@ -187,9 +211,9 @@ namespace Rights
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// request
 							{
@@ -434,8 +458,28 @@ namespace Rights
 					} else {
 						Debug.LogError ("editUndoRedoRight null: " + this);
 					}
-					// txt
-					{
+                    // UI Size
+                    {
+                        float deltaY = UIConstants.HeaderHeight;
+                        // needAccept
+                        {
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        // needAdmin
+                        {
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        // limitType
+                        {
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        // limitUIData
+                        deltaY += UIRectTransform.SetPosY(this.data.limitUIData.v, deltaY);
+                        // set
+                        UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                    }
+                    // txt
+                    {
 						if (lbTitle != null) {
 							lbTitle.text = txtTitle.get ("Undo/Redo Right");
 						} else {
@@ -461,6 +505,7 @@ namespace Rights
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()
@@ -468,14 +513,13 @@ namespace Rights
 			return true;
 		}
 
-		#endregion
+        #endregion
 
-		#region implement callBacks
+        #region implement callBacks
 
-		public Transform needAcceptContainer;
-		public Transform needAdminContainer;
-		public Transform limitTypeContainer;
-		public Transform limitUIDataContainer;
+        private static readonly UIRectTransform needAcceptRect = new UIRectTransform(UIConstants.RequestBoolRect);
+        private static readonly UIRectTransform needAdminRect = new UIRectTransform(UIConstants.RequestBoolRect);
+        private static readonly UIRectTransform limitTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
 		public RequestChangeBoolUI requestBoolPrefab;
 		public RequestChangeEnumUI requestEnumPrefab;
@@ -551,10 +595,10 @@ namespace Rights
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.needAccept:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, needAcceptContainer);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, needAcceptRect);
 								break;
 							case UIData.Property.needAdmin:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, needAdminContainer);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, needAdminRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -576,7 +620,7 @@ namespace Rights
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.limitType:
-								UIUtils.Instantiate (requestChange, requestEnumPrefab, limitTypeContainer);
+								UIUtils.Instantiate (requestChange, requestEnumPrefab, this.transform, limitTypeRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -598,13 +642,13 @@ namespace Rights
 						case Limit.Type.NoLimit:
 							{
 								NoLimitUI.UIData noLimitUIData = limitUIData as NoLimitUI.UIData;
-								UIUtils.Instantiate (noLimitUIData, noLimitPrefab, limitUIDataContainer);
+								UIUtils.Instantiate (noLimitUIData, noLimitPrefab, this.transform);
 							}
 							break;
 						case Limit.Type.HaveLimit:
 							{
 								HaveLimitUI.UIData haveLimitUIData = limitUIData as HaveLimitUI.UIData;
-								UIUtils.Instantiate (haveLimitUIData, haveLimitPrefab, limitUIDataContainer);
+								UIUtils.Instantiate (haveLimitUIData, haveLimitPrefab, this.transform);
 							}
 							break;
 						default:

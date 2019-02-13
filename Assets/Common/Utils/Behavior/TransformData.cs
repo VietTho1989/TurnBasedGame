@@ -52,4 +52,44 @@ public class TransformData : Data
         }
     }
 
+    public static void AddCallBack(Data data, ValueChangeCallBack callBack)
+    {
+        if (data != null)
+        {
+            HaveTransformData haveTransformData = data.findCallBack<HaveTransformData>();
+            if (haveTransformData != null)
+            {
+                haveTransformData.getTransformData().addCallBack(callBack);
+            }
+            else
+            {
+                Debug.LogError("haveTransformData null");
+            }
+        }
+        else
+        {
+            Debug.LogError("data null");
+        }
+    }
+
+    public static void RemoveCallBack(Data data, ValueChangeCallBack callBack)
+    {
+        if (data != null)
+        {
+            HaveTransformData haveTransformData = data.findCallBack<HaveTransformData>();
+            if (haveTransformData != null)
+            {
+                haveTransformData.getTransformData().removeCallBack(callBack);
+            }
+            else
+            {
+                Debug.LogError("haveTransformData null");
+            }
+        }
+        else
+        {
+            Debug.LogError("data null");
+        }
+    }
+
 }

@@ -63,7 +63,7 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
 					if (gameDataUIData != null) {
 						gameDataUIDataAllowInput = gameDataUIData.allowInput.v;
 					} else {
-						Debug.LogError ("gameDataUIData null: " + data);
+						// Debug.LogError ("gameDataUIData null: " + data);
 					}
 				} else {
 					Debug.LogError ("data null: " + data);

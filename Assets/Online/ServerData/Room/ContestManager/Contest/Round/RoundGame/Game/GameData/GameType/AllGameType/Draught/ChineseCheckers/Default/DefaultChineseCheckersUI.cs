@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ChineseCheckers
 {
-    public class DefaultChineseCheckersUI : UIBehavior<DefaultChineseCheckersUI.UIData>
+    public class DefaultChineseCheckersUI : UIBehavior<DefaultChineseCheckersUI.UIData>, HaveTransformData
     {
 
         #region UIData
@@ -52,6 +52,27 @@ namespace ChineseCheckers
         static DefaultChineseCheckersUI()
         {
             txtTitle.add(Language.Type.vi, "Mặc Định Chinese Checkers");
+        }
+
+        #endregion
+
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            /*if (transform.hasChanged)
+            {
+                transform.hasChanged = false;
+                this.transformData.update(this.transform);
+            }*/
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
         }
 
         #endregion
@@ -199,6 +220,7 @@ namespace ChineseCheckers
                     // Debug.LogError ("data null: " + this);
                 }
             }
+            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate()

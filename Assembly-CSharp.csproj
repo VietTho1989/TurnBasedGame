@@ -900,6 +900,7 @@
     <Compile Include="Assets\Common\Utils\Behavior\DirtyInterface.cs" />
     <Compile Include="Assets\Common\Utils\Behavior\EditData.cs" />
     <Compile Include="Assets\Common\Utils\Behavior\GameBehavior.cs" />
+    <Compile Include="Assets\Common\Utils\Behavior\HaveTransformData.cs" />
     <Compile Include="Assets\Common\Utils\Behavior\HaveTransformInterface.cs" />
     <Compile Include="Assets\Common\Utils\Behavior\RequestChange\FloatLimit.cs" />
     <Compile Include="Assets\Common\Utils\Behavior\RequestChange\IntLimit.cs" />

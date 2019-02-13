@@ -158,7 +158,7 @@ public class AnimationManager : Data
 							if (game != null) {
 								animationData = game.animationData.v;
 							} else {
-								Debug.LogError ("game null");
+								// Debug.LogError ("game null");
 							}
 						} else {
 							Debug.LogError ("gameData null");

@@ -128,15 +128,38 @@ namespace TimeControl.HourGlass
 
 		static TimeControlHourGlassUI()
 		{
-			txtTitle.add (Language.Type.vi, "Điểu Khiển Thời Gian Đồng Hồ Cát");
-			txtInitTime.add (Language.Type.vi, "Thời gian ban đầu");
-			txtLagCompensation.add (Language.Type.vi, "Bồi thường lag");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Điểu Khiển Thời Gian Đồng Hồ Cát");
+                txtInitTime.add(Language.Type.vi, "Thời gian ban đầu");
+                txtLagCompensation.add(Language.Type.vi, "Bồi thường lag");
+            }
+            // rect
+            {
+                initTimeRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                lagCompensationRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+            }
+        }
 
-		#endregion
+        #endregion
 
-		private bool needReset = true;
-		public GameObject differentIndicator;
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            /*if (transform.hasChanged)
+            {
+                transform.hasChanged = false;
+                this.transformData.update(this.transform);
+            }*/
+            this.transformData.update(this.transform);
+        }
+
+        #endregion
+
+        private bool needReset = true;
 
 		public override void refresh ()
 		{
@@ -150,8 +173,8 @@ namespace TimeControl.HourGlass
 						TimeControlHourGlass show = editTimeControlHourGlass.show.v.data;
 						TimeControlHourGlass compare = editTimeControlHourGlass.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editTimeControlHourGlass.compareOtherType.v.data != null) {
@@ -160,9 +183,9 @@ namespace TimeControl.HourGlass
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// get server state
 							Server.State.Type serverState = Server.State.Type.Connect;
@@ -297,6 +320,7 @@ namespace TimeControl.HourGlass
 					Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()
@@ -310,8 +334,8 @@ namespace TimeControl.HourGlass
 
 		public RequestChangeFloatUI requestFloatPrefab;
 
-		public Transform initTimeContainer;
-		public Transform lagCompensationContainer;
+		private static readonly UIRectTransform initTimeRect = new UIRectTransform(UIConstants.RequestRect);
+		private static readonly UIRectTransform lagCompensationRect = new UIRectTransform(UIConstants.RequestRect);
 
 		private Server server = null;
 
@@ -379,12 +403,12 @@ namespace TimeControl.HourGlass
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.initTime:
 								{
-									UIUtils.Instantiate (requestChange, requestFloatPrefab, initTimeContainer);
+									UIUtils.Instantiate (requestChange, requestFloatPrefab, this.transform, initTimeRect);
 								}
 								break;
 							case UIData.Property.lagCompensation:
 								{
-									UIUtils.Instantiate (requestChange, requestFloatPrefab, lagCompensationContainer);
+									UIUtils.Instantiate (requestChange, requestFloatPrefab, this.transform, lagCompensationRect);
 								}
 								break;
 							default:

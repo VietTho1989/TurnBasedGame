@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace GameManager.Match
 {
-	public class RequestNewRoundNoLimitUI : UIBehavior<RequestNewRoundNoLimitUI.UIData>
+	public class RequestNewRoundNoLimitUI : UIBehavior<RequestNewRoundNoLimitUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -44,12 +45,44 @@ namespace GameManager.Match
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		private bool needReset = true;
-		public GameObject differentIndicator;
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+
+        static RequestNewRoundNoLimitUI()
+        {
+            txtTitle.add(Language.Type.vi, "Không giới hạn số vòng");
+        }
+
+        #endregion
+
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            /*if (transform.hasChanged)
+            {
+                transform.hasChanged = false;
+                this.transformData.update(this.transform);
+            }*/
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
+
+        private bool needReset = true;
 
 		public override void refresh ()
 		{
@@ -63,8 +96,8 @@ namespace GameManager.Match
 						RequestNewRoundNoLimit show = editNoLimit.show.v.data;
 						RequestNewRoundNoLimit compare = editNoLimit.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editNoLimit.compareOtherType.v.data != null) {
@@ -73,9 +106,9 @@ namespace GameManager.Match
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// request
 							{
@@ -108,10 +141,22 @@ namespace GameManager.Match
 					} else {
 						Debug.LogError ("editNoLimit null: " + this);
 					}
-				} else {
+                    // txt
+                    {
+                        if (lbTitle != null)
+                        {
+                            lbTitle.text = txtTitle.get("No limit rounds");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null");
+                        }
+                    }
+                } else {
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()
@@ -129,6 +174,8 @@ namespace GameManager.Match
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
 				// Child
 				{
 					uiData.editNoLimit.allAddCallBack (this);
@@ -136,8 +183,14 @@ namespace GameManager.Match
 				dirty = true;
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // Child
+            {
 				// editNoLimit
 				{
 					if (data is EditData<RequestNewRoundNoLimit>) {
@@ -179,6 +232,8 @@ namespace GameManager.Match
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
 				// Child
 				{
 					uiData.editNoLimit.allRemoveCallBack (this);
@@ -186,8 +241,13 @@ namespace GameManager.Match
 				this.setDataNull (uiData);
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(data is Setting)
+            {
+                return;
+            }
+            // Child
+            {
 				// editNoLimit
 				{
 					if (data is EditData<RequestNewRoundNoLimit>) {
@@ -240,8 +300,32 @@ namespace GameManager.Match
 				}
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            {
 				// editNoLimit
 				{
 					if (wrapProperty.p is EditData<RequestNewRoundNoLimit>) {

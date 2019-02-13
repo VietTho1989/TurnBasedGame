@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace EnglishDraught
 {
-	public class DefaultEnglishDraughtUI : UIBehavior<DefaultEnglishDraughtUI.UIData>
+	public class DefaultEnglishDraughtUI : UIBehavior<DefaultEnglishDraughtUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -143,9 +143,30 @@ namespace EnglishDraught
             }
         }
 
-		#endregion
+        #endregion
 
-		private bool needReset = true;
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            /*if (transform.hasChanged)
+            {
+                transform.hasChanged = false;
+                this.transformData.update(this.transform);
+            }*/
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        private bool needReset = true;
 		private bool miniGameDataDirty = true;
 
 		public override void refresh ()
@@ -357,6 +378,7 @@ namespace EnglishDraught
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

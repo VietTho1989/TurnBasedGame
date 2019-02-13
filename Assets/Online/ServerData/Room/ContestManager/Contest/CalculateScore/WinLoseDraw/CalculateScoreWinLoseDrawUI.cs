@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace GameManager.Match
 {
-	public class CalculateScoreWinLoseDrawUI : UIBehavior<CalculateScoreWinLoseDrawUI.UIData>
+	public class CalculateScoreWinLoseDrawUI : UIBehavior<CalculateScoreWinLoseDrawUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -131,12 +132,65 @@ namespace GameManager.Match
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		private bool needReset = true;
-		public GameObject differentIndicator;
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+
+        public Text lbWinScore;
+        public static readonly TxtLanguage txtWinScore = new TxtLanguage();
+
+        public Text lbLoseScore;
+        public static readonly TxtLanguage txtLoseScore = new TxtLanguage();
+
+        public Text lbDrawScore;
+        public static readonly TxtLanguage txtDrawScore = new TxtLanguage();
+
+        static CalculateScoreWinLoseDrawUI()
+        {
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Tính điểm theo thắng, thua, hoà");
+                txtWinScore.add(Language.Type.vi, "Điểm thắng");
+                txtLoseScore.add(Language.Type.vi, "Điểm thua");
+                txtDrawScore.add(Language.Type.vi, "Điểm hoà");
+            }
+            // rect
+            {
+                winScoreRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                loseScoreRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                drawScoreRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+            }
+        }
+
+        #endregion
+
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            /*if (transform.hasChanged)
+            {
+                transform.hasChanged = false;
+                this.transformData.update(this.transform);
+            }*/
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
+
+        private bool needReset = true;
 
 		public override void refresh ()
 		{
@@ -150,8 +204,8 @@ namespace GameManager.Match
 						CalculateScoreWinLoseDraw show = editCalculateScoreWinLoseDraw.show.v.data;
 						CalculateScoreWinLoseDraw compare = editCalculateScoreWinLoseDraw.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editCalculateScoreWinLoseDraw.compareOtherType.v.data != null) {
@@ -160,9 +214,9 @@ namespace GameManager.Match
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// request
 							{
@@ -320,10 +374,46 @@ namespace GameManager.Match
 					} else {
 						Debug.LogError ("editCalculateScoreWinLoseScore null: " + this);
 					}
-				} else {
+                    // txt
+                    {
+                        if (lbTitle != null)
+                        {
+                            lbTitle.text = txtTitle.get("Calculate score by win, lose, draw score");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null");
+                        }
+                        if (lbWinScore != null)
+                        {
+                            lbWinScore.text = txtWinScore.get("Win score");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbWinScore null");
+                        }
+                        if (lbLoseScore != null)
+                        {
+                            lbLoseScore.text = txtLoseScore.get("Lose score");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbLoseScore null");
+                        }
+                        if (lbDrawScore != null)
+                        {
+                            lbDrawScore.text = txtDrawScore.get("Draw score");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbDrawScore null");
+                        }
+                    }
+                } else {
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()
@@ -337,9 +427,9 @@ namespace GameManager.Match
 
 		public RequestChangeFloatUI requestFloatPrefab;
 
-		public Transform winScoreContainer;
-		public Transform loseScoreContainer;
-		public Transform drawScoreContainer;
+		private static readonly UIRectTransform winScoreRect = new UIRectTransform(UIConstants.RequestRect);
+		private static readonly UIRectTransform loseScoreRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform drawScoreRect = new UIRectTransform(UIConstants.RequestRect);
 
 		private Server server = null;
 
@@ -347,6 +437,8 @@ namespace GameManager.Match
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
 				// Child
 				{
 					uiData.editCalculateScoreWinLoseDraw.allAddCallBack (this);
@@ -357,8 +449,14 @@ namespace GameManager.Match
 				dirty = true;
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // Child
+            {
 				// editCalculateScoreWinLoseDraw
 				{
 					if (data is EditData<CalculateScoreWinLoseDraw>) {
@@ -401,13 +499,13 @@ namespace GameManager.Match
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.winScore:
-								UIUtils.Instantiate (requestChange, requestFloatPrefab, winScoreContainer);
+								UIUtils.Instantiate (requestChange, requestFloatPrefab, this.transform, winScoreRect);
 								break;
 							case UIData.Property.loseScore:
-								UIUtils.Instantiate (requestChange, requestFloatPrefab, loseScoreContainer);
+								UIUtils.Instantiate (requestChange, requestFloatPrefab, this.transform, loseScoreRect);
 								break;
 							case UIData.Property.drawScore:
-								UIUtils.Instantiate (requestChange, requestFloatPrefab, drawScoreContainer);
+								UIUtils.Instantiate (requestChange, requestFloatPrefab, this.transform, drawScoreRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -428,6 +526,8 @@ namespace GameManager.Match
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
 				// Child
 				{
 					uiData.editCalculateScoreWinLoseDraw.allRemoveCallBack (this);
@@ -438,8 +538,13 @@ namespace GameManager.Match
 				this.setDataNull (uiData);
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(data is Setting)
+            {
+                return;
+            }
+            // Child
+            {
 				// editCalculateScoreWinLoseDraw
 				{
 					if (data is EditData<CalculateScoreWinLoseDraw>) {
@@ -519,8 +624,32 @@ namespace GameManager.Match
 				}
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            {
 				// editCalculateScoreWinLoseDraw
 				{
 					if (wrapProperty.p is EditData<CalculateScoreWinLoseDraw>) {

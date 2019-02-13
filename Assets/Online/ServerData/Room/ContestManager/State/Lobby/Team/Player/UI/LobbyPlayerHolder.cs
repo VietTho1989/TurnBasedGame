@@ -56,9 +56,39 @@ namespace GameManager.Match
 
 		static LobbyPlayerHolder()
 		{
-			txtEdit.add (Language.Type.vi, "Chỉnh sửa");
-			txtPlayerIndex.add (Language.Type.vi, "Chỉ số người chơi");
-			txtName.add (Language.Type.vi, "Tên");
+            // txt
+            {
+                txtEdit.add(Language.Type.vi, "Chỉnh sửa");
+                txtPlayerIndex.add(Language.Type.vi, "Chỉ số người chơi");
+                txtName.add(Language.Type.vi, "Tên");
+            }
+            // rect
+            {
+                // avatarRect
+                {
+                    // anchoredPosition: (10.0, 0.0); anchorMin: (0.0, 0.5); anchorMax: (0.0, 0.5); pivot: (0.0, 0.5); 
+                    // offsetMin: (10.0, -30.0); offsetMax: (70.0, 30.0); sizeDelta: (60.0, 60.0);
+                    avatarRect.anchoredPosition = new Vector3(10.0f, 0.0f);
+                    avatarRect.anchorMin = new Vector2(0.0f, 0.5f);
+                    avatarRect.anchorMax = new Vector2(0.0f, 0.5f);
+                    avatarRect.pivot = new Vector2(0.0f, 0.5f);
+                    avatarRect.offsetMin = new Vector2(10.0f, -30.0f);
+                    avatarRect.offsetMax = new Vector2(70.0f, 30.0f);
+                    avatarRect.sizeDelta = new Vector2(60.0f, 60.0f);
+                }
+                // btnReadyRect
+                {
+                    // anchoredPosition: (-10.0, 0.0); anchorMin: (1.0, 0.5); anchorMax: (1.0, 0.5); pivot: (1.0, 0.5); 
+                    // offsetMin: (-70.0, -30.0); offsetMax: (-10.0, 30.0); sizeDelta: (60.0, 60.0);
+                    btnReadyRect.anchoredPosition = new Vector3(-10.0f, 0.0f, 0.0f);
+                    btnReadyRect.anchorMin = new Vector2(1.0f, 0.5f);
+                    btnReadyRect.anchorMax = new Vector2(1.0f, 0.5f);
+                    btnReadyRect.pivot = new Vector2(1.0f, 0.5f);
+                    btnReadyRect.offsetMin = new Vector2(-70.0f, -30.0f);
+                    btnReadyRect.offsetMax = new Vector2(-10.0f, 30f);
+                    btnReadyRect.sizeDelta = new Vector2(60.0f, 60.0f);
+                }
+            }
 		}
 
 		#endregion
@@ -143,10 +173,10 @@ namespace GameManager.Match
 		#region implement callBacks
 
 		public InformAvatarUI avatarPrefab;
-		public Transform avatarContainer;
+		private static readonly UIRectTransform avatarRect = new UIRectTransform();
 
 		public LobbyPlayerBtnSetReady btnReadyPrefab;
-		public Transform btnReadyContainer;
+		private static readonly UIRectTransform btnReadyRect = new UIRectTransform();
 
 		public override void onAddCallBack<T> (T data)
 		{
@@ -214,7 +244,7 @@ namespace GameManager.Match
 					InformAvatarUI.UIData avatar = data as InformAvatarUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (avatar, avatarPrefab, avatarContainer);
+						UIUtils.Instantiate (avatar, avatarPrefab, this.transform, avatarRect);
 					}
 					dirty = true;
 					return;
@@ -223,7 +253,7 @@ namespace GameManager.Match
 					LobbyPlayerBtnSetReady.UIData btnReady = data as LobbyPlayerBtnSetReady.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (btnReady, btnReadyPrefab, btnReadyContainer);
+						UIUtils.Instantiate (btnReady, btnReadyPrefab, this.transform, btnReadyRect);
 					}
 					dirty = true;
 					return;

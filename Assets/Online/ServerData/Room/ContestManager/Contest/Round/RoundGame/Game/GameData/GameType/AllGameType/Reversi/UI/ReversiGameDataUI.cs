@@ -88,11 +88,12 @@ namespace Reversi
 
         private void updateTransformData()
         {
-            if (transform.hasChanged)
+            /*if (transform.hasChanged)
             {
                 transform.hasChanged = false;
                 this.transformData.update(this.transform);
-            }
+            }*/
+            this.transformData.update(this.transform);
         }
 
         #endregion

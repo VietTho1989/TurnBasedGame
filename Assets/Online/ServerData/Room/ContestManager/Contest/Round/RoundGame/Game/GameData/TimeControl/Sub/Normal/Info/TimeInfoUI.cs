@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace TimeControl.Normal
 {
-	public class TimeInfoUI : UIBehavior<TimeInfoUI.UIData>
+	public class TimeInfoUI : UIBehavior<TimeInfoUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -227,9 +227,30 @@ namespace TimeControl.Normal
             }
 		}
 
-		#endregion
+        #endregion
 
-		private bool needReset = true;
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            /*if (transform.hasChanged)
+            {
+                transform.hasChanged = false;
+                this.transformData.update(this.transform);
+            }*/
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        private bool needReset = true;
 
 		public override void refresh ()
 		{
@@ -342,7 +363,7 @@ namespace TimeControl.Normal
 														if (compareTimeInfo != null) {
 															compareTimePerTurn = compareTimeInfo.timePerTurn.v;
 														} else {
-															Debug.LogError ("compareTimeInfo null: " + this);
+															// Debug.LogError ("compareTimeInfo null: " + this);
 														}
 													}
 													editTimePerTurnInfo.compare.v = new ReferenceData<TimePerTurnInfo> (compareTimePerTurn);
@@ -422,7 +443,7 @@ namespace TimeControl.Normal
 														if (showTimeInfo != null) {
 															showTotalTime = showTimeInfo.totalTime.v;
 														} else {
-															Debug.LogError ("showTimeInfo null: " + this);
+															// Debug.LogError ("showTimeInfo null: " + this);
 														}
 													}
 													editTotalTimeInfo.show.v = new ReferenceData<TotalTimeInfo> (showTotalTime);
@@ -435,7 +456,7 @@ namespace TimeControl.Normal
 														if (compareTimeInfo != null) {
 															compareTotalTime = compareTimeInfo.totalTime.v;
 														} else {
-															Debug.LogError ("compareTimeInfo null: " + this);
+															// Debug.LogError ("compareTimeInfo null: " + this);
 														}
 													}
 													editTotalTimeInfo.compare.v = new ReferenceData<TotalTimeInfo> (compareTotalTime);
@@ -528,7 +549,7 @@ namespace TimeControl.Normal
 														if (compareTimeInfo != null) {
 															compareOverTimePerTurn = compareTimeInfo.overTimePerTurn.v;
 														} else {
-															Debug.LogError ("compareTimeInfo null: " + this);
+															// Debug.LogError ("compareTimeInfo null: " + this);
 														}
 													}
 													editOverTimePerTurnInfo.compare.v = new ReferenceData<TimePerTurnInfo> (compareOverTimePerTurn);
@@ -652,7 +673,7 @@ namespace TimeControl.Normal
 								}
 							}
 						} else {
-							Debug.LogError ("show null: " + this);
+							// Debug.LogError ("show null: " + this);
 						}
 					} else {
 						Debug.LogError ("editTimeInfo null: " + this);
@@ -718,6 +739,7 @@ namespace TimeControl.Normal
                             }
                             deltaY += UIConstants.ItemHeight;
                         }
+                        // set
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }
                     // txt
@@ -752,6 +774,7 @@ namespace TimeControl.Normal
 					Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()
@@ -871,36 +894,32 @@ namespace TimeControl.Normal
                     if (data is TimePerTurnInfoUI.UIData)
                     {
                         TimePerTurnInfoUI.UIData timePerTurnInfoUIData = data as TimePerTurnInfoUI.UIData;
+                        // UI
                         {
                             WrapProperty wrapProperty = timePerTurnInfoUIData.p;
                             if (wrapProperty != null)
                             {
-                                TimePerTurnInfoUI timePerTurnInfoUI = null;
                                 switch ((UIData.Property)wrapProperty.n)
                                 {
                                     case UIData.Property.timePerTurn:
-                                        timePerTurnInfoUI = (TimePerTurnInfoUI)UIUtils.Instantiate(timePerTurnInfoUIData, timePerTurnPrefab, this.transform);
+                                        UIUtils.Instantiate(timePerTurnInfoUIData, timePerTurnPrefab, this.transform);
                                         break;
                                     case UIData.Property.overTimePerTurn:
-                                        timePerTurnInfoUI = (TimePerTurnInfoUI)UIUtils.Instantiate(timePerTurnInfoUIData, timePerTurnPrefab, this.transform);
+                                        UIUtils.Instantiate(timePerTurnInfoUIData, timePerTurnPrefab, this.transform);
                                         break;
                                     default:
                                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                                         break;
-                                }
-                                if (timePerTurnInfoUI != null)
-                                {
-                                    timePerTurnInfoUI.transformData.addCallBack(this);
-                                }
-                                else
-                                {
-                                    Debug.LogError("timePerTurnInfoUI null");
                                 }
                             }
                             else
                             {
                                 Debug.LogError("wrapProperty null: " + this);
                             }
+                        }
+                        // Child
+                        {
+                            TransformData.AddCallBack(timePerTurnInfoUIData, this);
                         }
                         dirty = true;
                         return;
@@ -910,15 +929,11 @@ namespace TimeControl.Normal
                         TotalTimeInfoUI.UIData totalTimeInfoUIData = data as TotalTimeInfoUI.UIData;
                         // UI
                         {
-                            TotalTimeInfoUI totalTimeInfoUI = (TotalTimeInfoUI)UIUtils.Instantiate(totalTimeInfoUIData, totalTimePrefab, this.transform);
-                            if (totalTimeInfoUI != null)
-                            {
-                                totalTimeInfoUI.transformData.addCallBack(this);
-                            }
-                            else
-                            {
-                                Debug.LogError("totalTimeInfoUI null");
-                            }
+                            UIUtils.Instantiate(totalTimeInfoUIData, totalTimePrefab, this.transform);
+                        }
+                        // Child
+                        {
+                            TransformData.AddCallBack(totalTimeInfoUIData, this);
                         }
                         dirty = true;
                         return;
@@ -1025,15 +1040,7 @@ namespace TimeControl.Normal
                         TimePerTurnInfoUI.UIData timePerTurnInfoUIData = data as TimePerTurnInfoUI.UIData;
                         // Child
                         {
-                            TimePerTurnInfoUI timePerTurnInfoUI = timePerTurnInfoUIData.findCallBack<TimePerTurnInfoUI>();
-                            if (timePerTurnInfoUI != null)
-                            {
-                                timePerTurnInfoUI.transformData.removeCallBack(this);
-                            }
-                            else
-                            {
-                                Debug.LogError("timePerTurnInfoUI null");
-                            }
+                            TransformData.RemoveCallBack(timePerTurnInfoUIData, this);
                         }
                         // UI
                         {
@@ -1046,15 +1053,7 @@ namespace TimeControl.Normal
                         TotalTimeInfoUI.UIData totalTimeInfoUIData = data as TotalTimeInfoUI.UIData;
                         // Child
                         {
-                            TotalTimeInfoUI totalTimeInfoUI = totalTimeInfoUIData.findCallBack<TotalTimeInfoUI>();
-                            if (totalTimeInfoUI != null)
-                            {
-                                totalTimeInfoUI.transformData.removeCallBack(this);
-                            }
-                            else
-                            {
-                                Debug.LogError("totalTimeInfoUI null");
-                            }
+                            TransformData.RemoveCallBack(totalTimeInfoUIData, this);
                         }
                         // UI
                         {

@@ -6,7 +6,7 @@ using GameManager.Match.Swap;
 
 namespace Rights
 {
-	public class ChangeRightsUI : UIBehavior<ChangeRightsUI.UIData>
+	public class ChangeRightsUI : UIBehavior<ChangeRightsUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -58,10 +58,25 @@ namespace Rights
 			txtTitle.add (Language.Type.vi, "Quyền thay đổi");
 		}
 
-		#endregion
+        #endregion
 
-		private bool needReset = true;
-		public GameObject differentIndicator;
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        private bool needReset = true;
 
 		public override void refresh ()
 		{
@@ -75,8 +90,8 @@ namespace Rights
 						ChangeRights show = editChangeRights.show.v.data;
 						ChangeRights compare = editChangeRights.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editChangeRights.compareOtherType.v.data != null) {
@@ -85,9 +100,9 @@ namespace Rights
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// request
 							{
@@ -147,7 +162,7 @@ namespace Rights
 														if (compareChangeRights != null) {
 															compareUndoRedoRight = compareChangeRights.undoRedoRight.v;
 														} else {
-															Debug.LogError ("compareChangeRights null: " + this);
+															// Debug.LogError ("compareChangeRights null: " + this);
 														}
 													}
 													editUndoRedoRight.compare.v = new ReferenceData<UndoRedoRight> (compareUndoRedoRight);
@@ -214,7 +229,7 @@ namespace Rights
 														if (compareChangeRights != null) {
 															compareChangeGamePlayerRight = compareChangeRights.changeGamePlayerRight.v;
 														} else {
-															Debug.LogError ("compareChangeRights null: " + this);
+															// Debug.LogError ("compareChangeRights null: " + this);
 														}
 													}
 													editChangeGamePlayerRight.compare.v = new ReferenceData<ChangeGamePlayerRight> (compareChangeGamePlayerRight);
@@ -281,7 +296,7 @@ namespace Rights
 														if (compareChangeRights != null) {
 															compareChangeUseRuleRight = compareChangeRights.changeUseRuleRight.v;
 														} else {
-															Debug.LogError ("compareChangeRights null: " + this);
+															// Debug.LogError ("compareChangeRights null: " + this);
 														}
 													}
 													editChangeUseRuleRight.compare.v = new ReferenceData<ChangeUseRuleRight> (compareChangeUseRuleRight);
@@ -320,8 +335,20 @@ namespace Rights
 					} else {
 						Debug.LogError ("editChangeRights null: " + this);
 					}
-					// txt
-					{
+                    // UISize
+                    {
+                        float deltaY = UIConstants.HeaderHeight;
+                        // undoRedoRight
+                        deltaY += UIRectTransform.SetPosY(this.data.undoRedoRight.v, deltaY);
+                        // changeGamePlayerRight
+                        deltaY += UIRectTransform.SetPosY(this.data.changeGamePlayerRight.v, deltaY);
+                        // changeUseRuleRight
+                        deltaY += UIRectTransform.SetPosY(this.data.changeUseRuleRight.v, deltaY);
+                        // set
+                        UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                    }
+                    // txt
+                    {
 						if (lbTitle != null) {
 							lbTitle.text = txtTitle.get ("Change Rights");
 						} else {
@@ -332,6 +359,7 @@ namespace Rights
 					Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()
@@ -342,10 +370,6 @@ namespace Rights
 		#endregion
 
 		#region implement callBacks
-
-		public Transform undoRedoRightContainer;
-		public Transform changeGamePlayerRightContainer;
-		public Transform changeUseRuleRightContainer;
 
 		public UndoRedoRightUI undoRedoRightPrefab;
 		public ChangeGamePlayerRightUI changeGamePlayerRightPrefab;
@@ -413,30 +437,48 @@ namespace Rights
 					UndoRedoRightUI.UIData undoRedoRightUIData = data as UndoRedoRightUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (undoRedoRightUIData, undoRedoRightPrefab, undoRedoRightContainer);
+						UIUtils.Instantiate (undoRedoRightUIData, undoRedoRightPrefab, this.transform);
 					}
-					dirty = true;
+                    // Child
+                    {
+                        TransformData.AddCallBack(undoRedoRightUIData, this);
+                    }
+                    dirty = true;
 					return;
 				}
 				if (data is ChangeGamePlayerRightUI.UIData) {
 					ChangeGamePlayerRightUI.UIData changeGamePlayerRightUIData = data as ChangeGamePlayerRightUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (changeGamePlayerRightUIData, changeGamePlayerRightPrefab, changeGamePlayerRightContainer);
+						UIUtils.Instantiate (changeGamePlayerRightUIData, changeGamePlayerRightPrefab, this.transform);
 					}
-					dirty = true;
+                    // Child
+                    {
+                        TransformData.AddCallBack(changeGamePlayerRightUIData, this);
+                    }
+                    dirty = true;
 					return;
 				}
 				if (data is ChangeUseRuleRightUI.UIData) {
 					ChangeUseRuleRightUI.UIData changeUseRuleRightUIData = data as ChangeUseRuleRightUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (changeUseRuleRightUIData, changeUseRuleRightPrefab, changeUseRuleRightContainer);
+						UIUtils.Instantiate (changeUseRuleRightUIData, changeUseRuleRightPrefab, this.transform);
 					}
-					dirty = true;
+                    // Child
+                    {
+                        TransformData.AddCallBack(changeUseRuleRightUIData, this);
+                    }
+                    dirty = true;
 					return;
 				}
-			}
+                // Child
+                if(data is TransformData)
+                {
+                    dirty = true;
+                    return;
+                }
+            }
 			Debug.LogError ("Don't process: " + data + "; " + this);
 		}
 
@@ -493,29 +535,46 @@ namespace Rights
 				}
 				if (data is UndoRedoRightUI.UIData) {
 					UndoRedoRightUI.UIData undoRedoRightUIData = data as UndoRedoRightUI.UIData;
-					// UI
-					{
+                    // Child
+                    {
+                        TransformData.RemoveCallBack(undoRedoRightUIData, this);
+                    }
+                    // UI
+                    {
 						undoRedoRightUIData.removeCallBackAndDestroy (typeof(UndoRedoRightUI));
 					}
 					return;
 				}
 				if (data is ChangeGamePlayerRightUI.UIData) {
 					ChangeGamePlayerRightUI.UIData changeGamePlayerRightUIData = data as ChangeGamePlayerRightUI.UIData;
-					// UI
-					{
+                    // Child
+                    {
+                        TransformData.RemoveCallBack(changeGamePlayerRightUIData, this);
+                    }
+                    // UI
+                    {
 						changeGamePlayerRightUIData.removeCallBackAndDestroy (typeof(ChangeGamePlayerRightUI));
 					}
 					return;
 				}
 				if (data is ChangeUseRuleRightUI.UIData) {
 					ChangeUseRuleRightUI.UIData changeUseRuleRightUIData = data as ChangeUseRuleRightUI.UIData;
-					// UI
-					{
+                    // Child
+                    {
+                        TransformData.RemoveCallBack(changeUseRuleRightUIData, this);
+                    }
+                    // UI
+                    {
 						changeUseRuleRightUIData.removeCallBackAndDestroy (typeof(ChangeUseRuleRightUI));
 					}
 					return;
 				}
-			}
+                // Child
+                if(data is TransformData)
+                {
+                    return;
+                }
+            }
 			Debug.LogError ("Don't process: " + data + "; " + this);
 		}
 
@@ -649,7 +708,27 @@ namespace Rights
 				if (wrapProperty.p is ChangeUseRuleRightUI.UIData) {
 					return;
 				}
-			}
+                // Child
+                if(wrapProperty.p is TransformData)
+                {
+                    switch ((TransformData.Property)wrapProperty.n)
+                    {
+                        case TransformData.Property.position:
+                            break;
+                        case TransformData.Property.rotation:
+                            break;
+                        case TransformData.Property.scale:
+                            break;
+                        case TransformData.Property.size:
+                            dirty = true;
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+            }
 			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
 		}
 

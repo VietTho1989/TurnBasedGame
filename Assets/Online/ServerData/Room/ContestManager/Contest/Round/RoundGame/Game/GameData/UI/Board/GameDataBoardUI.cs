@@ -213,11 +213,12 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>
 
     private void updateTransformData()
     {
-        if (transform.hasChanged)
-        {
-            transform.hasChanged = false;
-            this.transformData.update(this.transform);
-        }
+        /*if (transform.hasChanged)
+            {
+                transform.hasChanged = false;
+                this.transformData.update(this.transform);
+            }*/
+        this.transformData.update(this.transform);
     }
 
     #endregion

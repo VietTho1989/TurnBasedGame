@@ -7,7 +7,7 @@ using TimeControl.HourGlass;
 
 namespace TimeControl
 {
-	public class TimeControlUI : UIBehavior<TimeControlUI.UIData>
+	public class TimeControlUI : UIBehavior<TimeControlUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -228,18 +228,47 @@ namespace TimeControl
 
 		static TimeControlUI()
 		{
-			txtTitle.add (Language.Type.vi, "Điều Khiển Thời Gian");
-			txtIsEnable.add (Language.Type.vi, "Kích hoạt");
-			txtAICanTimeOut.add (Language.Type.vi, "AI có thể hết giờ");
-			txtUse.add (Language.Type.vi, "Dùng");
-			txtSubType.add (Language.Type.vi, "Loại");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Điều Khiển Thời Gian");
+                txtIsEnable.add(Language.Type.vi, "Kích hoạt");
+                txtAICanTimeOut.add(Language.Type.vi, "AI có thể hết giờ");
+                txtUse.add(Language.Type.vi, "Dùng");
+                txtSubType.add(Language.Type.vi, "Loại");
+            }
+            // rect
+            {
+                isEnableRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2);
+                aiCanTimeOutRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2);
+                useRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2);
+                subTypeRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2);
+            }
+        }
 
-		#endregion
+        #endregion
 
-		private bool needReset = true;
+        #region TransformData
 
-		public GameObject differentIndicator;
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            /*if (transform.hasChanged)
+            {
+                transform.hasChanged = false;
+                this.transformData.update(this.transform);
+            }*/
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        private bool needReset = true;
 
 		public override void refresh ()
 		{
@@ -254,8 +283,8 @@ namespace TimeControl
 						TimeControl compare = editTimeControl.compare.v.data;
 						// show
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editTimeControl.compareOtherType.v.data != null) {
@@ -264,9 +293,9 @@ namespace TimeControl
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// request
 							{
@@ -410,7 +439,7 @@ namespace TimeControl
 												if (compare != null) {
 													compareSub = compare.sub.v;
 												} else {
-													Debug.LogError ("compare null: " + this);
+													// Debug.LogError ("compare null: " + this);
 												}
 											}
 											switch (sub.getType ()) {
@@ -552,8 +581,40 @@ namespace TimeControl
 					} else {
 						Debug.LogError ("editTimeControl null: " + this);
 					}
-					// txt
-					{
+                    // UISize
+                    {
+                        float subSize = 0;
+                        {
+                            UIData.Sub sub = this.data.sub.v;
+                            if (sub != null)
+                            {
+                                HaveTransformInterface haveTransform = sub.findCallBack<HaveTransformInterface>();
+                                if (haveTransform != null)
+                                {
+                                    RectTransform subRect = haveTransform.getTransform() as RectTransform;
+                                    if (subRect != null)
+                                    {
+                                        subSize = subRect.rect.height;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("subRect null");
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("haveTransform null");
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("sub null");
+                            }
+                        }
+                        UIRectTransform.SetHeight((RectTransform)this.transform, UIConstants.HeaderHeight + 4 * UIConstants.ItemHeight + subSize);
+                    }
+                    // txt
+                    {
 						if (lbTitle != null) {
 							lbTitle.text = txtTitle.get ("Time Control");
 						} else {
@@ -584,6 +645,7 @@ namespace TimeControl
 					Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()
@@ -601,11 +663,10 @@ namespace TimeControl
 		public TimeControlNormalUI timeControlNormalPrefab;
 		public TimeControlHourGlassUI timeControlHourGlassPrefab;
 
-		public Transform isEnableContainer;
-		public Transform aiCanTimeOutContainer;
-		public Transform useContainer;
-		public Transform subTypeContainer;
-		public Transform subContainer;
+		private static readonly UIRectTransform isEnableRect = new UIRectTransform(UIConstants.RequestBoolRect);
+		private static readonly UIRectTransform aiCanTimeOutRect = new UIRectTransform(UIConstants.RequestBoolRect);
+		private static readonly UIRectTransform useRect = new UIRectTransform(UIConstants.RequestEnumRect);
+		private static readonly UIRectTransform subTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
 		private Server server = null;
 
@@ -675,10 +736,10 @@ namespace TimeControl
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.isEnable:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, isEnableContainer);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, isEnableRect);
 								break;
 							case UIData.Property.aiCanTimeOut:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, aiCanTimeOutContainer);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, aiCanTimeOutRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -699,10 +760,10 @@ namespace TimeControl
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.use:
-								UIUtils.Instantiate (requestChange, requestEnumPrefeb, useContainer);
+								UIUtils.Instantiate (requestChange, requestEnumPrefeb, this.transform, useRect);
 								break;
 							case UIData.Property.subType:
-								UIUtils.Instantiate (requestChange, requestEnumPrefeb, subTypeContainer);
+								UIUtils.Instantiate (requestChange, requestEnumPrefeb, this.transform, subTypeRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -715,31 +776,60 @@ namespace TimeControl
 					dirty = true;
 					return;
 				}
-				if (data is UIData.Sub) {
-					UIData.Sub sub = data as UIData.Sub;
-					// UI
-					{
-						switch (sub.getType ()) {
-						case TimeControl.Sub.Type.Normal:
-							{
-								TimeControlNormalUI.UIData timeControlNormal = sub as TimeControlNormalUI.UIData;
-								UIUtils.Instantiate (timeControlNormal, timeControlNormalPrefab, subContainer);
-							}
-							break;
-						case TimeControl.Sub.Type.HourGlass:
-							{
-								TimeControlHourGlassUI.UIData timeControlHourGlass = sub as TimeControlHourGlassUI.UIData;
-								UIUtils.Instantiate (timeControlHourGlass, timeControlHourGlassPrefab, subContainer);
-							}
-							break;
-						default:
-							Debug.LogError ("unknown type: " + sub.getType () + "; " + this);
-							break;
-						}
-					}
-					dirty = true;
-					return;
-				}
+                // sub
+                {
+                    if (data is UIData.Sub)
+                    {
+                        UIData.Sub sub = data as UIData.Sub;
+                        // UI
+                        {
+                            switch (sub.getType())
+                            {
+                                case TimeControl.Sub.Type.Normal:
+                                    {
+                                        TimeControlNormalUI.UIData timeControlNormal = sub as TimeControlNormalUI.UIData;
+                                        TimeControlNormalUI timeControlNormalUI = (TimeControlNormalUI)UIUtils.Instantiate(timeControlNormal, timeControlNormalPrefab, this.transform);
+                                        if (timeControlNormalUI != null)
+                                        {
+                                            UIRectTransform.SetPosY((RectTransform)timeControlNormalUI.transform, UIConstants.HeaderHeight + 4 * UIConstants.ItemHeight);
+                                            timeControlNormalUI.transformData.addCallBack(this);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("timeControlNormalUI null");
+                                        }
+                                    }
+                                    break;
+                                case TimeControl.Sub.Type.HourGlass:
+                                    {
+                                        TimeControlHourGlassUI.UIData timeControlHourGlass = sub as TimeControlHourGlassUI.UIData;
+                                        TimeControlHourGlassUI timeControlHourGlassUI = (TimeControlHourGlassUI)UIUtils.Instantiate(timeControlHourGlass, timeControlHourGlassPrefab, this.transform);
+                                        if (timeControlHourGlassUI != null)
+                                        {
+                                            UIRectTransform.SetPosY((RectTransform)timeControlHourGlassUI.transform, UIConstants.HeaderHeight + 4 * UIConstants.ItemHeight);
+                                            timeControlHourGlassUI.transformData.addCallBack(this);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("timeControlNormalUI null");
+                                        }
+                                    }
+                                    break;
+                                default:
+                                    Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                                    break;
+                            }
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // Child
+                    if(data is TransformData)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                }
 			}
 			Debug.LogError ("Don't process: " + data + "; " + this);
 		}
@@ -813,30 +903,64 @@ namespace TimeControl
 					}
 					return;
 				}
-				if (data is UIData.Sub) {
-					UIData.Sub sub = data as UIData.Sub;
-					// UI
-					{
-						switch (sub.getType ()) {
-						case TimeControl.Sub.Type.Normal:
-							{
-								TimeControlNormalUI.UIData timeControlNormal = sub as TimeControlNormalUI.UIData;
-								timeControlNormal.removeCallBackAndDestroy (typeof(TimeControlNormalUI));
-							}
-							break;
-						case TimeControl.Sub.Type.HourGlass:
-							{
-								TimeControlHourGlassUI.UIData timeControlHourGlass = sub as TimeControlHourGlassUI.UIData;
-								timeControlHourGlass.removeCallBackAndDestroy (typeof(TimeControlHourGlassUI));
-							}
-							break;
-						default:
-							Debug.LogError ("unknown type: " + sub.getType () + "; " + this);
-							break;
-						}
-					}
-					return;
-				}
+                // sub
+                {
+                    if (data is UIData.Sub)
+                    {
+                        UIData.Sub sub = data as UIData.Sub;
+                        // UI
+                        {
+                            switch (sub.getType())
+                            {
+                                case TimeControl.Sub.Type.Normal:
+                                    {
+                                        TimeControlNormalUI.UIData timeControlNormal = sub as TimeControlNormalUI.UIData;
+                                        // Child
+                                        {
+                                            TimeControlNormalUI timeControlNormalUI = timeControlNormal.findCallBack<TimeControlNormalUI>();
+                                            if (timeControlNormalUI != null)
+                                            {
+                                                timeControlNormalUI.transformData.removeCallBack(this);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("timeControlNormalUI null");
+                                            }
+                                        }
+                                        timeControlNormal.removeCallBackAndDestroy(typeof(TimeControlNormalUI));
+                                    }
+                                    break;
+                                case TimeControl.Sub.Type.HourGlass:
+                                    {
+                                        TimeControlHourGlassUI.UIData timeControlHourGlass = sub as TimeControlHourGlassUI.UIData;
+                                        // Child
+                                        {
+                                            TimeControlHourGlassUI timeControlHourGlassUI = timeControlHourGlass.findCallBack<TimeControlHourGlassUI>();
+                                            if (timeControlHourGlassUI != null)
+                                            {
+                                                timeControlHourGlassUI.transformData.removeCallBack(this);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("timeControlHourGlassUI null");
+                                            }
+                                        }
+                                        timeControlHourGlass.removeCallBackAndDestroy(typeof(TimeControlHourGlassUI));
+                                    }
+                                    break;
+                                default:
+                                    Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                                    break;
+                            }
+                        }
+                        return;
+                    }
+                    // Child
+                    if (data is TransformData)
+                    {
+                        return;
+                    }
+                }
 			}
 			Debug.LogError ("Don't process: " + data + "; " + this);
 		}
@@ -987,9 +1111,33 @@ namespace TimeControl
 				if (wrapProperty.p is RequestChangeEnumUI.UIData) {
 					return;
 				}
-				if (wrapProperty.p is UIData.Sub) {
-					return;
-				}
+                // sub
+                {
+                    if (wrapProperty.p is UIData.Sub)
+                    {
+                        return;
+                    }
+                    // Child
+                    if(wrapProperty.p is TransformData)
+                    {
+                        switch ((TransformData.Property)wrapProperty.n)
+                        {
+                            case TransformData.Property.position:
+                                break;
+                            case TransformData.Property.rotation:
+                                break;
+                            case TransformData.Property.scale:
+                                break;
+                            case TransformData.Property.size:
+                                dirty = true;
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
+                }
 			}
 			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
 		}

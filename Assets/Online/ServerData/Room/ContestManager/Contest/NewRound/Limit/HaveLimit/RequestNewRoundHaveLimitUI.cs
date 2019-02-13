@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace GameManager.Match
 {
-	public class RequestNewRoundHaveLimitUI : UIBehavior<RequestNewRoundHaveLimitUI.UIData>
+	public class RequestNewRoundHaveLimitUI : UIBehavior<RequestNewRoundHaveLimitUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -119,12 +120,60 @@ namespace GameManager.Match
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		private bool needReset = true;
-		public GameObject differentIndicator;
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+
+        public Text lbMaxRound;
+        public static readonly TxtLanguage txtMaxRound = new TxtLanguage();
+
+        public Text lbEnoughScoreStop;
+        public static readonly TxtLanguage txtEnoughScoreStop = new TxtLanguage();
+
+        static RequestNewRoundHaveLimitUI()
+        {
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Số vòng có giới hạn");
+                txtMaxRound.add(Language.Type.vi, "Số vòng tối đa");
+                txtEnoughScoreStop.add(Language.Type.vi, "Đủ điểm thì dừng");
+            }
+            // rect
+            {
+                maxRoundRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                enoughScoreStopRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+            }
+        }
+
+        #endregion
+
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            /*if (transform.hasChanged)
+            {
+                transform.hasChanged = false;
+                this.transformData.update(this.transform);
+            }*/
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
+
+        private bool needReset = true;
 
 		public override void refresh ()
 		{
@@ -138,8 +187,8 @@ namespace GameManager.Match
 						RequestNewRoundHaveLimit show = editHaveLimit.show.v.data;
 						RequestNewRoundHaveLimit compare = editHaveLimit.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editHaveLimit.compareOtherType.v.data != null) {
@@ -148,9 +197,9 @@ namespace GameManager.Match
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// request
 							{
@@ -266,10 +315,38 @@ namespace GameManager.Match
 					} else {
 						Debug.LogError ("editHaveLimit null: " + this);
 					}
-				} else {
+                    // txt
+                    {
+                        if (lbTitle != null)
+                        {
+                            lbTitle.text = txtTitle.get("Have limit rounds");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null");
+                        }
+                        if (lbMaxRound != null)
+                        {
+                            lbMaxRound.text = txtMaxRound.get("Max round count");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbMaxRound null");
+                        }
+                        if (lbEnoughScoreStop != null)
+                        {
+                            lbEnoughScoreStop.text = txtEnoughScoreStop.get("Enough score stop");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbEnoughScoreStop null");
+                        }
+                    }
+                } else {
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()
@@ -284,8 +361,8 @@ namespace GameManager.Match
 		public RequestChangeIntUI requestIntPrefab;
 		public RequestChangeBoolUI requestBoolPrefab;
 
-		public Transform maxRoundContainer;
-		public Transform enoughScoreStopContainer;
+		private static readonly UIRectTransform maxRoundRect = new UIRectTransform(UIConstants.RequestRect);
+		private static readonly UIRectTransform enoughScoreStopRect = new UIRectTransform(UIConstants.RequestBoolRect);
 
 		private Server server = null;
 
@@ -293,6 +370,8 @@ namespace GameManager.Match
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
 				// Child
 				{
 					uiData.editHaveLimit.allAddCallBack (this);
@@ -302,8 +381,14 @@ namespace GameManager.Match
 				dirty = true;
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // Child
+            {
 				// editHaveLimit
 				{
 					if (data is EditData<RequestNewRoundHaveLimit>) {
@@ -346,7 +431,7 @@ namespace GameManager.Match
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.maxRound:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, maxRoundContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, maxRoundRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -368,7 +453,7 @@ namespace GameManager.Match
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.enoughScoreStop:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, enoughScoreStopContainer);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, enoughScoreStopRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -389,6 +474,8 @@ namespace GameManager.Match
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
 				// Child
 				{
 					uiData.editHaveLimit.allRemoveCallBack (this);
@@ -398,8 +485,13 @@ namespace GameManager.Match
 				this.setDataNull (uiData);
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if (data is Setting)
+            {
+                return;
+            }
+            // Child
+            {
 				// editHaveLimit
 				{
 					if (data is EditData<RequestNewRoundHaveLimit>) {
@@ -482,8 +574,32 @@ namespace GameManager.Match
 				}
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            {
 				// editHaveLimit
 				{
 					if (wrapProperty.p is EditData<RequestNewRoundHaveLimit>) {

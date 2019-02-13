@@ -64,18 +64,9 @@ public class UIRectTransform
     public void setPosY(float posY)
     {
         // RequestIntLongFloatRect, RequestEnumRect
-        if (this.anchorMin == new Vector2(0.0f, 1.0f)
-            && this.anchorMax == new Vector2(1.0f, 1.0f)
-            && this.pivot == new Vector2(0.5f, 1f))
-        {
-            this.anchoredPosition.y = -posY;
-            this.offsetMin.y = -this.sizeDelta.y - posY;
-            this.offsetMax.y = -posY;
-        }
-        // RequestBoolRect
-        else if (this.anchorMin == new Vector2(0.0f, 1.0f)
-            && this.anchorMax == new Vector2(0.0f, 1.0f)
-            && this.pivot == new Vector2(0.0f, 1f))
+        if (this.anchorMin.y == 1.0f
+            && this.anchorMax.y == 1.0f
+            && this.pivot.y == 1.0f)
         {
             this.anchoredPosition.y = -posY;
             this.offsetMin.y = -this.sizeDelta.y - posY;

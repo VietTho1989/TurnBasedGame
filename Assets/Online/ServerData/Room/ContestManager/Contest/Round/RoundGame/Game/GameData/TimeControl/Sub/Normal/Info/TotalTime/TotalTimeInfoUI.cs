@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace TimeControl.Normal
 {
-	public class TotalTimeInfoUI : UIBehavior<TotalTimeInfoUI.UIData>
+	public class TotalTimeInfoUI : UIBehavior<TotalTimeInfoUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -68,11 +68,17 @@ namespace TimeControl.Normal
 
         private void updateTransformData()
         {
-            if (transform.hasChanged)
+            /*if (transform.hasChanged)
             {
                 transform.hasChanged = false;
                 this.transformData.update(this.transform);
-            }
+            }*/
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
         }
 
         #endregion
@@ -171,27 +177,6 @@ namespace TimeControl.Normal
                                                         }
                                                     }
                                                     this.data.sub.v = haveLimitUIData;
-                                                    // set UI size
-                                                    {
-                                                        TotalTimeInfoLimitUI haveLimitUI = haveLimitUIData.findCallBack<TotalTimeInfoLimitUI>();
-                                                        if (haveLimitUI != null)
-                                                        {
-                                                            RectTransform haveLimitUIRect = (RectTransform)haveLimitUI.transform;
-                                                            if (haveLimitUIRect != null)
-                                                            {
-                                                                UIRectTransform.SetPosY(haveLimitUIRect, UIConstants.HeaderHeight);
-                                                                UIRectTransform.SetHeight((RectTransform)this.transform, UIConstants.HeaderHeight + haveLimitUIRect.rect.height);
-                                                            }
-                                                            else
-                                                            {
-                                                                Debug.LogError("haveLimitUIRect null");
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("haveLimitUI null");
-                                                        }
-                                                    }
                                                 }
                                                 break;
                                             case TotalTimeInfo.Type.NoLimit:
@@ -222,27 +207,6 @@ namespace TimeControl.Normal
                                                         }
                                                     }
                                                     this.data.sub.v = noLimitUIData;
-                                                    // set UI size
-                                                    {
-                                                        TotalTimeInfoNoLimitUI noLimitUI = noLimitUIData.findCallBack<TotalTimeInfoNoLimitUI>();
-                                                        if (noLimitUI != null)
-                                                        {
-                                                            RectTransform noLimitUIRect = (RectTransform)noLimitUI.transform;
-                                                            if (noLimitUIRect != null)
-                                                            {
-                                                                UIRectTransform.SetPosY(noLimitUIRect, UIConstants.HeaderHeight);
-                                                                UIRectTransform.SetHeight((RectTransform)this.transform, UIConstants.HeaderHeight + noLimitUIRect.rect.height);
-                                                            }
-                                                            else
-                                                            {
-                                                                Debug.LogError("noLimitUIRect null");
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("haveLimitUI null");
-                                                        }
-                                                    }
                                                 }
                                                 break;
                                             default:
@@ -266,6 +230,16 @@ namespace TimeControl.Normal
                     else
                     {
                         Debug.LogError("editTotalTimeInfo null: " + this);
+                    }
+                    // UISize
+                    {
+                        float deltaY = UIConstants.HeaderHeight;
+                        // sub
+                        {
+                            deltaY += UIRectTransform.SetPosY(this.data.sub.v, deltaY);
+                        }
+                        // set
+                        UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }
                     // txt
                     {

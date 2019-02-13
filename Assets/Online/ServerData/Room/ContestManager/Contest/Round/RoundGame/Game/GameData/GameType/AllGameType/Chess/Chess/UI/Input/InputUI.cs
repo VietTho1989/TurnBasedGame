@@ -157,7 +157,7 @@ namespace Chess
 							this.data.sub.v = null;
 						}
 					} else {
-						Debug.LogError ("chess null: " + this);
+						// Debug.LogError ("chess null: " + this);
 					}
 				} else {
 					// Debug.LogError ("data null: " + this);

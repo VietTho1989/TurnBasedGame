@@ -74,11 +74,25 @@ namespace TimeControl.Normal
 			txtTitle.add (Language.Type.vi, "Điều Khiển Thời Gian Bình Thường");
 		}
 
-		#endregion
+        #endregion
 
-		private bool needReset = true;
+        #region TransformData
 
-		public GameObject differentIndicator;
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            /*if (transform.hasChanged)
+            {
+                transform.hasChanged = false;
+                this.transformData.update(this.transform);
+            }*/
+            this.transformData.update(this.transform);
+        }
+
+        #endregion
+
+        private bool needReset = true;
 
 		public override void refresh ()
 		{
@@ -93,8 +107,8 @@ namespace TimeControl.Normal
 						TimeControlNormal show = editTimeControlNormal.show.v.data;
 						TimeControlNormal compare = editTimeControlNormal.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editTimeControlNormal.compareOtherType.v.data != null) {
@@ -103,9 +117,9 @@ namespace TimeControl.Normal
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// request
 							{
@@ -168,7 +182,7 @@ namespace TimeControl.Normal
 														if (compareTimeControlNormal != null) {
 															compareTimeInfo = compareTimeControlNormal.generalInfo.v;
 														} else {
-															Debug.LogError ("compareTimeControlNormal null: " + this);
+															// Debug.LogError ("compareTimeControlNormal null: " + this);
 														}
 													}
 													editGeneralInfo.compare.v = new ReferenceData<TimeInfo> (compareTimeInfo);
@@ -207,8 +221,18 @@ namespace TimeControl.Normal
 					} else {
 						Debug.LogError ("editTimeControlNormal null: " + this);
 					}
-					// txt
-					{
+                    // UI Size
+                    {
+                        float deltaY = UIConstants.HeaderHeight;
+                        // generalInfo
+                        {
+                            deltaY += UIRectTransform.SetPosY(this.data.generalInfo.v, deltaY);
+                        }
+                        // set
+                        UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                    }
+                    // txt
+                    {
 						if (lbTitle != null) {
 							lbTitle.text = txtTitle.get ("Time Control Normal");
 						} else {
@@ -219,6 +243,7 @@ namespace TimeControl.Normal
 					Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()
@@ -231,8 +256,6 @@ namespace TimeControl.Normal
 		#region implement callBacks
 
 		public TimeInfoUI timeInfoPrefab;
-
-		public Transform generalInfoContainer;
 
 		private Server server = null;
 
@@ -290,26 +313,45 @@ namespace TimeControl.Normal
 						}
 					}
 				}
-				if (data is TimeInfoUI.UIData) {
-					TimeInfoUI.UIData timeInfoUIData = data as TimeInfoUI.UIData;
-					{
-						WrapProperty wrapProperty = timeInfoUIData.p;
-						if (wrapProperty != null) {
-							switch ((UIData.Property)wrapProperty.n) {
-							case UIData.Property.generalInfo:
-								UIUtils.Instantiate (timeInfoUIData, timeInfoPrefab, generalInfoContainer);
-								break;
-							default:
-								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-								break;
-							}
-						} else {
-							Debug.LogError ("wrapProperty null: " + this);
-						}
-					}
-					dirty = true;
-					return;
-				}
+                // timeInfo
+                {
+                    if (data is TimeInfoUI.UIData)
+                    {
+                        TimeInfoUI.UIData timeInfoUIData = data as TimeInfoUI.UIData;
+                        // UI
+                        {
+                            WrapProperty wrapProperty = timeInfoUIData.p;
+                            if (wrapProperty != null)
+                            {
+                                switch ((UIData.Property)wrapProperty.n)
+                                {
+                                    case UIData.Property.generalInfo:
+                                        UIUtils.Instantiate(timeInfoUIData, timeInfoPrefab, this.transform);
+                                        break;
+                                    default:
+                                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("wrapProperty null: " + this);
+                            }
+                        }
+                        // Child
+                        {
+                            TransformData.AddCallBack(timeInfoUIData, this);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // Child
+                    if(data is TransformData)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                }
 			}
 			Debug.LogError ("Don't process: " + data + "; " + this);
 		}
@@ -363,13 +405,27 @@ namespace TimeControl.Normal
 						}
 					}
 				}
-				if (data is TimeInfoUI.UIData) {
-					TimeInfoUI.UIData timeInfoUIData = data as TimeInfoUI.UIData;
-					{
-						timeInfoUIData.removeCallBackAndDestroy (typeof(TimeInfoUI));
-					}
-					return;
-				}
+                // timeInfoUI
+                {
+                    if (data is TimeInfoUI.UIData)
+                    {
+                        TimeInfoUI.UIData timeInfoUIData = data as TimeInfoUI.UIData;
+                        // Child
+                        {
+                            TransformData.RemoveCallBack(timeInfoUIData, this);
+                        }
+                        // UI
+                        {
+                            timeInfoUIData.removeCallBackAndDestroy(typeof(TimeInfoUI));
+                        }
+                        return;
+                    }
+                    // Child
+                    if (data is TransformData)
+                    {
+                        return;
+                    }
+                }
 			}
 			Debug.LogError ("Don't process: " + data + "; " + this);
 		}
@@ -482,9 +538,33 @@ namespace TimeControl.Normal
 						}
 					}
 				}
-				if (wrapProperty.p is TimeInfoUI.UIData) {
-					return;
-				}
+                // timeInfoUI
+                {
+                    if (wrapProperty.p is TimeInfoUI.UIData)
+                    {
+                        return;
+                    }
+                    // Child
+                    if (wrapProperty.p is TransformData)
+                    {
+                        switch ((TransformData.Property)wrapProperty.n)
+                        {
+                            case TransformData.Property.position:
+                                break;
+                            case TransformData.Property.rotation:
+                                break;
+                            case TransformData.Property.scale:
+                                break;
+                            case TransformData.Property.size:
+                                dirty = true;
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
+                }
 			}
 			Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 		}

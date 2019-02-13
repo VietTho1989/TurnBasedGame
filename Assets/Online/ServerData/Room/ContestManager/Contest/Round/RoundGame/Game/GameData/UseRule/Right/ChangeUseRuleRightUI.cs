@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class ChangeUseRuleRightUI : UIBehavior<ChangeUseRuleRightUI.UIData>
+public class ChangeUseRuleRightUI : UIBehavior<ChangeUseRuleRightUI.UIData>, HaveTransformData
 {
 
 	#region UIData
@@ -163,19 +163,44 @@ public class ChangeUseRuleRightUI : UIBehavior<ChangeUseRuleRightUI.UIData>
 	public Text lbNeedAccept;
 	public static readonly TxtLanguage txtNeedAccept = new TxtLanguage();
 
-	static ChangeUseRuleRightUI()
-	{
-		txtTitle.add (Language.Type.vi, "Quyền Thay Đổi Luật");
-		txtCanChange.add (Language.Type.vi, "Có thể đổi");
-		txtOnlyAdmin.add (Language.Type.vi, "Chỉ admin");
-		txtNeedAdmin.add (Language.Type.vi, "Cần admin");
-		txtNeedAccept.add (Language.Type.vi, "Cần chấp nhận");
-	}
+    static ChangeUseRuleRightUI()
+    {
+        // txt
+        {
+            txtTitle.add(Language.Type.vi, "Quyền Thay Đổi Luật");
+            txtCanChange.add(Language.Type.vi, "Có thể đổi");
+            txtOnlyAdmin.add(Language.Type.vi, "Chỉ admin");
+            txtNeedAdmin.add(Language.Type.vi, "Cần admin");
+            txtNeedAccept.add(Language.Type.vi, "Cần chấp nhận");
+        }
+        // rect
+        {
+            canChangeRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+            onlyAdminRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+            needAdminRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+            needAcceptRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+        }
+    }
 
-	#endregion
+    #endregion
 
-	private bool needReset = true;
-	public GameObject differentIndicator;
+    #region TransformData
+
+    public TransformData transformData = new TransformData();
+
+    private void updateTransformData()
+    {
+        this.transformData.update(this.transform);
+    }
+
+    public TransformData getTransformData()
+    {
+        return this.transformData;
+    }
+
+    #endregion
+
+    private bool needReset = true;
 
 	public override void refresh ()
 	{
@@ -189,8 +214,8 @@ public class ChangeUseRuleRightUI : UIBehavior<ChangeUseRuleRightUI.UIData>
 					ChangeUseRuleRight show = editChangeUseRuleRight.show.v.data;
 					ChangeUseRuleRight compare = editChangeUseRuleRight.compare.v.data;
 					if (show != null) {
-						// differentIndicator
-						if (differentIndicator != null) {
+						// different
+						if (lbTitle != null) {
 							bool isDifferent = false;
 							{
 								if (editChangeUseRuleRight.compareOtherType.v.data != null) {
@@ -199,9 +224,9 @@ public class ChangeUseRuleRightUI : UIBehavior<ChangeUseRuleRightUI.UIData>
 									}
 								}
 							}
-							differentIndicator.SetActive (isDifferent);
+                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 						} else {
-							Debug.LogError ("differentIndicator null: " + this);
+							Debug.LogError ("lbTitle null: " + this);
 						}
 						// request
 						{
@@ -429,6 +454,7 @@ public class ChangeUseRuleRightUI : UIBehavior<ChangeUseRuleRightUI.UIData>
 				Debug.LogError ("data null: " + this);
 			}
 		}
+        updateTransformData();
 	}
 
 	public override bool isShouldDisableUpdate ()
@@ -440,10 +466,10 @@ public class ChangeUseRuleRightUI : UIBehavior<ChangeUseRuleRightUI.UIData>
 
 	#region implement callBacks
 
-	public Transform canChangeContainer;
-	public Transform onlyAdminContainer;
-	public Transform needAdminContainer;
-	public Transform needAcceptContainer;
+	private static readonly UIRectTransform canChangeRect = new UIRectTransform(UIConstants.RequestBoolRect);
+	private static readonly UIRectTransform onlyAdminRect = new UIRectTransform(UIConstants.RequestBoolRect);
+	private static readonly UIRectTransform needAdminRect = new UIRectTransform(UIConstants.RequestBoolRect);
+	private static readonly UIRectTransform needAcceptRect = new UIRectTransform(UIConstants.RequestBoolRect);
 
 	public RequestChangeBoolUI requestBoolPrefab;
 
@@ -515,16 +541,16 @@ public class ChangeUseRuleRightUI : UIBehavior<ChangeUseRuleRightUI.UIData>
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
 						case UIData.Property.canChange:
-							UIUtils.Instantiate (requestChange, requestBoolPrefab, canChangeContainer);
+							UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, canChangeRect);
 							break;
 						case UIData.Property.onlyAdmin:
-							UIUtils.Instantiate (requestChange, requestBoolPrefab, onlyAdminContainer);
+							UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, onlyAdminRect);
 							break;
 						case UIData.Property.needAdmin:
-							UIUtils.Instantiate (requestChange, requestBoolPrefab, needAdminContainer);
+							UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, needAdminRect);
 							break;
 						case UIData.Property.needAccept:
-							UIUtils.Instantiate (requestChange, requestBoolPrefab, needAcceptContainer);
+							UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, needAcceptRect);
 							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);

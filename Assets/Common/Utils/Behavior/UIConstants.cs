@@ -16,6 +16,7 @@ public static class UIConstants
     public const float ItemHeight = 60;
 
     public static readonly UIRectTransform MiniGameDataUIRect = new UIRectTransform();
+    public static readonly UIRectTransform PostureMiniGameDataUIRect = new UIRectTransform();
 
     #region RequestBool
 
@@ -52,6 +53,7 @@ public static class UIConstants
             FullParent.offsetMax = Vector2.zero;
             FullParent.sizeDelta = Vector2.zero;
         }
+
         // MiniGameDataUIRect
         {
             float padding = 20;
@@ -63,6 +65,12 @@ public static class UIConstants
             MiniGameDataUIRect.offsetMax = new Vector2((DefaultMiniGameDataUISize - padding) / 2.0f, -HeaderHeight - padding);
             MiniGameDataUIRect.sizeDelta = new Vector2(DefaultMiniGameDataUISize - 2*padding, DefaultMiniGameDataUISize - 2*padding);
         }
+        // PostureGameDataUIRect
+        {
+            PostureMiniGameDataUIRect = new UIRectTransform(MiniGameDataUIRect);
+            PostureMiniGameDataUIRect.setPosY(HeaderHeight + ItemHeight);
+        }
+
         float paddingLeft = 90;
         float paddingRight = 10;
         // RequestBoolRect

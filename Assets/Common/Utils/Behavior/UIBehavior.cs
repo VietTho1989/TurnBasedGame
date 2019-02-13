@@ -114,21 +114,6 @@ public abstract class UIBehavior<K> : GameBehavior<K>, TrashMan.DespawnInterface
 
     #endregion
 
-    /*#region TransformData
-
-    public TransformData transformData = new TransformData();
-
-    private void updateTransformData()
-    {
-        if (transform.hasChanged)
-        {
-            transform.hasChanged = false;
-            this.transformData.update(this.transform);
-        }
-    }
-
-    #endregion*/
-
     public Transform getTransform()
     {
         return this.transform;

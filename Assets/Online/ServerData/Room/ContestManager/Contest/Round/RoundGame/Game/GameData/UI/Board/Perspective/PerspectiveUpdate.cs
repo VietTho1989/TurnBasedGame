@@ -160,7 +160,7 @@ public class PerspectiveUpdate : UpdateBehavior<Perspective>
 									if (game != null) {
 										playerNumber = game.gamePlayers.vs.Count;
 									} else {
-										Debug.LogError ("game null: " + this);
+										// Debug.LogError ("game null: " + this);
 									}
 								} else {
 									Debug.LogError ("gameData null: " + this);

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Janggi
 {
-	public class DefaultJanggiUI : UIBehavior<DefaultJanggiUI.UIData>
+	public class DefaultJanggiUI : UIBehavior<DefaultJanggiUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -55,9 +55,30 @@ namespace Janggi
 			txtTitle.add (Language.Type.vi, "Mặc Định Cờ Tướng Triều Tiên");
 		}
 
-		#endregion
+        #endregion
 
-		private bool needReset = true;
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            /*if (transform.hasChanged)
+            {
+                transform.hasChanged = false;
+                this.transformData.update(this.transform);
+            }*/
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        private bool needReset = true;
 		private bool miniGameDataDirty = true;
 
 		public override void refresh ()
@@ -172,6 +193,7 @@ namespace Janggi
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

@@ -155,15 +155,22 @@ namespace GameManager.Match
 
 		static ContestManagerContentFactoryUI()
 		{
-			txtTitle.add (Language.Type.vi, "Thiết Lập Giải Dấu");
-			txtRandomTeamIndex.add (Language.Type.vi, "Ngẫu nhiên chỉ số team");
-			txtContentType.add (Language.Type.vi, "Loại giải đấu");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Thiết Lập Giải Dấu");
+                txtRandomTeamIndex.add(Language.Type.vi, "Ngẫu nhiên chỉ số team");
+                txtContentType.add(Language.Type.vi, "Loại giải đấu");
+            }
+            // rect
+            {
+                randomTeamIndexRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                contentFactoryTypeRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+            }
+        }
 
 		#endregion
 
 		private bool needReset = true;
-		public GameObject differentIndicator;
 
 		public override void refresh ()
 		{
@@ -177,8 +184,8 @@ namespace GameManager.Match
 						ContestManagerStateLobby show = editContestManagerStateLobby.show.v.data;
 						ContestManagerStateLobby compare = editContestManagerStateLobby.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editContestManagerStateLobby.compareOtherType.v.data != null) {
@@ -187,9 +194,9 @@ namespace GameManager.Match
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// request
 							{
@@ -418,8 +425,24 @@ namespace GameManager.Match
 					} else {
 						Debug.LogError ("editContestManagerStateLobby null: " + this);
 					}
-					// txt
-					{
+                    // UISize
+                    {
+                        float deltaY = UIConstants.HeaderHeight;
+                        // randomTeamIndex
+                        {
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        // contentType
+                        {
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        // sub
+                        deltaY += UIRectTransform.SetPosY(this.data.sub.v, deltaY);
+                        // set
+                        UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                    }
+                    // txt
+                    {
 						if (lbTitle != null) {
 							lbTitle.text = txtTitle.get ("Tournament Factory");
 						} else {
@@ -454,13 +477,12 @@ namespace GameManager.Match
 		public RequestChangeBoolUI requestBoolPrefab;
 		public RequestChangeEnumUI requestEnumPrefab;
 
-		public Transform randomTeamIndexContainer;
-		public Transform contentFactoryTypeContainer;
+        private static readonly UIRectTransform randomTeamIndexRect = new UIRectTransform(UIConstants.RequestBoolRect);
+		private static readonly UIRectTransform contentFactoryTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
 		public SingleContestFactoryUI singleContestFactoryPrefab;
 		public RoundRobinFactoryUI roundRobinFactoryPrefab;
 		public EliminationFactoryUI eliminationFactoryPrefab;
-		public Transform subContainer;
 
 		private Server server = null;
 
@@ -529,7 +551,7 @@ namespace GameManager.Match
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.randomTeamIndex:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, randomTeamIndexContainer);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, randomTeamIndexRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -551,7 +573,7 @@ namespace GameManager.Match
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.contentType:
-								UIUtils.Instantiate (requestChange, requestEnumPrefab, contentFactoryTypeContainer);
+								UIUtils.Instantiate (requestChange, requestEnumPrefab, this.transform, contentFactoryTypeRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -564,37 +586,52 @@ namespace GameManager.Match
 					dirty = true;
 					return;
 				}
-				// sub
-				if (data is UIData.Sub) {
-					UIData.Sub sub = data as UIData.Sub;
-					{
-						switch (sub.getType ()) {
-						case ContestManagerContent.Type.Single:
-							{
-								SingleContestFactoryUI.UIData singleContestFactoryUIData = sub as SingleContestFactoryUI.UIData;
-								UIUtils.Instantiate (singleContestFactoryUIData, singleContestFactoryPrefab, subContainer);
-							}
-							break;
-						case ContestManagerContent.Type.RoundRobin:
-							{
-								RoundRobinFactoryUI.UIData roundRobinFactoryUIData = sub as RoundRobinFactoryUI.UIData;
-								UIUtils.Instantiate (roundRobinFactoryUIData, roundRobinFactoryPrefab, subContainer);
-							}
-							break;
-						case ContestManagerContent.Type.Elimination:
-							{
-								EliminationFactoryUI.UIData eliminationFactoryUIData = sub as EliminationFactoryUI.UIData;
-								UIUtils.Instantiate (eliminationFactoryUIData, eliminationFactoryPrefab, subContainer);
-							}
-							break;
-						default:
-							Debug.LogError ("unknown type: " + sub.getType () + "; " + this);
-							break;
-						}
-					}
-					dirty = true;
-					return;
-				}
+                // sub
+                {
+                    if (data is UIData.Sub)
+                    {
+                        UIData.Sub sub = data as UIData.Sub;
+                        // UI
+                        {
+                            switch (sub.getType())
+                            {
+                                case ContestManagerContent.Type.Single:
+                                    {
+                                        SingleContestFactoryUI.UIData singleContestFactoryUIData = sub as SingleContestFactoryUI.UIData;
+                                        UIUtils.Instantiate(singleContestFactoryUIData, singleContestFactoryPrefab, this.transform);
+                                    }
+                                    break;
+                                case ContestManagerContent.Type.RoundRobin:
+                                    {
+                                        RoundRobinFactoryUI.UIData roundRobinFactoryUIData = sub as RoundRobinFactoryUI.UIData;
+                                        UIUtils.Instantiate(roundRobinFactoryUIData, roundRobinFactoryPrefab, this.transform);
+                                    }
+                                    break;
+                                case ContestManagerContent.Type.Elimination:
+                                    {
+                                        EliminationFactoryUI.UIData eliminationFactoryUIData = sub as EliminationFactoryUI.UIData;
+                                        UIUtils.Instantiate(eliminationFactoryUIData, eliminationFactoryPrefab, this.transform);
+                                    }
+                                    break;
+                                default:
+                                    Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                                    break;
+                            }
+                        }
+                        // Child
+                        {
+                            TransformData.AddCallBack(sub, this);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // Child
+                    if(data is TransformData)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                }
 			}
 			Debug.LogError ("Don't process: " + data + "; " + this);
 		}
@@ -668,36 +705,45 @@ namespace GameManager.Match
 					}
 					return;
 				}
-				// sub
-				if (data is UIData.Sub) {
-					UIData.Sub sub = data as UIData.Sub;
-					{
-						switch (sub.getType ()) {
-						case ContestManagerContent.Type.Single:
-							{
-								SingleContestFactoryUI.UIData singleContestFactoryUIData = sub as SingleContestFactoryUI.UIData;
-								singleContestFactoryUIData.removeCallBackAndDestroy (typeof(SingleContestFactoryUI));
-							}
-							break;
-						case ContestManagerContent.Type.RoundRobin:
-							{
-								RoundRobinFactoryUI.UIData roundRobinFactoryUIData = sub as RoundRobinFactoryUI.UIData;
-								roundRobinFactoryUIData.removeCallBackAndDestroy (typeof(RoundRobinFactoryUI));
-							}
-							break;
-						case ContestManagerContent.Type.Elimination:
-							{
-								EliminationFactoryUI.UIData eliminationFactoryUIData = sub as EliminationFactoryUI.UIData;
-								eliminationFactoryUIData.removeCallBackAndDestroy (typeof(EliminationFactoryUI));
-							}
-							break;
-						default:
-							Debug.LogError ("unknown type: " + sub.getType () + "; " + this);
-							break;
-						}
-					}
-					return;
-				}
+                // sub
+                {
+                    if (data is UIData.Sub)
+                    {
+                        UIData.Sub sub = data as UIData.Sub;
+                        // Child
+                        {
+                            TransformData.RemoveCallBack(sub, this);
+                        }
+                        // UI
+                        {
+                            switch (sub.getType())
+                            {
+                                case ContestManagerContent.Type.Single:
+                                    {
+                                        SingleContestFactoryUI.UIData singleContestFactoryUIData = sub as SingleContestFactoryUI.UIData;
+                                        singleContestFactoryUIData.removeCallBackAndDestroy(typeof(SingleContestFactoryUI));
+                                    }
+                                    break;
+                                case ContestManagerContent.Type.RoundRobin:
+                                    {
+                                        RoundRobinFactoryUI.UIData roundRobinFactoryUIData = sub as RoundRobinFactoryUI.UIData;
+                                        roundRobinFactoryUIData.removeCallBackAndDestroy(typeof(RoundRobinFactoryUI));
+                                    }
+                                    break;
+                                case ContestManagerContent.Type.Elimination:
+                                    {
+                                        EliminationFactoryUI.UIData eliminationFactoryUIData = sub as EliminationFactoryUI.UIData;
+                                        eliminationFactoryUIData.removeCallBackAndDestroy(typeof(EliminationFactoryUI));
+                                    }
+                                    break;
+                                default:
+                                    Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                                    break;
+                            }
+                        }
+                        return;
+                    }
+                }
 			}
 			Debug.LogError ("Don't process: " + data + "; " + this);
 		}
@@ -834,10 +880,33 @@ namespace GameManager.Match
 				if (wrapProperty.p is RequestChangeEnumUI.UIData) {
 					return;
 				}
-				// sub
-				if (wrapProperty.p is UIData.Sub) {
-					return;
-				}
+                // sub
+                {
+                    if (wrapProperty.p is UIData.Sub)
+                    {
+                        return;
+                    }
+                    // Child
+                    if(wrapProperty.p is TransformData)
+                    {
+                        switch ((TransformData.Property)wrapProperty.n)
+                        {
+                            case TransformData.Property.position:
+                                break;
+                            case TransformData.Property.rotation:
+                                break;
+                            case TransformData.Property.scale:
+                                break;
+                            case TransformData.Property.size:
+                                dirty = true;
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
+                }
 			}
 			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
 		}

@@ -147,7 +147,7 @@ namespace Chess
 							dirty = true;
 						}
 					} else {
-						Debug.LogError ("chess null");
+						// Debug.LogError ("chess null");
 					}
 				} else {
 					// Debug.LogError ("why data null: " + this);

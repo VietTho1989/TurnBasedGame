@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace GameManager.Match.Elimination
 {
-	public class EliminationFactoryUI : UIBehavior<EliminationFactoryUI.UIData>
+	public class EliminationFactoryUI : UIBehavior<EliminationFactoryUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -161,15 +161,37 @@ namespace GameManager.Match.Elimination
 
 		static EliminationFactoryUI()
 		{
-			txtTitle.add (Language.Type.vi, "Tạo đấu loại trực tiếp");
-			txtInitTeamCountLength.add (Language.Type.vi, "Số nhánh đấu");
-			txtInitTeamCounts.add (Language.Type.vi, "Số đội");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Tạo đấu loại trực tiếp");
+                txtInitTeamCountLength.add(Language.Type.vi, "Số nhánh đấu");
+                txtInitTeamCounts.add(Language.Type.vi, "Số đội");
+            }
+            // rect
+            {
 
-		#endregion
+            }
+        }
 
-		private bool needReset = true;
-		public GameObject differentIndicator;
+        #endregion
+
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        private bool needReset = true;
 
 		public override void refresh ()
 		{
@@ -183,8 +205,8 @@ namespace GameManager.Match.Elimination
 						EliminationFactory show = editEliminationFactory.show.v.data;
 						EliminationFactory compare = editEliminationFactory.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editEliminationFactory.compareOtherType.v.data != null) {
@@ -193,9 +215,9 @@ namespace GameManager.Match.Elimination
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// request
 							{
@@ -444,8 +466,45 @@ namespace GameManager.Match.Elimination
 					} else {
 						Debug.LogError ("editElimination null: " + this);
 					}
-					// txt
-					{
+                    // UI Size
+                    {
+                        float deltaY = UIConstants.HeaderHeight;
+                        // singleContestFactory
+                        deltaY += UIRectTransform.SetPosY(this.data.singleContestFactory.v, deltaY);
+                        // initTeamCountLength
+                        {
+                            if (lbInitTeamCountLength != null)
+                            {
+                                UIRectTransform.SetPosY(lbInitTeamCountLength.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbInitTeamCountLength null");
+                            }
+                            UIRectTransform.SetPosY(this.data.initTeamCountLength.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        // initTeamCounts
+                        {
+                            if (lbInitTeamCounts != null)
+                            {
+                                UIRectTransform.SetPosY(lbInitTeamCounts.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbInitTeamCounts null");
+                            }
+                            foreach(RequestChangeIntUI.UIData initTeamCount in this.data.initTeamCounts.vs)
+                            {
+                                UIRectTransform.SetPosY(initTeamCount, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                                deltaY += UIConstants.ItemHeight;
+                            }
+                        }
+                        // set
+                        UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                    }
+                    // txt
+                    {
 						if (lbTitle != null) {
 							lbTitle.text = txtTitle.get ("Elimination Factory");
 						} else {
@@ -466,6 +525,7 @@ namespace GameManager.Match.Elimination
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()
@@ -480,9 +540,8 @@ namespace GameManager.Match.Elimination
 		public SingleContestFactoryUI singleContestFactoryPrefab;
 		public RequestChangeIntUI requestIntPrefab;
 
-		public Transform singleContestFactoryContainer;
-		public Transform initTeamCountLengthContainer;
-		public Transform initTeamCountsContainer;
+		private static readonly UIRectTransform initTeamCountLengthRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform initTeamCountsRect = new UIRectTransform(UIConstants.RequestRect);
 
 		private Server server = null;
 
@@ -551,10 +610,10 @@ namespace GameManager.Match.Elimination
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.initTeamCountLength:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, initTeamCountLengthContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, initTeamCountLengthRect);
 								break;
 							case UIData.Property.initTeamCounts:
-								UIUtils.Instantiate (requestChange, requestIntPrefab, initTeamCountsContainer);
+								UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, initTeamCountsRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -567,16 +626,30 @@ namespace GameManager.Match.Elimination
 					dirty = true;
 					return;
 				}
-				if (data is SingleContestFactoryUI.UIData) {
-					SingleContestFactoryUI.UIData singleContestFactoryUIData = data as SingleContestFactoryUI.UIData;
-					// UI
-					{
-						UIUtils.Instantiate (singleContestFactoryUIData, singleContestFactoryPrefab, singleContestFactoryContainer);
-					}
-					dirty = true;
-					return;
-				}
-			}
+                // singleContestFactoryUIData
+                {
+                    if (data is SingleContestFactoryUI.UIData)
+                    {
+                        SingleContestFactoryUI.UIData singleContestFactoryUIData = data as SingleContestFactoryUI.UIData;
+                        // UI
+                        {
+                            UIUtils.Instantiate(singleContestFactoryUIData, singleContestFactoryPrefab, this.transform);
+                        }
+                        // Child
+                        {
+                            TransformData.AddCallBack(singleContestFactoryUIData, this);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // Child
+                    if(data is TransformData)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                }
+            }
 			Debug.LogError ("Don't process: " + data + "; " + this);
 		}
 
@@ -640,14 +713,27 @@ namespace GameManager.Match.Elimination
 					}
 					return;
 				}
-				if (data is SingleContestFactoryUI.UIData) {
-					SingleContestFactoryUI.UIData singleContestFactoryUIData = data as SingleContestFactoryUI.UIData;
-					// UI
-					{
-						singleContestFactoryUIData.removeCallBackAndDestroy (typeof(SingleContestFactoryUI));
-					}
-					return;
-				}
+                // singleContestFactoryUIData
+                {
+                    if (data is SingleContestFactoryUI.UIData)
+                    {
+                        SingleContestFactoryUI.UIData singleContestFactoryUIData = data as SingleContestFactoryUI.UIData;
+                        // Child
+                        {
+                            TransformData.RemoveCallBack(singleContestFactoryUIData, this);
+                        }
+                        // UI
+                        {
+                            singleContestFactoryUIData.removeCallBackAndDestroy(typeof(SingleContestFactoryUI));
+                        }
+                        return;
+                    }
+                    // Child
+                    if(data is TransformData)
+                    {
+                        return;
+                    }
+                }
 			}
 			Debug.LogError ("Don't process: " + data + "; " + this);
 		}
@@ -774,9 +860,33 @@ namespace GameManager.Match.Elimination
 				if (wrapProperty.p is RequestChangeIntUI.UIData) {
 					return;
 				}
-				if (wrapProperty.p is SingleContestFactoryUI.UIData) {
-					return;
-				}
+                // singleContestFactoryUIData
+                {
+                    if (wrapProperty.p is SingleContestFactoryUI.UIData)
+                    {
+                        return;
+                    }
+                    // Child
+                    if(wrapProperty.p is TransformData)
+                    {
+                        switch ((TransformData.Property)wrapProperty.n)
+                        {
+                            case TransformData.Property.position:
+                                break;
+                            case TransformData.Property.rotation:
+                                break;
+                            case TransformData.Property.scale:
+                                break;
+                            case TransformData.Property.size:
+                                dirty = true;
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
+                }
 			}
 			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
 		}

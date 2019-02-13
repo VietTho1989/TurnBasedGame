@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Posture;
 using GameManager.Match;
 
-public class PostureGameDataFactoryUI : UIBehavior<PostureGameDataFactoryUI.UIData>
+public class PostureGameDataFactoryUI : UIBehavior<PostureGameDataFactoryUI.UIData>, HaveTransformData
 {
 
 	#region UIData
@@ -160,18 +160,46 @@ public class PostureGameDataFactoryUI : UIBehavior<PostureGameDataFactoryUI.UIDa
 
 	static PostureGameDataFactoryUI()
 	{
-		txtTitle.add (Language.Type.vi, "Cách tạo thế cờ");
-		txtGameType.add (Language.Type.vi, "Loại game");
-		txtEdit.add (Language.Type.vi, "Chỉnh sửa");
-		txtUseRule.add (Language.Type.vi, "Dùng luật");
-	}
+        // txt
+        {
+            txtTitle.add(Language.Type.vi, "Cách tạo thế cờ");
+            txtGameType.add(Language.Type.vi, "Loại game");
+            txtEdit.add(Language.Type.vi, "Chỉnh sửa");
+            txtUseRule.add(Language.Type.vi, "Dùng luật");
+        }
+        // rect
+        {
+            gameTypeRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+            useRuleRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + UIConstants.DefaultMiniGameDataUISize + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+        }
+    }
 
-	#endregion
+    #endregion
 
-	public Button btnEdit;
+    #region TransformData
+
+    public TransformData transformData = new TransformData();
+
+    private void updateTransformData()
+    {
+        /*if (transform.hasChanged)
+            {
+                transform.hasChanged = false;
+                this.transformData.update(this.transform);
+            }*/
+        this.transformData.update(this.transform);
+    }
+
+    public TransformData getTransformData()
+    {
+        return this.transformData;
+    }
+
+    #endregion
+
+    public Button btnEdit;
 
 	private bool needReset = true;
-	public GameObject differentIndicator;
 
 	public override void refresh ()
 	{
@@ -185,8 +213,8 @@ public class PostureGameDataFactoryUI : UIBehavior<PostureGameDataFactoryUI.UIDa
 					PostureGameDataFactory show = editPostureGameDataFactory.show.v.data;
 					PostureGameDataFactory compare = editPostureGameDataFactory.compare.v.data;
 					if (show != null) {
-						// differentIndicator
-						if (differentIndicator != null) {
+						// different
+						if (lbTitle != null) {
 							bool isDifferent = false;
 							{
 								if (editPostureGameDataFactory.compareOtherType.v.data != null) {
@@ -195,9 +223,9 @@ public class PostureGameDataFactoryUI : UIBehavior<PostureGameDataFactoryUI.UIDa
 									}
 								}
 							}
-							differentIndicator.SetActive (isDifferent);
+                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 						} else {
-							Debug.LogError ("differentIndicator null: " + this);
+							Debug.LogError ("lbTitle null: " + this);
 						}
 						// requests
 						{
@@ -319,6 +347,7 @@ public class PostureGameDataFactoryUI : UIBehavior<PostureGameDataFactoryUI.UIDa
 						// btnEdit
 						{
 							if (btnEdit != null) {
+                                UIConstants.PostureMiniGameDataUIRect.set((RectTransform)btnEdit.transform);
 								btnEdit.gameObject.SetActive (editPostureGameDataFactory.canEdit.v);
 							} else {
 								Debug.LogError ("btnEdit null: " + this);
@@ -339,8 +368,19 @@ public class PostureGameDataFactoryUI : UIBehavior<PostureGameDataFactoryUI.UIDa
 				} else {
 					Debug.LogError ("editPostureGameDataFactory null: " + this);
 				}
-				// txt
-				{
+                // UISize
+                {
+                    if (btnEdit != null)
+                    {
+                        btnEdit.transform.SetAsLastSibling();
+                    }
+                    else
+                    {
+                        Debug.LogError("btnEdit null");
+                    }
+                }
+                // txt
+                {
 					if (lbTitle != null) {
 						lbTitle.text = txtTitle.get ("Posture Game Data Factory");
 					} else {
@@ -366,6 +406,7 @@ public class PostureGameDataFactoryUI : UIBehavior<PostureGameDataFactoryUI.UIDa
 				Debug.LogError ("data null: " + this);
 			}
 		}
+        updateTransformData();
 	}
 
 	public override bool isShouldDisableUpdate ()
@@ -378,15 +419,14 @@ public class PostureGameDataFactoryUI : UIBehavior<PostureGameDataFactoryUI.UIDa
 	#region implement callBacks
 
 	public MiniGameDataUI miniGameDataUIPrefab;
-	public Transform miniGameDataUIContainer;
 
 	public EditPostureGameDataUI editPostureGameDataPrefab;
 
 	public RequestChangeBoolUI requestBoolPrefab;
 	public RequestChangeEnumUI requestEnumPrefab;
 
-	public Transform gameTypeContainer;
-	public Transform useRuleContainer;
+    private static readonly UIRectTransform gameTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
+    private static readonly UIRectTransform useRuleRect = new UIRectTransform(UIConstants.RequestBoolRect);
 
 	private Server server = null;
 
@@ -463,7 +503,7 @@ public class PostureGameDataFactoryUI : UIBehavior<PostureGameDataFactoryUI.UIDa
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
 						case UIData.Property.gameType:
-							UIUtils.Instantiate (requestChange, requestEnumPrefab, gameTypeContainer);
+							UIUtils.Instantiate (requestChange, requestEnumPrefab, this.transform, gameTypeRect);
 							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -509,7 +549,7 @@ public class PostureGameDataFactoryUI : UIBehavior<PostureGameDataFactoryUI.UIDa
 				MiniGameDataUI.UIData miniGameDataUIData = data as MiniGameDataUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, miniGameDataUIContainer);
+					UIUtils.Instantiate (miniGameDataUIData, miniGameDataUIPrefab, this.transform, UIConstants.PostureMiniGameDataUIRect);
 				}
 				dirty = true;
 				return;
@@ -523,7 +563,7 @@ public class PostureGameDataFactoryUI : UIBehavior<PostureGameDataFactoryUI.UIDa
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
 						case UIData.Property.useRule:
-							UIUtils.Instantiate (requestChange, requestBoolPrefab, useRuleContainer);
+							UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, useRuleRect);
 							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Xiangqi
 {
-	public class DefaultXiangqiUI : UIBehavior<DefaultXiangqiUI.UIData>
+	public class DefaultXiangqiUI : UIBehavior<DefaultXiangqiUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -54,9 +54,30 @@ namespace Xiangqi
 			txtTitle.add (Language.Type.vi, "Mặc Định Cờ Tướng");
 		}
 
-		#endregion
+        #endregion
 
-		private bool needReset = true;
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            /*if (transform.hasChanged)
+            {
+                transform.hasChanged = false;
+                this.transformData.update(this.transform);
+            }*/
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        private bool needReset = true;
 		private bool miniGameDataDirty = true;
 
 		public override void refresh ()
@@ -171,6 +192,7 @@ namespace Xiangqi
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

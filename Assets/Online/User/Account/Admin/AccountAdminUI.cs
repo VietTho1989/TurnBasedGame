@@ -115,15 +115,21 @@ public class AccountAdminUI : UIBehavior<AccountAdminUI.UIData>
 
 	static AccountAdminUI()
 	{
-		txtTitle.add (Language.Type.vi, "Tài khoản admin");
-		txtCustomName.add (Language.Type.vi, "Tên");
-		txtAvatarUrl.add (Language.Type.vi, "Đường dẫn avatar");
-	}
+        // txt
+        {
+            txtTitle.add(Language.Type.vi, "Tài khoản admin");
+            txtCustomName.add(Language.Type.vi, "Tên");
+            txtAvatarUrl.add(Language.Type.vi, "Đường dẫn avatar");
+        }
+        // rect
+        {
+
+        }
+    }
 
 	#endregion
 
 	private bool needReset = true;
-	public GameObject differentIndicator;
 
 	public override void refresh ()
 	{
@@ -137,8 +143,8 @@ public class AccountAdminUI : UIBehavior<AccountAdminUI.UIData>
 					AccountAdmin show = editAccountAdmin.show.v.data;
 					AccountAdmin compare = editAccountAdmin.compare.v.data;
 					if (show != null) {
-						// differentIndicator
-						if (differentIndicator != null) {
+						// different
+						if (lbTitle != null) {
 							bool isDifferent = false;
 							{
 								if (editAccountAdmin.compareOtherType.v.data != null) {
@@ -147,9 +153,9 @@ public class AccountAdminUI : UIBehavior<AccountAdminUI.UIData>
 									}
 								}
 							}
-							differentIndicator.SetActive (isDifferent);
+                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 						} else {
-							Debug.LogError ("differentIndicator null: " + this);
+							Debug.LogError ("lbTitle null: " + this);
 						}
 						// request
 						{
@@ -194,12 +200,6 @@ public class AccountAdminUI : UIBehavior<AccountAdminUI.UIData>
 									} else {
 										Debug.LogError ("customName null: " + this);
 									}
-									// Container
-									if (customNameContainer != null) {
-										customNameContainer.parent.gameObject.SetActive (customName != null);
-									} else {
-										Debug.LogError ("customNameContainer null: " + this);
-									}
 								}
 								// avatarUrl
 								{
@@ -225,12 +225,6 @@ public class AccountAdminUI : UIBehavior<AccountAdminUI.UIData>
 										}
 									} else {
 										Debug.LogError ("avatarUrl null: " + this);
-									}
-									// Container
-									if (avatarUrlContainer != null) {
-										avatarUrlContainer.parent.gameObject.SetActive (avatarUrl != null);
-									} else {
-										Debug.LogError ("avatarUrlContainer null: " + this);
 									}
 								}
 							}
@@ -273,8 +267,70 @@ public class AccountAdminUI : UIBehavior<AccountAdminUI.UIData>
 						}
 					}
 				}
-				// txt
-				{
+                // UISize
+                {
+                    float deltaY = UIConstants.HeaderHeight;
+                    // customName
+                    {
+                        if (this.data.customName.v != null)
+                        {
+                            if (lbCustomName != null)
+                            {
+                                lbCustomName.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbCustomName.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbCustomName null");
+                            }
+                            UIRectTransform.SetPosY(this.data.customName.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbCustomName != null)
+                            {
+                                lbCustomName.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbCustomName null");
+                            }
+                        }
+                    }
+                    // avatarUrl
+                    {
+                        if (this.data.avatarUrl.v != null)
+                        {
+                            if (lbAvatarUrl != null)
+                            {
+                                lbAvatarUrl.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbAvatarUrl.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbAvatarUrl null");
+                            }
+                            UIRectTransform.SetPosY(this.data.avatarUrl.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbAvatarUrl != null)
+                            {
+                                lbAvatarUrl.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbAvatarUrl null");
+                            }
+                        }
+                    }
+                    // set
+                    UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                }
+                // txt
+                {
 					if (lbTitle != null) {
 						lbTitle.text = txtTitle.get ("Account Admin");
 					} else {
@@ -308,8 +364,8 @@ public class AccountAdminUI : UIBehavior<AccountAdminUI.UIData>
 
 	public RequestChangeStringUI requestStringPrefab;
 
-	public Transform customNameContainer;
-	public Transform avatarUrlContainer;
+	private static readonly UIRectTransform customNameRect = new UIRectTransform(UIConstants.RequestEnumRect);
+	private static readonly UIRectTransform avatarUrlRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
 	private Server server = null;
 
@@ -376,10 +432,10 @@ public class AccountAdminUI : UIBehavior<AccountAdminUI.UIData>
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
 						case UIData.Property.customName:
-							UIUtils.Instantiate (requestChange, requestStringPrefab, customNameContainer);
+							UIUtils.Instantiate (requestChange, requestStringPrefab, this.transform, customNameRect);
 							break;
 						case UIData.Property.avatarUrl:
-							UIUtils.Instantiate (requestChange, requestStringPrefab, avatarUrlContainer);
+							UIUtils.Instantiate (requestChange, requestStringPrefab, this.transform, avatarUrlRect);
 							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);

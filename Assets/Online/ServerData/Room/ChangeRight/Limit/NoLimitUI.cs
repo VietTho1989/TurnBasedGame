@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Rights
 {
-	public class NoLimitUI : UIBehavior<NoLimitUI.UIData>
+	public class NoLimitUI : UIBehavior<NoLimitUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -50,10 +50,25 @@ namespace Rights
 			txtTitle.add (Language.Type.vi, "Không giới hạn");
 		}
 
-		#endregion
+        #endregion
 
-		private bool needReset = true;
-		public GameObject differentIndicator;
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        private bool needReset = true;
 
 		public override void refresh ()
 		{
@@ -67,8 +82,8 @@ namespace Rights
 						NoLimit show = editNoLimit.show.v.data;
 						NoLimit compare = editNoLimit.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editNoLimit.compareOtherType.v.data != null) {
@@ -77,9 +92,9 @@ namespace Rights
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// request
 							{
@@ -124,6 +139,7 @@ namespace Rights
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

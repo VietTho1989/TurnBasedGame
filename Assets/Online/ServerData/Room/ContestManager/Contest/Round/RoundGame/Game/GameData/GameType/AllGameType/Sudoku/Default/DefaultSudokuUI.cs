@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Sudoku
 {
-	public class DefaultSudokuUI : UIBehavior<DefaultSudokuUI.UIData>
+	public class DefaultSudokuUI : UIBehavior<DefaultSudokuUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -54,9 +54,30 @@ namespace Sudoku
 			txtTitle.add (Language.Type.vi, "Mặc Định Sudoku");
 		}
 
-		#endregion
+        #endregion
 
-		private bool needReset = true;
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            /*if (transform.hasChanged)
+            {
+                transform.hasChanged = false;
+                this.transformData.update(this.transform);
+            }*/
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        private bool needReset = true;
 		private bool miniGameDataDirty = true;
 
 		public override void refresh ()
@@ -169,6 +190,7 @@ namespace Sudoku
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

@@ -68,7 +68,7 @@ namespace Chess
 									Debug.LogError ("hintUIData null: " + this);
 								}
 							} else {
-								Debug.LogError ("gameDataUIData null: " + this);
+								// Debug.LogError ("gameDataUIData null: " + this);
 							}
 						}
 						if (hintMove != null) {

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Khet
 {
-	public class DefaultKhetUI : UIBehavior<DefaultKhetUI.UIData>
+	public class DefaultKhetUI : UIBehavior<DefaultKhetUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -101,9 +101,30 @@ namespace Khet
             }
         }
 
-		#endregion
+        #endregion
 
-		private bool needReset = true;
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            /*if (transform.hasChanged)
+            {
+                transform.hasChanged = false;
+                this.transformData.update(this.transform);
+            }*/
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        private bool needReset = true;
 		private bool miniGameDataDirty = true;
 
 		public override void refresh ()
@@ -259,6 +280,7 @@ namespace Khet
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

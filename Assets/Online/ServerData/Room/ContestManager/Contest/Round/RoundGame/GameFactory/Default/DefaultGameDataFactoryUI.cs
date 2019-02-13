@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class DefaultGameDataFactoryUI : UIBehavior<DefaultGameDataFactoryUI.UIData>
+public class DefaultGameDataFactoryUI : UIBehavior<DefaultGameDataFactoryUI.UIData>, HaveTransformData
 {
 
     #region UIData
@@ -156,15 +156,42 @@ public class DefaultGameDataFactoryUI : UIBehavior<DefaultGameDataFactoryUI.UIDa
 
     static DefaultGameDataFactoryUI()
     {
-        txtTitle.add(Language.Type.vi, "Cách Tạo Dữ Liệu Game Mặc Định");
-        txtGameType.add(Language.Type.vi, "Loại game");
-        txtUseRule.add(Language.Type.vi, "Dùng luật");
+        // txt
+        {
+            txtTitle.add(Language.Type.vi, "Cách Tạo Dữ Liệu Game Mặc Định");
+            txtGameType.add(Language.Type.vi, "Loại game");
+            txtUseRule.add(Language.Type.vi, "Dùng luật");
+        }
+        // rect
+        {
+            gameTypeRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+        }
+    }
+
+    #endregion
+
+    #region TransformData
+
+    public TransformData transformData = new TransformData();
+
+    private void updateTransformData()
+    {
+        /*if (transform.hasChanged)
+            {
+                transform.hasChanged = false;
+                this.transformData.update(this.transform);
+            }*/
+        this.transformData.update(this.transform);
+    }
+
+    public TransformData getTransformData()
+    {
+        return this.transformData;
     }
 
     #endregion
 
     private bool needReset = true;
-    public GameObject differentIndicator;
 
     public override void refresh()
     {
@@ -182,8 +209,8 @@ public class DefaultGameDataFactoryUI : UIBehavior<DefaultGameDataFactoryUI.UIDa
                     DefaultGameDataFactory compare = editDefaultGameDataFactory.compare.v.data;
                     if (show != null)
                     {
-                        // differentIndicator
-                        if (differentIndicator != null)
+                        // different
+                        if (lbTitle != null)
                         {
                             bool isDifferent = false;
                             {
@@ -195,11 +222,11 @@ public class DefaultGameDataFactoryUI : UIBehavior<DefaultGameDataFactoryUI.UIDa
                                     }
                                 }
                             }
-                            differentIndicator.SetActive(isDifferent);
+                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
                         }
                         else
                         {
-                            Debug.LogError("differentIndicator null: " + this);
+                            Debug.LogError("lbTitle null: " + this);
                         }
                         // request
                         {
@@ -1045,6 +1072,33 @@ public class DefaultGameDataFactoryUI : UIBehavior<DefaultGameDataFactoryUI.UIDa
                 {
                     Debug.LogError("editDefaultGameDataFactory null: " + this);
                 }
+                // UI size
+                {
+                    float deltaY = UIConstants.HeaderHeight;
+                    // gameType
+                    {
+                        deltaY += UIConstants.ItemHeight;
+                    }
+                    // defaultGameTypeUI
+                    {
+                        deltaY += UIRectTransform.SetPosY(this.data.defaultGameTypeUI.v, deltaY);
+                    }
+                    // useRule
+                    {
+                        if (lbUseRule != null)
+                        {
+                            UIRectTransform.SetPosY((RectTransform)lbUseRule.transform, deltaY);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbUseRule null");
+                        }
+                        UIRectTransform.SetPosY(this.data.useRule.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2);
+                        deltaY += UIConstants.ItemHeight;
+                    }
+                    // set height
+                    UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                }
                 // txt
                 {
                     if (lbTitle != null)
@@ -1078,6 +1132,7 @@ public class DefaultGameDataFactoryUI : UIBehavior<DefaultGameDataFactoryUI.UIDa
                 Debug.LogError("data null: " + this);
             }
         }
+        updateTransformData();
     }
 
     public override bool isShouldDisableUpdate()
@@ -1088,8 +1143,6 @@ public class DefaultGameDataFactoryUI : UIBehavior<DefaultGameDataFactoryUI.UIDa
     #endregion
 
     #region implement callBacks
-
-    public Transform defaultGameTypeUIContainer;
 
     public Chess.DefaultChessUI defaultChessUIPrefab;
     public Shatranj.DefaultShatranjUI defaultShatranjUIPrefab;
@@ -1123,8 +1176,8 @@ public class DefaultGameDataFactoryUI : UIBehavior<DefaultGameDataFactoryUI.UIDa
     public RequestChangeBoolUI requestBoolPrefab;
     public RequestChangeEnumUI requestEnumPrefab;
 
-    public Transform gameTypeContainer;
-    public Transform useRuleContainer;
+    private static readonly UIRectTransform gameTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
+    private static readonly UIRectTransform useRuleRect = new UIRectTransform(UIConstants.RequestBoolRect);
 
     private Server server = null;
 
@@ -1200,7 +1253,7 @@ public class DefaultGameDataFactoryUI : UIBehavior<DefaultGameDataFactoryUI.UIDa
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.gameType:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, gameTypeContainer);
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, gameTypeRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -1215,161 +1268,174 @@ public class DefaultGameDataFactoryUI : UIBehavior<DefaultGameDataFactoryUI.UIDa
                 dirty = true;
                 return;
             }
-            if (data is DefaultGameTypeUI)
+            // defaultGameTypeUI
             {
-                DefaultGameTypeUI defaultGameTypeUIData = data as DefaultGameTypeUI;
+                if (data is DefaultGameTypeUI)
                 {
-                    switch (defaultGameTypeUIData.getType())
+                    DefaultGameTypeUI defaultGameTypeUIData = data as DefaultGameTypeUI;
                     {
-                        case GameType.Type.CHESS:
-                            {
-                                Chess.DefaultChessUI.UIData defaultChessUIData = defaultGameTypeUIData as Chess.DefaultChessUI.UIData;
-                                UIUtils.Instantiate(defaultChessUIData, defaultChessUIPrefab, defaultGameTypeUIContainer);
-                            }
-                            break;
-                        case GameType.Type.Shatranj:
-                            {
-                                Shatranj.DefaultShatranjUI.UIData defaultShatranjUIData = defaultGameTypeUIData as Shatranj.DefaultShatranjUI.UIData;
-                                UIUtils.Instantiate(defaultShatranjUIData, defaultShatranjUIPrefab, defaultGameTypeUIContainer);
-                            }
-                            break;
-                        case GameType.Type.Makruk:
-                            {
-                                Makruk.DefaultMakrukUI.UIData defaultMakrukUIData = defaultGameTypeUIData as Makruk.DefaultMakrukUI.UIData;
-                                UIUtils.Instantiate(defaultMakrukUIData, defaultMakrukUIPrefab, defaultGameTypeUIContainer);
-                            }
-                            break;
-                        case GameType.Type.Seirawan:
-                            {
-                                Seirawan.DefaultSeirawanUI.UIData defaultSeirawanUIData = defaultGameTypeUIData as Seirawan.DefaultSeirawanUI.UIData;
-                                UIUtils.Instantiate(defaultSeirawanUIData, defaultSeirawanUIPrefab, defaultGameTypeUIContainer);
-                            }
-                            break;
-                        case GameType.Type.FairyChess:
-                            {
-                                FairyChess.DefaultFairyChessUI.UIData defaultFairyChessUIData = defaultGameTypeUIData as FairyChess.DefaultFairyChessUI.UIData;
-                                UIUtils.Instantiate(defaultFairyChessUIData, defaultFairyChessUIPrefab, defaultGameTypeUIContainer);
-                            }
-                            break;
+                        switch (defaultGameTypeUIData.getType())
+                        {
+                            case GameType.Type.CHESS:
+                                {
+                                    Chess.DefaultChessUI.UIData defaultChessUIData = defaultGameTypeUIData as Chess.DefaultChessUI.UIData;
+                                    UIUtils.Instantiate(defaultChessUIData, defaultChessUIPrefab, this.transform);
+                                }
+                                break;
+                            case GameType.Type.Shatranj:
+                                {
+                                    Shatranj.DefaultShatranjUI.UIData defaultShatranjUIData = defaultGameTypeUIData as Shatranj.DefaultShatranjUI.UIData;
+                                    UIUtils.Instantiate(defaultShatranjUIData, defaultShatranjUIPrefab, this.transform);
+                                }
+                                break;
+                            case GameType.Type.Makruk:
+                                {
+                                    Makruk.DefaultMakrukUI.UIData defaultMakrukUIData = defaultGameTypeUIData as Makruk.DefaultMakrukUI.UIData;
+                                    UIUtils.Instantiate(defaultMakrukUIData, defaultMakrukUIPrefab, this.transform);
+                                }
+                                break;
+                            case GameType.Type.Seirawan:
+                                {
+                                    Seirawan.DefaultSeirawanUI.UIData defaultSeirawanUIData = defaultGameTypeUIData as Seirawan.DefaultSeirawanUI.UIData;
+                                    UIUtils.Instantiate(defaultSeirawanUIData, defaultSeirawanUIPrefab, this.transform);
+                                }
+                                break;
+                            case GameType.Type.FairyChess:
+                                {
+                                    FairyChess.DefaultFairyChessUI.UIData defaultFairyChessUIData = defaultGameTypeUIData as FairyChess.DefaultFairyChessUI.UIData;
+                                    UIUtils.Instantiate(defaultFairyChessUIData, defaultFairyChessUIPrefab, this.transform);
+                                }
+                                break;
 
-                        case GameType.Type.Xiangqi:
-                            {
-                                Xiangqi.DefaultXiangqiUI.UIData defaultXiangqiUIData = defaultGameTypeUIData as Xiangqi.DefaultXiangqiUI.UIData;
-                                UIUtils.Instantiate(defaultXiangqiUIData, defaultXiangqiUIPrefab, defaultGameTypeUIContainer);
-                            }
-                            break;
-                        case GameType.Type.CO_TUONG_UP:
-                            {
-                                CoTuongUp.DefaultCoTuongUpUI.UIData defaultCoTuongUpUIData = defaultGameTypeUIData as CoTuongUp.DefaultCoTuongUpUI.UIData;
-                                UIUtils.Instantiate(defaultCoTuongUpUIData, defaultCoTuongUpUIPrefab, defaultGameTypeUIContainer);
-                            }
-                            break;
-                        case GameType.Type.Janggi:
-                            {
-                                Janggi.DefaultJanggiUI.UIData defaultJanggiUIData = defaultGameTypeUIData as Janggi.DefaultJanggiUI.UIData;
-                                UIUtils.Instantiate(defaultJanggiUIData, defaultJanggiUIPrefab, defaultGameTypeUIContainer);
-                            }
-                            break;
-                        case GameType.Type.Banqi:
-                            {
-                                Banqi.DefaultBanqiUI.UIData defaultBanqiUIData = defaultGameTypeUIData as Banqi.DefaultBanqiUI.UIData;
-                                UIUtils.Instantiate(defaultBanqiUIData, defaultBanqiUIPrefab, defaultGameTypeUIContainer);
-                            }
-                            break;
+                            case GameType.Type.Xiangqi:
+                                {
+                                    Xiangqi.DefaultXiangqiUI.UIData defaultXiangqiUIData = defaultGameTypeUIData as Xiangqi.DefaultXiangqiUI.UIData;
+                                    UIUtils.Instantiate(defaultXiangqiUIData, defaultXiangqiUIPrefab, this.transform);
+                                }
+                                break;
+                            case GameType.Type.CO_TUONG_UP:
+                                {
+                                    CoTuongUp.DefaultCoTuongUpUI.UIData defaultCoTuongUpUIData = defaultGameTypeUIData as CoTuongUp.DefaultCoTuongUpUI.UIData;
+                                    UIUtils.Instantiate(defaultCoTuongUpUIData, defaultCoTuongUpUIPrefab, this.transform);
+                                }
+                                break;
+                            case GameType.Type.Janggi:
+                                {
+                                    Janggi.DefaultJanggiUI.UIData defaultJanggiUIData = defaultGameTypeUIData as Janggi.DefaultJanggiUI.UIData;
+                                    UIUtils.Instantiate(defaultJanggiUIData, defaultJanggiUIPrefab, this.transform);
+                                }
+                                break;
+                            case GameType.Type.Banqi:
+                                {
+                                    Banqi.DefaultBanqiUI.UIData defaultBanqiUIData = defaultGameTypeUIData as Banqi.DefaultBanqiUI.UIData;
+                                    UIUtils.Instantiate(defaultBanqiUIData, defaultBanqiUIPrefab, this.transform);
+                                }
+                                break;
 
-                        case GameType.Type.Weiqi:
-                            {
-                                Weiqi.DefaultWeiqiUI.UIData defaultWeiqiUIData = defaultGameTypeUIData as Weiqi.DefaultWeiqiUI.UIData;
-                                UIUtils.Instantiate(defaultWeiqiUIData, defaultWeiqiUIPrefab, defaultGameTypeUIContainer);
-                            }
-                            break;
-                        case GameType.Type.SHOGI:
-                            {
-                                Shogi.DefaultShogiUI.UIData defaultShogiUIData = defaultGameTypeUIData as Shogi.DefaultShogiUI.UIData;
-                                UIUtils.Instantiate(defaultShogiUIData, defaultShogiUIPrefab, defaultGameTypeUIContainer);
-                            }
-                            break;
-                        case GameType.Type.Reversi:
-                            {
-                                Reversi.DefaultReversiUI.UIData defaultReversiUIData = defaultGameTypeUIData as Reversi.DefaultReversiUI.UIData;
-                                UIUtils.Instantiate(defaultReversiUIData, defaultReversiUIPrefab, defaultGameTypeUIContainer);
-                            }
-                            break;
-                        case GameType.Type.Gomoku:
-                            {
-                                Gomoku.DefaultGomokuUI.UIData defaultGomokuUIData = defaultGameTypeUIData as Gomoku.DefaultGomokuUI.UIData;
-                                UIUtils.Instantiate(defaultGomokuUIData, defaultGomokuUIPrefab, defaultGameTypeUIContainer);
-                            }
-                            break;
+                            case GameType.Type.Weiqi:
+                                {
+                                    Weiqi.DefaultWeiqiUI.UIData defaultWeiqiUIData = defaultGameTypeUIData as Weiqi.DefaultWeiqiUI.UIData;
+                                    UIUtils.Instantiate(defaultWeiqiUIData, defaultWeiqiUIPrefab, this.transform);
+                                }
+                                break;
+                            case GameType.Type.SHOGI:
+                                {
+                                    Shogi.DefaultShogiUI.UIData defaultShogiUIData = defaultGameTypeUIData as Shogi.DefaultShogiUI.UIData;
+                                    UIUtils.Instantiate(defaultShogiUIData, defaultShogiUIPrefab, this.transform);
+                                }
+                                break;
+                            case GameType.Type.Reversi:
+                                {
+                                    Reversi.DefaultReversiUI.UIData defaultReversiUIData = defaultGameTypeUIData as Reversi.DefaultReversiUI.UIData;
+                                    UIUtils.Instantiate(defaultReversiUIData, defaultReversiUIPrefab, this.transform);
+                                }
+                                break;
+                            case GameType.Type.Gomoku:
+                                {
+                                    Gomoku.DefaultGomokuUI.UIData defaultGomokuUIData = defaultGameTypeUIData as Gomoku.DefaultGomokuUI.UIData;
+                                    UIUtils.Instantiate(defaultGomokuUIData, defaultGomokuUIPrefab, this.transform);
+                                }
+                                break;
 
-                        case GameType.Type.InternationalDraught:
-                            {
-                                InternationalDraught.DefaultInternationalDraughtUI.UIData defaultInternationalDraughtUIData = defaultGameTypeUIData as InternationalDraught.DefaultInternationalDraughtUI.UIData;
-                                UIUtils.Instantiate(defaultInternationalDraughtUIData, defaultInternationalDraughtUIPrefab, defaultGameTypeUIContainer);
-                            }
-                            break;
-                        case GameType.Type.EnglishDraught:
-                            {
-                                EnglishDraught.DefaultEnglishDraughtUI.UIData defaultEnglishDraughtUIData = defaultGameTypeUIData as EnglishDraught.DefaultEnglishDraughtUI.UIData;
-                                UIUtils.Instantiate(defaultEnglishDraughtUIData, defaultEnglishDraughtUIPrefab, defaultGameTypeUIContainer);
-                            }
-                            break;
-                        case GameType.Type.RussianDraught:
-                            {
-                                RussianDraught.DefaultRussianDraughtUI.UIData defaultRussianDraughtUIData = defaultGameTypeUIData as RussianDraught.DefaultRussianDraughtUI.UIData;
-                                UIUtils.Instantiate(defaultRussianDraughtUIData, defaultRussianDraughtUIPrefab, defaultGameTypeUIContainer);
-                            }
-                            break;
-                        case GameType.Type.ChineseCheckers:
-                            {
-                                ChineseCheckers.DefaultChineseCheckersUI.UIData defaultChineseCheckersUIData = defaultGameTypeUIData as ChineseCheckers.DefaultChineseCheckersUI.UIData;
-                                UIUtils.Instantiate(defaultChineseCheckersUIData, defaultChineseCheckersUIPrefab, defaultGameTypeUIContainer);
-                            }
-                            break;
+                            case GameType.Type.InternationalDraught:
+                                {
+                                    InternationalDraught.DefaultInternationalDraughtUI.UIData defaultInternationalDraughtUIData = defaultGameTypeUIData as InternationalDraught.DefaultInternationalDraughtUI.UIData;
+                                    UIUtils.Instantiate(defaultInternationalDraughtUIData, defaultInternationalDraughtUIPrefab, this.transform);
+                                }
+                                break;
+                            case GameType.Type.EnglishDraught:
+                                {
+                                    EnglishDraught.DefaultEnglishDraughtUI.UIData defaultEnglishDraughtUIData = defaultGameTypeUIData as EnglishDraught.DefaultEnglishDraughtUI.UIData;
+                                    UIUtils.Instantiate(defaultEnglishDraughtUIData, defaultEnglishDraughtUIPrefab, this.transform);
+                                }
+                                break;
+                            case GameType.Type.RussianDraught:
+                                {
+                                    RussianDraught.DefaultRussianDraughtUI.UIData defaultRussianDraughtUIData = defaultGameTypeUIData as RussianDraught.DefaultRussianDraughtUI.UIData;
+                                    UIUtils.Instantiate(defaultRussianDraughtUIData, defaultRussianDraughtUIPrefab, this.transform);
+                                }
+                                break;
+                            case GameType.Type.ChineseCheckers:
+                                {
+                                    ChineseCheckers.DefaultChineseCheckersUI.UIData defaultChineseCheckersUIData = defaultGameTypeUIData as ChineseCheckers.DefaultChineseCheckersUI.UIData;
+                                    UIUtils.Instantiate(defaultChineseCheckersUIData, defaultChineseCheckersUIPrefab, this.transform);
+                                }
+                                break;
 
-                        case GameType.Type.MineSweeper:
-                            {
-                                MineSweeper.DefaultMineSweeperUI.UIData defaultMineSweeperUIData = defaultGameTypeUIData as MineSweeper.DefaultMineSweeperUI.UIData;
-                                UIUtils.Instantiate(defaultMineSweeperUIData, defaultMineSweeperUIPrefab, defaultGameTypeUIContainer);
-                            }
-                            break;
-                        case GameType.Type.Hex:
-                            {
-                                HEX.DefaultHexUI.UIData defaultHexUIData = defaultGameTypeUIData as HEX.DefaultHexUI.UIData;
-                                UIUtils.Instantiate(defaultHexUIData, defaultHexUIPrefab, defaultGameTypeUIContainer);
-                            }
-                            break;
-                        case GameType.Type.Solitaire:
-                            {
-                                Solitaire.DefaultSolitaireUI.UIData defaultSolitaireUIData = defaultGameTypeUIData as Solitaire.DefaultSolitaireUI.UIData;
-                                UIUtils.Instantiate(defaultSolitaireUIData, defaultSolitaireUIPrefab, defaultGameTypeUIContainer);
-                            }
-                            break;
-                        case GameType.Type.Sudoku:
-                            {
-                                Sudoku.DefaultSudokuUI.UIData defaultSudokuUIData = defaultGameTypeUIData as Sudoku.DefaultSudokuUI.UIData;
-                                UIUtils.Instantiate(defaultSudokuUIData, defaultSudokuUIPrefab, defaultGameTypeUIContainer);
-                            }
-                            break;
-                        case GameType.Type.Khet:
-                            {
-                                Khet.DefaultKhetUI.UIData defaultKhetUIData = defaultGameTypeUIData as Khet.DefaultKhetUI.UIData;
-                                UIUtils.Instantiate(defaultKhetUIData, defaultKhetUIPrefab, defaultGameTypeUIContainer);
-                            }
-                            break;
-                        case GameType.Type.NineMenMorris:
-                            {
-                                NineMenMorris.DefaultNineMenMorrisUI.UIData defaultNineMenMorrisUIData = defaultGameTypeUIData as NineMenMorris.DefaultNineMenMorrisUI.UIData;
-                                UIUtils.Instantiate(defaultNineMenMorrisUIData, defaultNineMenMorrisUIPrefab, defaultGameTypeUIContainer);
-                            }
-                            break;
-                        default:
-                            Debug.LogError("Don't process: " + defaultGameTypeUIData + "; " + this);
-                            break;
+                            case GameType.Type.MineSweeper:
+                                {
+                                    MineSweeper.DefaultMineSweeperUI.UIData defaultMineSweeperUIData = defaultGameTypeUIData as MineSweeper.DefaultMineSweeperUI.UIData;
+                                    UIUtils.Instantiate(defaultMineSweeperUIData, defaultMineSweeperUIPrefab, this.transform);
+                                }
+                                break;
+                            case GameType.Type.Hex:
+                                {
+                                    HEX.DefaultHexUI.UIData defaultHexUIData = defaultGameTypeUIData as HEX.DefaultHexUI.UIData;
+                                    UIUtils.Instantiate(defaultHexUIData, defaultHexUIPrefab, this.transform);
+                                }
+                                break;
+                            case GameType.Type.Solitaire:
+                                {
+                                    Solitaire.DefaultSolitaireUI.UIData defaultSolitaireUIData = defaultGameTypeUIData as Solitaire.DefaultSolitaireUI.UIData;
+                                    UIUtils.Instantiate(defaultSolitaireUIData, defaultSolitaireUIPrefab, this.transform);
+                                }
+                                break;
+                            case GameType.Type.Sudoku:
+                                {
+                                    Sudoku.DefaultSudokuUI.UIData defaultSudokuUIData = defaultGameTypeUIData as Sudoku.DefaultSudokuUI.UIData;
+                                    UIUtils.Instantiate(defaultSudokuUIData, defaultSudokuUIPrefab, this.transform);
+                                }
+                                break;
+                            case GameType.Type.Khet:
+                                {
+                                    Khet.DefaultKhetUI.UIData defaultKhetUIData = defaultGameTypeUIData as Khet.DefaultKhetUI.UIData;
+                                    UIUtils.Instantiate(defaultKhetUIData, defaultKhetUIPrefab, this.transform);
+                                }
+                                break;
+                            case GameType.Type.NineMenMorris:
+                                {
+                                    NineMenMorris.DefaultNineMenMorrisUI.UIData defaultNineMenMorrisUIData = defaultGameTypeUIData as NineMenMorris.DefaultNineMenMorrisUI.UIData;
+                                    UIUtils.Instantiate(defaultNineMenMorrisUIData, defaultNineMenMorrisUIPrefab, this.transform);
+                                }
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + defaultGameTypeUIData + "; " + this);
+                                break;
+                        }
                     }
+                    // Child
+                    {
+                        TransformData.AddCallBack(defaultGameTypeUIData, this);
+                    }
+                    dirty = true;
+                    return;
                 }
-                dirty = true;
-                return;
+                // Child
+                if(data is TransformData)
+                {
+                    dirty = true;
+                    return;
+                }
             }
             if (data is RequestChangeBoolUI.UIData)
             {
@@ -1382,7 +1448,7 @@ public class DefaultGameDataFactoryUI : UIBehavior<DefaultGameDataFactoryUI.UIDa
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.useRule:
-                                UIUtils.Instantiate(requestChange, requestBoolPrefab, useRuleContainer);
+                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, useRuleRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -1466,161 +1532,174 @@ public class DefaultGameDataFactoryUI : UIBehavior<DefaultGameDataFactoryUI.UIDa
                 }
                 return;
             }
-            if (data is DefaultGameTypeUI)
+            // defaultGameTypeUI
             {
-                DefaultGameTypeUI defaultGameTypeUIData = data as DefaultGameTypeUI;
+                if (data is DefaultGameTypeUI)
                 {
-                    switch (defaultGameTypeUIData.getType())
+                    DefaultGameTypeUI defaultGameTypeUIData = data as DefaultGameTypeUI;
+                    // Child
                     {
-                        case GameType.Type.CHESS:
-                            {
-                                Chess.DefaultChessUI.UIData defaultChessUIData = defaultGameTypeUIData as Chess.DefaultChessUI.UIData;
-                                defaultChessUIData.removeCallBackAndDestroy(typeof(Chess.DefaultChessUI));
-                            }
-                            break;
-                        case GameType.Type.Shatranj:
-                            {
-                                Shatranj.DefaultShatranjUI.UIData defaultShatranjUIData = defaultGameTypeUIData as Shatranj.DefaultShatranjUI.UIData;
-                                defaultShatranjUIData.removeCallBackAndDestroy(typeof(Shatranj.DefaultShatranjUI));
-                            }
-                            break;
-                        case GameType.Type.Makruk:
-                            {
-                                Makruk.DefaultMakrukUI.UIData defaultMakrukUIData = defaultGameTypeUIData as Makruk.DefaultMakrukUI.UIData;
-                                defaultMakrukUIData.removeCallBackAndDestroy(typeof(Makruk.DefaultMakrukUI));
-                            }
-                            break;
-                        case GameType.Type.Seirawan:
-                            {
-                                Seirawan.DefaultSeirawanUI.UIData defaultSeirawanUIData = defaultGameTypeUIData as Seirawan.DefaultSeirawanUI.UIData;
-                                defaultSeirawanUIData.removeCallBackAndDestroy(typeof(Seirawan.DefaultSeirawanUI));
-                            }
-                            break;
-                        case GameType.Type.FairyChess:
-                            {
-                                FairyChess.DefaultFairyChessUI.UIData defaultFairyChessUIData = defaultGameTypeUIData as FairyChess.DefaultFairyChessUI.UIData;
-                                defaultFairyChessUIData.removeCallBackAndDestroy(typeof(FairyChess.DefaultFairyChessUI));
-                            }
-                            break;
-
-                        case GameType.Type.Xiangqi:
-                            {
-                                Xiangqi.DefaultXiangqiUI.UIData defaultXiangqiUIData = defaultGameTypeUIData as Xiangqi.DefaultXiangqiUI.UIData;
-                                defaultXiangqiUIData.removeCallBackAndDestroy(typeof(Xiangqi.DefaultXiangqiUI));
-                            }
-                            break;
-                        case GameType.Type.CO_TUONG_UP:
-                            {
-                                CoTuongUp.DefaultCoTuongUpUI.UIData defaultCoTuongUpUIData = defaultGameTypeUIData as CoTuongUp.DefaultCoTuongUpUI.UIData;
-                                defaultCoTuongUpUIData.removeCallBackAndDestroy(typeof(CoTuongUp.DefaultCoTuongUpUI));
-                            }
-                            break;
-                        case GameType.Type.Janggi:
-                            {
-                                Janggi.DefaultJanggiUI.UIData defaultJanggiUIData = defaultGameTypeUIData as Janggi.DefaultJanggiUI.UIData;
-                                defaultJanggiUIData.removeCallBackAndDestroy(typeof(Janggi.DefaultJanggiUI));
-                            }
-                            break;
-                        case GameType.Type.Banqi:
-                            {
-                                Banqi.DefaultBanqiUI.UIData defaultBanqiUIData = defaultGameTypeUIData as Banqi.DefaultBanqiUI.UIData;
-                                defaultBanqiUIData.removeCallBackAndDestroy(typeof(Banqi.DefaultBanqiUI));
-                            }
-                            break;
-
-                        case GameType.Type.Weiqi:
-                            {
-                                Weiqi.DefaultWeiqiUI.UIData defaultWeiqiUIData = defaultGameTypeUIData as Weiqi.DefaultWeiqiUI.UIData;
-                                defaultWeiqiUIData.removeCallBackAndDestroy(typeof(Weiqi.DefaultWeiqiUI));
-                            }
-                            break;
-                        case GameType.Type.SHOGI:
-                            {
-                                Shogi.DefaultShogiUI.UIData defaultShogiUIData = defaultGameTypeUIData as Shogi.DefaultShogiUI.UIData;
-                                defaultShogiUIData.removeCallBackAndDestroy(typeof(Shogi.DefaultShogiUI));
-                            }
-                            break;
-                        case GameType.Type.Reversi:
-                            {
-                                Reversi.DefaultReversiUI.UIData defaultReversiUIData = defaultGameTypeUIData as Reversi.DefaultReversiUI.UIData;
-                                defaultReversiUIData.removeCallBackAndDestroy(typeof(Reversi.DefaultReversiUI));
-                            }
-                            break;
-
-                        case GameType.Type.Gomoku:
-                            {
-                                Gomoku.DefaultGomokuUI.UIData defaultGomokuUIData = defaultGameTypeUIData as Gomoku.DefaultGomokuUI.UIData;
-                                defaultGomokuUIData.removeCallBackAndDestroy(typeof(Gomoku.DefaultGomokuUI));
-                            }
-                            break;
-
-                        case GameType.Type.InternationalDraught:
-                            {
-                                InternationalDraught.DefaultInternationalDraughtUI.UIData defaultInternationalDraughtUIData = defaultGameTypeUIData as InternationalDraught.DefaultInternationalDraughtUI.UIData;
-                                defaultInternationalDraughtUIData.removeCallBackAndDestroy(typeof(InternationalDraught.DefaultInternationalDraughtUI));
-                            }
-                            break;
-                        case GameType.Type.EnglishDraught:
-                            {
-                                EnglishDraught.DefaultEnglishDraughtUI.UIData defaultEnglishDraughtUIData = defaultGameTypeUIData as EnglishDraught.DefaultEnglishDraughtUI.UIData;
-                                defaultEnglishDraughtUIData.removeCallBackAndDestroy(typeof(EnglishDraught.DefaultEnglishDraughtUI));
-                            }
-                            break;
-                        case GameType.Type.RussianDraught:
-                            {
-                                RussianDraught.DefaultRussianDraughtUI.UIData defaultRussianDraughtUIData = defaultGameTypeUIData as RussianDraught.DefaultRussianDraughtUI.UIData;
-                                defaultRussianDraughtUIData.removeCallBackAndDestroy(typeof(RussianDraught.DefaultRussianDraughtUI));
-                            }
-                            break;
-                        case GameType.Type.ChineseCheckers:
-                            {
-                                ChineseCheckers.DefaultChineseCheckersUI.UIData defaultChineseCheckersUIData = defaultGameTypeUIData as ChineseCheckers.DefaultChineseCheckersUI.UIData;
-                                defaultChineseCheckersUIData.removeCallBackAndDestroy(typeof(ChineseCheckers.DefaultChineseCheckersUI));
-                            }
-                            break;
-
-                        case GameType.Type.MineSweeper:
-                            {
-                                MineSweeper.DefaultMineSweeperUI.UIData defaultMineSweeperUIData = defaultGameTypeUIData as MineSweeper.DefaultMineSweeperUI.UIData;
-                                defaultMineSweeperUIData.removeCallBackAndDestroy(typeof(MineSweeper.DefaultMineSweeperUI));
-                            }
-                            break;
-                        case GameType.Type.Hex:
-                            {
-                                HEX.DefaultHexUI.UIData defaultHexUIData = defaultGameTypeUIData as HEX.DefaultHexUI.UIData;
-                                defaultHexUIData.removeCallBackAndDestroy(typeof(HEX.DefaultHexUI));
-                            }
-                            break;
-                        case GameType.Type.Solitaire:
-                            {
-                                Solitaire.DefaultSolitaireUI.UIData defaultSolitaireUIData = defaultGameTypeUIData as Solitaire.DefaultSolitaireUI.UIData;
-                                defaultSolitaireUIData.removeCallBackAndDestroy(typeof(Solitaire.DefaultSolitaireUI));
-                            }
-                            break;
-                        case GameType.Type.Sudoku:
-                            {
-                                Sudoku.DefaultSudokuUI.UIData defaultSudokuUIData = defaultGameTypeUIData as Sudoku.DefaultSudokuUI.UIData;
-                                defaultSudokuUIData.removeCallBackAndDestroy(typeof(Sudoku.DefaultSudokuUI));
-                            }
-                            break;
-                        case GameType.Type.Khet:
-                            {
-                                Khet.DefaultKhetUI.UIData defaultKhetUIData = defaultGameTypeUIData as Khet.DefaultKhetUI.UIData;
-                                defaultKhetUIData.removeCallBackAndDestroy(typeof(Khet.DefaultKhetUI));
-                            }
-                            break;
-                        case GameType.Type.NineMenMorris:
-                            {
-                                NineMenMorris.DefaultNineMenMorrisUI.UIData defaultNineMenMorrisUIData = defaultGameTypeUIData as NineMenMorris.DefaultNineMenMorrisUI.UIData;
-                                defaultNineMenMorrisUIData.removeCallBackAndDestroy(typeof(NineMenMorris.DefaultNineMenMorrisUI));
-                            }
-                            break;
-                        default:
-                            Debug.LogError("Don't process: " + defaultGameTypeUIData + "; " + this);
-                            break;
+                        TransformData.RemoveCallBack(defaultGameTypeUIData, this);
                     }
+                    // UI
+                    {
+                        switch (defaultGameTypeUIData.getType())
+                        {
+                            case GameType.Type.CHESS:
+                                {
+                                    Chess.DefaultChessUI.UIData defaultChessUIData = defaultGameTypeUIData as Chess.DefaultChessUI.UIData;
+                                    defaultChessUIData.removeCallBackAndDestroy(typeof(Chess.DefaultChessUI));
+                                }
+                                break;
+                            case GameType.Type.Shatranj:
+                                {
+                                    Shatranj.DefaultShatranjUI.UIData defaultShatranjUIData = defaultGameTypeUIData as Shatranj.DefaultShatranjUI.UIData;
+                                    defaultShatranjUIData.removeCallBackAndDestroy(typeof(Shatranj.DefaultShatranjUI));
+                                }
+                                break;
+                            case GameType.Type.Makruk:
+                                {
+                                    Makruk.DefaultMakrukUI.UIData defaultMakrukUIData = defaultGameTypeUIData as Makruk.DefaultMakrukUI.UIData;
+                                    defaultMakrukUIData.removeCallBackAndDestroy(typeof(Makruk.DefaultMakrukUI));
+                                }
+                                break;
+                            case GameType.Type.Seirawan:
+                                {
+                                    Seirawan.DefaultSeirawanUI.UIData defaultSeirawanUIData = defaultGameTypeUIData as Seirawan.DefaultSeirawanUI.UIData;
+                                    defaultSeirawanUIData.removeCallBackAndDestroy(typeof(Seirawan.DefaultSeirawanUI));
+                                }
+                                break;
+                            case GameType.Type.FairyChess:
+                                {
+                                    FairyChess.DefaultFairyChessUI.UIData defaultFairyChessUIData = defaultGameTypeUIData as FairyChess.DefaultFairyChessUI.UIData;
+                                    defaultFairyChessUIData.removeCallBackAndDestroy(typeof(FairyChess.DefaultFairyChessUI));
+                                }
+                                break;
+
+                            case GameType.Type.Xiangqi:
+                                {
+                                    Xiangqi.DefaultXiangqiUI.UIData defaultXiangqiUIData = defaultGameTypeUIData as Xiangqi.DefaultXiangqiUI.UIData;
+                                    defaultXiangqiUIData.removeCallBackAndDestroy(typeof(Xiangqi.DefaultXiangqiUI));
+                                }
+                                break;
+                            case GameType.Type.CO_TUONG_UP:
+                                {
+                                    CoTuongUp.DefaultCoTuongUpUI.UIData defaultCoTuongUpUIData = defaultGameTypeUIData as CoTuongUp.DefaultCoTuongUpUI.UIData;
+                                    defaultCoTuongUpUIData.removeCallBackAndDestroy(typeof(CoTuongUp.DefaultCoTuongUpUI));
+                                }
+                                break;
+                            case GameType.Type.Janggi:
+                                {
+                                    Janggi.DefaultJanggiUI.UIData defaultJanggiUIData = defaultGameTypeUIData as Janggi.DefaultJanggiUI.UIData;
+                                    defaultJanggiUIData.removeCallBackAndDestroy(typeof(Janggi.DefaultJanggiUI));
+                                }
+                                break;
+                            case GameType.Type.Banqi:
+                                {
+                                    Banqi.DefaultBanqiUI.UIData defaultBanqiUIData = defaultGameTypeUIData as Banqi.DefaultBanqiUI.UIData;
+                                    defaultBanqiUIData.removeCallBackAndDestroy(typeof(Banqi.DefaultBanqiUI));
+                                }
+                                break;
+
+                            case GameType.Type.Weiqi:
+                                {
+                                    Weiqi.DefaultWeiqiUI.UIData defaultWeiqiUIData = defaultGameTypeUIData as Weiqi.DefaultWeiqiUI.UIData;
+                                    defaultWeiqiUIData.removeCallBackAndDestroy(typeof(Weiqi.DefaultWeiqiUI));
+                                }
+                                break;
+                            case GameType.Type.SHOGI:
+                                {
+                                    Shogi.DefaultShogiUI.UIData defaultShogiUIData = defaultGameTypeUIData as Shogi.DefaultShogiUI.UIData;
+                                    defaultShogiUIData.removeCallBackAndDestroy(typeof(Shogi.DefaultShogiUI));
+                                }
+                                break;
+                            case GameType.Type.Reversi:
+                                {
+                                    Reversi.DefaultReversiUI.UIData defaultReversiUIData = defaultGameTypeUIData as Reversi.DefaultReversiUI.UIData;
+                                    defaultReversiUIData.removeCallBackAndDestroy(typeof(Reversi.DefaultReversiUI));
+                                }
+                                break;
+
+                            case GameType.Type.Gomoku:
+                                {
+                                    Gomoku.DefaultGomokuUI.UIData defaultGomokuUIData = defaultGameTypeUIData as Gomoku.DefaultGomokuUI.UIData;
+                                    defaultGomokuUIData.removeCallBackAndDestroy(typeof(Gomoku.DefaultGomokuUI));
+                                }
+                                break;
+
+                            case GameType.Type.InternationalDraught:
+                                {
+                                    InternationalDraught.DefaultInternationalDraughtUI.UIData defaultInternationalDraughtUIData = defaultGameTypeUIData as InternationalDraught.DefaultInternationalDraughtUI.UIData;
+                                    defaultInternationalDraughtUIData.removeCallBackAndDestroy(typeof(InternationalDraught.DefaultInternationalDraughtUI));
+                                }
+                                break;
+                            case GameType.Type.EnglishDraught:
+                                {
+                                    EnglishDraught.DefaultEnglishDraughtUI.UIData defaultEnglishDraughtUIData = defaultGameTypeUIData as EnglishDraught.DefaultEnglishDraughtUI.UIData;
+                                    defaultEnglishDraughtUIData.removeCallBackAndDestroy(typeof(EnglishDraught.DefaultEnglishDraughtUI));
+                                }
+                                break;
+                            case GameType.Type.RussianDraught:
+                                {
+                                    RussianDraught.DefaultRussianDraughtUI.UIData defaultRussianDraughtUIData = defaultGameTypeUIData as RussianDraught.DefaultRussianDraughtUI.UIData;
+                                    defaultRussianDraughtUIData.removeCallBackAndDestroy(typeof(RussianDraught.DefaultRussianDraughtUI));
+                                }
+                                break;
+                            case GameType.Type.ChineseCheckers:
+                                {
+                                    ChineseCheckers.DefaultChineseCheckersUI.UIData defaultChineseCheckersUIData = defaultGameTypeUIData as ChineseCheckers.DefaultChineseCheckersUI.UIData;
+                                    defaultChineseCheckersUIData.removeCallBackAndDestroy(typeof(ChineseCheckers.DefaultChineseCheckersUI));
+                                }
+                                break;
+
+                            case GameType.Type.MineSweeper:
+                                {
+                                    MineSweeper.DefaultMineSweeperUI.UIData defaultMineSweeperUIData = defaultGameTypeUIData as MineSweeper.DefaultMineSweeperUI.UIData;
+                                    defaultMineSweeperUIData.removeCallBackAndDestroy(typeof(MineSweeper.DefaultMineSweeperUI));
+                                }
+                                break;
+                            case GameType.Type.Hex:
+                                {
+                                    HEX.DefaultHexUI.UIData defaultHexUIData = defaultGameTypeUIData as HEX.DefaultHexUI.UIData;
+                                    defaultHexUIData.removeCallBackAndDestroy(typeof(HEX.DefaultHexUI));
+                                }
+                                break;
+                            case GameType.Type.Solitaire:
+                                {
+                                    Solitaire.DefaultSolitaireUI.UIData defaultSolitaireUIData = defaultGameTypeUIData as Solitaire.DefaultSolitaireUI.UIData;
+                                    defaultSolitaireUIData.removeCallBackAndDestroy(typeof(Solitaire.DefaultSolitaireUI));
+                                }
+                                break;
+                            case GameType.Type.Sudoku:
+                                {
+                                    Sudoku.DefaultSudokuUI.UIData defaultSudokuUIData = defaultGameTypeUIData as Sudoku.DefaultSudokuUI.UIData;
+                                    defaultSudokuUIData.removeCallBackAndDestroy(typeof(Sudoku.DefaultSudokuUI));
+                                }
+                                break;
+                            case GameType.Type.Khet:
+                                {
+                                    Khet.DefaultKhetUI.UIData defaultKhetUIData = defaultGameTypeUIData as Khet.DefaultKhetUI.UIData;
+                                    defaultKhetUIData.removeCallBackAndDestroy(typeof(Khet.DefaultKhetUI));
+                                }
+                                break;
+                            case GameType.Type.NineMenMorris:
+                                {
+                                    NineMenMorris.DefaultNineMenMorrisUI.UIData defaultNineMenMorrisUIData = defaultGameTypeUIData as NineMenMorris.DefaultNineMenMorrisUI.UIData;
+                                    defaultNineMenMorrisUIData.removeCallBackAndDestroy(typeof(NineMenMorris.DefaultNineMenMorrisUI));
+                                }
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + defaultGameTypeUIData + "; " + this);
+                                break;
+                        }
+                    }
+                    return;
                 }
-                return;
+                // Child
+                if(data is TransformData)
+                {
+                    return;
+                }
             }
             if (data is RequestChangeBoolUI.UIData)
             {
@@ -1767,9 +1846,32 @@ public class DefaultGameDataFactoryUI : UIBehavior<DefaultGameDataFactoryUI.UIDa
             {
                 return;
             }
-            if (wrapProperty.p is DefaultGameTypeUI)
+            // defaultGameTypeUI
             {
-                return;
+                if (wrapProperty.p is DefaultGameTypeUI)
+                {
+                    return;
+                }
+                // Child
+                if(wrapProperty.p is TransformData)
+                {
+                    switch ((TransformData.Property)wrapProperty.n)
+                    {
+                        case TransformData.Property.position:
+                            break;
+                        case TransformData.Property.rotation:
+                            break;
+                        case TransformData.Property.scale:
+                            break;
+                        case TransformData.Property.size:
+                            dirty = true;
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
             }
             if (wrapProperty.p is RequestChangeBoolUI.UIData)
             {

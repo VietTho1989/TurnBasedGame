@@ -17,7 +17,6 @@ public class PrintRectTransform : MonoBehaviour
 
     }
 
-
     private void print()
     {
         RectTransform rectTransform = this.GetComponent<RectTransform>();

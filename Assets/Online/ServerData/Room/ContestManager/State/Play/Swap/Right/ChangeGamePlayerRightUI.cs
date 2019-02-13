@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace GameManager.Match.Swap
 {
-	public class ChangeGamePlayerRightUI : UIBehavior<ChangeGamePlayerRightUI.UIData>
+	public class ChangeGamePlayerRightUI : UIBehavior<ChangeGamePlayerRightUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -158,12 +159,65 @@ namespace GameManager.Match.Swap
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		private bool needReset = true;
-		public GameObject differentIndicator;
+        public Text lbTitle;
+        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+
+        public Text lbCanChange;
+        private static readonly TxtLanguage txtCanChange = new TxtLanguage();
+
+        public Text lbCanChangePlayerLeft;
+        private static readonly TxtLanguage txtCanChangePlayerLeft = new TxtLanguage();
+
+        public Text lbNeedAdminAccept;
+        private static readonly TxtLanguage txtNeedAdminAccept = new TxtLanguage();
+
+        public Text lbOnlyAdminNeed;
+        private static readonly TxtLanguage txtOnlyAdminNeed = new TxtLanguage();
+
+        static ChangeGamePlayerRightUI()
+        {
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Quyền thay đổi người chơi");
+                txtCanChange.add(Language.Type.vi, "Có thể đổi");
+                txtCanChangePlayerLeft.add(Language.Type.vi, "Có thể đổi người đã rời");
+                txtNeedAdminAccept.add(Language.Type.vi, "Cần admin chấp nhận");
+                txtOnlyAdminNeed.add(Language.Type.vi, "Chỉ cần admin");
+            }
+            // rect
+            {
+                canChangeRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                canChangePlayerLeftRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                needAdminAcceptRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                onlyAdminNeedRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+            }
+        }
+
+        #endregion
+
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
+
+        private bool needReset = true;
 
 		public override void refresh ()
 		{
@@ -177,8 +231,8 @@ namespace GameManager.Match.Swap
 						ChangeGamePlayerRight show = editChangeGamePlayerRight.show.v.data;
 						ChangeGamePlayerRight compare = editChangeGamePlayerRight.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editChangeGamePlayerRight.compareOtherType.v.data != null) {
@@ -187,9 +241,9 @@ namespace GameManager.Match.Swap
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// request
 							{
@@ -385,10 +439,46 @@ namespace GameManager.Match.Swap
 							}
 						}
 					}
-				} else {
+                    // txt
+                    {
+                        if (lbCanChange != null)
+                        {
+                            lbCanChange.text = txtCanChange.get("Can change");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbCanChange null");
+                        }
+                        if (lbCanChangePlayerLeft != null)
+                        {
+                            lbCanChangePlayerLeft.text = txtCanChangePlayerLeft.get("Can change player left");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbCanChangePlayerLeft null");
+                        }
+                        if (lbNeedAdminAccept != null)
+                        {
+                            lbNeedAdminAccept.text = txtNeedAdminAccept.get("Need admin accepted");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbNeedAdminAccept null");
+                        }
+                        if (lbOnlyAdminNeed != null)
+                        {
+                            lbOnlyAdminNeed.text = txtOnlyAdminNeed.get("Only admin needed");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbOnlyAdminNeed null");
+                        }
+                    }
+                } else {
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()
@@ -400,10 +490,10 @@ namespace GameManager.Match.Swap
 
 		#region implement callBacks
 
-		public Transform canChangeContainer;
-		public Transform canChangePlayerLeftContainer;
-		public Transform needAdminAcceptContainer;
-		public Transform onlyAdminNeedContainer;
+		private static readonly UIRectTransform canChangeRect = new UIRectTransform(UIConstants.RequestBoolRect);
+		private static readonly UIRectTransform canChangePlayerLeftRect = new UIRectTransform(UIConstants.RequestBoolRect);
+		private static readonly UIRectTransform needAdminAcceptRect = new UIRectTransform(UIConstants.RequestBoolRect);
+        private static readonly UIRectTransform onlyAdminNeedRect = new UIRectTransform(UIConstants.RequestBoolRect);
 
 		public RequestChangeBoolUI requestBoolPrefab;
 
@@ -468,16 +558,16 @@ namespace GameManager.Match.Swap
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.canChange:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, canChangeContainer);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, canChangeRect);
 								break;
 							case UIData.Property.canChangePlayerLeft:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, canChangePlayerLeftContainer);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, canChangePlayerLeftRect);
 								break;
 							case UIData.Property.needAdminAccept:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, needAdminAcceptContainer);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, needAdminAcceptRect);
 								break;
 							case UIData.Property.onlyAdminNeed:
-								UIUtils.Instantiate (requestChange, requestBoolPrefab, onlyAdminNeedContainer);
+								UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, onlyAdminNeedRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);

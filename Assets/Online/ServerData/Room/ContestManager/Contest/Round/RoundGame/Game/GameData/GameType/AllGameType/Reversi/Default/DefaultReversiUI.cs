@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Reversi
 {
-	public class DefaultReversiUI : UIBehavior<DefaultReversiUI.UIData>
+	public class DefaultReversiUI : UIBehavior<DefaultReversiUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -54,9 +54,30 @@ namespace Reversi
 			txtTitle.add (Language.Type.vi, "Mặc Định Cờ Othello");
 		}
 
-		#endregion
+        #endregion
 
-		private bool needReset = true;
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            /*if (transform.hasChanged)
+            {
+                transform.hasChanged = false;
+                this.transformData.update(this.transform);
+            }*/
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        private bool needReset = true;
 		private bool miniGameDataDirty = true;
 
 		public override void refresh ()
@@ -170,6 +191,7 @@ namespace Reversi
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

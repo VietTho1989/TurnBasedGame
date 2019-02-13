@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace NineMenMorris
 {
-	public class DefaultNineMenMorrisUI : UIBehavior<DefaultNineMenMorrisUI.UIData>
+	public class DefaultNineMenMorrisUI : UIBehavior<DefaultNineMenMorrisUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -54,9 +54,30 @@ namespace NineMenMorris
 			txtTitle.add (Language.Type.vi, "Mặc Định Nine men's morris");
 		}
 
-		#endregion
+        #endregion
 
-		private bool needReset = true;
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            /*if (transform.hasChanged)
+            {
+                transform.hasChanged = false;
+                this.transformData.update(this.transform);
+            }*/
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        private bool needReset = true;
 		private bool miniGameDataDirty = true;
 
 		public override void refresh ()
@@ -170,6 +191,7 @@ namespace NineMenMorris
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

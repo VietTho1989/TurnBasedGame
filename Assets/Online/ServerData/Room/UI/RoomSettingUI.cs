@@ -146,15 +146,22 @@ public class RoomSettingUI : UIBehavior<RoomSettingUI.UIData>
 
 	static RoomSettingUI()
 	{
-		txtTitle.add (Language.Type.vi, "Thiết Lập Phòng");
-		txtName.add (Language.Type.vi, "Tên");
-		txtAllowHint.add (Language.Type.vi, "Cho phép gợi ý");
-	}
+        // txt
+        {
+            txtTitle.add(Language.Type.vi, "Thiết Lập Phòng");
+            txtName.add(Language.Type.vi, "Tên");
+            txtAllowHint.add(Language.Type.vi, "Cho phép gợi ý");
+        }
+        // rect
+        {
+            nameRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+            allowHintRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+        }
+    }
 
 	#endregion
 
 	private bool needReset = true;
-	public GameObject differentIndicator;
 
 	public override void refresh ()
 	{
@@ -168,8 +175,8 @@ public class RoomSettingUI : UIBehavior<RoomSettingUI.UIData>
 					Room show = editRoom.show.v.data;
 					Room compare = editRoom.compare.v.data;
 					if (show != null) {
-						// differentIndicator
-						if (differentIndicator != null) {
+						// different
+						if (lbTitle != null) {
 							bool isDifferent = false;
 							{
 								if (editRoom.compareOtherType.v.data != null) {
@@ -178,9 +185,9 @@ public class RoomSettingUI : UIBehavior<RoomSettingUI.UIData>
 									}
 								}
 							}
-							differentIndicator.SetActive (isDifferent);
+                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 						} else {
-							Debug.LogError ("differentIndicator null: " + this);
+							Debug.LogError ("lbTitle null: " + this);
 						}
 						// request
 						{
@@ -363,8 +370,24 @@ public class RoomSettingUI : UIBehavior<RoomSettingUI.UIData>
 				} else {
 					Debug.LogError ("editRoom null: " + this);
 				}
-				// txt
-				{
+                // UI Size
+                {
+                    float deltaY = UIConstants.HeaderHeight;
+                    // name
+                    {
+                        deltaY += UIConstants.ItemHeight;
+                    }
+                    // allowHint
+                    {
+                        deltaY += UIConstants.ItemHeight;
+                    }
+                    // changeRights
+                    deltaY += UIRectTransform.SetPosY(this.data.changeRights.v, deltaY);
+                    // set
+                    UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                }
+                // txt
+                {
 					if (lbTitle != null) {
 						lbTitle.text = txtTitle.get ("Room Setting");
 					} else {
@@ -400,9 +423,8 @@ public class RoomSettingUI : UIBehavior<RoomSettingUI.UIData>
 	public RequestChangeEnumUI requestEnumPrefab;
 	public ChangeRightsUI changeRightsPrefab;
 
-	public Transform nameContainer;
-	public Transform allowHintContainer;
-	public Transform changeRightsContainer;
+	private static readonly UIRectTransform nameRect = new UIRectTransform(UIConstants.RequestEnumRect);
+    private static readonly UIRectTransform allowHintRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
 	private Server server = null;
 
@@ -471,7 +493,7 @@ public class RoomSettingUI : UIBehavior<RoomSettingUI.UIData>
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
 						case UIData.Property.name:
-							UIUtils.Instantiate (requestChange, requestStringPrefab, nameContainer);
+							UIUtils.Instantiate (requestChange, requestStringPrefab, this.transform, nameRect);
 							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -493,7 +515,7 @@ public class RoomSettingUI : UIBehavior<RoomSettingUI.UIData>
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
 						case UIData.Property.allowHint:
-							UIUtils.Instantiate (requestChange, requestEnumPrefab, allowHintContainer);
+							UIUtils.Instantiate (requestChange, requestEnumPrefab, this.transform, allowHintRect);
 							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -511,7 +533,7 @@ public class RoomSettingUI : UIBehavior<RoomSettingUI.UIData>
 				ChangeRightsUI.UIData changeRightsUIData = data as ChangeRightsUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (changeRightsUIData, changeRightsPrefab, changeRightsContainer);
+					UIUtils.Instantiate (changeRightsUIData, changeRightsPrefab, this.transform);
 				}
 				dirty = true;
 				return;

@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace GameManager.Match
 {
-	public class CalculateScoreSumUI : UIBehavior<CalculateScoreSumUI.UIData>
+	public class CalculateScoreSumUI : UIBehavior<CalculateScoreSumUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -35,12 +36,44 @@ namespace GameManager.Match
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region TransformData
 
-		private bool needReset = true;
-		public GameObject differentIndicator;
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            /*if (transform.hasChanged)
+            {
+                transform.hasChanged = false;
+                this.transformData.update(this.transform);
+            }*/
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region txt
+
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+
+        static CalculateScoreSumUI()
+        {
+            txtTitle.add(Language.Type.vi, "Tính điểm theo tổng");
+        }
+
+        #endregion
+
+        #region Refresh
+
+        private bool needReset = true;
 
 		public override void refresh ()
 		{
@@ -54,8 +87,8 @@ namespace GameManager.Match
 						CalculateScoreSum show = editCalculateScoreSum.show.v.data;
 						CalculateScoreSum compare = editCalculateScoreSum.compare.v.data;
 						if (show != null) {
-							// differentIndicator
-							if (differentIndicator != null) {
+							// different
+							if (lbTitle != null) {
 								bool isDifferent = false;
 								{
 									if (editCalculateScoreSum.compareOtherType.v.data != null) {
@@ -64,9 +97,9 @@ namespace GameManager.Match
 										}
 									}
 								}
-								differentIndicator.SetActive (isDifferent);
+                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 							} else {
-								Debug.LogError ("differentIndicator null: " + this);
+								Debug.LogError ("lbTitle null: " + this);
 							}
 							// request
 							{
@@ -99,10 +132,22 @@ namespace GameManager.Match
 					} else {
 						Debug.LogError ("editNoLimit null: " + this);
 					}
-				} else {
+                    // txt
+                    {
+                        if (lbTitle != null)
+                        {
+                            lbTitle.text = txtTitle.get("Calculate score by sum");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null");
+                        }
+                    }
+                } else {
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()
@@ -120,6 +165,8 @@ namespace GameManager.Match
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
 				// Child
 				{
 					uiData.editCalculateScoreSum.allAddCallBack (this);
@@ -127,8 +174,14 @@ namespace GameManager.Match
 				dirty = true;
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // Child
+            {
 				// editCalculateScoreSum
 				{
 					if (data is EditData<CalculateScoreSum>) {
@@ -170,15 +223,22 @@ namespace GameManager.Match
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
-				// Child
-				{
+                // Setting
+                Setting.get().removeCallBack(this);
+                // Child
+                {
 					uiData.editCalculateScoreSum.allRemoveCallBack (this);
 				}
 				this.setDataNull (uiData);
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if (data is Setting)
+            {
+                return;
+            }
+            // Child
+            {
 				// editCalculateScoreSum
 				{
 					if (data is EditData<CalculateScoreSum>) {
@@ -231,8 +291,32 @@ namespace GameManager.Match
 				}
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            {
 				// editCalculateScoreSum
 				{
 					if (wrapProperty.p is EditData<CalculateScoreSum>) {

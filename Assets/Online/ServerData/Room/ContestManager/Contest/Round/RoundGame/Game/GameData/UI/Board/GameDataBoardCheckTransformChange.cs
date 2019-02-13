@@ -66,7 +66,7 @@ public class GameDataBoardCheckTransformChange<K> : Data, ValueChangeCallBack wh
                     }
                     else
                     {
-                        Debug.LogError("gameDataBoardUI null");
+                        // Debug.LogError("gameDataBoardUI null");
                     }
                 }
 				gameDataBoardUIData.perspective.allAddCallBack (this);

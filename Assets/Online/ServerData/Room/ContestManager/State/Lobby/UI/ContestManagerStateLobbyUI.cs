@@ -262,7 +262,26 @@ namespace GameManager.Match
 					// Debug.LogError ("data null: " + this);
 				}
 			}
-		}
+            // siblingIndex
+            {
+                if (editLobbyPlayerContainer != null)
+                {
+                    editLobbyPlayerContainer.SetAsLastSibling();
+                }
+                else
+                {
+                    Debug.LogError("editLobbyPlayerContainer null");
+                }
+                if (editPostureGameDataUIContainer != null)
+                {
+                    editPostureGameDataUIContainer.SetAsLastSibling();
+                }
+                else
+                {
+                    Debug.LogError("editPostureGameDataUIContainer null");
+                }
+            }
+        }
 
 		public override bool isShouldDisableUpdate ()
 		{
