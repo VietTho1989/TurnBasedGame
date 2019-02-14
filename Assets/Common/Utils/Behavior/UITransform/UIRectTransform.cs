@@ -39,6 +39,21 @@ public class UIRectTransform
         this.scale = rectTransform.scale;
     }
 
+    public UIRectTransform(UIRectTransform rectTransform, float posY)
+    {
+        this.anchoredPosition = rectTransform.anchoredPosition;
+        this.anchorMin = rectTransform.anchorMin;
+        this.anchorMax = rectTransform.anchorMax;
+        this.pivot = rectTransform.pivot;
+        this.offsetMin = rectTransform.offsetMin;
+        this.offsetMax = rectTransform.offsetMax;
+        this.sizeDelta = rectTransform.sizeDelta;
+        this.rotation = rectTransform.rotation;
+        this.scale = rectTransform.scale;
+        // posY
+        this.setPosY(posY);
+    }
+
     #endregion
 
     public void set(RectTransform rectTransform)
@@ -206,9 +221,9 @@ public class UIRectTransform
     public static void SetHeight(RectTransform rectTransform, float size)
     {
         // Debug.LogError("setHeight: " + size);
-        if (rectTransform.anchorMin == new Vector2(0.0f, 1.0f)
-            && rectTransform.anchorMax == new Vector2(1.0f, 1.0f)
-            && rectTransform.pivot == new Vector2(0.5f, 1f))
+        if (rectTransform.anchorMin.y == 1.0f
+            && rectTransform.anchorMax.y == 1.0f
+            && rectTransform.pivot.y == 1.0f)
         {
             rectTransform.offsetMin = new Vector2(rectTransform.offsetMin.x, rectTransform.anchoredPosition.y - size);
             rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, size);

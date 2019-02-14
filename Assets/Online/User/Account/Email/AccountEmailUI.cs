@@ -255,24 +255,30 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
 
 	static AccountEmailUI()
 	{
-		txtTitle.add (Language.Type.vi, "Tài khoản email");
+        // txt
+        {
+            txtTitle.add(Language.Type.vi, "Tài khoản email");
 
-		txtChangeType.add (Language.Type.vi, "Đổi Loại");
-		txtLogin.add (Language.Type.vi, "Đăng Nhập");
-		txtRegister.add (Language.Type.vi, "Đăng Ký");
+            txtChangeType.add(Language.Type.vi, "Đổi Loại");
+            txtLogin.add(Language.Type.vi, "Đăng Nhập");
+            txtRegister.add(Language.Type.vi, "Đăng Ký");
 
-		txtEmail.add (Language.Type.vi, "Email");
-		txtPassword.add (Language.Type.vi, "Mật Khẩu");
-		txtRetypePassword.add (Language.Type.vi, "Gõ lại mật khẩu");
-		txtChangePassword.add (Language.Type.vi, "Đổi mật khẩu");
-		txtCustomName.add (Language.Type.vi, "Tên");
-		txtAvatarUrl.add (Language.Type.vi, "Đường dẫn avatar");
+            txtEmail.add(Language.Type.vi, "Email");
+            txtPassword.add(Language.Type.vi, "Mật Khẩu");
+            txtRetypePassword.add(Language.Type.vi, "Gõ lại mật khẩu");
+            txtChangePassword.add(Language.Type.vi, "Đổi mật khẩu");
+            txtCustomName.add(Language.Type.vi, "Tên");
+            txtAvatarUrl.add(Language.Type.vi, "Đường dẫn avatar");
+        }
+        // rect
+        {
+
+        }
 	}
 
 	#endregion
 
 	private bool needReset = true;
-	public GameObject differentIndicator;
 
 	public override void refresh ()
 	{
@@ -286,8 +292,8 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
 					AccountEmail show = editAccountEmail.show.v.data;
 					AccountEmail compare = editAccountEmail.compare.v.data;
 					if (show != null) {
-						// differentIndicator
-						if (differentIndicator != null) {
+						// different
+						if (lbTitle != null) {
 							bool isDifferent = false;
 							{
 								if (editAccountEmail.compareOtherType.v.data != null) {
@@ -296,9 +302,9 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
 									}
 								}
 							}
-							differentIndicator.SetActive (isDifferent);
+                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 						} else {
-							Debug.LogError ("differentIndicator null: " + this);
+							Debug.LogError ("lbTitle null: " + this);
 						}
 						// set component
 						{
@@ -443,16 +449,6 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
 									this.data.avatarUrl.v = null;
 								}
 							}
-
-							// btnChangePasswordContainer
-							{
-								if (btnChangePasswordContainer != null) {
-									btnChangePasswordContainer.gameObject.SetActive (this.data.password.v != null 
-										&& this.data.retypePassword.v != null && this.data.type.v == UIData.Type.Show);
-								} else {
-									Debug.LogError ("btnChangePasswordContainer");
-								}
-							}
 						}
 						// request
 						{
@@ -492,12 +488,6 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
 									} else {
 										Debug.LogError ("changeType null: " + this);
 									}
-									// Container
-									if (changeTypeContainer != null) {
-										changeTypeContainer.parent.gameObject.SetActive (changeType != null);
-									} else {
-										Debug.LogError ("changeTypeContainer null: " + this);
-									}
 								}
 								// email
 								{
@@ -533,12 +523,6 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
 									} else {
 										Debug.LogError ("email null: " + this);
 									}
-									// Container
-									if (emailContainer != null) {
-										emailContainer.parent.gameObject.SetActive (email != null);
-									} else {
-										Debug.LogError ("emailContainer null: " + this);
-									}
 								}
 								// password
 								{
@@ -560,12 +544,6 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
 									} else {
 										Debug.LogError ("password null: " + this);
 									}
-									// Container
-									if (passwordContainer != null) {
-										passwordContainer.parent.gameObject.SetActive (password != null);
-									} else {
-										Debug.LogError ("passwordContainer null: " + this);
-									}
 								}
 								// retypePassword
 								{
@@ -586,12 +564,6 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
 										}
 									} else {
 										Debug.LogError ("retypePassword null: " + this);
-									}
-									// Container
-									if (retypePasswordContainer != null) {
-										retypePasswordContainer.parent.gameObject.SetActive (retypePassword != null);
-									} else {
-										Debug.LogError ("retypePasswordContainer null: " + this);
 									}
 								}
 								// customName
@@ -619,12 +591,6 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
 									} else {
 										Debug.LogError ("customName null: " + this);
 									}
-									// Container
-									if (customNameContainer != null) {
-										customNameContainer.parent.gameObject.SetActive (customName != null);
-									} else {
-										Debug.LogError ("customNameContainer null: " + this);
-									}
 								}
 								// avatarUrl
 								{
@@ -650,12 +616,6 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
 										}
 									} else {
 										Debug.LogError ("avatarUrl null: " + this);
-									}
-									// Container
-									if (avatarUrlContainer != null) {
-										avatarUrlContainer.parent.gameObject.SetActive (avatarUrl != null);
-									} else {
-										Debug.LogError ("avatarUrlContainer null: " + this);
 									}
 								}
 							}
@@ -766,8 +726,198 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
 				} else {
 					Debug.LogError ("editAccountEmail null: " + this);
 				}
-				// txt
-				{
+                // UI Size
+                {
+                    float deltaY = UIConstants.HeaderHeight;
+                    // changeType
+                    {
+                        if (this.data.changeType.v != null)
+                        {
+                            if (lbChangeType != null)
+                            {
+                                lbChangeType.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbChangeType.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbChangeType null");
+                            }
+                            UIRectTransform.SetPosY(this.data.changeType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbChangeType != null)
+                            {
+                                lbChangeType.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbChangeType null");
+                            }
+                        }
+                    }
+                    // email
+                    {
+                        if (this.data.email.v != null)
+                        {
+                            if (lbEmail != null)
+                            {
+                                lbEmail.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbEmail.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("email null");
+                            }
+                            UIRectTransform.SetPosY(this.data.email.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbEmail != null)
+                            {
+                                lbEmail.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("email null");
+                            }
+                        }
+                    }
+                    // password
+                    {
+                        if (this.data.password.v != null)
+                        {
+                            if (lbPassword != null)
+                            {
+                                lbPassword.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbPassword.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("password null");
+                            }
+                            UIRectTransform.SetPosY(this.data.password.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbPassword != null)
+                            {
+                                lbPassword.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("password null");
+                            }
+                        }
+                    }
+                    // retypePassword
+                    {
+                        if (this.data.retypePassword.v != null)
+                        {
+                            if (lbRetypePassword != null)
+                            {
+                                lbRetypePassword.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbRetypePassword.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("retypePassword null");
+                            }
+                            UIRectTransform.SetPosY(this.data.retypePassword.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbRetypePassword != null)
+                            {
+                                lbRetypePassword.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("retypePassword null");
+                            }
+                        }
+                    }
+                    // btnChangePassword
+                    {
+                        if (btnChangePassword != null)
+                        {
+                            btnChangePassword.SetActive(this.data.password.v != null
+                                && this.data.retypePassword.v != null && this.data.type.v == UIData.Type.Show);
+                            if (btnChangePassword.activeSelf)
+                            {
+                                deltaY += UIConstants.ItemHeight;
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("btnChangePassword null");
+                        }
+                    }
+                    // customName
+                    {
+                        if (this.data.customName.v != null)
+                        {
+                            if (lbCustomName != null)
+                            {
+                                lbCustomName.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbCustomName.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("customName null");
+                            }
+                            UIRectTransform.SetPosY(this.data.customName.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbCustomName != null)
+                            {
+                                lbCustomName.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("customName null");
+                            }
+                        }
+                    }
+                    // avatarUrl
+                    {
+                        if (this.data.avatarUrl.v != null)
+                        {
+                            if (lbAvatarUrl != null)
+                            {
+                                lbAvatarUrl.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbAvatarUrl.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("avatarUrl null");
+                            }
+                            UIRectTransform.SetPosY(this.data.avatarUrl.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbAvatarUrl != null)
+                            {
+                                lbAvatarUrl.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("avatarUrl null");
+                            }
+                        }
+                    }
+                    // set
+                    UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                }
+                // txt
+                {
 					if (lbTitle != null) {
 						lbTitle.text = txtTitle.get ("Account Email");
 					} else {
@@ -820,9 +970,9 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
 		return true;
 	}
 
-	#endregion
+    #endregion
 
-	public Transform btnChangePasswordContainer;
+    public GameObject btnChangePassword;
 
 	public void onClickBtnChangePassword()
 	{
@@ -849,12 +999,12 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
 	public RequestChangeEnumUI requestEnumPrefab;
 	public RequestChangeStringUI requestStringPrefab;
 
-	public Transform changeTypeContainer;
-	public Transform emailContainer;
-	public Transform passwordContainer;
-	public Transform retypePasswordContainer;
-	public Transform customNameContainer;
-	public Transform avatarUrlContainer;
+	private static readonly UIRectTransform changeTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
+	private static readonly UIRectTransform emailRect = new UIRectTransform(UIConstants.RequestEnumRect);
+	private static readonly UIRectTransform passwordRect = new UIRectTransform(UIConstants.RequestEnumRect);
+	private static readonly UIRectTransform retypePasswordRect = new UIRectTransform(UIConstants.RequestEnumRect);
+	private static readonly UIRectTransform customNameRect = new UIRectTransform(UIConstants.RequestEnumRect);
+	private static readonly UIRectTransform avatarUrlRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
 	private Server server = null;
 	private Human human = null;
@@ -932,19 +1082,19 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
 						case UIData.Property.email:
-							UIUtils.Instantiate (requestChange, requestStringPrefab, emailContainer);
+							UIUtils.Instantiate (requestChange, requestStringPrefab, this.transform, emailRect);
 							break;
 						case UIData.Property.password:
-							UIUtils.Instantiate (requestChange, requestStringPrefab, passwordContainer);
+							UIUtils.Instantiate (requestChange, requestStringPrefab, this.transform, passwordRect);
 							break;
 						case UIData.Property.retypePassword:
-							UIUtils.Instantiate (requestChange, requestStringPrefab, retypePasswordContainer);
+							UIUtils.Instantiate (requestChange, requestStringPrefab, this.transform, retypePasswordRect);
 							break;
 						case UIData.Property.customName:
-							UIUtils.Instantiate (requestChange, requestStringPrefab, customNameContainer);
+							UIUtils.Instantiate (requestChange, requestStringPrefab, this.transform, customNameRect);
 							break;
 						case UIData.Property.avatarUrl:
-							UIUtils.Instantiate (requestChange, requestStringPrefab, avatarUrlContainer);
+							UIUtils.Instantiate (requestChange, requestStringPrefab, this.transform, avatarUrlRect);
 							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -965,7 +1115,7 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
 						case UIData.Property.changeType:
-							UIUtils.Instantiate (requestChange, requestEnumPrefab, changeTypeContainer);
+							UIUtils.Instantiate (requestChange, requestEnumPrefab, this.transform, changeTypeRect);
 							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);

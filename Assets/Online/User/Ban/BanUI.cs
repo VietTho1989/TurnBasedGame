@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class BanUI : UIBehavior<BanUI.UIData>
+public class BanUI : UIBehavior<BanUI.UIData>, HaveTransformData
 {
 
 	#region UIData
@@ -41,11 +41,27 @@ public class BanUI : UIBehavior<BanUI.UIData>
 
 	}
 
-	#endregion
+    #endregion
 
-	#region Refresh
+    #region TransformData
 
-	public override void refresh ()
+    public TransformData transformData = new TransformData();
+
+    private void updateTransformData()
+    {
+        this.transformData.update(this.transform);
+    }
+
+    public TransformData getTransformData()
+    {
+        return this.transformData;
+    }
+
+    #endregion
+
+    #region Refresh
+
+    public override void refresh ()
 	{
 		if (dirty) {
 			dirty = false;
@@ -86,6 +102,7 @@ public class BanUI : UIBehavior<BanUI.UIData>
 				Debug.LogError ("data null: " + this);
 			}
 		}
+        updateTransformData();
 	}
 
 	public override bool isShouldDisableUpdate ()

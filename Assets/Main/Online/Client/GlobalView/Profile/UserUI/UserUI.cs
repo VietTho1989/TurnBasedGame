@@ -167,9 +167,6 @@ public class UserUI : UIBehavior<UserUI.UIData>
 	public Text tvBack;
 	public static readonly TxtLanguage txtBack = new TxtLanguage();
 
-	public Text lbEditType;
-	public static readonly TxtLanguage txtEditType = new TxtLanguage ();
-
 	public Text tvChat;
 	public static readonly TxtLanguage txtChat = new TxtLanguage ();
 
@@ -191,7 +188,6 @@ public class UserUI : UIBehavior<UserUI.UIData>
         {
             txtTitle.add(Language.Type.vi, "Thông tin người dùng");
             txtBack.add(Language.Type.vi, "Quay Lại");
-            txtEditType.add(Language.Type.vi, "Loại chỉnh sửa");
             txtChat.add(Language.Type.vi, "Tán gẫu");
             txtRole.add(Language.Type.vi, "Vai trò");
             txtIpAddress.add(Language.Type.vi, "Địa chỉ ip");
@@ -200,8 +196,30 @@ public class UserUI : UIBehavior<UserUI.UIData>
         }
         // rect
         {
-            // editType
-            requestEditTypeRect.setPosY(UIConstants.HeaderHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+            // requestEditTypeRect
+            {
+                // anchoredPosition: (-160.0, 0.0); anchorMin: (1.0, 1.0); anchorMax: (1.0, 1.0); pivot: (1.0, 1.0); 
+                // offsetMin: (-320.0, -30.0); offsetMax: (-160.0, 0.0); sizeDelta: (160.0, 30.0);
+                requestEditTypeRect.anchoredPosition = new Vector3(-160.0f, 0f, 0f);
+                requestEditTypeRect.anchorMin = new Vector2(1.0f, 1.0f);
+                requestEditTypeRect.anchorMax = new Vector2(1.0f, 1.0f);
+                requestEditTypeRect.pivot = new Vector2(1.0f, 1.0f);
+                requestEditTypeRect.offsetMin = new Vector2(-320.0f, -30.0f);
+                requestEditTypeRect.offsetMax = new Vector2(-160.0f, 0.0f);
+                requestEditTypeRect.sizeDelta = new Vector2(160.0f, 30.0f);
+            }
+            // btnUpdateUserRect
+            {
+                // anchoredPosition: (-80.0, 15.0); anchorMin: (0.5, 0.0); anchorMax: (0.5, 0.0); pivot: (0.5, 0.0);
+                // offsetMin: (-160.0, 15.0); offsetMax: (0.0, 45.0); sizeDelta: (160.0, 30.0);
+                btnUpdateUserRect.anchoredPosition = new Vector3(-80.0f, 15.0f, 0.0f);
+                btnUpdateUserRect.anchorMin = new Vector2(0.5f, 0.0f);
+                btnUpdateUserRect.anchorMax = new Vector2(0.5f, 0.0f);
+                btnUpdateUserRect.pivot = new Vector2(0.5f, 0.0f);
+                btnUpdateUserRect.offsetMin = new Vector2(-160.0f, 15.0f);
+                btnUpdateUserRect.offsetMax = new Vector2(0.0f, 45.0f);
+                btnUpdateUserRect.sizeDelta = new Vector2(160.0f, 30.0f);
+            }
         }
     }
 
@@ -209,7 +227,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
 
 	private bool needReset = true;
 
-	public GameObject bottom;
+    public Button btnReset;
 
 	public override void refresh ()
 	{
@@ -267,23 +285,56 @@ public class UserUI : UIBehavior<UserUI.UIData>
 								} else {
 									Debug.LogError ("updateData null: " + this);
 								}
-							} else {
+                                // show or not
+                                {
+                                    RequestChangeEnumUI requestEditTypeUI = requestEditType.findCallBack<RequestChangeEnumUI>();
+                                    if (requestEditTypeUI != null)
+                                    {
+                                        requestEditTypeUI.gameObject.SetActive(editUser.canEdit.v);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("requestEditTypeUI null");
+                                    }
+                                }
+                            } else {
 								Debug.LogError ("editType null: " + this);
 							}
 						}
-					}
+                    }
 					// bottom
 					{
-						if (bottom != null) {
-							if (editUser.canEdit.v && editUser.editType.v == Data.EditType.Later) {
-								bottom.SetActive (true);
-							} else {
-								bottom.SetActive (false);
-							}
-						} else {
-							Debug.LogError ("bottom null: " + this);
-						}
-					}
+                        bool isShowBottom = editUser.canEdit.v && editUser.editType.v == Data.EditType.Later;
+                        // btnReset
+                        if (btnReset != null)
+                        {
+                            btnReset.gameObject.SetActive(isShowBottom);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnReset null");
+                        }
+                        // btnUpdateUser
+                        {
+                            BtnUpdateUser.UIData btnUpdateUIData = this.data.btnUpdate.v;
+                            if (btnUpdateUIData != null)
+                            {
+                                BtnUpdateUser btnUpdate = btnUpdateUIData.findCallBack<BtnUpdateUser>();
+                                if (btnUpdate != null)
+                                {
+                                    btnUpdate.gameObject.SetActive(isShowBottom);
+                                }
+                                else
+                                {
+                                    Debug.LogError("btnUpdate null");
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("btnUpdateUIData null");
+                            }
+                        }
+                    }
 					editUser.update ();
 					// get show
 					User show = editUser.show.v.data;
@@ -532,8 +583,106 @@ public class UserUI : UIBehavior<UserUI.UIData>
 				} else {
 					Debug.LogError ("editUser null: " + this);
 				}
-				// txt
-				{
+                // UI Size
+                {
+                    float deltaY = 0;
+                    // human
+                    deltaY += UIRectTransform.SetPosY(this.data.human.v, deltaY);
+                    // role
+                    {
+                        if (this.data.role.v != null)
+                        {
+                            if (lbRole != null)
+                            {
+                                lbRole.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbRole.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbRole null");
+                            }
+                            UIRectTransform.SetPosY(this.data.role.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbRole != null)
+                            {
+                                lbRole.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbRole null");
+                            }
+                        }
+                    }
+                    // ipAddress
+                    {
+                        if (this.data.ipAddress.v != null)
+                        {
+                            if (lbIpAddress != null)
+                            {
+                                lbIpAddress.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbIpAddress.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbIpAddress null");
+                            }
+                            UIRectTransform.SetPosY(this.data.ipAddress.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbIpAddress != null)
+                            {
+                                lbIpAddress.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbIpAddress null");
+                            }
+                        }
+                    }
+                    // registerTime
+                    {
+                        if (this.data.registerTime.v != null)
+                        {
+                            if (lbRegisterTime != null)
+                            {
+                                lbRegisterTime.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbRegisterTime.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbRegisterTime null");
+                            }
+                            UIRectTransform.SetPosY(this.data.registerTime.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbRegisterTime != null)
+                            {
+                                lbRegisterTime.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbRegisterTime null");
+                            }
+                        }
+                    }
+                    if (contentContainer != null)
+                    {
+                        UIRectTransform.SetHeight((RectTransform)contentContainer, deltaY);
+                    }
+                    else
+                    {
+                        Debug.LogError("contentContainer null");
+                    }
+                }
+                // txt
+                {
 					if (lbTitle != null) {
 						lbTitle.text = txtTitle.get ("User Information");
 					} else {
@@ -543,11 +692,6 @@ public class UserUI : UIBehavior<UserUI.UIData>
 						tvBack.text = txtBack.get ("Back");
 					} else {
 						Debug.LogError ("tvBack null: " + this);
-					}
-					if (lbEditType != null) {
-						lbEditType.text = txtEditType.get ("Edit Type");
-					} else {
-						Debug.LogError ("lbEditType null: " + this);
 					}
 					if (tvChat != null) {
 						tvChat.text = txtChat.get ("Chat");
@@ -590,20 +734,22 @@ public class UserUI : UIBehavior<UserUI.UIData>
 
 	#region implement callBacks
 
-	private static readonly UIRectTransform requestEditTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
+	private static readonly UIRectTransform requestEditTypeRect = new UIRectTransform();
+
+    public Transform contentContainer;
 
 	public HumanUI humanPrefab;
 	public RequestChangeEnumUI requestEnumPrefab;
 	public RequestChangeStringUI requestStringPrefab;
 	public RequestChangeLongUI requestLongPrefab;
 
-	public Transform humanContainer;
-	public Transform roleContainer;
-	public Transform ipAddressContainer;
-	public Transform registerTimeContainer;
+    // public Transform humanContainer;
+	private static readonly UIRectTransform roleRect = new UIRectTransform(UIConstants.RequestEnumRect);
+	private static readonly UIRectTransform ipAddressRect = new UIRectTransform(UIConstants.RequestEnumRect);
+	private static readonly UIRectTransform registerTimeRect = new UIRectTransform(UIConstants.RequestRect);
 
 	public BtnUpdateUser btnUpdateUserPrefab;
-	public Transform btnUpdateUserContainer;
+	private static readonly UIRectTransform btnUpdateUserRect = new UIRectTransform();
 
 	public UserChatUI userChatPrefab;
 
@@ -669,16 +815,29 @@ public class UserUI : UIBehavior<UserUI.UIData>
 					}
 				}
 			}
-			// human
-			if (data is HumanUI.UIData) {
-				HumanUI.UIData humanUIData = data as HumanUI.UIData;
-				// UI
-				{
-					UIUtils.Instantiate (humanUIData, humanPrefab, humanContainer);
-				}
-				dirty = true;
-				return;
-			}
+            // human
+            {
+                if (data is HumanUI.UIData)
+                {
+                    HumanUI.UIData humanUIData = data as HumanUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(humanUIData, humanPrefab, contentContainer);
+                    }
+                    // Child
+                    {
+                        TransformData.AddCallBack(humanUIData, this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                if(data is TransformData)
+                {
+                    dirty = true;
+                    return;
+                }
+            }
 			// role
 			if (data is RequestChangeEnumUI.UIData) {
 				RequestChangeEnumUI.UIData requestChange = data as RequestChangeEnumUI.UIData;
@@ -691,7 +850,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
 							UIUtils.Instantiate (requestChange, requestEnumPrefab, this.transform, requestEditTypeRect);
 							break;
 						case UIData.Property.role:
-							UIUtils.Instantiate (requestChange, requestEnumPrefab, roleContainer);
+							UIUtils.Instantiate (requestChange, requestEnumPrefab, contentContainer, roleRect);
 							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -713,7 +872,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
 						case UIData.Property.ipAddress:
-							UIUtils.Instantiate (requestChange, requestStringPrefab, ipAddressContainer);
+							UIUtils.Instantiate (requestChange, requestStringPrefab, contentContainer, ipAddressRect);
 							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -735,7 +894,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
 						case UIData.Property.registerTime:
-							UIUtils.Instantiate (requestChange, requestLongPrefab, registerTimeContainer);
+							UIUtils.Instantiate (requestChange, requestLongPrefab, contentContainer, registerTimeRect);
 							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -752,7 +911,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
 				BtnUpdateUser.UIData btnUpdateUserUIData = data as BtnUpdateUser.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (btnUpdateUserUIData, btnUpdateUserPrefab, btnUpdateUserContainer);
+					UIUtils.Instantiate (btnUpdateUserUIData, btnUpdateUserPrefab, this.transform, btnUpdateUserRect);
 				}
 				dirty = true;
 				return;
@@ -825,15 +984,27 @@ public class UserUI : UIBehavior<UserUI.UIData>
 					}
 				}
 			}
-			// human
-			if (data is HumanUI.UIData) {
-				HumanUI.UIData humanUIData = data as HumanUI.UIData;
-				// UI
-				{
-					humanUIData.removeCallBackAndDestroy (typeof(HumanUI));
-				}
-				return;
-			}
+            // human
+            {
+                if (data is HumanUI.UIData)
+                {
+                    HumanUI.UIData humanUIData = data as HumanUI.UIData;
+                    // Child
+                    {
+                        TransformData.RemoveCallBack(humanUIData, this);
+                    }
+                    // UI
+                    {
+                        humanUIData.removeCallBackAndDestroy(typeof(HumanUI));
+                    }
+                    return;
+                }
+                // Child
+                if(data is TransformData)
+                {
+                    return;
+                }
+            }
 			// role
 			if (data is RequestChangeEnumUI.UIData) {
 				RequestChangeEnumUI.UIData requestChange = data as RequestChangeEnumUI.UIData;
@@ -1032,10 +1203,33 @@ public class UserUI : UIBehavior<UserUI.UIData>
 					}
 				}
 			}
-			// human
-			if (wrapProperty.p is HumanUI.UIData) {
-				return;
-			}
+            // human
+            {
+                if (wrapProperty.p is HumanUI.UIData)
+                {
+                    return;
+                }
+                // Child
+                if(wrapProperty.p is TransformData)
+                {
+                    switch ((TransformData.Property)wrapProperty.n)
+                    {
+                        case TransformData.Property.position:
+                            break;
+                        case TransformData.Property.rotation:
+                            break;
+                        case TransformData.Property.scale:
+                            break;
+                        case TransformData.Property.size:
+                            dirty = true;
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+            }
 			// role
 			if (wrapProperty.p is RequestChangeEnumUI.UIData) {
 				return;

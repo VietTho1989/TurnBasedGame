@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class AccountDeviceUI : UIBehavior<AccountDeviceUI.UIData>
+public class AccountDeviceUI : UIBehavior<AccountDeviceUI.UIData>, HaveTransformData
 {
 
 	#region UIData
@@ -168,18 +168,40 @@ public class AccountDeviceUI : UIBehavior<AccountDeviceUI.UIData>
 
 	static AccountDeviceUI()
 	{
-		txtTitle.add (Language.Type.vi, "Tài khoản thiết bị");
-		txtImei.add (Language.Type.vi, "Imei");
-		txtDeviceName.add (Language.Type.vi, "Tên thiết bị");
-		txtDeviceType.add (Language.Type.vi, "Tên loại thiết bị");
-		txtCustomName.add (Language.Type.vi, "Tên");
-		txtAvatarUrl.add (Language.Type.vi, "Đường dẫn avatar");
-	}
+        // txt
+        {
+            txtTitle.add(Language.Type.vi, "Tài khoản thiết bị");
+            txtImei.add(Language.Type.vi, "Imei");
+            txtDeviceName.add(Language.Type.vi, "Tên thiết bị");
+            txtDeviceType.add(Language.Type.vi, "Tên loại thiết bị");
+            txtCustomName.add(Language.Type.vi, "Tên");
+            txtAvatarUrl.add(Language.Type.vi, "Đường dẫn avatar");
+        }
+        // rect
+        {
 
-	#endregion
+        }
+    }
 
-	private bool needReset = true;
-	public GameObject differentIndicator;
+    #endregion
+
+    #region TransformData
+
+    public TransformData transformData = new TransformData();
+
+    private void updateTransformData()
+    {
+        this.transformData.update(this.transform);
+    }
+
+    public TransformData getTransformData()
+    {
+        return this.transformData;
+    }
+
+    #endregion
+
+    private bool needReset = true;
 
 	public override void refresh ()
 	{
@@ -193,8 +215,8 @@ public class AccountDeviceUI : UIBehavior<AccountDeviceUI.UIData>
 					AccountDevice show = editAccountDevice.show.v.data;
 					AccountDevice compare = editAccountDevice.compare.v.data;
 					if (show != null) {
-						// differentIndicator
-						if (differentIndicator != null) {
+						// different
+						if (lbTitle != null) {
 							bool isDifferent = false;
 							{
 								if (editAccountDevice.compareOtherType.v.data != null) {
@@ -203,9 +225,9 @@ public class AccountDeviceUI : UIBehavior<AccountDeviceUI.UIData>
 									}
 								}
 							}
-							differentIndicator.SetActive (isDifferent);
+                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 						} else {
-							Debug.LogError ("differentIndicator null: " + this);
+							Debug.LogError ("lbTitle null: " + this);
 						}
 						// request
 						{
@@ -250,12 +272,6 @@ public class AccountDeviceUI : UIBehavior<AccountDeviceUI.UIData>
 									} else {
 										Debug.LogError ("imei null: " + this);
 									}
-									// Container
-									if (imeiContainer != null) {
-										imeiContainer.parent.gameObject.SetActive (imei != null);
-									} else {
-										Debug.LogError ("imeiContainer null: " + this);
-									}
 								}
 								// deviceName
 								{
@@ -281,12 +297,6 @@ public class AccountDeviceUI : UIBehavior<AccountDeviceUI.UIData>
 										}
 									} else {
 										Debug.LogError ("deviceName null: " + this);
-									}
-									// Container
-									if (deviceNameContainer != null) {
-										deviceNameContainer.parent.gameObject.SetActive (deviceName != null);
-									} else {
-										Debug.LogError ("deviceNameContainer null: " + this);
 									}
 								}
 								// deviceType
@@ -314,12 +324,6 @@ public class AccountDeviceUI : UIBehavior<AccountDeviceUI.UIData>
 									} else {
 										Debug.LogError ("deviceType null: " + this);
 									}
-									// Container
-									if (deviceTypeContainer != null) {
-										deviceTypeContainer.parent.gameObject.SetActive (deviceType != null);
-									} else {
-										Debug.LogError ("deviceTypeContainer null: " + this);
-									}
 								}
 								// customName
 								{
@@ -346,12 +350,6 @@ public class AccountDeviceUI : UIBehavior<AccountDeviceUI.UIData>
 									} else {
 										Debug.LogError ("customName null: " + this);
 									}
-									// Container
-									if (customNameContainer != null) {
-										customNameContainer.parent.gameObject.SetActive (customName != null);
-									} else {
-										Debug.LogError ("customNameContainer null: " + this);
-									}
 								}
 								// avatarUrl
 								{
@@ -377,12 +375,6 @@ public class AccountDeviceUI : UIBehavior<AccountDeviceUI.UIData>
 										}
 									} else {
 										Debug.LogError ("avatarUrl null: " + this);
-									}
-									// Container
-									if (avatarUrlContainer != null) {
-										avatarUrlContainer.parent.gameObject.SetActive (avatarUrl != null);
-									} else {
-										Debug.LogError ("avatarUrlContainer null: " + this);
 									}
 								}
 							}
@@ -477,8 +469,154 @@ public class AccountDeviceUI : UIBehavior<AccountDeviceUI.UIData>
 				} else {
 					Debug.LogError ("editAccountDevice null: " + this);
 				}
-				// txt
-				{
+                // UI Size
+                {
+                    float deltaY = UIConstants.HeaderHeight;
+                    // imei
+                    {
+                        if (this.data.imei.v != null)
+                        {
+                            if (lbImei != null)
+                            {
+                                lbImei.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbImei.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbImei null");
+                            }
+                            UIRectTransform.SetPosY(this.data.imei.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbImei != null)
+                            {
+                                lbImei.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbImei null");
+                            }
+                        }
+                    }
+                    // deviceName
+                    {
+                        if (this.data.deviceName.v != null)
+                        {
+                            if (lbDeviceName != null)
+                            {
+                                lbDeviceName.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbDeviceName.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbDeviceName null");
+                            }
+                            UIRectTransform.SetPosY(this.data.deviceName.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbDeviceName != null)
+                            {
+                                lbDeviceName.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbDeviceName null");
+                            }
+                        }
+                    }
+                    // deviceType
+                    {
+                        if (this.data.deviceType.v != null)
+                        {
+                            if (lbDeviceType != null)
+                            {
+                                lbDeviceType.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbDeviceType.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbDeviceType null");
+                            }
+                            UIRectTransform.SetPosY(this.data.deviceType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbDeviceType != null)
+                            {
+                                lbDeviceType.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbDeviceType null");
+                            }
+                        }
+                    }
+                    // customName
+                    {
+                        if (this.data.customName.v != null)
+                        {
+                            if (lbCustomName != null)
+                            {
+                                lbCustomName.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbCustomName.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbCustomName null");
+                            }
+                            UIRectTransform.SetPosY(this.data.customName.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbCustomName != null)
+                            {
+                                lbCustomName.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbCustomName null");
+                            }
+                        }
+                    }
+                    // avatarUrl
+                    {
+                        if (this.data.avatarUrl.v != null)
+                        {
+                            if (lbAvatarUrl != null)
+                            {
+                                lbAvatarUrl.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbAvatarUrl.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbAvatarUrl null");
+                            }
+                            UIRectTransform.SetPosY(this.data.avatarUrl.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbAvatarUrl != null)
+                            {
+                                lbAvatarUrl.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbAvatarUrl null");
+                            }
+                        }
+                    }
+                    // set
+                    UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                }
+                // txt
+                {
 					if (lbTitle != null) {
 						lbTitle.text = txtTitle.get ("Account Device");
 					} else {
@@ -514,6 +652,7 @@ public class AccountDeviceUI : UIBehavior<AccountDeviceUI.UIData>
 				Debug.LogError ("data null: " + this);
 			}
 		}
+        updateTransformData();
 	}
 
 	public override bool isShouldDisableUpdate ()
@@ -528,11 +667,11 @@ public class AccountDeviceUI : UIBehavior<AccountDeviceUI.UIData>
 	public RequestChangeStringUI requestStringPrefab;
 	public RequestChangeEnumUI requestEnumPrefab;
 
-	public Transform imeiContainer;
-	public Transform deviceNameContainer;
-	public Transform deviceTypeContainer;
-	public Transform customNameContainer;
-	public Transform avatarUrlContainer;
+	private static readonly UIRectTransform imeiRect = new UIRectTransform(UIConstants.RequestEnumRect);
+	private static readonly UIRectTransform deviceNameRect = new UIRectTransform(UIConstants.RequestEnumRect);
+	private static readonly UIRectTransform deviceTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
+	private static readonly UIRectTransform customNameRect = new UIRectTransform(UIConstants.RequestEnumRect);
+	private static readonly UIRectTransform avatarUrlRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
 	private Server server = null;
 
@@ -602,16 +741,16 @@ public class AccountDeviceUI : UIBehavior<AccountDeviceUI.UIData>
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
 						case UIData.Property.imei:
-							UIUtils.Instantiate (requestChange, requestStringPrefab, imeiContainer);
+							UIUtils.Instantiate (requestChange, requestStringPrefab, this.transform, imeiRect);
 							break;
 						case UIData.Property.deviceName:
-							UIUtils.Instantiate (requestChange, requestStringPrefab, deviceNameContainer);
+							UIUtils.Instantiate (requestChange, requestStringPrefab, this.transform, deviceNameRect);
 							break;
 						case UIData.Property.customName:
-							UIUtils.Instantiate (requestChange, requestStringPrefab, customNameContainer);
+							UIUtils.Instantiate (requestChange, requestStringPrefab, this.transform, customNameRect);
 							break;
 						case UIData.Property.avatarUrl:
-							UIUtils.Instantiate (requestChange, requestStringPrefab, avatarUrlContainer);
+							UIUtils.Instantiate (requestChange, requestStringPrefab, this.transform, avatarUrlRect);
 							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -632,7 +771,7 @@ public class AccountDeviceUI : UIBehavior<AccountDeviceUI.UIData>
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
 						case UIData.Property.deviceType:
-							UIUtils.Instantiate (requestChange, requestEnumPrefab, deviceTypeContainer);
+							UIUtils.Instantiate (requestChange, requestEnumPrefab, this.transform, deviceTypeRect);
 							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);

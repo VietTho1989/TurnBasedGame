@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class AccountAdminUI : UIBehavior<AccountAdminUI.UIData>
+public class AccountAdminUI : UIBehavior<AccountAdminUI.UIData>, HaveTransformData
 {
 
 	#region UIData
@@ -127,9 +127,25 @@ public class AccountAdminUI : UIBehavior<AccountAdminUI.UIData>
         }
     }
 
-	#endregion
+    #endregion
 
-	private bool needReset = true;
+    #region TransformData
+
+    public TransformData transformData = new TransformData();
+
+    private void updateTransformData()
+    {
+        this.transformData.update(this.transform);
+    }
+
+    public TransformData getTransformData()
+    {
+        return this.transformData;
+    }
+
+    #endregion
+
+    private bool needReset = true;
 
 	public override void refresh ()
 	{
@@ -351,6 +367,7 @@ public class AccountAdminUI : UIBehavior<AccountAdminUI.UIData>
 				Debug.LogError ("data null: " + this);
 			}
 		}
+        updateTransformData();
 	}
 
 	public override bool isShouldDisableUpdate ()

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class AccountNoneUI : UIBehavior<AccountNoneUI.UIData>
+public class AccountNoneUI : UIBehavior<AccountNoneUI.UIData>, HaveTransformData
 {
 
 	#region UIData
@@ -34,11 +34,27 @@ public class AccountNoneUI : UIBehavior<AccountNoneUI.UIData>
 
 	}
 
-	#endregion
+    #endregion
 
-	#region Refresh
+    #region TransformData
 
-	public Text lbTitle;
+    public TransformData transformData = new TransformData();
+
+    private void updateTransformData()
+    {
+        this.transformData.update(this.transform);
+    }
+
+    public TransformData getTransformData()
+    {
+        return this.transformData;
+    }
+
+    #endregion
+
+    #region Refresh
+
+    public Text lbTitle;
 	public static TxtLanguage txtTitle = new TxtLanguage ();
 
 	static AccountNoneUI()
@@ -118,6 +134,7 @@ public class AccountNoneUI : UIBehavior<AccountNoneUI.UIData>
 				Debug.LogError ("data null: " + this);
 			}
 		}
+        updateTransformData();
 	}
 
 	public override bool isShouldDisableUpdate ()

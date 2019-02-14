@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class HumanUI : UIBehavior<HumanUI.UIData>
+public class HumanUI : UIBehavior<HumanUI.UIData>, HaveTransformData
 {
 
 	#region UIData
@@ -249,20 +249,42 @@ public class HumanUI : UIBehavior<HumanUI.UIData>
 
 	static HumanUI()
 	{
-		txtTitle.add (Language.Type.vi, "Con người");
-		txtPlayerId.add (Language.Type.vi, "Id người chơi");
-		txtEmail.add (Language.Type.vi, "Email");
-		txtPhoneNumber.add (Language.Type.vi, "Số điện thoại");
-		txtStatus.add (Language.Type.vi, "Status");
-		txtBirthday.add (Language.Type.vi, "Sinh nhật");
-		txtSex.add (Language.Type.vi, "Giới tính");
-		txtBan.add (Language.Type.vi, "Trạng thái ban");
+        // txt
+        {
+            txtTitle.add(Language.Type.vi, "Con người");
+            txtPlayerId.add(Language.Type.vi, "Id người chơi");
+            txtEmail.add(Language.Type.vi, "Email");
+            txtPhoneNumber.add(Language.Type.vi, "Số điện thoại");
+            txtStatus.add(Language.Type.vi, "Status");
+            txtBirthday.add(Language.Type.vi, "Sinh nhật");
+            txtSex.add(Language.Type.vi, "Giới tính");
+            txtBan.add(Language.Type.vi, "Trạng thái ban");
+        }
+        // rect
+        {
+
+        }
 	}
 
-	#endregion
+    #endregion
 
-	private bool needReset = true;
-	public GameObject differentIndicator;
+    #region TransformData
+
+    public TransformData transformData = new TransformData();
+
+    private void updateTransformData()
+    {
+        this.transformData.update(this.transform);
+    }
+
+    public TransformData getTransformData()
+    {
+        return this.transformData;
+    }
+
+    #endregion
+
+    private bool needReset = true;
 
 	public override void refresh ()
 	{
@@ -276,8 +298,8 @@ public class HumanUI : UIBehavior<HumanUI.UIData>
 					Human show = editHuman.show.v.data;
 					Human compare = editHuman.compare.v.data;
 					if (show != null) {
-						// differentIndicator
-						if (differentIndicator != null) {
+						// different
+						if (lbTitle != null) {
 							bool isDifferent = false;
 							{
 								if (editHuman.compareOtherType.v.data != null) {
@@ -286,9 +308,9 @@ public class HumanUI : UIBehavior<HumanUI.UIData>
 									}
 								}
 							}
-							differentIndicator.SetActive (isDifferent);
+                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 						} else {
-							Debug.LogError ("differentIndicator null: " + this);
+							Debug.LogError ("lbTitle null: " + this);
 						}
 						// get server state
 						Server.State.Type serverState = Server.State.Type.Connect;
@@ -653,8 +675,211 @@ public class HumanUI : UIBehavior<HumanUI.UIData>
 				} else {
 					Debug.LogError ("editHuman null: " + this);
 				}
-				// txt
-				{
+                // UI Size
+                {
+                    float deltaY = UIConstants.HeaderHeight;
+                    // playerId
+                    {
+                        if (this.data.playerId.v != null)
+                        {
+                            if (lbPlayerId != null)
+                            {
+                                lbPlayerId.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbPlayerId.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbPlayerId null");
+                            }
+                            UIRectTransform.SetPosY(this.data.playerId.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbPlayerId != null)
+                            {
+                                lbPlayerId.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbPlayerId null");
+                            }
+                        }
+                    }
+                    // account
+                    deltaY += UIRectTransform.SetPosY(this.data.account.v, deltaY);
+                    // email
+                    {
+                        if (this.data.email.v != null)
+                        {
+                            if (lbEmail != null)
+                            {
+                                lbEmail.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbEmail.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbEmail null");
+                            }
+                            UIRectTransform.SetPosY(this.data.email.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbEmail != null)
+                            {
+                                lbEmail.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbEmail null");
+                            }
+                        }
+                    }
+                    // phoneNumber
+                    {
+                        if (this.data.phoneNumber.v != null)
+                        {
+                            if (lbPhoneNumber != null)
+                            {
+                                lbPhoneNumber.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbPhoneNumber.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbPhoneNumber null");
+                            }
+                            UIRectTransform.SetPosY(this.data.phoneNumber.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbPhoneNumber != null)
+                            {
+                                lbPhoneNumber.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbPhoneNumber null");
+                            }
+                        }
+                    }
+                    // status
+                    {
+                        if (this.data.status.v != null)
+                        {
+                            if (lbStatus != null)
+                            {
+                                lbStatus.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbStatus.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbStatus null");
+                            }
+                            UIRectTransform.SetPosY(this.data.status.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbStatus != null)
+                            {
+                                lbStatus.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbStatus null");
+                            }
+                        }
+                    }
+                    // birthday
+                    {
+                        if (this.data.birthday.v != null)
+                        {
+                            if (lbBirthday != null)
+                            {
+                                lbBirthday.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbBirthday.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbBirthday null");
+                            }
+                            UIRectTransform.SetPosY(this.data.birthday.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbBirthday != null)
+                            {
+                                lbBirthday.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbBirthday null");
+                            }
+                        }
+                    }
+                    // sex
+                    {
+                        if (this.data.sex.v != null)
+                        {
+                            if (lbSex != null)
+                            {
+                                lbSex.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbSex.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbSex null");
+                            }
+                            UIRectTransform.SetPosY(this.data.sex.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbSex != null)
+                            {
+                                lbSex.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbSex null");
+                            }
+                        }
+                    }
+                    // ban
+                    {
+                        if (this.data.ban.v != null)
+                        {
+                            if (lbBan != null)
+                            {
+                                lbBan.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbBan.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbBan null");
+                            }
+                        }
+                        else
+                        {
+                            if (lbBan != null)
+                            {
+                                lbBan.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbBan null");
+                            }
+                        }
+                        deltaY += UIRectTransform.SetPosY(this.data.ban.v, deltaY);
+                    }
+                    // set
+                    UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                }
+                // txt
+                {
 					if (lbTitle != null) {
 						lbTitle.text = txtTitle.get ("Human");
 					} else {
@@ -700,6 +925,7 @@ public class HumanUI : UIBehavior<HumanUI.UIData>
 				Debug.LogError ("data null: " + this);
 			}
 		}
+        updateTransformData();
 	}
 
 	public override bool isShouldDisableUpdate ()
@@ -718,14 +944,14 @@ public class HumanUI : UIBehavior<HumanUI.UIData>
 	public RequestChangeEnumUI requestEnumPrefab;
 	public BanUI banPrefab;
 
-	public Transform playerIdContainer;
-	public Transform accountContainer;
-	public Transform emailContainer;
-	public Transform phoneNumberContainer;
-	public Transform statusContainer;
-	public Transform birthdayContainer;
-	public Transform sexContainer;
-	public Transform banContainer;
+	private static readonly UIRectTransform playerIdRect = new UIRectTransform(UIConstants.RequestRect);
+	// public Transform accountContainer;
+	private static readonly UIRectTransform emailRect = new UIRectTransform(UIConstants.RequestEnumRect);
+	private static readonly UIRectTransform phoneNumberRect = new UIRectTransform(UIConstants.RequestEnumRect);
+	private static readonly UIRectTransform statusRect = new UIRectTransform(UIConstants.RequestEnumRect);
+	private static readonly UIRectTransform birthdayRect = new UIRectTransform(UIConstants.RequestRect);
+	private static readonly UIRectTransform sexRect = new UIRectTransform(UIConstants.RequestEnumRect);
+	// public Transform banContainer;
 
 	private Server server = null;
 
@@ -799,7 +1025,7 @@ public class HumanUI : UIBehavior<HumanUI.UIData>
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
 						case UIData.Property.playerId:
-							UIUtils.Instantiate (requestChange, requestIntPrefab, playerIdContainer);
+							UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, playerIdRect);
 							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -821,13 +1047,13 @@ public class HumanUI : UIBehavior<HumanUI.UIData>
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
 						case UIData.Property.email:
-							UIUtils.Instantiate (requestChange, requestStringPrefab, emailContainer);
+							UIUtils.Instantiate (requestChange, requestStringPrefab, this.transform, emailRect);
 							break;
 						case UIData.Property.phoneNumber:
-							UIUtils.Instantiate (requestChange, requestStringPrefab, phoneNumberContainer);
+							UIUtils.Instantiate (requestChange, requestStringPrefab, this.transform, phoneNumberRect);
 							break;
 						case UIData.Property.status:
-							UIUtils.Instantiate (requestChange, requestStringPrefab, statusContainer);
+							UIUtils.Instantiate (requestChange, requestStringPrefab, this.transform, statusRect);
 							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -849,7 +1075,7 @@ public class HumanUI : UIBehavior<HumanUI.UIData>
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
 						case UIData.Property.birthday:
-							UIUtils.Instantiate (requestChange, requestLongPrefab, birthdayContainer);
+							UIUtils.Instantiate (requestChange, requestLongPrefab, this.transform, birthdayRect);
 							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -871,7 +1097,7 @@ public class HumanUI : UIBehavior<HumanUI.UIData>
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
 						case UIData.Property.sex:
-							UIUtils.Instantiate (requestChange, requestEnumPrefab, sexContainer);
+							UIUtils.Instantiate (requestChange, requestEnumPrefab, this.transform, sexRect);
 							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -889,9 +1115,13 @@ public class HumanUI : UIBehavior<HumanUI.UIData>
 				AccountUI.UIData accountUIData = data as AccountUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (accountUIData, accountPrefab, accountContainer);
+					UIUtils.Instantiate (accountUIData, accountPrefab, this.transform);
 				}
-				dirty = true;
+                // Child
+                {
+                    TransformData.AddCallBack(accountUIData, this);
+                }
+                dirty = true;
 				return;
 			}
 			// ban
@@ -899,12 +1129,22 @@ public class HumanUI : UIBehavior<HumanUI.UIData>
 				BanUI.UIData banUIData = data as BanUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (banUIData, banPrefab, banContainer);
+					UIUtils.Instantiate (banUIData, banPrefab, this.transform);
 				}
-				dirty = true;
+                // Child
+                {
+                    TransformData.AddCallBack(banUIData, this);
+                }
+                dirty = true;
 				return;
 			}
-		}
+            // Child
+            if(data is TransformData)
+            {
+                dirty = true;
+                return;
+            }
+        }
 		Debug.LogError ("Don't process: " + data + "; " + this);
 	}
 
@@ -1003,8 +1243,12 @@ public class HumanUI : UIBehavior<HumanUI.UIData>
 			// account
 			if (data is AccountUI.UIData) {
 				AccountUI.UIData accountUIData = data as AccountUI.UIData;
-				// UI
-				{
+                // Child
+                {
+                    TransformData.RemoveCallBack(accountUIData, this);
+                }
+                // UI
+                {
 					accountUIData.removeCallBackAndDestroy (typeof(AccountUI));
 				}
 				return;
@@ -1012,13 +1256,22 @@ public class HumanUI : UIBehavior<HumanUI.UIData>
 			// ban
 			if (data is BanUI.UIData) {
 				BanUI.UIData banUIData = data as BanUI.UIData;
-				// UI
-				{
+                // Child
+                {
+                    TransformData.RemoveCallBack(banUIData, this);
+                }
+                // UI
+                {
 					banUIData.removeCallBackAndDestroy (typeof(BanUI));
 				}
 				return;
 			}
-		}
+            // Child
+            if(data is TransformData)
+            {
+                return;
+            }
+        }
 		Debug.LogError ("Don't process: " + data + "; " + this);
 	}
 
@@ -1217,7 +1470,27 @@ public class HumanUI : UIBehavior<HumanUI.UIData>
 			if (wrapProperty.p is BanUI.UIData) {
 				return;
 			}
-		}
+            // Child
+            if(wrapProperty.p is TransformData)
+            {
+                switch ((TransformData.Property)wrapProperty.n)
+                {
+                    case TransformData.Property.position:
+                        break;
+                    case TransformData.Property.rotation:
+                        break;
+                    case TransformData.Property.scale:
+                        break;
+                    case TransformData.Property.size:
+                        dirty = true;
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+        }
 		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
 	}
 

@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class AccountUI : UIBehavior<AccountUI.UIData>
+public class AccountUI : UIBehavior<AccountUI.UIData>, HaveTransformData
 {
 
 	#region UIData
@@ -59,9 +59,41 @@ public class AccountUI : UIBehavior<AccountUI.UIData>
 
 	#endregion
 
-	#region Refresh
+    static AccountUI()
+    {
+        // rect
+        {
+            // anchoredPosition: (0.0, -5.0); anchorMin: (0.5, 1.0); anchorMax: (0.5, 1.0); pivot: (0.5, 1.0); 
+            // offsetMin: (-45.0, -95.0); offsetMax: (45.0, -5.0); sizeDelta: (90.0, 90.0);
+            accountAvatarRect.anchoredPosition = new Vector3(0.0f, -5.0f, 0f);
+            accountAvatarRect.anchorMin = new Vector2(0.5f, 1.0f);
+            accountAvatarRect.anchorMax = new Vector2(0.5f, 1.0f);
+            accountAvatarRect.pivot = new Vector2(0.5f, 1.0f);
+            accountAvatarRect.offsetMin = new Vector2(-45.0f, -95.0f);
+            accountAvatarRect.offsetMax = new Vector2(45.0f, -5.0f);
+            accountAvatarRect.sizeDelta = new Vector2(90.0f, 90.0f);
+        }
+    }
 
-	public override void refresh ()
+    #region Refresh
+
+    #region TransformData
+
+    public TransformData transformData = new TransformData();
+
+    private void updateTransformData()
+    {
+        this.transformData.update(this.transform);
+    }
+
+    public TransformData getTransformData()
+    {
+        return this.transformData;
+    }
+
+    #endregion
+
+    public override void refresh ()
 	{
 		if (dirty) {
 			dirty = false;
@@ -249,10 +281,23 @@ public class AccountUI : UIBehavior<AccountUI.UIData>
 						}
 					}
 				}
-			} else {
+                // UI Size
+                {
+                    float deltaY = 0;
+                    // accountAvatar
+                    {
+                        deltaY += 100;
+                    }
+                    // sub
+                    deltaY += UIRectTransform.SetPosY(this.data.sub.v, deltaY);
+                    // set
+                    UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                }
+            } else {
 				Debug.LogError ("data null: " + this);
 			}
 		}
+        updateTransformData();
 	}
 
 	public override bool isShouldDisableUpdate ()
@@ -265,15 +310,13 @@ public class AccountUI : UIBehavior<AccountUI.UIData>
 	#region implement callBacks
 
 	public AccountAvatarUI accountAvatarPrefab;
-	public Transform accountAvatarContainer;
+	private static readonly UIRectTransform accountAvatarRect = new UIRectTransform();
 
 	public AccountNoneUI accountNonePrefab;
 	public AccountAdminUI accountAdminPrefab;
 	public AccountDeviceUI accountDevicePrefab;
 	public AccountEmailUI accountEmailPrefab;
 	public AccountFacebookUI accountFacebookPrefab;
-
-	public Transform subContainer;
 
 	public override void onAddCallBack<T> (T data)
 	{
@@ -298,54 +341,69 @@ public class AccountUI : UIBehavior<AccountUI.UIData>
 				AccountAvatarUI.UIData accountAvatarUIData = data as AccountAvatarUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (accountAvatarUIData, accountAvatarPrefab, accountAvatarContainer);
+					UIUtils.Instantiate (accountAvatarUIData, accountAvatarPrefab, this.transform, accountAvatarRect);
 				}
 				dirty = true;
 				return;
 			}
-			if (data is UIData.Sub) {
-				UIData.Sub sub = data as UIData.Sub;
-				// UI
-				{
-					switch (sub.getType ()) {
-					case Account.Type.NONE:
-						{
-							AccountNoneUI.UIData accountNoneUIData = sub as AccountNoneUI.UIData;
-							UIUtils.Instantiate (accountNoneUIData, accountNonePrefab, subContainer);
-						}
-						break;
-					case Account.Type.Admin:
-						{
-							AccountAdminUI.UIData accountAdminUIData = sub as AccountAdminUI.UIData;
-							UIUtils.Instantiate (accountAdminUIData, accountAdminPrefab, subContainer);
-						}
-						break;
-					case Account.Type.DEVICE:
-						{
-							AccountDeviceUI.UIData accountDeviceUIData = sub as AccountDeviceUI.UIData;
-							UIUtils.Instantiate (accountDeviceUIData, accountDevicePrefab, subContainer);
-						}
-						break;
-					case Account.Type.EMAIL:
-						{
-							AccountEmailUI.UIData accountEmailUIData = sub as AccountEmailUI.UIData;
-							UIUtils.Instantiate (accountEmailUIData, accountEmailPrefab, subContainer);
-						}
-						break;
-					case Account.Type.FACEBOOK:
-						{
-							AccountFacebookUI.UIData accountFacebookUIData = sub as AccountFacebookUI.UIData;
-							UIUtils.Instantiate (accountFacebookUIData, accountFacebookPrefab, subContainer);
-						}
-						break;
-					default:
-						Debug.LogError ("unknown type: " + sub.getType () + "; " + this);
-						break;
-					}
-				}
-				dirty = true;
-				return;
-			}
+            // sub
+            {
+                if (data is UIData.Sub)
+                {
+                    UIData.Sub sub = data as UIData.Sub;
+                    // UI
+                    {
+                        switch (sub.getType())
+                        {
+                            case Account.Type.NONE:
+                                {
+                                    AccountNoneUI.UIData accountNoneUIData = sub as AccountNoneUI.UIData;
+                                    UIUtils.Instantiate(accountNoneUIData, accountNonePrefab, this.transform);
+                                }
+                                break;
+                            case Account.Type.Admin:
+                                {
+                                    AccountAdminUI.UIData accountAdminUIData = sub as AccountAdminUI.UIData;
+                                    UIUtils.Instantiate(accountAdminUIData, accountAdminPrefab, this.transform);
+                                }
+                                break;
+                            case Account.Type.DEVICE:
+                                {
+                                    AccountDeviceUI.UIData accountDeviceUIData = sub as AccountDeviceUI.UIData;
+                                    UIUtils.Instantiate(accountDeviceUIData, accountDevicePrefab, this.transform);
+                                }
+                                break;
+                            case Account.Type.EMAIL:
+                                {
+                                    AccountEmailUI.UIData accountEmailUIData = sub as AccountEmailUI.UIData;
+                                    UIUtils.Instantiate(accountEmailUIData, accountEmailPrefab, this.transform);
+                                }
+                                break;
+                            case Account.Type.FACEBOOK:
+                                {
+                                    AccountFacebookUI.UIData accountFacebookUIData = sub as AccountFacebookUI.UIData;
+                                    UIUtils.Instantiate(accountFacebookUIData, accountFacebookPrefab, this.transform);
+                                }
+                                break;
+                            default:
+                                Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                                break;
+                        }
+                    }
+                    // Child
+                    {
+                        TransformData.AddCallBack(sub, this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                if(data is TransformData)
+                {
+                    dirty = true;
+                    return;
+                }
+            }
 		}
 		Debug.LogError ("Don't process: " + data + "; " + this);
 	}
@@ -376,48 +434,62 @@ public class AccountUI : UIBehavior<AccountUI.UIData>
 				}
 				return;
 			}
-			if (data is UIData.Sub) {
-				UIData.Sub sub = data as UIData.Sub;
-				// UI
-				{
-					switch (sub.getType ()) {
-					case Account.Type.NONE:
-						{
-							AccountNoneUI.UIData accountNoneUIData = sub as AccountNoneUI.UIData;
-							accountNoneUIData.removeCallBackAndDestroy (typeof(AccountNoneUI));
-						}
-						break;
-					case Account.Type.Admin:
-						{
-							AccountAdminUI.UIData accountAdminUIData = sub as AccountAdminUI.UIData;
-							accountAdminUIData.removeCallBackAndDestroy (typeof(AccountAdminUI));
-						}
-						break;
-					case Account.Type.DEVICE:
-						{
-							AccountDeviceUI.UIData accountDeviceUIData = sub as AccountDeviceUI.UIData;
-							accountDeviceUIData.removeCallBackAndDestroy (typeof(AccountDeviceUI));
-						}
-						break;
-					case Account.Type.EMAIL:
-						{
-							AccountEmailUI.UIData accountEmailUIData = sub as AccountEmailUI.UIData;
-							accountEmailUIData.removeCallBackAndDestroy (typeof(AccountEmailUI));
-						}
-						break;
-					case Account.Type.FACEBOOK:
-						{
-							AccountFacebookUI.UIData accountFacebookUIData = sub as AccountFacebookUI.UIData;
-							accountFacebookUIData.removeCallBackAndDestroy (typeof(AccountFacebookUI));
-						}
-						break;
-					default:
-						Debug.LogError ("unknown type: " + sub.getType () + "; " + this);
-						break;
-					}
-				}
-				return;
-			}
+            // sub
+            {
+                if (data is UIData.Sub)
+                {
+                    UIData.Sub sub = data as UIData.Sub;
+                    // Child
+                    {
+                        TransformData.RemoveCallBack(sub, this);
+                    }
+                    // UI
+                    {
+                        switch (sub.getType())
+                        {
+                            case Account.Type.NONE:
+                                {
+                                    AccountNoneUI.UIData accountNoneUIData = sub as AccountNoneUI.UIData;
+                                    accountNoneUIData.removeCallBackAndDestroy(typeof(AccountNoneUI));
+                                }
+                                break;
+                            case Account.Type.Admin:
+                                {
+                                    AccountAdminUI.UIData accountAdminUIData = sub as AccountAdminUI.UIData;
+                                    accountAdminUIData.removeCallBackAndDestroy(typeof(AccountAdminUI));
+                                }
+                                break;
+                            case Account.Type.DEVICE:
+                                {
+                                    AccountDeviceUI.UIData accountDeviceUIData = sub as AccountDeviceUI.UIData;
+                                    accountDeviceUIData.removeCallBackAndDestroy(typeof(AccountDeviceUI));
+                                }
+                                break;
+                            case Account.Type.EMAIL:
+                                {
+                                    AccountEmailUI.UIData accountEmailUIData = sub as AccountEmailUI.UIData;
+                                    accountEmailUIData.removeCallBackAndDestroy(typeof(AccountEmailUI));
+                                }
+                                break;
+                            case Account.Type.FACEBOOK:
+                                {
+                                    AccountFacebookUI.UIData accountFacebookUIData = sub as AccountFacebookUI.UIData;
+                                    accountFacebookUIData.removeCallBackAndDestroy(typeof(AccountFacebookUI));
+                                }
+                                break;
+                            default:
+                                Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                                break;
+                        }
+                    }
+                    return;
+                }
+                // Child
+                if(data is TransformData)
+                {
+                    return;
+                }
+            }
 		}
 		Debug.LogError ("Don't process: " + data + "; " + this);
 	}
@@ -487,9 +559,33 @@ public class AccountUI : UIBehavior<AccountUI.UIData>
 			if (wrapProperty.p is AccountAvatarUI.UIData) {
 				return;
 			}
-			if (wrapProperty.p is UIData.Sub) {
-				return;
-			}
+            // sub
+            {
+                if (wrapProperty.p is UIData.Sub)
+                {
+                    return;
+                }
+                // Child
+                if(wrapProperty.p is TransformData)
+                {
+                    switch ((TransformData.Property)wrapProperty.n)
+                    {
+                        case TransformData.Property.position:
+                            break;
+                        case TransformData.Property.rotation:
+                            break;
+                        case TransformData.Property.scale:
+                            break;
+                        case TransformData.Property.size:
+                            dirty = true;
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+            }
 		}
 		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
 	}
