@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class AnimationSettingUI : UIBehavior<AnimationSettingUI.UIData>
+public class AnimationSettingUI : UIBehavior<AnimationSettingUI.UIData>, HaveTransformData
 {
 
 	#region UIData
@@ -150,12 +150,54 @@ public class AnimationSettingUI : UIBehavior<AnimationSettingUI.UIData>
 
 	}
 
-	#endregion
+    #endregion
 
-	#region Refresh
+    #region txt
 
-	private bool needReset = true;
-	public GameObject differentIndicator;
+    public Text lbTitle;
+    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+
+    public Text lbScale;
+    public static readonly TxtLanguage txtScale = new TxtLanguage();
+
+    public Text lbFastForward;
+    public static readonly TxtLanguage txtFastForward = new TxtLanguage();
+
+    public Text lbMaxWaitAnimationCount;
+    public static readonly TxtLanguage txtMaxWaitAnimationCount = new TxtLanguage();
+
+    static AnimationSettingUI()
+    {
+        // txt
+        {
+            txtTitle.add(Language.Type.vi, "Thiết Lập Animation");
+            txtScale.add(Language.Type.vi, "Tỷ Lệ");
+            txtFastForward.add(Language.Type.vi, "Tua Nhanh");
+            txtMaxWaitAnimationCount.add(Language.Type.vi, "Số animation chờ tối đa");
+        }
+    }
+
+    #endregion
+
+    #region TransformData
+
+    public TransformData transformData = new TransformData();
+
+    private void updateTransformData()
+    {
+        this.transformData.update(this.transform);
+    }
+
+    public TransformData getTransformData()
+    {
+        return this.transformData;
+    }
+
+    #endregion
+
+    #region Refresh
+
+    private bool needReset = true;
 
 	public override void refresh ()
 	{
@@ -169,8 +211,8 @@ public class AnimationSettingUI : UIBehavior<AnimationSettingUI.UIData>
 					AnimationSetting show = editAnimationSetting.show.v.data;
 					AnimationSetting compare = editAnimationSetting.compare.v.data;
 					if (show != null) {
-						// differentIndicator
-						if (differentIndicator != null) {
+						// different
+						if (lbTitle != null) {
 							bool isDifferent = false;
 							{
 								if (editAnimationSetting.compareOtherType.v.data != null) {
@@ -179,9 +221,9 @@ public class AnimationSettingUI : UIBehavior<AnimationSettingUI.UIData>
 									}
 								}
 							}
-							differentIndicator.SetActive (isDifferent);
+                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 						} else {
-							Debug.LogError ("differentIndicator null: " + this);
+							Debug.LogError ("lbTitle null: " + this);
 						}
 						// request
 						{
@@ -339,12 +381,46 @@ public class AnimationSettingUI : UIBehavior<AnimationSettingUI.UIData>
 				} else {
 					Debug.LogError ("editAnimationSetting null: " + this);
 				}
-				// update Text
-				this.updateTxt();
+                // txt
+                {
+                    if (lbTitle != null)
+                    {
+                        lbTitle.text = txtTitle.get("Animation Setting");
+                    }
+                    else
+                    {
+                        Debug.LogError("lbTitle null: " + this);
+                    }
+                    if (lbScale != null)
+                    {
+                        lbScale.text = txtScale.get("Scale");
+                    }
+                    else
+                    {
+                        Debug.LogError("tvScale null: " + this);
+                    }
+                    if (lbFastForward != null)
+                    {
+                        lbFastForward.text = txtFastForward.get("Fast Forward");
+                    }
+                    else
+                    {
+                        Debug.LogError("tvFastForward null: " + this);
+                    }
+                    if (lbMaxWaitAnimationCount != null)
+                    {
+                        lbMaxWaitAnimationCount.text = txtMaxWaitAnimationCount.get("Max Wait Animation Count");
+                    }
+                    else
+                    {
+                        Debug.LogError("tvMaxWaitAnimationCount null: " + this);
+                    }
+                }
 			} else {
 				Debug.LogError ("data null: " + this);
 			}
 		}
+        updateTransformData();
 	}
 
 	public override bool isShouldDisableUpdate ()
@@ -352,69 +428,21 @@ public class AnimationSettingUI : UIBehavior<AnimationSettingUI.UIData>
 		return true;
 	}
 
-	#endregion
+    #endregion
 
-	#region update text
+    #region implement callBacks
 
-	public Text lbTitle;
-	public static readonly TxtLanguage txtTitle = new TxtLanguage();
-
-	public Text tvScale;
-	public static readonly TxtLanguage txtScale = new TxtLanguage ();
-
-	public Text tvFastForward;
-	public static readonly TxtLanguage txtFastForward = new TxtLanguage ();
-
-	public Text tvMaxWaitAnimationCount;
-	public static readonly TxtLanguage txtMaxWaitAnimationCount = new TxtLanguage ();
-
-	static AnimationSettingUI()
-	{
-		txtTitle.add (Language.Type.vi, "Thiết Lập Animation");
-		txtScale.add (Language.Type.vi, "Tỷ Lệ");
-		txtFastForward.add (Language.Type.vi, "Tua Nhanh");
-		txtMaxWaitAnimationCount.add (Language.Type.vi, "Số animation chờ tối đa");
-	}
-
-	private void updateTxt()
-	{
-		if (lbTitle != null) {
-			lbTitle.text = txtTitle.get ("Animation Setting");
-		} else {
-			Debug.LogError ("lbTitle null: " + this);
-		}
-		if (tvScale != null) {
-			tvScale.text = txtScale.get ("Scale");
-		} else {
-			Debug.LogError ("tvScale null: " + this);
-		}
-		if (tvFastForward != null) {
-			tvFastForward.text = txtFastForward.get ("Fast Forward");
-		} else {
-			Debug.LogError ("tvFastForward null: " + this);
-		}
-		if (tvMaxWaitAnimationCount != null) {
-			tvMaxWaitAnimationCount.text = txtMaxWaitAnimationCount.get ("Max Wait Animation Count");
-		} else {
-			Debug.LogError ("tvMaxWaitAnimationCount null: " + this);
-		}
-	}
-
-	#endregion
-
-	#region implement callBacks
-
-	public RequestChangeFloatUI requestFloatPrefab;
+    public RequestChangeFloatUI requestFloatPrefab;
 	public RequestChangeBoolUI requestBoolPrefab;
 	public RequestChangeIntUI requestIntPrefab;
 
-	public Transform scaleContainer;
-	public Transform fastForwardContainer;
-	public Transform maxWaitAnimationCountContainer;
+    private static readonly UIRectTransform scaleRect = new UIRectTransform(UIConstants.RequestRect, UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+	private static readonly UIRectTransform fastForwardRect = new UIRectTransform(UIConstants.RequestBoolRect, UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+    private static readonly UIRectTransform maxWaitAnimationCountRect = new UIRectTransform(UIConstants.RequestRect, UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
 
-	// private Server server = null;
+    // private Server server = null;
 
-	public override void onAddCallBack<T> (T data)
+    public override void onAddCallBack<T> (T data)
 	{
 		if (data is UIData) {
 			UIData uiData = data as UIData;
@@ -479,7 +507,7 @@ public class AnimationSettingUI : UIBehavior<AnimationSettingUI.UIData>
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
 						case UIData.Property.scale:
-							UIUtils.Instantiate (requestChange, requestFloatPrefab, scaleContainer);
+							UIUtils.Instantiate (requestChange, requestFloatPrefab, this.transform, scaleRect);
 							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -501,7 +529,7 @@ public class AnimationSettingUI : UIBehavior<AnimationSettingUI.UIData>
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
 						case UIData.Property.fastForward:
-							UIUtils.Instantiate (requestChange, requestBoolPrefab, fastForwardContainer);
+							UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, fastForwardRect);
 							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -523,7 +551,7 @@ public class AnimationSettingUI : UIBehavior<AnimationSettingUI.UIData>
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
 						case UIData.Property.maxWaitAnimationCount:
-							UIUtils.Instantiate (requestChange, requestIntPrefab, maxWaitAnimationCountContainer);
+							UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, maxWaitAnimationCountRect);
 							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);

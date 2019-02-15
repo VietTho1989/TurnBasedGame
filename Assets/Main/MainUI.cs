@@ -127,9 +127,10 @@ public class MainUI : UIBehavior<MainUI.UIData>
 				// tvSetting
 				{
 					if (tvSetting != null) {
-						tvSetting.text = (this.data.showSettingUIData.v == null) ? 
-							txtSetting.get ("Setting")
-							: txtHideSetting.get ("Hide Setting");
+						// tvSetting.text = (this.data.showSettingUIData.v == null) ? 
+						//	txtSetting.get ("Setting")
+						//	: txtHideSetting.get ("Hide Setting");
+                        tvSetting.text = "";
 					} else {
 						Debug.LogError ("tvSetting null: " + this);
 					}

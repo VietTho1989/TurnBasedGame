@@ -232,44 +232,91 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 
 	}
 
-	#endregion
+    #endregion
 
-	#region Refresh
+    #region txt
 
-	private bool needReset = true;
-	public GameObject differentIndicator;
+    public Text lbTitle;
+    public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-	public override void refresh ()
-	{
-		if (dirty) {
-			dirty = false;
-			if (this.data != null) {
-				EditData<Setting> editSetting = this.data.editSetting.v;
-				if (editSetting != null) {
-					editSetting.update ();
-					// get show
-					Setting show = editSetting.show.v.data;
-					Setting compare = editSetting.compare.v.data;
-					if (show != null) {
-						// differentIndicator
-						if (differentIndicator != null) {
-							bool isDifferent = false;
-							{
-								if (editSetting.compareOtherType.v.data != null) {
-									if (editSetting.compareOtherType.v.data.GetType () != show.GetType ()) {
-										isDifferent = true;
-									}
-								}
-							}
-							differentIndicator.SetActive (isDifferent);
-						} else {
-							Debug.LogError ("differentIndicator null: " + this);
-						}
-						// request
-						{
-							// get server state
-							Server.State.Type serverState = Server.State.Type.Connect;
-							/*{
+    public Text lbLanguage;
+    public static readonly TxtLanguage txtLanguage = new TxtLanguage();
+
+    public Text lbStyle;
+    public static readonly TxtLanguage txtStyle = new TxtLanguage();
+
+    public Text lbShowLastMove;
+    public static readonly TxtLanguage txtShowLastMove = new TxtLanguage();
+
+    public Text lbViewUrlImage;
+    public static readonly TxtLanguage txtViewUrlImage = new TxtLanguage();
+
+    public Text lbMaxThinkCount;
+    public static readonly TxtLanguage txtMaxThinkCount = new TxtLanguage();
+
+    static SettingUI()
+    {
+        // txt
+        {
+            txtTitle.add(Language.Type.vi, "Thiết Lập");
+            txtLanguage.add(Language.Type.vi, "Ngôn Ngữ");
+            txtStyle.add(Language.Type.vi, "Kiểu");
+            txtShowLastMove.add(Language.Type.vi, "Hiện nước đi ");
+            txtViewUrlImage.add(Language.Type.vi, "Xem ảnh url");
+            txtMaxThinkCount.add(Language.Type.vi, "Số luồng nghĩ tối đa");
+        }
+        // rect
+        {
+
+        }
+    }
+
+    #endregion
+
+    #region Refresh
+
+    private bool needReset = true;
+
+    public override void refresh()
+    {
+        if (dirty)
+        {
+            dirty = false;
+            if (this.data != null)
+            {
+                EditData<Setting> editSetting = this.data.editSetting.v;
+                if (editSetting != null)
+                {
+                    editSetting.update();
+                    // get show
+                    Setting show = editSetting.show.v.data;
+                    Setting compare = editSetting.compare.v.data;
+                    if (show != null)
+                    {
+                        // different
+                        if (lbTitle != null)
+                        {
+                            bool isDifferent = false;
+                            {
+                                if (editSetting.compareOtherType.v.data != null)
+                                {
+                                    if (editSetting.compareOtherType.v.data.GetType() != show.GetType())
+                                    {
+                                        isDifferent = true;
+                                    }
+                                }
+                            }
+                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
+                        }
+                        else
+                        {
+                            Debug.LogError("lbSetting null: " + this);
+                        }
+                        // request
+                        {
+                            // get server state
+                            Server.State.Type serverState = Server.State.Type.Connect;
+                            /*{
 								Server server = show.findDataInParent<Server> ();
 								if (server != null) {
 									if (server.state.v != null) {
@@ -281,34 +328,43 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 									Debug.LogError ("server null: " + this);
 								}
 							}*/
-							// set origin
-							{
-								// language
-								{
-									RequestChangeEnumUI.UIData language = this.data.language.v;
-									if (language != null) {
-										// update
-										RequestChangeUpdate<int>.UpdateData updateData = language.updateData.v;
-										if (updateData != null) {
-											updateData.origin.v = Language.GetSupportIndex (show.language.v);
-											updateData.canRequestChange.v = editSetting.canEdit.v;
-											updateData.serverState.v = serverState;
-										} else {
-											Debug.LogError ("updateData null: " + this);
-										}
-										// compare
-										{
-											if (compare != null) {
-												language.showDifferent.v = true;
-												language.compare.v = Language.GetSupportIndex (compare.language.v);
-											} else {
-												language.showDifferent.v = false;
-											}
-										}
-									} else {
-										Debug.LogError ("useRule null: " + this);
-									}
-								}
+                            // set origin
+                            {
+                                // language
+                                {
+                                    RequestChangeEnumUI.UIData language = this.data.language.v;
+                                    if (language != null)
+                                    {
+                                        // update
+                                        RequestChangeUpdate<int>.UpdateData updateData = language.updateData.v;
+                                        if (updateData != null)
+                                        {
+                                            updateData.origin.v = Language.GetSupportIndex(show.language.v);
+                                            updateData.canRequestChange.v = editSetting.canEdit.v;
+                                            updateData.serverState.v = serverState;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("updateData null: " + this);
+                                        }
+                                        // compare
+                                        {
+                                            if (compare != null)
+                                            {
+                                                language.showDifferent.v = true;
+                                                language.compare.v = Language.GetSupportIndex(compare.language.v);
+                                            }
+                                            else
+                                            {
+                                                language.showDifferent.v = false;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("useRule null: " + this);
+                                    }
+                                }
                                 // style
                                 {
                                     RequestChangeEnumUI.UIData style = this.data.style.v;
@@ -346,170 +402,220 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                                 }
                                 // showLastMove
                                 {
-									RequestChangeBoolUI.UIData showLastMove = this.data.showLastMove.v;
-									if (showLastMove != null) {
-										// update
-										RequestChangeUpdate<bool>.UpdateData updateData = showLastMove.updateData.v;
-										if (updateData != null) {
-											updateData.origin.v = show.showLastMove.v;
-											updateData.canRequestChange.v = editSetting.canEdit.v;
-											updateData.serverState.v = serverState;
-										} else {
-											Debug.LogError ("updateData null: " + this);
-										}
-										// compare
-										{
-											if (compare != null) {
-												showLastMove.showDifferent.v = true;
-												showLastMove.compare.v = compare.showLastMove.v;
-											} else {
-												showLastMove.showDifferent.v = false;
-											}
-										}
-									} else {
-										Debug.LogError ("useRule null: " + this);
-									}
-								}
-								// viewUrlImage
-								{
-									RequestChangeBoolUI.UIData viewUrlImage = this.data.viewUrlImage.v;
-									if (viewUrlImage != null) {
-										// update
-										RequestChangeUpdate<bool>.UpdateData updateData = viewUrlImage.updateData.v;
-										if (updateData != null) {
-											updateData.origin.v = show.viewUrlImage.v;
-											updateData.canRequestChange.v = editSetting.canEdit.v;
-											updateData.serverState.v = serverState;
-										} else {
-											Debug.LogError ("updateData null: " + this);
-										}
-										// compare
-										{
-											if (compare != null) {
-												viewUrlImage.showDifferent.v = true;
-												viewUrlImage.compare.v = compare.viewUrlImage.v;
-											} else {
-												viewUrlImage.showDifferent.v = false;
-											}
-										}
-									} else {
-										Debug.LogError ("useRule null: " + this);
-									}
-								}
-								// animationSetting
-								{
-									AnimationSettingUI.UIData animationSetting = this.data.animationSetting.v;
-									if (animationSetting != null) {
-										EditData<AnimationSetting> editAnimationSetting = animationSetting.editAnimationSetting.v;
-										if (editAnimationSetting != null) {
-											// origin
-											{
-												AnimationSetting originAnimationSetting = null;
-												{
-													Setting originSetting = editSetting.origin.v.data;
-													if (originSetting != null) {
-														originAnimationSetting = originSetting.animationSetting.v;
-													} else {
-														Debug.LogError ("originSetting null: " + this);
-													}
-												}
-												editAnimationSetting.origin.v = new ReferenceData<AnimationSetting> (originAnimationSetting);
-											}
-											// show
-											{
-												AnimationSetting showAnimationSetting = null;
-												{
-													Setting showSetting = editSetting.show.v.data;
-													if (showSetting != null) {
-														showAnimationSetting = showSetting.animationSetting.v;
-													} else {
-														Debug.LogError ("showSetting null: " + this);
-													}
-												}
-												editAnimationSetting.show.v = new ReferenceData<AnimationSetting> (showAnimationSetting);
-											}
-											// compare
-											{
-												AnimationSetting compareAnimationSetting = null;
-												{
-													Setting compareSetting = editSetting.compare.v.data;
-													if (compareSetting != null) {
-														compareAnimationSetting = compareSetting.animationSetting.v;
-													} else {
-														Debug.LogError ("compareSetting null: " + this);
-													}
-												}
-												editAnimationSetting.compare.v = new ReferenceData<AnimationSetting> (compareAnimationSetting);
-											}
-											// compare other type
-											{
-												AnimationSetting compareOtherTypeAnimationSetting = null;
-												{
-													Setting compareOtherTypeSetting = (Setting)editSetting.compareOtherType.v.data;
-													if (compareOtherTypeSetting != null) {
-														compareOtherTypeAnimationSetting = compareOtherTypeSetting.animationSetting.v;
-													}
-												}
-												editAnimationSetting.compareOtherType.v = new ReferenceData<Data> (compareOtherTypeAnimationSetting);
-											}
-											// canEdit
-											editAnimationSetting.canEdit.v = editSetting.canEdit.v;
-											// editType
-											editAnimationSetting.editType.v = editSetting.editType.v;
-										} else {
-											Debug.LogError ("editAnimationSetting null: " + this);
-										}
-									} else {
-										Debug.LogError ("animationSetting null: " + this);
-									}
-								}
-								// maxThinkCount
-								{
-									RequestChangeIntUI.UIData maxThinkCount = this.data.maxThinkCount.v;
-									if (maxThinkCount != null) {
-										// update
-										RequestChangeUpdate<int>.UpdateData updateData = maxThinkCount.updateData.v;
-										if (updateData != null) {
-											updateData.origin.v = show.maxThinkCount.v;
-											updateData.canRequestChange.v = editSetting.canEdit.v;
-											updateData.serverState.v = serverState;
-										} else {
-											Debug.LogError ("updateData null: " + this);
-										}
-										// compare
-										{
-											if (compare != null) {
-												maxThinkCount.showDifferent.v = true;
-												maxThinkCount.compare.v = compare.maxThinkCount.v;
-											} else {
-												maxThinkCount.showDifferent.v = false;
-											}
-										}
-									} else {
-										Debug.LogError ("useRule null: " + this);
-									}
-								}
-							}
-						}
-						// reset
-						if (needReset) {
-							needReset = false;
-							// language
-							{
-								RequestChangeEnumUI.UIData language = this.data.language.v;
-								if (language != null) {
-									// update
-									RequestChangeUpdate<int>.UpdateData updateData = language.updateData.v;
-									if (updateData != null) {
-										updateData.current.v = Language.GetSupportIndex (show.language.v);
-										updateData.changeState.v = Data.ChangeState.None;
-									} else {
-										Debug.LogError ("updateData null: " + this);
-									}
-								} else {
-									Debug.LogError ("useRule null: " + this);
-								}
-							}
+                                    RequestChangeBoolUI.UIData showLastMove = this.data.showLastMove.v;
+                                    if (showLastMove != null)
+                                    {
+                                        // update
+                                        RequestChangeUpdate<bool>.UpdateData updateData = showLastMove.updateData.v;
+                                        if (updateData != null)
+                                        {
+                                            updateData.origin.v = show.showLastMove.v;
+                                            updateData.canRequestChange.v = editSetting.canEdit.v;
+                                            updateData.serverState.v = serverState;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("updateData null: " + this);
+                                        }
+                                        // compare
+                                        {
+                                            if (compare != null)
+                                            {
+                                                showLastMove.showDifferent.v = true;
+                                                showLastMove.compare.v = compare.showLastMove.v;
+                                            }
+                                            else
+                                            {
+                                                showLastMove.showDifferent.v = false;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("useRule null: " + this);
+                                    }
+                                }
+                                // viewUrlImage
+                                {
+                                    RequestChangeBoolUI.UIData viewUrlImage = this.data.viewUrlImage.v;
+                                    if (viewUrlImage != null)
+                                    {
+                                        // update
+                                        RequestChangeUpdate<bool>.UpdateData updateData = viewUrlImage.updateData.v;
+                                        if (updateData != null)
+                                        {
+                                            updateData.origin.v = show.viewUrlImage.v;
+                                            updateData.canRequestChange.v = editSetting.canEdit.v;
+                                            updateData.serverState.v = serverState;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("updateData null: " + this);
+                                        }
+                                        // compare
+                                        {
+                                            if (compare != null)
+                                            {
+                                                viewUrlImage.showDifferent.v = true;
+                                                viewUrlImage.compare.v = compare.viewUrlImage.v;
+                                            }
+                                            else
+                                            {
+                                                viewUrlImage.showDifferent.v = false;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("useRule null: " + this);
+                                    }
+                                }
+                                // animationSetting
+                                {
+                                    AnimationSettingUI.UIData animationSetting = this.data.animationSetting.v;
+                                    if (animationSetting != null)
+                                    {
+                                        EditData<AnimationSetting> editAnimationSetting = animationSetting.editAnimationSetting.v;
+                                        if (editAnimationSetting != null)
+                                        {
+                                            // origin
+                                            {
+                                                AnimationSetting originAnimationSetting = null;
+                                                {
+                                                    Setting originSetting = editSetting.origin.v.data;
+                                                    if (originSetting != null)
+                                                    {
+                                                        originAnimationSetting = originSetting.animationSetting.v;
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("originSetting null: " + this);
+                                                    }
+                                                }
+                                                editAnimationSetting.origin.v = new ReferenceData<AnimationSetting>(originAnimationSetting);
+                                            }
+                                            // show
+                                            {
+                                                AnimationSetting showAnimationSetting = null;
+                                                {
+                                                    Setting showSetting = editSetting.show.v.data;
+                                                    if (showSetting != null)
+                                                    {
+                                                        showAnimationSetting = showSetting.animationSetting.v;
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("showSetting null: " + this);
+                                                    }
+                                                }
+                                                editAnimationSetting.show.v = new ReferenceData<AnimationSetting>(showAnimationSetting);
+                                            }
+                                            // compare
+                                            {
+                                                AnimationSetting compareAnimationSetting = null;
+                                                {
+                                                    Setting compareSetting = editSetting.compare.v.data;
+                                                    if (compareSetting != null)
+                                                    {
+                                                        compareAnimationSetting = compareSetting.animationSetting.v;
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("compareSetting null: " + this);
+                                                    }
+                                                }
+                                                editAnimationSetting.compare.v = new ReferenceData<AnimationSetting>(compareAnimationSetting);
+                                            }
+                                            // compare other type
+                                            {
+                                                AnimationSetting compareOtherTypeAnimationSetting = null;
+                                                {
+                                                    Setting compareOtherTypeSetting = (Setting)editSetting.compareOtherType.v.data;
+                                                    if (compareOtherTypeSetting != null)
+                                                    {
+                                                        compareOtherTypeAnimationSetting = compareOtherTypeSetting.animationSetting.v;
+                                                    }
+                                                }
+                                                editAnimationSetting.compareOtherType.v = new ReferenceData<Data>(compareOtherTypeAnimationSetting);
+                                            }
+                                            // canEdit
+                                            editAnimationSetting.canEdit.v = editSetting.canEdit.v;
+                                            // editType
+                                            editAnimationSetting.editType.v = editSetting.editType.v;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("editAnimationSetting null: " + this);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("animationSetting null: " + this);
+                                    }
+                                }
+                                // maxThinkCount
+                                {
+                                    RequestChangeIntUI.UIData maxThinkCount = this.data.maxThinkCount.v;
+                                    if (maxThinkCount != null)
+                                    {
+                                        // update
+                                        RequestChangeUpdate<int>.UpdateData updateData = maxThinkCount.updateData.v;
+                                        if (updateData != null)
+                                        {
+                                            updateData.origin.v = show.maxThinkCount.v;
+                                            updateData.canRequestChange.v = editSetting.canEdit.v;
+                                            updateData.serverState.v = serverState;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("updateData null: " + this);
+                                        }
+                                        // compare
+                                        {
+                                            if (compare != null)
+                                            {
+                                                maxThinkCount.showDifferent.v = true;
+                                                maxThinkCount.compare.v = compare.maxThinkCount.v;
+                                            }
+                                            else
+                                            {
+                                                maxThinkCount.showDifferent.v = false;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("useRule null: " + this);
+                                    }
+                                }
+                            }
+                        }
+                        // reset
+                        if (needReset)
+                        {
+                            needReset = false;
+                            // language
+                            {
+                                RequestChangeEnumUI.UIData language = this.data.language.v;
+                                if (language != null)
+                                {
+                                    // update
+                                    RequestChangeUpdate<int>.UpdateData updateData = language.updateData.v;
+                                    if (updateData != null)
+                                    {
+                                        updateData.current.v = Language.GetSupportIndex(show.language.v);
+                                        updateData.changeState.v = Data.ChangeState.None;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("updateData null: " + this);
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("useRule null: " + this);
+                                }
+                            }
                             // style
                             {
                                 RequestChangeEnumUI.UIData style = this.data.style.v;
@@ -534,141 +640,291 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                             }
                             // showLastMove
                             {
-								RequestChangeBoolUI.UIData showLastMove = this.data.showLastMove.v;
-								if (showLastMove != null) {
-									// update
-									RequestChangeUpdate<bool>.UpdateData updateData = showLastMove.updateData.v;
-									if (updateData != null) {
-										updateData.current.v = show.showLastMove.v;
-										updateData.changeState.v = Data.ChangeState.None;
-									} else {
-										Debug.LogError ("updateData null: " + this);
-									}
-								} else {
-									Debug.LogError ("useRule null: " + this);
-								}
-							}
-							// viewUrlImage
-							{
-								RequestChangeBoolUI.UIData viewUrlImage = this.data.viewUrlImage.v;
-								if (viewUrlImage != null) {
-									// update
-									RequestChangeUpdate<bool>.UpdateData updateData = viewUrlImage.updateData.v;
-									if (updateData != null) {
-										updateData.current.v = show.viewUrlImage.v;
-										updateData.changeState.v = Data.ChangeState.None;
-									} else {
-										Debug.LogError ("updateData null: " + this);
-									}
-								} else {
-									Debug.LogError ("useRule null: " + this);
-								}
-							}
-							// maxThinkCount
-							{
-								RequestChangeIntUI.UIData maxThinkCount = this.data.maxThinkCount.v;
-								if (maxThinkCount != null) {
-									// update
-									RequestChangeUpdate<int>.UpdateData updateData = maxThinkCount.updateData.v;
-									if (updateData != null) {
-										updateData.current.v = show.maxThinkCount.v;
-										updateData.changeState.v = Data.ChangeState.None;
-									} else {
-										Debug.LogError ("updateData null: " + this);
-									}
-								} else {
-									Debug.LogError ("useRule null: " + this);
-								}
-							}
-						}
-					} else {
-						Debug.LogError ("show null: " + this);
-					}
-				} else {
-					Debug.LogError ("editSetting null: " + this);
-				}
-				// txt
-				{
-					this.updateTxt ();
-				}
-			} else {
-				Debug.LogError ("data null: " + this);
-			}
-		}
-	}
+                                RequestChangeBoolUI.UIData showLastMove = this.data.showLastMove.v;
+                                if (showLastMove != null)
+                                {
+                                    // update
+                                    RequestChangeUpdate<bool>.UpdateData updateData = showLastMove.updateData.v;
+                                    if (updateData != null)
+                                    {
+                                        updateData.current.v = show.showLastMove.v;
+                                        updateData.changeState.v = Data.ChangeState.None;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("updateData null: " + this);
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("useRule null: " + this);
+                                }
+                            }
+                            // viewUrlImage
+                            {
+                                RequestChangeBoolUI.UIData viewUrlImage = this.data.viewUrlImage.v;
+                                if (viewUrlImage != null)
+                                {
+                                    // update
+                                    RequestChangeUpdate<bool>.UpdateData updateData = viewUrlImage.updateData.v;
+                                    if (updateData != null)
+                                    {
+                                        updateData.current.v = show.viewUrlImage.v;
+                                        updateData.changeState.v = Data.ChangeState.None;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("updateData null: " + this);
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("useRule null: " + this);
+                                }
+                            }
+                            // maxThinkCount
+                            {
+                                RequestChangeIntUI.UIData maxThinkCount = this.data.maxThinkCount.v;
+                                if (maxThinkCount != null)
+                                {
+                                    // update
+                                    RequestChangeUpdate<int>.UpdateData updateData = maxThinkCount.updateData.v;
+                                    if (updateData != null)
+                                    {
+                                        updateData.current.v = show.maxThinkCount.v;
+                                        updateData.changeState.v = Data.ChangeState.None;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("updateData null: " + this);
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("useRule null: " + this);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("show null: " + this);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("editSetting null: " + this);
+                }
+                // UISize
+                {
+                    float deltaY = UIConstants.HeaderHeight;
+                    // language
+                    {
+                        if (this.data.language.v != null)
+                        {
+                            if (lbLanguage != null)
+                            {
+                                lbLanguage.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbLanguage.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbLanguage null");
+                            }
+                            UIRectTransform.SetPosY(this.data.language.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbLanguage != null)
+                            {
+                                lbLanguage.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbLanguage null");
+                            }
+                        }
+                    }
+                    // style
+                    {
+                        if (this.data.style.v != null)
+                        {
+                            if (lbStyle != null)
+                            {
+                                lbStyle.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbStyle.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbStyle null");
+                            }
+                            UIRectTransform.SetPosY(this.data.style.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbStyle != null)
+                            {
+                                lbStyle.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbStyle null");
+                            }
+                        }
+                    }
+                    // showLastMove
+                    {
+                        if (this.data.showLastMove.v != null)
+                        {
+                            if (lbShowLastMove != null)
+                            {
+                                lbShowLastMove.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbShowLastMove.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbShowLastMove null");
+                            }
+                            UIRectTransform.SetPosY(this.data.showLastMove.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbShowLastMove != null)
+                            {
+                                lbShowLastMove.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbShowLastMove null");
+                            }
+                        }
+                    }
+                    // viewUrlImage
+                    {
+                        if (this.data.viewUrlImage.v != null)
+                        {
+                            if (lbViewUrlImage != null)
+                            {
+                                lbViewUrlImage.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbViewUrlImage.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbViewUrlImage null");
+                            }
+                            UIRectTransform.SetPosY(this.data.viewUrlImage.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbViewUrlImage != null)
+                            {
+                                lbViewUrlImage.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbViewUrlImage null");
+                            }
+                        }
+                    }
+                    // animationSetting
+                    deltaY += UIRectTransform.SetPosY(this.data.animationSetting.v, deltaY);
+                    // maxThinkCount
+                    {
+                        if (this.data.maxThinkCount.v != null)
+                        {
+                            if (lbMaxThinkCount != null)
+                            {
+                                lbMaxThinkCount.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbMaxThinkCount.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbMaxThinkCount null");
+                            }
+                            UIRectTransform.SetPosY(this.data.maxThinkCount.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbMaxThinkCount != null)
+                            {
+                                lbMaxThinkCount.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbMaxThinkCount null");
+                            }
+                        }
+                    }
+                    // set
+                    UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                }
+                // txt
+                {
+                    if (lbTitle != null)
+                    {
+                        lbTitle.text = txtTitle.get("Setting");
+                    }
+                    else
+                    {
+                        Debug.LogError("lbSetting null: " + this);
+                    }
+                    if (lbLanguage != null)
+                    {
+                        lbLanguage.text = txtLanguage.get("Language");
+                    }
+                    else
+                    {
+                        Debug.LogError("tvLanguage null: " + this);
+                    }
+                    if (lbStyle != null)
+                    {
+                        lbStyle.text = txtStyle.get("Style");
+                    }
+                    else
+                    {
+                        Debug.LogError("tvStyle null: " + this);
+                    }
+                    if (lbShowLastMove != null)
+                    {
+                        lbShowLastMove.text = txtShowLastMove.get("Show Last Move");
+                    }
+                    else
+                    {
+                        Debug.LogError("tvShowLastMove null: " + this);
+                    }
+                    if (lbViewUrlImage != null)
+                    {
+                        lbViewUrlImage.text = txtViewUrlImage.get("View Url Image");
+                    }
+                    else
+                    {
+                        Debug.LogError("tvViewUrlImage null: " + this);
+                    }
+                    if (lbMaxThinkCount != null)
+                    {
+                        lbMaxThinkCount.text = txtMaxThinkCount.get("Max Think Count");
+                    }
+                    else
+                    {
+                        Debug.LogError("tvMaxThinkCount null: " + this);
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("data null: " + this);
+            }
+        }
+    }
 
 	public override bool isShouldDisableUpdate ()
 	{
 		return true;
-	}
-
-	#endregion
-
-	#region txt
-
-	public Text lbSetting;
-	public static readonly TxtLanguage txtSetting = new TxtLanguage();
-
-	public Text tvLanguage;
-	public static readonly TxtLanguage txtLanguage = new TxtLanguage ();
-
-    public Text tvStyle;
-    public static readonly TxtLanguage txtStyle = new TxtLanguage();
-
-    public Text tvShowLastMove;
-	public static readonly TxtLanguage txtShowLastMove = new TxtLanguage ();
-
-	public Text tvViewUrlImage;
-	public static readonly TxtLanguage txtViewUrlImage = new TxtLanguage();
-
-	public Text tvMaxThinkCount;
-	public static readonly TxtLanguage txtMaxThinkCount = new TxtLanguage ();
-
-	static SettingUI()
-	{
-		txtSetting.add (Language.Type.vi, "Thiết Lập");
-		txtLanguage.add (Language.Type.vi, "Ngôn Ngữ");
-        txtStyle.add(Language.Type.vi, "Kiểu");
-		txtShowLastMove.add (Language.Type.vi, "Hiện nước đi ");
-		txtViewUrlImage.add (Language.Type.vi, "Xem ảnh url");
-		txtMaxThinkCount.add (Language.Type.vi, "Số luồng nghĩ tối đa");
-	}
-
-	private void updateTxt()
-	{
-		if (lbSetting != null) {
-			lbSetting.text = txtSetting.get ("Setting");
-		} else {
-			Debug.LogError ("lbSetting null: " + this);
-		}
-		if (tvLanguage != null) {
-			tvLanguage.text = txtLanguage.get ("Language");
-		} else {
-			Debug.LogError ("tvLanguage null: " + this);
-		}
-        if (tvStyle != null)
-        {
-            tvStyle.text = txtStyle.get("Style");
-        }
-        else
-        {
-            Debug.LogError("tvStyle null: " + this);
-        }
-        if (tvShowLastMove != null) {
-			tvShowLastMove.text = txtShowLastMove.get ("Show Last Move");
-		} else {
-			Debug.LogError ("tvShowLastMove null: " + this);
-		}
-		if (tvViewUrlImage != null) {
-			tvViewUrlImage.text = txtViewUrlImage.get ("View Url Image");
-		} else {
-			Debug.LogError ("tvViewUrlImage null: " + this);
-		}
-		if (tvMaxThinkCount != null) {
-			tvMaxThinkCount.text = txtMaxThinkCount.get ("Max Think Count");
-		} else {
-			Debug.LogError ("tvMaxThinkCount null: " + this);
-		}
 	}
 
 	#endregion
@@ -680,12 +936,12 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 	public AnimationSettingUI animationSettingPrefab;
 	public RequestChangeIntUI requestIntPrefab;
 
-	public Transform languageContainer;
-    public Transform styleContainer;
-	public Transform showLastMoveContainer;
-	public Transform viewUrlImageContainer;
-	public Transform animationSettingContainer;
-	public Transform maxThinkCountContainer;
+	private static readonly UIRectTransform languageRect = new UIRectTransform(UIConstants.RequestEnumRect);
+    private static readonly UIRectTransform styleRect = new UIRectTransform(UIConstants.RequestEnumRect);
+	private static readonly UIRectTransform showLastMoveRect = new UIRectTransform(UIConstants.RequestBoolRect);
+	private static readonly UIRectTransform viewUrlImageRect = new UIRectTransform(UIConstants.RequestBoolRect);
+    // public Transform animationSettingContainer;
+    private static readonly UIRectTransform maxThinkCountRect = new UIRectTransform(UIConstants.RequestRect);
 
 	// private Server server = null;
 
@@ -759,10 +1015,10 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
 						    case UIData.Property.language:
-							    UIUtils.Instantiate (requestChange, requestEnumPrefab, languageContainer);
+							    UIUtils.Instantiate (requestChange, requestEnumPrefab, this.transform, languageRect);
 							    break;
                             case UIData.Property.style:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, styleContainer);
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, styleRect);
                                 break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -784,10 +1040,10 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
 						case UIData.Property.showLastMove:
-							UIUtils.Instantiate (requestChange, requestBoolPrefab, showLastMoveContainer);
+							UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, showLastMoveRect);
 							break;
 						case UIData.Property.viewUrlImage:
-							UIUtils.Instantiate (requestChange, requestBoolPrefab, viewUrlImageContainer);
+							UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, viewUrlImageRect);
 							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -800,15 +1056,29 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 				dirty = true;
 				return;
 			}
-			if (data is AnimationSettingUI.UIData) {
-				AnimationSettingUI.UIData animationSettingUIData = data as AnimationSettingUI.UIData;
-				// UI
-				{
-					UIUtils.Instantiate (animationSettingUIData, animationSettingPrefab, animationSettingContainer);
-				}
-				dirty = true;
-				return;
-			}
+            // animationSettingUIData
+            {
+                if (data is AnimationSettingUI.UIData)
+                {
+                    AnimationSettingUI.UIData animationSettingUIData = data as AnimationSettingUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(animationSettingUIData, animationSettingPrefab, this.transform);
+                    }
+                    // Child
+                    {
+                        TransformData.AddCallBack(animationSettingUIData, this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                if(data is TransformData)
+                {
+                    dirty = true;
+                    return;
+                }
+            }
 			// maxThinkCount
 			if (data is RequestChangeIntUI.UIData) {
 				RequestChangeIntUI.UIData requestChange = data as RequestChangeIntUI.UIData;
@@ -818,7 +1088,7 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 					if (wrapProperty != null) {
 						switch ((UIData.Property)wrapProperty.n) {
 						case UIData.Property.maxThinkCount:
-							UIUtils.Instantiate (requestChange, requestIntPrefab, maxThinkCountContainer);
+							UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, maxThinkCountRect);
 							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -909,14 +1179,27 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 				}
 				return;
 			}
-			if (data is AnimationSettingUI.UIData) {
-				AnimationSettingUI.UIData animationSettingUIData = data as AnimationSettingUI.UIData;
-				// UI
-				{
-					animationSettingUIData.removeCallBackAndDestroy (typeof(AnimationSettingUI));
-				}
-				return;
-			}
+            // animationSettingUIData
+            {
+                if (data is AnimationSettingUI.UIData)
+                {
+                    AnimationSettingUI.UIData animationSettingUIData = data as AnimationSettingUI.UIData;
+                    // Child
+                    {
+                        TransformData.RemoveCallBack(animationSettingUIData, this);
+                    }
+                    // UI
+                    {
+                        animationSettingUIData.removeCallBackAndDestroy(typeof(AnimationSettingUI));
+                    }
+                    return;
+                }
+                // Child
+                if(data is TransformData)
+                {
+                    return;
+                }
+            }
 			// maxThinkCount
 			if (data is RequestChangeIntUI.UIData) {
 				RequestChangeIntUI.UIData requestChange = data as RequestChangeIntUI.UIData;
@@ -1098,9 +1381,33 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 			if (wrapProperty.p is RequestChangeBoolUI.UIData) {
 				return;
 			}
-			if (wrapProperty.p is AnimationSettingUI.UIData) {
-				return;
-			}
+            // animationSettingUIData
+            {
+                if (wrapProperty.p is AnimationSettingUI.UIData)
+                {
+                    return;
+                }
+                // Child
+                if(wrapProperty.p is TransformData)
+                {
+                    switch ((TransformData.Property)wrapProperty.n)
+                    {
+                        case TransformData.Property.position:
+                            break;
+                        case TransformData.Property.rotation:
+                            break;
+                        case TransformData.Property.scale:
+                            break;
+                        case TransformData.Property.size:
+                            dirty = true;
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+            }
 			// maxThinkCount
 			if (wrapProperty.p is RequestChangeIntUI.UIData) {
 				return;

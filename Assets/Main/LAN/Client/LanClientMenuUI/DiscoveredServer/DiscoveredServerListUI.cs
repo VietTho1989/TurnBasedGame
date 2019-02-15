@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class DiscoveredServerListUI : UIBehavior<DiscoveredServers>
 {
+
 	#region Refresh
 
 	public override void refresh ()

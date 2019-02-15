@@ -234,4 +234,19 @@ public class UIRectTransform
         }
     }
 
+    public static UIRectTransform CreateFullRect(float left, float right, float top, float bottom)
+    {
+        UIRectTransform ret = new UIRectTransform(UIConstants.FullParent);
+        {
+            // left 5, right 10, top 30, bottom 60
+            // anchoredPosition: (-2.5, 15.0); offsetMin: (5.0, 60.0); 
+            // offsetMax: (-10.0, -30.0); sizeDelta: (-15.0, -90.0);
+            ret.anchoredPosition = new Vector3((left - right) / 2.0f, (bottom - top) / 2.0f, 0);
+            ret.offsetMin = new Vector2(left, bottom);
+            ret.offsetMax = new Vector2(-right, -top);
+            ret.sizeDelta = new Vector2(-(left + right), -(top + bottom));
+        }
+        return ret;
+    }
+
 }

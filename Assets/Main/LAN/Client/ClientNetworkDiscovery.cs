@@ -38,6 +38,7 @@ public class DiscoveredServer : Data
 
 public class DiscoveredServers : Data
 {
+
 	public LP<DiscoveredServer> servers;
 
 	public DiscoveredServer findByIp(string ipAddress){
@@ -64,6 +65,7 @@ public class DiscoveredServers : Data
 	}
 
 	#endregion
+
 }
 
 public class ClientNetworkDiscovery : NetworkDiscovery 

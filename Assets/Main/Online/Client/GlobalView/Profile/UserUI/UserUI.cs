@@ -200,13 +200,13 @@ public class UserUI : UIBehavior<UserUI.UIData>
             {
                 // anchoredPosition: (-160.0, 0.0); anchorMin: (1.0, 1.0); anchorMax: (1.0, 1.0); pivot: (1.0, 1.0); 
                 // offsetMin: (-320.0, -30.0); offsetMax: (-160.0, 0.0); sizeDelta: (160.0, 30.0);
-                requestEditTypeRect.anchoredPosition = new Vector3(-160.0f, 0f, 0f);
+                requestEditTypeRect.anchoredPosition = new Vector3(-30.0f, 0f, 0f);
                 requestEditTypeRect.anchorMin = new Vector2(1.0f, 1.0f);
                 requestEditTypeRect.anchorMax = new Vector2(1.0f, 1.0f);
                 requestEditTypeRect.pivot = new Vector2(1.0f, 1.0f);
-                requestEditTypeRect.offsetMin = new Vector2(-320.0f, -30.0f);
-                requestEditTypeRect.offsetMax = new Vector2(-160.0f, 0.0f);
-                requestEditTypeRect.sizeDelta = new Vector2(160.0f, 30.0f);
+                requestEditTypeRect.offsetMin = new Vector2(-110.0f, -30.0f);
+                requestEditTypeRect.offsetMax = new Vector2(-30.0f, 0.0f);
+                requestEditTypeRect.sizeDelta = new Vector2(80.0f, 30.0f);
             }
             // btnUpdateUserRect
             {
@@ -333,6 +333,21 @@ public class UserUI : UIBehavior<UserUI.UIData>
                             {
                                 Debug.LogError("btnUpdateUIData null");
                             }
+                        }
+                        // scrollRect
+                        if(scrollRect!=null){
+                            if (isShowBottom)
+                            {
+                                scrollRectLater.set(scrollRect);
+                            }
+                            else
+                            {
+                                scrollRectImmeditate.set(scrollRect);
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("scrollRect null");
                         }
                     }
 					editUser.update ();
@@ -730,9 +745,13 @@ public class UserUI : UIBehavior<UserUI.UIData>
 		return true;
 	}
 
-	#endregion
+    #endregion
 
-	#region implement callBacks
+    #region implement callBacks
+
+    public RectTransform scrollRect;
+    private static readonly UIRectTransform scrollRectImmeditate = UIRectTransform.CreateFullRect(0, 0, UIConstants.HeaderHeight, 0);
+    private static readonly UIRectTransform scrollRectLater = UIRectTransform.CreateFullRect(0, 0, UIConstants.HeaderHeight, UIConstants.ItemHeight);
 
 	private static readonly UIRectTransform requestEditTypeRect = new UIRectTransform();
 
