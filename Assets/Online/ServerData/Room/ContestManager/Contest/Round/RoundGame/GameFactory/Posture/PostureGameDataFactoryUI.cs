@@ -249,8 +249,12 @@ public class PostureGameDataFactoryUI : UIBehavior<PostureGameDataFactoryUI.UIDa
 								{
 									RequestChangeEnumUI.UIData gameType = this.data.gameType.v;
 									if (gameType != null) {
-										// update
-										RequestChangeUpdate<int>.UpdateData updateData = gameType.updateData.v;
+                                        // options
+                                        {
+                                            gameType.options.copyList(GameType.GetEnableTypeString());
+                                        }
+                                        // update
+                                        RequestChangeUpdate<int>.UpdateData updateData = gameType.updateData.v;
 										if (updateData != null) {
 											updateData.origin.v = GameType.getEnableIndex (show.getGameTypeType ());
 											updateData.canRequestChange.v = editPostureGameDataFactory.canEdit.v;

@@ -13,20 +13,20 @@ public class StateDisconnectUI : UIBehavior<StateDisconnectUI.UIData>
 
 		public VP<ReferenceData<Server.State.Disconnect>> disconnect;
 
-		public VP<LoginStateUI.UIData> loginState;
+		public VP<StateDisconnectDetailUI.UIData> detail;
 
 		#region Constructor
 
 		public enum Property
 		{
 			disconnect,
-			loginState
+			detail
 		}
 
 		public UIData() : base()
 		{
 			this.disconnect = new VP<ReferenceData<Server.State.Disconnect>>(this, (byte)Property.disconnect, new ReferenceData<Server.State.Disconnect>(null));
-			this.loginState = new VP<LoginStateUI.UIData>(this, (byte)Property.loginState, new LoginStateUI.UIData());
+            this.detail = new VP<StateDisconnectDetailUI.UIData>(this, (byte)Property.detail, null);
 		}
 
 		#endregion
@@ -42,19 +42,6 @@ public class StateDisconnectUI : UIBehavior<StateDisconnectUI.UIData>
 
 	#region Refresh
 
-	public Text tvTime;
-
-	#region txt
-
-	public static readonly TxtLanguage txtTime = new TxtLanguage ();
-
-	static StateDisconnectUI()
-	{
-		txtTime.add (Language.Type.vi, "mất kết nối, thời gian");
-	}
-
-	#endregion
-
 	public override void refresh ()
 	{
 		if (dirty) {
@@ -62,24 +49,19 @@ public class StateDisconnectUI : UIBehavior<StateDisconnectUI.UIData>
 			if (this.data != null) {
 				Server.State.Disconnect disconnect = this.data.disconnect.v.data;
 				if (disconnect != null) {
-					// time
-					{
-						if (tvTime != null) {
-							tvTime.text = txtTime.get ("disconnect: time") + ": " + disconnect.time.v;
-						} else {
-							Debug.LogError ("tvTime null: " + this);
-						}
-					}
-					// login
-					{
-						LoginStateUI.UIData loginStateUIData = this.data.loginState.v;
-						if (loginStateUIData != null) {
-							loginStateUIData.login.v = new ReferenceData<Login> (disconnect.login.v);
-						} else {
-							Debug.LogError ("loginUIData null: " + this);
-						}
-					}
-				} else {
+                    // detail
+                    {
+                        StateDisconnectDetailUI.UIData detail = this.data.detail.v;
+                        if (detail != null)
+                        {
+                            detail.disconnect.v = new ReferenceData<Server.State.Disconnect>(disconnect);
+                        }
+                        else
+                        {
+                            Debug.LogError("detail null");
+                        }
+                    }
+                } else {
 					Debug.LogError ("disconnect null: " + this);
 				}
 			} else {
@@ -93,84 +75,96 @@ public class StateDisconnectUI : UIBehavior<StateDisconnectUI.UIData>
 		return true;
 	}
 
-	#endregion
+    #endregion
 
-	#region implement callBacks
+    #region implement callBacks
 
-	public LoginStateUI loginStatePrefab;
-	public Transform loginStateContainer;
+    public StateDisconnectDetailUI detailPrefab;
 
 	public override void onAddCallBack<T> (T data)
 	{
-		if (data is UIData) {
-			UIData uiData = data as UIData;
-			// Setting
-			Setting.get().addCallBack(this);
-			// Child
-			{
-				uiData.disconnect.allAddCallBack (this);
-				uiData.loginState.allAddCallBack (this);
-			}
-			dirty = true;
-			return;
-		}
-		// Setting
-		if (data is Setting) {
-			dirty = true;
-			return;
-		}
-		// Child
-		{
-			if (data is Server.State.Disconnect) {
-				dirty = true;
-				return;
-			}
-			if (data is LoginStateUI.UIData) {
-				LoginStateUI.UIData loginStateUIData = data as LoginStateUI.UIData;
-				// UI
-				{
-					UIUtils.Instantiate (loginStateUIData, loginStatePrefab, loginStateContainer);
-				}
-				dirty = true;
-				return;
-			}
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
+		if(data is UIData)
+        {
+            UIData uiData = data as UIData;
+            // Child
+            {
+                uiData.disconnect.allAddCallBack(this);
+                uiData.detail.allAddCallBack(this);
+            }
+            dirty = true;
+            return;
+        }
+        // Child
+        {
+            if (data is Server.State.Disconnect)
+            {
+                dirty = true;
+                return;
+            }
+            if(data is StateDisconnectDetailUI.UIData)
+            {
+                StateDisconnectDetailUI.UIData detailUIData = data as StateDisconnectDetailUI.UIData;
+                // UI
+                {
+                    Transform confirmBackContainer = null;
+                    {
+                        GlobalViewUI.UIData globalViewUIData = detailUIData.findDataInParent<GlobalViewUI.UIData>();
+                        if (globalViewUIData != null)
+                        {
+                            GlobalViewUI globalViewUI = globalViewUIData.findCallBack<GlobalViewUI>();
+                            if (globalViewUI != null)
+                            {
+                                confirmBackContainer = globalViewUI.confirmBackContainer;
+                            }
+                            else
+                            {
+                                Debug.LogError("globalViewUI null");
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("globalViewUIData null");
+                        }
+                    }
+                    UIUtils.Instantiate(detailUIData, detailPrefab, confirmBackContainer);
+                }
+                dirty = true;
+                return;
+            }
+        }
+        Debug.LogError ("Don't process: " + data + "; " + this);
 	}
 
 	public override void onRemoveCallBack<T> (T data, bool isHide)
 	{
-		if (data is UIData) {
-			UIData uiData = data as UIData;
-			// Setting
-			Setting.get().removeCallBack(this);
-			// Child
-			{
-				uiData.disconnect.allRemoveCallBack (this);
-				uiData.loginState.allRemoveCallBack (this);
-			}
-			this.setDataNull (uiData);
-			return;
-		}
-		// Setting
-		if (data is Setting) {
-			return;
-		}
-		// Child
-		{
-			if (data is Server.State.Disconnect) {
-				return;
-			}
-			if (data is LoginStateUI.UIData) {
-				LoginStateUI.UIData loginStateUIData = data as LoginStateUI.UIData;
-				// UI
-				{
-					loginStateUIData.removeCallBackAndDestroy (typeof(LoginStateUI));
-				}
-				return;
-			}
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
+        if (data is UIData)
+        {
+            UIData uiData = data as UIData;
+            // Child
+            {
+                uiData.disconnect.allRemoveCallBack(this);
+                uiData.detail.allRemoveCallBack(this);
+            }
+            this.setDataNull(uiData);
+            return;
+        }
+        // Child
+        {
+            if (data is Server.State.Disconnect)
+            {
+                return;
+            }
+            if (data is StateDisconnectDetailUI.UIData)
+            {
+                StateDisconnectDetailUI.UIData detailUIData = data as StateDisconnectDetailUI.UIData;
+                // UI
+                {
+                    detailUIData.removeCallBackAndDestroy(typeof(StateDisconnectDetailUI));
+                }
+                return;
+            }
+        }
+        Debug.LogError ("Don't process: " + data + "; " + this);
 	}
 
 	public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
@@ -178,69 +172,66 @@ public class StateDisconnectUI : UIBehavior<StateDisconnectUI.UIData>
 		if(WrapProperty.checkError(wrapProperty)){
 			return;
 		}
-		if (wrapProperty.p is UIData) {
-			switch ((UIData.Property)wrapProperty.n) {
-			case UIData.Property.disconnect:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			case UIData.Property.loginState:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			default:
-				Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-				break;
-			}
-			return;
-		}
-		// Setting
-		if (wrapProperty.p is Setting) {
-			switch ((Setting.Property)wrapProperty.n) {
-			case Setting.Property.language:
-				dirty = true;
-				break;
-			case Setting.Property.showLastMove:
-				break;
-			case Setting.Property.viewUrlImage:
-				break;
-			case Setting.Property.animationSetting:
-				break;
-			case Setting.Property.maxThinkCount:
-				break;
-			default:
-				Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-				break;
-			}
-			return;
-		}
-		// Child
-		{
-			if (wrapProperty.p is Server.State.Disconnect) {
-				switch ((Server.State.Disconnect.Property)wrapProperty.n) {
-				case Server.State.Disconnect.Property.time:
-					dirty = true;
-					break;
-				case Server.State.Disconnect.Property.login:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			if (wrapProperty.p is LoginStateUI.UIData) {
-				return;
-			}
-		}
-		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        if (wrapProperty.p is UIData)
+        {
+            switch ((UIData.Property)wrapProperty.n)
+            {
+                case UIData.Property.disconnect:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.detail:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Child
+        {
+            if (wrapProperty.p is Server.State.Disconnect)
+            {
+                return;
+            }
+            if (wrapProperty.p is StateDisconnectDetailUI.UIData)
+            {
+                return;
+            }
+        }
+        Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
 	}
 
 	#endregion
+
+    public void onClickButtonShowDetail()
+    {
+        if (this.data != null)
+        {
+            Server.State.Disconnect disconnect = this.data.disconnect.v.data;
+            if (disconnect != null)
+            {
+                StateDisconnectDetailUI.UIData detailUIData = this.data.detail.newOrOld<StateDisconnectDetailUI.UIData>();
+                {
+                    detailUIData.disconnect.v = new ReferenceData<Server.State.Disconnect>(disconnect);
+                }
+                this.data.detail.v = detailUIData;
+            }
+            else
+            {
+                Debug.LogError("disconnect null");
+            }
+        }
+        else
+        {
+            Debug.LogError("data null");
+        }
+    }
 
 }

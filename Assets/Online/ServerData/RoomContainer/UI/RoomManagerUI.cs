@@ -230,22 +230,11 @@ public class RoomManagerUI : UIBehavior<RoomManagerUI.UIData>
 	public GlobalRoomContainerUI globalPrefab;
 	public AllLimitRoomContainersUI limitPrefab;
 
-    public static readonly UIRectTransform subRect = new UIRectTransform();
+    public static readonly UIRectTransform subRect = UIRectTransform.CreateFullRect(0, 0, 0, 0);
 
     static RoomManagerUI()
     {
-        // subRect
-        {
-            // anchoredPosition: (0.0, -15.0); anchorMin: (0.0, 0.0); anchorMax: (1.0, 1.0); pivot: (0.5, 0.5); 
-            // offsetMin: (0.0, 0.0); offsetMax: (0.0, -30.0); sizeDelta: (0.0, -30.0);
-            subRect.anchoredPosition = new Vector3(0.0f, -15.0f, 0f);
-            subRect.anchorMin = new Vector2(0.0f, 0.0f);
-            subRect.anchorMax = new Vector2(1.0f, 1.0f);
-            subRect.pivot = new Vector2(0.5f, 0.5f);
-            subRect.offsetMin = new Vector2(0.0f, 0.0f);
-            subRect.offsetMax = new Vector2(0.0f, -30.0f);
-            subRect.sizeDelta = new Vector2(0.0f, -30.0f);
-        }
+
     }
 
     public override void onAddCallBack<T> (T data)

@@ -97,18 +97,6 @@ public class RoomListUI : UIBehavior<RoomListUI.UIData>
 		txtCreateRoom.add (Language.Type.vi, "Tạo phòng");
         // rect
         {
-            // roomAdapterRect
-            {
-                // anchoredPosition: (0.0, -15.0); anchorMin: (0.0, 0.0); anchorMax: (1.0, 1.0); pivot: (0.5, 0.5); 
-                // offsetMin: (0.0, 0.0); offsetMax: (0.0, -30.0); sizeDelta: (0.0, -30.0);
-                roomAdapterRect.anchoredPosition = new Vector3(0.0f, -15f, 0f);
-                roomAdapterRect.anchorMin = new Vector2(0.0f, 0.0f);
-                roomAdapterRect.anchorMax = new Vector2(1.0f, 1.0f);
-                roomAdapterRect.pivot = new Vector2(0.5f, 0.5f);
-                roomAdapterRect.offsetMin = new Vector2(0.0f, 0.0f);
-                roomAdapterRect.offsetMax = new Vector2(0.0f, -30.0f);
-                roomAdapterRect.sizeDelta = new Vector2(0.0f, -30.0f);
-            }
             // btnLeaveLimitRoomContainerRect
             {
                 // anchoredPosition: (0.0, 0.0); anchorMin: (0.0, 1.0); anchorMax: (0.0, 1.0); pivot: (0.0, 1.0);
@@ -238,7 +226,7 @@ public class RoomListUI : UIBehavior<RoomListUI.UIData>
 	#region implement callBacks
 
 	public RoomAdapter roomAdapterPrefab;
-    public static readonly UIRectTransform roomAdapterRect = new UIRectTransform();
+    public static readonly UIRectTransform roomAdapterRect = UIConstants.FullParent;
 
 	public CreateRoomUI createRoomPrefab;
 	public JoinRoomUI joinRoomPrefab;

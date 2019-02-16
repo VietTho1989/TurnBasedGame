@@ -276,8 +276,12 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
 								{
 									RequestChangeEnumUI.UIData gameType = this.data.gameType.v;
 									if (gameType != null) {
-										// update
-										RequestChangeUpdate<int>.UpdateData updateData = gameType.updateData.v;
+                                        // options
+                                        {
+                                            gameType.options.copyList(GameType.GetEnableTypeString());
+                                        }
+                                        // update
+                                        RequestChangeUpdate<int>.UpdateData updateData = gameType.updateData.v;
 										if (updateData != null) {
 											updateData.origin.v = GameType.getEnableIndex (show.gameType.v);
 											updateData.canRequestChange.v = editCreateRoom.canEdit.v;

@@ -186,6 +186,18 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                 btnBackRect.offsetMax = new Vector2(30.0f, 0.0f);
                 btnBackRect.sizeDelta = new Vector2(30.0f, 30.0f);
             }
+            // stateRect
+            {
+                // anchoredPosition: (150.0, 0.0); anchorMin: (0.0, 1.0); anchorMax: (0.0, 1.0); pivot: (0.0, 1.0);
+                // offsetMin: (150.0, -30.0); offsetMax: (180.0, 0.0); sizeDelta: (30.0, 30.0);
+                stateRect.anchoredPosition = new Vector3(150.0f, 0.0f);
+                stateRect.anchorMin = new Vector2(0.0f, 1.0f);
+                stateRect.anchorMax = new Vector2(0.0f, 1.0f);
+                stateRect.pivot = new Vector2(0.0f, 1.0f);
+                stateRect.offsetMin = new Vector2(150.0f, -30.0f);
+                stateRect.offsetMax = new Vector2(180.0f, 0.0f);
+                stateRect.sizeDelta = new Vector2(30.0f, 30.0f);
+            }
         }
     }
 
@@ -567,14 +579,14 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
     private static readonly UIRectTransform btnBackRect = new UIRectTransform();
 
 	public GlobalStateUI statePrefab;
-	public Transform stateContainer;
+    private static readonly UIRectTransform stateRect = new UIRectTransform();
 
 	public GlobalRoomsUI roomsPrefab;
 	public GlobalChatUI chatsPrefab;
 	public GlobalFriendsUI friendsPrefab;
 	public GlobalProfileUI profilePrefab;
 
-    public static readonly UIRectTransform contentRect = UIRectTransform.CreateFullRect(0, 0, UIConstants.HeaderHeight, 0);
+    private static readonly UIRectTransform contentRect = UIRectTransform.CreateFullRect(0, 0, UIConstants.HeaderHeight, 0);
 
     public Transform confirmBackContainer;
 
@@ -629,7 +641,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 				GlobalStateUI.UIData state = data as GlobalStateUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (state, statePrefab, stateContainer);
+					UIUtils.Instantiate (state, statePrefab, this.transform, stateRect);
 				}
 				dirty = true;
 				return;

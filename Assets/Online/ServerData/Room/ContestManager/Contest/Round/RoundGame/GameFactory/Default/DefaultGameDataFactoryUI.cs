@@ -257,6 +257,10 @@ public class DefaultGameDataFactoryUI : UIBehavior<DefaultGameDataFactoryUI.UIDa
                                     RequestChangeEnumUI.UIData gameType = this.data.gameType.v;
                                     if (gameType != null)
                                     {
+                                        // options
+                                        {
+                                            gameType.options.copyList(GameType.GetEnableTypeString());
+                                        }
                                         // update
                                         RequestChangeUpdate<int>.UpdateData updateData = gameType.updateData.v;
                                         if (updateData != null)
