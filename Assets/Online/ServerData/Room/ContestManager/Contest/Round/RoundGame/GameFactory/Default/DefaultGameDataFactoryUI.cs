@@ -313,7 +313,7 @@ public class DefaultGameDataFactoryUI : UIBehavior<DefaultGameDataFactoryUI.UIDa
                                             }
                                             else
                                             {
-                                                Debug.LogError("compare null: " + this);
+                                                // Debug.LogError("compare null: " + this);
                                             }
                                         }
                                         // process

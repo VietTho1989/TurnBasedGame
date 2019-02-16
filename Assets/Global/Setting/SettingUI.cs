@@ -13,6 +13,8 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 
 		public VP<EditData<Setting>> editSetting;
 
+        public VP<UIRectTransform.ShowType> showType;
+
 		#region language
 
 		public VP<RequestChangeEnumUI.UIData> language;
@@ -156,6 +158,7 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 		public enum Property
 		{
 			editSetting,
+            showType,
 			language,
             style,
 			showLastMove,
@@ -167,8 +170,9 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 		public UIData() : base()
 		{
 			this.editSetting = new VP<EditData<Setting>>(this, (byte)Property.editSetting, new EditData<Setting>());
-			// language
-			{
+            this.showType = new VP<UIRectTransform.ShowType>(this, (byte)Property.showType, UIRectTransform.ShowType.Normal);
+            // language
+            {
 				this.language = new VP<RequestChangeEnumUI.UIData>(this, (byte)Property.language, new RequestChangeEnumUI.UIData());
 				this.language.v.updateData.v.request.v = makeRequestChangeLanguage;
 				// options
@@ -235,6 +239,8 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
     #endregion
 
     #region txt
+
+    public GameObject header;
 
     public Text lbTitle;
     public static readonly TxtLanguage txtTitle = new TxtLanguage();
@@ -521,7 +527,7 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                                                     }
                                                     else
                                                     {
-                                                        Debug.LogError("compareSetting null: " + this);
+                                                        // Debug.LogError("compareSetting null: " + this);
                                                     }
                                                 }
                                                 editAnimationSetting.compare.v = new ReferenceData<AnimationSetting>(compareAnimationSetting);
@@ -708,7 +714,7 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                     }
                     else
                     {
-                        Debug.LogError("show null: " + this);
+                        // Debug.LogError("show null: " + this);
                     }
                 }
                 else
@@ -718,6 +724,47 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                 // UISize
                 {
                     float deltaY = UIConstants.HeaderHeight;
+                    {
+                        if (this.data.showType.v == UIRectTransform.ShowType.HeadLess)
+                        {
+                            deltaY = 0;
+                            if (lbTitle != null)
+                            {
+                                lbTitle.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null");
+                            }
+                            if (header != null)
+                            {
+                                header.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("header null");
+                            }
+                        }
+                        else
+                        {
+                            if (lbTitle != null)
+                            {
+                                lbTitle.gameObject.SetActive(true);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null");
+                            }
+                            if (header != null)
+                            {
+                                header.SetActive(true);
+                            }
+                            else
+                            {
+                                Debug.LogError("header null");
+                            }
+                        }
+                    }
                     // language
                     {
                         if (this.data.language.v != null)
@@ -917,7 +964,7 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
             }
             else
             {
-                Debug.LogError("data null: " + this);
+                // Debug.LogError("data null: " + this);
             }
         }
     }
@@ -1226,6 +1273,9 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
                     }
+                    break;
+                case UIData.Property.showType:
+                    dirty = true;
                     break;
                 case UIData.Property.language:
                     {

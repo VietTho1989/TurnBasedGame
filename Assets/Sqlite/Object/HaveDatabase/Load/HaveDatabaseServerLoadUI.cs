@@ -86,7 +86,6 @@ public class HaveDatabaseServerLoadUI : UIBehavior<HaveDatabaseServerLoadUI.UIDa
 
 	public HaveDatabaseServerLoadFileUI filePrefab;
 	public HaveDatabaseServerLoadDataUI dataPrefab;
-	public Transform stateContainer;
 
 	public override void onAddCallBack<T> (T data)
 	{
@@ -108,13 +107,13 @@ public class HaveDatabaseServerLoadUI : UIBehavior<HaveDatabaseServerLoadUI.UIDa
 				case UIData.State.Type.File:
 					{
 						HaveDatabaseServerLoadFileUI.UIData fileUIData = state as HaveDatabaseServerLoadFileUI.UIData;
-						UIUtils.Instantiate (fileUIData, filePrefab, stateContainer);
+						UIUtils.Instantiate (fileUIData, filePrefab, this.transform, UIConstants.FullParent);
 					}
 					break;
 				case UIData.State.Type.Data:
 					{
 						HaveDatabaseServerLoadDataUI.UIData dataUIData = state as HaveDatabaseServerLoadDataUI.UIData;
-						UIUtils.Instantiate (dataUIData, dataPrefab, stateContainer);
+						UIUtils.Instantiate (dataUIData, dataPrefab, this.transform, UIConstants.FullParent);
 					}
 					break;
 				default:

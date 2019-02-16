@@ -115,7 +115,7 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
 					Debug.LogError ("tvLoad null: " + this);
 				}
 			} else {
-				Debug.LogError ("data null: " + this);
+				// Debug.LogError ("data null: " + this);
 			}
 		}
 	}

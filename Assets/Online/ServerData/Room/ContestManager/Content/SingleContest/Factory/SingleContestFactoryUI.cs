@@ -426,7 +426,7 @@ namespace GameManager.Match
 												if (compare != null) {
 													compareRoundFactory = compare.roundFactory.v;
 												} else {
-													Debug.LogError ("compare null: " + this);
+													// Debug.LogError ("compare null: " + this);
 												}
 											}
 											switch (roundFactory.getType ()) {

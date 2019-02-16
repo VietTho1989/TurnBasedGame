@@ -52,11 +52,23 @@ public class HaveDatabaseServerLoadDataUI : UIBehavior<HaveDatabaseServerLoadDat
 
 	}
 
-	#endregion
+    #endregion
 
-	#region Refresh
+    #region txt
 
-	public override void refresh ()
+    public Text lbMessage;
+    private static readonly TxtLanguage txtMessage = new TxtLanguage();
+
+    static HaveDatabaseServerLoadDataUI()
+    {
+        txtMessage.add(Language.Type.vi, "Đang Tải Dữ Liệu...");
+    }
+
+    #endregion
+
+    #region Refresh
+
+    public override void refresh ()
 	{
 		if (dirty) {
 			dirty = false;
@@ -84,7 +96,18 @@ public class HaveDatabaseServerLoadDataUI : UIBehavior<HaveDatabaseServerLoadDat
 					this.data.state.v = UIData.State.Load;
 					destroyRoutine (loadRoutine);
 				}
-			} else {
+                // txt
+                {
+                    if (lbMessage != null)
+                    {
+                        lbMessage.text = txtMessage.get("Loading Data...");
+                    }
+                    else
+                    {
+                        Debug.LogError("lbMessage null");
+                    }
+                }
+            } else {
 				Debug.LogError ("data null: " + this);
 			}
 		}
@@ -393,24 +416,35 @@ public class HaveDatabaseServerLoadDataUI : UIBehavior<HaveDatabaseServerLoadDat
 	public override void onAddCallBack<T> (T data)
 	{
 		if (data is UIData) {
+            // Setting
+            Setting.get().addCallBack(this);
 			dirty = true;
 			return;
 		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
+        // Child
+        if(data is Setting)
+        {
+            dirty = true;
+            return;
+        }
+        Debug.LogError ("Don't process: " + data + "; " + this);
 	}
 
 	public override void onRemoveCallBack<T> (T data, bool isHide)
 	{
 		if (data is UIData) {
 			UIData uiData = data as UIData;
-			// Child
-			{
-
-			}
+            // Setting
+            Setting.get().removeCallBack(this);
 			this.setDataNull (uiData);
 			return;
 		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
+        // Setting
+        if(data is Setting)
+        {
+            return;
+        }
+        Debug.LogError ("Don't process: " + data + "; " + this);
 	}
 
 	public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
@@ -439,7 +473,31 @@ public class HaveDatabaseServerLoadDataUI : UIBehavior<HaveDatabaseServerLoadDat
 			}
 			return;
 		}
-		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        // Setting
+        if(wrapProperty.p is Setting)
+        {
+            switch ((Setting.Property)wrapProperty.n)
+            {
+                case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.showLastMove:
+                    break;
+                case Setting.Property.viewUrlImage:
+                    break;
+                case Setting.Property.animationSetting:
+                    break;
+                case Setting.Property.maxThinkCount:
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
 	}
 
 	#endregion

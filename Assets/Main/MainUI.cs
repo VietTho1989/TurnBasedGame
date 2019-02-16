@@ -119,27 +119,57 @@ public class MainUI : UIBehavior<MainUI.UIData>
 		txtHideSetting.add (Language.Type.vi, "Giấu Thiết Lập");
 	}
 
-	public override void refresh ()
-	{
-		if (dirty) {
-			dirty = false;
-			if (this.data != null) {
-				// tvSetting
-				{
-					if (tvSetting != null) {
-						// tvSetting.text = (this.data.showSettingUIData.v == null) ? 
-						//	txtSetting.get ("Setting")
-						//	: txtHideSetting.get ("Hide Setting");
+    public override void refresh()
+    {
+        if (dirty)
+        {
+            dirty = false;
+            if (this.data != null)
+            {
+                // tvSetting
+                {
+                    if (tvSetting != null)
+                    {
+                        // tvSetting.text = (this.data.showSettingUIData.v == null) ? 
+                        //	txtSetting.get ("Setting")
+                        //	: txtHideSetting.get ("Hide Setting");
                         tvSetting.text = "";
-					} else {
-						Debug.LogError ("tvSetting null: " + this);
-					}
-				}
-			} else {
-				// Debug.LogError ("data null: " + this);
-			}
-		}
-	}
+                    }
+                    else
+                    {
+                        Debug.LogError("tvSetting null: " + this);
+                    }
+                }
+                // UI Sibling
+                {
+                    int siblingIndex = 0;
+                    // sub
+                    if (UIRectTransform.SetSiblingIndex(this.data.sub.v, siblingIndex))
+                    {
+                        siblingIndex++;
+                    }
+                    // showSettingUIData
+                    if (UIRectTransform.SetSiblingIndex(this.data.showSettingUIData.v, siblingIndex))
+                    {
+                        siblingIndex++;
+                    }
+                    // btnSetting
+                    if (btnSetting != null)
+                    {
+                        btnSetting.transform.SetAsLastSibling();
+                    }
+                    else
+                    {
+                        Debug.LogError("btnSetting null");
+                    }
+                }
+            }
+            else
+            {
+                // Debug.LogError ("data null: " + this);
+            }
+        }
+    }
 
 	public override bool isShouldDisableUpdate ()
 	{
@@ -197,10 +227,6 @@ public class MainUI : UIBehavior<MainUI.UIData>
 
     #region implement callBacks
 
-    public const int subContainerIndex = 0;
-    public const int showSettingContainerIndex = 1;
-    public const int btnSettingIndex = 2;
-
     public HomeUI homePrefab;
 	public PlayOnlineUI playOnlinePrefab;
 	public OfflineUI playOfflinePrefab;
@@ -224,22 +250,17 @@ public class MainUI : UIBehavior<MainUI.UIData>
 				uiData.sub.allAddCallBack (this);
 				uiData.showSettingUIData.allAddCallBack (this);
 			}
-            // UI
-            {
-                if (btnSetting != null)
-                {
-                    btnSetting.transform.SetSiblingIndex(btnSettingIndex);
-                }
-                else
-                {
-                    Debug.LogError("btnSetting null");
-                }
-            }
             dirty = true;
 			return;
 		}
-		// Child
-		{
+        // Setting
+        if(data is Setting)
+        {
+            dirty = true;
+            return;
+        }
+        // Child
+        {
 			if (data is UIData.Sub) {
 				UIData.Sub sub = data as UIData.Sub;
 				// UI
@@ -248,31 +269,31 @@ public class MainUI : UIBehavior<MainUI.UIData>
 					case UIData.Sub.Type.Home:
 						{
 							HomeUI.UIData homeUIData = sub as HomeUI.UIData;
-							UIUtils.Instantiate (homeUIData, homePrefab, this.transform, subContainerIndex);
+							UIUtils.Instantiate (homeUIData, homePrefab, this.transform);
 						}
 						break;
 					case UIData.Sub.Type.Online:
 						{
 							PlayOnlineUI.UIData playOnlineUIData = sub as PlayOnlineUI.UIData;
-							UIUtils.Instantiate (playOnlineUIData, playOnlinePrefab, this.transform, subContainerIndex);
+							UIUtils.Instantiate (playOnlineUIData, playOnlinePrefab, this.transform);
 						}
 						break;
 					case UIData.Sub.Type.Offline:
 						{
 							OfflineUI.UIData playOfflineUIData = sub as OfflineUI.UIData;
-							UIUtils.Instantiate (playOfflineUIData, playOfflinePrefab, this.transform, subContainerIndex);
+							UIUtils.Instantiate (playOfflineUIData, playOfflinePrefab, this.transform);
 						}
 						break;
 					case UIData.Sub.Type.Lan:
 						{
 							LanUI.UIData lanUIData = sub as LanUI.UIData;
-							UIUtils.Instantiate (lanUIData, lanPrefab, this.transform, subContainerIndex);
+							UIUtils.Instantiate (lanUIData, lanPrefab, this.transform);
 						}
 						break;
 					case UIData.Sub.Type.LoadData:
 						{
 							LoadDataUI.UIData loadDataUIData = sub as LoadDataUI.UIData;
-							UIUtils.Instantiate (loadDataUIData, loadDataPrefab, this.transform, subContainerIndex);
+							UIUtils.Instantiate (loadDataUIData, loadDataPrefab, this.transform);
 						}
 						break;
 					default:
@@ -287,7 +308,7 @@ public class MainUI : UIBehavior<MainUI.UIData>
 				ShowSettingUI.UIData showSettingUIData = data as ShowSettingUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (showSettingUIData, showSettingPrefab, this.transform, showSettingContainerIndex);
+					UIUtils.Instantiate (showSettingUIData, showSettingPrefab, this.transform);
 				}
 				dirty = true;
 				return;
@@ -312,8 +333,13 @@ public class MainUI : UIBehavior<MainUI.UIData>
 			this.setDataNull (uiData);
 			return;
 		}
-		// Child
-		{
+        // Setting
+        if(data is Setting)
+        {
+            return;
+        }
+        // Child
+        {
 			if (data is UIData.Sub) {
 				UIData.Sub sub = data as UIData.Sub;
 				// UI
@@ -437,7 +463,7 @@ public class MainUI : UIBehavior<MainUI.UIData>
 				}
 				this.data.showSettingUIData.v = showSettingUIData;
 			} else {
-				this.data.showSettingUIData.v = null;
+				// this.data.showSettingUIData.v = null;
 			}
 		} else {
 			Debug.LogError ("data null: " + this);

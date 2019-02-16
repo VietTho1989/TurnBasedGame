@@ -101,25 +101,29 @@ public class SqliteServerUI : UIBehavior<SqliteServerUI.UIData>
 
 	}
 
-	#endregion
+    #endregion
 
-	#region Refresh
+    #region txt
 
-	public Dropdown drSubType;
+    private static readonly TxtLanguage txtNoDatabase = new TxtLanguage();
+    private static readonly TxtLanguage txtHaveDatabase = new TxtLanguage();
+
+    static SqliteServerUI()
+    {
+        txtNoDatabase.add(Language.Type.vi, "Không Tự Lưu Trữ");
+        txtHaveDatabase.add(Language.Type.vi, "Có Tự Lưu Trữ");
+    }
+
+    #endregion
+
+    #region Refresh
+
+    public Dropdown drSubType;
 
 	public override void Awake ()
 	{
 		base.Awake ();
 		if (drSubType != null) {
-			// options
-			{
-				List<string> options = new List<string> ();
-				{
-					options.Add ("No Database");
-					options.Add ("Have Database");
-				}
-				drSubType.AddOptions (options);
-			}
 			// event
 			drSubType.onValueChanged.AddListener (delegate(int newValue) {
 				if (drSubType.gameObject.activeInHierarchy) {
@@ -172,7 +176,39 @@ public class SqliteServerUI : UIBehavior<SqliteServerUI.UIData>
 			if (this.data != null) {
 				// edtSubType
 				if (drSubType != null) {
-					bool show = false;
+                    // options
+                    {
+                        // get
+                        List<string> options = new List<string>();
+                        {
+                            options.Add(txtNoDatabase.get("No AutoSave"));
+                            options.Add(txtHaveDatabase.get("Have AutoSave"));
+                        }
+                        // update
+                        bool needRefresh = false;
+                        if (drSubType.options.Count == options.Count)
+                        {
+                            for (int i = 0; i < options.Count; i++)
+                            {
+                                if (drSubType.options[i].text != options[i])
+                                {
+                                    needRefresh = true;
+                                    drSubType.options[i].text = options[i];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            needRefresh = true;
+                            drSubType.AddOptions(options);
+                        }
+                        // refresh
+                        if (needRefresh)
+                        {
+                            drSubType.RefreshShownValue();
+                        }
+                    }
+                    bool show = false;
 					{
 						UIData.Sub sub = this.data.sub.v;
 						if (sub != null) {
@@ -202,8 +238,9 @@ public class SqliteServerUI : UIBehavior<SqliteServerUI.UIData>
 						}
 					}
 					drSubType.gameObject.SetActive (show);
+                    drSubType.transform.SetAsLastSibling();
 				} else {
-					Debug.LogError ("edtPort null: " + this);
+					Debug.LogError ("drSubType null: " + this);
 				}
 			} else {
 				Debug.LogError ("data null: " + this);
@@ -222,12 +259,13 @@ public class SqliteServerUI : UIBehavior<SqliteServerUI.UIData>
 
 	public NoDatabaseServerUI noDatabaseServerPrefab;
 	public HaveDatabaseServerUI haveDatabaseServerPrefab;
-	public Transform subContainer;
 
 	public override void onAddCallBack<T> (T data)
 	{
 		if (data is UIData) {
 			UIData uiData = data as UIData;
+            // Setting
+            Setting.get().addCallBack(this);
 			// Child
 			{
 				uiData.sub.allAddCallBack (this);
@@ -235,8 +273,14 @@ public class SqliteServerUI : UIBehavior<SqliteServerUI.UIData>
 			dirty = true;
 			return;
 		}
-		// Child
-		if (data is UIData.Sub) {
+        // Setting
+        if(data is Setting)
+        {
+            dirty = true;
+            return;
+        }
+        // Child
+        if (data is UIData.Sub) {
 			UIData.Sub sub = data as UIData.Sub;
 			// UI
 			{
@@ -244,13 +288,13 @@ public class SqliteServerUI : UIBehavior<SqliteServerUI.UIData>
 				case UIData.Sub.Type.NoDatabase:
 					{
 						NoDatabaseServerUI.UIData noDatabaseServerUIData = sub as NoDatabaseServerUI.UIData;
-						UIUtils.Instantiate (noDatabaseServerUIData, noDatabaseServerPrefab, subContainer);
+						UIUtils.Instantiate (noDatabaseServerUIData, noDatabaseServerPrefab, this.transform, UIConstants.FullParent);
 					}
 					break;
 				case UIData.Sub.Type.HaveDatabase:
 					{
 						HaveDatabaseServerUI.UIData haveDatabaseServerUIData = sub as HaveDatabaseServerUI.UIData;
-						UIUtils.Instantiate (haveDatabaseServerUIData, haveDatabaseServerPrefab, subContainer);
+						UIUtils.Instantiate (haveDatabaseServerUIData, haveDatabaseServerPrefab, this.transform, UIConstants.FullParent);
 					}
 					break;
 				default:
@@ -268,6 +312,8 @@ public class SqliteServerUI : UIBehavior<SqliteServerUI.UIData>
 	{
 		if (data is UIData) {
 			UIData uiData = data as UIData;
+            // Setting
+            Setting.get().removeCallBack(this);
 			// Child
 			{
 				uiData.sub.allRemoveCallBack (this);
@@ -275,8 +321,13 @@ public class SqliteServerUI : UIBehavior<SqliteServerUI.UIData>
 			this.setDataNull (uiData);
 			return;
 		}
-		// Child
-		if (data is UIData.Sub) {
+        // Setting
+        if(data is Setting)
+        {
+            return;
+        }
+        // Child
+        if (data is UIData.Sub) {
 			UIData.Sub sub = data as UIData.Sub;
 			// UI
 			{
@@ -322,8 +373,32 @@ public class SqliteServerUI : UIBehavior<SqliteServerUI.UIData>
 			}
 			return;
 		}
-		// Child
-		if (wrapProperty.p is UIData.Sub) {
+        // Setting
+        if(wrapProperty.p is Setting)
+        {
+            switch ((Setting.Property)wrapProperty.n)
+            {
+                case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.showLastMove:
+                    break;
+                case Setting.Property.viewUrlImage:
+                    break;
+                case Setting.Property.animationSetting:
+                    break;
+                case Setting.Property.maxThinkCount:
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Child
+        if (wrapProperty.p is UIData.Sub) {
 			UIData.Sub sub = wrapProperty.p as UIData.Sub;
 			switch (sub.getType ()) {
 			case UIData.Sub.Type.NoDatabase:

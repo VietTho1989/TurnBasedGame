@@ -68,6 +68,8 @@ public class NoDatabaseServerNoneUI : UIBehavior<NoDatabaseServerNoneUI.UIData>
     public GameObject maxClientUserCountContainer;
     public InputField edtMaxClientUserCount;
 
+    public Button btnStart;
+
     private bool firstInit = true;
 
 	public override void refresh ()
@@ -75,6 +77,7 @@ public class NoDatabaseServerNoneUI : UIBehavior<NoDatabaseServerNoneUI.UIData>
 		if (dirty) {
 			dirty = false;
 			if (this.data != null) {
+                int showCount = 0;
                 // firstInit
                 if (firstInit)
                 {
@@ -128,6 +131,8 @@ public class NoDatabaseServerNoneUI : UIBehavior<NoDatabaseServerNoneUI.UIData>
 							}
 						}
 						portContainer.SetActive (show);
+                        if (show)
+                            showCount++;
 					} else {
 						Debug.LogError ("portContainer null: " + this);
 					}
@@ -149,14 +154,70 @@ public class NoDatabaseServerNoneUI : UIBehavior<NoDatabaseServerNoneUI.UIData>
                             }
                         }
                         maxClientUserCountContainer.SetActive(show);
+                        if (show)
+                            showCount++;
                     }
                     else
                     {
                         Debug.LogError("maxClientUserCountContainer null: " + this);
                     }
                 }
-				// txt
-				{
+                // drSubType
+                {
+                    // find
+                    Dropdown drSubType = null;
+                    {
+                        SqliteServerUI.UIData sqliteServerUIData = this.data.findDataInParent<SqliteServerUI.UIData>();
+                        if (sqliteServerUIData != null)
+                        {
+                            SqliteServerUI sqliteServerUI = sqliteServerUIData.findCallBack<SqliteServerUI>();
+                            if (sqliteServerUI != null)
+                            {
+                                drSubType = sqliteServerUI.drSubType;
+                            }
+                            else
+                            {
+                                Debug.LogError("sqliteServerUI null");
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("sqliteServerUIData null");
+                        }
+                    }
+                    // process
+                    if (drSubType != null && btnStart!=null)
+                    {
+                        switch (showCount)
+                        {
+                            case 0:
+                                {
+                                    UIRectTransform.SetCenterPosY((RectTransform)drSubType.transform, -25);
+                                    UIRectTransform.SetCenterPosY((RectTransform)btnStart.transform, 25);
+                                }
+                                break;
+                            case 1:
+                                {
+                                    UIRectTransform.SetCenterPosY((RectTransform)drSubType.transform, -50);
+                                    UIRectTransform.SetCenterPosY((RectTransform)btnStart.transform, 50);
+                                }
+                                break;
+                            case 2:
+                            default:
+                                {
+                                    UIRectTransform.SetCenterPosY((RectTransform)drSubType.transform, -100);
+                                    UIRectTransform.SetCenterPosY((RectTransform)btnStart.transform, 50);
+                                }
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("drSubType, btnStart null");
+                    }
+                }
+                // txt
+                {
 					if (tvStart != null) {
 						tvStart.text = txtStart.get ("Start");
 					} else {

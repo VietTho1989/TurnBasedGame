@@ -227,7 +227,6 @@ public class AfterLoginMainBtnBackClientUI : UIBehavior<AfterLoginMainBtnBackCli
 	#region implement callBacks
 
 	public ConfirmBackClientUI confirmBackPrefab;
-	public Transform confirmBackContainer;
 
 	public override void onAddCallBack<T> (T data)
 	{
@@ -266,7 +265,27 @@ public class AfterLoginMainBtnBackClientUI : UIBehavior<AfterLoginMainBtnBackCli
 				ConfirmBackClientUI.UIData confirmBackUIData = data as ConfirmBackClientUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (confirmBackUIData, confirmBackPrefab, confirmBackContainer);
+                    Transform confirmBackContainer = null;
+                    {
+                        GlobalViewUI.UIData globalViewUIData = confirmBackUIData.findDataInParent<GlobalViewUI.UIData>();
+                        if (globalViewUIData != null)
+                        {
+                            GlobalViewUI globalViewUI = globalViewUIData.findCallBack<GlobalViewUI>();
+                            if (globalViewUI != null)
+                            {
+                                confirmBackContainer = globalViewUI.confirmBackContainer;
+                            }
+                            else
+                            {
+                                Debug.LogError("globalViewUI null");
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("globalViewUIData null");
+                        }
+                    }
+                    UIUtils.Instantiate (confirmBackUIData, confirmBackPrefab, confirmBackContainer);
 				}
 				dirty = true;
 				return;

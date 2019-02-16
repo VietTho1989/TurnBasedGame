@@ -1,8 +1,7 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Editor/PrintRectTransform.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Sqlite/Object/HaveDatabase/None/HaveDatabaseServerNoneUI.cs">
     <Files>
-      <File FileName="Assets/Editor/UIRefreshEditor.cs" Line="4" Column="1" />
-      <File FileName="Assets/Editor/PrintRectTransform.cs" Line="12" Column="6" />
+      <File FileName="Assets/Sqlite/Object/HaveDatabase/None/HaveDatabaseServerNoneUI.cs" Line="254" Column="39" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

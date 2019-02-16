@@ -498,7 +498,7 @@ namespace GameManager.Match
 												if (compare != null) {
 													compareCalculateScore = compare.calculateScore.v;
 												} else {
-													Debug.LogError ("compare null: " + this);
+													// Debug.LogError ("compare null: " + this);
 												}
 											}
 											switch (calculateScore.getType ()) {

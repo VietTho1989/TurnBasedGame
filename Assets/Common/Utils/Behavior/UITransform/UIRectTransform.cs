@@ -95,18 +95,9 @@ public class UIRectTransform
 
     public static void SetPosY(RectTransform rectTransform, float posY)
     {
-        if (rectTransform.anchorMin == new Vector2(0.0f, 1.0f)
-            && rectTransform.anchorMax == new Vector2(1.0f, 1.0f)
-            && rectTransform.pivot == new Vector2(0.5f, 1f))
-        {
-            rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -posY);
-            rectTransform.offsetMin = new Vector2(rectTransform.offsetMin.x, -rectTransform.sizeDelta.y - posY);
-            rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, -posY);
-        }
-        // RequestBoolRect
-        else if (rectTransform.anchorMin == new Vector2(0.0f, 1.0f)
-            && rectTransform.anchorMax == new Vector2(0.0f, 1.0f)
-            && rectTransform.pivot == new Vector2(0.0f, 1f))
+        if (rectTransform.anchorMin.y == 1.0f
+            && rectTransform.anchorMax.y == 1.0f
+            && rectTransform.pivot.y == 1f)
         {
             rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -posY);
             rectTransform.offsetMin = new Vector2(rectTransform.offsetMin.x, -rectTransform.sizeDelta.y - posY);
@@ -247,6 +238,60 @@ public class UIRectTransform
             ret.sizeDelta = new Vector2(-(left + right), -(top + bottom));
         }
         return ret;
+    }
+
+    #region set center posY
+
+    public static void SetCenterPosY(RectTransform rectTransform, float posY)
+    {
+        if (rectTransform != null)
+        {
+            // -100
+            // anchoredPosition: (0.0, 100.0); offsetMin: (-80.0, 85.0); offsetMax: (80.0, 115.0); sizeDelta: (160.0, 30.0);
+            rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -posY);
+            rectTransform.offsetMin = new Vector2(rectTransform.offsetMin.x, -posY - rectTransform.sizeDelta.y / 2.0f);
+            rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, -posY + rectTransform.sizeDelta.y / 2.0f);
+        }
+        else
+        {
+            Debug.LogError("rectTransform null");
+        }
+    }
+
+    #endregion
+
+    #region siblingIndex
+
+    public static bool SetSiblingIndex(Data data, int siblingIndex)
+    {
+        bool ret = false;
+        if (data != null)
+        {
+            HaveTransformInterface haveTransform = data.findCallBack<HaveTransformInterface>();
+            if (haveTransform != null)
+            {
+                haveTransform.getTransform().SetSiblingIndex(siblingIndex);
+                ret = true;
+            }
+            else
+            {
+                Debug.LogError("haveTransform null");
+            }
+        }
+        else
+        {
+            Debug.LogError("data null");
+        }
+        return ret;
+    }
+
+    #endregion
+
+    public enum ShowType
+    {
+        Normal,
+        HeadLess,
+        OnlyHead
     }
 
 }

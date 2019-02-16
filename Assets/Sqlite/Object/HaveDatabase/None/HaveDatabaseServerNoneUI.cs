@@ -53,11 +53,27 @@ public class HaveDatabaseServerNoneUI : UIBehavior<HaveDatabaseServerNoneUI.UIDa
 
 	}
 
-	#endregion
+    #endregion
 
-	#region Refresh
+    #region txt
 
-	public InputField edtFilePath;
+    public Text tvChooseFile;
+    private static readonly TxtLanguage txtChooseFile = new TxtLanguage();
+
+    public Text tvLoad;
+    private static readonly TxtLanguage txtLoad = new TxtLanguage();
+
+    static HaveDatabaseServerNoneUI()
+    {
+        txtChooseFile.add(Language.Type.vi, "Chọn");
+        txtLoad.add(Language.Type.vi, "Tải");
+    }
+
+    #endregion
+
+    #region Refresh
+
+    public InputField edtFilePath;
 	private bool firstInit = false;
 
 	public override void refresh ()
@@ -111,7 +127,26 @@ public class HaveDatabaseServerNoneUI : UIBehavior<HaveDatabaseServerNoneUI.UIDa
 					}
 				}
 				firstInit = false;
-			} else {
+                // txt
+                {
+                    if (tvChooseFile != null)
+                    {
+                        tvChooseFile.text = txtChooseFile.get("Choose");
+                    }
+                    else
+                    {
+                        Debug.LogError("tvChooseFile null");
+                    }
+                    if (tvLoad != null)
+                    {
+                        tvLoad.text = txtLoad.get("Load");
+                    }
+                    else
+                    {
+                        Debug.LogError("tvLoad null");
+                    }
+                }
+            } else {
 				Debug.LogError ("data null: " + this);
 			}
 		}
@@ -133,6 +168,8 @@ public class HaveDatabaseServerNoneUI : UIBehavior<HaveDatabaseServerNoneUI.UIDa
 	{
 		if (data is UIData) {
 			UIData uiData = data as UIData;
+            // Setting
+            Setting.get().addCallBack(this);
 			// Child
 			{
 				uiData.chooseDatabaseUIData.allAddCallBack (this);
@@ -141,8 +178,14 @@ public class HaveDatabaseServerNoneUI : UIBehavior<HaveDatabaseServerNoneUI.UIDa
 			dirty = true;
 			return;
 		}
-		// Child
-		if (data is ChooseDatabaseUI.UIData) {
+        // Setting
+        if(data is Setting)
+        {
+            dirty = true;
+            return;
+        }
+        // Child
+        if (data is ChooseDatabaseUI.UIData) {
 			ChooseDatabaseUI.UIData chooseDatabaseUIData = data as ChooseDatabaseUI.UIData;
 			// UI
 			{
@@ -158,6 +201,8 @@ public class HaveDatabaseServerNoneUI : UIBehavior<HaveDatabaseServerNoneUI.UIDa
 	{
 		if (data is UIData) {
 			UIData uiData = data as UIData;
+            // Setting
+            Setting.get().removeCallBack(this);
 			// Child
 			{
 				uiData.chooseDatabaseUIData.allRemoveCallBack (this);
@@ -165,8 +210,13 @@ public class HaveDatabaseServerNoneUI : UIBehavior<HaveDatabaseServerNoneUI.UIDa
 			this.setDataNull (uiData);
 			return;
 		}
-		// Child
-		if (data is ChooseDatabaseUI.UIData) {
+        // Setting
+        if(data is Setting)
+        {
+            return;
+        }
+        // Child
+        if (data is ChooseDatabaseUI.UIData) {
 			ChooseDatabaseUI.UIData chooseDatabaseUIData = data as ChooseDatabaseUI.UIData;
 			// UI
 			{
@@ -196,8 +246,32 @@ public class HaveDatabaseServerNoneUI : UIBehavior<HaveDatabaseServerNoneUI.UIDa
 			}
 			return;
 		}
-		// Child
-		if (wrapProperty.p is ChooseDatabaseUI.UIData) {
+        // Setting
+        if(wrapProperty.p is Setting)
+        {
+            switch ((Setting.Property)wrapProperty.n)
+            {
+                case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.showLastMove:
+                    break;
+                case Setting.Property.viewUrlImage:
+                    break;
+                case Setting.Property.animationSetting:
+                    break;
+                case Setting.Property.maxThinkCount:
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Child
+        if (wrapProperty.p is ChooseDatabaseUI.UIData) {
 			return;
 		}
 		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);

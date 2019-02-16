@@ -925,6 +925,7 @@
     <Compile Include="Assets\Common\Utils\Behavior\UIBehavior.cs" />
     <Compile Include="Assets\Common\Utils\Behavior\UIConstants.cs" />
     <Compile Include="Assets\Common\Utils\Behavior\UIRefresh.cs" />
+    <Compile Include="Assets\Common\Utils\Behavior\UITransform\PrintRectTransform.cs" />
     <Compile Include="Assets\Common\Utils\Behavior\UITransform\UIRectTransform.cs" />
     <Compile Include="Assets\Common\Utils\Behavior\UpdateBehavior.cs" />
     <Compile Include="Assets\Common\Utils\Behavior\UpdateUtils.cs" />
@@ -1159,7 +1160,6 @@
     <Compile Include="Assets\Global\Setting\Language\TxtLanguage.cs" />
     <Compile Include="Assets\Global\Setting\Setting.cs" />
     <Compile Include="Assets\Global\Setting\SettingUI.cs" />
-    <Compile Include="Assets\Global\Setting\ShowSettingFooterUI.cs" />
     <Compile Include="Assets\Global\Setting\ShowSettingUI.cs" />
     <Compile Include="Assets\Global\StringSerializationAPI.cs" />
     <Compile Include="Assets\ImageLoader\Cache\AbstractDiscCache.cs" />
@@ -1238,6 +1238,7 @@
     <Compile Include="Assets\Main\Online\Server\CreateDataIdentityUpdate.cs" />
     <Compile Include="Assets\Main\Online\Server\ServerOnlineUI.cs" />
     <Compile Include="Assets\Main\Test\TestSelectable.cs" />
+    <Compile Include="Assets\Main\UIDrag.cs" />
     <Compile Include="Assets\Online\NetworkManager\OnlineScene\Client\ClientStateUpdate.cs" />
     <Compile Include="Assets\Online\NetworkManager\OnlineScene\Client\ClientUpdate.cs" />
     <Compile Include="Assets\Online\NetworkManager\OnlineScene\Client\SubStateUpdate\ClientConnectStateUpdate.cs" />

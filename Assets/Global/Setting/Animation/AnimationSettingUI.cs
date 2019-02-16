@@ -376,7 +376,7 @@ public class AnimationSettingUI : UIBehavior<AnimationSettingUI.UIData>, HaveTra
 							}
 						}
 					} else {
-						Debug.LogError ("show null: " + this);
+						// Debug.LogError ("show null: " + this);
 					}
 				} else {
 					Debug.LogError ("editAnimationSetting null: " + this);
@@ -417,7 +417,7 @@ public class AnimationSettingUI : UIBehavior<AnimationSettingUI.UIData>, HaveTra
                     }
                 }
 			} else {
-				Debug.LogError ("data null: " + this);
+				// Debug.LogError ("data null: " + this);
 			}
 		}
         updateTransformData();

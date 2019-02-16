@@ -174,17 +174,17 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
         }
         // rect
         {
-            // contentRect
+            // btnBackRect
             {
-                // anchoredPosition: (0.0, -30.0); anchorMin: (0.0, 0.0); anchorMax: (1.0, 1.0); pivot: (0.5, 0.5);
-                // offsetMin: (0.0, 0.0); offsetMax: (0.0, -60.0); sizeDelta: (0.0, -60.0);
-                contentRect.anchoredPosition = new Vector3(0.0f, -30.0f, 0f);
-                contentRect.anchorMin = new Vector2(0.0f, 0.0f);
-                contentRect.anchorMax = new Vector2(1.0f, 1.0f);
-                contentRect.pivot = new Vector2(0.5f, 0.5f);
-                contentRect.offsetMin = new Vector2(0.0f, 0.0f);
-                contentRect.offsetMax = new Vector2(0.0f, -60.0f);
-                contentRect.sizeDelta = new Vector2(0.0f, -60.0f);
+                // anchoredPosition: (0.0, 0.0); anchorMin: (0.0, 1.0); anchorMax: (0.0, 1.0); pivot: (0.0, 1.0); 
+                // offsetMin: (0.0, -30.0); offsetMax: (30.0, 0.0); sizeDelta: (30.0, 30.0);
+                btnBackRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                btnBackRect.anchorMin = new Vector2(0.0f, 1.0f);
+                btnBackRect.anchorMax = new Vector2(0.0f, 1.0f);
+                btnBackRect.pivot = new Vector2(0.0f, 1.0f);
+                btnBackRect.offsetMin = new Vector2(0.0f, -30.0f);
+                btnBackRect.offsetMax = new Vector2(30.0f, 0.0f);
+                btnBackRect.sizeDelta = new Vector2(30.0f, 30.0f);
             }
         }
     }
@@ -493,6 +493,38 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                         Debug.LogError("btn null: " + this);
                     }
                 }
+                // siblingIndex
+                {
+                    // btnBack
+                    {
+                        AfterLoginMainBtnBackUI.UIData btnBackUIData = this.data.btnBack.v;
+                        if (btnBackUIData != null)
+                        {
+                            AfterLoginMainBtnBackUI btnBackUI = btnBackUIData.findCallBack<AfterLoginMainBtnBackUI>();
+                            if (btnBackUI != null)
+                            {
+                                btnBackUI.transform.SetAsFirstSibling();
+                            }
+                            else
+                            {
+                                Debug.LogError("btnBackUI null");
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("btnBackUIData null");
+                        }
+                    }
+                    // confirmBack
+                    if (confirmBackContainer != null)
+                    {
+                        confirmBackContainer.SetAsLastSibling();
+                    }
+                    else
+                    {
+                        Debug.LogError("confirmBackContainer null");
+                    }
+                }
                 // txt
                 {
 					if (tvRooms != null) {
@@ -532,7 +564,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 	#region implement callBacks
 
 	public AfterLoginMainBtnBackUI btnBackPrefab;
-	public Transform btnBackContainer;
+    private static readonly UIRectTransform btnBackRect = new UIRectTransform();
 
 	public GlobalStateUI statePrefab;
 	public Transform stateContainer;
@@ -542,7 +574,9 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 	public GlobalFriendsUI friendsPrefab;
 	public GlobalProfileUI profilePrefab;
 
-    public static readonly UIRectTransform contentRect = new UIRectTransform();
+    public static readonly UIRectTransform contentRect = UIRectTransform.CreateFullRect(0, 0, UIConstants.HeaderHeight, 0);
+
+    public Transform confirmBackContainer;
 
 	public override void onAddCallBack<T> (T data)
 	{
@@ -586,7 +620,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 				AfterLoginMainBtnBackUI.UIData btnBack = data as AfterLoginMainBtnBackUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (btnBack, btnBackPrefab, btnBackContainer);
+					UIUtils.Instantiate (btnBack, btnBackPrefab, this.transform, btnBackRect);
 				}
 				dirty = true;
 				return;

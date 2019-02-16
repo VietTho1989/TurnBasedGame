@@ -129,8 +129,12 @@ public class LanHostUI : UIBehavior<LanHostUI.UIData>
 						Debug.LogError ("contentContainer null: " + this);
 					}
 				}
-				// txt
-				{
+                // siblingIndex
+                {
+                    UIRectTransform.SetSiblingIndex(this.data.sqliteServerUIData.v, 0);
+                }
+                // txt
+                {
 					if (lbTitle != null) {
 						lbTitle.text = txtTitle.get ("Lan Host");
 					} else {
@@ -158,7 +162,6 @@ public class LanHostUI : UIBehavior<LanHostUI.UIData>
 	#region implement callBacks
 
 	public SqliteServerUI sqliteServerPrefab;
-	public Transform sqliteServerContainer;
 
 	public override void onAddCallBack<T> (T data)
 	{
@@ -184,7 +187,7 @@ public class LanHostUI : UIBehavior<LanHostUI.UIData>
 				SqliteServerUI.UIData sqliteServerUIData = data as SqliteServerUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (sqliteServerUIData, sqliteServerPrefab, sqliteServerContainer);
+					UIUtils.Instantiate (sqliteServerUIData, sqliteServerPrefab, this.transform, UIConstants.FullParent);
 				}
 				// Child
 				{

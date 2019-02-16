@@ -75,6 +75,22 @@ public class HaveDatabaseServerUI : UIBehavior<HaveDatabaseServerUI.UIData>
 
     #endregion
 
+    #region txt
+
+    public Text lbPort;
+    private static readonly TxtLanguage txtPort = new TxtLanguage();
+
+    public Text lbMaxClientUserCount;
+    private static readonly TxtLanguage txtMaxClientUserCount = new TxtLanguage();
+
+    static HaveDatabaseServerUI()
+    {
+        txtPort.add(Language.Type.vi, "Cổng");
+        txtMaxClientUserCount.add(Language.Type.vi, "Số người dùng");
+    }
+
+    #endregion
+
     #region Refresh
 
     public GameObject portContainer;
@@ -90,6 +106,7 @@ public class HaveDatabaseServerUI : UIBehavior<HaveDatabaseServerUI.UIData>
 		if (dirty) {
 			dirty = false;
 			if (this.data != null) {
+                int showCount = 0;
                 // firstInit
                 if (firstInit)
                 {
@@ -181,7 +198,11 @@ public class HaveDatabaseServerUI : UIBehavior<HaveDatabaseServerUI.UIData>
 						Debug.LogError ("unknown server type: " + serverType + "; " + this);
 						break;
 					}
-				} else {
+                    if (portContainer.activeSelf)
+                    {
+                        showCount++;
+                    }
+                } else {
 					Debug.LogError ("edtPort null: " + this);
 				}
                 // maxClientUserCount
@@ -246,10 +267,88 @@ public class HaveDatabaseServerUI : UIBehavior<HaveDatabaseServerUI.UIData>
                             Debug.LogError("unknown server type: " + serverType + "; " + this);
                             break;
                     }
+                    if (maxClientUserCountContainer.activeSelf)
+                    {
+                        showCount++;
+                    }
                 }
                 else
                 {
                     Debug.LogError("edtMaxClientUserCount null: " + this);
+                }
+                // drSub
+                {
+                    // find
+                    Dropdown drSubType = null;
+                    {
+                        SqliteServerUI.UIData sqliteServerUIData = this.data.findDataInParent<SqliteServerUI.UIData>();
+                        if (sqliteServerUIData != null)
+                        {
+                            SqliteServerUI sqliteServerUI = sqliteServerUIData.findCallBack<SqliteServerUI>();
+                            if (sqliteServerUI != null)
+                            {
+                                drSubType = sqliteServerUI.drSubType;
+                            }
+                            else
+                            {
+                                Debug.LogError("sqliteServerUI null");
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("sqliteServerUIData null");
+                        }
+                    }
+                    // process
+                    if (drSubType != null)
+                    {
+                        switch (showCount)
+                        {
+                            case 0:
+                                {
+                                    UIRectTransform.SetCenterPosY((RectTransform)drSubType.transform, -50);
+                                }
+                                break;
+                            case 1:
+                                {
+                                    UIRectTransform.SetCenterPosY((RectTransform)drSubType.transform, -100);
+                                }
+                                break;
+                            case 2:
+                            default:
+                                {
+                                    UIRectTransform.SetCenterPosY((RectTransform)drSubType.transform, -150);
+                                }
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("drSubType null");
+                    }
+                }
+                // set siblingIndex
+                {
+                    UIRectTransform.SetSiblingIndex(this.data.sub.v, 0);
+                }
+                // txt
+                {
+                    if (lbPort != null)
+                    {
+                        lbPort.text = txtPort.get("Port");
+                    }
+                    else
+                    {
+                        Debug.LogError("lbPort null");
+                    }
+                    if (lbMaxClientUserCount != null)
+                    {
+                        lbMaxClientUserCount.text = txtMaxClientUserCount.get("Max user count");
+                    }
+                    else
+                    {
+                        Debug.LogError("lbMaxClientUserCount null");
+                    }
                 }
             } else {
 				Debug.LogError ("data null: " + this);
@@ -270,12 +369,13 @@ public class HaveDatabaseServerUI : UIBehavior<HaveDatabaseServerUI.UIData>
 	public HaveDatabaseServerLoadUI loadPrefab;
 	public HaveDatabaseServerUpdateUI updatePrefab;
 	public HaveDatabaseServerFailUI failPrefab;
-	public Transform subContainer;
 
 	public override void onAddCallBack<T> (T data)
 	{
 		if (data is UIData) {
 			UIData uiData = data as UIData;
+            // Setting
+            Setting.get().addCallBack(this);
 			// Child
 			{
 				uiData.sub.allAddCallBack (this);
@@ -284,8 +384,14 @@ public class HaveDatabaseServerUI : UIBehavior<HaveDatabaseServerUI.UIData>
 			dirty = true;
 			return;
 		}
-		// Child
-		if (data is UIData.Sub) {
+        // Setting
+        if(data is Setting)
+        {
+            dirty = true;
+            return;
+        }
+        // Child
+        if (data is UIData.Sub) {
 			UIData.Sub sub = data as UIData.Sub;
 			// UI
 			{
@@ -293,25 +399,25 @@ public class HaveDatabaseServerUI : UIBehavior<HaveDatabaseServerUI.UIData>
 				case UIData.Sub.Type.None:
 					{
 						HaveDatabaseServerNoneUI.UIData noneUIData = sub as HaveDatabaseServerNoneUI.UIData;
-						UIUtils.Instantiate (noneUIData, nonePrefab, subContainer);
+						UIUtils.Instantiate (noneUIData, nonePrefab, this.transform, UIConstants.FullParent);
 					}
 					break;
 				case UIData.Sub.Type.Load:
 					{
 						HaveDatabaseServerLoadUI.UIData loadUIData = sub as HaveDatabaseServerLoadUI.UIData;
-						UIUtils.Instantiate (loadUIData, loadPrefab, subContainer);
+						UIUtils.Instantiate (loadUIData, loadPrefab, this.transform, UIConstants.FullParent);
 					}
 					break;
 				case UIData.Sub.Type.Update:
 					{
 						HaveDatabaseServerUpdateUI.UIData updateUIData = sub as HaveDatabaseServerUpdateUI.UIData;
-						UIUtils.Instantiate (updateUIData, updatePrefab, subContainer);
+						UIUtils.Instantiate (updateUIData, updatePrefab, this.transform, UIConstants.FullParent);
 					}
 					break;
 				case UIData.Sub.Type.Fail:
 					{
 						HaveDatabaseServerFailUI.UIData failUIData = sub as HaveDatabaseServerFailUI.UIData;
-						UIUtils.Instantiate (failUIData, failPrefab, subContainer);
+						UIUtils.Instantiate (failUIData, failPrefab, this.transform, UIConstants.FullParent);
 					}
 					break;
 				default:
@@ -329,6 +435,8 @@ public class HaveDatabaseServerUI : UIBehavior<HaveDatabaseServerUI.UIData>
 	{
 		if (data is UIData) {
 			UIData uiData = data as UIData;
+            // Setting
+            Setting.get().removeCallBack(this);
 			// Child
 			{
 				uiData.sub.allRemoveCallBack (this);
@@ -336,8 +444,13 @@ public class HaveDatabaseServerUI : UIBehavior<HaveDatabaseServerUI.UIData>
 			this.setDataNull (uiData);
 			return;
 		}
-		// Child
-		if (data is UIData.Sub) {
+        // Setting
+        if(data is Setting)
+        {
+            return;
+        }
+        // Child
+        if (data is UIData.Sub) {
 			UIData.Sub sub = data as UIData.Sub;
 			// UI
 			{
@@ -395,8 +508,32 @@ public class HaveDatabaseServerUI : UIBehavior<HaveDatabaseServerUI.UIData>
 			}
 			return;
 		}
-		// Child
-		if (wrapProperty.p is UIData.Sub) {
+        // Setting
+        if(wrapProperty.p is Setting)
+        {
+            switch ((Setting.Property)wrapProperty.n)
+            {
+                case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.showLastMove:
+                    break;
+                case Setting.Property.viewUrlImage:
+                    break;
+                case Setting.Property.animationSetting:
+                    break;
+                case Setting.Property.maxThinkCount:
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Child
+        if (wrapProperty.p is UIData.Sub) {
 			return;
 		}
 		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
