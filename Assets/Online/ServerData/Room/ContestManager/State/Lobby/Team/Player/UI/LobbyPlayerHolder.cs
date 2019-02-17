@@ -66,27 +66,27 @@ namespace GameManager.Match
             {
                 // avatarRect
                 {
-                    // anchoredPosition: (10.0, 0.0); anchorMin: (0.0, 0.5); anchorMax: (0.0, 0.5); pivot: (0.0, 0.5); 
-                    // offsetMin: (10.0, -30.0); offsetMax: (70.0, 30.0); sizeDelta: (60.0, 60.0);
-                    avatarRect.anchoredPosition = new Vector3(10.0f, 0.0f);
-                    avatarRect.anchorMin = new Vector2(0.0f, 0.5f);
-                    avatarRect.anchorMax = new Vector2(0.0f, 0.5f);
-                    avatarRect.pivot = new Vector2(0.0f, 0.5f);
-                    avatarRect.offsetMin = new Vector2(10.0f, -30.0f);
-                    avatarRect.offsetMax = new Vector2(70.0f, 30.0f);
-                    avatarRect.sizeDelta = new Vector2(60.0f, 60.0f);
+                    // anchoredPosition: (5.0, -10.0); anchorMin: (0.0, 1.0); anchorMax: (0.0, 1.0); pivot: (0.0, 1.0);
+                    // offsetMin: (5.0, -46.0); offsetMax: (41.0, -10.0); sizeDelta: (36.0, 36.0);
+                    avatarRect.anchoredPosition = new Vector3(5.0f, -10.0f);
+                    avatarRect.anchorMin = new Vector2(0.0f, 1.0f);
+                    avatarRect.anchorMax = new Vector2(0.0f, 1.0f);
+                    avatarRect.pivot = new Vector2(0.0f, 1.0f);
+                    avatarRect.offsetMin = new Vector2(5.0f, -46.0f);
+                    avatarRect.offsetMax = new Vector2(41.0f, -10.0f);
+                    avatarRect.sizeDelta = new Vector2(36.0f, 36.0f);
                 }
                 // btnReadyRect
                 {
-                    // anchoredPosition: (-10.0, 0.0); anchorMin: (1.0, 0.5); anchorMax: (1.0, 0.5); pivot: (1.0, 0.5); 
-                    // offsetMin: (-70.0, -30.0); offsetMax: (-10.0, 30.0); sizeDelta: (60.0, 60.0);
-                    btnReadyRect.anchoredPosition = new Vector3(-10.0f, 0.0f, 0.0f);
+                    // anchoredPosition: (-5.0, 0.0); anchorMin: (1.0, 0.5); anchorMax: (1.0, 0.5); pivot: (1.0, 0.5);
+                    // offsetMin: (-45.0, -20.0); offsetMax: (-5.0, 20.0); sizeDelta: (40.0, 40.0);
+                    btnReadyRect.anchoredPosition = new Vector3(-5.0f, 0.0f, 0.0f);
                     btnReadyRect.anchorMin = new Vector2(1.0f, 0.5f);
                     btnReadyRect.anchorMax = new Vector2(1.0f, 0.5f);
                     btnReadyRect.pivot = new Vector2(1.0f, 0.5f);
-                    btnReadyRect.offsetMin = new Vector2(-70.0f, -30.0f);
-                    btnReadyRect.offsetMax = new Vector2(-10.0f, 30f);
-                    btnReadyRect.sizeDelta = new Vector2(60.0f, 60.0f);
+                    btnReadyRect.offsetMin = new Vector2(-45.0f, -20.0f);
+                    btnReadyRect.offsetMax = new Vector2(-5.0f, 20f);
+                    btnReadyRect.sizeDelta = new Vector2(40.0f, 40.0f);
                 }
             }
 		}
@@ -132,7 +132,7 @@ namespace GameManager.Match
 										Debug.LogError ("inform null: " + this);
 									}
 								}
-								tvName.text = txtName.get ("Name") + ": " + strName;
+                                tvName.text = string.IsNullOrEmpty(strName) ? "?" : strName;
 							} else {
 								Debug.LogError ("tvName null: " + this);
 							}

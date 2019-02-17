@@ -39,18 +39,45 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
 
 	}
 
-	#endregion
-	
-	#region Refresh
+    #endregion
 
-	public Text tvMessage;
+    #region txt, rect
+
+    private static readonly TxtLanguage txtDelete = new TxtLanguage();
+    private static readonly TxtLanguage txtTrueDelete = new TxtLanguage();
+
+    static ChatNormalContentUI()
+    {
+        // txt
+        {
+            txtDelete.add(Language.Type.vi, "tin nhắn đã bị xoá");
+            txtTrueDelete.add(Language.Type.vi, "tin nhắn đã bị loại bỏ");
+        }
+        // avatarRect
+        {
+            // anchoredPosition: (0.0, -5.0); anchorMin: (0.0, 1.0); anchorMax: (0.0, 1.0); pivot: (0.0, 1.0);
+            // offsetMin: (0.0, -41.0); offsetMax: (36.0, -5.0); sizeDelta: (36.0, 36.0);
+            avatarRect.anchoredPosition = new Vector3(0.0f, -5.0f, 0.0f);
+            avatarRect.anchorMin = new Vector2(0.0f, 1.0f);
+            avatarRect.anchorMax = new Vector2(0.0f, 1.0f);
+            avatarRect.pivot = new Vector2(0.0f, 1.0f);
+            avatarRect.offsetMin = new Vector2(0.0f, -41.0f);
+            avatarRect.offsetMax = new Vector2(36.0f, -5.0f);
+            avatarRect.sizeDelta = new Vector2(36.0f, 36.0f);
+        }
+    }
+
+    #endregion
+
+    #region Refresh
+
+    public Text tvMessage;
 
 	public Button btnMenu;
 
 	private Human humanOwner = null;
 
-	public Text tvName;
-	public Text tvTime;
+	public Text tvNameTime;
 
 	public override void refresh ()
 	{
@@ -77,9 +104,9 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
 								}
 							}
 						}
-						// Name
+						// NameTime
 						{
-							if (tvName != null) {
+							if (tvNameTime != null) {
 								string strName = "";
 								{
 									if (humanOwner != null) {
@@ -88,9 +115,13 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
 										Debug.LogError ("human null");
 									}
 								}
-								tvName.text = strName;
+                                string strTime = "";
+                                {
+                                    strTime = chatMessage.TimestampAsDateTime.ToString("HH:mm");
+                                }
+                                tvNameTime.text = strName + ", " + strTime;
 							} else {
-								Debug.LogError ("tvName null");
+								Debug.LogError ("tvNameTime null");
 							}
 						}
 						// Message
@@ -111,13 +142,12 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
 									break;
 								case ChatMessage.State.Delete:
 									{
-										// TODO co the cho in nghieng nua
-										tvMessage.text = "<color=grey>this message has been deleted</color>";
+                                            tvMessage.text = "<color=grey>" + txtDelete.get("this message has been deleted") + "</color>";
 									}
 									break;
 								case ChatMessage.State.TrueDelete:
 									{
-										tvMessage.text = "<color=red>this message has been removed</color>";
+                                            tvMessage.text = "<color=red>" + txtTrueDelete.get("this message has been removed") + "</color>";
 									}
 									break;
 								default:
@@ -126,14 +156,6 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
 								}
 							} else {
 								Debug.LogError ("tvMessage null: " + this);
-							}
-						}
-						// Time
-						{
-							if (tvTime != null) {
-								tvTime.text = chatMessage.TimestampAsDateTime.ToString ("HH:mm");
-							} else {
-								Debug.LogError ("tvTime null");
 							}
 						}
 						// Avatar
@@ -155,9 +177,9 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
 						{
 							if (btnMenu != null) {
 								if (Server.getProfileUserId(chatNormalContent)==chatNormalContent.owner.v) {
-									btnMenu.gameObject.SetActive (true);
+                                    btnMenu.interactable = true;
 								} else {
-									btnMenu.gameObject.SetActive (false);
+                                    btnMenu.interactable = false;
 								}
 							} else {
 								Debug.LogError ("btnMenu null: " + this);
@@ -223,13 +245,14 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
 	private ChatMessage chatMessage = null;
 
 	public AccountAvatarUI avatarPrefab;
-
-	public Transform avatarContainer;
+    private static readonly UIRectTransform avatarRect = new UIRectTransform();
 
 	public override void onAddCallBack<T> (T data)
 	{
 		if (data is UIData) {
 			UIData uiData = data as UIData;
+            // Setting
+            Setting.get().addCallBack(this);
 			// Child
 			{
 				uiData.chatNormalContent.allAddCallBack (this);
@@ -238,8 +261,14 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
 			dirty = true;
 			return;
 		}
-		// Child
-		{
+        // Setting
+        if(data is Setting)
+        {
+            dirty = true;
+            return;
+        }
+        // Child
+        {
 			// ChatNormalContent
 			{
 				if (data is ChatNormalContent) {
@@ -280,7 +309,7 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
 				AccountAvatarUI.UIData accountAvatarUIData = data as AccountAvatarUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (accountAvatarUIData, avatarPrefab, avatarContainer);
+					UIUtils.Instantiate (accountAvatarUIData, avatarPrefab, this.transform, avatarRect);
 				}
 				dirty = true;
 				return;
@@ -293,6 +322,8 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
 	{
 		if (data is UIData) {
 			UIData uiData = data as UIData;
+            // Setting
+            Setting.get().removeCallBack(this);
 			// Child
 			{
 				uiData.chatNormalContent.allRemoveCallBack(this);
@@ -301,8 +332,13 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
 			this.setDataNull (uiData);
 			return;
 		}
-		// Child
-		{
+        // Setting
+        if(data is Setting)
+        {
+            return;
+        }
+        // Child
+        {
 			// ChatNormalContent
 			{
 				if (data is ChatNormalContent) {
@@ -372,8 +408,32 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
 			}
 			return;
 		}
-		// Child
-		{
+        // Setting
+        if(wrapProperty.p is Setting)
+        {
+            switch ((Setting.Property)wrapProperty.n)
+            {
+                case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.showLastMove:
+                    break;
+                case Setting.Property.viewUrlImage:
+                    break;
+                case Setting.Property.animationSetting:
+                    break;
+                case Setting.Property.maxThinkCount:
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Child
+        {
 			// ChatNormalContent
 			{
 				if (wrapProperty.p is ChatNormalContent) {

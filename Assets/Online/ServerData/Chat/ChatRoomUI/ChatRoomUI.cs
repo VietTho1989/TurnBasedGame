@@ -14,6 +14,8 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
 		
 		public VP<ReferenceData<ChatRoom>> chatRoom;
 
+        public VP<bool> needHeader;
+
 		public VP<TopicUI> topicUI;
 
 		public VP<ChatRoomAdapter.UIData> chatRoomAdapter;
@@ -35,7 +37,8 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
 		public enum Property
 		{
 			chatRoom,
-			topicUI,
+            needHeader,
+            topicUI,
 			chatRoomAdapter,
 			typingUI,
 			chatMessageMenu,
@@ -46,7 +49,8 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
 		public UIData() : base()
 		{
 			this.chatRoom = new VP<ReferenceData<ChatRoom>>(this, (byte)Property.chatRoom, new ReferenceData<ChatRoom>(null));
-			this.topicUI = new VP<TopicUI>(this, (byte)Property.topicUI, null);
+            this.needHeader = new VP<bool>(this, (byte)Property.needHeader, true);
+            this.topicUI = new VP<TopicUI>(this, (byte)Property.topicUI, null);
 			this.chatRoomAdapter = new VP<ChatRoomAdapter.UIData>(this, (byte)Property.chatRoomAdapter, new ChatRoomAdapter.UIData());
 			this.typingUI = new VP<TypingUI.UIData>(this, (byte)Property.typingUI, new TypingUI.UIData());
 			this.chatMessageMenu = new VP<ChatMessageMenuUI.UIData>(this, (byte)Property.chatMessageMenu, null);
@@ -437,6 +441,16 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
                         Debug.LogError("menuUIData null");
                     }
                 }
+                // UI
+                {
+                    UIRectTransform.SetActive(this.data.topicUI.v, this.data.needHeader.v);
+                    // chatRoomAdapter
+                    {
+                        UIRectTransform.Set(this.data.chatRoomAdapter.v, this.data.needHeader.v
+                            ? UIRectTransform.CreateFullRect(0, 0, 30, 70)
+                            : UIRectTransform.CreateFullRect(0, 0, 0, 70));
+                    }
+                }
             }
             else
             {
@@ -783,14 +797,17 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
         {
             switch ((UIData.Property)wrapProperty.n)
             {
-                case UIData.Property.topicUI:
+                case UIData.Property.chatRoom:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
                         needSetPlayerIndex = true;
                     }
                     break;
-                case UIData.Property.chatRoom:
+                case UIData.Property.needHeader:
+                    dirty = true;
+                    break;
+                case UIData.Property.topicUI:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;

@@ -76,6 +76,44 @@ public class UIRectTransform
         }
     }
 
+    public static bool Set(Data data, UIRectTransform uiRectTransform)
+    {
+        bool ret = false;
+        if (data != null)
+        {
+            HaveTransformInterface haveTransform = data.findCallBack<HaveTransformInterface>();
+            if (haveTransform != null)
+            {
+                RectTransform rectTransform = (RectTransform)haveTransform.getTransform();
+                if (rectTransform != null)
+                {
+                    if (uiRectTransform != null)
+                    {
+                        uiRectTransform.set(rectTransform);
+                        ret = true;
+                    }
+                    else
+                    {
+                        Debug.LogError("uiRectTransform null");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("rectTransform null");
+                }
+            }
+            else
+            {
+                Debug.LogError("haveTransform null");
+            }
+        }
+        else
+        {
+            Debug.LogError("data null");
+        }
+        return ret;
+    }
+
     public void setPosY(float posY)
     {
         // RequestIntLongFloatRect, RequestEnumRect
@@ -271,6 +309,29 @@ public class UIRectTransform
             if (haveTransform != null)
             {
                 haveTransform.getTransform().SetSiblingIndex(siblingIndex);
+                ret = true;
+            }
+            else
+            {
+                Debug.LogError("haveTransform null");
+            }
+        }
+        else
+        {
+            Debug.LogError("data null");
+        }
+        return ret;
+    }
+
+    public static bool SetActive(Data data, bool isActive)
+    {
+        bool ret = false;
+        if (data != null)
+        {
+            HaveTransformInterface haveTransform = data.findCallBack<HaveTransformInterface>();
+            if (haveTransform != null)
+            {
+                haveTransform.getTransform().gameObject.SetActive(isActive);
                 ret = true;
             }
             else

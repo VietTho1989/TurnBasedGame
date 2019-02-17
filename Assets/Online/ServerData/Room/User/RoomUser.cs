@@ -3,11 +3,13 @@ using System.Collections;
 
 public class RoomUser : Data
 {
+
 	public enum Role
 	{
 		ADMIN,
 		NORMAL
 	}
+
 	public VP<Role> role;
 
 	#region Inform
@@ -28,6 +30,7 @@ public class RoomUser : Data
 		LEFT,
 		KICK
 	}
+
 	public VP<State> state;
 
 	public bool isInsideRoom()

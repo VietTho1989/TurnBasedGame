@@ -53,7 +53,11 @@ namespace GameManager.Match
 				this.contestManagerStateLobby = new VP<ReferenceData<ContestManagerStateLobby>>(this, (byte)Property.contestManagerStateLobby, new ReferenceData<ContestManagerStateLobby>(null));
 				this.roomSetting = new VP<RoomSettingUI.UIData>(this, (byte)Property.roomSetting, new RoomSettingUI.UIData());
 				this.roomUserAdapter = new VP<RoomUserAdapter.UIData>(this, (byte)Property.roomUserAdapter, new RoomUserAdapter.UIData());
-				this.chatRoomUIData = new VP<ChatRoomUI.UIData>(this, (byte)Property.chatRoomUIData, new ChatRoomUI.UIData());
+                // chatRoom
+                {
+                    this.chatRoomUIData = new VP<ChatRoomUI.UIData>(this, (byte)Property.chatRoomUIData, new ChatRoomUI.UIData());
+                    this.chatRoomUIData.v.needHeader.v = false;
+                }
 				this.contentFactory = new VP<ContestManagerContentFactoryUI.UIData>(this, (byte)Property.contentFactory, new ContestManagerContentFactoryUI.UIData());
 				this.btnStart = new VP<LobbyBtnStart.UIData>(this, (byte)Property.btnStart, new LobbyBtnStart.UIData());
 				// team
@@ -134,13 +138,67 @@ namespace GameManager.Match
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt, rect
 
-		private bool firstSet = false;
-		public ScrollRect contestManagerContentFactoryScrollRect;
-		public ScrollRect roomSettingScrollRect;
+        static ContestManagerStateLobbyUI()
+        {
+            // roomUserAdapterRect
+            {
+                // anchoredPosition: (0.0, 0.0); anchorMin: (1.0, 0.0); anchorMax: (1.0, 0.5); pivot: (1.0, 0.0); 
+                // offsetMin: (-160.0, 0.0); offsetMax: (0.0, 0.0); sizeDelta: (160.0, 0.0);
+                roomUserAdapterRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                roomUserAdapterRect.anchorMin = new Vector2(1.0f, 0.0f);
+                roomUserAdapterRect.anchorMax = new Vector2(1.0f, 0.5f);
+                roomUserAdapterRect.pivot = new Vector2(1.0f, 0.0f);
+                roomUserAdapterRect.offsetMin = new Vector2(-160.0f, 0.0f);
+                roomUserAdapterRect.offsetMax = new Vector2(0.0f, 0.0f);
+                roomUserAdapterRect.sizeDelta = new Vector2(160.0f, 0.0f);
+            }
+            // chatRoomRect
+            {
+                // anchoredPosition: (-80.0, 0.0); anchorMin: (0.0, 0.0); anchorMax: (1.0, 0.5); pivot: (0.5, 0.0);
+                // offsetMin: (0.0, 0.0); offsetMax: (-160.0, 0.0); sizeDelta: (-160.0, 0.0);
+                chatRoomRect.anchoredPosition = new Vector3(-80.0f, 0.0f, 0.0f);
+                chatRoomRect.anchorMin = new Vector2(0.0f, 0.0f);
+                chatRoomRect.anchorMax = new Vector2(1.0f, 0.5f);
+                chatRoomRect.pivot = new Vector2(0.5f, 0f);
+                chatRoomRect.offsetMin = new Vector2(0.0f, 0.0f);
+                chatRoomRect.offsetMax = new Vector2(-160.0f, 0.0f);
+                chatRoomRect.sizeDelta = new Vector2(-160.0f, 0.0f);
+            }
+            // btnStartRect
+            {
+                // anchoredPosition: (0.0, 30.0); anchorMin: (1.0, 1.0); anchorMax: (1.0, 1.0); pivot: (1.0, 1.0);
+                // offsetMin: (-80.0, 0.0); offsetMax: (0.0, 30.0); sizeDelta: (80.0, 30.0);
+                btnStartRect.anchoredPosition = new Vector3(0.0f, 30.0f, 0f);
+                btnStartRect.anchorMin = new Vector2(1.0f, 1.0f);
+                btnStartRect.anchorMax = new Vector2(1.0f, 1.0f);
+                btnStartRect.pivot = new Vector2(1.0f, 1.0f);
+                btnStartRect.offsetMin = new Vector2(-80.0f, 0.0f);
+                btnStartRect.offsetMax = new Vector2(0.0f, 30.0f);
+                btnStartRect.sizeDelta = new Vector2(80.0f, 30f);
+            }
+            // teamAdapterRect
+            {
+                // anchoredPosition: (0.0, 0.0); anchorMin: (0.0, 0.5); anchorMax: (0.5, 1.0); pivot: (0.5, 0.5); offsetMin: (0.0, 0.0); offsetMax: (0.0, 0.0); sizeDelta: (0.0, 0.0);
+                teamAdapterRect.anchoredPosition = new Vector3(0f, 0f, 0f);
+                teamAdapterRect.anchorMin = new Vector2(0.0f, 0.5f);
+                teamAdapterRect.anchorMax = new Vector2(0.5f, 1.0f);
+                teamAdapterRect.pivot = new Vector2(0.5f, 0.5f);
+                teamAdapterRect.offsetMin = new Vector2(0.0f, 0.0f);
+                teamAdapterRect.offsetMax = new Vector2(0.0f, 0.0f);
+                teamAdapterRect.sizeDelta = new Vector2(0.0f, 0.0f);
+            }
+        }
+
+        #endregion
+
+        #region Refresh
+
+        private bool firstSet = false;
+		public ScrollRect settingScrollView;
 
 		public override void refresh ()
 		{
@@ -242,16 +300,10 @@ namespace GameManager.Match
 							if (firstSet) {
 								firstSet = false;
 								// contestManagerContentFactoryScrollRect
-								if (contestManagerContentFactoryScrollRect != null) {
-									contestManagerContentFactoryScrollRect.verticalNormalizedPosition = 1;
+								if (settingScrollView != null) {
+									settingScrollView.verticalNormalizedPosition = 1;
 								} else {
-									Debug.LogError ("contestManagerContentFactoryScrollRect null");
-								}
-								// roomSettingScrollRect
-								if (roomSettingScrollRect != null) {
-									roomSettingScrollRect.verticalNormalizedPosition = 1;
-								} else {
-									Debug.LogError ("roomSettingScrollRect null");
+									Debug.LogError ("settingScrollRect null");
 								}
 							}
 						}
@@ -262,6 +314,11 @@ namespace GameManager.Match
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            // setting sibling index
+            {
+                UIRectTransform.SetSiblingIndex(this.data.contentFactory.v, 0);
+                UIRectTransform.SetSiblingIndex(this.data.roomSetting.v, 1);
+            }
             // siblingIndex
             {
                 if (editLobbyPlayerContainer != null)
@@ -288,21 +345,19 @@ namespace GameManager.Match
 			return true;
 		}
 
-		#endregion
+        #endregion
 
-		#region implement callBacks
+        #region implement callBacks
 
-		public RoomSettingUI roomSettingPrefab;
-		public Transform roomSettingContainer;
+        public ContestManagerContentFactoryUI contestManagerContentFactoryPrefab;
+        public RoomSettingUI roomSettingPrefab;
+		public Transform settingContainer;
 
 		public RoomUserAdapter roomUserAdapterPrefab;
 		public static readonly UIRectTransform roomUserAdapterRect = new UIRectTransform();
 
 		public ChatRoomUI chatRoomPrefab;
         public static readonly UIRectTransform chatRoomRect = new UIRectTransform();
-
-		public ContestManagerContentFactoryUI contestManagerContentFactoryPrefab;
-		public Transform contestManagerContentFactoryContainer;
 
 		public LobbyBtnStart btnStartPrefab;
         public static readonly UIRectTransform btnStartRect = new UIRectTransform();
@@ -314,54 +369,6 @@ namespace GameManager.Match
 		public Transform editLobbyPlayerContainer;
 
 		public Transform editPostureGameDataUIContainer;
-
-        static ContestManagerStateLobbyUI()
-        {
-            // roomUserAdapterRect
-            {
-                // anchoredPosition: (0.0, 0.0); anchorMin: (0.3, 0.0); anchorMax: (0.5, 0.4); pivot: (0.5, 0.0); offsetMin: (0.0, 0.0); offsetMax: (0.0, 0.0); sizeDelta: (0.0, 0.0);
-                roomUserAdapterRect.anchoredPosition = Vector3.zero;
-                roomUserAdapterRect.anchorMin = new Vector2(0.3f, 0.0f);
-                roomUserAdapterRect.anchorMax = new Vector2(0.5f, 0.4f);
-                roomUserAdapterRect.pivot = new Vector2(0.5f, 0f);
-                roomUserAdapterRect.offsetMin = Vector2.zero;
-                roomUserAdapterRect.offsetMax = Vector2.zero;
-                roomUserAdapterRect.sizeDelta = Vector2.zero;
-            }
-            // chatRoomRect
-            {
-                // anchoredPosition: (0.0, 0.0); anchorMin: (0.0, 0.0); anchorMax: (0.3, 0.4); pivot: (0.5, 0.0); offsetMin: (0.0, 0.0); offsetMax: (0.0, 0.0); sizeDelta: (0.0, 0.0); 
-                chatRoomRect.anchoredPosition = Vector3.zero;
-                chatRoomRect.anchorMin = Vector2.zero;
-                chatRoomRect.anchorMax = new Vector2(0.3f, 0.4f);
-                chatRoomRect.pivot = new Vector2(0.5f, 0f);
-                chatRoomRect.offsetMin = Vector2.zero;
-                chatRoomRect.offsetMax = Vector2.zero;
-                chatRoomRect.sizeDelta = Vector2.zero;
-            }
-            // btnStartRect
-            {
-                // anchoredPosition: (-80.0, -30.0); anchorMin: (1.0, 1.0); anchorMax: (1.0, 1.0); pivot: (1.0, 1.0); offsetMin: (-240.0, -60.0); offsetMax: (-80.0, -30.0); sizeDelta: (160.0, 30.0);
-                btnStartRect.anchoredPosition = new Vector3(-80f, -30f, 0f);
-                btnStartRect.anchorMin = new Vector2(1.0f, 1.0f);
-                btnStartRect.anchorMax = new Vector2(1.0f, 1.0f);
-                btnStartRect.pivot = new Vector2(1.0f, 1.0f);
-                btnStartRect.offsetMin = new Vector2(-240.0f, -60.0f);
-                btnStartRect.offsetMax = new Vector2(-80f, -30.0f);
-                btnStartRect.sizeDelta = new Vector2(160.0f, 30f);
-            }
-            // teamAdapterRect
-            {
-                // anchoredPosition: (0.0, 0.0); anchorMin: (0.0, 0.4); anchorMax: (0.5, 0.9); pivot: (0.5, 0.5); offsetMin: (0.0, 0.0); offsetMax: (0.0, 0.0); sizeDelta: (0.0, 0.0);
-                teamAdapterRect.anchoredPosition = new Vector3(0f, 0f, 0f);
-                teamAdapterRect.anchorMin = new Vector2(0.0f, 0.4f);
-                teamAdapterRect.anchorMax = new Vector2(0.5f, 0.9f);
-                teamAdapterRect.pivot = new Vector2(0.5f, 0.5f);
-                teamAdapterRect.offsetMin = new Vector2(0.0f, 0.0f);
-                teamAdapterRect.offsetMax = new Vector2(0.0f, 0.0f);
-                teamAdapterRect.sizeDelta = new Vector2(0.0f, 0.0f);
-            }
-        }
 
         private RoomCheckChangeAdminChange<ContestManagerStateLobby> roomCheckAdminChange = new RoomCheckChangeAdminChange<ContestManagerStateLobby>();
 		private Room room = null;
@@ -426,7 +433,7 @@ namespace GameManager.Match
 					RoomSettingUI.UIData roomSettingUIData = data as RoomSettingUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (roomSettingUIData, roomSettingPrefab, roomSettingContainer);
+						UIUtils.Instantiate (roomSettingUIData, roomSettingPrefab, settingContainer);
 					}
 					dirty = true;
 					return;
@@ -453,7 +460,7 @@ namespace GameManager.Match
 					ContestManagerContentFactoryUI.UIData contestManagerContentFactoryUIData = data as ContestManagerContentFactoryUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (contestManagerContentFactoryUIData, contestManagerContentFactoryPrefab, contestManagerContentFactoryContainer);
+						UIUtils.Instantiate (contestManagerContentFactoryUIData, contestManagerContentFactoryPrefab, settingContainer);
 					}
 					dirty = true;
 					return;

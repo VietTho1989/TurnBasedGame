@@ -58,18 +58,7 @@ public class GlobalChatUI : UIBehavior<GlobalChatUI.UIData>
 
     static GlobalChatUI()
     {
-        // chatRoomRect
-        {
-            // anchoredPosition: (80.0, 0.0); anchorMin: (0.0, 0.0); anchorMax: (1.0, 1.0); pivot: (0.5, 0.5); 
-            // offsetMin: (160.0, 0.0); offsetMax: (0.0, 0.0); sizeDelta: (-160.0, 0.0);
-            chatRoomRect.anchoredPosition = new Vector3(80.0f, 0.0f, 0.0f);
-            chatRoomRect.anchorMin = new Vector2(0.0f, 0.0f);
-            chatRoomRect.anchorMax = new Vector2(1.0f, 1.0f);
-            chatRoomRect.pivot = new Vector2(0.5f, 0.5f);
-            chatRoomRect.offsetMin = new Vector2(160.0f, 0.0f);
-            chatRoomRect.offsetMax = new Vector2(0.0f, 0.0f);
-            chatRoomRect.sizeDelta = new Vector2(-160.0f, 0.0f);
-        }
+
     }
 
     #region Refresh
@@ -181,7 +170,7 @@ public class GlobalChatUI : UIBehavior<GlobalChatUI.UIData>
 	public Transform btnChooseChatContainer;
 
 	public ChatRoomUI chatRoomPrefab;
-    private static readonly UIRectTransform chatRoomRect = new UIRectTransform();
+    private static readonly UIRectTransform chatRoomRect = UIRectTransform.CreateFullRect(80, 0, 0, 0);
 
 	public override void onAddCallBack<T> (T data)
 	{

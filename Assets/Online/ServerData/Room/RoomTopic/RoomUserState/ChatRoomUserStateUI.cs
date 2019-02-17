@@ -14,34 +14,18 @@ public class ChatRoomUserStateUI : UIBehavior<ChatRoomUserStateUI.UIData>
 
 		public VP<AccountAvatarUI.UIData> avatar;
 
-		public VP<RequestChangeStringUI.UIData> content;
-
-		public VP<RequestChangeStringUI.UIData> time;
-
 		#region Constructor
 
 		public enum Property
 		{
 			chatRoomUserStateContent,
-			avatar,
-			content,
-			time
+			avatar
 		}
 
 		public UIData() : base()
 		{
 			this.chatRoomUserStateContent = new VP<ReferenceData<ChatRoomUserStateContent>>(this, (byte)Property.chatRoomUserStateContent, new ReferenceData<ChatRoomUserStateContent>(null));
 			this.avatar = new VP<AccountAvatarUI.UIData>(this, (byte)Property.avatar, new AccountAvatarUI.UIData());
-			// content
-			{
-				this.content = new VP<RequestChangeStringUI.UIData>(this, (byte)Property.content, new RequestChangeStringUI.UIData());
-				this.content.v.updateData.v.canRequestChange.v = false;
-			}
-			// time
-			{
-				this.time = new VP<RequestChangeStringUI.UIData>(this, (byte)Property.time, new RequestChangeStringUI.UIData());
-				this.time.v.updateData.v.canRequestChange.v = false;
-			}
 		}
 
 		#endregion
@@ -53,11 +37,50 @@ public class ChatRoomUserStateUI : UIBehavior<ChatRoomUserStateUI.UIData>
 
 	}
 
-	#endregion
+    #endregion
 
-	#region Refresh
+    #region txt, rect
 
-	private Human human = null;
+    private static readonly TxtLanguage txtCreate = new TxtLanguage();
+    private static readonly TxtLanguage txtJoin = new TxtLanguage();
+    private static readonly TxtLanguage txtLeft = new TxtLanguage();
+    private static readonly TxtLanguage txtDisconnect = new TxtLanguage();
+    private static readonly TxtLanguage txtKick = new TxtLanguage();
+    private static readonly TxtLanguage txtUnKick = new TxtLanguage();
+    private static readonly TxtLanguage txtBan = new TxtLanguage();
+
+    static ChatRoomUserStateUI()
+    {
+        // txt
+        {
+            txtCreate.add(Language.Type.vi, "tạo phòng");
+            txtJoin.add(Language.Type.vi, "vào phòng");
+            txtLeft.add(Language.Type.vi, "rời phòng");
+            txtDisconnect.add(Language.Type.vi, "mất kết nối");
+            txtKick.add(Language.Type.vi, "bị kick");
+            txtUnKick.add(Language.Type.vi, "được huỷ kick");
+            txtBan.add(Language.Type.vi, "bị cấm");
+        }
+        // avatarRect
+        {
+            // anchoredPosition: (0.0, 0.0); anchorMin: (0.0, 0.5); anchorMax: (0.0, 0.5); pivot: (0.0, 0.5);
+            // offsetMin: (0.0, -18.0); offsetMax: (36.0, 18.0); sizeDelta: (36.0, 36.0);
+            avatarRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+            avatarRect.anchorMin = new Vector2(0.0f, 0.5f);
+            avatarRect.anchorMax = new Vector2(0.0f, 0.5f);
+            avatarRect.pivot = new Vector2(0.0f, 0.5f);
+            avatarRect.offsetMin = new Vector2(0.0f, -18.0f);
+            avatarRect.offsetMax = new Vector2(36.0f, 18.0f);
+            avatarRect.sizeDelta = new Vector2(36.0f, 36.0f);
+        }
+    }
+
+    #endregion
+
+    #region Refresh
+
+    public Text tvContent;
+    public Text tvTime;
 
 	public override void refresh ()
 	{
@@ -100,66 +123,64 @@ public class ChatRoomUserStateUI : UIBehavior<ChatRoomUserStateUI.UIData>
 						}
 						// time
 						{
-							RequestChangeStringUI.UIData time = this.data.time.v;
-							if (time != null) {
-								RequestChangeStringUpdate.UpdateData updateData = time.updateData.v;
-								if (updateData != null) {
-									updateData.origin.v = chatMessage.TimestampAsDateTime.ToString ("HH:mm");
-								} else {
-									Debug.LogError ("updateData null: " + this);
-								}
-							} else {
-								Debug.LogError ("time null: " + this);
-							}
+                            if (tvTime != null)
+                            {
+                                tvTime.text = chatMessage.TimestampAsDateTime.ToString("HH:mm");
+                            }
+                            else
+                            {
+                                Debug.LogError("tvTime null");
+                            }
 						}
 						// content
 						{
-							RequestChangeStringUI.UIData content = this.data.content.v;
-							if (content != null) {
-								RequestChangeStringUpdate.UpdateData updateData = content.updateData.v;
-								if (updateData != null) {
-									// Find user name
-									string userName = "";
-									{
-										if (this.human != null) {
-											userName = this.human.getPlayerName ();
-										} else {
-											Debug.LogError ("human null: " + this);
-										}
-									}
-									// state
-									switch (chatRoomUserStateContent.action.v) {
-									case ChatRoomUserStateContent.Action.Create:
-										updateData.origin.v = "<color=grey>" + userName + "</color> create room";
-										break;
-									case ChatRoomUserStateContent.Action.Join:
-										updateData.origin.v = "<color=grey>" + userName + "</color> join room";
-										break;
-									case ChatRoomUserStateContent.Action.Left:
-										updateData.origin.v = "<color=grey>" + userName + "</color> left room";
-										break;
-									case ChatRoomUserStateContent.Action.Disconnect:
-										updateData.origin.v = "<color=grey>" + userName + "</color> disconnect";
-										break;
-									case ChatRoomUserStateContent.Action.Kick:
-										updateData.origin.v = "<color=grey>" + userName + "</color> is kicked";
-										break;
-									case ChatRoomUserStateContent.Action.UnKick:
-										updateData.origin.v = "<color=grey>" + userName + "</color> is unkicked";
-										break;
-									case ChatRoomUserStateContent.Action.Ban:
-										updateData.origin.v = "<color=grey>" + userName + "</color> is banned";
-										break;
-									default:
-										Debug.LogError ("unknown action: " + chatRoomUserStateContent.action.v + "; " + this);
-										break;
-									}
-								} else {
-									Debug.LogError ("updateData null: " + this);
-								}
-							} else {
-								Debug.LogError ("content null: " + this);
-							}
+                            if (tvContent != null)
+                            {
+                                // Find user name
+                                string userName = "";
+                                {
+                                    if (this.human != null)
+                                    {
+                                        userName = this.human.getPlayerName();
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("human null: " + this);
+                                    }
+                                }
+                                // state
+                                switch (chatRoomUserStateContent.action.v)
+                                {
+                                    case ChatRoomUserStateContent.Action.Create:
+                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtCreate.get("create room");
+                                        break;
+                                    case ChatRoomUserStateContent.Action.Join:
+                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtJoin.get("join room");
+                                        break;
+                                    case ChatRoomUserStateContent.Action.Left:
+                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtLeft.get("left room");
+                                        break;
+                                    case ChatRoomUserStateContent.Action.Disconnect:
+                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtDisconnect.get("disconnect");
+                                        break;
+                                    case ChatRoomUserStateContent.Action.Kick:
+                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtKick.get("is kicked");
+                                        break;
+                                    case ChatRoomUserStateContent.Action.UnKick:
+                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtUnKick.get("is unkicked");
+                                        break;
+                                    case ChatRoomUserStateContent.Action.Ban:
+                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtBan.get("is banned");
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown action: " + chatRoomUserStateContent.action.v + "; " + this);
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("tvContent null");
+                            }
 						}
 					} else {
 						Debug.LogError ("chatMessage null: " + this);
@@ -196,28 +217,32 @@ public class ChatRoomUserStateUI : UIBehavior<ChatRoomUserStateUI.UIData>
 	private ChatMessage chatMessage = null;
 
 	public AccountAvatarUI avatarPrefab;
-	public RequestChangeStringUI requestStringPrefab;
+    private static readonly UIRectTransform avatarRect = new UIRectTransform();
 
-	public Transform avatarContainer;
-	public Transform contentContainer;
-	public Transform timeContainer;
+    private Human human = null;
 
-	public override void onAddCallBack<T> (T data)
+    public override void onAddCallBack<T> (T data)
 	{
 		if (data is UIData) {
 			UIData uiData = data as UIData;
+            // Setting
+            Setting.get().addCallBack(this);
 			// Child
 			{
 				uiData.chatRoomUserStateContent.allAddCallBack (this);
 				uiData.avatar.allAddCallBack (this);
-				uiData.content.allAddCallBack (this);
-				uiData.time.allAddCallBack (this);
 			}
 			dirty = true;
 			return;
 		}
-		// Child
-		{
+        // Setting
+        if(data is Setting)
+        {
+            dirty = true;
+            return;
+        }
+        // Child
+        {
 			// ChatRoomUserStateContent
 			{
 				if (data is ChatRoomUserStateContent) {
@@ -258,32 +283,7 @@ public class ChatRoomUserStateUI : UIBehavior<ChatRoomUserStateUI.UIData>
 				AccountAvatarUI.UIData accountAvatarUIData = data as AccountAvatarUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (accountAvatarUIData, avatarPrefab, avatarContainer);
-				}
-				dirty = true;
-				return;
-			}
-			// content, time
-			if (data is RequestChangeStringUI.UIData) {
-				RequestChangeStringUI.UIData requestChange = data as RequestChangeStringUI.UIData;
-				// UI
-				{
-					WrapProperty wrapProperty = requestChange.p;
-					if (wrapProperty != null) {
-						switch ((UIData.Property)wrapProperty.n) {
-						case UIData.Property.content:
-							UIUtils.Instantiate (requestChange, requestStringPrefab, contentContainer);
-							break;
-						case UIData.Property.time:
-							UIUtils.Instantiate (requestChange, requestStringPrefab, timeContainer);
-							break;
-						default:
-							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-							break;
-						}
-					} else {
-						Debug.LogError ("wrapProperty null: " + this);
-					}
+					UIUtils.Instantiate (accountAvatarUIData, avatarPrefab, this.transform, avatarRect);
 				}
 				dirty = true;
 				return;
@@ -296,18 +296,23 @@ public class ChatRoomUserStateUI : UIBehavior<ChatRoomUserStateUI.UIData>
 	{
 		if (data is UIData) {
 			UIData uiData = data as UIData;
+            // Setting
+            Setting.get().removeCallBack(this);
 			// Child
 			{
 				uiData.chatRoomUserStateContent.allRemoveCallBack (this);
 				uiData.avatar.allRemoveCallBack (this);
-				uiData.content.allRemoveCallBack (this);
-				uiData.time.allRemoveCallBack (this);
 			}
 			this.setDataNull (uiData);
 			return;
 		}
-		// Child
-		{
+        // Setting
+        if(data is Setting)
+        {
+            return;
+        }
+        // Child
+        {
 			// ChatRoomUserStateContent
 			{
 				if (data is ChatRoomUserStateContent) {
@@ -348,15 +353,6 @@ public class ChatRoomUserStateUI : UIBehavior<ChatRoomUserStateUI.UIData>
 				}
 				return;
 			}
-			// content, time
-			if (data is RequestChangeStringUI.UIData) {
-				RequestChangeStringUI.UIData requestChange = data as RequestChangeStringUI.UIData;
-				// UI
-				{
-					requestChange.removeCallBackAndDestroy (typeof(RequestChangeStringUI));
-				}
-				return;
-			}
 		}
 		Debug.LogError ("Don't process: " + data + "; " + this);
 	}
@@ -380,26 +376,38 @@ public class ChatRoomUserStateUI : UIBehavior<ChatRoomUserStateUI.UIData>
 					dirty = true;
 				}
 				break;
-			case UIData.Property.content:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			case UIData.Property.time:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
 			default:
 				Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 				break;
 			}
 			return;
 		}
-		// Child
-		{
+        // Setting
+        if(wrapProperty.p is Setting)
+        {
+            switch ((Setting.Property)wrapProperty.n)
+            {
+                case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.showLastMove:
+                    break;
+                case Setting.Property.viewUrlImage:
+                    break;
+                case Setting.Property.animationSetting:
+                    break;
+                case Setting.Property.maxThinkCount:
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Child
+        {
 			// ChatRoomUserStateContent
 			{
 				if (wrapProperty.p is ChatRoomUserStateContent) {
@@ -478,10 +486,6 @@ public class ChatRoomUserStateUI : UIBehavior<ChatRoomUserStateUI.UIData>
 				}
 			}
 			if (wrapProperty.p is AccountAvatarUI.UIData) {
-				return;
-			}
-			// content, time
-			if (wrapProperty.p is RequestChangeStringUI.UIData) {
 				return;
 			}
 		}

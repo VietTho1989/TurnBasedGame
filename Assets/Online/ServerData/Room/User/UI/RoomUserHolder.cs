@@ -51,14 +51,37 @@ public class RoomUserHolder : SriaHolderBehavior<RoomUserHolder.UIData>
 
 	}
 
-	#endregion
+    #endregion
 
-	#region Refresh
+    #region txt, rect
 
-	public Text tvName;
-	public Text tvRole;
-	public Text tvState;
+    static RoomUserHolder()
+    {
+        // avatarRect
+        {
+            // anchoredPosition: (5.0, 0.0); anchorMin: (0.0, 0.5); anchorMax: (0.0, 0.5); pivot: (0.0, 0.5);
+            // offsetMin: (5.0, -18.0); offsetMax: (41.0, 18.0); sizeDelta: (36.0, 36.0);
+            avatarRect.anchoredPosition = new Vector3(0.5f, 0.0f, 0.0f);
+            avatarRect.anchorMin = new Vector2(0.0f, 0.5f);
+            avatarRect.anchorMax = new Vector2(0.0f, 0.5f);
+            avatarRect.pivot = new Vector2(0.0f, 0.5f);
+            avatarRect.offsetMin = new Vector2(5.0f, -18.0f);
+            avatarRect.offsetMax = new Vector2(41.0f, 18.0f);
+            avatarRect.sizeDelta = new Vector2(36.0f, 36.0f);
+        }
+    }
 
+    #endregion
+
+    #region Refresh
+
+    private static readonly Color AdminColor = Color.blue;
+    private static readonly Color NormalColor = new Color(50 / 255f, 50 / 255f, 50 / 255f);
+    private static readonly Color KickColor = Color.red;
+
+    private const float LeftAlpha = 0.6f;
+
+    public Text tvName;
 	public override void refresh ()
 	{
 		base.refresh();
@@ -85,6 +108,8 @@ public class RoomUserHolder : SriaHolderBehavior<RoomUserHolder.UIData>
 						} else {
 							Debug.LogError ("avatarUIData null: " + this);
 						}
+                        // siblingIndex
+                        UIRectTransform.SetSiblingIndex(this.data.avatar.v, 0);
 					}
 					// name
 					if (tvName != null) {
@@ -98,20 +123,55 @@ public class RoomUserHolder : SriaHolderBehavior<RoomUserHolder.UIData>
 							}
 						}
 						tvName.text = strName;
-					} else {
+                        // color
+                        {
+                            // find color
+                            Color color = NormalColor;
+                            float alpha = 1.0f;
+                            {
+                                switch (roomUser.role.v)
+                                {
+                                    case RoomUser.Role.ADMIN:
+                                        {
+                                            color = AdminColor;
+                                            if(roomUser.state.v== RoomUser.State.LEFT)
+                                            {
+                                                alpha = LeftAlpha;
+                                            }
+                                        }
+                                        break;
+                                    case RoomUser.Role.NORMAL:
+                                        {
+                                            color = NormalColor;
+                                            switch (roomUser.state.v)
+                                            {
+                                                case RoomUser.State.NORMAL:
+                                                    alpha = 1.0f;
+                                                    break;
+                                                case RoomUser.State.LEFT:
+                                                    alpha = LeftAlpha;
+                                                    break;
+                                                case RoomUser.State.KICK:
+                                                    color = KickColor;
+                                                    alpha = 1.0f;
+                                                    break;
+                                                default:
+                                                    Debug.LogError("unknown state: " + roomUser.state.v);
+                                                    break;
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            // alpha
+                            color.a = alpha;
+                            // set
+                            tvName.color = color;
+                        }
+                    } else {
 						Debug.LogError ("tvName null: " + this);
-					}
-					// role
-					if (tvRole != null) {
-						tvRole.text = "" + roomUser.role.v;
-					} else {
-						Debug.LogError ("tvRole null: " + this);
-					}
-					// state
-					if (tvState != null) {
-						tvState.text = "" + roomUser.state.v;
-					} else {
-						Debug.LogError ("tvState null: " + this);
 					}
 				} else {
 					Debug.LogError ("roomUser null: " + this);
@@ -127,7 +187,7 @@ public class RoomUserHolder : SriaHolderBehavior<RoomUserHolder.UIData>
 	#region implement callBacks
 
 	public AccountAvatarUI avatarPrefab;
-	public Transform avatarContainer;
+    private static readonly UIRectTransform avatarRect = new UIRectTransform();
 
 	public override void onAddCallBack<T> (T data)
 	{
@@ -176,7 +236,7 @@ public class RoomUserHolder : SriaHolderBehavior<RoomUserHolder.UIData>
 				AccountAvatarUI.UIData accountAvatarUIData = data as AccountAvatarUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (accountAvatarUIData, avatarPrefab, avatarContainer);
+					UIUtils.Instantiate (accountAvatarUIData, avatarPrefab, this.transform, avatarRect);
 				}
 				dirty = true;
 				return;

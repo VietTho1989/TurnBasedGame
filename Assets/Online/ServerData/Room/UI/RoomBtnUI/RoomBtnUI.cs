@@ -143,7 +143,12 @@ namespace GameManager.Match
 					} else {
 						Debug.LogError ("roomUIData null: " + this);
 					}
-				} else {
+                    // siblingIndex
+                    {
+                        // btnBack
+                        UIRectTransform.SetSiblingIndex(this.data.btnBack.v, 0);
+                    }
+                } else {
 					Debug.LogError ("subContainer null: " + this);
 				}
 			}
@@ -159,7 +164,6 @@ namespace GameManager.Match
 		#region implement callBacks
 
 		public RoomBtnBackUI btnBackPrefab;
-		public Transform btnBackContainer;
 
 		public BtnContestUI btnContestPrefab;
 		public BtnRoundUI btnRoundPrefab;
@@ -241,7 +245,7 @@ namespace GameManager.Match
 					RoomBtnBackUI.UIData roomBtnBackUIData = data as RoomBtnBackUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (roomBtnBackUIData, btnBackPrefab, btnBackContainer);
+						UIUtils.Instantiate (roomBtnBackUIData, btnBackPrefab, subContainer);
 					}
 					dirty = true;
 					return;

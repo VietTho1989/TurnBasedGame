@@ -13,6 +13,7 @@ public class GamePlayer : Data
 
 	public abstract class Inform : Data
 	{
+
 		public enum Type
 		{
 			None,
@@ -24,7 +25,7 @@ public class GamePlayer : Data
 
 		public virtual string getPlayerName ()
 		{
-			return "Information";
+			return "";
 		}
 
 		public static GamePlayer.Inform parse(Type type, string strInform){
@@ -63,6 +64,7 @@ public class GamePlayer : Data
 			}
 			return false;
 		}
+
 	}
 
 	public VP<Inform> inform;

@@ -40,7 +40,10 @@ public class TypingUpdate : UpdateBehavior<Typing>
 		}
 		if (data is TypingPlayer) {
 			TypingPlayer typingPlayer = data as TypingPlayer;
-			UpdateUtils.makeUpdate<TypingPlayerUpdate, TypingPlayer> (typingPlayer, this.transform);
+            // Update
+            {
+                UpdateUtils.makeUpdate<TypingPlayerUpdate, TypingPlayer>(typingPlayer, this.transform);
+            }
 			return;
 		}
 		Debug.LogError ("Don't process: " + data + "; " + this);
@@ -60,7 +63,10 @@ public class TypingUpdate : UpdateBehavior<Typing>
 		}
 		if (data is TypingPlayer) {
 			TypingPlayer typingPlayer = data as TypingPlayer;
-			typingPlayer.removeCallBackAndDestroy (typeof(TypingPlayerUpdate));
+            // Update
+            {
+                typingPlayer.removeCallBackAndDestroy(typeof(TypingPlayerUpdate));
+            }
 			return;
 		}
 		Debug.LogError ("Don't process: " + data + "; " + this);
@@ -86,12 +92,17 @@ public class TypingUpdate : UpdateBehavior<Typing>
 				}
 				break;
 			default:
-				Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+				Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 				break;
 			}
 			return;
 		}
-		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        // Child
+        if (wrapProperty.p is TypingPlayer)
+        {
+            return;
+        }
+        Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
 	}
 
 	#endregion

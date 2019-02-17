@@ -121,11 +121,34 @@ public class RoomUI : UIBehavior<RoomUI.UIData>
 	
 	}
 
-	#endregion
+    #endregion
 
-	#region Refresh
+    #region txt, rect
 
-	private bool haveNewContestManager = false;
+    static RoomUI()
+    {
+        // rect
+        {
+            // roomBtnRect
+            {
+                // anchoredPosition: (-40.0, 0.0); anchorMin: (0.0, 1.0); anchorMax: (1.0, 1.0); pivot: (0.5, 1.0);
+                // offsetMin: (0.0, -30.0); offsetMax: (-80.0, 0.0); sizeDelta: (-80.0, 30.0);
+                roomBtnRect.anchoredPosition = new Vector3(-40.0f, 0.0f, 0.0f);
+                roomBtnRect.anchorMin = new Vector2(0.0f, 1.0f);
+                roomBtnRect.anchorMax = new Vector2(1.0f, 1.0f);
+                roomBtnRect.pivot = new Vector2(0.5f, 1.0f);
+                roomBtnRect.offsetMin = new Vector2(0.0f, -30.0f);
+                roomBtnRect.offsetMax = new Vector2(-80.0f, 0.0f);
+                roomBtnRect.sizeDelta = new Vector2(-80.0f, 30.0f);
+            }
+        }
+    }
+
+    #endregion
+
+    #region Refresh
+
+    private bool haveNewContestManager = false;
 
 	public override void refresh ()
 	{
@@ -227,7 +250,56 @@ public class RoomUI : UIBehavior<RoomUI.UIData>
 							// Debug.LogError ("chooseContestManagerUIData null: " + this);
 						}
 					}
-				} else {
+                    // siblingIndex
+                    {
+                        int siblingIndex = 0;
+                        // contestManagerUIData
+                        {
+                            UIRectTransform.SetSiblingIndex(this.data.contestManagerUIData.v, siblingIndex);
+                            siblingIndex++;
+                        }
+                        // roomBtnUIData
+                        {
+                            UIRectTransform.SetSiblingIndex(this.data.roomBtnUIData.v, siblingIndex);
+                            siblingIndex++;
+                        }
+                        // requestNewContestManagerUIData
+                        {
+                            UIRectTransform.SetSiblingIndex(this.data.requestNewContestManagerUIData.v, siblingIndex);
+                            siblingIndex++;
+                        }
+                        // chooseContestManagerUIData
+                        {
+                            UIRectTransform.SetSiblingIndex(this.data.chooseContestManagerUIData.v, siblingIndex);
+                            siblingIndex++;
+                        }
+                        // roomUserInformUI
+                        {
+                            UIRectTransform.SetSiblingIndex(this.data.roomUserInformUI.v, siblingIndex);
+                            siblingIndex++;
+                        }
+                        // roomStateUIData
+                        if (roomStateUIContainer != null)
+                        {
+                            roomStateUIContainer.SetSiblingIndex(siblingIndex);
+                            siblingIndex++;
+                        }
+                        else
+                        {
+                            Debug.LogError("roomStateUIContainer null");
+                        }
+                        // confirmBtnBackContainer
+                        if (confirmBtnBackContainer != null)
+                        {
+                            confirmBtnBackContainer.SetSiblingIndex(siblingIndex);
+                            siblingIndex++;
+                        }
+                        else
+                        {
+                            Debug.LogError("confirmBackContainer null");
+                        }
+                    }
+                } else {
 					Debug.LogError ("room null: " + this);
 				}
 			} else {
@@ -249,19 +321,19 @@ public class RoomUI : UIBehavior<RoomUI.UIData>
 	public Transform roomStateUIContainer;
 
 	public RoomBtnUI roomBtnPrefab;
-	public Transform roomBtnContainer;
+    private static readonly UIRectTransform roomBtnRect = new UIRectTransform();
 
 	public ContestManagerUI contestManagerPrefab;
-	public Transform contestManagerContainer;
+    private static readonly UIRectTransform contestManagerRect = UIRectTransform.CreateFullRect(0, 0, UIConstants.HeaderHeight, 0);
 
 	public ChooseContestManagerUI chooseContestManagerPrefab;
-	public Transform chooseContestManagerContainer;
+    private static readonly UIRectTransform chooseContestManagerRect = UIConstants.FullParent;
 
 	public RequestNewContestManagerUI requestNewContestManagerPrefab;
-	public Transform requestNewContestManagerContainer;
+    private static readonly UIRectTransform requestNewContestManagerRect = UIConstants.FullParent;
 
 	public RoomUserInformUI roomUserInformPrefab;
-	public Transform roomUserInformContainer;
+    private static readonly UIRectTransform roomUserInformRect = UIConstants.FullParent;
 
 	public Transform confirmBtnBackContainer;
 
@@ -315,7 +387,7 @@ public class RoomUI : UIBehavior<RoomUI.UIData>
 				RoomBtnUI.UIData roomBtnUIData = data as RoomBtnUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (roomBtnUIData, roomBtnPrefab, roomBtnContainer);
+					UIUtils.Instantiate (roomBtnUIData, roomBtnPrefab, this.transform, roomBtnRect);
 				}
 				dirty = true;
 				return;
@@ -324,7 +396,7 @@ public class RoomUI : UIBehavior<RoomUI.UIData>
 				ContestManagerUI.UIData contestManagerUIData = data as ContestManagerUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (contestManagerUIData, contestManagerPrefab, contestManagerContainer);
+					UIUtils.Instantiate (contestManagerUIData, contestManagerPrefab, this.transform, contestManagerRect);
 				}
 				dirty = true;
 				return;
@@ -333,7 +405,7 @@ public class RoomUI : UIBehavior<RoomUI.UIData>
 				RequestNewContestManagerUI.UIData requestNewContestManagerUIData = data as RequestNewContestManagerUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (requestNewContestManagerUIData, requestNewContestManagerPrefab, requestNewContestManagerContainer);
+					UIUtils.Instantiate (requestNewContestManagerUIData, requestNewContestManagerPrefab, this.transform, requestNewContestManagerRect);
 				}
 				dirty = true;
 				return;
@@ -342,7 +414,7 @@ public class RoomUI : UIBehavior<RoomUI.UIData>
 				ChooseContestManagerUI.UIData chooseContestManagerUIData = data as ChooseContestManagerUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (chooseContestManagerUIData, chooseContestManagerPrefab, chooseContestManagerContainer);
+					UIUtils.Instantiate (chooseContestManagerUIData, chooseContestManagerPrefab, this.transform, chooseContestManagerRect);
 				}
 				dirty = true;
 				return;
@@ -351,7 +423,7 @@ public class RoomUI : UIBehavior<RoomUI.UIData>
 				RoomUserInformUI.UIData roomUserInformUIData = data as RoomUserInformUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (roomUserInformUIData, roomUserInformPrefab, roomUserInformContainer);
+					UIUtils.Instantiate (roomUserInformUIData, roomUserInformPrefab, this.transform, roomUserInformRect);
 				}
 				dirty = true;
 				return;
