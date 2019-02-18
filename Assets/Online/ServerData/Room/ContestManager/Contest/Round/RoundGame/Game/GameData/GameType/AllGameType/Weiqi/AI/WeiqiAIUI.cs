@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Weiqi
 {
-	public class WeiqiAIUI : UIBehavior<WeiqiAIUI.UIData>
+	public class WeiqiAIUI : UIBehavior<WeiqiAIUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -224,32 +224,30 @@ namespace Weiqi
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public Text lbCanResign;
+        public static readonly TxtLanguage txtCanResign = new TxtLanguage();
 
-		public Text lbCanResign;
-		public static readonly TxtLanguage txtCanResign = new TxtLanguage();
+        public Text lbUseBook;
+        public static readonly TxtLanguage txtUseBook = new TxtLanguage();
 
-		public Text lbUseBook;
-		public static readonly TxtLanguage txtUseBook = new TxtLanguage();
+        public Text lbTime;
+        public static readonly TxtLanguage txtTime = new TxtLanguage();
 
-		public Text lbTime;
-		public static readonly TxtLanguage txtTime = new TxtLanguage();
+        public Text lbGames;
+        public static readonly TxtLanguage txtGames = new TxtLanguage();
 
-		public Text lbGames;
-		public static readonly TxtLanguage txtGames = new TxtLanguage();
+        public Text lbEngine;
+        public static readonly TxtLanguage txtEngine = new TxtLanguage();
 
-		public Text lbEngine;
-		public static readonly TxtLanguage txtEngine = new TxtLanguage();
-
-		static WeiqiAIUI()
-		{
+        static WeiqiAIUI()
+        {
             // txt
             {
                 txtTitle.add(Language.Type.vi, "Cờ Vây AI");
@@ -267,9 +265,27 @@ namespace Weiqi
                 gamesRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
                 engineRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
             }
-		}
+        }
 
-		#endregion
+        #endregion
+
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
 
 		private bool needReset = true;
 
@@ -648,6 +664,7 @@ namespace Weiqi
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

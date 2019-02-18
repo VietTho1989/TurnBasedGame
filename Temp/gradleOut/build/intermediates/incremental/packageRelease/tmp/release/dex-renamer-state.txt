@@ -1,0 +1,4 @@
+#Mon Feb 18 10:52:57 ICT 2019
+base.0=/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/build/intermediates/transforms/dexMerger/release/0
+path.0=classes.dex
+renamed.0=classes.dex

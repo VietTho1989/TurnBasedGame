@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Gomoku
 {
-	public class GomokuAIUI : UIBehavior<GomokuAIUI.UIData>
+	public class GomokuAIUI : UIBehavior<GomokuAIUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -158,26 +158,24 @@ namespace Gomoku
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public Text lbSearchDepth;
+        public static readonly TxtLanguage txtSearchDepth = new TxtLanguage();
 
-		public Text lbSearchDepth;
-		public static readonly TxtLanguage txtSearchDepth = new TxtLanguage();
+        public Text lbTimeLimit;
+        public static readonly TxtLanguage txtTimeLimit = new TxtLanguage();
 
-		public Text lbTimeLimit;
-		public static readonly TxtLanguage txtTimeLimit = new TxtLanguage();
+        public Text lbLevel;
+        public static readonly TxtLanguage txtLevel = new TxtLanguage();
 
-		public Text lbLevel;
-		public static readonly TxtLanguage txtLevel = new TxtLanguage ();
-
-		static GomokuAIUI()
-		{
+        static GomokuAIUI()
+        {
             // txt
             {
                 txtTitle.add(Language.Type.vi, "Cờ Caro AI");
@@ -193,7 +191,25 @@ namespace Gomoku
             }
         }
 
-		#endregion
+        #endregion
+
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
 
 		private bool needReset = true;
 
@@ -400,6 +416,7 @@ namespace Gomoku
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Khet
 {
-	public class KhetAIUI : UIBehavior<KhetAIUI.UIData>
+	public class KhetAIUI : UIBehavior<KhetAIUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -188,29 +188,27 @@ namespace Khet
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public Text lbInfinite;
+        public static readonly TxtLanguage txtInfinite = new TxtLanguage();
 
-		public Text lbInfinite;
-		public static readonly TxtLanguage txtInfinite = new TxtLanguage();
+        public Text lbMoveTime;
+        public static readonly TxtLanguage txtMoveTime = new TxtLanguage();
 
-		public Text lbMoveTime;
-		public static readonly TxtLanguage txtMoveTime = new TxtLanguage();
+        public Text lbDepth;
+        public static readonly TxtLanguage txtDepth = new TxtLanguage();
 
-		public Text lbDepth;
-		public static readonly TxtLanguage txtDepth = new TxtLanguage ();
+        public Text lbPickBestMove;
+        public static readonly TxtLanguage txtPickBestMove = new TxtLanguage();
 
-		public Text lbPickBestMove;
-		public static readonly TxtLanguage txtPickBestMove = new TxtLanguage ();
-
-		static KhetAIUI()
-		{
+        static KhetAIUI()
+        {
             // txt
             {
                 txtTitle.add(Language.Type.vi, "AI Khet");
@@ -228,7 +226,25 @@ namespace Khet
             }
         }
 
-		#endregion
+        #endregion
+
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
 
 		private bool needReset = true;
 
@@ -485,6 +501,7 @@ namespace Khet
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

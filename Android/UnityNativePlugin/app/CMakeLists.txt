@@ -61,6 +61,15 @@ add_library( # Sets the name of the library.
              src/main/cpp/RussianDraught/russian_draught_EdAcessImp.cpp
              src/main/cpp/RussianDraught/russian_draught_KestoG_1_5.cpp
 
+        # ChineseCheckers
+        src/main/cpp/ChineseCheckers/chinese_checkers_jni.cpp
+        src/main/cpp/ChineseCheckers/chinese_checkers_main.cpp
+        src/main/cpp/ChineseCheckers/chinese_checkers_board.cpp
+        src/main/cpp/ChineseCheckers/chinese_checkers_interface.cpp
+        src/main/cpp/ChineseCheckers/chinese_checkers_movegenerator.cpp
+        src/main/cpp/ChineseCheckers/chinese_checkers_ricefish.cpp
+        src/main/cpp/ChineseCheckers/chinese_checkers_search.cpp
+
              # Reversi
              src/main/cpp/Reversi/reversi_blur.cpp
              src/main/cpp/Reversi/reversi_board.cpp

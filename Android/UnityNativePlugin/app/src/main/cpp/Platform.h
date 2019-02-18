@@ -27,8 +27,8 @@ uint32_t fast_random(uint32_t max);
 #define strcasecmp _stricmp
 #endif
 
-#ifndef Android1
-#define Android1
+#ifndef Android
+#define Android
 #endif
 
 #ifndef Android

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace InternationalDraught
 {
-	public class InternationalDraughtAIUI : UIBehavior<InternationalDraughtAIUI.UIData>
+	public class InternationalDraughtAIUI : UIBehavior<InternationalDraughtAIUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -290,38 +290,36 @@ namespace InternationalDraught
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public Text lbBMove;
+        public static readonly TxtLanguage txtBMove = new TxtLanguage();
 
-		public Text lbBMove;
-		public static readonly TxtLanguage txtBMove = new TxtLanguage();
+        public Text lbBook;
+        public static readonly TxtLanguage txtBook = new TxtLanguage();
 
-		public Text lbBook;
-		public static readonly TxtLanguage txtBook = new TxtLanguage();
+        public Text lbDepth;
+        public static readonly TxtLanguage txtDepth = new TxtLanguage();
 
-		public Text lbDepth;
-		public static readonly TxtLanguage txtDepth = new TxtLanguage();
+        public Text lbTime;
+        public static readonly TxtLanguage txtTime = new TxtLanguage();
 
-		public Text lbTime;
-		public static readonly TxtLanguage txtTime = new TxtLanguage();
+        public Text lbInput;
+        public static readonly TxtLanguage txtInput = new TxtLanguage();
 
-		public Text lbInput;
-		public static readonly TxtLanguage txtInput =new TxtLanguage();
+        public Text lbUseEndGameDatabase;
+        public static readonly TxtLanguage txtUseEndGameDatabase = new TxtLanguage();
 
-		public Text lbUseEndGameDatabase;
-		public static readonly TxtLanguage txtUseEndGameDatabase = new TxtLanguage ();
+        public Text lbPickBestMove;
+        public static readonly TxtLanguage txtPickBestMove = new TxtLanguage();
 
-		public Text lbPickBestMove;
-		public static readonly TxtLanguage txtPickBestMove = new TxtLanguage();
-
-		static InternationalDraughtAIUI()
-		{
+        static InternationalDraughtAIUI()
+        {
             // txt
             {
                 txtTitle.add(Language.Type.vi, "Cờ Đam Kiểu Quốc Tế AI");
@@ -345,7 +343,25 @@ namespace InternationalDraught
             }
         }
 
-		#endregion
+        #endregion
+
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
 
 		private bool needReset = true;
 
@@ -736,6 +752,7 @@ namespace InternationalDraught
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

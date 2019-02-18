@@ -11,6 +11,7 @@ public class RequestChangeUpdate<K> : UpdateBehavior<RequestChangeUpdate<K>.Upda
 
 	public class UpdateData : Data
 	{
+
 		public VP<K> origin;
 
 		public VP<K> current;
@@ -56,6 +57,7 @@ public class RequestChangeUpdate<K> : UpdateBehavior<RequestChangeUpdate<K>.Upda
 		}
 
 		#endregion
+
 	}
 
 	#endregion

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ChineseCheckers
 {
-    public class ChineseCheckersAIUI : UIBehavior<ChineseCheckersAIUI.UIData>
+    public class ChineseCheckersAIUI : UIBehavior<ChineseCheckersAIUI.UIData>, HaveTransformData
     {
 
         #region UIData
@@ -237,8 +237,6 @@ namespace ChineseCheckers
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text lbTitle;
@@ -281,6 +279,24 @@ namespace ChineseCheckers
         }
 
         #endregion
+
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
 
         private bool needReset = true;
 
@@ -656,6 +672,7 @@ namespace ChineseCheckers
                     // Debug.LogError ("data null: " + this);
                 }
             }
+            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate ()

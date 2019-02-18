@@ -789,6 +789,7 @@
     <Compile Include="Assets\AdvancedCoroutines\Editor\AdvancedCoroutinesDebugModes.cs" />
     <Compile Include="Assets\AdvancedCoroutines\Editor\AdvancedCoroutinesStatisticsWindow.cs" />
     <Compile Include="Assets\Editor\Startup.cs" />
+    <Compile Include="Assets\Editor\UIRefreshEditor.cs" />
     <Compile Include="Assets\Editor\XcodeProjectUpdater.cs" />
     <Compile Include="Assets\Mirror\Editor\NetworkAnimatorEditor.cs" />
     <Compile Include="Assets\Mirror\Editor\NetworkBehaviourInspector.cs" />

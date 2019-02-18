@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace NineMenMorris
 {
-	public class NineMenMorrisAIUI : UIBehavior<NineMenMorrisAIUI.UIData>
+	public class NineMenMorrisAIUI : UIBehavior<NineMenMorrisAIUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -251,32 +251,30 @@ namespace NineMenMorris
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public Text lbMaxNormal;
+        public static readonly TxtLanguage txtMaxNormal = new TxtLanguage();
 
-		public Text lbMaxNormal;
-		public static readonly TxtLanguage txtMaxNormal = new TxtLanguage();
+        public Text lbMaxPositioning;
+        public static readonly TxtLanguage txtMaxPositioning = new TxtLanguage();
 
-		public Text lbMaxPositioning;
-		public static readonly TxtLanguage txtMaxPositioning = new TxtLanguage ();
+        public Text lbMaxBlackAndWhite3;
+        public static readonly TxtLanguage txtMaxBlackAndWhite3 = new TxtLanguage();
 
-		public Text lbMaxBlackAndWhite3;
-		public static readonly TxtLanguage txtMaxBlackAndWhite3 = new TxtLanguage();
+        public Text lbMaxBlackOrWhite3;
+        public static readonly TxtLanguage txtMaxBlackOrWhite3 = new TxtLanguage();
 
-		public Text lbMaxBlackOrWhite3;
-		public static readonly TxtLanguage txtMaxBlackOrWhite3 = new TxtLanguage ();
+        public Text lbPickBestMove;
+        public static readonly TxtLanguage txtPickBestMove = new TxtLanguage();
 
-		public Text lbPickBestMove;
-		public static readonly TxtLanguage txtPickBestMove = new TxtLanguage();
-
-		static NineMenMorrisAIUI()
-		{
+        static NineMenMorrisAIUI()
+        {
             // txt
             {
                 txtTitle.add(Language.Type.vi, "AI Nine Men's Morriss");
@@ -294,9 +292,27 @@ namespace NineMenMorris
                 maxBlackOrWhite3Rect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
                 pickBestMoveRect.setPosY(UIConstants.HeaderHeight + 4 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
             }
-		}
+        }
 
-		#endregion
+        #endregion
+
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
 
 		private bool needReset = true;
 
@@ -600,6 +616,7 @@ namespace NineMenMorris
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

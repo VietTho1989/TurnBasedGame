@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Reversi
 {
-	public class ReversiAIUI : UIBehavior<ReversiAIUI.UIData>
+	public class ReversiAIUI : UIBehavior<ReversiAIUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -277,38 +277,36 @@ namespace Reversi
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public Text lbSort;
+        public static readonly TxtLanguage txtSort = new TxtLanguage();
 
-		public Text lbSort;
-		public static readonly TxtLanguage txtSort = new TxtLanguage();
+        public Text lbMin;
+        public static readonly TxtLanguage txtMin = new TxtLanguage();
 
-		public Text lbMin;
-		public static readonly TxtLanguage txtMin = new TxtLanguage();
+        public Text lbMax;
+        public static readonly TxtLanguage txtMax = new TxtLanguage();
 
-		public Text lbMax;
-		public static readonly TxtLanguage txtMax = new TxtLanguage();
+        public Text lbEnd;
+        public static readonly TxtLanguage txtEnd = new TxtLanguage();
 
-		public Text lbEnd;
-		public static readonly TxtLanguage txtEnd = new TxtLanguage();
+        public Text lbMsLeft;
+        public static readonly TxtLanguage txtMsLeft = new TxtLanguage();
 
-		public Text lbMsLeft;
-		public static readonly TxtLanguage txtMsLeft = new TxtLanguage();
+        public Text lbUseBook;
+        public static readonly TxtLanguage txtUseBook = new TxtLanguage();
 
-		public Text lbUseBook;
-		public static readonly TxtLanguage txtUseBook = new TxtLanguage();
+        public Text lbPercent;
+        public static readonly TxtLanguage txtPercent = new TxtLanguage();
 
-		public Text lbPercent;
-		public static readonly TxtLanguage txtPercent = new TxtLanguage();
-
-		static ReversiAIUI()
-		{
+        static ReversiAIUI()
+        {
             // txt
             {
                 txtTitle.add(Language.Type.vi, "Cờ Othello AI");
@@ -330,9 +328,27 @@ namespace Reversi
                 useBookRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
                 percentRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
             }
-		}
+        }
 
-		#endregion
+        #endregion
+
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
 
 		private bool needReset = true;
 
@@ -723,6 +739,7 @@ namespace Reversi
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

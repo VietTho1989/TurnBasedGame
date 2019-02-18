@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Chess
 {
-	public class ChessAIUI : UIBehavior<ChessAIUI.UIData>
+	public class ChessAIUI : UIBehavior<ChessAIUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -155,23 +155,21 @@ namespace Chess
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public Text lbDepth;
+        public static readonly TxtLanguage txtDepth = new TxtLanguage();
 
-		public Text lbDepth;
-		public static readonly TxtLanguage txtDepth = new TxtLanguage();
+        public Text lbSkillLevel;
+        public static readonly TxtLanguage txtSkillLevel = new TxtLanguage();
 
-		public Text lbSkillLevel;
-		public static readonly TxtLanguage txtSkillLevel = new TxtLanguage();
-
-		public Text lbDuration;
-		public static readonly TxtLanguage txtDuration = new TxtLanguage();
+        public Text lbDuration;
+        public static readonly TxtLanguage txtDuration = new TxtLanguage();
 
         static ChessAIUI()
         {
@@ -190,9 +188,27 @@ namespace Chess
             }
         }
 
-		#endregion
+        #endregion
 
-		private bool needReset = true;
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
+
+        private bool needReset = true;
 
 		public override void refresh ()
 		{
@@ -397,6 +413,7 @@ namespace Chess
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

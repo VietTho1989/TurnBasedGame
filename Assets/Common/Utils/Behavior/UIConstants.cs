@@ -89,7 +89,7 @@ public static class UIConstants
             RequestEnumRect.anchorMin = new Vector2(0.0f, 1.0f);
             RequestEnumRect.anchorMax = new Vector2(1.0f, 1.0f);
             RequestEnumRect.pivot = new Vector2(0.5f, 1f);
-            RequestEnumRect.offsetMin = new Vector2(paddingLeft, -RequestHeight);
+            RequestEnumRect.offsetMin = new Vector2(paddingLeft, -RequestEnumHeight);
             RequestEnumRect.offsetMax = new Vector2(-paddingRight, 0);
             RequestEnumRect.sizeDelta = new Vector2(-paddingLeft - paddingRight, RequestEnumHeight);
         }

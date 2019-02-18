@@ -1,7 +1,7 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Main/Online/Client/GlobalView/Chat/GlobalChatUI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/UI/Board/Animation/AnimationManagerUpdate.cs">
     <Files>
-      <File FileName="Assets/Main/Online/Client/GlobalView/Chat/GlobalChatUI.cs" Line="68" Column="58" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/UI/Board/Animation/AnimationManagerUpdate.cs" Line="222" Column="19" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

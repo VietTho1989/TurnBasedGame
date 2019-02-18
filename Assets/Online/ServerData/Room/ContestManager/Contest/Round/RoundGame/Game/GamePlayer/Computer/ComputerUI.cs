@@ -125,15 +125,46 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
 
 	static ComputerUI()
 	{
-		txtTitle.add (Language.Type.vi, "Máy Tính");
-		txtName.add (Language.Type.vi, "Tên");
-		txtAvatarUrl.add (Language.Type.vi, "Đường dẫn avatar");
-	}
+        // txt
+        {
+            txtTitle.add(Language.Type.vi, "Máy Tính");
+            txtName.add(Language.Type.vi, "Tên");
+            txtAvatarUrl.add(Language.Type.vi, "Đường dẫn avatar");
+        }
+        // rect
+        {
+            // computerAvatarRect
+            {
+                // anchoredPosition: (-10.0, -100.0); anchorMin: (1.0, 1.0); anchorMax: (1.0, 1.0); pivot: (1.0, 1.0);
+                // offsetMin: (-46.0, -136.0); offsetMax: (-10.0, -100.0); sizeDelta: (36.0, 36.0);
+                computerAvatarRect.anchoredPosition = new Vector3(-10.0f, -100.0f, 0);
+                computerAvatarRect.anchorMin = new Vector2(1.0f, 1.0f);
+                computerAvatarRect.anchorMax = new Vector2(1.0f, 1.0f);
+                computerAvatarRect.pivot = new Vector2(1.0f, 1.0f);
+                computerAvatarRect.offsetMin = new Vector2(-46.0f, -136.0f);
+                computerAvatarRect.offsetMax = new Vector2(-10.0f, -100.0f);
+                computerAvatarRect.sizeDelta = new Vector2(36.0f, 36.0f);
+            }
+            // avatarUrlRect
+            {
+                float paddingLeft = 90;
+                float paddingRight = 56;
+                avatarUrlRect.anchoredPosition = new Vector3((paddingLeft - paddingRight) / 2, 0f, 0f);
+                avatarUrlRect.anchorMin = new Vector2(0.0f, 1.0f);
+                avatarUrlRect.anchorMax = new Vector2(1.0f, 1.0f);
+                avatarUrlRect.pivot = new Vector2(0.5f, 1f);
+                avatarUrlRect.offsetMin = new Vector2(paddingLeft, -UIConstants.RequestEnumHeight);
+                avatarUrlRect.offsetMax = new Vector2(-paddingRight, 0);
+                avatarUrlRect.sizeDelta = new Vector2(-paddingLeft - paddingRight, UIConstants.RequestEnumHeight);
+                // posY
+                avatarUrlRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+            }
+        }
+    }
 
 	#endregion
 
 	private bool needReset = true;
-	public GameObject differentIndicator;
 
 	public override void refresh ()
 	{
@@ -148,8 +179,8 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
 					Computer show = editComputer.show.v.data;
 					Computer compare = editComputer.compare.v.data;
 					if (show != null) {
-						// differentIndicator
-						if (differentIndicator != null) {
+						// different
+						if (lbTitle != null) {
 							bool isDifferent = false;
 							{
 								if (editComputer.compareOtherType.v.data != null) {
@@ -158,9 +189,9 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
 									}
 								}
 							}
-							differentIndicator.SetActive (isDifferent);
+                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
 						} else {
-							Debug.LogError ("differentIndicator null: " + this);
+							Debug.LogError ("lbTitle null: " + this);
 						}
 						// get server state
 						Server.State.Type serverState = Server.State.Type.Connect;
@@ -349,8 +380,28 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
 				} else {
 					Debug.LogError ("editComputer null: " + this);
 				}
-				// txt
-				{
+                // UI Size
+                {
+                    float deltaY = UIConstants.HeaderHeight;
+                    // avatar
+                    {
+
+                    }
+                    // name
+                    {
+                        deltaY += UIConstants.ItemHeight;
+                    }
+                    // avatarUrl
+                    {
+                        deltaY += UIConstants.ItemHeight;
+                    }
+                    // aiUIData
+                    deltaY += UIRectTransform.SetPosY(this.data.aiUIData.v, deltaY);
+                    // set
+                    UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                }
+                // txt
+                {
 					if (lbTitle != null) {
 						lbTitle.text = txtTitle.get ("Computer");
 					} else {
@@ -383,14 +434,14 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
 	#region implement callBacks
 
 	public ComputerAvatarUI computerAvatarPrefab;
-	public Transform computerAvatarContainer;
+	private static readonly UIRectTransform computerAvatarRect = new UIRectTransform();
 
-	public Transform nameContainer;
-	public Transform avatarUrlContainer;
-	public RequestChangeStringUI requestStringPrefab;
+    public RequestChangeStringUI requestStringPrefab;
+
+    private static readonly UIRectTransform nameRect = new UIRectTransform(UIConstants.RequestEnumRect, UIConstants.HeaderHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+	private static readonly UIRectTransform avatarUrlRect = new UIRectTransform(UIConstants.RequestEnumRect, UIConstants.HeaderHeight + UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
 
 	public AIUI aiUIPrefab;
-	public Transform aiUIContainer;
 
 	private Server server = null;
 
@@ -456,7 +507,7 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
 				ComputerAvatarUI.UIData computerAvatarUIData = data as ComputerAvatarUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (computerAvatarUIData, computerAvatarPrefab, computerAvatarContainer);
+					UIUtils.Instantiate (computerAvatarUIData, computerAvatarPrefab, this.transform, computerAvatarRect);
 				}
 				dirty = true;
 				return;
@@ -471,12 +522,12 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
 						switch ((UIData.Property)wrapProperty.n) {
 						case UIData.Property.name:
 							{
-								UIUtils.Instantiate (requestChange, requestStringPrefab, nameContainer);
+								UIUtils.Instantiate (requestChange, requestStringPrefab, this.transform, nameRect);
 							}
 							break;
 						case UIData.Property.avatarUrl:
 							{
-								UIUtils.Instantiate (requestChange, requestStringPrefab, avatarUrlContainer);
+								UIUtils.Instantiate (requestChange, requestStringPrefab, this.transform, avatarUrlRect);
 							}
 							break;
 						default:
@@ -490,16 +541,29 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
 				dirty = true;
 				return;
 			}
-			// aiUIData
-			if (data is AIUI.UIData) {
-				AIUI.UIData aiUIData = data as AIUI.UIData;
-				// UI
-				{
-					UIUtils.Instantiate (aiUIData, aiUIPrefab, aiUIContainer);
-				}
-				dirty = true;
-				return;
-			}
+            // aiUIData
+            {
+                if (data is AIUI.UIData)
+                {
+                    AIUI.UIData aiUIData = data as AIUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(aiUIData, aiUIPrefab, this.transform);
+                    }
+                    // Child
+                    {
+                        TransformData.AddCallBack(aiUIData, this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                if(data is TransformData)
+                {
+                    dirty = true;
+                    return;
+                }
+            }
 		}
 		Debug.LogError ("Don't process: " + data + "; " + this);
 	}
@@ -574,15 +638,27 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
 				}
 				return;
 			}
-			// aiUIData
-			if (data is AIUI.UIData) {
-				AIUI.UIData aiUIData = data as AIUI.UIData;
-				// UI
-				{
-					aiUIData.removeCallBackAndDestroy (typeof(AIUI));
-				}
-				return;
-			}
+            // aiUIData
+            {
+                if (data is AIUI.UIData)
+                {
+                    AIUI.UIData aiUIData = data as AIUI.UIData;
+                    // Child
+                    {
+                        TransformData.RemoveCallBack(aiUIData, this);
+                    }
+                    // UI
+                    {
+                        aiUIData.removeCallBackAndDestroy(typeof(AIUI));
+                    }
+                    return;
+                }
+                // Child
+                if(data is TransformData)
+                {
+                    return;
+                }
+            }
 		}
 		Debug.LogError ("Don't process: " + data + "; " + this);
 	}
@@ -721,10 +797,33 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
 			if (wrapProperty.p is RequestChangeStringUI.UIData) {
 				return;
 			}
-			// aiUIData
-			if (wrapProperty.p is AIUI.UIData) {
-				return;
-			}
+            // aiUIData
+            {
+                if (wrapProperty.p is AIUI.UIData)
+                {
+                    return;
+                }
+                // Child
+                if(wrapProperty.p is TransformData)
+                {
+                    switch ((TransformData.Property)wrapProperty.n)
+                    {
+                        case TransformData.Property.position:
+                            break;
+                        case TransformData.Property.rotation:
+                            break;
+                        case TransformData.Property.scale:
+                            break;
+                        case TransformData.Property.size:
+                            dirty = true;
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+            }
 		}
 		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
 	}

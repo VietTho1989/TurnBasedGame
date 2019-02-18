@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Shogi
 {
-	public class ShogiAIUI : UIBehavior<ShogiAIUI.UIData>
+	public class ShogiAIUI : UIBehavior<ShogiAIUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -222,32 +222,30 @@ namespace Shogi
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public Text lbDepth;
+        public static readonly TxtLanguage txtDepth = new TxtLanguage();
 
-		public Text lbDepth; 
-		public static readonly TxtLanguage txtDepth = new TxtLanguage();
+        public Text lbSkillLevel;
+        public static readonly TxtLanguage txtSkillLevel = new TxtLanguage();
 
-		public Text lbSkillLevel;
-		public static readonly TxtLanguage txtSkillLevel = new TxtLanguage();
+        public Text lbMr;
+        public static readonly TxtLanguage txtMr = new TxtLanguage();
 
-		public Text lbMr;
-		public static readonly TxtLanguage txtMr = new TxtLanguage();
+        public Text lbDuration;
+        public static readonly TxtLanguage txtDuration = new TxtLanguage();
 
-		public Text lbDuration;
-		public static readonly TxtLanguage txtDuration = new TxtLanguage();
+        public Text lbUseBook;
+        public static readonly TxtLanguage txtUseBook = new TxtLanguage();
 
-		public Text lbUseBook;
-		public static readonly TxtLanguage txtUseBook = new TxtLanguage();
-
-		static ShogiAIUI()
-		{
+        static ShogiAIUI()
+        {
             // txt
             {
                 txtTitle.add(Language.Type.vi, "Cờ Shogi AI");
@@ -265,9 +263,27 @@ namespace Shogi
                 durationRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
                 useBookRect.setPosY(UIConstants.HeaderHeight + 4 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
             }
-		}
+        }
 
-		#endregion
+        #endregion
+
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
 
 		private bool needReset = true;
 
@@ -566,6 +582,7 @@ namespace Shogi
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

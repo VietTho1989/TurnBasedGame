@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Banqi
 {
-	public class BanqiAIUI : UIBehavior<BanqiAIUI.UIData>
+	public class BanqiAIUI : UIBehavior<BanqiAIUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -69,20 +69,18 @@ namespace Banqi
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public Text lbDepth;
+        public static readonly TxtLanguage txtDepth = new TxtLanguage();
 
-		public Text lbDepth;
-		public static readonly TxtLanguage txtDepth = new TxtLanguage();
-
-		static BanqiAIUI()
-		{
+        static BanqiAIUI()
+        {
             // txt
             {
                 txtTitle.add(Language.Type.vi, "Banqi AI");
@@ -94,7 +92,25 @@ namespace Banqi
             }
         }
 
-		#endregion
+        #endregion
+
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
 
 		private bool needReset = true;
 
@@ -210,6 +226,7 @@ namespace Banqi
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

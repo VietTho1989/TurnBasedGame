@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Janggi
 {
-	public class JanggiAIUI : UIBehavior<JanggiAIUI.UIData>
+	public class JanggiAIUI : UIBehavior<JanggiAIUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -69,20 +69,18 @@ namespace Janggi
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public Text lbMaxVisitCount;
+        public static readonly TxtLanguage txtMaxVisitCount = new TxtLanguage();
 
-		public Text lbMaxVisitCount;
-		public static readonly TxtLanguage txtMaxVisitCount = new TxtLanguage();
-
-		static JanggiAIUI()
-		{
+        static JanggiAIUI()
+        {
             // txt
             {
                 txtTitle.add(Language.Type.vi, "Cờ Tướng Triều Tiên AI");
@@ -94,7 +92,25 @@ namespace Janggi
             }
         }
 
-		#endregion
+        #endregion
+
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
 
 		private bool needReset = true;
 
@@ -210,6 +226,7 @@ namespace Janggi
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

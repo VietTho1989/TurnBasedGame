@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace EnglishDraught
 {
-	public class EnglishDraughtAIUI : UIBehavior<EnglishDraughtAIUI.UIData>
+	public class EnglishDraughtAIUI : UIBehavior<EnglishDraughtAIUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -188,29 +188,27 @@ namespace EnglishDraught
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public Text lbThreeMoveRandom;
+        public static readonly TxtLanguage txtThreeMoveRandom = new TxtLanguage();
 
-		public Text lbThreeMoveRandom;
-		public static readonly TxtLanguage txtThreeMoveRandom = new TxtLanguage ();
+        public Text lbMaxSeconds;
+        public static readonly TxtLanguage txtMaxSeconds = new TxtLanguage();
 
-		public Text lbMaxSeconds;
-		public static readonly TxtLanguage txtMaxSeconds = new TxtLanguage ();
+        public Text lbMaxDepth;
+        public static readonly TxtLanguage txtMaxDepth = new TxtLanguage();
 
-		public Text lbMaxDepth;
-		public static readonly TxtLanguage txtMaxDepth = new TxtLanguage();
+        public Text lbPickBestMove;
+        public static readonly TxtLanguage txtPickBestMove = new TxtLanguage();
 
-		public Text lbPickBestMove;
-		public static readonly TxtLanguage txtPickBestMove = new TxtLanguage ();
-
-		static EnglishDraughtAIUI()
-		{
+        static EnglishDraughtAIUI()
+        {
             // txt
             {
                 txtTitle.add(Language.Type.vi, "Cờ Đam Kiểu Anh AI");
@@ -228,7 +226,25 @@ namespace EnglishDraught
             }
         }
 
-		#endregion
+        #endregion
+
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
 
 		private bool needReset = true;
 
@@ -485,6 +501,7 @@ namespace EnglishDraught
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

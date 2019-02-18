@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Seirawan
 {
-	public class SeirawanAIUI : UIBehavior<SeirawanAIUI.UIData>
+	public class SeirawanAIUI : UIBehavior<SeirawanAIUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -155,26 +155,24 @@ namespace Seirawan
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public Text lbDepth;
+        public static readonly TxtLanguage txtDepth = new TxtLanguage();
 
-		public Text lbDepth;
-		public static readonly TxtLanguage txtDepth = new TxtLanguage();
+        public Text lbSkillLevel;
+        public static readonly TxtLanguage txtSkillLevel = new TxtLanguage();
 
-		public Text lbSkillLevel;
-		public static readonly TxtLanguage txtSkillLevel = new TxtLanguage();
+        public Text lbDuration;
+        public static readonly TxtLanguage txtDuration = new TxtLanguage();
 
-		public Text lbDuration;
-		public static readonly TxtLanguage txtDuration = new TxtLanguage();
-
-		static SeirawanAIUI()
-		{
+        static SeirawanAIUI()
+        {
             // txt
             {
                 txtTitle.add(Language.Type.vi, "Cờ Seirawan AI");
@@ -190,7 +188,25 @@ namespace Seirawan
             }
         }
 
-		#endregion
+        #endregion
+
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
 
 		private bool needReset = true;
 
@@ -397,6 +413,7 @@ namespace Seirawan
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace HEX
 {
-	public class HexAIUI : UIBehavior<HexAIUI.UIData>
+	public class HexAIUI : UIBehavior<HexAIUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -111,23 +111,21 @@ namespace HEX
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public Text lbLimitTime;
+        public static readonly TxtLanguage txtLimitTime = new TxtLanguage();
 
-		public Text lbLimitTime;
-		public static readonly TxtLanguage txtLimitTime = new TxtLanguage();
+        public Text lbFirstMoveCenter;
+        public static readonly TxtLanguage txtFirstMoveCenter = new TxtLanguage();
 
-		public Text lbFirstMoveCenter;
-		public static readonly TxtLanguage txtFirstMoveCenter = new TxtLanguage();
-
-		static HexAIUI()
-		{
+        static HexAIUI()
+        {
             // txt
             {
                 txtTitle.add(Language.Type.vi, "Hex AI");
@@ -141,7 +139,25 @@ namespace HEX
             }
         }
 
-		#endregion
+        #endregion
+
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
 
 		private bool needReset = true;
 
@@ -301,6 +317,7 @@ namespace HEX
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

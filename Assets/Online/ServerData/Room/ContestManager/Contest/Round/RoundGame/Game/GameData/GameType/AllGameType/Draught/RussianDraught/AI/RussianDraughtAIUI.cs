@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace RussianDraught
 {
-	public class RussianDraughtAIUI : UIBehavior<RussianDraughtAIUI.UIData>
+	public class RussianDraughtAIUI : UIBehavior<RussianDraughtAIUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -122,23 +122,21 @@ namespace RussianDraught
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public Text lbTimeLimit;
+        public static readonly TxtLanguage txtTimeLimit = new TxtLanguage();
 
-		public Text lbTimeLimit;
-		public static readonly TxtLanguage txtTimeLimit = new TxtLanguage();
+        public Text lbPickBestMove;
+        public static readonly TxtLanguage txtPickBestMove = new TxtLanguage();
 
-		public Text lbPickBestMove;
-		public static readonly TxtLanguage txtPickBestMove = new TxtLanguage();
-
-		static RussianDraughtAIUI()
-		{
+        static RussianDraughtAIUI()
+        {
             // txt
             {
                 txtTitle.add(Language.Type.vi, "Cờ Đam Kiểu Nga AI");
@@ -152,7 +150,25 @@ namespace RussianDraught
             }
         }
 
-		#endregion
+        #endregion
+
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
 
 		private bool needReset = true;
 
@@ -315,6 +331,7 @@ namespace RussianDraught
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

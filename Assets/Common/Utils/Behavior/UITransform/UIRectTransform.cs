@@ -135,11 +135,18 @@ public class UIRectTransform
     {
         if (rectTransform.anchorMin.y == 1.0f
             && rectTransform.anchorMax.y == 1.0f
-            && rectTransform.pivot.y == 1f)
+            && rectTransform.pivot.y == 1.0f)
         {
             rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -posY);
             rectTransform.offsetMin = new Vector2(rectTransform.offsetMin.x, -rectTransform.sizeDelta.y - posY);
             rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, -posY);
+        } else if (rectTransform.anchorMin.y == 0.0f
+            && rectTransform.anchorMax.y == 0.0f
+            && rectTransform.pivot.y == 0.0f)
+        {
+            rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, posY);
+            rectTransform.offsetMin = new Vector2(rectTransform.offsetMin.x, posY);
+            rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, rectTransform.sizeDelta.y + posY);
         }
         else
         {

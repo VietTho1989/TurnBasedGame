@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace MineSweeper
 {
-	public class MineSweeperAIUI : UIBehavior<MineSweeperAIUI.UIData>
+	public class MineSweeperAIUI : UIBehavior<MineSweeperAIUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -73,20 +73,18 @@ namespace MineSweeper
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public Text lbFirstMoveType;
+        public static readonly TxtLanguage txtFirstMoveType = new TxtLanguage();
 
-		public Text lbFirstMoveType;
-		public static readonly TxtLanguage txtFirstMoveType = new TxtLanguage ();
-
-		static MineSweeperAIUI()
-		{
+        static MineSweeperAIUI()
+        {
             // txt
             {
                 txtTitle.add(Language.Type.vi, "Dò Mìn AI");
@@ -98,7 +96,25 @@ namespace MineSweeper
             }
         }
 
-		#endregion
+        #endregion
+
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
 
 		private bool needReset = true;
 
@@ -214,6 +230,7 @@ namespace MineSweeper
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

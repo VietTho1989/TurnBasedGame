@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Solitaire
 {
-	public class SolitaireAIUI : UIBehavior<SolitaireAIUI.UIData>
+	public class SolitaireAIUI : UIBehavior<SolitaireAIUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -145,26 +145,24 @@ namespace Solitaire
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public Text lbMultiThreaded;
+        public static readonly TxtLanguage txtMultiThreaded = new TxtLanguage();
 
-		public Text lbMultiThreaded;
-		public static readonly TxtLanguage txtMultiThreaded = new TxtLanguage();
+        public Text lbMaxClosedCount;
+        public static readonly TxtLanguage txtMaxClosedCount = new TxtLanguage();
 
-		public Text lbMaxClosedCount;
-		public static readonly TxtLanguage txtMaxClosedCount = new TxtLanguage ();
+        public Text lbFastMode;
+        public static readonly TxtLanguage txtFastMode = new TxtLanguage();
 
-		public Text lbFastMode;
-		public static readonly TxtLanguage txtFastMode = new TxtLanguage ();
-
-		static SolitaireAIUI()
-		{
+        static SolitaireAIUI()
+        {
             // txt
             {
                 txtTitle.add(Language.Type.vi, "AI Solitaire");
@@ -178,9 +176,27 @@ namespace Solitaire
                 maxClosedCountRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
                 fastModeRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
             }
-		}
+        }
 
-		#endregion
+        #endregion
+
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
 
 		private bool needReset = true;
 
@@ -390,6 +406,7 @@ namespace Solitaire
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

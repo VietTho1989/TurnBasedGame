@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Xiangqi
 {
-	public class XiangqiAIUI : UIBehavior<XiangqiAIUI.UIData>
+	public class XiangqiAIUI : UIBehavior<XiangqiAIUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -189,29 +189,27 @@ namespace Xiangqi
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public Text lbDepth;
+        public static readonly TxtLanguage txtDepth = new TxtLanguage();
 
-		public Text lbDepth;
-		public static readonly TxtLanguage txtDepth = new TxtLanguage();
+        public Text lbThinkTime;
+        public static readonly TxtLanguage txtThinkTime = new TxtLanguage();
 
-		public Text lbThinkTime;
-		public static readonly TxtLanguage txtThinkTime = new TxtLanguage();
+        public Text lbUseBook;
+        public static readonly TxtLanguage txtUseBook = new TxtLanguage();
 
-		public Text lbUseBook;
-		public static readonly TxtLanguage txtUseBook = new TxtLanguage();
+        public Text lbPickBestMove;
+        public static readonly TxtLanguage txtPickBestMove = new TxtLanguage();
 
-		public Text lbPickBestMove;
-		public static readonly TxtLanguage txtPickBestMove = new TxtLanguage ();
-
-		static XiangqiAIUI()
-		{
+        static XiangqiAIUI()
+        {
             // txt
             {
                 txtTitle.add(Language.Type.vi, "Cờ Tướng AI");
@@ -229,7 +227,25 @@ namespace Xiangqi
             }
         }
 
-		#endregion
+        #endregion
+
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
 
 		private bool needReset = true;
 
@@ -483,6 +499,7 @@ namespace Xiangqi
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

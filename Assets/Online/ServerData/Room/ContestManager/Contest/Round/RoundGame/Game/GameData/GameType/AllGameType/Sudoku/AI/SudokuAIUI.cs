@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Sudoku
 {
-	public class SudokuAIUI : UIBehavior<SudokuAIUI.UIData>
+	public class SudokuAIUI : UIBehavior<SudokuAIUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -36,21 +36,37 @@ namespace Sudoku
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        static SudokuAIUI()
+        {
+            txtTitle.add(Language.Type.vi, "AI Sudoku");
+        }
 
-		static SudokuAIUI()
-		{
-			txtTitle.add (Language.Type.vi, "AI Sudoku");
-		}
+        #endregion
 
-		#endregion
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
 
 		private bool needReset = true;
 
@@ -120,6 +136,7 @@ namespace Sudoku
 					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()
