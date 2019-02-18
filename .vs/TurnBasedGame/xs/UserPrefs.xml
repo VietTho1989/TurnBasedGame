@@ -1,9 +1,9 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Common/Utils/Behavior/RequestChange/RequestChangeLongUI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/ChineseChess/Xiangqi/AI/XiangqiAIUI.cs">
     <Files>
-      <File FileName="Assets/Common/Utils/Behavior/RequestChange/RequestChangeIntUI.cs" Line="185" Column="42" />
-      <File FileName="Assets/Common/Utils/Behavior/RequestChange/RequestChangeFloatUI.cs" Line="185" Column="42" />
-      <File FileName="Assets/Common/Utils/Behavior/RequestChange/RequestChangeLongUI.cs" Line="463" Column="2" />
+      <File FileName="Assets/Main/Online/Client/GlobalView/Profile/UserUI/UserUI.cs" Line="619" Column="93" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Weiqi/AI/WeiqiAIUI.cs" Line="249" Column="25" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/ChineseChess/Xiangqi/AI/XiangqiAIUI.cs" Line="211" Column="27" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
