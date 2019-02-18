@@ -4,6 +4,7 @@ using System.Collections;
 
 public class Global : Data
 {
+
 	public const int VersionCode = 1;
 
 	public const float WaitSendTime = 30f;
@@ -37,17 +38,29 @@ public class Global : Data
 
 	public VP<NetworkReachability> networkReachability;
 
+    public VP<DeviceOrientation> deviceOrientation;
+
+    public VP<float> width;
+
+    public VP<float> height;
+
 	#region Constructor
 
 	public enum Property
 	{
-		networkReachability
-	}
+		networkReachability,
+        deviceOrientation,
+        width,
+        height
+    }
 
 	public Global() : base()
 	{
 		this.networkReachability = new VP<NetworkReachability> (this, (byte)Property.networkReachability, NetworkReachability.ReachableViaLocalAreaNetwork);
-	}
+        this.deviceOrientation = new VP<DeviceOrientation>(this, (byte)Property.deviceOrientation, DeviceOrientation.Portrait);
+        this.width = new VP<float>(this, (byte)Property.width, 480);
+        this.height = new VP<float>(this, (byte)Property.height, 640);
+    }
 
 	#endregion
 

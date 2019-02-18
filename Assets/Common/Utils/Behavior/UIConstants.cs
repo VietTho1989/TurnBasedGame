@@ -20,7 +20,7 @@ public static class UIConstants
 
     #region RequestBool
 
-    public const float RequestBoolDim = 50;
+    public const float RequestBoolDim = 40;
     public static readonly UIRectTransform RequestBoolRect = new UIRectTransform();
 
     #endregion
@@ -36,6 +36,13 @@ public static class UIConstants
 
     public const float RequestHeight = 50;
     public static readonly UIRectTransform RequestRect = new UIRectTransform();
+
+    #endregion
+
+    #region requestChange
+
+    public static readonly UIRectTransform RequestChangeFullRect = new UIRectTransform();
+    public static readonly UIRectTransform RequestChangePartRect = new UIRectTransform();
 
     #endregion
 
@@ -102,6 +109,31 @@ public static class UIConstants
             RequestRect.offsetMin = new Vector2(paddingLeft, -RequestHeight);
             RequestRect.offsetMax = new Vector2(-paddingRight, 0);
             RequestRect.sizeDelta = new Vector2(-paddingLeft - paddingRight, RequestHeight);
+        }
+
+        // RequestChangeFullRect
+        {
+            // anchoredPosition: (0.0, 0.0); anchorMin: (0.0, 0.5); anchorMax: (1.0, 0.5); pivot: (0.5, 0.5);
+            // offsetMin: (0.0, -15.0); offsetMax: (0.0, 15.0); sizeDelta: (0.0, 30.0);
+            RequestChangeFullRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+            RequestChangeFullRect.anchorMin = new Vector2(0.0f, 0.5f);
+            RequestChangeFullRect.anchorMax = new Vector2(1.0f, 0.5f);
+            RequestChangeFullRect.pivot = new Vector2(0.5f, 0.5f);
+            RequestChangeFullRect.offsetMin = new Vector2(0.0f, -15.0f);
+            RequestChangeFullRect.offsetMax = new Vector2(0.0f, 15.0f);
+            RequestChangeFullRect.sizeDelta = new Vector2(0.0f, 30.0f);
+        }
+        // RequestChangePartRect
+        {
+            // anchoredPosition: (2.5, 0.0); anchorMin: (0.5, 0.5); anchorMax: (1.0, 0.5); pivot: (0.5, 0.5);
+            // offsetMin: (5.0, -15.0); offsetMax: (0.0, 15.0); sizeDelta: (-5.0, 30.0);
+            RequestChangePartRect.anchoredPosition = new Vector3(2.5f, 0.0f, 0.0f);
+            RequestChangePartRect.anchorMin = new Vector2(0.5f, 0.5f);
+            RequestChangePartRect.anchorMax = new Vector2(1.0f, 0.5f);
+            RequestChangePartRect.pivot = new Vector2(0.5f, 0.5f);
+            RequestChangePartRect.offsetMin = new Vector2(5.0f, -15.0f);
+            RequestChangePartRect.offsetMax = new Vector2(0.0f, 15.0f);
+            RequestChangePartRect.sizeDelta = new Vector2(-5.0f, 30.0f);
         }
     }
 

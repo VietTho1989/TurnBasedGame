@@ -5,6 +5,7 @@ using UnityEngine.UI;
 /** TODO Sau nay can co layerIndex cho cac thanh phan*/
 public abstract class UIBehavior<K> : GameBehavior<K>, TrashMan.DespawnInterface, DirtyInterface, HaveTransformInterface where K : Data
 {
+
     private bool Dirty = true;
 
     public bool dirty {
