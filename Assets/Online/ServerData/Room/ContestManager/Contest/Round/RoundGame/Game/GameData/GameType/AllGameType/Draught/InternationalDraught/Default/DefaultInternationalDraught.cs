@@ -53,7 +53,7 @@ namespace InternationalDraught
 
 		public DefaultInternationalDraught() : base()
 		{
-			this.variant = new VP<int> (this, (byte)Property.variant, (int)Common.Variant_Type.Normal);
+			this.variant = new VP<int> (this, (byte)Property.variant, (int)Common.Variant_Type.Killer);
 		}
 
 		#endregion

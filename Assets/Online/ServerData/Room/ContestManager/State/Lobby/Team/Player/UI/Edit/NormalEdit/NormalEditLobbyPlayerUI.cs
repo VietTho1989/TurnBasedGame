@@ -53,23 +53,51 @@ namespace GameManager.Match
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt, rect
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        static NormalEditLobbyPlayerUI()
+        {
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Chỉnh sửa người chơi");
+            }
+            // rect
+            {
+                // btnSetRect
+                {
+                    // anchoredPosition: (0.0, 0.0); anchorMin: (0.5, 0.5); anchorMax: (0.5, 0.5); pivot: (0.5, 0.5);
+                    // offsetMin: (-80.0, -15.0); offsetMax: (80.0, 15.0); sizeDelta: (160.0, 30.0);
+                    btnSetRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                    btnSetRect.anchorMin = new Vector2(0.5f, 0.5f);
+                    btnSetRect.anchorMax = new Vector2(0.5f, 0.5f);
+                    btnSetRect.pivot = new Vector2(0.5f, 0.5f);
+                    btnSetRect.offsetMin = new Vector2(-80.0f, -15.0f);
+                    btnSetRect.offsetMax = new Vector2(80.0f, 15.0f);
+                    btnSetRect.sizeDelta = new Vector2(160.0f, 30.0f);
+                }
+                // btnEmptyRect
+                {
+                    btnEmptyRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                    btnEmptyRect.anchorMin = new Vector2(0.5f, 0.5f);
+                    btnEmptyRect.anchorMax = new Vector2(0.5f, 0.5f);
+                    btnEmptyRect.pivot = new Vector2(0.5f, 0.5f);
+                    btnEmptyRect.offsetMin = new Vector2(-80.0f, -15.0f);
+                    btnEmptyRect.offsetMax = new Vector2(80.0f, 15.0f);
+                    btnEmptyRect.sizeDelta = new Vector2(160.0f, 30.0f);
+                }
+            }
+        }
 
-		static NormalEditLobbyPlayerUI()
-		{
-			txtTitle.add (Language.Type.vi, "Chỉnh sửa người chơi");
-		}
+        #endregion
 
-		#endregion
+        #region Refresh
 
-		public override void refresh ()
+        public override void refresh ()
 		{
 			if (dirty) {
 				dirty = false;
@@ -121,10 +149,10 @@ namespace GameManager.Match
 		#region implement callBacks
 
 		public NormalEditLobbyPlayerBtnSetUI btnSetPrefab;
-		public Transform btnSetContainer;
+        private static readonly UIRectTransform btnSetRect = new UIRectTransform();
 
 		public NormalEditLobbyPlayerBtnEmptyUI btnEmptyPrefab;
-		public Transform btnEmptyContainer;
+		private static readonly UIRectTransform btnEmptyRect = new UIRectTransform();
 
 		public override void onAddCallBack<T> (T data)
 		{
@@ -156,7 +184,7 @@ namespace GameManager.Match
 					NormalEditLobbyPlayerBtnSetUI.UIData btnSet = data as NormalEditLobbyPlayerBtnSetUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (btnSet, btnSetPrefab, btnSetContainer);
+						UIUtils.Instantiate (btnSet, btnSetPrefab, this.transform, btnSetRect);
 					}
 					dirty = true;
 					return;
@@ -165,7 +193,7 @@ namespace GameManager.Match
 					NormalEditLobbyPlayerBtnEmptyUI.UIData btnEmpty = data as NormalEditLobbyPlayerBtnEmptyUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (btnEmpty, btnEmptyPrefab, btnEmptyContainer);
+						UIUtils.Instantiate (btnEmpty, btnEmptyPrefab, this.transform, btnEmptyRect);
 					}
 					dirty = true;
 					return;

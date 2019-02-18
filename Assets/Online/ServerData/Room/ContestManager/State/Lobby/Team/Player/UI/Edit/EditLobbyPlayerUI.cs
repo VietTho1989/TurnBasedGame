@@ -341,6 +341,15 @@ namespace GameManager.Match
                                 {
                                     UIRectTransform.SetActive(this.data.sub.v, false);
                                 }
+                                // tvCannotEdit
+                                if (tvCannotEdit != null)
+                                {
+                                    tvCannotEdit.gameObject.SetActive(!canEdit);
+                                }
+                                else
+                                {
+                                    Debug.LogError("tvCannotEdit null");
+                                }
                             }
                         }
                         else

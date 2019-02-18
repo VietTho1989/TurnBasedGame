@@ -151,19 +151,22 @@ namespace GameManager.Match
 		#region txt
 
 		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
+		private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
 		public Text tvRequesting;
-		public static readonly TxtLanguage txtRequesting = new TxtLanguage();
+		private static readonly TxtLanguage txtRequesting = new TxtLanguage();
 
 		public Text tvCancel;
-		public static readonly TxtLanguage txtCancel = new TxtLanguage();
+		private static readonly TxtLanguage txtCancel = new TxtLanguage();
+
+        private static readonly TxtLanguage txtError = new TxtLanguage();
 
 		static AdminEditLobbyPlayerHumanUI()
 		{
 			txtTitle.add (Language.Type.vi, "Chọn người");
 			txtRequesting.add (Language.Type.vi, "Đang yêu cầu chọn người...");
 			txtCancel.add (Language.Type.vi, "Huỷ Bỏ");
+            txtError.add(Language.Type.vi, "yêu cầu bị lỗi");
 		}
 
 		#endregion
@@ -286,8 +289,13 @@ namespace GameManager.Match
 					} else {
 						Debug.LogError ("lobbyPlayer null: " + this);
 					}
-					// txt
-					{
+                    // UI
+                    {
+                        // HumanAdapter
+                        UIRectTransform.SetSiblingIndex(this.data.humanAdapter.v, 1);
+                    }
+                    // txt
+                    {
 						if (lbTitle != null) {
 							lbTitle.text = txtTitle.get ("Choose Human");
 						} else {
@@ -339,8 +347,8 @@ namespace GameManager.Match
 						Debug.LogError ("data null: " + this);
 					}
 				}
-				Toast.showMessage ("request error");
-				Debug.LogError ("request error: " + this);
+				Toast.showMessage (txtError.get("request error"));
+                Debug.LogError("request error: " + this);
 			} else {
 				Debug.LogError ("data null: " + this);
 			}
@@ -360,7 +368,7 @@ namespace GameManager.Match
 		#region implement callBacks
 
 		public AdminEditLobbyPlayerChooseHumanAdapter humanAdapterPrefab;
-		public Transform humanAdapterContainer;
+        private static readonly UIRectTransform humanAdapterRect = UIRectTransform.CreateFullRect(10, 10, 40, 10);
 
 		private Server server = null;
 
@@ -419,7 +427,7 @@ namespace GameManager.Match
 					AdminEditLobbyPlayerChooseHumanAdapter.UIData humanAdapter = data as AdminEditLobbyPlayerChooseHumanAdapter.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (humanAdapter, humanAdapterPrefab, humanAdapterContainer);
+						UIUtils.Instantiate (humanAdapter, humanAdapterPrefab, this.transform, humanAdapterRect);
 					}
 					dirty = true;
 					return;

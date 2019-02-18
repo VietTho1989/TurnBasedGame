@@ -263,6 +263,14 @@ public class UIRectTransform
         {
             rectTransform.offsetMin = new Vector2(rectTransform.offsetMin.x, rectTransform.anchoredPosition.y - size);
             rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, size);
+        } else if (rectTransform.anchorMin.y == 0.5f
+            && rectTransform.anchorMax.y == 0.5f
+            && rectTransform.pivot.y == 0.5f)
+        {
+            // offsetMin: (-180.0, -240.0); offsetMax: (180.0, 240.0); sizeDelta: (360.0, 480.0)
+            rectTransform.offsetMin = new Vector2(rectTransform.offsetMin.x, -size / 2.0f);
+            rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, size / 2.0f);
+            rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, size);
         }
         else
         {

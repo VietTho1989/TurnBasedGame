@@ -6,7 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class LoginStateUI : UIBehavior<LoginStateUI.UIData>
+public class LoginStateUI : UIBehavior<LoginStateUI.UIData>, HaveTransformData
 {
 
 	#region UIData
@@ -46,11 +46,27 @@ public class LoginStateUI : UIBehavior<LoginStateUI.UIData>
 		#endregion
 	}
 
-	#endregion
+    #endregion
 
-	#region Refresh
+    #region TransformData
 
-	public override void refresh ()
+    public TransformData transformData = new TransformData();
+
+    private void updateTransformData()
+    {
+        this.transformData.update(this.transform);
+    }
+
+    public TransformData getTransformData()
+    {
+        return this.transformData;
+    }
+
+    #endregion
+
+    #region Refresh
+
+    public override void refresh ()
 	{
 		if (dirty) {
 			dirty = false;
@@ -92,10 +108,19 @@ public class LoginStateUI : UIBehavior<LoginStateUI.UIData>
 				} else {
 					Debug.LogError ("login null: " + this);
 				}
-			} else {
+                // UI
+                {
+                    float deltaY = 0;
+                    // state
+                    deltaY += UIRectTransform.SetPosY(this.data.sub.v, deltaY);
+                    // set height
+                    UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                }
+            } else {
 				Debug.LogError ("data null");
 			}
 		}
+        updateTransformData();
 	}
 
 	public override bool isShouldDisableUpdate ()
@@ -128,31 +153,46 @@ public class LoginStateUI : UIBehavior<LoginStateUI.UIData>
 				dirty = true;
 				return;
 			}
-			if (data is UIData.Sub) {
-				UIData.Sub sub = data as UIData.Sub;
-				// UI
-				{
-					switch (sub.getType ()) {
-					case Login.State.Type.None:
-						{
-							LoginState.NoneUI.UIData noneUIData = sub as LoginState.NoneUI.UIData;
-							UIUtils.Instantiate (noneUIData, nonePrefab, this.transform);
-						}
-						break;
-					case Login.State.Type.Log:
-						{
-							LoginState.LogUI.UIData logUIData = sub as LoginState.LogUI.UIData;
-							UIUtils.Instantiate (logUIData, logPrefab, this.transform);
-						}
-						break;
-					default:
-						Debug.LogError ("unknown type: " + sub.getType () + "; " + this);
-						break;
-					}
-				}
-				dirty = true;
-				return;
-			}
+            // sub
+            {
+                if (data is UIData.Sub)
+                {
+                    UIData.Sub sub = data as UIData.Sub;
+                    // UI
+                    {
+                        switch (sub.getType())
+                        {
+                            case Login.State.Type.None:
+                                {
+                                    LoginState.NoneUI.UIData noneUIData = sub as LoginState.NoneUI.UIData;
+                                    UIUtils.Instantiate(noneUIData, nonePrefab, this.transform);
+                                }
+                                break;
+                            case Login.State.Type.Log:
+                                {
+                                    LoginState.LogUI.UIData logUIData = sub as LoginState.LogUI.UIData;
+                                    UIUtils.Instantiate(logUIData, logPrefab, this.transform);
+                                }
+                                break;
+                            default:
+                                Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                                break;
+                        }
+                    }
+                    // Child
+                    {
+                        TransformData.AddCallBack(sub, this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                if(data is TransformData)
+                {
+                    dirty = true;
+                    return;
+                }
+            }
 		}
 		Debug.LogError ("Don't process: " + data + "; " + this);
 	}
@@ -174,30 +214,44 @@ public class LoginStateUI : UIBehavior<LoginStateUI.UIData>
 			if (data is Login) {
 				return;	
 			}
-			if (data is UIData.Sub) {
-				UIData.Sub sub = data as UIData.Sub;
-				// UI
-				{
-					switch (sub.getType ()) {
-					case Login.State.Type.None:
-						{
-							LoginState.NoneUI.UIData noneUIData = sub as LoginState.NoneUI.UIData;
-							noneUIData.removeCallBackAndDestroy (typeof(LoginState.NoneUI));
-						}
-						break;
-					case Login.State.Type.Log:
-						{
-							LoginState.LogUI.UIData logUIData = sub as LoginState.LogUI.UIData;
-							logUIData.removeCallBackAndDestroy (typeof(LoginState.LogUI));
-						}
-						break;
-					default:
-						Debug.LogError ("unknown type: " + sub.getType () + "; " + this);
-						break;
-					}
-				}
-				return;
-			}
+            // sub
+            {
+                if (data is UIData.Sub)
+                {
+                    UIData.Sub sub = data as UIData.Sub;
+                    // Child
+                    {
+                        TransformData.RemoveCallBack(sub, this);
+                    }
+                    // UI
+                    {
+                        switch (sub.getType())
+                        {
+                            case Login.State.Type.None:
+                                {
+                                    LoginState.NoneUI.UIData noneUIData = sub as LoginState.NoneUI.UIData;
+                                    noneUIData.removeCallBackAndDestroy(typeof(LoginState.NoneUI));
+                                }
+                                break;
+                            case Login.State.Type.Log:
+                                {
+                                    LoginState.LogUI.UIData logUIData = sub as LoginState.LogUI.UIData;
+                                    logUIData.removeCallBackAndDestroy(typeof(LoginState.LogUI));
+                                }
+                                break;
+                            default:
+                                Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                                break;
+                        }
+                    }
+                    return;
+                }
+                // Child
+                if(data is TransformData)
+                {
+                    return;
+                }
+            }
 		}
 		Debug.LogError ("Don't process: " + data + "; " + this);
 	}
@@ -222,7 +276,7 @@ public class LoginStateUI : UIBehavior<LoginStateUI.UIData>
 				}
 				break;
 			default:
-				Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+				Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 				break;
 			}
 			return;
@@ -237,14 +291,38 @@ public class LoginStateUI : UIBehavior<LoginStateUI.UIData>
 				case Login.Property.account:
 					break;
 				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;
 				}
 				return;
 			}
-			if (wrapProperty.p is UIData.Sub) {
-				return;
-			}
+            // sub
+            {
+                if (wrapProperty.p is UIData.Sub)
+                {
+                    return;
+                }
+                // Child
+                if(wrapProperty.p is TransformData)
+                {
+                    switch ((TransformData.Property)wrapProperty.n)
+                    {
+                        case TransformData.Property.position:
+                            break;
+                        case TransformData.Property.rotation:
+                            break;
+                        case TransformData.Property.scale:
+                            break;
+                        case TransformData.Property.size:
+                            dirty = true;
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+            }
 		}
 		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
 	}

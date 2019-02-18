@@ -138,68 +138,68 @@ namespace GameManager.Match
 					if (lobbyPlayer != null) {
 						// show
 						{
-							if (humanContainer != null && computerContainer != null && emptyContainer != null) {
-								if (btnHuman != null && btnComputer != null && btnEmpty != null) {
-									switch (this.data.show.v) {
-									case GamePlayer.Inform.Type.Human:
-										{
-											// container
-											{
-												humanContainer.gameObject.SetActive (true);
-												computerContainer.gameObject.SetActive (false);
-												emptyContainer.gameObject.SetActive (false);
-											}
-											// btn
-											{
-												btnHuman.enabled = false;
-												btnComputer.enabled = true;
-												btnEmpty.enabled = true;
-											}
-										}
-										break;
-									case GamePlayer.Inform.Type.Computer:
-										{
-											// container
-											{
-												humanContainer.gameObject.SetActive (false);
-												computerContainer.gameObject.SetActive (true);
-												emptyContainer.gameObject.SetActive (false);
-											}
-											// btn
-											{
-												btnHuman.enabled = true;
-												btnComputer.enabled = false;
-												btnEmpty.enabled = true;
-											}
-										}
-										break;
-									case GamePlayer.Inform.Type.None:
-										{
-											// container
-											{
-												humanContainer.gameObject.SetActive (false);
-												computerContainer.gameObject.SetActive (false);
-												emptyContainer.gameObject.SetActive (true);
-											}
-											// btn
-											{
-												btnHuman.enabled = true;
-												btnComputer.enabled = true;
-												btnEmpty.enabled = false;
-											}
-										}
-										break;
-									default:
-										Debug.LogError ("unknown show : " + this.data.show.v);
-										break;
-									}
-								} else {
-									Debug.LogError ("btn null: " + this);
-								}
-							} else {
-								Debug.LogError ("container null: " + this);
-							}
-						}
+                            if (btnHuman != null && btnComputer != null && btnEmpty != null)
+                            {
+                                switch (this.data.show.v)
+                                {
+                                    case GamePlayer.Inform.Type.Human:
+                                        {
+                                            // container
+                                            {
+                                                UIRectTransform.SetActive(this.data.human.v, true);
+                                                UIRectTransform.SetActive(this.data.computer.v, false);
+                                                UIRectTransform.SetActive(this.data.empty.v, false);
+                                            }
+                                            // btn
+                                            {
+                                                btnHuman.enabled = false;
+                                                btnComputer.enabled = true;
+                                                btnEmpty.enabled = true;
+                                            }
+                                        }
+                                        break;
+                                    case GamePlayer.Inform.Type.Computer:
+                                        {
+                                            // container
+                                            {
+                                                UIRectTransform.SetActive(this.data.human.v, false);
+                                                UIRectTransform.SetActive(this.data.computer.v, true);
+                                                UIRectTransform.SetActive(this.data.empty.v, false);
+                                            }
+                                            // btn
+                                            {
+                                                btnHuman.enabled = true;
+                                                btnComputer.enabled = false;
+                                                btnEmpty.enabled = true;
+                                            }
+                                        }
+                                        break;
+                                    case GamePlayer.Inform.Type.None:
+                                        {
+                                            // container
+                                            {
+                                                UIRectTransform.SetActive(this.data.human.v, false);
+                                                UIRectTransform.SetActive(this.data.computer.v, false);
+                                                UIRectTransform.SetActive(this.data.empty.v, true);
+                                            }
+                                            // btn
+                                            {
+                                                btnHuman.enabled = true;
+                                                btnComputer.enabled = true;
+                                                btnEmpty.enabled = false;
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown show : " + this.data.show.v);
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("btn null: " + this);
+                            }
+                        }
 						// sub
 						{
 							// human
@@ -261,9 +261,7 @@ namespace GameManager.Match
 		public AdminEditLobbyPlayerComputerUI computerPrefab;
 		public AdminEditLobbyPlayerEmptyUI emptyPrefab;
 
-		public Transform humanContainer;
-		public Transform computerContainer;
-		public Transform emptyContainer;
+        private static readonly UIRectTransform contentRect = UIRectTransform.CreateFullRect(0, 0, UIConstants.HeaderHeight, 0);
 
 		public override void onAddCallBack<T> (T data)
 		{
@@ -304,7 +302,7 @@ namespace GameManager.Match
 					AdminEditLobbyPlayerHumanUI.UIData humanUIData = data as AdminEditLobbyPlayerHumanUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (humanUIData, humanPrefab, humanContainer);
+						UIUtils.Instantiate (humanUIData, humanPrefab, this.transform, contentRect);
 					}
 					dirty = true;
 					return;
@@ -313,7 +311,7 @@ namespace GameManager.Match
 					AdminEditLobbyPlayerComputerUI.UIData computerUIData = data as AdminEditLobbyPlayerComputerUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (computerUIData, computerPrefab, computerContainer);
+						UIUtils.Instantiate (computerUIData, computerPrefab, this.transform, contentRect);
 					}
 					dirty = true;
 					return;
@@ -322,7 +320,7 @@ namespace GameManager.Match
 					AdminEditLobbyPlayerEmptyUI.UIData emptyUIData = data as AdminEditLobbyPlayerEmptyUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (emptyUIData, emptyPrefab, emptyContainer);
+						UIUtils.Instantiate (emptyUIData, emptyPrefab, this.transform, contentRect);
 					}
 					dirty = true;
 					return;

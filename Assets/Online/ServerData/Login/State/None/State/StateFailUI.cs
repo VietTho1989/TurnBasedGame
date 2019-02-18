@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace LoginState
 {
-	public class StateFailUI : UIBehavior<StateFailUI.UIData>
+	public class StateFailUI : UIBehavior<StateFailUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -35,23 +35,43 @@ namespace LoginState
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		public Text tvReason;
-		public static readonly TxtLanguage txtTimeOut = new TxtLanguage ();
-		public static readonly TxtLanguage txtConnectFail = new TxtLanguage ();
-		public static readonly TxtLanguage txtWrongPassword = new TxtLanguage ();
-		public static readonly TxtLanguage txtGetFacebookDataFail = new TxtLanguage ();
+        public Text tvReason;
+        public static readonly TxtLanguage txtTimeOut = new TxtLanguage();
+        public static readonly TxtLanguage txtConnectFail = new TxtLanguage();
+        public static readonly TxtLanguage txtWrongPassword = new TxtLanguage();
+        public static readonly TxtLanguage txtGetFacebookDataFail = new TxtLanguage();
 
-		static StateFailUI()
-		{
-			txtTimeOut.add (Language.Type.vi, "");
-			txtConnectFail.add (Language.Type.vi, "");
-			txtWrongPassword.add (Language.Type.vi, "");
-			txtGetFacebookDataFail.add (Language.Type.vi, "");
-		}
+        static StateFailUI()
+        {
+            txtTimeOut.add(Language.Type.vi, "");
+            txtConnectFail.add(Language.Type.vi, "");
+            txtWrongPassword.add(Language.Type.vi, "");
+            txtGetFacebookDataFail.add(Language.Type.vi, "");
+        }
+
+        #endregion
+
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
 
 		public override void refresh ()
 		{
@@ -89,6 +109,7 @@ namespace LoginState
 					Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

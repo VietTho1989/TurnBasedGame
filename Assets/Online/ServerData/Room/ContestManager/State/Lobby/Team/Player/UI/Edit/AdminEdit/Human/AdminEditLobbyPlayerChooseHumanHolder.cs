@@ -57,7 +57,7 @@ namespace GameManager.Match
 
 		#region Refresh
 
-		#region txt
+		#region txt, rect
 
 		public static readonly TxtLanguage txtName = new TxtLanguage ();
 
@@ -66,9 +66,27 @@ namespace GameManager.Match
 
 		static AdminEditLobbyPlayerChooseHumanHolder()
 		{
-			txtName.add (Language.Type.vi, "Tên");
-			txtChoose.add (Language.Type.vi, "Chọn");
-		}
+            // txt
+            {
+                txtName.add(Language.Type.vi, "Tên");
+                txtChoose.add(Language.Type.vi, "Chọn");
+            }
+            // rect
+            {
+                // avatarRect
+                {
+                    // anchoredPosition: (5.0, 0.0); anchorMin: (0.0, 0.5); anchorMax: (0.0, 0.5); pivot: (0.0, 0.5);
+                    // offsetMin: (5.0, -18.0); offsetMax: (41.0, 18.0); sizeDelta: (36.0, 36.0);
+                    avatarRect.anchoredPosition = new Vector3(5.0f, 0.0f, 0.0f);
+                    avatarRect.anchorMin = new Vector2(0.0f, 0.5f);
+                    avatarRect.anchorMax = new Vector2(0.0f, 0.5f);
+                    avatarRect.pivot = new Vector2(0.0f, 0.5f);
+                    avatarRect.offsetMin = new Vector2(5.0f, -18.0f);
+                    avatarRect.offsetMax = new Vector2(41.0f, 18.0f);
+                    avatarRect.sizeDelta = new Vector2(36.0f, 36.0f);
+                }
+            }
+        }
 
 		#endregion
 
@@ -118,7 +136,7 @@ namespace GameManager.Match
 		#region implement callBacks
 
 		public AccountAvatarUI avatarPrefab;
-		public Transform avatarContainer;
+        private static readonly UIRectTransform avatarRect = new UIRectTransform();
 
 		public override void onAddCallBack<T> (T data)
 		{
@@ -162,7 +180,7 @@ namespace GameManager.Match
 					AccountAvatarUI.UIData avatar = data as AccountAvatarUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (avatar, avatarPrefab, avatarContainer);
+						UIUtils.Instantiate (avatar, avatarPrefab, this.transform, avatarRect);
 					}
 					dirty = true;
 					return;

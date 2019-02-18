@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace LoginState
 {
-	public class StateSuccessUI : UIBehavior<StateSuccessUI.UIData>
+	public class StateSuccessUI : UIBehavior<StateSuccessUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -36,21 +36,37 @@ namespace LoginState
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text tvSuccess;
+        public static readonly TxtLanguage txtSuccess = new TxtLanguage();
 
-		public Text tvSuccess;
-		public static readonly TxtLanguage txtSuccess = new TxtLanguage();
+        static StateSuccessUI()
+        {
+            txtSuccess.add(Language.Type.vi, "Đăng nhập thành công");
+        }
 
-		static StateSuccessUI()
-		{
-			txtSuccess.add (Language.Type.vi, "Đăng nhập thành công");
-		}
+        #endregion
 
-		#endregion
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
 
 		public override void refresh ()
 		{
@@ -71,6 +87,7 @@ namespace LoginState
 					Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

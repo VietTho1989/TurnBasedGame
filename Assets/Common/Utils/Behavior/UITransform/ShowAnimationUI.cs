@@ -21,7 +21,7 @@ public class ShowAnimationUI : UIBehavior<ShowAnimationUI.UIData>
 
     }
 
-    public const float ShowDuration = 2f;
+    public const float ShowDuration = 1f;
 
     public class Show : State
     {
@@ -168,7 +168,7 @@ public class ShowAnimationUI : UIBehavior<ShowAnimationUI.UIData>
                                 {
                                     if (Time.time == LastTime)
                                     {
-                                        Debug.LogError("the same last time: " + LastTime);
+                                        // Debug.LogError("the same last time: " + LastTime);
                                         dirty = true;
                                     }
                                     else
@@ -227,7 +227,7 @@ public class ShowAnimationUI : UIBehavior<ShowAnimationUI.UIData>
                                 {
                                     if (Time.time == LastTime)
                                     {
-                                        Debug.LogError("the same last time: " + LastTime);
+                                        // Debug.LogError("the same last time: " + LastTime);
                                         dirty = true;
                                     }
                                     else

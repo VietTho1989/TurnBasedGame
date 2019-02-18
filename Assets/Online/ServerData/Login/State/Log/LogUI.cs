@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace LoginState
 {
-	public class LogUI : UIBehavior<LogUI.UIData>
+	public class LogUI : UIBehavior<LogUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -37,37 +37,53 @@ namespace LoginState
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text tvCancel;
+        public static readonly TxtLanguage txtCancel = new TxtLanguage();
 
-		public Text tvCancel;
-		public static readonly TxtLanguage txtCancel = new TxtLanguage();
+        public static readonly TxtLanguage txtTime = new TxtLanguage();
 
-		public static readonly TxtLanguage txtTime = new TxtLanguage();
+        public static readonly TxtLanguage txtConnect = new TxtLanguage();
+        public static readonly TxtLanguage txtGetDevice = new TxtLanguage();
+        public static readonly TxtLanguage txtGetEmail = new TxtLanguage();
+        public static readonly TxtLanguage txtGetFacebook = new TxtLanguage();
+        public static readonly TxtLanguage txtLogin = new TxtLanguage();
+        public static readonly TxtLanguage txtLoggingIn = new TxtLanguage();
 
-		public static readonly TxtLanguage txtConnect = new TxtLanguage();
-		public static readonly TxtLanguage txtGetDevice = new TxtLanguage();
-		public static readonly TxtLanguage txtGetEmail = new TxtLanguage ();
-		public static readonly TxtLanguage txtGetFacebook = new TxtLanguage();
-		public static readonly TxtLanguage txtLogin = new TxtLanguage ();
-		public static readonly TxtLanguage txtLoggingIn = new TxtLanguage ();
+        static LogUI()
+        {
+            txtCancel.add(Language.Type.vi, "Huỷ bỏ");
+            txtTime.add(Language.Type.vi, "Thời gian");
+            txtConnect.add(Language.Type.vi, "Đang kết nối server...");
+            txtGetDevice.add(Language.Type.vi, "Đang lấy thông tin thiết bị...");
+            txtGetEmail.add(Language.Type.vi, "Đang lấy thông tin email...");
+            txtGetFacebook.add(Language.Type.vi, "Đang lấy thông tin facebook...");
+            txtLogin.add(Language.Type.vi, "Đăng nhập");
+            txtLoggingIn.add(Language.Type.vi, "Đang đăng nhập...");
+        }
 
-		static LogUI()
-		{
-			txtCancel.add (Language.Type.vi, "Huỷ bỏ");
-			txtTime.add (Language.Type.vi, "Thời gian");
-			txtConnect.add (Language.Type.vi, "Đang kết nối server...");
-			txtGetDevice.add (Language.Type.vi, "Đang lấy thông tin thiết bị...");
-			txtGetEmail.add (Language.Type.vi, "Đang lấy thông tin email...");
-			txtGetFacebook.add (Language.Type.vi, "Đang lấy thông tin facebook...");
-			txtLogin.add (Language.Type.vi, "Đăng nhập");
-			txtLoggingIn.add (Language.Type.vi, "Đang đăng nhập...");
-		}
+        #endregion
 
-		#endregion
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
 
 		public Text tvTime;
 		public Text tvProgress;
@@ -159,6 +175,7 @@ namespace LoginState
 					Debug.Log ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()
