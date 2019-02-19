@@ -51,8 +51,6 @@ public class RoomHolder : SriaHolderBehavior<RoomHolder.UIData>
 
 	#region Refresh
 
-	public GameObject cannotJoinIndicator;
-
 	public Text tvId;
 
 	public Text tvName;
@@ -65,33 +63,34 @@ public class RoomHolder : SriaHolderBehavior<RoomHolder.UIData>
 
 	public Text tvGameType;
 	public Text tvContestManagerState;
-	public Text tvHavePassword;
+
+    public Image imgPassword;
 
 	#region txt
 
-	public Text tvCannotJoinRoom;
-	public static readonly TxtLanguage txtCannotJoinRoom = new TxtLanguage();
+	public Text tvCanJoinRoom;
+	private static readonly TxtLanguage txtCannotJoinRoom = new TxtLanguage();
+    private static readonly TxtLanguage txtCanJoinRoom = new TxtLanguage();
 
-	public static readonly TxtLanguage txtId = new TxtLanguage ();
-	public static readonly TxtLanguage txtName = new TxtLanguage();
-	public static readonly TxtLanguage txtAdmin = new TxtLanguage ();
-	public static readonly TxtLanguage txtUserCount = new TxtLanguage();
+	private static readonly TxtLanguage txtId = new TxtLanguage ();
+	private static readonly TxtLanguage txtName = new TxtLanguage();
+	private static readonly TxtLanguage txtAdmin = new TxtLanguage ();
+	private static readonly TxtLanguage txtUserCount = new TxtLanguage();
 
-	public static readonly TxtLanguage txtStateNormal = new TxtLanguage();
-	public static readonly TxtLanguage txtStateFreeze = new TxtLanguage ();
-	public static readonly TxtLanguage txtStateEnd = new TxtLanguage();
+	private static readonly TxtLanguage txtStateNormal = new TxtLanguage();
+	private static readonly TxtLanguage txtStateFreeze = new TxtLanguage ();
+	private static readonly TxtLanguage txtStateEnd = new TxtLanguage();
 
-	public static readonly TxtLanguage txtCreated = new TxtLanguage ();
-	public static readonly TxtLanguage txtGameType = new TxtLanguage();
+	private static readonly TxtLanguage txtCreated = new TxtLanguage ();
+	private static readonly TxtLanguage txtGameType = new TxtLanguage();
 
-	public static readonly TxtLanguage txtState = new TxtLanguage();
-
-	public static readonly TxtLanguage txtHavePassword = new TxtLanguage();
-	public static readonly TxtLanguage txtNotPassword = new TxtLanguage();
+	private static readonly TxtLanguage txtState = new TxtLanguage();
 
 	static RoomHolder()
 	{
-		txtCannotJoinRoom.add (Language.Type.vi, "Không thể vào phòng");
+		txtCannotJoinRoom.add (Language.Type.vi, "Không Thể Vào");
+        txtCanJoinRoom.add(Language.Type.vi, "Có Thể Vào");
+
 		txtId.add (Language.Type.vi, "Id");
 		txtName.add (Language.Type.vi, "Tên");
 		txtAdmin.add (Language.Type.vi, "Admin");
@@ -102,13 +101,14 @@ public class RoomHolder : SriaHolderBehavior<RoomHolder.UIData>
 		txtCreated.add (Language.Type.vi, "Tạo ra");
 		txtGameType.add (Language.Type.vi, "Trò");
 		txtState.add (Language.Type.vi, "Trạng thái");
-		txtHavePassword.add (Language.Type.vi, "Có mật khẩu");
-		txtNotPassword.add (Language.Type.vi, "Không mật khẩu");
 	}
 
-	#endregion
+    #endregion
 
-	public override void refresh ()
+    public static readonly Color CanJoinColor = new Color(50 / 255f, 50 / 255f, 50 / 255f);
+    public static readonly Color CannotJoinColor = Color.red;
+
+    public override void refresh ()
 	{
 		base.refresh ();
 		if (dirty) {
@@ -116,15 +116,31 @@ public class RoomHolder : SriaHolderBehavior<RoomHolder.UIData>
 			if (this.data != null) {
 				Room room = this.data.room.v.data;
 				if (room != null) {
-					// cannot join
-					{
-						if (cannotJoinIndicator != null) {
-							cannotJoinIndicator.gameObject.SetActive (room.isCanJoinRoom (Server.getProfileUserId (room)) != Room.JoinRoomState.Can);
-						} else {
-							Debug.LogError ("cannot joinIndicator null: " + this);
-						}
-						if (tvCannotJoinRoom != null) {
-							tvCannotJoinRoom.text = txtCannotJoinRoom.get ("Cannot join room");
+                    GameType.Type gameType = GameType.Type.CHESS;
+                    {
+                        RoomInform roomInform = room.roomInform.v;
+                        if (roomInform != null)
+                        {
+                            gameType = roomInform.gameType.v;
+                        }
+                        else
+                        {
+                            Debug.LogError("roomInform null: " + this);
+                        }
+                    }
+                    // cannot join
+                    {
+						if (tvCanJoinRoom != null) {
+                            if(room.isCanJoinRoom(Server.getProfileUserId(room)) != Room.JoinRoomState.Can)
+                            {
+                                tvCanJoinRoom.text = txtCanJoinRoom.get("Can Join");
+                                tvCanJoinRoom.color = CanJoinColor;
+                            }
+                            else
+                            {
+                                tvCanJoinRoom.text = txtCannotJoinRoom.get("Cannot Join");
+                                tvCanJoinRoom.color = CannotJoinColor;
+                            }
 						} else {
 							Debug.LogError ("tvCannotJoinRoom null: " + this);
 						}
@@ -140,7 +156,14 @@ public class RoomHolder : SriaHolderBehavior<RoomHolder.UIData>
 					// name
 					{
 						if (tvName != null) {
-							tvName.text = txtName.get ("Name: ") + room.name.v;
+                            if (string.IsNullOrEmpty(room.name.v))
+                            {
+                                tvName.text = GameType.GetStrGameType(gameType);
+                            }
+                            else
+                            {
+                                tvName.text = room.name.v;
+                            }
 						} else {
 							Debug.LogError ("tvName null: " + this);
 						}
@@ -224,7 +247,7 @@ public class RoomHolder : SriaHolderBehavior<RoomHolder.UIData>
 					// time
 					{
 						if (tvTime != null) {
-							tvTime.text = txtCreated.get ("created") + " " + room.timeCreated.v;
+                            tvTime.text = txtCreated.get("created") + ": " + Global.getStrTime(room.timeCreated.v);
 						} else {
 							Debug.LogError ("tvTime null: " + this);
 						}
@@ -232,17 +255,9 @@ public class RoomHolder : SriaHolderBehavior<RoomHolder.UIData>
 					// tvGameType
 					{
 						if (tvGameType != null) {
-							GameType.Type gameType = GameType.Type.CHESS;
-							{
-								RoomInform roomInform = room.roomInform.v;
-								if (roomInform != null) {
-									gameType = roomInform.gameType.v;
-								} else {
-									Debug.LogError ("roomInform null: " + this);
-								}
-							}
-							tvGameType.text = txtGameType.get ("GameType") + ": " + gameType;
-						} else {
+                            // tvGameType.text = txtGameType.get ("GameType") + ": " + gameType;
+                            tvGameType.text = GameType.GetStrGameType(gameType);
+                        } else {
 							Debug.LogError ("tvGameType null: " + this);
 						}
 					}
@@ -263,9 +278,9 @@ public class RoomHolder : SriaHolderBehavior<RoomHolder.UIData>
 							Debug.LogError ("tvContestManagerState null: " + this);
 						}
 					}
-					// tvHavePassword
+					// imgPassword
 					{
-						if (tvHavePassword != null) {
+						if (imgPassword != null) {
 							bool isHavePassword = false;
 							{
 								RoomInform roomInform = room.roomInform.v;
@@ -275,7 +290,7 @@ public class RoomHolder : SriaHolderBehavior<RoomHolder.UIData>
 									Debug.LogError ("roomInform null: " + this);
 								}
 							}
-							tvHavePassword.text = isHavePassword ? txtHavePassword.get ("Have Password") : txtNotPassword.get ("Not Password");
+                            imgPassword.gameObject.SetActive(isHavePassword);
 						} else {
 							Debug.LogError ("tvHavePassword null: " + this);
 						}

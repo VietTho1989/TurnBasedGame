@@ -15,6 +15,8 @@ namespace ChineseCheckers
 
             public VP<EditData<ChineseCheckersAI>> editAI;
 
+            public VP<UIRectTransform.ShowType> showType;
+
             #region type
 
             public VP<RequestChangeEnumUI.UIData> type;
@@ -147,23 +149,29 @@ namespace ChineseCheckers
 
             public VP<RequestChangeIntUI.UIData> pickBestMove;
 
-            public void makeRequestChangePickBestMove (RequestChangeUpdate<int>.UpdateData update, int newPickBestMove)
+            public void makeRequestChangePickBestMove(RequestChangeUpdate<int>.UpdateData update, int newPickBestMove)
             {
                 // Find
                 ChineseCheckersAI chineseCheckersAI = null;
                 {
                     EditData<ChineseCheckersAI> editChineseCheckersAI = this.editAI.v;
-                    if (editChineseCheckersAI != null) {
+                    if (editChineseCheckersAI != null)
+                    {
                         chineseCheckersAI = editChineseCheckersAI.show.v.data;
-                    } else {
-                        Debug.LogError ("editChineseCheckersAI null: " + this);
+                    }
+                    else
+                    {
+                        Debug.LogError("editChineseCheckersAI null: " + this);
                     }
                 }
                 // Process
-                if (chineseCheckersAI != null) {
-                    chineseCheckersAI.requestChangePickBestMove (Server.getProfileUserId (chineseCheckersAI), newPickBestMove);
-                } else {
-                    Debug.LogError ("chineseCheckersAI null: " + this);
+                if (chineseCheckersAI != null)
+                {
+                    chineseCheckersAI.requestChangePickBestMove(Server.getProfileUserId(chineseCheckersAI), newPickBestMove);
+                }
+                else
+                {
+                    Debug.LogError("chineseCheckersAI null: " + this);
                 }
             }
 
@@ -174,6 +182,7 @@ namespace ChineseCheckers
             public enum Property
             {
                 editAI,
+                showType,
                 type,
                 depth,
                 time,
@@ -184,6 +193,7 @@ namespace ChineseCheckers
             public UIData() : base()
             {
                 this.editAI = new VP<EditData<ChineseCheckersAI>>(this, (byte)Property.editAI, new EditData<ChineseCheckersAI>());
+                this.showType = new VP<UIRectTransform.ShowType>(this, (byte)Property.showType, UIRectTransform.ShowType.Normal);
                 // type
                 {
                     this.type = new VP<RequestChangeEnumUI.UIData>(this, (byte)Property.type, new RequestChangeEnumUI.UIData());
@@ -228,7 +238,7 @@ namespace ChineseCheckers
 
             #endregion
 
-            public override GameType.Type getType ()
+            public override GameType.Type getType()
             {
                 return GameType.Type.ChineseCheckers;
             }
@@ -300,43 +310,60 @@ namespace ChineseCheckers
 
         private bool needReset = true;
 
-        public override void refresh ()
+        public Image header;
+
+        public override void refresh()
         {
-            if (dirty) {
+            if (dirty)
+            {
                 dirty = false;
-                if (this.data != null) {
+                if (this.data != null)
+                {
                     EditData<ChineseCheckersAI> editChineseCheckersAI = this.data.editAI.v;
-                    if (editChineseCheckersAI != null) {
-                        editChineseCheckersAI.update ();
+                    if (editChineseCheckersAI != null)
+                    {
+                        editChineseCheckersAI.update();
                         // get show
                         ChineseCheckersAI show = editChineseCheckersAI.show.v.data;
                         ChineseCheckersAI compare = editChineseCheckersAI.compare.v.data;
-                        if (show != null) {
+                        if (show != null)
+                        {
                             // different
-                            if (lbTitle != null) {
+                            if (lbTitle != null)
+                            {
                                 bool isDifferent = false;
                                 {
-                                    if (editChineseCheckersAI.compareOtherType.v.data != null) {
-                                        if (editChineseCheckersAI.compareOtherType.v.data.GetType () != show.GetType ()) {
+                                    if (editChineseCheckersAI.compareOtherType.v.data != null)
+                                    {
+                                        if (editChineseCheckersAI.compareOtherType.v.data.GetType() != show.GetType())
+                                        {
                                             isDifferent = true;
                                         }
                                     }
                                 }
                                 lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            } else {
-                                Debug.LogError ("different null: " + this);
+                            }
+                            else
+                            {
+                                Debug.LogError("different null: " + this);
                             }
                             // get server state
                             Server.State.Type serverState = Server.State.Type.Connect;
                             {
-                                Server server = show.findDataInParent<Server> ();
-                                if (server != null) {
-                                    if (server.state.v != null) {
-                                        serverState = server.state.v.getType ();
-                                    } else {
-                                        Debug.LogError ("server state null: " + this);
+                                Server server = show.findDataInParent<Server>();
+                                if (server != null)
+                                {
+                                    if (server.state.v != null)
+                                    {
+                                        serverState = server.state.v.getType();
                                     }
-                                } else {
+                                    else
+                                    {
+                                        Debug.LogError("server state null: " + this);
+                                    }
+                                }
+                                else
+                                {
                                     // Debug.LogError ("server null: " + this);
                                 }
                             }
@@ -485,32 +512,42 @@ namespace ChineseCheckers
                                 // pickBestMove
                                 {
                                     RequestChangeIntUI.UIData pickBestMove = this.data.pickBestMove.v;
-                                    if (pickBestMove != null) {
+                                    if (pickBestMove != null)
+                                    {
                                         // update
                                         RequestChangeUpdate<int>.UpdateData updateData = pickBestMove.updateData.v;
-                                        if (updateData != null) {
+                                        if (updateData != null)
+                                        {
                                             updateData.origin.v = show.pickBestMove.v;
                                             updateData.canRequestChange.v = editChineseCheckersAI.canEdit.v;
                                             updateData.serverState.v = serverState;
-                                        } else {
-                                            Debug.LogError ("updateData null: " + this);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("updateData null: " + this);
                                         }
                                         // compare
                                         {
-                                            if (compare != null) {
+                                            if (compare != null)
+                                            {
                                                 pickBestMove.showDifferent.v = true;
                                                 pickBestMove.compare.v = compare.pickBestMove.v;
-                                            } else {
+                                            }
+                                            else
+                                            {
                                                 pickBestMove.showDifferent.v = false;
                                             }
                                         }
-                                    } else {
-                                        Debug.LogError ("pickBestMove null: " + this);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("pickBestMove null: " + this);
                                     }
                                 }
                             }
                             // reset?
-                            if (needReset) {
+                            if (needReset)
+                            {
                                 needReset = false;
                                 // type
                                 {
@@ -603,32 +640,243 @@ namespace ChineseCheckers
                                 // pickBestMove
                                 {
                                     RequestChangeIntUI.UIData pickBestMove = this.data.pickBestMove.v;
-                                    if (pickBestMove != null) {
+                                    if (pickBestMove != null)
+                                    {
                                         // update
                                         RequestChangeUpdate<int>.UpdateData updateData = pickBestMove.updateData.v;
-                                        if (updateData != null) {
+                                        if (updateData != null)
+                                        {
                                             updateData.current.v = show.pickBestMove.v;
                                             updateData.changeState.v = Data.ChangeState.None;
-                                        } else {
-                                            Debug.LogError ("updateData null: " + this);
                                         }
-                                    } else {
-                                        Debug.LogError ("pickBestMove null: " + this);
+                                        else
+                                        {
+                                            Debug.LogError("updateData null: " + this);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("pickBestMove null: " + this);
                                     }
                                 }
                             }
-                        } else {
-                            Debug.LogError ("chessAI null: " + this);
                         }
-                    } else {
-                        Debug.LogError ("editChessAI null: " + this);
+                        else
+                        {
+                            Debug.LogError("chessAI null: " + this);
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("editChessAI null: " + this);
+                    }
+                    // UI
+                    {
+                        float deltaY = 0;
+                        // header
+                        {
+                            switch (this.data.showType.v)
+                            {
+                                case UIRectTransform.ShowType.Normal:
+                                    {
+                                        if (lbTitle != null)
+                                        {
+                                            lbTitle.gameObject.SetActive(true);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("lbTitle null");
+                                        }
+                                        if (header != null)
+                                        {
+                                            header.gameObject.SetActive(true);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("header null");
+                                        }
+                                        deltaY += UIConstants.HeaderHeight;
+                                    }
+                                    break;
+                                case UIRectTransform.ShowType.HeadLess:
+                                    {
+                                        if (lbTitle != null)
+                                        {
+                                            lbTitle.gameObject.SetActive(false);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("lbTitle null");
+                                        }
+                                        if (header != null)
+                                        {
+                                            header.gameObject.SetActive(false);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("header null");
+                                        }
+                                    }
+                                    break;
+                                case UIRectTransform.ShowType.OnlyHead:
+                                    break;
+                                default:
+                                    Debug.LogError("unknown type: " + this.data.showType.v);
+                                    break;
+                            }
+                        }
+                        // type
+                        {
+                            if (this.data.type.v != null)
+                            {
+                                if (lbType != null)
+                                {
+                                    lbType.gameObject.SetActive(true);
+                                    UIRectTransform.SetPosY(lbType.rectTransform, deltaY);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbType null");
+                                }
+                                UIRectTransform.SetPosY(this.data.type.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                                deltaY += UIConstants.ItemHeight;
+                            }
+                            else
+                            {
+                                if (lbType != null)
+                                {
+                                    lbType.gameObject.SetActive(false);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbType null");
+                                }
+                            }
+                        }
+                        // depth
+                        {
+                            if (this.data.depth.v != null)
+                            {
+                                if (lbDepth != null)
+                                {
+                                    lbDepth.gameObject.SetActive(true);
+                                    UIRectTransform.SetPosY(lbDepth.rectTransform, deltaY);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbDepth null");
+                                }
+                                UIRectTransform.SetPosY(this.data.depth.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                                deltaY += UIConstants.ItemHeight;
+                            }
+                            else
+                            {
+                                if (lbDepth != null)
+                                {
+                                    lbDepth.gameObject.SetActive(false);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbDepth null");
+                                }
+                            }
+                        }
+                        // time
+                        {
+                            if (this.data.time.v != null)
+                            {
+                                if (lbTime != null)
+                                {
+                                    lbTime.gameObject.SetActive(true);
+                                    UIRectTransform.SetPosY(lbTime.rectTransform, deltaY);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbTime null");
+                                }
+                                UIRectTransform.SetPosY(this.data.time.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                                deltaY += UIConstants.ItemHeight;
+                            }
+                            else
+                            {
+                                if (lbTime != null)
+                                {
+                                    lbTime.gameObject.SetActive(false);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbTime null");
+                                }
+                            }
+                        }
+                        // node
+                        {
+                            if (this.data.node.v != null)
+                            {
+                                if (lbNode != null)
+                                {
+                                    lbNode.gameObject.SetActive(true);
+                                    UIRectTransform.SetPosY(lbNode.rectTransform, deltaY);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbNode null");
+                                }
+                                UIRectTransform.SetPosY(this.data.node.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                                deltaY += UIConstants.ItemHeight;
+                            }
+                            else
+                            {
+                                if (lbNode != null)
+                                {
+                                    lbNode.gameObject.SetActive(false);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbNode null");
+                                }
+                            }
+                        }
+                        // pickBestMove
+                        {
+                            if (this.data.pickBestMove.v != null)
+                            {
+                                if (lbPickBestMove != null)
+                                {
+                                    lbPickBestMove.gameObject.SetActive(true);
+                                    UIRectTransform.SetPosY(lbPickBestMove.rectTransform, deltaY);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbPickBestMove null");
+                                }
+                                UIRectTransform.SetPosY(this.data.pickBestMove.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                                deltaY += UIConstants.ItemHeight;
+                            }
+                            else
+                            {
+                                if (lbPickBestMove != null)
+                                {
+                                    lbPickBestMove.gameObject.SetActive(false);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbPickBestMove null");
+                                }
+                            }
+                        }
+                        // set
+                        UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }
                     // txt
                     {
-                        if (lbTitle != null) {
-                            lbTitle.text = txtTitle.get ("Nine Men's Morriss AI");
-                        } else {
-                            Debug.LogError ("lbTitle null: " + this);
+                        if (lbTitle != null)
+                        {
+                            lbTitle.text = txtTitle.get("Nine Men's Morriss AI");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null: " + this);
                         }
                         if (lbType != null)
                         {
@@ -662,20 +910,25 @@ namespace ChineseCheckers
                         {
                             Debug.LogError("lbNode null");
                         }
-                        if (lbPickBestMove != null) {
-                            lbPickBestMove.text = txtPickBestMove.get ("Pick best move depth");
-                        } else {
-                            Debug.LogError ("lbPickBestMove null: " + this);
+                        if (lbPickBestMove != null)
+                        {
+                            lbPickBestMove.text = txtPickBestMove.get("Pick best move depth");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbPickBestMove null: " + this);
                         }
                     }
-                } else {
+                }
+                else
+                {
                     // Debug.LogError ("data null: " + this);
                 }
             }
             updateTransformData();
         }
 
-        public override bool isShouldDisableUpdate ()
+        public override bool isShouldDisableUpdate()
         {
             return true;
         }
@@ -695,26 +948,28 @@ namespace ChineseCheckers
 
         private Server server = null;
 
-        public override void onAddCallBack<T> (T data)
+        public override void onAddCallBack<T>(T data)
         {
-            if (data is UIData) {
+            if (data is UIData)
+            {
                 UIData uiData = data as UIData;
                 // Setting
-                Setting.get ().addCallBack (this);
+                Setting.get().addCallBack(this);
                 // Child
                 {
-                    uiData.editAI.allAddCallBack (this);
+                    uiData.editAI.allAddCallBack(this);
                     uiData.type.allAddCallBack(this);
                     uiData.depth.allAddCallBack(this);
                     uiData.time.allAddCallBack(this);
                     uiData.node.allAddCallBack(this);
-                    uiData.pickBestMove.allAddCallBack (this);
+                    uiData.pickBestMove.allAddCallBack(this);
                 }
                 dirty = true;
                 return;
             }
             // Setting
-            if (data is Setting) {
+            if (data is Setting)
+            {
                 dirty = true;
                 return;
             }
@@ -722,23 +977,25 @@ namespace ChineseCheckers
             {
                 // editAI
                 {
-                    if (data is EditData<ChineseCheckersAI>) {
+                    if (data is EditData<ChineseCheckersAI>)
+                    {
                         EditData<ChineseCheckersAI> editAI = data as EditData<ChineseCheckersAI>;
                         // Child
                         {
-                            editAI.show.allAddCallBack (this);
-                            editAI.compare.allAddCallBack (this);
+                            editAI.show.allAddCallBack(this);
+                            editAI.compare.allAddCallBack(this);
                         }
                         dirty = true;
                         return;
                     }
                     // Child
                     {
-                        if (data is ChineseCheckersAI) {
+                        if (data is ChineseCheckersAI)
+                        {
                             ChineseCheckersAI chineseCheckersAI = data as ChineseCheckersAI;
                             // Parent
                             {
-                                DataUtils.addParentCallBack (chineseCheckersAI, this, ref this.server);
+                                DataUtils.addParentCallBack(chineseCheckersAI, this, ref this.server);
                             }
                             dirty = true;
                             needReset = true;
@@ -746,7 +1003,8 @@ namespace ChineseCheckers
                         }
                         // Parent
                         {
-                            if (data is Server) {
+                            if (data is Server)
+                            {
                                 dirty = true;
                                 return;
                             }
@@ -779,7 +1037,8 @@ namespace ChineseCheckers
                     dirty = true;
                     return;
                 }
-                if (data is RequestChangeIntUI.UIData) {
+                if (data is RequestChangeIntUI.UIData)
+                {
                     RequestChangeIntUI.UIData requestChange = data as RequestChangeIntUI.UIData;
                     // UI
                     {
@@ -814,55 +1073,60 @@ namespace ChineseCheckers
                     return;
                 }
             }
-            Debug.LogError ("Don't process: " + data + "; " + this);
+            Debug.LogError("Don't process: " + data + "; " + this);
         }
 
-        public override void onRemoveCallBack<T> (T data, bool isHide)
+        public override void onRemoveCallBack<T>(T data, bool isHide)
         {
-            if (data is UIData) {
+            if (data is UIData)
+            {
                 UIData uiData = data as UIData;
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
                 {
-                    uiData.editAI.allRemoveCallBack (this);
+                    uiData.editAI.allRemoveCallBack(this);
                     uiData.type.allRemoveCallBack(this);
                     uiData.depth.allRemoveCallBack(this);
                     uiData.time.allRemoveCallBack(this);
                     uiData.node.allRemoveCallBack(this);
-                    uiData.pickBestMove.allRemoveCallBack (this);
+                    uiData.pickBestMove.allRemoveCallBack(this);
                 }
-                this.setDataNull (uiData);
+                this.setDataNull(uiData);
                 return;
             }
             // Setting
-            if (data is Setting) {
+            if (data is Setting)
+            {
                 return;
             }
             // Child
             {
                 // editAI
                 {
-                    if (data is EditData<ChineseCheckersAI>) {
+                    if (data is EditData<ChineseCheckersAI>)
+                    {
                         EditData<ChineseCheckersAI> editAI = data as EditData<ChineseCheckersAI>;
                         // Child
                         {
-                            editAI.show.allRemoveCallBack (this);
-                            editAI.compare.allRemoveCallBack (this);
+                            editAI.show.allRemoveCallBack(this);
+                            editAI.compare.allRemoveCallBack(this);
                         }
                         return;
                     }
                     // Child
                     {
-                        if (data is ChineseCheckersAI) {
+                        if (data is ChineseCheckersAI)
+                        {
                             ChineseCheckersAI chineseCheckersAI = data as ChineseCheckersAI;
                             // Parent
                             {
-                                DataUtils.removeParentCallBack (chineseCheckersAI, this, ref this.server);
+                                DataUtils.removeParentCallBack(chineseCheckersAI, this, ref this.server);
                             }
                             return;
                         }
-                        if (data is Server) {
+                        if (data is Server)
+                        {
                             return;
                         }
                     }
@@ -876,21 +1140,23 @@ namespace ChineseCheckers
                     }
                     return;
                 }
-                if (data is RequestChangeIntUI.UIData) {
+                if (data is RequestChangeIntUI.UIData)
+                {
                     RequestChangeIntUI.UIData requestChange = data as RequestChangeIntUI.UIData;
                     // UI
                     {
-                        requestChange.removeCallBackAndDestroy (typeof(RequestChangeIntUI));
+                        requestChange.removeCallBackAndDestroy(typeof(RequestChangeIntUI));
                     }
                     return;
                 }
             }
-            Debug.LogError ("Don't process: " + data + "; " + this);
+            Debug.LogError("Don't process: " + data + "; " + this);
         }
 
-        public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
         {
-            if(WrapProperty.checkError(wrapProperty)){
+            if (WrapProperty.checkError(wrapProperty))
+            {
                 return;
             }
             if (wrapProperty.p is UIData)
@@ -902,6 +1168,9 @@ namespace ChineseCheckers
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
                         }
+                        break;
+                    case UIData.Property.showType:
+                        dirty = true;
                         break;
                     case UIData.Property.type:
                         {
@@ -940,22 +1209,24 @@ namespace ChineseCheckers
                 return;
             }
             // Setting
-            if (wrapProperty.p is Setting) {
-                switch ((Setting.Property)wrapProperty.n) {
-                case Setting.Property.language:
-                    dirty = true;
-                    break;
-                case Setting.Property.showLastMove:
-                    break;
-                case Setting.Property.viewUrlImage:
-                    break;
-                case Setting.Property.animationSetting:
-                    break;
-                case Setting.Property.maxThinkCount:
-                    break;
-                default:
-                    Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-                    break;
+            if (wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
                 }
                 return;
             }
@@ -963,35 +1234,37 @@ namespace ChineseCheckers
             {
                 // editAI
                 {
-                    if (wrapProperty.p is EditData<ChineseCheckersAI>) {
-                        switch ((EditData<ChineseCheckersAI>.Property)wrapProperty.n) {
-                        case EditData<ChineseCheckersAI>.Property.origin:
-                            dirty = true;
-                            break;
-                        case EditData<ChineseCheckersAI>.Property.show:
-                            {
-                                ValueChangeUtils.replaceCallBack (this, syncs);
+                    if (wrapProperty.p is EditData<ChineseCheckersAI>)
+                    {
+                        switch ((EditData<ChineseCheckersAI>.Property)wrapProperty.n)
+                        {
+                            case EditData<ChineseCheckersAI>.Property.origin:
                                 dirty = true;
-                            }
-                            break;
-                        case EditData<ChineseCheckersAI>.Property.compare:
-                            {
-                                ValueChangeUtils.replaceCallBack (this, syncs);
+                                break;
+                            case EditData<ChineseCheckersAI>.Property.show:
+                                {
+                                    ValueChangeUtils.replaceCallBack(this, syncs);
+                                    dirty = true;
+                                }
+                                break;
+                            case EditData<ChineseCheckersAI>.Property.compare:
+                                {
+                                    ValueChangeUtils.replaceCallBack(this, syncs);
+                                    dirty = true;
+                                }
+                                break;
+                            case EditData<ChineseCheckersAI>.Property.compareOtherType:
                                 dirty = true;
-                            }
-                            break;
-                        case EditData<ChineseCheckersAI>.Property.compareOtherType:
-                            dirty = true;
-                            break;
-                        case EditData<ChineseCheckersAI>.Property.canEdit:
-                            dirty = true;
-                            break;
-                        case EditData<ChineseCheckersAI>.Property.editType:
-                            dirty = true;
-                            break;
-                        default:
-                            Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-                            break;
+                                break;
+                            case EditData<ChineseCheckersAI>.Property.canEdit:
+                                dirty = true;
+                                break;
+                            case EditData<ChineseCheckersAI>.Property.editType:
+                                dirty = true;
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
                         }
                         return;
                     }
@@ -1022,8 +1295,9 @@ namespace ChineseCheckers
                             }
                             return;
                         }
-                        if (wrapProperty.p is Server) {
-                            Server.State.OnUpdateSyncStateChange (wrapProperty, this);
+                        if (wrapProperty.p is Server)
+                        {
+                            Server.State.OnUpdateSyncStateChange(wrapProperty, this);
                             return;
                         }
                     }
@@ -1032,11 +1306,12 @@ namespace ChineseCheckers
                 {
                     return;
                 }
-                if (wrapProperty.p is RequestChangeIntUI.UIData) {
+                if (wrapProperty.p is RequestChangeIntUI.UIData)
+                {
                     return;
                 }
             }
-            Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
         }
 
         #endregion

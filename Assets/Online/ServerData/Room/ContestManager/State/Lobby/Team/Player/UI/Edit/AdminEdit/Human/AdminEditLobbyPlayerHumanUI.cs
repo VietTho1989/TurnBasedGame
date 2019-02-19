@@ -368,7 +368,7 @@ namespace GameManager.Match
 		#region implement callBacks
 
 		public AdminEditLobbyPlayerChooseHumanAdapter humanAdapterPrefab;
-        private static readonly UIRectTransform humanAdapterRect = UIRectTransform.CreateFullRect(10, 10, 40, 10);
+        private static readonly UIRectTransform humanAdapterRect = UIRectTransform.CreateFullRect(10, 10, 30, 10);
 
 		private Server server = null;
 

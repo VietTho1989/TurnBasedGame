@@ -1003,25 +1003,33 @@ namespace GameManager.Match
         {
             if (this.data != null)
             {
-                ShowAnimationUI.UIData showAnimationUIData = this.data.showAnimation.v;
-                if (showAnimationUIData != null)
+                if (showAnimationUI != null)
                 {
-                    if((showAnimationUIData.state.v is ShowAnimationUI.Normal))
+                    ShowAnimationUI.UIData showAnimationUIData = this.data.showAnimation.v;
+                    if (showAnimationUIData != null)
                     {
-                        ShowAnimationUI.Hide hide = new ShowAnimationUI.Hide();
+                        if ((showAnimationUIData.state.v is ShowAnimationUI.Normal))
                         {
-                            hide.uid = showAnimationUIData.state.makeId();
+                            ShowAnimationUI.Hide hide = new ShowAnimationUI.Hide();
+                            {
+                                hide.uid = showAnimationUIData.state.makeId();
+                            }
+                            showAnimationUIData.state.v = hide;
                         }
-                        showAnimationUIData.state.v = hide;
+                        else
+                        {
+                            Debug.LogError("state error: " + showAnimationUIData.state.v);
+                        }
                     }
                     else
                     {
-                        Debug.LogError("state error: " + showAnimationUIData.state.v);
+                        Debug.LogError("showAnimationUIData null");
                     }
                 }
                 else
                 {
-                    Debug.LogError("showAnimationUIData null");
+                    Debug.LogError("showAnimationUI null");
+                    back();
                 }
             }
             else

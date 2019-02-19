@@ -11,14 +11,25 @@ public class Global : Data
 
 	public const int ThreadSize = 1048576;
 
-	public static long getRealTimeInMiliSeconds()
+    #region time
+
+    public static long getRealTimeInMiliSeconds()
 	{
 		DateTime epoch = new DateTime (1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 		long ms = (long) (DateTime.UtcNow - epoch).TotalMilliseconds;
 		return ms;
 	}
 
-	public static string DataPath = "";
+    public static string getStrTime(long miliseconds)
+    {
+        DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(miliseconds);
+        DateTime localDateTime = TimeZone.CurrentTimeZone.ToLocalTime(dateTime);
+        return localDateTime.ToShortTimeString();// + ", " + dateTime.ToLongDateString();
+    }
+
+    #endregion
+
+    public static string DataPath = "";
 
 	#region Get
 

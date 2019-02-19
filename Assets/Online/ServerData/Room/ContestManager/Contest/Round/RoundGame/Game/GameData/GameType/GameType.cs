@@ -295,6 +295,19 @@ public abstract class GameType : Data
         return ret;
     }
 
+    public static string GetStrGameType(GameType.Type gameType)
+    {
+        string ret = gameType.ToString();
+        {
+            TxtLanguage txtGameType = null;
+            if (typeTxtDict.TryGetValue(gameType, out txtGameType))
+            {
+                ret = txtGameType.get(gameType.ToString());
+            }
+        }
+        return ret;
+    }
+
     #endregion
 
     public abstract Type getType ();
