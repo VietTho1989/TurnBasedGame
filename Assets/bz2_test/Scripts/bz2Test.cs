@@ -25,9 +25,11 @@ public class bz2Test : MonoBehaviour
 	private float t1, t, t2;
 	
 	private string myFile;
-	private WWW www;
-	
-	private string ppath;
+#pragma warning disable CS0618 // Type or member is obsolete
+    private WWW www;
+#pragma warning restore CS0618 // Type or member is obsolete
+
+    private string ppath;
 	
 	private bool compressionStarted;
 	private bool downloadDone;
@@ -62,11 +64,13 @@ public class bz2Test : MonoBehaviour
 
 		//make sure a previous 7z file having the same name with the one we want to download does not exist in the ppath folder
 		if (File.Exists(ppath + "/" + myFile)) File.Delete(ppath + "/" + myFile);
-		
-		//replace the link to the 7z file with your own (although this will work also)
-		www = new WWW("http://telias.free.fr/tests/" + myFile);
-		
-		yield return www;
+
+        //replace the link to the 7z file with your own (although this will work also)
+#pragma warning disable CS0618 // Type or member is obsolete
+        www = new WWW("http://telias.free.fr/tests/" + myFile);
+#pragma warning restore CS0618 // Type or member is obsolete
+
+        yield return www;
 		
 		if (www.error != null) Debug.Log(www.error);
 		
@@ -75,7 +79,9 @@ public class bz2Test : MonoBehaviour
 		//write the downloaded 7z file to the ppath directory so we can have access to it
 		//depending on the Install Location you have set for your app, set the Write Access accordingly!
 		FileStream fs = new FileStream(ppath + "/" + myFile, FileMode.Create);
-		fs.Write(www.bytes, 0, www.size);
+#pragma warning disable CS0618 // Type or member is obsolete
+        fs.Write(www.bytes, 0, www.size);
+#pragma warning restore CS0618 // Type or member is obsolete
 #if !NETFX_CORE
         fs.Close();
 #endif

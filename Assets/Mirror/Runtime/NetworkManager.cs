@@ -17,7 +17,9 @@ namespace Mirror
     public class NetworkManager : MonoBehaviour
     {
         /** TODO Them vao de dat max user count*/
+#pragma warning disable CS0618 // Type or member is obsolete
         public int maxClientUserCount = LLAPITransport.DefaultMaxConnections;
+#pragma warning restore CS0618 // Type or member is obsolete
 
         // configuration
         [FormerlySerializedAs("m_NetworkPort")] public ushort networkPort = 7777;
@@ -120,9 +122,13 @@ namespace Mirror
             {
                 if (Transport.layer != null)
                 {
-                    if(Transport.layer is LLAPITransport)
+#pragma warning disable CS0618 // Type or member is obsolete
+                    if (Transport.layer is LLAPITransport)
+#pragma warning restore CS0618 // Type or member is obsolete
                     {
+#pragma warning disable CS0618 // Type or member is obsolete
                         LLAPITransport oldLLAPITransport = Transport.layer as LLAPITransport;
+#pragma warning restore CS0618 // Type or member is obsolete
                         if (oldLLAPITransport.maxConnections == maxUserCount)
                         {
                             needMakeNew = false;
@@ -143,9 +149,13 @@ namespace Mirror
                 {
                     if (Transport.layer != null)
                     {
+#pragma warning disable CS0618 // Type or member is obsolete
                         if (Transport.layer is LLAPITransport)
+#pragma warning restore CS0618 // Type or member is obsolete
                         {
+#pragma warning disable CS0618 // Type or member is obsolete
                             LLAPITransport oldLLAPITransport = Transport.layer as LLAPITransport;
+#pragma warning restore CS0618 // Type or member is obsolete
                             oldLLAPITransport.Shutdown();
                         }
                         else
@@ -155,7 +165,9 @@ namespace Mirror
                     }
                 }
                 // make new
+#pragma warning disable CS0618 // Type or member is obsolete
                 LLAPITransport llAPI = new LLAPITransport();
+#pragma warning restore CS0618 // Type or member is obsolete
                 {
                     llAPI.maxConnections = maxUserCount;
                 }

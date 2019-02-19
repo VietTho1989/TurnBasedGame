@@ -43,13 +43,17 @@ namespace AdvancedCoroutines.Extentions
             {
                 return !(o as AsyncOperation).isDone;
             }
-            
+
+#pragma warning disable CS0618 // Type or member is obsolete
             if (o is WWW)
+#pragma warning restore CS0618 // Type or member is obsolete
             {
+#pragma warning disable CS0618 // Type or member is obsolete
                 return !(o as WWW).isDone;
+#pragma warning restore CS0618 // Type or member is obsolete
             }
-            
-            if( o is Coroutine)
+
+            if ( o is Coroutine)
             {
                 throw new ArgumentException("CoroutineManager can't work with Coroutine. Use Routine instead");
             }

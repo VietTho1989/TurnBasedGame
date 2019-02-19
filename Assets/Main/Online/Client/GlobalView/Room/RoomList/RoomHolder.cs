@@ -133,13 +133,13 @@ public class RoomHolder : SriaHolderBehavior<RoomHolder.UIData>
 						if (tvCanJoinRoom != null) {
                             if(room.isCanJoinRoom(Server.getProfileUserId(room)) != Room.JoinRoomState.Can)
                             {
-                                tvCanJoinRoom.text = txtCanJoinRoom.get("Can Join");
-                                tvCanJoinRoom.color = CanJoinColor;
+                                tvCanJoinRoom.text = txtCannotJoinRoom.get("Cannot Join");
+                                tvCanJoinRoom.color = CannotJoinColor;
                             }
                             else
                             {
-                                tvCanJoinRoom.text = txtCannotJoinRoom.get("Cannot Join");
-                                tvCanJoinRoom.color = CannotJoinColor;
+                                tvCanJoinRoom.text = txtCanJoinRoom.get("Can Join");
+                                tvCanJoinRoom.color = CanJoinColor;
                             }
 						} else {
 							Debug.LogError ("tvCannotJoinRoom null: " + this);

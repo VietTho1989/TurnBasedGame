@@ -92,8 +92,10 @@ public class RemoteConfigUpdate : UpdateBehavior<RemoteConfig>
 	IEnumerator LoadRemoteConfig()
 	{
 		string url = "http://mdcgate.com/config/get_friend_locator_config.php?";
-		WWW www = new WWW(url);
-		yield return www;
+#pragma warning disable CS0618 // Type or member is obsolete
+        WWW www = new WWW(url);
+#pragma warning restore CS0618 // Type or member is obsolete
+        yield return www;
 		string strRemoteConfig = www.text;
 		if (log)
 			Debug.LogError ("remoteConfig: " + strRemoteConfig + "; " + this);

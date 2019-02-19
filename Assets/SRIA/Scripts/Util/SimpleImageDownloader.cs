@@ -114,10 +114,14 @@ namespace frame8.ScrollRectItemsAdapter.Util
 
         public class Result
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             WWW _UsedWWW;
+#pragma warning restore CS0618 // Type or member is obsolete
 
 
+#pragma warning disable CS0618 // Type or member is obsolete
             internal Result(WWW www)
+#pragma warning restore CS0618 // Type or member is obsolete
             { _UsedWWW = www; }
 
 

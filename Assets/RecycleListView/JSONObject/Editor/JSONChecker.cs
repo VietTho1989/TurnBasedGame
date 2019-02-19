@@ -45,8 +45,10 @@ public class JSONChecker : EditorWindow {
 		URL = EditorGUILayout.TextField("URL", URL);
 		if (GUILayout.Button("Get JSON")) {
 			Debug.Log(URL);
-			WWW test = new WWW(URL);
-			while (!test.isDone) ;
+#pragma warning disable CS0618 // Type or member is obsolete
+            WWW test = new WWW(URL);
+#pragma warning restore CS0618 // Type or member is obsolete
+            while (!test.isDone) ;
 			if (!string.IsNullOrEmpty(test.error)) {
 				Debug.Log(test.error);
 			} else {

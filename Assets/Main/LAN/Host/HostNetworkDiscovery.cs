@@ -36,9 +36,11 @@ public class BroadcastData
 	}
 }
 
+#pragma warning disable CS0618 // Type or member is obsolete
 public class HostNetworkDiscovery : NetworkDiscovery, ValueChangeCallBack
+#pragma warning restore CS0618 // Type or member is obsolete
 {
-	void Awake()
+    void Awake()
 	{
 		this.broadcastData = new BroadcastData ().ToString ();
 	}

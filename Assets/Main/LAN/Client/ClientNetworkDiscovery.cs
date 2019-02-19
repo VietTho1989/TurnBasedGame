@@ -68,9 +68,11 @@ public class DiscoveredServers : Data
 
 }
 
-public class ClientNetworkDiscovery : NetworkDiscovery 
-{		
-	public DiscoveredServers discoveredServers = new DiscoveredServers();
+#pragma warning disable CS0618 // Type or member is obsolete
+public class ClientNetworkDiscovery : NetworkDiscovery
+#pragma warning restore CS0618 // Type or member is obsolete
+{
+    public DiscoveredServers discoveredServers = new DiscoveredServers();
 	public const float ServerKeepAliveTime = 5.0f;
 
 	void Start()

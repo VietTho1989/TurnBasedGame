@@ -254,18 +254,24 @@ namespace Foundation.Server
         #endregion
 
         #region internal
-        
+
+#pragma warning disable CS0618 // Type or member is obsolete
         Dictionary<WWW, Action<Response<string>>> _pendingCalls = new Dictionary<WWW, Action<Response<string>>>();
+#pragma warning restore CS0618 // Type or member is obsolete
 
         // Callbacks
-        
+
         IEnumerator GetAsync(Action<Response<string>> task, string url)
         {
 
+#pragma warning disable CS0618 // Type or member is obsolete
             WWW www;
+#pragma warning restore CS0618 // Type or member is obsolete
             try
             {
+#pragma warning disable CS0618 // Type or member is obsolete
                 www = new WWW(url);
+#pragma warning restore CS0618 // Type or member is obsolete
             }
             catch (Exception ex)
             {
@@ -310,7 +316,9 @@ namespace Foundation.Server
             yield return TaskManager.StartRoutine(HandleWWWAsync(task, www));
         }
 
+#pragma warning disable CS0618 // Type or member is obsolete
         IEnumerator TimeoutResponse(Action<Response<string>> task, WWW www)
+#pragma warning restore CS0618 // Type or member is obsolete
         {
             yield return new WaitForSeconds(Timeout);
 
@@ -326,7 +334,9 @@ namespace Foundation.Server
             }
         }
 
+#pragma warning disable CS0618 // Type or member is obsolete
         IEnumerator HandleWWWAsync(Action<Response<string>> task, WWW www)
+#pragma warning restore CS0618 // Type or member is obsolete
         {
             if (!www.isDone)
             {
@@ -400,8 +410,10 @@ namespace Foundation.Server
                 });
             }
         }
-        
+
+#pragma warning disable CS0618 // Type or member is obsolete
         HttpStatusCode GetCode(WWW www)
+#pragma warning restore CS0618 // Type or member is obsolete
         {
             if (!www.responseHeaders.ContainsKey("STATUS"))
             {

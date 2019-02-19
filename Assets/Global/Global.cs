@@ -23,7 +23,7 @@ public class Global : Data
     public static string getStrTime(long miliseconds)
     {
         DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(miliseconds);
-        DateTime localDateTime = TimeZone.CurrentTimeZone.ToLocalTime(dateTime);
+        DateTime localDateTime = TimeZoneInfo.ConvertTime(dateTime, TimeZoneInfo.Local);
         return localDateTime.ToShortTimeString();// + ", " + dateTime.ToLongDateString();
     }
 
