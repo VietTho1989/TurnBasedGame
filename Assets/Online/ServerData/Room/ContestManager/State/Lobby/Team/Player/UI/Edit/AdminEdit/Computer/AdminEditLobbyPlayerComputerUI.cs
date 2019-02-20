@@ -50,6 +50,7 @@ namespace GameManager.Match
 					{
 						editComputerUIData.editComputer.v.editType.v = EditType.Later;
 						editComputerUIData.editComputer.v.canEdit.v = true;
+                        editComputerUIData.aiUIDataShowType.v = UIRectTransform.ShowType.HeadLess;
 					}
 					this.editComputer = new VP<ComputerUI.UIData>(this, (byte)Property.editComputer, editComputerUIData);
 				}

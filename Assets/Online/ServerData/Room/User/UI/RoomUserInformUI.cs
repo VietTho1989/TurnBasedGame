@@ -36,6 +36,7 @@ public class RoomUserInformUI : UIBehavior<RoomUserInformUI.UIData>
 			{
 				this.humanUI = new VP<HumanUI.UIData>(this, (byte)Property.humanUI, new HumanUI.UIData());
 				this.humanUI.v.editHuman.v.canEdit.v = false;
+                this.humanUI.v.showType.v = UIRectTransform.ShowType.HeadLess;
 			}
 			this.userMakeFriend = new VP<UserMakeFriendUI.UIData>(this, (byte)Property.userMakeFriend, new UserMakeFriendUI.UIData());
 			this.kickUI = new VP<RoomUserKickUI.UIData>(this, (byte)Property.kickUI, new RoomUserKickUI.UIData());
@@ -82,10 +83,40 @@ public class RoomUserInformUI : UIBehavior<RoomUserInformUI.UIData>
 
 	static RoomUserInformUI()
 	{
-		txtTitle.add (Language.Type.vi, "Thông tin người trong phòng");
-		txtBack.add (Language.Type.vi, "Quay Lại");
-		txtCannotBeKicked.add (Language.Type.vi, "Không thể bị kick");
-	}
+        // txt
+        {
+            txtTitle.add(Language.Type.vi, "Thông tin người trong phòng");
+            txtBack.add(Language.Type.vi, "Quay Lại");
+            txtCannotBeKicked.add(Language.Type.vi, "Không thể bị kick");
+        }
+        // rect
+        {
+            // userMakeFriendRect
+            {
+                // anchoredPosition: (0.0, -230.0); anchorMin: (0.0, 1.0); anchorMax: (1.0, 1.0); pivot: (0.5, 1.0);
+                // offsetMin: (0.0, -280.0); offsetMax: (0.0, -230.0); sizeDelta: (0.0, 50.0);
+                userMakeFriendRect.anchoredPosition = new Vector3(0.0f, -230.0f, 0.0f);
+                userMakeFriendRect.anchorMin = new Vector2(0.0f, 1.0f);
+                userMakeFriendRect.anchorMax = new Vector2(1.0f, 1.0f);
+                userMakeFriendRect.pivot = new Vector2(0.5f, 1.0f);
+                userMakeFriendRect.offsetMin = new Vector2(0.0f, -280.0f);
+                userMakeFriendRect.offsetMax = new Vector2(0.0f, -230.0f);
+                userMakeFriendRect.sizeDelta = new Vector2(0.0f, 50.0f);
+            }
+            // kickRect
+            {
+                // anchoredPosition: (0.0, -290.0); anchorMin: (0.5, 1.0); anchorMax: (0.5, 1.0); pivot: (0.5, 1.0);
+                // offsetMin: (-60.0, -320.0); offsetMax: (60.0, -290.0); sizeDelta: (120.0, 30.0);
+                kickRect.anchoredPosition = new Vector3(0.0f, -290.0f, 0.0f);
+                kickRect.anchorMin = new Vector2(0.5f, 1.0f);
+                kickRect.anchorMax = new Vector2(0.5f, 1.0f);
+                kickRect.pivot = new Vector2(0.5f, 1.0f);
+                kickRect.offsetMin = new Vector2(-60.0f, -320.0f);
+                kickRect.offsetMax = new Vector2(60.0f, -290.0f);
+                kickRect.sizeDelta = new Vector2(120.0f, 30.0f);
+            }
+        }
+    }
 
 	#endregion
 
@@ -129,7 +160,26 @@ public class RoomUserInformUI : UIBehavior<RoomUserInformUI.UIData>
 				// txt
 				{
 					if (lbTitle != null) {
-						lbTitle.text = txtTitle.get ("Room User Information");
+                        string userName = "";
+                        {
+                            if (roomUser != null)
+                            {
+                                Human human = roomUser.inform.v;
+                                if (human != null)
+                                {
+                                    userName = human.getPlayerName();
+                                }
+                                else
+                                {
+                                    Debug.LogError("human null");
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("roomUser null");
+                            }
+                        }
+                        lbTitle.text = userName;// txtTitle.get ("Room User Information");
 					} else {
 						Debug.LogError ("lbTitle null: " + this);
 					}
@@ -162,11 +212,13 @@ public class RoomUserInformUI : UIBehavior<RoomUserInformUI.UIData>
 	public HumanUI humanPrefab;
 	public Transform humanContainer;
 
+    public Transform contentContainer;
+
 	public UserMakeFriendUI userMakeFriendPrefab;
-	public Transform userMakeFriendContainer;
+	private static readonly UIRectTransform userMakeFriendRect = new UIRectTransform();
 
 	public RoomUserKickUI kickPrefab;
-	public Transform kickContainer;
+    private static readonly UIRectTransform kickRect = new UIRectTransform();
 
 	public override void onAddCallBack<T> (T data)
 	{
@@ -208,7 +260,7 @@ public class RoomUserInformUI : UIBehavior<RoomUserInformUI.UIData>
 				UserMakeFriendUI.UIData userMakeFriendUIData = data as UserMakeFriendUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (userMakeFriendUIData, userMakeFriendPrefab, userMakeFriendContainer);
+					UIUtils.Instantiate (userMakeFriendUIData, userMakeFriendPrefab, contentContainer, userMakeFriendRect);
 				}
 				dirty = true;
 				return;
@@ -217,7 +269,7 @@ public class RoomUserInformUI : UIBehavior<RoomUserInformUI.UIData>
 				RoomUserKickUI.UIData kickUIData = data as RoomUserKickUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (kickUIData, kickPrefab, kickContainer);
+					UIUtils.Instantiate (kickUIData, kickPrefab, contentContainer, kickRect);
 				}
 				dirty = true;
 				return;

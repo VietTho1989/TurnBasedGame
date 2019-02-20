@@ -121,6 +121,8 @@ public class RequestChangeIntUI : UIBehavior<RequestChangeIntUI.UIData>
     public static readonly Color RequestColor = new Color(52 / 255f, 152 / 255f, 13 / 255f);
     public Text tvValue;
 
+    public Image imgBackground;
+
     public override void refresh()
     {
         if (dirty)
@@ -222,6 +224,15 @@ public class RequestChangeIntUI : UIBehavior<RequestChangeIntUI.UIData>
                         {
                             Debug.LogError("sliderValue null: " + this);
                         }
+                        // background
+                        if (imgBackground != null)
+                        {
+                            imgBackground.enabled = true;
+                        }
+                        else
+                        {
+                            Debug.LogError("imgBackground null");
+                        }
                     }
                     else
                     {
@@ -241,6 +252,15 @@ public class RequestChangeIntUI : UIBehavior<RequestChangeIntUI.UIData>
                         else
                         {
                             Debug.LogError("sliderValue null: " + this);
+                        }
+                        // background
+                        if (imgBackground != null)
+                        {
+                            imgBackground.enabled = false;
+                        }
+                        else
+                        {
+                            Debug.LogError("imgBackground null");
                         }
                     }
                     // set value

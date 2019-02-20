@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Mirror;
+using System;
 using System.Collections;
 
 public class Human : GamePlayer.Inform
@@ -131,7 +132,22 @@ public class Human : GamePlayer.Inform
 
 	public VP<long> birthday;
 
-	public void requestChangeBirthday(uint userId, long newBirthday){
+    private static readonly TxtLanguage txtUnKnownBirthday = new TxtLanguage();
+
+    public static string GetStrBirthday(long miliseconds)
+    {
+        if (miliseconds == Constants.UNKNOWN_TIME)
+        {
+            return txtUnKnownBirthday.get("Unknown");
+        }
+        else
+        {
+            DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(miliseconds);
+            return dateTime.ToLongDateString();
+        }
+    }
+
+    public void requestChangeBirthday(uint userId, long newBirthday){
 		Data.NeedRequest needRequest = this.isNeedRequestServerByNetworkIdentity ();
 		if (needRequest.canRequest) {
 			if (!needRequest.needIdentity) {
@@ -221,7 +237,12 @@ public class Human : GamePlayer.Inform
 		ban
 	}
 
-	public Human() : base()
+    static Human()
+    {
+        txtUnKnownBirthday.add(Language.Type.vi, "Không xác định");
+    }
+
+    public Human() : base()
 	{
 		this.playerId = new VP<uint>(this, (byte)Property.playerId, Data.UNKNOWN_ID);
 		this.account = new VP<Account> (this, (byte)Property.account, new AccountNone ());

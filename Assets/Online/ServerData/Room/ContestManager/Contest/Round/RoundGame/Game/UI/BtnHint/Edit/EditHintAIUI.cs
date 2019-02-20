@@ -27,7 +27,11 @@ namespace Hint
 
 			public UIData() : base()
 			{
-				this.aiUIData = new VP<AIUI.UIData>(this, (byte)Property.aiUIData, new AIUI.UIData());
+                // aiUIData
+                {
+                    this.aiUIData = new VP<AIUI.UIData>(this, (byte)Property.aiUIData, new AIUI.UIData());
+                    this.aiUIData.v.subShowType.v = UIRectTransform.ShowType.HeadLess;
+                }
 				this.editType = new VP<EditType>(this, (byte)Property.editType, EditType.Later);
 			}
 

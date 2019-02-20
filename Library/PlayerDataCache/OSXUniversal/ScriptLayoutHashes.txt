@@ -1608,7 +1608,7 @@ bbfe8fc7ab267002badbd05b6c212ac7 Assembly-CSharp.dll:Seirawan.LastMoveUI
 2d271b6977bc9adac1a930a9a6feb32a Assembly-CSharp.dll:.RoomStateNormalNormalUI
 a4f0a4f62100f1a4fb5cbe0e00dde83f Unity.TextMeshPro.dll:TMPro.TextMeshProUGUI
 0cfcddd956d8e0060e064a6513c8aa72 Assembly-CSharp.dll:GameManager.Match.RoundRobin.RoundRobinFactoryUI
-c6addab0f82ec50d37f4406e9f1b1929 Assembly-CSharp.dll:.JoinRoomUI
+651e307753d04d19f3fe0eceb4e127ab Assembly-CSharp.dll:.JoinRoomUI
 f5a01b0456212e53ccdf907d365b7ee9 Assembly-CSharp.dll:GameState.PlayPauseUI
 80d1822b3495d495c6c8deb6cd769e7c Assembly-CSharp.dll:EnglishDraught.UseRule.GetUI
 8d62fb5be2e995910a46821fb10e4ace Assembly-CSharp.dll:EnglishDraught.NoneRule.EnglishDraughtCustomSetIdentity
