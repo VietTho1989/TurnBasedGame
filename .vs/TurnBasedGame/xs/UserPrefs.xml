@@ -1,7 +1,9 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/User/UI/RoomUserInformUI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/State/Lobby/Team/Player/UI/LobbyPlayerBtnSetReady.cs">
     <Files>
-      <File FileName="Assets/Online/ServerData/Room/User/UI/RoomUserInformUI.cs" Line="39" Column="79" />
+      <File FileName="Assets/Online/ServerData/Chat/Typing/UI/TypingUI.cs" Line="433" Column="2" />
+      <File FileName="Assets/Online/ServerData/Chat/ChatRoomUI/ChatRoomUI.cs" Line="1066" Column="2" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/State/Lobby/Team/Player/UI/LobbyPlayerBtnSetReady.cs" Line="237" Column="9" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

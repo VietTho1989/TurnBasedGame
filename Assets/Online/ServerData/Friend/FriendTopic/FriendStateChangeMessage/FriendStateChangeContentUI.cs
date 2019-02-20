@@ -6,488 +6,536 @@ using System.Collections.Generic;
 public class FriendStateChangeContentUI : UIBehavior<FriendStateChangeContentUI.UIData>
 {
 
-	#region UIData
+    #region UIData
 
-	public class UIData : ChatMessageHolder.UIData.Sub
-	{
-		public VP<ReferenceData<FriendStateChangeContent>> friendStateChangeContent;
+    public class UIData : ChatMessageHolder.UIData.Sub
+    {
 
-		public VP<AccountAvatarUI.UIData> avatar;
+        public VP<ReferenceData<FriendStateChangeContent>> friendStateChangeContent;
 
-		public VP<RequestChangeStringUI.UIData> content;
+        public VP<AccountAvatarUI.UIData> avatar;
 
-		public VP<RequestChangeStringUI.UIData> time;
+        #region Constructor
 
-		#region Constructor
+        public enum Property
+        {
+            friendStateChangeContent,
+            avatar
+        }
 
-		public enum Property
-		{
-			friendStateChangeContent,
-			avatar,
-			content,
-			time
-		}
+        public UIData() : base()
+        {
+            this.friendStateChangeContent = new VP<ReferenceData<FriendStateChangeContent>>(this, (byte)Property.friendStateChangeContent, new ReferenceData<FriendStateChangeContent>(null));
+            this.avatar = new VP<AccountAvatarUI.UIData>(this, (byte)Property.avatar, new AccountAvatarUI.UIData());
+        }
 
-		public UIData() : base()
-		{
-			this.friendStateChangeContent = new VP<ReferenceData<FriendStateChangeContent>>(this, (byte)Property.friendStateChangeContent, new ReferenceData<FriendStateChangeContent>(null));
-			this.avatar = new VP<AccountAvatarUI.UIData>(this, (byte)Property.avatar, new AccountAvatarUI.UIData());
-			// content
-			{
-				this.content = new VP<RequestChangeStringUI.UIData>(this, (byte)Property.content, new RequestChangeStringUI.UIData());
-				this.content.v.updateData.v.canRequestChange.v = false;
-			}
-			// time
-			{
-				this.time = new VP<RequestChangeStringUI.UIData>(this, (byte)Property.time, new RequestChangeStringUI.UIData());
-				this.time.v.updateData.v.canRequestChange.v = false;
-			}
-		}
+        #endregion
 
-		#endregion
+        public override ChatMessage.Content.Type getType()
+        {
+            return ChatMessage.Content.Type.FriendStateChange;
+        }
 
-		public override ChatMessage.Content.Type getType ()
-		{
-			return ChatMessage.Content.Type.FriendStateChange;
-		}
+    }
 
-	}
+    #endregion
 
-	#endregion
+    #region txt, rect
 
-	#region Refresh
+    private static readonly TxtLanguage txtRequest = new TxtLanguage();
+    private static readonly TxtLanguage txtAccept = new TxtLanguage();
+    private static readonly TxtLanguage txtRefuse = new TxtLanguage();
+    private static readonly TxtLanguage txtCancel = new TxtLanguage();
+    private static readonly TxtLanguage txtUnFriend = new TxtLanguage();
+    private static readonly TxtLanguage txtBan = new TxtLanguage();
+    private static readonly TxtLanguage txtUnBan = new TxtLanguage();
 
-	private Human human = null;
+    static FriendStateChangeContentUI()
+    {
+        // txt
+        {
+            txtRequest.add(Language.Type.vi, "muốn kết bạn");
+            txtAccept.add(Language.Type.vi, "chấp nhận kết bạn");
+            txtRefuse.add(Language.Type.vi, "từ chối kết bạn");
+            txtCancel.add(Language.Type.vi, "huỷ kết bạn");
+            txtUnFriend.add(Language.Type.vi, "dừng làm bạn");
+            txtBan.add(Language.Type.vi, "cấm");
+            txtUnBan.add(Language.Type.vi, "huỷ cấm");
+        }
+        // avatarRect
+        {
+            // anchoredPosition: (0.0, 0.0); anchorMin: (0.0, 0.5); anchorMax: (0.0, 0.5); pivot: (0.0, 0.5);
+            // offsetMin: (0.0, -18.0); offsetMax: (36.0, 18.0); sizeDelta: (36.0, 36.0);
+            avatarRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+            avatarRect.anchorMin = new Vector2(0.0f, 0.5f);
+            avatarRect.anchorMax = new Vector2(0.0f, 0.5f);
+            avatarRect.pivot = new Vector2(0.0f, 0.5f);
+            avatarRect.offsetMin = new Vector2(0.0f, -18.0f);
+            avatarRect.offsetMax = new Vector2(36.0f, 18.0f);
+            avatarRect.sizeDelta = new Vector2(36.0f, 36.0f);
+        }
+    }
 
-	public override void refresh ()
-	{
-		if (dirty) {
-			dirty = false;
-			if (this.data != null) {
-				FriendStateChangeContent friendStateChangeContent = this.data.friendStateChangeContent.v.data;
-				if (friendStateChangeContent != null) {
-					ChatMessage chatMessage = friendStateChangeContent.findDataInParent<ChatMessage> ();
-					if (chatMessage != null) {
-						// Find human
-						{
-							Human human = ChatRoom.findHuman (friendStateChangeContent, friendStateChangeContent.userId.v);
-							if (this.human != human) {
-								// remove old
-								if (this.human != null) {
-									this.human.removeCallBack (this);
-								}
-								// set new
-								this.human = human;
-								if (this.human != null) {
-									this.human.addCallBack (this);
-								}
-							}
-						}
-						// Avatar
-						{
-							AccountAvatarUI.UIData accountAvatarUIData = this.data.avatar.v;
-							if (accountAvatarUIData != null) {
-								Account account = null;
-								{
-									if (this.human != null) {
-										account = this.human.account.v;
-									}
-								}
-								accountAvatarUIData.account.v = new ReferenceData<Account> (account);
-							} else {
-								Debug.LogError ("accountAvatarUIData null: " + this);
-							}
-						}
-						// time
-						{
-							RequestChangeStringUI.UIData time = this.data.time.v;
-							if (time != null) {
-								RequestChangeStringUpdate.UpdateData updateData = time.updateData.v;
-								if (updateData != null) {
-									updateData.origin.v = chatMessage.TimestampAsDateTime.ToString ("HH:mm");
-								} else {
-									Debug.LogError ("updateData null: " + this);
-								}
-							} else {
-								Debug.LogError ("time null: " + this);
-							}
-						}
-						// content
-						{
-							RequestChangeStringUI.UIData content = this.data.content.v;
-							if (content != null) {
-								RequestChangeStringUpdate.UpdateData updateData = content.updateData.v;
-								if (updateData != null) {
-									// Find user name
-									string userName = "";
-									{
-										if (this.human != null) {
-											userName = this.human.getPlayerName ();
-										} else {
-											Debug.LogError ("human null: " + this);
-										}
-									}
-									// state
-									switch (friendStateChangeContent.action.v) {
-									case FriendStateChangeContent.Action.Request:
-										updateData.origin.v = "<color=grey>" + userName + "</color> request to make friend";
-										break;
-									case FriendStateChangeContent.Action.Accept:
-										updateData.origin.v = "<color=grey>" + userName + "</color> accept friend request";
-										break;
-									case FriendStateChangeContent.Action.Refuse:
-										updateData.origin.v = "<color=grey>" + userName + "</color> refuse friend request";
-										break;
-									case FriendStateChangeContent.Action.Cancel:
-										updateData.origin.v = "<color=grey>" + userName + "</color> cancel friend request";
-										break;
-									case FriendStateChangeContent.Action.UnFriend:
-										updateData.origin.v = "<color=grey>" + userName + "</color> unFriend";
-										break;
-									case FriendStateChangeContent.Action.Ban:
-										updateData.origin.v = "<color=grey>" + userName + "</color> ban";
-										break;
-									case FriendStateChangeContent.Action.UnBan:
-										updateData.origin.v = "<color=grey>" + userName + "</color> unBan";
-										break;
-									default:
-										Debug.LogError ("unknown action: " + friendStateChangeContent.action.v + "; " + this);
-										break;
-									}
-								} else {
-									Debug.LogError ("updateData null: " + this);
-								}
-							} else {
-								Debug.LogError ("content null: " + this);
-							}
-						}
-					} else {
-						Debug.LogError ("chatMessage null: " + this);
-					}
-				} else {
-					Debug.LogError ("friendStateChangeContent null: " + this);
-				}
-			} else {
-				Debug.LogError ("data null: " + this);
-			}
-		}
-	}
+    #endregion
 
-	public override bool isShouldDisableUpdate ()
-	{
-		return true;
-	}
+    #region Refresh
 
-	public override void OnDestroy ()
-	{
-		base.OnDestroy ();
-		if (this.human != null) {
-			this.human.removeCallBack (this);
-			this.human = null;
-		} else {
-			Debug.LogError ("human null: " + this);
-		}
-	}
+    public Text tvContent;
+    public Text tvTime;
 
-	#endregion
+    public override void refresh()
+    {
+        if (dirty)
+        {
+            dirty = false;
+            if (this.data != null)
+            {
+                FriendStateChangeContent friendStateChangeContent = this.data.friendStateChangeContent.v.data;
+                if (friendStateChangeContent != null)
+                {
+                    ChatMessage chatMessage = friendStateChangeContent.findDataInParent<ChatMessage>();
+                    if (chatMessage != null)
+                    {
+                        // Find human
+                        {
+                            Human human = ChatRoom.findHuman(friendStateChangeContent, friendStateChangeContent.userId.v);
+                            if (this.human != human)
+                            {
+                                // remove old
+                                if (this.human != null)
+                                {
+                                    this.human.removeCallBack(this);
+                                }
+                                // set new
+                                this.human = human;
+                                if (this.human != null)
+                                {
+                                    this.human.addCallBack(this);
+                                }
+                            }
+                        }
+                        // Avatar
+                        {
+                            AccountAvatarUI.UIData accountAvatarUIData = this.data.avatar.v;
+                            if (accountAvatarUIData != null)
+                            {
+                                Account account = null;
+                                {
+                                    if (this.human != null)
+                                    {
+                                        account = this.human.account.v;
+                                    }
+                                }
+                                accountAvatarUIData.account.v = new ReferenceData<Account>(account);
+                            }
+                            else
+                            {
+                                Debug.LogError("accountAvatarUIData null: " + this);
+                            }
+                        }
+                        // time
+                        {
+                            if (tvTime != null)
+                            {
+                                tvTime.text = chatMessage.TimestampAsDateTime.ToString("HH:mm");
+                            }
+                            else
+                            {
+                                Debug.LogError("tvTime null");
+                            }
+                        }
+                        // content
+                        {
+                            if (tvContent != null)
+                            {
+                                // Find user name
+                                string userName = "";
+                                {
+                                    if (this.human != null)
+                                    {
+                                        userName = this.human.getPlayerName();
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("human null: " + this);
+                                    }
+                                }
+                                // state
+                                switch (friendStateChangeContent.action.v)
+                                {
+                                    case FriendStateChangeContent.Action.Request:
+                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtRequest.get("make friend request");
+                                        break;
+                                    case FriendStateChangeContent.Action.Accept:
+                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtAccept.get("accept friend request");
+                                        break;
+                                    case FriendStateChangeContent.Action.Refuse:
+                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtRefuse.get("refuse friend request");
+                                        break;
+                                    case FriendStateChangeContent.Action.Cancel:
+                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtCancel.get("cancel friend request");
+                                        break;
+                                    case FriendStateChangeContent.Action.UnFriend:
+                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtRequest.get("unfriend you");
+                                        break;
+                                    case FriendStateChangeContent.Action.Ban:
+                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtRequest.get("ban you");
+                                        break;
+                                    case FriendStateChangeContent.Action.UnBan:
+                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtRequest.get("unban you");
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown action: " + friendStateChangeContent.action.v + "; " + this);
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("tvContent null");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("chatMessage null: " + this);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("friendStateChangeContent null: " + this);
+                }
+            }
+            else
+            {
+                Debug.LogError("data null: " + this);
+            }
+        }
+    }
 
-	#region implement callBacks
+    public override bool isShouldDisableUpdate()
+    {
+        return true;
+    }
 
-	private ChatMessage chatMessage = null;
+    public override void OnDestroy()
+    {
+        base.OnDestroy();
+        if (this.human != null)
+        {
+            this.human.removeCallBack(this);
+            this.human = null;
+        }
+        else
+        {
+            // Debug.LogError ("human null: " + this);
+        }
+    }
 
-	public AccountAvatarUI avatarPrefab;
-	public RequestChangeStringUI requestStringPrefab;
+    #endregion
 
-	public Transform avatarContainer;
-	public Transform contentContainer;
-	public Transform timeContainer;
+    #region implement callBacks
 
-	public override void onAddCallBack<T> (T data)
-	{
-		if (data is UIData) {
-			UIData uiData = data as UIData;
-			// Child
-			{
-				uiData.friendStateChangeContent.allAddCallBack (this);
-				uiData.avatar.allAddCallBack (this);
-				uiData.content.allAddCallBack (this);
-				uiData.time.allAddCallBack (this);
-			}
-			dirty = true;
-			return;
-		}
-		// Child
-		{
-			// FriendStateChangeContent
-			{
-				if (data is FriendStateChangeContent) {
-					FriendStateChangeContent friendStateChangeContent = data as FriendStateChangeContent;
-					// Parent
-					{
-						DataUtils.addParentCallBack (friendStateChangeContent, this, ref this.chatMessage);
-					}
-					dirty = true;
-					return;
-				}
-				// Parent
-				{
-					if (data is ChatMessage) {
-						dirty = true;
-						return;
-					}
-					// Human
-					{
-						if (data is Human) {
-							Human human = data as Human;
-							// Child
-							{
-								human.account.allAddCallBack (this);
-							}
-							dirty = true;
-							return;
-						}
-						// child
-						if (data is Account) {
-							dirty = true;
-							return;
-						}
-					}
-				}
-			}
-			if (data is AccountAvatarUI.UIData) {
-				AccountAvatarUI.UIData accountAvatarUIData = data as AccountAvatarUI.UIData;
-				// UI
-				{
-					UIUtils.Instantiate (accountAvatarUIData, avatarPrefab, avatarContainer);
-				}
-				dirty = true;
-				return;
-			}
-			// content, time
-			if (data is RequestChangeStringUI.UIData) {
-				RequestChangeStringUI.UIData requestChange = data as RequestChangeStringUI.UIData;
-				// UI
-				{
-					WrapProperty wrapProperty = requestChange.p;
-					if (wrapProperty != null) {
-						switch ((UIData.Property)wrapProperty.n) {
-						case UIData.Property.content:
-							UIUtils.Instantiate (requestChange, requestStringPrefab, contentContainer);
-							break;
-						case UIData.Property.time:
-							UIUtils.Instantiate (requestChange, requestStringPrefab, timeContainer);
-							break;
-						default:
-							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-							break;
-						}
-					} else {
-						Debug.LogError ("wrapProperty null: " + this);
-					}
-				}
-				dirty = true;
-				return;
-			}
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+    private ChatMessage chatMessage = null;
 
-	public override void onRemoveCallBack<T> (T data, bool isHide)
-	{
-		if (data is UIData) {
-			UIData uiData = data as UIData;
-			// Child
-			{
-				uiData.friendStateChangeContent.allRemoveCallBack (this);
-				uiData.avatar.allRemoveCallBack (this);
-				uiData.content.allRemoveCallBack (this);
-				uiData.time.allRemoveCallBack (this);
-			}
-			this.setDataNull (uiData);
-			return;
-		}
-		// Child
-		{
-			// FriendStateChangeContent
-			{
-				if (data is FriendStateChangeContent) {
-					FriendStateChangeContent friendStateChangeContent = data as FriendStateChangeContent;
-					// Parent
-					{
-						DataUtils.removeParentCallBack (friendStateChangeContent, this, ref this.chatMessage);
-					}
-					return;
-				}
-				// Parent
-				{
-					if (data is ChatMessage) {
-						return;
-					}
-					// Human
-					{
-						if (data is Human) {
-							Human human = data as Human;
-							// Child
-							{
-								human.account.allRemoveCallBack (this);
-							}
-							return;
-						}
-						// child
-						if (data is Account) {
-							return;
-						}
-					}
-				}
-			}
-			if (data is AccountAvatarUI.UIData) {
-				AccountAvatarUI.UIData accountAvatarUIData = data as AccountAvatarUI.UIData;
-				// UI
-				{
-					accountAvatarUIData.removeCallBackAndDestroy (typeof(AccountAvatarUI));
-				}
-				return;
-			}
-			// content, time
-			if (data is RequestChangeStringUI.UIData) {
-				RequestChangeStringUI.UIData requestChange = data as RequestChangeStringUI.UIData;
-				// UI
-				{
-					requestChange.removeCallBackAndDestroy (typeof(RequestChangeStringUI));
-				}
-				return;
-			}
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+    public AccountAvatarUI avatarPrefab;
+    private static readonly UIRectTransform avatarRect = new UIRectTransform();
 
-	public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-	{
-		if (WrapProperty.checkError (wrapProperty)) {
-			return;
-		}
-		if (wrapProperty.p is UIData) {
-			switch ((UIData.Property)wrapProperty.n) {
-			case UIData.Property.friendStateChangeContent:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			case UIData.Property.avatar:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			case UIData.Property.content:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			case UIData.Property.time:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			default:
-				Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-				break;
-			}
-			return;
-		}
-		// Child
-		{
-			// FriendStateChangeContent
-			{
-				if (wrapProperty.p is FriendStateChangeContent) {
-					switch ((FriendStateChangeContent.Property)wrapProperty.n) {
-					case FriendStateChangeContent.Property.userId:
-						dirty = true;
-						break;
-					case FriendStateChangeContent.Property.action:
-						dirty = true;
-						break;
-					default:
-						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-						break;
-					}
-					return;
-				}
-				// Parent
-				{
-					if (wrapProperty.p is ChatMessage) {
-						switch ((ChatMessage.Property)wrapProperty.n) {
-						case ChatMessage.Property.state:
-							dirty = true;
-							break;
-						case ChatMessage.Property.time:
-							dirty = true;
-							break;
-						case ChatMessage.Property.content:
-							break;
-						default:
-							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-							break;
-						}
-						return;
-					}
-					// Human
-					{
-						if (wrapProperty.p is Human) {
-							switch ((Human.Property)wrapProperty.n) {
-							case Human.Property.playerId:
-								dirty = true;
-								break;
-							case Human.Property.account:
-								{
-									ValueChangeUtils.replaceCallBack (this, syncs);
-									dirty = true;
-								}
-								break;
-							case Human.Property.state:
-								break;
-							case Human.Property.email:
-								break;
-							case Human.Property.phoneNumber:
-								break;
-							case Human.Property.status:
-								break;
-							case Human.Property.birthday:
-								break;
-							case Human.Property.sex:
-								break;
-							case Human.Property.connection:
-								break;
-							case Human.Property.ban:
-								break;
-							default:
-								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-								break;
-							}
-							return;
-						}
-						// child
-						if (wrapProperty.p is Account) {
-							Account.OnUpdateSyncAccount (wrapProperty, this);
-							return;
-						}
-					}
-				}
-			}
-			if (wrapProperty.p is AccountAvatarUI.UIData) {
-				return;
-			}
-			// content, time
-			if (wrapProperty.p is RequestChangeStringUI.UIData) {
-				return;
-			}
-		}
-		Debug.LogError ("Don't prococess: " + wrapProperty + "; " + syncs + "; " + this);
-	}
+    private Human human = null;
 
-	#endregion
+    public override void onAddCallBack<T>(T data)
+    {
+        if (data is UIData)
+        {
+            UIData uiData = data as UIData;
+            // Setting
+            Setting.get().addCallBack(this);
+            // Child
+            {
+                uiData.friendStateChangeContent.allAddCallBack(this);
+                uiData.avatar.allAddCallBack(this);
+            }
+            dirty = true;
+            return;
+        }
+        // Setting
+        if (data is Setting)
+        {
+            dirty = true;
+            return;
+        }
+        // Child
+        {
+            // FriendStateChangeContent
+            {
+                if (data is FriendStateChangeContent)
+                {
+                    FriendStateChangeContent friendStateChangeContent = data as FriendStateChangeContent;
+                    // Parent
+                    {
+                        DataUtils.addParentCallBack(friendStateChangeContent, this, ref this.chatMessage);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Parent
+                {
+                    if (data is ChatMessage)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                    // Human
+                    {
+                        if (data is Human)
+                        {
+                            Human human = data as Human;
+                            // Child
+                            {
+                                human.account.allAddCallBack(this);
+                            }
+                            dirty = true;
+                            return;
+                        }
+                        // child
+                        if (data is Account)
+                        {
+                            dirty = true;
+                            return;
+                        }
+                    }
+                }
+            }
+            if (data is AccountAvatarUI.UIData)
+            {
+                AccountAvatarUI.UIData accountAvatarUIData = data as AccountAvatarUI.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(accountAvatarUIData, avatarPrefab, this.transform, avatarRect);
+                }
+                dirty = true;
+                return;
+            }
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
+
+    public override void onRemoveCallBack<T>(T data, bool isHide)
+    {
+        if (data is UIData)
+        {
+            UIData uiData = data as UIData;
+            // Setting
+            Setting.get().removeCallBack(this);
+            // Child
+            {
+                uiData.friendStateChangeContent.allRemoveCallBack(this);
+                uiData.avatar.allRemoveCallBack(this);
+            }
+            this.setDataNull(uiData);
+            return;
+        }
+        // Setting
+        if (data is Setting)
+        {
+            return;
+        }
+        // Child
+        {
+            // FriendStateChangeContent
+            {
+                if (data is FriendStateChangeContent)
+                {
+                    FriendStateChangeContent friendStateChangeContent = data as FriendStateChangeContent;
+                    // Parent
+                    {
+                        DataUtils.removeParentCallBack(friendStateChangeContent, this, ref this.chatMessage);
+                    }
+                    return;
+                }
+                // Parent
+                {
+                    if (data is ChatMessage)
+                    {
+                        return;
+                    }
+                    // Human
+                    {
+                        if (data is Human)
+                        {
+                            Human human = data as Human;
+                            // Child
+                            {
+                                human.account.allRemoveCallBack(this);
+                            }
+                            return;
+                        }
+                        // child
+                        if (data is Account)
+                        {
+                            return;
+                        }
+                    }
+                }
+            }
+            if (data is AccountAvatarUI.UIData)
+            {
+                AccountAvatarUI.UIData accountAvatarUIData = data as AccountAvatarUI.UIData;
+                // UI
+                {
+                    accountAvatarUIData.removeCallBackAndDestroy(typeof(AccountAvatarUI));
+                }
+                return;
+            }
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
+
+    public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+    {
+        if (WrapProperty.checkError(wrapProperty))
+        {
+            return;
+        }
+        if (wrapProperty.p is UIData)
+        {
+            switch ((UIData.Property)wrapProperty.n)
+            {
+                case UIData.Property.friendStateChangeContent:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.avatar:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Setting
+        if (wrapProperty.p is Setting)
+        {
+            switch ((Setting.Property)wrapProperty.n)
+            {
+                case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.showLastMove:
+                    break;
+                case Setting.Property.viewUrlImage:
+                    break;
+                case Setting.Property.animationSetting:
+                    break;
+                case Setting.Property.maxThinkCount:
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Child
+        {
+            // FriendStateChangeContent
+            {
+                if (wrapProperty.p is FriendStateChangeContent)
+                {
+                    switch ((FriendStateChangeContent.Property)wrapProperty.n)
+                    {
+                        case FriendStateChangeContent.Property.userId:
+                            dirty = true;
+                            break;
+                        case FriendStateChangeContent.Property.action:
+                            dirty = true;
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+                // Parent
+                {
+                    if (wrapProperty.p is ChatMessage)
+                    {
+                        switch ((ChatMessage.Property)wrapProperty.n)
+                        {
+                            case ChatMessage.Property.state:
+                                dirty = true;
+                                break;
+                            case ChatMessage.Property.time:
+                                dirty = true;
+                                break;
+                            case ChatMessage.Property.content:
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
+                    // Human
+                    {
+                        if (wrapProperty.p is Human)
+                        {
+                            switch ((Human.Property)wrapProperty.n)
+                            {
+                                case Human.Property.playerId:
+                                    dirty = true;
+                                    break;
+                                case Human.Property.account:
+                                    {
+                                        ValueChangeUtils.replaceCallBack(this, syncs);
+                                        dirty = true;
+                                    }
+                                    break;
+                                case Human.Property.state:
+                                    break;
+                                case Human.Property.email:
+                                    break;
+                                case Human.Property.phoneNumber:
+                                    break;
+                                case Human.Property.status:
+                                    break;
+                                case Human.Property.birthday:
+                                    break;
+                                case Human.Property.sex:
+                                    break;
+                                case Human.Property.connection:
+                                    break;
+                                case Human.Property.ban:
+                                    break;
+                                default:
+                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                    break;
+                            }
+                            return;
+                        }
+                        // child
+                        if (wrapProperty.p is Account)
+                        {
+                            Account.OnUpdateSyncAccount(wrapProperty, this);
+                            return;
+                        }
+                    }
+                }
+            }
+            if (wrapProperty.p is AccountAvatarUI.UIData)
+            {
+                return;
+            }
+        }
+        Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+    }
+
+    #endregion
 
 }

@@ -82,14 +82,38 @@ public class User : Data
 		FACEBOOK
 	}
 
-	public enum SEX
+    #region sex
+
+    public enum SEX
 	{
 		UNKNOWN,
 		MALE,
 		FEMALE
 	}
 
-	public VP<string> ipAddress;
+    private static readonly TxtLanguage txtSexUnknown = new TxtLanguage();
+    private static readonly TxtLanguage txtSexMale = new TxtLanguage();
+    private static readonly TxtLanguage txtSexFemale = new TxtLanguage();
+
+    public static string getStrSex(SEX sex)
+    {
+        switch (sex)
+        {
+            case SEX.UNKNOWN:
+                return txtSexUnknown.get("Unknown");
+            case SEX.MALE:
+                return txtSexMale.get("Male");
+            case SEX.FEMALE:
+                return txtSexFemale.get("Female");
+            default:
+                Debug.LogError("unknown sex: " + sex);
+                return sex.ToString();
+        }
+    }
+
+    #endregion
+
+    public VP<string> ipAddress;
 
 	public VP<long> registerTime;
 
@@ -106,7 +130,17 @@ public class User : Data
 		chatRoom
 	}
 
-	public User() : base()
+    static User()
+    {
+        // sex
+        {
+            txtSexUnknown.add(Language.Type.vi, "Không Biết");
+            txtSexMale.add(Language.Type.vi, "Nam");
+            txtSexFemale.add(Language.Type.vi, "Nữ");
+        }
+    }
+
+    public User() : base()
 	{
 		this.human = new VP<Human> (this, (byte)Property.human, new Human ());
 		role = new VP<Role> (this, (byte)Property.role, Role.Normal);

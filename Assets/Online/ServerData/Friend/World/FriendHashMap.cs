@@ -206,6 +206,7 @@ public class FriendHashMap : ValueChangeCallBack
 				Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 				break;
 			}
+            return;
 		}
 		// Child
 		{

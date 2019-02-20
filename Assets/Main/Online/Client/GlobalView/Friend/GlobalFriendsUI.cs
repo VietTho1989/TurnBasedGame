@@ -63,11 +63,34 @@ public class GlobalFriendsUI : UIBehavior<GlobalFriendsUI.UIData>
 
 	}
 
-	#endregion
+    #endregion
 
-	#region Refresh
+    #region rect, txt
 
-	public override void refresh ()
+    static GlobalFriendsUI()
+    {
+        // rect
+        {
+            // friendDetailRect
+            {
+                // anchoredPosition: (0.0, 0.0); anchorMin: (0.5, 0.5); anchorMax: (0.5, 0.5); pivot: (0.5, 0.5);
+                // offsetMin: (-180.0, -180.0); offsetMax: (180.0, 180.0); sizeDelta: (360.0, 360.0);
+                friendDetailRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                friendDetailRect.anchorMin = new Vector2(0.5f, 0.5f);
+                friendDetailRect.anchorMax = new Vector2(0.5f, 0.5f);
+                friendDetailRect.pivot = new Vector2(0.5f, 0.5f);
+                friendDetailRect.offsetMin = new Vector2(-180.0f, -180f);
+                friendDetailRect.offsetMax = new Vector2(180.0f, 180.0f);
+                friendDetailRect.sizeDelta = new Vector2(360.0f, 360.0f);
+            }
+        }
+    }
+
+    #endregion
+
+    #region Refresh
+
+    public override void refresh ()
 	{
 		if (dirty) {
 			dirty = false;
@@ -86,7 +109,12 @@ public class GlobalFriendsUI : UIBehavior<GlobalFriendsUI.UIData>
 				} else {
 					Debug.LogError ("server null: " + this);
 				}
-			} else {
+                // UI
+                {
+                    UIRectTransform.SetSiblingIndex(this.data.friendAdapter.v, 0);
+                    UIRectTransform.SetSiblingIndex(this.data.friendDetail.v, 1);
+                }
+            } else {
 				Debug.LogError ("data null: " + this);
 			}
 		}
@@ -102,10 +130,10 @@ public class GlobalFriendsUI : UIBehavior<GlobalFriendsUI.UIData>
 	#region implement callBacks
 
 	public FriendAdapter friendAdapterPrefab;
-	public Transform friendAdapterContainer;
+	private static readonly UIRectTransform friendAdapterRect = UIConstants.FullParent;
 
 	public FriendDetailUI friendDetailPrefab;
-	public Transform friendDetailContainer;
+	private static readonly UIRectTransform friendDetailRect = new UIRectTransform();
 
 	public override void onAddCallBack<T> (T data)
 	{
@@ -139,7 +167,7 @@ public class GlobalFriendsUI : UIBehavior<GlobalFriendsUI.UIData>
 				FriendAdapter.UIData friendAdapterUIData = data as FriendAdapter.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (friendAdapterUIData, friendAdapterPrefab, friendAdapterContainer);
+					UIUtils.Instantiate (friendAdapterUIData, friendAdapterPrefab, this.transform, friendAdapterRect);
 				}
 				dirty = true;
 				return;
@@ -148,7 +176,7 @@ public class GlobalFriendsUI : UIBehavior<GlobalFriendsUI.UIData>
 				FriendDetailUI.UIData friendDetailUIData = data as FriendDetailUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (friendDetailUIData, friendDetailPrefab, friendDetailContainer);
+					UIUtils.Instantiate (friendDetailUIData, friendDetailPrefab, this.transform, friendDetailRect);
 				}
 				dirty = true;
 				return;

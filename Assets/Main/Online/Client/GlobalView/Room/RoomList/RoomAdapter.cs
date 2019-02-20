@@ -100,8 +100,24 @@ public class RoomAdapter : SRIA<RoomAdapter.UIData, RoomHolder.UIData>
 
 	static RoomAdapter()
 	{
+        // txt
 		txtNoRooms.add (Language.Type.vi, "Không có phòng nào cả");
-	}
+        // rect
+        {
+            // sortDataRect
+            {
+                // anchoredPosition: (0.0, 0.0); anchorMin: (1.0, 1.0); anchorMax: (1.0, 1.0); pivot: (1.0, 1.0);
+                // offsetMin: (-160.0, -30.0); offsetMax: (0.0, 0.0); sizeDelta: (160.0, 30.0);
+                sortDataRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                sortDataRect.anchorMin = new Vector2(1.0f, 1.0f);
+                sortDataRect.anchorMax = new Vector2(1.0f, 1.0f);
+                sortDataRect.pivot = new Vector2(1.0f, 1.0f);
+                sortDataRect.offsetMin = new Vector2(-160.0f, -30.0f);
+                sortDataRect.offsetMax = new Vector2(0.0f, 0.0f);
+                sortDataRect.sizeDelta = new Vector2(160.0f, 30.0f);
+            }
+        }
+    }
 
 	#endregion
 
@@ -289,7 +305,7 @@ public class RoomAdapter : SRIA<RoomAdapter.UIData, RoomHolder.UIData>
 	#region implement callBacks
 
 	public SortDataUI sortDataPrefab;
-	public Transform sortDataContainer;
+    private static readonly UIRectTransform sortDataRect = new UIRectTransform();
 
 	private RoomContainerUI.UIData roomContainerUIData = null;
 
@@ -326,7 +342,7 @@ public class RoomAdapter : SRIA<RoomAdapter.UIData, RoomHolder.UIData>
 				SortDataUI.UIData sortDataUIData = data as SortDataUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (sortDataUIData, sortDataPrefab, sortDataContainer);
+					UIUtils.Instantiate (sortDataUIData, sortDataPrefab, this.transform, sortDataRect);
 				}
 				// Child
 				{

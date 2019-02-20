@@ -231,10 +231,10 @@ namespace GameManager.Match
 							}
 						}
 					} else {
-						Debug.LogError ("lobbyPlayer null: " + this);
+						// Debug.LogError ("lobbyPlayer null: " + this);
 					}
 				} else {
-					Debug.LogError ("data null: " + this);
+					// Debug.LogError ("data null: " + this);
 				}
 			}
 		}
