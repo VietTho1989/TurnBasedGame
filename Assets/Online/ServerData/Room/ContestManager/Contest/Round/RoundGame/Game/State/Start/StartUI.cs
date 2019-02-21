@@ -66,7 +66,7 @@ namespace GameState
 								{
 									GameUI.UIData gameUIData = this.data.findDataInParent<GameUI.UIData> ();
 									if (gameUIData != null) {
-										GameDataUI.UIData gameDataUIData = gameUIData.gameUIData.v;
+										GameDataUI.UIData gameDataUIData = gameUIData.gameDataUI.v;
 										if (gameDataUIData != null) {
 											GameDataBoardUI.UIData gameDataBoardUIData = gameDataUIData.board.v;
 											if (gameDataBoardUIData != null) {

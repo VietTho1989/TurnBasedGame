@@ -583,34 +583,7 @@ namespace TimeControl
 					}
                     // UISize
                     {
-                        float subSize = 0;
-                        {
-                            UIData.Sub sub = this.data.sub.v;
-                            if (sub != null)
-                            {
-                                HaveTransformInterface haveTransform = sub.findCallBack<HaveTransformInterface>();
-                                if (haveTransform != null)
-                                {
-                                    RectTransform subRect = haveTransform.getTransform() as RectTransform;
-                                    if (subRect != null)
-                                    {
-                                        subSize = subRect.rect.height;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("subRect null");
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("haveTransform null");
-                                }
-                            }
-                            else
-                            {
-                                Debug.LogError("sub null");
-                            }
-                        }
+                        float subSize = UIRectTransform.GetHeight(this.data.sub.v);
                         UIRectTransform.SetHeight((RectTransform)this.transform, UIConstants.HeaderHeight + 4 * UIConstants.ItemHeight + subSize);
                     }
                     // txt

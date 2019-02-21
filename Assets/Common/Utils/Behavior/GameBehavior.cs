@@ -5,6 +5,7 @@ using AdvancedCoroutines;
 
 public abstract class GameBehavior<K> : MonoBehaviour, ValueChangeCallBack where K : Data
 {
+
 	public K data;
 
 	public virtual void setData(K newData)

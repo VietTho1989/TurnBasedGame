@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace UndoRedo
 {
-	public class NoneUI : UIBehavior<NoneUI.UIData>
+	public class NoneUI : UIBehavior<NoneUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -93,31 +93,45 @@ namespace UndoRedo
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage ();
+        public Text lbRequestType;
+        public static readonly TxtLanguage txtRequestType = new TxtLanguage();
 
-		public Text lbRequestType;
-		public static readonly TxtLanguage txtRequestType = new TxtLanguage();
+        public Text tvCannotRequest;
+        public static readonly TxtLanguage txtCannotRequest = new TxtLanguage();
 
-		public Text tvCannotRequest;
-		public static readonly TxtLanguage txtCannotRequest = new TxtLanguage();
+        static NoneUI()
+        {
+            txtTitle.add(Language.Type.vi, "Tạo Yêu Cầu Undo/Redo");
+            txtRequestType.add(Language.Type.vi, "Loại yêu cầu");
+            txtCannotRequest.add(Language.Type.vi, "Không thể yêu cầu");
+        }
 
-		static NoneUI()
-		{
-			txtTitle.add (Language.Type.vi, "Undo/Redo: trạng thái không");
-			txtRequestType.add (Language.Type.vi, "Loại yêu cầu");
-			txtCannotRequest.add (Language.Type.vi, "Không thể yêu cầu");
-		}
+        #endregion
 
-		#endregion
+        #region TransformData
 
-		public GameObject contentContainer;
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
 
 		public override void refresh ()
 		{
@@ -136,12 +150,17 @@ namespace UndoRedo
 						}
 						// Process
 						if (canAsk) {
-							// contentContainer
-							if (contentContainer != null) {
-								contentContainer.SetActive (true);
-							} else {
-								Debug.LogError ("contentContainer null: " + this);
-							}
+                            // tvCannotRequest
+                            {
+                                if (tvCannotRequest != null)
+                                {
+                                    tvCannotRequest.gameObject.SetActive(false);
+                                }
+                                else
+                                {
+                                    Debug.LogError("tvCannotRequest null");
+                                }
+                            }
 							// get current type
 							RequestInform.Type type = RequestInform.Type.LastTurn;
 							{
@@ -185,20 +204,39 @@ namespace UndoRedo
 								}
 							}
 						} else {
-							// contentContainer
-							if (contentContainer != null) {
-								contentContainer.SetActive (false);
-							} else {
-								Debug.LogError ("contentContainer null: " + this);
-							}
-						}
+                            // tvCannotRequest
+                            {
+                                if (tvCannotRequest != null)
+                                {
+                                    tvCannotRequest.gameObject.SetActive(true);
+                                }
+                                else
+                                {
+                                    Debug.LogError("tvCannotRequest null");
+                                }
+                            }
+                            this.data.sub.v = null;
+                        }
 					} else {
 						Debug.LogError ("none null: " + this);
 					}
-					// txt
-					{
+                    // UI
+                    {
+                        float deltaY = 0;
+                        // header
+                        deltaY += UIConstants.HeaderHeight;
+                        // requestType
+                        deltaY += UIConstants.ItemHeight;
+                        // sub
+                        deltaY += UIRectTransform.SetPosY(this.data.sub.v, deltaY);
+                        // set
+                        // Debug.LogError("noneUI height: " + deltaY);
+                        UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                    }
+                    // txt
+                    {
 						if (lbTitle != null) {
-							lbTitle.text = txtTitle.get ("Undo/Redo Request: None");
+							lbTitle.text = txtTitle.get ("Make Undo/Redo Request");
 						} else {
 							Debug.LogError ("lbTitle null: " + this);
 						}
@@ -214,9 +252,10 @@ namespace UndoRedo
 						}
 					}
 				} else {
-					Debug.LogError ("data null: " + this);
+					// Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()
@@ -229,12 +268,10 @@ namespace UndoRedo
 		#region implement callBacks
 
 		public RequestChangeEnumUI requestEnumPrefab;
-		public Transform requestTypeContainer;
+        private static readonly UIRectTransform requestTypeRect = new UIRectTransform(UIConstants.RequestEnumRect, UIConstants.HeaderHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
 
 		public RequestLastTurnUI requestLastTurnPrefab;
 		public RequestLastYourTurnUI requestLastYourTurnPrefab;
-
-		public Transform subContainer;
 
 		private CheckWhoCanAskChange<None> checkWhoCanAskChange = new CheckWhoCanAskChange<None> ();
 
@@ -294,7 +331,7 @@ namespace UndoRedo
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.requestType:
-								UIUtils.Instantiate (requestChange, requestEnumPrefab, requestTypeContainer);
+								UIUtils.Instantiate (requestChange, requestEnumPrefab, this.transform, requestTypeRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
@@ -307,31 +344,46 @@ namespace UndoRedo
 					dirty = true;
 					return;
 				}
-				if (data is UIData.Sub) {
-					UIData.Sub sub = data as UIData.Sub;
-					// UI
-					{
-						switch (sub.getType ()) {
-						case RequestInform.Type.LastTurn:
-							{
-								RequestLastTurnUI.UIData requestLastTurnUIData = sub as RequestLastTurnUI.UIData;
-								UIUtils.Instantiate (requestLastTurnUIData, requestLastTurnPrefab, subContainer);
-							}
-							break;
-						case RequestInform.Type.LastYourTurn:
-							{
-								RequestLastYourTurnUI.UIData requestLastYourTurnUIData = sub as RequestLastYourTurnUI.UIData;
-								UIUtils.Instantiate (requestLastYourTurnUIData, requestLastYourTurnPrefab, subContainer);
-							}
-							break;
-						default:
-							Debug.LogError ("unknown type: " + sub.getType () + "; " + this);
-							break;
-						}
-					}
-					dirty = true;
-					return;
-				}
+                // sub
+                {
+                    if (data is UIData.Sub)
+                    {
+                        UIData.Sub sub = data as UIData.Sub;
+                        // UI
+                        {
+                            switch (sub.getType())
+                            {
+                                case RequestInform.Type.LastTurn:
+                                    {
+                                        RequestLastTurnUI.UIData requestLastTurnUIData = sub as RequestLastTurnUI.UIData;
+                                        UIUtils.Instantiate(requestLastTurnUIData, requestLastTurnPrefab, this.transform);
+                                    }
+                                    break;
+                                case RequestInform.Type.LastYourTurn:
+                                    {
+                                        RequestLastYourTurnUI.UIData requestLastYourTurnUIData = sub as RequestLastYourTurnUI.UIData;
+                                        UIUtils.Instantiate(requestLastYourTurnUIData, requestLastYourTurnPrefab, this.transform);
+                                    }
+                                    break;
+                                default:
+                                    Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                                    break;
+                            }
+                        }
+                        // Child
+                        {
+                            TransformData.AddCallBack(sub, this);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // Child
+                    if(data is TransformData)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                }
 			}
 			Debug.LogError ("Don't process: " + data + "; " + this);
 		}
@@ -381,30 +433,44 @@ namespace UndoRedo
 					}
 					return;
 				}
-				if (data is UIData.Sub) {
-					UIData.Sub sub = data as UIData.Sub;
-					// UI
-					{
-						switch (sub.getType ()) {
-						case RequestInform.Type.LastTurn:
-							{
-								RequestLastTurnUI.UIData requestLastTurnUIData = sub as RequestLastTurnUI.UIData;
-								requestLastTurnUIData.removeCallBackAndDestroy (typeof(RequestLastTurnUI));
-							}
-							break;
-						case RequestInform.Type.LastYourTurn:
-							{
-								RequestLastYourTurnUI.UIData requestLastYourTurnUIData = sub as RequestLastYourTurnUI.UIData;
-								requestLastYourTurnUIData.removeCallBackAndDestroy (typeof(RequestLastYourTurnUI));
-							}
-							break;
-						default:
-							Debug.LogError ("unknown type: " + sub.getType () + "; " + this);
-							break;
-						}
-					}
-					return;
-				}
+                // sub
+                {
+                    if (data is UIData.Sub)
+                    {
+                        UIData.Sub sub = data as UIData.Sub;
+                        // Child
+                        {
+                            TransformData.RemoveCallBack(sub, this);
+                        }
+                        // UI
+                        {
+                            switch (sub.getType())
+                            {
+                                case RequestInform.Type.LastTurn:
+                                    {
+                                        RequestLastTurnUI.UIData requestLastTurnUIData = sub as RequestLastTurnUI.UIData;
+                                        requestLastTurnUIData.removeCallBackAndDestroy(typeof(RequestLastTurnUI));
+                                    }
+                                    break;
+                                case RequestInform.Type.LastYourTurn:
+                                    {
+                                        RequestLastYourTurnUI.UIData requestLastYourTurnUIData = sub as RequestLastYourTurnUI.UIData;
+                                        requestLastYourTurnUIData.removeCallBackAndDestroy(typeof(RequestLastYourTurnUI));
+                                    }
+                                    break;
+                                default:
+                                    Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                                    break;
+                            }
+                        }
+                        return;
+                    }
+                    // Child
+                    if(data is TransformData)
+                    {
+                        return;
+                    }
+                }
 			}
 			Debug.LogError ("Don't process: " + data + "; " + this);
 		}
@@ -479,9 +545,33 @@ namespace UndoRedo
 				if (wrapProperty.p is RequestChangeEnumUI.UIData) {
 					return;
 				}
-				if (wrapProperty.p is UIData.Sub) {
-					return;
-				}
+                // sub
+                {
+                    if (wrapProperty.p is UIData.Sub)
+                    {
+                        return;
+                    }
+                    // Child
+                    if(wrapProperty.p is TransformData)
+                    {
+                        switch ((TransformData.Property)wrapProperty.n)
+                        {
+                            case TransformData.Property.position:
+                                break;
+                            case TransformData.Property.rotation:
+                                break;
+                            case TransformData.Property.scale:
+                                break;
+                            case TransformData.Property.size:
+                                dirty = true;
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
+                }
 			}
 			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
 		}

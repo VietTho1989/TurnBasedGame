@@ -397,86 +397,10 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
             needSetPlayerIndex = false;
             if (this.data != null)
             {
-                // chatRoomAdapter
-                {
-                    ChatRoomAdapter.UIData chatRoomAdapterUIData = this.data.chatRoomAdapter.v;
-                    if (chatRoomAdapterUIData != null)
-                    {
-                        ChatRoomAdapter chatRoomAdapter = chatRoomAdapterUIData.findCallBack<ChatRoomAdapter>();
-                        if (chatRoomAdapter != null)
-                        {
-                            chatRoomAdapter.transform.SetSiblingIndex(0);
-                        }
-                        else
-                        {
-                            Debug.LogError("chatRoomAdapter null");
-                        }
-                    }
-                    else
-                    {
-                        Debug.LogError("chatRoomAdapterUIData null");
-                    }
-                }
-                // topicUI
-                {
-                    TopicUI topicUI = this.data.topicUI.v;
-                    if (topicUI != null)
-                    {
-                        HaveTransformInterface haveTransform = topicUI.findCallBack<HaveTransformInterface>();
-                        if (haveTransform != null)
-                        {
-                            haveTransform.getTransform().SetSiblingIndex(2);
-                        }
-                        else
-                        {
-                            Debug.LogError("haveTransform null");
-                        }
-                    }
-                    else
-                    {
-                        Debug.LogError("topicUI null");
-                    }
-                }
-                // btnLoadMore
-                {
-                    ChatRoomBtnLoadMoreUI.UIData btnLoadMoreUIData = this.data.btnLoadMore.v;
-                    if (btnLoadMoreUIData != null)
-                    {
-                        ChatRoomBtnLoadMoreUI btnLoadMoreUI = btnLoadMoreUIData.findCallBack<ChatRoomBtnLoadMoreUI>();
-                        if (btnLoadMoreUI != null)
-                        {
-                            btnLoadMoreUI.transform.SetSiblingIndex(3);
-                        }
-                        else
-                        {
-                            Debug.LogError("btnLoadMoreUI null");
-                        }
-                    }
-                    else
-                    {
-                        Debug.LogError("btnLoadMoreUIData null");
-                    }
-                }
-                // chatMessageMenu
-                {
-                    ChatMessageMenuUI.UIData menuUIData = this.data.chatMessageMenu.v;
-                    if (menuUIData != null)
-                    {
-                        ChatMessageMenuUI menuUI = menuUIData.findCallBack<ChatMessageMenuUI>();
-                        if (menuUI != null)
-                        {
-                            menuUI.transform.SetSiblingIndex(4);
-                        }
-                        else
-                        {
-                            Debug.LogError("menuUI null");
-                        }
-                    }
-                    else
-                    {
-                        Debug.LogError("menuUIData null");
-                    }
-                }
+                UIRectTransform.SetSiblingIndex(this.data.chatRoomAdapter.v, 0);
+                UIRectTransform.SetSiblingIndex(this.data.topicUI.v, 2);
+                UIRectTransform.SetSiblingIndex(this.data.btnLoadMore.v, 3);
+                UIRectTransform.SetSiblingIndex(this.data.chatMessageMenu.v, 4);
                 // UI
                 {
                     UIRectTransform.SetActive(this.data.topicUI.v, this.data.needHeader.v);

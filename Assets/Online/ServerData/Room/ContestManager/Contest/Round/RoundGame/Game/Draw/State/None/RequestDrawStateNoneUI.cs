@@ -93,7 +93,7 @@ public class RequestDrawStateNoneUI : UIBehavior<RequestDrawStateNoneUI.UIData>
 					}
 				}
 			} else {
-				Debug.LogError ("data null");
+				// Debug.LogError ("data null");
 			}
 		}
 	}

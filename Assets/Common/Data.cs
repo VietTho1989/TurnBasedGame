@@ -282,14 +282,46 @@ public abstract class Data : AddCallBackInterface
 		return default(T);
 	}
 
-	#region get information
+    public static Transform FindTransform(Data data)
+    {
+        Transform ret = null;
+        {
+            if (data != null)
+            {
+                for (int i = data.callBacks.Count - 1; i >= 0; i--)
+                {
+                    ValueChangeCallBack callBack = data.callBacks[i];
+                    if (typeof(HaveTransformInterface).IsAssignableFrom(callBack.GetType()))
+                    {
+                        HaveTransformInterface haveTransformInterface = (HaveTransformInterface)callBack;
+                        if (haveTransformInterface.getData() == data)
+                        {
+                            ret = haveTransformInterface.getTransform();
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("data null");
+            }
+        }
+        if (ret == null)
+        {
+            Debug.LogError("find transform null: " + data);
+        }
+        return ret;
+    }
 
-	#region serch information
+    #region get information
 
-	/// <summary>
-	/// Search inform.
-	/// </summary>
-	public struct SI
+    #region serch information
+
+    /// <summary>
+    /// Search inform.
+    /// </summary>
+    public struct SI
 	{
 		public uint i;
 		public byte n;

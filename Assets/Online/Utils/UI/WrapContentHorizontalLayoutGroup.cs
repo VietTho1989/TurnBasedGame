@@ -65,8 +65,9 @@ public class WrapContentHorizontalLayoutGroup : WrapContent
 	{
 		// Debug.LogError ("makeCenterInParentVertical: " + this);
 		if (rectTransform != null) {
-			rectTransform.localPosition = new Vector3 (rectTransform.localPosition.x / 2, rectTransform.rect.height, rectTransform.localPosition.z);
-		} else {
+            // rectTransform.localPosition = new Vector3 (rectTransform.localPosition.x / 2, rectTransform.rect.height, rectTransform.localPosition.z);
+            rectTransform.localPosition = new Vector3(rectTransform.rect.width / 2, rectTransform.localPosition.y, rectTransform.localPosition.z);
+        } else {
 			Debug.LogError ("rectTransform null: " + this);
 		}
 	}

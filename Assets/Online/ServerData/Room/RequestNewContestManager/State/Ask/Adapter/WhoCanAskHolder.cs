@@ -79,49 +79,71 @@ namespace GameManager.ContestManager
 		public override void refresh ()
 		{
 			base.refresh ();
-			if (this.data != null) {
-				Human human = this.data.human.v.data;
-				if (human != null) {
-					// tvName
-					{
-						if (tvName != null) {
-							tvName.text = txtName.get ("Name") + ": " + human.getPlayerName ();
-						} else {
-							Debug.LogError ("tvName null: " + this);
-						}
-					}
-					// tvAnswer
-					{
-						if (tvAnswer != null) {
-							bool alreadyAccept = false;
-							{
-								RequestNewContestManagerStateAsk requestNewContestManagerStateAsk = human.findDataInParent<RequestNewContestManagerStateAsk> ();
-								if (requestNewContestManagerStateAsk != null) {
-									alreadyAccept = requestNewContestManagerStateAsk.accepts.vs.Contains (human.playerId.v);
-								} else {
-									Debug.LogError ("requestNewContestManagerStateAsk null: " + this);
-								}
-							}
-							tvAnswer.text = alreadyAccept ? txtAlreadyAccept.get ("Already Accept") : txtNotAccept.get ("Not Accept");
-						} else {
-							Debug.LogError ("tvAnswer null: " + this);
-						}
-					}
-					// avatar
-					{
-						AccountAvatarUI.UIData avatar = this.data.avatar.v;
-						if (avatar != null) {
-							avatar.account.v = new ReferenceData<Account> (human.account.v);
-						} else {
-							Debug.LogError ("avatar null: " + this);
-						}
-					}
-				} else {
-					Debug.LogError ("human null: " + this);
-				}
-			} else {
-				// Debug.LogError ("data null: " + this);
-			}
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
+                    Human human = this.data.human.v.data;
+                    if (human != null)
+                    {
+                        // tvName
+                        {
+                            if (tvName != null)
+                            {
+                                tvName.text = txtName.get("Name") + ": " + human.getPlayerName();
+                            }
+                            else
+                            {
+                                Debug.LogError("tvName null: " + this);
+                            }
+                        }
+                        // tvAnswer
+                        {
+                            if (tvAnswer != null)
+                            {
+                                bool alreadyAccept = false;
+                                {
+                                    RequestNewContestManagerStateAsk requestNewContestManagerStateAsk = human.findDataInParent<RequestNewContestManagerStateAsk>();
+                                    if (requestNewContestManagerStateAsk != null)
+                                    {
+                                        alreadyAccept = requestNewContestManagerStateAsk.accepts.vs.Contains(human.playerId.v);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("requestNewContestManagerStateAsk null: " + this);
+                                    }
+                                }
+                                tvAnswer.text = alreadyAccept ? txtAlreadyAccept.get("Already Accept") : txtNotAccept.get("Not Accept");
+                            }
+                            else
+                            {
+                                Debug.LogError("tvAnswer null: " + this);
+                            }
+                        }
+                        // avatar
+                        {
+                            AccountAvatarUI.UIData avatar = this.data.avatar.v;
+                            if (avatar != null)
+                            {
+                                avatar.account.v = new ReferenceData<Account>(human.account.v);
+                            }
+                            else
+                            {
+                                Debug.LogError("avatar null: " + this);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("human null: " + this);
+                    }
+                }
+                else
+                {
+                    // Debug.LogError ("data null: " + this);
+                }
+            }
 		}
 
 		#endregion

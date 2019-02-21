@@ -114,9 +114,18 @@ public abstract class UIBehavior<K> : GameBehavior<K>, TrashMan.DespawnInterface
 
     #endregion
 
+    #region haveTransformInterface
+
     public Transform getTransform()
     {
         return this.transform;
     }
+
+    public Data getData()
+    {
+        return this.data;
+    }
+
+    #endregion
 
 }

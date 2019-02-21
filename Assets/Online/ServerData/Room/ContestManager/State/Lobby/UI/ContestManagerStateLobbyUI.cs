@@ -310,34 +310,34 @@ namespace GameManager.Match
 					} else {
 						Debug.LogError ("lobby null: " + this);
 					}
-				} else {
+                    // setting sibling index
+                    {
+                        UIRectTransform.SetSiblingIndex(this.data.contentFactory.v, 0);
+                        UIRectTransform.SetSiblingIndex(this.data.roomSetting.v, 1);
+                    }
+                    // siblingIndex
+                    {
+                        if (editLobbyPlayerContainer != null)
+                        {
+                            editLobbyPlayerContainer.SetAsLastSibling();
+                        }
+                        else
+                        {
+                            Debug.LogError("editLobbyPlayerContainer null");
+                        }
+                        if (editPostureGameDataUIContainer != null)
+                        {
+                            editPostureGameDataUIContainer.SetAsLastSibling();
+                        }
+                        else
+                        {
+                            Debug.LogError("editPostureGameDataUIContainer null");
+                        }
+                    }
+                } else {
 					// Debug.LogError ("data null: " + this);
 				}
 			}
-            // setting sibling index
-            {
-                UIRectTransform.SetSiblingIndex(this.data.contentFactory.v, 0);
-                UIRectTransform.SetSiblingIndex(this.data.roomSetting.v, 1);
-            }
-            // siblingIndex
-            {
-                if (editLobbyPlayerContainer != null)
-                {
-                    editLobbyPlayerContainer.SetAsLastSibling();
-                }
-                else
-                {
-                    Debug.LogError("editLobbyPlayerContainer null");
-                }
-                if (editPostureGameDataUIContainer != null)
-                {
-                    editPostureGameDataUIContainer.SetAsLastSibling();
-                }
-                else
-                {
-                    Debug.LogError("editPostureGameDataUIContainer null");
-                }
-            }
         }
 
 		public override bool isShouldDisableUpdate ()

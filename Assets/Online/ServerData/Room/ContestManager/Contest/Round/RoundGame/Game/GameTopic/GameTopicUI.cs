@@ -46,10 +46,10 @@ public class GameTopicUI : UIBehavior<GameTopicUI.UIData>
 				if (gameTopic != null) {
 
 				} else {
-					Debug.LogError ("gameTopic null: " + this);
+					// Debug.LogError ("gameTopic null: " + this);
 				}
 			} else {
-				Debug.LogError ("data null: " + this);
+				// Debug.LogError ("data null: " + this);
 			}
 		}
 	}

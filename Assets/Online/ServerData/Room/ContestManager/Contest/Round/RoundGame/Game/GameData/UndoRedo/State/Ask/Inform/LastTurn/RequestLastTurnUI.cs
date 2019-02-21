@@ -7,7 +7,7 @@ using Foundation.Tasks;
 
 namespace UndoRedo
 {
-	public class RequestLastTurnUI : UIBehavior<RequestLastTurnUI.UIData>
+	public class RequestLastTurnUI : UIBehavior<RequestLastTurnUI.UIData>, HaveTransformData
 	{
 		
 		#region UIData
@@ -60,41 +60,57 @@ namespace UndoRedo
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage ();
+        public static readonly TxtLanguage txtUndo = new TxtLanguage();
+        public static readonly TxtLanguage txtCancelUndo = new TxtLanguage();
+        public static readonly TxtLanguage txtUndoing = new TxtLanguage();
+        public static readonly TxtLanguage txtCannotUndo = new TxtLanguage();
 
-		public static readonly TxtLanguage txtUndo = new TxtLanguage ();
-		public static readonly TxtLanguage txtCancelUndo = new TxtLanguage ();
-		public static readonly TxtLanguage txtUndoing = new TxtLanguage();
-		public static readonly TxtLanguage txtCannotUndo = new TxtLanguage();
+        public static readonly TxtLanguage txtRedo = new TxtLanguage();
+        public static readonly TxtLanguage txtCancelRedo = new TxtLanguage();
+        public static readonly TxtLanguage txtRedoing = new TxtLanguage();
+        public static readonly TxtLanguage txtCannotRedo = new TxtLanguage();
 
-		public static readonly TxtLanguage txtRedo = new TxtLanguage ();
-		public static readonly TxtLanguage txtCancelRedo = new TxtLanguage();
-		public static readonly TxtLanguage txtRedoing = new TxtLanguage ();
-		public static readonly TxtLanguage txtCannotRedo = new TxtLanguage();
+        static RequestLastTurnUI()
+        {
+            txtTitle.add(Language.Type.vi, "Lượt Trước");
 
-		static RequestLastTurnUI()
-		{
-			txtTitle.add (Language.Type.vi, "Lượt Trước");
+            txtUndo.add(Language.Type.vi, "Đi Lại");
+            txtCancelUndo.add(Language.Type.vi, "Huỷ đi lại?");
+            txtUndoing.add(Language.Type.vi, "Đang đi lại");
+            txtCannotUndo.add(Language.Type.vi, "Không thể đi lại");
 
-			txtUndo.add (Language.Type.vi, "Đi Lại");
-			txtCancelUndo.add (Language.Type.vi, "Huỷ đi lại?");
-			txtUndoing.add (Language.Type.vi, "Đang đi lại");
-			txtCannotUndo.add (Language.Type.vi, "Không thể đi lại");
+            txtRedo.add(Language.Type.vi, "Đi Tiếp");
+            txtCancelRedo.add(Language.Type.vi, "Huỷ đi tiếp?");
+            txtRedoing.add(Language.Type.vi, "Đang đi tiếp");
+            txtCannotRedo.add(Language.Type.vi, "Không thể đi tiếp");
+        }
 
-			txtRedo.add (Language.Type.vi, "Đi Tiếp");
-			txtCancelRedo.add (Language.Type.vi, "Huỷ đi tiếp?");
-			txtRedoing.add (Language.Type.vi, "Đang đi tiếp");
-			txtCannotRedo.add (Language.Type.vi, "Không thể đi tiếp");
-		}
+        #endregion
 
-		#endregion
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
 
 		public Button btnUndo;
 		public Text tvUndo;
@@ -307,6 +323,7 @@ namespace UndoRedo
 					Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

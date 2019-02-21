@@ -6,4 +6,6 @@ public interface HaveTransformInterface
 
     Transform getTransform();
 
+    Data getData();
+
 }

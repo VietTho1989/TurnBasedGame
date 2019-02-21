@@ -7,7 +7,7 @@ using Foundation.Tasks;
 
 namespace UndoRedo
 {
-	public class AskUI : UIBehavior<AskUI.UIData>
+	public class AskUI : UIBehavior<AskUI.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -17,7 +17,7 @@ namespace UndoRedo
 
 			public VP<ReferenceData<Ask>> ask;
 
-			public LP<AskHumanUI.UIData> whoCanAsks;
+			public VP<WhoCanAskAdapter.UIData> whoCanAskAdapter;
 
 			#region state
 
@@ -39,14 +39,14 @@ namespace UndoRedo
 			public enum Property
 			{
 				ask,
-				whoCanAsks,
+				whoCanAskAdapter,
 				state
 			}
 
 			public UIData() : base()
 			{
 				this.ask = new VP<ReferenceData<Ask>>(this, (byte)Property.ask, new ReferenceData<Ask>(null));
-				this.whoCanAsks = new LP<AskHumanUI.UIData>(this, (byte)Property.whoCanAsks);
+                this.whoCanAskAdapter = new VP<WhoCanAskAdapter.UIData>(this, (byte)Property.whoCanAskAdapter, new WhoCanAskAdapter.UIData());
 				this.state = new VP<State>(this, (byte)Property.state, State.None);
 			}
 
@@ -64,55 +64,88 @@ namespace UndoRedo
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public static readonly TxtLanguage txtLastTurn = new TxtLanguage();
+        public static readonly TxtLanguage txtLastYourTurn = new TxtLanguage();
 
-		public static readonly TxtLanguage txtLastTurn = new TxtLanguage();
-		public static readonly TxtLanguage txtLastYourTurn = new TxtLanguage();
+        public static readonly TxtLanguage txtAlreadyAccept = new TxtLanguage();
+        public static readonly TxtLanguage txtAccept = new TxtLanguage();
+        public static readonly TxtLanguage txtAlreadyCancel = new TxtLanguage();
+        public static readonly TxtLanguage txtCancel = new TxtLanguage();
 
-		public static readonly TxtLanguage txtAlreadyAccept = new TxtLanguage ();
-		public static readonly TxtLanguage txtAccept = new TxtLanguage();
-		public static readonly TxtLanguage txtAlreadyCancel = new TxtLanguage();
-		public static readonly TxtLanguage txtCancel = new TxtLanguage();
+        public static readonly TxtLanguage txtCannotAccept = new TxtLanguage();
+        public static readonly TxtLanguage txtCannotCancel = new TxtLanguage();
 
-		public static readonly TxtLanguage txtCannotAccept = new TxtLanguage ();
-		public static readonly TxtLanguage txtCannotCancel = new TxtLanguage ();
+        public static readonly TxtLanguage txtCancelAccept = new TxtLanguage();
+        public static readonly TxtLanguage txtCancelCancel = new TxtLanguage();
 
-		public static readonly TxtLanguage txtCancelAccept = new TxtLanguage ();
-		public static readonly TxtLanguage txtCancelCancel = new TxtLanguage ();
+        public static readonly TxtLanguage txtAccepting = new TxtLanguage();
+        public static readonly TxtLanguage txtCancelling = new TxtLanguage();
 
-		public static readonly TxtLanguage txtAccepting = new TxtLanguage ();
-		public static readonly TxtLanguage txtCancelling = new TxtLanguage();
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        static AskUI()
+        {
+            // txt
+            {
+                txtLastTurn.add(Language.Type.vi, "Lượt trước");
+                txtLastYourTurn.add(Language.Type.vi, "Lượt trước của bạn");
 
-		static AskUI()
-		{
-			txtLastTurn.add (Language.Type.vi, "Lượt trước");
-			txtLastYourTurn.add (Language.Type.vi, "Lượt trước của bạn");
+                txtAlreadyAccept.add(Language.Type.vi, "Đã chấp nhận");
+                txtAccept.add(Language.Type.vi, "Chấp Nhận");
+                txtAlreadyCancel.add(Language.Type.vi, "Đã huỷ bỏ");
+                txtCancel.add(Language.Type.vi, "Huỷ Bỏ");
 
-			txtAlreadyAccept.add (Language.Type.vi, "Đã chấp nhận");
-			txtAccept.add (Language.Type.vi, "Chấp Nhận");
-			txtAlreadyCancel.add (Language.Type.vi, "Đã huỷ bỏ");
-			txtCancel.add (Language.Type.vi, "Huỷ Bỏ");
+                txtCannotAccept.add(Language.Type.vi, "Không thể chấp nhận");
+                txtCannotCancel.add(Language.Type.vi, "Không thể huỷ bỏ");
 
-			txtCannotAccept.add (Language.Type.vi, "Không thể chấp nhận");
-			txtCannotCancel.add (Language.Type.vi, "Không thể huỷ bỏ");
+                txtCancelAccept.add(Language.Type.vi, "Huỷ chấp nhận?");
+                txtCancelCancel.add(Language.Type.vi, "Huỷ huỷ bỏ");
 
-			txtCancelAccept.add (Language.Type.vi, "Huỷ chấp nhận?");
-			txtCancelCancel.add (Language.Type.vi, "Huỷ huỷ bỏ");
+                txtAccepting.add(Language.Type.vi, "Đang chấp nhận...");
+                txtCancelling.add(Language.Type.vi, "Đang huỷ bỏ...");
 
-			txtAccepting.add (Language.Type.vi, "Đang chấp nhận...");
-			txtCancelling.add (Language.Type.vi, "Đang huỷ bỏ...");
+                txtTitle.add(Language.Type.vi, "Trả Lời Yêu Cầu Undo/Redo");
+            }
+            // rect
+            {
+                // whoCanAskAdapterRect
+                {
+                    // anchoredPosition: (0.0, -60.0); anchorMin: (0.0, 1.0); anchorMax: (1.0, 1.0); pivot: (0.5, 1.0);
+                    // offsetMin: (0.0, -120.0); offsetMax: (0.0, -60.0); sizeDelta: (0.0, 60.0);
+                    whoCanAskAdapterRect.anchoredPosition = new Vector3(0.0f, -60.0f, 0.0f);
+                    whoCanAskAdapterRect.anchorMin = new Vector2(0.0f, 1.0f);
+                    whoCanAskAdapterRect.anchorMax = new Vector2(1.0f, 1.0f);
+                    whoCanAskAdapterRect.offsetMin = new Vector2(0.0f, -120.0f);
+                    whoCanAskAdapterRect.offsetMax = new Vector2(0.0f, -60.0f);
+                    whoCanAskAdapterRect.sizeDelta = new Vector2(0.0f, 60.0f);
+                }
+            }
+        }
 
-			txtTitle.add (Language.Type.vi, "Hỏi");
-		}
+        #endregion
 
-		#endregion
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
 
 		public Button btnAccept;
 		public Text tvAccept;
@@ -120,7 +153,7 @@ namespace UndoRedo
 		public Button btnCancel;
 		public Text tvCancel;
 
-		public GameObject answerContainer;
+        public Text tvCannotAnswer;
 
 		public Text tvRequestInform;
 
@@ -160,55 +193,34 @@ namespace UndoRedo
 								Debug.LogError ("tvRequestInform null: " + this);
 							}
 						}
-						// whoCanAsks
-						{
-							// get old
-							List<AskHumanUI.UIData> oldAskHumans = new List<AskHumanUI.UIData> ();
-							{
-								oldAskHumans.AddRange (this.data.whoCanAsks.vs);
-							}
-							// Update
-							{
-								for (int i = 0; i < ask.whoCanAsks.vs.Count; i++) {
-									Human human = ask.whoCanAsks.vs [i];
-									// Find UI
-									AskHumanUI.UIData askHumanUIData = null;
-									{
-										// Find old
-										if (oldAskHumans.Count > 0) {
-											askHumanUIData = oldAskHumans [0];
-										}
-										// Make new
-										if (askHumanUIData == null) {
-											askHumanUIData = new AskHumanUI.UIData ();
-											{
-												askHumanUIData.uid = this.data.whoCanAsks.makeId ();
-											}
-											this.data.whoCanAsks.add (askHumanUIData);
-										} else {
-											oldAskHumans.Remove (askHumanUIData);
-										}
-									}
-									// Update Property
-									{
-										askHumanUIData.human.v = new ReferenceData<Human> (human);
-									}
-								}
-							}
-							// remove old
-							foreach (AskHumanUI.UIData oldAskHuman in oldAskHumans) {
-								this.data.whoCanAsks.remove (oldAskHuman);
-							}
-						}
+                        // whoCanAskAdapter
+                        {
+                            WhoCanAskAdapter.UIData whoCanAskAdapter = this.data.whoCanAskAdapter.v;
+                            if (whoCanAskAdapter != null)
+                            {
+                                whoCanAskAdapter.ask.v = new ReferenceData<Ask>(ask);
+                            }
+                            else
+                            {
+                                Debug.LogError("whoCanAskAdapter null");
+                            }
+                        }
 						// btnAccept, btnCancel
 						{
 							if (UndoRedoRequest.getWhoCanAnswer (ask).Contains (Server.getProfileUserId (ask))) {
-								// answerContainer
-								if (answerContainer != null) {
-									answerContainer.SetActive (true);
-								} else {
-									Debug.LogError ("answerContainer null: " + this);
-								}
+                                // answerContainer
+                                {
+                                    if(btnAccept!=null && btnCancel != null && tvCannotAnswer!=null)
+                                    {
+                                        btnAccept.gameObject.SetActive(true);
+                                        btnCancel.gameObject.SetActive(true);
+                                        tvCannotAnswer.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("btnAccept, btnCancel, tvCannotAnswer null");
+                                    }
+                                }
 								// Task
 								{
 									switch (this.data.state.v) {
@@ -358,12 +370,19 @@ namespace UndoRedo
 									}
 								}
 							} else {
-								// answerContainer
-								if (answerContainer != null) {
-									answerContainer.SetActive (false);
-								} else {
-									Debug.LogError ("answerContainer null: " + this);
-								}
+                                // answerContainer
+                                {
+                                    if (btnAccept != null && btnCancel != null && tvCannotAnswer!=null)
+                                    {
+                                        btnAccept.gameObject.SetActive(false);
+                                        btnCancel.gameObject.SetActive(false);
+                                        tvCannotAnswer.gameObject.SetActive(true);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("btnAccept, btnCancel null");
+                                    }
+                                }
 								destroyRoutine (wait);
 								this.data.state.v = UIData.State.None;
 							}
@@ -374,7 +393,7 @@ namespace UndoRedo
 					// txt
 					{
 						if (lbTitle != null) {
-							lbTitle.text = txtTitle.get ("Ask");
+							lbTitle.text = txtTitle.get ("Answer Undo/Redo Request");
 						} else {
 							Debug.LogError ("lbTitle null: " + this);
 						}
@@ -383,6 +402,7 @@ namespace UndoRedo
 					Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()
@@ -399,7 +419,7 @@ namespace UndoRedo
 		public IEnumerator TaskWait()
 		{
 			if (this.data != null) {
-				yield return new Wait (60f);
+				yield return new Wait (Global.WaitSendTime);
 				this.data.state.v = UIData.State.None;
 				Debug.LogError ("request error: " + this);
 			} else {
@@ -416,12 +436,12 @@ namespace UndoRedo
 			return ret;
 		}
 
-		#endregion
+        #endregion
 
-		#region implement callBacks
+        #region implement callBacks
 
-		public AskHumanUI askHumanPrefab;
-		public Transform askHumanContainer;
+        public WhoCanAskAdapter whoCanAskAdapterPrefab;
+        private static readonly UIRectTransform whoCanAskAdapterRect = new UIRectTransform();
 
 		private Server server = null;
 
@@ -436,7 +456,7 @@ namespace UndoRedo
 				// Child
 				{
 					uiData.ask.allAddCallBack (this);
-					uiData.whoCanAsks.allAddCallBack (this);
+					uiData.whoCanAskAdapter.allAddCallBack (this);
 				}
 				dirty = true;
 				return;
@@ -484,12 +504,12 @@ namespace UndoRedo
 						return;
 					}
 				}
-				// whoCanAsk
-				if (data is AskHumanUI.UIData) {
-					AskHumanUI.UIData askHumanUIData = data as AskHumanUI.UIData;
+				// whoCanAskAdapter
+				if (data is WhoCanAskAdapter.UIData) {
+					WhoCanAskAdapter.UIData whoCanAskAdapterUIData = data as WhoCanAskAdapter.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (askHumanUIData, askHumanPrefab, askHumanContainer);
+						UIUtils.Instantiate (whoCanAskAdapterUIData, whoCanAskAdapterPrefab, this.transform, whoCanAskAdapterRect);
 					}
 					dirty = true;
 					return;
@@ -507,7 +527,7 @@ namespace UndoRedo
 				// Child
 				{
 					uiData.ask.allRemoveCallBack (this);
-					uiData.whoCanAsks.allRemoveCallBack (this);
+					uiData.whoCanAskAdapter.allRemoveCallBack (this);
 				}
 				this.setDataNull (uiData);
 				return;
@@ -550,12 +570,12 @@ namespace UndoRedo
 						return;
 					}
 				}
-				// whoCanAsk
-				if (data is AskHumanUI.UIData) {
-					AskHumanUI.UIData askHumanUIData = data as AskHumanUI.UIData;
+				// whoCanAskAdapter
+				if (data is WhoCanAskAdapter.UIData) {
+					WhoCanAskAdapter.UIData whoCanAskAdapterUIData = data as WhoCanAskAdapter.UIData;
 					// UI
 					{
-						askHumanUIData.removeCallBackAndDestroy (typeof(AskHumanUI));
+						whoCanAskAdapterUIData.removeCallBackAndDestroy (typeof(WhoCanAskAdapter));
 					}
 					return;
 				}
@@ -576,7 +596,7 @@ namespace UndoRedo
 						dirty = true;
 					}
 					break;
-				case UIData.Property.whoCanAsks:
+				case UIData.Property.whoCanAskAdapter:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
 						dirty = true;
@@ -654,8 +674,8 @@ namespace UndoRedo
 						return;
 					}
 				}
-				// whoCanAsk
-				if (wrapProperty.p is AskHumanUI.UIData) {
+				// whoCanAskAdapter
+				if (wrapProperty.p is WhoCanAskAdapter.UIData) {
 					return;
 				}
 			}
