@@ -5,20 +5,9 @@ using System.Collections.Generic;
 
 public class RequestDrawIdentity : DataIdentity
 {
+
 	#region SyncVar
 
-	[SyncVar(hook="onChangeTime")]
-	public long time;
-
-	public void onChangeTime(long newTime)
-	{
-		this.time = newTime;
-		if (this.netData.clientData != null) {
-			this.netData.clientData.time.v = newTime;
-		} else {
-			// Debug.Log ("clientData null: " + this);
-		}
-	}
 
 	#endregion
 
@@ -34,7 +23,7 @@ public class RequestDrawIdentity : DataIdentity
 	public override void refreshClientData ()
 	{
 		if (this.netData.clientData != null) {
-			this.onChangeTime (this.time);
+			
 		} else {
 			// Debug.Log ("clientData null");
 		}
@@ -44,7 +33,7 @@ public class RequestDrawIdentity : DataIdentity
 	{
 		int ret = GetDataSize (this.netId);
 		{
-			ret += GetDataSize (this.time);
+			
 		}
 		return ret;
 	}
@@ -62,7 +51,6 @@ public class RequestDrawIdentity : DataIdentity
 			// Set property
 			{
 				this.serialize (this.searchInfor, requestDraw.makeSearchInforms ());
-				this.time = requestDraw.time.v;
 			}
 			this.getDataSize ();
 			// Observer
@@ -106,9 +94,6 @@ public class RequestDrawIdentity : DataIdentity
 		if (wrapProperty.p is RequestDraw) {
 			switch ((RequestDraw.Property)wrapProperty.n) {
 			case RequestDraw.Property.state:
-				break;
-			case RequestDraw.Property.time:
-				this.time = (long)wrapProperty.getValue ();
 				break;
 			default:
 				Debug.LogError ("Unknown wrapProperty: " + wrapProperty + "; " + this);

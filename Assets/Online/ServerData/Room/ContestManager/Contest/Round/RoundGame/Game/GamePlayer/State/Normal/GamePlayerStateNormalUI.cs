@@ -135,19 +135,19 @@ public class GamePlayerStateNormalUI : UIBehavior<GamePlayerStateNormalUI.UIData
 								switch (this.data.state.v) {
 								case UIData.State.None:
 									{
-										btnSurrender.enabled = true;
+										btnSurrender.interactable = true;
 										tvSurrender.text = txtSurrender.get ("Surrender");
 									}
 									break;
 								case UIData.State.Request:
 									{
-										btnSurrender.enabled = true;
+										btnSurrender.interactable = true;
 										tvSurrender.text = txtCancelSurrender.get ("Cancel surrender?");
 									}
 									break;
 								case UIData.State.Wait:
 									{
-										btnSurrender.enabled = false;
+										btnSurrender.interactable = false;
 										tvSurrender.text = txtSurrenderring.get ("Surrendering");
 									}
 									break;

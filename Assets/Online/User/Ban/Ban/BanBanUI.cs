@@ -158,9 +158,9 @@ public class BanBanUI : UIBehavior<BanBanUI.UIData>
 					{
 						if (btnUnBan != null) {
 							if (canUnBan) {
-								btnUnBan.enabled = (this.data.state.v == UIData.State.None);
+								btnUnBan.interactable = (this.data.state.v == UIData.State.None);
 							} else {
-								btnUnBan.enabled = false;
+								btnUnBan.interactable = false;
 							}
 						} else {
 							Debug.LogError ("btnUnBan null: " + this);

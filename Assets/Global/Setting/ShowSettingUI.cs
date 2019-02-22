@@ -295,12 +295,12 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
                                         {
                                             // apply
                                             {
-                                                btnApply.enabled = true;
+                                                btnApply.interactable = true;
                                                 tvApply.text = txtApply.get("Apply");
                                             }
                                             // reset
                                             {
-                                                btnReset.enabled = true;
+                                                btnReset.interactable = true;
                                                 tvReset.text = txtReset.get("Reset");
                                             }
                                         }
@@ -308,12 +308,12 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
                                         {
                                             // apply
                                             {
-                                                btnApply.enabled = false;
+                                                btnApply.interactable = false;
                                                 tvApply.text = txtCannotApply.get("cannot apply");
                                             }
                                             // reset
                                             {
-                                                btnReset.enabled = false;
+                                                btnReset.interactable = false;
                                                 tvReset.text = txtCannotReset.get("Don't need reset");
                                             }
                                         }

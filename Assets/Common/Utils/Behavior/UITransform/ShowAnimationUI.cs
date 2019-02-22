@@ -21,7 +21,7 @@ public class ShowAnimationUI : UIBehavior<ShowAnimationUI.UIData>
 
     }
 
-    public const float ShowDuration = 1f;
+    public const float ShowDuration = 0.6f;
 
     public class Show : State
     {

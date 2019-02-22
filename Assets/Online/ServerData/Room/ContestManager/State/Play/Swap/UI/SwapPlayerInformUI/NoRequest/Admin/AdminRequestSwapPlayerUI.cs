@@ -108,8 +108,8 @@ namespace GameManager.Match.Swap
 											}
 											// btn
 											{
-												btnHuman.enabled = false;
-												btnComputer.enabled = true;
+												btnHuman.interactable = false;
+												btnComputer.interactable = true;
 											}
 										}
 										break;
@@ -122,8 +122,8 @@ namespace GameManager.Match.Swap
 											}
 											// btn
 											{
-												btnHuman.enabled = true;
-												btnComputer.enabled = false;
+												btnHuman.interactable = true;
+												btnComputer.interactable = false;
 											}
 										}
 										break;

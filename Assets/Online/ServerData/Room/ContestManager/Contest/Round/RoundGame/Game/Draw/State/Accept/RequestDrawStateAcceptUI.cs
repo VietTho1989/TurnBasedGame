@@ -2,371 +2,922 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using AdvancedCoroutines;
+using Foundation.Tasks;
+using RequestDrawAsk;
 
-public class RequestDrawStateAcceptUI : UIBehavior<RequestDrawStateAcceptUI.UIData>
+public class RequestDrawStateAcceptUI : UIBehavior<RequestDrawStateAcceptUI.UIData>, HaveTransformData
 {
 
-	#region UIData
+    #region UIData
 
-	public class UIData : RequestDrawUI.UIData.Sub
-	{
-		public VP<ReferenceData<RequestDrawStateAccept>> requestDrawStateAccept;
+    public class UIData : RequestDrawUI.UIData.Sub
+    {
 
-		public override RequestDraw.State.Type getType ()
-		{
-			return RequestDraw.State.Type.Accept;
-		}
+        public VP<ReferenceData<RequestDrawStateAccept>> requestDrawStateAccept;
 
-		#region Constructor
+        #region state
 
-		public enum Property
-		{
-			requestDrawStateAccept
-		}
+        public enum State
+        {
+            None,
+            RequestAccept,
+            WaitAccept,
+            RequestRefuse,
+            WaitRefuse
+        }
 
-		public UIData() : base()
-		{
-			this.requestDrawStateAccept = new VP<ReferenceData<RequestDrawStateAccept>>(this, (byte)Property.requestDrawStateAccept, new ReferenceData<RequestDrawStateAccept>(null));
-		}
+        public VP<State> state;
 
-		#endregion
-	}
+        #endregion
 
-	#endregion
+        public VP<WhoCanAskAdapter.UIData> whoCanAskAdapter;
 
-	#region Refresh
+        #region Constructor
 
-	#region txt
+        public enum Property
+        {
+            requestDrawStateAccept,
+            state,
+            whoCanAskAdapter
+        }
 
-	public Text tvOK;
-	public static readonly TxtLanguage txtOK = new TxtLanguage ();
+        public UIData() : base()
+        {
+            this.requestDrawStateAccept = new VP<ReferenceData<RequestDrawStateAccept>>(this, (byte)Property.requestDrawStateAccept, new ReferenceData<RequestDrawStateAccept>(null));
+            this.state = new VP<State>(this, (byte)Property.state, State.None);
+            this.whoCanAskAdapter = new VP<WhoCanAskAdapter.UIData>(this, (byte)Property.whoCanAskAdapter, new WhoCanAskAdapter.UIData());
+        }
 
-	public Text tvCancel;
-	public static readonly TxtLanguage txtCancel = new TxtLanguage ();
+        public override RequestDraw.State.Type getType()
+        {
+            return RequestDraw.State.Type.Accept;
+        }
 
-	public static readonly TxtLanguage txtRequestCancelDraw = new TxtLanguage ();
-	public static readonly TxtLanguage txtPlayer = new TxtLanguage();
-	public static readonly TxtLanguage txtAdmin = new TxtLanguage ();
+        #endregion
 
-	static RequestDrawStateAcceptUI()
-	{
-		txtOK.add (Language.Type.vi, "Đồng Ý");
-		txtCancel.add (Language.Type.vi, "Huỷ Bỏ");
+        public void reset()
+        {
+            this.state.v = State.None;
+        }
 
-		txtRequestCancelDraw.add (Language.Type.vi, "yêu cầu huỷ bỏ hoà cờ");
-		txtPlayer.add (Language.Type.vi, "Người chơi");
-		txtAdmin.add (Language.Type.vi, "Admin");
-	}
+    }
 
-	#endregion
+    #endregion
 
-	public Text tvContent;
-	public Image uiButton;
+    #region txt
 
-	public override void refresh ()
-	{
-		if (dirty) {
-			dirty = false;
-			if (this.data != null) {
-				RequestDrawStateAccept requestDrawStateAccept = this.data.requestDrawStateAccept.v.data;
-				if (requestDrawStateAccept != null) {
-					// tvContent
-					{
-						if (tvContent != null) {
-							// find
-							int playerIndex = -1;
-							{
-								// Find accept userId
-								if (requestDrawStateAccept.accepts.vs.Count > 0) {
-									uint accept = requestDrawStateAccept.accepts.vs [0];
-									// Find gamePlayer
-									Game game = requestDrawStateAccept.findDataInParent<Game>();
-									if (game != null) {
-										for (int i = 0; i < game.gamePlayers.vs.Count; i++) {
-											GamePlayer gamePlayer = game.gamePlayers.vs [i];
-											if (gamePlayer.inform.v is Human) {
-												Human human = gamePlayer.inform.v as Human;
-												if (human.playerId.v == accept) {
-													playerIndex = gamePlayer.playerIndex.v;
-													break;
-												}
-											}
-										}
-									} else {
-										Debug.LogError ("duel null");
-									}
-								}
-							}
-							// process
-							{
-								if (playerIndex >= 0) {
-									tvContent.text = txtPlayer.get ("Player") + " " + playerIndex + " " + txtRequestCancelDraw.get ("request cancel draw");
-								} else {
-									tvContent.text = txtAdmin.get ("Admin") + " " + txtRequestCancelDraw.get ("request cancel draw");
-								}
-							}
-						} else {
-							Debug.LogError ("tvContent null");
-						}
-					}
-					// uiButton
-					{
-						if (uiButton != null) {
-							uint userId = Server.getProfileUserId (requestDrawStateAccept);
-							if (requestDrawStateAccept.isCanAnswer (userId)) {
-								this.uiButton.gameObject.SetActive (true);
-							} else {
-								this.uiButton.gameObject.SetActive (false);
-							}
-						} else {
-							Debug.LogError ("uiButton null");
-						}
-					}
-				} else {
-					Debug.LogError ("requestDrawStateAccept null");
-				}
-				// txt
-				{
-					if (tvOK != null) {
-						tvOK.text = txtOK.get ("OK");
-					} else {
-						Debug.LogError ("tvOK null: " + this);
-					}
-					if (tvCancel != null) {
-						tvCancel.text = txtCancel.get ("Cancel");
-					} else {
-						Debug.LogError ("tvCancel null: " + this);
-					}
-				}
-			} else {
-				Debug.LogError ("data null");
-			}
-		}
-	}
+    public Text lbTitle;
+    private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-	public override bool isShouldDisableUpdate ()
-	{
-		return true;
-	}
+    public Text tvAccept;
+    private static readonly TxtLanguage txtAccept = new TxtLanguage();
+    private static readonly TxtLanguage txtAccepting = new TxtLanguage();
+    private static readonly TxtLanguage txtAlreadyAccept = new TxtLanguage();
 
-	#endregion
+    public Text tvRefuse;
+    private static readonly TxtLanguage txtRefuse = new TxtLanguage();
+    private static readonly TxtLanguage txtRefusing = new TxtLanguage();
+    private static readonly TxtLanguage txtAlreadyRefuse = new TxtLanguage();
 
-	#region implement callBacks
+    public Text tvCannotAnswer;
+    private static readonly TxtLanguage txtCannotAnswer = new TxtLanguage();
 
-	private GameIsPlayingChange<RequestDrawStateAccept> gameIsPlayingChange = new GameIsPlayingChange<RequestDrawStateAccept>();
-	private GameCheckPlayerChange<RequestDrawStateAccept> gameCheckPlayerChange = new GameCheckPlayerChange<RequestDrawStateAccept>();
-	private RoomCheckChangeAdminChange<RequestDrawStateAccept> roomCheckAdminChange = new RoomCheckChangeAdminChange<RequestDrawStateAccept> ();
+    private static readonly TxtLanguage txtRequestError = new TxtLanguage();
 
-	public override void onAddCallBack<T> (T data)
-	{
-		if (data is UIData) {
-			UIData uiData = data as UIData;
-			// Setting
-			Setting.get().addCallBack(this);
-			// Child
-			{
-				uiData.requestDrawStateAccept.allAddCallBack (this);
-			}
-			dirty = true;
-			return;
-		}
-		// Setting
-		if (data is Setting) {
-			dirty = true;
-			return;
-		}
-		// Child
-		{
-			if (data is RequestDrawStateAccept) {
-				RequestDrawStateAccept requestDrawStateAccept = data as RequestDrawStateAccept;
-				// CheckChange
-				{
-					// isPlaying
-					{
-						gameIsPlayingChange.addCallBack (this);
-						gameIsPlayingChange.setData (requestDrawStateAccept);
-					}
-					// gamePlayer
-					{
-						gameCheckPlayerChange.addCallBack (this);
-						gameCheckPlayerChange.setData (requestDrawStateAccept);
-					}
-					// roomCheckAdminChange
-					{
-						roomCheckAdminChange.addCallBack (this);
-						roomCheckAdminChange.setData (requestDrawStateAccept);
-					}
-				}
-				dirty = true;
-				return;
-			}
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+    static RequestDrawStateAcceptUI()
+    {
+        // txt
+        {
+            txtTitle.add(Language.Type.vi, "Đã Chấp Nhận Hoà");
 
-	public override void onRemoveCallBack<T> (T data, bool isHide)
-	{
-		if (data is UIData) {
-			UIData uiData = data as UIData;
-			// Setting
-			Setting.get().removeCallBack(this);
-			// Child
-			{
-				uiData.requestDrawStateAccept.allRemoveCallBack (this);
-			}
-			this.setDataNull (uiData);
-			return;
-		}
-		// Setting
-		if (data is Setting) {
-			return;
-		}
-		// Child
-		{
-			if (data is RequestDrawStateAccept) {
-				// RequestDrawStateAccept requestDrawStateAccept = data as RequestDrawStateAccept;
-				// CheckChange
-				{
-					// isPlaying
-					{
-						gameIsPlayingChange.removeCallBack (this);
-						gameIsPlayingChange.setData (null);
-					}
-					// gamePlayer
-					{
-						gameCheckPlayerChange.removeCallBack (this);
-						gameCheckPlayerChange.setData (null);
-					}
-					// roomCheckAdminChange
-					{
-						roomCheckAdminChange.removeCallBack (this);
-						roomCheckAdminChange.setData (null);
-					}
-				}
-				return;
-			}
-			// CheckChange
-			{
-				if (data is GameIsPlayingChange<RequestDrawStateAccept>) {
-					return;
-				}
-				if (data is GameCheckPlayerChange<RequestDrawStateAccept>) {
-					return;
-				}
-				if (data is RoomCheckChangeAdminChange<RequestDrawStateAccept>) {
-					return;
-				}
-			}
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+            // accept
+            txtAccept.add(Language.Type.vi, "Dừng");
+            txtAccepting.add(Language.Type.vi, "Đang dừng");
+            txtAlreadyAccept.add(Language.Type.vi, "Đã Dừng");
+            // refuse
+            txtRefuse.add(Language.Type.vi, "Từ Chối");
+            txtRefusing.add(Language.Type.vi, "Đang từ chối");
+            txtAlreadyRefuse.add(Language.Type.vi, "Đã Từ Chối");
 
-	public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-	{
-		if (WrapProperty.checkError (wrapProperty)) {
-			return;
-		}
-		if (wrapProperty.p is UIData) {
-			switch ((UIData.Property)wrapProperty.n) {
-			case UIData.Property.requestDrawStateAccept:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			default:
-				Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-				break;
-			}
-			return;
-		}
-		// Setting
-		if (wrapProperty.p is Setting) {
-			switch ((Setting.Property)wrapProperty.n) {
-			case Setting.Property.language:
-				dirty = true;
-				break;
-			case Setting.Property.showLastMove:
-				break;
-			case Setting.Property.viewUrlImage:
-				break;
-			case Setting.Property.animationSetting:
-				break;
-			case Setting.Property.maxThinkCount:
-				break;
-			default:
-				Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-				break;
-			}
-			return;
-		}
-		// Child
-		{
-			if (wrapProperty.p is RequestDrawStateAccept) {
-				switch ((RequestDrawStateAccept.Property)wrapProperty.n) {
-				case RequestDrawStateAccept.Property.accepts:
-					dirty = true;
-					break;
-				case RequestDrawStateAccept.Property.refuses:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// CheckChange
-			{
-				if (wrapProperty.p is GameIsPlayingChange<RequestDrawStateAccept>) {
-					dirty = true;
-					return;
-				}
-				if (wrapProperty.p is GameCheckPlayerChange<RequestDrawStateAccept>) {
-					dirty = true;
-					return;
-				}
-				if (wrapProperty.p is RoomCheckChangeAdminChange<RequestDrawStateAccept>) {
-					dirty = true;
-					return;
-				}
-			}
-		}
-		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-	}
+            txtCannotAnswer.add(Language.Type.vi, "Không có quyền dừng hoà");
+            txtRequestError.add(Language.Type.vi, "Trả lời yêu cầu dừng hoà lỗi");
+        }
+        // rect
+        {
+            // whoCanAskAdapterRect
+            {
+                // anchoredPosition: (0.0, -30.0); anchorMin: (0.0, 1.0); anchorMax: (1.0, 1.0); pivot: (0.5, 1.0);
+                // offsetMin: (0.0, -90.0); offsetMax: (0.0, -30.0); sizeDelta: (0.0, 60.0);
+                whoCanAskAdapterRect.anchoredPosition = new Vector3(0.0f, -30.0f, 0.0f);
+                whoCanAskAdapterRect.anchorMin = new Vector2(0.0f, 1.0f);
+                whoCanAskAdapterRect.anchorMax = new Vector2(1.0f, 1.0f);
+                whoCanAskAdapterRect.pivot = new Vector2(0.5f, 1.0f);
+                whoCanAskAdapterRect.offsetMin = new Vector2(0.0f, -90.0f);
+                whoCanAskAdapterRect.offsetMax = new Vector2(0.0f, -30.0f);
+                whoCanAskAdapterRect.sizeDelta = new Vector2(0.0f, 60.0f);
+            }
+        }
+    }
 
-	#endregion
+    #endregion
 
-	public void onClickBtnOK()
-	{
-		this.answer (RequestDrawStateAccept.Answer.Accept);	
-	}
+    #region TransformData
 
-	public void onClickBtnCancel()
-	{
-		this.answer (RequestDrawStateAccept.Answer.Refuse);
-	}
+    public TransformData transformData = new TransformData();
 
-	private void answer(RequestDrawStateAccept.Answer answer)
-	{
-		if (this.data != null) {
-			if (!GameUI.UIData.IsReplay (this.data)) {
-				RequestDrawStateAccept requestDrawStateAccept = this.data.requestDrawStateAccept.v.data;
-				if (requestDrawStateAccept != null) {
-					uint userId = Server.getProfileUserId (requestDrawStateAccept);
-					if (requestDrawStateAccept.isCanAnswer (userId)) {
-						requestDrawStateAccept.requestAnswer (userId, answer);
-					} else {
-						Debug.LogError ("Cannot answer");
-					}
-				} else {
-					Debug.LogError ("requestDrawStateAccept");
-				}
-			} else {
-				Debug.LogError ("this is replay, cannot answer: " + this);
-			}
-		} else {
-			Debug.LogError ("data null");
-		}
-	}
+    private void updateTransformData()
+    {
+        this.transformData.update(this.transform);
+    }
+
+    public TransformData getTransformData()
+    {
+        return this.transformData;
+    }
+
+    #endregion
+
+    #region Refresh
+
+    public Button btnAccept;
+    public Button btnRefuse;
+
+    public override void refresh()
+    {
+        if (dirty)
+        {
+            dirty = false;
+            if (this.data != null)
+            {
+                RequestDrawStateAccept requestDrawStateAccept = this.data.requestDrawStateAccept.v.data;
+                if (requestDrawStateAccept != null)
+                {
+                    // adapter
+                    {
+                        WhoCanAskAdapter.UIData whoCanAskAdapterUIData = this.data.whoCanAskAdapter.v;
+                        if (whoCanAskAdapterUIData != null)
+                        {
+                            // find requestDraw
+                            RequestDraw requestDraw = requestDrawStateAccept.findDataInParent<RequestDraw>();
+                            whoCanAskAdapterUIData.requestDraw.v = new ReferenceData<RequestDraw>(requestDraw);
+                        }
+                        else
+                        {
+                            Debug.LogError("whoCanAskAdapterUIData null");
+                        }
+                    }
+                    // UI
+                    uint profileId = Server.getProfileUserId(requestDrawStateAccept);
+                    // check can answer
+                    bool canAnswer = false;
+                    {
+                        RequestDraw requestDraw = requestDrawStateAccept.findDataInParent<RequestDraw>();
+                        if (requestDraw != null)
+                        {
+                            if (requestDraw.getWhoCanAsk().Contains(profileId))
+                            {
+                                canAnswer = true;
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("requestDraw null");
+                        }
+                    }
+                    // process
+                    if (canAnswer)
+                    {
+                        // Task
+                        {
+                            switch (this.data.state.v)
+                            {
+                                case UIData.State.None:
+                                    destroyRoutine(wait);
+                                    break;
+                                case UIData.State.RequestAccept:
+                                    {
+                                        destroyRoutine(wait);
+                                        if (!GameUI.UIData.IsReplay(this.data))
+                                        {
+                                            if (requestDrawStateAccept.isCanAnswer(profileId, RequestDrawStateAccept.Answer.Accept))
+                                            {
+                                                if (Server.IsServerOnline(requestDrawStateAccept))
+                                                {
+                                                    requestDrawStateAccept.requestAnswer(profileId, RequestDrawStateAccept.Answer.Accept);
+                                                    this.data.state.v = UIData.State.WaitAccept;
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("server not online");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                this.data.state.v = UIData.State.None;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            this.data.state.v = UIData.State.None;
+                                        }
+                                    }
+                                    break;
+                                case UIData.State.WaitAccept:
+                                    {
+                                        if (Server.IsServerOnline(requestDrawStateAccept))
+                                        {
+                                            startRoutine(ref this.wait, TaskWait());
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("server not online");
+                                            destroyRoutine(wait);
+                                            this.data.state.v = UIData.State.None;
+                                        }
+                                    }
+                                    break;
+                                case UIData.State.RequestRefuse:
+                                    {
+                                        destroyRoutine(wait);
+                                        if (!GameUI.UIData.IsReplay(this.data))
+                                        {
+                                            if (requestDrawStateAccept.isCanAnswer(profileId, RequestDrawStateAccept.Answer.Refuse))
+                                            {
+                                                if (Server.IsServerOnline(requestDrawStateAccept))
+                                                {
+                                                    requestDrawStateAccept.requestAnswer(profileId, RequestDrawStateAccept.Answer.Refuse);
+                                                    this.data.state.v = UIData.State.WaitRefuse;
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("server not online");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                this.data.state.v = UIData.State.None;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            this.data.state.v = UIData.State.None;
+                                        }
+                                    }
+                                    break;
+                                case UIData.State.WaitRefuse:
+                                    {
+                                        if (Server.IsServerOnline(requestDrawStateAccept))
+                                        {
+                                            startRoutine(ref this.wait, TaskWait());
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("server not online");
+                                            destroyRoutine(wait);
+                                            this.data.state.v = UIData.State.None;
+                                        }
+                                    }
+                                    break;
+                                default:
+                                    Debug.LogError("unknown state: " + this.data.state.v);
+                                    break;
+                            }
+                        }
+                        // UI
+                        {
+                            // visibility
+                            {
+                                if (btnAccept != null)
+                                {
+                                    btnAccept.gameObject.SetActive(true);
+                                }
+                                else
+                                {
+                                    Debug.LogError("btnAccept null");
+                                }
+                                if (btnRefuse != null)
+                                {
+                                    btnRefuse.gameObject.SetActive(true);
+                                }
+                                else
+                                {
+                                    Debug.LogError("btnRefuse null");
+                                }
+                                if (tvCannotAnswer != null)
+                                {
+                                    tvCannotAnswer.gameObject.SetActive(false);
+                                }
+                                else
+                                {
+                                    Debug.LogError("tvCannotAnswer null");
+                                }
+                            }
+                            // UI
+                            {
+                                // accept
+                                {
+                                    if (btnAccept != null && tvAccept != null)
+                                    {
+                                        if (!requestDrawStateAccept.accepts.vs.Contains(profileId))
+                                        {
+                                            switch (this.data.state.v)
+                                            {
+                                                case UIData.State.None:
+                                                    {
+                                                        btnAccept.interactable = true;
+                                                        tvAccept.text = txtAccept.get("Stop");
+                                                    }
+                                                    break;
+                                                case UIData.State.RequestAccept:
+                                                    {
+                                                        btnAccept.interactable = true;
+                                                        tvAccept.text = txtAccepting.get("Stopping");
+                                                    }
+                                                    break;
+                                                case UIData.State.WaitAccept:
+                                                    {
+                                                        btnAccept.interactable = false;
+                                                        tvAccept.text = txtAccepting.get("Stopping");
+                                                    }
+                                                    break;
+                                                case UIData.State.RequestRefuse:
+                                                case UIData.State.WaitRefuse:
+                                                    {
+                                                        btnAccept.interactable = false;
+                                                        tvAccept.text = txtAccept.get("Stop");
+                                                    }
+                                                    break;
+                                                default:
+                                                    Debug.LogError("unknown state: " + this.data.state.v);
+                                                    break;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            btnAccept.interactable = false;
+                                            tvAccept.text = txtAlreadyAccept.get("Already Stop");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("btnAccept, tvAccept null");
+                                    }
+                                }
+                                // refuse
+                                {
+                                    if (btnRefuse != null && tvRefuse != null)
+                                    {
+                                        if (!requestDrawStateAccept.refuses.vs.Contains(profileId))
+                                        {
+                                            switch (this.data.state.v)
+                                            {
+                                                case UIData.State.None:
+                                                    {
+                                                        btnRefuse.interactable = true;
+                                                        tvRefuse.text = txtRefuse.get("Refuse");
+                                                    }
+                                                    break;
+                                                case UIData.State.RequestAccept:
+                                                case UIData.State.WaitAccept:
+                                                    {
+                                                        btnRefuse.interactable = false;
+                                                        tvRefuse.text = txtRefuse.get("Refuse");
+                                                    }
+                                                    break;
+                                                case UIData.State.RequestRefuse:
+                                                    {
+                                                        btnRefuse.interactable = true;
+                                                        tvRefuse.text = txtRefusing.get("Refusing");
+                                                    }
+                                                    break;
+                                                case UIData.State.WaitRefuse:
+                                                    {
+                                                        btnRefuse.interactable = false;
+                                                        tvRefuse.text = txtRefusing.get("Refusing");
+                                                    }
+                                                    break;
+                                                default:
+                                                    Debug.LogError("unknown state: " + this.data.state.v);
+                                                    break;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            btnRefuse.interactable = false;
+                                            tvRefuse.text = txtAlreadyRefuse.get("Already Refuse");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("btnRefuse, tvRefuse null");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Task
+                        {
+                            this.data.state.v = UIData.State.None;
+                            destroyRoutine(wait);
+                        }
+                        // UI
+                        {
+                            if (btnAccept != null)
+                            {
+                                btnAccept.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnAccept null");
+                            }
+                            if (btnRefuse != null)
+                            {
+                                btnRefuse.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnRefuse null");
+                            }
+                            if (tvCannotAnswer != null)
+                            {
+                                tvCannotAnswer.gameObject.SetActive(true);
+                            }
+                            else
+                            {
+                                Debug.LogError("tvCannotAnswer null");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogError("requestDrawStateAccept null");
+                }
+                // txt
+                {
+                    if (lbTitle != null)
+                    {
+                        lbTitle.text = txtTitle.get("Already Accept Draw");
+                    }
+                    else
+                    {
+                        Debug.LogError("lbTitle null");
+                    }
+                    if (tvCannotAnswer != null)
+                    {
+                        tvCannotAnswer.text = txtCannotAnswer.get("Don't have rights to stop draw");
+                    }
+                    else
+                    {
+                        Debug.LogError("tvCannotAnswer null");
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("data null");
+            }
+        }
+        updateTransformData();
+    }
+
+    public override bool isShouldDisableUpdate()
+    {
+        return false;
+    }
+
+    #endregion
+
+    #region Task wait
+
+    private Routine wait;
+
+    public IEnumerator TaskWait()
+    {
+        if (this.data != null)
+        {
+            yield return new Wait(Global.WaitSendTime);
+            this.data.state.v = UIData.State.None;
+            Debug.LogError("request error: " + this);
+            Toast.showMessage(txtRequestError.get("Stop draw error"));
+        }
+        else
+        {
+            Debug.LogError("data null: " + this);
+        }
+    }
+
+    public override List<Routine> getRoutineList()
+    {
+        List<Routine> ret = new List<Routine>();
+        {
+            ret.Add(wait);
+        }
+        return ret;
+    }
+
+    #endregion
+
+    #region implement callBacks
+
+    private GameIsPlayingChange<RequestDrawStateAccept> gameIsPlayingChange = new GameIsPlayingChange<RequestDrawStateAccept>();
+
+    public WhoCanAskAdapter whoCanAskAdapterPrefab;
+    private static readonly UIRectTransform whoCanAskAdapterRect = new UIRectTransform();
+
+    private RequestDraw requestDraw = null;
+    private Server server = null;
+
+    public override void onAddCallBack<T>(T data)
+    {
+        if (data is UIData)
+        {
+            UIData uiData = data as UIData;
+            // Setting
+            Setting.get().addCallBack(this);
+            // Child
+            {
+                uiData.requestDrawStateAccept.allAddCallBack(this);
+                uiData.whoCanAskAdapter.allAddCallBack(this);
+            }
+            dirty = true;
+            return;
+        }
+        // Setting
+        if (data is Setting)
+        {
+            dirty = true;
+            return;
+        }
+        // Child
+        {
+            // requestDrawStateAccept
+            {
+                if (data is RequestDrawStateAccept)
+                {
+                    RequestDrawStateAccept requestDrawStateAccept = data as RequestDrawStateAccept;
+                    // reset
+                    {
+                        if (this.data != null)
+                        {
+                            this.data.reset();
+                        }
+                        else
+                        {
+                            Debug.LogError("data null");
+                        }
+                    }
+                    // CheckChange
+                    {
+                        gameIsPlayingChange.addCallBack(this);
+                        gameIsPlayingChange.setData(requestDrawStateAccept);
+                    }
+                    // Parent
+                    {
+                        DataUtils.addParentCallBack(requestDrawStateAccept, this, ref this.requestDraw);
+                        DataUtils.addParentCallBack(requestDrawStateAccept, this, ref this.server);
+
+                    }
+                    dirty = true;
+                    return;
+                }
+                // CheckChange
+                if (data is GameIsPlayingChange<RequestDrawStateAccept>)
+                {
+                    dirty = true;
+                    return;
+                }
+                // parent
+                {
+                    // requestDraw
+                    {
+                        if (data is RequestDraw)
+                        {
+                            RequestDraw requestDraw = data as RequestDraw;
+                            // Child
+                            {
+                                requestDraw.whoCanAsks.allAddCallBack(this);
+                            }
+                            dirty = true;
+                            return;
+                        }
+                        // Child
+                        if (data is Human)
+                        {
+                            dirty = true;
+                            return;
+                        }
+                    }
+                    if (data is Server)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                }
+            }
+            if (data is WhoCanAskAdapter.UIData)
+            {
+                WhoCanAskAdapter.UIData whoCanAskAdapterUIData = data as WhoCanAskAdapter.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(whoCanAskAdapterUIData, whoCanAskAdapterPrefab, this.transform, whoCanAskAdapterRect);
+                }
+                dirty = true;
+                return;
+            }
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
+
+    public override void onRemoveCallBack<T>(T data, bool isHide)
+    {
+
+        if (data is UIData)
+        {
+            UIData uiData = data as UIData;
+            // Setting
+            Setting.get().removeCallBack(this);
+            // Child
+            {
+                uiData.requestDrawStateAccept.allRemoveCallBack(this);
+                uiData.whoCanAskAdapter.allRemoveCallBack(this);
+            }
+            this.setDataNull(uiData);
+            return;
+        }
+        // Setting
+        if (data is Setting)
+        {
+            return;
+        }
+        // Child
+        {
+            // requestDrawStateAccept
+            {
+                if (data is RequestDrawStateAccept)
+                {
+                    RequestDrawStateAccept requestDrawStateAccept = data as RequestDrawStateAccept;
+                    // CheckChange
+                    {
+                        gameIsPlayingChange.removeCallBack(this);
+                        gameIsPlayingChange.setData(null);
+                    }
+                    // Parent
+                    {
+                        DataUtils.removeParentCallBack(requestDrawStateAccept, this, ref this.requestDraw);
+                        DataUtils.removeParentCallBack(requestDrawStateAccept, this, ref this.server);
+                    }
+                    return;
+                }
+                // CheckChange
+                if (data is GameIsPlayingChange<RequestDrawStateAccept>)
+                {
+                    return;
+                }
+                // parent
+                {
+                    // requestDraw
+                    {
+                        if (data is RequestDraw)
+                        {
+                            RequestDraw requestDraw = data as RequestDraw;
+                            // Child
+                            {
+                                requestDraw.whoCanAsks.allRemoveCallBack(this);
+                            }
+                            return;
+                        }
+                        // Child
+                        if (data is Human)
+                        {
+                            return;
+                        }
+                    }
+                    if (data is Server)
+                    {
+                        return;
+                    }
+                }
+            }
+            if (data is WhoCanAskAdapter.UIData)
+            {
+                WhoCanAskAdapter.UIData whoCanAskAdapterUIData = data as WhoCanAskAdapter.UIData;
+                // UI
+                {
+                    whoCanAskAdapterUIData.removeCallBackAndDestroy(typeof(WhoCanAskAdapter));
+                }
+                return;
+            }
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
+
+    public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+    {
+        if (WrapProperty.checkError(wrapProperty))
+        {
+            return;
+        }
+        if (wrapProperty.p is UIData)
+        {
+            switch ((UIData.Property)wrapProperty.n)
+            {
+                case UIData.Property.requestDrawStateAccept:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.state:
+                    dirty = true;
+                    break;
+                case UIData.Property.whoCanAskAdapter:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Setting
+        if (wrapProperty.p is Setting)
+        {
+            switch ((Setting.Property)wrapProperty.n)
+            {
+                case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.showLastMove:
+                    break;
+                case Setting.Property.viewUrlImage:
+                    break;
+                case Setting.Property.animationSetting:
+                    break;
+                case Setting.Property.maxThinkCount:
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Child
+        {
+            // requestDrawStateAccept
+            {
+                if (wrapProperty.p is RequestDrawStateAccept)
+                {
+                    switch ((RequestDrawStateAccept.Property)wrapProperty.n)
+                    {
+                        case RequestDrawStateAccept.Property.accepts:
+                            {
+                                dirty = true;
+                                if (this.data != null)
+                                {
+                                    this.data.state.v = UIData.State.None;
+                                }
+                                else
+                                {
+                                    Debug.LogError("data null");
+                                }
+                            }
+                            break;
+                        case RequestDrawStateAccept.Property.refuses:
+                            {
+                                dirty = true;
+                                if (this.data != null)
+                                {
+                                    this.data.state.v = UIData.State.None;
+                                }
+                                else
+                                {
+                                    Debug.LogError("data null");
+                                }
+                            }
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+                // CheckChange
+                if (wrapProperty.p is GameIsPlayingChange<RequestDrawStateAccept>)
+                {
+                    dirty = true;
+                    return;
+                }
+                // parent
+                {
+                    // requestDraw
+                    {
+                        if (wrapProperty.p is RequestDraw)
+                        {
+                            switch ((RequestDraw.Property)wrapProperty.n)
+                            {
+                                case RequestDraw.Property.state:
+                                    break;
+                                case RequestDraw.Property.whoCanAsks:
+                                    {
+                                        ValueChangeUtils.replaceCallBack(this, syncs);
+                                        dirty = true;
+                                    }
+                                    break;
+                                default:
+                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                    break;
+                            }
+                            return;
+                        }
+                        // Child
+                        if (wrapProperty.p is Human)
+                        {
+                            Human.onUpdateSyncPlayerIdChange(wrapProperty, this);
+                            return;
+                        }
+                    }
+                    if (wrapProperty.p is Server)
+                    {
+                        Server.State.OnUpdateSyncStateChange(wrapProperty, this);
+                        return;
+                    }
+                }
+            }
+            if (wrapProperty.p is WhoCanAskAdapter.UIData)
+            {
+                return;
+            }
+        }
+        Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+    }
+
+    #endregion
+
+    public void onClickBtnAccept()
+    {
+        if (this.data != null)
+        {
+            switch (this.data.state.v)
+            {
+                case UIData.State.None:
+                    this.data.state.v = UIData.State.RequestAccept;
+                    break;
+                case UIData.State.RequestAccept:
+                    this.data.state.v = UIData.State.None;
+                    break;
+                case UIData.State.WaitAccept:
+                    break;
+                case UIData.State.RequestRefuse:
+                    break;
+                case UIData.State.WaitRefuse:
+                    break;
+                default:
+                    Debug.LogError("unknown state: " + this.data.state.v);
+                    break;
+            }
+        }
+        else
+        {
+            Debug.LogError("data null");
+        }
+    }
+
+    public void onClickBtnRefuse()
+    {
+        if (this.data != null)
+        {
+            switch (this.data.state.v)
+            {
+                case UIData.State.None:
+                    this.data.state.v = UIData.State.RequestRefuse;
+                    break;
+                case UIData.State.RequestAccept:
+                    break;
+                case UIData.State.WaitAccept:
+                    break;
+                case UIData.State.RequestRefuse:
+                    this.data.state.v = UIData.State.None;
+                    break;
+                case UIData.State.WaitRefuse:
+                    break;
+                default:
+                    Debug.LogError("unknown state: " + this.data.state.v);
+                    break;
+            }
+        }
+        else
+        {
+            Debug.LogError("data null");
+        }
+    }
+
 }

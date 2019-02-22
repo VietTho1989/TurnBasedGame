@@ -180,9 +180,9 @@ public class HaveDatabaseServerUI : UIBehavior<HaveDatabaseServerUI.UIData>
 							// enable
 							{
 								if (this.data.sub.v.getType () == UIData.Sub.Type.None) {
-									edtPort.enabled = true;
+									edtPort.interactable = true;
 								} else {
-									edtPort.enabled = false;
+									edtPort.interactable = false;
 								}
 							}
 						}
@@ -248,11 +248,11 @@ public class HaveDatabaseServerUI : UIBehavior<HaveDatabaseServerUI.UIData>
                                 {
                                     if (this.data.sub.v.getType() == UIData.Sub.Type.None)
                                     {
-                                        edtMaxClientUserCount.enabled = true;
+                                        edtMaxClientUserCount.interactable = true;
                                     }
                                     else
                                     {
-                                        edtMaxClientUserCount.enabled = false;
+                                        edtMaxClientUserCount.interactable = false;
                                     }
                                 }
                             }

@@ -325,7 +325,7 @@ namespace GameManager.Match.Swap
 														{
 															if (!swapRequestStateAsk.accepts.vs.Contains (profileId)) {
 																btnAccept.gameObject.SetActive (true);
-																btnAccept.enabled = true;
+																btnAccept.interactable = true;
 																tvAccept.text = "Accept";
 															} else {
 																btnAccept.gameObject.SetActive (false);
@@ -334,7 +334,7 @@ namespace GameManager.Match.Swap
 														// btnRefuse
 														{
 															btnRefuse.gameObject.SetActive (true);
-															btnRefuse.enabled = true;
+															btnRefuse.interactable = true;
 															tvRefuse.text = "Refuse";
 														}
 													}
@@ -348,7 +348,7 @@ namespace GameManager.Match.Swap
 																// btnAccept
 																{
 																	btnAccept.gameObject.SetActive (true);
-																	btnAccept.enabled = true;
+																	btnAccept.interactable = true;
 																	tvAccept.text = "Cancel Accept?";
 																}
 																// btnRefuse
@@ -366,7 +366,7 @@ namespace GameManager.Match.Swap
 																// btnRefuse
 																{
 																	btnRefuse.gameObject.SetActive (true);
-																	btnRefuse.enabled = true;
+																	btnRefuse.interactable = true;
 																	tvRefuse.text = "Cancel Refuse?";
 																}
 															}
@@ -386,7 +386,7 @@ namespace GameManager.Match.Swap
 																// btnAccept
 																{
 																	btnAccept.gameObject.SetActive (true);
-																	btnAccept.enabled = false;
+																	btnAccept.interactable = false;
 																	tvAccept.text = "Accepting";
 																}
 																// btnRefuse
@@ -404,7 +404,7 @@ namespace GameManager.Match.Swap
 																// btnRefuse
 																{
 																	btnRefuse.gameObject.SetActive (true);
-																	btnRefuse.enabled = false;
+																	btnRefuse.interactable = false;
 																	tvRefuse.text = "Refusing";
 																}
 															}

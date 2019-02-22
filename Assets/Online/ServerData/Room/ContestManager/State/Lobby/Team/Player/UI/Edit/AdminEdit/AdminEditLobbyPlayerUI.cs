@@ -152,9 +152,9 @@ namespace GameManager.Match
                                             }
                                             // btn
                                             {
-                                                btnHuman.enabled = false;
-                                                btnComputer.enabled = true;
-                                                btnEmpty.enabled = true;
+                                                btnHuman.interactable = false;
+                                                btnComputer.interactable = true;
+                                                btnEmpty.interactable = true;
                                             }
                                         }
                                         break;
@@ -168,9 +168,9 @@ namespace GameManager.Match
                                             }
                                             // btn
                                             {
-                                                btnHuman.enabled = true;
-                                                btnComputer.enabled = false;
-                                                btnEmpty.enabled = true;
+                                                btnHuman.interactable = true;
+                                                btnComputer.interactable = false;
+                                                btnEmpty.interactable = true;
                                             }
                                         }
                                         break;
@@ -184,9 +184,9 @@ namespace GameManager.Match
                                             }
                                             // btn
                                             {
-                                                btnHuman.enabled = true;
-                                                btnComputer.enabled = true;
-                                                btnEmpty.enabled = false;
+                                                btnHuman.interactable = true;
+                                                btnComputer.interactable = true;
+                                                btnEmpty.interactable = false;
                                             }
                                         }
                                         break;

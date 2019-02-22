@@ -158,10 +158,10 @@ namespace Posture
 											// Process
 											{
 												if (haveCorrectSelectFile) {
-													btnLoad.enabled = true;
+													btnLoad.interactable = true;
 													tvLoad.text = txtLoad.get("Load");
 												} else {
-													btnLoad.enabled = false;
+													btnLoad.interactable = false;
 													tvLoad.text = txtNotSelectFile.get ("Cannot Load, Not select file");
 												}
 											}
@@ -169,19 +169,19 @@ namespace Posture
 										break;
 									case LoadDataTask.TaskData.State.Load:
 										{
-											btnLoad.enabled = false;
+											btnLoad.interactable = false;
 											tvLoad.text = txtLoading.get("Loading");
 										}
 										break;
 									case LoadDataTask.TaskData.State.Success:
 										{
-											btnLoad.enabled = false;
+											btnLoad.interactable = false;
 											tvLoad.text = txtLoadSuccess.get("Load Success");
 										}
 										break;
 									case LoadDataTask.TaskData.State.Fail:
 										{
-											btnLoad.enabled = false;
+											btnLoad.interactable = false;
 											tvLoad.text = txtLoadFail.get("Load Fail");
 										}
 										break;

@@ -86,7 +86,7 @@ public class BtnChooseChatUI : UIBehavior<BtnChooseChatUI.UIData>
 								Debug.LogError ("globalChatUIData null: " + this);
 							}
 						}
-						btnTopic.enabled = !isAlreadyShow;
+						btnTopic.interactable = !isAlreadyShow;
 					} else {
 						Debug.LogError ("btnTopic null: " + this);
 					}

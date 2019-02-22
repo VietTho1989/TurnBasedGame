@@ -191,19 +191,19 @@ namespace GameManager.Match
 									switch (this.data.state.v) {
 									case UIData.State.None:
 										{
-											btnReady.enabled = true;
+											btnReady.interactable = true;
 											tvReady.text = lobbyPlayer.isReady.v ? txtReady.get("Ready") : txtNoReady.get("Not Ready");
 										}
 										break;
 									case UIData.State.Request:
 										{
-											btnReady.enabled = true;
+											btnReady.interactable = true;
 											tvReady.text = lobbyPlayer.isReady.v ? txtCancelNotReady.get("Cancel Not Readying?") : txtCancelReady.get("Cancel Readying?");
 										}
 										break;
 									case UIData.State.Wait:
 										{
-											btnReady.enabled = false;
+											btnReady.interactable = false;
 											tvReady.text = lobbyPlayer.isReady.v ? txtNotReadying.get ("NotReadying") : txtReadying.get ("Readying");
 										}
 										break;

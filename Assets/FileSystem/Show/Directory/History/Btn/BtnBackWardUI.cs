@@ -60,10 +60,10 @@ namespace FileSystem
 					if (directoryHistory != null) {
 						if (btnBackWard != null && tvBackWard != null) {
 							if (directoryHistory.position.v < 0) {
-								btnBackWard.enabled = false;
+								btnBackWard.interactable = false;
 								tvBackWard.text = txtCannotBackward.get ("Cannot Backward");
 							} else {
-								btnBackWard.enabled = true;
+								btnBackWard.interactable = true;
 								tvBackWard.text = txtBackward.get ("Backward");
 							}
 						} else {

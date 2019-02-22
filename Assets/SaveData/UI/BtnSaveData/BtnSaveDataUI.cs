@@ -84,14 +84,14 @@ public class BtnSaveDataUI : UIBehavior<BtnSaveDataUI.UIData>
 						switch (saveData.state.v) {
 						case SaveTask.TaskData.State.None:
 							{
-								btnSaveData.enabled = true;
+								btnSaveData.interactable = true;
 								tvSaveData.text = txtSave.get ("Save Data");
 							}
 							break;
 						case SaveTask.TaskData.State.Save:
 							{
 								this.data.confirmSave.v = null;
-								btnSaveData.enabled = false;
+								btnSaveData.interactable = false;
 								tvSaveData.text = txtSaving.get ("Saving data...");
 							}
 							break;

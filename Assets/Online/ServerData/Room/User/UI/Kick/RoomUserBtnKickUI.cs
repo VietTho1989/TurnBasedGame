@@ -123,19 +123,19 @@ public class RoomUserBtnKickUI : UIBehavior<RoomUserBtnKickUI.UIData>
 								switch (this.data.state.v) {
 								case UIData.State.None:
 									{
-										btnKick.enabled = true;
+										btnKick.interactable = true;
 										tvKick.text = txtKick.get ("Kick");
 									}
 									break;
 								case UIData.State.Request:
 									{
-										btnKick.enabled = true;
+										btnKick.interactable = true;
 										tvKick.text = txtCancelKick.get ("Cancel Kick?");
 									}
 									break;
 								case UIData.State.Wait:
 									{
-										btnKick.enabled = false;
+										btnKick.interactable = false;
 										tvKick.text = txtKicking.get ("Kicking");
 									}
 									break;
@@ -156,7 +156,7 @@ public class RoomUserBtnKickUI : UIBehavior<RoomUserBtnKickUI.UIData>
 						// UI
 						{
 							if (btnKick != null && tvKick != null) {
-								btnKick.enabled = false;
+								btnKick.interactable = false;
 								tvKick.text = txtCannotKick.get ("You cannot kick");
 							} else {
 								Debug.LogError ("btnKick, tvKick null: " + this);

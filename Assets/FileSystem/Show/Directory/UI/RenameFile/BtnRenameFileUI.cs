@@ -103,10 +103,10 @@ namespace FileSystem
 							}
 							// process
 							if (canRename) {
-								btnRename.enabled = true;
+								btnRename.interactable = true;
 								tvRename.text = txtRename.get ("Rename");
 							} else {
-								btnRename.enabled = false;
+								btnRename.interactable = false;
 								tvRename.text = txtCannotRename.get ("Cannot rename, not select");
 							}
 						} else {

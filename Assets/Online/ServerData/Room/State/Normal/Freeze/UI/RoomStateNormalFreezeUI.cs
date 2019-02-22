@@ -132,19 +132,19 @@ public class RoomStateNormalFreezeUI : UIBehavior<RoomStateNormalFreezeUI.UIData
 								switch (this.data.state.v) {
 								case UIData.State.None:
 									{
-										btnFreeze.enabled = true;
+										btnFreeze.interactable = true;
 										tvFreeze.text = txtUnFreeze.get ("UnFreeze Room?");
 									}
 									break;
 								case UIData.State.Request:
 									{
-										btnFreeze.enabled = true;
+										btnFreeze.interactable = true;
 										tvFreeze.text = txtCancelUnFreeze.get ("Cancel UnFreeze Room?");
 									}
 									break;
 								case UIData.State.Wait:
 									{
-										btnFreeze.enabled = false;
+										btnFreeze.interactable = false;
 										tvFreeze.text = txtUnFreezing.get ("UnFreezing Room");
 									}
 									break;
@@ -165,7 +165,7 @@ public class RoomStateNormalFreezeUI : UIBehavior<RoomStateNormalFreezeUI.UIData
 						// btnFreeze, tvFreeze
 						{
 							if (btnFreeze != null && tvFreeze != null) {
-								btnFreeze.enabled = false;
+								btnFreeze.interactable = false;
 								tvFreeze.text = txtStateFreeze.get ("Room State Freeze");
 							} else {
 								Debug.LogError ("btnFreeze, tvFreeze null: " + this);

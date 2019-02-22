@@ -104,25 +104,25 @@ namespace FileSystem
 									{
 										ActionNone actionNone = action as ActionNone;
 										if (actionNone.selectFiles.vs.Count == 0) {
-											btnCut.enabled = false;
+											btnCut.interactable = false;
 											tvCut.text = txtCannotCutNotSelect.get ("Cannot cut, not select");
 										} else {
 											switch (actionNone.state.v) {
 											case ActionNone.State.None:
 												{
-													btnCut.enabled = true;
+													btnCut.interactable = true;
 													tvCut.text = txtCut.get ("Cut");
 												}
 												break;
 											case ActionNone.State.Cut:
 												{
-													btnCut.enabled = true;
+													btnCut.interactable = true;
 													tvCut.text = txtAlreadySelectCutCancel.get ("Already Select Cut, Cancel?");
 												}
 												break;
 											case ActionNone.State.Copy:
 												{
-													btnCut.enabled = true;
+													btnCut.interactable = true;
 													tvCut.text = txtCut.get("Cut");
 												}
 												break;
@@ -142,7 +142,7 @@ namespace FileSystem
 												switch (state.getType ()) {
 												case ActionEdit.State.Type.Start:
 													{
-														btnCut.enabled = false;
+														btnCut.interactable = false;
 														tvCut.text = txtCutting.get ("Cutting");
 													}
 													break;
@@ -151,7 +151,7 @@ namespace FileSystem
 														ActionEditProcess actionEditProcess = state as ActionEditProcess;
 														// set
 														{
-															btnCut.enabled = true;
+															btnCut.interactable = true;
 															// txt
 															{
 																FileSystemInfo file = null;
@@ -181,7 +181,7 @@ namespace FileSystem
 													break;
 												case ActionEdit.State.Type.Success:
 													{
-														btnCut.enabled = false;
+														btnCut.interactable = false;
 														tvCut.text = txtCutSuccess.get ("Cut success");
 													}
 													break;
@@ -190,7 +190,7 @@ namespace FileSystem
 														ActionEditFail actionEditFail = state as ActionEditFail;
 														// Set
 														{
-															btnCut.enabled = false;
+															btnCut.interactable = false;
 															// txt
 															{
 																// find fail file
@@ -214,7 +214,7 @@ namespace FileSystem
 												Debug.LogError ("staate null: " + this);
 											}
 										} else {
-											btnCut.enabled = false;
+											btnCut.interactable = false;
 											tvCut.text = txtCannotCutDoingOtherAction.get ("Cannot cut, doing other action");
 										}
 									}

@@ -94,14 +94,19 @@ public class FriendStateAcceptUI : UIBehavior<FriendStateAcceptUI.UIData>
                             {
                                 case UIData.State.None:
                                     {
-                                        btnUnFriend.enabled = true;
+                                        btnUnFriend.interactable = true;
                                         tvUnFriend.text = txtUnFriend.get("UnFriend");
                                     }
                                     break;
                                 case UIData.State.Request:
+                                    {
+                                        btnUnFriend.interactable = true;
+                                        tvUnFriend.text = txtUnFriending.get("UnFriending");
+                                    }
+                                    break;
                                 case UIData.State.Wait:
                                     {
-                                        btnUnFriend.enabled = false;
+                                        btnUnFriend.interactable = false;
                                         tvUnFriend.text = txtUnFriending.get("UnFriending");
                                     }
                                     break;
@@ -364,9 +369,20 @@ public class FriendStateAcceptUI : UIBehavior<FriendStateAcceptUI.UIData>
     {
         if (this.data != null)
         {
-            if (this.data.state.v == UIData.State.None)
+            switch (this.data.state.v)
             {
-                this.data.state.v = UIData.State.Request;
+                case UIData.State.None:
+                    this.data.state.v = UIData.State.Request;
+                    break;
+                case UIData.State.Request:
+                    this.data.state.v = UIData.State.None;
+                    break;
+                case UIData.State.Wait:
+                    Debug.LogError("you are requesting");
+                    break;
+                default:
+                    Debug.LogError("unknown state: " + this.data.state.v);
+                    break;
             }
         }
         else

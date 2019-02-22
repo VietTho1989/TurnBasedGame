@@ -128,19 +128,19 @@ namespace GameState
 									switch (this.data.state.v) {
 									case UIData.State.Normal:
 										{
-											btnPause.enabled = true;
+											btnPause.interactable = true;
 											tvPause.text = txtPause.get ("Pause");
 										}
 										break;
 									case UIData.State.Request:
 										{
-											btnPause.enabled = true;
+											btnPause.interactable = true;
 											tvPause.text = txtCancelPause.get ("Cancel pause?");
 										}
 										break;
 									case UIData.State.Wait:
 										{
-											btnPause.enabled = false;
+											btnPause.interactable = false;
 											tvPause.text = txtPausing.get ("Pausing...");
 										}
 										break;
@@ -161,7 +161,7 @@ namespace GameState
 							// UI
 							{
 								if (btnPause != null && tvPause != null) {
-									btnPause.enabled = false;
+									btnPause.interactable = false;
 									tvPause.text = txtCannotPause.get ("Cannot pause");
 								} else {
 									Debug.LogError ("btnPause, tvPause null: " + this);

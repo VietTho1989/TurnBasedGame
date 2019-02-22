@@ -128,14 +128,14 @@ namespace Record
 							switch (saveTask.state.v) {
 							case SaveRecordTask.TaskData.State.None:
 								{
-									btnSave.enabled = true;
+									btnSave.interactable = true;
 									tvSave.text = txtSave.get("Save");
 								}
 								break;
 							case SaveRecordTask.TaskData.State.Save:
 								{
 									this.data.confirmSave.v = null;
-									btnSave.enabled = false;
+									btnSave.interactable = false;
 									tvSave.text = txtSaving.get("Saving...");
 								}
 								break;

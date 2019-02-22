@@ -105,19 +105,19 @@ public class BtnLeaveLimitRoomContainerUI : UIBehavior<BtnLeaveLimitRoomContaine
 								switch (this.data.state.v) {
 								case UIData.State.None:
 									{
-										btnLeave.enabled = true;
+										btnLeave.interactable = true;
 										tvLeave.text = "Leave";
 									}
 									break;
 								case UIData.State.Request:
 									{
-										btnLeave.enabled = true;
+										btnLeave.interactable = true;
 										tvLeave.text = "Cancel Leave?";
 									}
 									break;
 								case UIData.State.Wait:
 									{
-										btnLeave.enabled = false;
+										btnLeave.interactable = false;
 										tvLeave.text = "Leaving...";
 									}
 									break;
@@ -138,7 +138,7 @@ public class BtnLeaveLimitRoomContainerUI : UIBehavior<BtnLeaveLimitRoomContaine
 						// UI
 						{
 							if (btnLeave != null && tvLeave != null) {
-								btnLeave.enabled = false;
+								btnLeave.interactable = false;
 								tvLeave.text = "Cannot Leave";
 							} else {
 								Debug.LogError ("btnLeave, tvLeave null");

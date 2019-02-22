@@ -130,19 +130,19 @@ public class GamePlayerStateSurrenderNoneUI : UIBehavior<GamePlayerStateSurrende
 								switch (this.data.state.v) {
 								case UIData.State.None:
 									{
-										btnRequest.enabled = true;
+										btnRequest.interactable = true;
 										tvRequest.text = txtRequest.get ("Request Cancel");
 									}
 									break;
 								case UIData.State.Request:
 									{
-										btnRequest.enabled = true;
+										btnRequest.interactable = true;
 										tvRequest.text = txtCancelRequest.get ("Cancel Request Cancel?");
 									}
 									break;
 								case UIData.State.Wait:
 									{
-										btnRequest.enabled = false;
+										btnRequest.interactable = false;
 										tvRequest.text = txtRequesting.get ("Requesting cancel...");
 									}
 									break;

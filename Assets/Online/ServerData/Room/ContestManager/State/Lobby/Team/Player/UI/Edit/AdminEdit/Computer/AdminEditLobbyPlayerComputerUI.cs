@@ -264,23 +264,23 @@ namespace GameManager.Match
 										}
 										// Process
 										if (isDiffrent) {
-											btnRequest.enabled = true;
+											btnRequest.interactable = true;
 											tvRequest.text = txtRequest.get ("Request");
 										} else {
-											btnRequest.enabled = false;
+											btnRequest.interactable = false;
 											tvRequest.text = txtCannotRequest.get ("Not Different, Cannot Request");
 										}
 									}
 									break;
 								case UIData.State.Request:
 									{
-										btnRequest.enabled = true;
+										btnRequest.interactable = true;
 										tvRequest.text = txtCancelRequest.get("Cancel Request?");
 									}
 									break;
 								case UIData.State.Wait:
 									{
-										btnRequest.enabled = false;
+										btnRequest.interactable = false;
 										tvRequest.text = txtRequesting.get("Requesting...");
 									}
 									break;

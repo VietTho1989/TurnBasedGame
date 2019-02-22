@@ -30,7 +30,7 @@ public class RequestDrawStateNone : RequestDraw.State
 		if (Game.IsPlaying (this, false)) {
 			RequestDraw requestDraw = this.findDataInParent<RequestDraw> ();
 			if (requestDraw != null) {
-				List<uint> whoCanAnswer = requestDraw.getWhoCanAnswer ();
+				HashSet<uint> whoCanAnswer = requestDraw.getWhoCanAsk ();
 				if (whoCanAnswer.Contains (userId)) {
 					return true;
 				}
@@ -91,4 +91,5 @@ public class RequestDrawStateNone : RequestDraw.State
 	}
 
 	#endregion
+
 }

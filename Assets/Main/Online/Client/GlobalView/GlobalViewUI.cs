@@ -398,10 +398,10 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                                     }
                                     // btns
                                     {
-                                        btnRooms.enabled = false;
-                                        btnChats.enabled = true;
-                                        btnFriends.enabled = true;
-                                        btnProfile.enabled = true;
+                                        btnRooms.interactable = false;
+                                        btnChats.interactable = true;
+                                        btnFriends.interactable = true;
+                                        btnProfile.interactable = true;
                                     }
                                 }
                                 break;
@@ -428,10 +428,10 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                                     }
                                     // btns
                                     {
-                                        btnRooms.enabled = true;
-                                        btnChats.enabled = false;
-                                        btnFriends.enabled = true;
-                                        btnProfile.enabled = true;
+                                        btnRooms.interactable = true;
+                                        btnChats.interactable = false;
+                                        btnFriends.interactable = true;
+                                        btnProfile.interactable = true;
                                     }
                                 }
                                 break;
@@ -458,10 +458,10 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                                     }
                                     // btns
                                     {
-                                        btnRooms.enabled = true;
-                                        btnChats.enabled = true;
-                                        btnFriends.enabled = false;
-                                        btnProfile.enabled = true;
+                                        btnRooms.interactable = true;
+                                        btnChats.interactable = true;
+                                        btnFriends.interactable = false;
+                                        btnProfile.interactable = true;
                                     }
                                 }
                                 break;
@@ -488,10 +488,10 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                                     }
                                     // btns
                                     {
-                                        btnRooms.enabled = true;
-                                        btnChats.enabled = true;
-                                        btnFriends.enabled = true;
-                                        btnProfile.enabled = false;
+                                        btnRooms.interactable = true;
+                                        btnChats.interactable = true;
+                                        btnFriends.interactable = true;
+                                        btnProfile.interactable = false;
                                     }
                                 }
                                 break;

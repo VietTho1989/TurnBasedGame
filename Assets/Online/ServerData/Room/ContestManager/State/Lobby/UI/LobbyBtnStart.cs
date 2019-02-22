@@ -157,19 +157,19 @@ namespace GameManager.Match
 														switch (this.data.state.v) {
 														case UIData.State.None:
 															{
-																btnStart.enabled = true;
+																btnStart.interactable = true;
 																tvStart.text = txtStart.get ("Start");
 															}
 															break;
 														case UIData.State.Request:
 															{
-																btnStart.enabled = true;
+																btnStart.interactable = true;
 																tvStart.text = txtCancelStart.get ("Cancel Start?");
 															}
 															break;
 														case UIData.State.Wait:
 															{
-																btnStart.enabled = false;
+																btnStart.interactable = false;
 																tvStart.text = txtStarting.get ("Starting");
 															}
 															break;
@@ -190,7 +190,7 @@ namespace GameManager.Match
 												// UI
 												{
 													if (btnStart != null && tvStart != null) {
-														btnStart.enabled = false;
+														btnStart.interactable = false;
 														tvStart.text = txtNotAllReady.get ("Not All Ready");
 													} else {
 														Debug.LogError ("btnStart, tvStart null: " + this);
@@ -210,7 +210,7 @@ namespace GameManager.Match
 											// UI
 											{
 												if (btnStart != null && tvStart != null) {
-													btnStart.enabled = false;
+													btnStart.interactable = false;
 													tvStart.text = txtStartingTime.get ("Starting") + " " + stateStart.time.v + "/" + stateStart.duration.v;
 												} else {
 													Debug.LogError ("btnStart null, tvStart null: " + this);

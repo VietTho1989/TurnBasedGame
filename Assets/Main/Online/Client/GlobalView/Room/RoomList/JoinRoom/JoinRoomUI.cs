@@ -261,19 +261,19 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
                                     {
                                         case UIData.State.None:
                                             {
-                                                btnJoin.enabled = true;
+                                                btnJoin.interactable = true;
                                                 tvJoin.text = txtJoinRoom.get("Join Room");
                                             }
                                             break;
                                         case UIData.State.Request:
                                             {
-                                                btnJoin.enabled = true;
+                                                btnJoin.interactable = true;
                                                 tvJoin.text = txtCancelJoin.get("Cancel Join");
                                             }
                                             break;
                                         case UIData.State.Wait:
                                             {
-                                                btnJoin.enabled = false;
+                                                btnJoin.interactable = false;
                                                 tvJoin.text = txtJoiningRoom.get("Joining room...");
                                             }
                                             break;
@@ -299,7 +299,7 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
                             {
                                 if (btnJoin != null && tvJoin != null)
                                 {
-                                    btnJoin.enabled = false;
+                                    btnJoin.interactable = false;
                                     tvJoin.text = txtCannotJoin.get("Cannot Join");
                                 }
                                 else

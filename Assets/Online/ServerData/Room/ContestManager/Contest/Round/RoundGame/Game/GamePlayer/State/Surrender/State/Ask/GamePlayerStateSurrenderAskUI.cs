@@ -191,31 +191,31 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
 									switch (this.data.state.v) {
 									case UIData.State.None:
 										{
-											btnAccept.enabled = true;
+											btnAccept.interactable = true;
 											tvAccept.text = txtAccept.get ("Accept");
 										}
 										break;
 									case UIData.State.RequestAccept:
 										{
-											btnAccept.enabled = true;
+											btnAccept.interactable = true;
 											tvAccept.text = txtCancelAccept.get ("Cancel accept?");
 										}
 										break;
 									case UIData.State.WaitAccept:
 										{
-											btnAccept.enabled = false;
+											btnAccept.interactable = false;
 											tvAccept.text = txtAccepting.get ("Accepting...");
 										}
 										break;
 									case UIData.State.RequestRefuse:
 										{
-											btnAccept.enabled = false;
+											btnAccept.interactable = false;
 											tvAccept.text = txtAccept.get ("Accept");
 										}
 										break;
 									case UIData.State.WaitRefuse:
 										{
-											btnAccept.enabled = false;
+											btnAccept.interactable = false;
 											tvAccept.text = txtAccept.get ("Accept");
 										}
 										break;
@@ -238,31 +238,31 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
 									switch (this.data.state.v) {
 									case UIData.State.None:
 										{
-											btnRefuse.enabled = true;
+											btnRefuse.interactable = true;
 											tvRefuse.text = txtRefuse.get ("Refuse");
 										}
 										break;
 									case UIData.State.RequestAccept:
 										{
-											btnRefuse.enabled = false;
+											btnRefuse.interactable = false;
 											tvRefuse.text = txtRefuse.get ("Refuse");
 										}
 										break;
 									case UIData.State.WaitAccept:
 										{
-											btnRefuse.enabled = false;
+											btnRefuse.interactable = false;
 											tvRefuse.text = txtRefuse.get ("Refuse");
 										}
 										break;
 									case UIData.State.RequestRefuse:
 										{
-											btnRefuse.enabled = true;
+											btnRefuse.interactable = true;
 											tvRefuse.text = txtCancelRefuse.get ("Cancel refuse?");
 										}
 										break;
 									case UIData.State.WaitRefuse:
 										{
-											btnRefuse.enabled = false;
+											btnRefuse.interactable = false;
 											tvRefuse.text = txtRefusing.get ("Refusing...");
 										}
 										break;

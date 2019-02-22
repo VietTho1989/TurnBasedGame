@@ -7,92 +7,172 @@ using UndoRedo;
 public class UndoRedoRequestUI : UIBehavior<UndoRedoRequestUI.UIData>
 {
 
-	#region UIData
+    #region UIData
 
-	public class UIData : Data
-	{
-		
-		public VP<ReferenceData<UndoRedoRequest>> undoRedoRequest;
+    public class UIData : Data
+    {
 
-		#region Sub
+        public VP<ReferenceData<UndoRedoRequest>> undoRedoRequest;
 
-		public abstract class Sub : Data
-		{
+        #region Sub
 
-			public abstract UndoRedoRequest.State.Type getType ();
+        public abstract class Sub : Data
+        {
 
-		}
+            public abstract UndoRedoRequest.State.Type getType();
 
-		public VP<Sub> sub;
+        }
 
-		#endregion
+        public VP<Sub> sub;
 
-		#region Constructor
+        #endregion
 
-		public enum Property
-		{
-			undoRedoRequest,
-			sub
-		}
+        #region showAnimation
 
-		public UIData() : base()
-		{
-			this.undoRedoRequest = new VP<ReferenceData<UndoRedoRequest>>(this, (byte)Property.undoRedoRequest, new ReferenceData<UndoRedoRequest>(null));
-			this.sub = new VP<Sub>(this, (byte)Property.sub, null);
-		}
+        public VP<ShowAnimationUI.UIData> showAnimation;
 
-		#endregion
+        public void OnHide()
+        {
+            UndoRedoRequestUI undoRedoRequestUI = this.findCallBack<UndoRedoRequestUI>();
+            if (undoRedoRequestUI != null)
+            {
+                undoRedoRequestUI.back();
+            }
+            else
+            {
+                Debug.LogError("undoRedoRequestUI null");
+            }
+        }
 
-	}
+        #endregion
+
+        #region Constructor
+
+        public enum Property
+        {
+            undoRedoRequest,
+            sub,
+            showAnimation
+        }
+
+        public UIData() : base()
+        {
+            this.undoRedoRequest = new VP<ReferenceData<UndoRedoRequest>>(this, (byte)Property.undoRedoRequest, new ReferenceData<UndoRedoRequest>(null));
+            this.sub = new VP<Sub>(this, (byte)Property.sub, null);
+            // showAnimation
+            {
+                this.showAnimation = new VP<ShowAnimationUI.UIData>(this, (byte)Property.showAnimation, new ShowAnimationUI.UIData());
+                this.showAnimation.v.onHide.v = OnHide;
+            }
+        }
+
+        #endregion
+
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // back
+                if (!isProcess)
+                {
+                    if (InputEvent.isBackEvent(e))
+                    {
+                        UndoRedoRequestUI undoRedoRequestUI = this.findCallBack<UndoRedoRequestUI>();
+                        if (undoRedoRequestUI != null)
+                        {
+                            undoRedoRequestUI.onClickBtnBack();
+                        }
+                        else
+                        {
+                            Debug.LogError("undoRedoRequestUI null");
+                        }
+                        isProcess = true;
+                    }
+                }
+            }
+            return isProcess;
+        }
+
+    }
 
     #endregion
 
-    #region Update
+    #region Refresh
 
+    private bool needShowAnimation = false;
     public Button btnBack;
 
-    public override void refresh ()
-	{
-		if (dirty) {
-			dirty = false;
-			if (this.data != null) {
-				UndoRedoRequest undoRedoRequest = this.data.undoRedoRequest.v.data;
-				if (undoRedoRequest != null) {
-					UndoRedoRequest.State state = undoRedoRequest.state.v;
-					if (state != null) {
-						switch (undoRedoRequest.state.v.getType()) {
-						case UndoRedoRequest.State.Type.None:
-							{
-								None none = state as None;
-								// UIData
-								NoneUI.UIData noneUIData = this.data.sub.newOrOld<NoneUI.UIData>();
-								{
-									noneUIData.none.v = new ReferenceData<None> (none);
-								}
-								this.data.sub.v = noneUIData;
-							}
-							break;
-						case UndoRedoRequest.State.Type.Ask:
-							{
-								Ask ask = state as Ask;
-								// UIData
-								AskUI.UIData askUIData = this.data.sub.newOrOld<AskUI.UIData>();
-								{
-									askUIData.ask.v = new ReferenceData<Ask> (ask);
-								}
-								this.data.sub.v = askUIData;
-							}
-							break;
-						default:
-							Debug.LogError ("unknown state: " + undoRedoRequest.state.v + "; " + this);
-							break;
-						}
-					} else {
-						Debug.LogError ("state null: " + this);
-					}
-				} else {
-					// Debug.LogError ("undoRedoRequest null: " + this);
-				}
+    public override void refresh()
+    {
+        if (dirty)
+        {
+            dirty = false;
+            if (this.data != null)
+            {
+                // needShowAnimation
+                {
+                    if (needShowAnimation)
+                    {
+                        needShowAnimation = false;
+                        ShowAnimationUI.UIData showAnimationUIData = this.data.showAnimation.v;
+                        if (showAnimationUIData != null)
+                        {
+                            ShowAnimationUI.Show show = new ShowAnimationUI.Show();
+                            {
+                                show.uid = showAnimationUIData.state.makeId();
+                            }
+                            showAnimationUIData.state.v = show;
+                        }
+                        else
+                        {
+                            Debug.LogError("showAnimationUIData null");
+                        }
+                    }
+                }
+                UndoRedoRequest undoRedoRequest = this.data.undoRedoRequest.v.data;
+                if (undoRedoRequest != null)
+                {
+                    UndoRedoRequest.State state = undoRedoRequest.state.v;
+                    if (state != null)
+                    {
+                        switch (undoRedoRequest.state.v.getType())
+                        {
+                            case UndoRedoRequest.State.Type.None:
+                                {
+                                    None none = state as None;
+                                    // UIData
+                                    NoneUI.UIData noneUIData = this.data.sub.newOrOld<NoneUI.UIData>();
+                                    {
+                                        noneUIData.none.v = new ReferenceData<None>(none);
+                                    }
+                                    this.data.sub.v = noneUIData;
+                                }
+                                break;
+                            case UndoRedoRequest.State.Type.Ask:
+                                {
+                                    Ask ask = state as Ask;
+                                    // UIData
+                                    AskUI.UIData askUIData = this.data.sub.newOrOld<AskUI.UIData>();
+                                    {
+                                        askUIData.ask.v = new ReferenceData<Ask>(ask);
+                                    }
+                                    this.data.sub.v = askUIData;
+                                }
+                                break;
+                            default:
+                                Debug.LogError("unknown state: " + undoRedoRequest.state.v + "; " + this);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("state null: " + this);
+                    }
+                }
+                else
+                {
+                    // Debug.LogError ("undoRedoRequest null: " + this);
+                }
                 // SiblingIndex
                 {
                     UIRectTransform.SetSiblingIndex(this.data.sub.v, 0);
@@ -113,42 +193,50 @@ public class UndoRedoRequestUI : UIBehavior<UndoRedoRequestUI.UIData>
                     // set
                     UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                 }
-            } else {
-				// Debug.LogError ("data null: " + this);
-			}
-		}
-	}
+            }
+            else
+            {
+                // Debug.LogError ("data null: " + this);
+            }
+        }
+    }
 
-	public override bool isShouldDisableUpdate ()
-	{
-		return true;
-	}
+    public override bool isShouldDisableUpdate()
+    {
+        return true;
+    }
 
-	#endregion
+    #endregion
 
-	#region implement callBacks
+    #region implement callBacks
 
-	public NoneUI nonePrefab;
-	public AskUI askPrefab;
+    public NoneUI nonePrefab;
+    public AskUI askPrefab;
 
-	public override void onAddCallBack<T> (T data)
-	{
-		if (data is UIData) {
-			UIData uiData = data as UIData;
-			// Child
-			{
-				uiData.undoRedoRequest.allAddCallBack (this);
-				uiData.sub.allAddCallBack (this);
-			}
-			dirty = true;
-			return;
-		}
-		// Child
-		{
-			if (data is UndoRedoRequest) {
-				dirty = true;
-				return;
-			}
+    public ShowAnimationUI showAnimationUI;
+
+    public override void onAddCallBack<T>(T data)
+    {
+        if (data is UIData)
+        {
+            UIData uiData = data as UIData;
+            // Child
+            {
+                uiData.undoRedoRequest.allAddCallBack(this);
+                uiData.sub.allAddCallBack(this);
+                uiData.showAnimation.allAddCallBack(this);
+            }
+            dirty = true;
+            return;
+        }
+        // Child
+        {
+            if (data is UndoRedoRequest)
+            {
+                needShowAnimation = true;
+                dirty = true;
+                return;
+            }
             // sub
             {
                 if (data is UIData.Sub)
@@ -183,33 +271,53 @@ public class UndoRedoRequestUI : UIBehavior<UndoRedoRequestUI.UIData>
                     return;
                 }
                 // Child
-                if(data is TransformData)
+                if (data is TransformData)
                 {
                     dirty = true;
                     return;
                 }
             }
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+            if (data is ShowAnimationUI.UIData)
+            {
+                ShowAnimationUI.UIData showAnimationUIData = data as ShowAnimationUI.UIData;
+                // UI
+                {
+                    if (showAnimationUI != null)
+                    {
+                        showAnimationUI.setData(showAnimationUIData);
+                    }
+                    else
+                    {
+                        Debug.LogError("showAnimationUI null");
+                    }
+                }
+                dirty = true;
+                return;
+            }
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	public override void onRemoveCallBack<T> (T data, bool isHide)
-	{
-		if (data is UIData) {
-			UIData uiData = data as UIData;
-			// Child
-			{
-				uiData.undoRedoRequest.allRemoveCallBack (this);
-				uiData.sub.allRemoveCallBack (this);
-			}
-			this.setDataNull (uiData);
-			return;
-		}
-		// Child
-		{
-			if (data is UndoRedoRequest) {
-				return;
-			}
+    public override void onRemoveCallBack<T>(T data, bool isHide)
+    {
+        if (data is UIData)
+        {
+            UIData uiData = data as UIData;
+            // Child
+            {
+                uiData.undoRedoRequest.allRemoveCallBack(this);
+                uiData.sub.allRemoveCallBack(this);
+                uiData.showAnimation.allRemoveCallBack(this);
+            }
+            this.setDataNull(uiData);
+            return;
+        }
+        // Child
+        {
+            if (data is UndoRedoRequest)
+            {
+                return;
+            }
             // sub
             {
                 if (data is UIData.Sub)
@@ -243,53 +351,80 @@ public class UndoRedoRequestUI : UIBehavior<UndoRedoRequestUI.UIData>
                     return;
                 }
                 // Child
-                if(data is TransformData)
+                if (data is TransformData)
                 {
                     return;
                 }
             }
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+            if (data is ShowAnimationUI.UIData)
+            {
+                ShowAnimationUI.UIData showAnimationUIData = data as ShowAnimationUI.UIData;
+                // UI
+                {
+                    if (showAnimationUI != null)
+                    {
+                        showAnimationUI.setDataNull(showAnimationUIData);
+                    }
+                    else
+                    {
+                        Debug.LogError("showAnimationUI null");
+                    }
+                }
+                return;
+            }
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-	{
-		if (WrapProperty.checkError (wrapProperty)) {
-			return;
-		}
-		if (wrapProperty.p is UIData) {
-			switch ((UIData.Property)wrapProperty.n) {
-			case UIData.Property.undoRedoRequest:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			case UIData.Property.sub:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			default:
-				Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-				break;
-			}
-			return;
-		} 
-		// Child
-		{
-			if (wrapProperty.p is UndoRedoRequest) {
-				switch ((UndoRedoRequest.Property)wrapProperty.n) {
-				case UndoRedoRequest.Property.state:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
+    public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+    {
+        if (WrapProperty.checkError(wrapProperty))
+        {
+            return;
+        }
+        if (wrapProperty.p is UIData)
+        {
+            switch ((UIData.Property)wrapProperty.n)
+            {
+                case UIData.Property.undoRedoRequest:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.sub:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.showAnimation:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                default:
+                    Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Child
+        {
+            if (wrapProperty.p is UndoRedoRequest)
+            {
+                switch ((UndoRedoRequest.Property)wrapProperty.n)
+                {
+                    case UndoRedoRequest.Property.state:
+                        dirty = true;
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
             // sub
             {
                 if (wrapProperty.p is UIData.Sub)
@@ -297,7 +432,7 @@ public class UndoRedoRequestUI : UIBehavior<UndoRedoRequestUI.UIData>
                     return;
                 }
                 // Child
-                if(wrapProperty.p is TransformData)
+                if (wrapProperty.p is TransformData)
                 {
                     switch ((TransformData.Property)wrapProperty.n)
                     {
@@ -317,13 +452,56 @@ public class UndoRedoRequestUI : UIBehavior<UndoRedoRequestUI.UIData>
                     return;
                 }
             }
-		}
-		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-	}
+            if (wrapProperty.p is ShowAnimationUI.UIData)
+            {
+                return;
+            }
+        }
+        Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+    }
 
-	#endregion
+    #endregion
 
     public void onClickBtnBack()
+    {
+        if (this.data != null)
+        {
+            if (showAnimationUI != null)
+            {
+                ShowAnimationUI.UIData showAnimationUIData = this.data.showAnimation.v;
+                if (showAnimationUIData != null)
+                {
+                    if ((showAnimationUIData.state.v is ShowAnimationUI.Normal))
+                    {
+                        ShowAnimationUI.Hide hide = new ShowAnimationUI.Hide();
+                        {
+                            hide.uid = showAnimationUIData.state.makeId();
+                        }
+                        showAnimationUIData.state.v = hide;
+                    }
+                    else
+                    {
+                        Debug.LogError("state error: " + showAnimationUIData.state.v);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("showAnimationUIData null");
+                }
+            }
+            else
+            {
+                Debug.LogError("showAnimationUI null");
+                back();
+            }
+        }
+        else
+        {
+            Debug.LogError("data null");
+        }
+    }
+
+    public void back()
     {
         if (this.data != null)
         {

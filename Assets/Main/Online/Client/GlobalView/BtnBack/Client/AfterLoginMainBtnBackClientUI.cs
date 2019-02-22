@@ -126,11 +126,11 @@ public class AfterLoginMainBtnBackClientUI : UIBehavior<AfterLoginMainBtnBackCli
 					if (btnLogOut != null) {
 						switch (this.data.state.v) {
 						case UIData.State.None:
-							btnLogOut.enabled = true;
+							btnLogOut.interactable = true;
 							break;
 						case UIData.State.LogOut:
 						case UIData.State.Wait:
-							btnLogOut.enabled = false;
+							btnLogOut.interactable = false;
 							break;
 						default:
 							Debug.LogError ("unknown type: " + this.data.state.v);

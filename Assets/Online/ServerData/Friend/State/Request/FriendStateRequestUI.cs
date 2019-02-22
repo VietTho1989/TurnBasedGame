@@ -121,19 +121,29 @@ public class FriendStateRequestUI : UIBehavior<FriendStateRequestUI.UIData>
                                 {
                                     case UIData.State.None:
                                         {
-                                            btnAccept.enabled = true;
-                                            btnRefuse.enabled = true;
+                                            btnAccept.interactable = true;
+                                            btnRefuse.interactable = true;
                                         }
                                         break;
                                     case UIData.State.RequestAccept:
-                                    case UIData.State.RequestCancel:
+                                        {
+                                            btnAccept.interactable = true;
+                                            btnRefuse.interactable = false;
+                                        }
+                                        break;
                                     case UIData.State.RequestRefuse:
+                                        {
+                                            btnAccept.interactable = false;
+                                            btnRefuse.interactable = true;
+                                        }
+                                        break;
                                     case UIData.State.WaitAccept:
                                     case UIData.State.WaitRefuse:
+                                    case UIData.State.RequestCancel:
                                     case UIData.State.WaitCancel:
                                         {
-                                            btnAccept.enabled = false;
-                                            btnRefuse.enabled = false;
+                                            btnAccept.interactable = false;
+                                            btnRefuse.interactable = false;
                                         }
                                         break;
                                     default:
@@ -164,17 +174,21 @@ public class FriendStateRequestUI : UIBehavior<FriendStateRequestUI.UIData>
                                 {
                                     case UIData.State.None:
                                         {
-                                            btnCancel.enabled = true;
+                                            btnCancel.interactable = true;
+                                        }
+                                        break;
+                                    case UIData.State.RequestCancel:
+                                        {
+                                            btnCancel.interactable = true;
                                         }
                                         break;
                                     case UIData.State.RequestAccept:
-                                    case UIData.State.RequestCancel:
                                     case UIData.State.RequestRefuse:
                                     case UIData.State.WaitAccept:
                                     case UIData.State.WaitRefuse:
                                     case UIData.State.WaitCancel:
                                         {
-                                            btnCancel.enabled = false;
+                                            btnCancel.interactable = false;
                                         }
                                         break;
                                     default:
@@ -647,13 +661,27 @@ public class FriendStateRequestUI : UIBehavior<FriendStateRequestUI.UIData>
     {
         if (this.data != null)
         {
-            if (this.data.state.v == UIData.State.None)
+            switch (this.data.state.v)
             {
-                this.data.state.v = UIData.State.RequestAccept;
-            }
-            else
-            {
-                Debug.LogError("you are requesting: " + this);
+                case UIData.State.None:
+                    this.data.state.v = UIData.State.RequestAccept;
+                    break;
+                case UIData.State.RequestAccept:
+                    this.data.state.v = UIData.State.None;
+                    break;
+                case UIData.State.RequestRefuse:
+                    break;
+                case UIData.State.RequestCancel:
+                    break;
+                case UIData.State.WaitAccept:
+                    break;
+                case UIData.State.WaitRefuse:
+                    break;
+                case UIData.State.WaitCancel:
+                    break;
+                default:
+                    Debug.LogError("unknown state: " + this.data.state.v);
+                    break;
             }
         }
         else
@@ -666,13 +694,27 @@ public class FriendStateRequestUI : UIBehavior<FriendStateRequestUI.UIData>
     {
         if (this.data != null)
         {
-            if (this.data.state.v == UIData.State.None)
+            switch (this.data.state.v)
             {
-                this.data.state.v = UIData.State.RequestRefuse;
-            }
-            else
-            {
-                Debug.LogError("you are requesting: " + this);
+                case UIData.State.None:
+                    this.data.state.v = UIData.State.RequestRefuse;
+                    break;
+                case UIData.State.RequestAccept:
+                    break;
+                case UIData.State.RequestRefuse:
+                    this.data.state.v = UIData.State.None;
+                    break;
+                case UIData.State.RequestCancel:
+                    break;
+                case UIData.State.WaitAccept:
+                    break;
+                case UIData.State.WaitRefuse:
+                    break;
+                case UIData.State.WaitCancel:
+                    break;
+                default:
+                    Debug.LogError("unknown state: " + this.data.state.v);
+                    break;
             }
         }
         else
@@ -685,13 +727,27 @@ public class FriendStateRequestUI : UIBehavior<FriendStateRequestUI.UIData>
     {
         if (this.data != null)
         {
-            if (this.data.state.v == UIData.State.None)
+            switch (this.data.state.v)
             {
-                this.data.state.v = UIData.State.RequestCancel;
-            }
-            else
-            {
-                Debug.LogError("you are requesting: " + this);
+                case UIData.State.None:
+                    this.data.state.v = UIData.State.RequestCancel;
+                    break;
+                case UIData.State.RequestAccept:
+                    break;
+                case UIData.State.RequestRefuse:
+                    break;
+                case UIData.State.RequestCancel:
+                    this.data.state.v = UIData.State.None;
+                    break;
+                case UIData.State.WaitAccept:
+                    break;
+                case UIData.State.WaitRefuse:
+                    break;
+                case UIData.State.WaitCancel:
+                    break;
+                default:
+                    Debug.LogError("unknown state: " + this.data.state.v);
+                    break;
             }
         }
         else

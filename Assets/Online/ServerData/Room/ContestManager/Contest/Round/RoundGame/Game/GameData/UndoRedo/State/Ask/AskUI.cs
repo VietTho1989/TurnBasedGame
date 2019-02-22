@@ -286,20 +286,20 @@ namespace UndoRedo
 												// btnAccept
 												{
 													if (ask.accepts.vs.Contains (profileId)) {
-														btnAccept.enabled = false;
+														btnAccept.interactable = false;
 														tvAccept.text = txtAlreadyAccept.get ("Already Accept");
 													} else {
-														btnAccept.enabled = true;
+														btnAccept.interactable = true;
 														tvAccept.text = txtAccept.get("Accept");
 													}
 												}
 												// btnCancel
 												{
 													if (ask.cancels.vs.Contains (profileId)) {
-														btnCancel.enabled = false;
+														btnCancel.interactable = false;
 														tvCancel.text = txtAlreadyCancel.get ("Already Cancel");
 													} else {
-														btnCancel.enabled = true;
+														btnCancel.interactable = true;
 														tvCancel.text = txtCancel.get ("Cancel");
 													}
 												}
@@ -309,12 +309,12 @@ namespace UndoRedo
 											{
 												// btnAccept
 												{
-													btnAccept.enabled = true;
+													btnAccept.interactable = true;
 													tvAccept.text = txtCancelAccept.get ("Cancel request accept?");
 												}
 												// btnCancel
 												{
-													btnCancel.enabled = false;
+													btnCancel.interactable = false;
 													tvCancel.text = txtCannotCancel.get ("Cannot cancel");
 												}
 											}
@@ -323,12 +323,12 @@ namespace UndoRedo
 											{
 												// btnAccept
 												{
-													btnAccept.enabled = false;
+													btnAccept.interactable = false;
 													tvAccept.text = txtAccepting.get ("Requesting accept");
 												}
 												// btnCancel
 												{
-													btnCancel.enabled = false;
+													btnCancel.interactable = false;
 													tvCancel.text = txtCannotCancel.get ("Cannot cancel");
 												}
 											}
@@ -337,12 +337,12 @@ namespace UndoRedo
 											{
 												// btnAccept
 												{
-													btnAccept.enabled = false;
+													btnAccept.interactable = false;
 													tvAccept.text = txtCannotAccept.get ("Cannot accept");
 												}
 												// btnCancel
 												{
-													btnCancel.enabled = true;
+													btnCancel.interactable = true;
 													tvCancel.text = txtCancelCancel.get ("Cancel request cancel?");
 												}
 											}
@@ -351,12 +351,12 @@ namespace UndoRedo
 											{
 												// btnAccept
 												{
-													btnAccept.enabled = false;
+													btnAccept.interactable = false;
 													tvAccept.text = txtCannotAccept.get("Cannot accept");
 												}
 												// btnCancel
 												{
-													btnCancel.enabled = false;
+													btnCancel.interactable = false;
 													tvCancel.text = txtCancelling.get ("Requesting cancel");
 												}
 											}

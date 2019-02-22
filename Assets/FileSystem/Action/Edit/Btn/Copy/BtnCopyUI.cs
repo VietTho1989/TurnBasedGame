@@ -104,25 +104,25 @@ namespace FileSystem
 									{
 										ActionNone actionNone = action as ActionNone;
 										if (actionNone.selectFiles.vs.Count == 0) {
-											btnCopy.enabled = false;
+											btnCopy.interactable = false;
 											tvCopy.text = txtCannotCopyNotSelect.get ("Cannot copy, not select");
 										} else {
 											switch (actionNone.state.v) {
 											case ActionNone.State.None:
 												{
-													btnCopy.enabled = true;
+													btnCopy.interactable = true;
 													tvCopy.text = txtCopy.get("Copy");
 												}
 												break;
 											case ActionNone.State.Cut:
 												{
-													btnCopy.enabled = true;
+													btnCopy.interactable = true;
 													tvCopy.text = txtCopy.get("Copy");
 												}
 												break;
 											case ActionNone.State.Copy:
 												{
-													btnCopy.enabled = true;
+													btnCopy.interactable = true;
 													tvCopy.text = txtAlreadySelectCopyCancel.get ("Already Select Copy, Cancel?");
 												}
 												break;
@@ -142,7 +142,7 @@ namespace FileSystem
 												switch (state.getType ()) {
 												case ActionEdit.State.Type.Start:
 													{
-														btnCopy.enabled = false;
+														btnCopy.interactable = false;
 														tvCopy.text = txtCopying.get ("Copying");
 													}
 													break;
@@ -151,7 +151,7 @@ namespace FileSystem
 														ActionEditProcess actionEditProcess = state as ActionEditProcess;
 														// set
 														{
-															btnCopy.enabled = true;
+															btnCopy.interactable = true;
 															// txt
 															{
 																FileSystemInfo file = null;
@@ -181,7 +181,7 @@ namespace FileSystem
 													break;
 												case ActionEdit.State.Type.Success:
 													{
-														btnCopy.enabled = false;
+														btnCopy.interactable = false;
 														tvCopy.text = txtCopySuccess.get ("Copy success");
 													}
 													break;
@@ -190,7 +190,7 @@ namespace FileSystem
 														ActionEditFail actionEditFail = state as ActionEditFail;
 														// Set
 														{
-															btnCopy.enabled = false;
+															btnCopy.interactable = false;
 															// txt
 															{
 																// find fail file
@@ -214,7 +214,7 @@ namespace FileSystem
 												Debug.LogError ("state null: " + this);
 											}
 										} else {
-											btnCopy.enabled = false;
+											btnCopy.interactable = false;
 											tvCopy.text = txtCannotCopyOtherAction.get ("Cannot copy, doing other action");
 										}
 									}

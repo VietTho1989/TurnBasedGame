@@ -231,23 +231,23 @@ namespace Hint
 							if (isDifferent) {
 								// apply
 								{
-									btnApply.enabled = true;
+									btnApply.interactable = true;
 									tvApply.text = txtApply.get ("Apply");
 								}
 								// reset
 								{
-									btnReset.enabled = true;
+									btnReset.interactable = true;
 									tvReset.text = txtReset.get ("Reset");
 								}
 							} else {
 								// apply
 								{
-									btnApply.enabled = false;
+									btnApply.interactable = false;
 									tvApply.text = txtApply.get ("Not different, cannot apply");
 								}
 								// reset
 								{
-									btnReset.enabled = false;
+									btnReset.interactable = false;
 									tvReset.text = txtReset.get ("Not diffrent, cannot reset");
 								}
 							}

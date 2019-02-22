@@ -9,6 +9,7 @@ public class RequestDraw : Data
 
 	public abstract class State : Data
 	{
+
 		public enum Type
 		{
 			None,
@@ -18,32 +19,34 @@ public class RequestDraw : Data
 		}
 
 		public abstract Type getType();
+
 	}
+
 	public VP<State> state;
 
-	#endregion
+    #endregion
 
-	public VP<long> time;
+    public LP<Human> whoCanAsks;
 
 	#region Constructor
 
 	public enum Property
 	{
 		state,
-		time
-	}
+        whoCanAsks
+    }
 
 	public RequestDraw() : base()
 	{
 		this.state = new VP<State> (this, (byte)Property.state, new RequestDrawStateNone ());
-		this.time = new VP<long> (this, (byte)Property.time, Constants.UNKNOWN_TIME);
+        this.whoCanAsks = new LP<Human>(this, (byte)Property.whoCanAsks);
 	}
 
 	#endregion
 
-	public List<uint> getWhoCanAnswer()
+	public HashSet<uint> getWhoCanAsk()
 	{
-		List<uint> ret = new List<uint> ();
+		HashSet<uint> ret = new HashSet<uint> ();
 		{
 			// GamePlayer
 			{
@@ -53,12 +56,8 @@ public class RequestDraw : Data
 						GamePlayer gamePlayer = game.gamePlayers.vs [i];
 						if (gamePlayer.inform.v is Human) {
 							Human human = gamePlayer.inform.v as Human;
-							if (!ret.Contains (human.playerId.v)) {
-								ret.Add (human.playerId.v);
-							} else {
-								Debug.LogError ("already contain: " + human.playerId.v);
-							}
-						}
+                            ret.Add(human.playerId.v);
+                        }
 					}
 				} else {
 					Debug.LogError ("duel null");

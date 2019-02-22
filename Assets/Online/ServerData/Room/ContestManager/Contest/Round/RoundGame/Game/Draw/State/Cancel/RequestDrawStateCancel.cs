@@ -22,5 +22,5 @@ public class RequestDrawStateCancel : RequestDraw.State
 	{
 		return Type.Cancel;
 	}
-}
 
+}

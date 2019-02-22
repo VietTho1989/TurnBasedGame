@@ -60,10 +60,10 @@ namespace FileSystem
 					if (directoryHistory != null) {
 						if (btnForWard != null && tvForWard != null) {
 							if (directoryHistory.position.v >= directoryHistory.history.vs.Count - 1) {
-								btnForWard.enabled = false;
+								btnForWard.interactable = false;
 								tvForWard.text = txtCannotForward.get ("Cannot Forward");
 							} else {
-								btnForWard.enabled = true;
+								btnForWard.interactable = true;
 								tvForWard.text = txtForward.get ("Forward");
 							}
 						} else {

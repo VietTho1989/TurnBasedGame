@@ -50,13 +50,17 @@ public class GameUI : UIBehavior<GameUI.UIData>
 
         public VP<GamePlayerListUI.UIData> gamePlayerList;
 
+        #region bottomShow
+
         public VP<UndoRedoRequestUI.UIData> undoRedoRequestUIData;
+
+        public VP<RequestDrawUI.UIData> requestDraw;
+
+        #endregion
 
         public VP<GameActionsUI.UIData> gameActionsUI;
 
         public VP<ChatRoomUI.UIData> chatRoom;
-
-        public VP<RequestDrawUI.UIData> requestDraw;
 
         #region save
 
@@ -95,10 +99,13 @@ public class GameUI : UIBehavior<GameUI.UIData>
             this.gameBottom = new VP<GameBottomUI.UIData>(this, (byte)Property.gameBottom, new GameBottomUI.UIData());
             this.stateUI = new VP<StateUI.UIData>(this, (byte)Property.stateUI, new StateUI.UIData());
             this.gamePlayerList = new VP<GamePlayerListUI.UIData>(this, (byte)Property.gamePlayerList, new GamePlayerListUI.UIData());
-            this.undoRedoRequestUIData = new VP<UndoRedoRequestUI.UIData>(this, (byte)Property.undoRedoRequestUIData, null);
+            // bottomShow
+            {
+                this.undoRedoRequestUIData = new VP<UndoRedoRequestUI.UIData>(this, (byte)Property.undoRedoRequestUIData, null);
+                this.requestDraw = new VP<RequestDrawUI.UIData>(this, (byte)Property.requestDraw, null);
+            }
             this.gameActionsUI = new VP<GameActionsUI.UIData>(this, (byte)Property.gameActionsUI, new GameActionsUI.UIData());
             this.chatRoom = new VP<ChatRoomUI.UIData>(this, (byte)Property.chatRoom, new ChatRoomUI.UIData());
-            this.requestDraw = new VP<RequestDrawUI.UIData>(this, (byte)Property.requestDraw, new RequestDrawUI.UIData());
             this.saveUIData = new VP<SaveUI.UIData>(this, (byte)Property.saveUIData, null);
             this.gameHistoryUIData = new VP<GameHistoryUI.UIData>(this, (byte)Property.gameHistoryUIData, new GameHistoryUI.UIData());
             // dataRecordTaskUIData
@@ -381,8 +388,15 @@ public class GameUI : UIBehavior<GameUI.UIData>
     public GameDataUI gameDataUIPrefab;
     private static readonly UIRectTransform gameDataUIRect = UIRectTransform.CreateFullRect(0, 0, 0, 60);
 
+    #region bottom
+
     public GameBottomUI gameBottomPrefab;
     private static readonly UIRectTransform gameBottomRect = new UIRectTransform();
+
+    public UndoRedoRequestUI undoRedoRequestPrefab;
+    public RequestDrawUI requestDrawPrefab;
+
+    #endregion
 
     public StateUI stateUIPrefab;
     public Transform stateUIContainer;
@@ -390,16 +404,11 @@ public class GameUI : UIBehavior<GameUI.UIData>
     public GamePlayerListUI gamePlayerListPrefab;
     public Transform gamePlayerListContainer;
 
-    public UndoRedoRequestUI undoRedoRequestPrefab;
-
     public GameActionsUI gameActionsPrefab;
     public Transform gameActionsContainer;
 
     public ChatRoomUI chatRoomPrefab;
     public Transform chatRoomContainer;
-
-    public RequestDrawUI requestDrawPrefab;
-    public Transform requestDrawContainer;
 
     public SaveUI saveUIPrefab;
     public Transform saveUIContainer;
@@ -471,15 +480,38 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 dirty = true;
                 return;
             }
-            if (data is GameBottomUI.UIData)
+            // bottom
             {
-                GameBottomUI.UIData gameBottomUIData = data as GameBottomUI.UIData;
-                // UI
+                if (data is GameBottomUI.UIData)
                 {
-                    UIUtils.Instantiate(gameBottomUIData, gameBottomPrefab, this.transform, gameBottomRect);
+                    GameBottomUI.UIData gameBottomUIData = data as GameBottomUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(gameBottomUIData, gameBottomPrefab, this.transform, gameBottomRect);
+                    }
+                    dirty = true;
+                    return;
                 }
-                dirty = true;
-                return;
+                if (data is UndoRedoRequestUI.UIData)
+                {
+                    UndoRedoRequestUI.UIData undoRedoRequestUIData = data as UndoRedoRequestUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(undoRedoRequestUIData, undoRedoRequestPrefab, this.transform);
+                    }
+                    dirty = true;
+                    return;
+                }
+                if (data is RequestDrawUI.UIData)
+                {
+                    RequestDrawUI.UIData requestDrawUIData = data as RequestDrawUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(requestDrawUIData, requestDrawPrefab, this.transform);
+                    }
+                    dirty = true;
+                    return;
+                }
             }
             if (data is GameActionsUI.UIData)
             {
@@ -511,32 +543,12 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 dirty = true;
                 return;
             }
-            if (data is UndoRedoRequestUI.UIData)
-            {
-                UndoRedoRequestUI.UIData undoRedoRequestUIData = data as UndoRedoRequestUI.UIData;
-                // UI
-                {
-                    UIUtils.Instantiate(undoRedoRequestUIData, undoRedoRequestPrefab, this.transform);
-                }
-                dirty = true;
-                return;
-            }
             if (data is ChatRoomUI.UIData)
             {
                 ChatRoomUI.UIData chatRoomUIData = data as ChatRoomUI.UIData;
                 // UI
                 {
                     UIUtils.Instantiate(chatRoomUIData, chatRoomPrefab, chatRoomContainer);
-                }
-                dirty = true;
-                return;
-            }
-            if (data is RequestDrawUI.UIData)
-            {
-                RequestDrawUI.UIData requestDrawUIData = data as RequestDrawUI.UIData;
-                // UI
-                {
-                    UIUtils.Instantiate(requestDrawUIData, requestDrawPrefab, requestDrawContainer);
                 }
                 dirty = true;
                 return;
@@ -586,13 +598,16 @@ public class GameUI : UIBehavior<GameUI.UIData>
             {
                 uiData.game.allRemoveCallBack(this);
                 uiData.gameDataUI.allRemoveCallBack(this);
-                uiData.gameBottom.allRemoveCallBack(this);
+                // bottom
+                {
+                    uiData.gameBottom.allRemoveCallBack(this);
+                    uiData.undoRedoRequestUIData.allRemoveCallBack(this);
+                    uiData.requestDraw.allRemoveCallBack(this);
+                }
                 uiData.stateUI.allRemoveCallBack(this);
                 uiData.gamePlayerList.allRemoveCallBack(this);
-                uiData.undoRedoRequestUIData.allRemoveCallBack(this);
                 uiData.gameActionsUI.allRemoveCallBack(this);
                 uiData.chatRoom.allRemoveCallBack(this);
-                uiData.requestDraw.allRemoveCallBack(this);
                 uiData.saveUIData.allRemoveCallBack(this);
                 uiData.gameHistoryUIData.allRemoveCallBack(this);
                 uiData.dataRecordTaskUIData.allRemoveCallBack(this);
@@ -620,14 +635,35 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 }
                 return;
             }
-            if (data is GameBottomUI.UIData)
+            // bottom
             {
-                GameBottomUI.UIData gameBottomUIData = data as GameBottomUI.UIData;
-                // UI
+                if (data is GameBottomUI.UIData)
                 {
-                    gameBottomUIData.removeCallBackAndDestroy(typeof(GameBottomUI));
+                    GameBottomUI.UIData gameBottomUIData = data as GameBottomUI.UIData;
+                    // UI
+                    {
+                        gameBottomUIData.removeCallBackAndDestroy(typeof(GameBottomUI));
+                    }
+                    return;
                 }
-                return;
+                if (data is UndoRedoRequestUI.UIData)
+                {
+                    UndoRedoRequestUI.UIData subUIData = data as UndoRedoRequestUI.UIData;
+                    // UI
+                    {
+                        subUIData.removeCallBackAndDestroy(typeof(UndoRedoRequestUI));
+                    }
+                    return;
+                }
+                if (data is RequestDrawUI.UIData)
+                {
+                    RequestDrawUI.UIData requestDrawUIData = data as RequestDrawUI.UIData;
+                    // UI
+                    {
+                        requestDrawUIData.removeCallBackAndDestroy(typeof(RequestDrawUI));
+                    }
+                    return;
+                }
             }
             if (data is StateUI.UIData)
             {
@@ -647,15 +683,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 }
                 return;
             }
-            if (data is UndoRedoRequestUI.UIData)
-            {
-                UndoRedoRequestUI.UIData subUIData = data as UndoRedoRequestUI.UIData;
-                // UI
-                {
-                    subUIData.removeCallBackAndDestroy(typeof(UndoRedoRequestUI));
-                }
-                return;
-            }
             if (data is GameActionsUI.UIData)
             {
                 GameActionsUI.UIData subUIData = data as GameActionsUI.UIData;
@@ -671,15 +698,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 // UI
                 {
                     chatRoomUIData.removeCallBackAndDestroy(typeof(ChatRoomUI));
-                }
-                return;
-            }
-            if (data is RequestDrawUI.UIData)
-            {
-                RequestDrawUI.UIData requestDrawUIData = data as RequestDrawUI.UIData;
-                // UI
-                {
-                    requestDrawUIData.removeCallBackAndDestroy(typeof(RequestDrawUI));
                 }
                 return;
             }
@@ -736,12 +754,27 @@ public class GameUI : UIBehavior<GameUI.UIData>
                         dirty = true;
                     }
                     break;
+
+                // bottom
                 case UIData.Property.gameBottom:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
                     }
                     break;
+                case UIData.Property.undoRedoRequestUIData:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.requestDraw:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+
                 case UIData.Property.stateUI:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
@@ -754,12 +787,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
                         dirty = true;
                     }
                     break;
-                case UIData.Property.undoRedoRequestUIData:
-                    {
-                        ValueChangeUtils.replaceCallBack(this, syncs);
-                        dirty = true;
-                    }
-                    break;
                 case UIData.Property.gameActionsUI:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
@@ -767,12 +794,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
                     }
                     break;
                 case UIData.Property.chatRoom:
-                    {
-                        ValueChangeUtils.replaceCallBack(this, syncs);
-                        dirty = true;
-                    }
-                    break;
-                case UIData.Property.requestDraw:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
@@ -863,9 +884,20 @@ public class GameUI : UIBehavior<GameUI.UIData>
             {
                 return;
             }
-            if(wrapProperty.p is GameBottomUI.UIData)
+            // bottom
             {
-                return;
+                if (wrapProperty.p is GameBottomUI.UIData)
+                {
+                    return;
+                }
+                if (wrapProperty.p is UndoRedoRequestUI.UIData)
+                {
+                    return;
+                }
+                if (wrapProperty.p is RequestDrawUI.UIData)
+                {
+                    return;
+                }
             }
             if (wrapProperty.p is StateUI.UIData)
             {
@@ -875,19 +907,11 @@ public class GameUI : UIBehavior<GameUI.UIData>
             {
                 return;
             }
-            if (wrapProperty.p is UndoRedoRequestUI.UIData)
-            {
-                return;
-            }
             if (wrapProperty.p is GameActionsUI.UIData)
             {
                 return;
             }
             if (wrapProperty.p is ChatRoomUI.UIData)
-            {
-                return;
-            }
-            if (wrapProperty.p is RequestDrawUI.UIData)
             {
                 return;
             }

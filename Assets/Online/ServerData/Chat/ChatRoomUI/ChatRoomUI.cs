@@ -360,7 +360,7 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
                 {
                     if (edtMessage != null)
                     {
-                        edtMessage.enabled = this.data.canSendMessage.v;
+                        edtMessage.interactable = this.data.canSendMessage.v;
                     }
                     else
                     {

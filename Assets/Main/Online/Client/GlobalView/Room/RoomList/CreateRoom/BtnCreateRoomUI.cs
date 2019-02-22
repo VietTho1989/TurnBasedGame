@@ -133,19 +133,19 @@ public class BtnCreateRoomUI : UIBehavior<BtnCreateRoomUI.UIData>
 						switch (this.data.state.v) {
 						case UIData.State.None:
 							{
-								btnCreate.enabled = true;
+								btnCreate.interactable = true;
 								tvCreate.text = txtCreate.get ("Create");
 							}
 							break;
 						case UIData.State.Request:
 							{
-								btnCreate.enabled = true;
+								btnCreate.interactable = true;
 								tvCreate.text = txtCancel.get ("Cancel Create");
 							}
 							break;
 						case UIData.State.Wait:
 							{
-								btnCreate.enabled = false;
+								btnCreate.interactable = false;
 								tvCreate.text = txtCreating.get ("Creating...");
 							}
 							break;

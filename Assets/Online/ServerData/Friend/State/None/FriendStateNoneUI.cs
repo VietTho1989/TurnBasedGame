@@ -105,17 +105,27 @@ public class FriendStateNoneUI : UIBehavior<FriendStateNoneUI.UIData>
                                 {
                                     case UIData.State.None:
                                         {
-                                            btnMakeFriend.enabled = true;
-                                            btnBan.enabled = true;
+                                            btnMakeFriend.interactable = true;
+                                            btnBan.interactable = true;
+                                        }
+                                        break;
+                                    case UIData.State.RequestMakeFriend:
+                                        {
+                                            btnMakeFriend.interactable = true;
+                                            btnBan.interactable = false;
                                         }
                                         break;
                                     case UIData.State.RequestBan:
-                                    case UIData.State.RequestMakeFriend:
+                                        {
+                                            btnMakeFriend.interactable = false;
+                                            btnBan.interactable = true;
+                                        }
+                                        break;
                                     case UIData.State.WaitMakeFriend:
                                     case UIData.State.WaitMakeBan:
                                         {
-                                            btnMakeFriend.enabled = false;
-                                            btnBan.enabled = false;
+                                            btnMakeFriend.interactable = false;
+                                            btnBan.interactable = false;
                                         }
                                         break;
                                     default:
@@ -125,8 +135,8 @@ public class FriendStateNoneUI : UIBehavior<FriendStateNoneUI.UIData>
                             }
                             else
                             {
-                                btnMakeFriend.enabled = false;
-                                btnBan.enabled = false;
+                                btnMakeFriend.interactable = false;
+                                btnBan.interactable = false;
                             }
                         }
                         else
@@ -554,13 +564,23 @@ public class FriendStateNoneUI : UIBehavior<FriendStateNoneUI.UIData>
     {
         if (this.data != null)
         {
-            if (this.data.state.v == UIData.State.None)
+            switch (this.data.state.v)
             {
-                this.data.state.v = UIData.State.RequestMakeFriend;
-            }
-            else
-            {
-                Debug.LogError("wrong state: " + this.data.state.v + "; " + this);
+                case UIData.State.None:
+                    this.data.state.v = UIData.State.RequestMakeFriend;
+                    break;
+                case UIData.State.RequestMakeFriend:
+                    this.data.state.v = UIData.State.None;
+                    break;
+                case UIData.State.WaitMakeFriend:
+                    break;
+                case UIData.State.RequestBan:
+                    break;
+                case UIData.State.WaitMakeBan:
+                    break;
+                default:
+                    Debug.LogError("unknown state: " + this.data.state.v);
+                    break;
             }
         }
         else
@@ -573,13 +593,23 @@ public class FriendStateNoneUI : UIBehavior<FriendStateNoneUI.UIData>
     {
         if (this.data != null)
         {
-            if (this.data.state.v == UIData.State.None)
+            switch (this.data.state.v)
             {
-                this.data.state.v = UIData.State.RequestBan;
-            }
-            else
-            {
-                Debug.LogError("wrong state: " + this.data.state.v + "; " + this);
+                case UIData.State.None:
+                    this.data.state.v = UIData.State.RequestBan;
+                    break;
+                case UIData.State.RequestMakeFriend:
+                    break;
+                case UIData.State.WaitMakeFriend:
+                    break;
+                case UIData.State.RequestBan:
+                    this.data.state.v = UIData.State.None;
+                    break;
+                case UIData.State.WaitMakeBan:
+                    break;
+                default:
+                    Debug.LogError("unknown state: " + this.data.state.v);
+                    break;
             }
         }
         else

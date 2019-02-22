@@ -136,19 +136,19 @@ public class RequestChangeUseRuleStateAskBtnRefuseUI : UIBehavior<RequestChangeU
 								switch (this.data.state.v) {
 								case UIData.State.None:
 									{
-										btnRefuse.enabled = true;
+										btnRefuse.interactable = true;
 										tvRefuse.text = txtRefuse.get("Refuse");
 									}
 									break;
 								case UIData.State.Request:
 									{
-										btnRefuse.enabled = true;
+										btnRefuse.interactable = true;
 										tvRefuse.text = txtCancelRefuse.get("Cancel Refuse?");
 									}
 									break;
 								case UIData.State.Wait:
 									{
-										btnRefuse.enabled = false;
+										btnRefuse.interactable = false;
 										tvRefuse.text = txtRefusing.get("Refusing...");
 									}
 									break;
@@ -169,7 +169,7 @@ public class RequestChangeUseRuleStateAskBtnRefuseUI : UIBehavior<RequestChangeU
 						// UI
 						{
 							if (btnRefuse != null && tvRefuse != null) {
-								btnRefuse.enabled = false;
+								btnRefuse.interactable = false;
 								tvRefuse.text = txtCannotRefuse.get ("Cannot Refuse");
 							} else {
 								Debug.LogError ("btnRefuse, tvRefuse null: " + this);

@@ -114,10 +114,10 @@ namespace FileSystem
 									{
 										ActionNone actionNone = action as ActionNone;
 										if (actionNone.selectFiles.vs.Count > 0) {
-											btnDelete.enabled = true;
+											btnDelete.interactable = true;
 											tvDelete.text = txtDelete.get ("Delete");
 										} else {
-											btnDelete.enabled = false;
+											btnDelete.interactable = false;
 											tvDelete.text = txtCannotDeleteNotSelect.get ("Cannot delete, not select");
 										}
 									}
@@ -131,7 +131,7 @@ namespace FileSystem
 												switch (state.getType ()) {
 												case ActionEdit.State.Type.Start:
 													{
-														btnDelete.enabled = false;
+														btnDelete.interactable = false;
 														tvDelete.text = txtDeleting.get ("Deleting...");
 													}
 													break;
@@ -140,7 +140,7 @@ namespace FileSystem
 														ActionEditProcess actionEditProcess = state as ActionEditProcess;
 														// set
 														{
-															btnDelete.enabled = true;
+															btnDelete.interactable = true;
 															// txt
 															{
 																FileSystemInfo file = null;
@@ -170,7 +170,7 @@ namespace FileSystem
 													break;
 												case ActionEdit.State.Type.Success:
 													{
-														btnDelete.enabled = false;
+														btnDelete.interactable = false;
 														tvDelete.text = txtDeleteSuccess.get ("Delete success");
 													}
 													break;
@@ -179,7 +179,7 @@ namespace FileSystem
 														ActionEditFail actionEditFail = state as ActionEditFail;
 														// Set
 														{
-															btnDelete.enabled = false;
+															btnDelete.interactable = false;
 															// txt
 															{
 																// find fail file
@@ -203,7 +203,7 @@ namespace FileSystem
 												Debug.LogError ("staate null: " + this);
 											}
 										} else {
-											btnDelete.enabled = false;
+											btnDelete.interactable = false;
 											tvDelete.text = txtCannotDeleteDoingOtherAction.get ("Cannot delete, doing other action");
 										}
 									}

@@ -123,19 +123,19 @@ public class RoomUserBtnUnKickUI : UIBehavior<RoomUserBtnUnKickUI.UIData>
 								switch (this.data.state.v) {
 								case UIData.State.None:
 									{
-										btnUnKick.enabled = true;
+										btnUnKick.interactable = true;
 										tvUnKick.text = txtUnKick.get ("UnKick");
 									}
 									break;
 								case UIData.State.Request:
 									{
-										btnUnKick.enabled = true;
+										btnUnKick.interactable = true;
 										tvUnKick.text = txtCancelUnKick.get ("Cancel UnKick?");
 									}
 									break;
 								case UIData.State.Wait:
 									{
-										btnUnKick.enabled = false;
+										btnUnKick.interactable = false;
 										tvUnKick.text = txtUnKicking.get ("UnKicking");
 									}
 									break;
@@ -156,7 +156,7 @@ public class RoomUserBtnUnKickUI : UIBehavior<RoomUserBtnUnKickUI.UIData>
 						// UI
 						{
 							if (btnUnKick != null && tvUnKick != null) {
-								btnUnKick.enabled = false;
+								btnUnKick.interactable = false;
 								tvUnKick.text = txtCannotUnKick.get ("You cannot unkick");
 							} else {
 								Debug.LogError ("btnUnKick, tvUnKick null: " + this);

@@ -155,19 +155,19 @@ public class ChatMessageDeleteUI : UIBehavior<ChatMessageDeleteUI.UIData>
 									switch (chatMessage.state.v) {
 									case ChatMessage.State.Normal:
 										{
-											btnDelete.enabled = true;
+											btnDelete.interactable = true;
 											tvDelete.text = txtDelete.get ("Delete");
 										}
 										break;
 									case ChatMessage.State.Delete:
 										{
-											btnDelete.enabled = true;
+											btnDelete.interactable = true;
 											tvDelete.text = txtUnDelete.get ("UnDelete");
 										}
 										break;
 									case ChatMessage.State.TrueDelete:
 										{
-											btnDelete.enabled = false;
+											btnDelete.interactable = false;
 											tvDelete.text = "Delete";
 										}
 										break;
@@ -182,19 +182,19 @@ public class ChatMessageDeleteUI : UIBehavior<ChatMessageDeleteUI.UIData>
 									switch (chatMessage.state.v) {
 									case ChatMessage.State.Normal:
 										{
-											btnDelete.enabled = true;
+											btnDelete.interactable = true;
 											tvDelete.text = txtCancelDelete.get ("Cancel Delete?");
 										}
 										break;
 									case ChatMessage.State.Delete:
 										{
-											btnDelete.enabled = true;
+											btnDelete.interactable = true;
 											tvDelete.text = txtCancelUnDelete.get ("Cancel UnDelete?");
 										}
 										break;
 									case ChatMessage.State.TrueDelete:
 										{
-											btnDelete.enabled = false;
+											btnDelete.interactable = false;
 											tvDelete.text = "Delete";
 										}
 										break;
@@ -209,19 +209,19 @@ public class ChatMessageDeleteUI : UIBehavior<ChatMessageDeleteUI.UIData>
 									switch (chatMessage.state.v) {
 									case ChatMessage.State.Normal:
 										{
-											btnDelete.enabled = false;
+											btnDelete.interactable = false;
 											tvDelete.text = txtDeleting.get ("Deleting");
 										}
 										break;
 									case ChatMessage.State.Delete:
 										{
-											btnDelete.enabled = false;
+											btnDelete.interactable = false;
 											tvDelete.text = txtUnDeleting.get ("UnDeleting");
 										}
 										break;
 									case ChatMessage.State.TrueDelete:
 										{
-											btnDelete.enabled = false;
+											btnDelete.interactable = false;
 											tvDelete.text = "Delete";
 										}
 										break;

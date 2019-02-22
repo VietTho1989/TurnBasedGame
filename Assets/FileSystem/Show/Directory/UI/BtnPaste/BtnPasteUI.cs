@@ -96,10 +96,10 @@ namespace FileSystem
 							// Process
 							{
 								if (canPaste) {
-									btnPaste.enabled = true;
+									btnPaste.interactable = true;
 									tvPaste.text = txtPaste.get ("Paste");
 								} else {
-									btnPaste.enabled = false;
+									btnPaste.interactable = false;
 									tvPaste.text = txtCannotPaste.get ("Cannot paste");
 								}
 							}

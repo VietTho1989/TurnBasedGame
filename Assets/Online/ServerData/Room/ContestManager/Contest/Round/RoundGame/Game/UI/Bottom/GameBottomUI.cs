@@ -14,18 +14,22 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
 
         public VP<BtnUndoRedoUI.UIData> btnUndoRedo;
 
+        public VP<BtnRequestDrawUI.UIData> btnRequestDraw;
+
         #region Constructor
 
         public enum Property
         {
             game,
-            btnUndoRedo
+            btnUndoRedo,
+            btnRequestDraw
         }
 
         public UIData() : base()
         {
             this.game = new VP<ReferenceData<Game>>(this, (byte)Property.game, new ReferenceData<Game>(null));
             this.btnUndoRedo = new VP<BtnUndoRedoUI.UIData>(this, (byte)Property.btnUndoRedo, new BtnUndoRedoUI.UIData());
+            this.btnRequestDraw = new VP<BtnRequestDrawUI.UIData>(this, (byte)Property.btnRequestDraw, new BtnRequestDrawUI.UIData());
         }
 
         #endregion
@@ -51,6 +55,18 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 btnUndoRedoRect.offsetMin = new Vector2(0.0f, -30.0f);
                 btnUndoRedoRect.offsetMax = new Vector2(80.0f, 30.0f);
                 btnUndoRedoRect.sizeDelta = new Vector2(80.0f, 60.0f);
+            }
+            // btnRequestDraw
+            {
+                // anchoredPosition: (80.0, 0.0); anchorMin: (0.0, 0.0); anchorMax: (0.0, 1.0); pivot: (0.0, 0.5);
+                // offsetMin: (80.0, 0.0); offsetMax: (160.0, 0.0); sizeDelta: (80.0, 0.0);
+                btnRequestDrawRect.anchoredPosition = new Vector3(80.0f, 0.0f, 0.0f);
+                btnRequestDrawRect.anchorMin = new Vector2(0.0f, 0.0f);
+                btnRequestDrawRect.anchorMax = new Vector2(0.0f, 1.0f);
+                btnRequestDrawRect.pivot = new Vector2(0.0f, 0.5f);
+                btnRequestDrawRect.offsetMin = new Vector2(80.0f, 0.0f);
+                btnRequestDrawRect.offsetMax = new Vector2(160.0f, 0.0f);
+                btnRequestDrawRect.sizeDelta = new Vector2(80.0f, 0.0f);
             }
         }
     }
@@ -81,6 +97,18 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                             Debug.LogError("btnUndoRedo null");
                         }
                     }
+                    // btnRequestDraw
+                    {
+                        BtnRequestDrawUI.UIData btnRequestDraw = this.data.btnRequestDraw.v;
+                        if (btnRequestDraw != null)
+                        {
+                            btnRequestDraw.requestDraw.v = new ReferenceData<RequestDraw>(game.requestDraw.v);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnRequestDraw null");
+                        }
+                    }
                 }
                 else
                 {
@@ -106,6 +134,9 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
     public BtnUndoRedoUI btnUndoRedoPrefab;
     private static readonly UIRectTransform btnUndoRedoRect = new UIRectTransform();
 
+    public BtnRequestDrawUI btnRequestDrawPrefab;
+    private static readonly UIRectTransform btnRequestDrawRect = new UIRectTransform();
+
     public override void onAddCallBack<T>(T data)
     {
         if(data is UIData)
@@ -115,6 +146,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
             {
                 uiData.game.allAddCallBack(this);
                 uiData.btnUndoRedo.allAddCallBack(this);
+                uiData.btnRequestDraw.allAddCallBack(this);
             }
             dirty = true;
             return;
@@ -136,6 +168,16 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 dirty = true;
                 return;
             }
+            if(data is BtnRequestDrawUI.UIData)
+            {
+                BtnRequestDrawUI.UIData btnRequestDrawUIData = data as BtnRequestDrawUI.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(btnRequestDrawUIData, btnRequestDrawPrefab, this.transform, btnRequestDrawRect);
+                }
+                dirty = true;
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -149,6 +191,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
             {
                 uiData.game.allRemoveCallBack(this);
                 uiData.btnUndoRedo.allRemoveCallBack(this);
+                uiData.btnRequestDraw.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
             return;
@@ -165,6 +208,15 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 // UI
                 {
                     btnUndoRedoUIData.removeCallBackAndDestroy(typeof(BtnUndoRedoUI));
+                }
+                return;
+            }
+            if(data is BtnRequestDrawUI.UIData)
+            {
+                BtnRequestDrawUI.UIData btnRequestDrawUIData = data as BtnRequestDrawUI.UIData;
+                // UI
+                {
+                    btnRequestDrawUIData.removeCallBackAndDestroy(typeof(BtnRequestDrawUI));
                 }
                 return;
             }
@@ -194,6 +246,12 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                         dirty = true;
                     }
                     break;
+                case UIData.Property.btnRequestDraw:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
@@ -209,6 +267,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                     case Game.Property.gamePlayers:
                         break;
                     case Game.Property.requestDraw:
+                        dirty = true;
                         break;
                     case Game.Property.state:
                         break;
@@ -232,6 +291,10 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 return;
             }
             if (wrapProperty.p is BtnUndoRedoUI.UIData)
+            {
+                return;
+            }
+            if(wrapProperty.p is BtnRequestDrawUI.UIData)
             {
                 return;
             }

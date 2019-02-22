@@ -219,10 +219,10 @@ public class LoadDataUI : UIBehavior<LoadDataUI.UIData>
 										// Process
 										{
 											if (haveCorrectSelectFile) {
-												btnLoad.enabled = true;
+												btnLoad.interactable = true;
 												tvLoad.text = txtLoad.get ("Load");
 											} else {
-												btnLoad.enabled = false;
+												btnLoad.interactable = false;
 												tvLoad.text = txtCannotLoad.get ("Cannot Load, Not select file");
 											}
 										}
@@ -230,19 +230,19 @@ public class LoadDataUI : UIBehavior<LoadDataUI.UIData>
 									break;
 								case LoadDataTask.TaskData.State.Load:
 									{
-										btnLoad.enabled = false;
+										btnLoad.interactable = false;
 										tvLoad.text = txtLoading.get ("Loading...");
 									}
 									break;
 								case LoadDataTask.TaskData.State.Success:
 									{
-										btnLoad.enabled = false;
+										btnLoad.interactable = false;
 										tvLoad.text = txtLoadSuccess.get ("Load success");
 									}
 									break;
 								case LoadDataTask.TaskData.State.Fail:
 									{
-										btnLoad.enabled = false;
+										btnLoad.interactable = false;
 										tvLoad.text = txtLoadFail.get ("Load fail");
 									}
 									break;
@@ -344,10 +344,10 @@ public class LoadDataUI : UIBehavior<LoadDataUI.UIData>
 										// Process
 										{
 											if (haveCorrectSelectFile) {
-												btnRecord.enabled = true;
+												btnRecord.interactable = true;
 												tvRecord.text = txtLoadRecord.get ("Load Record");
 											} else {
-												btnRecord.enabled = false;
+												btnRecord.interactable = false;
 												tvRecord.text = txtCannotLoadRecord.get("Cannot load record, not select file");
 											}
 										}
@@ -355,19 +355,19 @@ public class LoadDataUI : UIBehavior<LoadDataUI.UIData>
 									break;
 								case LoadRecordTask.TaskData.State.Load:
 									{
-										btnRecord.enabled = false;
+										btnRecord.interactable = false;
 										tvRecord.text = txtLoadingRecord.get("Loading record...");
 									}
 									break;
 								case LoadRecordTask.TaskData.State.Success:
 									{
-										btnRecord.enabled = false;
+										btnRecord.interactable = false;
 										tvRecord.text = txtLoadRecordSuccess.get ("Load record success");
 									}
 									break;
 								case LoadRecordTask.TaskData.State.Fail:
 									{
-										btnRecord.enabled = false;
+										btnRecord.interactable = false;
 										tvRecord.text = txtLoadRecordFail.get ("Load record fail");
 									}
 									break;

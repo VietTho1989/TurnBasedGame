@@ -129,19 +129,19 @@ namespace GameManager.Match.Elimination
 							switch (this.data.state.v) {
 							case UIData.State.None:
 								{
-									btnCancel.enabled = true;
+									btnCancel.interactable = true;
 									tvCancel.text = "Cancel";
 								}
 								break;
 							case UIData.State.Request:
 								{
-									btnCancel.enabled = true;
+									btnCancel.interactable = true;
 									tvCancel.text = "Cancel Cancel?";
 								}
 								break;
 							case UIData.State.Wait:
 								{
-									btnCancel.enabled = false;
+									btnCancel.interactable = false;
 									tvCancel.text = "Cancelling...";
 								}
 								break;

@@ -262,23 +262,23 @@ namespace GameManager.Match.Swap
 										}
 										// Process
 										if (isDiffrent) {
-											btnRequest.enabled = true;
+											btnRequest.interactable = true;
 											tvRequest.text = "Request";
 										} else {
-											btnRequest.enabled = false;
+											btnRequest.interactable = false;
 											tvRequest.text = "Not Different, Cannot Request";
 										}
 									}
 									break;
 								case UIData.State.Request:
 									{
-										btnRequest.enabled = true;
+										btnRequest.interactable = true;
 										tvRequest.text = "Cancel Request?";
 									}
 									break;
 								case UIData.State.Wait:
 									{
-										btnRequest.enabled = false;
+										btnRequest.interactable = false;
 										tvRequest.text = "Requesting...";
 									}
 									break;

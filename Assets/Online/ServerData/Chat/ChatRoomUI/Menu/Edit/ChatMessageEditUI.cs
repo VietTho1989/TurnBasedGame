@@ -188,19 +188,19 @@ public class ChatMessageEditUI : UIBehavior<ChatMessageEditUI.UIData>
 										switch (this.data.state.v) {
 										case UIData.State.None:
 											{
-												btnEdit.enabled = true;
+												btnEdit.interactable = true;
 												tvEdit.text = txtEdit.get("Edit");
 											}
 											break;
 										case UIData.State.Request:
 											{
-												btnEdit.enabled = true;
+												btnEdit.interactable = true;
 												tvEdit.text = txtCancelEdit.get ("Cancel Edit?");
 											}
 											break;
 										case UIData.State.Wait:
 											{
-												btnEdit.enabled = false;
+												btnEdit.interactable = false;
 												tvEdit.text = txtEditing.get ("Editting");
 											}
 											break;
@@ -221,7 +221,7 @@ public class ChatMessageEditUI : UIBehavior<ChatMessageEditUI.UIData>
 								// UI
 								{
 									if (btnEdit != null && tvEdit != null) {
-										btnEdit.enabled = false;
+										btnEdit.interactable = false;
 										tvEdit.text = txtCannotEdit.get ("Cannot Edit");
 									} else {
 										Debug.LogError ("btnEdit, tvEdit null: " + this);

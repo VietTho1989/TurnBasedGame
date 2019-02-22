@@ -131,19 +131,19 @@ namespace GameManager.Match
 									switch (this.data.state.v) {
 									case UIData.State.None:
 										{
-											btnEmpty.enabled = true;
+											btnEmpty.interactable = true;
 											tvEmpty.text = txtEmpty.get("Empty");
 										}
 										break;
 									case UIData.State.Request:
 										{
-											btnEmpty.enabled = true;
+											btnEmpty.interactable = true;
 											tvEmpty.text = txtEmptying.get("Cancel Empty?");
 										}
 										break;
 									case UIData.State.Wait:
 										{
-											btnEmpty.enabled = false;
+											btnEmpty.interactable = false;
 											tvEmpty.text = txtEmptying.get("Emptying");
 										}
 										break;

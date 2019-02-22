@@ -3,13 +3,14 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class RequestDrawStateCancelUI : UIBehavior<RequestDrawStateCancelUI.UIData>
+public class RequestDrawStateCancelUI : UIBehavior<RequestDrawStateCancelUI.UIData>, HaveTransformData
 {
 
 	#region UIData
 
 	public class UIData : RequestDrawUI.UIData.Sub
 	{
+
 		public VP<ReferenceData<RequestDrawStateCancel>> requestDrawStateCancel;
 
 		public override RequestDraw.State.Type getType ()
@@ -30,23 +31,40 @@ public class RequestDrawStateCancelUI : UIBehavior<RequestDrawStateCancelUI.UIDa
 		}
 
 		#endregion
+
 	}
 
-	#endregion
+    #endregion
 
-	#region Refresh
+    #region txt
 
-	#region txt
+    public Text lbTitle;
+    public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-	public Text lbTitle;
-	public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    static RequestDrawStateCancelUI()
+    {
+        txtTitle.add(Language.Type.vi, "Yêu cầu hoà bị huỷ");
+    }
 
-	static RequestDrawStateCancelUI()
-	{
-		txtTitle.add (Language.Type.vi, "Yêu cầu hoà trạng thái huỷ");
-	}
+    #endregion
 
-	#endregion
+    #region TransformData
+
+    public TransformData transformData = new TransformData();
+
+    private void updateTransformData()
+    {
+        this.transformData.update(this.transform);
+    }
+
+    public TransformData getTransformData()
+    {
+        return this.transformData;
+    }
+
+    #endregion
+
+    #region Refresh
 
 	public override void refresh ()
 	{
@@ -56,7 +74,7 @@ public class RequestDrawStateCancelUI : UIBehavior<RequestDrawStateCancelUI.UIDa
 				// txt
 				{
 					if (lbTitle != null) {
-						lbTitle.text = txtTitle.get ("Request Draw State Cancel");
+						lbTitle.text = txtTitle.get ("Request draw is cancelled");
 					} else {
 						Debug.LogError ("lbTitle null: " + this);
 					}
@@ -65,6 +83,7 @@ public class RequestDrawStateCancelUI : UIBehavior<RequestDrawStateCancelUI.UIDa
 				Debug.LogError ("data null: " + this);
 			}
 		}
+        updateTransformData();
 	}
 
 	public override bool isShouldDisableUpdate ()

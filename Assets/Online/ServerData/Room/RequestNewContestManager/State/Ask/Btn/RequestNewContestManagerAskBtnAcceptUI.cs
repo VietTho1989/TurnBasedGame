@@ -146,19 +146,19 @@ namespace GameManager.ContestManager
 							switch (this.data.state.v) {
 							case UIData.State.None:
 								{
-									btnAccept.enabled = true;
+									btnAccept.interactable = true;
 									tvAccept.text = txtAccept.get ("Accept");
 								}
 								break;
 							case UIData.State.Request:
 								{
-									btnAccept.enabled = true;
+									btnAccept.interactable = true;
 									tvAccept.text = txtCancelAccept.get ("Cancel Accept?");
 								}
 								break;
 							case UIData.State.Wait:
 								{
-									btnAccept.enabled = false;
+									btnAccept.interactable = false;
 									tvAccept.text = txtAccepting.get ("Accepting...");
 								}
 								break;

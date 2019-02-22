@@ -465,8 +465,6 @@ namespace GameState
 					case RequestDraw.Property.state:
 						dirty = true;
 						break;
-					case RequestDraw.Property.time:
-						break;
 					default:
 						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 						break;

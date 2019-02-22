@@ -98,11 +98,13 @@ public class FriendStateBanUI : UIBehavior<FriendStateBanUI.UIData>
                                 switch (this.data.state.v)
                                 {
                                     case UIData.State.None:
-                                        btnUnBan.enabled = true;
+                                        btnUnBan.interactable = true;
                                         break;
                                     case UIData.State.Request:
+                                        btnUnBan.interactable = true;
+                                        break;
                                     case UIData.State.Wait:
-                                        btnUnBan.enabled = false;
+                                        btnUnBan.interactable = false;
                                         break;
                                     default:
                                         Debug.LogError("Unknown state: " + this.data.state.v + "; " + this);
@@ -111,7 +113,7 @@ public class FriendStateBanUI : UIBehavior<FriendStateBanUI.UIData>
                             }
                             else
                             {
-                                btnUnBan.enabled = false;
+                                btnUnBan.interactable = false;
                                 this.data.state.v = UIData.State.None;
                             }
                         }
@@ -130,6 +132,8 @@ public class FriendStateBanUI : UIBehavior<FriendStateBanUI.UIData>
                                     tvUnBan.text = txtUnBan.get("UnBan");
                                     break;
                                 case UIData.State.Request:
+                                    tvUnBan.text = txtUnBanning.get("UnBanning");
+                                    break;
                                 case UIData.State.Wait:
                                     tvUnBan.text = txtUnBanning.get("UnBanning");
                                     break;
@@ -504,9 +508,20 @@ public class FriendStateBanUI : UIBehavior<FriendStateBanUI.UIData>
     {
         if (this.data != null)
         {
-            if (this.data.state.v == UIData.State.None)
+            switch (this.data.state.v)
             {
-                this.data.state.v = UIData.State.Request;
+                case UIData.State.None:
+                    this.data.state.v = UIData.State.Request;
+                    break;
+                case UIData.State.Request:
+                    this.data.state.v = UIData.State.None;
+                    break;
+                case UIData.State.Wait:
+                    Debug.LogError("You are requesting");
+                    break;
+                default:
+                    Debug.LogError("unknown state: " + this.data.state.v);
+                    break;
             }
         }
         else

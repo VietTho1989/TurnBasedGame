@@ -129,8 +129,8 @@ public class RoomManagerUI : UIBehavior<RoomManagerUI.UIData>
                                     {
                                         // btn
                                         {
-                                            btnGlobal.enabled = false;
-                                            btnLimit.enabled = true;
+                                            btnGlobal.interactable = false;
+                                            btnLimit.interactable = true;
                                         }
                                         // sub
                                         if (this.data.globalRoomContainerUIData.v == null)
@@ -158,8 +158,8 @@ public class RoomManagerUI : UIBehavior<RoomManagerUI.UIData>
                                     {
                                         // btn
                                         {
-                                            btnGlobal.enabled = true;
-                                            btnLimit.enabled = false;
+                                            btnGlobal.interactable = true;
+                                            btnLimit.interactable = false;
                                         }
                                         // sub
                                         if (this.data.allLimitRoomContainersUIData.v == null)

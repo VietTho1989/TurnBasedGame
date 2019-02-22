@@ -157,19 +157,19 @@ public class ChatRoomBtnLoadMoreUI : UIBehavior<ChatRoomBtnLoadMoreUI.UIData>
 								switch (this.data.state.v) {
 								case UIData.State.None:
 									{
-										btnLoadMore.enabled = true;
+										btnLoadMore.interactable = true;
 										tvLoadMore.text = txtLoadMore.get ("Load More");
 									}
 									break;
 								case UIData.State.Request:
 									{
-										btnLoadMore.enabled = true;
+										btnLoadMore.interactable = true;
 										tvLoadMore.text = txtCancelLoadMore.get ("Cancel Load More");
 									}
 									break;
 								case UIData.State.Wait:
 									{
-										btnLoadMore.enabled = false;
+										btnLoadMore.interactable = false;
 										tvLoadMore.text = txtLoadingMore.get ("Loading More...");
 									}
 									break;

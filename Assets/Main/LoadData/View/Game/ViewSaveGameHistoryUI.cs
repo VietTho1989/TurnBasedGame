@@ -93,10 +93,10 @@ public class ViewSaveGameHistoryUI : UIBehavior<ViewSaveGameHistoryUI.UIData>
 					{
 						if (btnBack != null && tvBack != null) {
 							if (history.position.v > 0) {
-								btnBack.enabled = true;
+								btnBack.interactable = true;
 								tvBack.text = txtBack.get ("Back");
 							} else {
-								btnBack.enabled = false;
+								btnBack.interactable = false;
 								tvBack.text = txtCannotBack.get("Cannot Back");
 							}
 						} else {
@@ -107,10 +107,10 @@ public class ViewSaveGameHistoryUI : UIBehavior<ViewSaveGameHistoryUI.UIData>
 					{
 						if (btnNext != null && tvNext != null) {
 							if (history.position.v < history.changes.vs.Count - 1) {
-								btnNext.enabled = true;
+								btnNext.interactable = true;
 								tvNext.text = txtNext.get("Next");
 							} else {
-								btnNext.enabled = false;
+								btnNext.interactable = false;
 								tvNext.text = txtCannotNext.get ("Cannot Next");
 							}
 						} else {

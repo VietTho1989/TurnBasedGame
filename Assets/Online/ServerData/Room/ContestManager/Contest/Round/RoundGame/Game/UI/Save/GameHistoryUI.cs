@@ -85,10 +85,10 @@ public class GameHistoryUI : UIBehavior<GameHistoryUI.UIData>
 					{
 						if (btnView != null && tvView != null) {
 							if (history.changes.vs.Count == history.changeCount.v) {
-								btnView.enabled = true;
+								btnView.interactable = true;
 								tvView.text = txtView.get ("View History");
 							} else {
-								btnView.enabled = false;
+								btnView.interactable = false;
 								tvView.text = txtCannotView.get ("Not Load History, Cannot View");
 							}
 						} else {

@@ -185,10 +185,10 @@ public class BtnLoadHistoryUI : UIBehavior<BtnLoadHistoryUI.UIData>
 								case UIData.State.None:
 									{
 										if (!alreadyLoad) {
-											btnLoad.enabled = true;
+											btnLoad.interactable = true;
 											tvLoad.text = txtLoad.get ("Load");
 										} else {
-											btnLoad.enabled = true;
+											btnLoad.interactable = true;
 											tvLoad.text = txtUnload.get ("Unload");
 										}
 									}
@@ -196,10 +196,10 @@ public class BtnLoadHistoryUI : UIBehavior<BtnLoadHistoryUI.UIData>
 								case UIData.State.Request:
 									{
 										if (!alreadyLoad) {
-											btnLoad.enabled = true;
+											btnLoad.interactable = true;
 											tvLoad.text = txtCancelLoad.get ("Cancel load?");
 										} else {
-											btnLoad.enabled = true;
+											btnLoad.interactable = true;
 											tvLoad.text = txtCancelUnload.get ("Cancel Unload?");
 										}
 									}
@@ -207,10 +207,10 @@ public class BtnLoadHistoryUI : UIBehavior<BtnLoadHistoryUI.UIData>
 								case UIData.State.Wait:
 									{
 										if (!alreadyLoad) {
-											btnLoad.enabled = false;
+											btnLoad.interactable = false;
 											tvLoad.text = txtLoading.get ("Loading");
 										} else {
-											btnLoad.enabled = false;
+											btnLoad.interactable = false;
 											tvLoad.text = txtUnloading.get ("Unloading");
 										}
 									}

@@ -97,25 +97,25 @@ namespace Record
 								switch (dataRecordTask.state.v) {
 								case DataRecordTask.State.None:
 									{
-										btnRecord.enabled = true;
+										btnRecord.interactable = true;
 										tvRecord.text = txtNone.get ("Record");
 									}
 									break;
 								case DataRecordTask.State.Start:
 									{
-										btnRecord.enabled = true;
+										btnRecord.interactable = true;
 										tvRecord.text = txtStart.get ("Starting...");
 									}
 									break;
 								case DataRecordTask.State.Record:
 									{
-										btnRecord.enabled = true;
+										btnRecord.interactable = true;
 										tvRecord.text = txtRecord.get("Recording, stop?");
 									}
 									break;
 								case DataRecordTask.State.Finish:
 									{
-										btnRecord.enabled = true;
+										btnRecord.interactable = true;
 										tvRecord.text = txtFinish.get ("Finish, save?");
 									}
 									break;

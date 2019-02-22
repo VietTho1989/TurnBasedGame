@@ -162,19 +162,19 @@ namespace Posture
 											switch (this.data.state.v) {
 											case UIData.State.None:
 												{
-													btnSet.enabled = true;
+													btnSet.interactable = true;
 													tvSet.text = txtSet.get ("Set");
 												}
 												break;
 											case UIData.State.Request:
 												{
-													btnSet.enabled = true;
+													btnSet.interactable = true;
 													tvSet.text = txtCancelSet.get("Cancel Set?");
 												}
 												break;
 											case UIData.State.Wait:
 												{
-													btnSet.enabled = false;
+													btnSet.interactable = false;
 													tvSet.text = txtSetting.get("Setting");
 												}
 												break;
@@ -195,7 +195,7 @@ namespace Posture
 									// UI
 									{
 										if (btnSet != null && tvSet != null) {
-											btnSet.enabled = false;
+											btnSet.interactable = false;
 											tvSet.text = txtCannotSet.get ("Cannot Set");
 										} else {
 											Debug.LogError ("btnSet, tvSet null: " + this);

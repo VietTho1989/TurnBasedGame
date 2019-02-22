@@ -139,19 +139,19 @@ namespace GameManager.Match
 									switch (this.data.state.v) {
 									case UIData.State.None:
 										{
-											btnRequest.enabled = true;
+											btnRequest.interactable = true;
 											tvRequest.text = txtRequest.get ("Request Empty");
 										}
 										break;
 									case UIData.State.Request:
 										{
-											btnRequest.enabled = true;
+											btnRequest.interactable = true;
 											tvRequest.text = txtCancelRequest.get ("Cancel Request Empty?");
 										}
 										break;
 									case UIData.State.Wait:
 										{
-											btnRequest.enabled = false;
+											btnRequest.interactable = false;
 											tvRequest.text = txtRequesting.get ("Requesting Empty...");
 										}
 										break;
@@ -173,7 +173,7 @@ namespace GameManager.Match
 							// UI
 							{
 								if (btnRequest != null && tvRequest != null) {
-									btnRequest.enabled = false;
+									btnRequest.interactable = false;
 									tvRequest.text = txtAlreadyEmpty.get ("Already Empty");
 								} else {
 									Debug.LogError ("btnRequest, tvRequest null: " + this);

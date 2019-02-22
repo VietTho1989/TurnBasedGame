@@ -133,19 +133,19 @@ public class RequestChangeUseRuleStateNoneUI : UIBehavior<RequestChangeUseRuleSt
 								switch (this.data.state.v) {
 								case UIData.State.None:
 									{
-										btnRequest.enabled = true;
+										btnRequest.interactable = true;
 										tvRequest.text = txtRequest.get ("Request");
 									}
 									break;
 								case UIData.State.Request:
 									{
-										btnRequest.enabled = true;
+										btnRequest.interactable = true;
 										tvRequest.text = txtCancelRequest.get ("Cancel Request?");
 									}
 									break;
 								case UIData.State.Wait:
 									{
-										btnRequest.enabled = false;
+										btnRequest.interactable = false;
 										tvRequest.text = txtRequesting.get ("Requesting...");
 									}
 									break;
@@ -166,7 +166,7 @@ public class RequestChangeUseRuleStateNoneUI : UIBehavior<RequestChangeUseRuleSt
 						// UI
 						{
 							if (btnRequest != null && tvRequest != null) {
-								btnRequest.enabled = false;
+								btnRequest.interactable = false;
 								tvRequest.text = txtCannotRequest.get ("Cannot Request");
 							} else {
 								Debug.LogError ("btnRequest null, tvRequest null: " + this);

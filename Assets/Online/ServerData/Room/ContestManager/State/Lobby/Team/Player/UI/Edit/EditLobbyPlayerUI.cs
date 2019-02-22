@@ -184,7 +184,7 @@ namespace GameManager.Match
         #endregion
 
         public Text tvPlayerName;
-        private bool needReset = false;
+        private bool needShowAnimation = false;
 
         public override void refresh()
         {
@@ -193,11 +193,11 @@ namespace GameManager.Match
                 dirty = false;
                 if (this.data != null)
                 {
-                    // reset
+                    // needShowAnimation
                     {
-                        if (needReset)
+                        if (needShowAnimation)
                         {
-                            needReset = false;
+                            needShowAnimation = false;
                             ShowAnimationUI.UIData showAnimationUIData = this.data.showAnimation.v;
                             if (showAnimationUIData != null)
                             {
@@ -473,7 +473,7 @@ namespace GameManager.Match
                         {
                             lobbyPlayer.inform.allAddCallBack(this);
                         }
-                        needReset = true;
+                        needShowAnimation = true;
                         dirty = true;
                         return;
                     }

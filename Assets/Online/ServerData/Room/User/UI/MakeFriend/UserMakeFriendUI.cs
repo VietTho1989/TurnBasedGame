@@ -152,19 +152,19 @@ public class UserMakeFriendUI : UIBehavior<UserMakeFriendUI.UIData>, FriendHashM
 									switch (this.data.state.v) {
 									case UIData.State.None:
 										{
-											btnMakeFriend.enabled = true;
+											btnMakeFriend.interactable = true;
 											tvMakeFriend.text = "Make Friend";
 										}
 										break;
 									case UIData.State.Request:
 										{
-											btnMakeFriend.enabled = true;
+											btnMakeFriend.interactable = true;
 											tvMakeFriend.text = "Cancel Make Friend?";
 										}
 										break;
 									case UIData.State.Wait:
 										{
-											btnMakeFriend.enabled = false;
+											btnMakeFriend.interactable = false;
 											tvMakeFriend.text = "Making Friend...";
 										}
 										break;

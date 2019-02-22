@@ -222,20 +222,20 @@ namespace UndoRedo
 											// undo
 											{
 												if (history.position.v > 0) {
-													btnUndo.enabled = true;
+													btnUndo.interactable = true;
 													tvUndo.text = txtUndo.get ("Undo");
 												} else {
-													btnUndo.enabled = false;
+													btnUndo.interactable = false;
 													tvUndo.text = txtCannotUndo.get ("Cannot Undo");
 												}
 											}
 											// redo
 											{
 												if (history.position.v < history.changeCount.v - 1) {
-													btnRedo.enabled = true;
+													btnRedo.interactable = true;
 													tvRedo.text = txtRedo.get ("Redo");
 												} else {
-													btnRedo.enabled = false;
+													btnRedo.interactable = false;
 													tvRedo.text = txtCannotRedo.get ("Cannot Redo");
 												}
 											}
@@ -245,12 +245,12 @@ namespace UndoRedo
 										{
 											// undo
 											{
-												btnUndo.enabled = true;
+												btnUndo.interactable = true;
 												tvUndo.text = txtCancelUndo.get ("Cancel undo?");
 											}
 											// redo
 											{
-												btnRedo.enabled = false;
+												btnRedo.interactable = false;
 												tvRedo.text = txtRedo.get ("Redo");
 											}
 										}
@@ -259,12 +259,12 @@ namespace UndoRedo
 										{
 											// undo
 											{
-												btnUndo.enabled = false;
+												btnUndo.interactable = false;
 												tvUndo.text = txtUndoing.get("Requesting undo");
 											}
 											// redo
 											{
-												btnRedo.enabled = false;
+												btnRedo.interactable = false;
 												tvRedo.text = txtRedo.get("Redo");
 											}
 										}
@@ -273,12 +273,12 @@ namespace UndoRedo
 										{
 											// undo
 											{
-												btnUndo.enabled = false;
+												btnUndo.interactable = false;
 												tvUndo.text = txtUndo.get("Undo");
 											}
 											// redo
 											{
-												btnRedo.enabled = true;
+												btnRedo.interactable = true;
 												tvRedo.text = txtCancelRedo.get("Cancel redo?");
 											}
 										}
@@ -287,12 +287,12 @@ namespace UndoRedo
 										{
 											// undo
 											{
-												btnUndo.enabled = false;
+												btnUndo.interactable = false;
 												tvUndo.text = txtUndo.get("Undo");
 											}
 											// redo
 											{
-												btnRedo.enabled = false;
+												btnRedo.interactable = false;
 												tvRedo.text = txtRedoing.get ("Requesting redo");
 											}
 										}

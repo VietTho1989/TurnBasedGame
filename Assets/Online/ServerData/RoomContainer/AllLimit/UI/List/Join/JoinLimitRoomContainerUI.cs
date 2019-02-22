@@ -173,19 +173,19 @@ public class JoinLimitRoomContainerUI : UIBehavior<JoinLimitRoomContainerUI.UIDa
 									switch (this.data.state.v) {
 									case UIData.State.None:
 										{
-											btnJoin.enabled = true;
+											btnJoin.interactable = true;
 											tvJoin.text = "Join";
 										}
 										break;
 									case UIData.State.Request:
 										{
-											btnJoin.enabled = true;
+											btnJoin.interactable = true;
 											tvJoin.text = "Cancel Join?";
 										}
 										break;
 									case UIData.State.Wait:
 										{
-											btnJoin.enabled = false;
+											btnJoin.interactable = false;
 											tvJoin.text = "Joining...";
 										}
 										break;
@@ -206,7 +206,7 @@ public class JoinLimitRoomContainerUI : UIBehavior<JoinLimitRoomContainerUI.UIDa
 							// UI
 							{
 								if (btnJoin != null && tvJoin != null) {
-									btnJoin.enabled = false;
+									btnJoin.interactable = false;
 									tvJoin.text = "Cannot Join";
 								} else {
 									Debug.LogError ("btnJoin, tvJoin null");
