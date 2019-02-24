@@ -131,6 +131,7 @@ public class Server : Data
 				Logout,
 				LoggingOut
 			}
+
 			public VP<State> state;
 
 			#region Constructor

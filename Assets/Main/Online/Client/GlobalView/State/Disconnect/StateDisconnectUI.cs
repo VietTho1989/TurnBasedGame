@@ -26,7 +26,7 @@ public class StateDisconnectUI : UIBehavior<StateDisconnectUI.UIData>
 		public UIData() : base()
 		{
 			this.disconnect = new VP<ReferenceData<Server.State.Disconnect>>(this, (byte)Property.disconnect, new ReferenceData<Server.State.Disconnect>(null));
-            this.detail = new VP<StateDisconnectDetailUI.UIData>(this, (byte)Property.detail, null);
+            this.detail = new VP<StateDisconnectDetailUI.UIData>(this, (byte)Property.detail, new StateDisconnectDetailUI.UIData());
 		}
 
 		#endregion
@@ -36,7 +36,28 @@ public class StateDisconnectUI : UIBehavior<StateDisconnectUI.UIData>
 			return Server.State.Type.Disconnect;
 		}
 
-	}
+        public override bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // detail
+                if (!isProcess)
+                {
+                    StateDisconnectDetailUI.UIData detail = this.detail.v;
+                    if (detail != null)
+                    {
+                        isProcess = detail.processEvent(e);
+                    }
+                    else
+                    {
+                        // Debug.LogError("detail null");
+                    }
+                }
+            }
+            return isProcess;
+        }
+
+    }
 
 	#endregion
 

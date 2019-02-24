@@ -32,7 +32,16 @@ public class StateOfflineUI : UIBehavior<StateOfflineUI.UIData>
 			return Server.State.Type.Offline;
 		}
 
-	}
+        public override bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+
+            }
+            return isProcess;
+        }
+
+    }
 
 	#endregion
 

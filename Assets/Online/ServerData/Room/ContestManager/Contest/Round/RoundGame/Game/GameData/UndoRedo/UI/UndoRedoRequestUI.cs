@@ -21,6 +21,8 @@ public class UndoRedoRequestUI : UIBehavior<UndoRedoRequestUI.UIData>
 
             public abstract UndoRedoRequest.State.Type getType();
 
+            public abstract bool processEvent(Event e);
+
         }
 
         public VP<Sub> sub;
@@ -72,6 +74,19 @@ public class UndoRedoRequestUI : UIBehavior<UndoRedoRequestUI.UIData>
         {
             bool isProcess = false;
             {
+                // sub
+                if (!isProcess)
+                {
+                    Sub sub = this.sub.v;
+                    if (sub != null)
+                    {
+                        isProcess = sub.processEvent(e);
+                    }
+                    else
+                    {
+                        Debug.LogError("sub null");
+                    }
+                }
                 // back
                 if (!isProcess)
                 {
@@ -81,12 +96,12 @@ public class UndoRedoRequestUI : UIBehavior<UndoRedoRequestUI.UIData>
                         if (undoRedoRequestUI != null)
                         {
                             undoRedoRequestUI.onClickBtnBack();
+                            isProcess = true;
                         }
                         else
                         {
                             Debug.LogError("undoRedoRequestUI null");
                         }
-                        isProcess = true;
                     }
                 }
             }

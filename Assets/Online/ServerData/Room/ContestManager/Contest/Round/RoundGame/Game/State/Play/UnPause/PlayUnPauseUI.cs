@@ -54,10 +54,28 @@ namespace GameState
 
 		static PlayUnPauseUI()
 		{
-			txtTitle.add (Language.Type.vi, "Tiếp Tục Lại");
-			txtName.add (Language.Type.vi, "Tên");
-			txtTime.add (Language.Type.vi, "Thời gian");
-		}
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Tiếp Tục Lại");
+                txtName.add(Language.Type.vi, "Tên");
+                txtTime.add(Language.Type.vi, "Thời gian");
+            }
+            // rect
+            {
+                // accountAvatarRect
+                {
+                    // anchoredPosition: (0.0, -40.0); anchorMin: (0.5, 1.0); anchorMax: (0.5, 1.0); pivot: (0.5, 1.0);
+                    // offsetMin: (-30.0, -100.0); offsetMax: (30.0, -40.0); sizeDelta: (60.0, 60.0);
+                    accountAvatarRect.anchoredPosition = new Vector3(0.0f, -40.0f, 0.0f);
+                    accountAvatarRect.anchorMin = new Vector2(0.5f, 1.0f);
+                    accountAvatarRect.anchorMax = new Vector2(0.5f, 1.0f);
+                    accountAvatarRect.pivot = new Vector2(0.5f, 1.0f);
+                    accountAvatarRect.offsetMin = new Vector2(-30.0f, -100.0f);
+                    accountAvatarRect.offsetMax = new Vector2(30.0f, -40.0f);
+                    accountAvatarRect.sizeDelta = new Vector2(60.0f, 60.0f);
+                }
+            }
+        }
 
 		#endregion
 
@@ -104,13 +122,13 @@ namespace GameState
 									Debug.LogError ("human null: " + this);
 								}
 							}
-							tvName.text = txtName.get ("Name") + ": " + name;
+                            tvName.text = name;
 						} else {
 							Debug.LogError ("tvName null: " + this);
 						}
 						// tvTime
 						if (tvTime != null) {
-							tvTime.text = txtTime.get ("Time") + ": " + playUnPause.time.v + "/" + playUnPause.duration.v;
+                            tvTime.text = txtTime.get("Time") + ": " + Mathf.Min(playUnPause.time.v, playUnPause.duration.v) + "/" + playUnPause.duration.v;
 						} else {
 							Debug.LogError ("tvTime null: " + this);
 						}
@@ -141,7 +159,9 @@ namespace GameState
 		#region implement callBacks
 
 		public AccountAvatarUI accountAvatarPrefab;
-		public Transform accountAvatarContainer;
+        private static readonly UIRectTransform accountAvatarRect = new UIRectTransform();
+
+        public Transform contentContainer;
 
 		public override void onAddCallBack<T> (T data)
 		{
@@ -197,7 +217,7 @@ namespace GameState
 					AccountAvatarUI.UIData accountAvatarUIData = data as AccountAvatarUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (accountAvatarUIData, accountAvatarPrefab, accountAvatarContainer);
+                        UIUtils.Instantiate(accountAvatarUIData, accountAvatarPrefab, contentContainer, accountAvatarRect);
 					}
 					dirty = true;
 					return;

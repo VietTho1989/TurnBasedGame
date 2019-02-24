@@ -57,7 +57,16 @@ namespace UndoRedo
 				return UndoRedoRequest.State.Type.Ask;
 			}
 
-			public void reset()
+            public override bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+
+                }
+                return isProcess;
+            }
+
+            public void reset()
 			{
 				this.state.v = State.None;
 			}

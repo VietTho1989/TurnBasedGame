@@ -364,20 +364,27 @@ namespace Mirror
             foreach (uint netId in NetworkIdentity.spawned.Keys)
             {
                 NetworkIdentity identity = NetworkIdentity.spawned[netId];
-                if (identity.gameObject != null)
+                if (identity != null)
                 {
-                    if (!InvokeUnSpawnHandler(identity.assetId, identity.gameObject))
+                    if (identity.gameObject != null)
                     {
-                        if (identity.sceneId == 0)
+                        if (!InvokeUnSpawnHandler(identity.assetId, identity.gameObject))
                         {
-                            Object.Destroy(identity.gameObject);
-                        }
-                        else
-                        {
-                            identity.MarkForReset();
-                            identity.gameObject.SetActive(false);
+                            if (identity.sceneId == 0)
+                            {
+                                Object.Destroy(identity.gameObject);
+                            }
+                            else
+                            {
+                                identity.MarkForReset();
+                                identity.gameObject.SetActive(false);
+                            }
                         }
                     }
+                }
+                else
+                {
+                    Debug.LogError("identity null");
                 }
             }
             NetworkIdentity.spawned.Clear();

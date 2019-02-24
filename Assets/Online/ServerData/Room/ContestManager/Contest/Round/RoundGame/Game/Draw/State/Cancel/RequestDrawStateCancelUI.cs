@@ -30,9 +30,18 @@ public class RequestDrawStateCancelUI : UIBehavior<RequestDrawStateCancelUI.UIDa
 			this.requestDrawStateCancel = new VP<ReferenceData<RequestDrawStateCancel>>(this, (byte)Property.requestDrawStateCancel, new ReferenceData<RequestDrawStateCancel>(null));
 		}
 
-		#endregion
+        #endregion
 
-	}
+        public override bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+
+            }
+            return isProcess;
+        }
+
+    }
 
     #endregion
 

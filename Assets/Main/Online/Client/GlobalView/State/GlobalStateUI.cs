@@ -16,7 +16,11 @@ public class GlobalStateUI : UIBehavior<GlobalStateUI.UIData>
 
 		public abstract class Sub : Data
 		{
+
 			public abstract Server.State.Type getType ();
+
+            public abstract bool processEvent(Event e);
+
 		}
 
 		public VP<Sub> sub;
@@ -39,7 +43,28 @@ public class GlobalStateUI : UIBehavior<GlobalStateUI.UIData>
 
 		#endregion
 
-	}
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // sub
+                if (!isProcess)
+                {
+                    Sub sub = this.sub.v;
+                    if (sub != null)
+                    {
+                        isProcess = sub.processEvent(e);
+                    }
+                    else
+                    {
+                        Debug.LogError("sub null");
+                    }
+                }
+            }
+            return isProcess;
+        }
+
+    }
 
 	#endregion
 

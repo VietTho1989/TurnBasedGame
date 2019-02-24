@@ -3,6 +3,7 @@ using System.Collections;
 
 public class ServerConfig : Data
 {
+
 	public VP<string> address;
 
 	public VP<int> port;

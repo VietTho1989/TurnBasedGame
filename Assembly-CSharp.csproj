@@ -1231,6 +1231,7 @@
     <Compile Include="Assets\Main\Online\Client\GlobalView\Room\RoomList\RoomAdapter.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\Room\RoomList\RoomHolder.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\Room\RoomList\RoomListUI.cs" />
+    <Compile Include="Assets\Main\Online\Client\GlobalView\State\Connect\StateConnectDetailUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\State\Connect\StateConnectUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\State\Disconnect\StateDisconnectDetailUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\State\Disconnect\StateDisconnectUI.cs" />

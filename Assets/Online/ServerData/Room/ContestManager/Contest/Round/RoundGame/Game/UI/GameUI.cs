@@ -144,6 +144,32 @@ public class GameUI : UIBehavior<GameUI.UIData>
                         Debug.LogError("dataRecordTaskUIData null: " + this);
                     }
                 }
+                // requestDraw
+                if (!isProcess)
+                {
+                    RequestDrawUI.UIData requestDraw = this.requestDraw.v;
+                    if (requestDraw != null)
+                    {
+                        isProcess = requestDraw.processEvent(e);
+                    }
+                    else
+                    {
+                        // Debug.LogError("requestDraw null");
+                    }
+                }
+                // undoRedoRequest
+                if (!isProcess)
+                {
+                    UndoRedoRequestUI.UIData undoRedoRequestUIData = this.undoRedoRequestUIData.v;
+                    if (undoRedoRequestUIData != null)
+                    {
+                        isProcess = undoRedoRequestUIData.processEvent(e);
+                    }
+                    else
+                    {
+                        // Debug.LogError("undoRedoRequestUIData null");
+                    }
+                }
                 // gameChatRoom
                 if (!isProcess)
                 {

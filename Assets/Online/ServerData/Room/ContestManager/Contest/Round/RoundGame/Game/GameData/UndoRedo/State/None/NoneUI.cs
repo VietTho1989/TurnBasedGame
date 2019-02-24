@@ -78,7 +78,16 @@ namespace UndoRedo
 				return UndoRedoRequest.State.Type.None;
 			}
 
-			public void reset()
+            public override bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+
+                }
+                return isProcess;
+            }
+
+            public void reset()
 			{
 				/*this.informType.v = RequestInform.Type.LastYourTurn;
 				// dropDown

@@ -17,7 +17,11 @@ public class RequestDrawUI : UIBehavior<RequestDrawUI.UIData>
 
         public abstract class Sub : Data
         {
+
             public abstract RequestDraw.State.Type getType();
+
+            public abstract bool processEvent(Event e);
+
         }
 
         public VP<Sub> sub;
@@ -64,6 +68,44 @@ public class RequestDrawUI : UIBehavior<RequestDrawUI.UIData>
         }
 
         #endregion
+
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // sub
+                if (!isProcess)
+                {
+                    Sub sub = this.sub.v;
+                    if (sub != null)
+                    {
+                        isProcess = sub.processEvent(e);
+                    }
+                    else
+                    {
+                        Debug.LogError("sub null");
+                    }
+                }
+                // back
+                if (!isProcess)
+                {
+                    if (InputEvent.isBackEvent(e))
+                    {
+                        RequestDrawUI requestDrawUI = this.findCallBack<RequestDrawUI>();
+                        if (requestDrawUI != null)
+                        {
+                            requestDrawUI.onClickBtnBack();
+                            isProcess = true;
+                        }
+                        else
+                        {
+                            Debug.LogError("requestDrawUI null");
+                        }
+                    }
+                }
+            }
+            return isProcess;
+        }
 
     }
 

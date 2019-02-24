@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Mirror;
 using System.Collections;
 
 public class GlobalBehavior : MonoBehaviour
@@ -14,6 +15,12 @@ public class GlobalBehavior : MonoBehaviour
 	{
 		CheckLegalCount = 0;
 		CheckFinishCount = 0;
-	}
+
+        // TODO Test ping
+        /*{
+            double ping = NetworkTime.rtt;
+            Debug.LogError("ping: " + ping);
+        }*/
+    }
 
 }

@@ -367,8 +367,15 @@ namespace LoginState
 
 		public void onClickBtnCancel()
 		{
-			// Debug.Log ("onClickBtnCancel");
-			NetworkManager.Shutdown ();
+            // Debug.Log ("onClickBtnCancel");
+            try
+            {
+                NetworkManager.Shutdown();
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError(e);
+            }
 			if (this.data != null) {
 				Log log = this.data.log.v.data;
 				if (log != null) {

@@ -111,6 +111,26 @@ namespace Hint
                             Debug.LogError("editHintAIUIData null: " + this);
                         }
                     }
+                    // back
+                    if (!isProcess)
+                    {
+                        if (this.visibility.v == Visibility.Show)
+                        {
+                            if (InputEvent.isBackEvent(e))
+                            {
+                                HintUI hintUI = this.findCallBack<HintUI>();
+                                if (hintUI != null)
+                                {
+                                    hintUI.onClickBtnBack();
+                                    isProcess = true;
+                                }
+                                else
+                                {
+                                    Debug.LogError("hintUI null");
+                                }
+                            }
+                        }
+                    }
                 }
                 return isProcess;
             }

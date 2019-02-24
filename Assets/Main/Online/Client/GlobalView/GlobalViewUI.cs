@@ -82,8 +82,21 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 		{
 			bool isProcess = false;
 			{
-				// show
-				if (!isProcess) {
+                // global stats
+                if (!isProcess)
+                {
+                    GlobalStateUI.UIData state = this.state.v;
+                    if (state != null)
+                    {
+                        isProcess = state.processEvent(e);
+                    }
+                    else
+                    {
+                        Debug.LogError("state null");
+                    }
+                }
+                // show
+                if (!isProcess) {
 					switch (this.show.v) {
 					case Show.rooms:
 						{
@@ -130,16 +143,20 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 						break;
 					}
 				}
-				// btnBack
-				if (!isProcess) {
-					AfterLoginMainBtnBackUI.UIData btnBack = this.btnBack.v;
-					if (btnBack != null) {
-						isProcess = btnBack.processEvent (e);
-					} else {
-						Debug.LogError ("btnBack null: " + this);
-					}
-				}
-			}
+                // btnBack
+                if (!isProcess)
+                {
+                    AfterLoginMainBtnBackUI.UIData btnBack = this.btnBack.v;
+                    if (btnBack != null)
+                    {
+                        isProcess = btnBack.processEvent(e);
+                    }
+                    else
+                    {
+                        Debug.LogError("btnBack null: " + this);
+                    }
+                }
+            }
 			return isProcess;
 		}
 

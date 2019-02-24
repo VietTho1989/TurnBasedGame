@@ -54,6 +54,15 @@ public class RequestDrawStateNoneUI : UIBehavior<RequestDrawStateNoneUI.UIData>,
             this.state.v = State.None;
         }
 
+        public override bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+
+            }
+            return isProcess;
+        }
+
     }
 
     #endregion

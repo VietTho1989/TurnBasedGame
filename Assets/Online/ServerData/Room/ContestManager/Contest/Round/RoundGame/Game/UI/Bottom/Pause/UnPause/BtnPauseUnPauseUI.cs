@@ -37,9 +37,19 @@ public class BtnPauseUnPauseUI : UIBehavior<BtnPauseUnPauseUI.UIData>
 
     #endregion
 
+    #region txt
+
+    private static readonly TxtLanguage txtUnPause = new TxtLanguage();
+
+    static BtnPauseUnPauseUI()
+    {
+        txtUnPause.add(Language.Type.vi, "Huỷ dừng");
+    }
+
+    #endregion
+
     #region Refresh
 
-    public Button btnUnPause;
     public Text tvUnPause;
 
     public override void refresh()
@@ -52,7 +62,14 @@ public class BtnPauseUnPauseUI : UIBehavior<BtnPauseUnPauseUI.UIData>
                 PlayUnPause playUnPause = this.data.playUnPause.v.data;
                 if (playUnPause != null)
                 {
-
+                    if (tvUnPause != null)
+                    {
+                        tvUnPause.text = txtUnPause.get("Unpausing " + Mathf.Min(playUnPause.time.v, playUnPause.duration.v) + "/" + playUnPause.duration.v);
+                    }
+                    else
+                    {
+                        Debug.LogError("tvUnPause null");
+                    }
                 }
                 else
                 {
@@ -77,11 +94,42 @@ public class BtnPauseUnPauseUI : UIBehavior<BtnPauseUnPauseUI.UIData>
 
     public override void onAddCallBack<T>(T data)
     {
+        if(data is UIData)
+        {
+            UIData uiData = data as UIData;
+            // Child
+            {
+                uiData.playUnPause.allAddCallBack(this);
+            }
+            dirty = true;
+            return;
+        }
+        // Child
+        if(data is PlayUnPause)
+        {
+            dirty = true;
+            return;
+        }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
 
     public override void onRemoveCallBack<T>(T data, bool isHide)
     {
+        if (data is UIData)
+        {
+            UIData uiData = data as UIData;
+            // Child
+            {
+                uiData.playUnPause.allRemoveCallBack(this);
+            }
+            this.setDataNull(uiData);
+            return;
+        }
+        // Child
+        if (data is PlayUnPause)
+        {
+            return;
+        }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
 
@@ -89,6 +137,41 @@ public class BtnPauseUnPauseUI : UIBehavior<BtnPauseUnPauseUI.UIData>
     {
         if (WrapProperty.checkError(wrapProperty))
         {
+            return;
+        }
+        if (wrapProperty.p is UIData)
+        {
+            switch ((UIData.Property)wrapProperty.n)
+            {
+                case UIData.Property.playUnPause:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Child
+        if (wrapProperty.p is PlayUnPause)
+        {
+            switch ((PlayUnPause.Property)wrapProperty.n)
+            {
+                case PlayUnPause.Property.human:
+                    break;
+                case PlayUnPause.Property.time:
+                    dirty = true;
+                    break;
+                case PlayUnPause.Property.duration:
+                    dirty = true;
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
             return;
         }
         Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
