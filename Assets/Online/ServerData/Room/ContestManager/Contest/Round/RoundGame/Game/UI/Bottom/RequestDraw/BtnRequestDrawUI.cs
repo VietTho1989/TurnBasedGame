@@ -218,6 +218,8 @@ public class BtnRequestDrawUI : UIBehavior<BtnRequestDrawUI.UIData>
                 case RequestDraw.Property.state:
                     dirty = true;
                     break;
+                case RequestDraw.Property.whoCanAsks:
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
@@ -241,7 +243,7 @@ public class BtnRequestDrawUI : UIBehavior<BtnRequestDrawUI.UIData>
                 {
                     RequestDrawUI.UIData requestDrawUIData = gameUIData.requestDraw.newOrOld<RequestDrawUI.UIData>();
                     {
-                        requestDrawUIData.requestDraw.v = new ReferenceData<RequestDraw>(requestDraw);
+                        // requestDrawUIData.requestDraw.v = new ReferenceData<RequestDraw>(requestDraw);
                     }
                     gameUIData.requestDraw.v = requestDrawUIData;
                 }

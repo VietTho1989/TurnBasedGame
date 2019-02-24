@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using GameState;
 using Record;
+using Hint;
 
 public class GameUI : UIBehavior<GameUI.UIData>
 {
@@ -60,7 +61,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
 
         public VP<GameActionsUI.UIData> gameActionsUI;
 
-        public VP<ChatRoomUI.UIData> chatRoom;
+        public VP<GameChatRoomUI.UIData> gameChatRoom;
 
         #region save
 
@@ -79,13 +80,15 @@ public class GameUI : UIBehavior<GameUI.UIData>
             game,
             isReplay,
             gameDataUI,
+
             gameBottom,
+            undoRedoRequestUIData,
+            requestDraw,
+            gameChatRoom,
+
             stateUI,
             gamePlayerList,
-            undoRedoRequestUIData,
             gameActionsUI,
-            chatRoom,
-            requestDraw,
             saveUIData,
             gameHistoryUIData,
             dataRecordTaskUIData
@@ -96,18 +99,20 @@ public class GameUI : UIBehavior<GameUI.UIData>
             this.game = new VP<ReferenceData<Game>>(this, (byte)Property.game, new ReferenceData<Game>(null));
             this.isReplay = new VP<bool>(this, (byte)Property.isReplay, false);
             this.gameDataUI = new VP<GameDataUI.UIData>(this, (byte)Property.gameDataUI, new GameDataUI.UIData());
-            this.gameBottom = new VP<GameBottomUI.UIData>(this, (byte)Property.gameBottom, new GameBottomUI.UIData());
-            this.stateUI = new VP<StateUI.UIData>(this, (byte)Property.stateUI, new StateUI.UIData());
-            this.gamePlayerList = new VP<GamePlayerListUI.UIData>(this, (byte)Property.gamePlayerList, new GamePlayerListUI.UIData());
-            // bottomShow
+
+            // bottom
             {
+                this.gameBottom = new VP<GameBottomUI.UIData>(this, (byte)Property.gameBottom, new GameBottomUI.UIData());
                 this.undoRedoRequestUIData = new VP<UndoRedoRequestUI.UIData>(this, (byte)Property.undoRedoRequestUIData, null);
                 this.requestDraw = new VP<RequestDrawUI.UIData>(this, (byte)Property.requestDraw, null);
+                this.gameChatRoom = new VP<GameChatRoomUI.UIData>(this, (byte)Property.gameChatRoom, null);
             }
+
+            this.stateUI = new VP<StateUI.UIData>(this, (byte)Property.stateUI, new StateUI.UIData());
+            this.gamePlayerList = new VP<GamePlayerListUI.UIData>(this, (byte)Property.gamePlayerList, new GamePlayerListUI.UIData());
             this.gameActionsUI = new VP<GameActionsUI.UIData>(this, (byte)Property.gameActionsUI, new GameActionsUI.UIData());
-            this.chatRoom = new VP<ChatRoomUI.UIData>(this, (byte)Property.chatRoom, new ChatRoomUI.UIData());
             this.saveUIData = new VP<SaveUI.UIData>(this, (byte)Property.saveUIData, null);
-            this.gameHistoryUIData = new VP<GameHistoryUI.UIData>(this, (byte)Property.gameHistoryUIData, new GameHistoryUI.UIData());
+            this.gameHistoryUIData = new VP<GameHistoryUI.UIData>(this, (byte)Property.gameHistoryUIData, null);
             // dataRecordTaskUIData
             {
                 this.dataRecordTaskUIData = new VP<DataRecordTaskUI.UIData>(this, (byte)Property.dataRecordTaskUIData, new DataRecordTaskUI.UIData());
@@ -137,6 +142,19 @@ public class GameUI : UIBehavior<GameUI.UIData>
                     else
                     {
                         Debug.LogError("dataRecordTaskUIData null: " + this);
+                    }
+                }
+                // gameChatRoom
+                if (!isProcess)
+                {
+                    GameChatRoomUI.UIData gameChatRoom = this.gameChatRoom.v;
+                    if (gameChatRoom != null)
+                    {
+                        isProcess = gameChatRoom.processEvent(e);
+                    }
+                    else
+                    {
+                        // Debug.LogError("gameChatRoom null");
                     }
                 }
                 // gameHistoryUIData
@@ -201,15 +219,15 @@ public class GameUI : UIBehavior<GameUI.UIData>
         {
             // gameBottomRect
             {
-                // anchoredPosition: (0.0, 0.0); anchorMin: (0.0, 0.0); anchorMax: (1.0, 0.0); pivot: (0.5, 0.0);
-                // offsetMin: (0.0, 0.0); offsetMax: (0.0, 60.0); sizeDelta: (0.0, 60.0);
+                // anchoredPosition: (0.0, 0.0); anchorMin: (0.5, 0.0); anchorMax: (0.5, 0.0); pivot: (0.5, 0.0);
+                // offsetMin: (-240.0, 0.0); offsetMax: (240.0, 60.0); sizeDelta: (480.0, 60.0);
                 gameBottomRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
-                gameBottomRect.anchorMin = new Vector2(0.0f, 0.0f);
-                gameBottomRect.anchorMax = new Vector2(1.0f, 0.0f);
+                gameBottomRect.anchorMin = new Vector2(0.5f, 0.0f);
+                gameBottomRect.anchorMax = new Vector2(0.5f, 0.0f);
                 gameBottomRect.pivot = new Vector2(0.5f, 0.0f);
-                gameBottomRect.offsetMin = new Vector2(0.0f, 0.0f);
-                gameBottomRect.offsetMax = new Vector2(0.0f, 60.0f);
-                gameBottomRect.sizeDelta = new Vector2(0.0f, 60.0f);
+                gameBottomRect.offsetMin = new Vector2(-240.0f, 0.0f);
+                gameBottomRect.offsetMax = new Vector2(240.0f, 60.0f);
+                gameBottomRect.sizeDelta = new Vector2(480.0f, 60.0f);
             }
         }
     }
@@ -233,6 +251,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
                             this.data.gameDataUI.v.gameData.v = new ReferenceData<GameData>(game.gameData.v);
                         }
                     }
+
                     // gameBottom
                     {
                         GameBottomUI.UIData gameBottomUIData = this.data.gameBottom.v;
@@ -245,6 +264,27 @@ public class GameUI : UIBehavior<GameUI.UIData>
                             Debug.LogError("gameBottomUIData null");
                         }
                     }
+                    // requestDraw
+                    {
+                        RequestDrawUI.UIData requestDrawUIData = this.data.requestDraw.v;
+                        if (requestDrawUIData != null)
+                        {
+                            requestDrawUIData.requestDraw.v = new ReferenceData<RequestDraw>(game.requestDraw.v);
+                        }
+                        else
+                        {
+                            Debug.LogError("requestDrawUIData null: " + this);
+                        }
+                    }
+                    // UndoRedoRequest
+                    {
+                        UndoRedoRequestUI.UIData undoRedoRequestUIData = this.data.undoRedoRequestUIData.v;
+                        if (undoRedoRequestUIData != null)
+                        {
+                            undoRedoRequestUIData.undoRedoRequest.v = new ReferenceData<UndoRedoRequest>(game.undoRedoRequest.v);
+                        }
+                    }
+
                     // stateUI
                     {
                         StateUI.UIData stateUIData = this.data.stateUI.v;
@@ -268,14 +308,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
                             Debug.LogError("gamePlayerList null: " + this);
                         }
                     }
-                    // UndoRedoRequest
-                    {
-                        UndoRedoRequestUI.UIData undoRedoRequestUIData = this.data.undoRedoRequestUIData.v;
-                        if (undoRedoRequestUIData != null)
-                        {
-                            undoRedoRequestUIData.undoRedoRequest.v = new ReferenceData<UndoRedoRequest>(game.undoRedoRequest.v);
-                        }
-                    }
                     // GameAction
                     {
                         if (this.data.gameActionsUI.v != null)
@@ -287,28 +319,16 @@ public class GameUI : UIBehavior<GameUI.UIData>
                             Debug.LogError("gameActionsUI null: " + this);
                         }
                     }
-                    // chatRoom
+                    // gameChatRoom
                     {
-                        ChatRoomUI.UIData chatRoomUIData = this.data.chatRoom.v;
-                        if (chatRoomUIData != null)
+                        GameChatRoomUI.UIData gameChatRoomUIData = this.data.gameChatRoom.v;
+                        if (gameChatRoomUIData != null)
                         {
-                            chatRoomUIData.chatRoom.v = new ReferenceData<ChatRoom>(game.chatRoom.v);
+                            gameChatRoomUIData.chatRoom.v = new ReferenceData<ChatRoom>(game.chatRoom.v);
                         }
                         else
                         {
-                            Debug.LogError("chatRoomUIData null: " + this);
-                        }
-                    }
-                    // requestDraw
-                    {
-                        RequestDrawUI.UIData requestDrawUIData = this.data.requestDraw.v;
-                        if (requestDrawUIData != null)
-                        {
-                            requestDrawUIData.requestDraw.v = new ReferenceData<RequestDraw>(game.requestDraw.v);
-                        }
-                        else
-                        {
-                            Debug.LogError("requestDrawUIData null: " + this);
+                            Debug.LogError("gameChatRoomUIData null: " + this);
                         }
                     }
                     // saveUIData
@@ -348,25 +368,26 @@ public class GameUI : UIBehavior<GameUI.UIData>
                             Debug.LogError("dataRecordTaskUIData null: " + this);
                         }
                     }
+                    // UI sibling index
+                    {
+                        UIRectTransform.SetSiblingIndex(this.data.gameBottom.v, 0);
+                        UIRectTransform.SetSiblingIndex(this.data.gameDataUI.v, 1);
+                    }
+                    // txt
+                    {
+                        if (tvSave != null)
+                        {
+                            tvSave.text = txtSave.get("Save");
+                        }
+                        else
+                        {
+                            Debug.LogError("tvSave null: " + this);
+                        }
+                    }
                 }
                 else
                 {
                     Debug.LogError("game null: " + this);
-                }
-                // UI sibling index
-                {
-                    // TODO Can hoan thien
-                }
-                // txt
-                {
-                    if (tvSave != null)
-                    {
-                        tvSave.text = txtSave.get("Save");
-                    }
-                    else
-                    {
-                        Debug.LogError("tvSave null: " + this);
-                    }
                 }
             }
             else
@@ -386,7 +407,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
     #region implement callBacks
 
     public GameDataUI gameDataUIPrefab;
-    private static readonly UIRectTransform gameDataUIRect = UIRectTransform.CreateFullRect(0, 0, 0, 60);
+    private static readonly UIRectTransform gameDataUIRect = UIRectTransform.CreateFullRect(0, 0, 0, 0);
 
     #region bottom
 
@@ -395,6 +416,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
 
     public UndoRedoRequestUI undoRedoRequestPrefab;
     public RequestDrawUI requestDrawPrefab;
+    public GameChatRoomUI gameChatRoomPrefab;
 
     #endregion
 
@@ -406,9 +428,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
 
     public GameActionsUI gameActionsPrefab;
     public Transform gameActionsContainer;
-
-    public ChatRoomUI chatRoomPrefab;
-    public Transform chatRoomContainer;
 
     public SaveUI saveUIPrefab;
     public Transform saveUIContainer;
@@ -433,12 +452,15 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 uiData.game.allAddCallBack(this);
                 uiData.stateUI.allAddCallBack(this);
                 uiData.gameDataUI.allAddCallBack(this);
-                uiData.gameBottom.allAddCallBack(this);
+                // bottom
+                {
+                    uiData.gameBottom.allAddCallBack(this);
+                    uiData.undoRedoRequestUIData.allAddCallBack(this);
+                    uiData.requestDraw.allAddCallBack(this);
+                    uiData.gameChatRoom.allAddCallBack(this);
+                }
                 uiData.gamePlayerList.allAddCallBack(this);
-                uiData.undoRedoRequestUIData.allAddCallBack(this);
                 uiData.gameActionsUI.allAddCallBack(this);
-                uiData.chatRoom.allAddCallBack(this);
-                uiData.requestDraw.allAddCallBack(this);
                 uiData.saveUIData.allAddCallBack(this);
                 uiData.gameHistoryUIData.allAddCallBack(this);
                 uiData.dataRecordTaskUIData.allAddCallBack(this);
@@ -512,6 +534,16 @@ public class GameUI : UIBehavior<GameUI.UIData>
                     dirty = true;
                     return;
                 }
+                if (data is GameChatRoomUI.UIData)
+                {
+                    GameChatRoomUI.UIData gameChatRoomUIData = data as GameChatRoomUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(gameChatRoomUIData, gameChatRoomPrefab, this.transform);
+                    }
+                    dirty = true;
+                    return;
+                }
             }
             if (data is GameActionsUI.UIData)
             {
@@ -539,16 +571,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 // UI
                 {
                     UIUtils.Instantiate(gamePlayerListUIData, gamePlayerListPrefab, gamePlayerListContainer);
-                }
-                dirty = true;
-                return;
-            }
-            if (data is ChatRoomUI.UIData)
-            {
-                ChatRoomUI.UIData chatRoomUIData = data as ChatRoomUI.UIData;
-                // UI
-                {
-                    UIUtils.Instantiate(chatRoomUIData, chatRoomPrefab, chatRoomContainer);
                 }
                 dirty = true;
                 return;
@@ -603,11 +625,11 @@ public class GameUI : UIBehavior<GameUI.UIData>
                     uiData.gameBottom.allRemoveCallBack(this);
                     uiData.undoRedoRequestUIData.allRemoveCallBack(this);
                     uiData.requestDraw.allRemoveCallBack(this);
+                    uiData.gameChatRoom.allRemoveCallBack(this);
                 }
                 uiData.stateUI.allRemoveCallBack(this);
                 uiData.gamePlayerList.allRemoveCallBack(this);
                 uiData.gameActionsUI.allRemoveCallBack(this);
-                uiData.chatRoom.allRemoveCallBack(this);
                 uiData.saveUIData.allRemoveCallBack(this);
                 uiData.gameHistoryUIData.allRemoveCallBack(this);
                 uiData.dataRecordTaskUIData.allRemoveCallBack(this);
@@ -664,6 +686,24 @@ public class GameUI : UIBehavior<GameUI.UIData>
                     }
                     return;
                 }
+                if (data is HintUI.UIData)
+                {
+                    HintUI.UIData hintData = data as HintUI.UIData;
+                    // UI
+                    {
+                        hintData.removeCallBackAndDestroy(typeof(HintUI));
+                    }
+                    return;
+                }
+                if (data is GameChatRoomUI.UIData)
+                {
+                    GameChatRoomUI.UIData gameChatRoomUIData = data as GameChatRoomUI.UIData;
+                    // UI
+                    {
+                        gameChatRoomUIData.removeCallBackAndDestroy(typeof(GameChatRoomUI));
+                    }
+                    return;
+                }
             }
             if (data is StateUI.UIData)
             {
@@ -689,15 +729,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 // UI
                 {
                     subUIData.removeCallBackAndDestroy(typeof(GameActionsUI));
-                }
-                return;
-            }
-            if (data is ChatRoomUI.UIData)
-            {
-                ChatRoomUI.UIData chatRoomUIData = data as ChatRoomUI.UIData;
-                // UI
-                {
-                    chatRoomUIData.removeCallBackAndDestroy(typeof(ChatRoomUI));
                 }
                 return;
             }
@@ -774,6 +805,12 @@ public class GameUI : UIBehavior<GameUI.UIData>
                         dirty = true;
                     }
                     break;
+                case UIData.Property.gameChatRoom:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
 
                 case UIData.Property.stateUI:
                     {
@@ -788,12 +825,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
                     }
                     break;
                 case UIData.Property.gameActionsUI:
-                    {
-                        ValueChangeUtils.replaceCallBack(this, syncs);
-                        dirty = true;
-                    }
-                    break;
-                case UIData.Property.chatRoom:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
@@ -818,7 +849,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
                     }
                     break;
                 default:
-                    Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
             return;
@@ -875,7 +906,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
                         dirty = true;
                         break;
                     default:
-                        Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
                 return;
@@ -898,6 +929,10 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 {
                     return;
                 }
+                if (wrapProperty.p is GameChatRoomUI.UIData)
+                {
+                    return;
+                }
             }
             if (wrapProperty.p is StateUI.UIData)
             {
@@ -908,10 +943,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 return;
             }
             if (wrapProperty.p is GameActionsUI.UIData)
-            {
-                return;
-            }
-            if (wrapProperty.p is ChatRoomUI.UIData)
             {
                 return;
             }

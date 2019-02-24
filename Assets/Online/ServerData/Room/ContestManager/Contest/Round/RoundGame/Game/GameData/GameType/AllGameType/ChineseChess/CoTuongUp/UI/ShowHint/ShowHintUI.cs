@@ -13,6 +13,7 @@ namespace CoTuongUp
 
 		public class UIData : Data
 		{
+
 			public VP<LastMoveSub> sub;
 
 			#region Constructor
@@ -28,6 +29,7 @@ namespace CoTuongUp
 			}
 
 			#endregion
+
 		}
 
 		#endregion

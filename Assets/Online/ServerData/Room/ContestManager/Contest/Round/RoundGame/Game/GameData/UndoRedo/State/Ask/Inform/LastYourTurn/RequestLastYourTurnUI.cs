@@ -650,7 +650,7 @@ namespace UndoRedo
 							break;
 						case GameUI.UIData.Property.gameActionsUI:
 							break;
-						case GameUI.UIData.Property.chatRoom:
+						case GameUI.UIData.Property.gameChatRoom:
 							break;
 						case GameUI.UIData.Property.requestDraw:
 							break;

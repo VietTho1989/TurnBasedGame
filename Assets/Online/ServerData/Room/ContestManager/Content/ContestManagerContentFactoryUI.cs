@@ -743,6 +743,10 @@ namespace GameManager.Match
                         }
                         return;
                     }
+                    if(data is TransformData)
+                    {
+                        return;
+                    }
                 }
 			}
 			Debug.LogError ("Don't process: " + data + "; " + this);

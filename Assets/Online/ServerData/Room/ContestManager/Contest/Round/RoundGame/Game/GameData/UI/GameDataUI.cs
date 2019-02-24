@@ -49,7 +49,7 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
 			this.hintUI = new VP<HintUI.UIData>(this, (byte)Property.hintUI, new HintUI.UIData());
 			this.allowInput = new VP<bool>(this, (byte)Property.allowInput, false);
 			this.turn = new VP<TurnUI.UIData>(this, (byte)Property.turn, new TurnUI.UIData());
-			this.requestChangeUseRule = new VP<RequestChangeUseRuleUI.UIData>(this, (byte)Property.requestChangeUseRule, new RequestChangeUseRuleUI.UIData());
+			this.requestChangeUseRule = new VP<RequestChangeUseRuleUI.UIData>(this, (byte)Property.requestChangeUseRule, null);
 		}
 
 		#endregion
@@ -109,58 +109,108 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
 
 	}
 
-	#endregion
+    #endregion
 
-	#region Update
+    #region txt, rect
 
-	public override void refresh ()
+    static GameDataUI()
+    {
+        // rect
+        {
+            // boardRect
+            {
+                // anchoredPosition: (0.0, 0.0); anchorMin: (0.2, 0.2); anchorMax: (0.8, 0.8); pivot: (0.5, 0.5);
+                // offsetMin: (0.0, 0.0); offsetMax: (0.0, 0.0); sizeDelta: (0.0, 0.0);
+                boardRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                boardRect.anchorMin = new Vector2(0.2f, 0.2f);
+                boardRect.anchorMax = new Vector2(0.8f, 0.8f);
+                boardRect.pivot = new Vector2(0.5f, 0.5f);
+                boardRect.offsetMin = new Vector2(0.0f, 0.0f);
+                boardRect.offsetMax = new Vector2(0.0f, 0.0f);
+                boardRect.sizeDelta = new Vector2(0.0f, 0.0f);
+            }
+            // turnRect
+            {
+                // anchoredPosition: (0.0, 0.0); anchorMin: (0.5, 1.0); anchorMax: (0.5, 1.0); pivot: (0.5, 1.0);
+                // offsetMin: (-45.0, -40.0); offsetMax: (45.0, 0.0); sizeDelta: (90.0, 40.0);
+                turnRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                turnRect.anchorMin = new Vector2(0.5f, 1.0f);
+                turnRect.anchorMax = new Vector2(0.5f, 1.0f);
+                turnRect.pivot = new Vector2(0.5f, 1.0f);
+                turnRect.offsetMin = new Vector2(-45.0f, -40.0f);
+                turnRect.offsetMax = new Vector2(45.0f, 0.0f);
+                turnRect.sizeDelta = new Vector2(90.0f, 40.0f);
+            }
+        }
+    }
+
+    #endregion
+
+    #region Update
+
+    public override void refresh ()
 	{
 		if (dirty) {
 			dirty = false;
 			if (this.data != null) {
 				GameData gameData = this.data.gameData.v.data;
 				if (gameData != null) {
-					if (this.data != null) {
-						// input
-						{
-							GameDataBoardUI.UIData board = this.data.board.v;
-							if (board != null) {
-								board.gameData.v = new ReferenceData<GameData> (gameData);
-							} else {
-								Debug.LogError ("board null: " + this);
-							}
-						}
-						// HintData
-						{
-							HintUI.UIData hintUI = this.data.hintUI.v;
-							if (hintUI != null) {
-								hintUI.gameData.v = new ReferenceData<GameData> (gameData);
-							} else {
-								Debug.LogError ("hintUI null: " + this);
-							}
-						}
-						// Turn
-						{
-							TurnUI.UIData turnUIData = this.data.turn.v;
-							if (turnUIData != null) {
-								turnUIData.turn.v = new ReferenceData<Turn> (gameData.turn.v);
-							} else {
-								Debug.LogError ("turnUIData null: " + this);
-							}
-						}
-						// requestChangeUseRule
-						{
-							RequestChangeUseRuleUI.UIData requestChangeUseRuleUIData = this.data.requestChangeUseRule.v;
-							if (requestChangeUseRuleUIData != null) {
-								requestChangeUseRuleUIData.requestChangeUseRule.v = new ReferenceData<RequestChangeUseRule> (gameData.requestChangeUseRule.v);
-							} else {
-								Debug.LogError ("requestChangeUseRuleUIData null: " + this);
-							}
-						}
-					} else {
-						Debug.LogError ("data null: " + this);
-					}
-				} else {
+                    // input
+                    {
+                        GameDataBoardUI.UIData board = this.data.board.v;
+                        if (board != null)
+                        {
+                            board.gameData.v = new ReferenceData<GameData>(gameData);
+                        }
+                        else
+                        {
+                            Debug.LogError("board null: " + this);
+                        }
+                    }
+                    // HintData
+                    {
+                        HintUI.UIData hintUI = this.data.hintUI.v;
+                        if (hintUI != null)
+                        {
+                            hintUI.gameData.v = new ReferenceData<GameData>(gameData);
+                        }
+                        else
+                        {
+                            Debug.LogError("hintUI null: " + this);
+                        }
+                    }
+                    // Turn
+                    {
+                        TurnUI.UIData turnUIData = this.data.turn.v;
+                        if (turnUIData != null)
+                        {
+                            turnUIData.turn.v = new ReferenceData<Turn>(gameData.turn.v);
+                        }
+                        else
+                        {
+                            Debug.LogError("turnUIData null: " + this);
+                        }
+                    }
+                    // requestChangeUseRule
+                    {
+                        RequestChangeUseRuleUI.UIData requestChangeUseRuleUIData = this.data.requestChangeUseRule.v;
+                        if (requestChangeUseRuleUIData != null)
+                        {
+                            requestChangeUseRuleUIData.requestChangeUseRule.v = new ReferenceData<RequestChangeUseRule>(gameData.requestChangeUseRule.v);
+                        }
+                        else
+                        {
+                            Debug.LogError("requestChangeUseRuleUIData null: " + this);
+                        }
+                    }
+                    // UI
+                    {
+                        UIRectTransform.SetSiblingIndex(this.data.turn.v, 0);
+                        UIRectTransform.SetSiblingIndex(this.data.board.v, 1);
+                        UIRectTransform.SetSiblingIndex(this.data.hintUI.v, 2);
+                        UIRectTransform.SetSiblingIndex(this.data.requestChangeUseRule.v, 3);
+                    }
+                } else {
 					Debug.LogError ("gameData null: " + this);
 				}
 			} else {
@@ -179,16 +229,16 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
 	#region implement callBacks
 
 	public GameDataBoardUI boardPrefab;
+    private static readonly UIRectTransform boardRect = new UIRectTransform();
 
-	public Transform content;
+	public TurnUI turnPrefab;
+    private static readonly UIRectTransform turnRect = new UIRectTransform();
 
-	public TurnUI turnUI;
-
-	public Transform hintContainer;
 	public HintUI hintPrefab;
+    private readonly UIRectTransform hintRect = UIConstants.FullParent;
 
 	public RequestChangeUseRuleUI requestChangeUseRulePrefab;
-	public Transform requestChangeUseRuleContainer;
+    private static readonly UIRectTransform requestChangeUseRuleRect = UIConstants.FullParent;
 
 	public override void onAddCallBack<T> (T data)
 	{
@@ -219,7 +269,7 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
 				GameDataBoardUI.UIData boardData = data as GameDataBoardUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (boardData, boardPrefab, content);
+					UIUtils.Instantiate (boardData, boardPrefab, this.transform, boardRect);
 				}
 				dirty = true;
 				return;
@@ -228,20 +278,16 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
 				HintUI.UIData hintData = data as HintUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (hintData, hintPrefab, hintContainer);
+					UIUtils.Instantiate (hintData, hintPrefab, this.transform, hintRect);
 				}
 				dirty = true;
 				return;
 			}
 			if (data is TurnUI.UIData) {
-				TurnUI.UIData subUIData = data as TurnUI.UIData;
+				TurnUI.UIData turnUIData = data as TurnUI.UIData;
 				// UI
 				{
-					if (turnUI != null) {
-						turnUI.setData (subUIData);
-					} else {
-						Debug.LogError ("turnUI null: " + this);
-					}
+                    UIUtils.Instantiate(turnUIData, turnPrefab, this.transform, turnRect);
 				}
 				dirty = true;
 				return;
@@ -250,7 +296,7 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
 				RequestChangeUseRuleUI.UIData requestChangeUseRuleUIData = data as RequestChangeUseRuleUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (requestChangeUseRuleUIData, requestChangeUseRulePrefab, requestChangeUseRuleContainer);
+					UIUtils.Instantiate (requestChangeUseRuleUIData, requestChangeUseRulePrefab, this.transform, requestChangeUseRuleRect);
 				}
 				dirty = true;
 				return;
@@ -300,18 +346,10 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
 				return;
 			}
 			if (data is TurnUI.UIData) {
-				TurnUI.UIData subUIData = data as TurnUI.UIData;
+				TurnUI.UIData turnUIData = data as TurnUI.UIData;
 				// UI
 				{
-					if (this.turnUI != null) {
-						if (this.turnUI.data == subUIData) {
-							this.turnUI.setData (null);
-						} else {
-							Debug.LogError ("why different: " + this);
-						}
-					} else {
-						Debug.LogError ("turnUI null: " + this);
-					}
+                    turnUIData.removeCallBackAndDestroy(typeof(TurnUI));
 				}
 				return;
 			}
@@ -369,7 +407,7 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
 				}
 				break;
 			default:
-				Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
+				Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 				break;
 			}
 			return;

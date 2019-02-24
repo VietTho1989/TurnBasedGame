@@ -21,7 +21,7 @@ public class ShowAnimationUI : UIBehavior<ShowAnimationUI.UIData>
 
     }
 
-    public const float ShowDuration = 0.6f;
+    public const float ShowDuration = 0.3f;
 
     public class Show : State
     {
@@ -139,6 +139,31 @@ public class ShowAnimationUI : UIBehavior<ShowAnimationUI.UIData>
         }
 
         #endregion
+
+        public void show()
+        {
+            ShowAnimationUI.Show show = this.state.newOrOld<ShowAnimationUI.Show>();
+            {
+
+            }
+            this.state.v = show;
+        }
+
+        public void hide()
+        {
+            if ((this.state.v is ShowAnimationUI.Normal))
+            {
+                ShowAnimationUI.Hide hide = new ShowAnimationUI.Hide();
+                {
+                    hide.uid = this.state.makeId();
+                }
+                this.state.v = hide;
+            }
+            else
+            {
+                Debug.LogError("state error: " + this.state.v);
+            }
+        }
 
     }
 

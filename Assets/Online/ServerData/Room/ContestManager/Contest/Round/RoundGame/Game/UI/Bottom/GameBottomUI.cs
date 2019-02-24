@@ -16,13 +16,22 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
 
         public VP<BtnRequestDrawUI.UIData> btnRequestDraw;
 
+        public VP<BtnHintUI.UIData> btnHint;
+
+        public VP<BtnGameChatUI.UIData> btnGameChat;
+
+        public VP<BtnPauseUI.UIData> btnPause;
+
         #region Constructor
 
         public enum Property
         {
             game,
             btnUndoRedo,
-            btnRequestDraw
+            btnRequestDraw,
+            btnHint,
+            btnGameChat,
+            btnPause
         }
 
         public UIData() : base()
@@ -30,6 +39,9 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
             this.game = new VP<ReferenceData<Game>>(this, (byte)Property.game, new ReferenceData<Game>(null));
             this.btnUndoRedo = new VP<BtnUndoRedoUI.UIData>(this, (byte)Property.btnUndoRedo, new BtnUndoRedoUI.UIData());
             this.btnRequestDraw = new VP<BtnRequestDrawUI.UIData>(this, (byte)Property.btnRequestDraw, new BtnRequestDrawUI.UIData());
+            this.btnHint = new VP<BtnHintUI.UIData>(this, (byte)Property.btnHint, new BtnHintUI.UIData());
+            this.btnGameChat = new VP<BtnGameChatUI.UIData>(this, (byte)Property.btnGameChat, new BtnGameChatUI.UIData());
+            this.btnPause = new VP<BtnPauseUI.UIData>(this, (byte)Property.btnPause, new BtnPauseUI.UIData());
         }
 
         #endregion
@@ -44,7 +56,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
     {
         // rect
         {
-            // btnUndoRedo
+            // btnUndoRedoRect
             {
                 // anchoredPosition: (0.0, 0.0); anchorMin: (0.0, 0.5); anchorMax: (0.0, 0.5); pivot: (0.0, 0.5);
                 // offsetMin: (0.0, -30.0); offsetMax: (80.0, 30.0); sizeDelta: (80.0, 60.0);
@@ -56,7 +68,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 btnUndoRedoRect.offsetMax = new Vector2(80.0f, 30.0f);
                 btnUndoRedoRect.sizeDelta = new Vector2(80.0f, 60.0f);
             }
-            // btnRequestDraw
+            // btnRequestDrawRect
             {
                 // anchoredPosition: (80.0, 0.0); anchorMin: (0.0, 0.0); anchorMax: (0.0, 1.0); pivot: (0.0, 0.5);
                 // offsetMin: (80.0, 0.0); offsetMax: (160.0, 0.0); sizeDelta: (80.0, 0.0);
@@ -67,6 +79,40 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 btnRequestDrawRect.offsetMin = new Vector2(80.0f, 0.0f);
                 btnRequestDrawRect.offsetMax = new Vector2(160.0f, 0.0f);
                 btnRequestDrawRect.sizeDelta = new Vector2(80.0f, 0.0f);
+            }
+            // btnHintRect
+            {
+                // anchoredPosition: (160.0, 0.0); anchorMin: (0.0, 0.0); anchorMax: (0.0, 1.0); pivot: (0.0, 0.5);
+                // offsetMin: (160.0, 0.0); offsetMax: (240.0, 0.0); sizeDelta: (80.0, 0.0);
+                btnHintRect.anchoredPosition = new Vector3(160.0f, 0.0f, 0.0f);
+                btnHintRect.anchorMin = new Vector2(0.0f, 0.0f);
+                btnHintRect.anchorMax = new Vector2(0.0f, 1.0f);
+                btnHintRect.pivot = new Vector2(0.0f, 0.5f);
+                btnHintRect.offsetMin = new Vector2(160.0f, 0.0f);
+                btnHintRect.offsetMax = new Vector2(240.0f, 0.0f);
+                btnHintRect.sizeDelta = new Vector2(80.0f, 0.0f);
+            }
+            // btnGameChatRect
+            {
+                // anchoredPosition: (160.0, 0.0); anchorMin: (0.0, 0.0); anchorMax: (0.0, 1.0); pivot: (0.0, 0.5);
+                // offsetMin: (160.0, 0.0); offsetMax: (240.0, 0.0); sizeDelta: (80.0, 0.0);
+                btnGameChatRect.anchoredPosition = new Vector3(240.0f, 0.0f, 0.0f);
+                btnGameChatRect.anchorMin = new Vector2(0.0f, 0.0f);
+                btnGameChatRect.anchorMax = new Vector2(0.0f, 1.0f);
+                btnGameChatRect.pivot = new Vector2(0.0f, 0.5f);
+                btnGameChatRect.offsetMin = new Vector2(240.0f, 0.0f);
+                btnGameChatRect.offsetMax = new Vector2(320.0f, 0.0f);
+                btnGameChatRect.sizeDelta = new Vector2(80.0f, 0.0f);
+            }
+            // btnPauseRect
+            {
+                btnPauseRect.anchoredPosition = new Vector3(320.0f, 0.0f, 0.0f);
+                btnPauseRect.anchorMin = new Vector2(0.0f, 0.0f);
+                btnPauseRect.anchorMax = new Vector2(0.0f, 1.0f);
+                btnPauseRect.pivot = new Vector2(0.0f, 0.5f);
+                btnPauseRect.offsetMin = new Vector2(320.0f, 0.0f);
+                btnPauseRect.offsetMax = new Vector2(400.0f, 0.0f);
+                btnPauseRect.sizeDelta = new Vector2(80.0f, 0.0f);
             }
         }
     }
@@ -109,6 +155,42 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                             Debug.LogError("btnRequestDraw null");
                         }
                     }
+                    // btnHint
+                    {
+                        BtnHintUI.UIData btnHint = this.data.btnHint.v;
+                        if (btnHint != null)
+                        {
+                            btnHint.gameData.v = new ReferenceData<GameData>(game.gameData.v);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnHint null");
+                        }
+                    }
+                    // btnGameChat
+                    {
+                        BtnGameChatUI.UIData btnGameChat = this.data.btnGameChat.v;
+                        if (btnGameChat != null)
+                        {
+                            btnGameChat.chatRoom.v = new ReferenceData<ChatRoom>(game.chatRoom.v);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnGameChat null");
+                        }
+                    }
+                    // btnPause
+                    {
+                        BtnPauseUI.UIData btnPause = this.data.btnPause.v;
+                        if (btnPause != null)
+                        {
+                            btnPause.play.v = new ReferenceData<GameState.Play>((GameState.Play)game.state.v);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnPause null");
+                        }
+                    }
                 }
                 else
                 {
@@ -137,6 +219,15 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
     public BtnRequestDrawUI btnRequestDrawPrefab;
     private static readonly UIRectTransform btnRequestDrawRect = new UIRectTransform();
 
+    public BtnHintUI btnHintPrefab;
+    private static readonly UIRectTransform btnHintRect = new UIRectTransform();
+
+    public BtnGameChatUI btnGameChatPrefab;
+    private static readonly UIRectTransform btnGameChatRect = new UIRectTransform();
+
+    public BtnPauseUI btnPausePrefab;
+    private static readonly UIRectTransform btnPauseRect = new UIRectTransform();
+
     public override void onAddCallBack<T>(T data)
     {
         if(data is UIData)
@@ -147,6 +238,9 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 uiData.game.allAddCallBack(this);
                 uiData.btnUndoRedo.allAddCallBack(this);
                 uiData.btnRequestDraw.allAddCallBack(this);
+                uiData.btnHint.allAddCallBack(this);
+                uiData.btnGameChat.allAddCallBack(this);
+                uiData.btnPause.allAddCallBack(this);
             }
             dirty = true;
             return;
@@ -178,6 +272,36 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 dirty = true;
                 return;
             }
+            if(data is BtnHintUI.UIData)
+            {
+                BtnHintUI.UIData btnHintUIData = data as BtnHintUI.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(btnHintUIData, btnHintPrefab, this.transform, btnHintRect);
+                }
+                dirty = true;
+                return;
+            }
+            if(data is BtnGameChatUI.UIData)
+            {
+                BtnGameChatUI.UIData btnGameChatUIData = data as BtnGameChatUI.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(btnGameChatUIData, btnGameChatPrefab, this.transform, btnGameChatRect);
+                }
+                dirty = true;
+                return;
+            }
+            if(data is BtnPauseUI.UIData)
+            {
+                BtnPauseUI.UIData btnPauseUIData = data as BtnPauseUI.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(btnPauseUIData, btnPausePrefab, this.transform, btnPauseRect);
+                }
+                dirty = true;
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -192,6 +316,9 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 uiData.game.allRemoveCallBack(this);
                 uiData.btnUndoRedo.allRemoveCallBack(this);
                 uiData.btnRequestDraw.allRemoveCallBack(this);
+                uiData.btnHint.allRemoveCallBack(this);
+                uiData.btnGameChat.allRemoveCallBack(this);
+                uiData.btnPause.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
             return;
@@ -217,6 +344,32 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 // UI
                 {
                     btnRequestDrawUIData.removeCallBackAndDestroy(typeof(BtnRequestDrawUI));
+                }
+                return;
+            }
+            if (data is BtnHintUI.UIData)
+            {
+                BtnHintUI.UIData btnHintUIData = data as BtnHintUI.UIData;
+                // UI
+                {
+                    btnHintUIData.removeCallBackAndDestroy(typeof(BtnHintUI));
+                }
+                return;
+            }
+            if (data is BtnGameChatUI.UIData)
+            {
+                BtnGameChatUI.UIData btnGameChatUIData = data as BtnGameChatUI.UIData;
+                // UI
+                {
+                    btnGameChatUIData.removeCallBackAndDestroy(typeof(BtnGameChatUI));
+                }
+                return;
+            }
+            if(data is BtnPauseUI.UIData)
+            {
+                BtnPauseUI.UIData btnPauseUIData = data as BtnPauseUI.UIData;
+                {
+                    btnPauseUIData.removeCallBackAndDestroy(typeof(BtnPauseUI));
                 }
                 return;
             }
@@ -252,6 +405,24 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                         dirty = true;
                     }
                     break;
+                case UIData.Property.btnHint:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.btnGameChat:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.btnPause:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
@@ -270,8 +441,10 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                         dirty = true;
                         break;
                     case Game.Property.state:
+                        dirty = true;
                         break;
                     case Game.Property.gameData:
+                        dirty = true;
                         break;
                     case Game.Property.history:
                         break;
@@ -281,6 +454,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                         dirty = true;
                         break;
                     case Game.Property.chatRoom:
+                        dirty = true;
                         break;
                     case Game.Property.animationData:
                         break;
@@ -295,6 +469,18 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 return;
             }
             if(wrapProperty.p is BtnRequestDrawUI.UIData)
+            {
+                return;
+            }
+            if(wrapProperty.p is BtnHintUI.UIData)
+            {
+                return;
+            }
+            if(wrapProperty.p is BtnGameChatUI.UIData)
+            {
+                return;
+            }
+            if(wrapProperty.p is BtnPauseUI.UIData)
             {
                 return;
             }

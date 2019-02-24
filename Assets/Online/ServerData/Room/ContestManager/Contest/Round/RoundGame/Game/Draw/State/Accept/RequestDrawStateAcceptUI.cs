@@ -46,7 +46,7 @@ public class RequestDrawStateAcceptUI : UIBehavior<RequestDrawStateAcceptUI.UIDa
         {
             this.requestDrawStateAccept = new VP<ReferenceData<RequestDrawStateAccept>>(this, (byte)Property.requestDrawStateAccept, new ReferenceData<RequestDrawStateAccept>(null));
             this.state = new VP<State>(this, (byte)Property.state, State.None);
-            this.whoCanAskAdapter = new VP<WhoCanAskAdapter.UIData>(this, (byte)Property.whoCanAskAdapter, new WhoCanAskAdapter.UIData());
+            this.whoCanAskAdapter = new VP<WhoCanAskAdapter.UIData>(this, (byte)Property.whoCanAskAdapter, null);
         }
 
         public override RequestDraw.State.Type getType()
@@ -153,20 +153,6 @@ public class RequestDrawStateAcceptUI : UIBehavior<RequestDrawStateAcceptUI.UIDa
                 RequestDrawStateAccept requestDrawStateAccept = this.data.requestDrawStateAccept.v.data;
                 if (requestDrawStateAccept != null)
                 {
-                    // adapter
-                    {
-                        WhoCanAskAdapter.UIData whoCanAskAdapterUIData = this.data.whoCanAskAdapter.v;
-                        if (whoCanAskAdapterUIData != null)
-                        {
-                            // find requestDraw
-                            RequestDraw requestDraw = requestDrawStateAccept.findDataInParent<RequestDraw>();
-                            whoCanAskAdapterUIData.requestDraw.v = new ReferenceData<RequestDraw>(requestDraw);
-                        }
-                        else
-                        {
-                            Debug.LogError("whoCanAskAdapterUIData null");
-                        }
-                    }
                     // UI
                     uint profileId = Server.getProfileUserId(requestDrawStateAccept);
                     // check can answer
@@ -451,29 +437,87 @@ public class RequestDrawStateAcceptUI : UIBehavior<RequestDrawStateAcceptUI.UIDa
                             }
                         }
                     }
+                    // adapter
+                    {
+                        WhoCanAskAdapter.UIData whoCanAskAdapterUIData = null;
+                        {
+                            if(requestDrawStateAccept.accepts.vs.Count>0 || requestDrawStateAccept.refuses.vs.Count > 0)
+                            {
+                                whoCanAskAdapterUIData = this.data.whoCanAskAdapter.newOrOld<WhoCanAskAdapter.UIData>();
+                                {
+                                    // set requestDraw
+                                    RequestDraw requestDraw = requestDrawStateAccept.findDataInParent<RequestDraw>();
+                                    whoCanAskAdapterUIData.requestDraw.v = new ReferenceData<RequestDraw>(requestDraw);
+                                }
+                                this.data.whoCanAskAdapter.v = whoCanAskAdapterUIData;
+                            }
+                            else
+                            {
+                                this.data.whoCanAskAdapter.v = null;
+                            }
+                        }
+                    }
+                    // UI
+                    {
+                        float deltaY = 0;
+                        // header
+                        deltaY += UIConstants.HeaderHeight;
+                        // whoCanAskAdapter
+                        deltaY += UIRectTransform.SetPosY(this.data.whoCanAskAdapter.v, deltaY);
+                        // btn
+                        {
+                            if (btnAccept != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnAccept.transform, deltaY + 10);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnAccept null");
+                            }
+                            if (btnRefuse != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnRefuse.transform, deltaY + 10);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnRefuse null");
+                            }
+                            if (tvCannotAnswer != null)
+                            {
+                                UIRectTransform.SetPosY(tvCannotAnswer.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("tvCannotAnswer null");
+                            }
+                            deltaY += 50;
+                        }
+                        // set size
+                        UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                    }
+                    // txt
+                    {
+                        if (lbTitle != null)
+                        {
+                            lbTitle.text = txtTitle.get("Already Accept Draw");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null");
+                        }
+                        if (tvCannotAnswer != null)
+                        {
+                            tvCannotAnswer.text = txtCannotAnswer.get("Don't have rights to stop draw");
+                        }
+                        else
+                        {
+                            Debug.LogError("tvCannotAnswer null");
+                        }
+                    }
                 }
                 else
                 {
                     Debug.LogError("requestDrawStateAccept null");
-                }
-                // txt
-                {
-                    if (lbTitle != null)
-                    {
-                        lbTitle.text = txtTitle.get("Already Accept Draw");
-                    }
-                    else
-                    {
-                        Debug.LogError("lbTitle null");
-                    }
-                    if (tvCannotAnswer != null)
-                    {
-                        tvCannotAnswer.text = txtCannotAnswer.get("Don't have rights to stop draw");
-                    }
-                    else
-                    {
-                        Debug.LogError("tvCannotAnswer null");
-                    }
                 }
             }
             else

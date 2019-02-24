@@ -1,14 +1,17 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/Draw/State/Accept/RequestDrawStateAcceptUI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/UI/Bottom/Pause/Normal/BtnPauseNormalUI.cs">
     <Files>
-      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/Draw/State/Accept/RequestDrawStateAcceptUI.cs" Line="879" Column="30" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/UI/Bottom/Pause/Normal/BtnPauseNormalUI.cs" Line="501" Column="27" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/State/Play/Normal/PlayNormalUI.cs" Line="133" Column="33" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/UI/BtnHint/HintUI.cs" relfile="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/UI/BtnHint/HintUI.cs" line="149" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
 </Properties>

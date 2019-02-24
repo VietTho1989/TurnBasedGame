@@ -93,11 +93,7 @@ public class RequestDrawUI : UIBehavior<RequestDrawUI.UIData>
                             ShowAnimationUI.UIData showAnimationUIData = this.data.showAnimation.v;
                             if (showAnimationUIData != null)
                             {
-                                ShowAnimationUI.Show show = new ShowAnimationUI.Show();
-                                {
-                                    show.uid = showAnimationUIData.state.makeId();
-                                }
-                                showAnimationUIData.state.v = show;
+                                showAnimationUIData.show();
                             }
                             else
                             {
@@ -495,18 +491,7 @@ public class RequestDrawUI : UIBehavior<RequestDrawUI.UIData>
                 ShowAnimationUI.UIData showAnimationUIData = this.data.showAnimation.v;
                 if (showAnimationUIData != null)
                 {
-                    if ((showAnimationUIData.state.v is ShowAnimationUI.Normal))
-                    {
-                        ShowAnimationUI.Hide hide = new ShowAnimationUI.Hide();
-                        {
-                            hide.uid = showAnimationUIData.state.makeId();
-                        }
-                        showAnimationUIData.state.v = hide;
-                    }
-                    else
-                    {
-                        Debug.LogError("state error: " + showAnimationUIData.state.v);
-                    }
+                    showAnimationUIData.hide();
                 }
                 else
                 {
