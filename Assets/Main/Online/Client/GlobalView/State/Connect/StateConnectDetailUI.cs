@@ -176,8 +176,9 @@ public class StateConnectDetailUI : UIBehavior<StateConnectDetailUI.UIData>
 
     private Routine timeRoutine;
 
-    void Awake()
+    public override void Awake()
     {
+        base.Awake();
         startRoutine(ref this.timeRoutine, TaskUpdateRTT());
     }
 

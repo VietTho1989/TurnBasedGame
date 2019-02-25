@@ -109,12 +109,16 @@ public class NoDatabaseServerNoneUI : UIBehavior<NoDatabaseServerNoneUI.UIData>
                         switch (serverType)
                         {
                             case Server.Type.Server:
+#pragma warning disable CS0618 // Type or member is obsolete
                                 edtMaxClientUserCount.text = "" + LLAPITransport.DefaultServerMaxConnections;
+#pragma warning restore CS0618 // Type or member is obsolete
                                 break;
                             case Server.Type.Client:
                             case Server.Type.Host:
                             case Server.Type.Offline:
+#pragma warning disable CS0618 // Type or member is obsolete
                                 edtMaxClientUserCount.text = "" + LLAPITransport.DefaultMaxConnections;
+#pragma warning restore CS0618 // Type or member is obsolete
                                 break;
                             default:
                                 Debug.LogError("unknown serverType: " + serverType);

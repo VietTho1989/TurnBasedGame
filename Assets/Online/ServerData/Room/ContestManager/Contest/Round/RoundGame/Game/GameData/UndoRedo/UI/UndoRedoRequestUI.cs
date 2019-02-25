@@ -124,29 +124,26 @@ public class UndoRedoRequestUI : UIBehavior<UndoRedoRequestUI.UIData>
             dirty = false;
             if (this.data != null)
             {
-                // needShowAnimation
-                {
-                    if (needShowAnimation)
-                    {
-                        needShowAnimation = false;
-                        ShowAnimationUI.UIData showAnimationUIData = this.data.showAnimation.v;
-                        if (showAnimationUIData != null)
-                        {
-                            ShowAnimationUI.Show show = new ShowAnimationUI.Show();
-                            {
-                                show.uid = showAnimationUIData.state.makeId();
-                            }
-                            showAnimationUIData.state.v = show;
-                        }
-                        else
-                        {
-                            Debug.LogError("showAnimationUIData null");
-                        }
-                    }
-                }
                 UndoRedoRequest undoRedoRequest = this.data.undoRedoRequest.v.data;
                 if (undoRedoRequest != null)
                 {
+                    // needShowAnimation
+                    {
+                        if (needShowAnimation)
+                        {
+                            needShowAnimation = false;
+                            ShowAnimationUI.UIData showAnimationUIData = this.data.showAnimation.v;
+                            if (showAnimationUIData != null)
+                            {
+                                showAnimationUIData.show();
+                            }
+                            else
+                            {
+                                Debug.LogError("showAnimationUIData null");
+                            }
+                        }
+                    }
+                    // state
                     UndoRedoRequest.State state = undoRedoRequest.state.v;
                     if (state != null)
                     {
@@ -486,18 +483,7 @@ public class UndoRedoRequestUI : UIBehavior<UndoRedoRequestUI.UIData>
                 ShowAnimationUI.UIData showAnimationUIData = this.data.showAnimation.v;
                 if (showAnimationUIData != null)
                 {
-                    if ((showAnimationUIData.state.v is ShowAnimationUI.Normal))
-                    {
-                        ShowAnimationUI.Hide hide = new ShowAnimationUI.Hide();
-                        {
-                            hide.uid = showAnimationUIData.state.makeId();
-                        }
-                        showAnimationUIData.state.v = hide;
-                    }
-                    else
-                    {
-                        Debug.LogError("state error: " + showAnimationUIData.state.v);
-                    }
+                    showAnimationUIData.hide();
                 }
                 else
                 {

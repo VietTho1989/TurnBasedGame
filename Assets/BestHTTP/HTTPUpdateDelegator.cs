@@ -172,7 +172,9 @@ namespace BestHTTP
 
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.update -= Update;
+#pragma warning disable CS0618 // Type or member is obsolete
             UnityEditor.EditorApplication.playmodeStateChanged -= OnPlayModeStateChanged;
+#pragma warning restore CS0618 // Type or member is obsolete
 #endif
         }
     }

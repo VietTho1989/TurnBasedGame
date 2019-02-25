@@ -2997,8 +2997,8 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UseRule\Right\ChangeUseRuleRight.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UseRule\Right\ChangeUseRuleRightIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UseRule\Right\ChangeUseRuleRightUI.cs" />
-    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UseRule\State\Ask\Adapter\RequestChangeUseRuleWhoAskAdapter.cs" />
-    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UseRule\State\Ask\Adapter\RequestChangeUseRuleWhoAskHolder.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UseRule\State\Ask\Adapter\WhoAskAdapter.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UseRule\State\Ask\Adapter\WhoAskHolder.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UseRule\State\Ask\Btn\RequestChangeUseRuleStateAskBtnAcceptUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UseRule\State\Ask\Btn\RequestChangeUseRuleStateAskBtnRefuseUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UseRule\State\Ask\RequestChangeUseRuleStateAsk.cs" />
@@ -3122,6 +3122,7 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\Pause\UnPause\BtnPauseUnPauseUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\RequestDraw\BtnRequestDrawUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\UndoRedo\BtnUndoRedoUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\UseRule\BtnUseRuleUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\BtnHint\Edit\EditHintAIUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\BtnHint\HintUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\BtnHint\HintUpdate.cs" />
@@ -3497,14 +3498,6 @@
     <Compile Include="Assets\Online\Utils\UI\WrapContent.cs" />
     <Compile Include="Assets\Online\Utils\UI\WrapContentHorizontalLayoutGroup.cs" />
     <Compile Include="Assets\Online\Utils\UI\WrapContentVerticalLayoutGroup.cs" />
-    <Compile Include="Assets\RecycleListView\JSONObject\JSONObject.cs" />
-    <Compile Include="Assets\RecycleListView\JSONObject\JSONTemplates.cs" />
-    <Compile Include="Assets\RecycleListView\JSONObject\VectorTemplates.cs" />
-    <Compile Include="Assets\RecycleListView\Scripts\Countries.cs" />
-    <Compile Include="Assets\RecycleListView\Scripts\List.cs" />
-    <Compile Include="Assets\RecycleListView\Scripts\ListControllerTest.cs" />
-    <Compile Include="Assets\RecycleListView\Scripts\ListItemBase.cs" />
-    <Compile Include="Assets\RecycleListView\Scripts\ListItemCountry.cs" />
     <Compile Include="Assets\RecyclerKit\TrashMan.cs" />
     <Compile Include="Assets\RecyclerKit\TrashManRecycleBin.cs" />
     <Compile Include="Assets\SaveData\Save.cs" />
@@ -3760,7 +3753,6 @@
     <None Include="Assets\Foundation\Resources\Localization\German\Examples.txt" />
     <None Include="Assets\unity-ui-extensions\Shaders\UIAdditive.shader" />
     <None Include="Assets\Instructions.txt" />
-    <None Include="Assets\RecycleListView\JSONObject\readme.txt" />
     <None Include="Assets\SRIA\Docs\If upgrading from 2.x.x-ReadMe.txt" />
     <None Include="Assets\Foundation\Resources\Localization\Dutch\Examples.txt" />
     <None Include="Assets\Foundation\Resources\Localization\Turkish\Examples.txt" />

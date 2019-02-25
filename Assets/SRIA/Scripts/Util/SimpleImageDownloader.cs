@@ -71,8 +71,10 @@ namespace frame8.ScrollRectItemsAdapter.Util
         IEnumerator DownloadCoroutine(Request request)
         {
             _ExecutingRequests.Add(request);
+#pragma warning disable CS0618 // Type or member is obsolete
             var www = new WWW(request.url);
-			// var www = WWW.LoadFromCacheOrDownload (request.url, 1);
+#pragma warning restore CS0618 // Type or member is obsolete
+            // var www = WWW.LoadFromCacheOrDownload (request.url, 1);
 
             yield return www;
 

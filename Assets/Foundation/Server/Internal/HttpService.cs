@@ -297,10 +297,14 @@ namespace Foundation.Server
                 {APIConstants.APPLICATIONID, ServerConfig.Instance.Key}
             };
 
+#pragma warning disable CS0618 // Type or member is obsolete
             WWW www;
+#pragma warning restore CS0618 // Type or member is obsolete
             try
             {
+#pragma warning disable CS0618 // Type or member is obsolete
                 www = new WWW(url, content == null ? new byte[1] : Encoding.UTF8.GetBytes(content), headers);
+#pragma warning restore CS0618 // Type or member is obsolete
             }
             catch (Exception ex)
             {

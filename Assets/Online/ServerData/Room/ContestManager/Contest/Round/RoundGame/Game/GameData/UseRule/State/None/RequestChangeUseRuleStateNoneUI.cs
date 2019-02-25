@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using AdvancedCoroutines;
 using Foundation.Tasks;
 
-public class RequestChangeUseRuleStateNoneUI : UIBehavior<RequestChangeUseRuleStateNoneUI.UIData>
+public class RequestChangeUseRuleStateNoneUI : UIBehavior<RequestChangeUseRuleStateNoneUI.UIData>, HaveTransformData
 {
 
 	#region UIData
@@ -49,33 +49,58 @@ public class RequestChangeUseRuleStateNoneUI : UIBehavior<RequestChangeUseRuleSt
 			return RequestChangeUseRule.State.Type.None;
 		}
 
-		public void reset()
+        public override bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+
+            }
+            return isProcess;
+        }
+
+        public void reset()
 		{
 			this.state.v = State.None;
 		}
 
 	}
 
-	#endregion
+    #endregion
 
-	#region Refresh
+    #region txt
 
-	#region txt
+    public static readonly TxtLanguage txtRequest = new TxtLanguage();
+    public static readonly TxtLanguage txtCancelRequest = new TxtLanguage();
+    public static readonly TxtLanguage txtRequesting = new TxtLanguage();
+    public static readonly TxtLanguage txtCannotRequest = new TxtLanguage();
 
-	public static readonly TxtLanguage txtRequest = new TxtLanguage();
-	public static readonly TxtLanguage txtCancelRequest = new TxtLanguage();
-	public static readonly TxtLanguage txtRequesting = new TxtLanguage();
-	public static readonly TxtLanguage txtCannotRequest = new TxtLanguage();
+    static RequestChangeUseRuleStateNoneUI()
+    {
+        txtRequest.add(Language.Type.vi, "Yêu Cầu");
+        txtCancelRequest.add(Language.Type.vi, "Huỷ yêu cầu?");
+        txtRequesting.add(Language.Type.vi, "Đang yêu cầu");
+        txtCannotRequest.add(Language.Type.vi, "Không thể yêu cầu");
+    }
 
-	static RequestChangeUseRuleStateNoneUI()
-	{
-		txtRequest.add (Language.Type.vi, "Yêu Cầu");
-		txtCancelRequest.add (Language.Type.vi, "Huỷ yêu cầu?");
-		txtRequesting.add (Language.Type.vi, "Đang yêu cầu");
-		txtCannotRequest.add (Language.Type.vi, "Không thể yêu cầu");
-	}
+    #endregion
 
-	#endregion
+    #region TransformData
+
+    public TransformData transformData = new TransformData();
+
+    private void updateTransformData()
+    {
+        this.transformData.update(this.transform);
+    }
+
+    public TransformData getTransformData()
+    {
+        return this.transformData;
+    }
+
+    #endregion
+
+    #region Refresh
 
 	public Button btnRequest;
 	public Text tvRequest;
@@ -180,6 +205,7 @@ public class RequestChangeUseRuleStateNoneUI : UIBehavior<RequestChangeUseRuleSt
 				Debug.LogError ("data null: " + this);
 			}
 		}
+        updateTransformData();
 	}
 
 	public override bool isShouldDisableUpdate ()

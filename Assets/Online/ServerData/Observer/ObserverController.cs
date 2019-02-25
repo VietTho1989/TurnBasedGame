@@ -79,9 +79,11 @@ public class ObserverController
 						connectionInfo.time = Time.time;
 						{
 							byte byteError = 0;
-							connectionInfo.outPacket = UnityEngine.Networking.NetworkTransport.GetIncomingPacketCount (connection.hostId, connection.connectionId, out byteError);
-						}
-					}
+#pragma warning disable CS0618 // Type or member is obsolete
+                            connectionInfo.outPacket = UnityEngine.Networking.NetworkTransport.GetIncomingPacketCount (connection.hostId, connection.connectionId, out byteError);
+#pragma warning restore CS0618 // Type or member is obsolete
+                        }
+                    }
 					connectionDict.dict [connection] = connectionInfo;
 				}
 			}
@@ -131,9 +133,11 @@ public class ObserverController
 							// get newOutPacket
 							byte byteError = 0;
 							if (connection.hostId >= 0 && connection.hostId < 2) {
-								int newOutPacket = UnityEngine.Networking.NetworkTransport.GetIncomingPacketCount (connection.hostId, connection.connectionId, out byteError);
-								// check already send, if: reset
-								if (connectionInfo.dataSize != 0) {
+#pragma warning disable CS0618 // Type or member is obsolete
+                                int newOutPacket = UnityEngine.Networking.NetworkTransport.GetIncomingPacketCount (connection.hostId, connection.connectionId, out byteError);
+#pragma warning restore CS0618 // Type or member is obsolete
+                                // check already send, if: reset
+                                if (connectionInfo.dataSize != 0) {
 									if (newOutPacket != connectionInfo.outPacket) {
 										connectionInfo.dataSize = 0;
 										connectionInfo.allow = true;

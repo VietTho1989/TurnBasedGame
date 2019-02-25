@@ -238,7 +238,6 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
     private readonly UIRectTransform hintRect = UIConstants.FullParent;
 
 	public RequestChangeUseRuleUI requestChangeUseRulePrefab;
-    private static readonly UIRectTransform requestChangeUseRuleRect = UIConstants.FullParent;
 
 	public override void onAddCallBack<T> (T data)
 	{
@@ -296,7 +295,7 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
 				RequestChangeUseRuleUI.UIData requestChangeUseRuleUIData = data as RequestChangeUseRuleUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (requestChangeUseRuleUIData, requestChangeUseRulePrefab, this.transform, requestChangeUseRuleRect);
+					UIUtils.Instantiate (requestChangeUseRuleUIData, requestChangeUseRulePrefab, this.transform);
 				}
 				dirty = true;
 				return;

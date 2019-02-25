@@ -125,8 +125,10 @@ public class ClientNetworkDiscovery : NetworkDiscovery
 			Debug.LogError ("#CaptainsMess# Unable to listen!");
 			// Clean up some data that Unity seems not to
 			if (hostId != -1) {
-				NetworkTransport.RemoveHost (hostId);
-				hostId = -1;
+#pragma warning disable CS0618 // Type or member is obsolete
+                NetworkTransport.RemoveHost (hostId);
+#pragma warning restore CS0618 // Type or member is obsolete
+                hostId = -1;
 			}
 		} else {
 			Debug.LogError ("startClient success");

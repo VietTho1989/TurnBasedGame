@@ -139,8 +139,12 @@ namespace UnityEngine.UI.Extensions
             // Update rects since other things might affect them even if value didn't change.
             UpdateVisuals();
 
+#pragma warning disable CS0618 // Type or member is obsolete
             var prefabType = UnityEditor.PrefabUtility.GetPrefabType(this);
+#pragma warning restore CS0618 // Type or member is obsolete
+#pragma warning disable CS0618 // Type or member is obsolete
             if (prefabType != UnityEditor.PrefabType.Prefab && !Application.isPlaying)
+#pragma warning restore CS0618 // Type or member is obsolete
                 CanvasUpdateRegistry.RegisterCanvasElementForLayoutRebuild(this);
         }
 

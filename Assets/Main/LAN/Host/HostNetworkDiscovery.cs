@@ -342,10 +342,14 @@ public class HostNetworkDiscovery : NetworkDiscovery, ValueChangeCallBack
 			if (hostId != -1)
 			{
 				if (isServer) {
-					NetworkTransport.StopBroadcastDiscovery();
-				}
-				NetworkTransport.RemoveHost(hostId);
-				hostId = -1;
+#pragma warning disable CS0618 // Type or member is obsolete
+                    NetworkTransport.StopBroadcastDiscovery();
+#pragma warning restore CS0618 // Type or member is obsolete
+                }
+#pragma warning disable CS0618 // Type or member is obsolete
+                NetworkTransport.RemoveHost(hostId);
+#pragma warning restore CS0618 // Type or member is obsolete
+                hostId = -1;
 			}
 		}
 	}

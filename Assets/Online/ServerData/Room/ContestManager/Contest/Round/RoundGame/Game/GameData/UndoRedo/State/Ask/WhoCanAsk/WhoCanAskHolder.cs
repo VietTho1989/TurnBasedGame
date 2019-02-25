@@ -58,7 +58,7 @@ namespace UndoRedo
 
         #region Refresh
 
-        #region txt
+        #region txt, rect
 
         static WhoCanAskHolder()
         {
