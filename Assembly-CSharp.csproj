@@ -3262,7 +3262,6 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Lobby\Team\Player\UI\Edit\NormalEdit\NormalEditLobbyPlayerBtnEmptyUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Lobby\Team\Player\UI\Edit\NormalEdit\NormalEditLobbyPlayerBtnSetUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Lobby\Team\Player\UI\Edit\NormalEdit\NormalEditLobbyPlayerUI.cs" />
-    <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Lobby\Team\Player\UI\LobbyPlayerAdapter.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Lobby\Team\Player\UI\LobbyPlayerBtnSetReady.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Lobby\Team\Player\UI\LobbyPlayerHolder.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Lobby\Team\UI\LobbyTeamAdapter.cs" />

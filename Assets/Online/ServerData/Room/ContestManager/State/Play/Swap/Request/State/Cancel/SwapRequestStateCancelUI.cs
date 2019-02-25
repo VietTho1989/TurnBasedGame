@@ -94,7 +94,7 @@ namespace GameManager.Match.Swap
 						// tvTime
 						{
 							if (tvTime != null) {
-								tvTime.text = "Time: " + swapRequestStateCancel.time.v + "/" + swapRequestStateCancel.duration.v;
+								tvTime.text = swapRequestStateCancel.time.v + "/" + swapRequestStateCancel.duration.v;
 							} else {
 								Debug.LogError ("tvTime null: " + this);
 							}

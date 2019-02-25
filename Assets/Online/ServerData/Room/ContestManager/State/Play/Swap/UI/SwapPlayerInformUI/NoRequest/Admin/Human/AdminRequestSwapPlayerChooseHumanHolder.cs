@@ -53,11 +53,39 @@ namespace GameManager.Match.Swap
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		public Text tvName;
+        public Text tvChoose;
+        private static readonly TxtLanguage txtChoose = new TxtLanguage();
+
+        static AdminRequestSwapPlayerChooseHumanHolder()
+        {
+            // txt
+            txtChoose.add(Language.Type.vi, "Chọn");
+            // rect
+            {
+                // avatarRect
+                {
+                    // anchoredPosition: (5.0, 0.0); anchorMin: (0.0, 0.5); anchorMax: (0.0, 0.5); pivot: (0.0, 0.5);
+                    // offsetMin: (5.0, -18.0); offsetMax: (41.0, 18.0); sizeDelta: (36.0, 36.0);
+                    avatarRect.anchoredPosition = new Vector3(5.0f, 0.0f, 0.0f);
+                    avatarRect.anchorMin = new Vector2(0.0f, 0.5f);
+                    avatarRect.anchorMax = new Vector2(0.0f, 0.5f);
+                    avatarRect.pivot = new Vector2(0.0f, 0.5f);
+                    avatarRect.offsetMin = new Vector2(5.0f, -18.0f);
+                    avatarRect.offsetMax = new Vector2(41.0f, 18.0f);
+                    avatarRect.sizeDelta = new Vector2(36.0f, 36.0f);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Refresh
+
+        public Text tvName;
 
 		public override void refresh ()
 		{
@@ -82,7 +110,18 @@ namespace GameManager.Match.Swap
 							Debug.LogError ("avatar null: " + this);
 						}
 					}
-				} else {
+                    // txt
+                    {
+                        if (tvChoose != null)
+                        {
+                            tvChoose.text = txtChoose.get("Choose");
+                        }
+                        else
+                        {
+                            Debug.LogError("tvChoose null");
+                        }
+                    }
+                } else {
 					Debug.LogError ("human null: " + this);
 				}
 			} else {
@@ -95,12 +134,14 @@ namespace GameManager.Match.Swap
 		#region implement callBacks
 
 		public AccountAvatarUI avatarPrefab;
-		public Transform avatarContainer;
+        private static readonly UIRectTransform avatarRect = new UIRectTransform();
 
 		public override void onAddCallBack<T> (T data)
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
 				// Child
 				{
 					uiData.human.allAddCallBack (this);
@@ -109,8 +150,14 @@ namespace GameManager.Match.Swap
 				dirty = true;
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // Child
+            {
 				// Human
 				{
 					if (data is Human) {
@@ -132,7 +179,7 @@ namespace GameManager.Match.Swap
 					AccountAvatarUI.UIData avatar = data as AccountAvatarUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (avatar, avatarPrefab, avatarContainer);
+						UIUtils.Instantiate (avatar, avatarPrefab, this.transform, avatarRect);
 					}
 					dirty = true;
 					return;
@@ -145,6 +192,8 @@ namespace GameManager.Match.Swap
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
 				// Child
 				{
 					uiData.human.allRemoveCallBack (this);
@@ -153,8 +202,13 @@ namespace GameManager.Match.Swap
 				this.setDataNull (uiData);
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(data is Setting)
+            {
+                return;
+            }
+            // Child
+            {
 				// Human
 				{
 					if (data is Human) {
@@ -207,8 +261,32 @@ namespace GameManager.Match.Swap
 				}
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            {
 				// Human
 				{
 					if (wrapProperty.p is Human) {

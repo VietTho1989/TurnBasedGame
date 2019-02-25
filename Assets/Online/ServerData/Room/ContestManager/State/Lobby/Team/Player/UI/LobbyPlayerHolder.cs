@@ -8,7 +8,7 @@ using AdvancedCoroutines;
 
 namespace GameManager.Match
 {
-	public class LobbyPlayerHolder : UIBehavior<LobbyPlayerHolder.UIData>
+	public class LobbyPlayerHolder : UIBehavior<LobbyPlayerHolder.UIData>, HaveTransformData
 	{
 
 		#region UIData
@@ -42,20 +42,18 @@ namespace GameManager.Match
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text tvEdit;
+        public static readonly TxtLanguage txtEdit = new TxtLanguage();
 
-		public Text tvEdit;
-		public static readonly TxtLanguage txtEdit = new TxtLanguage();
+        public static readonly TxtLanguage txtPlayerIndex = new TxtLanguage();
+        public static readonly TxtLanguage txtName = new TxtLanguage();
 
-		public static readonly TxtLanguage txtPlayerIndex = new TxtLanguage();
-		public static readonly TxtLanguage txtName = new TxtLanguage();
-
-		static LobbyPlayerHolder()
-		{
+        static LobbyPlayerHolder()
+        {
             // txt
             {
                 txtEdit.add(Language.Type.vi, "Chỉnh sửa");
@@ -89,9 +87,27 @@ namespace GameManager.Match
                     btnReadyRect.sizeDelta = new Vector2(40.0f, 40.0f);
                 }
             }
-		}
+        }
 
-		#endregion
+        #endregion
+
+        #region TransformData
+
+        public TransformData transformData = new TransformData();
+
+        private void updateTransformData()
+        {
+            this.transformData.update(this.transform);
+        }
+
+        public TransformData getTransformData()
+        {
+            return this.transformData;
+        }
+
+        #endregion
+
+        #region Refresh
 
 		public Text tvName;
 		public Text tvPlayerIndex;
@@ -161,6 +177,7 @@ namespace GameManager.Match
 					Debug.LogError ("data null: " + this);
 				}
 			}
+            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()

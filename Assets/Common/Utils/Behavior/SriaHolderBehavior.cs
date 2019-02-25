@@ -80,7 +80,7 @@ public abstract class SriaHolderBehavior<K> : UIBehavior<K>, SriaHolderInterface
 				// Process
 				if (adapter != null) {
 					// Debug.LogError ("adapter not null: " + this);
-					if (this.verticalFit == Fit.PreferredSize) {
+					if (this.verticalFit == Fit.PreferredSize || this.verticalFit == Fit.Manual) {
 						float holderSize = transformChange.updateTransform.size.v.y;
 						// Debug.LogError ("refreshHolderSize: " + holderSize);
 						if (holderSize > 0) {
@@ -89,7 +89,7 @@ public abstract class SriaHolderBehavior<K> : UIBehavior<K>, SriaHolderInterface
 							Debug.LogError ("holderSize = 0: " + this);
 						}
 					}
-					if (this.horizontalFit == Fit.PreferredSize) {
+					if (this.horizontalFit == Fit.PreferredSize || this.horizontalFit == Fit.Manual) {
 						float holderSize = transformChange.updateTransform.size.v.x;
 						// Debug.LogError ("refreshHolderSize: horizontal" + holderSize);
 						if (holderSize > 0) {
@@ -173,7 +173,8 @@ public abstract class SriaHolderBehavior<K> : UIBehavior<K>, SriaHolderInterface
 	{
 		Unconstrained,
 		MinSize,
-		PreferredSize
+		PreferredSize,
+        Manual
 	}
 
 	[SerializeField] protected Fit m_HorizontalFit = Fit.Unconstrained;
@@ -296,8 +297,40 @@ public abstract class SriaHolderBehavior<K> : UIBehavior<K>, SriaHolderInterface
 		// Debug.LogError ("wrapContentSize: " + this.gameObject + ", " + rectTransform.sizeDelta);
 	}
 
-	#region WrapContent
+    #region WrapContent
 
-	#endregion
+    #endregion
+
+    #region Update Item Size
+
+    public void refreshItemSize(float height)
+    {
+        // Find adapter
+        ISRIA adapter = null;
+        {
+            BaseParams baseParams = this.data.findDataInParent<BaseParams>();
+            if (baseParams != null)
+            {
+                // Debug.LogError ("find base params: " + baseParams + "; " + this);
+                // find adapter in callBack
+                adapter = baseParams.findCallBack<ISRIA>();
+            }
+            else
+            {
+                Debug.LogError("baseParams null: " + this);
+            }
+        }
+        // Process
+        if (adapter != null)
+        {
+            adapter.RequestChangeItemSizeAndUpdateLayout(this.data.ItemIndex, height);
+        }
+        else
+        {
+            Debug.LogError("adapter null");
+        }
+    }
+
+    #endregion
 
 }

@@ -144,11 +144,31 @@ namespace GameManager.Match.Swap
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		public GameObject requestingContainer;
+        public Text lbTitle;
+        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+
+        public Text tvRequesting;
+        private static readonly TxtLanguage txtRequesting = new TxtLanguage();
+
+        public Text tvCancel;
+        private static readonly TxtLanguage txtCancel = new TxtLanguage();
+
+        static AdminRequestSwapPlayerHumanUI()
+        {
+            txtTitle.add(Language.Type.vi, "Chọn Người");
+            txtRequesting.add(Language.Type.vi, "Đang yêu cầu...");
+            txtCancel.add(Language.Type.vi, "Huỷ");
+        }
+
+        #endregion
+
+        #region Refresh
+
+        public GameObject requestingContainer;
 		public Button btnCancel;
 
 		private bool needReset = false;
@@ -289,7 +309,54 @@ namespace GameManager.Match.Swap
 								Debug.LogError ("state null: " + this);
 							}
 						}
-					} else {
+                        // siblingIndex
+                        {
+                            if (lbTitle != null)
+                            {
+                                lbTitle.transform.SetSiblingIndex(0);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null");
+                            }
+                            UIRectTransform.SetSiblingIndex(this.data.humanAdapter.v, 1);
+                            if (requestingContainer != null)
+                            {
+                                requestingContainer.transform.SetSiblingIndex(2);
+                            }
+                            else
+                            {
+                                Debug.LogError("requestingContainer null");
+                            }
+                        }
+                        // txt
+                        {
+                            if (lbTitle != null)
+                            {
+                                lbTitle.text = txtTitle.get("Choose Human");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null");
+                            }
+                            if (tvRequesting != null)
+                            {
+                                tvRequesting.text = txtRequesting.get("Requesting...");
+                            }
+                            else
+                            {
+                                Debug.LogError("tvRequesting null");
+                            }
+                            if (tvCancel != null)
+                            {
+                                tvCancel.text = txtCancel.get("Cancel");
+                            }
+                            else
+                            {
+                                Debug.LogError("tvCancel null");
+                            }
+                        }
+                    } else {
 						Debug.LogError ("lobbyPlayer null: " + this);
 					}
 				} else {
@@ -348,7 +415,7 @@ namespace GameManager.Match.Swap
 		#region implement callBacks
 
 		public AdminRequestSwapPlayerChooseHumanAdapter humanAdapterPrefab;
-		public Transform humanAdapterContainer;
+        private static readonly UIRectTransform humanAdapterRect = UIRectTransform.CreateFullRect(0, 0, 30, 0);
 
 		private Server server = null;
 
@@ -359,6 +426,8 @@ namespace GameManager.Match.Swap
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
 				// Child
 				{
 					uiData.teamPlayer.allAddCallBack (this);
@@ -367,8 +436,14 @@ namespace GameManager.Match.Swap
 				dirty = true;
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // Child
+            {
 				// teamPlayer
 				{
 					if (data is TeamPlayer) {
@@ -415,7 +490,7 @@ namespace GameManager.Match.Swap
 					AdminRequestSwapPlayerChooseHumanAdapter.UIData humanAdapter = data as AdminRequestSwapPlayerChooseHumanAdapter.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (humanAdapter, humanAdapterPrefab, humanAdapterContainer);
+						UIUtils.Instantiate (humanAdapter, humanAdapterPrefab, this.transform, humanAdapterRect);
 					}
 					dirty = true;
 					return;
@@ -428,6 +503,8 @@ namespace GameManager.Match.Swap
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
 				// Child
 				{
 					uiData.teamPlayer.allRemoveCallBack (this);
@@ -436,8 +513,13 @@ namespace GameManager.Match.Swap
 				this.setDataNull (uiData);
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(data is Setting)
+            {
+                return;
+            }
+            // Child
+            {
 				// teamPlayer
 				{
 					if (data is TeamPlayer) {
@@ -512,8 +594,32 @@ namespace GameManager.Match.Swap
 				}
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            {
 				// teamPlayer
 				{
 					if (wrapProperty.p is TeamPlayer) {

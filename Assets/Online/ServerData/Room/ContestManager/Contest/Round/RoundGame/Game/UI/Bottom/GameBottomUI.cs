@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameManager;
+using GameManager.Match;
+using GameManager.Match.Swap;
 
 public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
 {
@@ -22,6 +25,8 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
 
         public VP<BtnPauseUI.UIData> btnPause;
 
+        public VP<BtnShowSwapUI.UIData> btnShowSwap;
+
         public VP<BtnUseRuleUI.UIData> btnUseRule;
 
         #region Constructor
@@ -34,6 +39,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
             btnHint,
             btnGameChat,
             btnPause,
+            btnShowSwap,
             btnUseRule
         }
 
@@ -45,6 +51,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
             this.btnHint = new VP<BtnHintUI.UIData>(this, (byte)Property.btnHint, new BtnHintUI.UIData());
             this.btnGameChat = new VP<BtnGameChatUI.UIData>(this, (byte)Property.btnGameChat, new BtnGameChatUI.UIData());
             this.btnPause = new VP<BtnPauseUI.UIData>(this, (byte)Property.btnPause, new BtnPauseUI.UIData());
+            this.btnShowSwap = new VP<BtnShowSwapUI.UIData>(this, (byte)Property.btnShowSwap, new BtnShowSwapUI.UIData());
             this.btnUseRule = new VP<BtnUseRuleUI.UIData>(this, (byte)Property.btnUseRule, new BtnUseRuleUI.UIData());
         }
 
@@ -135,6 +142,32 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                             Debug.LogError("btnPause null");
                         }
                     }
+                    // btnShowSwap
+                    {
+                        BtnShowSwapUI.UIData btnShowSwap = this.data.btnShowSwap.v;
+                        if (btnShowSwap != null)
+                        {
+                            // find Swap
+                            Swap swap = null;
+                            {
+                                ContestManagerStatePlay contestManagerStatePlay = game.findDataInParent<ContestManagerStatePlay>();
+                                if (contestManagerStatePlay != null)
+                                {
+                                    swap = contestManagerStatePlay.swap.v;
+                                }
+                                else
+                                {
+                                    Debug.LogError("contestManagerStatePlay null");
+                                }
+                            }
+                            // set
+                            btnShowSwap.swap.v = new ReferenceData<Swap>(swap);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnShowSwap null");
+                        }
+                    }
                     // btnUseRule
                     {
                         BtnUseRuleUI.UIData btnUseRule = this.data.btnUseRule.v;
@@ -190,9 +223,12 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
     public BtnHintUI btnHintPrefab;
     public BtnGameChatUI btnGameChatPrefab;
     public BtnPauseUI btnPausePrefab;
+    public BtnShowSwapUI btnShowSwapPrefab;
     public BtnUseRuleUI btnUseRulePrefab;
 
     public Transform contentContainer;
+
+    private ContestManagerStatePlay contestManagerStatePlay = null;
 
     public override void onAddCallBack<T>(T data)
     {
@@ -207,6 +243,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 uiData.btnHint.allAddCallBack(this);
                 uiData.btnGameChat.allAddCallBack(this);
                 uiData.btnPause.allAddCallBack(this);
+                uiData.btnShowSwap.allAddCallBack(this);
                 uiData.btnUseRule.allAddCallBack(this);
             }
             dirty = true;
@@ -219,6 +256,10 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 if (data is Game)
                 {
                     Game game = data as Game;
+                    // Parent
+                    {
+                        DataUtils.addParentCallBack(game, this, ref this.contestManagerStatePlay);
+                    }
                     // Child
                     {
                         game.gameData.allAddCallBack(this);
@@ -226,8 +267,14 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                     dirty = true;
                     return;
                 }
+                // Parent
+                if(data is ContestManagerStatePlay)
+                {
+                    dirty = true;
+                    return;
+                }
                 // Child
-                if(data is GameData)
+                if (data is GameData)
                 {
                     dirty = true;
                     return;
@@ -283,12 +330,22 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 dirty = true;
                 return;
             }
-            if(data is BtnUseRuleUI.UIData)
+            if(data is BtnShowSwapUI.UIData)
+            {
+                BtnShowSwapUI.UIData btnShowSwapUIData = data as BtnShowSwapUI.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(btnShowSwapUIData, btnShowSwapPrefab, contentContainer, CreateBtnRect(5));
+                }
+                dirty = true;
+                return;
+            }
+            if (data is BtnUseRuleUI.UIData)
             {
                 BtnUseRuleUI.UIData btnUseRuleUIData = data as BtnUseRuleUI.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(btnUseRuleUIData, btnUseRulePrefab, contentContainer, CreateBtnRect(5));
+                    UIUtils.Instantiate(btnUseRuleUIData, btnUseRulePrefab, contentContainer, CreateBtnRect(6));
                 }
                 dirty = true;
                 return;
@@ -310,6 +367,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 uiData.btnHint.allRemoveCallBack(this);
                 uiData.btnGameChat.allRemoveCallBack(this);
                 uiData.btnPause.allRemoveCallBack(this);
+                uiData.btnShowSwap.allRemoveCallBack(this);
                 uiData.btnUseRule.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
@@ -322,14 +380,23 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 if (data is Game)
                 {
                     Game game = data as Game;
+                    // Parent
+                    {
+                        DataUtils.removeParentCallBack(game, this, ref this.contestManagerStatePlay);
+                    }
                     // Child
                     {
                         game.gameData.allRemoveCallBack(this);
                     }
                     return;
                 }
+                // Parent
+                if(data is ContestManagerStatePlay)
+                {
+                    return;
+                }
                 // Child
-                if(data is GameData)
+                if (data is GameData)
                 {
                     return;
                 }
@@ -373,8 +440,18 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
             if(data is BtnPauseUI.UIData)
             {
                 BtnPauseUI.UIData btnPauseUIData = data as BtnPauseUI.UIData;
+                // UI
                 {
                     btnPauseUIData.removeCallBackAndDestroy(typeof(BtnPauseUI));
+                }
+                return;
+            }
+            if(data is BtnShowSwapUI.UIData)
+            {
+                BtnShowSwapUI.UIData btnShowSwapUIData = data as BtnShowSwapUI.UIData;
+                // UI
+                {
+                    btnShowSwapUIData.removeCallBackAndDestroy(typeof(BtnShowSwapUI));
                 }
                 return;
             }
@@ -437,6 +514,12 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                         dirty = true;
                     }
                     break;
+                case UIData.Property.btnShowSwap:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
                 case UIData.Property.btnUseRule:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
@@ -489,8 +572,39 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                     }
                     return;
                 }
+                // Parent
+                if(wrapProperty.p is ContestManagerStatePlay)
+                {
+                    switch ((ContestManagerStatePlay.Property)wrapProperty.n)
+                    {
+                        case ContestManagerStatePlay.Property.state:
+                            break;
+                        case ContestManagerStatePlay.Property.isForceEnd:
+                            break;
+
+                        case ContestManagerStatePlay.Property.teams:
+                            break;
+                        case ContestManagerStatePlay.Property.swap:
+                            dirty = true;
+                            break;
+
+                        case ContestManagerStatePlay.Property.content:
+                            break;
+                        case ContestManagerStatePlay.Property.contentTeamResult:
+                            break;
+                        case ContestManagerStatePlay.Property.gameTypeType:
+                            break;
+
+                        case ContestManagerStatePlay.Property.randomTeamIndex:
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
                 // Child
-                if(wrapProperty.p is GameData)
+                if (wrapProperty.p is GameData)
                 {
                     switch ((GameData.Property)wrapProperty.n)
                     {
@@ -536,7 +650,11 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
             {
                 return;
             }
-            if(wrapProperty.p is BtnUseRuleUI.UIData)
+            if(wrapProperty.p is BtnShowSwapUI.UIData)
+            {
+                return;
+            }
+            if (wrapProperty.p is BtnUseRuleUI.UIData)
             {
                 return;
             }

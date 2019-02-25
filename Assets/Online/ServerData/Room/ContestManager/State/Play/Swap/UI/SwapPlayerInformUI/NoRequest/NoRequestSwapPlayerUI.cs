@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -50,11 +51,26 @@ namespace GameManager.Match.Swap
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		public GameObject notAllowSwap;
+        public Text lbTitle;
+        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+
+        private static readonly TxtLanguage txtNotAllowSwap = new TxtLanguage();
+
+        static NoRequestSwapPlayerUI()
+        {
+            txtTitle.add(Language.Type.vi, "Tạo Yêu Cầu");
+            txtNotAllowSwap.add(Language.Type.vi, "Không được phép tạo yêu cầu thay đổi");
+        }
+
+        #endregion
+
+        #region Refresh
+
+        public Text tvNotAllowSwap;
 
 		public override void refresh ()
 		{
@@ -63,54 +79,100 @@ namespace GameManager.Match.Swap
 				if (this.data != null) {
 					TeamPlayer teamPlayer = this.data.teamPlayer.v.data;
 					if (teamPlayer != null) {
-						// room allow to swap?
-						{
-							if (notAllowSwap != null) {
-								// find
-								bool roomAllowSwap = true;
-								{
-									Room room = teamPlayer.findDataInParent<Room> ();
-									if (room != null) {
-										Rights.ChangeRights changeRights = room.changeRights.v;
-										if (changeRights != null) {
-											ChangeGamePlayerRight changeGamePlayerRight = changeRights.changeGamePlayerRight.v;
-											if (changeGamePlayerRight != null) {
-												roomAllowSwap = changeGamePlayerRight.canChange.v;
-											} else {
-												Debug.LogError ("changeGamePlayerRight null: " + this);
-											}
-										} else {
-											Debug.LogError ("changeRights null: " + this);
-										}
-									} else {
-										Debug.LogError ("room null: " + this);
-									}
-								}
-								// process
-								notAllowSwap.SetActive(!roomAllowSwap);
-							} else {
-								Debug.LogError ("not allow swap: " + this);
-							}
-						}
-						// sub
-						{
-							if (Room.isYouAdmin (teamPlayer)) {
-								// admin
-								AdminRequestSwapPlayerUI.UIData adminRequestSwapPlayerUIData = this.data.sub.newOrOld<AdminRequestSwapPlayerUI.UIData>();
-								{
-									adminRequestSwapPlayerUIData.teamPlayer.v = new ReferenceData<TeamPlayer> (teamPlayer);
-								}
-								this.data.sub.v = adminRequestSwapPlayerUIData;
-							} else {
-								// normal
-								NormalRequestSwapPlayerUI.UIData normalRequestSwapPlayerUIData = this.data.sub.newOrOld<NormalRequestSwapPlayerUI.UIData>();
-								{
-									normalRequestSwapPlayerUIData.teamPlayer.v = new ReferenceData<TeamPlayer> (teamPlayer);
-								}
-								this.data.sub.v = normalRequestSwapPlayerUIData;
-							}
-						}
-					} else {
+                        // find room allow swap
+                        bool roomAllowSwap = true;
+                        {
+                            Room room = teamPlayer.findDataInParent<Room>();
+                            if (room != null)
+                            {
+                                Rights.ChangeRights changeRights = room.changeRights.v;
+                                if (changeRights != null)
+                                {
+                                    ChangeGamePlayerRight changeGamePlayerRight = changeRights.changeGamePlayerRight.v;
+                                    if (changeGamePlayerRight != null)
+                                    {
+                                        roomAllowSwap = changeGamePlayerRight.canChange.v;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("changeGamePlayerRight null: " + this);
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("changeRights null: " + this);
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("room null: " + this);
+                            }
+                        }
+                        // process
+                        if (roomAllowSwap)
+                        {
+                            // sub
+                            {
+                                if (Room.isYouAdmin(teamPlayer))
+                                {
+                                    // admin
+                                    AdminRequestSwapPlayerUI.UIData adminRequestSwapPlayerUIData = this.data.sub.newOrOld<AdminRequestSwapPlayerUI.UIData>();
+                                    {
+                                        adminRequestSwapPlayerUIData.teamPlayer.v = new ReferenceData<TeamPlayer>(teamPlayer);
+                                    }
+                                    this.data.sub.v = adminRequestSwapPlayerUIData;
+                                }
+                                else
+                                {
+                                    // normal
+                                    NormalRequestSwapPlayerUI.UIData normalRequestSwapPlayerUIData = this.data.sub.newOrOld<NormalRequestSwapPlayerUI.UIData>();
+                                    {
+                                        normalRequestSwapPlayerUIData.teamPlayer.v = new ReferenceData<TeamPlayer>(teamPlayer);
+                                    }
+                                    this.data.sub.v = normalRequestSwapPlayerUIData;
+                                }
+                            }
+                            if (tvNotAllowSwap != null)
+                            {
+                                tvNotAllowSwap.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("tvNotAllowSwap null");
+                            }
+                        }
+                        else
+                        {
+                            this.data.sub.v = null;
+                            if (tvNotAllowSwap != null)
+                            {
+                                tvNotAllowSwap.gameObject.SetActive(true);
+                            }
+                            else
+                            {
+                                Debug.LogError("tvNotAllowSwap null");
+                            }
+                        }
+                        // txt
+                        {
+                            if (lbTitle != null)
+                            {
+                                lbTitle.text = txtTitle.get("Make Request Swap");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null");
+                            }
+                            if (tvNotAllowSwap != null)
+                            {
+                                tvNotAllowSwap.text = txtNotAllowSwap.get("Cannot make swap player request");
+                            }
+                            else
+                            {
+                                Debug.LogError("tvNotAllowSwap null");
+                            }
+                        }
+                    } else {
 						Debug.LogError ("teamPlayer null: " + this);
 					}
 				} else {
@@ -130,7 +192,7 @@ namespace GameManager.Match.Swap
 
 		public AdminRequestSwapPlayerUI adminRequestSwapPlayerPrefab;
 		public NormalRequestSwapPlayerUI normalRequestSwapPlayerPrefab;
-		public Transform subContainer;
+        private static readonly UIRectTransform subRect = UIRectTransform.CreateFullRect(0, 0, UIConstants.HeaderHeight, 0);
 
 		private RoomCheckChangeAdminChange<TeamPlayer> roomCheckAdminChange = new RoomCheckChangeAdminChange<TeamPlayer> ();
 		private Room room = null;
@@ -139,6 +201,8 @@ namespace GameManager.Match.Swap
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
 				// Child
 				{
 					uiData.teamPlayer.allAddCallBack (this);
@@ -147,8 +211,14 @@ namespace GameManager.Match.Swap
 				dirty = true;
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // Child
+            {
 				// teamPlayer
 				{
 					if (data is TeamPlayer) {
@@ -208,13 +278,13 @@ namespace GameManager.Match.Swap
 						case RoomUser.Role.ADMIN:
 							{
 								AdminRequestSwapPlayerUI.UIData adminRequestSwapPlayerUIData = sub as AdminRequestSwapPlayerUI.UIData;
-								UIUtils.Instantiate (adminRequestSwapPlayerUIData, adminRequestSwapPlayerPrefab, subContainer);
+								UIUtils.Instantiate (adminRequestSwapPlayerUIData, adminRequestSwapPlayerPrefab, this.transform, subRect);
 							}
 							break;
 						case RoomUser.Role.NORMAL:
 							{
 								NormalRequestSwapPlayerUI.UIData normalRequestSwapPlayerUIData = sub as NormalRequestSwapPlayerUI.UIData;
-								UIUtils.Instantiate (normalRequestSwapPlayerUIData, normalRequestSwapPlayerPrefab, subContainer);
+								UIUtils.Instantiate (normalRequestSwapPlayerUIData, normalRequestSwapPlayerPrefab, this.transform, subRect);
 							}
 							break;
 						default:
@@ -233,6 +303,8 @@ namespace GameManager.Match.Swap
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
 				// Child
 				{
 					uiData.teamPlayer.allRemoveCallBack (this);
@@ -241,8 +313,13 @@ namespace GameManager.Match.Swap
 				this.setDataNull (uiData);
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(data is Setting)
+            {
+                return;
+            }
+            // Child
+            {
 				// teamPlayer
 				{
 					if (data is TeamPlayer) {
@@ -342,8 +419,32 @@ namespace GameManager.Match.Swap
 				}
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            {
 				// teamPlayer
 				{
 					if (wrapProperty.p is TeamPlayer) {

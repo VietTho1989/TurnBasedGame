@@ -35,12 +35,36 @@ namespace GameManager.Match.Swap
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		public Text tvPlayerIndex;
+        static SwapPlayerUI()
+        {
+            // rect
+            {
+                // avatarRect
+                {
+                    // anchoredPosition: (6.0, 0.0); anchorMin: (0.0, 0.5); anchorMax: (0.0, 0.5); pivot: (0.0, 0.5);
+                    // offsetMin: (6.0, -18.0); offsetMax: (42.0, 18.0); sizeDelta: (36.0, 36.0);
+                    avatarRect.anchoredPosition = new Vector3(6.0f, 0.0f, 0.0f);
+                    avatarRect.anchorMin = new Vector2(0.0f, 0.5f);
+                    avatarRect.anchorMax = new Vector2(0.0f, 0.5f);
+                    avatarRect.pivot = new Vector2(0.0f, 0.5f);
+                    avatarRect.offsetMin = new Vector2(6.0f, -18.0f);
+                    avatarRect.offsetMax = new Vector2(42.0f, 18.0f);
+                    avatarRect.sizeDelta = new Vector2(36.0f, 36.0f);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Refresh
+
+        public Text tvPlayerIndex;
 		public Text tvPlayerName;
+        public Button btnShow;
 
 		public override void refresh ()
 		{
@@ -74,7 +98,44 @@ namespace GameManager.Match.Swap
 								Debug.LogError ("avatar null: " + this);
 							}
 						}
-					} else {
+                        // btnShow
+                        {
+                            if (btnShow != null)
+                            {
+                                btnShow.transform.SetAsFirstSibling();
+                                // check isSelected
+                                bool alreadySelected = false;
+                                {
+                                    SwapUI.UIData swapUIData = this.data.findDataInParent<SwapUI.UIData>();
+                                    if (swapUIData != null)
+                                    {
+                                        SwapPlayerInformUI.UIData swapPlayerInformUIData = swapUIData.swapPlayerInformUIData.v;
+                                        if (swapPlayerInformUIData != null)
+                                        {
+                                            if (swapPlayerInformUIData.teamPlayer.v.data == teamPlayer)
+                                            {
+                                                alreadySelected = true;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("swapPlayerInformUIData null");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("swapUIData null");
+                                    }
+                                }
+                                // process
+                                btnShow.interactable = !alreadySelected;
+                            }
+                            else
+                            {
+                                Debug.LogError("btnShow null");
+                            }
+                        }
+                    } else {
 						Debug.LogError ("teamPlayer null: " + this);
 					}
 				} else {
@@ -93,22 +154,47 @@ namespace GameManager.Match.Swap
 		#region implement callBacks
 
 		public InformAvatarUI avatarPrefab;
-		public Transform avatarContainer;
+        private static readonly UIRectTransform avatarRect = new UIRectTransform();
+
+        private SwapUI.UIData swapUIData = null;
 
 		public override void onAddCallBack<T> (T data)
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
-				// Child
-				{
+                // Parent
+                {
+                    DataUtils.addParentCallBack(uiData, this, ref this.swapUIData);
+                }
+                // Child
+                {
 					uiData.teamPlayer.allAddCallBack (this);
 					uiData.avatar.allAddCallBack (this);
 				}
 				dirty = true;
 				return;
 			}
-			// Child
-			{
+            // Parent
+            {
+                if(data is SwapUI.UIData)
+                {
+                    SwapUI.UIData swapUIData = data as SwapUI.UIData;
+                    // Child
+                    {
+                        swapUIData.swapPlayerInformUIData.allAddCallBack(this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                if(data is SwapPlayerInformUI.UIData)
+                {
+                    dirty = true;
+                    return;
+                }
+            }
+            // Child
+            {
 				// teamPlayer
 				{
 					if (data is TeamPlayer) {
@@ -156,7 +242,7 @@ namespace GameManager.Match.Swap
 					InformAvatarUI.UIData avatar = data as InformAvatarUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (avatar, avatarPrefab, avatarContainer);
+						UIUtils.Instantiate (avatar, avatarPrefab, this.transform, avatarRect);
 					}
 					dirty = true;
 					return;
@@ -169,16 +255,37 @@ namespace GameManager.Match.Swap
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
-				// Child
-				{
+                // Parent
+                {
+                    DataUtils.removeParentCallBack(uiData, this, ref this.swapUIData);
+                }
+                // Child
+                {
 					uiData.teamPlayer.allRemoveCallBack (this);
 					uiData.avatar.allRemoveCallBack (this);
 				}
 				this.setDataNull (uiData);
 				return;
 			}
-			// Child
-			{
+            // Parent
+            {
+                if (data is SwapUI.UIData)
+                {
+                    SwapUI.UIData swapUIData = data as SwapUI.UIData;
+                    // Child
+                    {
+                        swapUIData.swapPlayerInformUIData.allRemoveCallBack(this);
+                    }
+                    return;
+                }
+                // Child
+                if (data is SwapPlayerInformUI.UIData)
+                {
+                    return;
+                }
+            }
+            // Child
+            {
 				// teamPlayer
 				{
 					if (data is TeamPlayer) {
@@ -256,8 +363,49 @@ namespace GameManager.Match.Swap
 				}
 				return;
 			}
-			// Child
-			{
+            // Parent
+            {
+                if (wrapProperty.p is SwapUI.UIData)
+                {
+                    switch ((SwapUI.UIData.Property)wrapProperty.n)
+                    {
+                        case SwapUI.UIData.Property.swap:
+                            break;
+                        case SwapUI.UIData.Property.swapTeamAdapter:
+                            break;
+                        case SwapUI.UIData.Property.swapPlayerInformUIData:
+                            {
+                                ValueChangeUtils.replaceCallBack(this, syncs);
+                                dirty = true;
+                            }
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+                // Child
+                if (wrapProperty.p is SwapPlayerInformUI.UIData)
+                {
+                    switch ((SwapPlayerInformUI.UIData.Property)wrapProperty.n)
+                    {
+                        case SwapPlayerInformUI.UIData.Property.teamPlayer:
+                            dirty = true;
+                            break;
+                        case SwapPlayerInformUI.UIData.Property.informUI:
+                            break;
+                        case SwapPlayerInformUI.UIData.Property.sub:
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+            }
+            // Child
+            {
 				// teamPlayer
 				{
 					if (wrapProperty.p is TeamPlayer) {

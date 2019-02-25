@@ -18,8 +18,6 @@ namespace GameManager.Match
 
 			public VP<ContestManagerContent.UIData> contestManagerContentUIData;
 
-			public VP<Swap.BtnShowSwapUI.UIData> btnShowSwap;
-
 			public VP<Swap.SwapUI.UIData> swapUIData;
 
 			#region Constructor
@@ -28,7 +26,6 @@ namespace GameManager.Match
 			{
 				contestManagerStatePlay,
 				contestManagerContentUIData,
-				btnShowSwap,
 				swapUIData
 			}
 
@@ -36,7 +33,6 @@ namespace GameManager.Match
 			{
 				this.contestManagerStatePlay = new VP<ReferenceData<ContestManagerStatePlay>>(this, (byte)Property.contestManagerStatePlay, new ReferenceData<ContestManagerStatePlay>(null));
 				this.contestManagerContentUIData = new VP<ContestManagerContent.UIData>(this, (byte)Property.contestManagerContentUIData, null);
-				this.btnShowSwap = new VP<GameManager.Match.Swap.BtnShowSwapUI.UIData>(this, (byte)Property.btnShowSwap, new GameManager.Match.Swap.BtnShowSwapUI.UIData());
 				this.swapUIData = new VP<GameManager.Match.Swap.SwapUI.UIData>(this, (byte)Property.swapUIData, null);
 			}
 
@@ -132,15 +128,6 @@ namespace GameManager.Match
 								Debug.LogError ("content null: " + this);
 							}
 						}
-						// btnShowSwap
-						{
-							Swap.BtnShowSwapUI.UIData btnShowSwap = this.data.btnShowSwap.v;
-							if (btnShowSwap != null) {
-								btnShowSwap.swap.v = new ReferenceData<GameManager.Match.Swap.Swap> (contestManagerStatePlay.swap.v);
-							} else {
-								Debug.LogError ("btnShowSwap null: " + this);
-							}
-						}
 						// swapUIData
 						{
 							Swap.SwapUI.UIData swapUIData = this.data.swapUIData.v;
@@ -150,7 +137,12 @@ namespace GameManager.Match
 								// Debug.LogError ("swapUIData null: " + this);
 							}
 						}
-					} else {
+                        // siblingIndex
+                        {
+                            UIRectTransform.SetSiblingIndex(this.data.contestManagerContentUIData.v, 0);
+                            UIRectTransform.SetSiblingIndex(this.data.swapUIData.v, 1);
+                        }
+                    } else {
 						Debug.LogError ("contestManagerStatePlay null: " + this);
 					}
 				} else {
@@ -171,13 +163,8 @@ namespace GameManager.Match
 		public SingleContestContentUI singleContestContentPrefab;
 		public RoundRobinContentUI roundRobinContentPrefab;
 		public EliminationContentUI eliminationContentPrefab;
-		public Transform contestManagerContentContainer;
-
-		public Swap.BtnShowSwapUI btnShowSwapPrefab;
-		public Transform btnShowSwapContainer;
 
 		public Swap.SwapUI swapUIPrefab;
-		public Transform swapUIContainer;
 
 		public override void onAddCallBack<T> (T data)
 		{
@@ -187,7 +174,6 @@ namespace GameManager.Match
 				{
 					uiData.contestManagerStatePlay.allAddCallBack (this);
 					uiData.contestManagerContentUIData.allAddCallBack (this);
-					uiData.btnShowSwap.allAddCallBack (this);
 					uiData.swapUIData.allAddCallBack (this);
 				}
 				dirty = true;
@@ -207,19 +193,19 @@ namespace GameManager.Match
 						case ContestManagerContent.Type.Single:
 							{
 								SingleContestContentUI.UIData singleContestContentUIData = contestManagerContentUIData as SingleContestContentUI.UIData;
-								UIUtils.Instantiate (singleContestContentUIData, singleContestContentPrefab, contestManagerContentContainer);
+								UIUtils.Instantiate (singleContestContentUIData, singleContestContentPrefab, this.transform, UIConstants.FullParent);
 							}
 							break;
 						case ContestManagerContent.Type.RoundRobin:
 							{
 								RoundRobinContentUI.UIData roundRobinContentUIData = contestManagerContentUIData as RoundRobinContentUI.UIData;
-								UIUtils.Instantiate (roundRobinContentUIData, roundRobinContentPrefab, contestManagerContentContainer);
+								UIUtils.Instantiate (roundRobinContentUIData, roundRobinContentPrefab, this.transform, UIConstants.FullParent);
 							}
 							break;
 						case ContestManagerContent.Type.Elimination:
 							{
 								EliminationContentUI.UIData eliminationContentUIData = contestManagerContentUIData as EliminationContentUI.UIData;
-								UIUtils.Instantiate (eliminationContentUIData, eliminationContentPrefab, contestManagerContentContainer);
+								UIUtils.Instantiate (eliminationContentUIData, eliminationContentPrefab, this.transform, UIConstants.FullParent);
 							}
 							break;
 						default:
@@ -230,20 +216,11 @@ namespace GameManager.Match
 					dirty = true;
 					return;
 				}
-				if (data is Swap.BtnShowSwapUI.UIData) {
-					Swap.BtnShowSwapUI.UIData btnShowSwap = data as Swap.BtnShowSwapUI.UIData;
-					// UI
-					{
-						UIUtils.Instantiate (btnShowSwap, btnShowSwapPrefab, btnShowSwapContainer);
-					}
-					dirty = true;
-					return;
-				}
 				if (data is Swap.SwapUI.UIData) {
 					Swap.SwapUI.UIData swapUIData = data as Swap.SwapUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (swapUIData, swapUIPrefab, swapUIContainer);
+						UIUtils.Instantiate (swapUIData, swapUIPrefab, this.transform);
 					}
 					dirty = true;
 					return;
@@ -260,7 +237,6 @@ namespace GameManager.Match
 				{
 					uiData.contestManagerStatePlay.allRemoveCallBack (this);
 					uiData.contestManagerContentUIData.allRemoveCallBack (this);
-					uiData.btnShowSwap.allRemoveCallBack (this);
 					uiData.swapUIData.allRemoveCallBack (this);
 				}
 				this.setDataNull (uiData);
@@ -301,14 +277,6 @@ namespace GameManager.Match
 					}
 					return;
 				}
-				if (data is Swap.BtnShowSwapUI.UIData) {
-					Swap.BtnShowSwapUI.UIData btnShowSwap = data as Swap.BtnShowSwapUI.UIData;
-					// UI
-					{
-						btnShowSwap.removeCallBackAndDestroy (typeof(Swap.BtnShowSwapUI));
-					}
-					return;
-				}
 				if (data is Swap.SwapUI.UIData) {
 					Swap.SwapUI.UIData swapUIData = data as Swap.SwapUI.UIData;
 					// UI
@@ -335,12 +303,6 @@ namespace GameManager.Match
 					}
 					break;
 				case UIData.Property.contestManagerContentUIData:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				case UIData.Property.btnShowSwap:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
 						dirty = true;
@@ -379,9 +341,6 @@ namespace GameManager.Match
 					return;
 				}
 				if (wrapProperty.p is ContestManagerContent.UIData) {
-					return;
-				}
-				if (wrapProperty.p is Swap.BtnShowSwapUI.UIData) {
 					return;
 				}
 				if (wrapProperty.p is Swap.SwapUI.UIData) {

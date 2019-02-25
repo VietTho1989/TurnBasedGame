@@ -80,11 +80,27 @@ namespace GameManager.Match.Swap
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		public Button btnHuman;
+        public Text tvHuman;
+        private static readonly TxtLanguage txtHuman = new TxtLanguage();
+
+        public Text tvComputer;
+        private static readonly TxtLanguage txtComputer = new TxtLanguage();
+
+        static AdminRequestSwapPlayerUI()
+        {
+            txtHuman.add(Language.Type.vi, "Người");
+            txtComputer.add(Language.Type.vi, "Máy");
+        }
+
+        #endregion
+
+        #region Refresh
+
+        public Button btnHuman;
 		public Button btnComputer;
 
 		public override void refresh ()
@@ -96,48 +112,48 @@ namespace GameManager.Match.Swap
 					if (teamPlayer != null) {
 						// show
 						{
-							if (humanContainer != null && computerContainer != null) {
-								if (btnHuman != null && btnComputer != null) {
-									switch (this.data.show.v) {
-									case GamePlayer.Inform.Type.Human:
-										{
-											// container
-											{
-												humanContainer.gameObject.SetActive (true);
-												computerContainer.gameObject.SetActive (false);
-											}
-											// btn
-											{
-												btnHuman.interactable = false;
-												btnComputer.interactable = true;
-											}
-										}
-										break;
-									case GamePlayer.Inform.Type.Computer:
-										{
-											// container
-											{
-												humanContainer.gameObject.SetActive (false);
-												computerContainer.gameObject.SetActive (true);
-											}
-											// btn
-											{
-												btnHuman.interactable = true;
-												btnComputer.interactable = false;
-											}
-										}
-										break;
-									default:
-										Debug.LogError ("unknown show : " + this.data.show.v);
-										break;
-									}
-								} else {
-									Debug.LogError ("btn null: " + this);
-								}
-							} else {
-								Debug.LogError ("container null: " + this);
-							}
-						}
+                            if (btnHuman != null && btnComputer != null)
+                            {
+                                switch (this.data.show.v)
+                                {
+                                    case GamePlayer.Inform.Type.Human:
+                                        {
+                                            // container
+                                            {
+                                                UIRectTransform.SetActive(this.data.human.v, true);
+                                                UIRectTransform.SetActive(this.data.computer.v, false);
+                                            }
+                                            // btn
+                                            {
+                                                btnHuman.interactable = false;
+                                                btnComputer.interactable = true;
+                                            }
+                                        }
+                                        break;
+                                    case GamePlayer.Inform.Type.Computer:
+                                        {
+                                            // container
+                                            {
+                                                UIRectTransform.SetActive(this.data.human.v, false);
+                                                UIRectTransform.SetActive(this.data.computer.v, true);
+                                            }
+                                            // btn
+                                            {
+                                                btnHuman.interactable = true;
+                                                btnComputer.interactable = false;
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown show : " + this.data.show.v);
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("btn null: " + this);
+                            }
+                        }
 						// sub
 						{
 							// human
@@ -153,7 +169,26 @@ namespace GameManager.Match.Swap
 								Debug.LogError ("computer null: " + this);
 							}
 						}
-					} else {
+                        // txt
+                        {
+                            if (tvHuman != null)
+                            {
+                                tvHuman.text = txtHuman.get("Human");
+                            }
+                            else
+                            {
+                                Debug.LogError("tvHuman null");
+                            }
+                            if (tvComputer != null)
+                            {
+                                tvComputer.text = txtComputer.get("Computer");
+                            }
+                            else
+                            {
+                                Debug.LogError("tvComputer null");
+                            }
+                        }
+                    } else {
 						Debug.LogError ("teamPlayer null: " + this);
 					}
 				} else {
@@ -173,14 +208,14 @@ namespace GameManager.Match.Swap
 
 		public AdminRequestSwapPlayerHumanUI humanPrefab;
 		public AdminRequestSwapPlayerComputerUI computerPrefab;
-
-		public Transform humanContainer;
-		public Transform computerContainer;
+        private static readonly UIRectTransform contentRect = UIRectTransform.CreateFullRect(0, 0, UIConstants.HeaderHeight, 0);
 
 		public override void onAddCallBack<T> (T data)
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
 				// Child
 				{
 					uiData.teamPlayer.allAddCallBack (this);
@@ -190,8 +225,14 @@ namespace GameManager.Match.Swap
 				dirty = true;
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // Child
+            {
 				if (data is TeamPlayer) {
 					// Reset
 					{
@@ -208,7 +249,7 @@ namespace GameManager.Match.Swap
 					AdminRequestSwapPlayerHumanUI.UIData humanUIData = data as AdminRequestSwapPlayerHumanUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (humanUIData, humanPrefab, humanContainer);
+						UIUtils.Instantiate (humanUIData, humanPrefab, this.transform, contentRect);
 					}
 					dirty = true;
 					return;
@@ -217,7 +258,7 @@ namespace GameManager.Match.Swap
 					AdminRequestSwapPlayerComputerUI.UIData computerUIData = data as AdminRequestSwapPlayerComputerUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (computerUIData, computerPrefab, computerContainer);
+						UIUtils.Instantiate (computerUIData, computerPrefab, this.transform, contentRect);
 					}
 					dirty = true;
 					return;
@@ -230,6 +271,8 @@ namespace GameManager.Match.Swap
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
 				// Child
 				{
 					uiData.teamPlayer.allRemoveCallBack (this);
@@ -239,8 +282,13 @@ namespace GameManager.Match.Swap
 				this.setDataNull (uiData);
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(data is Setting)
+            {
+                return;
+            }
+            // Child
+            {
 				if (data is TeamPlayer) {
 					return;
 				}
@@ -298,8 +346,32 @@ namespace GameManager.Match.Swap
 				}
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            {
 				if (wrapProperty.p is TeamPlayer) {
 					return;
 				}

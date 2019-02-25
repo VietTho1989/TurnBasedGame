@@ -52,11 +52,22 @@ namespace GameManager.Match.Swap
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		public Text tvTeamIndex;
+        private static readonly TxtLanguage txtTeam = new TxtLanguage();
+
+        static SwapTeamHolder()
+        {
+            txtTeam.add(Language.Type.vi, "Đội");
+        }
+
+        #endregion
+
+        #region Refresh
+
+        public Text tvTeamIndex;
 
 		public override void refresh ()
 		{
@@ -69,7 +80,7 @@ namespace GameManager.Match.Swap
 						// tvIndex
 						{
 							if (tvTeamIndex != null) {
-								tvTeamIndex.text = "Index: " + matchTeam.teamIndex.v;
+                                tvTeamIndex.text = txtTeam.get("Team") + " " + matchTeam.teamIndex.v;
 							} else {
 								Debug.LogError ("tvIndex null: " + this);
 							}
@@ -113,7 +124,25 @@ namespace GameManager.Match.Swap
 								this.data.players.remove (oldPlayer);
 							}
 						}
-					} else {
+                        // UI
+                        {
+                            float deltaY = 0;
+                            // header
+                            deltaY += UIConstants.HeaderHeight;
+                            // players
+                            {
+                                foreach(SwapPlayerUI.UIData playerUIData in this.data.players.vs)
+                                {
+                                    deltaY += UIRectTransform.SetPosY(playerUIData, deltaY);
+                                }
+                            }
+                            // set
+                            {
+                                UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                                this.refreshItemSize(deltaY);
+                            }
+                        }
+                    } else {
 						Debug.LogError ("matchTeam null: " + this);
 					}
 				} else {
@@ -127,12 +156,13 @@ namespace GameManager.Match.Swap
 		#region implement callBacks
 
 		public SwapPlayerUI swapPlayerPrefab;
-		public Transform swapPlayerContainer;
 
 		public override void onAddCallBack<T> (T data)
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
 				// Child
 				{
 					uiData.matchTeam.allAddCallBack (this);
@@ -141,8 +171,14 @@ namespace GameManager.Match.Swap
 				dirty = true;
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // Child
+            {
 				if (data is MatchTeam) {
 					dirty = true;
 					return;
@@ -151,7 +187,7 @@ namespace GameManager.Match.Swap
 					SwapPlayerUI.UIData swapPlayerUIData = data as SwapPlayerUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (swapPlayerUIData, swapPlayerPrefab, swapPlayerContainer);
+						UIUtils.Instantiate (swapPlayerUIData, swapPlayerPrefab, this.transform);
 					}
 					dirty = true;
 					return;
@@ -164,6 +200,8 @@ namespace GameManager.Match.Swap
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
 				// Child
 				{
 					uiData.matchTeam.allRemoveCallBack (this);
@@ -172,8 +210,13 @@ namespace GameManager.Match.Swap
 				this.setDataNull (uiData);
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(data is Setting)
+            {
+                return;
+            }
+            // Child
+            {
 				if (data is MatchTeam) {
 					return;
 				}
@@ -214,8 +257,32 @@ namespace GameManager.Match.Swap
 				}
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            {
 				if (wrapProperty.p is MatchTeam) {
 					switch ((MatchTeam.Property)wrapProperty.n) {
 					case MatchTeam.Property.teamIndex:

@@ -13,6 +13,8 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
 
         public VP<EditData<Computer>> editComputer;
 
+        public VP<UIRectTransform.ShowType> showType;
+
         public VP<ComputerAvatarUI.UIData> avatar;
 
         #region name
@@ -88,6 +90,7 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
         public enum Property
         {
             editComputer,
+            showType,
             avatar,
             name,
             avatarUrl,
@@ -98,6 +101,7 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
         public UIData() : base()
         {
             this.editComputer = new VP<EditData<Computer>>(this, (byte)Property.editComputer, new EditData<Computer>());
+            this.showType = new VP<UIRectTransform.ShowType>(this, (byte)Property.showType, UIRectTransform.ShowType.Normal);
             this.avatar = new VP<ComputerAvatarUI.UIData>(this, (byte)Property.avatar, new ComputerAvatarUI.UIData());
             // name
             {
@@ -181,6 +185,8 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
     #endregion
 
     private bool needReset = true;
+
+    public Image header;
 
     public override void refresh()
     {
@@ -462,57 +468,152 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
                     {
                         Debug.LogError("computer null: " + this);
                     }
+                    // UI Size
+                    {
+                        float deltaY = 0;
+                        // header
+                        {
+                            switch (this.data.showType.v)
+                            {
+                                case UIRectTransform.ShowType.Normal:
+                                    {
+                                        if (lbTitle != null)
+                                        {
+                                            lbTitle.gameObject.SetActive(true);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("lbTitle null");
+                                        }
+                                        if (header != null)
+                                        {
+                                            header.gameObject.SetActive(true);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("header null");
+                                        }
+                                        deltaY += UIConstants.HeaderHeight;
+                                    }
+                                    break;
+                                case UIRectTransform.ShowType.HeadLess:
+                                    {
+                                        if (lbTitle != null)
+                                        {
+                                            lbTitle.gameObject.SetActive(false);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("lbTitle null");
+                                        }
+                                        if (header != null)
+                                        {
+                                            header.gameObject.SetActive(false);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("header null");
+                                        }
+                                    }
+                                    break;
+                                default:
+                                    Debug.LogError("unknown showType: " + this.data.showType.v);
+                                    break;
+                            }
+                        }
+                        // name
+                        {
+                            if (this.data.name.v != null)
+                            {
+                                if (lbName != null)
+                                {
+                                    lbName.gameObject.SetActive(true);
+                                    UIRectTransform.SetPosY(lbName.rectTransform, deltaY);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbName null");
+                                }
+                                UIRectTransform.SetPosY(this.data.name.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                                deltaY += UIConstants.ItemHeight;
+                            }
+                            else
+                            {
+                                if (lbName != null)
+                                {
+                                    lbName.gameObject.SetActive(false);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbName null");
+                                }
+                            }
+                        }
+                        // avatar, avatarUrl
+                        {
+                            if (this.data.avatarUrl.v != null)
+                            {
+                                if (lbAvatarUrl != null)
+                                {
+                                    lbAvatarUrl.gameObject.SetActive(true);
+                                    UIRectTransform.SetPosY(lbAvatarUrl.rectTransform, deltaY);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbAvatarUrl null");
+                                }
+                                UIRectTransform.SetPosY(this.data.avatarUrl.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                                UIRectTransform.SetPosY(this.data.avatar.v, deltaY + 12);
+                                deltaY += UIConstants.ItemHeight;
+                            }
+                            else
+                            {
+                                if (lbAvatarUrl != null)
+                                {
+                                    lbAvatarUrl.gameObject.SetActive(false);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbAvatarUrl null");
+                                }
+                            }
+                        }
+                        // aiUIData
+                        deltaY += UIRectTransform.SetPosY(this.data.aiUIData.v, deltaY);
+                        // set
+                        UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                    }
+                    // txt
+                    {
+                        if (lbTitle != null)
+                        {
+                            lbTitle.text = txtTitle.get("Computer");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null: " + this);
+                        }
+                        if (lbName != null)
+                        {
+                            lbName.text = txtName.get("Name");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbName null: " + this);
+                        }
+                        if (lbAvatarUrl != null)
+                        {
+                            lbAvatarUrl.text = txtAvatarUrl.get("Avatar url");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbAvatarUrl null: " + this);
+                        }
+                    }
                 }
                 else
                 {
                     Debug.LogError("editComputer null: " + this);
-                }
-                // UI Size
-                {
-                    float deltaY = UIConstants.HeaderHeight;
-                    // avatar
-                    {
-
-                    }
-                    // name
-                    {
-                        deltaY += UIConstants.ItemHeight;
-                    }
-                    // avatarUrl
-                    {
-                        deltaY += UIConstants.ItemHeight;
-                    }
-                    // aiUIData
-                    deltaY += UIRectTransform.SetPosY(this.data.aiUIData.v, deltaY);
-                    // set
-                    UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
-                }
-                // txt
-                {
-                    if (lbTitle != null)
-                    {
-                        lbTitle.text = txtTitle.get("Computer");
-                    }
-                    else
-                    {
-                        Debug.LogError("lbTitle null: " + this);
-                    }
-                    if (lbName != null)
-                    {
-                        lbName.text = txtName.get("Name");
-                    }
-                    else
-                    {
-                        Debug.LogError("lbName null: " + this);
-                    }
-                    if (lbAvatarUrl != null)
-                    {
-                        lbAvatarUrl.text = txtAvatarUrl.get("Avatar url");
-                    }
-                    else
-                    {
-                        Debug.LogError("lbAvatarUrl null: " + this);
-                    }
                 }
             }
             else
@@ -794,6 +895,9 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
                     }
+                    break;
+                case UIData.Property.showType:
+                    dirty = true;
                     break;
                 case UIData.Property.avatar:
                     {

@@ -48,6 +48,7 @@ namespace GameManager.Match
 				{
 					ComputerUI.UIData editComputerUIData = new ComputerUI.UIData();
 					{
+                        editComputerUIData.showType.v = UIRectTransform.ShowType.HeadLess;
 						editComputerUIData.editComputer.v.editType.v = EditType.Later;
 						editComputerUIData.editComputer.v.canEdit.v = true;
                         editComputerUIData.aiUIDataShowType.v = UIRectTransform.ShowType.HeadLess;
