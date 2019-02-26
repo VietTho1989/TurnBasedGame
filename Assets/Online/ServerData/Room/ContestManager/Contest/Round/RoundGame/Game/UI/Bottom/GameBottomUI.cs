@@ -135,7 +135,15 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                         BtnPauseUI.UIData btnPause = this.data.btnPause.v;
                         if (btnPause != null)
                         {
-                            btnPause.play.v = new ReferenceData<GameState.Play>((GameState.Play)game.state.v);
+                            // find play
+                            GameState.Play play = null;
+                            {
+                                if(game.state.v is GameState.Play)
+                                {
+                                    play = game.state.v as GameState.Play;
+                                }
+                            }
+                            btnPause.play.v = new ReferenceData<GameState.Play>(play);
                         }
                         else
                         {

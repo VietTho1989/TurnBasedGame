@@ -48,17 +48,17 @@ public class BtnUpdateUser : UIBehavior<BtnUpdateUser.UIData>
 
     #region txt
 
-    public static readonly TxtLanguage txtApply = new TxtLanguage();
-    public static readonly TxtLanguage txtCannotApply = new TxtLanguage();
-    public static readonly TxtLanguage txtCancelApply = new TxtLanguage();
-    public static readonly TxtLanguage txtApplying = new TxtLanguage();
+    private static readonly TxtLanguage txtApply = new TxtLanguage();
+    private static readonly TxtLanguage txtCannotApply = new TxtLanguage();
+    private static readonly TxtLanguage txtCancelApply = new TxtLanguage();
+    private static readonly TxtLanguage txtApplying = new TxtLanguage();
 
     static BtnUpdateUser()
     {
         txtApply.add(Language.Type.vi, "Cập nhập");
-        txtCannotApply.add(Language.Type.vi, "Không có thay đổi");
-        txtCancelApply.add(Language.Type.vi, "Huỷ bỏ cập nhập");
-        txtApplying.add(Language.Type.vi, "Đang cập nhập...");
+        txtCannotApply.add(Language.Type.vi, "Cập Nhập");
+        txtCancelApply.add(Language.Type.vi, "Huỷ");
+        txtApplying.add(Language.Type.vi, "Đang cập nhập");
     }
 
     #endregion
@@ -151,7 +151,7 @@ public class BtnUpdateUser : UIBehavior<BtnUpdateUser.UIData>
                                                     else
                                                     {
                                                         btnApply.interactable = false;
-                                                        tvApply.text = txtCannotApply.get("Not Different, Cannot apply");
+                                                        tvApply.text = txtCannotApply.get("Apply");
                                                     }
                                                 }
                                                 break;

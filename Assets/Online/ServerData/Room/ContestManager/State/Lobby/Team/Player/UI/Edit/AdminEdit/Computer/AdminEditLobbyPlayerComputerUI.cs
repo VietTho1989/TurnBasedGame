@@ -74,15 +74,17 @@ namespace GameManager.Match
 		#region txt
 
 		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
+		private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
 		public Text tvReset;
-		public static readonly TxtLanguage txtReset = new TxtLanguage();
+		private static readonly TxtLanguage txtReset = new TxtLanguage();
 
-		public static readonly TxtLanguage txtRequest = new TxtLanguage();
-		public static readonly TxtLanguage txtCancelRequest = new TxtLanguage();
-		public static readonly TxtLanguage txtRequesting = new TxtLanguage();
-		public static readonly TxtLanguage txtCannotRequest = new TxtLanguage();
+		private static readonly TxtLanguage txtRequest = new TxtLanguage();
+		private static readonly TxtLanguage txtCancelRequest = new TxtLanguage();
+		private static readonly TxtLanguage txtRequesting = new TxtLanguage();
+		private static readonly TxtLanguage txtCannotRequest = new TxtLanguage();
+
+        private static readonly TxtLanguage txtRequestError = new TxtLanguage();
 
 		static AdminEditLobbyPlayerComputerUI()
 		{
@@ -93,6 +95,8 @@ namespace GameManager.Match
 			txtCancelRequest.add (Language.Type.vi, "Huỷ yêu cầu");
 			txtRequesting.add (Language.Type.vi, "Đang yêu cầu");
 			txtCannotRequest.add (Language.Type.vi, "Không khác, không thể yêu cầu");
+
+            txtRequestError.add(Language.Type.vi, "Yêu cầu lỗi");
 		}
 
 		#endregion
@@ -338,7 +342,7 @@ namespace GameManager.Match
 						Debug.LogError ("data null: " + this);
 					}
 				}
-				Toast.showMessage ("request error");
+                Toast.showMessage(txtRequestError.get("Request error"));
 				Debug.LogError ("request error: " + this);
 			} else {
 				Debug.LogError ("data null: " + this);

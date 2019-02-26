@@ -56,15 +56,42 @@ public class BanBanUI : UIBehavior<BanBanUI.UIData>
 
 	}
 
-	#endregion
+    #endregion
 
-	#region Refresh
+    #region txt
 
-	private User profileUser = null;
+    public Text lbTitle;
+    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+
+    public Text tvUnban;
+    private static readonly TxtLanguage txtUnban = new TxtLanguage();
+    private static readonly TxtLanguage txtCancelUnban = new TxtLanguage();
+    private static readonly TxtLanguage txtUnbanning = new TxtLanguage();
+    private static readonly TxtLanguage txtCannotUnban = new TxtLanguage();
+
+    private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+
+    static BanBanUI()
+    {
+        txtTitle.add(Language.Type.vi, "Đã Bị Cấm");
+        txtRequestError.add(Language.Type.vi, "Gửi yêu cầu bỏ cấm lỗi");
+        // unban
+        {
+            txtUnban.add(Language.Type.vi, "Huỷ Cấm");
+            txtCancelUnban.add(Language.Type.vi, "Huỷ");
+            txtUnbanning.add(Language.Type.vi, "Đang huỷ cấm");
+            txtCannotUnban.add(Language.Type.vi, "Không thể huỷ cấm");
+        }
+    }
+
+    #endregion
+
+    #region Refresh
+
+    private User profileUser = null;
 	private User toBanUser = null;
 
-	public Button btnUnBan;
-	public Text txtRequestState;
+	public Button btnUnban;
 
 	public override void refresh ()
 	{
@@ -115,81 +142,120 @@ public class BanBanUI : UIBehavior<BanBanUI.UIData>
 					// Task
 					{
 						if (canUnBan) {
-							switch (this.data.state.v) {
-							case UIData.State.None:
-								{
-									destroyRoutine (wait);
-								}
-								break;
-							case UIData.State.Request:
-								{
-									destroyRoutine (wait);
-									// request
-									if (Server.IsServerOnline (banBan)) {
-										banBan.requestUnBan (Server.getProfileUserId (banBan));
-										this.data.state.v = UIData.State.Wait;
-									} else {
-										Debug.LogError ("server not online: " + this);
-									}
-								}
-								break;
-							case UIData.State.Wait:
-								{
-									if (Server.IsServerOnline (banBan)) {
-										if (Routine.IsNull (wait)) {
-											wait = CoroutineManager.StartCoroutine (TaskWait (), this.gameObject);
-										} else {
-											Debug.LogError ("Why routine != null: " + this);
-										}
-									} else {
-										this.data.state.v = UIData.State.None;
-									}
-								}
-								break;
-							default:
-								Debug.LogError ("unknown state: " + this.data.state.v + "; " + this);
-								break;
-							}
-						} else {
-							this.data.state.v = UIData.State.None;
-						}
+                            // Task
+                            {
+                                switch (this.data.state.v)
+                                {
+                                    case UIData.State.None:
+                                        {
+                                            destroyRoutine(wait);
+                                        }
+                                        break;
+                                    case UIData.State.Request:
+                                        {
+                                            destroyRoutine(wait);
+                                            // request
+                                            if (Server.IsServerOnline(banBan))
+                                            {
+                                                banBan.requestUnBan(Server.getProfileUserId(banBan));
+                                                this.data.state.v = UIData.State.Wait;
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("server not online: " + this);
+                                            }
+                                        }
+                                        break;
+                                    case UIData.State.Wait:
+                                        {
+                                            if (Server.IsServerOnline(banBan))
+                                            {
+                                                if (Routine.IsNull(wait))
+                                                {
+                                                    wait = CoroutineManager.StartCoroutine(TaskWait(), this.gameObject);
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("Why routine != null: " + this);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                this.data.state.v = UIData.State.None;
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown state: " + this.data.state.v + "; " + this);
+                                        break;
+                                }
+                            }
+                            // UI
+                            {
+                                if(btnUnban!=null && tvUnban != null)
+                                {
+                                    switch (this.data.state.v)
+                                    {
+                                        case UIData.State.None:
+                                            {
+                                                btnUnban.interactable = true;
+                                                tvUnban.text = txtUnban.get("Unban");
+                                            }
+                                            break;
+                                        case UIData.State.Request:
+                                            {
+                                                btnUnban.interactable = true;
+                                                tvUnban.text = txtCancelUnban.get("Cancel");
+                                            }
+                                            break;
+                                        case UIData.State.Wait:
+                                            {
+                                                btnUnban.interactable = false;
+                                                tvUnban.text = txtUnbanning.get("Unbanning");
+                                            }
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown state: " + this.data.state.v);
+                                            break;
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("btnUnban, tvUnban null");
+                                }
+                            }
+                        } else {
+                            // task
+                            {
+                                destroyRoutine(wait);
+                                this.data.state.v = UIData.State.None;
+                            }
+                            // UI
+                            {
+                                if(btnUnban!=null && tvUnban != null)
+                                {
+                                    btnUnban.interactable = false;
+                                    tvUnban.text = txtCannotUnban.get("Cannot Unban");
+                                }
+                                else
+                                {
+                                    Debug.LogError("btnUnban, tvUnban null");
+                                }
+                            }
+                        }
 					}
-					// btnUnBan
-					{
-						if (btnUnBan != null) {
-							if (canUnBan) {
-								btnUnBan.interactable = (this.data.state.v == UIData.State.None);
-							} else {
-								btnUnBan.interactable = false;
-							}
-						} else {
-							Debug.LogError ("btnUnBan null: " + this);
-						}
-					}
-					// txtRequestState
-					{
-						if (txtRequestState != null) {
-							if (canUnBan) {
-								switch (this.data.state.v) {
-								case UIData.State.None:
-									txtRequestState.text = "UnBan";
-									break;
-								case UIData.State.Request:
-								case UIData.State.Wait:
-									txtRequestState.text = "Requesting to unBan";
-									break;
-								default:
-									Debug.LogError ("unknown state: " + this.data.state.v + "; " + this);
-									break;
-								}
-							} else {
-								txtRequestState.text = "Cannot unban";
-							}
-						} else {
-							Debug.LogError ("txtRequestState null: " + this);
-						}
-					}
-				} else {
+                    // txt
+                    {
+                        if (lbTitle != null)
+                        {
+                            lbTitle.text = txtTitle.get("Already Banned");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null");
+                        }
+                    }
+                } else {
 					Debug.LogError ("banBan null: " + this);
 				}
 			} else {
@@ -229,9 +295,9 @@ public class BanBanUI : UIBehavior<BanBanUI.UIData>
 	public IEnumerator TaskWait()
 	{
 		if (this.data != null) {
-			yield return new Wait (240f);
+			yield return new Wait (Global.WaitSendTime);
 			this.data.state.v = UIData.State.None;
-			Toast.showMessage ("request unfriend error");
+			Toast.showMessage (txtRequestError.get("Send request unban error"));
 			Debug.LogError ("request unfriend error: " + this);
 		} else {
 			Debug.LogError ("data null: " + this);
@@ -257,6 +323,8 @@ public class BanBanUI : UIBehavior<BanBanUI.UIData>
 	{
 		if (data is UIData) {
 			UIData uiData = data as UIData;
+            // Setting
+            Setting.get().addCallBack(this);
 			// Child
 			{
 				uiData.banBan.allAddCallBack (this);
@@ -264,8 +332,14 @@ public class BanBanUI : UIBehavior<BanBanUI.UIData>
 			dirty = true;
 			return;
 		}
-		// Child
-		{
+        // Setting
+        if(data is Setting)
+        {
+            dirty = true;
+            return;
+        }
+        // Child
+        {
 			// BanBan
 			{
 				if (data is BanBan) {
@@ -305,6 +379,8 @@ public class BanBanUI : UIBehavior<BanBanUI.UIData>
 	{
 		if (data is UIData) {
 			UIData uiData = data as UIData;
+            // Setting
+            Setting.get().removeCallBack(this);
 			// Child
 			{
 				uiData.banBan.allRemoveCallBack (this);
@@ -312,8 +388,13 @@ public class BanBanUI : UIBehavior<BanBanUI.UIData>
 			this.setDataNull (uiData);
 			return;
 		}
-		// Child
-		{
+        // Setting
+        if(data is Setting)
+        {
+            return;
+        }
+        // Child
+        {
 			// BanBan
 			{
 				if (data is BanBan) {
@@ -360,8 +441,32 @@ public class BanBanUI : UIBehavior<BanBanUI.UIData>
 			}
 			return;
 		}
-		// Child
-		{
+        // Setting
+        if(wrapProperty.p is Setting)
+        {
+            switch ((Setting.Property)wrapProperty.n)
+            {
+                case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.showLastMove:
+                    break;
+                case Setting.Property.viewUrlImage:
+                    break;
+                case Setting.Property.animationSetting:
+                    break;
+                case Setting.Property.maxThinkCount:
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Child
+        {
 			// BanBan
 			{
 				if (wrapProperty.p is BanBan) {
@@ -407,12 +512,22 @@ public class BanBanUI : UIBehavior<BanBanUI.UIData>
 	public void onClickBtnUnBan()
 	{
 		if (this.data != null) {
-			if (this.data.state.v == UIData.State.None) {
-				this.data.state.v = UIData.State.Request;
-			} else {
-				Debug.LogError ("you are requesting: " + this.data.state.v + "; " + this);
-			}
-		} else {
+            switch (this.data.state.v)
+            {
+                case UIData.State.None:
+                    this.data.state.v = UIData.State.Request;
+                    break;
+                case UIData.State.Request:
+                    this.data.state.v = UIData.State.None;
+                    break;
+                case UIData.State.Wait:
+                    Debug.LogError("You are requesting");
+                    break;
+                default:
+                    Debug.LogError("unknown state: " + this.data.state.v);
+                    break;
+            }
+        } else {
 			Debug.LogError ("data null: " + this);
 		}
 	}

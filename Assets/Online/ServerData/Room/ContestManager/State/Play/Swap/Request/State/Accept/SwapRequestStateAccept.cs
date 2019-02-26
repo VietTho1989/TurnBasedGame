@@ -22,7 +22,7 @@ namespace GameManager.Match.Swap
 		public SwapRequestStateAccept() : base()
 		{
 			this.time = new VP<float> (this, (byte)Property.time, 0);
-			this.duration = new VP<float> (this, (byte)Property.duration, 3);
+			this.duration = new VP<float> (this, (byte)Property.duration, 1);
 		}
 
 		#endregion

@@ -124,16 +124,20 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
 
     #region txt, rect
 
+    public Text lbTitle;
+    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+
     public Text tvBack;
-    public static readonly TxtLanguage txtBack = new TxtLanguage();
+    private static readonly TxtLanguage txtBack = new TxtLanguage();
 
     public Text lbAccountType;
-    public static readonly TxtLanguage txtAccountType = new TxtLanguage();
+    private static readonly TxtLanguage txtAccountType = new TxtLanguage();
 
     static LoginUI()
     {
         // txt
         {
+            txtTitle.add(Language.Type.vi, "Đăng Nhập");
             txtBack.add(Language.Type.vi, "Quay Lại");
             txtAccountType.add(Language.Type.vi, "Loại Tài Khoản");
         }
@@ -300,72 +304,80 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
                     {
                         Debug.LogError("loginStateUI null: " + this);
                     }
+                    // UI
+                    {
+                        if (contentContainer != null)
+                        {
+                            float deltaY = 0;
+                            // accountType
+                            {
+                                if (this.data.accountType.v != null)
+                                {
+                                    if (lbAccountType != null)
+                                    {
+                                        lbAccountType.gameObject.SetActive(true);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbAccountType null");
+                                    }
+                                    deltaY += UIConstants.ItemHeight - 5;
+                                }
+                                else
+                                {
+                                    if (lbAccountType != null)
+                                    {
+                                        lbAccountType.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbAccountType null");
+                                    }
+                                }
+                            }
+                            // accountUIData
+                            deltaY += UIRectTransform.SetPosY(this.data.accountUIData.v, deltaY);
+                            // loginStateUI
+                            deltaY += UIRectTransform.SetPosY(this.data.loginStateUI.v, deltaY);
+                            // set size
+                            UIRectTransform.SetHeight((RectTransform)contentContainer.transform, deltaY);
+                        }
+                        else
+                        {
+                            Debug.LogError("contentContainer null");
+                        }
+                    }
+                    // txt
+                    {
+                        if (lbTitle != null)
+                        {
+                            lbTitle.text = txtTitle.get("Login");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null");
+                        }
+                        if (tvBack != null)
+                        {
+                            tvBack.text = txtBack.get("Back");
+                        }
+                        else
+                        {
+                            // Debug.LogError("tvBack null: " + this);
+                        }
+                        if (lbAccountType != null)
+                        {
+                            lbAccountType.text = txtAccountType.get("Account Type");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbAccountType null: " + this);
+                        }
+                    }
                 }
                 else
                 {
                     Debug.Log("login null: " + this);
-                }
-                // UI
-                {
-                    if (contentContainer != null)
-                    {
-                        float deltaY = 0;
-                        // accountType
-                        {
-                            if (this.data.accountType.v != null)
-                            {
-                                if (lbAccountType != null)
-                                {
-                                    lbAccountType.gameObject.SetActive(true);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbAccountType null");
-                                }
-                                deltaY += UIConstants.ItemHeight - 5;
-                            }
-                            else
-                            {
-                                if (lbAccountType != null)
-                                {
-                                    lbAccountType.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbAccountType null");
-                                }
-                            }
-                        }
-                        // accountUIData
-                        deltaY += UIRectTransform.SetPosY(this.data.accountUIData.v, deltaY);
-                        // loginStateUI
-                        deltaY += UIRectTransform.SetPosY(this.data.loginStateUI.v, deltaY);
-                        // set size
-                        UIRectTransform.SetHeight((RectTransform)contentContainer.transform, deltaY);
-                    }
-                    else
-                    {
-                        Debug.LogError("contentContainer null");
-                    }
-                }
-                // txt
-                {
-                    if (tvBack != null)
-                    {
-                        tvBack.text = txtBack.get("Back");
-                    }
-                    else
-                    {
-                        // Debug.LogError("tvBack null: " + this);
-                    }
-                    if (lbAccountType != null)
-                    {
-                        lbAccountType.text = txtAccountType.get("Account Type");
-                    }
-                    else
-                    {
-                        Debug.LogError("lbAccountType null: " + this);
-                    }
                 }
             }
             else

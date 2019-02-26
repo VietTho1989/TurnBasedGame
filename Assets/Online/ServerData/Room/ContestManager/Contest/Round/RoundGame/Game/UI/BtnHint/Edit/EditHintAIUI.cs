@@ -102,9 +102,6 @@ namespace Hint
 
         #region txt
 
-        public static readonly TxtLanguage txtImmediately = new TxtLanguage();
-        public static readonly TxtLanguage txtLater = new TxtLanguage();
-
         public Text lbTitle;
         public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
@@ -118,9 +115,6 @@ namespace Hint
 
         static EditHintAIUI()
         {
-            txtImmediately.add(Language.Type.vi, "Ngay lập tức");
-            txtLater.add(Language.Type.vi, "Sau này");
-
             txtTitle.add(Language.Type.vi, "Chỉnh Sửa Gợi Ý Của AI");
 
             txtApply.add(Language.Type.vi, "Áp Dụng");
@@ -148,33 +142,7 @@ namespace Hint
                     if (drEditType != null)
                     {
                         // options
-                        {
-                            string[] options = new string[] { txtImmediately.get("Immediately"), txtLater.get("Later") };
-                            // remove 
-                            {
-                                if (drEditType.options.Count > options.Length)
-                                {
-                                    drEditType.options.RemoveRange(options.Length, drEditType.options.Count - options.Length);
-                                }
-                            }
-                            for (int i = 0; i < options.Length; i++)
-                            {
-                                if (i < drEditType.options.Count)
-                                {
-                                    // Update
-                                    drEditType.options[i].text = options[i];
-                                }
-                                else
-                                {
-                                    // Add new
-                                    Dropdown.OptionData optionData = new Dropdown.OptionData();
-                                    {
-                                        optionData.text = options[i];
-                                    }
-                                    drEditType.options.Add(optionData);
-                                }
-                            }
-                        }
+                        Data.RefreshStrEditType(drEditType);
                         // set value
                         drEditType.value = (int)this.data.editType.v;
                     }

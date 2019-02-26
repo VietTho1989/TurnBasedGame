@@ -52,14 +52,41 @@ namespace GameManager.Match.Swap
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt, rect
 
-		public Text tvName;
-		public Text tvAnswer;
+        static WhoCanAskHolder()
+        {
+            // rect
+            {
+                // avatarRect
+                {
+                    // anchoredPosition: (0.0, -4.0); anchorMin: (0.5, 1.0); anchorMax: (0.5, 1.0); pivot: (0.5, 1.0);
+                    // offsetMin: (-18.0, -40.0); offsetMax: (18.0, -4.0); sizeDelta: (36.0, 36.0);
+                    avatarRect.anchoredPosition = new Vector3(0.0f, -4.0f, 0.0f);
+                    avatarRect.anchorMin = new Vector2(0.5f, 1.0f);
+                    avatarRect.anchorMax = new Vector2(0.5f, 1.0f);
+                    avatarRect.pivot = new Vector2(0.5f, 1.0f);
+                    avatarRect.offsetMin = new Vector2(-18.0f, -40.0f);
+                    avatarRect.offsetMax = new Vector2(18.0f, -4.0f);
+                    avatarRect.sizeDelta = new Vector2(36.0f, 36.0f);
+                }
+            }
+        }
 
-		public override void refresh ()
+        #endregion
+
+        #region Refresh
+
+        public Text tvName;
+
+        public Sprite ivAnswerNone;
+        public Sprite ivAnswerAccept;
+        public Sprite ivAnswerCancel;
+        public Image ivAnswer;
+
+        public override void refresh ()
 		{
 			base.refresh ();
 			if (this.data != null) {
@@ -68,14 +95,14 @@ namespace GameManager.Match.Swap
 					// tvName
 					{
 						if (tvName != null) {
-							tvName.text = "Name: " + human.getPlayerName ();
+							tvName.text = human.getPlayerName ();
 						} else {
 							Debug.LogError ("tvName null: " + this);
 						}
 					}
 					// tvAnswer
 					{
-						if (tvAnswer != null) {
+						if (ivAnswer != null) {
 							bool alreadyAccept = false;
 							{
 								SwapRequestStateAsk swapRequestStateAsk = human.findDataInParent<SwapRequestStateAsk> ();
@@ -85,7 +112,7 @@ namespace GameManager.Match.Swap
 									Debug.LogError ("swapRequestStateAsk null: " + this);
 								}
 							}
-							tvAnswer.text = alreadyAccept ? "Already Accept" : "Not Accept";
+                            ivAnswer.sprite = alreadyAccept ? ivAnswerAccept : ivAnswerNone;
 						} else {
 							Debug.LogError ("tvAnswer null: " + this);
 						}
@@ -99,7 +126,19 @@ namespace GameManager.Match.Swap
 							Debug.LogError ("avatar null: " + this);
 						}
 					}
-				} else {
+                    // siblingIndex
+                    {
+                        UIRectTransform.SetSiblingIndex(this.data.avatar.v, 0);
+                        if (ivAnswer != null)
+                        {
+                            ivAnswer.transform.SetSiblingIndex(1);
+                        }
+                        else
+                        {
+                            Debug.LogError("ivAnswer null");
+                        }
+                    }
+                } else {
 					Debug.LogError ("human null: " + this);
 				}
 			} else {
@@ -112,9 +151,9 @@ namespace GameManager.Match.Swap
 		#region implement callBacks
 
 		public AccountAvatarUI avatarPrefab;
-		public Transform avatarContainer;
+        private static readonly UIRectTransform avatarRect = new UIRectTransform();
 
-		private SwapRequestStateAsk swapRequestStateAsk = null;
+        private SwapRequestStateAsk swapRequestStateAsk = null;
 
 		public override void onAddCallBack<T> (T data)
 		{
@@ -161,7 +200,7 @@ namespace GameManager.Match.Swap
 					AccountAvatarUI.UIData accountAvatarUIData = data as AccountAvatarUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (accountAvatarUIData, avatarPrefab, avatarContainer);
+						UIUtils.Instantiate (accountAvatarUIData, avatarPrefab, this.transform, avatarRect);
 					}
 					dirty = true;
 					return;

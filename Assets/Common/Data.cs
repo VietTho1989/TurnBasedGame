@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using Mirror;
 using System;
 using System.IO;
@@ -645,7 +646,72 @@ public abstract class Data : AddCallBackInterface
 		Later
 	}
 
-	public enum ChangeState
+    public static readonly TxtLanguage txtImmediately = new TxtLanguage();
+    public static readonly TxtLanguage txtLater = new TxtLanguage();
+
+    public const string StrImmediately = "Immediately";
+    public const string StrLater = "Later";
+
+    public static void RefreshStrEditType(RequestChangeEnumUI.UIData requestEditType)
+    {
+        if (requestEditType != null)
+        {
+            List<string> options = new List<string>();
+            {
+                options.Add(txtImmediately.get(StrImmediately));
+                options.Add(txtLater.get(StrLater));
+            }
+            requestEditType.options.copyList(options);
+        }
+        else
+        {
+            Debug.LogError("requestEditType null");
+        }
+    }
+
+    public static void RefreshStrEditType(Dropdown drEditType)
+    {
+        if (drEditType != null)
+        {
+            string[] options = new string[] { Data.txtImmediately.get(Data.StrImmediately), Data.txtLater.get(Data.StrLater) };
+            // remove 
+            {
+                if (drEditType.options.Count > options.Length)
+                {
+                    drEditType.options.RemoveRange(options.Length, drEditType.options.Count - options.Length);
+                }
+            }
+            for (int i = 0; i < options.Length; i++)
+            {
+                if (i < drEditType.options.Count)
+                {
+                    // Update
+                    drEditType.options[i].text = options[i];
+                }
+                else
+                {
+                    // Add new
+                    Dropdown.OptionData optionData = new Dropdown.OptionData();
+                    {
+                        optionData.text = options[i];
+                    }
+                    drEditType.options.Add(optionData);
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("drEditType null");
+        }
+    }
+
+    static Data()
+    {
+        txtImmediately.add(Language.Type.vi, "Ngay lập tức");
+        txtLater.add(Language.Type.vi, "Sau này");
+    }
+
+    public enum ChangeState
 	{
 		None,
 		Request,

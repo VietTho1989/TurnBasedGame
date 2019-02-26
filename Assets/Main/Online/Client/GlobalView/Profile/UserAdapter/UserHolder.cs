@@ -64,21 +64,28 @@ public class UserHolder : SriaHolderBehavior<UserHolder.UIData>
 	public Text tvView;
 	public static readonly TxtLanguage txtView = new TxtLanguage ();
 
+    private static readonly TxtLanguage txtName = new TxtLanguage();
+    private static readonly TxtLanguage txtIpAddress = new TxtLanguage();
+
 	static UserHolder()
 	{
         // txt
-		txtView.add (Language.Type.vi, "Xem");
+        {
+            txtView.add(Language.Type.vi, "Xem");
+            txtName.add(Language.Type.vi, "Tên");
+            txtIpAddress.add(Language.Type.vi, "Địa chỉ IP");
+        }
         // banRect
         {
-            // anchoredPosition: (0.0, 0.0); anchorMin: (1.0, 0.5); anchorMax: (1.0, 0.5); pivot: (1.0, 0.5); 
-            // offsetMin: (-120.0, -60.0); offsetMax: (0.0, 60.0); sizeDelta: (120.0, 120.0);
+            // anchoredPosition: (0.0, 0.0); anchorMin: (1.0, 0.5); anchorMax: (1.0, 0.5); pivot: (1.0, 0.5);
+            // offsetMin: (-120.0, -30.0); offsetMax: (0.0, 30.0); sizeDelta: (120.0, 60.0);
             banRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
             banRect.anchorMin = new Vector2(1.0f, 0.5f);
             banRect.anchorMax = new Vector2(1.0f, 0.5f);
             banRect.pivot = new Vector2(1.0f, 0.5f);
-            banRect.offsetMin = new Vector2(-120.0f, -60.0f);
-            banRect.offsetMax = new Vector2(0.0f, 60.0f);
-            banRect.sizeDelta = new Vector2(120.0f, 120.0f);
+            banRect.offsetMin = new Vector2(-120.0f, -30.0f);
+            banRect.offsetMax = new Vector2(0.0f, 30.0f);
+            banRect.sizeDelta = new Vector2(120.0f, 60.0f);
         }
     }
 
@@ -127,7 +134,7 @@ public class UserHolder : SriaHolderBehavior<UserHolder.UIData>
 					// name
 					{
 						if (tvName != null) {
-							tvName.text = "Name: " + user.human.v.getPlayerName ();
+                            tvName.text = txtName.get("Name") + ": " + user.human.v.getPlayerName();
 						} else {
 							Debug.LogError ("tvName null");
 						}
@@ -135,7 +142,7 @@ public class UserHolder : SriaHolderBehavior<UserHolder.UIData>
 					// ipAddress
 					{
 						if (tvIpAddress != null) {
-							tvIpAddress.text = "IpAddress: " + user.ipAddress.v;
+                            tvIpAddress.text = txtIpAddress.get("IP Address") + ": " + user.ipAddress.v;
 						} else {
 							Debug.LogError ("tvIpAddress null");
 						}

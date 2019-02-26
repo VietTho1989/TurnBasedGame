@@ -92,7 +92,11 @@ public class UserUI : UIBehavior<UserUI.UIData>
 				}
 				this.requestEditType.v.updateData.v.request.v = makeRequestChangeEditType;
 			}
-			this.human = new VP<HumanUI.UIData>(this, (byte)Property.human, new HumanUI.UIData());
+            // human
+            {
+                this.human = new VP<HumanUI.UIData>(this, (byte)Property.human, new HumanUI.UIData());
+                this.human.v.showType.v = UIRectTransform.ShowType.HeadLess;
+            }
 			// role
 			{
 				this.role = new VP<RequestChangeEnumUI.UIData>(this, (byte)Property.role, new RequestChangeEnumUI.UIData());
@@ -162,25 +166,26 @@ public class UserUI : UIBehavior<UserUI.UIData>
 	#region txt
 
 	public Text lbTitle;
-	public static readonly TxtLanguage txtTitle = new TxtLanguage();
+	private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
 	public Text tvBack;
-	public static readonly TxtLanguage txtBack = new TxtLanguage();
+	private static readonly TxtLanguage txtBack = new TxtLanguage();
 
 	public Text tvChat;
-	public static readonly TxtLanguage txtChat = new TxtLanguage ();
+	private static readonly TxtLanguage txtChat = new TxtLanguage ();
 
 	public Text lbRole;
-	public static readonly TxtLanguage txtRole = new TxtLanguage ();
+	private static readonly TxtLanguage txtRole = new TxtLanguage ();
 
 	public Text lbIpAddress;
-	public static readonly TxtLanguage txtIpAddress = new TxtLanguage();
+	private static readonly TxtLanguage txtIpAddress = new TxtLanguage();
 
 	public Text lbRegisterTime;
-	public static readonly TxtLanguage txtRegisterTime = new TxtLanguage();
+	private static readonly TxtLanguage txtRegisterTime = new TxtLanguage();
 
 	public Text tvReset;
-	public static readonly TxtLanguage txtReset = new TxtLanguage ();
+	private static readonly TxtLanguage txtReset = new TxtLanguage ();
+    private static readonly TxtLanguage txtCannotReset = new TxtLanguage();
 
 	static UserUI()
 	{
@@ -192,7 +197,11 @@ public class UserUI : UIBehavior<UserUI.UIData>
             txtRole.add(Language.Type.vi, "Vai trò");
             txtIpAddress.add(Language.Type.vi, "Địa chỉ ip");
             txtRegisterTime.add(Language.Type.vi, "Thời điểm đăng ký");
-            txtReset.add(Language.Type.vi, "Đặt lại");
+            // reset
+            {
+                txtReset.add(Language.Type.vi, "Đặt Lại");
+                txtCannotReset.add(Language.Type.vi, "Dặt Lại");
+            }
         }
         // rect
         {
@@ -234,9 +243,13 @@ public class UserUI : UIBehavior<UserUI.UIData>
 		if (dirty) {
 			dirty = false;
 			if (this.data != null) {
-				EditData<User> editUser = this.data.editUser.v;
+                // requestEditType
+                {
+                    Data.RefreshStrEditType(this.data.requestEditType.v);
+                }
+                EditData<User> editUser = this.data.editUser.v;
 				if (editUser != null) {
-					{
+                    {
 						// check is your user?
 						bool isYourUser = false;
 						{
@@ -595,144 +608,229 @@ public class UserUI : UIBehavior<UserUI.UIData>
 							Debug.LogError ("userChatUIData null: " + this);
 						}
 					}
-				} else {
-					Debug.LogError ("editUser null: " + this);
-				}
-                // UI Size
-                {
-                    float deltaY = 0;
                     // human
-                    deltaY += UIRectTransform.SetPosY(this.data.human.v, deltaY);
-                    // role
                     {
-                        if (this.data.role.v != null)
+                        HumanUI.UIData humanUIData = this.data.human.v;
+                        if (humanUIData != null)
                         {
-                            if (lbRole != null)
+                            bool isYouAdmin = false;
                             {
-                                lbRole.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbRole.rectTransform, deltaY);
+                                User profileUser = Server.GetProfileUser(editUser.origin.v.data);
+                                if (profileUser != null)
+                                {
+                                    if (profileUser.role.v == User.Role.Admin)
+                                    {
+                                        isYouAdmin = true;
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("profileUser null");
+                                }
+                            }
+                            if (isYouAdmin)
+                            {
+                                BanUI.UIData banUIData = humanUIData.ban.newOrOld<BanUI.UIData>();
+                                {
+
+                                }
+                                humanUIData.ban.v = banUIData;
                             }
                             else
                             {
-                                Debug.LogError("lbRole null");
+                                humanUIData.ban.v = null;
                             }
-                            UIRectTransform.SetPosY(this.data.role.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
                         }
                         else
                         {
-                            if (lbRole != null)
-                            {
-                                lbRole.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbRole null");
-                            }
+                            Debug.LogError("humanUIData null");
                         }
                     }
-                    // ipAddress
+                    // UI Size
                     {
-                        if (this.data.ipAddress.v != null)
+                        float deltaY = 0;
+                        // human
+                        deltaY += UIRectTransform.SetPosY(this.data.human.v, deltaY);
+                        // role
                         {
-                            if (lbIpAddress != null)
+                            if (this.data.role.v != null)
                             {
-                                lbIpAddress.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbIpAddress.rectTransform, deltaY);
+                                if (lbRole != null)
+                                {
+                                    lbRole.gameObject.SetActive(true);
+                                    UIRectTransform.SetPosY(lbRole.rectTransform, deltaY);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbRole null");
+                                }
+                                UIRectTransform.SetPosY(this.data.role.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                                deltaY += UIConstants.ItemHeight;
                             }
                             else
                             {
-                                Debug.LogError("lbIpAddress null");
+                                if (lbRole != null)
+                                {
+                                    lbRole.gameObject.SetActive(false);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbRole null");
+                                }
                             }
-                            UIRectTransform.SetPosY(this.data.ipAddress.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
+                        }
+                        // ipAddress
+                        {
+                            if (this.data.ipAddress.v != null)
+                            {
+                                if (lbIpAddress != null)
+                                {
+                                    lbIpAddress.gameObject.SetActive(true);
+                                    UIRectTransform.SetPosY(lbIpAddress.rectTransform, deltaY);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbIpAddress null");
+                                }
+                                UIRectTransform.SetPosY(this.data.ipAddress.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                                deltaY += UIConstants.ItemHeight;
+                            }
+                            else
+                            {
+                                if (lbIpAddress != null)
+                                {
+                                    lbIpAddress.gameObject.SetActive(false);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbIpAddress null");
+                                }
+                            }
+                        }
+                        // registerTime
+                        {
+                            if (this.data.registerTime.v != null)
+                            {
+                                if (lbRegisterTime != null)
+                                {
+                                    lbRegisterTime.gameObject.SetActive(true);
+                                    UIRectTransform.SetPosY(lbRegisterTime.rectTransform, deltaY);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbRegisterTime null");
+                                }
+                                UIRectTransform.SetPosY(this.data.registerTime.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                                deltaY += UIConstants.ItemHeight;
+                            }
+                            else
+                            {
+                                if (lbRegisterTime != null)
+                                {
+                                    lbRegisterTime.gameObject.SetActive(false);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbRegisterTime null");
+                                }
+                            }
+                        }
+                        if (contentContainer != null)
+                        {
+                            UIRectTransform.SetHeight((RectTransform)contentContainer, deltaY);
                         }
                         else
                         {
-                            if (lbIpAddress != null)
-                            {
-                                lbIpAddress.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbIpAddress null");
-                            }
+                            Debug.LogError("contentContainer null");
                         }
                     }
-                    // registerTime
+                    // btnReset
                     {
-                        if (this.data.registerTime.v != null)
+                        if (btnReset != null && tvReset != null)
                         {
-                            if (lbRegisterTime != null)
+                            // find
+                            bool isDifferent = true;
                             {
-                                lbRegisterTime.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbRegisterTime.rectTransform, deltaY);
+                                if (editUser.canEdit.v && editUser.editType.v == Data.EditType.Later)
+                                {
+                                    User originUser = editUser.origin.v.data;
+                                    User showUser = editUser.show.v.data;
+                                    if (originUser != null && showUser != null)
+                                    {
+                                        isDifferent = DataUtils.IsDifferent(originUser, showUser);
+                                    }
+                                }
+                            }
+                            // process
+                            if (isDifferent)
+                            {
+                                btnReset.interactable = true;
+                                tvReset.text = txtReset.get("Reset");
                             }
                             else
                             {
-                                Debug.LogError("lbRegisterTime null");
+                                btnReset.interactable = false;
+                                tvReset.text = txtCannotReset.get("Reset");
                             }
-                            UIRectTransform.SetPosY(this.data.registerTime.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
                         }
                         else
                         {
-                            if (lbRegisterTime != null)
-                            {
-                                lbRegisterTime.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbRegisterTime null");
-                            }
+                            Debug.LogError("btnReset, tvReset null");
                         }
                     }
-                    if (contentContainer != null)
+                    // txt
                     {
-                        UIRectTransform.SetHeight((RectTransform)contentContainer, deltaY);
+                        if (lbTitle != null)
+                        {
+                            lbTitle.text = txtTitle.get("User Information");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null: " + this);
+                        }
+                        if (tvBack != null)
+                        {
+                            tvBack.text = txtBack.get("Back");
+                        }
+                        else
+                        {
+                            Debug.LogError("tvBack null: " + this);
+                        }
+                        if (tvChat != null)
+                        {
+                            tvChat.text = txtChat.get("Chat");
+                        }
+                        else
+                        {
+                            Debug.LogError("tvChat null: " + this);
+                        }
+                        if (lbRole != null)
+                        {
+                            lbRole.text = txtRole.get("Role");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbRole null: " + this);
+                        }
+                        if (lbIpAddress != null)
+                        {
+                            lbIpAddress.text = txtIpAddress.get("Ip Address");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbIpAddress null: " + this);
+                        }
+                        if (lbRegisterTime != null)
+                        {
+                            lbRegisterTime.text = txtRegisterTime.get("Register Time");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbRegisterTime null: " + this);
+                        }
                     }
-                    else
-                    {
-                        Debug.LogError("contentContainer null");
-                    }
-                }
-                // txt
-                {
-					if (lbTitle != null) {
-						lbTitle.text = txtTitle.get ("User Information");
-					} else {
-						Debug.LogError ("lbTitle null: " + this);
-					}
-					if (tvBack != null) {
-						tvBack.text = txtBack.get ("Back");
-					} else {
-						Debug.LogError ("tvBack null: " + this);
-					}
-					if (tvChat != null) {
-						tvChat.text = txtChat.get ("Chat");
-					} else {
-						Debug.LogError ("tvChat null: " + this);
-					}
-					if (lbRole != null) {
-						lbRole.text = txtRole.get ("Role");
-					} else {
-						Debug.LogError ("lbRole null: " + this);
-					}
-					if (lbIpAddress != null) {
-						lbIpAddress.text = txtIpAddress.get ("Ip Address");
-					} else {
-						Debug.LogError ("lbIpAddress null: " + this);
-					}
-					if (lbRegisterTime != null) {
-						lbRegisterTime.text = txtRegisterTime.get ("Register Time");
-					} else {
-						Debug.LogError ("lbRegisterTime null: " + this);
-					}
-					if (tvReset != null) {
-						tvReset.text = txtReset.get ("Reset");
-					} else {
-						Debug.LogError ("tvReset null: " + this);
-					}
+                } else {
+					Debug.LogError ("editUser null: " + this);
 				}
 			} else {
 				Debug.LogError ("data null: " + this);
@@ -801,39 +899,6 @@ public class UserUI : UIBehavior<UserUI.UIData>
 		}
 		// Child
 		{
-			// editUser
-			{
-				if (data is EditData<User>) {
-					EditData<User> editUser = data as EditData<User>;
-					// Child
-					{
-						editUser.show.allAddCallBack (this);
-						editUser.compare.allAddCallBack (this);
-					}
-					dirty = true;
-					return;
-				}
-				// Child
-				{
-					if (data is User) {
-						User user = data as User;
-						// Parent
-						{
-							DataUtils.addParentCallBack (user, this, ref this.server);
-						}
-						needReset = true;
-						dirty = true;
-						return;
-					}
-					// Parent
-					{
-						if (data is Server) {
-							dirty = true;
-							return;
-						}
-					}
-				}
-			}
             // human
             {
                 if (data is HumanUI.UIData)
@@ -944,8 +1009,54 @@ public class UserUI : UIBehavior<UserUI.UIData>
 				dirty = true;
 				return;
 			}
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
+            // editUser
+            {
+                if (data is EditData<User>)
+                {
+                    EditData<User> editUser = data as EditData<User>;
+                    // Child
+                    {
+                        editUser.show.allAddCallBack(this);
+                        editUser.compare.allAddCallBack(this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                {
+                    if (data is User)
+                    {
+                        User user = data as User;
+                        // Parent
+                        {
+                            DataUtils.addParentCallBack(user, this, ref this.server);
+                        }
+                        // Child
+                        {
+                            user.addCallBackAllChildren(this);
+                        }
+                        needReset = true;
+                        dirty = true;
+                        return;
+                    }
+                    // Parent
+                    {
+                        if (data is Server)
+                        {
+                            dirty = true;
+                            return;
+                        }
+                    }
+                    // Child
+                    {
+                        data.addCallBackAllChildren(this);
+                        dirty = true;
+                        return;
+                    }
+                }
+            }
+        }
+		// Debug.LogError ("Don't process: " + data + "; " + this);
 	}
 
 	public override void onRemoveCallBack<T> (T data, bool isHide)
@@ -974,35 +1085,6 @@ public class UserUI : UIBehavior<UserUI.UIData>
 		}
 		// Child
 		{
-			// editUser
-			{
-				if (data is EditData<User>) {
-					EditData<User> editUser = data as EditData<User>;
-					// Child
-					{
-						editUser.show.allRemoveCallBack (this);
-						editUser.compare.allRemoveCallBack (this);
-					}
-					return;
-				}
-				// Child
-				{
-					if (data is User) {
-						User user = data as User;
-						// Parent
-						{
-							DataUtils.removeParentCallBack (user, this, ref this.server);
-						}
-						return;
-					}
-					// Parent
-					{
-						if (data is Server) {
-							return;
-						}
-					}
-				}
-			}
             // human
             {
                 if (data is HumanUI.UIData)
@@ -1067,8 +1149,47 @@ public class UserUI : UIBehavior<UserUI.UIData>
 				}
 				return;
 			}
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
+            // editUser
+            {
+                if (data is EditData<User>)
+                {
+                    EditData<User> editUser = data as EditData<User>;
+                    // Child
+                    {
+                        editUser.show.allRemoveCallBack(this);
+                        editUser.compare.allRemoveCallBack(this);
+                    }
+                    return;
+                }
+                // Child
+                {
+                    if (data is User)
+                    {
+                        User user = data as User;
+                        // Parent
+                        {
+                            DataUtils.removeParentCallBack(user, this, ref this.server);
+                        }
+                        // Child
+                        {
+                            user.removeCallBackAllChildren(this);
+                        }
+                        return;
+                    }
+                    // Parent
+                    if (data is Server)
+                    {
+                        return;
+                    }
+                    // Child
+                    {
+                        data.removeCallBackAllChildren(this);
+                        return;
+                    }
+                }
+            }
+        }
+		// Debug.LogError ("Don't process: " + data + "; " + this);
 	}
 
 	public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
@@ -1157,71 +1278,6 @@ public class UserUI : UIBehavior<UserUI.UIData>
 		}
 		// Child
 		{
-			// editUser
-			{
-				if (wrapProperty.p is EditData<User>) {
-					switch ((EditData<User>.Property)wrapProperty.n) {
-					case EditData<User>.Property.origin:
-						dirty = true;
-						break;
-					case EditData<User>.Property.show:
-						{
-							ValueChangeUtils.replaceCallBack(this, syncs);
-							dirty = true;
-						}
-						break;
-					case EditData<User>.Property.compare:
-						{
-							ValueChangeUtils.replaceCallBack(this, syncs);
-							dirty = true;
-						}
-						break;
-					case EditData<User>.Property.compareOtherType:
-						dirty = true;
-						break;
-					case EditData<User>.Property.canEdit:
-						dirty = true;
-						break;
-					case EditData<User>.Property.editType:
-						dirty = true;
-						break;
-					default:
-						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-						break;
-					}
-					return;
-				}
-				// Child
-				{
-					if (wrapProperty.p is User) {
-						switch ((User.Property)wrapProperty.n) {
-						case User.Property.human:
-							dirty = true;
-							break;
-						case User.Property.role:
-							dirty = true;
-							break;
-						case User.Property.ipAddress:
-							dirty = true;
-							break;
-						case User.Property.registerTime:
-							dirty = true;
-							break;
-						default:
-							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-							break;
-						}
-						return;
-					}
-					// Parent
-					{
-						if (wrapProperty.p is Server) {
-							Server.State.OnUpdateSyncStateChange (wrapProperty, this);
-							return;
-						}
-					}
-				}
-			}
             // human
             {
                 if (wrapProperty.p is HumanUI.UIData)
@@ -1268,8 +1324,72 @@ public class UserUI : UIBehavior<UserUI.UIData>
 			if (wrapProperty.p is UserChatUI.UIData) {
 				return;
 			}
-		}
-		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+            // editUser
+            {
+                if (wrapProperty.p is EditData<User>)
+                {
+                    switch ((EditData<User>.Property)wrapProperty.n)
+                    {
+                        case EditData<User>.Property.origin:
+                            dirty = true;
+                            break;
+                        case EditData<User>.Property.show:
+                            {
+                                ValueChangeUtils.replaceCallBack(this, syncs);
+                                dirty = true;
+                            }
+                            break;
+                        case EditData<User>.Property.compare:
+                            {
+                                ValueChangeUtils.replaceCallBack(this, syncs);
+                                dirty = true;
+                            }
+                            break;
+                        case EditData<User>.Property.compareOtherType:
+                            dirty = true;
+                            break;
+                        case EditData<User>.Property.canEdit:
+                            dirty = true;
+                            break;
+                        case EditData<User>.Property.editType:
+                            dirty = true;
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+                // Child
+                {
+                    if (wrapProperty.p is User)
+                    {
+                        if (Generic.IsAddCallBackInterface<T>())
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // Parent
+                    if (wrapProperty.p is Server)
+                    {
+                        Server.State.OnUpdateSyncStateChange(wrapProperty, this);
+                        return;
+                    }
+                    // Child
+                    {
+                        if (Generic.IsAddCallBackInterface<T>())
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                }
+            }
+        }
+		// Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
 	}
 
 	#endregion

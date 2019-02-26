@@ -56,8 +56,6 @@ namespace UndoRedo
 
         #endregion
 
-        #region Refresh
-
         #region txt, rect
 
         static WhoCanAskHolder()
@@ -80,6 +78,8 @@ namespace UndoRedo
         }
 
         #endregion
+
+        #region Refresh
 
         public Text tvName;
 
@@ -175,22 +175,22 @@ namespace UndoRedo
                         {
                             Debug.LogError("ivAnswer null: " + this);
                         }
+                        // siblingIndex
+                        {
+                            UIRectTransform.SetSiblingIndex(this.data.avatar.v, 0);
+                            if (ivAnswer != null)
+                            {
+                                ivAnswer.transform.SetSiblingIndex(1);
+                            }
+                            else
+                            {
+                                Debug.LogError("ivAnswer null");
+                            }
+                        }
                     }
                     else
                     {
                         Debug.LogError("human null: " + this);
-                    }
-                    // siblingIndex
-                    {
-                        UIRectTransform.SetSiblingIndex(this.data.avatar.v, 0);
-                        if (ivAnswer != null)
-                        {
-                            ivAnswer.transform.SetSiblingIndex(1);
-                        }
-                        else
-                        {
-                            Debug.LogError("ivAnswer null");
-                        }
                     }
                 }
                 else

@@ -40,11 +40,39 @@ namespace GameManager.Match.Swap
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt, rect
 
-		public Text tvName;
+        public Text lbTitle;
+        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+
+        static SwapRequestStateCancelUI()
+        {
+            // txt
+            txtTitle.add(Language.Type.vi, "Huỷ Yêu Cầu");
+            // rect
+            {
+                // avatarRect
+                {
+                    // anchoredPosition: (0.0, 30.0); anchorMin: (0.5, 0.5); anchorMax: (0.5, 0.5); pivot: (0.5, 0.5);
+                    // offsetMin: (-25.0, 5.0); offsetMax: (25.0, 55.0); sizeDelta: (50.0, 50.0);
+                    avatarRect.anchoredPosition = new Vector3(0.0f, 30.0f);
+                    avatarRect.anchorMin = new Vector2(0.5f, 0.5f);
+                    avatarRect.anchorMax = new Vector2(0.5f, 0.5f);
+                    avatarRect.pivot = new Vector2(0.5f, 0.5f);
+                    avatarRect.offsetMin = new Vector2(-25.0f, 5.0f);
+                    avatarRect.offsetMax = new Vector2(25.0f, 55.0f);
+                    avatarRect.sizeDelta = new Vector2(50.0f, 50.0f);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Refresh
+
+        public Text tvName;
 		public Text tvTime;
 
 		public override void refresh ()
@@ -99,7 +127,18 @@ namespace GameManager.Match.Swap
 								Debug.LogError ("tvTime null: " + this);
 							}
 						}
-					} else {
+                        // txt
+                        {
+                            if (lbTitle != null)
+                            {
+                                lbTitle.text = txtTitle.get("Cancel Request Swap");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null");
+                            }
+                        }
+                    } else {
 						Debug.LogError ("swapRequestStateCancel null: " + this);
 					}
 				} else {
@@ -118,12 +157,14 @@ namespace GameManager.Match.Swap
 		#region implement callBacks
 
 		public AccountAvatarUI avatarPrefab;
-		public Transform avatarContainer;
+        private static readonly UIRectTransform avatarRect = new UIRectTransform();
 
 		public override void onAddCallBack<T> (T data)
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
 				// Child
 				{
 					uiData.swapRequestStateCancel.allAddCallBack (this);
@@ -132,8 +173,14 @@ namespace GameManager.Match.Swap
 				dirty = true;
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // Child
+            {
 				// swapRequestStateCancel
 				{
 					if (data is SwapRequestStateCancel) {
@@ -167,7 +214,7 @@ namespace GameManager.Match.Swap
 					AccountAvatarUI.UIData accountAvatarUIData = data as AccountAvatarUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (accountAvatarUIData, avatarPrefab, avatarContainer);
+						UIUtils.Instantiate (accountAvatarUIData, avatarPrefab, this.transform, avatarRect);
 					}
 					dirty = true;
 					return;
@@ -180,6 +227,8 @@ namespace GameManager.Match.Swap
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
 				// Child
 				{
 					uiData.swapRequestStateCancel.allRemoveCallBack (this);
@@ -188,8 +237,13 @@ namespace GameManager.Match.Swap
 				this.setDataNull (uiData);
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(data is Setting)
+            {
+                return;
+            }
+            // Child
+            {
 				// swapRequestStateCancel
 				{
 					if (data is SwapRequestStateCancel) {
@@ -253,8 +307,32 @@ namespace GameManager.Match.Swap
 				}
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            {
 				// swapRequestStateCancel
 				{
 					if (wrapProperty.p is SwapRequestStateCancel) {

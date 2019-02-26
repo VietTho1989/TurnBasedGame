@@ -26,7 +26,7 @@ namespace GameManager.Match.Swap
 		{
 			this.whoCancel = new VP<Human> (this, (byte)Property.whoCancel, new Human ());
 			this.time = new VP<float> (this, (byte)Property.time, 0);
-			this.duration = new VP<float> (this, (byte)Property.duration, 3);
+			this.duration = new VP<float> (this, (byte)Property.duration, 1);
 		}
 
 		#endregion

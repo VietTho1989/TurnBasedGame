@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -35,19 +36,41 @@ namespace GameManager.Match.Swap
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		public override void refresh ()
+        public Text lbTitle;
+        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+
+        static NormalRequestSwapPlayerUI()
+        {
+            txtTitle.add(Language.Type.vi, "Chỉ có admin mới có thể gửi yêu cầu");
+        }
+
+        #endregion
+
+        #region Refresh
+
+        public override void refresh ()
 		{
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {
 					TeamPlayer teamPlayer = this.data.teamPlayer.v.data;
 					if (teamPlayer != null) {
-
-					} else {
+                        // txt
+                        {
+                            if (lbTitle != null)
+                            {
+                                lbTitle.text = txtTitle.get("Only admin can send request");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null");
+                            }
+                        }
+                    } else {
 						Debug.LogError ("teamPlayer null: " + this);
 					}
 				} else {
@@ -69,6 +92,8 @@ namespace GameManager.Match.Swap
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
 				// Child
 				{
 					uiData.teamPlayer.allAddCallBack (this);
@@ -76,8 +101,14 @@ namespace GameManager.Match.Swap
 				dirty = true;
 				return;
 			}
-			// Child
-			if (data is TeamPlayer) {
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // Child
+            if (data is TeamPlayer) {
 				dirty = true;
 				return;
 			}
@@ -88,6 +119,8 @@ namespace GameManager.Match.Swap
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
 				// Child
 				{
 					uiData.teamPlayer.allRemoveCallBack (this);
@@ -95,8 +128,13 @@ namespace GameManager.Match.Swap
 				this.setDataNull (uiData);
 				return;
 			}
-			// Child
-			if (data is TeamPlayer) {
+            // Setting
+            if(data is Setting)
+            {
+                return;
+            }
+            // Child
+            if (data is TeamPlayer) {
 				return;
 			}
 			Debug.LogError ("Don't process: " + data + "; " + this);
@@ -121,8 +159,32 @@ namespace GameManager.Match.Swap
 				}
 				return;
 			}
-			// Child
-			if (wrapProperty.p is TeamPlayer) {
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            if (wrapProperty.p is TeamPlayer) {
 				return;
 			}
 			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);

@@ -255,7 +255,7 @@ public class HumanUI : UIBehavior<HumanUI.UIData>, HaveTransformData
                 this.sex.v.updateData.v.request.v = makeRequestChangeSex;
             }
             // ban
-            this.ban = new VP<BanUI.UIData>(this, (byte)Property.ban, new BanUI.UIData());
+            this.ban = new VP<BanUI.UIData>(this, (byte)Property.ban, null);
         }
 
         #endregion
@@ -697,7 +697,7 @@ public class HumanUI : UIBehavior<HumanUI.UIData>, HaveTransformData
                                 }
                                 else
                                 {
-                                    Debug.LogError("banUIData null: " + this);
+                                    // Debug.LogError("banUIData null: " + this);
                                 }
                             }
                         }
@@ -1088,12 +1088,14 @@ public class HumanUI : UIBehavior<HumanUI.UIData>, HaveTransformData
                             if (lbBan != null)
                             {
                                 lbBan.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbBan.rectTransform, deltaY);
+                                UIRectTransform.SetPosY(lbBan.rectTransform, deltaY + 5);
                             }
                             else
                             {
                                 Debug.LogError("lbBan null");
                             }
+                            UIRectTransform.SetPosY(this.data.ban.v, deltaY + 5);
+                            deltaY += UIConstants.ItemHeight + 10;
                         }
                         else
                         {
@@ -1106,7 +1108,6 @@ public class HumanUI : UIBehavior<HumanUI.UIData>, HaveTransformData
                                 Debug.LogError("lbBan null");
                             }
                         }
-                        deltaY += UIRectTransform.SetPosY(this.data.ban.v, deltaY);
                     }
                     // set
                     UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);

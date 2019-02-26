@@ -55,12 +55,39 @@ namespace GameManager.Match.Swap
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		public Text tvPlayerIndex;
-		public Text tvTeamIndex;
+        public Text lbTitle;
+        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+
+        static HaveRequestSwapPlayerUI()
+        {
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Yêu Cầu Thay Người");
+            }
+            // rect
+            {
+                // stateUIRect
+                {
+                    // anchoredPosition: (0.0, 0.0); anchorMin: (0.0, 0.0); anchorMax: (1.0, 0.0); pivot: (0.5, 0.0);
+                    // offsetMin: (0.0, 0.0); offsetMax: (0.0, 130.0); sizeDelta: (0.0, 130.0);
+                    stateUIRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                    stateUIRect.anchorMin = new Vector2(0.0f, 0.0f);
+                    stateUIRect.anchorMax = new Vector2(1.0f, 0.0f);
+                    stateUIRect.pivot = new Vector2(0.5f, 0.0f);
+                    stateUIRect.offsetMin = new Vector2(0.0f, 0.0f);
+                    stateUIRect.offsetMax = new Vector2(0.0f, 130.0f);
+                    stateUIRect.sizeDelta = new Vector2(0.0f, 130.0f);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Refresh
 
 		public override void refresh ()
 		{
@@ -69,24 +96,19 @@ namespace GameManager.Match.Swap
 				if (this.data != null) {
 					SwapRequest swapRequest = this.data.swapRequest.v.data;
 					if (swapRequest != null) {
-						// tvPlayerIndex
-						{
-							if (tvPlayerIndex != null) {
-								tvPlayerIndex.text = "Player Index: " + swapRequest.playerIndex.v;
-							} else {
-								Debug.LogError ("tvPlayerIndex null: " + this);
-							}
-						}
-						// tvTeamIndex
-						{
-							if (tvTeamIndex != null) {
-								tvTeamIndex.text = "Team Index: " + swapRequest.teamIndex.v;
-							} else {
-								Debug.LogError ("tvTeamIndex null: " + this);
-							}
-						}
-						// inform
-						{
+                        // title
+                        {
+                            if (lbTitle != null)
+                            {
+                                lbTitle.text = txtTitle.get("Swap Player Request");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null");
+                            }
+                        }
+                        // inform
+                        {
 							GamePlayer.Inform inform = swapRequest.inform.v;
 							if (inform != null) {
 								switch (inform.getType ()) {
@@ -206,12 +228,14 @@ namespace GameManager.Match.Swap
 		public SwapRequestStateAskUI askPrefab;
 		public SwapRequestStateAcceptUI acceptPrefab;
 		public SwapRequestStateCancelUI cancelPrefab;
-		public Transform stateUIContainer;
+        private static readonly UIRectTransform stateUIRect = new UIRectTransform();
 
 		public override void onAddCallBack<T> (T data)
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
 				// Child
 				{
 					uiData.swapRequest.allAddCallBack (this);
@@ -221,8 +245,14 @@ namespace GameManager.Match.Swap
 				dirty = true;
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // Child
+            {
 				if (data is SwapRequest) {
 					dirty = true;
 					return;
@@ -266,19 +296,19 @@ namespace GameManager.Match.Swap
 						case SwapRequest.State.Type.Ask:
 							{
 								SwapRequestStateAskUI.UIData askUIData = stateUI as SwapRequestStateAskUI.UIData;
-								UIUtils.Instantiate (askUIData, askPrefab, stateUIContainer);
+								UIUtils.Instantiate (askUIData, askPrefab, this.transform, stateUIRect);
 							}
 							break;
 						case SwapRequest.State.Type.Accept:
 							{
 								SwapRequestStateAcceptUI.UIData acceptUIData = stateUI as SwapRequestStateAcceptUI.UIData;
-								UIUtils.Instantiate (acceptUIData, acceptPrefab, stateUIContainer);
+								UIUtils.Instantiate (acceptUIData, acceptPrefab, this.transform, stateUIRect);
 							}
 							break;
 						case SwapRequest.State.Type.Cancel:
 							{
 								SwapRequestStateCancelUI.UIData cancelUIData = stateUI as SwapRequestStateCancelUI.UIData;
-								UIUtils.Instantiate (cancelUIData, cancelPrefab, stateUIContainer);
+								UIUtils.Instantiate (cancelUIData, cancelPrefab, this.transform, stateUIRect);
 							}
 							break;
 						default:
@@ -297,6 +327,8 @@ namespace GameManager.Match.Swap
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
 				// Child
 				{
 					uiData.swapRequest.allRemoveCallBack (this);
@@ -306,8 +338,13 @@ namespace GameManager.Match.Swap
 				this.setDataNull (uiData);
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(data is Setting)
+            {
+                return;
+            }
+            // Child
+            {
 				if (data is SwapRequest) {
 					return;
 				}
@@ -406,8 +443,32 @@ namespace GameManager.Match.Swap
 				}
 				return;
 			}
-			// Child
-			{
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            {
 				if (wrapProperty.p is SwapRequest) {
 					switch ((SwapRequest.Property)wrapProperty.n) {
 					case SwapRequest.Property.state:
