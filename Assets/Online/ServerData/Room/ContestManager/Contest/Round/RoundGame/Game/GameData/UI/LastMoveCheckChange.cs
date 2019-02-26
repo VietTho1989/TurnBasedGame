@@ -235,8 +235,6 @@ public class LastMoveCheckChange<K> : Data, ValueChangeCallBack where K : Data
 					break;
 				case GameDataUI.UIData.Property.allowInput:
 					break;
-				case GameDataUI.UIData.Property.turn:
-					break;
 				default:
 					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 					break;

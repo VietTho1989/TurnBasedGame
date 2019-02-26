@@ -14,10 +14,6 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 
 		public VP<ReferenceData<Server>> server;
 
-		public VP<AfterLoginMainBtnBackUI.UIData> btnBack;
-
-		public VP<GlobalStateUI.UIData> state;
-
 		#region Show
 
 		public enum Show
@@ -45,8 +41,6 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 		public enum Property
 		{
 			server,
-			btnBack,
-			state,
 			show,
 			rooms,
 			chats,
@@ -57,8 +51,6 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 		public UIData() : base()
 		{
 			this.server = new VP<ReferenceData<Server>>(this, (byte)Property.server, new ReferenceData<Server>(null));
-			this.btnBack = new VP<AfterLoginMainBtnBackUI.UIData>(this, (byte)Property.btnBack, new AfterLoginMainBtnBackUI.UIData());
-			this.state = new VP<GlobalStateUI.UIData>(this, (byte)Property.state, new GlobalStateUI.UIData());
 			this.show = new VP<Show>(this, (byte)Property.show, Show.rooms);
 			this.rooms = new VP<GlobalRoomsUI.UIData>(this, (byte)Property.rooms, null);
 			this.chats = new VP<GlobalChatUI.UIData>(this, (byte)Property.chats, null);
@@ -82,19 +74,6 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 		{
 			bool isProcess = false;
 			{
-                // global stats
-                if (!isProcess)
-                {
-                    GlobalStateUI.UIData state = this.state.v;
-                    if (state != null)
-                    {
-                        isProcess = state.processEvent(e);
-                    }
-                    else
-                    {
-                        Debug.LogError("state null");
-                    }
-                }
                 // show
                 if (!isProcess) {
 					switch (this.show.v) {
@@ -143,19 +122,6 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 						break;
 					}
 				}
-                // btnBack
-                if (!isProcess)
-                {
-                    AfterLoginMainBtnBackUI.UIData btnBack = this.btnBack.v;
-                    if (btnBack != null)
-                    {
-                        isProcess = btnBack.processEvent(e);
-                    }
-                    else
-                    {
-                        Debug.LogError("btnBack null: " + this);
-                    }
-                }
             }
 			return isProcess;
 		}
@@ -188,33 +154,6 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
             txtChats.add(Language.Type.vi, "Trò chuyện");
             txtFriends.add(Language.Type.vi, "Bạn bè");
             txtProfile.add(Language.Type.vi, "Tiểu sử");
-        }
-        // rect
-        {
-            // btnBackRect
-            {
-                // anchoredPosition: (0.0, 0.0); anchorMin: (0.0, 1.0); anchorMax: (0.0, 1.0); pivot: (0.0, 1.0); 
-                // offsetMin: (0.0, -30.0); offsetMax: (30.0, 0.0); sizeDelta: (30.0, 30.0);
-                btnBackRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
-                btnBackRect.anchorMin = new Vector2(0.0f, 1.0f);
-                btnBackRect.anchorMax = new Vector2(0.0f, 1.0f);
-                btnBackRect.pivot = new Vector2(0.0f, 1.0f);
-                btnBackRect.offsetMin = new Vector2(0.0f, -30.0f);
-                btnBackRect.offsetMax = new Vector2(30.0f, 0.0f);
-                btnBackRect.sizeDelta = new Vector2(30.0f, 30.0f);
-            }
-            // stateRect
-            {
-                // anchoredPosition: (150.0, 0.0); anchorMin: (0.0, 1.0); anchorMax: (0.0, 1.0); pivot: (0.0, 1.0);
-                // offsetMin: (150.0, -30.0); offsetMax: (180.0, 0.0); sizeDelta: (30.0, 30.0);
-                stateRect.anchoredPosition = new Vector3(150.0f, 0.0f);
-                stateRect.anchorMin = new Vector2(0.0f, 1.0f);
-                stateRect.anchorMax = new Vector2(0.0f, 1.0f);
-                stateRect.pivot = new Vector2(0.0f, 1.0f);
-                stateRect.offsetMin = new Vector2(150.0f, -30.0f);
-                stateRect.offsetMax = new Vector2(180.0f, 0.0f);
-                stateRect.sizeDelta = new Vector2(30.0f, 30.0f);
-            }
         }
     }
 
@@ -278,24 +217,6 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 				{
 					Server server = this.data.server.v.data;
 					if (server != null) {
-						// btnBack
-						{
-							AfterLoginMainBtnBackUI.UIData btnBack = this.data.btnBack.v;
-							if (btnBack != null) {
-								btnBack.server.v = new ReferenceData<Server> (server);
-							} else {
-								Debug.LogError ("btnBack null: " + this);
-							}
-						}
-						// state
-						{
-							GlobalStateUI.UIData state = this.data.state.v;
-							if (state != null) {
-								state.server.v = new ReferenceData<Server> (server);
-							} else {
-								Debug.LogError ("state null: " + this);
-							}
-						}
 						// rooms
 						{
 							GlobalRoomsUI.UIData rooms = this.data.rooms.v;
@@ -522,38 +443,6 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                         Debug.LogError("btn null: " + this);
                     }
                 }
-                // siblingIndex
-                {
-                    // btnBack
-                    {
-                        AfterLoginMainBtnBackUI.UIData btnBackUIData = this.data.btnBack.v;
-                        if (btnBackUIData != null)
-                        {
-                            AfterLoginMainBtnBackUI btnBackUI = btnBackUIData.findCallBack<AfterLoginMainBtnBackUI>();
-                            if (btnBackUI != null)
-                            {
-                                btnBackUI.transform.SetAsFirstSibling();
-                            }
-                            else
-                            {
-                                Debug.LogError("btnBackUI null");
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("btnBackUIData null");
-                        }
-                    }
-                    // confirmBack
-                    if (confirmBackContainer != null)
-                    {
-                        confirmBackContainer.SetAsLastSibling();
-                    }
-                    else
-                    {
-                        Debug.LogError("confirmBackContainer null");
-                    }
-                }
                 // txt
                 {
 					if (tvRooms != null) {
@@ -592,20 +481,12 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 
 	#region implement callBacks
 
-	public AfterLoginMainBtnBackUI btnBackPrefab;
-    private static readonly UIRectTransform btnBackRect = new UIRectTransform();
-
-	public GlobalStateUI statePrefab;
-    private static readonly UIRectTransform stateRect = new UIRectTransform();
-
 	public GlobalRoomsUI roomsPrefab;
 	public GlobalChatUI chatsPrefab;
 	public GlobalFriendsUI friendsPrefab;
 	public GlobalProfileUI profilePrefab;
 
     private static readonly UIRectTransform contentRect = UIRectTransform.CreateFullRect(0, 0, UIConstants.HeaderHeight, 0);
-
-    public Transform confirmBackContainer;
 
 	public override void onAddCallBack<T> (T data)
 	{
@@ -616,8 +497,6 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 			// Child
 			{
 				uiData.server.allAddCallBack (this);
-				uiData.btnBack.allAddCallBack (this);
-				uiData.state.allAddCallBack (this);
 				uiData.rooms.allAddCallBack (this);
 				uiData.chats.allAddCallBack (this);
 				uiData.friends.allAddCallBack (this);
@@ -641,24 +520,6 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 					} else {
 						Debug.LogError ("data null: " + this);
 					}
-				}
-				dirty = true;
-				return;
-			}
-			if (data is AfterLoginMainBtnBackUI.UIData) {
-				AfterLoginMainBtnBackUI.UIData btnBack = data as AfterLoginMainBtnBackUI.UIData;
-				// UI
-				{
-					UIUtils.Instantiate (btnBack, btnBackPrefab, this.transform, btnBackRect);
-				}
-				dirty = true;
-				return;
-			}
-			if (data is GlobalStateUI.UIData) {
-				GlobalStateUI.UIData state = data as GlobalStateUI.UIData;
-				// UI
-				{
-					UIUtils.Instantiate (state, statePrefab, this.transform, stateRect);
 				}
 				dirty = true;
 				return;
@@ -712,8 +573,6 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 			// Child
 			{
 				uiData.server.allRemoveCallBack (this);
-				uiData.btnBack.allRemoveCallBack (this);
-				uiData.state.allRemoveCallBack (this);
 				uiData.rooms.allRemoveCallBack (this);
 				uiData.chats.allRemoveCallBack (this);
 				uiData.friends.allRemoveCallBack (this);
@@ -729,22 +588,6 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 		// Child
 		{
 			if (data is Server) {
-				return;
-			}
-			if(data is AfterLoginMainBtnBackUI.UIData){
-				AfterLoginMainBtnBackUI.UIData btnBack = data as AfterLoginMainBtnBackUI.UIData;
-				// UI
-				{
-					btnBack.removeCallBackAndDestroy (typeof(AfterLoginMainBtnBackUI));
-				}
-				return;
-			}
-			if (data is GlobalStateUI.UIData) {
-				GlobalStateUI.UIData state = data as GlobalStateUI.UIData;
-				// UI
-				{
-					state.removeCallBackAndDestroy (typeof(GlobalStateUI));
-				}
 				return;
 			}
 			if (data is GlobalRoomsUI.UIData) {
@@ -791,18 +634,6 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 		if (wrapProperty.p is UIData) {
 			switch ((UIData.Property)wrapProperty.n) {
 			case UIData.Property.server:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			case UIData.Property.btnBack:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			case UIData.Property.state:
 				{
 					ValueChangeUtils.replaceCallBack (this, syncs);
 					dirty = true;
@@ -864,12 +695,6 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 		// Child
 		{
 			if (wrapProperty.p is Server) {
-				return;
-			}
-			if (wrapProperty.p is AfterLoginMainBtnBackUI.UIData) {
-				return;
-			}
-			if (wrapProperty.p is GlobalStateUI.UIData) {
 				return;
 			}
 			if (wrapProperty.p is GlobalRoomsUI.UIData) {

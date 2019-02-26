@@ -24,8 +24,6 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
 
 		public VP<bool> allowInput;
 
-		public VP<TurnUI.UIData> turn;
-
 		public VP<RequestChangeUseRuleUI.UIData> requestChangeUseRule;
 
 		#region Constructor
@@ -37,7 +35,6 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
 			allowLastMove,
 			hintUI,
 			allowInput,
-			turn,
 			requestChangeUseRule
 		}
 
@@ -48,7 +45,6 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
 			this.allowLastMove = new VP<Com.MyBool>(this, (byte)Property.allowLastMove, Com.MyBool.None);
 			this.hintUI = new VP<HintUI.UIData>(this, (byte)Property.hintUI, new HintUI.UIData());
 			this.allowInput = new VP<bool>(this, (byte)Property.allowInput, false);
-			this.turn = new VP<TurnUI.UIData>(this, (byte)Property.turn, new TurnUI.UIData());
 			this.requestChangeUseRule = new VP<RequestChangeUseRuleUI.UIData>(this, (byte)Property.requestChangeUseRule, null);
 		}
 
@@ -129,18 +125,6 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
                 boardRect.offsetMax = new Vector2(0.0f, 0.0f);
                 boardRect.sizeDelta = new Vector2(0.0f, 0.0f);
             }
-            // turnRect
-            {
-                // anchoredPosition: (0.0, 0.0); anchorMin: (0.5, 1.0); anchorMax: (0.5, 1.0); pivot: (0.5, 1.0);
-                // offsetMin: (-45.0, -40.0); offsetMax: (45.0, 0.0); sizeDelta: (90.0, 40.0);
-                turnRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
-                turnRect.anchorMin = new Vector2(0.5f, 1.0f);
-                turnRect.anchorMax = new Vector2(0.5f, 1.0f);
-                turnRect.pivot = new Vector2(0.5f, 1.0f);
-                turnRect.offsetMin = new Vector2(-45.0f, -40.0f);
-                turnRect.offsetMax = new Vector2(45.0f, 0.0f);
-                turnRect.sizeDelta = new Vector2(90.0f, 40.0f);
-            }
         }
     }
 
@@ -179,18 +163,6 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
                             Debug.LogError("hintUI null: " + this);
                         }
                     }
-                    // Turn
-                    {
-                        TurnUI.UIData turnUIData = this.data.turn.v;
-                        if (turnUIData != null)
-                        {
-                            turnUIData.turn.v = new ReferenceData<Turn>(gameData.turn.v);
-                        }
-                        else
-                        {
-                            Debug.LogError("turnUIData null: " + this);
-                        }
-                    }
                     // requestChangeUseRule
                     {
                         RequestChangeUseRuleUI.UIData requestChangeUseRuleUIData = this.data.requestChangeUseRule.v;
@@ -205,7 +177,6 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
                     }
                     // UI
                     {
-                        UIRectTransform.SetSiblingIndex(this.data.turn.v, 0);
                         UIRectTransform.SetSiblingIndex(this.data.board.v, 1);
                         UIRectTransform.SetSiblingIndex(this.data.hintUI.v, 2);
                         UIRectTransform.SetSiblingIndex(this.data.requestChangeUseRule.v, 3);
@@ -231,9 +202,6 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
 	public GameDataBoardUI boardPrefab;
     private static readonly UIRectTransform boardRect = new UIRectTransform();
 
-	public TurnUI turnPrefab;
-    private static readonly UIRectTransform turnRect = new UIRectTransform();
-
 	public HintUI hintPrefab;
     private readonly UIRectTransform hintRect = UIConstants.FullParent;
 
@@ -248,7 +216,6 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
 				uiData.gameData.allAddCallBack (this);
 				uiData.board.allAddCallBack (this);
 				uiData.hintUI.allAddCallBack (this);
-				uiData.turn.allAddCallBack (this);
 				uiData.requestChangeUseRule.allAddCallBack (this);
 			}
 			// Update
@@ -282,15 +249,6 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
 				dirty = true;
 				return;
 			}
-			if (data is TurnUI.UIData) {
-				TurnUI.UIData turnUIData = data as TurnUI.UIData;
-				// UI
-				{
-                    UIUtils.Instantiate(turnUIData, turnPrefab, this.transform, turnRect);
-				}
-				dirty = true;
-				return;
-			}
 			if (data is RequestChangeUseRuleUI.UIData) {
 				RequestChangeUseRuleUI.UIData requestChangeUseRuleUIData = data as RequestChangeUseRuleUI.UIData;
 				// UI
@@ -313,7 +271,6 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
 				uiData.gameData.allRemoveCallBack (this);
 				uiData.board.allRemoveCallBack (this);
 				uiData.hintUI.allRemoveCallBack (this);
-				uiData.turn.allRemoveCallBack (this);
 				uiData.requestChangeUseRule.allRemoveCallBack (this);
 			}
 			// Update
@@ -341,14 +298,6 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
 				// UI
 				{
 					hintData.removeCallBackAndDestroy (typeof(HintUI));
-				}
-				return;
-			}
-			if (data is TurnUI.UIData) {
-				TurnUI.UIData turnUIData = data as TurnUI.UIData;
-				// UI
-				{
-                    turnUIData.removeCallBackAndDestroy(typeof(TurnUI));
 				}
 				return;
 			}
@@ -393,12 +342,6 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
 				break;
 			case UIData.Property.allowInput:
 				break;
-			case UIData.Property.turn:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
 			case UIData.Property.requestChangeUseRule:
 				{
 					ValueChangeUtils.replaceCallBack (this, syncs);
@@ -441,9 +384,6 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
 				return;
 			}
 			if (wrapProperty.p is HintUI.UIData) {
-				return;
-			}
-			if (wrapProperty.p is TurnUI.UIData) {
 				return;
 			}
 			if (wrapProperty.p is RequestChangeUseRuleUI.UIData) {

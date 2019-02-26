@@ -734,7 +734,6 @@
     <None Include="Assets\Plugins\UnityNativeCore.bundle\Contents\Resources\AlwaysIn\Reversi\p33table.txt" />
     <None Include="Assets\Plugins\UnityNativeCore.bundle\Contents\Resources\AlwaysIn\Reversi\pE2Xtable.txt" />
     <None Include="Assets\Plugins\UnityNativeCore.bundle\Contents\Resources\AlwaysIn\Reversi\s44table.txt" />
-    <None Include="Assets\RecycleListView\JSONObject\readme.txt" />
     <None Include="Assets\Resources\XiangqiPostures.txt" />
     <None Include="Assets\SRIA\Docs\Changelog.txt" />
     <None Include="Assets\SRIA\Docs\If upgrading from 2.x.x-ReadMe.txt" />

@@ -29,6 +29,8 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
 
         public VP<BtnUseRuleUI.UIData> btnUseRule;
 
+        public VP<BtnHistoryUI.UIData> btnHistory;
+
         #region Constructor
 
         public enum Property
@@ -40,7 +42,8 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
             btnGameChat,
             btnPause,
             btnShowSwap,
-            btnUseRule
+            btnUseRule,
+            btnHistory
         }
 
         public UIData() : base()
@@ -53,6 +56,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
             this.btnPause = new VP<BtnPauseUI.UIData>(this, (byte)Property.btnPause, new BtnPauseUI.UIData());
             this.btnShowSwap = new VP<BtnShowSwapUI.UIData>(this, (byte)Property.btnShowSwap, new BtnShowSwapUI.UIData());
             this.btnUseRule = new VP<BtnUseRuleUI.UIData>(this, (byte)Property.btnUseRule, new BtnUseRuleUI.UIData());
+            this.btnHistory = new VP<BtnHistoryUI.UIData>(this, (byte)Property.btnHistory, new BtnHistoryUI.UIData());
         }
 
         #endregion
@@ -188,6 +192,18 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                             Debug.LogError("btnUseRule null");
                         }
                     }
+                    // btnHistory
+                    {
+                        BtnHistoryUI.UIData btnHistory = this.data.btnHistory.v;
+                        if (btnHistory != null)
+                        {
+                            btnHistory.history.v = new ReferenceData<History>(game.history.v);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnHistory null");
+                        }
+                    }
                 }
                 else
                 {
@@ -233,6 +249,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
     public BtnPauseUI btnPausePrefab;
     public BtnShowSwapUI btnShowSwapPrefab;
     public BtnUseRuleUI btnUseRulePrefab;
+    public BtnHistoryUI btnHistoryPrefab;
 
     public Transform contentContainer;
 
@@ -253,6 +270,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 uiData.btnPause.allAddCallBack(this);
                 uiData.btnShowSwap.allAddCallBack(this);
                 uiData.btnUseRule.allAddCallBack(this);
+                uiData.btnHistory.allAddCallBack(this);
             }
             dirty = true;
             return;
@@ -358,6 +376,16 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 dirty = true;
                 return;
             }
+            if(data is BtnHistoryUI.UIData)
+            {
+                BtnHistoryUI.UIData btnHistoryUIData = data as BtnHistoryUI.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(btnHistoryUIData, btnHistoryPrefab, contentContainer, CreateBtnRect(7));
+                }
+                dirty = true;
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -377,6 +405,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 uiData.btnPause.allRemoveCallBack(this);
                 uiData.btnShowSwap.allRemoveCallBack(this);
                 uiData.btnUseRule.allRemoveCallBack(this);
+                uiData.btnHistory.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
             return;
@@ -472,6 +501,15 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 }
                 return;
             }
+            if (data is BtnHistoryUI.UIData)
+            {
+                BtnHistoryUI.UIData btnHistoryUIData = data as BtnHistoryUI.UIData;
+                // UI
+                {
+                    btnHistoryUIData.removeCallBackAndDestroy(typeof(BtnHistoryUI));
+                }
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -534,6 +572,12 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                         dirty = true;
                     }
                     break;
+                case UIData.Property.btnHistory:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
@@ -563,6 +607,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                             }
                             break;
                         case Game.Property.history:
+                            dirty = true;
                             break;
                         case Game.Property.gameAction:
                             break;

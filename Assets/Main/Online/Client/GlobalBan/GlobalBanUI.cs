@@ -48,23 +48,23 @@ public class GlobalBanUI : UIBehavior<GlobalBanUI.UIData>
 
 	}
 
-	#endregion
+    #endregion
 
-	#region Refresh
+    #region txt
 
-	#region txt
+    public Text tvBan;
+    public static readonly TxtLanguage txtBan = new TxtLanguage();
 
-	public Text tvBan;
-	public static readonly TxtLanguage txtBan = new TxtLanguage();
+    static GlobalBanUI()
+    {
+        txtBan.add(Language.Type.vi, "Bạn đã bị ban nick");
+    }
 
-	static GlobalBanUI()
-	{
-		txtBan.add (Language.Type.vi, "Bạn bị ban nick");
-	}
+    #endregion
 
-	#endregion
+    #region Refresh
 
-	public override void refresh ()
+    public override void refresh ()
 	{
 		if (dirty) {
 			dirty = false;

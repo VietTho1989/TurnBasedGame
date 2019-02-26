@@ -82,23 +82,24 @@ public class ViewSaveDataUI : UIBehavior<ViewSaveDataUI.UIData>
 
 	}
 
-	#endregion
+    #endregion
 
-	#region Refresh
+    #region Refresh
 
-	#region txt
+    #region txt
 
-	public Text tvBack;
-	public static readonly TxtLanguage txtBack = new TxtLanguage();
+    public Text lbTitle;
+    private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
 	static ViewSaveDataUI()
 	{
-		txtBack.add (Language.Type.vi, "Quay Lại");
+        txtTitle.add(Language.Type.vi, "Xem Saved Game");
 	}
 
-	#endregion
+    #endregion
 
-	public GameObject contentContainer;
+    public Button btnBack;
+    public Image background;
 
 	public override void refresh ()
 	{
@@ -107,14 +108,6 @@ public class ViewSaveDataUI : UIBehavior<ViewSaveDataUI.UIData>
 			if (this.data != null) {
 				Save save = this.data.save.v;
 				if (save != null) {
-					// contentContainer
-					{
-						if (contentContainer != null) {
-							contentContainer.SetActive (true);
-						} else {
-							Debug.LogError ("contentContainer null: " + this);
-						}
-					}
 					// sub
 					{
 						if (save.version == Global.VersionCode) {
@@ -143,25 +136,76 @@ public class ViewSaveDataUI : UIBehavior<ViewSaveDataUI.UIData>
 							this.data.sub.v = null;
 						}
 					}
-				} else {
+                    // showContent
+                    {
+                        if (background != null)
+                        {
+                            background.enabled = true;
+                        }
+                        else
+                        {
+                            Debug.LogError("background null");
+                        }
+                        if (lbTitle != null)
+                        {
+                            lbTitle.gameObject.SetActive(true);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null");
+                        }
+                        if (btnBack != null)
+                        {
+                            btnBack.gameObject.SetActive(true);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnBack null");
+                        }
+                        UIRectTransform.SetActive(this.data.sub.v, true);
+                    }
+                } else {
 					// Debug.LogError ("save null: " + this);
-					// contentContainer
+					// hide content
 					{
-						if (contentContainer != null) {
-							contentContainer.SetActive (false);
-						} else {
-							Debug.LogError ("contentContainer null: " + this);
-						}
-					}
+                        if (background != null)
+                        {
+                            background.enabled = false;
+                        }
+                        else
+                        {
+                            Debug.LogError("background null");
+                        }
+                        if (lbTitle != null)
+                        {
+                            lbTitle.gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null");
+                        }
+                        if (btnBack != null)
+                        {
+                            btnBack.gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnBack null");
+                        }
+                        UIRectTransform.SetActive(this.data.sub.v, false);
+                    }
 				}
-				// txt
-				{
-					if (tvBack != null) {
-						tvBack.text = txtBack.get ("Back");
-					} else {
-						Debug.LogError ("tvBack null: " + this);
-					}
-				}
+                // txt
+                {
+                    if (lbTitle != null)
+                    {
+                        lbTitle.text = txtTitle.get("View Saved Game");
+                    }
+                    else
+                    {
+                        Debug.LogError("lbTitle null");
+                    }
+                }
 			} else {
 				Debug.LogError ("data null: " + this);
 			}
@@ -178,7 +222,7 @@ public class ViewSaveDataUI : UIBehavior<ViewSaveDataUI.UIData>
 	#region implement callBacks
 
 	public ViewSaveGameUI viewSaveGamePrefab;
-	public Transform subContainer;
+    private static readonly UIRectTransform viewSaveGameRect = UIRectTransform.CreateFullRect(0, 0, 30, 0);
 
 	public override void onAddCallBack<T> (T data)
 	{
@@ -207,7 +251,7 @@ public class ViewSaveDataUI : UIBehavior<ViewSaveDataUI.UIData>
 				case UIData.Sub.Type.Game:
 					{
 						ViewSaveGameUI.UIData viewSaveGameUIData = sub as ViewSaveGameUI.UIData;
-						UIUtils.Instantiate (viewSaveGameUIData, viewSaveGamePrefab, subContainer);
+						UIUtils.Instantiate (viewSaveGameUIData, viewSaveGamePrefab, this.transform, viewSaveGameRect);
 					}
 					break;
 				default:

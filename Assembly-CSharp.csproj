@@ -2946,7 +2946,6 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\TimeControl\TimeReport\TimeReportUpdate.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\Turn\Turn.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\Turn\TurnIdentity.cs" />
-    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\Turn\TurnUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UI\Board\Animation\AnimationManager.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UI\Board\Animation\AnimationManagerCheckChange.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UI\Board\Animation\AnimationManagerUpdate.cs" />
@@ -3116,6 +3115,7 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\Chat\GameChatRoomUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\GameBottomUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\Hint\BtnHintUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\History\BtnHistoryUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\Pause\BtnPauseUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\Pause\Normal\BtnPauseNormalUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\Pause\Pause\BtnPausePauseUI.cs" />

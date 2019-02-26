@@ -797,7 +797,6 @@
     <Compile Include="Assets\Mirror\Editor\NetworkInformationPreview.cs" />
     <Compile Include="Assets\Mirror\Editor\NetworkManagerEditor.cs" />
     <Compile Include="Assets\Mirror\Editor\NetworkScenePostProcess.cs" />
-    <Compile Include="Assets\RecycleListView\JSONObject\Editor\JSONChecker.cs" />
     <Compile Include="Assets\RecyclerKit\Editor\TrashManEditor.cs" />
     <Compile Include="Assets\SRIA\Scripts\Editor\MenuItems.cs" />
     <Compile Include="Assets\SRIA\Scripts\Editor\ReadOnlyDrawer.cs" />
@@ -843,7 +842,6 @@
     <None Include="Assets\Plugins\UnityNativeCore.bundle\Contents\Resources\AlwaysIn\Reversi\p33table.txt" />
     <None Include="Assets\Plugins\UnityNativeCore.bundle\Contents\Resources\AlwaysIn\Reversi\pE2Xtable.txt" />
     <None Include="Assets\Plugins\UnityNativeCore.bundle\Contents\Resources\AlwaysIn\Reversi\s44table.txt" />
-    <None Include="Assets\RecycleListView\JSONObject\readme.txt" />
     <None Include="Assets\Resources\XiangqiPostures.txt" />
     <None Include="Assets\SRIA\Docs\Changelog.txt" />
     <None Include="Assets\SRIA\Docs\If upgrading from 2.x.x-ReadMe.txt" />

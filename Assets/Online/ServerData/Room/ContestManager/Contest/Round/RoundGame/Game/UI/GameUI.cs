@@ -57,17 +57,17 @@ public class GameUI : UIBehavior<GameUI.UIData>
 
         public VP<RequestDrawUI.UIData> requestDraw;
 
+        public VP<GameChatRoomUI.UIData> gameChatRoom;
+
+        public VP<GameHistoryUI.UIData> gameHistoryUIData;
+
         #endregion
 
         public VP<GameActionsUI.UIData> gameActionsUI;
 
-        public VP<GameChatRoomUI.UIData> gameChatRoom;
-
         #region save
 
         public VP<SaveUI.UIData> saveUIData;
-
-        public VP<GameHistoryUI.UIData> gameHistoryUIData;
 
         public VP<DataRecordTaskUI.UIData> dataRecordTaskUIData;
 
@@ -85,12 +85,12 @@ public class GameUI : UIBehavior<GameUI.UIData>
             undoRedoRequestUIData,
             requestDraw,
             gameChatRoom,
+            gameHistoryUIData,
 
             stateUI,
             gamePlayerList,
             gameActionsUI,
             saveUIData,
-            gameHistoryUIData,
             dataRecordTaskUIData
         }
 
@@ -106,13 +106,13 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 this.undoRedoRequestUIData = new VP<UndoRedoRequestUI.UIData>(this, (byte)Property.undoRedoRequestUIData, null);
                 this.requestDraw = new VP<RequestDrawUI.UIData>(this, (byte)Property.requestDraw, null);
                 this.gameChatRoom = new VP<GameChatRoomUI.UIData>(this, (byte)Property.gameChatRoom, null);
+                this.gameHistoryUIData = new VP<GameHistoryUI.UIData>(this, (byte)Property.gameHistoryUIData, null);
             }
 
             this.stateUI = new VP<StateUI.UIData>(this, (byte)Property.stateUI, new StateUI.UIData());
             this.gamePlayerList = new VP<GamePlayerListUI.UIData>(this, (byte)Property.gamePlayerList, new GamePlayerListUI.UIData());
             this.gameActionsUI = new VP<GameActionsUI.UIData>(this, (byte)Property.gameActionsUI, new GameActionsUI.UIData());
             this.saveUIData = new VP<SaveUI.UIData>(this, (byte)Property.saveUIData, null);
-            this.gameHistoryUIData = new VP<GameHistoryUI.UIData>(this, (byte)Property.gameHistoryUIData, null);
             // dataRecordTaskUIData
             {
                 this.dataRecordTaskUIData = new VP<DataRecordTaskUI.UIData>(this, (byte)Property.dataRecordTaskUIData, new DataRecordTaskUI.UIData());
@@ -444,6 +444,8 @@ public class GameUI : UIBehavior<GameUI.UIData>
     public RequestDrawUI requestDrawPrefab;
     public GameChatRoomUI gameChatRoomPrefab;
 
+    public GameHistoryUI gameHistoryUIPrefab;
+
     #endregion
 
     public StateUI stateUIPrefab;
@@ -457,10 +459,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
 
     public SaveUI saveUIPrefab;
     public Transform saveUIContainer;
-
-    public GameHistoryUI gameHistoryUIPrefab;
-    public Transform gameHistoryUIContainer;
-    public Transform viewSaveDataUIContainer;
 
     public DataRecordTaskUI dataRecordTaskUIPrefab;
     public Transform dataRecordTaskUIContainer;
@@ -616,7 +614,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 GameHistoryUI.UIData gameHistoryUIData = data as GameHistoryUI.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(gameHistoryUIData, gameHistoryUIPrefab, gameHistoryUIContainer);
+                    UIUtils.Instantiate(gameHistoryUIData, gameHistoryUIPrefab, this.transform);
                 }
                 dirty = true;
                 return;

@@ -52,13 +52,17 @@ public class BtnLoadHistoryUI : UIBehavior<BtnLoadHistoryUI.UIData>
 
 	#region txt
 
-	public static readonly TxtLanguage txtLoad = new TxtLanguage();
-	public static readonly TxtLanguage txtCancelLoad = new TxtLanguage ();
-	public static readonly TxtLanguage txtLoading = new TxtLanguage ();
+	private static readonly TxtLanguage txtLoad = new TxtLanguage();
+	private static readonly TxtLanguage txtCancelLoad = new TxtLanguage ();
+	private static readonly TxtLanguage txtLoading = new TxtLanguage ();
 
-	public static readonly TxtLanguage txtUnload = new TxtLanguage();
-	public static readonly TxtLanguage txtCancelUnload = new TxtLanguage();
-	public static readonly TxtLanguage txtUnloading = new TxtLanguage();
+	private static readonly TxtLanguage txtUnload = new TxtLanguage();
+	private static readonly TxtLanguage txtCancelUnload = new TxtLanguage();
+	private static readonly TxtLanguage txtUnloading = new TxtLanguage();
+
+    private static readonly TxtLanguage txtCannotLoad = new TxtLanguage();
+
+    private static readonly TxtLanguage txtRequestError = new TxtLanguage();
 
 	static BtnLoadHistoryUI()
 	{
@@ -69,11 +73,14 @@ public class BtnLoadHistoryUI : UIBehavior<BtnLoadHistoryUI.UIData>
 		txtUnload.add (Language.Type.vi, "Dỡ");
 		txtCancelUnload.add (Language.Type.vi, "Huỷ dỡ?");
 		txtUnloading.add (Language.Type.vi, "Đang dỡ");
+
+        txtCannotLoad.add(Language.Type.vi, "Không được tải");
+
+        txtRequestError.add(Language.Type.vi, "Tải lịch sử lỗi");
 	}
 
 	#endregion
 
-	public GameObject contentContainer;
 	public Button btnLoad;
 	public Text tvLoad;
 
@@ -121,14 +128,6 @@ public class BtnLoadHistoryUI : UIBehavior<BtnLoadHistoryUI.UIData>
 						// valueChangeCallBacks
 						{
 							history.humanConnections.allAddCallBack (this);
-						}
-						// contentContainer
-						{
-							if (contentContainer != null) {
-								contentContainer.SetActive (true);
-							} else {
-								Debug.LogError ("contentContainer null: " + this);
-							}
 						}
 						// check already load
 						bool alreadyLoad = false;
@@ -224,20 +223,24 @@ public class BtnLoadHistoryUI : UIBehavior<BtnLoadHistoryUI.UIData>
 							}
 						}
 					} else {
-						// contentContainer
-						{
-							if (contentContainer != null) {
-								contentContainer.SetActive (false);
-							} else {
-								Debug.LogError ("contentContainer null: " + this);
-							}
-						}
 						// Task
 						{
 							this.data.state.v = UIData.State.None;
 							destroyRoutine (wait);
 						}
-					}
+                        // UI
+                        {
+                            if(btnLoad!=null && tvLoad != null)
+                            {
+                                btnLoad.interactable = false;
+                                tvLoad.text = txtCannotLoad.get("Can't Load");
+                            }
+                            else
+                            {
+                                Debug.LogError("btnLoad, tvLoad null");
+                            }
+                        }
+                    }
 				} else {
 					Debug.LogError ("history null: " + this);
 				}
@@ -249,7 +252,7 @@ public class BtnLoadHistoryUI : UIBehavior<BtnLoadHistoryUI.UIData>
 
 	public override bool isShouldDisableUpdate ()
 	{
-		return true;
+		return false;
 	}
 
 	#endregion
@@ -263,7 +266,7 @@ public class BtnLoadHistoryUI : UIBehavior<BtnLoadHistoryUI.UIData>
 		if (this.data != null) {
 			yield return new Wait (Global.WaitSendTime);
 			this.data.state.v = UIData.State.None;
-			Toast.showMessage ("request error");
+			Toast.showMessage (txtRequestError.get("Load history error"));
 			Debug.LogError ("request error: " + this);
 		} else {
 			Debug.LogError ("data null: " + this);

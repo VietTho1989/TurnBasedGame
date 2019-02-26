@@ -357,8 +357,6 @@ namespace Solitaire
 							break;
 						case GameDataUI.UIData.Property.allowInput:
 							break;
-						case GameDataUI.UIData.Property.turn:
-							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 							break;

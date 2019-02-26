@@ -155,13 +155,13 @@ public class StateConnectUI : UIBehavior<StateConnectUI.UIData>
                 {
                     Transform confirmBackContainer = null;
                     {
-                        GlobalViewUI.UIData globalViewUIData = detailUIData.findDataInParent<GlobalViewUI.UIData>();
-                        if (globalViewUIData != null)
+                        AfterLoginUI.UIData afterLoginUIData = detailUIData.findDataInParent<AfterLoginUI.UIData>();
+                        if (afterLoginUIData != null)
                         {
-                            GlobalViewUI globalViewUI = globalViewUIData.findCallBack<GlobalViewUI>();
-                            if (globalViewUI != null)
+                            AfterLoginUI afterLoginUI = afterLoginUIData.findCallBack<AfterLoginUI>();
+                            if (afterLoginUI != null)
                             {
-                                confirmBackContainer = globalViewUI.confirmBackContainer;
+                                confirmBackContainer = afterLoginUI.confirmBackContainer;
                             }
                             else
                             {

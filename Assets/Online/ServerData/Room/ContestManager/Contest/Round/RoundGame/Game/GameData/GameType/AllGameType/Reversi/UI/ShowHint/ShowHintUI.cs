@@ -384,8 +384,6 @@ namespace Reversi
 							break;
 						case GameDataUI.UIData.Property.allowInput:
 							break;
-						case GameDataUI.UIData.Property.turn:
-							break;
 						default:
 							Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
 							break;

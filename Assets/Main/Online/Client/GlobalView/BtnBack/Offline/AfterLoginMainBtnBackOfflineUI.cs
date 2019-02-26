@@ -29,7 +29,7 @@ public class AfterLoginMainBtnBackOfflineUI : UIBehavior<AfterLoginMainBtnBackOf
 		public UIData() : base()
 		{
 			this.server = new VP<ReferenceData<Server>>(this, (byte)Property.server, new ReferenceData<Server>(null));
-			this.needConfirm = new VP<bool>(this, (byte)Property.needConfirm, false);
+			this.needConfirm = new VP<bool>(this, (byte)Property.needConfirm, true);
 			this.confirmUI = new VP<ConfirmBackOfflineUI.UIData>(this, (byte)Property.confirmUI, null);
 		}
 
@@ -176,13 +176,13 @@ public class AfterLoginMainBtnBackOfflineUI : UIBehavior<AfterLoginMainBtnBackOf
 				{
                     Transform confirmBackContainer = null;
                     {
-                        GlobalViewUI.UIData globalViewUIData = confirmUIData.findDataInParent<GlobalViewUI.UIData>();
-                        if (globalViewUIData != null)
+                        AfterLoginUI.UIData afterLoginUIData = confirmUIData.findDataInParent<AfterLoginUI.UIData>();
+                        if (afterLoginUIData != null)
                         {
-                            GlobalViewUI globalViewUI = globalViewUIData.findCallBack<GlobalViewUI>();
-                            if (globalViewUI != null)
+                            AfterLoginUI afterLoginUI = afterLoginUIData.findCallBack<AfterLoginUI>();
+                            if (afterLoginUI != null)
                             {
-                                confirmBackContainer = globalViewUI.confirmBackContainer;
+                                confirmBackContainer = afterLoginUI.confirmBackContainer;
                             }
                             else
                             {

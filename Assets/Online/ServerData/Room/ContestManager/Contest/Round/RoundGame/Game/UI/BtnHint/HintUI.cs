@@ -203,11 +203,7 @@ namespace Hint
                                 ShowAnimationUI.UIData showAnimationUIData = this.data.showAnimation.v;
                                 if (showAnimationUIData != null)
                                 {
-                                    ShowAnimationUI.Show show = new ShowAnimationUI.Show();
-                                    {
-                                        show.uid = showAnimationUIData.state.makeId();
-                                    }
-                                    showAnimationUIData.state.v = show;
+                                    showAnimationUIData.show();
                                 }
                                 else
                                 {

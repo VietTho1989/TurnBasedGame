@@ -86,8 +86,6 @@ public class GameDataUICheckAllowInputChange<K> : Data, ValueChangeCallBack wher
 			case GameDataUI.UIData.Property.allowInput:
 				this.notifyChange ();
 				break;
-			case GameDataUI.UIData.Property.turn:
-				break;
 			default:
 				Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
 				break;

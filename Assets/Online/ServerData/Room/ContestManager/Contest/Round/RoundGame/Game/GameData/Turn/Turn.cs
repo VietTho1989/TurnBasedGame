@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Turn : Data
 {
+
 	public VP<int> turn;
 
 	public VP<int> playerIndex;
