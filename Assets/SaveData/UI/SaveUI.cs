@@ -80,31 +80,45 @@ public class SaveUI : UIBehavior<SaveUI.UIData>
 
 	}
 
-	#endregion
+    #endregion
 
-	#region Refresh
+    #region txt, rect
 
-	#region txt
+    public Text lbTitle;
+    public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-	public Text tvBack;
-	public static readonly TxtLanguage txtBack = new TxtLanguage ();
+    public Text tvPlaceHolder;
+    public static readonly TxtLanguage txtPlaceHolder = new TxtLanguage();
 
-	public Text lbTitle;
-	public static readonly TxtLanguage txtTitle = new TxtLanguage ();
+    static SaveUI()
+    {
+        // txt
+        {
+            txtTitle.add(Language.Type.vi, "Lưu Trữ Dữ Liệu");
+            txtPlaceHolder.add(Language.Type.vi, "Đặt tên file");
+        }
+        // rect
+        {
+            // btnSaveDataRect
+            {
+                // anchoredPosition: (0.0, 0.0); anchorMin: (1.0, 1.0); anchorMax: (1.0, 1.0); pivot: (1.0, 1.0);
+                // offsetMin: (-120.0, -30.0); offsetMax: (0.0, 0.0); sizeDelta: (120.0, 30.0);
+                btnSaveDataRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                btnSaveDataRect.anchorMin = new Vector2(1.0f, 1.0f);
+                btnSaveDataRect.anchorMax = new Vector2(1.0f, 1.0f);
+                btnSaveDataRect.pivot = new Vector2(1.0f, 1.0f);
+                btnSaveDataRect.offsetMin = new Vector2(-120.0f, -30.0f);
+                btnSaveDataRect.offsetMax = new Vector2(0.0f, 0.0f);
+                btnSaveDataRect.sizeDelta = new Vector2(120.0f, 30.0f);
+            }
+        }
+    }
 
-	public Text tvPlaceHolder;
-	public static readonly TxtLanguage txtPlaceHolder = new TxtLanguage ();
+    #endregion
 
-	static SaveUI()
-	{
-		txtBack.add (Language.Type.vi, "Quay Lại");
-		txtTitle.add (Language.Type.vi, "Lưu Trữ Dữ Liệu");
-		txtPlaceHolder.add (Language.Type.vi, "Đặt tên file");
-	}
+    #region Refresh
 
-	#endregion
-
-	public InputField edtName;
+    public InputField edtName;
 
 	public override void refresh ()
 	{
@@ -113,27 +127,41 @@ public class SaveUI : UIBehavior<SaveUI.UIData>
 			if (this.data != null) {
 				Data needSaveData = this.data.needSaveData.v.data;
 				if (needSaveData != null) {
-
-				} else {
+                    // siblingIndex
+                    {
+                        int startIndex = 3;
+                        UIRectTransform.SetSiblingIndex(this.data.fileSystemBrowser.v, startIndex + 1);
+                        UIRectTransform.SetSiblingIndex(this.data.btnSaveData.v, startIndex + 2);
+                        if (confirmSaveContainer != null)
+                        {
+                            confirmSaveContainer.SetSiblingIndex(startIndex + 3);
+                        }
+                        else
+                        {
+                            Debug.LogError("confirmSaveContainer null");
+                        }
+                    }
+                    // txt
+                    {
+                        if (lbTitle != null)
+                        {
+                            lbTitle.text = txtTitle.get("Save Data");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null: " + this);
+                        }
+                        if (tvPlaceHolder != null)
+                        {
+                            tvPlaceHolder.text = txtPlaceHolder.get("Enter file name");
+                        }
+                        else
+                        {
+                            Debug.LogError("tvPlaceHolder null: " + this);
+                        }
+                    }
+                } else {
 					Debug.LogError ("needSaveData null: " + this);
-				}
-				// txt
-				{
-					if (tvBack != null) {
-						tvBack.text = txtBack.get ("Back");
-					} else {
-						Debug.LogError ("tvBack null: " + this);
-					}
-					if (lbTitle != null) {
-						lbTitle.text = txtTitle.get ("Save Data");
-					} else {
-						Debug.LogError ("lbTitle null: " + this);
-					}
-					if (tvPlaceHolder != null) {
-						tvPlaceHolder.text = txtPlaceHolder.get ("Enter file name");
-					} else {
-						Debug.LogError ("tvPlaceHolder null: " + this);
-					}
 				}
 			} else {
 				Debug.LogError ("data null: " + this);
@@ -151,10 +179,11 @@ public class SaveUI : UIBehavior<SaveUI.UIData>
 	#region implement callBacks
 
 	public FileSystemBrowserUI fileSystemBrowserPrefab;
-	public Transform fileSystemBrowserContainer;
+    private static readonly UIRectTransform fileSystemBrowserRect = UIRectTransform.CreateFullRect(0, 0, 80, 0);
 
 	public BtnSaveDataUI btnSaveDataPrefab;
-	public Transform btnSaveDataContainer;
+    private static readonly UIRectTransform btnSaveDataRect = new UIRectTransform();
+
 	public Transform confirmSaveContainer;
 
 	public override void onAddCallBack<T> (T data)
@@ -182,7 +211,7 @@ public class SaveUI : UIBehavior<SaveUI.UIData>
 				FileSystemBrowserUI.UIData fileSystemBrowserUIData = data as FileSystemBrowserUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (fileSystemBrowserUIData, fileSystemBrowserPrefab, fileSystemBrowserContainer);
+					UIUtils.Instantiate (fileSystemBrowserUIData, fileSystemBrowserPrefab, this.transform, fileSystemBrowserRect);
 				}
 				dirty = true;
 				return;
@@ -191,7 +220,7 @@ public class SaveUI : UIBehavior<SaveUI.UIData>
 				BtnSaveDataUI.UIData btnSaveDataUIData = data as BtnSaveDataUI.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (btnSaveDataUIData, btnSaveDataPrefab, btnSaveDataContainer);
+					UIUtils.Instantiate (btnSaveDataUIData, btnSaveDataPrefab, this.transform, btnSaveDataRect);
 				}
 				dirty = true;
 				return;

@@ -10,295 +10,368 @@ using System.Collections.Generic;
 public class RoomIdentity : DataIdentity
 {
 
-	#region SyncVar
+    #region SyncVar
 
-	#region roomName
+    #region roomName
 
-	[SyncVar(hook="onChangeRoomName")]
-	public string roomName;
+    [SyncVar(hook = "onChangeRoomName")]
+    public string roomName;
 
-	private void onChangeRoomName(string newRoomName)
-	{
-		this.roomName = newRoomName;
-		// Debug.Log ("changeRoomName: " + newRoomName);
-		if (this.netData.clientData != null) {
-			this.netData.clientData.name.v = newRoomName;
-		}
-	}
+    private void onChangeRoomName(string newRoomName)
+    {
+        this.roomName = newRoomName;
+        // Debug.Log ("changeRoomName: " + newRoomName);
+        if (this.netData.clientData != null)
+        {
+            this.netData.clientData.name.v = newRoomName;
+        }
+    }
 
-	#endregion
+    #endregion
 
-	#region password
+    #region password
 
-	[SyncVar(hook="onChangePassword")]
-	public string password;
+    [SyncVar(hook = "onChangePassword")]
+    public string password;
 
-	private void onChangePassword(string newPassword){
-		this.password = newPassword;
-		// Debug.Log ("changePassword: " + newPassword);
-		if (this.netData.clientData != null) {
-			this.netData.clientData.password.v = newPassword;
-		}
-	}
+    private void onChangePassword(string newPassword)
+    {
+        this.password = newPassword;
+        // Debug.Log ("changePassword: " + newPassword);
+        if (this.netData.clientData != null)
+        {
+            this.netData.clientData.password.v = newPassword;
+        }
+    }
 
-	#endregion
+    #endregion
 
-	#region contestManagers
+    #region contestManagers
 
-	[SyncVar]
-	public int contestManagers;
+    [SyncVar]
+    public int contestManagers;
 
-	#endregion
+    #endregion
 
-	#region timeCreated
+    #region timeCreated
 
-	[SyncVar(hook="onChangeTimeCreated")]
-	public long timeCreated;
+    [SyncVar(hook = "onChangeTimeCreated")]
+    public long timeCreated;
 
-	private void onChangeTimeCreated(long newTimeCreated){
-		this.timeCreated = newTimeCreated;
-		if (this.netData.clientData != null) {
-			this.netData.clientData.timeCreated.v = newTimeCreated;
-		}
-	}
+    private void onChangeTimeCreated(long newTimeCreated)
+    {
+        this.timeCreated = newTimeCreated;
+        if (this.netData.clientData != null)
+        {
+            this.netData.clientData.timeCreated.v = newTimeCreated;
+        }
+    }
 
-	#endregion
+    #endregion
 
-	#region allowHint
+    #region allowHint
 
-	[SyncVar(hook="onChangeAllowHint")]
-	public Room.AllowHint allowHint;
+    [SyncVar(hook = "onChangeAllowHint")]
+    public Room.AllowHint allowHint;
 
-	private void onChangeAllowHint(Room.AllowHint newAllowHint){
-		this.allowHint = newAllowHint;
-		if (this.netData.clientData != null) {
-			this.netData.clientData.allowHint.v = newAllowHint;
-		}
-	}
+    private void onChangeAllowHint(Room.AllowHint newAllowHint)
+    {
+        this.allowHint = newAllowHint;
+        if (this.netData.clientData != null)
+        {
+            this.netData.clientData.allowHint.v = newAllowHint;
+        }
+    }
 
-	#endregion
+    #endregion
 
-	#endregion
+    #endregion
 
-	#region allowLoadHistory
+    #region allowLoadHistory
 
-	[SyncVar(hook="onChangeAllowLoadHistory")]
-	public bool allowLoadHistory;
+    [SyncVar(hook = "onChangeAllowLoadHistory")]
+    public bool allowLoadHistory;
 
-	private void onChangeAllowLoadHistory(bool newAllowLoadHistory){
-		this.allowLoadHistory = newAllowLoadHistory;
-		if (this.netData.clientData != null) {
-			this.netData.clientData.allowLoadHistory.v = newAllowLoadHistory;
-		}
-	}
+    private void onChangeAllowLoadHistory(bool newAllowLoadHistory)
+    {
+        this.allowLoadHistory = newAllowLoadHistory;
+        if (this.netData.clientData != null)
+        {
+            this.netData.clientData.allowLoadHistory.v = newAllowLoadHistory;
+        }
+    }
 
-	#endregion
+    #endregion
 
-	#region NetData
+    #region NetData
 
-	private NetData<Room> netData = new NetData<Room>();
+    private NetData<Room> netData = new NetData<Room>();
 
-	public override NetDataDelegate getNetData ()
-	{
-		return this.netData;
-	}
+    public override NetDataDelegate getNetData()
+    {
+        return this.netData;
+    }
 
-	public override void refreshClientData ()
-	{
-		if (this.netData.clientData != null) {
-			this.onChangeRoomName (this.roomName);
-			this.onChangePassword (this.password);
-			this.onChangeTimeCreated (this.timeCreated);
-			this.onChangeAllowHint (this.allowHint);
-			this.onChangeAllowLoadHistory (this.allowLoadHistory);
-		} else {
-			Debug.LogError ("clientData null: " + this);
-		}
-	}
+    public override void refreshClientData()
+    {
+        if (this.netData.clientData != null)
+        {
+            this.onChangeRoomName(this.roomName);
+            this.onChangePassword(this.password);
+            this.onChangeTimeCreated(this.timeCreated);
+            this.onChangeAllowHint(this.allowHint);
+            this.onChangeAllowLoadHistory(this.allowLoadHistory);
+        }
+        else
+        {
+            Debug.LogError("clientData null: " + this);
+        }
+    }
 
-	public override int refreshDataSize ()
-	{
-		int ret = GetDataSize (this.netId);
-		{
-			ret += GetDataSize (this.roomName);
-			ret += GetDataSize (this.password);
-			ret += GetDataSize (this.timeCreated);
-			ret += GetDataSize (this.allowHint);
-			ret += GetDataSize (this.allowLoadHistory);
-		}
-		return ret;
-	}
+    public override int refreshDataSize()
+    {
+        int ret = GetDataSize(this.netId);
+        {
+            ret += GetDataSize(this.roomName);
+            ret += GetDataSize(this.password);
+            ret += GetDataSize(this.timeCreated);
+            ret += GetDataSize(this.allowHint);
+            ret += GetDataSize(this.allowLoadHistory);
+        }
+        return ret;
+    }
 
-	#endregion
+    #endregion
 
-	#region implement callBacks
+    #region implement callBacks
 
-	public override void onAddCallBack<T> (T data)
-	{
-		if (data is Room) {
-			Room room = data as Room;
-			// Set new parent
-			this.addTransformToParent();
-			// Set value for synchronize
-			{
-				this.serialize (this.searchInfor, room.makeSearchInforms ());
-				this.roomName = room.name.v;
-				this.password = "";
-				this.contestManagers = room.contestManagers.vs.Count;
-				this.timeCreated = room.timeCreated.v;
-				this.allowHint = room.allowHint.v;
-				this.allowLoadHistory = room.allowLoadHistory.v;
-			}
-			// Observer
-			{
-				GameObserver observer = GetComponent<GameObserver> ();
-				if (observer != null) {
-					if (room.getDataParent () is LimitRoomContainer) {
-						observer.checkChange = new LimitRoomContainerObserver (observer);
-						observer.setCheckChangeData (room.getDataParent () as LimitRoomContainer);
-					} else {
-						observer.checkChange = new FollowParentObserver (observer);
-						observer.setCheckChangeData (room);
-					}
-				} else {
-					Debug.LogError ("observer null");
-				}
-			}
-			return;
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+    public override void onAddCallBack<T>(T data)
+    {
+        if (data is Room)
+        {
+            Room room = data as Room;
+            // Set new parent
+            this.addTransformToParent();
+            // Set value for synchronize
+            {
+                this.serialize(this.searchInfor, room.makeSearchInforms());
+                this.roomName = room.name.v;
+                this.password = "";
+                this.contestManagers = room.contestManagers.vs.Count;
+                this.timeCreated = room.timeCreated.v;
+                this.allowHint = room.allowHint.v;
+                this.allowLoadHistory = room.allowLoadHistory.v;
+            }
+            // Observer
+            {
+                GameObserver observer = GetComponent<GameObserver>();
+                if (observer != null)
+                {
+                    if (room.getDataParent() is LimitRoomContainer)
+                    {
+                        observer.checkChange = new LimitRoomContainerObserver(observer);
+                        observer.setCheckChangeData(room.getDataParent() as LimitRoomContainer);
+                    }
+                    else
+                    {
+                        observer.checkChange = new FollowParentObserver(observer);
+                        observer.setCheckChangeData(room);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("observer null");
+                }
+            }
+            return;
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	public override void onRemoveCallBack<T> (T data, bool isHide)
-	{
-		if (data is Room) {
-			// Room room = data as Room;
-			// Observer
-			{
-				GameObserver observer = GetComponent<GameObserver> ();
-				if (observer != null) {
-					observer.setCheckChangeData (null);
-				} else {
-					Debug.LogError ("observer null");
-				}
-			}
-			return;
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+    public override void onRemoveCallBack<T>(T data, bool isHide)
+    {
+        if (data is Room)
+        {
+            // Room room = data as Room;
+            // Observer
+            {
+                GameObserver observer = GetComponent<GameObserver>();
+                if (observer != null)
+                {
+                    observer.setCheckChangeData(null);
+                }
+                else
+                {
+                    Debug.LogError("observer null");
+                }
+            }
+            return;
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-	{
-		if (WrapProperty.checkError (wrapProperty)) {
-			return;
-		}
-		if (wrapProperty.p is Room) {
-			switch ((Room.Property)wrapProperty.n) {
-			case Room.Property.name:
-				this.roomName = (string)wrapProperty.getValue ();
-				break;
-			case Room.Property.password:
-				this.password = "";// luon de nhu vay
-				break;
-			case Room.Property.users:
-				break;
-			case Room.Property.state:
-				break;
-			case Room.Property.contestManagers:
-				{
-					Room room = wrapProperty.p as Room;
-					this.contestManagers = room.contestManagers.vs.Count;
-				}
-				break;
-			case Room.Property.timeCreated:
-				this.timeCreated = (long)wrapProperty.getValue ();
-				break;
-			case Room.Property.chatRoom:
-				break;
-			case Room.Property.allowHint:
-				this.allowHint = (Room.AllowHint)wrapProperty.getValue ();
-				break;
-			case Room.Property.allowLoadHistory:
-				this.allowLoadHistory = (bool)wrapProperty.getValue ();
-				break;
-			default:
-				Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-				break;
-			}
-			return;
-		}
-		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-	}
+    public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+    {
+        if (WrapProperty.checkError(wrapProperty))
+        {
+            return;
+        }
+        if (wrapProperty.p is Room)
+        {
+            switch ((Room.Property)wrapProperty.n)
+            {
+                case Room.Property.name:
+                    this.roomName = (string)wrapProperty.getValue();
+                    break;
+                case Room.Property.password:
+                    this.password = "";// luon de nhu vay
+                    break;
+                case Room.Property.users:
+                    break;
+                case Room.Property.state:
+                    break;
+                case Room.Property.contestManagers:
+                    {
+                        Room room = wrapProperty.p as Room;
+                        this.contestManagers = room.contestManagers.vs.Count;
+                    }
+                    break;
+                case Room.Property.timeCreated:
+                    this.timeCreated = (long)wrapProperty.getValue();
+                    break;
+                case Room.Property.chatRoom:
+                    break;
+                case Room.Property.allowHint:
+                    this.allowHint = (Room.AllowHint)wrapProperty.getValue();
+                    break;
+                case Room.Property.allowLoadHistory:
+                    this.allowLoadHistory = (bool)wrapProperty.getValue();
+                    break;
+                default:
+                    Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+    }
 
-	#endregion
+    #endregion
 
-	#region joinRoom
+    #region joinRoom
 
-	public void requestJoinRoom(uint userId, string password)
-	{
-		ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity (this.netData.clientData);
-		if (clientConnect != null) {
-			clientConnect.CmdRoomJoinRoom (this.netId, userId, password);
-		} else {
-			Debug.LogError ("Cannot find userIdentity: " + this);
-		}
-	}
+    public void requestJoinRoom(uint userId, string password)
+    {
+        ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity(this.netData.clientData);
+        if (clientConnect != null)
+        {
+            clientConnect.CmdRoomJoinRoom(this.netId, userId, password);
+        }
+        else
+        {
+            Debug.LogError("Cannot find userIdentity: " + this);
+        }
+    }
 
-	public void joinRoom (uint userId, string password, ClientConnectIdentity clientConnectIdentity)
-	{
-		if (this.netData.serverData != null) {
-			this.netData.serverData.joinRoom (userId, password, clientConnectIdentity);
-		} else {
-			Debug.LogError ("serverData null");
-		}
-	}
+    public void joinRoom(uint userId, string password, ClientConnectIdentity clientConnectIdentity)
+    {
+        if (this.netData.serverData != null)
+        {
+            this.netData.serverData.joinRoom(userId, password, clientConnectIdentity);
+        }
+        else
+        {
+            Debug.LogError("serverData null");
+        }
+    }
 
-	#endregion
+    #endregion
 
-	#region name
+    #region endRoom
 
-	public void requestChangeName(uint userId, string newName)
-	{
-		ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity (this.netData.clientData);
-		if (clientConnect != null) {
-			clientConnect.CmdRoomChangeName (this.netId, userId, newName);
-		} else {
-			Debug.LogError ("Cannot find clientConnect: " + this);
-		}
-	}
+    public void requestEndRoom(uint userId)
+    {
+        ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity(this.netData.clientData);
+        if (clientConnect != null)
+        {
+            clientConnect.CmdRoomEndRoom(this.netId, userId);
+        }
+        else
+        {
+            Debug.LogError("Cannot find userIdentity: " + this);
+        }
+    }
 
-	public void changeName(uint userId, string newName)
-	{
-		if (this.netData.serverData != null) {
-			this.netData.serverData.changeName(userId, newName);
-		} else {
-			Debug.LogError ("serverData null: " + this);
-		}
-	}
+    public void endRoom(uint userId)
+    {
+        if (this.netData.serverData != null)
+        {
+            this.netData.serverData.endRoom(userId);
+        }
+        else
+        {
+            Debug.LogError("serverData null");
+        }
+    }
 
-	#endregion
+    #endregion
 
-	#region allowHint
+    #region name
 
-	public void requestChangeAllowHint(uint userId, int newAllowHint)
-	{
-		ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity (this.netData.clientData);
-		if (clientConnect != null) {
-			clientConnect.CmdRoomChangeAllowHint (this.netId, userId, newAllowHint);
-		} else {
-			Debug.LogError ("Cannot find clientConnect: " + this);
-		}
-	}
+    public void requestChangeName(uint userId, string newName)
+    {
+        ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity(this.netData.clientData);
+        if (clientConnect != null)
+        {
+            clientConnect.CmdRoomChangeName(this.netId, userId, newName);
+        }
+        else
+        {
+            Debug.LogError("Cannot find clientConnect: " + this);
+        }
+    }
 
-	public void changeAllowHint(uint userId, int newAllowHint)
-	{
-		if (this.netData.serverData != null) {
-			this.netData.serverData.changeAllowHint(userId, newAllowHint);
-		} else {
-			Debug.LogError ("serverData null: " + this);
-		}
-	}
+    public void changeName(uint userId, string newName)
+    {
+        if (this.netData.serverData != null)
+        {
+            this.netData.serverData.changeName(userId, newName);
+        }
+        else
+        {
+            Debug.LogError("serverData null: " + this);
+        }
+    }
 
-	#endregion
+    #endregion
+
+    #region allowHint
+
+    public void requestChangeAllowHint(uint userId, int newAllowHint)
+    {
+        ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity(this.netData.clientData);
+        if (clientConnect != null)
+        {
+            clientConnect.CmdRoomChangeAllowHint(this.netId, userId, newAllowHint);
+        }
+        else
+        {
+            Debug.LogError("Cannot find clientConnect: " + this);
+        }
+    }
+
+    public void changeAllowHint(uint userId, int newAllowHint)
+    {
+        if (this.netData.serverData != null)
+        {
+            this.netData.serverData.changeAllowHint(userId, newAllowHint);
+        }
+        else
+        {
+            Debug.LogError("serverData null: " + this);
+        }
+    }
+
+    #endregion
 
 }

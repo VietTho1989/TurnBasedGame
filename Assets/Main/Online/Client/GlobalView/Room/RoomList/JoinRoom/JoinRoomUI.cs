@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 using Foundation.Tasks;
@@ -66,10 +65,10 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
                         JoinRoomUI joinRoomUI = this.findCallBack<JoinRoomUI>();
                         if (joinRoomUI != null) {
                             joinRoomUI.onClickBtnCancel();
+                            isProcess = true;
                         } else {
                             Debug.LogError("joinRoomUI null: " + this);
                         }
-                        isProcess = true;
                     }
                 }
             }
@@ -957,10 +956,20 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
     public void onClickBtnJoin()
     {
         if (this.data != null) {
-            if (this.data.requestState.v == UIData.State.None) {
-                this.data.requestState.v = UIData.State.Request;
-            } else {
-                Debug.LogError("you are requesting: " + this);
+            switch (this.data.requestState.v)
+            {
+                case UIData.State.None:
+                    this.data.requestState.v = UIData.State.Request;
+                    break;
+                case UIData.State.Request:
+                    this.data.requestState.v = UIData.State.None;
+                    break;
+                case UIData.State.Wait:
+                    Debug.LogError("You are requesting");
+                    break;
+                default:
+                    Debug.LogError("unknown request state: " + this.data.requestState.v);
+                    break;
             }
         } else {
             Debug.LogError("data null: " + this);

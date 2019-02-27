@@ -4,6 +4,7 @@ using UnityEngine;
 using GameManager;
 using GameManager.Match;
 using GameManager.Match.Swap;
+using Record;
 
 public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
 {
@@ -33,6 +34,10 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
 
         public VP<BtnPerspectiveUI.UIData> btnPerspective;
 
+        public VP<BtnSaveGameUI.UIData> btnSaveGame;
+
+        public VP<DataRecordTaskUI.UIData> btnRecord;
+
         #region Constructor
 
         public enum Property
@@ -46,7 +51,9 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
             btnShowSwap,
             btnUseRule,
             btnHistory,
-            btnPerspective
+            btnPerspective,
+            btnSaveGame,
+            btnRecord
         }
 
         public UIData() : base()
@@ -61,9 +68,36 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
             this.btnUseRule = new VP<BtnUseRuleUI.UIData>(this, (byte)Property.btnUseRule, new BtnUseRuleUI.UIData());
             this.btnHistory = new VP<BtnHistoryUI.UIData>(this, (byte)Property.btnHistory, new BtnHistoryUI.UIData());
             this.btnPerspective = new VP<BtnPerspectiveUI.UIData>(this, (byte)Property.btnPerspective, new BtnPerspectiveUI.UIData());
+            this.btnSaveGame = new VP<BtnSaveGameUI.UIData>(this, (byte)Property.btnSaveGame, new BtnSaveGameUI.UIData());
+            // btnRecord
+            {
+                this.btnRecord = new VP<DataRecordTaskUI.UIData>(this, (byte)Property.btnRecord, new DataRecordTaskUI.UIData());
+                this.btnRecord.v.dataRecordTask.v = new ReferenceData<DataRecordTask>(new DataRecordTask());
+            }
         }
 
         #endregion
+
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // btnRecord
+                if (!isProcess)
+                {
+                    DataRecordTaskUI.UIData dataRecordTaskUIData = this.btnRecord.v;
+                    if (dataRecordTaskUIData != null)
+                    {
+                        isProcess = dataRecordTaskUIData.processEvent(e);
+                    }
+                    else
+                    {
+                        Debug.LogError("btnRecord null: " + this);
+                    }
+                }
+            }
+            return isProcess;
+        }
 
     }
 
@@ -249,6 +283,54 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                             Debug.LogError("btnPerspective null");
                         }
                     }
+                    // btnSaveGame
+                    {
+                        BtnSaveGameUI.UIData btnSaveGame = this.data.btnSaveGame.v;
+                        if (btnSaveGame != null)
+                        {
+                            btnSaveGame.game.v = new ReferenceData<Game>(game);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnSaveGame null");
+                        }
+                    }
+                    // btnRecord
+                    {
+                        DataRecordTaskUI.UIData btnRecord = this.data.btnRecord.v;
+                        if (btnRecord != null)
+                        {
+                            btnRecord.dataRecordTask.v.data.needRecordData.v = new ReferenceData<Data>(game);
+                            // find container
+                            {
+                                Transform recordContainer = null;
+                                {
+                                    GameUI.UIData gameUIData = this.data.findDataInParent<GameUI.UIData>();
+                                    if (gameUIData != null)
+                                    {
+                                        GameUI gameUI = gameUIData.findCallBack<GameUI>();
+                                        if (gameUI != null)
+                                        {
+                                            recordContainer = gameUI.dataRecordSaveContainer;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("gameUI null");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("gameUIData null");
+                                    }
+                                }
+                                btnRecord.saveRecordContainer.v = recordContainer;
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("btnRecord null: " + this);
+                        }
+                    }
                 }
                 else
                 {
@@ -296,6 +378,8 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
     public BtnUseRuleUI btnUseRulePrefab;
     public BtnHistoryUI btnHistoryPrefab;
     public BtnPerspectiveUI btnPerspectivePrefab;
+    public BtnSaveGameUI btnSaveGamePrefab;
+    public DataRecordTaskUI btnRecordPrefab;
 
     public Transform contentContainer;
 
@@ -323,6 +407,8 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 uiData.btnUseRule.allAddCallBack(this);
                 uiData.btnHistory.allAddCallBack(this);
                 uiData.btnPerspective.allAddCallBack(this);
+                uiData.btnSaveGame.allAddCallBack(this);
+                uiData.btnRecord.allAddCallBack(this);
             }
             dirty = true;
             return;
@@ -480,6 +566,26 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 dirty = true;
                 return;
             }
+            if(data is BtnSaveGameUI.UIData)
+            {
+                BtnSaveGameUI.UIData btnSaveGameUIData = data as BtnSaveGameUI.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(btnSaveGameUIData, btnSaveGamePrefab, contentContainer, CreateBtnRect(9));
+                }
+                dirty = true;
+                return;
+            }
+            if (data is DataRecordTaskUI.UIData)
+            {
+                DataRecordTaskUI.UIData btnRecordUIData = data as DataRecordTaskUI.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(btnRecordUIData, btnRecordPrefab, contentContainer, CreateBtnRect(10));
+                }
+                dirty = true;
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -505,6 +611,8 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 uiData.btnUseRule.allRemoveCallBack(this);
                 uiData.btnHistory.allRemoveCallBack(this);
                 uiData.btnPerspective.allRemoveCallBack(this);
+                uiData.btnSaveGame.allRemoveCallBack(this);
+                uiData.btnRecord.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
             return;
@@ -647,6 +755,24 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 }
                 return;
             }
+            if(data is BtnSaveGameUI.UIData)
+            {
+                BtnSaveGameUI.UIData btnSaveGameUIData = data as BtnSaveGameUI.UIData;
+                // UI
+                {
+                    btnSaveGameUIData.removeCallBackAndDestroy(typeof(BtnSaveGameUI));
+                }
+                return;
+            }
+            if(data is DataRecordTaskUI.UIData)
+            {
+                DataRecordTaskUI.UIData btnRecordUIData = data as DataRecordTaskUI.UIData;
+                // UI
+                {
+                    btnRecordUIData.removeCallBackAndDestroy(typeof(DataRecordTaskUI));
+                }
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -721,6 +847,18 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                         dirty = true;
                     }
                     break;
+                case UIData.Property.btnSaveGame:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.btnRecord:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
@@ -760,8 +898,6 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                     case GameUI.UIData.Property.gameActionsUI:
                         break;
                     case GameUI.UIData.Property.saveUIData:
-                        break;
-                    case GameUI.UIData.Property.dataRecordTaskUIData:
                         break;
                     default:
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -947,6 +1083,14 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 return;
             }
             if(wrapProperty.p is BtnPerspectiveUI.UIData)
+            {
+                return;
+            }
+            if(wrapProperty.p is BtnSaveGameUI.UIData)
+            {
+                return;
+            }
+            if(wrapProperty.p is DataRecordTaskUI.UIData)
             {
                 return;
             }

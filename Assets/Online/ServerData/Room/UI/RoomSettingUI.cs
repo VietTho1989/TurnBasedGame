@@ -46,6 +46,8 @@ public class RoomSettingUI : UIBehavior<RoomSettingUI.UIData>
 
         #endregion
 
+        public VP<RoomStateUI.UIData> roomStateUIData;
+
         #region allowHint
 
         public VP<RequestChangeEnumUI.UIData> allowHint;
@@ -86,6 +88,7 @@ public class RoomSettingUI : UIBehavior<RoomSettingUI.UIData>
         {
             editRoom,
             name,
+            roomStateUIData,
             allowHint,
             changeRights
         }
@@ -114,6 +117,7 @@ public class RoomSettingUI : UIBehavior<RoomSettingUI.UIData>
                 this.name = new VP<RequestChangeStringUI.UIData>(this, (byte)Property.name, new RequestChangeStringUI.UIData());
                 this.name.v.updateData.v.request.v = makeRequestChangeName;
             }
+            this.roomStateUIData = new VP<RoomStateUI.UIData>(this, (byte)Property.roomStateUIData, new RoomStateUI.UIData());
             // allowHint
             {
                 this.allowHint = new VP<RequestChangeEnumUI.UIData>(this, (byte)Property.allowHint, new RequestChangeEnumUI.UIData());
@@ -149,13 +153,16 @@ public class RoomSettingUI : UIBehavior<RoomSettingUI.UIData>
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
     public Text lbName;
-    public static readonly TxtLanguage txtName = new TxtLanguage();
+    private static readonly TxtLanguage txtName = new TxtLanguage();
+
+    public Text lbFreeze;
+    private static readonly TxtLanguage txtFreeze = new TxtLanguage();
 
     public Text lbAllowHint;
-    public static readonly TxtLanguage txtAllowHint = new TxtLanguage();
+    private static readonly TxtLanguage txtAllowHint = new TxtLanguage();
 
     static RoomSettingUI()
     {
@@ -163,12 +170,23 @@ public class RoomSettingUI : UIBehavior<RoomSettingUI.UIData>
         {
             txtTitle.add(Language.Type.vi, "Thiết Lập Phòng");
             txtName.add(Language.Type.vi, "Tên");
+            txtFreeze.add(Language.Type.vi, "Đóng băng");
             txtAllowHint.add(Language.Type.vi, "Cho phép gợi ý");
         }
         // rect
         {
-            nameRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-            allowHintRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+            // roomStateRect
+            {
+                // anchoredPosition: (90.0, -105.0); anchorMin: (0.0, 1.0); anchorMax: (0.0, 1.0); 
+                // pivot: (0.0, 1.0); offsetMin: (90.0, -135.0); offsetMax: (210.0, -105.0); sizeDelta: (120.0, 30.0);
+                roomStateRect.anchoredPosition = new Vector3(90.0f, -105.0f, 0.0f);
+                roomStateRect.anchorMin = new Vector2(0.0f, 1.0f);
+                roomStateRect.anchorMax = new Vector2(0.0f, 1.0f);
+                roomStateRect.pivot = new Vector2(0.0f, 1.0f);
+                roomStateRect.offsetMin = new Vector2(90.0f, -135.0f);
+                roomStateRect.offsetMax = new Vector2(210.0f, -105.0f);
+                roomStateRect.sizeDelta = new Vector2(120.0f, 30.0f);
+            }
         }
     }
 
@@ -456,6 +474,10 @@ public class RoomSettingUI : UIBehavior<RoomSettingUI.UIData>
                     {
                         deltaY += UIConstants.ItemHeight;
                     }
+                    // freeze
+                    {
+                        deltaY += UIConstants.ItemHeight;
+                    }
                     // allowHint
                     {
                         deltaY += UIConstants.ItemHeight;
@@ -483,6 +505,14 @@ public class RoomSettingUI : UIBehavior<RoomSettingUI.UIData>
                     {
                         Debug.LogError("lbName null: " + this);
                     }
+                    if (lbFreeze != null)
+                    {
+                        lbFreeze.text = txtFreeze.get("Freeze");
+                    }
+                    else
+                    {
+                        Debug.LogError("lbFreeze null");
+                    }
                     if (lbAllowHint != null)
                     {
                         lbAllowHint.text = txtAllowHint.get("Allow Hint");
@@ -509,12 +539,19 @@ public class RoomSettingUI : UIBehavior<RoomSettingUI.UIData>
 
     #region implement callBacks
 
+    public RoomStateUI roomStatePrefab;
+    private static readonly UIRectTransform roomStateRect = new UIRectTransform();
+
     public RequestChangeStringUI requestStringPrefab;
     public RequestChangeEnumUI requestEnumPrefab;
     public ChangeRightsUI changeRightsPrefab;
 
-    private static readonly UIRectTransform nameRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform allowHintRect = new UIRectTransform(UIConstants.RequestEnumRect);
+    private static readonly UIRectTransform nameRect = new UIRectTransform(UIConstants.RequestEnumRect,
+        UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight +
+        (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+    private static readonly UIRectTransform allowHintRect = new UIRectTransform(UIConstants.RequestEnumRect,
+        UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight +
+        (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
 
     private Server server = null;
 
@@ -529,6 +566,7 @@ public class RoomSettingUI : UIBehavior<RoomSettingUI.UIData>
             {
                 uiData.editRoom.allAddCallBack(this);
                 uiData.name.allAddCallBack(this);
+                uiData.roomStateUIData.allAddCallBack(this);
                 uiData.allowHint.allAddCallBack(this);
                 uiData.changeRights.allAddCallBack(this);
             }
@@ -606,6 +644,16 @@ public class RoomSettingUI : UIBehavior<RoomSettingUI.UIData>
                 dirty = true;
                 return;
             }
+            if (data is RoomStateUI.UIData)
+            {
+                RoomStateUI.UIData roomStateUIData = data as RoomStateUI.UIData;
+                // Child
+                {
+                    UIUtils.Instantiate(roomStateUIData, roomStatePrefab, this.transform, roomStateRect);
+                }
+                dirty = true;
+                return;
+            }
             // allowHint
             if (data is RequestChangeEnumUI.UIData)
             {
@@ -671,6 +719,7 @@ public class RoomSettingUI : UIBehavior<RoomSettingUI.UIData>
             {
                 uiData.editRoom.allRemoveCallBack(this);
                 uiData.name.allRemoveCallBack(this);
+                uiData.roomStateUIData.allRemoveCallBack(this);
                 uiData.allowHint.allRemoveCallBack(this);
                 uiData.changeRights.allRemoveCallBack(this);
             }
@@ -726,6 +775,15 @@ public class RoomSettingUI : UIBehavior<RoomSettingUI.UIData>
                 }
                 return;
             }
+            if (data is RoomStateUI.UIData)
+            {
+                RoomStateUI.UIData roomStateUIData = data as RoomStateUI.UIData;
+                // UI
+                {
+                    roomStateUIData.removeCallBackAndDestroy(typeof(RoomStateUI));
+                }
+                return;
+            }
             // allowHint
             if (data is RequestChangeEnumUI.UIData)
             {
@@ -778,6 +836,12 @@ public class RoomSettingUI : UIBehavior<RoomSettingUI.UIData>
                     }
                     break;
                 case UIData.Property.name:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.roomStateUIData:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
@@ -909,6 +973,10 @@ public class RoomSettingUI : UIBehavior<RoomSettingUI.UIData>
             {
                 return;
             }
+            if (wrapProperty.p is RoomStateUI.UIData)
+            {
+                return;
+            }
             // allowHint
             if (wrapProperty.p is RequestChangeEnumUI.UIData)
             {
@@ -921,7 +989,7 @@ public class RoomSettingUI : UIBehavior<RoomSettingUI.UIData>
                     return;
                 }
                 // Child
-                if(wrapProperty.p is TransformData)
+                if (wrapProperty.p is TransformData)
                 {
                     switch ((TransformData.Property)wrapProperty.n)
                     {

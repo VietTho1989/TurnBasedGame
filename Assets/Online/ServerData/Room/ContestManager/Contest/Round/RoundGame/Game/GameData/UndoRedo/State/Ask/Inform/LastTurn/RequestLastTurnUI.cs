@@ -658,8 +658,6 @@ namespace UndoRedo
 							break;
 						case GameUI.UIData.Property.gameHistoryUIData:
 							break;
-						case GameUI.UIData.Property.dataRecordTaskUIData:
-							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
 							break;

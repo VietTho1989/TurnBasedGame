@@ -1223,6 +1223,7 @@
     <Compile Include="Assets\Main\Online\Client\GlobalView\Profile\UserUI\HumanUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\Profile\UserUI\UserUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\Room\GlobalRoomsUI.cs" />
+    <Compile Include="Assets\Main\Online\Client\GlobalView\Room\RoomList\BtnDelete\RoomAdminBtnDeleteUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\Room\RoomList\CreateRoom\BtnCreateRoomUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\Room\RoomList\CreateRoom\CreateRoom.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\Room\RoomList\CreateRoom\CreateRoomMessage.cs" />
@@ -3122,6 +3123,7 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\Pause\UnPause\BtnPauseUnPauseUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\Perspective\BtnPerspectiveUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\RequestDraw\BtnRequestDrawUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\Save\BtnSaveGameUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\UndoRedo\BtnUndoRedoUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\UseRule\BtnUseRuleUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\BtnHint\Edit\EditHintAIUI.cs" />

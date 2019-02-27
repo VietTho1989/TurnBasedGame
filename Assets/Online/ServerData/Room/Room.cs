@@ -513,6 +513,102 @@ public class Room : Data
 		}
 	}
 
-	#endregion
+    #endregion
+
+    #region end room
+
+    public bool isCanEndRoom(uint userId)
+    {
+        bool isCanEnd = false;
+        {
+            // check is admin
+            bool isServerAdmin = false;
+            {
+                Server server = this.findDataInParent<Server>();
+                if (server != null)
+                {
+                    User user = server.findUser(userId);
+                    if (user != null)
+                    {
+                        if (user.role.v == User.Role.Admin)
+                        {
+                            isServerAdmin = true;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("user null");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("server null");
+                }
+            }
+            // check room not end
+            if (isServerAdmin)
+            {
+                if (this.state.v.getType() != State.Type.End)
+                {
+                    isCanEnd = true;
+                }
+            }
+        }
+        return isCanEnd;
+    }
+
+    public void requestEndRoom(uint userId)
+    {
+        Data.NeedRequest needRequest = this.isNeedRequestServerByNetworkIdentity();
+        if (needRequest.canRequest)
+        {
+            if (!needRequest.needIdentity)
+            {
+                this.endRoom(userId);
+            }
+            else
+            {
+                DataIdentity dataIdentity = null;
+                if (DataIdentity.clientMap.TryGetValue(this, out dataIdentity))
+                {
+                    if (dataIdentity is RoomIdentity)
+                    {
+                        RoomIdentity roomIdentity = dataIdentity as RoomIdentity;
+                        roomIdentity.requestEndRoom(userId);
+                    }
+                    else
+                    {
+                        Debug.LogError("Why isn't correct identity");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("cannot find dataIdentity");
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("You cannot request");
+        }
+    }
+
+    public void endRoom(uint userId)
+    {
+        if (isCanEndRoom(userId))
+        {
+            RoomStateEnd end = new RoomStateEnd();
+            {
+                end.uid = this.state.makeId();
+            }
+            this.state.v = end;
+        }
+        else
+        {
+            Debug.LogError("Cannot end room: " + userId);
+        }
+    }
+
+    #endregion
 
 }

@@ -45,7 +45,7 @@ public class RoomStateEndUI : UIBehavior<RoomStateEndUI.UIData>
 
 	static RoomStateEndUI()
 	{
-		txtMessage.add (Language.Type.vi, "Phòng trạng thái kết thúc");
+		txtMessage.add (Language.Type.vi, "Phòng đã kết thúc");
 	}
 
 	#endregion
@@ -64,7 +64,7 @@ public class RoomStateEndUI : UIBehavior<RoomStateEndUI.UIData>
 				// txt
 				{
 					if (lbMessage != null) {
-						lbMessage.text = txtMessage.get ("Room State End");
+						lbMessage.text = txtMessage.get ("Room Already End");
 					} else {
 						Debug.LogError ("lbMessage null: " + this);
 					}

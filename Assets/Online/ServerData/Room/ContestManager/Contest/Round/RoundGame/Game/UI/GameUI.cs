@@ -69,8 +69,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
 
         public VP<SaveUI.UIData> saveUIData;
 
-        public VP<DataRecordTaskUI.UIData> dataRecordTaskUIData;
-
         #endregion
 
         #region Constructor
@@ -90,8 +88,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
             stateUI,
             gamePlayerList,
             gameActionsUI,
-            saveUIData,
-            dataRecordTaskUIData
+            saveUIData
         }
 
         public UIData() : base()
@@ -113,11 +110,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
             this.gamePlayerList = new VP<GamePlayerListUI.UIData>(this, (byte)Property.gamePlayerList, new GamePlayerListUI.UIData());
             this.gameActionsUI = new VP<GameActionsUI.UIData>(this, (byte)Property.gameActionsUI, new GameActionsUI.UIData());
             this.saveUIData = new VP<SaveUI.UIData>(this, (byte)Property.saveUIData, null);
-            // dataRecordTaskUIData
-            {
-                this.dataRecordTaskUIData = new VP<DataRecordTaskUI.UIData>(this, (byte)Property.dataRecordTaskUIData, new DataRecordTaskUI.UIData());
-                this.dataRecordTaskUIData.v.dataRecordTask.v = new ReferenceData<DataRecordTask>(new DataRecordTask());
-            }
         }
 
         #endregion
@@ -131,19 +123,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
         {
             bool isProcess = false;
             {
-                // dataRecordTaskUIData
-                if (!isProcess)
-                {
-                    DataRecordTaskUI.UIData dataRecordTaskUIData = this.dataRecordTaskUIData.v;
-                    if (dataRecordTaskUIData != null)
-                    {
-                        isProcess = dataRecordTaskUIData.processEvent(e);
-                    }
-                    else
-                    {
-                        Debug.LogError("dataRecordTaskUIData null: " + this);
-                    }
-                }
                 // requestDraw
                 if (!isProcess)
                 {
@@ -209,6 +188,19 @@ public class GameUI : UIBehavior<GameUI.UIData>
                         Debug.LogError("saveUIData null: " + this);
                     }
                 }
+                // bottom
+                if (!isProcess)
+                {
+                    GameBottomUI.UIData gameBottom = this.gameBottom.v;
+                    if (gameBottom != null)
+                    {
+                        isProcess = gameBottom.processEvent(e);
+                    }
+                    else
+                    {
+                        Debug.LogError("gameBottom null");
+                    }
+                }
                 // gameUIData
                 if (!isProcess)
                 {
@@ -234,13 +226,8 @@ public class GameUI : UIBehavior<GameUI.UIData>
 
     #region txt, rect
 
-    public Text tvSave;
-    public static readonly TxtLanguage txtSave = new TxtLanguage();
-
     static GameUI()
     {
-        // txt
-        txtSave.add(Language.Type.vi, "Lưu Lại");
         // rect
         {
             // gameBottomRect
@@ -381,33 +368,25 @@ public class GameUI : UIBehavior<GameUI.UIData>
                             Debug.LogError("gameHistoryUIData null: " + this);
                         }
                     }
-                    // dataRecordTaskUIData
-                    {
-                        DataRecordTaskUI.UIData dataRecordTaskUIData = this.data.dataRecordTaskUIData.v;
-                        if (dataRecordTaskUIData != null)
-                        {
-                            dataRecordTaskUIData.dataRecordTask.v.data.needRecordData.v = new ReferenceData<Data>(game);
-                            dataRecordTaskUIData.saveRecordContainer.v = this.dataRecordSaveContainer;
-                        }
-                        else
-                        {
-                            Debug.LogError("dataRecordTaskUIData null: " + this);
-                        }
-                    }
                     // UI sibling index
                     {
-                        UIRectTransform.SetSiblingIndex(this.data.gameBottom.v, 0);
-                        UIRectTransform.SetSiblingIndex(this.data.gameDataUI.v, 1);
-                    }
-                    // txt
-                    {
-                        if (tvSave != null)
+                        UIRectTransform.SetSiblingIndex(this.data.gamePlayerList.v, 0);
+                        UIRectTransform.SetSiblingIndex(this.data.gameBottom.v, 1);
+                        UIRectTransform.SetSiblingIndex(this.data.gameDataUI.v, 2);
+                        UIRectTransform.SetSiblingIndex(this.data.stateUI.v, 3);
+                        UIRectTransform.SetSiblingIndex(this.data.gameActionsUI.v, 4);
+                        UIRectTransform.SetSiblingIndex(this.data.gameChatRoom.v, 5);
+                        UIRectTransform.SetSiblingIndex(this.data.undoRedoRequestUIData.v, 6);
+                        UIRectTransform.SetSiblingIndex(this.data.requestDraw.v, 7);
+                        UIRectTransform.SetSiblingIndex(this.data.gameHistoryUIData.v, 8);
+                        UIRectTransform.SetSiblingIndex(this.data.saveUIData.v, 9);
+                        if (dataRecordSaveContainer != null)
                         {
-                            tvSave.text = txtSave.get("Save");
+                            dataRecordSaveContainer.SetSiblingIndex(10);
                         }
                         else
                         {
-                            Debug.LogError("tvSave null: " + this);
+                            Debug.LogError("dataRecordSaveContainer null");
                         }
                     }
                 }
@@ -449,19 +428,16 @@ public class GameUI : UIBehavior<GameUI.UIData>
     #endregion
 
     public StateUI stateUIPrefab;
-    public Transform stateUIContainer;
+    private static readonly UIRectTransform stateUIRect = UIConstants.FullParent;
 
     public GamePlayerListUI gamePlayerListPrefab;
-    public Transform gamePlayerListContainer;
 
     public GameActionsUI gameActionsPrefab;
-    public Transform gameActionsContainer;
+    private static readonly UIRectTransform gameActionsRect = UIConstants.FullParent;
 
     public SaveUI saveUIPrefab;
-    public Transform saveUIContainer;
+    private static readonly UIRectTransform saveUIRect = UIRectTransform.CreateCenterRect(360.0f, 400.0f);
 
-    public DataRecordTaskUI dataRecordTaskUIPrefab;
-    public Transform dataRecordTaskUIContainer;
     public Transform dataRecordSaveContainer;
 
     public override void onAddCallBack<T>(T data)
@@ -469,8 +445,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Setting
-            Setting.get().addCallBack(this);
             // Child
             {
                 uiData.game.allAddCallBack(this);
@@ -487,14 +461,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 uiData.gameActionsUI.allAddCallBack(this);
                 uiData.saveUIData.allAddCallBack(this);
                 uiData.gameHistoryUIData.allAddCallBack(this);
-                uiData.dataRecordTaskUIData.allAddCallBack(this);
             }
-            dirty = true;
-            return;
-        }
-        // Setting
-        if (data is Setting)
-        {
             dirty = true;
             return;
         }
@@ -574,7 +541,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 GameActionsUI.UIData gameActionsUIData = data as GameActionsUI.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(gameActionsUIData, gameActionsPrefab, gameActionsContainer);
+                    UIUtils.Instantiate(gameActionsUIData, gameActionsPrefab, this.transform, gameActionsRect);
                 }
                 dirty = true;
                 return;
@@ -584,7 +551,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 StateUI.UIData stateUIData = data as StateUI.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(stateUIData, stateUIPrefab, stateUIContainer);
+                    UIUtils.Instantiate(stateUIData, stateUIPrefab, this.transform, stateUIRect);
                 }
                 dirty = true;
                 return;
@@ -594,7 +561,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 GamePlayerListUI.UIData gamePlayerListUIData = data as GamePlayerListUI.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(gamePlayerListUIData, gamePlayerListPrefab, gamePlayerListContainer);
+                    UIUtils.Instantiate(gamePlayerListUIData, gamePlayerListPrefab, this.transform, UIConstants.FullParent);
                 }
                 dirty = true;
                 return;
@@ -604,7 +571,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 SaveUI.UIData saveUIData = data as SaveUI.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(saveUIData, saveUIPrefab, saveUIContainer);
+                    UIUtils.Instantiate(saveUIData, saveUIPrefab, this.transform, saveUIRect);
                 }
                 dirty = true;
                 return;
@@ -619,16 +586,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 dirty = true;
                 return;
             }
-            if (data is DataRecordTaskUI.UIData)
-            {
-                DataRecordTaskUI.UIData dataRecordTaskUIData = data as DataRecordTaskUI.UIData;
-                // UI
-                {
-                    UIUtils.Instantiate(dataRecordTaskUIData, dataRecordTaskUIPrefab, dataRecordTaskUIContainer);
-                }
-                dirty = true;
-                return;
-            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -638,8 +595,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Setting
-            Setting.get().removeCallBack(this);
             // Child
             {
                 uiData.game.allRemoveCallBack(this);
@@ -656,14 +611,8 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 uiData.gameActionsUI.allRemoveCallBack(this);
                 uiData.saveUIData.allRemoveCallBack(this);
                 uiData.gameHistoryUIData.allRemoveCallBack(this);
-                uiData.dataRecordTaskUIData.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
-            return;
-        }
-        // Setting
-        if (data is Setting)
-        {
             return;
         }
         // Child
@@ -774,15 +723,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 }
                 return;
             }
-            if (data is DataRecordTaskUI.UIData)
-            {
-                DataRecordTaskUI.UIData dataRecordTaskUIData = data as DataRecordTaskUI.UIData;
-                // UI
-                {
-                    dataRecordTaskUIData.removeCallBackAndDestroy(typeof(DataRecordTaskUI));
-                }
-                return;
-            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -865,34 +805,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
                     }
-                    break;
-                case UIData.Property.dataRecordTaskUIData:
-                    {
-                        ValueChangeUtils.replaceCallBack(this, syncs);
-                        dirty = true;
-                    }
-                    break;
-                default:
-                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                    break;
-            }
-            return;
-        }
-        // Setting
-        if (wrapProperty.p is Setting)
-        {
-            switch ((Setting.Property)wrapProperty.n)
-            {
-                case Setting.Property.language:
-                    dirty = true;
-                    break;
-                case Setting.Property.showLastMove:
-                    break;
-                case Setting.Property.viewUrlImage:
-                    break;
-                case Setting.Property.animationSetting:
-                    break;
-                case Setting.Property.maxThinkCount:
                     break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -978,38 +890,10 @@ public class GameUI : UIBehavior<GameUI.UIData>
             {
                 return;
             }
-            if (wrapProperty.p is DataRecordTaskUI.UIData)
-            {
-                return;
-            }
         }
         Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
     }
 
     #endregion
-
-    public void onClickBtnSave()
-    {
-        if (this.data != null)
-        {
-            Game game = this.data.game.v.data;
-            if (game != null)
-            {
-                SaveUI.UIData saveUIData = this.data.saveUIData.newOrOld<SaveUI.UIData>();
-                {
-
-                }
-                this.data.saveUIData.v = saveUIData;
-            }
-            else
-            {
-                Debug.LogError("game null: " + this);
-            }
-        }
-        else
-        {
-            Debug.LogError("data null: " + this);
-        }
-    }
 
 }

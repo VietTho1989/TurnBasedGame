@@ -62,17 +62,20 @@ public class RoomStateNormalNormalUI : UIBehavior<RoomStateNormalNormalUI.UIData
 
 	#region txt
 
-	public static readonly TxtLanguage txtFreezeRoom = new TxtLanguage ();
-	public static readonly TxtLanguage txtCancelFreezeRoom = new TxtLanguage ();
-	public static readonly TxtLanguage txtFreezingRoom = new TxtLanguage ();
-	public static readonly TxtLanguage txtRoomStateNormal = new TxtLanguage();
+	private static readonly TxtLanguage txtFreezeRoom = new TxtLanguage ();
+	private static readonly TxtLanguage txtCancelFreezeRoom = new TxtLanguage ();
+	private static readonly TxtLanguage txtFreezingRoom = new TxtLanguage ();
+	private static readonly TxtLanguage txtRoomStateNormal = new TxtLanguage();
+
+    private static readonly TxtLanguage txtRequestError = new TxtLanguage();
 
 	static RoomStateNormalNormalUI()
 	{
-		txtFreezeRoom.add (Language.Type.vi, "Đóng băng phòng");
-		txtCancelFreezeRoom.add (Language.Type.vi, "Huỷ đóng băng phòng");
-		txtFreezingRoom.add (Language.Type.vi, "Đang đóng băng phòng");
-		txtRoomStateNormal.add (Language.Type.vi, "Phòng trạng thái bình thường");
+		txtFreezeRoom.add (Language.Type.vi, "Đóng băng");
+		txtCancelFreezeRoom.add (Language.Type.vi, "Huỷ đóng băng");
+		txtFreezingRoom.add (Language.Type.vi, "Đang đóng băng");
+		txtRoomStateNormal.add (Language.Type.vi, "Phòng bình thường");
+        txtRequestError.add(Language.Type.vi, "Gửi yêu cầu đóng băng phòng lỗi");
 	}
 
 	#endregion
@@ -197,7 +200,7 @@ public class RoomStateNormalNormalUI : UIBehavior<RoomStateNormalNormalUI.UIData
 		if (this.data != null) {
 			yield return new Wait (Global.WaitSendTime);
 			this.data.state.v = UIData.State.None;
-			Toast.showMessage ("request error");
+            Toast.showMessage(txtRequestError.get("Send request freeze room error"));
 			Debug.LogError ("request error: " + this);
 		} else {
 			Debug.LogError ("data null: " + this);

@@ -44,7 +44,6 @@ namespace Posture
 				{
 					this.gameUIData = new VP<GameUI.UIData>(this, (byte)Property.gameUIData, new GameUI.UIData());
 					this.gameUIData.v.gamePlayerList.v = null;
-					this.gameUIData.v.dataRecordTaskUIData.v = null;
 					this.gameUIData.v.saveUIData.v = null;
 					this.gameUIData.v.requestDraw.v = null;
 					this.gameUIData.v.gameHistoryUIData.v = null;
@@ -669,8 +668,6 @@ namespace Posture
 						case GameUI.UIData.Property.saveUIData:
 							break;
 						case GameUI.UIData.Property.gameHistoryUIData:
-							break;
-						case GameUI.UIData.Property.dataRecordTaskUIData:
 							break;
 						default:
 							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);

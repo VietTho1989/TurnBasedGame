@@ -62,10 +62,12 @@ public class RoomStateNormalFreezeUI : UIBehavior<RoomStateNormalFreezeUI.UIData
 
 	#region txt
 
-	public static readonly TxtLanguage txtUnFreeze = new TxtLanguage ();
-	public static readonly TxtLanguage txtCancelUnFreeze = new TxtLanguage ();
-	public static readonly TxtLanguage txtUnFreezing = new TxtLanguage ();
-	public static readonly TxtLanguage txtStateFreeze = new TxtLanguage ();
+	private static readonly TxtLanguage txtUnFreeze = new TxtLanguage ();
+	private static readonly TxtLanguage txtCancelUnFreeze = new TxtLanguage ();
+	private static readonly TxtLanguage txtUnFreezing = new TxtLanguage ();
+	private static readonly TxtLanguage txtStateFreeze = new TxtLanguage ();
+
+    private static readonly TxtLanguage txtRequestError = new TxtLanguage();
 
 	static RoomStateNormalFreezeUI()
 	{
@@ -73,6 +75,7 @@ public class RoomStateNormalFreezeUI : UIBehavior<RoomStateNormalFreezeUI.UIData
 		txtCancelUnFreeze.add (Language.Type.vi, "Huỷ phá băng");
 		txtUnFreezing.add (Language.Type.vi, "Đang phá băng");
 		txtStateFreeze.add (Language.Type.vi, "Trạng thái đóng băng");
+        txtRequestError.add(Language.Type.vi, "Gửi yêu cầu phá băng lỗi");
 	}
 
 	#endregion
@@ -197,7 +200,7 @@ public class RoomStateNormalFreezeUI : UIBehavior<RoomStateNormalFreezeUI.UIData
 		if (this.data != null) {
 			yield return new Wait (Global.WaitSendTime);
 			this.data.state.v = UIData.State.None;
-			Toast.showMessage ("request error");
+            Toast.showMessage(txtRequestError.get("Send request unfreeze error"));
 			Debug.LogError ("request error: " + this);
 		} else {
 			Debug.LogError ("data null: " + this);

@@ -812,7 +812,21 @@ public class ClientConnectIdentity : NetworkBehaviour
 		Toast.showMessage ("join room error: " + joinRoomState);
 	}
 
-	[Command]
+    [Command]
+    public void CmdRoomEndRoom(uint networkIdentityId, uint userId)
+    {
+        RoomIdentity roomIdentity = GetDataIdentity<RoomIdentity>(networkIdentityId);
+        if (roomIdentity != null)
+        {
+            roomIdentity.endRoom(userId);
+        }
+        else
+        {
+            Debug.LogError("Identity null");
+        }
+    }
+
+    [Command]
 	public void CmdRoomChangeName(uint networkIdentityId, uint userId, string newName)
 	{
         RoomIdentity roomIdentity = GetDataIdentity<RoomIdentity>(networkIdentityId);
