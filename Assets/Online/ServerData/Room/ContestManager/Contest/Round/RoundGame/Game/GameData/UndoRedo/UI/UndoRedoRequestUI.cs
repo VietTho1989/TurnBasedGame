@@ -114,7 +114,6 @@ public class UndoRedoRequestUI : UIBehavior<UndoRedoRequestUI.UIData>
 
     #region Refresh
 
-    private bool needShowAnimation = false;
     public Button btnBack;
 
     public override void refresh()
@@ -127,22 +126,6 @@ public class UndoRedoRequestUI : UIBehavior<UndoRedoRequestUI.UIData>
                 UndoRedoRequest undoRedoRequest = this.data.undoRedoRequest.v.data;
                 if (undoRedoRequest != null)
                 {
-                    // needShowAnimation
-                    {
-                        if (needShowAnimation)
-                        {
-                            needShowAnimation = false;
-                            ShowAnimationUI.UIData showAnimationUIData = this.data.showAnimation.v;
-                            if (showAnimationUIData != null)
-                            {
-                                showAnimationUIData.show();
-                            }
-                            else
-                            {
-                                Debug.LogError("showAnimationUIData null");
-                            }
-                        }
-                    }
                     // state
                     UndoRedoRequest.State state = undoRedoRequest.state.v;
                     if (state != null)
@@ -245,7 +228,6 @@ public class UndoRedoRequestUI : UIBehavior<UndoRedoRequestUI.UIData>
         {
             if (data is UndoRedoRequest)
             {
-                needShowAnimation = true;
                 dirty = true;
                 return;
             }

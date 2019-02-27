@@ -147,8 +147,6 @@ public class GameHistoryUI : UIBehavior<GameHistoryUI.UIData>
     public Button btnView;
     public Text tvView;
 
-    private UIData.Visibility lastVisiblity = UIData.Visibility.Hide;
-
     public override void refresh()
     {
         if (dirty)
@@ -169,22 +167,6 @@ public class GameHistoryUI : UIBehavior<GameHistoryUI.UIData>
                         else
                         {
                             Debug.LogError("contentContainer null");
-                        }
-                        // showAnimation
-                        {
-                            if (lastVisiblity == UIData.Visibility.Hide && this.data.visibility.v == UIData.Visibility.Show)
-                            {
-                                ShowAnimationUI.UIData showAnimationUIData = this.data.showAnimation.v;
-                                if (showAnimationUIData != null)
-                                {
-                                    showAnimationUIData.show();
-                                }
-                                else
-                                {
-                                    Debug.LogError("showAnimationUIData null");
-                                }
-                            }
-                            lastVisiblity = this.data.visibility.v;
                         }
                     }
                     // btnView, tvView

@@ -243,9 +243,21 @@ public class BtnRequestDrawUI : UIBehavior<BtnRequestDrawUI.UIData>
                 {
                     RequestDrawUI.UIData requestDrawUIData = gameUIData.requestDraw.newOrOld<RequestDrawUI.UIData>();
                     {
-                        // requestDrawUIData.requestDraw.v = new ReferenceData<RequestDraw>(requestDraw);
+
                     }
                     gameUIData.requestDraw.v = requestDrawUIData;
+                    // showAnimation
+                    {
+                        ShowAnimationUI.UIData showAnimationUIData = requestDrawUIData.showAnimation.v;
+                        if (showAnimationUIData != null)
+                        {
+                            showAnimationUIData.show();
+                        }
+                        else
+                        {
+                            Debug.LogError("showAnimationUIData null");
+                        }
+                    }
                 }
                 else
                 {

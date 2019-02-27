@@ -142,11 +142,26 @@ public class ShowAnimationUI : UIBehavior<ShowAnimationUI.UIData>
 
         public void show()
         {
-            ShowAnimationUI.Show show = this.state.newOrOld<ShowAnimationUI.Show>();
+            if(!(this.state.v is Show))
             {
-
+                ShowAnimationUI.Show show = new Show();
+                {
+                    show.uid = this.state.makeId();
+                }
+                this.state.v = show;
+                // set hide position
+                {
+                    ShowAnimationUI showAnimationUI = this.findCallBack<ShowAnimationUI>();
+                    if (showAnimationUI != null)
+                    {
+                        showAnimationUI.setHidePosition();
+                    }
+                    else
+                    {
+                        Debug.LogError("showAnimationUI null");
+                    }
+                }
             }
-            this.state.v = show;
         }
 
         public void hide()
@@ -413,5 +428,10 @@ public class ShowAnimationUI : UIBehavior<ShowAnimationUI.UIData>
     }
 
     #endregion
+
+    private void setHidePosition()
+    {
+        UIRectTransform.SetPosY((RectTransform)this.transform, float.MinValue);
+    }
 
 }

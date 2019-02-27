@@ -35,25 +35,6 @@ namespace GameManager.Match
 
             #endregion
 
-            #region showAnimation
-
-            public VP<ShowAnimationUI.UIData> showAnimation;
-
-            public void OnHide()
-            {
-                EditLobbyPlayerUI editLobbyPlayerUI = this.findCallBack<EditLobbyPlayerUI>();
-                if (editLobbyPlayerUI != null)
-                {
-                    editLobbyPlayerUI.back();
-                }
-                else
-                {
-                    Debug.LogError("editLobbyPlayerUI null");
-                }
-            }
-
-            #endregion
-
             #region Constructor
 
             public enum Property
@@ -61,8 +42,7 @@ namespace GameManager.Match
                 lobbyPlayer,
                 avatar,
                 btnReady,
-                sub,
-                showAnimation
+                sub
             }
 
             public UIData() : base()
@@ -71,11 +51,6 @@ namespace GameManager.Match
                 this.avatar = new VP<InformAvatarUI.UIData>(this, (byte)Property.avatar, new InformAvatarUI.UIData());
                 this.btnReady = new VP<LobbyPlayerBtnSetReady.UIData>(this, (byte)Property.btnReady, new LobbyPlayerBtnSetReady.UIData());
                 this.sub = new VP<Sub>(this, (byte)Property.sub, null);
-                // showAnimation
-                {
-                    this.showAnimation = new VP<ShowAnimationUI.UIData>(this, (byte)Property.showAnimation, new ShowAnimationUI.UIData());
-                    this.showAnimation.v.onHide.v = OnHide;
-                }
             }
 
             #endregion
@@ -102,17 +77,16 @@ namespace GameManager.Match
                     {
                         if (InputEvent.isBackEvent(e))
                         {
-                            /*EditLobbyPlayerUI editLobbyPlayerUI = this.findCallBack<EditLobbyPlayerUI>();
+                            EditLobbyPlayerUI editLobbyPlayerUI = this.findCallBack<EditLobbyPlayerUI>();
                             if (editLobbyPlayerUI != null)
                             {
                                 editLobbyPlayerUI.onClickBtnBack();
+                                isProcess = true;
                             }
                             else
                             {
                                 Debug.LogError("editLobbyPlayerUI null: " + this);
-                            }*/
-                            OnHide();
-                            isProcess = true;
+                            }
                         }
                     }
                 }
@@ -184,7 +158,6 @@ namespace GameManager.Match
         #endregion
 
         public Text tvPlayerName;
-        private bool needShowAnimation = false;
 
         public override void refresh()
         {
@@ -193,26 +166,6 @@ namespace GameManager.Match
                 dirty = false;
                 if (this.data != null)
                 {
-                    // needShowAnimation
-                    {
-                        if (needShowAnimation)
-                        {
-                            needShowAnimation = false;
-                            ShowAnimationUI.UIData showAnimationUIData = this.data.showAnimation.v;
-                            if (showAnimationUIData != null)
-                            {
-                                ShowAnimationUI.Show show = new ShowAnimationUI.Show();
-                                {
-                                    show.uid = showAnimationUIData.state.makeId();
-                                }
-                                showAnimationUIData.state.v = show;
-                            }
-                            else
-                            {
-                                Debug.LogError("showAnimationUIData null");
-                            }
-                        }
-                    }
                     LobbyPlayer lobbyPlayer = this.data.lobbyPlayer.v.data;
                     if (lobbyPlayer != null)
                     {
@@ -426,8 +379,6 @@ namespace GameManager.Match
         private LobbyTeam lobbyTeam = null;
         private ContestManagerStateLobby contestManagerStateLobby = null;
 
-        public ShowAnimationUI showAnimationUI;
-
         public override void onAddCallBack<T>(T data)
         {
             if (data is UIData)
@@ -441,7 +392,6 @@ namespace GameManager.Match
                     uiData.avatar.allAddCallBack(this);
                     uiData.btnReady.allAddCallBack(this);
                     uiData.sub.allAddCallBack(this);
-                    uiData.showAnimation.allAddCallBack(this);
                 }
                 dirty = true;
                 return;
@@ -473,7 +423,6 @@ namespace GameManager.Match
                         {
                             lobbyPlayer.inform.allAddCallBack(this);
                         }
-                        needShowAnimation = true;
                         dirty = true;
                         return;
                     }
@@ -578,23 +527,6 @@ namespace GameManager.Match
                     dirty = true;
                     return;
                 }
-                if(data is ShowAnimationUI.UIData)
-                {
-                    ShowAnimationUI.UIData showAnimationUIData = data as ShowAnimationUI.UIData;
-                    // UI
-                    {
-                        if (showAnimationUI != null)
-                        {
-                            showAnimationUI.setData(showAnimationUIData);
-                        }
-                        else
-                        {
-                            Debug.LogError("showAnimationUI null");
-                        }
-                    }
-                    dirty = true;
-                    return;
-                }
             }
             Debug.LogError("Don't process: " + data + "; " + this);
         }
@@ -612,7 +544,6 @@ namespace GameManager.Match
                     uiData.avatar.allRemoveCallBack(this);
                     uiData.btnReady.allRemoveCallBack(this);
                     uiData.sub.allRemoveCallBack(this);
-                    uiData.showAnimation.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
                 return;
@@ -738,22 +669,6 @@ namespace GameManager.Match
                     }
                     return;
                 }
-                if (data is ShowAnimationUI.UIData)
-                {
-                    ShowAnimationUI.UIData showAnimationUIData = data as ShowAnimationUI.UIData;
-                    // UI
-                    {
-                        if (showAnimationUI != null)
-                        {
-                            showAnimationUI.setDataNull(showAnimationUIData);
-                        }
-                        else
-                        {
-                            Debug.LogError("showAnimationUI null");
-                        }
-                    }
-                    return;
-                }
             }
             Debug.LogError("Don't process: " + data + "; " + this);
         }
@@ -787,12 +702,6 @@ namespace GameManager.Match
                         }
                         break;
                     case UIData.Property.sub:
-                        {
-                            ValueChangeUtils.replaceCallBack(this, syncs);
-                            dirty = true;
-                        }
-                        break;
-                    case UIData.Property.showAnimation:
                         {
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
@@ -989,56 +898,13 @@ namespace GameManager.Match
                 {
                     return;
                 }
-                if (wrapProperty.p is ShowAnimationUI.UIData)
-                {
-                    return;
-                }
             }
             Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
         }
 
         #endregion
 
-        public void onClickBtnHide()
-        {
-            if (this.data != null)
-            {
-                if (showAnimationUI != null)
-                {
-                    ShowAnimationUI.UIData showAnimationUIData = this.data.showAnimation.v;
-                    if (showAnimationUIData != null)
-                    {
-                        if ((showAnimationUIData.state.v is ShowAnimationUI.Normal))
-                        {
-                            ShowAnimationUI.Hide hide = new ShowAnimationUI.Hide();
-                            {
-                                hide.uid = showAnimationUIData.state.makeId();
-                            }
-                            showAnimationUIData.state.v = hide;
-                        }
-                        else
-                        {
-                            Debug.LogError("state error: " + showAnimationUIData.state.v);
-                        }
-                    }
-                    else
-                    {
-                        Debug.LogError("showAnimationUIData null");
-                    }
-                }
-                else
-                {
-                    Debug.LogError("showAnimationUI null");
-                    back();
-                }
-            }
-            else
-            {
-                Debug.LogError("data null");
-            }
-        }
-
-        public void back()
+        public void onClickBtnBack()
         {
             if (this.data != null)
             {
@@ -1054,7 +920,7 @@ namespace GameManager.Match
             }
             else
             {
-                Debug.LogError("data null: " + this);
+                Debug.LogError("data null");
             }
         }
 

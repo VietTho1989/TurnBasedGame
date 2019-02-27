@@ -184,6 +184,18 @@ public class BtnGameChatUI : UIBehavior<BtnGameChatUI.UIData>
 
                 }
                 gameUIData.gameChatRoom.v = gameChatRoomUIData;
+                // showAnimationUI
+                {
+                    ShowAnimationUI.UIData showAnimationUIData = gameChatRoomUIData.showAnimation.v;
+                    if (showAnimationUIData != null)
+                    {
+                        showAnimationUIData.show();
+                    }
+                    else
+                    {
+                        Debug.LogError("showAnimationUIData null");
+                    }
+                }
             }
             else
             {

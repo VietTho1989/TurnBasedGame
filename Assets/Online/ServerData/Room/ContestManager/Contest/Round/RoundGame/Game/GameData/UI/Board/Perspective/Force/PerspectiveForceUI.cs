@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class PerspectiveForceUI : UIBehavior<PerspectiveForceUI.UIData>
+public class PerspectiveForceUI : UIBehavior<PerspectiveForceUI.UIData>, HaveTransformData
 {
 
 	#region UIData
@@ -32,27 +32,56 @@ public class PerspectiveForceUI : UIBehavior<PerspectiveForceUI.UIData>
 			return Perspective.Sub.Type.Force;
 		}
 
-	}
+        public override bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                
+            }
+            return isProcess;
+        }
 
-	#endregion
+    }
 
-	#region Refresh
+    #endregion
 
-	#region txt
+    #region txt
 
-	public Text tvChange;
-	public static readonly TxtLanguage txtChange = new TxtLanguage();
+    public Text lbTitle;
+    private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-	public Text tvAuto;
-	public static readonly TxtLanguage txtAuto = new TxtLanguage();
+    public Text tvChange;
+    private static readonly TxtLanguage txtChange = new TxtLanguage();
 
-	static PerspectiveForceUI()
-	{
-		txtChange.add (Language.Type.vi, "Thay Đổi");
-		txtAuto.add (Language.Type.vi, "Tự Động");
-	}
+    public Text tvAuto;
+    private static readonly TxtLanguage txtAuto = new TxtLanguage();
 
-	#endregion
+    static PerspectiveForceUI()
+    {
+        txtTitle.add(Language.Type.vi, "Người chơi chọn góc nhìn");
+        txtChange.add(Language.Type.vi, "Thay Đổi");
+        txtAuto.add(Language.Type.vi, "Tự Động");
+    }
+
+    #endregion
+
+    #region TransformData
+
+    public TransformData transformData = new TransformData();
+
+    private void updateTransformData()
+    {
+        this.transformData.update(this.transform);
+    }
+
+    public TransformData getTransformData()
+    {
+        return this.transformData;
+    }
+
+    #endregion
+
+    #region Refresh
 
 	public override void refresh ()
 	{
@@ -61,7 +90,15 @@ public class PerspectiveForceUI : UIBehavior<PerspectiveForceUI.UIData>
 			if (this.data != null) {
 				// txt
 				{
-					if (tvChange != null) {
+                    if (lbTitle != null)
+                    {
+                        lbTitle.text = txtTitle.get("Player choose perspective");
+                    }
+                    else
+                    {
+                        Debug.LogError("lbTitle null");
+                    }
+                    if (tvChange != null) {
 						tvChange.text = txtChange.get ("Change");
 					} else {
 						Debug.LogError ("tvChange null: " + this);
@@ -76,6 +113,7 @@ public class PerspectiveForceUI : UIBehavior<PerspectiveForceUI.UIData>
 				Debug.LogError ("data null: " + this);
 			}
 		}
+        updateTransformData();
 	}
 
 	public override bool isShouldDisableUpdate ()

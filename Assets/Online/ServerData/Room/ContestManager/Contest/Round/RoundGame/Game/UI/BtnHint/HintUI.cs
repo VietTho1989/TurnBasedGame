@@ -172,8 +172,6 @@ namespace Hint
         public Toggle tgAutoHint;
         public Transform contentContainer;
 
-        private UIData.Visibility lastVisiblity = UIData.Visibility.Hide;
-
         public override void refresh()
         {
             if (dirty)
@@ -195,22 +193,6 @@ namespace Hint
                         if (this.data.visibility.v == UIData.Visibility.Hide)
                         {
                             this.data.editHintAIUIData.v = null;
-                        }
-                        // showAnimation
-                        {
-                            if(lastVisiblity== UIData.Visibility.Hide && this.data.visibility.v == UIData.Visibility.Show)
-                            {
-                                ShowAnimationUI.UIData showAnimationUIData = this.data.showAnimation.v;
-                                if (showAnimationUIData != null)
-                                {
-                                    showAnimationUIData.show();
-                                }
-                                else
-                                {
-                                    Debug.LogError("showAnimationUIData null");
-                                }
-                            }
-                            lastVisiblity = this.data.visibility.v;
                         }
                     }
                     // tgAutoHint

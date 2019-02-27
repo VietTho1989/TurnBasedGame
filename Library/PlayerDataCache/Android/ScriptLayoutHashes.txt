@@ -61,7 +61,7 @@ d2031487a08b6ae877993d2fb26144b0 Assembly-CSharp.dll:.AnimationSettingUI
 9a5c5adeccf0f620a6c374e09a8d5ded Assembly-CSharp.dll:.LoadingUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:GameManager.Match.Elimination.EliminationContentUpdate
 8e2741a711d2ff163fa3f29a69336db5 Assembly-CSharp.dll:Khet.LaserPathUI
-f815bddf1160dbefc32ad8fac82ceedc Assembly-CSharp.dll:GameManager.Match.EditLobbyPlayerUI
+71adf1e6d5f66bfabae9f14ef7232a76 Assembly-CSharp.dll:GameManager.Match.EditLobbyPlayerUI
 8040afa76fd57848a8b76c039fb1eb51 Assembly-CSharp.dll:frame8.ScrollRectItemsAdapter.Util.Drawer.ScrollToPanel
 efee04fd7a8b900e85d693e88d5b5f35 Assembly-CSharp.dll:UnityEngine.UI.Extensions.ColorPicker.ColorPickerControl
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.GameObjectUtils
@@ -351,8 +351,6 @@ a984e8e7ea5b6a4a4e27034c454b593e Assembly-CSharp.dll:.FriendIdentity
 eff2dbf2caf4685a8ef4d5f6eb335b11 Assembly-CSharp.dll:GameManager.Match.RoundRobin.RoundRobinContentUI
 1ca8bb4370f6e5a9db863f4094ae97d9 Assembly-CSharp.dll:Posture.ChoosePostureAdapter
 2d271b6977bc9adac1a930a9a6feb32a Assembly-CSharp.dll:.BtnPauseNormalUI
-71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Advertisements.dll:UnityEngine.Advertisements.CallbackExecutor
-71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Advertisements.dll:UnityEngine.Advertisements.Editor.Placeholder
 a4333e8183c1f3930f4fa366401d01ab Assembly-CSharp.dll:Makruk.PieceUI
 3d61c8a163424f446e6258982e17b1b6 Assembly-CSharp.dll:HEX.LastMoveUI
 ad82f9de04db4f363e190d52b3ec0acd Assembly-CSharp.dll:Seirawan.DefaultSeirawanUI
@@ -1442,7 +1440,7 @@ f20308ed9e33eebe76d97218e1d2418f Assembly-CSharp.dll:RussianDraught.NoneRule.Rus
 0092f3e4999a01dc1a2bea5acaf4e2fc Assembly-CSharp.dll:FairyChess.HandPieceUI
 1951ea544a111687fd17dbd0a0cc2ed6 Assembly-CSharp.dll:Chess.ChessFenUI
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:GameManager.Match.Elimination.EliminationFactoryIdentity
-9d7030f4078ba41005bc86e017e55a58 Assembly-CSharp.dll:.GameChatRoomUI
+6abb56e01a341674cc6007a37325dd0e Assembly-CSharp.dll:.GameChatRoomUI
 8c2ff35080def768950e6802d16c33d2 Assembly-CSharp.dll:GameManager.Match.RoundRobin.RequestNewRoundRobinAskBtnCancelUI
 ea31e728173a3edaae15cfec4d820098 Assembly-CSharp.dll:Seirawan.SeirawanSpriteContainer
 785d5c6973067de2bb7103471b6a6118 Assembly-CSharp.dll:Janggi.JanggiMoveAnimationIdentity

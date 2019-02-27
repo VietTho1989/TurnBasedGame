@@ -3120,6 +3120,7 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\Pause\Normal\BtnPauseNormalUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\Pause\Pause\BtnPausePauseUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\Pause\UnPause\BtnPauseUnPauseUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\Perspective\BtnPerspectiveUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\RequestDraw\BtnRequestDrawUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\UndoRedo\BtnUndoRedoUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\UseRule\BtnUseRuleUI.cs" />

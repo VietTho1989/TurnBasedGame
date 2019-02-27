@@ -187,6 +187,18 @@ public class BtnHintUI : UIBehavior<BtnHintUI.UIData>
                     if (hintUIData != null)
                     {
                         hintUIData.visibility.v = HintUI.UIData.Visibility.Show;
+                        // showAnimation
+                        {
+                            ShowAnimationUI.UIData showAnimationUIData = hintUIData.showAnimation.v;
+                            if (showAnimationUIData != null)
+                            {
+                                showAnimationUIData.show();
+                            }
+                            else
+                            {
+                                Debug.LogError("showAnimationUIData null");
+                            }
+                        }
                     }
                     else
                     {

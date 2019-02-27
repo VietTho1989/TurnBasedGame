@@ -131,7 +131,6 @@ public class RequestChangeUseRuleUI : UIBehavior<RequestChangeUseRuleUI.UIData>
 
     public Toggle tgUseRule;
 
-    private bool needShowAnimation = false;
     public Button btnBack;
 
     public override void refresh()
@@ -144,22 +143,6 @@ public class RequestChangeUseRuleUI : UIBehavior<RequestChangeUseRuleUI.UIData>
                 RequestChangeUseRule requestChangeUseRule = this.data.requestChangeUseRule.v.data;
                 if (requestChangeUseRule != null)
                 {
-                    // needShowAnimation
-                    {
-                        if (needShowAnimation)
-                        {
-                            needShowAnimation = false;
-                            ShowAnimationUI.UIData showAnimationUIData = this.data.showAnimation.v;
-                            if (showAnimationUIData != null)
-                            {
-                                showAnimationUIData.show();
-                            }
-                            else
-                            {
-                                Debug.LogError("showAnimationUIData null");
-                            }
-                        }
-                    }
                     // tgUseRule
                     {
                         if (tgUseRule != null)
@@ -341,7 +324,6 @@ public class RequestChangeUseRuleUI : UIBehavior<RequestChangeUseRuleUI.UIData>
                     {
                         DataUtils.addParentCallBack(requestChangeUseRule, this, ref this.gameData);
                     }
-                    needShowAnimation = true;
                     dirty = true;
                     return;
                 }

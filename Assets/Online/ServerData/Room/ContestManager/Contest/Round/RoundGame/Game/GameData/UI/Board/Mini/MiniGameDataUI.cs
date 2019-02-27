@@ -28,7 +28,7 @@ public class MiniGameDataUI : UIBehavior<MiniGameDataUI.UIData>
 			{
 				GameDataBoardUI.UIData board = new GameDataBoardUI.UIData();
 				{
-					board.perspectiveUIData.v = null;
+					
 				}
 				this.board = new VP<GameDataBoardUI.UIData>(this, (byte)Property.board, board);
 			}

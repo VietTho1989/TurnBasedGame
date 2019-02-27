@@ -238,9 +238,21 @@ public class BtnUndoRedoUI : UIBehavior<BtnUndoRedoUI.UIData>
                 {
                     UndoRedoRequestUI.UIData undoRedoRequestUIData = gameUIData.undoRedoRequestUIData.newOrOld<UndoRedoRequestUI.UIData>();
                     {
-                        // undoRedoRequestUIData.undoRedoRequest.v = new ReferenceData<UndoRedoRequest>(game.undoRedoRequest.v);
+
                     }
                     gameUIData.undoRedoRequestUIData.v = undoRedoRequestUIData;
+                    // showAnimationUI
+                    {
+                        ShowAnimationUI.UIData showAnimationUIData = undoRedoRequestUIData.showAnimation.v;
+                        if (showAnimationUIData != null)
+                        {
+                            showAnimationUIData.show();
+                        }
+                        else
+                        {
+                            Debug.LogError("showAnimationUIData null");
+                        }
+                    }
                 }
                 else
                 {

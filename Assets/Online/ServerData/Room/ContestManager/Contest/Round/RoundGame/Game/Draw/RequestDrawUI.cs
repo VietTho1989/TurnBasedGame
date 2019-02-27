@@ -113,8 +113,6 @@ public class RequestDrawUI : UIBehavior<RequestDrawUI.UIData>
 
     #region Refresh
 
-    private bool needShowAnimation = false;
-
     public Button btnBack;
 
     public override void refresh()
@@ -127,22 +125,6 @@ public class RequestDrawUI : UIBehavior<RequestDrawUI.UIData>
                 RequestDraw requestDraw = this.data.requestDraw.v.data;
                 if (requestDraw != null)
                 {
-                    // needShowAnimation
-                    {
-                        if (needShowAnimation)
-                        {
-                            needShowAnimation = false;
-                            ShowAnimationUI.UIData showAnimationUIData = this.data.showAnimation.v;
-                            if (showAnimationUIData != null)
-                            {
-                                showAnimationUIData.show();
-                            }
-                            else
-                            {
-                                Debug.LogError("showAnimationUIData null");
-                            }
-                        }
-                    }
                     // stateUI
                     {
                         RequestDraw.State state = requestDraw.state.v;
@@ -271,7 +253,6 @@ public class RequestDrawUI : UIBehavior<RequestDrawUI.UIData>
         {
             if (data is RequestDraw)
             {
-                needShowAnimation = true;
                 dirty = true;
                 return;
             }

@@ -239,6 +239,18 @@ public class BtnUseRuleUI : UIBehavior<BtnUseRuleUI.UIData>
 
                     }
                     gameDataUIData.requestChangeUseRule.v = requestChangeUseRuleUIData;
+                    // showAnimationUI
+                    {
+                        ShowAnimationUI.UIData showAnimationUIData = requestChangeUseRuleUIData.showAnimation.v;
+                        if (showAnimationUIData != null)
+                        {
+                            showAnimationUIData.show();
+                        }
+                        else
+                        {
+                            Debug.LogError("showAnimationUIData null");
+                        }
+                    }
                 }
                 else
                 {

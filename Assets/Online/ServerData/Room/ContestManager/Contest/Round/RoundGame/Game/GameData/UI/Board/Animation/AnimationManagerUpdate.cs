@@ -707,8 +707,6 @@ public class AnimationManagerUpdate : UpdateBehavior<AnimationManager>
                             break;
                         case GameDataBoardUI.UIData.Property.perspective:
                             break;
-                        case GameDataBoardUI.UIData.Property.perspectiveUIData:
-                            break;
                         default:
                             Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                             break;

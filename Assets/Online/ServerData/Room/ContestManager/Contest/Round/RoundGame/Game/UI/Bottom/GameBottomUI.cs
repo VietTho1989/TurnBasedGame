@@ -31,6 +31,8 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
 
         public VP<BtnHistoryUI.UIData> btnHistory;
 
+        public VP<BtnPerspectiveUI.UIData> btnPerspective;
+
         #region Constructor
 
         public enum Property
@@ -43,7 +45,8 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
             btnPause,
             btnShowSwap,
             btnUseRule,
-            btnHistory
+            btnHistory,
+            btnPerspective
         }
 
         public UIData() : base()
@@ -57,6 +60,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
             this.btnShowSwap = new VP<BtnShowSwapUI.UIData>(this, (byte)Property.btnShowSwap, new BtnShowSwapUI.UIData());
             this.btnUseRule = new VP<BtnUseRuleUI.UIData>(this, (byte)Property.btnUseRule, new BtnUseRuleUI.UIData());
             this.btnHistory = new VP<BtnHistoryUI.UIData>(this, (byte)Property.btnHistory, new BtnHistoryUI.UIData());
+            this.btnPerspective = new VP<BtnPerspectiveUI.UIData>(this, (byte)Property.btnPerspective, new BtnPerspectiveUI.UIData());
         }
 
         #endregion
@@ -204,6 +208,47 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                             Debug.LogError("btnHistory null");
                         }
                     }
+                    // btnPerspective
+                    {
+                        BtnPerspectiveUI.UIData btnPerspective = this.data.btnPerspective.v;
+                        if (btnPerspective != null)
+                        {
+                            // find perspective
+                            Perspective perspective = null;
+                            {
+                                GameUI.UIData gameUIData = this.data.findDataInParent<GameUI.UIData>();
+                                if (gameUIData != null)
+                                {
+                                    GameDataUI.UIData gameDataUIData = gameUIData.gameDataUI.v;
+                                    if (gameDataUIData != null)
+                                    {
+                                        GameDataBoardUI.UIData gameDataBoardUIData = gameDataUIData.board.v;
+                                        if (gameDataBoardUIData != null)
+                                        {
+                                            perspective = gameDataBoardUIData.perspective.v;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("gameDataBoardUIData null");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("gameDataUIData null");
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("gameUIData null");
+                                }
+                            }
+                            btnPerspective.perspective.v = new ReferenceData<Perspective>(perspective);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnPerspective null");
+                        }
+                    }
                 }
                 else
                 {
@@ -250,16 +295,22 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
     public BtnShowSwapUI btnShowSwapPrefab;
     public BtnUseRuleUI btnUseRulePrefab;
     public BtnHistoryUI btnHistoryPrefab;
+    public BtnPerspectiveUI btnPerspectivePrefab;
 
     public Transform contentContainer;
 
     private ContestManagerStatePlay contestManagerStatePlay = null;
+    private GameUI.UIData gameUIData = null;
 
     public override void onAddCallBack<T>(T data)
     {
         if(data is UIData)
         {
             UIData uiData = data as UIData;
+            // Parent
+            {
+                DataUtils.addParentCallBack(uiData, this, ref this.gameUIData);
+            }
             // Child
             {
                 uiData.game.allAddCallBack(this);
@@ -271,9 +322,42 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 uiData.btnShowSwap.allAddCallBack(this);
                 uiData.btnUseRule.allAddCallBack(this);
                 uiData.btnHistory.allAddCallBack(this);
+                uiData.btnPerspective.allAddCallBack(this);
             }
             dirty = true;
             return;
+        }
+        // Parent
+        {
+            if(data is GameUI.UIData)
+            {
+                GameUI.UIData gameUIData = data as GameUI.UIData;
+                // Child
+                {
+                    gameUIData.gameDataUI.allAddCallBack(this);
+                }
+                dirty = true;
+                return;
+            }
+            // Child
+            {
+                if(data is GameDataUI.UIData)
+                {
+                    GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
+                    // Child
+                    {
+                        gameDataUIData.board.allAddCallBack(this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                if(data is GameDataBoardUI.UIData)
+                {
+                    dirty = true;
+                    return;
+                }
+            }
         }
         // Child
         {
@@ -386,6 +470,16 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 dirty = true;
                 return;
             }
+            if(data is BtnPerspectiveUI.UIData)
+            {
+                BtnPerspectiveUI.UIData btnPerspectiveUIData = data as BtnPerspectiveUI.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(btnPerspectiveUIData, btnPerspectivePrefab, contentContainer, CreateBtnRect(8));
+                }
+                dirty = true;
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -395,6 +489,10 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Parent
+            {
+                DataUtils.removeParentCallBack(uiData, this, ref this.gameUIData);
+            }
             // Child
             {
                 uiData.game.allRemoveCallBack(this);
@@ -406,9 +504,39 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 uiData.btnShowSwap.allRemoveCallBack(this);
                 uiData.btnUseRule.allRemoveCallBack(this);
                 uiData.btnHistory.allRemoveCallBack(this);
+                uiData.btnPerspective.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
             return;
+        }
+        // Parent
+        {
+            if (data is GameUI.UIData)
+            {
+                GameUI.UIData gameUIData = data as GameUI.UIData;
+                // Child
+                {
+                    gameUIData.gameDataUI.allRemoveCallBack(this);
+                }
+                return;
+            }
+            // Child
+            {
+                if (data is GameDataUI.UIData)
+                {
+                    GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
+                    // Child
+                    {
+                        gameDataUIData.board.allRemoveCallBack(this);
+                    }
+                    return;
+                }
+                // Child
+                if (data is GameDataBoardUI.UIData)
+                {
+                    return;
+                }
+            }
         }
         // Child
         {
@@ -510,6 +638,15 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 }
                 return;
             }
+            if(data is BtnPerspectiveUI.UIData)
+            {
+                BtnPerspectiveUI.UIData btnPerspectiveUIData = data as BtnPerspectiveUI.UIData;
+                // UI
+                {
+                    btnPerspectiveUIData.removeCallBackAndDestroy(typeof(BtnPerspectiveUI));
+                }
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -578,11 +715,109 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                         dirty = true;
                     }
                     break;
+                case UIData.Property.btnPerspective:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
             return;
+        }
+        // Parent
+        {
+            if (wrapProperty.p is GameUI.UIData)
+            {
+                switch ((GameUI.UIData.Property)wrapProperty.n)
+                {
+                    case GameUI.UIData.Property.game:
+                        break;
+                    case GameUI.UIData.Property.isReplay:
+                        break;
+                    case GameUI.UIData.Property.gameDataUI:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case GameUI.UIData.Property.gameBottom:
+                        break;
+                    case GameUI.UIData.Property.undoRedoRequestUIData:
+                        break;
+                    case GameUI.UIData.Property.requestDraw:
+                        break;
+                    case GameUI.UIData.Property.gameChatRoom:
+                        break;
+                    case GameUI.UIData.Property.gameHistoryUIData:
+                        break;
+                    case GameUI.UIData.Property.stateUI:
+                        break;
+                    case GameUI.UIData.Property.gamePlayerList:
+                        break;
+                    case GameUI.UIData.Property.gameActionsUI:
+                        break;
+                    case GameUI.UIData.Property.saveUIData:
+                        break;
+                    case GameUI.UIData.Property.dataRecordTaskUIData:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            {
+                if (wrapProperty.p is GameDataUI.UIData)
+                {
+                    switch ((GameDataUI.UIData.Property)wrapProperty.n)
+                    {
+                        case GameDataUI.UIData.Property.gameData:
+                            break;
+                        case GameDataUI.UIData.Property.board:
+                            {
+                                ValueChangeUtils.replaceCallBack(this, syncs);
+                                dirty = true;
+                            }
+                            break;
+                        case GameDataUI.UIData.Property.allowLastMove:
+                            break;
+                        case GameDataUI.UIData.Property.hintUI:
+                            break;
+                        case GameDataUI.UIData.Property.allowInput:
+                            break;
+                        case GameDataUI.UIData.Property.requestChangeUseRule:
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+                // Child
+                if (wrapProperty.p is GameDataBoardUI.UIData)
+                {
+                    switch ((GameDataBoardUI.UIData.Property)wrapProperty.n)
+                    {
+                        case GameDataBoardUI.UIData.Property.gameData:
+                            break;
+                        case GameDataBoardUI.UIData.Property.animationManager:
+                            break;
+                        case GameDataBoardUI.UIData.Property.sub:
+                            break;
+                        case GameDataBoardUI.UIData.Property.perspective:
+                            dirty = true;
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+            }
         }
         // Child
         {
@@ -708,6 +943,10 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 return;
             }
             if (wrapProperty.p is BtnUseRuleUI.UIData)
+            {
+                return;
+            }
+            if(wrapProperty.p is BtnPerspectiveUI.UIData)
             {
                 return;
             }

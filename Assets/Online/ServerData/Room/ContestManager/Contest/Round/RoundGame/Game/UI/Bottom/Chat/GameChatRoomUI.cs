@@ -46,7 +46,11 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
         public UIData() : base()
         {
             this.chatRoom = new VP<ReferenceData<ChatRoom>>(this, (byte)Property.chatRoom, new ReferenceData<ChatRoom>(null));
-            this.chatRoomUIData = new VP<ChatRoomUI.UIData>(this, (byte)Property.chatRoomUIData, new ChatRoomUI.UIData());
+            // chatRoomUIData
+            {
+                this.chatRoomUIData = new VP<ChatRoomUI.UIData>(this, (byte)Property.chatRoomUIData, new ChatRoomUI.UIData());
+                this.chatRoomUIData.v.needHeader.v = false;
+            }
             // showAnimation
             {
                 this.showAnimation = new VP<ShowAnimationUI.UIData>(this, (byte)Property.showAnimation, new ShowAnimationUI.UIData());
@@ -98,9 +102,19 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
 
     #endregion
 
-    #region Refresh
+    #region txt
 
-    private bool needShowAnimation = false;
+    public Text lbTitle;
+    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+
+    static GameChatRoomUI()
+    {
+        txtTitle.add(Language.Type.vi, "Thông Báo");
+    }
+
+    #endregion
+
+    #region Refresh
 
     public Button btnBack;
 
@@ -114,26 +128,6 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
                 ChatRoom chatRoom = this.data.chatRoom.v.data;
                 if (chatRoom != null)
                 {
-                    // needShowAnimation
-                    {
-                        if (needShowAnimation)
-                        {
-                            needShowAnimation = false;
-                            ShowAnimationUI.UIData showAnimationUIData = this.data.showAnimation.v;
-                            if (showAnimationUIData != null)
-                            {
-                                ShowAnimationUI.Show show = new ShowAnimationUI.Show();
-                                {
-                                    show.uid = showAnimationUIData.state.makeId();
-                                }
-                                showAnimationUIData.state.v = show;
-                            }
-                            else
-                            {
-                                Debug.LogError("showAnimationUIData null");
-                            }
-                        }
-                    }
                     // chatRoomUIData
                     {
                         ChatRoomUI.UIData chatRoomUIData = this.data.chatRoomUIData.v;
@@ -156,6 +150,17 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
                         else
                         {
                             Debug.LogError("btnBack null");
+                        }
+                    }
+                    // txt
+                    {
+                        if (lbTitle != null)
+                        {
+                            lbTitle.text = txtTitle.get("Game Messages");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null");
                         }
                     }
                 }
@@ -181,7 +186,7 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
     #region implement callBacks
 
     public ChatRoomUI chatRoomPrefab;
-    private static readonly UIRectTransform chatRoomRect = UIRectTransform.CreateFullRect(0, 0, 0, 0);
+    private static readonly UIRectTransform chatRoomRect = UIRectTransform.CreateFullRect(0, 0, UIConstants.HeaderHeight, 0);
 
     public ShowAnimationUI showAnimationUI;
 
@@ -190,6 +195,8 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
         if(data is UIData)
         {
             UIData uiData = data as UIData;
+            // Setting
+            Setting.get().addCallBack(this);
             // Child
             {
                 uiData.chatRoom.allAddCallBack(this);
@@ -199,11 +206,16 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
             dirty = true;
             return;
         }
+        // Setting
+        if(data is Setting)
+        {
+            dirty = true;
+            return;
+        }
         // Child
         {
             if(data is ChatRoom)
             {
-                needShowAnimation = true;
                 dirty = true;
                 return;
             }
@@ -243,6 +255,8 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Setting
+            Setting.get().removeCallBack(this);
             // Child
             {
                 uiData.chatRoom.allRemoveCallBack(this);
@@ -250,6 +264,11 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
                 uiData.showAnimation.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
+            return;
+        }
+        // Setting
+        if(data is Setting)
+        {
             return;
         }
         // Child
@@ -314,6 +333,30 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
                     }
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Setting
+        if(wrapProperty.p is Setting)
+        {
+            switch ((Setting.Property)wrapProperty.n)
+            {
+                case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.showLastMove:
+                    break;
+                case Setting.Property.viewUrlImage:
+                    break;
+                case Setting.Property.animationSetting:
+                    break;
+                case Setting.Property.maxThinkCount:
                     break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

@@ -379,6 +379,18 @@ public class BtnHistoryUI : UIBehavior<BtnHistoryUI.UIData>
                        
                     }
                     gameUIData.gameHistoryUIData.v = gameHistoryUIData;
+                    // showAnimation
+                    {
+                        ShowAnimationUI.UIData showAnimationUI = gameHistoryUIData.showAnimation.v;
+                        if (showAnimationUI != null)
+                        {
+                            showAnimationUI.show();
+                        }
+                        else
+                        {
+                            Debug.LogError("showAnimationUI null");
+                        }
+                    }
                     // show
                     {
                         // find alreadyLoad
