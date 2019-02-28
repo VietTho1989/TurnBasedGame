@@ -115,7 +115,7 @@ namespace FileSystem
                             }
                         }
                     } else {
-                        Debug.LogError("dir null: " + this);
+                        // Debug.LogError("dir null: " + this);
                     }
                 } else {
                     // Debug.LogError ("data null: " + this);

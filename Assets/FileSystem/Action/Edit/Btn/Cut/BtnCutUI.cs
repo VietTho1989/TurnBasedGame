@@ -66,14 +66,14 @@ namespace FileSystem
 
 		static BtnCutUI()
 		{
-			txtCannotCutNotSelect.add (Language.Type.vi, "Không thể cắt, không chọn");
+			txtCannotCutNotSelect.add (Language.Type.vi, "Cắt");
 			txtCut.add(Language.Type.vi, "Cắt");
-			txtAlreadySelectCutCancel.add(Language.Type.vi, "Đã chọn cắt, huỷ?");
+			txtAlreadySelectCutCancel.add(Language.Type.vi, "Huỷ chọn cắt");
 			txtCutting.add(Language.Type.vi, "Đang cắt");
 
 			txtCuttingFile.add(Language.Type.vi, "Đang cắt");
 			txtCancel.add(Language.Type.vi, "huỷ");
-			txtCuttingCancel.add(Language.Type.vi, "Đang cắt, huỷ?");
+			txtCuttingCancel.add(Language.Type.vi, "Huỷ cắt");
 
 			txtCutSuccess.add(Language.Type.vi, "Cắt thành công");
 
@@ -81,7 +81,7 @@ namespace FileSystem
 			txtFail.add(Language.Type.vi, "thất bại");
 			txtCutFail.add(Language.Type.vi, "Cắt thất bại");
 
-			txtCannotCutDoingOtherAction.add(Language.Type.vi, "Không thể cắt, đang làm hành động khác");
+			txtCannotCutDoingOtherAction.add(Language.Type.vi, "Không thể cắt");
 		}
 
 		#endregion
@@ -105,7 +105,7 @@ namespace FileSystem
 										ActionNone actionNone = action as ActionNone;
 										if (actionNone.selectFiles.vs.Count == 0) {
 											btnCut.interactable = false;
-											tvCut.text = txtCannotCutNotSelect.get ("Cannot cut, not select");
+											tvCut.text = txtCannotCutNotSelect.get ("Cut");
 										} else {
 											switch (actionNone.state.v) {
 											case ActionNone.State.None:
@@ -117,7 +117,7 @@ namespace FileSystem
 											case ActionNone.State.Cut:
 												{
 													btnCut.interactable = true;
-													tvCut.text = txtAlreadySelectCutCancel.get ("Already Select Cut, Cancel?");
+													tvCut.text = txtAlreadySelectCutCancel.get ("Cancel select cut");
 												}
 												break;
 											case ActionNone.State.Copy:
@@ -173,7 +173,7 @@ namespace FileSystem
 																	}
 																	tvCut.text = txtCuttingFile.get ("Cutting") + " " + file.Name + " (" + percent + "), " + txtCancel.get ("cancel") + "?";
 																} else {
-																	tvCut.text = txtCuttingCancel.get ("Cutting, cancel?");
+																	tvCut.text = txtCuttingCancel.get ("Cancel cutting");
 																}
 															}
 														}
@@ -215,7 +215,7 @@ namespace FileSystem
 											}
 										} else {
 											btnCut.interactable = false;
-											tvCut.text = txtCannotCutDoingOtherAction.get ("Cannot cut, doing other action");
+											tvCut.text = txtCannotCutDoingOtherAction.get ("Cannot cut");
 										}
 									}
 									break;

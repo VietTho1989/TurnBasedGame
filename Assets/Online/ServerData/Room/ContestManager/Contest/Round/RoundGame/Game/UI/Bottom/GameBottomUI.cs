@@ -353,7 +353,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
 
     #region implement callBacks
 
-    private static UIRectTransform CreateBtnRect(int index)
+    public static UIRectTransform CreateBtnRect(int index)
     {
         UIRectTransform uiRectTransform = new UIRectTransform();
         {

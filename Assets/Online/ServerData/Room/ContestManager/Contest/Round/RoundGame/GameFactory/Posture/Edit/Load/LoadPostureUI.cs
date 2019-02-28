@@ -559,8 +559,6 @@ namespace Posture
 								dirty = true;
 							}
 							break;
-						case FileSystemBrowserUI.UIData.Property.actionUIData:
-							break;
 						case FileSystemBrowserUI.UIData.Property.showUIData:
 							break;
 						case FileSystemBrowserUI.UIData.Property.btnDelete:

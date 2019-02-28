@@ -65,7 +65,7 @@ namespace FileSystem
 		static BtnRenameFileUI()
 		{
 			txtRename.add (Language.Type.vi, "Đổi Tên");
-			txtCannotRename.add (Language.Type.vi, "Không thể đổi tên, không chọn");
+			txtCannotRename.add (Language.Type.vi, "Đổi Tên");
 		}
 
 		#endregion
@@ -107,7 +107,7 @@ namespace FileSystem
 								tvRename.text = txtRename.get ("Rename");
 							} else {
 								btnRename.interactable = false;
-								tvRename.text = txtCannotRename.get ("Cannot rename, not select");
+								tvRename.text = txtCannotRename.get ("Rename");
 							}
 						} else {
 							Debug.LogError ("btnRename, tvRename null: " + this);

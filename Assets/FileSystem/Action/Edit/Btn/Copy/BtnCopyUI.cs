@@ -66,22 +66,22 @@ namespace FileSystem
 
 		static BtnCopyUI()
 		{
-			txtCannotCopyNotSelect.add (Language.Type.vi, "Không thể sao chép, không chọn");
+			txtCannotCopyNotSelect.add (Language.Type.vi, "Sao Chép");
 			txtCopy.add (Language.Type.vi, "Sao Chép");
-			txtAlreadySelectCopyCancel.add (Language.Type.vi, "Đã chon sao chép, huỷ?");
-			txtCopying.add (Language.Type.vi, "Đang sao chép");
-			txtCancelCopy.add (Language.Type.vi, "Đang sao chép, huỷ?");
+			txtAlreadySelectCopyCancel.add (Language.Type.vi, "Huỷ chọn chép");
+			txtCopying.add (Language.Type.vi, "Đang chép");
+			txtCancelCopy.add (Language.Type.vi, "Huỷ chép?");
 
-			txtCopyingFile.add (Language.Type.vi, "Đang sao chép");
+			txtCopyingFile.add (Language.Type.vi, "Đang chép");
 			txtCancel.add (Language.Type.vi, "huỷ");
 
-			txtCopySuccess.add (Language.Type.vi, "Sao chép thành công");
-			txtCopyFail.add (Language.Type.vi, "Sao chép thất bại");
+			txtCopySuccess.add (Language.Type.vi, "Chép thành công");
+			txtCopyFail.add (Language.Type.vi, "Chép thất bại");
 
 			txtCopyFile.add (Language.Type.vi, "Sao chép");
 			txtFail.add (Language.Type.vi, "thất bại");
 
-			txtCannotCopyOtherAction.add (Language.Type.vi, "Không thể sao chép, đang thực hiện hành động khác");
+			txtCannotCopyOtherAction.add (Language.Type.vi, "Không thể chép");
 		}
 
 		#endregion
@@ -105,7 +105,7 @@ namespace FileSystem
 										ActionNone actionNone = action as ActionNone;
 										if (actionNone.selectFiles.vs.Count == 0) {
 											btnCopy.interactable = false;
-											tvCopy.text = txtCannotCopyNotSelect.get ("Cannot copy, not select");
+											tvCopy.text = txtCannotCopyNotSelect.get ("Copy");
 										} else {
 											switch (actionNone.state.v) {
 											case ActionNone.State.None:
@@ -123,7 +123,7 @@ namespace FileSystem
 											case ActionNone.State.Copy:
 												{
 													btnCopy.interactable = true;
-													tvCopy.text = txtAlreadySelectCopyCancel.get ("Already Select Copy, Cancel?");
+													tvCopy.text = txtAlreadySelectCopyCancel.get ("Cancel copy");
 												}
 												break;
 											default:
@@ -215,7 +215,7 @@ namespace FileSystem
 											}
 										} else {
 											btnCopy.interactable = false;
-											tvCopy.text = txtCannotCopyOtherAction.get ("Cannot copy, doing other action");
+											tvCopy.text = txtCannotCopyOtherAction.get ("Can't copy");
 										}
 									}
 									break;

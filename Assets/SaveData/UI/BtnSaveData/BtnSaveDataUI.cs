@@ -58,13 +58,15 @@ public class BtnSaveDataUI : UIBehavior<BtnSaveDataUI.UIData>
 
 	#region txt
 
-	public static readonly TxtLanguage txtSave = new TxtLanguage();
-	public static readonly TxtLanguage txtSaving = new TxtLanguage();
+	private static readonly TxtLanguage txtSave = new TxtLanguage();
+	private static readonly TxtLanguage txtSaving = new TxtLanguage();
+    private static readonly TxtLanguage txtNoFileName = new TxtLanguage();
 
 	static BtnSaveDataUI()
 	{
 		txtSave.add (Language.Type.vi, "Lưu Dữ Liệu");
 		txtSaving.add (Language.Type.vi, "Đang lưu dữ liệu...");
+        txtNoFileName.add(Language.Type.vi, "Chưa đặt tên file");
 	}
 
 	#endregion
@@ -369,6 +371,7 @@ public class BtnSaveDataUI : UIBehavior<BtnSaveDataUI.UIData>
 											}
 										} else {
 											Debug.LogError ("fileName null: " + this);
+                                            Toast.showMessage(txtNoFileName.get("File name empty"));
 										}
 									} else {
 										Debug.LogError ("edtName null: " + this);

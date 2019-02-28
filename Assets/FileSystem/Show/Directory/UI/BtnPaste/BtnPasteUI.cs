@@ -44,7 +44,7 @@ namespace FileSystem
 		static BtnPasteUI()
 		{
 			txtPaste.add (Language.Type.vi, "Dán");
-			txtCannotPaste.add (Language.Type.vi, "Không thể dán");
+			txtCannotPaste.add (Language.Type.vi, "Dán");
 		}
 
 		#endregion
@@ -100,7 +100,7 @@ namespace FileSystem
 									tvPaste.text = txtPaste.get ("Paste");
 								} else {
 									btnPaste.interactable = false;
-									tvPaste.text = txtCannotPaste.get ("Cannot paste");
+									tvPaste.text = txtCannotPaste.get ("Paste");
 								}
 							}
 						} else {

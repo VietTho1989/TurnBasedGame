@@ -203,9 +203,51 @@ namespace Record
 
 		static ViewRecordControllerUI()
 		{
-			txtSpeed.add (Language.Type.vi, "Tốc Độ");
-			txtTime.add (Language.Type.vi, "Thời Gian");
-		}
+            // txt
+            {
+                txtSpeed.add(Language.Type.vi, "Tốc Độ");
+                txtTime.add(Language.Type.vi, "Thời Gian");
+            }
+            // rect
+            {
+                // requestSpeedRect
+                {
+                    // anchoredPosition: (-138.0, 0.0); anchorMin: (0.0, 0.0); anchorMax: (1.0, 1.0); pivot: (0.5, 0.5);
+                    // offsetMin: (60.0, 0.0); offsetMax: (-336.0, 0.0); sizeDelta: (-396.0, 0.0);
+                    requestSpeedRect.anchoredPosition = new Vector3(-138.0f, 0.0f, 0.0f);
+                    requestSpeedRect.anchorMin = new Vector2(0.0f, 0.0f);
+                    requestSpeedRect.anchorMax = new Vector2(1.0f, 1.0f);
+                    requestSpeedRect.pivot = new Vector2(0.5f, 0.5f);
+                    requestSpeedRect.offsetMin = new Vector2(60.0f, 0.0f);
+                    requestSpeedRect.offsetMax = new Vector2(-336.0f, 0.0f);
+                    requestSpeedRect.sizeDelta = new Vector2(-396.0f, 0.0f);
+                }
+                // timeRect
+                {
+                    // anchoredPosition: (52.0, 0.0); anchorMin: (0.0, 0.0); anchorMax: (1.0, 1.0); pivot: (0.5, 0.5);
+                    // offsetMin: (204.0, 0.0); offsetMax: (-100.0, 0.0); sizeDelta: (-304.0, 0.0);
+                    timeRect.anchoredPosition = new Vector3(52.0f, 0.0f);
+                    timeRect.anchorMin = new Vector2(0.0f, 0.0f);
+                    timeRect.anchorMax = new Vector2(1.0f, 1.0f);
+                    timeRect.pivot = new Vector2(0.5f, 0.5f);
+                    timeRect.offsetMin = new Vector2(204.0f, 0.0f);
+                    timeRect.offsetMax = new Vector2(-100.0f, 0.0f);
+                    timeRect.sizeDelta = new Vector2(-304.0f, 0.0f);
+                }
+                // stateUIRect
+                {
+                    // anchoredPosition: (0.0, 0.0); anchorMin: (1.0, 0.0); anchorMax: (1.0, 1.0); pivot: (1.0, 0.5);
+                    // offsetMin: (-100.0, 0.0); offsetMax: (0.0, 0.0); sizeDelta: (100.0, 0.0);
+                    stateUIRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                    stateUIRect.anchorMin = new Vector2(1.0f, 0.0f);
+                    stateUIRect.anchorMax = new Vector2(1.0f, 1.0f);
+                    stateUIRect.pivot = new Vector2(1.0f, 0.5f);
+                    stateUIRect.offsetMin = new Vector2(-100.0f, 0.0f);
+                    stateUIRect.offsetMax = new Vector2(0.0f, 0.0f);
+                    stateUIRect.sizeDelta = new Vector2(100.0f, 0.0f);
+                }
+            }
+        }
 
 		#endregion
 
@@ -388,12 +430,12 @@ namespace Record
 
 		public RequestChangeFloatUI requestFloatPrefab;
 
-		public Transform requestSpeedContainer;
-		public Transform timeContainer;
+        private static readonly UIRectTransform requestSpeedRect = new UIRectTransform();
+        private static readonly UIRectTransform timeRect = new UIRectTransform();
 
 		public ViewRecordControllerStatePlayUI playPrefab;
 		public ViewRecordControllerStatePickUI pickPrefab;
-		public Transform stateUIContainer;
+        private static readonly UIRectTransform stateUIRect = new UIRectTransform();
 
 		public override void onAddCallBack<T> (T data)
 		{
@@ -452,13 +494,13 @@ namespace Record
 						case UIData.State.Type.Play:
 							{
 								ViewRecordControllerStatePlayUI.UIData playUIData = stateUIData as ViewRecordControllerStatePlayUI.UIData;
-								UIUtils.Instantiate (playUIData, playPrefab, stateUIContainer);
+								UIUtils.Instantiate (playUIData, playPrefab, this.transform, stateUIRect);
 							}
 							break;
 						case UIData.State.Type.Pick:
 							{
 								ViewRecordControllerStatePickUI.UIData pickUIData = stateUIData as ViewRecordControllerStatePickUI.UIData;
-								UIUtils.Instantiate (pickUIData, pickPrefab, stateUIContainer);
+								UIUtils.Instantiate (pickUIData, pickPrefab, this.transform, stateUIRect);
 							}
 							break;
 						default:
@@ -478,10 +520,10 @@ namespace Record
 						if (wrapProperty != null) {
 							switch ((UIData.Property)wrapProperty.n) {
 							case UIData.Property.requestSpeed:
-								UIUtils.Instantiate (requestChange, requestFloatPrefab, requestSpeedContainer);
+								UIUtils.Instantiate (requestChange, requestFloatPrefab, this.transform, requestSpeedRect);
 								break;
 							case UIData.Property.time:
-								UIUtils.Instantiate (requestChange, requestFloatPrefab, timeContainer);
+								UIUtils.Instantiate (requestChange, requestFloatPrefab, this.transform, timeRect);
 								break;
 							default:
 								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);

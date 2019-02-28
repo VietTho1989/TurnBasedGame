@@ -97,6 +97,8 @@ namespace FileSystem
 
 		public GameObject noDirs;
 
+        private bool firstInit = false;
+
 		public override void refresh ()
 		{
 			if (dirty) {
@@ -175,18 +177,31 @@ namespace FileSystem
 									Debug.LogError ("noDirs null: " + this);
 								}
 							}
-						} else {
+                            // firstInit
+                            {
+                                if (firstInit)
+                                {
+                                    firstInit = false;
+                                    // Debug.LogError("firstScroll: " + dirs.Count);
+                                    // this.SmoothScrollTo(dirs.Count - 1, 0.3f, 0, 0f, null, true);
+                                    // StartCoroutine(TaskScrollToBottom(dirs.Count));
+                                }
+                            }
+                            // txt
+                            {
+                                if (tvNoDirs != null)
+                                {
+                                    tvNoDirs.text = txtNoDirs.get("Don't have any directories");
+                                }
+                                else
+                                {
+                                    Debug.LogError("tvNoDirs null: " + this);
+                                }
+                            }
+                        } else {
 							Debug.LogError ("server null: " + this);
 						}
-						// txt
-						{
-							if (tvNoDirs != null) {
-								tvNoDirs.text = txtNoDirs.get ("Don't have any directories");
-							} else {
-								Debug.LogError ("tvNoDirs null: " + this);
-							}
-						}
-					} else {
+                    } else {
 						Debug.LogError ("data null: " + this);
 					}
 				} else {
@@ -197,14 +212,36 @@ namespace FileSystem
 
 		public override bool isShouldDisableUpdate ()
 		{
-			return true;
+			return false;
 		}
 
-		#endregion
+        #endregion
 
-		#region implement callBacks
+        public IEnumerator TaskScrollToBottom(int dirCount)
+        {
+            yield return new WaitForSeconds(0.3f);
+            if (this.data != null)
+            {
+                int index = dirCount - 1;
+                if (index > 0)
+                {
+                    // this.SmoothScrollTo(index, 0.3f, 1, 1f, null, true);
+                    this.ScrollTo (index, 1f, 1f);
+                }
+                else
+                {
+                    Debug.LogError("Don't have anything to scroll: " + index);
+                }
+            }
+            else
+            {
+                Debug.LogError ("data null: " + this);
+            }
+        }
 
-		public override void onAddCallBack<T> (T data)
+        #region implement callBacks
+
+        public override void onAddCallBack<T> (T data)
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
@@ -232,6 +269,7 @@ namespace FileSystem
 						Debug.LogError ("data null: " + this);
 					}
 				}
+                firstInit = true;
 				dirty = true;
 				return;
 			}

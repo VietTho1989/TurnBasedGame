@@ -34,6 +34,8 @@ public class ToastMessageUI : UIBehavior<ToastMessageUI.UIData>
 	public GameObject toastMessageContainer;
 	public Text tvMessage;
 
+    public WrapContent wrapContent;
+
 	public override void refresh ()
 	{
 		if (dirty) {
@@ -65,7 +67,19 @@ public class ToastMessageUI : UIBehavior<ToastMessageUI.UIData>
 				} else {
 					// Debug.LogError ("toastMessage null: " + this);
 				}
-			} else {
+                // wrapContent
+                {
+                    if (wrapContent != null)
+                    {
+                        wrapContent.dirty = true;
+                        wrapContent.refresh();
+                    }
+                    else
+                    {
+                        Debug.LogError("wrapContent null");
+                    }
+                }
+            } else {
 				// Debug.LogError ("data null: " + this);
 			}
 		}

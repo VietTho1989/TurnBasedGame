@@ -252,4 +252,5 @@ public class ChatRoomAdapterAutoSscrollToBottom : UpdateBehavior<ChatRoomAdapter
             // Debug.LogError ("data null: " + this);
         }
     }
+
 }

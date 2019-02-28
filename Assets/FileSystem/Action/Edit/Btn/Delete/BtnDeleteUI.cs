@@ -78,8 +78,8 @@ namespace FileSystem
 		static BtnDeleteUI()
 		{
 			txtDelete.add (Language.Type.vi, "Xoá");
-			txtCannotDeleteNotSelect.add (Language.Type.vi, "Không thể xoá, không chọn");
-			txtDeleting.add (Language.Type.vi, "Đang xoá...");
+			txtCannotDeleteNotSelect.add (Language.Type.vi, "Xoá");
+			txtDeleting.add (Language.Type.vi, "Đang xoá");
 
 			txtDeletingFile.add (Language.Type.vi, "Đang xoá");
 			txtCancel.add (Language.Type.vi, "huỷ");
@@ -91,7 +91,7 @@ namespace FileSystem
 			txtFail.add (Language.Type.vi, "thất bại");
 			txtDeleteFail.add (Language.Type.vi, "Xoá thất bại");
 
-			txtCannotDeleteDoingOtherAction.add (Language.Type.vi, "Không thể xoá, đang làm hành động khác");
+			txtCannotDeleteDoingOtherAction.add (Language.Type.vi, "Không thể xoá");
 		}
 
 		#endregion
@@ -118,7 +118,7 @@ namespace FileSystem
 											tvDelete.text = txtDelete.get ("Delete");
 										} else {
 											btnDelete.interactable = false;
-											tvDelete.text = txtCannotDeleteNotSelect.get ("Cannot delete, not select");
+											tvDelete.text = txtCannotDeleteNotSelect.get ("Delete");
 										}
 									}
 									break;
@@ -132,7 +132,7 @@ namespace FileSystem
 												case ActionEdit.State.Type.Start:
 													{
 														btnDelete.interactable = false;
-														tvDelete.text = txtDeleting.get ("Deleting...");
+														tvDelete.text = txtDeleting.get ("Deleting");
 													}
 													break;
 												case ActionEdit.State.Type.Process:
@@ -204,7 +204,7 @@ namespace FileSystem
 											}
 										} else {
 											btnDelete.interactable = false;
-											tvDelete.text = txtCannotDeleteDoingOtherAction.get ("Cannot delete, doing other action");
+											tvDelete.text = txtCannotDeleteDoingOtherAction.get ("Cannot delete");
 										}
 									}
 									break;

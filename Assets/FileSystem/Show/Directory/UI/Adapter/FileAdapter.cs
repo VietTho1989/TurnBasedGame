@@ -96,23 +96,39 @@ namespace FileSystem
 			newOrRecycled.updateView (_Params);
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text tvNoFiles;
+        public static readonly TxtLanguage txtNoFiles = new TxtLanguage();
 
-		public Text tvNoFiles;
-		public static readonly TxtLanguage txtNoFiles = new TxtLanguage();
+        static FileAdapter()
+        {
+            // txt
+            txtNoFiles.add(Language.Type.vi, "Không có file nào cả");
+            // rect
+            {
+                // sortDataRect
+                {
+                    // anchoredPosition: (0.0, 0.0); anchorMin: (1.0, 1.0); anchorMax: (1.0, 1.0); pivot: (1.0, 1.0);
+                    // offsetMin: (-120.0, -30.0); offsetMax: (0.0, 0.0); sizeDelta: (120.0, 30.0);
+                    sortDataRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                    sortDataRect.anchorMin = new Vector2(1.0f, 1.0f);
+                    sortDataRect.anchorMax = new Vector2(1.0f, 1.0f);
+                    sortDataRect.pivot = new Vector2(1.0f, 1.0f);
+                    sortDataRect.offsetMin = new Vector2(-120.0f, -30.0f);
+                    sortDataRect.offsetMax = new Vector2(0.0f, 0.0f);
+                    sortDataRect.sizeDelta = new Vector2(120.0f, 30.0f);
+                }
+            }
+        }
 
-		static FileAdapter()
-		{
-			txtNoFiles.add (Language.Type.vi, "Không có file nào cả");
-		}
+        #endregion
 
-		#endregion
+        #region Refresh
 
-		public GameObject noFiles;
+        public GameObject noFiles;
 
 		public override void refresh ()
 		{
@@ -298,7 +314,7 @@ namespace FileSystem
 		#region implement callBacks
 
 		public SortDataUI sortDataPrefab;
-		public Transform sortDataContainer;
+        private static readonly UIRectTransform sortDataRect = new UIRectTransform();
 
 		public override void onAddCallBack<T> (T data)
 		{
@@ -339,7 +355,7 @@ namespace FileSystem
 						SortDataUI.UIData sortDataUIData = data as SortDataUI.UIData;
 						// UI
 						{
-							UIUtils.Instantiate (sortDataUIData, sortDataPrefab, sortDataContainer);
+                            UIUtils.Instantiate(sortDataUIData, sortDataPrefab, this.transform, sortDataRect);
 						}
 						// Child
 						{
