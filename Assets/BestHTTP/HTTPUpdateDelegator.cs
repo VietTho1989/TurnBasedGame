@@ -76,8 +76,12 @@ namespace BestHTTP
                         UnityEditor.EditorApplication.update += Instance.Update;
                     }
 
+#pragma warning disable CS0618 // Type or member is obsolete
                     UnityEditor.EditorApplication.playmodeStateChanged -= Instance.OnPlayModeStateChanged;
+#pragma warning restore CS0618 // Type or member is obsolete
+#pragma warning disable CS0618 // Type or member is obsolete
                     UnityEditor.EditorApplication.playmodeStateChanged += Instance.OnPlayModeStateChanged;
+#pragma warning restore CS0618 // Type or member is obsolete
 #endif
                 }
             }

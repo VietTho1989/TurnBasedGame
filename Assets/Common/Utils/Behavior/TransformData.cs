@@ -4,11 +4,18 @@ using System.Collections;
 public class TransformData : Data
 {
 
-    public VP<Vector3> position;
+    public VP<Vector3> anchoredPosition;
+
+    public VP<Vector2> anchorMin;// Vector2(0.5f, 0.5f);
+    public VP<Vector2> anchorMax;// Vector2(0.5f, 0.5f);
+    public VP<Vector2> pivot;// Vector2(0.5f, 0.5f);
+
+    public VP<Vector2> offsetMin;// Vector2.zero;
+    public VP<Vector2> offsetMax;// Vector2.zero;
+    public VP<Vector2> sizeDelta;
 
     public VP<Quaternion> rotation;
-
-    public VP<Vector3> scale;
+    public VP<Vector3> scale;// Vector3(1, 1, 1);
 
     public VP<Vector2> size;
 
@@ -16,7 +23,13 @@ public class TransformData : Data
 
     public enum Property
     {
-        position,
+        anchoredPosition,
+        anchorMin,
+        anchorMax,
+        pivot,
+        offsetMin,
+        offsetMax,
+        sizeDelta,
         rotation,
         scale,
         size
@@ -24,9 +37,16 @@ public class TransformData : Data
 
     public TransformData() : base()
     {
-        this.position = new VP<Vector3>(this, (byte)Property.position, new Vector3());
+        this.anchoredPosition = new VP<Vector3>(this, (byte)Property.anchoredPosition, Vector3.zero);
+        this.anchorMin = new VP<Vector2>(this, (byte)Property.anchorMin, new Vector2(0.5f, 0.5f));
+        this.anchorMax = new VP<Vector2>(this, (byte)Property.anchorMax, new Vector2(0.5f, 0.5f));
+        this.pivot = new VP<Vector2>(this, (byte)Property.pivot, new Vector2(0.5f, 0.5f));
+        this.offsetMin = new VP<Vector2>(this, (byte)Property.offsetMin, Vector2.zero);
+        this.offsetMax = new VP<Vector2>(this, (byte)Property.offsetMax, Vector2.zero);
+        this.sizeDelta = new VP<Vector2>(this, (byte)Property.sizeDelta, Vector2.zero);
         this.rotation = new VP<Quaternion>(this, (byte)Property.rotation, new Quaternion());
-        this.scale = new VP<Vector3>(this, (byte)Property.scale, new Vector3());
+        this.scale = new VP<Vector3>(this, (byte)Property.scale, new Vector3(1.0f, 1.0f, 1.0f));
+
         this.size = new VP<Vector2>(this, (byte)Property.size, new Vector2());
     }
 
@@ -34,21 +54,27 @@ public class TransformData : Data
 
     public void update(Transform transform)
     {
-        this.position.v = transform.localPosition;
-        this.rotation.v = transform.localRotation;
-        this.scale.v = transform.localScale;
-        // Size
+        if (transform is RectTransform)
         {
-            if (transform is RectTransform)
+            RectTransform rectTransform = transform as RectTransform;
             {
-                RectTransform rectTransform = transform as RectTransform;
-                this.size.v = new Vector2(rectTransform.rect.width, rectTransform.rect.height);
+                this.anchoredPosition.v = rectTransform.anchoredPosition;
+                this.anchorMin.v = rectTransform.anchorMin;
+                this.anchorMax.v = rectTransform.anchorMax;
+                this.pivot.v = rectTransform.pivot;
+                this.offsetMin.v = rectTransform.offsetMin;
+                this.offsetMax.v = rectTransform.offsetMax;
+                this.sizeDelta.v = rectTransform.sizeDelta;
+                this.rotation.v = rectTransform.localRotation;
+                this.scale.v = rectTransform.localScale;
             }
-            else
-            {
-                Debug.LogError("why not rectTransform: " + this);
-                this.size.v = new Vector2(0, 0);
-            }
+            // size
+            this.size.v = new Vector2(rectTransform.rect.width, rectTransform.rect.height);
+        }
+        else
+        {
+            Debug.LogError("why not rectTransform: " + this);
+            this.size.v = new Vector2(0, 0);
         }
     }
 

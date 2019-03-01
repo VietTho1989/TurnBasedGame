@@ -278,23 +278,7 @@ namespace HEX
 				// Child
 				{
 					if (wrapProperty.p is TransformData) {
-						switch ((TransformData.Property)wrapProperty.n) {
-						case TransformData.Property.position:
-							dirty = true;
-							break;
-						case TransformData.Property.rotation:
-							dirty = true;
-							break;
-						case TransformData.Property.scale:
-							dirty = true;
-							break;
-						case TransformData.Property.size:
-							dirty = true;
-							break;
-						default:
-							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-							break;
-						}
+                        dirty = true;
 						return;
 					}
 					if (wrapProperty.p is BoardUI.UIData) {

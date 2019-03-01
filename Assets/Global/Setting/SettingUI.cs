@@ -6,38 +6,44 @@ using System.Collections.Generic;
 public class SettingUI : UIBehavior<SettingUI.UIData>
 {
 
-	#region UIData
+    #region UIData
 
-	public class UIData : Data
-	{
+    public class UIData : Data
+    {
 
-		public VP<EditData<Setting>> editSetting;
+        public VP<EditData<Setting>> editSetting;
 
         public VP<UIRectTransform.ShowType> showType;
 
-		#region language
+        #region language
 
-		public VP<RequestChangeEnumUI.UIData> language;
+        public VP<RequestChangeEnumUI.UIData> language;
 
-		public void makeRequestChangeLanguage (RequestChangeUpdate<int>.UpdateData update, int newLanguage)
-		{
-			// Find
-			Setting setting = null;
-			{
-				EditData<Setting> editSetting = this.editSetting.v;
-				if (editSetting != null) {
-					setting = editSetting.show.v.data;
-				} else {
-					Debug.LogError ("editSetting null: " + this);
-				}
-			}
-			// Process
-			if (setting != null) {
-				setting.language.v = Language.GetSupportType (newLanguage);
-			} else {
-				Debug.LogError ("setting null: " + this);
-			}
-		}
+        public void makeRequestChangeLanguage(RequestChangeUpdate<int>.UpdateData update, int newLanguage)
+        {
+            // Find
+            Setting setting = null;
+            {
+                EditData<Setting> editSetting = this.editSetting.v;
+                if (editSetting != null)
+                {
+                    setting = editSetting.show.v.data;
+                }
+                else
+                {
+                    Debug.LogError("editSetting null: " + this);
+                }
+            }
+            // Process
+            if (setting != null)
+            {
+                setting.language.v = Language.GetSupportType(newLanguage);
+            }
+            else
+            {
+                Debug.LogError("setting null: " + this);
+            }
+        }
 
         #endregion
 
@@ -77,120 +83,142 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 
         public VP<RequestChangeBoolUI.UIData> showLastMove;
 
-		public void makeRequestChangeShowLastMove (RequestChangeUpdate<bool>.UpdateData update, bool newShowLastMove)
-		{
-			// Find
-			Setting setting = null;
-			{
-				EditData<Setting> editSetting = this.editSetting.v;
-				if (editSetting != null) {
-					setting = editSetting.show.v.data;
-				} else {
-					Debug.LogError ("editSetting null: " + this);
-				}
-			}
-			// Process
-			if (setting != null) {
-				setting.showLastMove.v = newShowLastMove;
-			} else {
-				Debug.LogError ("setting null: " + this);
-			}
-		}
+        public void makeRequestChangeShowLastMove(RequestChangeUpdate<bool>.UpdateData update, bool newShowLastMove)
+        {
+            // Find
+            Setting setting = null;
+            {
+                EditData<Setting> editSetting = this.editSetting.v;
+                if (editSetting != null)
+                {
+                    setting = editSetting.show.v.data;
+                }
+                else
+                {
+                    Debug.LogError("editSetting null: " + this);
+                }
+            }
+            // Process
+            if (setting != null)
+            {
+                setting.showLastMove.v = newShowLastMove;
+            }
+            else
+            {
+                Debug.LogError("setting null: " + this);
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region viewUrlImage
+        #region viewUrlImage
 
-		public VP<RequestChangeBoolUI.UIData> viewUrlImage;
+        public VP<RequestChangeBoolUI.UIData> viewUrlImage;
 
-		public void makeRequestChangeViewUrlImage (RequestChangeUpdate<bool>.UpdateData update, bool newViewUrlImage)
-		{
-			// Find
-			Setting setting = null;
-			{
-				EditData<Setting> editSetting = this.editSetting.v;
-				if (editSetting != null) {
-					setting = editSetting.show.v.data;
-				} else {
-					Debug.LogError ("editSetting null: " + this);
-				}
-			}
-			// Process
-			if (setting != null) {
-				setting.viewUrlImage.v = newViewUrlImage;
-			} else {
-				Debug.LogError ("setting null: " + this);
-			}
-		}
+        public void makeRequestChangeViewUrlImage(RequestChangeUpdate<bool>.UpdateData update, bool newViewUrlImage)
+        {
+            // Find
+            Setting setting = null;
+            {
+                EditData<Setting> editSetting = this.editSetting.v;
+                if (editSetting != null)
+                {
+                    setting = editSetting.show.v.data;
+                }
+                else
+                {
+                    Debug.LogError("editSetting null: " + this);
+                }
+            }
+            // Process
+            if (setting != null)
+            {
+                setting.viewUrlImage.v = newViewUrlImage;
+            }
+            else
+            {
+                Debug.LogError("setting null: " + this);
+            }
+        }
 
-		#endregion
+        #endregion
 
-		public VP<AnimationSettingUI.UIData> animationSetting;
+        public VP<AnimationSettingUI.UIData> animationSetting;
 
-		#region maxThinkCount
+        #region maxThinkCount
 
-		public VP<RequestChangeIntUI.UIData> maxThinkCount;
+        public VP<RequestChangeIntUI.UIData> maxThinkCount;
 
-		public void makeRequestChangeMaxThinkCount (RequestChangeUpdate<int>.UpdateData update, int newMaxThinkCount)
-		{
-			// Find
-			Setting setting = null;
-			{
-				EditData<Setting> editSetting = this.editSetting.v;
-				if (editSetting != null) {
-					setting = editSetting.show.v.data;
-				} else {
-					Debug.LogError ("editSetting null: " + this);
-				}
-			}
-			// Process
-			if (setting != null) {
-				setting.maxThinkCount.v = Mathf.Clamp (newMaxThinkCount, AIController.MIN_THINK_COUNT, AIController.MAX_THINK_COUNT);
-			} else {
-				Debug.LogError ("setting null: " + this);
-			}
-		}
+        public void makeRequestChangeMaxThinkCount(RequestChangeUpdate<int>.UpdateData update, int newMaxThinkCount)
+        {
+            // Find
+            Setting setting = null;
+            {
+                EditData<Setting> editSetting = this.editSetting.v;
+                if (editSetting != null)
+                {
+                    setting = editSetting.show.v.data;
+                }
+                else
+                {
+                    Debug.LogError("editSetting null: " + this);
+                }
+            }
+            // Process
+            if (setting != null)
+            {
+                setting.maxThinkCount.v = Mathf.Clamp(newMaxThinkCount, AIController.MIN_THINK_COUNT, AIController.MAX_THINK_COUNT);
+            }
+            else
+            {
+                Debug.LogError("setting null: " + this);
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region Constructor
+        #region Constructor
 
-		public enum Property
-		{
-			editSetting,
+        public enum Property
+        {
+            editSetting,
             showType,
-			language,
+            language,
             style,
-			showLastMove,
-			viewUrlImage,
-			animationSetting,
-			maxThinkCount
-		}
+            showLastMove,
+            viewUrlImage,
+            animationSetting,
+            maxThinkCount
+        }
 
-		public UIData() : base()
-		{
-			this.editSetting = new VP<EditData<Setting>>(this, (byte)Property.editSetting, new EditData<Setting>());
+        public UIData() : base()
+        {
+            this.editSetting = new VP<EditData<Setting>>(this, (byte)Property.editSetting, new EditData<Setting>());
             this.showType = new VP<UIRectTransform.ShowType>(this, (byte)Property.showType, UIRectTransform.ShowType.Normal);
             // language
             {
-				this.language = new VP<RequestChangeEnumUI.UIData>(this, (byte)Property.language, new RequestChangeEnumUI.UIData());
-				this.language.v.updateData.v.request.v = makeRequestChangeLanguage;
-				// options
-				{
-					foreach(Language.Type type in Language.SupportTypes){
-						string strType = ""+type;
-						{
-							string txtType = "";
-							if(Language.dict.TryGetValue(type, out txtType)){
-								strType+= " "+ txtType;
-							}else{
-								Debug.LogError("why don't have type: "+type+"; "+this);
-							}
-						}
-						this.language.v.options.add(strType);
-					}
-				}
-			}
+                this.language = new VP<RequestChangeEnumUI.UIData>(this, (byte)Property.language, new RequestChangeEnumUI.UIData());
+                this.language.v.updateData.v.request.v = makeRequestChangeLanguage;
+                // options
+                {
+                    foreach (Language.Type type in Language.SupportTypes)
+                    {
+                        string strType = "" + type;
+                        {
+                            string txtType = "";
+                            if (Language.dict.TryGetValue(type, out txtType))
+                            {
+                                strType += " " + txtType;
+                            }
+                            else
+                            {
+                                Debug.LogError("why don't have type: " + type + "; " + this);
+                            }
+                        }
+                        this.language.v.options.add(strType);
+                    }
+                }
+            }
             // style
             {
                 this.style = new VP<RequestChangeEnumUI.UIData>(this, (byte)Property.style, new RequestChangeEnumUI.UIData());
@@ -199,42 +227,42 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                 {
                     foreach (Setting.Style style in System.Enum.GetValues(typeof(Setting.Style)))
                     {
-                        this.style.v.options.add(""+style);
+                        this.style.v.options.add("" + style);
                     }
                 }
             }
             // showLastMove
             {
-				this.showLastMove = new VP<RequestChangeBoolUI.UIData>(this, (byte)Property.showLastMove, new RequestChangeBoolUI.UIData());
-				this.showLastMove.v.updateData.v.request.v = makeRequestChangeShowLastMove;
-			}
-			// viewUrlImage
-			{
-				this.viewUrlImage = new VP<RequestChangeBoolUI.UIData>(this, (byte)Property.viewUrlImage, new RequestChangeBoolUI.UIData());
-				this.viewUrlImage.v.updateData.v.request.v = makeRequestChangeViewUrlImage;
-			}
-			this.animationSetting = new VP<AnimationSettingUI.UIData>(this, (byte)Property.animationSetting, new AnimationSettingUI.UIData());
-			// maxThinkCount
-			{
-				this.maxThinkCount = new VP<RequestChangeIntUI.UIData>(this, (byte)Property.maxThinkCount, new RequestChangeIntUI.UIData());
-				// have limit
-				{
-					IntLimit.Have have = new IntLimit.Have();
-					{
-						have.uid = this.maxThinkCount.v.limit.makeId();
-						have.min.v = AIController.MIN_THINK_COUNT;
-						have.max.v = AIController.MAX_THINK_COUNT;
-					}
-					this.maxThinkCount.v.limit.v = have;
-				}
-				// event
-				this.maxThinkCount.v.updateData.v.request.v = makeRequestChangeMaxThinkCount;
-			}
-		}
+                this.showLastMove = new VP<RequestChangeBoolUI.UIData>(this, (byte)Property.showLastMove, new RequestChangeBoolUI.UIData());
+                this.showLastMove.v.updateData.v.request.v = makeRequestChangeShowLastMove;
+            }
+            // viewUrlImage
+            {
+                this.viewUrlImage = new VP<RequestChangeBoolUI.UIData>(this, (byte)Property.viewUrlImage, new RequestChangeBoolUI.UIData());
+                this.viewUrlImage.v.updateData.v.request.v = makeRequestChangeViewUrlImage;
+            }
+            this.animationSetting = new VP<AnimationSettingUI.UIData>(this, (byte)Property.animationSetting, new AnimationSettingUI.UIData());
+            // maxThinkCount
+            {
+                this.maxThinkCount = new VP<RequestChangeIntUI.UIData>(this, (byte)Property.maxThinkCount, new RequestChangeIntUI.UIData());
+                // have limit
+                {
+                    IntLimit.Have have = new IntLimit.Have();
+                    {
+                        have.uid = this.maxThinkCount.v.limit.makeId();
+                        have.min.v = AIController.MIN_THINK_COUNT;
+                        have.max.v = AIController.MAX_THINK_COUNT;
+                    }
+                    this.maxThinkCount.v.limit.v = have;
+                }
+                // event
+                this.maxThinkCount.v.updateData.v.request.v = makeRequestChangeMaxThinkCount;
+            }
+        }
 
-		#endregion
+        #endregion
 
-	}
+    }
 
     #endregion
 
@@ -969,140 +997,154 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
         }
     }
 
-	public override bool isShouldDisableUpdate ()
-	{
-		return true;
-	}
+    public override bool isShouldDisableUpdate()
+    {
+        return true;
+    }
 
-	#endregion
+    #endregion
 
-	#region implement callBacks
+    #region implement callBacks
 
-	public RequestChangeEnumUI requestEnumPrefab;
-	public RequestChangeBoolUI requestBoolPrefab;
-	public AnimationSettingUI animationSettingPrefab;
-	public RequestChangeIntUI requestIntPrefab;
+    public RequestChangeEnumUI requestEnumPrefab;
+    public RequestChangeBoolUI requestBoolPrefab;
+    public AnimationSettingUI animationSettingPrefab;
+    public RequestChangeIntUI requestIntPrefab;
 
-	private static readonly UIRectTransform languageRect = new UIRectTransform(UIConstants.RequestEnumRect);
+    private static readonly UIRectTransform languageRect = new UIRectTransform(UIConstants.RequestEnumRect);
     private static readonly UIRectTransform styleRect = new UIRectTransform(UIConstants.RequestEnumRect);
-	private static readonly UIRectTransform showLastMoveRect = new UIRectTransform(UIConstants.RequestBoolRect);
-	private static readonly UIRectTransform viewUrlImageRect = new UIRectTransform(UIConstants.RequestBoolRect);
+    private static readonly UIRectTransform showLastMoveRect = new UIRectTransform(UIConstants.RequestBoolRect);
+    private static readonly UIRectTransform viewUrlImageRect = new UIRectTransform(UIConstants.RequestBoolRect);
     // public Transform animationSettingContainer;
     private static readonly UIRectTransform maxThinkCountRect = new UIRectTransform(UIConstants.RequestRect);
 
-	// private Server server = null;
+    // private Server server = null;
 
-	public override void onAddCallBack<T> (T data)
-	{
-		if (data is UIData) {
-			UIData uiData = data as UIData;
-			// Setting
-			{
-				Setting.get ().addCallBack (this);
-			}
-			// Child
-			{
-				uiData.editSetting.allAddCallBack (this);
-				uiData.language.allAddCallBack (this);
+    public override void onAddCallBack<T>(T data)
+    {
+        if (data is UIData)
+        {
+            UIData uiData = data as UIData;
+            // Setting
+            {
+                Setting.get().addCallBack(this);
+            }
+            // Child
+            {
+                uiData.editSetting.allAddCallBack(this);
+                uiData.language.allAddCallBack(this);
                 uiData.style.allAddCallBack(this);
-				uiData.showLastMove.allAddCallBack (this);
-				uiData.viewUrlImage.allAddCallBack (this);
-				uiData.animationSetting.allAddCallBack (this);
-				uiData.maxThinkCount.allAddCallBack (this);
-			}
-			dirty = true;
-			return;
-		}
-		// Setting
-		if (data is Setting) {
-			dirty = true;
-			return;
-		}
-		// Child
-		{
-			// editSetting
-			{
-				if (data is EditData<Setting>) {
-					EditData<Setting> editSetting = data as EditData<Setting>;
-					// Child
-					{
-						editSetting.show.allAddCallBack (this);
-						editSetting.compare.allAddCallBack (this);
-					}
-					dirty = true;
-					return;
-				}
-				// Child
-				{
-					if (data is Setting) {
-						/*Setting setting = data as Setting;
+                uiData.showLastMove.allAddCallBack(this);
+                uiData.viewUrlImage.allAddCallBack(this);
+                uiData.animationSetting.allAddCallBack(this);
+                uiData.maxThinkCount.allAddCallBack(this);
+            }
+            dirty = true;
+            return;
+        }
+        // Setting
+        if (data is Setting)
+        {
+            dirty = true;
+            return;
+        }
+        // Child
+        {
+            // editSetting
+            {
+                if (data is EditData<Setting>)
+                {
+                    EditData<Setting> editSetting = data as EditData<Setting>;
+                    // Child
+                    {
+                        editSetting.show.allAddCallBack(this);
+                        editSetting.compare.allAddCallBack(this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                {
+                    if (data is Setting)
+                    {
+                        /*Setting setting = data as Setting;
 						// Parent
 						{
 							DataUtils.addParentCallBack (setting, this, ref this.server);
 						}*/
-						needReset = true;
-						dirty = true;
-						return;
-					}
-					// Parent
-					/*{
+                        needReset = true;
+                        dirty = true;
+                        return;
+                    }
+                    // Parent
+                    /*{
 						if (data is Server) {
 							dirty = true;
 							return;
 						}
 					}*/
-				}
-			}
-			// language, style
-			if (data is RequestChangeEnumUI.UIData) {
-				RequestChangeEnumUI.UIData requestChange = data as RequestChangeEnumUI.UIData;
-				// UI
-				{
-					WrapProperty wrapProperty = requestChange.p;
-					if (wrapProperty != null) {
-						switch ((UIData.Property)wrapProperty.n) {
-						    case UIData.Property.language:
-							    UIUtils.Instantiate (requestChange, requestEnumPrefab, this.transform, languageRect);
-							    break;
+                }
+            }
+            // language, style
+            if (data is RequestChangeEnumUI.UIData)
+            {
+                RequestChangeEnumUI.UIData requestChange = data as RequestChangeEnumUI.UIData;
+                // UI
+                {
+                    WrapProperty wrapProperty = requestChange.p;
+                    if (wrapProperty != null)
+                    {
+                        switch ((UIData.Property)wrapProperty.n)
+                        {
+                            case UIData.Property.language:
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, languageRect);
+                                break;
                             case UIData.Property.style:
                                 UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, styleRect);
                                 break;
-						default:
-							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-							break;
-						}
-					} else {
-						Debug.LogError ("wrapProperty null: " + this);
-					}
-				}
-				dirty = true;
-				return;
-			}
-			// showLastMove, viewUrlImage
-			if (data is RequestChangeBoolUI.UIData) {
-				RequestChangeBoolUI.UIData requestChange = data as RequestChangeBoolUI.UIData;
-				// UI
-				{
-					WrapProperty wrapProperty = requestChange.p;
-					if (wrapProperty != null) {
-						switch ((UIData.Property)wrapProperty.n) {
-						case UIData.Property.showLastMove:
-							UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, showLastMoveRect);
-							break;
-						case UIData.Property.viewUrlImage:
-							UIUtils.Instantiate (requestChange, requestBoolPrefab, this.transform, viewUrlImageRect);
-							break;
-						default:
-							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-							break;
-						}
-					} else {
-						Debug.LogError ("wrapProperty null: " + this);
-					}
-				}
-				dirty = true;
-				return;
-			}
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("wrapProperty null: " + this);
+                    }
+                }
+                dirty = true;
+                return;
+            }
+            // showLastMove, viewUrlImage
+            if (data is RequestChangeBoolUI.UIData)
+            {
+                RequestChangeBoolUI.UIData requestChange = data as RequestChangeBoolUI.UIData;
+                // UI
+                {
+                    WrapProperty wrapProperty = requestChange.p;
+                    if (wrapProperty != null)
+                    {
+                        switch ((UIData.Property)wrapProperty.n)
+                        {
+                            case UIData.Property.showLastMove:
+                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, showLastMoveRect);
+                                break;
+                            case UIData.Property.viewUrlImage:
+                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, viewUrlImageRect);
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("wrapProperty null: " + this);
+                    }
+                }
+                dirty = true;
+                return;
+            }
             // animationSettingUIData
             {
                 if (data is AnimationSettingUI.UIData)
@@ -1120,112 +1162,123 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                     return;
                 }
                 // Child
-                if(data is TransformData)
+                if (data is TransformData)
                 {
                     dirty = true;
                     return;
                 }
             }
-			// maxThinkCount
-			if (data is RequestChangeIntUI.UIData) {
-				RequestChangeIntUI.UIData requestChange = data as RequestChangeIntUI.UIData;
-				// UI
-				{
-					WrapProperty wrapProperty = requestChange.p;
-					if (wrapProperty != null) {
-						switch ((UIData.Property)wrapProperty.n) {
-						case UIData.Property.maxThinkCount:
-							UIUtils.Instantiate (requestChange, requestIntPrefab, this.transform, maxThinkCountRect);
-							break;
-						default:
-							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-							break;
-						}
-					} else {
-						Debug.LogError ("wrapProperty null: " + this);
-					}
-				}
-				dirty = true;
-				return;
-			}
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+            // maxThinkCount
+            if (data is RequestChangeIntUI.UIData)
+            {
+                RequestChangeIntUI.UIData requestChange = data as RequestChangeIntUI.UIData;
+                // UI
+                {
+                    WrapProperty wrapProperty = requestChange.p;
+                    if (wrapProperty != null)
+                    {
+                        switch ((UIData.Property)wrapProperty.n)
+                        {
+                            case UIData.Property.maxThinkCount:
+                                UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, maxThinkCountRect);
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("wrapProperty null: " + this);
+                    }
+                }
+                dirty = true;
+                return;
+            }
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	public override void onRemoveCallBack<T> (T data, bool isHide)
-	{
-		if (data is UIData) {
-			UIData uiData = data as UIData;
-			// Setting
-			{
-				Setting.get ().removeCallBack (this);
-			}
-			// Child
-			{
-				uiData.editSetting.allRemoveCallBack (this);
-				uiData.language.allRemoveCallBack (this);
+    public override void onRemoveCallBack<T>(T data, bool isHide)
+    {
+        if (data is UIData)
+        {
+            UIData uiData = data as UIData;
+            // Setting
+            {
+                Setting.get().removeCallBack(this);
+            }
+            // Child
+            {
+                uiData.editSetting.allRemoveCallBack(this);
+                uiData.language.allRemoveCallBack(this);
                 uiData.style.allRemoveCallBack(this);
-				uiData.showLastMove.allRemoveCallBack (this);
-				uiData.viewUrlImage.allRemoveCallBack (this);
-				uiData.animationSetting.allRemoveCallBack (this);
-				uiData.maxThinkCount.allRemoveCallBack (this);
-			}
-			this.setDataNull (uiData);
-			return;
-		}
-		// Setting
-		if (data is Setting) {
-			return;
-		}
-		// Child
-		{
-			// editSetting
-			{
-				if (data is EditData<Setting>) {
-					EditData<Setting> editSetting = data as EditData<Setting>;
-					// Child
-					{
-						editSetting.show.allRemoveCallBack (this);
-						editSetting.compare.allRemoveCallBack (this);
-					}
-					return;
-				}
-				// Child
-				{
-					if (data is Setting) {
-						/*Setting setting = data as Setting;
+                uiData.showLastMove.allRemoveCallBack(this);
+                uiData.viewUrlImage.allRemoveCallBack(this);
+                uiData.animationSetting.allRemoveCallBack(this);
+                uiData.maxThinkCount.allRemoveCallBack(this);
+            }
+            this.setDataNull(uiData);
+            return;
+        }
+        // Setting
+        if (data is Setting)
+        {
+            return;
+        }
+        // Child
+        {
+            // editSetting
+            {
+                if (data is EditData<Setting>)
+                {
+                    EditData<Setting> editSetting = data as EditData<Setting>;
+                    // Child
+                    {
+                        editSetting.show.allRemoveCallBack(this);
+                        editSetting.compare.allRemoveCallBack(this);
+                    }
+                    return;
+                }
+                // Child
+                {
+                    if (data is Setting)
+                    {
+                        /*Setting setting = data as Setting;
 						// Parent
 						{
 							DataUtils.removeParentCallBack (setting, this, ref this.server);
 						}*/
-						return;
-					}
-					// Parent
-					/*{
+                        return;
+                    }
+                    // Parent
+                    /*{
 						if (data is Server) {
 							return;
 						}
 					}*/
-				}
-			}
-			// language, style
-			if (data is RequestChangeEnumUI.UIData) {
-				RequestChangeEnumUI.UIData requestChange = data as RequestChangeEnumUI.UIData;
-				// UI
-				{
-					requestChange.removeCallBackAndDestroy (typeof(RequestChangeEnumUI));
-				}
-				return;
-			}
-			// showLastMove, viewUrlImage
-			if (data is RequestChangeBoolUI.UIData) {
-				RequestChangeBoolUI.UIData requestChange = data as RequestChangeBoolUI.UIData;
-				// UI
-				{
-					requestChange.removeCallBackAndDestroy (typeof(RequestChangeBoolUI));
-				}
-				return;
-			}
+                }
+            }
+            // language, style
+            if (data is RequestChangeEnumUI.UIData)
+            {
+                RequestChangeEnumUI.UIData requestChange = data as RequestChangeEnumUI.UIData;
+                // UI
+                {
+                    requestChange.removeCallBackAndDestroy(typeof(RequestChangeEnumUI));
+                }
+                return;
+            }
+            // showLastMove, viewUrlImage
+            if (data is RequestChangeBoolUI.UIData)
+            {
+                RequestChangeBoolUI.UIData requestChange = data as RequestChangeBoolUI.UIData;
+                // UI
+                {
+                    requestChange.removeCallBackAndDestroy(typeof(RequestChangeBoolUI));
+                }
+                return;
+            }
             // animationSettingUIData
             {
                 if (data is AnimationSettingUI.UIData)
@@ -1242,30 +1295,33 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                     return;
                 }
                 // Child
-                if(data is TransformData)
+                if (data is TransformData)
                 {
                     return;
                 }
             }
-			// maxThinkCount
-			if (data is RequestChangeIntUI.UIData) {
-				RequestChangeIntUI.UIData requestChange = data as RequestChangeIntUI.UIData;
-				// UI
-				{
-					requestChange.removeCallBackAndDestroy (typeof(RequestChangeIntUI));
-				}
-				return;
-			}
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+            // maxThinkCount
+            if (data is RequestChangeIntUI.UIData)
+            {
+                RequestChangeIntUI.UIData requestChange = data as RequestChangeIntUI.UIData;
+                // UI
+                {
+                    requestChange.removeCallBackAndDestroy(typeof(RequestChangeIntUI));
+                }
+                return;
+            }
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-	{
-		if (WrapProperty.checkError (wrapProperty)) {
-			return;
-		}
-		if (wrapProperty.p is UIData) {
+    public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+    {
+        if (WrapProperty.checkError(wrapProperty))
+        {
+            return;
+        }
+        if (wrapProperty.p is UIData)
+        {
             switch ((UIData.Property)wrapProperty.n)
             {
                 case UIData.Property.editSetting:
@@ -1317,8 +1373,8 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
-			return;
-		}
+            return;
+        }
         // Setting
         if (wrapProperty.p is Setting)
         {
@@ -1348,44 +1404,46 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
             }
             return;
         }
-		// Child
-		{
-			// editSetting
-			{
-				if (wrapProperty.p is EditData<Setting>) {
-					switch ((EditData<Setting>.Property)wrapProperty.n) {
-					case EditData<Setting>.Property.origin:
-						dirty = true;
-						break;
-					case EditData<Setting>.Property.show:
-						{
-							ValueChangeUtils.replaceCallBack (this, syncs);
-							dirty = true;
-						}
-						break;
-					case EditData<Setting>.Property.compare:
-						{
-							ValueChangeUtils.replaceCallBack (this, syncs);
-							dirty = true;
-						}
-						break;
-					case EditData<Setting>.Property.compareOtherType:
-						dirty = true;
-						break;
-					case EditData<Setting>.Property.canEdit:
-						dirty = true;
-						break;
-					case EditData<Setting>.Property.editType:
-						dirty = true;
-						break;
-					default:
-						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-						break;
-					}
-					return;
-				}
-				// Child
-				{
+        // Child
+        {
+            // editSetting
+            {
+                if (wrapProperty.p is EditData<Setting>)
+                {
+                    switch ((EditData<Setting>.Property)wrapProperty.n)
+                    {
+                        case EditData<Setting>.Property.origin:
+                            dirty = true;
+                            break;
+                        case EditData<Setting>.Property.show:
+                            {
+                                ValueChangeUtils.replaceCallBack(this, syncs);
+                                dirty = true;
+                            }
+                            break;
+                        case EditData<Setting>.Property.compare:
+                            {
+                                ValueChangeUtils.replaceCallBack(this, syncs);
+                                dirty = true;
+                            }
+                            break;
+                        case EditData<Setting>.Property.compareOtherType:
+                            dirty = true;
+                            break;
+                        case EditData<Setting>.Property.canEdit:
+                            dirty = true;
+                            break;
+                        case EditData<Setting>.Property.editType:
+                            dirty = true;
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+                // Child
+                {
                     if (wrapProperty.p is Setting)
                     {
                         switch ((Setting.Property)wrapProperty.n)
@@ -1414,23 +1472,25 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                         }
                         return;
                     }
-					// Parent
-					/*{
+                    // Parent
+                    /*{
 						if (wrapProperty.p is Server) {
 							Server.State.OnUpdateSyncStateChange (wrapProperty, this);
 							return;
 						}
 					}*/
-				}
-			}
-			// language, style
-			if (wrapProperty.p is RequestChangeEnumUI.UIData) {
-				return;
-			}
-			// showLastMove, viewUrlImage
-			if (wrapProperty.p is RequestChangeBoolUI.UIData) {
-				return;
-			}
+                }
+            }
+            // language, style
+            if (wrapProperty.p is RequestChangeEnumUI.UIData)
+            {
+                return;
+            }
+            // showLastMove, viewUrlImage
+            if (wrapProperty.p is RequestChangeBoolUI.UIData)
+            {
+                return;
+            }
             // animationSettingUIData
             {
                 if (wrapProperty.p is AnimationSettingUI.UIData)
@@ -1438,11 +1498,23 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                     return;
                 }
                 // Child
-                if(wrapProperty.p is TransformData)
+                if (wrapProperty.p is TransformData)
                 {
                     switch ((TransformData.Property)wrapProperty.n)
                     {
-                        case TransformData.Property.position:
+                        case TransformData.Property.anchoredPosition:
+                            break;
+                        case TransformData.Property.anchorMin:
+                            break;
+                        case TransformData.Property.anchorMax:
+                            break;
+                        case TransformData.Property.pivot:
+                            break;
+                        case TransformData.Property.offsetMin:
+                            break;
+                        case TransformData.Property.offsetMax:
+                            break;
+                        case TransformData.Property.sizeDelta:
                             break;
                         case TransformData.Property.rotation:
                             break;
@@ -1458,14 +1530,15 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                     return;
                 }
             }
-			// maxThinkCount
-			if (wrapProperty.p is RequestChangeIntUI.UIData) {
-				return;
-			}
-		}
-		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-	}
+            // maxThinkCount
+            if (wrapProperty.p is RequestChangeIntUI.UIData)
+            {
+                return;
+            }
+        }
+        Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+    }
 
-	#endregion
+    #endregion
 
 }

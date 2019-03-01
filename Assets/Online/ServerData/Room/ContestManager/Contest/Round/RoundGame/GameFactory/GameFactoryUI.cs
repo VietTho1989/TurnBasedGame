@@ -1006,7 +1006,19 @@ public class GameFactoryUI : UIBehavior<GameFactoryUI.UIData>, HaveTransformData
                 {
                     switch ((TransformData.Property)wrapProperty.n)
                     {
-                        case TransformData.Property.position:
+                        case TransformData.Property.anchoredPosition:
+                            break;
+                        case TransformData.Property.anchorMin:
+                            break;
+                        case TransformData.Property.anchorMax:
+                            break;
+                        case TransformData.Property.pivot:
+                            break;
+                        case TransformData.Property.offsetMin:
+                            break;
+                        case TransformData.Property.offsetMax:
+                            break;
+                        case TransformData.Property.sizeDelta:
                             break;
                         case TransformData.Property.rotation:
                             break;
