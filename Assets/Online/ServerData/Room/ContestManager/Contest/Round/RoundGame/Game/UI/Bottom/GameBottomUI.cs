@@ -311,7 +311,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                                         GameUI gameUI = gameUIData.findCallBack<GameUI>();
                                         if (gameUI != null)
                                         {
-                                            recordContainer = gameUI.dataRecordSaveContainer;
+                                            recordContainer = gameUI.saveRecordContainer;
                                         }
                                         else
                                         {
@@ -892,8 +892,6 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                     case GameUI.UIData.Property.gameHistoryUIData:
                         break;
                     case GameUI.UIData.Property.stateUI:
-                        break;
-                    case GameUI.UIData.Property.gamePlayerList:
                         break;
                     case GameUI.UIData.Property.gameActionsUI:
                         break;

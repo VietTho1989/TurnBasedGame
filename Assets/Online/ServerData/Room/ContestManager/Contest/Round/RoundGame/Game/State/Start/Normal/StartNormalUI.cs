@@ -63,7 +63,7 @@ namespace GameState
 					if (startNormal != null) {
 						// tvTime
 						if (tvTime != null) {
-							tvTime.text = startNormal.time.v + "/" + startNormal.duration.v;
+                            tvTime.text = Mathf.Min(startNormal.time.v, startNormal.duration.v) + "/" + startNormal.duration.v;
 						} else {
 							Debug.LogError ("tvTime null: " + this);
 						}

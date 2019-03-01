@@ -490,8 +490,6 @@ namespace Posture
 							break;
 						case GameUI.UIData.Property.stateUI:
 							break;
-						case GameUI.UIData.Property.gamePlayerList:
-							break;
 						case GameUI.UIData.Property.gameDataUI:
 							break;
 						case GameUI.UIData.Property.undoRedoRequestUIData:

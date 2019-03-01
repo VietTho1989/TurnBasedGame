@@ -189,22 +189,22 @@ public class GamePlayerStateBtnUI : UIBehavior<GamePlayerStateBtnUI.UIData>
                 {
                     Transform stateUIContainer = null;
                     {
-                        GamePlayerListUI.UIData gamePlayerListUIData = stateUIData.findDataInParent<GamePlayerListUI.UIData>();
-                        if (gamePlayerListUIData != null)
+                        GameUI.UIData gameUIData = stateUIData.findDataInParent<GameUI.UIData>();
+                        if (gameUIData != null)
                         {
-                            GamePlayerListUI gamePlayerListUI = gamePlayerListUIData.findCallBack<GamePlayerListUI>();
-                            if (gamePlayerListUI != null)
+                            GameUI gameUI = gameUIData.findCallBack<GameUI>();
+                            if (gameUI != null)
                             {
-                                stateUIContainer = gamePlayerListUI.gamePlayerStateContainer;
+                                stateUIContainer = gameUI.dialogContainer;
                             }
                             else
                             {
-                                Debug.LogError("gamePlayerListUI null");
+                                Debug.LogError("gameUI null");
                             }
                         }
                         else
                         {
-                            Debug.LogError("gamePlayerListUIData null");
+                            Debug.LogError("gameUIData null");
                         }
                     }
                     UIUtils.Instantiate(stateUIData, stateUIPrefab, stateUIContainer);

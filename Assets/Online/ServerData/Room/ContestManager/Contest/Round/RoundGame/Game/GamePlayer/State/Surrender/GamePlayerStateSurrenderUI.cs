@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class GamePlayerStateSurrenderUI : UIBehavior<GamePlayerStateSurrenderUI.UIData>
+public class GamePlayerStateSurrenderUI : UIBehavior<GamePlayerStateSurrenderUI.UIData>, HaveTransformData
 {
 
 	#region UIData
@@ -58,21 +58,25 @@ public class GamePlayerStateSurrenderUI : UIBehavior<GamePlayerStateSurrenderUI.
 
     }
 
-	#endregion
+    #endregion
 
-	#region Refresh
+    #region TransformData
 
-	#region txt
+    public TransformData transformData = new TransformData();
 
-	public Text lbTitle;
-	public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private void updateTransformData()
+    {
+        this.transformData.update(this.transform);
+    }
 
-	static GamePlayerStateSurrenderUI()
-	{
-		txtTitle.add (Language.Type.vi, "Đầu Hàng");
-	}
+    public TransformData getTransformData()
+    {
+        return this.transformData;
+    }
 
-	#endregion
+    #endregion
+
+    #region Refresh
 
 	public override void refresh ()
 	{
@@ -117,21 +121,22 @@ public class GamePlayerStateSurrenderUI : UIBehavior<GamePlayerStateSurrenderUI.
 					} else {
 						Debug.LogError ("state null: " + this);
 					}
-				} else {
+                    // UI
+                    {
+                        float deltaY = 0;
+                        // sub
+                        deltaY += UIRectTransform.SetPosY(this.data.sub.v, deltaY);
+                        // set height
+                        UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                    }
+                } else {
 					Debug.LogError ("surrender null");
 				}
-				// txt
-				{
-					if (lbTitle != null) {
-						lbTitle.text = txtTitle.get ("Surrender");
-					} else {
-						Debug.LogError ("lbTitle null: " + this);
-					}
-				}
-			} else {
+            } else {
 				Debug.LogError ("data null");
 			}
 		}
+        updateTransformData();
 	}
 
 	public override bool isShouldDisableUpdate ()
@@ -145,14 +150,11 @@ public class GamePlayerStateSurrenderUI : UIBehavior<GamePlayerStateSurrenderUI.
 
 	public GamePlayerStateSurrenderNoneUI nonePrefab;
 	public GamePlayerStateSurrenderAskUI askPrefab;
-	public Transform subContainer;
 
 	public override void onAddCallBack<T> (T data)
 	{
 		if (data is UIData) {
 			UIData uiData = data as UIData;
-			// Setting
-			Setting.get().addCallBack(this);
 			// Child
 			{
 				uiData.surrender.allAddCallBack (this);
@@ -161,42 +163,52 @@ public class GamePlayerStateSurrenderUI : UIBehavior<GamePlayerStateSurrenderUI.
 			dirty = true;
 			return;
 		}
-		// Setting
-		if (data is Setting) {
-			dirty = true;
-			return;
-		}
 		// Child
 		{
 			if (data is GamePlayerStateSurrender) {
 				dirty = true;
 				return;
 			}
-			if (data is UIData.Sub) {
-				UIData.Sub sub = data as UIData.Sub;
-				// UI
-				{
-					switch (sub.getType ()) {
-					case GamePlayerStateSurrender.State.Type.None:
-						{
-							GamePlayerStateSurrenderNoneUI.UIData noneUIData = sub as GamePlayerStateSurrenderNoneUI.UIData;
-							UIUtils.Instantiate (noneUIData, nonePrefab, subContainer);
-						}
-						break;
-					case GamePlayerStateSurrender.State.Type.Ask:
-						{
-							GamePlayerStateSurrenderAskUI.UIData askUIData = sub as GamePlayerStateSurrenderAskUI.UIData;
-							UIUtils.Instantiate (askUIData, askPrefab, subContainer);
-						}
-						break;
-					default:
-						Debug.LogError ("unknown sub: " + sub.getType () + "; " + this);
-						break;
-					}
-				}
-				dirty = true;
-				return;
-			}
+            // sub
+            {
+                if (data is UIData.Sub)
+                {
+                    UIData.Sub sub = data as UIData.Sub;
+                    // UI
+                    {
+                        switch (sub.getType())
+                        {
+                            case GamePlayerStateSurrender.State.Type.None:
+                                {
+                                    GamePlayerStateSurrenderNoneUI.UIData noneUIData = sub as GamePlayerStateSurrenderNoneUI.UIData;
+                                    UIUtils.Instantiate(noneUIData, nonePrefab, this.transform);
+                                }
+                                break;
+                            case GamePlayerStateSurrender.State.Type.Ask:
+                                {
+                                    GamePlayerStateSurrenderAskUI.UIData askUIData = sub as GamePlayerStateSurrenderAskUI.UIData;
+                                    UIUtils.Instantiate(askUIData, askPrefab, this.transform);
+                                }
+                                break;
+                            default:
+                                Debug.LogError("unknown sub: " + sub.getType() + "; " + this);
+                                break;
+                        }
+                    }
+                    // Child
+                    {
+                        TransformData.AddCallBack(sub, this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                if(data is TransformData)
+                {
+                    dirty = true;
+                    return;
+                }
+            }
 		}
 		Debug.LogError ("Don't process: " + data + "; " + this);
 	}
@@ -205,8 +217,6 @@ public class GamePlayerStateSurrenderUI : UIBehavior<GamePlayerStateSurrenderUI.
 	{
 		if (data is UIData) {
 			UIData uiData = data as UIData;
-			// Setting
-			Setting.get ().removeCallBack (this);
 			// Child
 			{
 				uiData.surrender.allRemoveCallBack (this);
@@ -215,39 +225,49 @@ public class GamePlayerStateSurrenderUI : UIBehavior<GamePlayerStateSurrenderUI.
 			this.setDataNull (uiData);
 			return;
 		}
-		// Setting
-		if (data is Setting) {
-			return;
-		}
 		// Child
 		{
 			if (data is GamePlayerStateSurrender) {
 				return;
 			}
-			if (data is UIData.Sub) {
-				UIData.Sub sub = data as UIData.Sub;
-				// UI
-				{
-					switch (sub.getType ()) {
-					case GamePlayerStateSurrender.State.Type.None:
-						{
-							GamePlayerStateSurrenderNoneUI.UIData noneUIData = sub as GamePlayerStateSurrenderNoneUI.UIData;
-							noneUIData.removeCallBackAndDestroy (typeof(GamePlayerStateSurrenderNoneUI));
-						}
-						break;
-					case GamePlayerStateSurrender.State.Type.Ask:
-						{
-							GamePlayerStateSurrenderAskUI.UIData askUIData = sub as GamePlayerStateSurrenderAskUI.UIData;
-							askUIData.removeCallBackAndDestroy (typeof(GamePlayerStateSurrenderAskUI));
-						}
-						break;
-					default:
-						Debug.LogError ("unknown sub: " + sub.getType () + "; " + this);
-						break;
-					}
-				}
-				return;
-			}
+            // sub
+            {
+                if (data is UIData.Sub)
+                {
+                    UIData.Sub sub = data as UIData.Sub;
+                    // Child
+                    {
+                        TransformData.RemoveCallBack(sub, this);
+                    }
+                    // UI
+                    {
+                        switch (sub.getType())
+                        {
+                            case GamePlayerStateSurrender.State.Type.None:
+                                {
+                                    GamePlayerStateSurrenderNoneUI.UIData noneUIData = sub as GamePlayerStateSurrenderNoneUI.UIData;
+                                    noneUIData.removeCallBackAndDestroy(typeof(GamePlayerStateSurrenderNoneUI));
+                                }
+                                break;
+                            case GamePlayerStateSurrender.State.Type.Ask:
+                                {
+                                    GamePlayerStateSurrenderAskUI.UIData askUIData = sub as GamePlayerStateSurrenderAskUI.UIData;
+                                    askUIData.removeCallBackAndDestroy(typeof(GamePlayerStateSurrenderAskUI));
+                                }
+                                break;
+                            default:
+                                Debug.LogError("unknown sub: " + sub.getType() + "; " + this);
+                                break;
+                        }
+                    }
+                    return;
+                }
+                // Child
+                if(data is TransformData)
+                {
+                    return;
+                }
+            }
 		}
 		Debug.LogError ("Don't process: " + data + "; " + this);
 	}
@@ -277,26 +297,6 @@ public class GamePlayerStateSurrenderUI : UIBehavior<GamePlayerStateSurrenderUI.
 			}
 			return;
 		}
-		// Setting
-		if (wrapProperty.p is Setting) {
-			switch ((Setting.Property)wrapProperty.n) {
-			case Setting.Property.language:
-				dirty = true;
-				break;
-			case Setting.Property.showLastMove:
-				break;
-			case Setting.Property.viewUrlImage:
-				break;
-			case Setting.Property.animationSetting:
-				break;
-			case Setting.Property.maxThinkCount:
-				break;
-			default:
-				Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-				break;
-			}
-			return;
-		}
 		// Child
 		{
 			if (wrapProperty.p is GamePlayerStateSurrender) {
@@ -310,9 +310,45 @@ public class GamePlayerStateSurrenderUI : UIBehavior<GamePlayerStateSurrenderUI.
 				}
 				return;
 			}
-			if (wrapProperty.p is UIData.Sub) {
-				return;
-			}
+            // Child
+            {
+                if (wrapProperty.p is UIData.Sub)
+                {
+                    return;
+                }
+                // Child
+                if(wrapProperty.p is TransformData)
+                {
+                    switch ((TransformData.Property)wrapProperty.n)
+                    {
+                        case TransformData.Property.anchoredPosition:
+                            break;
+                        case TransformData.Property.anchorMin:
+                            break;
+                        case TransformData.Property.anchorMax:
+                            break;
+                        case TransformData.Property.pivot:
+                            break;
+                        case TransformData.Property.offsetMin:
+                            break;
+                        case TransformData.Property.offsetMax:
+                            break;
+                        case TransformData.Property.sizeDelta:
+                            break;
+                        case TransformData.Property.rotation:
+                            break;
+                        case TransformData.Property.scale:
+                            break;
+                        case TransformData.Property.size:
+                            dirty = true;
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+            }
 		}
 		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
 	}

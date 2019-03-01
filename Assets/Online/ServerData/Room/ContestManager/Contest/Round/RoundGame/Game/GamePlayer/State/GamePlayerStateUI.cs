@@ -100,8 +100,26 @@ public class GamePlayerStateUI : UIBehavior<GamePlayerStateUI.UIData>
 
     static GamePlayerStateUI()
     {
-        txtTitle.add(Language.Type.vi, "Đầu Hàng");
-        txtPlayer.add(Language.Type.vi, "Người chơi");
+        // txt
+        {
+            txtTitle.add(Language.Type.vi, "Đầu Hàng");
+            txtPlayer.add(Language.Type.vi, "Người chơi");
+        }
+        // rect
+        {
+            // avatarRect
+            {
+                // anchoredPosition: (10.0, -40.0); anchorMin: (0.0, 1.0); anchorMax: (0.0, 1.0); pivot: (0.0, 1.0);
+                // offsetMin: (10.0, -80.0); offsetMax: (50.0, -40.0); sizeDelta: (40.0, 40.0);
+                avatarRect.anchoredPosition = new Vector3(10.0f, -40.0f, 0.0f);
+                avatarRect.anchorMin = new Vector2(0.0f, 1.0f);
+                avatarRect.anchorMax = new Vector2(0.0f, 1.0f);
+                avatarRect.pivot = new Vector2(0.0f, 1.0f);
+                avatarRect.offsetMin = new Vector2(10.0f, -80.0f);
+                avatarRect.offsetMax = new Vector2(50.0f, -40.0f);
+                avatarRect.sizeDelta = new Vector2(40.0f, 40.0f);
+            }
+        }
     }
 
     #endregion
@@ -225,6 +243,14 @@ public class GamePlayerStateUI : UIBehavior<GamePlayerStateUI.UIData>
                                 Debug.LogError("unknown type: " + state.getType());
                                 break;
                         }
+                    }
+                    // UI
+                    {
+                        float deltaY = 80;
+                        // sub
+                        deltaY += UIRectTransform.SetPosY(this.data.sub.v, deltaY);
+                        // set height
+                        UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }
                 }
                 else

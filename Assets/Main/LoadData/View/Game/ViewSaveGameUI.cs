@@ -12,8 +12,6 @@ public class ViewSaveGameUI : UIBehavior<ViewSaveGameUI.UIData>
 
         public VP<ReferenceData<Game>> game;
 
-        public VP<GamePlayerListUI.UIData> gamePlayerList;
-
         public VP<GameDataUI.UIData> gameDataUIData;
 
         public VP<ViewSaveGameHistoryUI.UIData> history;
@@ -23,7 +21,6 @@ public class ViewSaveGameUI : UIBehavior<ViewSaveGameUI.UIData>
         public enum Property
         {
             game,
-            gamePlayerList,
             gameDataUIData,
             history
         }
@@ -31,7 +28,6 @@ public class ViewSaveGameUI : UIBehavior<ViewSaveGameUI.UIData>
         public UIData() : base()
         {
             this.game = new VP<ReferenceData<Game>>(this, (byte)Property.game, new ReferenceData<Game>(null));
-            this.gamePlayerList = new VP<GamePlayerListUI.UIData>(this, (byte)Property.gamePlayerList, new GamePlayerListUI.UIData());
             // gameUIData
             {
                 this.gameDataUIData = new VP<GameDataUI.UIData>(this, (byte)Property.gameDataUIData, new GameDataUI.UIData());
@@ -66,19 +62,6 @@ public class ViewSaveGameUI : UIBehavior<ViewSaveGameUI.UIData>
                     else
                     {
                         Debug.LogError("history null: " + this);
-                    }
-                }
-                // gamePlayerList
-                if (!isProcess)
-                {
-                    GamePlayerListUI.UIData gamePlayerList = this.gamePlayerList.v;
-                    if (gamePlayerList != null)
-                    {
-                        isProcess = gamePlayerList.processEvent(e);
-                    }
-                    else
-                    {
-                        Debug.LogError("gamePlayerList null: " + this);
                     }
                 }
                 // gameDataUIData
@@ -117,8 +100,8 @@ public class ViewSaveGameUI : UIBehavior<ViewSaveGameUI.UIData>
                 viewSaveGameHistoryRect.anchorMax = new Vector2(1.0f, 0.0f);
                 viewSaveGameHistoryRect.pivot = new Vector2(0.5f, 0.0f);
                 viewSaveGameHistoryRect.offsetMin = new Vector2(0.0f, 0.0f);
-                viewSaveGameHistoryRect.offsetMax = new Vector2(0.0f, 75.0f);
-                viewSaveGameHistoryRect.sizeDelta = new Vector2(0.0f, 75.0f);
+                viewSaveGameHistoryRect.offsetMax = new Vector2(0.0f, 60.0f);
+                viewSaveGameHistoryRect.sizeDelta = new Vector2(0.0f, 60.0f);
             }
         }
     }
@@ -137,17 +120,6 @@ public class ViewSaveGameUI : UIBehavior<ViewSaveGameUI.UIData>
                 Game game = this.data.game.v.data;
                 if (game != null)
                 {
-                    // gamePlayerList
-                    {
-                        if (this.data.gamePlayerList.v != null)
-                        {
-                            this.data.gamePlayerList.v.game.v = new ReferenceData<Game>(game);
-                        }
-                        else
-                        {
-                            Debug.LogError("gamePlayerList null: " + this);
-                        }
-                    }
                     // gameUIData
                     {
                         if (this.data.gameDataUIData.v != null)
@@ -169,9 +141,8 @@ public class ViewSaveGameUI : UIBehavior<ViewSaveGameUI.UIData>
                     }
                     // siblingIndex
                     {
-                        UIRectTransform.SetSiblingIndex(this.data.gamePlayerList.v, 0);
-                        UIRectTransform.SetSiblingIndex(this.data.gameDataUIData.v, 1);
-                        UIRectTransform.SetSiblingIndex(this.data.history.v, 2);
+                        UIRectTransform.SetSiblingIndex(this.data.gameDataUIData.v, 0);
+                        UIRectTransform.SetSiblingIndex(this.data.history.v, 1);
                     }
                 }
                 else
@@ -195,9 +166,8 @@ public class ViewSaveGameUI : UIBehavior<ViewSaveGameUI.UIData>
 
     #region implement callBacks
 
-    public GamePlayerListUI gamePlayerListPrefab;
-
     public GameDataUI gameDataUIDataPrefab;
+    private static readonly UIRectTransform gameDataUIDataRect = UIRectTransform.CreateFullRect(0, 0, 30, 60);
 
     public ViewSaveGameHistoryUI viewSaveGameHistoryPrefab;
     private static readonly UIRectTransform viewSaveGameHistoryRect = new UIRectTransform();
@@ -210,7 +180,6 @@ public class ViewSaveGameUI : UIBehavior<ViewSaveGameUI.UIData>
             // Child
             {
                 uiData.game.allAddCallBack(this);
-                uiData.gamePlayerList.allAddCallBack(this);
                 uiData.gameDataUIData.allAddCallBack(this);
                 uiData.history.allAddCallBack(this);
             }
@@ -224,22 +193,12 @@ public class ViewSaveGameUI : UIBehavior<ViewSaveGameUI.UIData>
                 dirty = true;
                 return;
             }
-            if (data is GamePlayerListUI.UIData)
-            {
-                GamePlayerListUI.UIData gamePlayerListUIData = data as GamePlayerListUI.UIData;
-                // UI
-                {
-                    UIUtils.Instantiate(gamePlayerListUIData, gamePlayerListPrefab, this.transform, UIConstants.FullParent);
-                }
-                dirty = true;
-                return;
-            }
             if (data is GameDataUI.UIData)
             {
                 GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(gameDataUIData, gameDataUIDataPrefab, this.transform, UIConstants.FullParent);
+                    UIUtils.Instantiate(gameDataUIData, gameDataUIDataPrefab, this.transform, gameDataUIDataRect);
                 }
                 dirty = true;
                 return;
@@ -266,7 +225,6 @@ public class ViewSaveGameUI : UIBehavior<ViewSaveGameUI.UIData>
             // Child
             {
                 uiData.game.allRemoveCallBack(this);
-                uiData.gamePlayerList.allRemoveCallBack(this);
                 uiData.gameDataUIData.allRemoveCallBack(this);
                 uiData.history.allRemoveCallBack(this);
             }
@@ -277,15 +235,6 @@ public class ViewSaveGameUI : UIBehavior<ViewSaveGameUI.UIData>
         {
             if (data is Game)
             {
-                return;
-            }
-            if (data is GamePlayerListUI.UIData)
-            {
-                GamePlayerListUI.UIData gamePlayerListUIData = data as GamePlayerListUI.UIData;
-                // UI
-                {
-                    gamePlayerListUIData.removeCallBackAndDestroy(typeof(GamePlayerListUI));
-                }
                 return;
             }
             if (data is GameDataUI.UIData)
@@ -321,12 +270,6 @@ public class ViewSaveGameUI : UIBehavior<ViewSaveGameUI.UIData>
             switch ((UIData.Property)wrapProperty.n)
             {
                 case UIData.Property.game:
-                    {
-                        ValueChangeUtils.replaceCallBack(this, syncs);
-                        dirty = true;
-                    }
-                    break;
-                case UIData.Property.gamePlayerList:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
@@ -380,10 +323,6 @@ public class ViewSaveGameUI : UIBehavior<ViewSaveGameUI.UIData>
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
-                return;
-            }
-            if (wrapProperty.p is GamePlayerListUI.UIData)
-            {
                 return;
             }
             if (wrapProperty.p is GameDataUI.UIData)

@@ -28,6 +28,8 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
 
         public VP<PerspectiveUI.UIData> perspectiveUIData;
 
+        public VP<GamePlayerListUI.UIData> gamePlayerList;
+
         #region Constructor
 
         public enum Property
@@ -38,7 +40,8 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
             hintUI,
             allowInput,
             requestChangeUseRule,
-            perspectiveUIData
+            perspectiveUIData,
+            gamePlayerList,
         }
 
         public UIData() : base()
@@ -50,6 +53,7 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
             this.allowInput = new VP<bool>(this, (byte)Property.allowInput, false);
             this.requestChangeUseRule = new VP<RequestChangeUseRuleUI.UIData>(this, (byte)Property.requestChangeUseRule, null);
             this.perspectiveUIData = new VP<PerspectiveUI.UIData>(this, (byte)Property.perspectiveUIData, null);
+            this.gamePlayerList = new VP<GamePlayerListUI.UIData>(this, (byte)Property.gamePlayerList, new GamePlayerListUI.UIData());
         }
 
         #endregion
@@ -119,6 +123,19 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
                     else
                     {
                         Debug.LogError("perspectiveUIData null");
+                    }
+                }
+                // gamePlayerList
+                if (!isProcess)
+                {
+                    GamePlayerListUI.UIData gamePlayerList = this.gamePlayerList.v;
+                    if (gamePlayerList != null)
+                    {
+                        isProcess = gamePlayerList.processEvent(e);
+                    }
+                    else
+                    {
+                        Debug.LogError("gamePlayerList null: " + this);
                     }
                 }
                 // board
@@ -239,8 +256,21 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
                             Debug.LogError("perspectiveUIData null");
                         }
                     }
+                    // gamePlayerList
+                    {
+                        if (this.data.gamePlayerList.v != null)
+                        {
+                            Game game = gameData.findDataInParent<Game>();
+                            this.data.gamePlayerList.v.game.v = new ReferenceData<Game>(game);
+                        }
+                        else
+                        {
+                            Debug.LogError("gamePlayerList null: " + this);
+                        }
+                    }
                     // UI
                     {
+                        UIRectTransform.SetSiblingIndex(this.data.gamePlayerList.v, 0);
                         UIRectTransform.SetSiblingIndex(this.data.board.v, 1);
                         UIRectTransform.SetSiblingIndex(this.data.perspectiveUIData.v, 2);
                         UIRectTransform.SetSiblingIndex(this.data.hintUI.v, 3);
@@ -278,6 +308,8 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
 
     public RequestChangeUseRuleUI requestChangeUseRulePrefab;
 
+    public GamePlayerListUI gamePlayerListPrefab;
+
     public override void onAddCallBack<T>(T data)
     {
         if (data is UIData)
@@ -290,6 +322,7 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
                 uiData.hintUI.allAddCallBack(this);
                 uiData.requestChangeUseRule.allAddCallBack(this);
                 uiData.perspectiveUIData.allAddCallBack(this);
+                uiData.gamePlayerList.allAddCallBack(this);
             }
             // Update
             {
@@ -345,6 +378,16 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
                 dirty = true;
                 return;
             }
+            if (data is GamePlayerListUI.UIData)
+            {
+                GamePlayerListUI.UIData gamePlayerListUIData = data as GamePlayerListUI.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(gamePlayerListUIData, gamePlayerListPrefab, this.transform, UIConstants.FullParent);
+                }
+                dirty = true;
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -361,6 +404,7 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
                 uiData.hintUI.allRemoveCallBack(this);
                 uiData.requestChangeUseRule.allRemoveCallBack(this);
                 uiData.perspectiveUIData.allRemoveCallBack(this);
+                uiData.gamePlayerList.allRemoveCallBack(this);
             }
             // Update
             {
@@ -411,6 +455,15 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
                 }
                 return;
             }
+            if (data is GamePlayerListUI.UIData)
+            {
+                GamePlayerListUI.UIData gamePlayerListUIData = data as GamePlayerListUI.UIData;
+                // UI
+                {
+                    gamePlayerListUIData.removeCallBackAndDestroy(typeof(GamePlayerListUI));
+                }
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -454,6 +507,12 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
                     }
                     break;
                 case UIData.Property.perspectiveUIData:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.gamePlayerList:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
@@ -521,6 +580,10 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
                 return;
             }
             if(wrapProperty.p is PerspectiveUI.UIData)
+            {
+                return;
+            }
+            if (wrapProperty.p is GamePlayerListUI.UIData)
             {
                 return;
             }

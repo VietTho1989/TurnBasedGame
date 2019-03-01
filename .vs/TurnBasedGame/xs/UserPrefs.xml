@@ -1,7 +1,7 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GamePlayer/UI/GamePlayerUI/PlayerTimeUI/GamePlayerTimeHourGlassUI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GamePlayer/State/Surrender/State/Ask/GamePlayerStateSurrenderAskUI.cs">
     <Files>
-      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GamePlayer/UI/GamePlayerUI/PlayerTimeUI/GamePlayerTimeHourGlassUI.cs" Line="9" Column="6" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GamePlayer/State/Surrender/State/Ask/GamePlayerStateSurrenderAskUI.cs" Line="62" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

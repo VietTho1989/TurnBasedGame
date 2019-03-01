@@ -43,7 +43,7 @@ namespace Posture
 				this.postureGameDataFactory = new VP<ReferenceData<PostureGameDataFactory>>(this, (byte)Property.postureGameDataFactory, new ReferenceData<PostureGameDataFactory>(null));
 				{
 					this.gameUIData = new VP<GameUI.UIData>(this, (byte)Property.gameUIData, new GameUI.UIData());
-					this.gameUIData.v.gamePlayerList.v = null;
+					this.gameUIData.v.gameDataUI.v.gamePlayerList.v = null;
 					this.gameUIData.v.saveUIData.v = null;
 					this.gameUIData.v.requestDraw.v = null;
 					this.gameUIData.v.gameHistoryUIData.v = null;
@@ -652,8 +652,6 @@ namespace Posture
 						case GameUI.UIData.Property.isReplay:
 							break;
 						case GameUI.UIData.Property.stateUI:
-							break;
-						case GameUI.UIData.Property.gamePlayerList:
 							break;
 						case GameUI.UIData.Property.gameDataUI:
 							break;

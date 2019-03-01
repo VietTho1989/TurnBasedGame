@@ -49,8 +49,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
 
         public VP<StateUI.UIData> stateUI;
 
-        public VP<GamePlayerListUI.UIData> gamePlayerList;
-
         #region bottomShow
 
         public VP<UndoRedoRequestUI.UIData> undoRedoRequestUIData;
@@ -86,7 +84,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
             gameHistoryUIData,
 
             stateUI,
-            gamePlayerList,
             gameActionsUI,
             saveUIData
         }
@@ -107,7 +104,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
             }
 
             this.stateUI = new VP<StateUI.UIData>(this, (byte)Property.stateUI, new StateUI.UIData());
-            this.gamePlayerList = new VP<GamePlayerListUI.UIData>(this, (byte)Property.gamePlayerList, new GamePlayerListUI.UIData());
             this.gameActionsUI = new VP<GameActionsUI.UIData>(this, (byte)Property.gameActionsUI, new GameActionsUI.UIData());
             this.saveUIData = new VP<SaveUI.UIData>(this, (byte)Property.saveUIData, null);
         }
@@ -199,19 +195,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
                     else
                     {
                         Debug.LogError("gameBottom null");
-                    }
-                }
-                // gamePlayerListUI
-                if (!isProcess)
-                {
-                    GamePlayerListUI.UIData gamePlayerList = this.gamePlayerList.v;
-                    if (gamePlayerList != null)
-                    {
-                        isProcess = gamePlayerList.processEvent(e);
-                    }
-                    else
-                    {
-                        Debug.LogError("gamePlayerList null");
                     }
                 }
                 // gameUIData
@@ -323,17 +306,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
                             Debug.LogError("stateUIData null: " + this);
                         }
                     }
-                    // gamePlayerList
-                    {
-                        if (this.data.gamePlayerList.v != null)
-                        {
-                            this.data.gamePlayerList.v.game.v = new ReferenceData<Game>(game);
-                        }
-                        else
-                        {
-                            Debug.LogError("gamePlayerList null: " + this);
-                        }
-                    }
                     // GameAction
                     {
                         if (this.data.gameActionsUI.v != null)
@@ -385,21 +357,28 @@ public class GameUI : UIBehavior<GameUI.UIData>
                     {
                         UIRectTransform.SetSiblingIndex(this.data.gameBottom.v, 0);
                         UIRectTransform.SetSiblingIndex(this.data.gameDataUI.v, 1);
-                        UIRectTransform.SetSiblingIndex(this.data.gamePlayerList.v, 2);
-                        UIRectTransform.SetSiblingIndex(this.data.stateUI.v, 3);
-                        UIRectTransform.SetSiblingIndex(this.data.gameActionsUI.v, 4);
-                        UIRectTransform.SetSiblingIndex(this.data.gameChatRoom.v, 5);
-                        UIRectTransform.SetSiblingIndex(this.data.undoRedoRequestUIData.v, 6);
-                        UIRectTransform.SetSiblingIndex(this.data.requestDraw.v, 7);
-                        UIRectTransform.SetSiblingIndex(this.data.gameHistoryUIData.v, 8);
-                        UIRectTransform.SetSiblingIndex(this.data.saveUIData.v, 9);
-                        if (dataRecordSaveContainer != null)
+                        UIRectTransform.SetSiblingIndex(this.data.stateUI.v, 2);
+                        UIRectTransform.SetSiblingIndex(this.data.gameActionsUI.v, 3);
+                        UIRectTransform.SetSiblingIndex(this.data.gameChatRoom.v, 4);
+                        UIRectTransform.SetSiblingIndex(this.data.undoRedoRequestUIData.v, 5);
+                        UIRectTransform.SetSiblingIndex(this.data.requestDraw.v, 6);
+                        UIRectTransform.SetSiblingIndex(this.data.gameHistoryUIData.v, 7);
+                        UIRectTransform.SetSiblingIndex(this.data.saveUIData.v, 8);
+                        if (dialogContainer != null)
                         {
-                            dataRecordSaveContainer.SetSiblingIndex(10);
+                            dialogContainer.SetSiblingIndex(9);
                         }
                         else
                         {
-                            Debug.LogError("dataRecordSaveContainer null");
+                            Debug.LogError("dialogContainer null");
+                        }
+                        if (saveRecordContainer != null)
+                        {
+                            saveRecordContainer.SetSiblingIndex(10);
+                        }
+                        else
+                        {
+                            Debug.LogError("saveRecordContainer null");
                         }
                     }
                 }
@@ -443,15 +422,14 @@ public class GameUI : UIBehavior<GameUI.UIData>
     public StateUI stateUIPrefab;
     private static readonly UIRectTransform stateUIRect = UIConstants.FullParent;
 
-    public GamePlayerListUI gamePlayerListPrefab;
-
     public GameActionsUI gameActionsPrefab;
     private static readonly UIRectTransform gameActionsRect = UIConstants.FullParent;
 
     public SaveUI saveUIPrefab;
     private static readonly UIRectTransform saveUIRect = UIRectTransform.CreateCenterRect(360.0f, 400.0f);
 
-    public Transform dataRecordSaveContainer;
+    public Transform dialogContainer;
+    public Transform saveRecordContainer;
 
     public override void onAddCallBack<T>(T data)
     {
@@ -470,7 +448,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
                     uiData.requestDraw.allAddCallBack(this);
                     uiData.gameChatRoom.allAddCallBack(this);
                 }
-                uiData.gamePlayerList.allAddCallBack(this);
                 uiData.gameActionsUI.allAddCallBack(this);
                 uiData.saveUIData.allAddCallBack(this);
                 uiData.gameHistoryUIData.allAddCallBack(this);
@@ -569,16 +546,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 dirty = true;
                 return;
             }
-            if (data is GamePlayerListUI.UIData)
-            {
-                GamePlayerListUI.UIData gamePlayerListUIData = data as GamePlayerListUI.UIData;
-                // UI
-                {
-                    UIUtils.Instantiate(gamePlayerListUIData, gamePlayerListPrefab, this.transform, UIConstants.FullParent);
-                }
-                dirty = true;
-                return;
-            }
             if (data is SaveUI.UIData)
             {
                 SaveUI.UIData saveUIData = data as SaveUI.UIData;
@@ -620,7 +587,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
                     uiData.gameChatRoom.allRemoveCallBack(this);
                 }
                 uiData.stateUI.allRemoveCallBack(this);
-                uiData.gamePlayerList.allRemoveCallBack(this);
                 uiData.gameActionsUI.allRemoveCallBack(this);
                 uiData.saveUIData.allRemoveCallBack(this);
                 uiData.gameHistoryUIData.allRemoveCallBack(this);
@@ -697,15 +663,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 // UI
                 {
                     stateUIData.removeCallBackAndDestroy(typeof(StateUI));
-                }
-                return;
-            }
-            if (data is GamePlayerListUI.UIData)
-            {
-                GamePlayerListUI.UIData gamePlayerListUIData = data as GamePlayerListUI.UIData;
-                // UI
-                {
-                    gamePlayerListUIData.removeCallBackAndDestroy(typeof(GamePlayerListUI));
                 }
                 return;
             }
@@ -795,12 +752,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
                         dirty = true;
                     }
                     break;
-                case UIData.Property.gamePlayerList:
-                    {
-                        ValueChangeUtils.replaceCallBack(this, syncs);
-                        dirty = true;
-                    }
-                    break;
                 case UIData.Property.gameActionsUI:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
@@ -884,10 +835,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 }
             }
             if (wrapProperty.p is StateUI.UIData)
-            {
-                return;
-            }
-            if (wrapProperty.p is GamePlayerListUI.UIData)
             {
                 return;
             }

@@ -38,18 +38,6 @@ namespace TimeControl.HourGlass
 
         #endregion
 
-        #region txt
-
-        public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
-
-        static GamePlayerTimeHourGlassUI()
-        {
-            txtTitle.add(Language.Type.vi, "Đồng Hồ Cát");
-        }
-
-        #endregion
-
         #region TransformData
 
         public TransformData transformData = new TransformData();
@@ -68,9 +56,7 @@ namespace TimeControl.HourGlass
 
         #region Refresh
 
-        public Text tvServerTime;
-        public Text tvClientTime;
-        public Text tvReportTime;
+        public Text tvTime;
 
         public override void refresh()
         {
@@ -143,72 +129,59 @@ namespace TimeControl.HourGlass
                         if (timeControl != null && timeControlHourGlass != null)
                         {
                             PlayerTime playerTime = timeControlHourGlass.getPlayerTime(gamePlayer.playerIndex.v);
-                            // tvServerTime
-                            if (tvServerTime != null)
+                            if (playerTime != null)
                             {
-                                if (playerTime != null)
+                                switch (timeControl.use.v)
                                 {
-                                    float time = 0;
-                                    {
-                                        if (waitInputAction != null)
+                                    case TimeControl.Use.ServerTime:
                                         {
-                                            if (playerIndex == gamePlayer.playerIndex.v)
+                                            float time = 0;
                                             {
-                                                time = waitInputAction.serverTime.v;
+                                                if (waitInputAction != null)
+                                                {
+                                                    if (playerIndex == gamePlayer.playerIndex.v)
+                                                    {
+                                                        time = waitInputAction.serverTime.v;
+                                                    }
+                                                    else
+                                                    {
+                                                        time = -waitInputAction.serverTime.v;
+                                                    }
+                                                }
                                             }
-                                            else
-                                            {
-                                                time = -waitInputAction.serverTime.v;
-                                            }
+                                            // set
+                                            tvTime.text = (playerTime.serverTime.v - time) + "/" + playerTime.serverTime.v;
                                         }
-                                    }
-                                    // set
-                                    tvServerTime.text = time + "/" + (playerTime.serverTime.v - time) + "/" + playerTime.serverTime.v;
-                                }
-                                else
-                                {
-                                    Debug.LogError("playerTime null: " + this);
-                                    tvServerTime.text = "?";
+                                        break;
+                                    case TimeControl.Use.ClientTime:
+                                    default:
+                                        // Debug.LogError("unknown use: " + timeControl.use.v);
+                                        {
+                                            float time = 0;
+                                            {
+                                                if (waitInputAction != null)
+                                                {
+                                                    if (playerIndex == gamePlayer.playerIndex.v)
+                                                    {
+                                                        time = waitInputAction.clientTime.v;
+                                                    }
+                                                    else
+                                                    {
+                                                        time = -waitInputAction.clientTime.v;
+                                                    }
+                                                }
+                                            }
+                                            // set
+                                            tvTime.text = (playerTime.clientTime.v - time) + "/" + playerTime.clientTime.v;
+                                        }
+                                        break;
                                 }
                             }
                             else
                             {
-                                Debug.LogError("tvServerTime null: " + this);
+                                Debug.LogError("playerTime null");
                             }
-                            // tvClientTime
-                            if (tvClientTime != null)
-                            {
-                                if (playerTime != null)
-                                {
-                                    float time = 0;
-                                    {
-                                        if (waitInputAction != null)
-                                        {
-                                            if (playerIndex == gamePlayer.playerIndex.v)
-                                            {
-                                                time = waitInputAction.clientTime.v;
-                                            }
-                                            else
-                                            {
-                                                time = -waitInputAction.clientTime.v;
-                                            }
-                                        }
-                                    }
-                                    // set
-                                    tvClientTime.text = time + "/" + (playerTime.clientTime.v - time) + "/" + playerTime.clientTime.v + "/" + playerTime.lagCompensation.v;
-                                }
-                                else
-                                {
-                                    Debug.LogError("playerTime null: " + this);
-                                    tvClientTime.text = "?";
-                                }
-                            }
-                            else
-                            {
-                                Debug.LogError("tvClientTime null: " + this);
-                            }
-                            // tvReportTime
-                            if (tvReportTime != null)
+                            // reportTime
                             {
                                 if (gamePlayer.playerIndex.v == playerIndex)
                                 {
@@ -223,22 +196,18 @@ namespace TimeControl.HourGlass
                                     // Process
                                     if (timeReportClient != null)
                                     {
-                                        tvReportTime.text = timeReportClient.reportTime.v + "/" + timeReportClient.delta.v;
+                                        // tvReportTime.text = timeReportClient.reportTime.v + "/" + timeReportClient.delta.v;
                                     }
                                     else
                                     {
                                         // Debug.LogError ("timeReportClient null: " + this);
-                                        tvReportTime.text = "0/0";
+                                        // tvReportTime.text = "0/0";
                                     }
                                 }
                                 else
                                 {
-                                    tvReportTime.text = "0/0";
+                                    // tvReportTime.text = "0/0";
                                 }
-                            }
-                            else
-                            {
-                                Debug.LogError("tvReportTime null: " + this);
                             }
                         }
                         else
@@ -249,17 +218,6 @@ namespace TimeControl.HourGlass
                     else
                     {
                         Debug.LogError("gamePlayer null: " + this);
-                    }
-                    // txt
-                    {
-                        if (lbTitle != null)
-                        {
-                            lbTitle.text = txtTitle.get("Hourglass");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTitle null: " + this);
-                        }
                     }
                 }
                 else

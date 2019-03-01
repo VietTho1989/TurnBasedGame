@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using AdvancedCoroutines;
 using Foundation.Tasks;
 
-public class GamePlayerStateNormalUI : UIBehavior<GamePlayerStateNormalUI.UIData>
+public class GamePlayerStateNormalUI : UIBehavior<GamePlayerStateNormalUI.UIData>, HaveTransformData
 {
 
 	#region UIData
@@ -65,31 +65,47 @@ public class GamePlayerStateNormalUI : UIBehavior<GamePlayerStateNormalUI.UIData
 
     }
 
-	#endregion
+    #endregion
 
-	#region Refresh
+    #region txt
 
-	#region txt
+    public Text lbTitle;
+    public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-	public Text lbTitle;
-	public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    public static readonly TxtLanguage txtSurrender = new TxtLanguage();
+    public static readonly TxtLanguage txtCancelSurrender = new TxtLanguage();
+    public static readonly TxtLanguage txtSurrenderring = new TxtLanguage();
+    public static readonly TxtLanguage txtCannotSurrender = new TxtLanguage();
 
-	public static readonly TxtLanguage txtSurrender = new TxtLanguage();
-	public static readonly TxtLanguage txtCancelSurrender = new TxtLanguage();
-	public static readonly TxtLanguage txtSurrenderring = new TxtLanguage ();
-	public static readonly TxtLanguage txtCannotSurrender = new TxtLanguage ();
+    static GamePlayerStateNormalUI()
+    {
+        txtTitle.add(Language.Type.vi, "Bạn có muốn bỏ cuộc không?");
 
-	static GamePlayerStateNormalUI()
-	{
-		txtTitle.add (Language.Type.vi, "Trạng Thái Bình Thường");
+        txtSurrender.add(Language.Type.vi, "Đầu Hàng");
+        txtCancelSurrender.add(Language.Type.vi, "Huỷ đầu hàng?");
+        txtSurrenderring.add(Language.Type.vi, "Đang đầu hàng");
+        txtCannotSurrender.add(Language.Type.vi, "Không thể hàng");
+    }
 
-		txtSurrender.add (Language.Type.vi, "Đầu Hàng");
-		txtCancelSurrender.add (Language.Type.vi, "Huỷ đầu hàng?");
-		txtSurrenderring.add (Language.Type.vi, "Đang đầu hàng");
-		txtCannotSurrender.add (Language.Type.vi, "Không thể đầu hàng");
-	}
+    #endregion
 
-	#endregion
+    #region TransformData
+
+    public TransformData transformData = new TransformData();
+
+    private void updateTransformData()
+    {
+        this.transformData.update(this.transform);
+    }
+
+    public TransformData getTransformData()
+    {
+        return this.transformData;
+    }
+
+    #endregion
+
+    #region Refresh
 
 	public Button btnSurrender;
 	public Text tvSurrender;
@@ -140,7 +156,6 @@ public class GamePlayerStateNormalUI : UIBehavior<GamePlayerStateNormalUI.UIData
 						// UI
 						{
 							if (btnSurrender != null && tvSurrender != null) {
-								btnSurrender.gameObject.SetActive (true);
 								switch (this.data.state.v) {
 								case UIData.State.None:
 									{
@@ -177,7 +192,6 @@ public class GamePlayerStateNormalUI : UIBehavior<GamePlayerStateNormalUI.UIData
 						// UI
 						{
 							if (btnSurrender != null && tvSurrender != null) {
-								btnSurrender.gameObject.SetActive (false);
 								tvSurrender.text = txtCannotSurrender.get ("Cannot surrender");
 							} else {
 								Debug.LogError ("btnSurrender, tvSurrender null: " + this);
@@ -190,7 +204,7 @@ public class GamePlayerStateNormalUI : UIBehavior<GamePlayerStateNormalUI.UIData
 				// txt
 				{
 					if (lbTitle != null) {
-						lbTitle.text = txtTitle.get ("State Normal");
+                        lbTitle.text = txtTitle.get("Do you want to surrender?");
 					} else {
 						Debug.LogError ("lbTitle null: " + this);
 					}
@@ -199,6 +213,7 @@ public class GamePlayerStateNormalUI : UIBehavior<GamePlayerStateNormalUI.UIData
 				Debug.LogError ("data null");
 			}
 		}
+        updateTransformData();
 	}
 
 	public override bool isShouldDisableUpdate ()

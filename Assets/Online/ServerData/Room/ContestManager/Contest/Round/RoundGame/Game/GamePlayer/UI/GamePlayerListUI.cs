@@ -55,8 +55,6 @@ public class GamePlayerListUI : UIBehavior<GamePlayerListUI.UIData>
 
     #region Refresh
 
-    public Transform gamePlayerStateContainer;
-
     public override void refresh()
     {
         if (dirty)
@@ -109,17 +107,6 @@ public class GamePlayerListUI : UIBehavior<GamePlayerListUI.UIData>
                     foreach (GamePlayerUI.UIData oldGamePlayerUIData in oldGamePlayerUIDatas)
                     {
                         this.data.gamePlayerUIs.remove(oldGamePlayerUIData);
-                    }
-                    // siblingIndex
-                    {
-                        if (gamePlayerStateContainer != null)
-                        {
-                            gamePlayerStateContainer.SetAsLastSibling();
-                        }
-                        else
-                        {
-                            Debug.LogError("gamePlayerStateContainer null");
-                        }
                     }
                 }
                 else
