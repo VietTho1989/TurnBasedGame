@@ -34,7 +34,17 @@ public class GamePlayerListUI : UIBehavior<GamePlayerListUI.UIData>
         {
             bool isProcess = false;
             {
-
+                foreach(GamePlayerUI.UIData gamePlayerUI in this.gamePlayerUIs.vs)
+                {
+                    if (!isProcess)
+                    {
+                        isProcess = gamePlayerUI.processEvent(e);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
             }
             return isProcess;
         }
@@ -44,6 +54,8 @@ public class GamePlayerListUI : UIBehavior<GamePlayerListUI.UIData>
     #endregion
 
     #region Refresh
+
+    public Transform gamePlayerStateContainer;
 
     public override void refresh()
     {
@@ -97,6 +109,17 @@ public class GamePlayerListUI : UIBehavior<GamePlayerListUI.UIData>
                     foreach (GamePlayerUI.UIData oldGamePlayerUIData in oldGamePlayerUIDatas)
                     {
                         this.data.gamePlayerUIs.remove(oldGamePlayerUIData);
+                    }
+                    // siblingIndex
+                    {
+                        if (gamePlayerStateContainer != null)
+                        {
+                            gamePlayerStateContainer.SetAsLastSibling();
+                        }
+                        else
+                        {
+                            Debug.LogError("gamePlayerStateContainer null");
+                        }
                     }
                 }
                 else

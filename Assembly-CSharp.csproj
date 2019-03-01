@@ -858,7 +858,6 @@
     <Compile Include="Assets\BestHTTP\WebSocket\WebSocket.cs" />
     <Compile Include="Assets\BestHTTP\WebSocket\WebSocketResponse.cs" />
     <Compile Include="Assets\BestHTTP\WebSocket\WebSocketStatusCodes.cs" />
-    <Compile Include="Assets\bz2_test\Scripts\bz2Test.cs" />
     <Compile Include="Assets\Common\Basic\AddCallBackInterface.cs" />
     <Compile Include="Assets\Common\Basic\Property\Generic.cs" />
     <Compile Include="Assets\Common\Basic\Property\LP.cs" />
@@ -3039,6 +3038,7 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\Move\GameMove.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\Move\NonMove\NonMove.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\Move\NonMove\NonMoveIdentity.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\State\GamePlayerStateBtnUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\State\GamePlayerStateUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\State\Normal\GamePlayerStateNormal.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\State\Normal\GamePlayerStateNormalIdentity.cs" />
@@ -3751,7 +3751,6 @@
     <Compile Include="Assets\unity-ui-extensions\Scripts\Utilities\UISelectableExtension.cs" />
     <Compile Include="Assets\unity-ui-extensions\Scripts\VR Extensions\VRCursor.cs" />
     <Compile Include="Assets\unity-ui-extensions\Scripts\VR Extensions\VRInputModule.cs" />
-    <Compile Include="Assets\Utils\GameObjectUtils.cs" />
     <None Include="Assets\Foundation\Resources\Localization\German\Examples.txt" />
     <None Include="Assets\unity-ui-extensions\Shaders\UIAdditive.shader" />
     <None Include="Assets\Instructions.txt" />

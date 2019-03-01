@@ -54,7 +54,16 @@ public class GamePlayerStateNormalUI : UIBehavior<GamePlayerStateNormalUI.UIData
 			this.state.v = State.None;
 		}
 
-	}
+        public override bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+
+            }
+            return isProcess;
+        }
+
+    }
 
 	#endregion
 

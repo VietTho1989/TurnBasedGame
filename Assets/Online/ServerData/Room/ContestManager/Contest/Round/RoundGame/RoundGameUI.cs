@@ -90,7 +90,6 @@ namespace GameManager.Match
 		#region implement callBacks
 
 		public GameUI gamePrefab;
-		public Transform gameContainer;
 
 		public override void onAddCallBack<T> (T data)
 		{
@@ -114,7 +113,7 @@ namespace GameManager.Match
 					GameUI.UIData gameUIData = data as GameUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (gameUIData, gamePrefab, gameContainer);
+						UIUtils.Instantiate (gameUIData, gamePrefab, this.transform, UIConstants.FullParent);
 					}
 					dirty = true;
 					return;

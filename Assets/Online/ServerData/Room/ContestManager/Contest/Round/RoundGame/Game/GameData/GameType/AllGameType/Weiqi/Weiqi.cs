@@ -446,7 +446,12 @@ namespace Weiqi
 			return 2;
 		}
 
-		public override int getPlayerIndex ()
+        public override int getDefaultPerspective(int playerIndex)
+        {
+            return 0;
+        }
+
+        public override int getPlayerIndex ()
 		{
 			// Black play first
 			int color = (int)Common.stone.S_BLACK;

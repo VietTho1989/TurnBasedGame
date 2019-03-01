@@ -201,6 +201,19 @@ public class GameUI : UIBehavior<GameUI.UIData>
                         Debug.LogError("gameBottom null");
                     }
                 }
+                // gamePlayerListUI
+                if (!isProcess)
+                {
+                    GamePlayerListUI.UIData gamePlayerList = this.gamePlayerList.v;
+                    if (gamePlayerList != null)
+                    {
+                        isProcess = gamePlayerList.processEvent(e);
+                    }
+                    else
+                    {
+                        Debug.LogError("gamePlayerList null");
+                    }
+                }
                 // gameUIData
                 if (!isProcess)
                 {
@@ -370,9 +383,9 @@ public class GameUI : UIBehavior<GameUI.UIData>
                     }
                     // UI sibling index
                     {
-                        UIRectTransform.SetSiblingIndex(this.data.gamePlayerList.v, 0);
-                        UIRectTransform.SetSiblingIndex(this.data.gameBottom.v, 1);
-                        UIRectTransform.SetSiblingIndex(this.data.gameDataUI.v, 2);
+                        UIRectTransform.SetSiblingIndex(this.data.gameBottom.v, 0);
+                        UIRectTransform.SetSiblingIndex(this.data.gameDataUI.v, 1);
+                        UIRectTransform.SetSiblingIndex(this.data.gamePlayerList.v, 2);
                         UIRectTransform.SetSiblingIndex(this.data.stateUI.v, 3);
                         UIRectTransform.SetSiblingIndex(this.data.gameActionsUI.v, 4);
                         UIRectTransform.SetSiblingIndex(this.data.gameChatRoom.v, 5);

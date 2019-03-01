@@ -47,7 +47,16 @@ public class GamePlayerStateSurrenderUI : UIBehavior<GamePlayerStateSurrenderUI.
 			return GamePlayer.State.Type.Surrender;
 		}
 
-	}
+        public override bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+
+            }
+            return isProcess;
+        }
+
+    }
 
 	#endregion
 

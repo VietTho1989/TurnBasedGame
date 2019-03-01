@@ -428,7 +428,9 @@ public class NoDatabaseServerNoneUI : UIBehavior<NoDatabaseServerNoneUI.UIData>
                                 server.init(serverType, port);
                                 // maxClientUserCount
                                 {
+#pragma warning disable CS0618 // Type or member is obsolete
                                     int maxClientUserCount = LLAPITransport.DefaultMaxConnections;
+#pragma warning restore CS0618 // Type or member is obsolete
                                     {
                                         if (edtMaxClientUserCount != null)
                                         {

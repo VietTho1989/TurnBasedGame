@@ -10,13 +10,14 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
 
     public class UIData : Data
     {
+
         public VP<ReferenceData<GamePlayer>> gamePlayer;
 
         public VP<InformAvatarUI.UIData> avatar;
 
         public VP<GamePlayerTimeUI.UIData> time;
 
-        public VP<GamePlayerStateUI.UIData> state;
+        public VP<GamePlayerStateBtnUI.UIData> btnState;
 
         public VP<GameState.ResultUI.UIData> result;
 
@@ -27,7 +28,7 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
             gamePlayer,
             avatar,
             time,
-            state,
+            btnState,
             result
         }
 
@@ -36,11 +37,32 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
             this.gamePlayer = new VP<ReferenceData<GamePlayer>>(this, (byte)Property.gamePlayer, new ReferenceData<GamePlayer>(null));
             this.avatar = new VP<InformAvatarUI.UIData>(this, (byte)Property.avatar, new InformAvatarUI.UIData());
             this.time = new VP<GamePlayerTimeUI.UIData>(this, (byte)Property.time, new GamePlayerTimeUI.UIData());
-            this.state = new VP<GamePlayerStateUI.UIData>(this, (byte)Property.state, new GamePlayerStateUI.UIData());
+            this.btnState = new VP<GamePlayerStateBtnUI.UIData>(this, (byte)Property.btnState, new GamePlayerStateBtnUI.UIData());
             this.result = new VP<GameState.ResultUI.UIData>(this, (byte)Property.result, new GameState.ResultUI.UIData());
         }
 
         #endregion
+
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // btnState
+                if (!isProcess)
+                {
+                    GamePlayerStateBtnUI.UIData btnState = this.btnState.v;
+                    if (btnState != null)
+                    {
+                        isProcess = btnState.processEvent(e);
+                    }
+                    else
+                    {
+                        Debug.LogError("btnState null");
+                    }
+                }
+            }
+            return isProcess;
+        }
 
     }
 
@@ -54,15 +76,51 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
         {
             // avatarRect
             {
-                // anchoredPosition: (8.0, -8.0); anchorMin: (0.0, 1.0); anchorMax: (0.0, 1.0); pivot: (0.0, 1.0);
-                // offsetMin: (8.0, -44.0); offsetMax: (44.0, -8.0); sizeDelta: (36.0, 36.0);
-                avatarRect.anchoredPosition = new Vector3(8.0f, -8.0f, 0.0f);
+                // anchoredPosition: (4.0, -4.0); anchorMin: (0.0, 1.0); anchorMax: (0.0, 1.0); pivot: (0.0, 1.0);
+                // offsetMin: (4.0, -34.0); offsetMax: (34.0, -4.0); sizeDelta: (30.0, 30.0);
+                avatarRect.anchoredPosition = new Vector3(4.0f, -4.0f, 0.0f);
                 avatarRect.anchorMin = new Vector2(0.0f, 1.0f);
                 avatarRect.anchorMax = new Vector2(0.0f, 1.0f);
                 avatarRect.pivot = new Vector2(0.0f, 1.0f);
-                avatarRect.offsetMin = new Vector2(8.0f, -44.0f);
-                avatarRect.offsetMax = new Vector2(44.0f, -8.0f);
-                avatarRect.sizeDelta = new Vector2(36.0f, 36.0f);
+                avatarRect.offsetMin = new Vector2(4.0f, -34.0f);
+                avatarRect.offsetMax = new Vector2(34.0f, -4.0f);
+                avatarRect.sizeDelta = new Vector2(30.0f, 30.0f);
+            }
+            // gamePlayerTimeUIRect
+            {
+                // anchoredPosition: (38.0, -20.0); anchorMin: (0.0, 1.0); anchorMax: (1.0, 1.0); pivot: (0.0, 1.0);
+                // offsetMin: (38.0, -36.0); offsetMax: (-8.0, -20.0); sizeDelta: (-46.0, 16.0);
+                gamePlayerTimeUIRect.anchoredPosition = new Vector3(38.0f, -20.0f);
+                gamePlayerTimeUIRect.anchorMin = new Vector2(0.0f, 1.0f);
+                gamePlayerTimeUIRect.anchorMax = new Vector2(1.0f, 1.0f);
+                gamePlayerTimeUIRect.pivot = new Vector2(0.0f, 1.0f);
+                gamePlayerTimeUIRect.offsetMin = new Vector2(38.0f, -36.0f);
+                gamePlayerTimeUIRect.offsetMax = new Vector2(-4.0f, -20.0f);
+                gamePlayerTimeUIRect.sizeDelta = new Vector2(-42.0f, 16.0f);
+            }
+            // resultRect
+            {
+                // anchoredPosition: (38.0, -36.0); anchorMin: (0.0, 1.0); anchorMax: (1.0, 1.0); pivot: (0.0, 1.0);
+                // offsetMin: (38.0, -52.0); offsetMax: (-4.0, -36.0); sizeDelta: (-42.0, 16.0);
+                resultRect.anchoredPosition = new Vector3(38.0f, -36.0f, 0.0f);
+                resultRect.anchorMin = new Vector2(0.0f, 1.0f);
+                resultRect.anchorMax = new Vector2(1.0f, 1.0f);
+                resultRect.pivot = new Vector2(0.0f, 1.0f);
+                resultRect.offsetMin = new Vector2(38.0f, -52.0f);
+                resultRect.offsetMax = new Vector2(-4.0f, -36.0f);
+                resultRect.sizeDelta = new Vector2(-42.0f, 16.0f);
+            }
+            // gamePlayerStateBtnRect
+            {
+                // anchoredPosition: (9.0, -34.0); anchorMin: (0.0, 1.0); anchorMax: (0.0, 1.0); pivot: (0.0, 1.0);
+                // offsetMin: (9.0, -54.0); offsetMax: (29.0, -34.0); sizeDelta: (20.0, 20.0);
+                gamePlayerStateBtnRect.anchoredPosition = new Vector3(9.0f, -34.0f, 0.0f);
+                gamePlayerStateBtnRect.anchorMin = new Vector2(0.0f, 1.0f);
+                gamePlayerStateBtnRect.anchorMax = new Vector2(0.0f, 1.0f);
+                gamePlayerStateBtnRect.pivot = new Vector2(0.0f, 1.0f);
+                gamePlayerStateBtnRect.offsetMin = new Vector2(9.0f, -54.0f);
+                gamePlayerStateBtnRect.offsetMax = new Vector2(29.0f, -34.0f);
+                gamePlayerStateBtnRect.sizeDelta = new Vector2(20.0f, 20.0f);
             }
         }
     }
@@ -144,16 +202,127 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                             gamePlayerTimeUIData.gamePlayer.v = new ReferenceData<GamePlayer>(gamePlayer);
                         }
                     }
-                    // state
+                    // btnState
                     {
-                        GamePlayerStateUI.UIData stateUIData = this.data.state.v;
-                        if (stateUIData != null)
+                        GamePlayerStateBtnUI.UIData btnStateUIData = this.data.btnState.v;
+                        if (btnStateUIData != null)
                         {
-                            stateUIData.state.v = new ReferenceData<GamePlayer.State>(gamePlayer.state.v);
+                            btnStateUIData.state.v = new ReferenceData<GamePlayer.State>(gamePlayer.state.v);
                         }
                         else
                         {
-                            Debug.LogError("ui State null: " + this);
+                            Debug.LogError("btnStateUIData null: " + this);
+                        }
+                    }
+                    // position
+                    {
+                        // find
+                        int playerView = 0;
+                        RectTransform boardTransform = null;
+                        {
+                            GameUI.UIData gameUIData = this.data.findDataInParent<GameUI.UIData>();
+                            if (gameUIData != null)
+                            {
+                                GameDataUI.UIData gameDataUIData = gameUIData.gameDataUI.v;
+                                if (gameDataUIData != null)
+                                {
+                                    GameDataBoardUI.UIData gameDataBoardUIData = gameDataUIData.board.v;
+                                    if (gameDataBoardUIData != null)
+                                    {
+                                        // playerView
+                                        {
+                                            Perspective perspective = gameDataBoardUIData.perspective.v;
+                                            if (perspective != null)
+                                            {
+                                                playerView = perspective.playerView.v;
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("perspective null");
+                                            }
+                                        }
+                                        // boardTransform
+                                        {
+                                            GameDataBoardUI gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                                            if (gameDataBoardUI != null)
+                                            {
+                                                boardTransform = (RectTransform)gameDataBoardUI.transform;
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("gameDataBoardUI null");
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("gameDataBoardUIData null");
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("gameDataUIData null");
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("gameUIData null");
+                            }
+                        }
+                        // process
+                        if (boardTransform != null)
+                        {
+                            // find
+                            float left = boardTransform.rect.xMin;
+                            float right = boardTransform.rect.xMax;
+                            float top = boardTransform.rect.yMin;
+                            float bottom = boardTransform.rect.yMax;
+                            Debug.LogError("boardTransform: " + left + ", " + right + ", " + top + ", " + bottom);
+                            // process
+                            RectTransform gamePlayerTransform = (RectTransform)this.transform;
+                            if (gamePlayerTransform != null)
+                            {
+                                float gamePlayerWidth = gamePlayerTransform.rect.width;
+                                float gamePlayerHeight = gamePlayerTransform.rect.height;
+                                switch (gamePlayer.playerIndex.v)
+                                {
+                                    case 0:
+                                        {
+                                            if (playerView == 0)
+                                            {
+                                                gamePlayerTransform.anchoredPosition = new Vector2(0, top - gamePlayerHeight / 2);
+                                            }
+                                            else
+                                            {
+                                                gamePlayerTransform.anchoredPosition = new Vector2(0, bottom + gamePlayerHeight / 2);
+                                            }
+                                        }
+                                        break;
+                                    case 1:
+                                        {
+                                            if (playerView != 0)
+                                            {
+                                                gamePlayerTransform.anchoredPosition = new Vector2(0, top - gamePlayerHeight / 2);
+                                            }
+                                            else
+                                            {
+                                                gamePlayerTransform.anchoredPosition = new Vector2(0, bottom + gamePlayerHeight / 2);
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown playerIndex: " + gamePlayer.playerIndex.v);
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("gamePlayerTransform null");
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("boardTransform null");
                         }
                     }
                 }
@@ -181,30 +350,90 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
     public InformAvatarUI avatarPrefab;
     private static readonly UIRectTransform avatarRect = new UIRectTransform();
 
-    public Transform gamePlayerTimeUIContainer;
     public GamePlayerTimeUI gamePlayerTimeUIPrefab;
+    private static readonly UIRectTransform gamePlayerTimeUIRect = new UIRectTransform();
 
-    public GamePlayerStateUI gamePlayerStateUI;
+    public GamePlayerStateBtnUI gamePlayerStateBtnPrefab;
+    private static readonly UIRectTransform gamePlayerStateBtnRect = new UIRectTransform();
 
     private GameState.CheckEndResultChange<GamePlayer> checkEndResultChange = new GameState.CheckEndResultChange<GamePlayer>();
     public GameState.ResultUI resultPrefab;
-    public Transform resultContainer;
+    private static readonly UIRectTransform resultRect = new UIRectTransform();
+
+    private GameUI.UIData gameUIData = null;
 
     public override void onAddCallBack<T>(T data)
     {
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Parent
+            {
+                DataUtils.addParentCallBack(uiData, this, ref this.gameUIData);
+            }
             // Child
             {
                 uiData.gamePlayer.allAddCallBack(this);
                 uiData.avatar.allAddCallBack(this);
                 uiData.time.allAddCallBack(this);
-                uiData.state.allAddCallBack(this);
+                uiData.btnState.allAddCallBack(this);
                 uiData.result.allAddCallBack(this);
             }
             dirty = true;
             return;
+        }
+        // Parent
+        {
+            if (data is GameUI.UIData)
+            {
+                GameUI.UIData gameUIData = data as GameUI.UIData;
+                // Child
+                {
+                    gameUIData.gameDataUI.allAddCallBack(this);
+                }
+                dirty = true;
+                return;
+            }
+            // Child
+            {
+                if (data is GameDataUI.UIData)
+                {
+                    GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
+                    // Child
+                    {
+                        gameDataUIData.board.allAddCallBack(this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                {
+                    if (data is GameDataBoardUI.UIData)
+                    {
+                        GameDataBoardUI.UIData gameDataBoardUIData = data as GameDataBoardUI.UIData;
+                        // Chil
+                        {
+                            gameDataBoardUIData.perspective.allAddCallBack(this);
+                            TransformData.AddCallBack(gameDataBoardUIData, this);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // Child
+                    {
+                        if (data is Perspective)
+                        {
+                            dirty = true;
+                            return;
+                        }
+                        if(data is TransformData)
+                        {
+                            dirty = true;
+                            return;
+                        }
+                    }
+                }
+            }
         }
         // Child
         {
@@ -270,23 +499,19 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                 GamePlayerTimeUI.UIData time = data as GamePlayerTimeUI.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(time, gamePlayerTimeUIPrefab, gamePlayerTimeUIContainer);
+                    UIUtils.Instantiate(time, gamePlayerTimeUIPrefab, this.transform, gamePlayerTimeUIRect);
                 }
                 dirty = true;
                 return;
             }
-            if (data is GamePlayerStateUI.UIData)
+            if (data is GamePlayerStateBtnUI.UIData)
             {
-                GamePlayerStateUI.UIData uiState = data as GamePlayerStateUI.UIData;
+                GamePlayerStateBtnUI.UIData btnStateUIData = data as GamePlayerStateBtnUI.UIData;
                 // UI
-                if (gamePlayerStateUI != null)
                 {
-                    gamePlayerStateUI.setData(uiState);
+                    UIUtils.Instantiate(btnStateUIData, gamePlayerStateBtnPrefab, this.transform, gamePlayerStateBtnRect);
                 }
-                else
-                {
-                    Debug.LogError("gamePlayerStateUI null");
-                }
+                dirty = true;
                 return;
             }
             if (data is GameState.ResultUI.UIData)
@@ -294,7 +519,7 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                 GameState.ResultUI.UIData resultUIData = data as GameState.ResultUI.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(resultUIData, resultPrefab, resultContainer);
+                    UIUtils.Instantiate(resultUIData, resultPrefab, this.transform, resultRect);
                 }
                 dirty = true;
                 return;
@@ -308,16 +533,69 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Parent
+            {
+                DataUtils.removeParentCallBack(uiData, this, ref this.gameUIData);
+            }
             // Child
             {
                 uiData.gamePlayer.allRemoveCallBack(this);
                 uiData.avatar.allRemoveCallBack(this);
                 uiData.time.allRemoveCallBack(this);
-                uiData.state.allRemoveCallBack(this);
+                uiData.btnState.allRemoveCallBack(this);
                 uiData.result.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
             return;
+        }
+        // Parent
+        {
+            if (data is GameUI.UIData)
+            {
+                GameUI.UIData gameUIData = data as GameUI.UIData;
+                // Child
+                {
+                    gameUIData.gameDataUI.allRemoveCallBack(this);
+                }
+                return;
+            }
+            // Child
+            {
+                if (data is GameDataUI.UIData)
+                {
+                    GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
+                    // Child
+                    {
+                        gameDataUIData.board.allRemoveCallBack(this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                {
+                    if (data is GameDataBoardUI.UIData)
+                    {
+                        GameDataBoardUI.UIData gameDataBoardUIData = data as GameDataBoardUI.UIData;
+                        // Chil
+                        {
+                            gameDataBoardUIData.perspective.allRemoveCallBack(this);
+                            TransformData.RemoveCallBack(gameDataBoardUIData, this);
+                        }
+                        return;
+                    }
+                    // Child
+                    {
+                        if (data is Perspective)
+                        {
+                            return;
+                        }
+                        if(data is TransformData)
+                        {
+                            return;
+                        }
+                    }
+                }
+            }
         }
         // Child
         {
@@ -382,24 +660,12 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                 }
                 return;
             }
-            if (data is GamePlayerStateUI.UIData)
+            if (data is GamePlayerStateBtnUI.UIData)
             {
-                GamePlayerStateUI.UIData state = data as GamePlayerStateUI.UIData;
+                GamePlayerStateBtnUI.UIData btnStateUIData = data as GamePlayerStateBtnUI.UIData;
                 // UI
-                if (gamePlayerStateUI != null)
                 {
-                    if (gamePlayerStateUI.data == state)
-                    {
-                        gamePlayerStateUI.setData(null);
-                    }
-                    else
-                    {
-                        Debug.LogError("why different");
-                    }
-                }
-                else
-                {
-                    Debug.LogError("gamePlayerStateUI null");
+                    btnStateUIData.removeCallBackAndDestroy(typeof(GamePlayerStateBtnUI));
                 }
                 return;
             }
@@ -444,7 +710,7 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                         dirty = true;
                     }
                     break;
-                case UIData.Property.state:
+                case UIData.Property.btnState:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
@@ -457,10 +723,130 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                     }
                     break;
                 default:
-                    Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
             return;
+        }
+        // Parent
+        {
+            if (wrapProperty.p is GameUI.UIData)
+            {
+                switch ((GameUI.UIData.Property)wrapProperty.n)
+                {
+                    case GameUI.UIData.Property.game:
+                        break;
+                    case GameUI.UIData.Property.isReplay:
+                        break;
+                    case GameUI.UIData.Property.gameDataUI:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case GameUI.UIData.Property.gameBottom:
+                        break;
+                    case GameUI.UIData.Property.undoRedoRequestUIData:
+                        break;
+                    case GameUI.UIData.Property.requestDraw:
+                        break;
+                    case GameUI.UIData.Property.gameChatRoom:
+                        break;
+                    case GameUI.UIData.Property.gameHistoryUIData:
+                        break;
+                    case GameUI.UIData.Property.stateUI:
+                        break;
+                    case GameUI.UIData.Property.gamePlayerList:
+                        break;
+                    case GameUI.UIData.Property.gameActionsUI:
+                        break;
+                    case GameUI.UIData.Property.saveUIData:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            {
+                if (wrapProperty.p is GameDataUI.UIData)
+                {
+                    switch ((GameDataUI.UIData.Property)wrapProperty.n)
+                    {
+                        case GameDataUI.UIData.Property.gameData:
+                            break;
+                        case GameDataUI.UIData.Property.board:
+                            {
+                                ValueChangeUtils.replaceCallBack(this, syncs);
+                                dirty = true;
+                            }
+                            break;
+                        case GameDataUI.UIData.Property.allowLastMove:
+                            break;
+                        case GameDataUI.UIData.Property.hintUI:
+                            break;
+                        case GameDataUI.UIData.Property.allowInput:
+                            break;
+                        case GameDataUI.UIData.Property.requestChangeUseRule:
+                            break;
+                        case GameDataUI.UIData.Property.perspectiveUIData:
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+                // Child
+                {
+                    if (wrapProperty.p is GameDataBoardUI.UIData)
+                    {
+                        switch ((GameDataBoardUI.UIData.Property)wrapProperty.n)
+                        {
+                            case GameDataBoardUI.UIData.Property.gameData:
+                                break;
+                            case GameDataBoardUI.UIData.Property.animationManager:
+                                break;
+                            case GameDataBoardUI.UIData.Property.sub:
+                                break;
+                            case GameDataBoardUI.UIData.Property.perspective:
+                                {
+                                    ValueChangeUtils.replaceCallBack(this, syncs);
+                                    dirty = true;
+                                }
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
+                    // Child
+                    {
+                        if (wrapProperty.p is Perspective)
+                        {
+                            switch ((Perspective.Property)wrapProperty.n)
+                            {
+                                case Perspective.Property.playerView:
+                                    dirty = true;
+                                    break;
+                                case Perspective.Property.sub:
+                                    break;
+                                default:
+                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                    break;
+                            }
+                            return;
+                        }
+                        if(wrapProperty.p is TransformData)
+                        {
+                            dirty = true;
+                            return;
+                        }
+                    }
+                }
+            }
         }
         // Child
         {
@@ -547,7 +933,7 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
             {
                 return;
             }
-            if (wrapProperty.p is GamePlayerStateUI.UIData)
+            if (wrapProperty.p is GamePlayerStateBtnUI.UIData)
             {
                 return;
             }

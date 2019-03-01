@@ -365,7 +365,12 @@ public abstract class GameType : Data
 
 	public abstract int getPerspectiveCount();
 
-	public abstract int getPlayerIndex ();
+    public virtual int getDefaultPerspective(int playerIndex)
+    {
+        return playerIndex;
+    }
+
+    public abstract int getPlayerIndex ();
 
 	public abstract bool checkLegalMove (InputData inputData);
 
