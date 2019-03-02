@@ -30,6 +30,8 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
 
         public VP<GamePlayerListUI.UIData> gamePlayerList;
 
+        public VP<GameActionsUI.UIData> gameActionsUI;
+
         #region Constructor
 
         public enum Property
@@ -42,6 +44,7 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
             requestChangeUseRule,
             perspectiveUIData,
             gamePlayerList,
+            gameActionsUI,
         }
 
         public UIData() : base()
@@ -54,6 +57,7 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
             this.requestChangeUseRule = new VP<RequestChangeUseRuleUI.UIData>(this, (byte)Property.requestChangeUseRule, null);
             this.perspectiveUIData = new VP<PerspectiveUI.UIData>(this, (byte)Property.perspectiveUIData, null);
             this.gamePlayerList = new VP<GamePlayerListUI.UIData>(this, (byte)Property.gamePlayerList, new GamePlayerListUI.UIData());
+            this.gameActionsUI = new VP<GameActionsUI.UIData>(this, (byte)Property.gameActionsUI, new GameActionsUI.UIData());
         }
 
         #endregion
@@ -268,13 +272,39 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
                             Debug.LogError("gamePlayerList null: " + this);
                         }
                     }
+                    // GameAction
+                    {
+                        if (this.data.gameActionsUI.v != null)
+                        {
+                            // find
+                            GameAction gameAction = null;
+                            {
+                                Game game = gameData.findDataInParent<Game>();
+                                if (game != null)
+                                {
+                                    gameAction = game.gameAction.v;
+                                }
+                                else
+                                {
+                                    Debug.LogError("game null");
+                                }
+                            }
+                            // set
+                            this.data.gameActionsUI.v.gameAction.v = new ReferenceData<GameAction>(gameAction);
+                        }
+                        else
+                        {
+                            Debug.LogError("gameActionsUI null: " + this);
+                        }
+                    }
                     // UI
                     {
                         UIRectTransform.SetSiblingIndex(this.data.gamePlayerList.v, 0);
-                        UIRectTransform.SetSiblingIndex(this.data.board.v, 1);
-                        UIRectTransform.SetSiblingIndex(this.data.perspectiveUIData.v, 2);
-                        UIRectTransform.SetSiblingIndex(this.data.hintUI.v, 3);
-                        UIRectTransform.SetSiblingIndex(this.data.requestChangeUseRule.v, 4);
+                        UIRectTransform.SetSiblingIndex(this.data.gameActionsUI.v, 1);
+                        UIRectTransform.SetSiblingIndex(this.data.board.v, 2);
+                        UIRectTransform.SetSiblingIndex(this.data.perspectiveUIData.v, 3);
+                        UIRectTransform.SetSiblingIndex(this.data.hintUI.v, 4);
+                        UIRectTransform.SetSiblingIndex(this.data.requestChangeUseRule.v, 5);
                     }
                 }
                 else
@@ -309,6 +339,9 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
     public RequestChangeUseRuleUI requestChangeUseRulePrefab;
 
     public GamePlayerListUI gamePlayerListPrefab;
+    public GameActionsUI gameActionsPrefab;
+
+    private Game game = null;
 
     public override void onAddCallBack<T>(T data)
     {
@@ -323,6 +356,7 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
                 uiData.requestChangeUseRule.allAddCallBack(this);
                 uiData.perspectiveUIData.allAddCallBack(this);
                 uiData.gamePlayerList.allAddCallBack(this);
+                uiData.gameActionsUI.allAddCallBack(this);
             }
             // Update
             {
@@ -333,10 +367,24 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
         }
         // Child
         {
-            if (data is GameData)
+            // gameData
             {
-                dirty = true;
-                return;
+                if (data is GameData)
+                {
+                    GameData gameData = data as GameData;
+                    // Parent
+                    {
+                        DataUtils.addParentCallBack(gameData, this, ref this.game);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Parent
+                if (data is Game)
+                {
+                    dirty = true;
+                    return;
+                }
             }
             if (data is GameDataBoardUI.UIData)
             {
@@ -388,6 +436,16 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
                 dirty = true;
                 return;
             }
+            if (data is GameActionsUI.UIData)
+            {
+                GameActionsUI.UIData gameActionsUIData = data as GameActionsUI.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(gameActionsUIData, gameActionsPrefab, this.transform);
+                }
+                dirty = true;
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -405,6 +463,7 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
                 uiData.requestChangeUseRule.allRemoveCallBack(this);
                 uiData.perspectiveUIData.allRemoveCallBack(this);
                 uiData.gamePlayerList.allRemoveCallBack(this);
+                uiData.gameActionsUI.allRemoveCallBack(this);
             }
             // Update
             {
@@ -413,11 +472,29 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
             this.setDataNull(uiData);
             return;
         }
+        // Parent
+        if(data is Game)
+        {
+            return;
+        }
         // Child
         {
-            if (data is GameData)
+            // gameData
             {
-                return;
+                if (data is GameData)
+                {
+                    GameData gameData = data as GameData;
+                    // Parent
+                    {
+                        DataUtils.removeParentCallBack(gameData, this, ref this.game);
+                    }
+                    return;
+                }
+                // Parent
+                if(data is Game)
+                {
+                    return;
+                }
             }
             if (data is GameDataBoardUI.UIData)
             {
@@ -461,6 +538,15 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
                 // UI
                 {
                     gamePlayerListUIData.removeCallBackAndDestroy(typeof(GamePlayerListUI));
+                }
+                return;
+            }
+            if (data is GameActionsUI.UIData)
+            {
+                GameActionsUI.UIData subUIData = data as GameActionsUI.UIData;
+                // UI
+                {
+                    subUIData.removeCallBackAndDestroy(typeof(GameActionsUI));
                 }
                 return;
             }
@@ -518,6 +604,12 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
                         dirty = true;
                     }
                     break;
+                case UIData.Property.gameActionsUI:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
@@ -526,31 +618,64 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
         }
         // Child
         {
-            if (wrapProperty.p is GameData)
+            // gameData
             {
-                switch ((GameData.Property)wrapProperty.n)
+                if (wrapProperty.p is GameData)
                 {
-                    case GameData.Property.gameType:
-                        break;
-                    case GameData.Property.useRule:
-                        break;
-                    case GameData.Property.requestChangeUseRule:
-                        dirty = true;
-                        break;
-                    case GameData.Property.turn:
-                        dirty = true;
-                        break;
-                    case GameData.Property.timeControl:
-                        break;
-                    case GameData.Property.lastMove:
-                        break;
-                    case GameData.Property.state:
-                        break;
-                    default:
-                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                        break;
+                    switch ((GameData.Property)wrapProperty.n)
+                    {
+                        case GameData.Property.gameType:
+                            break;
+                        case GameData.Property.useRule:
+                            break;
+                        case GameData.Property.requestChangeUseRule:
+                            dirty = true;
+                            break;
+                        case GameData.Property.turn:
+                            dirty = true;
+                            break;
+                        case GameData.Property.timeControl:
+                            break;
+                        case GameData.Property.lastMove:
+                            break;
+                        case GameData.Property.state:
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
                 }
-                return;
+                // Parent
+                if (wrapProperty.p is Game)
+                {
+                    switch ((Game.Property)wrapProperty.n)
+                    {
+                        case Game.Property.gamePlayers:
+                            break;
+                        case Game.Property.requestDraw:
+                            break;
+                        case Game.Property.state:
+                            break;
+                        case Game.Property.gameData:
+                            break;
+                        case Game.Property.history:
+                            break;
+                        case Game.Property.gameAction:
+                            dirty = true;
+                            break;
+                        case Game.Property.undoRedoRequest:
+                            break;
+                        case Game.Property.chatRoom:
+                            break;
+                        case Game.Property.animationData:
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
             }
             if (wrapProperty.p is GameDataBoardUI.UIData)
             {
@@ -584,6 +709,10 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
                 return;
             }
             if (wrapProperty.p is GamePlayerListUI.UIData)
+            {
+                return;
+            }
+            if (wrapProperty.p is GameActionsUI.UIData)
             {
                 return;
             }

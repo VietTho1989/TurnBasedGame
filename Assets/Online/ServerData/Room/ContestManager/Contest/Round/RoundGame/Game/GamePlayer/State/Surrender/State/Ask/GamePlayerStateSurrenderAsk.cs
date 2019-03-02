@@ -92,7 +92,7 @@ public class GamePlayerStateSurrenderAsk : GamePlayerStateSurrender.State
 				return false;
 			}
 		} else {
-			Debug.LogError ("already accept: " + this);
+			// Debug.LogError ("already accept: " + this);
 			return false;
 		}
 	}

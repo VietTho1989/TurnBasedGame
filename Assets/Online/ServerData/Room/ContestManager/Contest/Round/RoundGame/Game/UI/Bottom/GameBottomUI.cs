@@ -893,8 +893,6 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                         break;
                     case GameUI.UIData.Property.stateUI:
                         break;
-                    case GameUI.UIData.Property.gameActionsUI:
-                        break;
                     case GameUI.UIData.Property.saveUIData:
                         break;
                     default:

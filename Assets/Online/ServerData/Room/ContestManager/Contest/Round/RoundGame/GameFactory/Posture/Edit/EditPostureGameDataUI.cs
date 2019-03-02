@@ -205,13 +205,10 @@ namespace Posture
 			}
 		}
 
-		#region txt
+		#region txt, rect
 
 		public Text lbTitle;
 		public static readonly TxtLanguage txtTitle = new TxtLanguage();
-
-		public Text tvBack;
-		public static readonly TxtLanguage txtBack = new TxtLanguage();
 
 		public Text tvPosture;
 		public static readonly TxtLanguage txtPosture = new TxtLanguage();
@@ -221,10 +218,27 @@ namespace Posture
 
 		static EditPostureGameDataUI()
 		{
-			txtTitle.add (Language.Type.vi, "Chỉ Sửa Dữ Liệu Cờ Thế");
-			txtBack.add (Language.Type.vi, "Quay Lại");
-			txtPosture.add (Language.Type.vi, "Thế Cờ");
-			txtLoad.add (Language.Type.vi, "Tải");
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Chỉ Sửa Dữ Liệu Cờ Thế");
+                txtPosture.add(Language.Type.vi, "Thế Cờ");
+                txtLoad.add(Language.Type.vi, "Tải");
+            }
+            // rect
+            {
+                // btnSetRect
+                {
+                    // anchoredPosition: (0.0, 0.0); anchorMin: (1.0, 1.0); anchorMax: (1.0, 1.0); pivot: (1.0, 1.0);
+                    // offsetMin: (-120.0, -30.0); offsetMax: (0.0, 0.0); sizeDelta: (120.0, 30.0);
+                    btnSetRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                    btnSetRect.anchorMin = new Vector2(1.0f, 1.0f);
+                    btnSetRect.anchorMax = new Vector2(1.0f, 1.0f);
+                    btnSetRect.pivot = new Vector2(1.0f, 1.0f);
+                    btnSetRect.offsetMin = new Vector2(-120.0f, -30.0f);
+                    btnSetRect.offsetMax = new Vector2(0.0f, 0.0f);
+                    btnSetRect.sizeDelta = new Vector2(120.0f, 30.0f);
+                }
+            }
 		}
 
 		#endregion
@@ -318,11 +332,6 @@ namespace Posture
 						} else {
 							Debug.LogError ("lbTitle null: " + this);
 						}
-						if (tvBack != null) {
-							tvBack.text = txtBack.get ("Back");
-						} else {
-							Debug.LogError ("tvBack null: " + this);
-						}
 						if (tvPosture != null) {
 							tvPosture.text = txtPosture.get ("Posture");
 						} else {
@@ -350,16 +359,16 @@ namespace Posture
 		#region implement callBacks
 
 		public GameUI gameUIPrefab;
-		public Transform gameUIContainer;
+        private static readonly UIRectTransform gameUIRect = UIRectTransform.CreateFullRect(0, 0, 50, 0);
 
 		public BtnSetEditPostureGameData btnSetPrefab;
-		public Transform btnSetContainer;
+        private static readonly UIRectTransform btnSetRect = new UIRectTransform();
 
 		public ChoosePostureUI choosePosturePrefab;
-		public Transform choosePostureContainer;
+        private static readonly UIRectTransform choosePostureRect = UIRectTransform.CreateCenterRect(360.0f, 400.0f);// UIConstants.FullParent;
 
 		public LoadPostureUI loadPosturePrefab;
-		public Transform loadPostureContainer;
+        private static readonly UIRectTransform loadPostureRect = UIRectTransform.CreateCenterRect(360.0f, 400.0f);// UIConstants.FullParent;
 
 		public override void onAddCallBack<T> (T data)
 		{
@@ -403,7 +412,7 @@ namespace Posture
 						GameUI.UIData gameUIData = data as GameUI.UIData;
 						// UI
 						{
-							UIUtils.Instantiate (gameUIData, gameUIPrefab, gameUIContainer);
+							UIUtils.Instantiate (gameUIData, gameUIPrefab, this.transform, gameUIRect);
 						}
 						// Child
 						{
@@ -435,7 +444,7 @@ namespace Posture
 					BtnSetEditPostureGameData.UIData btnSetUIData = data as BtnSetEditPostureGameData.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (btnSetUIData, btnSetPrefab, btnSetContainer);
+						UIUtils.Instantiate (btnSetUIData, btnSetPrefab, this.transform, btnSetRect);
 					}
 					dirty = true;
 					return;
@@ -444,7 +453,7 @@ namespace Posture
 					ChoosePostureUI.UIData choosePostureUIData = data as ChoosePostureUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (choosePostureUIData, choosePosturePrefab, choosePostureContainer);
+						UIUtils.Instantiate (choosePostureUIData, choosePosturePrefab, this.transform, choosePostureRect);
 					}
 					dirty = true;
 					return;
@@ -453,7 +462,7 @@ namespace Posture
 					LoadPostureUI.UIData loadPostureUIData = data as LoadPostureUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (loadPostureUIData, loadPosturePrefab, loadPostureContainer);
+						UIUtils.Instantiate (loadPostureUIData, loadPosturePrefab, this.transform, loadPostureRect);
 					}
 					dirty = true;
 					return;
@@ -657,8 +666,6 @@ namespace Posture
 							break;
 						case GameUI.UIData.Property.undoRedoRequestUIData:
 							break;
-						case GameUI.UIData.Property.gameActionsUI:
-							break;
 						case GameUI.UIData.Property.gameChatRoom:
 							break;
 						case GameUI.UIData.Property.requestDraw:
@@ -760,11 +767,12 @@ namespace Posture
 			if (this.data != null) {
 				// container
 				{
-					if (choosePostureContainer != null) {
+					/*if (choosePostureContainer != null) {
 						choosePostureContainer.gameObject.SetActive (true);
 					} else {
 						Debug.LogError ("choosePostureContainer null: " + this);
-					}
+					}*/
+                    UIRectTransform.SetActive(this.data.choosePostureUIData.v, true);
 				}
 				// uiData
 				{

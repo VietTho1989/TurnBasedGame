@@ -77,39 +77,38 @@ namespace Posture
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public Text tvRefresh;
+        public static readonly TxtLanguage txtRefresh = new TxtLanguage();
 
-		public Text tvBack;
-		public static readonly TxtLanguage txtBack = new TxtLanguage();
+        public static readonly TxtLanguage txtNone = new TxtLanguage();
+        public static readonly TxtLanguage txtLoading = new TxtLanguage();
+        public static readonly TxtLanguage txtShow = new TxtLanguage();
 
-		public Text tvRefresh;
-		public static readonly TxtLanguage txtRefresh = new TxtLanguage();
+        static ChoosePostureUI()
+        {
+            txtTitle.add(Language.Type.vi, "Chọn Thế Cờ");
+            txtRefresh.add(Language.Type.vi, "Làm Mới");
 
-		public static readonly TxtLanguage txtNone = new TxtLanguage();
-		public static readonly TxtLanguage txtLoading = new TxtLanguage();
-		public static readonly TxtLanguage txtShow = new TxtLanguage();
+            txtNone.add(Language.Type.vi, "Không có gì");
+            txtLoading.add(Language.Type.vi, "Đang tải");
+            txtShow.add(Language.Type.vi, "Hiện");
+        }
 
-		static ChoosePostureUI()
-		{
-			txtTitle.add (Language.Type.vi, "Chọn Thế Cờ");
-			txtBack.add (Language.Type.vi, "Quay Lại");
-			txtRefresh.add (Language.Type.vi, "Làm Mới");
+        #endregion
 
-			txtNone.add (Language.Type.vi, "Không có gì");
-			txtLoading.add (Language.Type.vi, "Đang tải");
-			txtShow.add (Language.Type.vi, "Hiện");
-		}
+        #region Refresh
 
-		#endregion
+        public Button btnBack;
+        public Button btnRefresh;
 
-		public Text tvState;
+        public Text tvState;
 		public Image bgState;
 
 		public override void refresh ()
@@ -161,17 +160,48 @@ namespace Posture
 							Debug.LogError ("adapter null: " + this);
 						}
 					}
-					// txt
-					{
+                    // siblingIndex
+                    {
+                        if (lbTitle != null)
+                        {
+                            lbTitle.transform.SetSiblingIndex(0);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null");
+                        }
+                        if (btnBack != null)
+                        {
+                            btnBack.transform.SetSiblingIndex(1);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnBack null");
+                        }
+                        if (btnRefresh != null)
+                        {
+                            btnRefresh.transform.SetSiblingIndex(2);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnRefresh null");
+                        }
+                        UIRectTransform.SetSiblingIndex(this.data.adapter.v, 3);
+                        if (bgState != null)
+                        {
+                            bgState.transform.SetSiblingIndex(4);
+                        }
+                        else
+                        {
+                            Debug.LogError("bgState null");
+                        }
+                    }
+                    // txt
+                    {
 						if (lbTitle != null) {
 							lbTitle.text = txtTitle.get ("Choose Posture");
 						} else {
 							Debug.LogError ("lbTitle null: " + this);
-						}
-						if (tvBack != null) {
-							tvBack.text = txtBack.get ("Back");
-						} else {
-							Debug.LogError ("tvBack null: " + this);
 						}
 						if (tvRefresh != null) {
 							tvRefresh.text = txtRefresh.get ("Refresh");
@@ -195,7 +225,7 @@ namespace Posture
 		#region implement callBacks
 
 		public ChoosePostureAdapter adapterPrefab;
-		public Transform adapterContainer;
+        private static readonly UIRectTransform adapterRect = UIRectTransform.CreateFullRect(0, 0, 30, 0);
 
 		public override void onAddCallBack<T> (T data)
 		{
@@ -224,7 +254,7 @@ namespace Posture
 				ChoosePostureAdapter.UIData adapter = data as ChoosePostureAdapter.UIData;
 				// UI
 				{
-					UIUtils.Instantiate (adapter, adapterPrefab, adapterContainer);
+					UIUtils.Instantiate (adapter, adapterPrefab, this.transform, adapterRect);
 				}
 				dirty = true;
 				return;
@@ -325,16 +355,7 @@ namespace Posture
 			if (this.data != null) {
 				EditPostureGameDataUI.UIData editPostureGameDataUIData = this.data.findDataInParent<EditPostureGameDataUI.UIData> ();
 				if (editPostureGameDataUIData != null) {
-					EditPostureGameDataUI editPostureGameDataUI = editPostureGameDataUIData.findCallBack<EditPostureGameDataUI> ();
-					if (editPostureGameDataUI != null) {
-						if (editPostureGameDataUI.choosePostureContainer != null) {
-							editPostureGameDataUI.choosePostureContainer.gameObject.SetActive (false);
-						} else {
-							Debug.LogError ("choosePostureContainer null: " + this);
-						}
-					} else {
-						Debug.LogError ("editPostureGameDataUI null: " + this);
-					}
+                    UIRectTransform.SetActive(editPostureGameDataUIData.choosePostureUIData.v, false);
 				} else {
 					Debug.LogError ("editPostureGameDataUIData null: " + this);
 				}

@@ -58,7 +58,7 @@ public class UndoRedoActionUI : UIBehavior<UndoRedoActionUI.UIData>
 				// txt
 				{
 					if (tvMessage != null) {
-						tvMessage.text = txtMessage.get ("Undo/Redo Action");
+						tvMessage.text = txtMessage.get ("Undoing/Redoing");
 					} else {
 						Debug.LogError ("tvMessage null: " + this);
 					}

@@ -94,9 +94,6 @@ namespace Record
 		public Text lbTitle;
 		public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text tvBack;
-		public static readonly TxtLanguage txtBack = new TxtLanguage ();
-
 		public Text tvPlaceHolder;
 		public static readonly TxtLanguage txtPlaceHolder = new TxtLanguage();
 
@@ -105,7 +102,6 @@ namespace Record
 			txtSave.add (Language.Type.vi, "Lưu");
 			txtSaving.add (Language.Type.vi, "Đang lưu...");
 			txtTitle.add (Language.Type.vi, "Lưu Trữ Bản Ghi");
-			txtBack.add (Language.Type.vi, "Quay Lại");
 			txtPlaceHolder.add (Language.Type.vi, "Điền tên file");
 		}
 
@@ -115,6 +111,8 @@ namespace Record
 
 		public Button btnSave;
 		public Text tvSave;
+
+        public Button btnBack;
 
 		public override void refresh ()
 		{
@@ -181,17 +179,49 @@ namespace Record
 					} else {
 						Debug.LogError ("btnSaveData, tvSaveData null: " + this);
 					}
-					// txt
-					{
+                    // siblingIndex
+                    {
+                        if (lbTitle != null)
+                        {
+                            lbTitle.transform.SetSiblingIndex(0);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null");
+                        }
+                        if (edtName != null)
+                        {
+                            edtName.transform.SetSiblingIndex(1);
+                        }
+                        else
+                        {
+                            Debug.LogError("edtName null");
+                        }
+                        if (btnBack != null)
+                        {
+                            btnBack.transform.SetSiblingIndex(2);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnBack null");
+                        }
+                        if (btnSave != null)
+                        {
+                            btnSave.transform.SetSiblingIndex(3);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnSave null");
+                        }
+                        UIRectTransform.SetSiblingIndex(this.data.fileSystemBrowser.v, 4);
+                        UIRectTransform.SetSiblingIndex(this.data.confirmSave.v, 5);
+                    }
+                    // txt
+                    {
 						if (lbTitle != null) {
 							lbTitle.text = txtTitle.get ("Save Record");
 						} else {
 							Debug.LogError ("lbTitle null: " + this);
-						}
-						if (tvBack != null) {
-							tvBack.text = txtBack.get ("Back");
-						} else {
-							Debug.LogError ("tvBack null: " + this);
 						}
 						if (tvPlaceHolder != null) {
 							tvPlaceHolder.text = txtPlaceHolder.get ("Enter file name");
@@ -215,10 +245,9 @@ namespace Record
 		#region implement callBacks
 
 		public FileSystemBrowserUI fileSystemBrowserPrefab;
-		public Transform fileSystemBrowserContainer;
+        private static readonly UIRectTransform fileSystemBrowserRect = UIRectTransform.CreateFullRect(0, 0, 80, 0);
 
 		public ConfirmSaveRecordUI confirmSaveRecordPrefab;
-		public Transform confirmSaveRecordContainer;
 
 		public override void onAddCallBack<T> (T data)
 		{
@@ -246,7 +275,7 @@ namespace Record
 					FileSystemBrowserUI.UIData fileSystemBrowserUIData = data as FileSystemBrowserUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (fileSystemBrowserUIData, fileSystemBrowserPrefab, fileSystemBrowserContainer);
+						UIUtils.Instantiate (fileSystemBrowserUIData, fileSystemBrowserPrefab, this.transform, fileSystemBrowserRect);
 					}
 					dirty = true;
 					return;
@@ -264,7 +293,7 @@ namespace Record
 					ConfirmSaveRecordUI.UIData confirmSaveRecordUIData = data as ConfirmSaveRecordUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (confirmSaveRecordUIData, confirmSaveRecordPrefab, confirmSaveRecordContainer);
+						UIUtils.Instantiate (confirmSaveRecordUIData, confirmSaveRecordPrefab, this.transform);
 					}
 					dirty = true;
 					return;

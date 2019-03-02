@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Foundation.Tasks;
 using AdvancedCoroutines;
+using GamePlayerState;
 
 public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrenderAskUI.UIData>, HaveTransformData
 {
@@ -14,6 +15,8 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
     {
 
         public VP<ReferenceData<GamePlayerStateSurrenderAsk>> ask;
+
+        public VP<WhoCanAskAdapter.UIData> whoCanAsks;
 
         #region state
 
@@ -35,12 +38,14 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
         public enum Property
         {
             ask,
+            whoCanAsks,
             state
         }
 
         public UIData() : base()
         {
             this.ask = new VP<ReferenceData<GamePlayerStateSurrenderAsk>>(this, (byte)Property.ask, new ReferenceData<GamePlayerStateSurrenderAsk>(null));
+            this.whoCanAsks = new VP<WhoCanAskAdapter.UIData>(this, (byte)Property.whoCanAsks, new WhoCanAskAdapter.UIData());
             this.state = new VP<State>(this, (byte)Property.state, State.None);
         }
 
@@ -79,19 +84,37 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
 
     static GamePlayerStateSurrenderAskUI()
     {
-        txtTitle.add(Language.Type.vi, "Trả lời yêu cầu xin ngừng đầu hàng");
+        // txt
+        {
+            txtTitle.add(Language.Type.vi, "Trả lời yêu cầu xin ngừng đầu hàng");
 
-        txtAccept.add(Language.Type.vi, "Chấp Nhận");
-        txtCancelAccept.add(Language.Type.vi, "Huỷ chấp nhận?");
-        txtAccepting.add(Language.Type.vi, "Đang chấp nhận");
-        txtCannotAccept.add(Language.Type.vi, "Không thể chấp nhận");
+            txtAccept.add(Language.Type.vi, "Chấp Nhận");
+            txtCancelAccept.add(Language.Type.vi, "Huỷ chấp nhận?");
+            txtAccepting.add(Language.Type.vi, "Đang chấp nhận");
+            txtCannotAccept.add(Language.Type.vi, "Không thể chấp nhận");
 
-        txtRefuse.add(Language.Type.vi, "Từ Chối");
-        txtCancelRefuse.add(Language.Type.vi, "Huỷ từ chối?");
-        txtRefusing.add(Language.Type.vi, "Đang từ chối");
-        txtCannotRefuse.add(Language.Type.vi, "Không thể từ chối");
+            txtRefuse.add(Language.Type.vi, "Từ Chối");
+            txtCancelRefuse.add(Language.Type.vi, "Huỷ từ chối?");
+            txtRefusing.add(Language.Type.vi, "Đang từ chối");
+            txtCannotRefuse.add(Language.Type.vi, "Không thể từ chối");
 
-        txtRequestError.add(Language.Type.vi, "Gửi câu trả lời lỗi");
+            txtRequestError.add(Language.Type.vi, "Gửi câu trả lời lỗi");
+        }
+        // rect
+        {
+            // whoCanAskAdapterRect
+            {
+                // anchoredPosition: (0.0, -24.0); anchorMin: (0.0, 1.0); anchorMax: (1.0, 1.0); pivot: (0.5, 1.0);
+                // offsetMin: (0.0, -84.0); offsetMax: (0.0, -24.0); sizeDelta: (0.0, 60.0);
+                whoCanAskRect.anchoredPosition = new Vector3(0.0f, -24.0f, 0.0f);
+                whoCanAskRect.anchorMin = new Vector2(0.0f, 1.0f);
+                whoCanAskRect.anchorMax = new Vector2(1.0f, 1.0f);
+                whoCanAskRect.pivot = new Vector2(0.5f, 1.0f);
+                whoCanAskRect.offsetMin = new Vector2(0.0f, -84.0f);
+                whoCanAskRect.offsetMax = new Vector2(0.0f, -24.0f);
+                whoCanAskRect.sizeDelta = new Vector2(0.0f, 60.0f);
+            }
+        }
     }
 
     #endregion
@@ -132,6 +155,18 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
                 GamePlayerStateSurrenderAsk ask = this.data.ask.v.data;
                 if (ask != null)
                 {
+                    // whoCanAskAdapter
+                    {
+                        WhoCanAskAdapter.UIData whoCanAsks = this.data.whoCanAsks.v;
+                        if (whoCanAsks != null)
+                        {
+                            whoCanAsks.ask.v = new ReferenceData<GamePlayerStateSurrenderAsk>(ask);
+                        }
+                        else
+                        {
+                            Debug.LogError("whoCanAsks null");
+                        }
+                    }
                     // reset
                     {
                         if (needReset)
@@ -416,6 +451,9 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
 
     #region implement callBacks
 
+    public WhoCanAskAdapter whoCanAskPrefab;
+    private static readonly UIRectTransform whoCanAskRect = new UIRectTransform();
+
     public override void onAddCallBack<T>(T data)
     {
         if (data is UIData)
@@ -426,6 +464,7 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
             // Child
             {
                 uiData.ask.allAddCallBack(this);
+                uiData.whoCanAsks.allAddCallBack(this);
             }
             dirty = true;
             return;
@@ -438,19 +477,32 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
         }
         // Child
         {
-            if (data is GamePlayerStateSurrenderAsk)
+            // ask
             {
-                GamePlayerStateSurrenderAsk ask = data as GamePlayerStateSurrenderAsk;
-                // Child
+                if (data is GamePlayerStateSurrenderAsk)
                 {
-                    ask.whoCanAsks.allAddCallBack(this);
+                    GamePlayerStateSurrenderAsk ask = data as GamePlayerStateSurrenderAsk;
+                    // Child
+                    {
+                        ask.whoCanAsks.allAddCallBack(this);
+                    }
+                    dirty = true;
+                    return;
                 }
-                dirty = true;
-                return;
+                // Child
+                if (data is Human)
+                {
+                    dirty = true;
+                    return;
+                }
             }
-            // Child
-            if (data is Human)
+            if(data is WhoCanAskAdapter.UIData)
             {
+                WhoCanAskAdapter.UIData whoCanAskAdapterUIData = data as WhoCanAskAdapter.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(whoCanAskAdapterUIData, whoCanAskPrefab, this.transform, whoCanAskRect);
+                }
                 dirty = true;
                 return;
             }
@@ -468,6 +520,7 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
             // Child
             {
                 uiData.ask.allRemoveCallBack(this);
+                uiData.whoCanAsks.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
             return;
@@ -479,18 +532,30 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
         }
         // Child
         {
-            if (data is GamePlayerStateSurrenderAsk)
+            // ask
             {
-                GamePlayerStateSurrenderAsk ask = data as GamePlayerStateSurrenderAsk;
-                // Child
+                if (data is GamePlayerStateSurrenderAsk)
                 {
-                    ask.whoCanAsks.allRemoveCallBack(this);
+                    GamePlayerStateSurrenderAsk ask = data as GamePlayerStateSurrenderAsk;
+                    // Child
+                    {
+                        ask.whoCanAsks.allRemoveCallBack(this);
+                    }
+                    return;
                 }
-                return;
+                // Child
+                if (data is Human)
+                {
+                    return;
+                }
             }
-            // Child
-            if (data is Human)
+            if (data is WhoCanAskAdapter.UIData)
             {
+                WhoCanAskAdapter.UIData whoCanAskAdapterUIData = data as WhoCanAskAdapter.UIData;
+                // UI
+                {
+                    whoCanAskAdapterUIData.removeCallBackAndDestroy(typeof(WhoCanAskAdapter));
+                }
                 return;
             }
         }
@@ -508,6 +573,12 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
             switch ((UIData.Property)wrapProperty.n)
             {
                 case UIData.Property.ask:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.whoCanAsks:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
@@ -546,32 +617,39 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
         }
         // Child
         {
-            if (wrapProperty.p is GamePlayerStateSurrenderAsk)
+            // ask
             {
-                switch ((GamePlayerStateSurrenderAsk.Property)wrapProperty.n)
+                if (wrapProperty.p is GamePlayerStateSurrenderAsk)
                 {
-                    case GamePlayerStateSurrenderAsk.Property.whoCanAsks:
-                        {
-                            ValueChangeUtils.replaceCallBack(this, syncs);
-                            dirty = true;
-                        }
-                        break;
-                    case GamePlayerStateSurrenderAsk.Property.accepts:
-                        {
-                            needReset = true;
-                            dirty = true;
-                        }
-                        break;
-                    default:
-                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                        break;
+                    switch ((GamePlayerStateSurrenderAsk.Property)wrapProperty.n)
+                    {
+                        case GamePlayerStateSurrenderAsk.Property.whoCanAsks:
+                            {
+                                ValueChangeUtils.replaceCallBack(this, syncs);
+                                dirty = true;
+                            }
+                            break;
+                        case GamePlayerStateSurrenderAsk.Property.accepts:
+                            {
+                                needReset = true;
+                                dirty = true;
+                            }
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
                 }
-                return;
+                // Child
+                if (wrapProperty.p is Human)
+                {
+                    Human.onUpdateSyncPlayerIdChange(wrapProperty, this);
+                    return;
+                }
             }
-            // Child
-            if (wrapProperty.p is Human)
+            if (wrapProperty.p is WhoCanAskAdapter.UIData)
             {
-                Human.onUpdateSyncPlayerIdChange(wrapProperty, this);
                 return;
             }
         }

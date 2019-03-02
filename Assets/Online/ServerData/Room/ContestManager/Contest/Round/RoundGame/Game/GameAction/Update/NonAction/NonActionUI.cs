@@ -6,172 +6,193 @@ using System.Collections.Generic;
 public class NonActionUI : UIBehavior<NonActionUI.UIData>
 {
 
-	#region UIData
+    #region UIData
 
-	public class UIData : GameActionsUI.UIData.Sub
-	{
-		
-		public VP<ReferenceData<NonAction>> nonAction;
+    public class UIData : GameActionsUI.UIData.Sub
+    {
 
-		public override GameAction.Type getType ()
-		{
-			return GameAction.Type.Non;
-		}
+        public VP<ReferenceData<NonAction>> nonAction;
 
-		#region Constructor
+        public override GameAction.Type getType()
+        {
+            return GameAction.Type.Non;
+        }
 
-		public enum Property
-		{
-			nonAction
-		}
+        #region Constructor
 
-		public UIData() : base()
-		{
-			this.nonAction = new VP<ReferenceData<NonAction>>(this, (byte)Property.nonAction, new ReferenceData<NonAction>(null));
-		}
+        public enum Property
+        {
+            nonAction
+        }
 
-		#endregion
-	}
+        public UIData() : base()
+        {
+            this.nonAction = new VP<ReferenceData<NonAction>>(this, (byte)Property.nonAction, new ReferenceData<NonAction>(null));
+        }
 
-	#endregion
+        #endregion
 
-	#region Update
+    }
 
-	#region txt
+    #endregion
 
-	public Text tvMessage;
-	public static readonly TxtLanguage txtMessage = new TxtLanguage();
+    #region Update
 
-	static NonActionUI()
-	{
-		txtMessage.add (Language.Type.vi, "Không có hành động");
-	}
+    #region txt
 
-	#endregion
+    public Text tvMessage;
+    public static readonly TxtLanguage txtMessage = new TxtLanguage();
 
-	public override void refresh ()
-	{
-		if (dirty) {
-			dirty = false;
-			if (this.data != null) {
-				// txt
-				{
-					if (tvMessage != null) {
-						tvMessage.text = txtMessage.get ("Don't have any action");
-					} else {
-						Debug.LogError ("tvMessage null: " + this);
-					}
-				}
-			} else {
-				// Debug.LogError ("data null: " + this);
-			}
-		}
-	}
+    static NonActionUI()
+    {
+        txtMessage.add(Language.Type.vi, "Không có hành động");
+    }
 
-	public override bool isShouldDisableUpdate ()
-	{
-		return true;
-	}
+    #endregion
 
-	#endregion
+    public override void refresh()
+    {
+        if (dirty)
+        {
+            dirty = false;
+            if (this.data != null)
+            {
+                // txt
+                {
+                    if (tvMessage != null)
+                    {
+                        tvMessage.text = txtMessage.get("Don't have action");
+                    }
+                    else
+                    {
+                        Debug.LogError("tvMessage null: " + this);
+                    }
+                }
+            }
+            else
+            {
+                // Debug.LogError ("data null: " + this);
+            }
+        }
+    }
 
-	#region implement callBacks
+    public override bool isShouldDisableUpdate()
+    {
+        return true;
+    }
 
-	public override void onAddCallBack<T> (T data)
-	{
-		if (data is UIData) {
-			UIData uiData = data as UIData;
-			// Setting
-			Setting.get().addCallBack(this);
-			// Child
-			{
-				uiData.nonAction.allAddCallBack (this);
-			}
-			dirty = true;
-			return;
-		}
-		// Setting
-		if (data is Setting) {
-			dirty = true;
-			return;
-		}
-		// Child
-		if (data is NonAction) {
-			dirty = true;
-			return;
-		}
-		Debug.LogError ("Don't proess: " + data + "; " + this);
-	}
+    #endregion
 
-	public override void onRemoveCallBack<T> (T data, bool isHide)
-	{
-		if (data is UIData) {
-			UIData uiData = data as UIData;
-			// Setting
-			Setting.get().removeCallBack(this);
-			// Child
-			{
-				uiData.nonAction.allRemoveCallBack (this);
-			}
-			this.setDataNull (uiData);
-			return;
-		}
-		// Setting
-		if (data is Setting) {
-			return;
-		}
-		// Child
-		if (data is NonAction) {
-			return;
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+    #region implement callBacks
 
-	public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-	{
-		if (WrapProperty.checkError (wrapProperty)) {
-			return;
-		}
-		if (wrapProperty.p is UIData) {
-			switch ((UIData.Property)wrapProperty.n) {
-			case UIData.Property.nonAction:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			default:
-				Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-				break;
-			}
-			return;
-		}
-		// Setting
-		if (wrapProperty.p is Setting) {
-			switch ((Setting.Property)wrapProperty.n) {
-			case Setting.Property.language:
-				dirty = true;
-				break;
-			case Setting.Property.showLastMove:
-				break;
-			case Setting.Property.viewUrlImage:
-				break;
-			case Setting.Property.animationSetting:
-				break;
-			case Setting.Property.maxThinkCount:
-				break;
-			default:
-				Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-				break;
-			}
-			return;
-		}
-		// Child
-		if (wrapProperty.p is NonAction) {
-			return;
-		}
-		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-	}
+    public override void onAddCallBack<T>(T data)
+    {
+        if (data is UIData)
+        {
+            UIData uiData = data as UIData;
+            // Setting
+            Setting.get().addCallBack(this);
+            // Child
+            {
+                uiData.nonAction.allAddCallBack(this);
+            }
+            dirty = true;
+            return;
+        }
+        // Setting
+        if (data is Setting)
+        {
+            dirty = true;
+            return;
+        }
+        // Child
+        if (data is NonAction)
+        {
+            dirty = true;
+            return;
+        }
+        Debug.LogError("Don't proess: " + data + "; " + this);
+    }
 
-	#endregion
+    public override void onRemoveCallBack<T>(T data, bool isHide)
+    {
+        if (data is UIData)
+        {
+            UIData uiData = data as UIData;
+            // Setting
+            Setting.get().removeCallBack(this);
+            // Child
+            {
+                uiData.nonAction.allRemoveCallBack(this);
+            }
+            this.setDataNull(uiData);
+            return;
+        }
+        // Setting
+        if (data is Setting)
+        {
+            return;
+        }
+        // Child
+        if (data is NonAction)
+        {
+            return;
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
+
+    public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+    {
+        if (WrapProperty.checkError(wrapProperty))
+        {
+            return;
+        }
+        if (wrapProperty.p is UIData)
+        {
+            switch ((UIData.Property)wrapProperty.n)
+            {
+                case UIData.Property.nonAction:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Setting
+        if (wrapProperty.p is Setting)
+        {
+            switch ((Setting.Property)wrapProperty.n)
+            {
+                case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.showLastMove:
+                    break;
+                case Setting.Property.viewUrlImage:
+                    break;
+                case Setting.Property.animationSetting:
+                    break;
+                case Setting.Property.maxThinkCount:
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Child
+        if (wrapProperty.p is NonAction)
+        {
+            return;
+        }
+        Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+    }
+
+    #endregion
+
 }

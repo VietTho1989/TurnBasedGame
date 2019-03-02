@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class GamePlayerListUI : UIBehavior<GamePlayerListUI.UIData>
+public class GamePlayerListUI : UIBehavior<GamePlayerListUI.UIData>, HaveTransformData
 {
 
     #region UIData
@@ -49,6 +49,22 @@ public class GamePlayerListUI : UIBehavior<GamePlayerListUI.UIData>
             return isProcess;
         }
 
+    }
+
+    #endregion
+
+    #region TransformData
+
+    public TransformData transformData = new TransformData();
+
+    private void updateTransformData()
+    {
+        this.transformData.update(this.transform);
+    }
+
+    public TransformData getTransformData()
+    {
+        return this.transformData;
     }
 
     #endregion
@@ -119,6 +135,7 @@ public class GamePlayerListUI : UIBehavior<GamePlayerListUI.UIData>
                 Debug.LogError("data null: " + this);
             }
         }
+        updateTransformData();
     }
 
     public override bool isShouldDisableUpdate()

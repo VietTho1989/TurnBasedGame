@@ -3052,6 +3052,8 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\State\Surrender\State\Ask\GamePlayerStateSurrenderAskIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\State\Surrender\State\Ask\GamePlayerStateSurrenderAskUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\State\Surrender\State\Ask\GamePlayerStateSurrenderAskUpdate.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\State\Surrender\State\Ask\WhoCanAsk\WhoCanAskAdapter.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\State\Surrender\State\Ask\WhoCanAsk\WhoCanAskHolder.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\State\Surrender\State\None\GamePlayerStateSurrenderNone.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\State\Surrender\State\None\GamePlayerStateSurrenderNoneIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\State\Surrender\State\None\GamePlayerStateSurrenderNoneUI.cs" />

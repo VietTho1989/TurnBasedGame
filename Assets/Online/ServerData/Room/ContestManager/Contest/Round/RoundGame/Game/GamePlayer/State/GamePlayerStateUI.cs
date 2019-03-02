@@ -347,32 +347,45 @@ public class GamePlayerStateUI : UIBehavior<GamePlayerStateUI.UIData>
                     }
                 }
             }
-            if (data is UIData.Sub)
+            // sub
             {
-                UIData.Sub sub = data as UIData.Sub;
-                // UI
+                if (data is UIData.Sub)
                 {
-                    switch (sub.getType())
+                    UIData.Sub sub = data as UIData.Sub;
+                    // UI
                     {
-                        case GamePlayer.State.Type.Normal:
-                            {
-                                GamePlayerStateNormalUI.UIData normalUIData = sub as GamePlayerStateNormalUI.UIData;
-                                UIUtils.Instantiate(normalUIData, normalPrefab, this.transform);
-                            }
-                            break;
-                        case GamePlayer.State.Type.Surrender:
-                            {
-                                GamePlayerStateSurrenderUI.UIData surrenderUIData = sub as GamePlayerStateSurrenderUI.UIData;
-                                UIUtils.Instantiate(surrenderUIData, surrenderPrefab, this.transform);
-                            }
-                            break;
-                        default:
-                            Debug.LogError("unknown type: " + sub.getType() + "; " + this);
-                            break;
+                        switch (sub.getType())
+                        {
+                            case GamePlayer.State.Type.Normal:
+                                {
+                                    GamePlayerStateNormalUI.UIData normalUIData = sub as GamePlayerStateNormalUI.UIData;
+                                    UIUtils.Instantiate(normalUIData, normalPrefab, this.transform);
+                                }
+                                break;
+                            case GamePlayer.State.Type.Surrender:
+                                {
+                                    GamePlayerStateSurrenderUI.UIData surrenderUIData = sub as GamePlayerStateSurrenderUI.UIData;
+                                    UIUtils.Instantiate(surrenderUIData, surrenderPrefab, this.transform);
+                                }
+                                break;
+                            default:
+                                Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                                break;
+                        }
                     }
+                    // Child
+                    {
+                        TransformData.AddCallBack(sub, this);
+                    }
+                    dirty = true;
+                    return;
                 }
-                dirty = true;
-                return;
+                // Child
+                if(data is TransformData)
+                {
+                    dirty = true;
+                    return;
+                }
             }
             if(data is InformAvatarUI.UIData)
             {
@@ -449,31 +462,43 @@ public class GamePlayerStateUI : UIBehavior<GamePlayerStateUI.UIData>
                     }
                 }
             }
-            if (data is UIData.Sub)
+            // sub
             {
-                UIData.Sub sub = data as UIData.Sub;
-                // UI
+                if (data is UIData.Sub)
                 {
-                    switch (sub.getType())
+                    UIData.Sub sub = data as UIData.Sub;
+                    // Child
                     {
-                        case GamePlayer.State.Type.Normal:
-                            {
-                                GamePlayerStateNormalUI.UIData normalUIData = sub as GamePlayerStateNormalUI.UIData;
-                                normalUIData.removeCallBackAndDestroy(typeof(GamePlayerStateNormalUI));
-                            }
-                            break;
-                        case GamePlayer.State.Type.Surrender:
-                            {
-                                GamePlayerStateSurrenderUI.UIData surrenderUIData = sub as GamePlayerStateSurrenderUI.UIData;
-                                surrenderUIData.removeCallBackAndDestroy(typeof(GamePlayerStateSurrenderUI));
-                            }
-                            break;
-                        default:
-                            Debug.LogError("unknown type: " + sub.getType() + "; " + this);
-                            break;
+                        TransformData.RemoveCallBack(sub, this);
                     }
+                    // UI
+                    {
+                        switch (sub.getType())
+                        {
+                            case GamePlayer.State.Type.Normal:
+                                {
+                                    GamePlayerStateNormalUI.UIData normalUIData = sub as GamePlayerStateNormalUI.UIData;
+                                    normalUIData.removeCallBackAndDestroy(typeof(GamePlayerStateNormalUI));
+                                }
+                                break;
+                            case GamePlayer.State.Type.Surrender:
+                                {
+                                    GamePlayerStateSurrenderUI.UIData surrenderUIData = sub as GamePlayerStateSurrenderUI.UIData;
+                                    surrenderUIData.removeCallBackAndDestroy(typeof(GamePlayerStateSurrenderUI));
+                                }
+                                break;
+                            default:
+                                Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                                break;
+                        }
+                    }
+                    return;
                 }
-                return;
+                // Child
+                if(data is TransformData)
+                {
+                    return;
+                }
             }
             if (data is InformAvatarUI.UIData)
             {
@@ -613,9 +638,44 @@ public class GamePlayerStateUI : UIBehavior<GamePlayerStateUI.UIData>
                     }
                 }
             }
-            if (wrapProperty.p is UIData.Sub)
+            // sub
             {
-                return;
+                if (wrapProperty.p is UIData.Sub)
+                {
+                    return;
+                }
+                // Child
+                if(wrapProperty.p is TransformData)
+                {
+                    switch ((TransformData.Property)wrapProperty.n)
+                    {
+                        case TransformData.Property.anchoredPosition:
+                            break;
+                        case TransformData.Property.anchorMin:
+                            break;
+                        case TransformData.Property.anchorMax:
+                            break;
+                        case TransformData.Property.pivot:
+                            break;
+                        case TransformData.Property.offsetMin:
+                            break;
+                        case TransformData.Property.offsetMax:
+                            break;
+                        case TransformData.Property.sizeDelta:
+                            break;
+                        case TransformData.Property.rotation:
+                            break;
+                        case TransformData.Property.scale:
+                            break;
+                        case TransformData.Property.size:
+                            dirty = true;
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
             }
             if(wrapProperty.p is InformAvatarUI.UIData)
             {

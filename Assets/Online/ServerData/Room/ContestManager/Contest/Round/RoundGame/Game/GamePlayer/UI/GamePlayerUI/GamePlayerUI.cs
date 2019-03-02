@@ -269,42 +269,114 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                             float right = boardTransform.rect.xMax;
                             float top = boardTransform.rect.yMin;
                             float bottom = boardTransform.rect.yMax;
-                            Debug.LogError("boardTransform: " + left + ", " + right + ", " + top + ", " + bottom);
+                            // Debug.LogError("boardTransform: " + left + ", " + right + ", " + top + ", " + bottom);
                             // process
                             RectTransform gamePlayerTransform = (RectTransform)this.transform;
                             if (gamePlayerTransform != null)
                             {
+                                // get gamePlayer dimension
                                 float gamePlayerWidth = gamePlayerTransform.rect.width;
                                 float gamePlayerHeight = gamePlayerTransform.rect.height;
-                                switch (gamePlayer.playerIndex.v)
+                                // get gamePlayerList dimension
+                                float gamePlayerListWidth = 0;
+                                float gamePlayerListHeight = 0;
                                 {
-                                    case 0:
+                                    GamePlayerListUI.UIData gamePlayerListUIData = this.data.findDataInParent<GamePlayerListUI.UIData>();
+                                    if (gamePlayerListUIData != null)
+                                    {
+                                        GamePlayerListUI gamePlayerListUI = gamePlayerListUIData.findCallBack<GamePlayerListUI>();
+                                        if (gamePlayerListUI != null)
                                         {
-                                            if (playerView == 0)
+                                            RectTransform gamePlayerListTransform = (RectTransform)gamePlayerListUI.transform;
+                                            if (gamePlayerListTransform != null)
                                             {
-                                                gamePlayerTransform.anchoredPosition = new Vector2(0, top - gamePlayerHeight / 2);
+                                                gamePlayerListWidth = gamePlayerListTransform.rect.width;
+                                                gamePlayerListHeight = gamePlayerListTransform.rect.height;
                                             }
                                             else
                                             {
-                                                gamePlayerTransform.anchoredPosition = new Vector2(0, bottom + gamePlayerHeight / 2);
+                                                Debug.LogError("gamePlayerListTransform null");
                                             }
                                         }
-                                        break;
-                                    case 1:
+                                        else
                                         {
-                                            if (playerView != 0)
-                                            {
-                                                gamePlayerTransform.anchoredPosition = new Vector2(0, top - gamePlayerHeight / 2);
-                                            }
-                                            else
-                                            {
-                                                gamePlayerTransform.anchoredPosition = new Vector2(0, bottom + gamePlayerHeight / 2);
-                                            }
+                                            Debug.LogError("gamePlayerListUI null");
                                         }
-                                        break;
-                                    default:
-                                        Debug.LogError("unknown playerIndex: " + gamePlayer.playerIndex.v);
-                                        break;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("gamePlayerListUIData null");
+                                    }
+                                }
+                                // portrait view
+                                if (gamePlayerListWidth <= gamePlayerListHeight)
+                                {
+                                    float x = -gamePlayerListWidth / 2 + gamePlayerWidth / 2 + 10;
+                                    switch (gamePlayer.playerIndex.v)
+                                    {
+                                        case 0:
+                                            {
+                                                if (playerView == 0)
+                                                {
+                                                    gamePlayerTransform.anchoredPosition = new Vector2(x, top - gamePlayerHeight / 2);
+                                                }
+                                                else
+                                                {
+                                                    gamePlayerTransform.anchoredPosition = new Vector2(x, bottom + gamePlayerHeight / 2);
+                                                }
+                                            }
+                                            break;
+                                        case 1:
+                                            {
+                                                if (playerView != 0)
+                                                {
+                                                    gamePlayerTransform.anchoredPosition = new Vector2(x, top - gamePlayerHeight / 2);
+                                                }
+                                                else
+                                                {
+                                                    gamePlayerTransform.anchoredPosition = new Vector2(x, bottom + gamePlayerHeight / 2);
+                                                }
+                                            }
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown playerIndex: " + gamePlayer.playerIndex.v);
+                                            break;
+                                    }
+                                }
+                                // landscape view
+                                else
+                                {
+                                    float x = left - 10;
+                                    switch (gamePlayer.playerIndex.v)
+                                    {
+                                        case 0:
+                                            {
+                                                if (playerView == 0)
+                                                {
+                                                    gamePlayerTransform.anchoredPosition = new Vector2(x, top);
+                                                }
+                                                else
+                                                {
+                                                    gamePlayerTransform.anchoredPosition = new Vector2(x, bottom);
+                                                }
+                                            }
+                                            break;
+                                        case 1:
+                                            {
+                                                if (playerView != 0)
+                                                {
+                                                    gamePlayerTransform.anchoredPosition = new Vector2(x, top);
+                                                }
+                                                else
+                                                {
+                                                    gamePlayerTransform.anchoredPosition = new Vector2(x, bottom);
+                                                }
+                                            }
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown playerIndex: " + gamePlayer.playerIndex.v);
+                                            break;
+                                    }
                                 }
                             }
                             else
@@ -353,15 +425,19 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
     private static readonly UIRectTransform resultRect = new UIRectTransform();
 
     private GameDataUI.UIData gameDataUIData = null;
+    private GamePlayerListUI.UIData gamePlayerListUIData = null;
 
     public override void onAddCallBack<T>(T data)
     {
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Global
+            Global.get().addCallBack(this);
             // Parent
             {
                 DataUtils.addParentCallBack(uiData, this, ref this.gameDataUIData);
+                DataUtils.addParentCallBack(uiData, this, ref this.gamePlayerListUIData);
             }
             // Child
             {
@@ -374,44 +450,63 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
             dirty = true;
             return;
         }
+        // Global
+        if(data is Global)
+        {
+            dirty = true;
+            return;
+        }
         // Parent
         {
-            if (data is GameDataUI.UIData)
+            // gameDataUIData
             {
-                GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
-                // Child
+                if (data is GameDataUI.UIData)
                 {
-                    gameDataUIData.board.allAddCallBack(this);
-                }
-                dirty = true;
-                return;
-            }
-            // Child
-            {
-                if (data is GameDataBoardUI.UIData)
-                {
-                    GameDataBoardUI.UIData gameDataBoardUIData = data as GameDataBoardUI.UIData;
-                    // Chil
+                    GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
+                    // Child
                     {
-                        gameDataBoardUIData.perspective.allAddCallBack(this);
-                        TransformData.AddCallBack(gameDataBoardUIData, this);
+                        gameDataUIData.board.allAddCallBack(this);
                     }
                     dirty = true;
                     return;
                 }
                 // Child
                 {
+                    if (data is GameDataBoardUI.UIData)
+                    {
+                        GameDataBoardUI.UIData gameDataBoardUIData = data as GameDataBoardUI.UIData;
+                        // Chil
+                        {
+                            gameDataBoardUIData.perspective.allAddCallBack(this);
+                            TransformData.AddCallBack(gameDataBoardUIData, this);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // Child
                     if (data is Perspective)
                     {
                         dirty = true;
                         return;
                     }
-                    if (data is TransformData)
-                    {
-                        dirty = true;
-                        return;
-                    }
                 }
+            }
+            // gamePlayerListUIData
+            if (data is GamePlayerListUI.UIData)
+            {
+                GamePlayerListUI.UIData gamePlayerListUIData = data as GamePlayerListUI.UIData;
+                // Child
+                {
+                    TransformData.AddCallBack(gamePlayerListUIData, this);
+                }
+                dirty = true;
+                return;
+            }
+            // child
+            if (data is TransformData)
+            {
+                dirty = true;
+                return;
             }
         }
         // Child
@@ -512,9 +607,12 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Global
+            Global.get().removeCallBack(this);
             // Parent
             {
                 DataUtils.removeParentCallBack(uiData, this, ref this.gameDataUIData);
+                DataUtils.removeParentCallBack(uiData, this, ref this.gamePlayerListUIData);
             }
             // Child
             {
@@ -527,41 +625,53 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
             this.setDataNull(uiData);
             return;
         }
+        // Global
+        if(data is Global)
+        {
+            return;
+        }
         // Parent
         {
-            if (data is GameDataUI.UIData)
+            // gameDataUIData
             {
-                GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
-                // Child
+                if (data is GameDataUI.UIData)
                 {
-                    gameDataUIData.board.allRemoveCallBack(this);
-                }
-                dirty = true;
-                return;
-            }
-            // Child
-            {
-                if (data is GameDataBoardUI.UIData)
-                {
-                    GameDataBoardUI.UIData gameDataBoardUIData = data as GameDataBoardUI.UIData;
-                    // Chil
+                    GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
+                    // Child
                     {
-                        gameDataBoardUIData.perspective.allRemoveCallBack(this);
-                        TransformData.RemoveCallBack(gameDataBoardUIData, this);
+                        gameDataUIData.board.allRemoveCallBack(this);
                     }
+                    dirty = true;
                     return;
                 }
                 // Child
                 {
+                    if (data is GameDataBoardUI.UIData)
+                    {
+                        GameDataBoardUI.UIData gameDataBoardUIData = data as GameDataBoardUI.UIData;
+                        // Chil
+                        {
+                            gameDataBoardUIData.perspective.allRemoveCallBack(this);
+                            TransformData.RemoveCallBack(gameDataBoardUIData, this);
+                        }
+                        return;
+                    }
+                    // Child
                     if (data is Perspective)
                     {
                         return;
                     }
-                    if (data is TransformData)
-                    {
-                        return;
-                    }
                 }
+            }
+            // gamePlayerListUIData
+            if (data is GamePlayerListUI.UIData)
+            {
+                return;
+            }
+            // Child
+            if (data is TransformData)
+            {
+                return;
             }
         }
         // Child
@@ -695,53 +805,53 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
             }
             return;
         }
+        // Global
+        if(wrapProperty.p is Global)
+        {
+            switch ((Global.Property)wrapProperty.n)
+            {
+                case Global.Property.networkReachability:
+                    break;
+                case Global.Property.deviceOrientation:
+                    dirty = true;
+                    break;
+                case Global.Property.width:
+                    dirty = true;
+                    break;
+                case Global.Property.height:
+                    dirty = true;
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
         // Parent
         {
-            if (wrapProperty.p is GameDataUI.UIData)
+            // gameDataUIData
             {
-                switch ((GameDataUI.UIData.Property)wrapProperty.n)
+                if (wrapProperty.p is GameDataUI.UIData)
                 {
-                    case GameDataUI.UIData.Property.gameData:
-                        break;
-                    case GameDataUI.UIData.Property.board:
-                        {
-                            ValueChangeUtils.replaceCallBack(this, syncs);
-                            dirty = true;
-                        }
-                        break;
-                    case GameDataUI.UIData.Property.allowLastMove:
-                        break;
-                    case GameDataUI.UIData.Property.hintUI:
-                        break;
-                    case GameDataUI.UIData.Property.allowInput:
-                        break;
-                    case GameDataUI.UIData.Property.requestChangeUseRule:
-                        break;
-                    case GameDataUI.UIData.Property.perspectiveUIData:
-                        break;
-                    default:
-                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                        break;
-                }
-                return;
-            }
-            // Child
-            {
-                if (wrapProperty.p is GameDataBoardUI.UIData)
-                {
-                    switch ((GameDataBoardUI.UIData.Property)wrapProperty.n)
+                    switch ((GameDataUI.UIData.Property)wrapProperty.n)
                     {
-                        case GameDataBoardUI.UIData.Property.gameData:
+                        case GameDataUI.UIData.Property.gameData:
                             break;
-                        case GameDataBoardUI.UIData.Property.animationManager:
-                            break;
-                        case GameDataBoardUI.UIData.Property.sub:
-                            break;
-                        case GameDataBoardUI.UIData.Property.perspective:
+                        case GameDataUI.UIData.Property.board:
                             {
                                 ValueChangeUtils.replaceCallBack(this, syncs);
                                 dirty = true;
                             }
+                            break;
+                        case GameDataUI.UIData.Property.allowLastMove:
+                            break;
+                        case GameDataUI.UIData.Property.hintUI:
+                            break;
+                        case GameDataUI.UIData.Property.allowInput:
+                            break;
+                        case GameDataUI.UIData.Property.requestChangeUseRule:
+                            break;
+                        case GameDataUI.UIData.Property.perspectiveUIData:
                             break;
                         default:
                             Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -751,14 +861,21 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                 }
                 // Child
                 {
-                    if (wrapProperty.p is Perspective)
+                    if (wrapProperty.p is GameDataBoardUI.UIData)
                     {
-                        switch ((Perspective.Property)wrapProperty.n)
+                        switch ((GameDataBoardUI.UIData.Property)wrapProperty.n)
                         {
-                            case Perspective.Property.playerView:
-                                dirty = true;
+                            case GameDataBoardUI.UIData.Property.gameData:
                                 break;
-                            case Perspective.Property.sub:
+                            case GameDataBoardUI.UIData.Property.animationManager:
+                                break;
+                            case GameDataBoardUI.UIData.Property.sub:
+                                break;
+                            case GameDataBoardUI.UIData.Property.perspective:
+                                {
+                                    ValueChangeUtils.replaceCallBack(this, syncs);
+                                    dirty = true;
+                                }
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -766,12 +883,36 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                         }
                         return;
                     }
-                    if (wrapProperty.p is TransformData)
+                    // Child
                     {
-                        dirty = true;
-                        return;
+                        if (wrapProperty.p is Perspective)
+                        {
+                            switch ((Perspective.Property)wrapProperty.n)
+                            {
+                                case Perspective.Property.playerView:
+                                    dirty = true;
+                                    break;
+                                case Perspective.Property.sub:
+                                    break;
+                                default:
+                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                    break;
+                            }
+                            return;
+                        }
                     }
                 }
+            }
+            // gamePlayerListUIData
+            if (wrapProperty.p is GamePlayerListUI.UIData)
+            {
+                return;
+            }
+            // Child
+            if (wrapProperty.p is TransformData)
+            {
+                dirty = true;
+                return;
             }
         }
         // Child

@@ -75,7 +75,7 @@ public static class UIConstants
         // PostureGameDataUIRect
         {
             PostureMiniGameDataUIRect = new UIRectTransform(MiniGameDataUIRect);
-            PostureMiniGameDataUIRect.setPosY(HeaderHeight + ItemHeight);
+            PostureMiniGameDataUIRect.setPosY(105.0f);
         }
 
         float paddingLeft = 90;
