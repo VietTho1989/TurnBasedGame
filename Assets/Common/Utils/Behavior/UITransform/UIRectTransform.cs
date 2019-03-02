@@ -143,6 +143,14 @@ public class UIRectTransform
             this.offsetMin.y = -this.sizeDelta.y - posY;
             this.offsetMax.y = -posY;
         }
+        else if (this.anchorMin.y == 0.5f
+            && this.anchorMax.y == 0.5f
+            && this.pivot.y == 0.5f)
+        {
+            this.anchoredPosition.y = -posY;
+            this.offsetMin.y = -posY - this.sizeDelta.y / 2.0f;
+            this.offsetMax.y = -posY + this.sizeDelta.y / 2.0f;
+        }
         else
         {
             Debug.LogError("unknown rect type: " + this);
@@ -169,7 +177,7 @@ public class UIRectTransform
         }
         else
         {
-            Debug.LogError("unknown rect type: " + UIRectTransform.PrintRectTransform(rectTransform)+", "+rectTransform.gameObject);
+            Debug.LogError("unknown rect type: " + UIRectTransform.PrintRectTransform(rectTransform) + ", " + rectTransform.gameObject);
         }
     }
 
@@ -410,6 +418,24 @@ public class UIRectTransform
     }
 
     #endregion
+
+    public static void GetMargin(RectTransform rectTransform, out float left, out float right, out float top, out float bottom)
+    {
+        if(rectTransform.anchorMin == new Vector2(0.5f, 0.5f) && rectTransform.anchorMax == new Vector2(0.5f, 0.5f) && rectTransform.pivot == new Vector2(0.5f, 0.5f))
+        {
+            left = rectTransform.rect.xMin + rectTransform.anchoredPosition.x;
+            right = rectTransform.rect.xMax + rectTransform.anchoredPosition.x;
+            top = rectTransform.rect.yMin + rectTransform.anchoredPosition.y;
+            bottom = rectTransform.rect.yMax + rectTransform.anchoredPosition.y;
+        }
+        else
+        {
+            left = rectTransform.rect.xMin;
+            right = rectTransform.rect.xMax;
+            top = rectTransform.rect.yMin;
+            bottom = rectTransform.rect.yMax;
+        }
+    }
 
     public enum ShowType
     {

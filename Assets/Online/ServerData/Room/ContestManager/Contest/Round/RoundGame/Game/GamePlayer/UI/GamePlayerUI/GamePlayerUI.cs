@@ -269,6 +269,9 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                             float right = boardTransform.rect.xMax;
                             float top = boardTransform.rect.yMin;
                             float bottom = boardTransform.rect.yMax;
+                            {
+                                UIRectTransform.GetMargin(boardTransform, out left, out right, out top, out bottom);
+                            }
                             // Debug.LogError("boardTransform: " + left + ", " + right + ", " + top + ", " + bottom);
                             // process
                             RectTransform gamePlayerTransform = (RectTransform)this.transform;
@@ -318,11 +321,11 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                                             {
                                                 if (playerView == 0)
                                                 {
-                                                    gamePlayerTransform.anchoredPosition = new Vector2(x, top - gamePlayerHeight / 2);
+                                                    gamePlayerTransform.anchoredPosition = new Vector2(x, top - gamePlayerHeight / 2 - GameDataBoardUI.Margin);
                                                 }
                                                 else
                                                 {
-                                                    gamePlayerTransform.anchoredPosition = new Vector2(x, bottom + gamePlayerHeight / 2);
+                                                    gamePlayerTransform.anchoredPosition = new Vector2(x, bottom + gamePlayerHeight / 2 + GameDataBoardUI.Margin);
                                                 }
                                             }
                                             break;
@@ -330,11 +333,11 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                                             {
                                                 if (playerView != 0)
                                                 {
-                                                    gamePlayerTransform.anchoredPosition = new Vector2(x, top - gamePlayerHeight / 2);
+                                                    gamePlayerTransform.anchoredPosition = new Vector2(x, top - gamePlayerHeight / 2 - GameDataBoardUI.Margin);
                                                 }
                                                 else
                                                 {
-                                                    gamePlayerTransform.anchoredPosition = new Vector2(x, bottom + gamePlayerHeight / 2);
+                                                    gamePlayerTransform.anchoredPosition = new Vector2(x, bottom + gamePlayerHeight / 2 + GameDataBoardUI.Margin);
                                                 }
                                             }
                                             break;

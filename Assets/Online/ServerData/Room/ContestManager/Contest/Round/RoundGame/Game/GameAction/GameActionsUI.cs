@@ -155,6 +155,9 @@ public class GameActionsUI : UIBehavior<GameActionsUI.UIData>
                             float right = boardTransform.rect.xMax;
                             float top = boardTransform.rect.yMin;
                             float bottom = boardTransform.rect.yMax;
+                            {
+                                UIRectTransform.GetMargin(boardTransform, out left, out right, out top, out bottom);
+                            }
                             // process
                             RectTransform gameActionsTransform = (RectTransform)this.transform;
                             if (gameActionsTransform != null)
@@ -196,7 +199,7 @@ public class GameActionsUI : UIBehavior<GameActionsUI.UIData>
                                 // portrait view
                                 if (gameDataWidth <= gameDataHeight)
                                 {
-                                    gameActionsTransform.anchoredPosition = new Vector2(gameActionsWidth/2, bottom + gameActionsHeight / 2);
+                                    gameActionsTransform.anchoredPosition = new Vector2(gameActionsWidth/2, bottom + gameActionsHeight / 2 + GameDataBoardUI.Margin);
                                 }
                                 // landscape view
                                 else

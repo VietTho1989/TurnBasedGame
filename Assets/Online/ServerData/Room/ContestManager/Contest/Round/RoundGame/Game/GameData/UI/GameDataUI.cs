@@ -44,7 +44,7 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
             requestChangeUseRule,
             perspectiveUIData,
             gamePlayerList,
-            gameActionsUI,
+            gameActionsUI
         }
 
         public UIData() : base()
@@ -299,9 +299,9 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
                     }
                     // UI
                     {
-                        UIRectTransform.SetSiblingIndex(this.data.gamePlayerList.v, 0);
-                        UIRectTransform.SetSiblingIndex(this.data.gameActionsUI.v, 1);
-                        UIRectTransform.SetSiblingIndex(this.data.board.v, 2);
+                        UIRectTransform.SetSiblingIndex(this.data.board.v, 0);
+                        UIRectTransform.SetSiblingIndex(this.data.gamePlayerList.v, 1);
+                        UIRectTransform.SetSiblingIndex(this.data.gameActionsUI.v, 2);
                         UIRectTransform.SetSiblingIndex(this.data.perspectiveUIData.v, 3);
                         UIRectTransform.SetSiblingIndex(this.data.hintUI.v, 4);
                         UIRectTransform.SetSiblingIndex(this.data.requestChangeUseRule.v, 5);
@@ -341,6 +341,8 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
     public GamePlayerListUI gamePlayerListPrefab;
     public GameActionsUI gameActionsPrefab;
 
+    public GameDataBoardTransformUpdate boardTransformUpdate;
+
     private Game game = null;
 
     public override void onAddCallBack<T>(T data)
@@ -361,6 +363,14 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
             // Update
             {
                 UpdateUtils.makeUpdate<GameDataUIAllowInputUpdate, UIData>(uiData, this.transform);
+                if (boardTransformUpdate != null)
+                {
+                    boardTransformUpdate.setData(uiData);
+                }
+                else
+                {
+                    Debug.LogError("boardTransformUpdate null");
+                }
             }
             dirty = true;
             return;
@@ -468,6 +478,14 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
             // Update
             {
                 uiData.removeCallBackAndDestroy(typeof(GameDataUIAllowInputUpdate));
+                if (boardTransformUpdate != null)
+                {
+                    boardTransformUpdate.setDataNull(uiData);
+                }
+                else
+                {
+                    Debug.LogError("boardTransformUpdate null");
+                }
             }
             this.setDataNull(uiData);
             return;

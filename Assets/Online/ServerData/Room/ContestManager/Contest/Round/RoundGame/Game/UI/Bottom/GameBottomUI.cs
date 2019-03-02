@@ -6,7 +6,7 @@ using GameManager.Match;
 using GameManager.Match.Swap;
 using Record;
 
-public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
+public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
 {
 
     #region UIData
@@ -103,11 +103,18 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
 
     #endregion
 
-    #region txt
+    #region TransformData
 
-    static GameBottomUI()
+    public TransformData transformData = new TransformData();
+
+    private void updateTransformData()
     {
+        this.transformData.update(this.transform);
+    }
 
+    public TransformData getTransformData()
+    {
+        return this.transformData;
     }
 
     #endregion
@@ -342,6 +349,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>
                 Debug.LogError("data null");
             }
         }
+        updateTransformData();
     }
 
     public override bool isShouldDisableUpdate()

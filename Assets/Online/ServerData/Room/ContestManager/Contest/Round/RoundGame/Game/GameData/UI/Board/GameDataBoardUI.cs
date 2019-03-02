@@ -205,6 +205,8 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>, HaveTransform
 
     #region TransformData
 
+    public const float Margin = 8;
+
     public TransformData transformData = new TransformData();
 
     private void updateTransformData()

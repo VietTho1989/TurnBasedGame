@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UI.Extensions;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 
 namespace Chess.UseRule
 {
@@ -35,7 +36,7 @@ namespace Chess.UseRule
 
 		public GameObject contentContainer;
 
-		public Image imgType;
+        public UICircle circleType;
 		public Color normalColor = Color.red;
 		public Color promotionColor = Color.yellow;
 		public Color passantColor = Color.gray;
@@ -70,20 +71,20 @@ namespace Chess.UseRule
 								this.transform.localPosition = new Vector3 (destX - 3.5f, destY - 3.5f, 0);
 							}
 							// imgType
-							if (imgType != null) {
+							if (circleType != null) {
 								ChessMove.Move move = new ChessMove.Move (legalMove.move.v);
 								switch (move.type) {
 								case Common.MoveType.NORMAL:
-									imgType.color = normalColor;
+									circleType.color = normalColor;
 									break;
 								case Common.MoveType.PROMOTION:
-									imgType.color = promotionColor;
+									circleType.color = promotionColor;
 									break;
 								case Common.MoveType.ENPASSANT:
-									imgType.color = passantColor;
+									circleType.color = passantColor;
 									break;
 								case Common.MoveType.CASTLING:
-									imgType.color = castlingColor;
+									circleType.color = castlingColor;
 									break;
 								default:
 									Debug.LogError ("unknown move type: " + move.type + "; " + this);
