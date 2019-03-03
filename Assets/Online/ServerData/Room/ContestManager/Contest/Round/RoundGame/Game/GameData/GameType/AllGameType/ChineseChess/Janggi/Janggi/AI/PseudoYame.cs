@@ -92,7 +92,7 @@ namespace Janggi.Ai
 
 			sum += (-min + 10) * proms.Length;
 
-			int prob = Global.Next(sum);
+			int prob = GlobalJanggi.Next(sum);
 
 			bool oldMyTurn = board.IsMyTurn;
 			int cumm = 0;

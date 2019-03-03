@@ -98,7 +98,6 @@ namespace Chess
 
         public override void refresh ()
 		{
-            updateTransformData();
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {
@@ -153,7 +152,8 @@ namespace Chess
 					// Debug.LogError ("data null: " + this);
 				}
 			}
-		}
+            updateTransformData();
+        }
 
 		public override bool isShouldDisableUpdate ()
 		{

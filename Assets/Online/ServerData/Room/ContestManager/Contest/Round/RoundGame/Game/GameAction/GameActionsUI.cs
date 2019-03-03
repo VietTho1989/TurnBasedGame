@@ -1,6 +1,7 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class GameActionsUI : UIBehavior<GameActionsUI.UIData>
 {
@@ -8,6 +9,7 @@ public class GameActionsUI : UIBehavior<GameActionsUI.UIData>
 
     public class UIData : Data
     {
+
         public VP<ReferenceData<GameAction>> gameAction;
 
         #region Sub
@@ -40,7 +42,7 @@ public class GameActionsUI : UIBehavior<GameActionsUI.UIData>
 
     #endregion
 
-    #region Update
+    #region Refresh
 
     public override void refresh()
     {
@@ -199,12 +201,14 @@ public class GameActionsUI : UIBehavior<GameActionsUI.UIData>
                                 // portrait view
                                 if (gameDataWidth <= gameDataHeight)
                                 {
-                                    gameActionsTransform.anchoredPosition = new Vector2(gameActionsWidth/2, bottom + gameActionsHeight / 2 + GameDataBoardUI.Margin);
+                                    float x = gameDataWidth / 2 - gameActionsWidth / 2 - GameDataBoardUI.Margin;
+                                    gameActionsTransform.anchoredPosition = new Vector2(x, bottom + gameActionsHeight / 2 + GameDataBoardUI.Margin);
                                 }
                                 // landscape view
                                 else
                                 {
-                                    gameActionsTransform.anchoredPosition = new Vector2(right, bottom);
+                                    float x = right + gameActionsWidth / 2 + GameDataBoardUI.Margin;
+                                    gameActionsTransform.anchoredPosition = new Vector2(x, bottom - gameActionsHeight / 2);
                                 }
                             }
                             else
@@ -250,11 +254,19 @@ public class GameActionsUI : UIBehavior<GameActionsUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Global
+            Global.get().addCallBack(this);
             // Child
             {
                 uiData.gameAction.allAddCallBack(this);
                 uiData.sub.allAddCallBack(this);
             }
+            dirty = true;
+            return;
+        }
+        // Global
+        if (data is Global)
+        {
             dirty = true;
             return;
         }
@@ -317,12 +329,19 @@ public class GameActionsUI : UIBehavior<GameActionsUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Global
+            Global.get().removeCallBack(this);
             // Child
             {
                 uiData.gameAction.allRemoveCallBack(this);
                 uiData.sub.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
+            return;
+        }
+        // Global
+        if (data is Global)
+        {
             return;
         }
         // Child
@@ -406,13 +425,22 @@ public class GameActionsUI : UIBehavior<GameActionsUI.UIData>
             }
             return;
         }
-        if (wrapProperty.p is UIData.Sub)
+        // Global
+        if (wrapProperty.p is Global)
         {
+            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
-        if (wrapProperty.p is GameAction)
+        // Child
         {
-            return;
+            if (wrapProperty.p is UIData.Sub)
+            {
+                return;
+            }
+            if (wrapProperty.p is GameAction)
+            {
+                return;
+            }
         }
         Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
     }

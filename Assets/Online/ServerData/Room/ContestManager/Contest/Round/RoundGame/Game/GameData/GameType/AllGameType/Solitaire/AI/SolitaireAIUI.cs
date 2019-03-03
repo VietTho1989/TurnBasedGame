@@ -525,7 +525,7 @@ namespace Solitaire
                         }
                         // multiThreaded
                         {
-                            if (this.data.multiThreaded.v!=null)
+                            if (this.data.multiThreaded.v != null)
                             {
                                 if (lbMultiThreaded != null)
                                 {
@@ -663,9 +663,9 @@ namespace Solitaire
 
         #region implement callBacks
 
-        public static readonly UIRectTransform multiThreadedRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform maxClosedCountRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform fastModeRect = new UIRectTransform(UIConstants.RequestBoolRect);
+        private static readonly UIRectTransform multiThreadedRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform maxClosedCountRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform fastModeRect = new UIRectTransform(UIConstants.RequestBoolRect);
 
         public RequestChangeIntUI requestIntPrefab;
         public RequestChangeBoolUI requestBoolPrefab;
@@ -677,6 +677,8 @@ namespace Solitaire
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Global
+                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -686,6 +688,12 @@ namespace Solitaire
                     uiData.maxClosedCount.allAddCallBack(this);
                     uiData.fastMode.allAddCallBack(this);
                 }
+                dirty = true;
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
                 dirty = true;
                 return;
             }
@@ -797,6 +805,8 @@ namespace Solitaire
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Global
+                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -807,6 +817,11 @@ namespace Solitaire
                     uiData.fastMode.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
                 return;
             }
             // Setting
@@ -908,6 +923,12 @@ namespace Solitaire
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
+                return;
+            }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

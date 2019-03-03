@@ -6,46 +6,46 @@ using System.Collections.Generic;
 public class GamePlayerStateSurrenderUI : UIBehavior<GamePlayerStateSurrenderUI.UIData>, HaveTransformData
 {
 
-	#region UIData
+    #region UIData
 
-	public class UIData : GamePlayerStateUI.UIData.Sub
-	{
-		
-		public VP<ReferenceData<GamePlayerStateSurrender>> surrender;
+    public class UIData : GamePlayerStateUI.UIData.Sub
+    {
 
-		#region Sub
+        public VP<ReferenceData<GamePlayerStateSurrender>> surrender;
 
-		public abstract class Sub : Data
-		{
+        #region Sub
 
-			public abstract GamePlayerStateSurrender.State.Type getType();
+        public abstract class Sub : Data
+        {
 
-		}
+            public abstract GamePlayerStateSurrender.State.Type getType();
 
-		public VP<Sub> sub;
+        }
 
-		#endregion
+        public VP<Sub> sub;
 
-		#region Constructor
+        #endregion
 
-		public enum Property
-		{
-			surrender,
-			sub
-		}
+        #region Constructor
 
-		public UIData() : base()
-		{
-			this.surrender = new VP<ReferenceData<GamePlayerStateSurrender>>(this, (byte)Property.surrender, new ReferenceData<GamePlayerStateSurrender>(null));
-			this.sub = new VP<Sub>(this, (byte)Property.sub, null);
-		}
+        public enum Property
+        {
+            surrender,
+            sub
+        }
 
-		#endregion
+        public UIData() : base()
+        {
+            this.surrender = new VP<ReferenceData<GamePlayerStateSurrender>>(this, (byte)Property.surrender, new ReferenceData<GamePlayerStateSurrender>(null));
+            this.sub = new VP<Sub>(this, (byte)Property.sub, null);
+        }
 
-		public override GamePlayer.State.Type getType ()
-		{
-			return GamePlayer.State.Type.Surrender;
-		}
+        #endregion
+
+        public override GamePlayer.State.Type getType()
+        {
+            return GamePlayer.State.Type.Surrender;
+        }
 
         public override bool processEvent(Event e)
         {
@@ -78,49 +78,56 @@ public class GamePlayerStateSurrenderUI : UIBehavior<GamePlayerStateSurrenderUI.
 
     #region Refresh
 
-	public override void refresh ()
-	{
-		if (dirty) {
-			dirty = false;
-			if (this.data != null) {
-				GamePlayerStateSurrender surrender = this.data.surrender.v.data;
-				if (surrender != null) {
-					GamePlayerStateSurrender.State state = surrender.state.v;
-					if (state != null) {
-						switch (state.getType ()) {
-						case GamePlayerStateSurrender.State.Type.None:
-							{
-								GamePlayerStateSurrenderNone none = state as GamePlayerStateSurrenderNone;
-								// UI
-								{
-									GamePlayerStateSurrenderNoneUI.UIData noneUIData = this.data.sub.newOrOld<GamePlayerStateSurrenderNoneUI.UIData> ();
-									{
-										noneUIData.none.v = new ReferenceData<GamePlayerStateSurrenderNone> (none);
-									}
-									this.data.sub.v = noneUIData;
-								}
-							}
-							break;
-						case GamePlayerStateSurrender.State.Type.Ask:
-							{
-								GamePlayerStateSurrenderAsk ask = state as GamePlayerStateSurrenderAsk;
-								// UI
-								{
-									GamePlayerStateSurrenderAskUI.UIData askUIData = this.data.sub.newOrOld<GamePlayerStateSurrenderAskUI.UIData> ();
-									{
-										askUIData.ask.v = new ReferenceData<GamePlayerStateSurrenderAsk> (ask);
-									}
-									this.data.sub.v = askUIData;
-								}
-							}
-							break;
-						default:
-							Debug.LogError ("unknown type: " + state.getType () + "; " + this);
-							break;
-						}
-					} else {
-						Debug.LogError ("state null: " + this);
-					}
+    public override void refresh()
+    {
+        if (dirty)
+        {
+            dirty = false;
+            if (this.data != null)
+            {
+                GamePlayerStateSurrender surrender = this.data.surrender.v.data;
+                if (surrender != null)
+                {
+                    GamePlayerStateSurrender.State state = surrender.state.v;
+                    if (state != null)
+                    {
+                        switch (state.getType())
+                        {
+                            case GamePlayerStateSurrender.State.Type.None:
+                                {
+                                    GamePlayerStateSurrenderNone none = state as GamePlayerStateSurrenderNone;
+                                    // UI
+                                    {
+                                        GamePlayerStateSurrenderNoneUI.UIData noneUIData = this.data.sub.newOrOld<GamePlayerStateSurrenderNoneUI.UIData>();
+                                        {
+                                            noneUIData.none.v = new ReferenceData<GamePlayerStateSurrenderNone>(none);
+                                        }
+                                        this.data.sub.v = noneUIData;
+                                    }
+                                }
+                                break;
+                            case GamePlayerStateSurrender.State.Type.Ask:
+                                {
+                                    GamePlayerStateSurrenderAsk ask = state as GamePlayerStateSurrenderAsk;
+                                    // UI
+                                    {
+                                        GamePlayerStateSurrenderAskUI.UIData askUIData = this.data.sub.newOrOld<GamePlayerStateSurrenderAskUI.UIData>();
+                                        {
+                                            askUIData.ask.v = new ReferenceData<GamePlayerStateSurrenderAsk>(ask);
+                                        }
+                                        this.data.sub.v = askUIData;
+                                    }
+                                }
+                                break;
+                            default:
+                                Debug.LogError("unknown type: " + state.getType() + "; " + this);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("state null: " + this);
+                    }
                     // UI
                     {
                         float deltaY = 0;
@@ -129,46 +136,60 @@ public class GamePlayerStateSurrenderUI : UIBehavior<GamePlayerStateSurrenderUI.
                         // set height
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }
-                } else {
-					Debug.LogError ("surrender null");
-				}
-            } else {
-				Debug.LogError ("data null");
-			}
-		}
+                }
+                else
+                {
+                    Debug.LogError("surrender null");
+                }
+            }
+            else
+            {
+                Debug.LogError("data null");
+            }
+        }
         updateTransformData();
-	}
+    }
 
-	public override bool isShouldDisableUpdate ()
-	{
-		return true;
-	}
+    public override bool isShouldDisableUpdate()
+    {
+        return true;
+    }
 
-	#endregion
+    #endregion
 
-	#region implement callBacks
+    #region implement callBacks
 
-	public GamePlayerStateSurrenderNoneUI nonePrefab;
-	public GamePlayerStateSurrenderAskUI askPrefab;
+    public GamePlayerStateSurrenderNoneUI nonePrefab;
+    public GamePlayerStateSurrenderAskUI askPrefab;
 
-	public override void onAddCallBack<T> (T data)
-	{
-		if (data is UIData) {
-			UIData uiData = data as UIData;
-			// Child
-			{
-				uiData.surrender.allAddCallBack (this);
-				uiData.sub.allAddCallBack (this);
-			}
-			dirty = true;
-			return;
-		}
-		// Child
-		{
-			if (data is GamePlayerStateSurrender) {
-				dirty = true;
-				return;
-			}
+    public override void onAddCallBack<T>(T data)
+    {
+        if (data is UIData)
+        {
+            UIData uiData = data as UIData;
+            // Global
+            Global.get().addCallBack(this);
+            // Child
+            {
+                uiData.surrender.allAddCallBack(this);
+                uiData.sub.allAddCallBack(this);
+            }
+            dirty = true;
+            return;
+        }
+        // Global
+        if (data is Global)
+        {
+            dirty = true;
+            return;
+        }
+        // Child
+        {
+            if (data is GamePlayerStateSurrender)
+            {
+                dirty = true;
+                return;
+            }
             // sub
             {
                 if (data is UIData.Sub)
@@ -203,33 +224,42 @@ public class GamePlayerStateSurrenderUI : UIBehavior<GamePlayerStateSurrenderUI.
                     return;
                 }
                 // Child
-                if(data is TransformData)
+                if (data is TransformData)
                 {
                     dirty = true;
                     return;
                 }
             }
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	public override void onRemoveCallBack<T> (T data, bool isHide)
-	{
-		if (data is UIData) {
-			UIData uiData = data as UIData;
-			// Child
-			{
-				uiData.surrender.allRemoveCallBack (this);
-				uiData.sub.allRemoveCallBack (this);
-			}
-			this.setDataNull (uiData);
-			return;
-		}
-		// Child
-		{
-			if (data is GamePlayerStateSurrender) {
-				return;
-			}
+    public override void onRemoveCallBack<T>(T data, bool isHide)
+    {
+        if (data is UIData)
+        {
+            UIData uiData = data as UIData;
+            // Global
+            Global.get().removeCallBack(this);
+            // Child
+            {
+                uiData.surrender.allRemoveCallBack(this);
+                uiData.sub.allRemoveCallBack(this);
+            }
+            this.setDataNull(uiData);
+            return;
+        }
+        // Global
+        if (data is Global)
+        {
+            return;
+        }
+        // Child
+        {
+            if (data is GamePlayerStateSurrender)
+            {
+                return;
+            }
             // sub
             {
                 if (data is UIData.Sub)
@@ -263,53 +293,64 @@ public class GamePlayerStateSurrenderUI : UIBehavior<GamePlayerStateSurrenderUI.
                     return;
                 }
                 // Child
-                if(data is TransformData)
+                if (data is TransformData)
                 {
                     return;
                 }
             }
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-	{
-		if (WrapProperty.checkError (wrapProperty)) {
-			return;
-		}
-		if (wrapProperty.p is UIData) {
-			switch ((UIData.Property)wrapProperty.n) {
-			case UIData.Property.surrender:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			case UIData.Property.sub:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			default:
-				Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-				break;
-			}
-			return;
-		}
-		// Child
-		{
-			if (wrapProperty.p is GamePlayerStateSurrender) {
-				switch ((GamePlayerStateSurrender.Property)wrapProperty.n) {
-				case GamePlayerStateSurrender.Property.state:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
+    public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+    {
+        if (WrapProperty.checkError(wrapProperty))
+        {
+            return;
+        }
+        if (wrapProperty.p is UIData)
+        {
+            switch ((UIData.Property)wrapProperty.n)
+            {
+                case UIData.Property.surrender:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.sub:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Global
+        if (wrapProperty.p is Global)
+        {
+            Global.OnValueTransformChange(wrapProperty, this);
+            return;
+        }
+        // Child
+        {
+            if (wrapProperty.p is GamePlayerStateSurrender)
+            {
+                switch ((GamePlayerStateSurrender.Property)wrapProperty.n)
+                {
+                    case GamePlayerStateSurrender.Property.state:
+                        dirty = true;
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
             // Child
             {
                 if (wrapProperty.p is UIData.Sub)
@@ -317,7 +358,7 @@ public class GamePlayerStateSurrenderUI : UIBehavior<GamePlayerStateSurrenderUI.
                     return;
                 }
                 // Child
-                if(wrapProperty.p is TransformData)
+                if (wrapProperty.p is TransformData)
                 {
                     switch ((TransformData.Property)wrapProperty.n)
                     {
@@ -349,10 +390,10 @@ public class GamePlayerStateSurrenderUI : UIBehavior<GamePlayerStateSurrenderUI.
                     return;
                 }
             }
-		}
-		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-	}
+        }
+        Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+    }
 
-	#endregion
+    #endregion
 
 }

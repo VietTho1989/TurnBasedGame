@@ -139,8 +139,6 @@ public class GameFactoryUI : UIBehavior<GameFactoryUI.UIData>, HaveTransformData
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text lbTitle;
@@ -170,11 +168,6 @@ public class GameFactoryUI : UIBehavior<GameFactoryUI.UIData>, HaveTransformData
 
     private void updateTransformData()
     {
-        /*if (transform.hasChanged)
-            {
-                transform.hasChanged = false;
-                this.transformData.update(this.transform);
-            }*/
         this.transformData.update(this.transform);
     }
 
@@ -184,6 +177,8 @@ public class GameFactoryUI : UIBehavior<GameFactoryUI.UIData>, HaveTransformData
     }
 
     #endregion
+
+    #region Refresh
 
     private bool needReset = true;
 
@@ -575,6 +570,8 @@ public class GameFactoryUI : UIBehavior<GameFactoryUI.UIData>, HaveTransformData
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Global
+            Global.get().addCallBack(this);
             // Setting
             Setting.get().addCallBack(this);
             // Child
@@ -584,6 +581,12 @@ public class GameFactoryUI : UIBehavior<GameFactoryUI.UIData>, HaveTransformData
                 uiData.gameDataFactoryUIData.allAddCallBack(this);
                 uiData.timeControl.allAddCallBack(this);
             }
+            dirty = true;
+            return;
+        }
+        // Global
+        if (data is Global)
+        {
             dirty = true;
             return;
         }
@@ -705,7 +708,7 @@ public class GameFactoryUI : UIBehavior<GameFactoryUI.UIData>, HaveTransformData
                     return;
                 }
                 // Child
-                if(data is TransformData)
+                if (data is TransformData)
                 {
                     dirty = true;
                     return;
@@ -720,6 +723,8 @@ public class GameFactoryUI : UIBehavior<GameFactoryUI.UIData>, HaveTransformData
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Global
+            Global.get().removeCallBack(this);
             // Setting
             Setting.get().removeCallBack(this);
             // Child
@@ -730,6 +735,11 @@ public class GameFactoryUI : UIBehavior<GameFactoryUI.UIData>, HaveTransformData
                 uiData.timeControl.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
+            return;
+        }
+        // Global
+        if (data is Global)
+        {
             return;
         }
         // Setting
@@ -850,7 +860,7 @@ public class GameFactoryUI : UIBehavior<GameFactoryUI.UIData>, HaveTransformData
                     return;
                 }
                 // Child
-                if(data is TransformData)
+                if (data is TransformData)
                 {
                     return;
                 }
@@ -897,6 +907,12 @@ public class GameFactoryUI : UIBehavior<GameFactoryUI.UIData>, HaveTransformData
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
+            return;
+        }
+        // Global
+        if (wrapProperty.p is Global)
+        {
+            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Setting
@@ -1002,7 +1018,7 @@ public class GameFactoryUI : UIBehavior<GameFactoryUI.UIData>, HaveTransformData
                     return;
                 }
                 // Child
-                if(wrapProperty.p is TransformData)
+                if (wrapProperty.p is TransformData)
                 {
                     switch ((TransformData.Property)wrapProperty.n)
                     {

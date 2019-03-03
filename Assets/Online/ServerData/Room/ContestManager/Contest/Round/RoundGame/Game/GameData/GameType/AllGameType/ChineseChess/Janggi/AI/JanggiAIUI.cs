@@ -390,6 +390,8 @@ namespace Janggi
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Global
+                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -397,6 +399,12 @@ namespace Janggi
                     uiData.editAI.allAddCallBack(this);
                     uiData.maxVisitCount.allAddCallBack(this);
                 }
+                dirty = true;
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
                 dirty = true;
                 return;
             }
@@ -479,6 +487,8 @@ namespace Janggi
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Global
+                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -487,6 +497,11 @@ namespace Janggi
                     uiData.maxVisitCount.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
                 return;
             }
             // Setting
@@ -568,6 +583,12 @@ namespace Janggi
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
+                return;
+            }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

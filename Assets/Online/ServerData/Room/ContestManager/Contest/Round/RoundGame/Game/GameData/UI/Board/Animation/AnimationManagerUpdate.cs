@@ -20,6 +20,12 @@ public class AnimationManagerUpdate : UpdateBehavior<AnimationManager>
             dirty = false;
             if (this.data != null)
             {
+                if (Time.time == LastTime)
+                {
+                    Debug.LogError("the same last time: " + LastTime);
+                    dirty = true;
+                    return;
+                }
                 // Debug.LogError ("animationManager state: " + this.data.state.v);
                 // check is view record controller state pickup
                 {
@@ -180,15 +186,7 @@ public class AnimationManagerUpdate : UpdateBehavior<AnimationManager>
                                                         scale = 0;
                                                     }
                                                 }
-                                                if (Time.time == LastTime)
-                                                {
-                                                    Debug.LogError("the same last time: " + LastTime);
-                                                    dirty = true;
-                                                }
-                                                else
-                                                {
-                                                    animationProgress.time.v = Mathf.Min(animationProgress.time.v + Time.fixedDeltaTime * scale, animationProgress.duration.v);
-                                                }
+                                                animationProgress.time.v = Mathf.Min(animationProgress.time.v + Time.fixedDeltaTime * scale, animationProgress.duration.v);
                                             }
                                             else
                                             {
@@ -300,15 +298,7 @@ public class AnimationManagerUpdate : UpdateBehavior<AnimationManager>
                             break;
                         case AnimationManager.State.Delay:
                             {
-                                if (Time.time == LastTime)
-                                {
-                                    Debug.LogError("the same last time: " + LastTime);
-                                    dirty = true;
-                                }
-                                else
-                                {
-                                    delayTime += Time.fixedDeltaTime;
-                                }
+                                delayTime += Time.fixedDeltaTime;
                                 if (delayTime >= DelayDuration)
                                 {
                                     this.data.state.v = AnimationManager.State.Normal;

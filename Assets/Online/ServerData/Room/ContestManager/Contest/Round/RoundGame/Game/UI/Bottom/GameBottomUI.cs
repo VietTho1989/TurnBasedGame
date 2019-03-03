@@ -187,7 +187,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
                             // find play
                             GameState.Play play = null;
                             {
-                                if(game.state.v is GameState.Play)
+                                if (game.state.v is GameState.Play)
                                 {
                                     play = game.state.v as GameState.Play;
                                 }
@@ -396,9 +396,11 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
 
     public override void onAddCallBack<T>(T data)
     {
-        if(data is UIData)
+        if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Global
+            Global.get().addCallBack(this);
             // Parent
             {
                 DataUtils.addParentCallBack(uiData, this, ref this.gameUIData);
@@ -421,9 +423,15 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
             dirty = true;
             return;
         }
+        // Global
+        if (data is Global)
+        {
+            dirty = true;
+            return;
+        }
         // Parent
         {
-            if(data is GameUI.UIData)
+            if (data is GameUI.UIData)
             {
                 GameUI.UIData gameUIData = data as GameUI.UIData;
                 // Child
@@ -435,7 +443,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
             }
             // Child
             {
-                if(data is GameDataUI.UIData)
+                if (data is GameDataUI.UIData)
                 {
                     GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
                     // Child
@@ -446,7 +454,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
                     return;
                 }
                 // Child
-                if(data is GameDataBoardUI.UIData)
+                if (data is GameDataBoardUI.UIData)
                 {
                     dirty = true;
                     return;
@@ -472,7 +480,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
                     return;
                 }
                 // Parent
-                if(data is ContestManagerStatePlay)
+                if (data is ContestManagerStatePlay)
                 {
                     dirty = true;
                     return;
@@ -494,7 +502,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
                 dirty = true;
                 return;
             }
-            if(data is BtnRequestDrawUI.UIData)
+            if (data is BtnRequestDrawUI.UIData)
             {
                 BtnRequestDrawUI.UIData btnRequestDrawUIData = data as BtnRequestDrawUI.UIData;
                 // UI
@@ -504,7 +512,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
                 dirty = true;
                 return;
             }
-            if(data is BtnHintUI.UIData)
+            if (data is BtnHintUI.UIData)
             {
                 BtnHintUI.UIData btnHintUIData = data as BtnHintUI.UIData;
                 // UI
@@ -514,7 +522,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
                 dirty = true;
                 return;
             }
-            if(data is BtnGameChatUI.UIData)
+            if (data is BtnGameChatUI.UIData)
             {
                 BtnGameChatUI.UIData btnGameChatUIData = data as BtnGameChatUI.UIData;
                 // UI
@@ -524,7 +532,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
                 dirty = true;
                 return;
             }
-            if(data is BtnPauseUI.UIData)
+            if (data is BtnPauseUI.UIData)
             {
                 BtnPauseUI.UIData btnPauseUIData = data as BtnPauseUI.UIData;
                 // UI
@@ -534,7 +542,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
                 dirty = true;
                 return;
             }
-            if(data is BtnShowSwapUI.UIData)
+            if (data is BtnShowSwapUI.UIData)
             {
                 BtnShowSwapUI.UIData btnShowSwapUIData = data as BtnShowSwapUI.UIData;
                 // UI
@@ -554,7 +562,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
                 dirty = true;
                 return;
             }
-            if(data is BtnHistoryUI.UIData)
+            if (data is BtnHistoryUI.UIData)
             {
                 BtnHistoryUI.UIData btnHistoryUIData = data as BtnHistoryUI.UIData;
                 // UI
@@ -564,7 +572,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
                 dirty = true;
                 return;
             }
-            if(data is BtnPerspectiveUI.UIData)
+            if (data is BtnPerspectiveUI.UIData)
             {
                 BtnPerspectiveUI.UIData btnPerspectiveUIData = data as BtnPerspectiveUI.UIData;
                 // UI
@@ -574,7 +582,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
                 dirty = true;
                 return;
             }
-            if(data is BtnSaveGameUI.UIData)
+            if (data is BtnSaveGameUI.UIData)
             {
                 BtnSaveGameUI.UIData btnSaveGameUIData = data as BtnSaveGameUI.UIData;
                 // UI
@@ -603,6 +611,8 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Global
+            Global.get().removeCallBack(this);
             // Parent
             {
                 DataUtils.removeParentCallBack(uiData, this, ref this.gameUIData);
@@ -623,6 +633,11 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
                 uiData.btnRecord.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
+            return;
+        }
+        // Global
+        if (data is Global)
+        {
             return;
         }
         // Parent
@@ -672,7 +687,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
                     return;
                 }
                 // Parent
-                if(data is ContestManagerStatePlay)
+                if (data is ContestManagerStatePlay)
                 {
                     return;
                 }
@@ -691,7 +706,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
                 }
                 return;
             }
-            if(data is BtnRequestDrawUI.UIData)
+            if (data is BtnRequestDrawUI.UIData)
             {
                 BtnRequestDrawUI.UIData btnRequestDrawUIData = data as BtnRequestDrawUI.UIData;
                 // UI
@@ -718,7 +733,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
                 }
                 return;
             }
-            if(data is BtnPauseUI.UIData)
+            if (data is BtnPauseUI.UIData)
             {
                 BtnPauseUI.UIData btnPauseUIData = data as BtnPauseUI.UIData;
                 // UI
@@ -727,7 +742,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
                 }
                 return;
             }
-            if(data is BtnShowSwapUI.UIData)
+            if (data is BtnShowSwapUI.UIData)
             {
                 BtnShowSwapUI.UIData btnShowSwapUIData = data as BtnShowSwapUI.UIData;
                 // UI
@@ -754,7 +769,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
                 }
                 return;
             }
-            if(data is BtnPerspectiveUI.UIData)
+            if (data is BtnPerspectiveUI.UIData)
             {
                 BtnPerspectiveUI.UIData btnPerspectiveUIData = data as BtnPerspectiveUI.UIData;
                 // UI
@@ -763,7 +778,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
                 }
                 return;
             }
-            if(data is BtnSaveGameUI.UIData)
+            if (data is BtnSaveGameUI.UIData)
             {
                 BtnSaveGameUI.UIData btnSaveGameUIData = data as BtnSaveGameUI.UIData;
                 // UI
@@ -772,7 +787,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
                 }
                 return;
             }
-            if(data is DataRecordTaskUI.UIData)
+            if (data is DataRecordTaskUI.UIData)
             {
                 DataRecordTaskUI.UIData btnRecordUIData = data as DataRecordTaskUI.UIData;
                 // UI
@@ -787,7 +802,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
 
     public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
     {
-        if(WrapProperty.checkError(wrapProperty))
+        if (WrapProperty.checkError(wrapProperty))
         {
             return;
         }
@@ -871,6 +886,12 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
+            return;
+        }
+        // Global
+        if (wrapProperty.p is Global)
+        {
+            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Parent
@@ -1001,7 +1022,7 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
                     return;
                 }
                 // Parent
-                if(wrapProperty.p is ContestManagerStatePlay)
+                if (wrapProperty.p is ContestManagerStatePlay)
                 {
                     switch ((ContestManagerStatePlay.Property)wrapProperty.n)
                     {
@@ -1062,23 +1083,23 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
             {
                 return;
             }
-            if(wrapProperty.p is BtnRequestDrawUI.UIData)
+            if (wrapProperty.p is BtnRequestDrawUI.UIData)
             {
                 return;
             }
-            if(wrapProperty.p is BtnHintUI.UIData)
+            if (wrapProperty.p is BtnHintUI.UIData)
             {
                 return;
             }
-            if(wrapProperty.p is BtnGameChatUI.UIData)
+            if (wrapProperty.p is BtnGameChatUI.UIData)
             {
                 return;
             }
-            if(wrapProperty.p is BtnPauseUI.UIData)
+            if (wrapProperty.p is BtnPauseUI.UIData)
             {
                 return;
             }
-            if(wrapProperty.p is BtnShowSwapUI.UIData)
+            if (wrapProperty.p is BtnShowSwapUI.UIData)
             {
                 return;
             }
@@ -1086,15 +1107,19 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
             {
                 return;
             }
-            if(wrapProperty.p is BtnPerspectiveUI.UIData)
+            if (wrapProperty.p is BtnPerspectiveUI.UIData)
             {
                 return;
             }
-            if(wrapProperty.p is BtnSaveGameUI.UIData)
+            if (wrapProperty.p is BtnHistoryUI.UIData)
             {
                 return;
             }
-            if(wrapProperty.p is DataRecordTaskUI.UIData)
+            if (wrapProperty.p is BtnSaveGameUI.UIData)
+            {
+                return;
+            }
+            if (wrapProperty.p is DataRecordTaskUI.UIData)
             {
                 return;
             }

@@ -395,6 +395,8 @@ namespace MineSweeper
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Global
+                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -402,6 +404,12 @@ namespace MineSweeper
                     uiData.editAI.allAddCallBack(this);
                     uiData.firstMoveType.allAddCallBack(this);
                 }
+                dirty = true;
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
                 dirty = true;
                 return;
             }
@@ -485,6 +493,8 @@ namespace MineSweeper
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Global
+                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -493,6 +503,11 @@ namespace MineSweeper
                     uiData.firstMoveType.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
                 return;
             }
             // Setting
@@ -577,6 +592,12 @@ namespace MineSweeper
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
+                return;
+            }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

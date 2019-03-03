@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 using Hint;
 
-public class GameDataUI : UIBehavior<GameDataUI.UIData>
+public class GameDataUI : UIBehavior<GameDataUI.UIData>, HaveTransformData
 {
 
     #region UIData
@@ -186,7 +186,23 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
 
     #endregion
 
-    #region Update
+    #region TransformData
+
+    public TransformData transformData = new TransformData();
+
+    private void updateTransformData()
+    {
+        this.transformData.update(this.transform);
+    }
+
+    public TransformData getTransformData()
+    {
+        return this.transformData;
+    }
+
+    #endregion
+
+    #region Refresh
 
     public override void refresh()
     {
@@ -317,6 +333,7 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
                 Debug.LogError("data null: " + this);
             }
         }
+        updateTransformData();
     }
 
     public override bool isShouldDisableUpdate()
@@ -350,6 +367,8 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Global
+            Global.get().addCallBack(this);
             // Child
             {
                 uiData.gameData.allAddCallBack(this);
@@ -372,6 +391,12 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
                     Debug.LogError("boardTransformUpdate null");
                 }
             }
+            dirty = true;
+            return;
+        }
+        // Global
+        if (data is Global)
+        {
             dirty = true;
             return;
         }
@@ -426,7 +451,7 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
                 dirty = true;
                 return;
             }
-            if(data is PerspectiveUI.UIData)
+            if (data is PerspectiveUI.UIData)
             {
                 PerspectiveUI.UIData perspectiveUIData = data as PerspectiveUI.UIData;
                 // UI
@@ -465,6 +490,8 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Global
+            Global.get().removeCallBack(this);
             // Child
             {
                 uiData.gameData.allRemoveCallBack(this);
@@ -490,8 +517,13 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
             this.setDataNull(uiData);
             return;
         }
+        // Global
+        if (data is Global)
+        {
+            return;
+        }
         // Parent
-        if(data is Game)
+        if (data is Game)
         {
             return;
         }
@@ -509,7 +541,7 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
                     return;
                 }
                 // Parent
-                if(data is Game)
+                if (data is Game)
                 {
                     return;
                 }
@@ -634,6 +666,12 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
             }
             return;
         }
+        // Global
+        if (wrapProperty.p is Global)
+        {
+            Global.OnValueTransformChange(wrapProperty, this);
+            return;
+        }
         // Child
         {
             // gameData
@@ -722,7 +760,7 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>
             {
                 return;
             }
-            if(wrapProperty.p is PerspectiveUI.UIData)
+            if (wrapProperty.p is PerspectiveUI.UIData)
             {
                 return;
             }

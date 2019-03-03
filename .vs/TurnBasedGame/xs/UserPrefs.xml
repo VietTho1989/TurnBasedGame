@@ -1,7 +1,10 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Chess/Chess/UI/Input/UseRule/Show/ShowUI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Global/Global.cs">
     <Files>
-      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Chess/Chess/UI/Input/UseRule/Show/ShowUI.cs" Line="43" Column="8" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/ChineseChess/Xiangqi/AI/XiangqiAIUI.cs" Line="1206" Column="2" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameAction/GameActionsUI.cs" Line="431" Column="35" />
+      <File FileName="Assets/Common/Utils/Behavior/UITransform/UIRectTransform.cs" Line="392" Column="1" />
+      <File FileName="Assets/Global/Global.cs" Line="94" Column="24" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
@@ -10,7 +13,6 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/UI/BtnHint/HintUI.cs" relfile="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/UI/BtnHint/HintUI.cs" line="169" column="1" />
-      <Breakpoint file="/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Online/ServerData/Login/State/Log/LogUI.cs" relfile="Assets/Online/ServerData/Login/State/Log/LogUI.cs" line="391" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />

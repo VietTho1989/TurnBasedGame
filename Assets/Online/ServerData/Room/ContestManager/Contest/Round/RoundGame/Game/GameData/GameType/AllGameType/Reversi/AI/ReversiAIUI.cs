@@ -1204,13 +1204,13 @@ namespace Reversi
 
         #region implement callBacks
 
-        public static readonly UIRectTransform sortRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform minRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform maxRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform endRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform msLeftRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform useBookRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        public static readonly UIRectTransform percentRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform sortRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform minRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform maxRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform endRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform msLeftRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform useBookRect = new UIRectTransform(UIConstants.RequestBoolRect);
+        private static readonly UIRectTransform percentRect = new UIRectTransform(UIConstants.RequestRect);
 
         public RequestChangeIntUI requestIntPrefab;
         public RequestChangeBoolUI requestBoolPrefab;
@@ -1222,6 +1222,8 @@ namespace Reversi
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Global
+                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -1235,6 +1237,12 @@ namespace Reversi
                     uiData.useBook.allAddCallBack(this);
                     uiData.percent.allAddCallBack(this);
                 }
+                dirty = true;
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
                 dirty = true;
                 return;
             }
@@ -1358,6 +1366,8 @@ namespace Reversi
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Global
+                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -1372,6 +1382,11 @@ namespace Reversi
                     uiData.percent.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
                 return;
             }
             // Setting
@@ -1500,6 +1515,12 @@ namespace Reversi
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
+                return;
+            }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

@@ -6,36 +6,36 @@ using System.Collections.Generic;
 
 namespace LoginState
 {
-	public class LogUI : UIBehavior<LogUI.UIData>, HaveTransformData
-	{
+    public class LogUI : UIBehavior<LogUI.UIData>, HaveTransformData
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : LoginStateUI.UIData.Sub
-		{
+        public class UIData : LoginStateUI.UIData.Sub
+        {
 
-			public VP<ReferenceData<Log>> log;
+            public VP<ReferenceData<Log>> log;
 
-			#region Constructor
+            #region Constructor
 
-			public enum Property
-			{
-				log
-			}
+            public enum Property
+            {
+                log
+            }
 
-			public UIData() : base()
-			{
-				this.log = new VP<ReferenceData<Log>>(this, (byte)Property.log, new ReferenceData<Log>(null));
-			}
+            public UIData() : base()
+            {
+                this.log = new VP<ReferenceData<Log>>(this, (byte)Property.log, new ReferenceData<Log>(null));
+            }
 
-			#endregion
+            #endregion
 
-			public override Login.State.Type getType ()
-			{
-				return Login.State.Type.Log;
-			}
+            public override Login.State.Type getType()
+            {
+                return Login.State.Type.Log;
+            }
 
-		}
+        }
 
         #endregion
 
@@ -85,288 +85,353 @@ namespace LoginState
 
         #region Refresh
 
-		public Text tvTime;
-		public Text tvProgress;
+        public Text tvTime;
+        public Text tvProgress;
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
-					Log log = this.data.log.v.data;
-					if (log != null) {
-						// tvCancel
-						if (tvCancel != null) {
-							tvCancel.text = txtCancel.get ("Cancel");
-						} else {
-							Debug.LogError ("tvCancel null: " + this);
-						}
-						// tvTime
-						if (tvTime != null) {
-							tvTime.text = txtTime.get ("Time") + ": " + log.time.v + "/" + log.timeOut.v;
-						} else {
-							Debug.LogError ("tvTime null: " + this);
-						}
-						// tvProgress
-						if (tvProgress != null) {
-							Log.Step step = log.step.v;
-							if (step != null) {
-								switch (step.getType ()) {
-								case Log.Step.Type.Start:
-									tvProgress.text = txtConnect.get ("Connecting to server...");
-									break;
-								case Log.Step.Type.GetData:
-									{
-										StepGetData stepGetData = step as StepGetData;
-										StepGetData.Sub sub = stepGetData.sub.v;
-										if (sub != null) {
-											switch (sub.getType ()) {
-											case Account.Type.DEVICE:
-												tvProgress.text = txtGetDevice.get ("Getting device information...");
-												break;
-											case Account.Type.EMAIL:
-												tvProgress.text = txtGetEmail.get ("Getting email information...");
-												break;
-											case Account.Type.FACEBOOK:
-												tvProgress.text = txtGetFacebook.get ("Getting facebook information...");
-												break;
-											default:
-												Debug.LogError ("unknown type: " + sub.getType () + "; " + this);
-												break;
-											}
-										} else {
-											Debug.LogError ("sub null: " + this);
-										}
-									}
-									break;
-								case Log.Step.Type.Login:
-									{
-										StepLogin stepLogin = step as StepLogin;
-										switch (stepLogin.state.v) {
-										case StepLogin.State.Not:
-											tvProgress.text = txtConnect.get ("Connecting to server...");
-											break;
-										case StepLogin.State.Log:
-											tvProgress.text = txtLogin.get ("Login server...");
-											break;
-										case StepLogin.State.Wait:
-											tvProgress.text = txtLoggingIn.get ("Logging in server...");
-											break;
-										default:
-											Debug.LogError ("unknown state: " + stepLogin.state.v + "; " + this);
-											break;
-										}
-									}
-									break;
-								default:
-									Debug.LogError ("unknown type: " + step.getType () + "; " + this);
-									break;
-								}
-							} else {
-								Debug.LogError ("step null: " + this);
-							}
-						} else {
-							Debug.LogError ("tvProgress null: " + this);
-						}
-					} else {
-						Debug.LogError ("log null: " + this);
-					}
-				} else {
-					Debug.Log ("data null: " + this);
-				}
-			}
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
+                    Log log = this.data.log.v.data;
+                    if (log != null)
+                    {
+                        // tvCancel
+                        if (tvCancel != null)
+                        {
+                            tvCancel.text = txtCancel.get("Cancel");
+                        }
+                        else
+                        {
+                            Debug.LogError("tvCancel null: " + this);
+                        }
+                        // tvTime
+                        if (tvTime != null)
+                        {
+                            tvTime.text = txtTime.get("Time") + ": " + log.time.v + "/" + log.timeOut.v;
+                        }
+                        else
+                        {
+                            Debug.LogError("tvTime null: " + this);
+                        }
+                        // tvProgress
+                        if (tvProgress != null)
+                        {
+                            Log.Step step = log.step.v;
+                            if (step != null)
+                            {
+                                switch (step.getType())
+                                {
+                                    case Log.Step.Type.Start:
+                                        tvProgress.text = txtConnect.get("Connecting to server...");
+                                        break;
+                                    case Log.Step.Type.GetData:
+                                        {
+                                            StepGetData stepGetData = step as StepGetData;
+                                            StepGetData.Sub sub = stepGetData.sub.v;
+                                            if (sub != null)
+                                            {
+                                                switch (sub.getType())
+                                                {
+                                                    case Account.Type.DEVICE:
+                                                        tvProgress.text = txtGetDevice.get("Getting device information...");
+                                                        break;
+                                                    case Account.Type.EMAIL:
+                                                        tvProgress.text = txtGetEmail.get("Getting email information...");
+                                                        break;
+                                                    case Account.Type.FACEBOOK:
+                                                        tvProgress.text = txtGetFacebook.get("Getting facebook information...");
+                                                        break;
+                                                    default:
+                                                        Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                                                        break;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("sub null: " + this);
+                                            }
+                                        }
+                                        break;
+                                    case Log.Step.Type.Login:
+                                        {
+                                            StepLogin stepLogin = step as StepLogin;
+                                            switch (stepLogin.state.v)
+                                            {
+                                                case StepLogin.State.Not:
+                                                    tvProgress.text = txtConnect.get("Connecting to server...");
+                                                    break;
+                                                case StepLogin.State.Log:
+                                                    tvProgress.text = txtLogin.get("Login server...");
+                                                    break;
+                                                case StepLogin.State.Wait:
+                                                    tvProgress.text = txtLoggingIn.get("Logging in server...");
+                                                    break;
+                                                default:
+                                                    Debug.LogError("unknown state: " + stepLogin.state.v + "; " + this);
+                                                    break;
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown type: " + step.getType() + "; " + this);
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("step null: " + this);
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("tvProgress null: " + this);
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("log null: " + this);
+                    }
+                }
+                else
+                {
+                    Debug.Log("data null: " + this);
+                }
+            }
             updateTransformData();
-		}
+        }
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		#endregion
+        #endregion
 
-		#region implement callBacks
+        #region implement callBacks
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Setting
-				Setting.get().addCallBack(this);
-				// Child
-				{
-					uiData.log.allAddCallBack (this);
-				}
-				dirty = true;
-				return;
-			}
-			// Setting
-			if (data is Setting) {
-				dirty = true;
-				return;
-			}
-			// Child
-			{
-				if (data is Log) {
-					Log log = data as Log;
-					// Child
-					{
-						log.step.allAddCallBack (this);
-					}
-					dirty = true;
-					return;
-				}
-				// Child
-				if (data is Log.Step) {
-					dirty = true;
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Global
+                Global.get().addCallBack(this);
+                // Setting
+                Setting.get().addCallBack(this);
+                // Child
+                {
+                    uiData.log.allAddCallBack(this);
+                }
+                dirty = true;
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
+                dirty = true;
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // Child
+            {
+                if (data is Log)
+                {
+                    Log log = data as Log;
+                    // Child
+                    {
+                        log.step.allAddCallBack(this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                if (data is Log.Step)
+                {
+                    dirty = true;
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Setting
-				Setting.get().removeCallBack(this);
-				// Child
-				{
-					uiData.log.allAddCallBack (this);
-				}
-				this.setDataNull (uiData);
-				return;
-			}
-			// Setting
-			if (data is Setting) {
-				return;
-			}
-			// Child
-			{
-				if (data is Log) {
-					Log log = data as Log;
-					// Child
-					{
-						log.step.allRemoveCallBack (this);
-					}
-					return;
-				}
-				// Child
-				if (data is Log.Step) {
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Global
+                Global.get().removeCallBack(this);
+                // Setting
+                Setting.get().removeCallBack(this);
+                // Child
+                {
+                    uiData.log.allAddCallBack(this);
+                }
+                this.setDataNull(uiData);
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
+                return;
+            }
+            // Child
+            {
+                if (data is Log)
+                {
+                    Log log = data as Log;
+                    // Child
+                    {
+                        log.step.allRemoveCallBack(this);
+                    }
+                    return;
+                }
+                // Child
+                if (data is Log.Step)
+                {
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.log:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// Setting
-			if (wrapProperty.p is Setting) {
-				switch ((Setting.Property)wrapProperty.n) {
-				case Setting.Property.language:
-					dirty = true;
-					break;
-				case Setting.Property.showLastMove:
-					break;
-				case Setting.Property.viewUrlImage:
-					break;
-				case Setting.Property.animationSetting:
-					break;
-				case Setting.Property.maxThinkCount:
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// Child
-			{
-				if (wrapProperty.p is Log) {
-					switch ((Log.Property)wrapProperty.n) {
-					case Log.Property.connectState:
-						break;
-					case Log.Property.step:
-						{
-							ValueChangeUtils.replaceCallBack (this, syncs);
-							dirty = true;
-						}
-						break;
-					case Log.Property.time:
-						dirty = true;
-						break;
-					case Log.Property.timeOut:
-						dirty = true;
-						break;
-					default:
-						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-						break;
-					}
-					return;
-				}
-				// Child
-				if (wrapProperty.p is Log.Step) {
-					Log.Step step = wrapProperty.p as Log.Step;
-					switch (step.getType ()) {
-					case Log.Step.Type.Start:
-						break;
-					case Log.Step.Type.GetData:
-						{
-							switch ((StepGetData.Property)wrapProperty.n) {
-							case StepGetData.Property.sub:
-								dirty = true;
-								break;
-							default:
-								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-								break;
-							}
-						}
-						break;
-					case Log.Step.Type.Login:
-						{
-							switch ((StepLogin.Property)wrapProperty.n) {
-							case StepLogin.Property.state:
-								dirty = true;
-								break;
-							default:
-								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-								break;
-							}
-						}
-						break;
-					default:
-						Debug.LogError ("unknown type: " + step.getType () + "; " + this);
-						break;
-					}
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.log:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
+                return;
+            }
+            // Setting
+            if (wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            {
+                if (wrapProperty.p is Log)
+                {
+                    switch ((Log.Property)wrapProperty.n)
+                    {
+                        case Log.Property.connectState:
+                            break;
+                        case Log.Property.step:
+                            {
+                                ValueChangeUtils.replaceCallBack(this, syncs);
+                                dirty = true;
+                            }
+                            break;
+                        case Log.Property.time:
+                            dirty = true;
+                            break;
+                        case Log.Property.timeOut:
+                            dirty = true;
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+                // Child
+                if (wrapProperty.p is Log.Step)
+                {
+                    Log.Step step = wrapProperty.p as Log.Step;
+                    switch (step.getType())
+                    {
+                        case Log.Step.Type.Start:
+                            break;
+                        case Log.Step.Type.GetData:
+                            {
+                                switch ((StepGetData.Property)wrapProperty.n)
+                                {
+                                    case StepGetData.Property.sub:
+                                        dirty = true;
+                                        break;
+                                    default:
+                                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                        break;
+                                }
+                            }
+                            break;
+                        case Log.Step.Type.Login:
+                            {
+                                switch ((StepLogin.Property)wrapProperty.n)
+                                {
+                                    case StepLogin.Property.state:
+                                        dirty = true;
+                                        break;
+                                    default:
+                                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                        break;
+                                }
+                            }
+                            break;
+                        default:
+                            Debug.LogError("unknown type: " + step.getType() + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
 
-		#endregion
+        #endregion
 
-		public void onClickBtnCancel()
-		{
+        public void onClickBtnCancel()
+        {
             // Debug.Log ("onClickBtnCancel");
             try
             {
@@ -376,58 +441,75 @@ namespace LoginState
             {
                 Debug.LogError(e);
             }
-			if (this.data != null) {
-				Log log = this.data.log.v.data;
-				if (log != null) {
-					// offline thi tro ve none
-					{
-						Server.State.Offline offline = log.findDataInParent<Server.State.Offline> ();
-						if (offline != null) {
-							Login login = log.findDataInParent<Login> ();
-							if (login != null) {
-								None none = new None ();
-								{
-									none.uid = login.state.makeId ();
-									{
-										StateNormal stateNormal = new StateNormal ();
-										{
-											stateNormal.uid = none.state.makeId ();
-										}
-										none.state.v = stateNormal;
-									}
-								}
-								login.state.v = none;
-							} else {
-								Debug.LogError ("login null: " + this);
-							}
-							return;
-						} else {
-							Debug.Log ("not offline: " + this);
-						}
-					}
-					// disconnect thi chuyen sange offline
-					{
-						Server.State.Disconnect disconnect = log.findDataInParent<Server.State.Disconnect> ();
-						if (disconnect != null) {
-							Server server = disconnect.findDataInParent<Server> ();
-							if (server != null) {
-								Server.State.Offline offline = new Server.State.Offline ();
-								{
-									offline.uid = server.state.makeId ();
-								}
-								server.state.v = offline;
-							} else {
-								Debug.LogError ("server null: " + this);
-							}
-							return;
-						} else {
-							Debug.LogError ("disconnect null: " + this);
-						}
-					}
-				} else {
-					Debug.LogError ("log null: " + this);
-				}
-			}
-		}
-	}
+            if (this.data != null)
+            {
+                Log log = this.data.log.v.data;
+                if (log != null)
+                {
+                    // offline thi tro ve none
+                    {
+                        Server.State.Offline offline = log.findDataInParent<Server.State.Offline>();
+                        if (offline != null)
+                        {
+                            Login login = log.findDataInParent<Login>();
+                            if (login != null)
+                            {
+                                None none = new None();
+                                {
+                                    none.uid = login.state.makeId();
+                                    {
+                                        StateNormal stateNormal = new StateNormal();
+                                        {
+                                            stateNormal.uid = none.state.makeId();
+                                        }
+                                        none.state.v = stateNormal;
+                                    }
+                                }
+                                login.state.v = none;
+                            }
+                            else
+                            {
+                                Debug.LogError("login null: " + this);
+                            }
+                            return;
+                        }
+                        else
+                        {
+                            Debug.Log("not offline: " + this);
+                        }
+                    }
+                    // disconnect thi chuyen sange offline
+                    {
+                        Server.State.Disconnect disconnect = log.findDataInParent<Server.State.Disconnect>();
+                        if (disconnect != null)
+                        {
+                            Server server = disconnect.findDataInParent<Server>();
+                            if (server != null)
+                            {
+                                Server.State.Offline offline = new Server.State.Offline();
+                                {
+                                    offline.uid = server.state.makeId();
+                                }
+                                server.state.v = offline;
+                            }
+                            else
+                            {
+                                Debug.LogError("server null: " + this);
+                            }
+                            return;
+                        }
+                        else
+                        {
+                            Debug.LogError("disconnect null: " + this);
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogError("log null: " + this);
+                }
+            }
+        }
+    }
+
 }

@@ -9,12 +9,12 @@ using RequestDrawAsk;
 public class RequestDrawStateAskUI : UIBehavior<RequestDrawStateAskUI.UIData>, HaveTransformData
 {
 
-	#region UIData
+    #region UIData
 
-	public class UIData : RequestDrawUI.UIData.Sub
-	{
+    public class UIData : RequestDrawUI.UIData.Sub
+    {
 
-		public VP<ReferenceData<RequestDrawStateAsk>> requestDrawStateAsk;
+        public VP<ReferenceData<RequestDrawStateAsk>> requestDrawStateAsk;
 
         #region state
 
@@ -33,18 +33,18 @@ public class RequestDrawStateAskUI : UIBehavior<RequestDrawStateAskUI.UIData>, H
 
         public VP<WhoCanAskAdapter.UIData> whoCanAskAdapter;
 
-		#region Constructor
+        #region Constructor
 
-		public enum Property
-		{
-			requestDrawStateAsk,
+        public enum Property
+        {
+            requestDrawStateAsk,
             state,
             whoCanAskAdapter
         }
 
-		public UIData() : base()
-		{
-			this.requestDrawStateAsk = new VP<ReferenceData<RequestDrawStateAsk>>(this, (byte)Property.requestDrawStateAsk, new ReferenceData<RequestDrawStateAsk>(null));
+        public UIData() : base()
+        {
+            this.requestDrawStateAsk = new VP<ReferenceData<RequestDrawStateAsk>>(this, (byte)Property.requestDrawStateAsk, new ReferenceData<RequestDrawStateAsk>(null));
             this.state = new VP<State>(this, (byte)Property.state, State.None);
             this.whoCanAskAdapter = new VP<WhoCanAskAdapter.UIData>(this, (byte)Property.whoCanAskAdapter, new WhoCanAskAdapter.UIData());
         }
@@ -152,13 +152,16 @@ public class RequestDrawStateAskUI : UIBehavior<RequestDrawStateAskUI.UIData>, H
     public Button btnAccept;
     public Button btnRefuse;
 
-	public override void refresh ()
-	{
-		if (dirty) {
-			dirty = false;
-			if (this.data != null) {
-				RequestDrawStateAsk requestDrawStateAsk = this.data.requestDrawStateAsk.v.data;
-				if (requestDrawStateAsk != null) {
+    public override void refresh()
+    {
+        if (dirty)
+        {
+            dirty = false;
+            if (this.data != null)
+            {
+                RequestDrawStateAsk requestDrawStateAsk = this.data.requestDrawStateAsk.v.data;
+                if (requestDrawStateAsk != null)
+                {
                     // adapter
                     {
                         WhoCanAskAdapter.UIData whoCanAskAdapterUIData = this.data.whoCanAskAdapter.v;
@@ -192,7 +195,8 @@ public class RequestDrawStateAskUI : UIBehavior<RequestDrawStateAskUI.UIData>, H
                         }
                     }
                     // process
-                    if(canAnswer){
+                    if (canAnswer)
+                    {
                         // Task
                         {
                             switch (this.data.state.v)
@@ -322,7 +326,7 @@ public class RequestDrawStateAskUI : UIBehavior<RequestDrawStateAskUI.UIData>, H
                             {
                                 // accept
                                 {
-                                    if(btnAccept!=null && tvAccept != null)
+                                    if (btnAccept != null && tvAccept != null)
                                     {
                                         if (!requestDrawStateAsk.accepts.vs.Contains(profileId))
                                         {
@@ -456,11 +460,13 @@ public class RequestDrawStateAskUI : UIBehavior<RequestDrawStateAskUI.UIData>, H
                             }
                         }
                     }
-                } else {
-					Debug.LogError ("requestDrawStateAsk null");
-				}
-				// txt
-				{
+                }
+                else
+                {
+                    Debug.LogError("requestDrawStateAsk null");
+                }
+                // txt
+                {
                     if (lbTitle != null)
                     {
                         lbTitle.text = txtTitle.get("Answer Request Draw");
@@ -478,17 +484,19 @@ public class RequestDrawStateAskUI : UIBehavior<RequestDrawStateAskUI.UIData>, H
                         Debug.LogError("tvCannotAnswer null");
                     }
                 }
-			} else {
-				Debug.LogError ("data null");
-			}
-		}
+            }
+            else
+            {
+                Debug.LogError("data null");
+            }
+        }
         updateTransformData();
-	}
+    }
 
-	public override bool isShouldDisableUpdate ()
-	{
-		return false;
-	}
+    public override bool isShouldDisableUpdate()
+    {
+        return false;
+    }
 
     #endregion
 
@@ -502,7 +510,6 @@ public class RequestDrawStateAskUI : UIBehavior<RequestDrawStateAskUI.UIData>, H
         {
             yield return new Wait(Global.WaitSendTime);
             this.data.state.v = UIData.State.None;
-            Debug.LogError("request error: " + this);
             Toast.showMessage(txtRequestError.get("Answer request draw error"));
         }
         else
@@ -532,27 +539,37 @@ public class RequestDrawStateAskUI : UIBehavior<RequestDrawStateAskUI.UIData>, H
     private RequestDraw requestDraw = null;
     private Server server = null;
 
-	public override void onAddCallBack<T> (T data)
-	{
-		if (data is UIData) {
-			UIData uiData = data as UIData;
-			// Setting
-			Setting.get().addCallBack(this);
-			// Child
-			{
-				uiData.requestDrawStateAsk.allAddCallBack (this);
+    public override void onAddCallBack<T>(T data)
+    {
+        if (data is UIData)
+        {
+            UIData uiData = data as UIData;
+            // Global
+            Global.get().addCallBack(this);
+            // Setting
+            Setting.get().addCallBack(this);
+            // Child
+            {
+                uiData.requestDrawStateAsk.allAddCallBack(this);
                 uiData.whoCanAskAdapter.allAddCallBack(this);
-			}
-			dirty = true;
-			return;
-		}
-		// Setting
-		if (data is Setting) {
-			dirty = true;
-			return;
-		}
-		// Child
-		{
+            }
+            dirty = true;
+            return;
+        }
+        // Global
+        if (data is Global)
+        {
+            dirty = true;
+            return;
+        }
+        // Setting
+        if (data is Setting)
+        {
+            dirty = true;
+            return;
+        }
+        // Child
+        {
             // requestDrawStateAsk
             {
                 if (data is RequestDrawStateAsk)
@@ -617,7 +634,7 @@ public class RequestDrawStateAskUI : UIBehavior<RequestDrawStateAskUI.UIData>, H
                     }
                 }
             }
-            if(data is WhoCanAskAdapter.UIData)
+            if (data is WhoCanAskAdapter.UIData)
             {
                 WhoCanAskAdapter.UIData whoCanAskAdapterUIData = data as WhoCanAskAdapter.UIData;
                 // UI
@@ -628,15 +645,17 @@ public class RequestDrawStateAskUI : UIBehavior<RequestDrawStateAskUI.UIData>, H
                 return;
             }
         }
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	public override void onRemoveCallBack<T> (T data, bool isHide)
-	{
+    public override void onRemoveCallBack<T>(T data, bool isHide)
+    {
 
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Global
+            Global.get().removeCallBack(this);
             // Setting
             Setting.get().removeCallBack(this);
             // Child
@@ -645,6 +664,11 @@ public class RequestDrawStateAskUI : UIBehavior<RequestDrawStateAskUI.UIData>, H
                 uiData.whoCanAskAdapter.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
+            return;
+        }
+        // Global
+        if (data is Global)
+        {
             return;
         }
         // Setting
@@ -711,14 +735,15 @@ public class RequestDrawStateAskUI : UIBehavior<RequestDrawStateAskUI.UIData>, H
                 return;
             }
         }
-        Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-	{
-		if (WrapProperty.checkError (wrapProperty)) {
-			return;
-		}
+    public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+    {
+        if (WrapProperty.checkError(wrapProperty))
+        {
+            return;
+        }
         if (wrapProperty.p is UIData)
         {
             switch ((UIData.Property)wrapProperty.n)
@@ -742,6 +767,12 @@ public class RequestDrawStateAskUI : UIBehavior<RequestDrawStateAskUI.UIData>, H
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
+            return;
+        }
+        // Global
+        if (wrapProperty.p is Global)
+        {
+            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Setting
@@ -855,13 +886,13 @@ public class RequestDrawStateAskUI : UIBehavior<RequestDrawStateAskUI.UIData>, H
                 return;
             }
         }
-        Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-	}
+        Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+    }
 
-	#endregion
+    #endregion
 
-	public void onClickBtnAccept()
-	{
+    public void onClickBtnAccept()
+    {
         if (this.data != null)
         {
             switch (this.data.state.v)
@@ -889,8 +920,8 @@ public class RequestDrawStateAskUI : UIBehavior<RequestDrawStateAskUI.UIData>, H
         }
     }
 
-	public void onClickBtnRefuse()
-	{
+    public void onClickBtnRefuse()
+    {
         if (this.data != null)
         {
             switch (this.data.state.v)

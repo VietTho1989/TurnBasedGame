@@ -72,20 +72,18 @@ namespace Seirawan
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage ();
+        public Text lbChess960;
+        public static readonly TxtLanguage txtChess960 = new TxtLanguage();
 
-		public Text lbChess960;
-		public static readonly TxtLanguage txtChess960 = new TxtLanguage();
-
-		static DefaultSeirawanUI()
-		{
+        static DefaultSeirawanUI()
+        {
             // txt
             {
                 txtTitle.add(Language.Type.vi, "Mặc Định Cờ Seirawan");
@@ -105,11 +103,6 @@ namespace Seirawan
 
         private void updateTransformData()
         {
-            /*if (transform.hasChanged)
-            {
-                transform.hasChanged = false;
-                this.transformData.update(this.transform);
-            }*/
             this.transformData.update(this.transform);
         }
 
@@ -119,6 +112,8 @@ namespace Seirawan
         }
 
         #endregion
+
+        #region Refresh
 
         private bool needReset = true;
 		private bool miniGameDataDirty = true;
@@ -314,6 +309,8 @@ namespace Seirawan
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Global
+                Global.get().addCallBack(this);
 				// Setting
 				Setting.get ().addCallBack (this);
 				// Child
@@ -325,8 +322,14 @@ namespace Seirawan
 				dirty = true;
 				return;
 			}
-			// Setting
-			if (data is Setting) {
+            // Global
+            if(data is Global)
+            {
+                dirty = true;
+                return;
+            }
+            // Setting
+            if (data is Setting) {
 				dirty = true;
 				return;
 			}
@@ -429,6 +432,8 @@ namespace Seirawan
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Global
+                Global.get().removeCallBack(this);
 				// Setting
 				Setting.get().removeCallBack(this);
 				// Child
@@ -440,8 +445,13 @@ namespace Seirawan
 				this.setDataNull (uiData);
 				return;
 			}
-			// Setting
-			if (data is Setting) {
+            // Global
+            if(data is Global)
+            {
+                return;
+            }
+            // Setting
+            if (data is Setting) {
 				return;
 			}
 			// Child
@@ -548,8 +558,14 @@ namespace Seirawan
 				}
 				return;
 			}
-			// Setting
-			if (wrapProperty.p is Setting) {
+            // Global
+            if(wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
+                return;
+            }
+            // Setting
+            if (wrapProperty.p is Setting) {
 				switch ((Setting.Property)wrapProperty.n) {
 				case Setting.Property.language:
 					dirty = true;

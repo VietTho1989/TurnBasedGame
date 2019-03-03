@@ -314,7 +314,7 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                                 // portrait view
                                 if (gamePlayerListWidth <= gamePlayerListHeight)
                                 {
-                                    float x = -gamePlayerListWidth / 2 + gamePlayerWidth / 2 + 10;
+                                    float x = -gamePlayerListWidth / 2 + gamePlayerWidth / 2 + GameDataBoardUI.Margin;
                                     switch (gamePlayer.playerIndex.v)
                                     {
                                         case 0:
@@ -349,18 +349,18 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                                 // landscape view
                                 else
                                 {
-                                    float x = left - 10;
+                                    float x = left - gamePlayerWidth / 2 - GameDataBoardUI.Margin;
                                     switch (gamePlayer.playerIndex.v)
                                     {
                                         case 0:
                                             {
                                                 if (playerView == 0)
                                                 {
-                                                    gamePlayerTransform.anchoredPosition = new Vector2(x, top);
+                                                    gamePlayerTransform.anchoredPosition = new Vector2(x, top + gamePlayerHeight / 2);
                                                 }
                                                 else
                                                 {
-                                                    gamePlayerTransform.anchoredPosition = new Vector2(x, bottom);
+                                                    gamePlayerTransform.anchoredPosition = new Vector2(x, bottom - gamePlayerHeight / 2);
                                                 }
                                             }
                                             break;
@@ -368,11 +368,11 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                                             {
                                                 if (playerView != 0)
                                                 {
-                                                    gamePlayerTransform.anchoredPosition = new Vector2(x, top);
+                                                    gamePlayerTransform.anchoredPosition = new Vector2(x, top + gamePlayerHeight / 2);
                                                 }
                                                 else
                                                 {
-                                                    gamePlayerTransform.anchoredPosition = new Vector2(x, bottom);
+                                                    gamePlayerTransform.anchoredPosition = new Vector2(x, bottom - gamePlayerHeight / 2);
                                                 }
                                             }
                                             break;
@@ -818,10 +818,19 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                 case Global.Property.deviceOrientation:
                     dirty = true;
                     break;
+                case Global.Property.screenOrientation:
+                    dirty = true;
+                    break;
                 case Global.Property.width:
                     dirty = true;
                     break;
                 case Global.Property.height:
+                    dirty = true;
+                    break;
+                case Global.Property.screenWidth:
+                    dirty = true;
+                    break;
+                case Global.Property.screenHeight:
                     dirty = true;
                     break;
                 default:

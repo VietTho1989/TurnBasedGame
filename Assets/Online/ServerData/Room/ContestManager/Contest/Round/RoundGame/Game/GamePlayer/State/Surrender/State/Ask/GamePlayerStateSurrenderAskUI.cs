@@ -459,6 +459,8 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Global
+            Global.get().addCallBack(this);
             // Setting
             Setting.get().addCallBack(this);
             // Child
@@ -466,6 +468,12 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
                 uiData.ask.allAddCallBack(this);
                 uiData.whoCanAsks.allAddCallBack(this);
             }
+            dirty = true;
+            return;
+        }
+        // Global
+        if (data is Global)
+        {
             dirty = true;
             return;
         }
@@ -496,7 +504,7 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
                     return;
                 }
             }
-            if(data is WhoCanAskAdapter.UIData)
+            if (data is WhoCanAskAdapter.UIData)
             {
                 WhoCanAskAdapter.UIData whoCanAskAdapterUIData = data as WhoCanAskAdapter.UIData;
                 // UI
@@ -515,6 +523,8 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Global
+            Global.get().removeCallBack(this);
             // Setting
             Setting.get().removeCallBack(this);
             // Child
@@ -523,6 +533,11 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
                 uiData.whoCanAsks.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
+            return;
+        }
+        // Global
+        if (data is Global)
+        {
             return;
         }
         // Setting
@@ -591,6 +606,12 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
+            return;
+        }
+        // Global
+        if (wrapProperty.p is Global)
+        {
+            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Setting

@@ -77,20 +77,18 @@ namespace InternationalDraught
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage ();
+        public Text lbVariant;
+        public static readonly TxtLanguage txtVariant = new TxtLanguage();
 
-		public Text lbVariant;
-		public static readonly TxtLanguage txtVariant = new TxtLanguage ();
-
-		static DefaultInternationalDraughtUI()
-		{
+        static DefaultInternationalDraughtUI()
+        {
             // txt
             {
                 txtTitle.add(Language.Type.vi, "Mặc Định Cờ Đam Kiểu Quốc Tế");
@@ -110,11 +108,6 @@ namespace InternationalDraught
 
         private void updateTransformData()
         {
-            /*if (transform.hasChanged)
-            {
-                transform.hasChanged = false;
-                this.transformData.update(this.transform);
-            }*/
             this.transformData.update(this.transform);
         }
 
@@ -124,6 +117,8 @@ namespace InternationalDraught
         }
 
         #endregion
+
+        #region Refresh
 
         private bool needReset = true;
 		private bool miniGameDataDirty = true;
@@ -306,6 +301,8 @@ namespace InternationalDraught
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Global
+                Global.get().addCallBack(this);
 				// Setting
 				Setting.get ().addCallBack (this);
 				// Child
@@ -317,8 +314,14 @@ namespace InternationalDraught
 				dirty = true;
 				return;
 			}
-			// Setting
-			if (data is Setting) {
+            // Global
+            if(data is Global)
+            {
+                dirty = true;
+                return;
+            }
+            // Setting
+            if (data is Setting) {
 				dirty = true;
 				return;
 			}
@@ -423,6 +426,8 @@ namespace InternationalDraught
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Global
+                Global.get().removeCallBack(this);
 				// Setting
 				Setting.get ().removeCallBack (this);
 				// Child
@@ -434,8 +439,13 @@ namespace InternationalDraught
 				this.setDataNull (uiData);
 				return;
 			}
-			// Setting
-			if (data is Setting) {
+            // Global
+            if(data is Global)
+            {
+                return;
+            }
+            // Setting
+            if (data is Setting) {
 				return;
 			}
 			// Child
@@ -542,8 +552,14 @@ namespace InternationalDraught
 				}
 				return;
 			}
-			// Setting
-			if (wrapProperty.p is Setting) {
+            // Global
+            if(wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
+                return;
+            }
+            // Setting
+            if (wrapProperty.p is Setting) {
 				switch ((Setting.Property)wrapProperty.n) {
 				case Setting.Property.language:
 					dirty = true;

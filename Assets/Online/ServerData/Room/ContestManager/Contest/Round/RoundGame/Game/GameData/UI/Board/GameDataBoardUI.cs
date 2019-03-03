@@ -5,151 +5,177 @@ using System.Collections.Generic;
 public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>, HaveTransformData
 {
 
-	#region UIData
+    #region UIData
 
-	public class UIData : Data
-	{
-		
-		public VP<ReferenceData<GameData>> gameData;
+    public class UIData : Data
+    {
 
-		#region AnimationManager
+        public VP<ReferenceData<GameData>> gameData;
 
-		public VP<AnimationManager> animationManager;
+        #region AnimationManager
 
-		#endregion
+        public VP<AnimationManager> animationManager;
 
-		#region Sub
+        #endregion
 
-		public abstract class Sub : Data
-		{
-			
-			public abstract GameType.Type getType ();
+        #region Sub
 
-			public abstract bool processEvent(Event e);
+        public abstract class Sub : Data
+        {
 
-		}
+            public abstract GameType.Type getType();
 
-		public VP<Sub> sub;
+            public abstract bool processEvent(Event e);
 
-		#endregion
+        }
 
-		#region Perspective
+        public VP<Sub> sub;
 
-		public VP<Perspective> perspective;
+        #endregion
 
-		public static int getPlayerView(Data data)
-		{
-			UIData uiData = data.findDataInParent<UIData> ();
-			if (uiData != null) {
-				Perspective perspective = uiData.perspective.v;
-				if (perspective != null) {
-					return perspective.playerView.v;
-				} else {
-					Debug.LogError ("perspective null: " + data);
-				}
-			} else {
-				Debug.LogError ("uiData null: " + data);
-			}
-			return 0;
-		}
+        #region Perspective
 
-		#endregion
+        public VP<Perspective> perspective;
 
-		#region Constructor
-
-		public enum Property
-		{
-			gameData,
-			animationManager,
-			sub,
-			perspective
-		}
-
-		public UIData() : base()
-		{
-			this.gameData = new VP<ReferenceData<GameData>>(this, (byte)Property.gameData, new ReferenceData<GameData>(null));
-			this.animationManager = new VP<AnimationManager>(this, (byte)Property.animationManager, new AnimationManager());
-			this.sub = new VP<Sub>(this, (byte)Property.sub, null);
-			this.perspective = new VP<Perspective>(this, (byte)Property.perspective, new Perspective());
-		}
-
-		#endregion
-
-		public bool processEvent(Event e)
-		{
-			bool isProcess = false;
-			{
-				// sub
-				if (!isProcess) {
-					Sub sub = this.sub.v;
-					if (sub != null) {
-						isProcess = sub.processEvent (e);
-					} else {
-						Debug.LogError ("sub null: " + this);
-					}
-				}
+        public static int getPlayerView(Data data)
+        {
+            UIData uiData = data.findDataInParent<UIData>();
+            if (uiData != null)
+            {
+                Perspective perspective = uiData.perspective.v;
+                if (perspective != null)
+                {
+                    return perspective.playerView.v;
+                }
+                else
+                {
+                    Debug.LogError("perspective null: " + data);
+                }
             }
-			return isProcess;
-		}
+            else
+            {
+                Debug.LogError("uiData null: " + data);
+            }
+            return 0;
+        }
 
-		public void reset()
-		{
-			if (this.animationManager.v != null) {
-				this.animationManager.v.reset ();
-			} else {
-				Debug.LogError ("animationManager null: " + this);
-			}
-		}
+        #endregion
 
-		public static MoveAnimation getCurrentMoveAnimation(Data data)
-		{
-			GameDataBoardUI.UIData gameDataBoardUIData = data.findDataInParent<GameDataBoardUI.UIData> ();
-			if (gameDataBoardUIData != null) {
-				AnimationManager animationManager = gameDataBoardUIData.animationManager.v;
-				if (animationManager != null) {
-					if (animationManager.animationProgresses.vs.Count > 0) {
-						AnimationProgress animationProgres = animationManager.animationProgresses.vs [0];
-						return animationProgres.moveAnimation.v.data;
-					} else {
-						
-					}
-				} else {
-					Debug.LogError ("animationManager null: " + data);
-				}
-			} else {
-				Debug.LogError ("gameDataBoardUIData null: " + data);
-			}
-			return null;
-		}
+        #region Constructor
 
-		public static void getCurrentMoveAnimationInfo(Data data, out MoveAnimation moveAnimation, out float time, out float duration)
-		{
-			// init
-			moveAnimation = null;
-			time = 0;
-			duration = 0;
-			// Find
-			GameDataBoardUI.UIData gameDataBoardUIData = data.findDataInParent<GameDataBoardUI.UIData> ();
-			if (gameDataBoardUIData != null) {
-				AnimationManager animationManager = gameDataBoardUIData.animationManager.v;
-				if (animationManager != null) {
-					if (animationManager.animationProgresses.vs.Count > 0) {
-						AnimationProgress animationProgress = animationManager.animationProgresses.vs [0];
-						// get info
-						moveAnimation = animationProgress.moveAnimation.v.data;
-						time = animationProgress.time.v;
-						duration = animationProgress.duration.v;
-						if (duration == 0) {
-							Debug.LogError ("why duration = 0");
-							// duration = 100 * AnimationManager.DefaultDuration;
-							duration = 0.1f;
-						}
-						// reverse?
-						{
-							// find
-							bool isReverse = animationProgress.isReverse;
-							{
-								/*Record.ViewRecordUI.UIData viewRecordUIData = data.findDataInParent<Record.ViewRecordUI.UIData> ();
+        public enum Property
+        {
+            gameData,
+            animationManager,
+            sub,
+            perspective
+        }
+
+        public UIData() : base()
+        {
+            this.gameData = new VP<ReferenceData<GameData>>(this, (byte)Property.gameData, new ReferenceData<GameData>(null));
+            this.animationManager = new VP<AnimationManager>(this, (byte)Property.animationManager, new AnimationManager());
+            this.sub = new VP<Sub>(this, (byte)Property.sub, null);
+            this.perspective = new VP<Perspective>(this, (byte)Property.perspective, new Perspective());
+        }
+
+        #endregion
+
+        public bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                // sub
+                if (!isProcess)
+                {
+                    Sub sub = this.sub.v;
+                    if (sub != null)
+                    {
+                        isProcess = sub.processEvent(e);
+                    }
+                    else
+                    {
+                        Debug.LogError("sub null: " + this);
+                    }
+                }
+            }
+            return isProcess;
+        }
+
+        public void reset()
+        {
+            if (this.animationManager.v != null)
+            {
+                this.animationManager.v.reset();
+            }
+            else
+            {
+                Debug.LogError("animationManager null: " + this);
+            }
+        }
+
+        public static MoveAnimation getCurrentMoveAnimation(Data data)
+        {
+            GameDataBoardUI.UIData gameDataBoardUIData = data.findDataInParent<GameDataBoardUI.UIData>();
+            if (gameDataBoardUIData != null)
+            {
+                AnimationManager animationManager = gameDataBoardUIData.animationManager.v;
+                if (animationManager != null)
+                {
+                    if (animationManager.animationProgresses.vs.Count > 0)
+                    {
+                        AnimationProgress animationProgres = animationManager.animationProgresses.vs[0];
+                        return animationProgres.moveAnimation.v.data;
+                    }
+                    else
+                    {
+
+                    }
+                }
+                else
+                {
+                    Debug.LogError("animationManager null: " + data);
+                }
+            }
+            else
+            {
+                Debug.LogError("gameDataBoardUIData null: " + data);
+            }
+            return null;
+        }
+
+        public static void getCurrentMoveAnimationInfo(Data data, out MoveAnimation moveAnimation, out float time, out float duration)
+        {
+            // init
+            moveAnimation = null;
+            time = 0;
+            duration = 0;
+            // Find
+            GameDataBoardUI.UIData gameDataBoardUIData = data.findDataInParent<GameDataBoardUI.UIData>();
+            if (gameDataBoardUIData != null)
+            {
+                AnimationManager animationManager = gameDataBoardUIData.animationManager.v;
+                if (animationManager != null)
+                {
+                    if (animationManager.animationProgresses.vs.Count > 0)
+                    {
+                        AnimationProgress animationProgress = animationManager.animationProgresses.vs[0];
+                        // get info
+                        moveAnimation = animationProgress.moveAnimation.v.data;
+                        time = animationProgress.time.v;
+                        duration = animationProgress.duration.v;
+                        if (duration == 0)
+                        {
+                            Debug.LogError("why duration = 0");
+                            // duration = 100 * AnimationManager.DefaultDuration;
+                            duration = 0.1f;
+                        }
+                        // reverse?
+                        {
+                            // find
+                            bool isReverse = animationProgress.isReverse;
+                            {
+                                /*Record.ViewRecordUI.UIData viewRecordUIData = data.findDataInParent<Record.ViewRecordUI.UIData> ();
 								if (viewRecordUIData != null) {
 									Record.ViewRecordControllerUI.UIData controller = viewRecordUIData.controller.v;
 									if (controller != null) {
@@ -162,44 +188,58 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>, HaveTransform
 								} else {
 									Debug.LogError ("viewRecordUIData null: " + data);
 								}*/
-							}
-							// process
-							if (isReverse) {
-								time = duration - time;
-							}
-						}
-					}
-					// correct time
-					if (duration > 0) {
-						time = Mathf.Clamp (time, 0, duration);
-					} else {
-						// Debug.LogError ("duration < 0: " + this);
-					}
-				} else {
-					Debug.LogError ("animationManager null: " + data);
-				}
-			} else {
-				Debug.LogError ("gameDataBoardUIData null: " + data);
-			}
-		}
+                            }
+                            // process
+                            if (isReverse)
+                            {
+                                time = duration - time;
+                            }
+                        }
+                    }
+                    // correct time
+                    if (duration > 0)
+                    {
+                        time = Mathf.Clamp(time, 0, duration);
+                    }
+                    else
+                    {
+                        // Debug.LogError ("duration < 0: " + this);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("animationManager null: " + data);
+                }
+            }
+            else
+            {
+                Debug.LogError("gameDataBoardUIData null: " + data);
+            }
+        }
 
-		public static bool isOnAnimation(Data data)
-		{
-			GameDataBoardUI.UIData gameDataBoardUIData = data.findDataInParent<GameDataBoardUI.UIData> ();
-			if (gameDataBoardUIData != null) {
-				AnimationManager animationManager = gameDataBoardUIData.animationManager.v;
-				if (animationManager != null) {
-					return animationManager.isOnAnimation ();
-				} else {
-					Debug.LogError ("animationManager null: " + data);
-				}
-			} else {
-				Debug.LogError ("gameDataBoardUIData null: " + data);
-			}
-			return false;
-		}
+        public static bool isOnAnimation(Data data)
+        {
+            GameDataBoardUI.UIData gameDataBoardUIData = data.findDataInParent<GameDataBoardUI.UIData>();
+            if (gameDataBoardUIData != null)
+            {
+                AnimationManager animationManager = gameDataBoardUIData.animationManager.v;
+                if (animationManager != null)
+                {
+                    return animationManager.isOnAnimation();
+                }
+                else
+                {
+                    Debug.LogError("animationManager null: " + data);
+                }
+            }
+            else
+            {
+                Debug.LogError("gameDataBoardUIData null: " + data);
+            }
+            return false;
+        }
 
-	}
+    }
 
     #endregion
 
@@ -533,59 +573,68 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>, HaveTransform
         updateTransformData();
     }
 
-	public override bool isShouldDisableUpdate ()
-	{
-		return true;
-	}
+    public override bool isShouldDisableUpdate()
+    {
+        return true;
+    }
 
-	#endregion
+    #endregion
 
-	#region implement callBacks
+    #region implement callBacks
 
-	public Chess.ChessGameDataUI chessPrefab;
-	public Shatranj.ShatranjGameDataUI shatranjPrefab;
-	public Makruk.MakrukGameDataUI makrukPrefab;
-	public Seirawan.SeirawanGameDataUI seirawanPrefab;
-	public FairyChess.FairyChessGameDataUI fairyChessPrefab;
+    public Chess.ChessGameDataUI chessPrefab;
+    public Shatranj.ShatranjGameDataUI shatranjPrefab;
+    public Makruk.MakrukGameDataUI makrukPrefab;
+    public Seirawan.SeirawanGameDataUI seirawanPrefab;
+    public FairyChess.FairyChessGameDataUI fairyChessPrefab;
 
-	public Xiangqi.XiangqiGameDataUI xiangqiPrefab;
-	public CoTuongUp.CoTuongUpGameDataUI coTuongUpPrefab;
-	public Janggi.JanggiGameDataUI janggiPrefab;
-	public Banqi.BanqiGameDataUI banqiPrefab;
+    public Xiangqi.XiangqiGameDataUI xiangqiPrefab;
+    public CoTuongUp.CoTuongUpGameDataUI coTuongUpPrefab;
+    public Janggi.JanggiGameDataUI janggiPrefab;
+    public Banqi.BanqiGameDataUI banqiPrefab;
 
-	public Weiqi.WeiqiGameDataUI weiqiPrefab;
-	public Reversi.ReversiGameDataUI reversiPrefab;
-	public Shogi.ShogiGameDataUI shogiPrefab;
-	public Gomoku.GomokuGameDataUI gomokuPrefab;
+    public Weiqi.WeiqiGameDataUI weiqiPrefab;
+    public Reversi.ReversiGameDataUI reversiPrefab;
+    public Shogi.ShogiGameDataUI shogiPrefab;
+    public Gomoku.GomokuGameDataUI gomokuPrefab;
 
-	public InternationalDraught.InternationalDraughtGameDataUI internationalDraughtPrefab;
-	public EnglishDraught.EnglishDraughtGameDataUI englishDraughtPrefab;
-	public RussianDraught.RussianDraughtGameDataUI russianDraughtPrefab;
+    public InternationalDraught.InternationalDraughtGameDataUI internationalDraughtPrefab;
+    public EnglishDraught.EnglishDraughtGameDataUI englishDraughtPrefab;
+    public RussianDraught.RussianDraughtGameDataUI russianDraughtPrefab;
     public ChineseCheckers.ChineseCheckersGameDataUI chineseCheckersPrefab;
 
     public MineSweeper.MineSweeperGameDataUI mineSweeperPrefab;
-	public HEX.HexGameDataUI hexPrefab;
-	public Solitaire.SolitaireGameDataUI solitairePrefab;
-	public Sudoku.SudokuGameDataUI sudokuPrefab;
-	public Khet.KhetGameDataUI khetPrefab;
-	public NineMenMorris.NineMenMorrisGameDataUI nineMenMorrisPrefab;
+    public HEX.HexGameDataUI hexPrefab;
+    public Solitaire.SolitaireGameDataUI solitairePrefab;
+    public Sudoku.SudokuGameDataUI sudokuPrefab;
+    public Khet.KhetGameDataUI khetPrefab;
+    public NineMenMorris.NineMenMorrisGameDataUI nineMenMorrisPrefab;
 
-	public override void onAddCallBack<T> (T data)
-	{
-		if (data is UIData) {
-			UIData uiData = data as UIData;
-			// Child
-			{
-				uiData.animationManager.allAddCallBack (this);
+    public override void onAddCallBack<T>(T data)
+    {
+        if (data is UIData)
+        {
+            UIData uiData = data as UIData;
+            // Global
+            Global.get().addCallBack(this);
+            // Child
+            {
+                uiData.animationManager.allAddCallBack(this);
                 uiData.perspective.allAddCallBack(this);
                 uiData.gameData.allAddCallBack(this);
-				uiData.sub.allAddCallBack (this);
-			}
-			dirty = true;
-			return;
-		}
-		// Child
-		{
+                uiData.sub.allAddCallBack(this);
+            }
+            dirty = true;
+            return;
+        }
+        // Global
+        if (data is Global)
+        {
+            dirty = true;
+            return;
+        }
+        // Child
+        {
             if (data is Perspective)
             {
                 Perspective perspective = data as Perspective;
@@ -596,8 +645,9 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>, HaveTransform
                 dirty = true;
                 return;
             }
-            if (data is UIData.Sub) {
-				UIData.Sub sub = data as UIData.Sub;
+            if (data is UIData.Sub)
+            {
+                UIData.Sub sub = data as UIData.Sub;
                 // UI
                 {
                     switch (sub.getType())
@@ -751,54 +801,66 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>, HaveTransform
                             break;
                     }
                 }
-				dirty = true;
-				return;
-			}
-			// GameData
-			{
-				if (data is GameData) {
-					GameData gameData = data as GameData;
-					// Child
-					{
-						gameData.gameType.allAddCallBack (this);
-					}
-					dirty = true;
-					return;
-				}
-				// Child
-				if (data is GameType) {
-					dirty = true;
-					return;
-				}
-			}
-			if (data is AnimationManager) {
-				AnimationManager animationManager = data as AnimationManager;
-				// Update
-				{
-					UpdateUtils.makeUpdate<AnimationManagerUpdate, AnimationManager> (animationManager, this.transform);
-				}
-				dirty = true;
-				return;
-			}
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+                dirty = true;
+                return;
+            }
+            // GameData
+            {
+                if (data is GameData)
+                {
+                    GameData gameData = data as GameData;
+                    // Child
+                    {
+                        gameData.gameType.allAddCallBack(this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                if (data is GameType)
+                {
+                    dirty = true;
+                    return;
+                }
+            }
+            if (data is AnimationManager)
+            {
+                AnimationManager animationManager = data as AnimationManager;
+                // Update
+                {
+                    UpdateUtils.makeUpdate<AnimationManagerUpdate, AnimationManager>(animationManager, this.transform);
+                }
+                dirty = true;
+                return;
+            }
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	public override void onRemoveCallBack<T> (T data, bool isHide)
-	{
-		if (data is UIData) {
-			UIData uiData = data as UIData;
-			{
-				uiData.animationManager.allRemoveCallBack (this);
+    public override void onRemoveCallBack<T>(T data, bool isHide)
+    {
+        if (data is UIData)
+        {
+            UIData uiData = data as UIData;
+            // Global
+            Global.get().removeCallBack(this);
+            // Child
+            {
+                uiData.animationManager.allRemoveCallBack(this);
                 uiData.perspective.allRemoveCallBack(this);
-                uiData.gameData.allRemoveCallBack (this);
-				uiData.sub.allRemoveCallBack (this);
-			}
-			this.setDataNull (uiData);
-			return;
-		}
-		// Child
-		{
+                uiData.gameData.allRemoveCallBack(this);
+                uiData.sub.allRemoveCallBack(this);
+            }
+            this.setDataNull(uiData);
+            return;
+        }
+        // Global
+        if (data is Global)
+        {
+            return;
+        }
+        // Child
+        {
             if (data is Perspective)
             {
                 Perspective perspective = data as Perspective;
@@ -808,8 +870,9 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>, HaveTransform
                 }
                 return;
             }
-            if (data is UIData.Sub) {
-				UIData.Sub sub = data as UIData.Sub;
+            if (data is UIData.Sub)
+            {
+                UIData.Sub sub = data as UIData.Sub;
                 // UI
                 {
                     switch (sub.getType())
@@ -963,118 +1026,136 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>, HaveTransform
                             break;
                     }
                 }
-				return;
-			}
-			// GameData
-			{
-				if (data is GameData) {
-					GameData gameData = data as GameData;
-					// Child
-					{
-						gameData.gameType.allRemoveCallBack (this);
-					}
-					return;
-				}
-				// Child
-				if (data is GameType) {
-					return;
-				}
-			}
-			if (data is AnimationManager) {
-				AnimationManager animationManager = data as AnimationManager;
-				// Update
-				{
-					animationManager.removeCallBackAndDestroy (typeof(AnimationManagerUpdate));
-				}
-				return;
-			}
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+                return;
+            }
+            // GameData
+            {
+                if (data is GameData)
+                {
+                    GameData gameData = data as GameData;
+                    // Child
+                    {
+                        gameData.gameType.allRemoveCallBack(this);
+                    }
+                    return;
+                }
+                // Child
+                if (data is GameType)
+                {
+                    return;
+                }
+            }
+            if (data is AnimationManager)
+            {
+                AnimationManager animationManager = data as AnimationManager;
+                // Update
+                {
+                    animationManager.removeCallBackAndDestroy(typeof(AnimationManagerUpdate));
+                }
+                return;
+            }
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-	{
-		if (WrapProperty.checkError (wrapProperty)) {
-			return;
-		}
-		if (wrapProperty.p is UIData) {
-			switch ((UIData.Property)wrapProperty.n) {
-			case UIData.Property.gameData:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			case UIData.Property.animationManager:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			case UIData.Property.perspective:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			case UIData.Property.sub:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			default:
-				Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-				break;
-			}
-			return;
-		}
-		// Child
-		{
+    public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+    {
+        if (WrapProperty.checkError(wrapProperty))
+        {
+            return;
+        }
+        if (wrapProperty.p is UIData)
+        {
+            switch ((UIData.Property)wrapProperty.n)
+            {
+                case UIData.Property.gameData:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.animationManager:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.perspective:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.sub:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Global
+        if (wrapProperty.p is Global)
+        {
+            Global.OnValueTransformChange(wrapProperty, this);
+            return;
+        }
+        // Child
+        {
             if (wrapProperty.p is Perspective)
             {
                 return;
             }
-            if (wrapProperty.p is UIData.Sub) {
-				return;
-			}
-			// GameData
-			{
-				if (wrapProperty.p is GameData) {
-					switch ((GameData.Property)wrapProperty.n) {
-					case GameData.Property.gameType:
-						{
-							ValueChangeUtils.replaceCallBack (this, syncs);
-							dirty = true;
-						}
-						break;
-					case GameData.Property.useRule:
-						break;
-					case GameData.Property.turn:
-						break;
-					case GameData.Property.timeControl:
-						break;
-					case GameData.Property.lastMove:
-						break;
-					case GameData.Property.state:
-						break;
-					default:
-						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-						break;
-					}
-					return;
-				}
-				// Child
-				if (wrapProperty.p is GameType) {
-					return;
-				}
-			}
-			if (wrapProperty.p is AnimationManager) {
-				return;
-			}
-		}
-		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-	}
+            if (wrapProperty.p is UIData.Sub)
+            {
+                return;
+            }
+            // GameData
+            {
+                if (wrapProperty.p is GameData)
+                {
+                    switch ((GameData.Property)wrapProperty.n)
+                    {
+                        case GameData.Property.gameType:
+                            {
+                                ValueChangeUtils.replaceCallBack(this, syncs);
+                                dirty = true;
+                            }
+                            break;
+                        case GameData.Property.useRule:
+                            break;
+                        case GameData.Property.turn:
+                            break;
+                        case GameData.Property.timeControl:
+                            break;
+                        case GameData.Property.lastMove:
+                            break;
+                        case GameData.Property.state:
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+                // Child
+                if (wrapProperty.p is GameType)
+                {
+                    return;
+                }
+            }
+            if (wrapProperty.p is AnimationManager)
+            {
+                return;
+            }
+        }
+        Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+    }
 
-	#endregion
+    #endregion
+
 }

@@ -67,15 +67,42 @@ public class StartTurnActionUI : UIBehavior<StartTurnActionUI.UIData>
                 {
                     if (tvTurn != null)
                     {
-                        switch (startTurnAction.state.v)
+                        int turnIndex = 0;
+                        {
+                            Game game = startTurnAction.findDataInParent<Game>();
+                            if (game != null)
+                            {
+                                GameData gameData = game.gameData.v;
+                                if (gameData != null)
+                                {
+                                    Turn turn = gameData.turn.v;
+                                    if (turn != null)
+                                    {
+                                        turnIndex = turn.turn.v;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("turn null");
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("gameData null");
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("game null");
+                            }
+                        }
+                        tvTurn.text = txtNewTurn.get("New Turn") + ": " + turnIndex;
+                        /*switch (startTurnAction.state.v)
                         {
                             case StartTurnAction.State.Start:
                                 tvTurn.text = txtNewTurn.get("New Turn");
-                                tvTurn.gameObject.SetActive(false);
                                 break;
                             case StartTurnAction.State.Process:
                                 tvTurn.text = txtNewTurn.get("New Turn");
-                                tvTurn.gameObject.SetActive(false);
                                 break;
                             case StartTurnAction.State.End:
                                 {
@@ -89,13 +116,12 @@ public class StartTurnActionUI : UIBehavior<StartTurnActionUI.UIData>
                                     {
                                         // Debug.LogError ("game null: " + this);
                                     }
-                                    tvTurn.gameObject.SetActive(true);
                                 }
                                 break;
                             default:
                                 Debug.LogError("unknown state: " + startTurnAction.state.v + "; " + this);
                                 break;
-                        }
+                        }*/
                     }
                     else
                     {

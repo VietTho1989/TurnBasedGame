@@ -69,11 +69,6 @@ namespace Banqi
 
         private void updateTransformData()
         {
-            /*if (transform.hasChanged)
-            {
-                transform.hasChanged = false;
-                this.transformData.update(this.transform);
-            }*/
             this.transformData.update(this.transform);
         }
 
@@ -220,6 +215,8 @@ namespace Banqi
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Global
+                Global.get().addCallBack(this);
 				// Setting
 				Setting.get ().addCallBack (this);
 				// Child
@@ -230,8 +227,14 @@ namespace Banqi
 				dirty = true;
 				return;
 			}
-			// Setting
-			if (data is Setting) {
+            // Global
+            if(data is Global)
+            {
+                dirty = true;
+                return;
+            }
+            // Setting
+            if (data is Setting) {
 				dirty = true;
 				return;
 			}
@@ -312,6 +315,8 @@ namespace Banqi
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Global
+                Global.get().removeCallBack(this);
 				// Setting
 				Setting.get ().removeCallBack (this);
 				// Child
@@ -322,8 +327,13 @@ namespace Banqi
 				this.setDataNull (uiData);
 				return;
 			}
-			// Setting
-			if (data is Setting) {
+            // Global
+            if(data is Global)
+            {
+                return;
+            }
+            // Setting
+            if (data is Setting) {
 				return;
 			}
 			// Child
@@ -416,8 +426,14 @@ namespace Banqi
 				}
 				return;
 			}
-			// Setting
-			if (wrapProperty.p is Setting) {
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
+                return;
+            }
+            // Setting
+            if (wrapProperty.p is Setting) {
 				switch ((Setting.Property)wrapProperty.n) {
 				case Setting.Property.language:
 					dirty = true;

@@ -193,6 +193,8 @@ namespace LoginState
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Global
+                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -200,6 +202,12 @@ namespace LoginState
                     uiData.none.allAddCallBack(this);
                     uiData.sub.allAddCallBack(this);
                 }
+                dirty = true;
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
                 dirty = true;
                 return;
             }
@@ -271,6 +279,8 @@ namespace LoginState
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Global
+                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -279,6 +289,11 @@ namespace LoginState
                     uiData.sub.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
                 return;
             }
             // Setting
@@ -369,6 +384,12 @@ namespace LoginState
                 }
                 return;
             }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
+                return;
+            }
             // Setting
             if (wrapProperty.p is Setting)
             {
@@ -413,7 +434,7 @@ namespace LoginState
                         return;
                     }
                     // Child
-                    if(wrapProperty.p is TransformData)
+                    if (wrapProperty.p is TransformData)
                     {
                         switch ((TransformData.Property)wrapProperty.n)
                         {

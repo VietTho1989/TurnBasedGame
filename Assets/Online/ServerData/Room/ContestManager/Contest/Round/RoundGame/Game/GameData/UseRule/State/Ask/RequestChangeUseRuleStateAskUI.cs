@@ -196,7 +196,7 @@ public class RequestChangeUseRuleStateAskUI : UIBehavior<RequestChangeUseRuleSta
                             RequestChangeUseRule requestChangeUseRule = requestChangeUseRuleStateAsk.findDataInParent<RequestChangeUseRule>();
                             if (requestChangeUseRule != null)
                             {
-                                foreach(Human human in requestChangeUseRule.whoCanAsks.vs)
+                                foreach (Human human in requestChangeUseRule.whoCanAsks.vs)
                                 {
                                     if (human.playerId.v == profileId)
                                     {
@@ -285,6 +285,8 @@ public class RequestChangeUseRuleStateAskUI : UIBehavior<RequestChangeUseRuleSta
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Global
+            Global.get().addCallBack(this);
             // Setting
             Setting.get().addCallBack(this);
             // Child
@@ -297,8 +299,14 @@ public class RequestChangeUseRuleStateAskUI : UIBehavior<RequestChangeUseRuleSta
             dirty = true;
             return;
         }
+        // Global
+        if (data is Global)
+        {
+            dirty = true;
+            return;
+        }
         // Setting
-        if(data is Setting)
+        if (data is Setting)
         {
             dirty = true;
             return;
@@ -330,7 +338,7 @@ public class RequestChangeUseRuleStateAskUI : UIBehavior<RequestChangeUseRuleSta
                         return;
                     }
                     // Child
-                    if(data is Human)
+                    if (data is Human)
                     {
                         dirty = true;
                         return;
@@ -376,6 +384,8 @@ public class RequestChangeUseRuleStateAskUI : UIBehavior<RequestChangeUseRuleSta
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Global
+            Global.get().removeCallBack(this);
             // Setting
             Setting.get().removeCallBack(this);
             // Child
@@ -388,8 +398,13 @@ public class RequestChangeUseRuleStateAskUI : UIBehavior<RequestChangeUseRuleSta
             this.setDataNull(uiData);
             return;
         }
+        // Global
+        if (data is Global)
+        {
+            return;
+        }
         // Setting
-        if(data is Setting)
+        if (data is Setting)
         {
             return;
         }
@@ -495,8 +510,14 @@ public class RequestChangeUseRuleStateAskUI : UIBehavior<RequestChangeUseRuleSta
             }
             return;
         }
+        // Global
+        if (wrapProperty.p is Global)
+        {
+            Global.OnValueTransformChange(wrapProperty, this);
+            return;
+        }
         // Setting
-        if(wrapProperty.p is Setting)
+        if (wrapProperty.p is Setting)
         {
             switch ((Setting.Property)wrapProperty.n)
             {

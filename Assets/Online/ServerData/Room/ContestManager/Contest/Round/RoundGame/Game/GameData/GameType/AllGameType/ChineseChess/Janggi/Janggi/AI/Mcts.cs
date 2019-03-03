@@ -352,7 +352,7 @@ namespace Janggi.Ai
 					if (pickBestMove >= 0 && pickBestMove < 100) {
 						for (int i = 0; i < scores.Length; i++) {
 							float score = scores [i];
-							float newValue = score - Global.NextFloat (100 - pickBestMove) * score / 100;
+							float newValue = score - GlobalJanggi.NextFloat (100 - pickBestMove) * score / 100;
 							scores [i] = newValue;
 						}
 					} else {
@@ -383,7 +383,7 @@ namespace Janggi.Ai
 				}
 				else
 				{
-					int k = Global.Next(maxIndexies.Count);
+					int k = GlobalJanggi.Next(maxIndexies.Count);
 					index = maxIndexies[k];
 				}
 

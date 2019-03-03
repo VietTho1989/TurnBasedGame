@@ -807,10 +807,10 @@ namespace Xiangqi
 
         #region implement callBacks
 
-        public static readonly UIRectTransform depthRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform thinkTimeRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform useBookRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        public static readonly UIRectTransform pickBestMoveRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform depthRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform thinkTimeRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform useBookRect = new UIRectTransform(UIConstants.RequestBoolRect);
+        private static readonly UIRectTransform pickBestMoveRect = new UIRectTransform(UIConstants.RequestRect);
 
         public RequestChangeIntUI requestIntPrefab;
         public RequestChangeBoolUI requestBoolPrefab;
@@ -822,6 +822,8 @@ namespace Xiangqi
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Global
+                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -832,6 +834,12 @@ namespace Xiangqi
                     uiData.useBook.allAddCallBack(this);
                     uiData.pickBestMove.allAddCallBack(this);
                 }
+                dirty = true;
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
                 dirty = true;
                 return;
             }
@@ -954,6 +962,8 @@ namespace Xiangqi
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Global
+                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -965,6 +975,11 @@ namespace Xiangqi
                     uiData.pickBestMove.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
                 return;
             }
             // Setting
@@ -1073,6 +1088,12 @@ namespace Xiangqi
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
+                return;
+            }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

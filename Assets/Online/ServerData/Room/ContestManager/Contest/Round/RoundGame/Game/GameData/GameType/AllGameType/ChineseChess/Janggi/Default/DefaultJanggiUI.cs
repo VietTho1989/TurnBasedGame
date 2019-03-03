@@ -40,20 +40,18 @@ namespace Janggi
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
-
-		static DefaultJanggiUI()
-		{
+        static DefaultJanggiUI()
+        {
             // txt
-			txtTitle.add (Language.Type.vi, "Mặc Định Cờ Tướng Triều Tiên");
-		}
+            txtTitle.add(Language.Type.vi, "Mặc Định Cờ Tướng Triều Tiên");
+        }
 
         #endregion
 
@@ -63,11 +61,6 @@ namespace Janggi
 
         private void updateTransformData()
         {
-            /*if (transform.hasChanged)
-            {
-                transform.hasChanged = false;
-                this.transformData.update(this.transform);
-            }*/
             this.transformData.update(this.transform);
         }
 
@@ -77,6 +70,8 @@ namespace Janggi
         }
 
         #endregion
+
+        #region Refresh
 
         private bool needReset = true;
 		private bool miniGameDataDirty = true;
@@ -214,6 +209,8 @@ namespace Janggi
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Global
+                Global.get().addCallBack(this);
 				// Setting
 				Setting.get ().addCallBack (this);
 				// Child
@@ -224,8 +221,14 @@ namespace Janggi
 				dirty = true;
 				return;
 			}
-			// Setting
-			if (data is Setting) {
+            // Global
+            if(data is Global)
+            {
+                dirty = true;
+                return;
+            }
+            // Setting
+            if (data is Setting) {
 				dirty = true;
 				return;
 			}
@@ -306,6 +309,8 @@ namespace Janggi
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Global
+                Global.get().removeCallBack(this);
 				// Setting
 				Setting.get ().removeCallBack (this);
 				// Child
@@ -316,8 +321,13 @@ namespace Janggi
 				this.setDataNull (uiData);
 				return;
 			}
-			// Setting
-			if (data is Setting) {
+            // Global
+            if(data is Global)
+            {
+                return;
+            }
+            // Setting
+            if (data is Setting) {
 				return;
 			}
 			// Child
@@ -410,8 +420,14 @@ namespace Janggi
 				}
 				return;
 			}
-			// Setting
-			if (wrapProperty.p is Setting) {
+            // Global
+            if(wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
+                return;
+            }
+            // Setting
+            if (wrapProperty.p is Setting) {
 				switch ((Setting.Property)wrapProperty.n) {
 				case Setting.Property.language:
 					dirty = true;

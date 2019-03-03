@@ -80,6 +80,7 @@ public class DeviceOrientationCheckUI : MonoBehaviour, ValueChangeCallBack
                 }
                 // get scale mode
                 canvasScaler.matchWidthOrHeight = isPortrait ? 0 : 1;
+                // TODO can set width, height theo rotation
             }
             else
             {
@@ -126,10 +127,19 @@ public class DeviceOrientationCheckUI : MonoBehaviour, ValueChangeCallBack
                 case Global.Property.deviceOrientation:
                     dirty = true;
                     break;
+                case Global.Property.screenOrientation:
+                    dirty = true;
+                    break;
                 case Global.Property.width:
                     dirty = true;
                     break;
                 case Global.Property.height:
+                    dirty = true;
+                    break;
+                case Global.Property.screenWidth:
+                    dirty = true;
+                    break;
+                case Global.Property.screenHeight:
                     dirty = true;
                     break;
                 default:

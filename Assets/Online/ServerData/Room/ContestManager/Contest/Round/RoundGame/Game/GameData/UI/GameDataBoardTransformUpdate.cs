@@ -107,14 +107,14 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
                                 // landscape
                                 else
                                 {
-                                    width = Mathf.Min(gameDataWidth, gameDataHeight);
-                                    height = Mathf.Min(gameDataWidth, gameDataHeight);
+                                    width = Mathf.Min(gameDataWidth - 360 - 32, gameDataHeight - 16);
+                                    height = Mathf.Min(gameDataWidth - 360 - 32, gameDataHeight - 16);
                                 }
                             }
                             else
                             {
-                                width = Mathf.Min(gameDataWidth, gameDataHeight);
-                                height = Mathf.Min(gameDataWidth, gameDataHeight);
+                                width = Mathf.Min(gameDataWidth, gameDataHeight - 16);
+                                height = Mathf.Min(gameDataWidth, gameDataHeight - 16);
                             }
                         }
                         else
@@ -123,7 +123,7 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
                         }
                     }
                     // find boardRect
-                    Debug.LogError("boardRect: " + width + ", " + height + ", " + bottomHeight);
+                    Debug.LogError("boardRect: " + width + ", " + height + ", " + bottomHeight + ", " + gameDataWidth + ", " + gameDataHeight);
                     UIRectTransform boardRect = UIRectTransform.CreateCenterRect(width, height);
                     {
                         boardRect.setPosY(-bottomHeight/2);
@@ -165,6 +165,10 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
             {
                 DataUtils.addParentCallBack(gameDataUIData, this, ref this.gameUIData);
             }
+            // Child
+            {
+                TransformData.AddCallBack(gameDataUIData, this);
+            }
             dirty = true;
             return;
         }
@@ -198,12 +202,12 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
                     dirty = true;
                     return;
                 }
-                // Child
-                if(data is TransformData)
-                {
-                    dirty = true;
-                    return;
-                }
+            }
+            // Child
+            if (data is TransformData)
+            {
+                dirty = true;
+                return;
             }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
@@ -219,6 +223,10 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
             // Parent
             {
                 DataUtils.removeParentCallBack(gameDataUIData, this, ref this.gameUIData);
+            }
+            // Child
+            {
+                TransformData.RemoveCallBack(gameDataUIData, this);
             }
             this.setDataNull(gameDataUIData);
             return;
@@ -250,11 +258,11 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
                     }
                     return;
                 }
-                // Child
-                if (data is TransformData)
-                {
-                    return;
-                }
+            }
+            // Child
+            if (data is TransformData)
+            {
+                return;
             }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
@@ -306,10 +314,19 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
                 case Global.Property.deviceOrientation:
                     dirty = true;
                     break;
+                case Global.Property.screenOrientation:
+                    dirty = true;
+                    break;
                 case Global.Property.width:
                     dirty = true;
                     break;
                 case Global.Property.height:
+                    dirty = true;
+                    break;
+                case Global.Property.screenWidth:
+                    dirty = true;
+                    break;
+                case Global.Property.screenHeight:
                     dirty = true;
                     break;
                 default:

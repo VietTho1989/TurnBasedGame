@@ -5,60 +5,58 @@ using System.Collections.Generic;
 
 namespace TimeControl.Normal
 {
-	public class TimePerTurnInfoUI : UIBehavior<TimePerTurnInfoUI.UIData>, HaveTransformData
-	{
+    public class TimePerTurnInfoUI : UIBehavior<TimePerTurnInfoUI.UIData>, HaveTransformData
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : Data
-		{
-			
-			public VP<EditData<TimePerTurnInfo>> editTimePerTurnInfo;
+        public class UIData : Data
+        {
 
-			#region sub
+            public VP<EditData<TimePerTurnInfo>> editTimePerTurnInfo;
 
-			public abstract class Sub : Data
-			{
+            #region sub
 
-				public abstract TimePerTurnInfo.Type getType();
+            public abstract class Sub : Data
+            {
 
-			}
+                public abstract TimePerTurnInfo.Type getType();
 
-			public VP<Sub> sub;
+            }
 
-			#endregion
+            public VP<Sub> sub;
 
-			#region Constructor
+            #endregion
 
-			public enum Property
-			{
-				editTimePerTurnInfo,
-				sub
-			}
+            #region Constructor
 
-			public UIData() : base()
-			{
-				this.editTimePerTurnInfo = new VP<EditData<TimePerTurnInfo>>(this, (byte)Property.editTimePerTurnInfo, new EditData<TimePerTurnInfo>());
-				this.sub = new VP<Sub>(this, (byte)Property.sub, null);
-			}
+            public enum Property
+            {
+                editTimePerTurnInfo,
+                sub
+            }
 
-			#endregion
+            public UIData() : base()
+            {
+                this.editTimePerTurnInfo = new VP<EditData<TimePerTurnInfo>>(this, (byte)Property.editTimePerTurnInfo, new EditData<TimePerTurnInfo>());
+                this.sub = new VP<Sub>(this, (byte)Property.sub, null);
+            }
 
-		}
+            #endregion
 
-		#endregion
+        }
 
-		#region Refresh
+        #endregion
 
-		#region txt
+        #region txt
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		static TimePerTurnInfoUI()
-		{
-			txtTitle.add (Language.Type.vi, "Thời Gian Mỗi Lượt");
-		}
+        static TimePerTurnInfoUI()
+        {
+            txtTitle.add(Language.Type.vi, "Thời Gian Mỗi Lượt");
+        }
 
         #endregion
 
@@ -68,11 +66,6 @@ namespace TimeControl.Normal
 
         private void updateTransformData()
         {
-            /*if (transform.hasChanged)
-            {
-                transform.hasChanged = false;
-                this.transformData.update(this.transform);
-            }*/
             this.transformData.update(this.transform);
         }
 
@@ -82,6 +75,8 @@ namespace TimeControl.Normal
         }
 
         #endregion
+
+        #region Refresh
 
         private bool needReset = true;
 
@@ -260,286 +255,331 @@ namespace TimeControl.Normal
             updateTransformData();
         }
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		#endregion
+        #endregion
 
-		#region implement callBacks
+        #region implement callBacks
 
-		public TimePerTurnInfoNoLimitUI noLimitPrefab;
-		public TimePerTurnInfoLimitUI limitPrefab;
+        public TimePerTurnInfoNoLimitUI noLimitPrefab;
+        public TimePerTurnInfoLimitUI limitPrefab;
 
-		private Server server = null;
+        private Server server = null;
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Setting
-				Setting.get().addCallBack(this);
-				// Child
-				{
-					uiData.editTimePerTurnInfo.allAddCallBack (this);
-					uiData.sub.allAddCallBack (this);
-				}
-				dirty = true;
-				return;
-			}
-			// Setting
-			if (data is Setting) {
-				dirty = true;
-				return;
-			}
-			// Child
-			{
-				// EditData
-				{
-					if (data is EditData<TimePerTurnInfo>) {
-						EditData<TimePerTurnInfo> editTimePerTurnInfo = data as EditData<TimePerTurnInfo>;
-						// Child
-						{
-							editTimePerTurnInfo.show.allAddCallBack (this);
-							editTimePerTurnInfo.compare.allAddCallBack (this);
-						}
-						dirty = true;
-						return;
-					}
-					// Child
-					{
-						if (data is TimePerTurnInfo) {
-							TimePerTurnInfo timePerTurnInfo = data as TimePerTurnInfo;
-							// Parent
-							{
-								DataUtils.addParentCallBack (timePerTurnInfo, this, ref this.server);
-							}
-							dirty = true;
-							needReset = true;
-							return;
-						}
-						// Parent
-						{
-							if (data is Server) {
-								dirty = true;
-								return;
-							}
-						}
-					}
-				}
-				// Sub
-				if (data is UIData.Sub) {
-					UIData.Sub sub = data as UIData.Sub;
-					// UI
-					{
-						switch (sub.getType ()) {
-						case TimePerTurnInfo.Type.Limit:
-							{
-								TimePerTurnInfoLimitUI.UIData limitUIData = sub as TimePerTurnInfoLimitUI.UIData;
-								UIUtils.Instantiate (limitUIData, limitPrefab, this.transform);
-							}
-							break;
-						case TimePerTurnInfo.Type.NoLimit:
-							{
-								TimePerTurnInfoNoLimitUI.UIData noLimitUIData = sub as TimePerTurnInfoNoLimitUI.UIData;
-								UIUtils.Instantiate (noLimitUIData, noLimitPrefab, this.transform);
-							}
-							break;
-						default:
-							Debug.LogError ("unknown type: " + sub.getType () + "; " + this);
-							break;
-						}
-					}
-					dirty = true;
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Global
+                Global.get().addCallBack(this);
+                // Setting
+                Setting.get().addCallBack(this);
+                // Child
+                {
+                    uiData.editTimePerTurnInfo.allAddCallBack(this);
+                    uiData.sub.allAddCallBack(this);
+                }
+                dirty = true;
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
+                dirty = true;
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // Child
+            {
+                // EditData
+                {
+                    if (data is EditData<TimePerTurnInfo>)
+                    {
+                        EditData<TimePerTurnInfo> editTimePerTurnInfo = data as EditData<TimePerTurnInfo>;
+                        // Child
+                        {
+                            editTimePerTurnInfo.show.allAddCallBack(this);
+                            editTimePerTurnInfo.compare.allAddCallBack(this);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // Child
+                    {
+                        if (data is TimePerTurnInfo)
+                        {
+                            TimePerTurnInfo timePerTurnInfo = data as TimePerTurnInfo;
+                            // Parent
+                            {
+                                DataUtils.addParentCallBack(timePerTurnInfo, this, ref this.server);
+                            }
+                            dirty = true;
+                            needReset = true;
+                            return;
+                        }
+                        // Parent
+                        {
+                            if (data is Server)
+                            {
+                                dirty = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                // Sub
+                if (data is UIData.Sub)
+                {
+                    UIData.Sub sub = data as UIData.Sub;
+                    // UI
+                    {
+                        switch (sub.getType())
+                        {
+                            case TimePerTurnInfo.Type.Limit:
+                                {
+                                    TimePerTurnInfoLimitUI.UIData limitUIData = sub as TimePerTurnInfoLimitUI.UIData;
+                                    UIUtils.Instantiate(limitUIData, limitPrefab, this.transform);
+                                }
+                                break;
+                            case TimePerTurnInfo.Type.NoLimit:
+                                {
+                                    TimePerTurnInfoNoLimitUI.UIData noLimitUIData = sub as TimePerTurnInfoNoLimitUI.UIData;
+                                    UIUtils.Instantiate(noLimitUIData, noLimitPrefab, this.transform);
+                                }
+                                break;
+                            default:
+                                Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                                break;
+                        }
+                    }
+                    dirty = true;
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Setting
-				Setting.get().removeCallBack(this);
-				// Child
-				{
-					uiData.editTimePerTurnInfo.allRemoveCallBack (this);
-					uiData.sub.allRemoveCallBack (this);
-				}
-				this.setDataNull (uiData);
-				return;
-			}
-			// Setting
-			if (data is Setting) {
-				return;
-			}
-			// Child
-			{
-				// EditData
-				{
-					if (data is EditData<TimePerTurnInfo>) {
-						EditData<TimePerTurnInfo> editTimePerTurnInfo = data as EditData<TimePerTurnInfo>;
-						// Child
-						{
-							editTimePerTurnInfo.show.allRemoveCallBack (this);
-							editTimePerTurnInfo.compare.allRemoveCallBack (this);
-						}
-						return;
-					}
-					// Child
-					{
-						if (data is TimePerTurnInfo) {
-							TimePerTurnInfo timePerTurnInfo = data as TimePerTurnInfo;
-							// Parent
-							{
-								DataUtils.removeParentCallBack (timePerTurnInfo, this, ref this.server);
-							}
-							return;
-						}
-						// Parent
-						{
-							if (data is Server) {
-								return;
-							}
-						}
-					}
-				}
-				// Sub
-				if (data is UIData.Sub) {
-					UIData.Sub sub = data as UIData.Sub;
-					// UI
-					{
-						switch (sub.getType ()) {
-						case TimePerTurnInfo.Type.Limit:
-							{
-								TimePerTurnInfoLimitUI.UIData limitUIData = sub as TimePerTurnInfoLimitUI.UIData;
-								limitUIData.removeCallBackAndDestroy (typeof(TimePerTurnInfoLimitUI));
-							}
-							break;
-						case TimePerTurnInfo.Type.NoLimit:
-							{
-								TimePerTurnInfoNoLimitUI.UIData noLimitUIData = sub as TimePerTurnInfoNoLimitUI.UIData;
-								noLimitUIData.removeCallBackAndDestroy (typeof(TimePerTurnInfoNoLimitUI));
-							}
-							break;
-						default:
-							Debug.LogError ("unknown type: " + sub.getType () + "; " + this);
-							break;
-						}
-					}
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Global
+                Global.get().removeCallBack(this);
+                // Setting
+                Setting.get().removeCallBack(this);
+                // Child
+                {
+                    uiData.editTimePerTurnInfo.allRemoveCallBack(this);
+                    uiData.sub.allRemoveCallBack(this);
+                }
+                this.setDataNull(uiData);
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
+                return;
+            }
+            // Child
+            {
+                // EditData
+                {
+                    if (data is EditData<TimePerTurnInfo>)
+                    {
+                        EditData<TimePerTurnInfo> editTimePerTurnInfo = data as EditData<TimePerTurnInfo>;
+                        // Child
+                        {
+                            editTimePerTurnInfo.show.allRemoveCallBack(this);
+                            editTimePerTurnInfo.compare.allRemoveCallBack(this);
+                        }
+                        return;
+                    }
+                    // Child
+                    {
+                        if (data is TimePerTurnInfo)
+                        {
+                            TimePerTurnInfo timePerTurnInfo = data as TimePerTurnInfo;
+                            // Parent
+                            {
+                                DataUtils.removeParentCallBack(timePerTurnInfo, this, ref this.server);
+                            }
+                            return;
+                        }
+                        // Parent
+                        {
+                            if (data is Server)
+                            {
+                                return;
+                            }
+                        }
+                    }
+                }
+                // Sub
+                if (data is UIData.Sub)
+                {
+                    UIData.Sub sub = data as UIData.Sub;
+                    // UI
+                    {
+                        switch (sub.getType())
+                        {
+                            case TimePerTurnInfo.Type.Limit:
+                                {
+                                    TimePerTurnInfoLimitUI.UIData limitUIData = sub as TimePerTurnInfoLimitUI.UIData;
+                                    limitUIData.removeCallBackAndDestroy(typeof(TimePerTurnInfoLimitUI));
+                                }
+                                break;
+                            case TimePerTurnInfo.Type.NoLimit:
+                                {
+                                    TimePerTurnInfoNoLimitUI.UIData noLimitUIData = sub as TimePerTurnInfoNoLimitUI.UIData;
+                                    noLimitUIData.removeCallBackAndDestroy(typeof(TimePerTurnInfoNoLimitUI));
+                                }
+                                break;
+                            default:
+                                Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                                break;
+                        }
+                    }
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.editTimePerTurnInfo:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				case UIData.Property.sub:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// Setting
-			if (wrapProperty.p is Setting) {
-				switch ((Setting.Property)wrapProperty.n) {
-				case Setting.Property.language:
-					dirty = true;
-					break;
-				case Setting.Property.showLastMove:
-					break;
-				case Setting.Property.viewUrlImage:
-					break;
-				case Setting.Property.animationSetting:
-					break;
-				case Setting.Property.maxThinkCount:
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// Child
-			{
-				// EditData
-				{
-					if (wrapProperty.p is EditData<TimePerTurnInfo>) {
-						switch ((EditData<TimePerTurnInfo>.Property)wrapProperty.n) {
-						case EditData<TimePerTurnInfo>.Property.origin:
-							dirty = true;
-							break;
-						case EditData<TimePerTurnInfo>.Property.show:
-							{
-								ValueChangeUtils.replaceCallBack (this, syncs);
-								dirty = true;
-							}
-							break;
-						case EditData<TimePerTurnInfo>.Property.compare:
-							{
-								ValueChangeUtils.replaceCallBack (this, syncs);
-								dirty = true;
-							}
-							break;
-						case EditData<TimePerTurnInfo>.Property.compareOtherType:
-							dirty = true;
-							break;
-						case EditData<TimePerTurnInfo>.Property.canEdit:
-							dirty = true;
-							break;
-						case EditData<TimePerTurnInfo>.Property.editType:
-							dirty = true;
-							break;
-						default:
-							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-							break;
-						}
-						return;
-					}
-					// Child
-					{
-						if (wrapProperty.p is TimePerTurnInfo) {
-							return;
-						}
-						// Parent
-						{
-							if (wrapProperty.p is Server) {
-								Server.State.OnUpdateSyncStateChange (wrapProperty, this);
-								return;
-							}
-						}
-					}
-				}
-				// Sub
-				if (wrapProperty.p is UIData.Sub) {
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.editTimePerTurnInfo:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.sub:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
+                return;
+            }
+            // Setting
+            if (wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            {
+                // EditData
+                {
+                    if (wrapProperty.p is EditData<TimePerTurnInfo>)
+                    {
+                        switch ((EditData<TimePerTurnInfo>.Property)wrapProperty.n)
+                        {
+                            case EditData<TimePerTurnInfo>.Property.origin:
+                                dirty = true;
+                                break;
+                            case EditData<TimePerTurnInfo>.Property.show:
+                                {
+                                    ValueChangeUtils.replaceCallBack(this, syncs);
+                                    dirty = true;
+                                }
+                                break;
+                            case EditData<TimePerTurnInfo>.Property.compare:
+                                {
+                                    ValueChangeUtils.replaceCallBack(this, syncs);
+                                    dirty = true;
+                                }
+                                break;
+                            case EditData<TimePerTurnInfo>.Property.compareOtherType:
+                                dirty = true;
+                                break;
+                            case EditData<TimePerTurnInfo>.Property.canEdit:
+                                dirty = true;
+                                break;
+                            case EditData<TimePerTurnInfo>.Property.editType:
+                                dirty = true;
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
+                    // Child
+                    {
+                        if (wrapProperty.p is TimePerTurnInfo)
+                        {
+                            return;
+                        }
+                        // Parent
+                        {
+                            if (wrapProperty.p is Server)
+                            {
+                                Server.State.OnUpdateSyncStateChange(wrapProperty, this);
+                                return;
+                            }
+                        }
+                    }
+                }
+                // Sub
+                if (wrapProperty.p is UIData.Sub)
+                {
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
 
-		#endregion
+        #endregion
 
-	}
+    }
 }

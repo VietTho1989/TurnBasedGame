@@ -293,7 +293,6 @@ public class RequestDrawStateNoneUI : UIBehavior<RequestDrawStateNoneUI.UIData>,
         {
             yield return new Wait(Global.WaitSendTime);
             this.data.state.v = UIData.State.None;
-            Debug.LogError("request error");
             Toast.showMessage(txtRequestError.get("Send request draw error"));
         }
         else
@@ -326,12 +325,20 @@ public class RequestDrawStateNoneUI : UIBehavior<RequestDrawStateNoneUI.UIData>,
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Global
+            Global.get().addCallBack(this);
             // Setting
             Setting.get().addCallBack(this);
             // Child
             {
                 uiData.requestDrawStateNone.allAddCallBack(this);
             }
+            dirty = true;
+            return;
+        }
+        // Global
+        if (data is Global)
+        {
             dirty = true;
             return;
         }
@@ -415,6 +422,8 @@ public class RequestDrawStateNoneUI : UIBehavior<RequestDrawStateNoneUI.UIData>,
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Global
+            Global.get().removeCallBack(this);
             // Setting
             Setting.get().removeCallBack(this);
             // Child
@@ -422,6 +431,11 @@ public class RequestDrawStateNoneUI : UIBehavior<RequestDrawStateNoneUI.UIData>,
                 uiData.requestDrawStateNone.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
+            return;
+        }
+        // Global
+        if (data is Global)
+        {
             return;
         }
         // Setting
@@ -474,7 +488,7 @@ public class RequestDrawStateNoneUI : UIBehavior<RequestDrawStateNoneUI.UIData>,
                 }
             }
             // Parent
-            if(data is Server)
+            if (data is Server)
             {
                 return;
             }
@@ -505,6 +519,12 @@ public class RequestDrawStateNoneUI : UIBehavior<RequestDrawStateNoneUI.UIData>,
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
+            return;
+        }
+        // Global
+        if (wrapProperty.p is Global)
+        {
+            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Setting
@@ -560,7 +580,7 @@ public class RequestDrawStateNoneUI : UIBehavior<RequestDrawStateNoneUI.UIData>,
                 }
             }
             // Parent
-            if(wrapProperty.p is Server)
+            if (wrapProperty.p is Server)
             {
                 Server.State.OnUpdateSyncStateChange(wrapProperty, this);
                 return;
@@ -596,4 +616,5 @@ public class RequestDrawStateNoneUI : UIBehavior<RequestDrawStateNoneUI.UIData>,
             Debug.LogError("data null");
         }
     }
+
 }

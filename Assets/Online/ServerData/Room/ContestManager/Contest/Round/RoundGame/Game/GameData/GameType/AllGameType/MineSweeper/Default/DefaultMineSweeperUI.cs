@@ -244,32 +244,30 @@ namespace MineSweeper
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public Text lbN;
+        public static readonly TxtLanguage txtN = new TxtLanguage();
 
-		public Text lbN;
-		public static readonly TxtLanguage txtN = new TxtLanguage ();
+        public Text lbM;
+        public static readonly TxtLanguage txtM = new TxtLanguage();
 
-		public Text lbM;
-		public static readonly TxtLanguage txtM = new TxtLanguage();
+        public Text lbMinK;
+        public static readonly TxtLanguage txtMinK = new TxtLanguage();
 
-		public Text lbMinK;
-		public static readonly TxtLanguage txtMinK = new TxtLanguage();
+        public Text lbMaxK;
+        public static readonly TxtLanguage txtMaxK = new TxtLanguage();
 
-		public Text lbMaxK;
-		public static readonly TxtLanguage txtMaxK = new TxtLanguage();
+        public Text lbAllowWatchBomb;
+        public static readonly TxtLanguage txtAllowWatchBomb = new TxtLanguage();
 
-		public Text lbAllowWatchBomb;
-		public static readonly TxtLanguage txtAllowWatchBomb = new TxtLanguage ();
-
-		static DefaultMineSweeperUI()
-		{
+        static DefaultMineSweeperUI()
+        {
             // txt
             {
                 txtTitle.add(Language.Type.vi, "Mặc Định Dò Mìn");
@@ -297,11 +295,6 @@ namespace MineSweeper
 
         private void updateTransformData()
         {
-            /*if (transform.hasChanged)
-            {
-                transform.hasChanged = false;
-                this.transformData.update(this.transform);
-            }*/
             this.transformData.update(this.transform);
         }
 
@@ -311,6 +304,8 @@ namespace MineSweeper
         }
 
         #endregion
+
+        #region Refresh
 
         private bool needReset = true;
 		private bool miniGameDataDirty = true;
@@ -688,6 +683,8 @@ namespace MineSweeper
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Global
+                Global.get().addCallBack(this);
 				// Setting
 				Setting.get ().addCallBack (this);
 				// Child
@@ -703,8 +700,14 @@ namespace MineSweeper
 				dirty = true;
 				return;
 			}
-			// Setting
-			if (data is Setting) {
+            // Global
+            if(data is Global)
+            {
+                dirty = true;
+                return;
+            }
+            // Setting
+            if (data is Setting) {
 				dirty = true;
 				return;
 			}
@@ -859,6 +862,8 @@ namespace MineSweeper
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Global
+                Global.get().removeCallBack(this);
 				// Setting
 				Setting.get ().removeCallBack (this);
 				// Child
@@ -874,8 +879,13 @@ namespace MineSweeper
 				this.setDataNull (uiData);
 				return;
 			}
-			// Setting
-			if (data is Setting) {
+            // Global
+            if(data is Global)
+            {
+                return;
+            }
+            // Setting
+            if (data is Setting) {
 				return;
 			}
 			// Child
@@ -1026,8 +1036,14 @@ namespace MineSweeper
 				}
 				return;
 			}
-			// Setting
-			if (wrapProperty.p is Setting) {
+            // Global
+            if(wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
+                return;
+            }
+            // Setting
+            if (wrapProperty.p is Setting) {
 				switch ((Setting.Property)wrapProperty.n) {
 				case Setting.Property.language:
 					dirty = true;

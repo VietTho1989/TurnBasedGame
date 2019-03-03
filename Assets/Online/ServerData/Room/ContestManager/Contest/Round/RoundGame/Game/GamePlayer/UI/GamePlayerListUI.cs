@@ -34,7 +34,7 @@ public class GamePlayerListUI : UIBehavior<GamePlayerListUI.UIData>, HaveTransfo
         {
             bool isProcess = false;
             {
-                foreach(GamePlayerUI.UIData gamePlayerUI in this.gamePlayerUIs.vs)
+                foreach (GamePlayerUI.UIData gamePlayerUI in this.gamePlayerUIs.vs)
                 {
                     if (!isProcess)
                     {
@@ -154,11 +154,19 @@ public class GamePlayerListUI : UIBehavior<GamePlayerListUI.UIData>, HaveTransfo
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Global
+            Global.get().addCallBack(this);
             // Child
             {
                 uiData.game.allAddCallBack(this);
                 uiData.gamePlayerUIs.allAddCallBack(this);
             }
+            dirty = true;
+            return;
+        }
+        // Global
+        if (data is Global)
+        {
             dirty = true;
             return;
         }
@@ -189,12 +197,19 @@ public class GamePlayerListUI : UIBehavior<GamePlayerListUI.UIData>, HaveTransfo
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Global
+            Global.get().removeCallBack(this);
             // Child
             {
                 uiData.game.allRemoveCallBack(this);
                 uiData.gamePlayerUIs.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
+            return;
+        }
+        // Global
+        if (data is Global)
+        {
             return;
         }
         // Child
@@ -243,6 +258,12 @@ public class GamePlayerListUI : UIBehavior<GamePlayerListUI.UIData>, HaveTransfo
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
+            return;
+        }
+        // Global
+        if (wrapProperty.p is Global)
+        {
+            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Child

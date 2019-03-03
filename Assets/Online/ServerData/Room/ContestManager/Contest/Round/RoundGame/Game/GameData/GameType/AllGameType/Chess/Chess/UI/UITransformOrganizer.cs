@@ -63,25 +63,37 @@ namespace Chess
                         }
                     }
 					if (chessGameDataUI != null && gameDataBoardUI != null) {
-						TransformData chessTransform = chessGameDataUI.transformData;
-						TransformData boardTransform = gameDataBoardUI.transformData;
-						if (chessTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
-							float scale = Mathf.Min (Mathf.Abs (boardTransform.size.v.x / 8f), Mathf.Abs (boardTransform.size.v.y / 8f));
-							// new scale
-							Vector3 newLocalScale = new Vector3 ();
-							{
-								Vector3 currentLocalScale = this.transform.localScale;
-								// x
-								newLocalScale.x = scale;
-								// y
-								newLocalScale.y = (gameDataBoardUIData.perspective.v.playerView.v == 0 ? 1 : -1) * scale;
-								// z
-								newLocalScale.z = 1;
-							}
-							this.transform.localScale = newLocalScale;
-						} else {
-							Debug.LogError ("why transform zero");
-						}
+						RectTransform chessTransform = (RectTransform)chessGameDataUI.transform;
+						RectTransform boardTransform = (RectTransform)gameDataBoardUI.transform;
+                        if(chessTransform!=null && boardTransform != null)
+                        {
+                            Vector2 chessSize = new Vector2(chessTransform.rect.width, chessTransform.rect.height);
+                            Vector2 boardSize = new Vector2(boardTransform.rect.width, boardTransform.rect.height);
+                            if (chessSize != Vector2.zero && boardSize != Vector2.zero)
+                            {
+                                float scale = Mathf.Min(Mathf.Abs(boardSize.x / 8f), Mathf.Abs(boardSize.y / 8f));
+                                // new scale
+                                Vector3 newLocalScale = new Vector3();
+                                {
+                                    Vector3 currentLocalScale = this.transform.localScale;
+                                    // x
+                                    newLocalScale.x = scale;
+                                    // y
+                                    newLocalScale.y = (gameDataBoardUIData.perspective.v.playerView.v == 0 ? 1 : -1) * scale;
+                                    // z
+                                    newLocalScale.z = 1;
+                                }
+                                this.transform.localScale = newLocalScale;
+                            }
+                            else
+                            {
+                                Debug.LogError("why transform zero");
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("chessTransform, boardTransform null");
+                        }
 					} else {
 						Debug.LogError ("chessGameDataUIData or gameDataBoardUIData null: " + this);
 					}
@@ -107,6 +119,8 @@ namespace Chess
 		{
 			if (data is UpdateData) {
 				UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().addCallBack(this);
 				// CheckChange
 				{
 					gameDataBoardCheckTransformChange.addCallBack (this);
@@ -119,8 +133,14 @@ namespace Chess
 				dirty = true;
 				return;
 			}
-			// CheckChange
-			if (data is GameDataBoardCheckTransformChange<UpdateData>) {
+            // Global
+            if(data is Global)
+            {
+                dirty = true;
+                return;
+            }
+            // CheckChange
+            if (data is GameDataBoardCheckTransformChange<UpdateData>) {
 				dirty = true;
 				return;
 			}
@@ -156,6 +176,8 @@ namespace Chess
 		{
 			if (data is UpdateData) {
 				UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().removeCallBack(this);
 				// CheckChange
 				{
 					gameDataBoardCheckTransformChange.removeCallBack (this);
@@ -168,8 +190,13 @@ namespace Chess
 				this.setDataNull (updateData);
 				return;
 			}
-			// CheckChange
-			if (data is GameDataBoardCheckTransformChange<UpdateData>) {
+            // Global
+            if(data is Global)
+            {
+                return;
+            }
+            // CheckChange
+            if (data is GameDataBoardCheckTransformChange<UpdateData>) {
 				return;
 			}
 			// Parent
@@ -211,8 +238,14 @@ namespace Chess
 				}
 				return;
 			}
-			// CheckChange
-			if (wrapProperty.p is GameDataBoardCheckTransformChange<UpdateData>) {
+            // Global
+            if(wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
+                return;
+            }
+            // CheckChange
+            if (wrapProperty.p is GameDataBoardCheckTransformChange<UpdateData>) {
 				dirty = true;
 				return;
 			}

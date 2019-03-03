@@ -5,60 +5,58 @@ using System.Collections.Generic;
 
 namespace TimeControl.Normal
 {
-	public class TotalTimeInfoUI : UIBehavior<TotalTimeInfoUI.UIData>, HaveTransformData
-	{
+    public class TotalTimeInfoUI : UIBehavior<TotalTimeInfoUI.UIData>, HaveTransformData
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : Data
-		{
+        public class UIData : Data
+        {
 
-			public VP<EditData<TotalTimeInfo>> editTotalTimeInfo;
+            public VP<EditData<TotalTimeInfo>> editTotalTimeInfo;
 
-			#region sub
+            #region sub
 
-			public abstract class Sub : Data
-			{
+            public abstract class Sub : Data
+            {
 
-				public abstract TotalTimeInfo.Type getType();
+                public abstract TotalTimeInfo.Type getType();
 
-			}
+            }
 
-			public VP<Sub> sub;
+            public VP<Sub> sub;
 
-			#endregion
+            #endregion
 
-			#region Constructor
+            #region Constructor
 
-			public enum Property
-			{
-				editTotalTimeInfo,
-				sub
-			}
+            public enum Property
+            {
+                editTotalTimeInfo,
+                sub
+            }
 
-			public UIData() : base()
-			{
-				this.editTotalTimeInfo = new VP<EditData<TotalTimeInfo>>(this, (byte)Property.editTotalTimeInfo, new EditData<TotalTimeInfo>());
-				this.sub = new VP<Sub>(this, (byte)Property.sub, null);
-			}
+            public UIData() : base()
+            {
+                this.editTotalTimeInfo = new VP<EditData<TotalTimeInfo>>(this, (byte)Property.editTotalTimeInfo, new EditData<TotalTimeInfo>());
+                this.sub = new VP<Sub>(this, (byte)Property.sub, null);
+            }
 
-			#endregion
+            #endregion
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage();
-
-		static TotalTimeInfoUI()
-		{
-			txtTitle.add (Language.Type.vi, "Tổng Thời Gian");
-		}
+        static TotalTimeInfoUI()
+        {
+            txtTitle.add(Language.Type.vi, "Tổng Thời Gian");
+        }
 
         #endregion
 
@@ -68,11 +66,6 @@ namespace TimeControl.Normal
 
         private void updateTransformData()
         {
-            /*if (transform.hasChanged)
-            {
-                transform.hasChanged = false;
-                this.transformData.update(this.transform);
-            }*/
             this.transformData.update(this.transform);
         }
 
@@ -82,6 +75,8 @@ namespace TimeControl.Normal
         }
 
         #endregion
+
+        #region Refresh
 
         private bool needReset = true;
 
@@ -261,286 +256,331 @@ namespace TimeControl.Normal
             updateTransformData();
         }
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		#endregion
+        #endregion
 
-		#region implement callBacks
+        #region implement callBacks
 
-		public TotalTimeInfoNoLimitUI noLimitPrefab;
-		public TotalTimeInfoLimitUI limitPrefab;
+        public TotalTimeInfoNoLimitUI noLimitPrefab;
+        public TotalTimeInfoLimitUI limitPrefab;
 
-		private Server server = null;
+        private Server server = null;
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Setting
-				Setting.get().addCallBack(this);
-				// Child
-				{
-					uiData.editTotalTimeInfo.allAddCallBack (this);
-					uiData.sub.allAddCallBack (this);
-				}
-				dirty = true;
-				return;
-			}
-			// Setting
-			if (data is Setting) {
-				dirty = true;
-				return;
-			}
-			// Child
-			{
-				// EditData
-				{
-					if (data is EditData<TotalTimeInfo>) {
-						EditData<TotalTimeInfo> editTotalTimeInfo = data as EditData<TotalTimeInfo>;
-						// Child
-						{
-							editTotalTimeInfo.show.allAddCallBack (this);
-							editTotalTimeInfo.compare.allAddCallBack (this);
-						}
-						dirty = true;
-						return;
-					}
-					// Child
-					{
-						if (data is TotalTimeInfo) {
-							TotalTimeInfo totalTimeInfo = data as TotalTimeInfo;
-							// Parent
-							{
-								DataUtils.addParentCallBack (totalTimeInfo, this, ref this.server);
-							}
-							dirty = true;
-							needReset = true;
-							return;
-						}
-						// Parent
-						{
-							if (data is Server) {
-								dirty = true;
-								return;
-							}
-						}
-					}
-				}
-				// Sub
-				if (data is UIData.Sub) {
-					UIData.Sub sub = data as UIData.Sub;
-					// UI
-					{
-						switch (sub.getType ()) {
-						case TotalTimeInfo.Type.Limit:
-							{
-								TotalTimeInfoLimitUI.UIData limitUIData = sub as TotalTimeInfoLimitUI.UIData;
-								UIUtils.Instantiate (limitUIData, limitPrefab, this.transform);
-							}
-							break;
-						case TotalTimeInfo.Type.NoLimit:
-							{
-								TotalTimeInfoNoLimitUI.UIData noLimitUIData = sub as TotalTimeInfoNoLimitUI.UIData;
-								UIUtils.Instantiate (noLimitUIData, noLimitPrefab, this.transform);
-							}
-							break;
-						default:
-							Debug.LogError ("unknown type: " + sub.getType () + "; " + this);
-							break;
-						}
-					}
-					dirty = true;
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Global
+                Global.get().addCallBack(this);
+                // Setting
+                Setting.get().addCallBack(this);
+                // Child
+                {
+                    uiData.editTotalTimeInfo.allAddCallBack(this);
+                    uiData.sub.allAddCallBack(this);
+                }
+                dirty = true;
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
+                dirty = true;
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // Child
+            {
+                // EditData
+                {
+                    if (data is EditData<TotalTimeInfo>)
+                    {
+                        EditData<TotalTimeInfo> editTotalTimeInfo = data as EditData<TotalTimeInfo>;
+                        // Child
+                        {
+                            editTotalTimeInfo.show.allAddCallBack(this);
+                            editTotalTimeInfo.compare.allAddCallBack(this);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // Child
+                    {
+                        if (data is TotalTimeInfo)
+                        {
+                            TotalTimeInfo totalTimeInfo = data as TotalTimeInfo;
+                            // Parent
+                            {
+                                DataUtils.addParentCallBack(totalTimeInfo, this, ref this.server);
+                            }
+                            dirty = true;
+                            needReset = true;
+                            return;
+                        }
+                        // Parent
+                        {
+                            if (data is Server)
+                            {
+                                dirty = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                // Sub
+                if (data is UIData.Sub)
+                {
+                    UIData.Sub sub = data as UIData.Sub;
+                    // UI
+                    {
+                        switch (sub.getType())
+                        {
+                            case TotalTimeInfo.Type.Limit:
+                                {
+                                    TotalTimeInfoLimitUI.UIData limitUIData = sub as TotalTimeInfoLimitUI.UIData;
+                                    UIUtils.Instantiate(limitUIData, limitPrefab, this.transform);
+                                }
+                                break;
+                            case TotalTimeInfo.Type.NoLimit:
+                                {
+                                    TotalTimeInfoNoLimitUI.UIData noLimitUIData = sub as TotalTimeInfoNoLimitUI.UIData;
+                                    UIUtils.Instantiate(noLimitUIData, noLimitPrefab, this.transform);
+                                }
+                                break;
+                            default:
+                                Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                                break;
+                        }
+                    }
+                    dirty = true;
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Setting
-				Setting.get().removeCallBack(this);
-				// Child
-				{
-					uiData.editTotalTimeInfo.allRemoveCallBack (this);
-					uiData.sub.allRemoveCallBack (this);
-				}
-				this.setDataNull (uiData);
-				return;
-			}
-			// Setting
-			if (data is Setting) {
-				return;
-			}
-			// Child
-			{
-				// EditData
-				{
-					if (data is EditData<TotalTimeInfo>) {
-						EditData<TotalTimeInfo> editTotalTimeInfo = data as EditData<TotalTimeInfo>;
-						// Child
-						{
-							editTotalTimeInfo.show.allRemoveCallBack (this);
-							editTotalTimeInfo.compare.allRemoveCallBack (this);
-						}
-						return;
-					}
-					// Child
-					{
-						if (data is TotalTimeInfo) {
-							TotalTimeInfo totalTimeInfo = data as TotalTimeInfo;
-							// Parent
-							{
-								DataUtils.removeParentCallBack (totalTimeInfo, this, ref this.server);
-							}
-							return;
-						}
-						// Parent
-						{
-							if (data is Server) {
-								return;
-							}
-						}
-					}
-				}
-				// Sub
-				if (data is UIData.Sub) {
-					UIData.Sub sub = data as UIData.Sub;
-					// UI
-					{
-						switch (sub.getType ()) {
-						case TotalTimeInfo.Type.Limit:
-							{
-								TotalTimeInfoLimitUI.UIData limitUIData = sub as TotalTimeInfoLimitUI.UIData;
-								limitUIData.removeCallBackAndDestroy (typeof(TotalTimeInfoLimitUI));
-							}
-							break;
-						case TotalTimeInfo.Type.NoLimit:
-							{
-								TotalTimeInfoNoLimitUI.UIData noLimitUIData = sub as TotalTimeInfoNoLimitUI.UIData;
-								noLimitUIData.removeCallBackAndDestroy (typeof(TotalTimeInfoNoLimitUI));
-							}
-							break;
-						default:
-							Debug.LogError ("unknown type: " + sub.getType () + "; " + this);
-							break;
-						}
-					}
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Global
+                Global.get().removeCallBack(this);
+                // Setting
+                Setting.get().removeCallBack(this);
+                // Child
+                {
+                    uiData.editTotalTimeInfo.allRemoveCallBack(this);
+                    uiData.sub.allRemoveCallBack(this);
+                }
+                this.setDataNull(uiData);
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
+                return;
+            }
+            // Child
+            {
+                // EditData
+                {
+                    if (data is EditData<TotalTimeInfo>)
+                    {
+                        EditData<TotalTimeInfo> editTotalTimeInfo = data as EditData<TotalTimeInfo>;
+                        // Child
+                        {
+                            editTotalTimeInfo.show.allRemoveCallBack(this);
+                            editTotalTimeInfo.compare.allRemoveCallBack(this);
+                        }
+                        return;
+                    }
+                    // Child
+                    {
+                        if (data is TotalTimeInfo)
+                        {
+                            TotalTimeInfo totalTimeInfo = data as TotalTimeInfo;
+                            // Parent
+                            {
+                                DataUtils.removeParentCallBack(totalTimeInfo, this, ref this.server);
+                            }
+                            return;
+                        }
+                        // Parent
+                        {
+                            if (data is Server)
+                            {
+                                return;
+                            }
+                        }
+                    }
+                }
+                // Sub
+                if (data is UIData.Sub)
+                {
+                    UIData.Sub sub = data as UIData.Sub;
+                    // UI
+                    {
+                        switch (sub.getType())
+                        {
+                            case TotalTimeInfo.Type.Limit:
+                                {
+                                    TotalTimeInfoLimitUI.UIData limitUIData = sub as TotalTimeInfoLimitUI.UIData;
+                                    limitUIData.removeCallBackAndDestroy(typeof(TotalTimeInfoLimitUI));
+                                }
+                                break;
+                            case TotalTimeInfo.Type.NoLimit:
+                                {
+                                    TotalTimeInfoNoLimitUI.UIData noLimitUIData = sub as TotalTimeInfoNoLimitUI.UIData;
+                                    noLimitUIData.removeCallBackAndDestroy(typeof(TotalTimeInfoNoLimitUI));
+                                }
+                                break;
+                            default:
+                                Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                                break;
+                        }
+                    }
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.editTotalTimeInfo:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				case UIData.Property.sub:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// Setting
-			if (wrapProperty.p is Setting) {
-				switch ((Setting.Property)wrapProperty.n) {
-				case Setting.Property.language:
-					dirty = true;
-					break;
-				case Setting.Property.showLastMove:
-					break;
-				case Setting.Property.viewUrlImage:
-					break;
-				case Setting.Property.animationSetting:
-					break;
-				case Setting.Property.maxThinkCount:
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// Child
-			{
-				// EditData
-				{
-					if (wrapProperty.p is EditData<TotalTimeInfo>) {
-						switch ((EditData<TotalTimeInfo>.Property)wrapProperty.n) {
-						case EditData<TotalTimeInfo>.Property.origin:
-							dirty = true;
-							break;
-						case EditData<TotalTimeInfo>.Property.show:
-							{
-								ValueChangeUtils.replaceCallBack (this, syncs);
-								dirty = true;
-							}
-							break;
-						case EditData<TotalTimeInfo>.Property.compare:
-							{
-								ValueChangeUtils.replaceCallBack (this, syncs);
-								dirty = true;
-							}
-							break;
-						case EditData<TotalTimeInfo>.Property.compareOtherType:
-							dirty = true;
-							break;
-						case EditData<TotalTimeInfo>.Property.canEdit:
-							dirty = true;
-							break;
-						case EditData<TotalTimeInfo>.Property.editType:
-							dirty = true;
-							break;
-						default:
-							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-							break;
-						}
-						return;
-					}
-					// Child
-					{
-						if (wrapProperty.p is TotalTimeInfo) {
-							return;
-						}
-						// Parent
-						{
-							if (wrapProperty.p is Server) {
-								Server.State.OnUpdateSyncStateChange (wrapProperty, this);
-								return;
-							}
-						}
-					}
-				}
-				// Sub
-				if (wrapProperty.p is UIData.Sub) {
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.editTotalTimeInfo:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.sub:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
+                return;
+            }
+            // Setting
+            if (wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            {
+                // EditData
+                {
+                    if (wrapProperty.p is EditData<TotalTimeInfo>)
+                    {
+                        switch ((EditData<TotalTimeInfo>.Property)wrapProperty.n)
+                        {
+                            case EditData<TotalTimeInfo>.Property.origin:
+                                dirty = true;
+                                break;
+                            case EditData<TotalTimeInfo>.Property.show:
+                                {
+                                    ValueChangeUtils.replaceCallBack(this, syncs);
+                                    dirty = true;
+                                }
+                                break;
+                            case EditData<TotalTimeInfo>.Property.compare:
+                                {
+                                    ValueChangeUtils.replaceCallBack(this, syncs);
+                                    dirty = true;
+                                }
+                                break;
+                            case EditData<TotalTimeInfo>.Property.compareOtherType:
+                                dirty = true;
+                                break;
+                            case EditData<TotalTimeInfo>.Property.canEdit:
+                                dirty = true;
+                                break;
+                            case EditData<TotalTimeInfo>.Property.editType:
+                                dirty = true;
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
+                    // Child
+                    {
+                        if (wrapProperty.p is TotalTimeInfo)
+                        {
+                            return;
+                        }
+                        // Parent
+                        {
+                            if (wrapProperty.p is Server)
+                            {
+                                Server.State.OnUpdateSyncStateChange(wrapProperty, this);
+                                return;
+                            }
+                        }
+                    }
+                }
+                // Sub
+                if (wrapProperty.p is UIData.Sub)
+                {
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
 
-		#endregion
+        #endregion
 
-	}
+    }
 }

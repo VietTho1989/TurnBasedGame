@@ -361,12 +361,12 @@ namespace Janggi
 			//얼마나 policy network가 그지같으면 불가능한 움직임만 확률로 나왔을까.
 			if (total == 0)
 			{
-				int best = Global.Next(moves.Count);
+				int best = GlobalJanggi.Next(moves.Count);
 				return moves[best];
 			}
 			else
 			{
-				float best = (float)(Global.NextDouble() * total);
+				float best = (float)(GlobalJanggi.NextDouble() * total);
 				float sum = 0;
 				for (int i = 0; i < proms.Length; i++)
 				{
@@ -399,7 +399,7 @@ namespace Janggi
 
 			//얼마나 policy network가 그지같으면 불가능한 움직임만 확률로 나왔을까.
 			if (bestIndex == -1) {
-				int best = Global.Next (moves.Count);
+				int best = GlobalJanggi.Next (moves.Count);
 				return moves [best];
 			} else {
 				return moves [bestIndex];

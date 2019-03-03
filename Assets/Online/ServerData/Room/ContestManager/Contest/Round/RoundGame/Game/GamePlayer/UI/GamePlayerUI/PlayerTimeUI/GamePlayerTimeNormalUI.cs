@@ -12,6 +12,7 @@ namespace TimeControl.Normal
 
         public class UIData : GamePlayerTimeUI.UIData.Sub
         {
+
             public VP<ReferenceData<GamePlayer>> gamePlayer;
 
             #region Constructor
@@ -279,7 +280,8 @@ namespace TimeControl.Normal
                                 }
 
                                 // print
-                                if(tvTime!=null){
+                                if (tvTime != null)
+                                {
                                     // turnTime
                                     string strTurnTime = "";
                                     {
@@ -423,6 +425,8 @@ namespace TimeControl.Normal
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Global
+                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -432,8 +436,14 @@ namespace TimeControl.Normal
                 dirty = true;
                 return;
             }
+            // Global
+            if (data is Global)
+            {
+                dirty = true;
+                return;
+            }
             // Setting
-            if(data is Setting)
+            if (data is Setting)
             {
                 dirty = true;
                 return;
@@ -598,6 +608,8 @@ namespace TimeControl.Normal
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Global
+                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -607,8 +619,13 @@ namespace TimeControl.Normal
                 this.setDataNull(uiData);
                 return;
             }
+            // Global
+            if (data is Global)
+            {
+                return;
+            }
             // Setting
-            if(data is Setting)
+            if (data is Setting)
             {
                 return;
             }
@@ -776,8 +793,14 @@ namespace TimeControl.Normal
                 }
                 return;
             }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
+                return;
+            }
             // Setting
-            if(wrapProperty.p is Setting)
+            if (wrapProperty.p is Setting)
             {
                 switch ((Setting.Property)wrapProperty.n)
                 {

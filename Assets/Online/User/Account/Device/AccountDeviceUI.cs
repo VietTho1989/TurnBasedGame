@@ -162,8 +162,6 @@ public class AccountDeviceUI : UIBehavior<AccountDeviceUI.UIData>, HaveTransform
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text lbTitle;
@@ -218,6 +216,8 @@ public class AccountDeviceUI : UIBehavior<AccountDeviceUI.UIData>, HaveTransform
     }
 
     #endregion
+
+    #region Refresh
 
     private bool needReset = true;
 
@@ -865,6 +865,8 @@ public class AccountDeviceUI : UIBehavior<AccountDeviceUI.UIData>, HaveTransform
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Global
+            Global.get().addCallBack(this);
             // Setting
             Setting.get().addCallBack(this);
             // Child
@@ -876,6 +878,12 @@ public class AccountDeviceUI : UIBehavior<AccountDeviceUI.UIData>, HaveTransform
                 uiData.customName.allAddCallBack(this);
                 uiData.avatarUrl.allAddCallBack(this);
             }
+            dirty = true;
+            return;
+        }
+        // Global
+        if(data is Global)
+        {
             dirty = true;
             return;
         }
@@ -993,6 +1001,8 @@ public class AccountDeviceUI : UIBehavior<AccountDeviceUI.UIData>, HaveTransform
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Global
+            Global.get().removeCallBack(this);
             // Setting
             Setting.get().removeCallBack(this);
             // Child
@@ -1005,6 +1015,11 @@ public class AccountDeviceUI : UIBehavior<AccountDeviceUI.UIData>, HaveTransform
                 uiData.avatarUrl.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
+            return;
+        }
+        // Global
+        if(data is Global)
+        {
             return;
         }
         // Setting
@@ -1121,6 +1136,12 @@ public class AccountDeviceUI : UIBehavior<AccountDeviceUI.UIData>, HaveTransform
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
+            return;
+        }
+        // Global
+        if(wrapProperty.p is Global)
+        {
+            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Setting
