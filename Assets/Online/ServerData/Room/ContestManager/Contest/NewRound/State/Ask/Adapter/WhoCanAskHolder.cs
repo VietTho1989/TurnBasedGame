@@ -102,7 +102,7 @@ namespace GameManager.Match
 							}
 						}
 					} else {
-						Debug.LogError ("human null: " + this);
+						// Debug.LogError ("human null: " + this);
 					}
 				} else {
 					// Debug.LogError ("data null: " + this);

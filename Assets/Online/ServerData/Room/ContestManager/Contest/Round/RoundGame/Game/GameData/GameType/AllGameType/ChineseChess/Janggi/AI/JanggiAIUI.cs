@@ -265,6 +265,14 @@ namespace Janggi
                             {
                                 case UIRectTransform.ShowType.Normal:
                                     {
+                                        if (header != null)
+                                        {
+                                            header.gameObject.SetActive(true);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("header null");
+                                        }
                                         if (lbTitle != null)
                                         {
                                             lbTitle.gameObject.SetActive(true);
@@ -273,19 +281,19 @@ namespace Janggi
                                         {
                                             Debug.LogError("lbTitle null");
                                         }
-                                        if (lbMaxVisitCount != null)
-                                        {
-                                            lbMaxVisitCount.gameObject.SetActive(true);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("lbMaxVisitCount null");
-                                        }
                                         deltaY += UIConstants.HeaderHeight;
                                     }
                                     break;
                                 case UIRectTransform.ShowType.HeadLess:
                                     {
+                                        if (header != null)
+                                        {
+                                            header.gameObject.SetActive(false);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("header null");
+                                        }
                                         if (lbTitle != null)
                                         {
                                             lbTitle.gameObject.SetActive(false);
@@ -293,14 +301,6 @@ namespace Janggi
                                         else
                                         {
                                             Debug.LogError("lbTitle null");
-                                        }
-                                        if (lbMaxVisitCount != null)
-                                        {
-                                            lbMaxVisitCount.gameObject.SetActive(false);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("lbMaxVisitCount null");
                                         }
                                     }
                                     break;

@@ -49,10 +49,10 @@ namespace GameManager.ContestManager
 					if (requestNewContestManagerStateNone != null) {
 
 					} else {
-						Debug.LogError ("requestNewContestManagerStateNone null: " + this);
+						// Debug.LogError ("requestNewContestManagerStateNone null: " + this);
 					}
 				} else {
-					Debug.LogError ("data null: " + this);
+					// Debug.LogError ("data null: " + this);
 				}
 			}
 		}

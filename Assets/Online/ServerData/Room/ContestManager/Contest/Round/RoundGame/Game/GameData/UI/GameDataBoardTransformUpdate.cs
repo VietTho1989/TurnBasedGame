@@ -17,23 +17,46 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
             {
                 // find boardTransform
                 RectTransform boardTransform = null;
+                float heightWidth = 1;
+                float boardLeft = 0;
+                float boardRight = 0;
+                float boardTop = 0;
+                float boardBottom = 0;
                 {
+                    // find
                     GameDataBoardUI.UIData boardUIData = this.data.board.v;
                     if (boardUIData != null)
                     {
-                        GameDataBoardUI boardUI = boardUIData.findCallBack<GameDataBoardUI>();
-                        if (boardUI != null)
+                        // boardTransform
                         {
-                            boardTransform = (RectTransform)boardUI.transform;
+                            GameDataBoardUI boardUI = boardUIData.findCallBack<GameDataBoardUI>();
+                            if (boardUI != null)
+                            {
+                                boardTransform = (RectTransform)boardUI.transform;
+                            }
+                            else
+                            {
+                                Debug.LogError("boardUI null");
+                            }
                         }
-                        else
+                        // margin
                         {
-                            Debug.LogError("boardUI null");
+                            heightWidth = boardUIData.heightWidth.v;
+                            boardLeft = boardUIData.left.v;
+                            boardRight = boardUIData.right.v;
+                            boardTop = boardUIData.top.v;
+                            boardBottom = boardUIData.bottom.v;
                         }
                     }
                     else
                     {
                         Debug.LogError("boardUIData null");
+                    }
+                    // correct
+                    if (heightWidth <= 0)
+                    {
+                        Debug.LogError("heightWidth: " + heightWidth);
+                        heightWidth = 1;
                     }
                 }
                 // process
@@ -96,35 +119,38 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
                             gameDataHeight = gameDataTransform.rect.height - bottomHeight;
                             // check need other information
                             bool needOtherInformation = this.data.gamePlayerList.v != null || this.data.gameActionsUI.v != null;
-                            if (needOtherInformation)
+                            // set width, height
                             {
-                                // portrait
-                                if (gameDataWidth <= gameDataHeight)
+                                // find width
                                 {
-                                    width = Mathf.Min(gameDataWidth, gameDataHeight - 120 - 32);
-                                    height = Mathf.Min(gameDataWidth, gameDataHeight - 120 - 32);
+                                    if (needOtherInformation)
+                                    {
+                                        // portrait
+                                        if (gameDataWidth <= gameDataHeight)
+                                        {
+                                            width = Mathf.Min(gameDataWidth - (boardLeft + boardRight), (gameDataHeight - (boardTop + boardBottom) - 120 - 32) / heightWidth);
+                                        }
+                                        // landscape
+                                        else
+                                        {
+                                            width = Mathf.Min(gameDataWidth - (boardLeft + boardRight) - 360 - 32, (gameDataHeight - (boardTop + boardBottom) - 16) / heightWidth);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // portrait
+                                        if (gameDataWidth <= gameDataHeight)
+                                        {
+                                            width = Mathf.Min(gameDataWidth - (boardLeft + boardRight), (gameDataHeight - (boardTop + boardBottom) - 16) / heightWidth);
+                                        }
+                                        // landscape
+                                        else
+                                        {
+                                            width = Mathf.Min(gameDataWidth - (boardLeft + boardRight) - 16, (gameDataHeight - (boardTop + boardBottom) - 16) / heightWidth);
+                                        }
+                                    }
                                 }
-                                // landscape
-                                else
-                                {
-                                    width = Mathf.Min(gameDataWidth - 360 - 32, gameDataHeight - 16);
-                                    height = Mathf.Min(gameDataWidth - 360 - 32, gameDataHeight - 16);
-                                }
-                            }
-                            else
-                            {
-                                // portrait
-                                if (gameDataWidth <= gameDataHeight)
-                                {
-                                    width = Mathf.Min(gameDataWidth, gameDataHeight - 16);
-                                    height = Mathf.Min(gameDataWidth, gameDataHeight - 16);
-                                }
-                                // landscape
-                                else
-                                {
-                                    width = Mathf.Min(gameDataWidth - 16, gameDataHeight - 16);
-                                    height = Mathf.Min(gameDataWidth - 16, gameDataHeight - 16);
-                                }
+                                height = width * heightWidth;
                             }
                         }
                         else
@@ -336,32 +362,7 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
         // Global
         if (wrapProperty.p is Global)
         {
-            switch ((Global.Property)wrapProperty.n)
-            {
-                case Global.Property.networkReachability:
-                    break;
-                case Global.Property.deviceOrientation:
-                    dirty = true;
-                    break;
-                case Global.Property.screenOrientation:
-                    dirty = true;
-                    break;
-                case Global.Property.width:
-                    dirty = true;
-                    break;
-                case Global.Property.height:
-                    dirty = true;
-                    break;
-                case Global.Property.screenWidth:
-                    dirty = true;
-                    break;
-                case Global.Property.screenHeight:
-                    dirty = true;
-                    break;
-                default:
-                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                    break;
-            }
+            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Parent

@@ -130,7 +130,7 @@ public class WaitInputActionProcessInputUpdate : UpdateBehavior<WaitInputAction>
 							// Debug.LogError ("legalInputData null: " + this);
 						}
 					} else {
-						Debug.LogError ("duel isn't playing: " + this);
+						// Debug.LogError ("duel isn't playing: " + this);
 					}
 				} else {
 					Debug.LogError ("data null: " + this);

@@ -590,7 +590,7 @@ namespace Khet
                                     {
                                         if (lbTitle != null)
                                         {
-                                            lbTitle.gameObject.SetActive(false);
+                                            lbTitle.gameObject.SetActive(true);
                                         }
                                         else
                                         {
@@ -598,7 +598,7 @@ namespace Khet
                                         }
                                         if (header != null)
                                         {
-                                            header.gameObject.SetActive(false);
+                                            header.gameObject.SetActive(true);
                                         }
                                         else
                                         {
@@ -611,7 +611,7 @@ namespace Khet
                                     {
                                         if (lbTitle != null)
                                         {
-                                            lbTitle.gameObject.SetActive(true);
+                                            lbTitle.gameObject.SetActive(false);
                                         }
                                         else
                                         {
@@ -619,7 +619,7 @@ namespace Khet
                                         }
                                         if (header != null)
                                         {
-                                            header.gameObject.SetActive(true);
+                                            header.gameObject.SetActive(false);
                                         }
                                         else
                                         {

@@ -86,10 +86,10 @@ public class RoomStateUI : UIBehavior<RoomStateUI.UIData>
 						break;
 					}
 				} else {
-					Debug.LogError ("roomState null: " + this);
+					// Debug.LogError ("roomState null: " + this);
 				}
 			} else {
-				Debug.LogError ("data null: " + this);
+				// Debug.LogError ("data null: " + this);
 			}
 		}
 	}

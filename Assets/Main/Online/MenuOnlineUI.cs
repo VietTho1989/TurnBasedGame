@@ -62,9 +62,6 @@ public class MenuOnlineUI : UIBehavior<MenuOnlineUI.UIData>
 	public Text lbTitle;
 	public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-	public Text tvBack;
-	public static readonly TxtLanguage txtBack = new TxtLanguage();
-
 	public Text tvServer;
 	public static readonly TxtLanguage txtServer = new TxtLanguage ();
 
@@ -74,7 +71,6 @@ public class MenuOnlineUI : UIBehavior<MenuOnlineUI.UIData>
 	static MenuOnlineUI()
 	{
 		txtTitle.add (Language.Type.vi, "Chơi Online");
-		txtBack.add (Language.Type.vi, "Quay Lại");
 		txtServer.add (Language.Type.vi, "Máy Chủ");
 		txtClient.add (Language.Type.vi, "Máy Khách");
 	}
@@ -92,11 +88,6 @@ public class MenuOnlineUI : UIBehavior<MenuOnlineUI.UIData>
 						lbTitle.text = txtTitle.get ("Play Online");
 					} else {
 						Debug.LogError ("lbTitle null: " + this);
-					}
-					if (tvBack != null) {
-						tvBack.text = txtBack.get ("Back");
-					} else {
-						Debug.LogError ("tvBack null: " + this);
 					}
 					if (tvServer != null) {
 						tvServer.text = txtServer.get ("Server");
@@ -253,4 +244,5 @@ public class MenuOnlineUI : UIBehavior<MenuOnlineUI.UIData>
 			Debug.LogError ("uiData null");
 		}
 	}
+
 }

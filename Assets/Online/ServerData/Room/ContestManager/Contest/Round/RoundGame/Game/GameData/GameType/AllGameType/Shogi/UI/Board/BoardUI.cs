@@ -14,8 +14,6 @@ namespace Shogi
 			
 			public VP<ReferenceData<Shogi>> shogi;
 
-			public VP<ShogiFenUI.UIData> shogiFen;
-
 			public LP<PieceUI.UIData> pieces;
 
 			public VP<HandUI.UIData> hand;
@@ -25,7 +23,6 @@ namespace Shogi
 			public enum Property
 			{
 				shogi,
-				shogiFen,
 				pieces,
 				hand
 			}
@@ -33,7 +30,6 @@ namespace Shogi
 			public UIData() : base()
 			{
 				this.shogi = new VP<ReferenceData<Shogi>>(this, (byte)Property.shogi, new ReferenceData<Shogi>(null));
-				this.shogiFen = new VP<ShogiFenUI.UIData>(this, (byte)Property.shogiFen, new ShogiFenUI.UIData());
 				this.pieces = new LP<PieceUI.UIData>(this, (byte)Property.pieces);
 				this.hand = new VP<HandUI.UIData>(this, (byte)Property.hand, new HandUI.UIData());
 			}
@@ -53,15 +49,6 @@ namespace Shogi
 				if (this.data != null) {
 					Shogi shogi = this.data.shogi.v.data;
 					if (shogi != null) {
-						// shogiFen
-						{
-							ShogiFenUI.UIData shogiFenUIData = this.data.shogiFen.v;
-							if (shogiFenUIData != null) {
-								shogiFenUIData.shogi.v = new ReferenceData<Shogi> (shogi);
-							} else {
-								Debug.LogError ("shogiFenUIData null: " + this);
-							}
-						}
 						// check load full
 						bool isLoadFull = true;
 						{
@@ -206,9 +193,6 @@ namespace Shogi
 
 		#region implement callBacks
 
-		public ShogiFenUI shogiFenPrefab;
-		public Transform shogiFenContainer;
-
 		public PieceUI piecePrefab;
 		public HandUI handPrefab;
 
@@ -231,7 +215,6 @@ namespace Shogi
 				// Child
 				{
 					uiData.shogi.allAddCallBack (this);
-					uiData.shogiFen.allAddCallBack (this);
 					uiData.pieces.allAddCallBack (this);
 					uiData.hand.allAddCallBack (this);
 				}
@@ -248,15 +231,6 @@ namespace Shogi
 			// Child
 			{
 				if (data is Shogi) {
-					dirty = true;
-					return;
-				}
-				if (data is ShogiFenUI.UIData) {
-					ShogiFenUI.UIData shogiFenUIData = data as ShogiFenUI.UIData;
-					// UI
-					{
-						UIUtils.Instantiate (shogiFenUIData, shogiFenPrefab, shogiFenContainer);
-					}
 					dirty = true;
 					return;
 				}
@@ -298,7 +272,6 @@ namespace Shogi
 				// Child
 				{
 					uiData.shogi.allRemoveCallBack (this);
-					uiData.shogiFen.allRemoveCallBack (this);
 					uiData.pieces.allRemoveCallBack (this);
 					uiData.hand.allRemoveCallBack (this);
 				}
@@ -314,14 +287,6 @@ namespace Shogi
 			// Child
 			{
 				if (data is Shogi) {
-					return;
-				}
-				if (data is ShogiFenUI.UIData) {
-					ShogiFenUI.UIData shogiFenUIData = data as ShogiFenUI.UIData;
-					// UI
-					{
-						shogiFenUIData.removeCallBackAndDestroy (typeof(ShogiFenUI));
-					}
 					return;
 				}
 				if (data is PieceUI.UIData) {
@@ -352,12 +317,6 @@ namespace Shogi
 			if (wrapProperty.p is UIData) {
 				switch ((UIData.Property)wrapProperty.n) {
 				case UIData.Property.shogi:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				case UIData.Property.shogiFen:
 					{
 						ValueChangeUtils.replaceCallBack (this, syncs);
 						dirty = true;

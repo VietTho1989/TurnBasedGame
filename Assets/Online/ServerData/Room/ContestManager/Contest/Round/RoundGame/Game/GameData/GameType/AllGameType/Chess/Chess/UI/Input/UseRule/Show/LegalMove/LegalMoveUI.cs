@@ -13,6 +13,7 @@ namespace Chess.UseRule
 
 		public class UIData : Data
 		{
+
 			public VP<ReferenceData<ChessMove>> legalMove;
 
 			#region Constructor
@@ -28,6 +29,7 @@ namespace Chess.UseRule
 			}
 
 			#endregion
+
 		}
 
 		#endregion
@@ -37,10 +39,10 @@ namespace Chess.UseRule
 		public GameObject contentContainer;
 
         public UICircle circleType;
-		public Color normalColor = Color.red;
-		public Color promotionColor = Color.yellow;
-		public Color passantColor = Color.gray;
-		public Color castlingColor = Color.green;
+		private static readonly Color normalColor = Color.blue;
+		private static readonly Color promotionColor = Color.yellow;
+		private static readonly Color passantColor = Color.gray;
+		private static readonly Color castlingColor = Color.green;
 
 		public override void refresh ()
 		{

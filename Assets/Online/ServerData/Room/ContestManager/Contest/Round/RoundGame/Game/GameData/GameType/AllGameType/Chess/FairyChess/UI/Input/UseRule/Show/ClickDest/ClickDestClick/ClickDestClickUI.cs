@@ -218,7 +218,7 @@ namespace FairyChess.UseRule
 									Debug.LogError ("show null: " + this);
 								}
 							}
-							Debug.LogError ("clickDestClickUI: " + GameUtils.Utils.getListString (legalMoves) + "; " + this);
+							// Debug.LogError ("clickDestClickUI: " + GameUtils.Utils.getListString (legalMoves) + "; " + this);
 							// Make UI
 							{
 								for (int legalMoveIndex = 0; legalMoveIndex < legalMoves.Count; legalMoveIndex++) {
@@ -671,11 +671,11 @@ namespace FairyChess.UseRule
 
 		public void OnPointerDown(PointerEventData eventData)
 		{
-			Debug.LogError ("OnPointerDown: " + eventData + "; " + this);
+			// Debug.LogError ("OnPointerDown: " + eventData + "; " + this);
 			Vector3 localPosition = transform.InverseTransformPoint (eventData.position);
 			int x = Mathf.RoundToInt (localPosition.x + 3.5f);
 			int y = Mathf.RoundToInt (localPosition.y + 3.5f);
-			Debug.LogError ("localPosition: " + localPosition + ", " + x + ", " + y);
+			// Debug.LogError ("localPosition: " + localPosition + ", " + x + ", " + y);
 			this.clickDest (x, y);
 		}
 

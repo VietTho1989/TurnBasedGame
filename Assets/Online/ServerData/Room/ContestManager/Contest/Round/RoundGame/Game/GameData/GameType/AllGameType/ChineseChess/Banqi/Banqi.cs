@@ -179,7 +179,12 @@ namespace Banqi
 			return 2;
 		}
 
-		public override int getPlayerIndex ()
+        public override int getDefaultPerspective(int playerIndex)
+        {
+            return 0;
+        }
+
+        public override int getPlayerIndex ()
 		{
 			return (this.color.v == Token.Ecolor.RED) ? 0 : 1;
 		}

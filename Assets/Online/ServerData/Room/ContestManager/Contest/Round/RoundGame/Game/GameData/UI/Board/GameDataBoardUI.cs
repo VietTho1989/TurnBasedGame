@@ -612,12 +612,12 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>, HaveTransform
                 }
                 else
                 {
-                    Debug.LogError("gameData nul: " + this);
+                    // Debug.LogError("gameData nul: " + this);
                 }
             }
             else
             {
-                Debug.LogError("data null: " + this);
+                // Debug.LogError("data null: " + this);
             }
         }
         updateTransformData();

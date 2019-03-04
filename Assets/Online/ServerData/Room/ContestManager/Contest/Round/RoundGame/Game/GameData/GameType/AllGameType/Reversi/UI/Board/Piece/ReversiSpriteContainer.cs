@@ -31,7 +31,7 @@ namespace Reversi
 			case Reversi.BLACK:
 				return black;
 			default:
-				Debug.LogError ("unknown pieceType: " + pieceType);
+				// Debug.LogError ("unknown pieceType: " + pieceType);
 				return none;
 			}
 		}

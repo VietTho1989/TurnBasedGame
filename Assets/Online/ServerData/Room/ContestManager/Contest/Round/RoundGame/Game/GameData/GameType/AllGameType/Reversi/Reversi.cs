@@ -375,7 +375,12 @@ namespace Reversi
 			return 2;
 		}
 
-		public override int getPlayerIndex ()
+        public override int getDefaultPerspective(int playerIndex)
+        {
+            return 0;
+        }
+
+        public override int getPlayerIndex ()
 		{
 			// Black move first
 			switch (this.side.v) {

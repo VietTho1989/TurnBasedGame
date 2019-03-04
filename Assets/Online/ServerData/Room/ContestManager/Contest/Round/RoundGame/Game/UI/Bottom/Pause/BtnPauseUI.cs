@@ -133,7 +133,7 @@ public class BtnPauseUI : UIBehavior<BtnPauseUI.UIData>
                 }
                 else
                 {
-                    Debug.LogError("play null");
+                    // Debug.LogError("play null");
                     // notPlayingContainer
                     if (notPlayingContainer != null)
                     {

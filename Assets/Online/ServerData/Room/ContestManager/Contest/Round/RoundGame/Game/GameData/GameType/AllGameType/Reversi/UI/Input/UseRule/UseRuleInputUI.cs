@@ -201,7 +201,7 @@ namespace Reversi
 					{
 						// legalMoves
 						{
-							Debug.LogError ("show legalMoves: " + GameUtils.Utils.getListString (legalMoves));
+							// Debug.LogError ("show legalMoves: " + GameUtils.Utils.getListString (legalMoves));
 							showUIData.legalMoves.clear ();
 							for (int i = 0; i < legalMoves.Count; i++) {
 								ReversiMove legalMove = legalMoves [i];

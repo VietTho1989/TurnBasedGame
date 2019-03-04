@@ -124,7 +124,7 @@ namespace GameManager.Match
 											if (contestManager != null) {
 												contestManagerIndex = contestManager.index.v;
 											} else {
-												Debug.LogError ("contestManager null: " + this);
+												// Debug.LogError ("contestManager null: " + this);
 											}
 										} else {
 											Debug.LogError ("contestManagerUIData null: " + this);
@@ -149,7 +149,7 @@ namespace GameManager.Match
                         UIRectTransform.SetSiblingIndex(this.data.btnBack.v, 0);
                     }
                 } else {
-					Debug.LogError ("subContainer null: " + this);
+					Debug.LogError ("data null");
 				}
 			}
 		}

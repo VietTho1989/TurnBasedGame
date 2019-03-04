@@ -92,7 +92,7 @@ public class StartTurnActionUI : UIBehavior<StartTurnActionUI.UIData>
                             }
                             else
                             {
-                                Debug.LogError("game null");
+                                // Debug.LogError("game null");
                             }
                         }
                         tvTurn.text = txtNewTurn.get("New Turn") + ": " + turnIndex;

@@ -55,7 +55,7 @@ namespace GameManager.Match
 
 		protected override WhoCanAskHolder.UIData CreateViewsHolder (int itemIndex)
 		{
-			Debug.LogError ("create holder: " + itemIndex);
+			// Debug.LogError ("create holder: " + itemIndex);
 			WhoCanAskHolder.UIData uiData = new WhoCanAskHolder.UIData();
 			{
 				// add
@@ -166,7 +166,7 @@ namespace GameManager.Match
 						Debug.LogError ("data null: " + this);
 					}
 				} else {
-					Debug.LogError ("not initalized: " + this);
+					// Debug.LogError ("not initalized: " + this);
 				}
 			}
 		}

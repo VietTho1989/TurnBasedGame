@@ -328,11 +328,11 @@ namespace Reversi.UseRule
 
 		public void OnPointerDown(PointerEventData eventData)
 		{
-			Debug.LogError ("OnPointerDown: " + eventData);
+			// Debug.LogError ("OnPointerDown: " + eventData);
 			Vector3 localPosition = transform.InverseTransformPoint (eventData.position);
 			int x = Mathf.RoundToInt (localPosition.x + 3.5f);
 			int y = 7 - Mathf.RoundToInt (localPosition.y + 3.5f);
-			Debug.LogError ("localPosition: " + localPosition + ", " + x + ", " + y);
+			// Debug.LogError ("localPosition: " + localPosition + ", " + x + ", " + y);
 			this.clickMove (x, y);
 		}
 	}

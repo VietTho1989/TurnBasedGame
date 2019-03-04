@@ -173,7 +173,6 @@ public class GamePlayerStateSurrenderNoneUI : UIBehavior<GamePlayerStateSurrende
                         {
                             if (btnRequest != null && tvRequest != null)
                             {
-                                btnRequest.gameObject.SetActive(true);
                                 switch (this.data.state.v)
                                 {
                                     case UIData.State.None:
@@ -216,7 +215,7 @@ public class GamePlayerStateSurrenderNoneUI : UIBehavior<GamePlayerStateSurrende
                         {
                             if (btnRequest != null && tvRequest != null)
                             {
-                                btnRequest.gameObject.SetActive(false);
+                                btnRequest.interactable = false;
                                 tvRequest.text = txtCannotRequest.get("Can't stop");
                             }
                             else

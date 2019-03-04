@@ -39,8 +39,6 @@ namespace InternationalDraught
 
 		#region Refresh
 
-		public Text tvVariant;
-
 		public override void refresh ()
 		{
 			if (dirty) {
@@ -202,39 +200,6 @@ namespace InternationalDraught
 									foreach (PieceUI.UIData oldPiece in oldPieces) {
 										this.data.pieces.remove (oldPiece);
 									}
-								}
-							}
-							// Variant
-							{
-								if (tvVariant != null) {
-									// find variant
-									Common.Variant_Type variant = Common.Variant_Type.Normal;
-									{
-										Var var = internationalDraught.var.v;
-										if (var != null) {
-											variant = (Common.Variant_Type)var.Variant.v;
-										} else {
-											Debug.LogError ("var null: " + this);
-										}
-									}
-									// process
-									switch (variant) {
-									case Common.Variant_Type.Normal:
-										tvVariant.text = "Normal";
-										break;
-									case Common.Variant_Type.BT:
-										tvVariant.text = "BreakThrough";
-										break;
-									case Common.Variant_Type.Killer:
-										tvVariant.text = "Killer";
-										break;
-									default:
-										Debug.LogError ("unknown variant: " + variant + "; " + this);
-										tvVariant.text = "";
-										break;
-									}
-								} else {
-									Debug.LogError ("tvVariant null: " + this);
 								}
 							}
 						} else {
