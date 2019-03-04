@@ -8,4 +8,6 @@ public interface HaveTransformInterface
 
     Data getData();
 
+    void setDirty(bool dirty);
+
 }

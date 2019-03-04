@@ -57,14 +57,13 @@ d2031487a08b6ae877993d2fb26144b0 Assembly-CSharp.dll:.AnimationSettingUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:frame8.ScrollRectItemsAdapter.Util.InputFieldInScrollRectFixer
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:UnityImageLoader.Utils.AsyncTask
 80d1822b3495d495c6c8deb6cd769e7c Assembly-CSharp.dll:CoTuongUp.UseRule.GettingUI
-0d43063a52bf0e563844da02dbaef7fb Assembly-CSharp.dll:.GameDataUI
+eaae3cb18dcc5b1db2f67bb6f3f7be6a Assembly-CSharp.dll:.GameDataUI
 9a5c5adeccf0f620a6c374e09a8d5ded Assembly-CSharp.dll:.LoadingUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:GameManager.Match.Elimination.EliminationContentUpdate
 8e2741a711d2ff163fa3f29a69336db5 Assembly-CSharp.dll:Khet.LaserPathUI
 71adf1e6d5f66bfabae9f14ef7232a76 Assembly-CSharp.dll:GameManager.Match.EditLobbyPlayerUI
 8040afa76fd57848a8b76c039fb1eb51 Assembly-CSharp.dll:frame8.ScrollRectItemsAdapter.Util.Drawer.ScrollToPanel
 efee04fd7a8b900e85d693e88d5b5f35 Assembly-CSharp.dll:UnityEngine.UI.Extensions.ColorPicker.ColorPickerControl
-71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.GameObjectUtils
 4e55399bb1b81f08ab790913f62fbbac Mirror.dll:Mirror.NetworkManagerHUD
 c19273e37ae82c902d416f701fac9322 Assembly-CSharp.dll:HEX.BoardUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.RequestChangeLongUpdate
@@ -94,7 +93,7 @@ f30927debba735c03b5898b2053b2ffc Assembly-CSharp.dll:Gomoku.NoneRule.SetPieceUI
 3a1fc747c0ed77220d1d915326e3346b Assembly-CSharp.dll:.BtnLeaveLimitRoomContainerUI
 88ce25a59ff956560ff1a82ecb95b8a6 Assembly-CSharp.dll:InternationalDraught.UseRuleInputUI
 01aa113f1070bb4d4ec6a8b3ba818244 Assembly-CSharp.dll:Chess.ChessAIIdentity
-a72f5610a485b2c586408e36d0ebe7c1 Assembly-CSharp.dll:FileSystem.BtnForWardUI
+f8c90f6b3013ffcf2280bba79c508d8e Assembly-CSharp.dll:FileSystem.BtnForWardUI
 46f67aaa7a1bfa175cc3e864ac1c8e18 Assembly-CSharp.dll:.LanClientUI
 cd0cbc796536fc00dd475bbcac559434 Assembly-CSharp.dll:RussianDraught.RussianDraughtAIIdentity
 06a6b47b764fa82704b55e2d40a4bf6d Assembly-CSharp.dll:GameManager.Match.Swap.SwapTeamAdapter
@@ -122,7 +121,7 @@ be6cd7ce3049700c4a7fb3190f2207b2 Assembly-CSharp.dll:FileSystem.BtnCopyUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.FriendStateCancelUpdate
 3d2a4f2fbf5e17138e9afe8436882183 Assembly-CSharp.dll:Chess.UseRule.ShowUI
 ec3de54b17b34f94a4057cb1d869c7da Assembly-CSharp.dll:FairyChess.FairyChessIdentity
-78fef0ec60725c7ecce24a1000bafdea Assembly-CSharp.dll:.RoomHolder
+8b04a678fcd4d63c7683ab586c1df24b Assembly-CSharp.dll:.RoomHolder
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:FairyChess.UITransformOrganizer
 88ce25a59ff956560ff1a82ecb95b8a6 Assembly-CSharp.dll:FairyChess.UseRuleInputUI
 5021f8ebf732514ffa9c26d23adb768a Assembly-CSharp.dll:.JoinLimitRoomContainerUI
@@ -182,7 +181,7 @@ aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:.BugTopicIdentity
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.WaitAIInputUpdate
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:UndoRedo.ResolvedUpdate
 7b9bd4f4200c2f7efc59fd107bd6f657 Assembly-CSharp.dll:InternationalDraught.VarIdentity
-6278a91ac70ff07af7d85b395eaa6861 Assembly-CSharp.dll:.GameDataBoardUI
+1db26f00923a467f90333e76121f7332 Assembly-CSharp.dll:.GameDataBoardUI
 35cede18f547202800e7dc21f869a1ea Assembly-CSharp.dll:GameManager.Match.LobbyTeamAdapter
 a4333e8183c1f3930f4fa366401d01ab Assembly-CSharp.dll:Janggi.PieceUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.RoomStateNormalNormalUpdate
@@ -190,7 +189,7 @@ a4333e8183c1f3930f4fa366401d01ab Assembly-CSharp.dll:Janggi.PieceUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:GameManager.Match.RoundStateLoadUpdate
 f12fe13d7ff430d5d438f7fbdcdc0d5c Assembly-CSharp.dll:GameManager.Match.Swap.AdminRequestSwapPlayerChooseHumanHolder
 ba967fed9ac7e3cb20afdaa0acd40c9d Assembly-CSharp.dll:.TrashMan
-59e645f815094a893ec389cd57480ba8 Assembly-CSharp.dll:.RoomSettingUI
+862b272f400f86c0d447bda70b8b6bcd Assembly-CSharp.dll:.RoomSettingUI
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:GameManager.Match.RoundStateEndIdentity
 9ae1a9caa5ec9b45c7705bfa4492b10a Assembly-CSharp.dll:TimeControl.Normal.TimePerTurnInfoLimitIdentity
 5e5f339b09a8d3d054da5bacf9567d70 Assembly-CSharp.dll:Solitaire.InputUI
@@ -243,7 +242,7 @@ aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:GameManager.Match.Eliminati
 80d1822b3495d495c6c8deb6cd769e7c Assembly-CSharp.dll:Banqi.UseRule.GetUI
 ddd1034fb3ce1ee51719fbc7d68087a6 Assembly-CSharp.dll:.UserActionMessageIdentity
 88ce25a59ff956560ff1a82ecb95b8a6 Assembly-CSharp.dll:NineMenMorris.UseRuleInputUI
-17b9874007e19097909609d44b259f60 Assembly-CSharp.dll:.RoomListUI
+b3bcb3cb99f2bd2be2dfcb1cbea4c732 Assembly-CSharp.dll:.RoomListUI
 79ba631f440ab6fb6413fe8e6cb1bd1f Assembly-CSharp.dll:.RequestChangeUseRuleStateAskBtnAcceptUI
 c60fbc008b6bb3a1f40ec70f62bfd382 Assembly-CSharp.dll:.ChooseDatabaseUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:FileSystem.FileSystemBrowserUpdate
@@ -271,7 +270,7 @@ f5e409dd43c871414747eed0de3edd55 Assembly-CSharp.dll:FairyChess.NoneRule.SetHand
 958b6e466af1e8a704e7eee54a4200ac Assembly-CSharp.dll:Seirawan.SeirawanMoveAnimationIdentity
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Facebook.Unity.Example.AccessTokenMenu
 5917f0c86989c12bf1a3c1a28226ac4e Assembly-CSharp.dll:GameState.PlayUI
-849ca51d44f7e66668122223a8251b20 Assembly-CSharp.dll:.RoomUI
+6eacc8d6e93c2d11ea2f1b6b9e9ba40b Assembly-CSharp.dll:.RoomUI
 88ce25a59ff956560ff1a82ecb95b8a6 Assembly-CSharp.dll:CoTuongUp.UseRuleInputUI
 80d1822b3495d495c6c8deb6cd769e7c Assembly-CSharp.dll:.UserTopicUI
 6011611e9da7b01e61d44b8c335ce63f Assembly-CSharp.dll:.AccountFacebookIdentity
@@ -351,6 +350,8 @@ a984e8e7ea5b6a4a4e27034c454b593e Assembly-CSharp.dll:.FriendIdentity
 eff2dbf2caf4685a8ef4d5f6eb335b11 Assembly-CSharp.dll:GameManager.Match.RoundRobin.RoundRobinContentUI
 1ca8bb4370f6e5a9db863f4094ae97d9 Assembly-CSharp.dll:Posture.ChoosePostureAdapter
 2d271b6977bc9adac1a930a9a6feb32a Assembly-CSharp.dll:.BtnPauseNormalUI
+71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Advertisements.dll:UnityEngine.Advertisements.CallbackExecutor
+71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Advertisements.dll:UnityEngine.Advertisements.Editor.Placeholder
 a4333e8183c1f3930f4fa366401d01ab Assembly-CSharp.dll:Makruk.PieceUI
 3d61c8a163424f446e6258982e17b1b6 Assembly-CSharp.dll:HEX.LastMoveUI
 ad82f9de04db4f363e190d52b3ec0acd Assembly-CSharp.dll:Seirawan.DefaultSeirawanUI
@@ -600,7 +601,7 @@ caa533b001ae39b864ba8425019e2268 Assembly-CSharp.dll:UnityEngine.UI.Extensions.B
 37e2377847a12fa7f7c4a32349287480 Assembly-CSharp.dll:.UserChatUI
 81ec15f6d6fed7df6fac0eea985b55e6 Assembly-CSharp.dll:.LanClientPlayUI
 eb18167aa59029e60b2aaad5f11fe833 Assembly-CSharp.dll:.LimitRoomContainerAdapter
-571e7913cc3bac4e05ee73c86b36a861 Assembly-CSharp.dll:Record.SaveRecordUI
+64302e67878502f0a56e75dbb6ea4514 Assembly-CSharp.dll:Record.SaveRecordUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:GameManager.Match.Elimination.RequestNewEliminationRoundStateAcceptUpdate
 5b21df44ffa173dc29a99e4507c38fc7 Assembly-CSharp.dll:Shogi.ShogiAIIdentity
 76a28cddc28cb26528cb8b65bf025ab7 Assembly-CSharp.dll:GameManager.Match.Elimination.RequestNewEliminationRoundUI
@@ -678,7 +679,7 @@ f30927debba735c03b5898b2053b2ffc Assembly-CSharp.dll:Makruk.NoneRule.SetPieceUI
 f3325c40d1296f485cceea80a176da92 Assembly-CSharp.dll:.StateConnectUI
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:GameManager.Match.Elimination.RequestNewEliminationRoundStateNoneIdentity
 38196bafe59fa55ece11554d8fcf22e4 Assembly-CSharp.dll:Khet.KhetMoveAnimationIdentity
-41ba4cd70e7aafb3dadd77bc03e18645 Assembly-CSharp.dll:TimeControl.Normal.GamePlayerTimeNormalUI
+85c85d7bbbb2864e583ba4a5d0427e2e Assembly-CSharp.dll:TimeControl.Normal.GamePlayerTimeNormalUI
 51614b8e82de2e338b7cd24aaa69c192 Assembly-CSharp.dll:Xiangqi.NoneRule.ClickMoveUI
 2aacf3c1c27ac3f27f1cf0c9c921aaf5 Assembly-CSharp.dll:GameManager.Match.SingleContestFactoryUI
 1a69b27f97639b87b404cf8b33f302d9 Assembly-CSharp.dll:MineSweeper.UseRuleInputUI
@@ -718,7 +719,7 @@ aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:GameManager.Match.RoundRobi
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:RussianDraught.AnimationSetDirtyUpdate
 0298ddaf3c8cba23b7fff4529d1e7bfa Assembly-CSharp.dll:GameManager.Match.MatchTeamIdentity
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:EnglishDraught.UITransformOrganizer
-7f8ff05d14dfca1da00e84041ffdb44e Assembly-CSharp.dll:Record.ViewRecordUI
+d96c344daaccaf923931742d10f32253 Assembly-CSharp.dll:Record.ViewRecordUI
 baa4e4829be41b2af53a53d6df9fdb93 Assembly-CSharp.dll:Janggi.NoneRule.JanggiCustomSetUI
 f83164287437ec18f2251025b6387e29 Assembly-CSharp.dll:.TestScript
 eb12c0a89064c184da3365079cc6d49c Assembly-CSharp.dll:GameManager.Match.ChooseRoundGameUI
@@ -743,7 +744,7 @@ c002714673a65076a086e69b1de47979 Assembly-CSharp.dll:.UndoRedoActionUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:GameManager.Match.CheckEndRoundUpdate
 ef0b33d7c9200e3f9b65be751e83a9a9 Assembly-CSharp.dll:.CreateRoomUI
 a1aeed30bb334157e10c6fe903a7687d Assembly-CSharp.dll:Chess.NoneRule.ChoosePieceHolder
-41827a5cb0de156dcfa41c05fa20e37e Assembly-CSharp.dll:FileSystem.BtnBackWardUI
+92bbd0232e599db13b4a0eea2b2eb0d4 Assembly-CSharp.dll:FileSystem.BtnBackWardUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.CheckLimitRoomContainerUserInUpdate
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Weiqi.PieceUIAnimationSetDirtyUpdate
 1a69b27f97639b87b404cf8b33f302d9 Assembly-CSharp.dll:HEX.NoneRule.ClickNoneUI
@@ -753,7 +754,7 @@ a1aeed30bb334157e10c6fe903a7687d Assembly-CSharp.dll:Chess.NoneRule.ChoosePieceH
 62eb84c1929d1edb2ff00f101b3229f5 Assembly-CSharp.dll:.HumanAvatarUI
 30b07ac1cea66898b4a87e3a96a3dba5 Assembly-CSharp.dll:GameManager.Match.ContestManagerStatePlayUI
 34d794823de3ee78b810a40408370cd2 Assembly-CSharp.dll:GameManager.Match.RequestNewRoundNoLimitBtnStopMakeMoreRoundUI
-16cbfa4f3f99b0f5c990506ec3eb4032 Assembly-CSharp.dll:Posture.ChoosePostureHolder
+7d2d94c7fe260f059ca695305f834941 Assembly-CSharp.dll:Posture.ChoosePostureHolder
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:UndoRedo.NoneUpdate
 c002714673a65076a086e69b1de47979 Assembly-CSharp.dll:.WaitAIInputNoneUI
 32b559c2c223275af0f9186f7472e339 Assembly-CSharp.dll:Khet.KhetIdentity
@@ -892,7 +893,7 @@ db2ac0d52cddcbe25f742e0dcf677d25 Assembly-CSharp.dll:GameManager.Match.Swap.Admi
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:GameManager.Match.RoundRobin.RoundRobinContentCheckEndUpdate
 80d1822b3495d495c6c8deb6cd769e7c Assembly-CSharp.dll:Reversi.UseRule.GetUI
 1ebf42d5a444899f63cd8f99be22304b Assembly-CSharp.dll:GameManager.Match.RoundRobin.RoundRobinContentIdentity
-06a569d6c76e6a0cbcddfb042e08a83d Assembly-CSharp.dll:.GamePlayerUI
+77baa90d6a70df2b26dff2b431150aeb Assembly-CSharp.dll:.GamePlayerUI
 68a0cc8934ef089a6ee736aa6692c6c5 Assembly-CSharp.dll:Seirawan.SeirawanMoveIdentity
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.GameDataUpdate
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.ShowToast
@@ -903,7 +904,7 @@ b0d6365bc1967f7a7ce0a9942e871e05 Assembly-CSharp.dll:EnglishDraught.EnglishDraug
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Facebook.Unity.Example.GraphRequest
 5986d7957880b540029c1baf9ba1da14 Assembly-CSharp.dll:Posture.BtnSetEditPostureGameData
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.GlobalInit
-a562ce4e585ac44ba0d287dbb687e1db Assembly-CSharp.dll:.PerspectiveForceUI
+4268f3ce9f95ff6f6f43825c7df92d39 Assembly-CSharp.dll:.PerspectiveForceUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.GameActionsNotPauseUpdate
 88ce25a59ff956560ff1a82ecb95b8a6 Assembly-CSharp.dll:Shogi.UseRuleInputUI
 5c62e064ce2bf00547a68be38e357aab Assembly-CSharp.dll:Khet.ShowHintUI
@@ -935,7 +936,7 @@ f7b6aefbd8d87f1b7d66d0c015f5690c Assembly-CSharp.dll:CoTuongUp.PieceUI
 a6c3a75dde9223367119bf8d1e4bab80 Assembly-CSharp.dll:TimeControl.HourGlass.TimeControlHourGlassUI
 e76583f9433eee8ca6063af263021114 Assembly-CSharp.dll:GameState.ResultUI
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:GameManager.Match.RoundStatePlayIdentity
-117afac0f53ccbf7afe873517e33d068 Assembly-CSharp.dll:Posture.EditPostureGameDataUI
+f3a72283d5f5e4ef34631f7bce45f2ed Assembly-CSharp.dll:Posture.EditPostureGameDataUI
 348d01ce4095ec491b30fc59ebd79d8f Assembly-CSharp.dll:Khet.KhetAIIdentity
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Facebook.Unity.Example.ConsoleBase
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:GameManager.Match.RequestNewRoundStateAcceptUpdate
@@ -956,6 +957,7 @@ aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:.GameTopicIdentity
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:GameManager.Match.Swap.SwapRequestStateCancelUpdate
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Makruk.UITransformOrganizer
 56b8ecef6bd4f971cf66c1c2b5091965 Assembly-CSharp.dll:.WaitHumanInputUI
+b95083603da93045a64060a0985b826a Assembly-CSharp.dll:.BtnSaveGameUI
 1368790ac3488b86488c09afc77b6f73 Assembly-CSharp.dll:MineSweeper.NoneRule.MineSweeperCustomSetIdentity
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:GameManager.Match.ContestStatePlayUpdate
 88ce25a59ff956560ff1a82ecb95b8a6 Assembly-CSharp.dll:RussianDraught.UseRuleInputUI
@@ -972,6 +974,7 @@ e8185782321052df42d0c92b9b08d50e Assembly-CSharp.dll:GameState.ResultIdentity
 09c6880d680f2d47ca5e34a97fc0876d Assembly-CSharp.dll:RussianDraught.UseRule.BtnChosenMoveUI
 24165944b8d973c4f9c00c8ebf24af7f Assembly-CSharp.dll:HEX.HexMoveIdentity
 a1aeed30bb334157e10c6fe903a7687d Assembly-CSharp.dll:Makruk.NoneRule.ChoosePieceHolder
+defe5ece5c98ba24e11775a5ddff47a0 Assembly-CSharp.dll:GamePlayerState.WhoCanAskHolder
 958b6e466af1e8a704e7eee54a4200ac Assembly-CSharp.dll:Shatranj.ShatranjMoveAnimationIdentity
 3aa57e8dce7e94734cca2aef254808f0 Assembly-CSharp.dll:.GlobalUpdate
 1a69b27f97639b87b404cf8b33f302d9 Assembly-CSharp.dll:InternationalDraught.UseRule.ClickPieceUI
@@ -1003,7 +1006,7 @@ b2094546ca2b3f38f928fd55bea1b188 Assembly-CSharp.dll:UnityEngine.UI.Extensions.B
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:.FriendTopicIdentity
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:.RoomStateNormalFreezeIdentity
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:TimeControl.HourGlass.MakeTimeReportDeltaUpdate
-11748c335b46ecf555b85151de4b8661 Assembly-CSharp.dll:.GlobalViewUI
+534b16c4f22c557c44ca1c97eb1302ef Assembly-CSharp.dll:.GlobalViewUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Foundation.Databinding.Audio2DListener
 1dcb82730d983b77cec736c6ef19f814 Assembly-CSharp.dll:.ClientNetworkDiscovery
 37436969994f4fd1302c8042b00f32e4 Assembly-CSharp.dll:.RoomUserBtnUnKickUI
@@ -1028,7 +1031,7 @@ aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:.RequestChangeUseRuleIdenti
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.MoveAnimationUpdate
 298d63ba7ec01129e23b0e992782e9a5 Assembly-CSharp.dll:UnityEngine.UI.Extensions.UIPolygon
 81cd919a0cedaf69705af5219f56d030 Assembly-CSharp.dll:Makruk.MakrukSpriteContainer
-9dbfd7cbca1d6fbe6cad1523fdfc78e8 Assembly-CSharp.dll:FileSystem.SingleShowUI
+5fcbe7b1acfb1cb2f1e33e22e3c11590 Assembly-CSharp.dll:FileSystem.SingleShowUI
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:GameState.LoadIdentity
 7df1c3c01e2b54e382ab647f0b98f30a Assembly-CSharp.dll:Shogi.NoneRule.SetHandHolder
 c002714673a65076a086e69b1de47979 Assembly-CSharp.dll:GameManager.Match.RoundGameStateEndUI
@@ -1051,7 +1054,7 @@ baa4e4829be41b2af53a53d6df9fdb93 Assembly-CSharp.dll:InternationalDraught.NoneRu
 9c1a94cbd9b13a68b6b08b13dea17c82 Assembly-CSharp.dll:UndoRedo.AskUI
 b84a8c0f1e309535a19efb8541b53dab Assembly-CSharp.dll:Weiqi.WeiqiMoveAnimationIdentity
 77b577dbc64632fe6a50fe12ee65775c Assembly-CSharp.dll:GameManager.Match.TeamPlayerIdentity
-a5c59ac4018e88a36fd1f4d198c4074b Assembly-CSharp.dll:Posture.LoadPostureUI
+887ca6f61af726698bb475842fd574b0 Assembly-CSharp.dll:Posture.LoadPostureUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Seirawan.UITransformOrganizer
 309bf9f893e75de1ea64a17250fcfe0c Assembly-CSharp.dll:.ScrollingCalendar
 9a6c1f339b394e9b2e8ccd8b79d80090 Assembly-CSharp.dll:InternationalDraught.ShowHintUI
@@ -1206,7 +1209,7 @@ aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:GameManager.Match.ContestSt
 4fd8bf02e3089425d3502e26c44ba31a Unity.TextMeshPro.dll:TMPro.TextContainer
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:GameManager.Match.SingleContestContentUpdate
 b8724be4c38eeb528806ed7c960ef7a8 Assembly-CSharp.dll:UnityEngine.UI.Extensions.UIParticleSystem
-857716d0e956d08c67f527b80dddf188 Assembly-CSharp.dll:Record.ViewRecordControllerUI
+162592a4848891e389af5febdc8c8894 Assembly-CSharp.dll:Record.ViewRecordControllerUI
 3bae31d7c23a8b67a2aea80915df5f01 Assembly-CSharp.dll:frame8.ScrollRectItemsAdapter.Util.Drawer.WithInputPanel
 bd0e8c9c5cfeb3e5f056fe3d08d1384e Assembly-CSharp.dll:.AccountDeviceIdentity
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:.FriendStateAcceptIdentity
@@ -1242,12 +1245,12 @@ b0d6365bc1967f7a7ce0a9942e871e05 Assembly-CSharp.dll:FairyChess.FairyChessGameDa
 82b005ea08832ebe557aecf3921cf1ec Assembly-CSharp.dll:GameManager.Match.Swap.SwapRequestIdentity
 b558af2746a07073c771bb619c956cc5 Assembly-CSharp.dll:Foundation.Databinding.ToggleBinder
 a1aeed30bb334157e10c6fe903a7687d Assembly-CSharp.dll:EnglishDraught.NoneRule.ChoosePieceHolder
-a64e9ef1b083d777c84b44140a44d565 Assembly-CSharp.dll:FileSystem.FileAdapter
+5a6cad18a05273571a160f2f49149815 Assembly-CSharp.dll:FileSystem.FileAdapter
 defe5ece5c98ba24e11775a5ddff47a0 Assembly-CSharp.dll:GameManager.Match.Swap.WhoCanAskHolder
 97ace6213ad0f149b0917a4c669c6ca3 Assembly-CSharp.dll:frame8.ThirdParty.UI.ScrollRectNested
 da117155954c80721825efd9d6e1c252 Assembly-CSharp.dll:TimeControl.HourGlass.TimeControlHourGlassIdentity
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:Sudoku.DefaultSudokuIdentity
-ae88bd89bd2979e639cec125aab56c6c Assembly-CSharp.dll:.SaveUI
+fcfbb331dc676034aa64fd98d705e296 Assembly-CSharp.dll:.SaveUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Facebook.Unity.Example.MainMenu
 ed8f6bd79bd71c112775f7edc6a14840 Assembly-CSharp.dll:UnityEngine.UI.Extensions.DropDownList
 ea3ff4ab90f6a1136267e36290e48a07 Assembly-CSharp.dll:GameManager.Match.Elimination.ChooseBracketContestHolder
@@ -1260,7 +1263,7 @@ d91fcd9ac7bd86d3d771dd6171620fad Assembly-CSharp.dll:frame8.ScrollRectItemsAdapt
 51614b8e82de2e338b7cd24aaa69c192 Assembly-CSharp.dll:FairyChess.NoneRule.ClickMoveUI
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:GameManager.Match.RequestNewRoundStateAskIdentity
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.PerspectiveUpdate
-ea80906965e493bcce3996be6ee129a9 Assembly-CSharp.dll:.WaitInputActionUI
+d6c8640bd6f2c87c30cced22952af042 Assembly-CSharp.dll:.WaitInputActionUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.GlobalChatUpdate
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:TimeControl.Normal.IncreasePlayerTotalTimeUpdate
 421325bc81dd55cc2d5643e6f988de83 Assembly-CSharp.dll:.GlobalRoomContainerUI
@@ -1308,7 +1311,7 @@ b0dfa2334ca3b3b8cdddb40291017a74 Assembly-CSharp.dll:.UndoRedoRequestUI
 c002714673a65076a086e69b1de47979 Assembly-CSharp.dll:GameManager.Match.Elimination.RequestNewEliminationRoundStateAcceptUI
 b0d6365bc1967f7a7ce0a9942e871e05 Assembly-CSharp.dll:Chess.ChessGameDataUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:frame8.ScrollRectItemsAdapter.Util.SimpleImageDownloader
-356de5844c5d8b8f4769c99a1b4109fe Assembly-CSharp.dll:.GamePlayerStateSurrenderUI
+1d80632eafb38b293821ebfffd261f0d Assembly-CSharp.dll:.GamePlayerStateSurrenderUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:GameManager.Match.Elimination.BracketContestMakeTeamUpdate
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:.FriendStateNoneIdentity
 e2f3da973661c8d4bc312222ab08f046 Assembly-CSharp.dll:.LastMoveIdentity
@@ -1316,6 +1319,7 @@ f6b90fd3ef3cfae4381807f02156df1d Assembly-CSharp.dll:Weiqi.DefaultWeiqiUI
 ddde4363c4f84178eec3e6a7fd080d5c Assembly-CSharp.dll:Foundation.Example.ExampleList
 b984a8a7682e0deb9bb2b643816402d1 Assembly-CSharp.dll:Makruk.NoneRule.MakrukCustomMoveUI
 1a69b27f97639b87b404cf8b33f302d9 Assembly-CSharp.dll:Makruk.UseRule.ClickPieceUI
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.GameDataBoardTransformUpdate
 3d39dafc9efedc943553bcde32b8ce50 Assembly-CSharp.dll:CoTuongUp.LastMoveUI
 361e12998fbdc769fbafe40b0fe03c8f Assembly-CSharp.dll:GameManager.Match.RoundRobin.RoundContestIdentity
 e6ae40841db498b6e673877ac45ad208 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
@@ -1364,6 +1368,7 @@ aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:.RoomStateEndIdentity
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:UndoRedo.NoneIdentity
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.TimeReportClientUpdate
 1a69b27f97639b87b404cf8b33f302d9 Assembly-CSharp.dll:Shogi.UseRule.ClickPieceUI
+88544d4caf0068c8b61a42f9fd784780 Assembly-CSharp.dll:.RoomAdminBtnDeleteUI
 400817f48f91e02a7634d5b9caaa0999 Assembly-CSharp.dll:.AccountDeviceUI
 d5683acf08cfd57faf5254627a5a11e4 Assembly-CSharp.dll:GameManager.Match.Swap.AdminRequestSwapPlayerHumanUI
 a563853805b35b4327c06a3bc27c2fd5 Assembly-CSharp.dll:.GlobalChatUI
@@ -1428,6 +1433,7 @@ c0bdbb27a118a25e5476eba76e63c235 Assembly-CSharp.dll:Banqi.BanqiSpriteContainer
 a5f052b52e4370fa3b0150e80b134258 Assembly-CSharp.dll:.NoDatabaseServerNoneUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:TimeControl.HourGlass.IncreasePlayerTimeUpdate
 374143e45bf0405bcee11b02d25b75fa Assembly-CSharp.dll:MineSweeper.MineSweeperMoveIdentity
+b95083603da93045a64060a0985b826a Assembly-CSharp.dll:.BtnPerspectiveUI
 f30927debba735c03b5898b2053b2ffc Assembly-CSharp.dll:Janggi.NoneRule.SetPieceUI
 1b8811ee3e4e7f67d1b1c7db75b479b5 Assembly-CSharp.dll:UnityEngine.UI.Extensions.ColorPicker.ColorSliderImage
 1a69b27f97639b87b404cf8b33f302d9 Assembly-CSharp.dll:Seirawan.UseRule.ClickPieceUI
@@ -1467,7 +1473,6 @@ cf96e5f7b3d069bab453925bd41be04e UnityEngine.TestRunner.dll:UnityEngine.TestTool
 2b8e8f26e27079f922abcc66010da466 Assembly-CSharp.dll:.ChatMessageDeleteUI
 361e12998fbdc769fbafe40b0fe03c8f Assembly-CSharp.dll:GameManager.Match.ContestManagerIdentity
 baa4e4829be41b2af53a53d6df9fdb93 Assembly-CSharp.dll:EnglishDraught.NoneRule.EnglishDraughtCustomSetUI
-71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.bz2Test
 cf5534e1ac6cf2dc6625087247e9a604 Assembly-CSharp.dll:Shogi.UseRule.ClickDestUI
 8eb7dedca3f0b1fc393ed5cfa8556a9d Assembly-CSharp.dll:.ChatMessageMenuUI
 c19273e37ae82c902d416f701fac9322 Assembly-CSharp.dll:EnglishDraught.BoardUI
@@ -1554,6 +1559,7 @@ ee4d6f334647e0065e50a5079361a3a3 Assembly-CSharp.dll:GameManager.Match.RoundRobi
 08bcbf9ac9dc08e5e21050dd529b69a9 Assembly-CSharp.dll:.ChatRoomIdentity
 ddc93b630f0a6a5eaeffa4893c9b2765 Assembly-CSharp.dll:InternationalDraught.LastMoveUI
 a212ed8451b760c837ffc32148af1ac8 Assembly-CSharp.dll:Khet.LaserPointUI
+4bcd22271d9f31c5775eaafffcda4bfa Assembly-CSharp.dll:GamePlayerState.WhoCanAskAdapter
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:.GameDataStateFinishIdentity
 80d1822b3495d495c6c8deb6cd769e7c Assembly-CSharp.dll:.GeneralTopicUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:TimeControl.TimeReportUpdate
@@ -1642,18 +1648,19 @@ baa4e4829be41b2af53a53d6df9fdb93 Assembly-CSharp.dll:Shatranj.NoneRule.ShatranjC
 d677f80a7953adc219004c62418853ab Assembly-CSharp.dll:Xiangqi.RollbackStructIdentity
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.TypingPlayerUpdate
 f30927debba735c03b5898b2053b2ffc Assembly-CSharp.dll:Weiqi.NoneRule.SetPieceUI
-7ab7a9e4bbcda13c16d51620bbe76d38 Assembly-CSharp.dll:.GamePlayerStateSurrenderAskUI
+e26a019a25e8b49df011ba67bb9bb597 Assembly-CSharp.dll:.GamePlayerStateSurrenderAskUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.AnimationDataUpdate
 68a0cc8934ef089a6ee736aa6692c6c5 Assembly-CSharp.dll:Chess.ChessMoveIdentity
 94698a4f420b6b2e0a94e37ebad9fff1 Assembly-CSharp.dll:InternationalDraught.UseRule.ClickDestChooseUI
 0f7d920d307857cd01841c2e7f37acfd Assembly-CSharp.dll:InternationalDraught.PieceUI
-80f019333e5ddf1761c0aea8d6ed62b2 Assembly-CSharp.dll:.PerspectiveUI
+e17aea0ab1f0d999e762b603be33c113 Assembly-CSharp.dll:.PerspectiveUI
 5fc094978ce3e3591a7500ed380d854a Unity.Analytics.DataPrivacy.dll:UnityEngine.Analytics.DataPrivacyButton
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.HumanConnectionCheckInsideRoomUpdate
 47a1ff02f0d51301116a3c08919623af Assembly-CSharp.dll:.OfflineUI
 db3eb9d86dad404717be8fabf6f02c3a Assembly-CSharp.dll:UnityEngine.UI.Extensions.AccordionElement
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:GameManager.Match.RoundContestMakeTeamUpdate
 5e0f8d4da0ff987c705c132f090b6a9a Assembly-CSharp.dll:.BtnCreateRoomUI
+33013c7dca27c85d4964283fa2cb9fd7 Assembly-CSharp.dll:.GamePlayerStateBtnUI
 8171eedf7d7319447ba60435cdeaeba1 Assembly-CSharp.dll:GameManager.Match.LobbyBtnStart
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.UndoRedoActionUpdate
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Weiqi.WeiqiUpdate
@@ -1738,7 +1745,7 @@ bc1f9ef5aa312db7d699f64498a74555 Assembly-CSharp.dll:Rights.UndoRedoRightIdentit
 5c8bfeded553336b9570965105cb84c9 Assembly-CSharp.dll:.RoomContainerUI
 aa9a8d702f3d7be10ccd10577f753d43 Mirror.dll:Mirror.NetworkIdentity
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:.RequestChangeUseRuleStateNoneIdentity
-141d4b0fa34283023073ddbc2b267f7a Assembly-CSharp.dll:FileSystem.FileSystemBrowserUI
+99da572564d484f99eb02077fd0ac433 Assembly-CSharp.dll:FileSystem.FileSystemBrowserUI
 a4333e8183c1f3930f4fa366401d01ab Assembly-CSharp.dll:Xiangqi.PieceUI
 80d1822b3495d495c6c8deb6cd769e7c Assembly-CSharp.dll:FairyChess.UseRule.ClickDestClickMoveOrChooseUI
 c46a6d26fa0893fd32c3c8d3c138217d Assembly-CSharp.dll:.LimitRoomContainerIdentity
@@ -1815,7 +1822,7 @@ baa4e4829be41b2af53a53d6df9fdb93 Assembly-CSharp.dll:Seirawan.NoneRule.SeirawanC
 c56e66cb1618ccf6b1d425dacffb560f Assembly-CSharp.dll:Xiangqi.ZobristStructIdentity
 7893ad174f0f0e30fa9e3daeacd152bc Assembly-CSharp.dll:Khet.KhetMoveUI
 baa4e4829be41b2af53a53d6df9fdb93 Assembly-CSharp.dll:MineSweeper.NoneRule.MineSweeperCustomSetUI
-d4e87d4fb2b22f73b089138140fdee6c Assembly-CSharp.dll:GameManager.Match.RoundGameUI
+0067899beff4d30f0524b7c6eba69885 Assembly-CSharp.dll:GameManager.Match.RoundGameUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:FileSystem.ActionEditSuccessUpdate
 2e5f55d59bcf823a8bb245afbb073cc8 Assembly-CSharp.dll:Khet.UseRule.ClickDestUI
 56c6aabbc460ce028356954134eb53ed Assembly-CSharp.dll:Banqi.NoneRule.SetPieceUI
@@ -1830,7 +1837,7 @@ d9061562721ddc54e203589b23eaab26 Assembly-CSharp.dll:.ManagerUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:ChineseCheckers.UITransformOrganizer
 5ab4d5478e0fab9d4794478bc6ea423e Assembly-CSharp.dll:Makruk.ShowHintUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:GameManager.Match.RoundGameUpdate
-61d3c16aef2dd629ce1d4a04cc20db11 Assembly-CSharp.dll:.GameBottomUI
+320ca0349b598ac87bd35d045de88afb Assembly-CSharp.dll:.GameBottomUI
 ae6c84bda1b0f34ace6c7887b81cb638 Assembly-CSharp.dll:GameManager.Match.Swap.SwapRequestStateCancelIdentity
 84bd11a3868ea67f796290b2de27e767 Assembly-CSharp.dll:.GameObserver
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:UndoRedo.AskIdentity
@@ -1882,7 +1889,7 @@ b984a8a7682e0deb9bb2b643816402d1 Assembly-CSharp.dll:Janggi.NoneRule.JanggiCusto
 270e1c613f8966ff1c043517a3be7b4a Assembly-CSharp.dll:Foundation.Databinding.AnimationBinder
 e05ed9373c63475b8afd1e471346992a Assembly-CSharp.dll:GameManager.Match.Swap.SwapPlayerInformUI
 d791aa6007fa3640be1164ea75bb087d Unity.TextMeshPro.dll:TMPro.TMP_StyleSheet
-831201d9e56f1a757f57fe3324aa6990 Assembly-CSharp.dll:.GamePlayerListUI
+3bb18ac80c672cbced238853a433e20d Assembly-CSharp.dll:.GamePlayerListUI
 1a69b27f97639b87b404cf8b33f302d9 Assembly-CSharp.dll:Khet.NoneRule.ClickNoneUI
 29a869e744823a55e0955373f147e149 Assembly-CSharp.dll:NineMenMorris.NineMenMorrisMoveAnimationIdentity
 1bda7f249450993c8ee67cc4ede301e1 Assembly-CSharp.dll:TimeControl.Normal.PlayerTotalTimeIdentity
@@ -1902,7 +1909,7 @@ c328e4f61e93d55b2ac2b98c50ab9bd4 Assembly-CSharp.dll:UnityEngine.UI.ExtensionsTo
 68a0cc8934ef089a6ee736aa6692c6c5 Assembly-CSharp.dll:Makruk.MakrukMoveIdentity
 b984a8a7682e0deb9bb2b643816402d1 Assembly-CSharp.dll:Gomoku.NoneRule.GomokuCustomMoveUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.WaitInputActionClientUpdate
-8b7080a27241a6c4e6efbd68d3c65a11 Assembly-CSharp.dll:.ViewSaveGameUI
+4638ea4e43301eb0707fe056ad520cbc Assembly-CSharp.dll:.ViewSaveGameUI
 7df1c3c01e2b54e382ab647f0b98f30a Assembly-CSharp.dll:FairyChess.NoneRule.SetHandHolder
 3b96d65842ed5874fac04ae3592e1688 Assembly-CSharp.dll:ChineseCheckers.ChineseCheckersGameDataUI
 80d1822b3495d495c6c8deb6cd769e7c Assembly-CSharp.dll:Shatranj.UseRule.GettingUI
@@ -1945,7 +1952,7 @@ b984a8a7682e0deb9bb2b643816402d1 Assembly-CSharp.dll:HEX.NoneRule.HexCustomMoveU
 88ce25a59ff956560ff1a82ecb95b8a6 Assembly-CSharp.dll:Chess.UseRuleInputUI
 e052fb69bc8b6b0010ae9606a4800e13 Assembly-CSharp.dll:GameManager.Match.LobbyTeamHolder
 ee4b4dcf4864439763b33375080edd5d Assembly-CSharp.dll:.AccountEmailUI
-2b25e5d0d2f1becd1948a060af50508d Assembly-CSharp.dll:.GameUI
+413486bb8f880533e9b618270dbb73db Assembly-CSharp.dll:.GameUI
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:.GamePlayerStateNormalIdentity
 baa4e4829be41b2af53a53d6df9fdb93 Assembly-CSharp.dll:Chess.NoneRule.ChessCustomSetUI
 5b8ac97cc5d9c7bcc6b830a1d243f5d6 Assembly-CSharp.dll:Xiangqi.XiangqiAIIdentity
@@ -1956,7 +1963,7 @@ a4333e8183c1f3930f4fa366401d01ab Assembly-CSharp.dll:Shogi.PieceUI
 744617c3a5ef18ea0f85819d4af00a71 Assembly-CSharp.dll:Weiqi.BoardOwnerMapIdentity
 3d2a4f2fbf5e17138e9afe8436882183 Assembly-CSharp.dll:RussianDraught.UseRule.ShowUI
 c6666661329916e218bee7f5e79e60f5 Unity.TextMeshPro.dll:TMPro.TextMeshPro
-d0ad57005f30c2a8cffe5a326c30a608 Assembly-CSharp.dll:.GamePlayerStateSurrenderNoneUI
+d73d54cd39aa2d5fd2c4c45ea8dcf61a Assembly-CSharp.dll:.GamePlayerStateSurrenderNoneUI
 f8189df38a5ff8447000f9feacbb7adf Assembly-CSharp.dll:Shogi.UseRule.LegalMoveUI
 3165968ba45c74472d279ba04455fccb Unity.TextMeshPro.dll:TMPro.TMP_ColorGradient
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:.RequestDrawStateNoneIdentity
@@ -1974,7 +1981,7 @@ cc2db7cc2af61f8e1e6fb288a81ade44 Assembly-CSharp.dll:Shogi.NoneRule.ShogiCustomS
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.GuildTopicUpdate
 defe3699bd9065d528faa36642b7f5ff Assembly-CSharp.dll:GameManager.Match.ContentTeamResultIdentity
 b81e277943fcf5b9e3da58a7e844b2b3 Assembly-CSharp.dll:EnglishDraught.EnglishDraughtAIUI
-4d10169ce9320e46a2ec6a8d076c37e2 Assembly-CSharp.dll:FileSystem.RenameFileUI
+444d2540835ec4cfc035836d7935a4de Assembly-CSharp.dll:FileSystem.RenameFileUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:GameState.LoadUpdate
 7248d4edb21448927eb0d57654988f6e Assembly-CSharp.dll:CoTuongUp.CoTuongUpMoveAnimationIdentity
 f8b3396d58490f4f27e501e317d1b596 Assembly-CSharp.dll:UnityEngine.UI.Extensions.DragCorrector
@@ -2007,7 +2014,7 @@ a544ec2cf3213599228a098c645b8f93 Assembly-CSharp.dll:UnityEngine.UI.Extensions.U
 ac17869a67a70df24303876f7868a1f5 Assembly-CSharp.dll:HEX.HexAIUI
 80e1f0a836ed9c67a212eae9bcb0c535 Assembly-CSharp.dll:.MainUI
 f2958aab84a7902d04f298d6265e0701 Assembly-CSharp.dll:.ClientInputSendUI
-0f0fe22e9b42fd30c46728c005caa3dc Assembly-CSharp.dll:.PerspectiveAutoUI
+7064163e74e3d3d2febb9b4a81d95035 Assembly-CSharp.dll:.PerspectiveAutoUI
 176a0297cf7e106f08b27d8c00f9fdb3 Assembly-CSharp.dll:GameManager.Match.Elimination.BtnEliminationContentUI
 496f74ddc390616fd6804160fee5a6df Assembly-CSharp.dll:Gomoku.NoneRuleInputUI
 80d1822b3495d495c6c8deb6cd769e7c Assembly-CSharp.dll:.BugTopicUI
@@ -2026,7 +2033,7 @@ e5752c40d56634aac7dbad7ab97a6efb Assembly-CSharp.dll:Janggi.LastMoveUI
 4ba17081a5a27bc1432e9bdbc253adb4 Assembly-CSharp.dll:NineMenMorris.NineMenMorrisAIIdentity
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Solitaire.UITransformOrganizer
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Reversi.UITransformOrganizer
-3c11496f7de18b228251c8c55e18998d Assembly-CSharp.dll:FileSystem.ShowDirectoryUI
+ff281f37ce9a1d7c228ea312d94e626a Assembly-CSharp.dll:FileSystem.ShowDirectoryUI
 e6938e74c3193d5e5b0fe9effd20e828 Assembly-CSharp.dll:HEX.NoneRule.HexCustomSetIdentity
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.NormalUpdate
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:GameManager.Match.RoundRobin.RoundRobinUpdate
@@ -2035,7 +2042,7 @@ a01528258fe67fa484658e5b5d14c189 Facebook.Unity.Settings.dll:Facebook.Unity.Sett
 8660f99bd306a8a3db3e26573d38a742 Assembly-CSharp.dll:.AccountNoneUI
 c76fd984a00bc8502f2b58359e400847 Assembly-CSharp.dll:InternationalDraught.InternationalDraughtSpriteContainer
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.RemoteConfigUpdate
-faf6745f6aea7d0674c8a36892c98d23 Assembly-CSharp.dll:TimeControl.HourGlass.GamePlayerTimeHourGlassUI
+85c85d7bbbb2864e583ba4a5d0427e2e Assembly-CSharp.dll:TimeControl.HourGlass.GamePlayerTimeHourGlassUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Record.ViewRecordControllerStatePlayUpdate
 8649814970b42d345b89944b862453cc Unity.TextMeshPro.dll:TMPro.TMP_SubMesh
 4d9b1397e280dbbdb386de4201a7b50e Assembly-CSharp.dll:UnityEngine.UI.Extensions.UICornerCut
@@ -2067,7 +2074,7 @@ c19273e37ae82c902d416f701fac9322 Assembly-CSharp.dll:ChineseCheckers.BoardUI
 80d1822b3495d495c6c8deb6cd769e7c Assembly-CSharp.dll:Xiangqi.UseRule.GettingUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:GameManager.Match.RoundStateStartUpdate
 b984a8a7682e0deb9bb2b643816402d1 Assembly-CSharp.dll:CoTuongUp.NoneRule.CoTuongUpCustomMoveUI
-fa400fdba77ff74a2e168b1581e7749b Assembly-CSharp.dll:Posture.ChoosePostureUI
+9bb7bc608eefe53288576d98c55838cf Assembly-CSharp.dll:Posture.ChoosePostureUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:InternationalDraught.UITransformOrganizer
 9f45a5f726a1af97674ac467a8c06f89 Assembly-CSharp.dll:Gomoku.GomokuAIIdentity
 a73b9e207be4a58b53c732b4e7d7a95c Assembly-CSharp.dll:frame8.ScrollRectItemsAdapter.Util.SimpleImageColorBouncer
@@ -2096,11 +2103,11 @@ a7b779604dbd5de6a278ab20795194e4 Assembly-CSharp.dll:FileSystem.ActionEditProces
 88ce25a59ff956560ff1a82ecb95b8a6 Assembly-CSharp.dll:Janggi.UseRuleInputUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.ChatMessageUpdate
 51614b8e82de2e338b7cd24aaa69c192 Assembly-CSharp.dll:InternationalDraught.NoneRule.ClickMoveUI
-c16cf991dd86059b2e2efb74d4291c3d Assembly-CSharp.dll:Chess.UseRule.LegalMoveUI
+78504b8e40c03cd4934795bb0d8bd304 Assembly-CSharp.dll:Chess.UseRule.LegalMoveUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.RequestChangeIntUpdate
 9ddc2b2187818c016364b1b3fc6ce013 Assembly-CSharp.dll:.RequestChangeUseRuleStateAskUI
 268f64771503c415658e9fc46200da2a Assembly-CSharp.dll:InternationalDraught.InternationalDraughtIdentity
-77695488f3559bd5054ed89fdc091670 Assembly-CSharp.dll:.GamePlayerStateUI
+fd5e678111f4497ef56a9c20bfa49813 Assembly-CSharp.dll:.GamePlayerStateUI
 da5f290f0a36be457377ad68bcab5c57 Assembly-CSharp.dll:Khet.NoneRule.KhetCustomRotateIdentity
 75cd65e2129cac420e5c7ae9fa1e4a42 Assembly-CSharp.dll:Weiqi.MoveQueueIdentity
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:Sudoku.SudokuIdentity
@@ -2142,7 +2149,7 @@ c2f6927ec4bc1f3b3e27765b16a877a3 Assembly-CSharp.dll:GameManager.Match.Swap.Chan
 1a69b27f97639b87b404cf8b33f302d9 Assembly-CSharp.dll:RussianDraught.UseRule.ClickPieceUI
 94698a4f420b6b2e0a94e37ebad9fff1 Assembly-CSharp.dll:Chess.UseRule.ClickDestChooseUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.ChatViewerUpdate
-74e82ee4446ec09d4179dfc383576d15 Assembly-CSharp.dll:.ToastMessageUI
+014cf23b91adf9a2d7579b76c89feaca Assembly-CSharp.dll:.ToastMessageUI
 04bea10f7b05293eed29963f0da1c882 Assembly-CSharp.dll:UnityEngine.UI.Extensions.DiamondGraph
 3513044a324e2da1403fa3e5a8dce498 Assembly-CSharp.dll:.RequestChangeFloatUI
 958b6e466af1e8a704e7eee54a4200ac Assembly-CSharp.dll:Makruk.MakrukMoveAnimationIdentity
@@ -2165,5 +2172,5 @@ f088becad4c6b66297d799d4612fc8ff Assembly-CSharp.dll:.PostureGameDataFactoryUI
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:Khet.KhetSubIdentity
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:TimeControl.Normal.TotalTimeInfoNoLimitIdentity
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:Sudoku.SudokuSolveIdentity
-ba859be36f783a08e00350bd2b151cdc Assembly-CSharp.dll:.LoadDataUI
+d06ddf90227012b27a616415bdb3af92 Assembly-CSharp.dll:.LoadDataUI
 4b42596d3d9e2de01e9541fb5c8d5953 Assembly-CSharp.dll:GameManager.Match.SingleContestContentUI

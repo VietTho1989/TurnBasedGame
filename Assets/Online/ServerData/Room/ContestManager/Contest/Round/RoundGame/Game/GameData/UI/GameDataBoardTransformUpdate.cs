@@ -113,8 +113,18 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
                             }
                             else
                             {
-                                width = Mathf.Min(gameDataWidth, gameDataHeight - 16);
-                                height = Mathf.Min(gameDataWidth, gameDataHeight - 16);
+                                // portrait
+                                if (gameDataWidth <= gameDataHeight)
+                                {
+                                    width = Mathf.Min(gameDataWidth, gameDataHeight - 16);
+                                    height = Mathf.Min(gameDataWidth, gameDataHeight - 16);
+                                }
+                                // landscape
+                                else
+                                {
+                                    width = Mathf.Min(gameDataWidth - 16, gameDataHeight - 16);
+                                    height = Mathf.Min(gameDataWidth - 16, gameDataHeight - 16);
+                                }
                             }
                         }
                         else

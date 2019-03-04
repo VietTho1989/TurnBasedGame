@@ -247,7 +247,7 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>, HaveTransformData
                         }
                         else
                         {
-                            Debug.LogError("requestChangeUseRuleUIData null");
+                            // Debug.LogError("requestChangeUseRuleUIData null");
                         }
                     }
                     // perspectiveUIData
@@ -273,7 +273,7 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>, HaveTransformData
                         }
                         else
                         {
-                            Debug.LogError("perspectiveUIData null");
+                            // Debug.LogError("perspectiveUIData null");
                         }
                     }
                     // gamePlayerList

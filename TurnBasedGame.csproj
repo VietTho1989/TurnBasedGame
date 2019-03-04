@@ -1502,7 +1502,6 @@
     <Compile Include="Assets\BestHTTP\WebSocket\WebSocket.cs" />
     <Compile Include="Assets\BestHTTP\WebSocket\WebSocketResponse.cs" />
     <Compile Include="Assets\BestHTTP\WebSocket\WebSocketStatusCodes.cs" />
-    <Compile Include="Assets\bz2_test\Scripts\bz2Test.cs" />
     <Compile Include="Assets\Common\Basic\AddCallBackInterface.cs" />
     <Compile Include="Assets\Common\Basic\Property\Generic.cs" />
     <Compile Include="Assets\Common\Basic\Property\LP.cs" />
@@ -1867,6 +1866,7 @@
     <Compile Include="Assets\Main\Online\Client\GlobalView\Profile\UserUI\HumanUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\Profile\UserUI\UserUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\Room\GlobalRoomsUI.cs" />
+    <Compile Include="Assets\Main\Online\Client\GlobalView\Room\RoomList\BtnDelete\RoomAdminBtnDeleteUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\Room\RoomList\CreateRoom\BtnCreateRoomUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\Room\RoomList\CreateRoom\CreateRoom.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\Room\RoomList\CreateRoom\CreateRoomMessage.cs" />
@@ -2763,7 +2763,7 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\ChineseChess\Janggi\Janggi\Board.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\ChineseChess\Janggi\Janggi\Common.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\ChineseChess\Janggi\Janggi\DevelopmentTest.cs" />
-    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\ChineseChess\Janggi\Janggi\Global.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\ChineseChess\Janggi\Janggi\GlobalJanggi.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\ChineseChess\Janggi\Janggi\IStructuralComparable.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\ChineseChess\Janggi\Janggi\IStructuralEquatable.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\ChineseChess\Janggi\Janggi\Stones.cs" />
@@ -3607,6 +3607,7 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UI\Board\Perspective\Perspective.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UI\Board\Perspective\PerspectiveUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UI\Board\Perspective\PerspectiveUpdate.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UI\GameDataBoardTransformUpdate.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UI\GameDataUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UI\GameDataUIAllowInputUpdate.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UI\GameDataUICheckAllowInputChange.cs" />
@@ -3682,6 +3683,7 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\Move\GameMove.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\Move\NonMove\NonMove.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\Move\NonMove\NonMoveIdentity.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\State\GamePlayerStateBtnUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\State\GamePlayerStateUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\State\Normal\GamePlayerStateNormal.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\State\Normal\GamePlayerStateNormalIdentity.cs" />
@@ -3695,6 +3697,8 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\State\Surrender\State\Ask\GamePlayerStateSurrenderAskIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\State\Surrender\State\Ask\GamePlayerStateSurrenderAskUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\State\Surrender\State\Ask\GamePlayerStateSurrenderAskUpdate.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\State\Surrender\State\Ask\WhoCanAsk\WhoCanAskAdapter.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\State\Surrender\State\Ask\WhoCanAsk\WhoCanAskHolder.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\State\Surrender\State\None\GamePlayerStateSurrenderNone.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\State\Surrender\State\None\GamePlayerStateSurrenderNoneIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\State\Surrender\State\None\GamePlayerStateSurrenderNoneUI.cs" />
@@ -3764,7 +3768,9 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\Pause\Normal\BtnPauseNormalUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\Pause\Pause\BtnPausePauseUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\Pause\UnPause\BtnPauseUnPauseUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\Perspective\BtnPerspectiveUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\RequestDraw\BtnRequestDrawUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\Save\BtnSaveGameUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\UndoRedo\BtnUndoRedoUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Bottom\UseRule\BtnUseRuleUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\BtnHint\Edit\EditHintAIUI.cs" />
@@ -4392,7 +4398,6 @@
     <Compile Include="Assets\unity-ui-extensions\Scripts\Utilities\UISelectableExtension.cs" />
     <Compile Include="Assets\unity-ui-extensions\Scripts\VR Extensions\VRCursor.cs" />
     <Compile Include="Assets\unity-ui-extensions\Scripts\VR Extensions\VRInputModule.cs" />
-    <Compile Include="Assets\Utils\GameObjectUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\FacebookSDK\link.xml" />

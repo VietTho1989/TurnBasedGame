@@ -219,6 +219,10 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                         // find
                         int playerView = 0;
                         RectTransform boardTransform = null;
+                        float boardLeft = 0;
+                        float boardRight = 0;
+                        float boardTop = 0;
+                        float boardBottom = 0;
                         {
                             GameDataUI.UIData gameDataUIData = this.data.findDataInParent<GameDataUI.UIData>();
                             if (gameDataUIData != null)
@@ -250,6 +254,13 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                                             Debug.LogError("gameDataBoardUI null");
                                         }
                                     }
+                                    // margin
+                                    {
+                                        boardLeft = gameDataBoardUIData.left.v;
+                                        boardRight = gameDataBoardUIData.right.v;
+                                        boardTop = gameDataBoardUIData.top.v;
+                                        boardBottom = gameDataBoardUIData.bottom.v;
+                                    }
                                 }
                                 else
                                 {
@@ -265,10 +276,10 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                         if (boardTransform != null)
                         {
                             // find
-                            float left = boardTransform.rect.xMin;
-                            float right = boardTransform.rect.xMax;
-                            float top = boardTransform.rect.yMin;
-                            float bottom = boardTransform.rect.yMax;
+                            float left = boardTransform.rect.xMin - boardLeft;
+                            float right = boardTransform.rect.xMax + boardRight;
+                            float top = boardTransform.rect.yMin + boardTop;
+                            float bottom = boardTransform.rect.yMax - boardBottom;
                             {
                                 UIRectTransform.GetMargin(boardTransform, out left, out right, out top, out bottom);
                             }
@@ -811,32 +822,7 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
         // Global
         if(wrapProperty.p is Global)
         {
-            switch ((Global.Property)wrapProperty.n)
-            {
-                case Global.Property.networkReachability:
-                    break;
-                case Global.Property.deviceOrientation:
-                    dirty = true;
-                    break;
-                case Global.Property.screenOrientation:
-                    dirty = true;
-                    break;
-                case Global.Property.width:
-                    dirty = true;
-                    break;
-                case Global.Property.height:
-                    dirty = true;
-                    break;
-                case Global.Property.screenWidth:
-                    dirty = true;
-                    break;
-                case Global.Property.screenHeight:
-                    dirty = true;
-                    break;
-                default:
-                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                    break;
-            }
+            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Parent
@@ -882,6 +868,21 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                             case GameDataBoardUI.UIData.Property.animationManager:
                                 break;
                             case GameDataBoardUI.UIData.Property.sub:
+                                break;
+                            case GameDataBoardUI.UIData.Property.heightWidth:
+                                dirty = true;
+                                break;
+                            case GameDataBoardUI.UIData.Property.left:
+                                dirty = true;
+                                break;
+                            case GameDataBoardUI.UIData.Property.right:
+                                dirty = true;
+                                break;
+                            case GameDataBoardUI.UIData.Property.top:
+                                dirty = true;
+                                break;
+                            case GameDataBoardUI.UIData.Property.bottom:
+                                dirty = true;
                                 break;
                             case GameDataBoardUI.UIData.Property.perspective:
                                 {

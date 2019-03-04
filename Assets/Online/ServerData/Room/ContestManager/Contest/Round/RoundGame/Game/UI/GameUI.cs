@@ -278,7 +278,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
                         }
                         else
                         {
-                            Debug.LogError("requestDrawUIData null: " + this);
+                            // Debug.LogError("requestDrawUIData null: " + this);
                         }
                     }
                     // UndoRedoRequest
@@ -311,7 +311,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
                         }
                         else
                         {
-                            Debug.LogError("gameChatRoomUIData null: " + this);
+                            // Debug.LogError("gameChatRoomUIData null: " + this);
                         }
                     }
                     // saveUIData
@@ -335,7 +335,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
                         }
                         else
                         {
-                            Debug.LogError("gameHistoryUIData null: " + this);
+                            // Debug.LogError("gameHistoryUIData null: " + this);
                         }
                     }
                     // UI sibling index

@@ -389,7 +389,7 @@ public class UIRectTransform
         }
         else
         {
-            Debug.LogError("data null");
+            // Debug.LogError("data null");
         }
         return ret;
     }

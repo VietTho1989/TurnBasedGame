@@ -100,12 +100,6 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
     public Text tvSetting;
     public static readonly TxtLanguage txtSetting = new TxtLanguage();
 
-    public Text tvBack;
-    public static readonly TxtLanguage txtBack = new TxtLanguage();
-
-    public static readonly TxtLanguage txtImmediate = new TxtLanguage();
-    public static readonly TxtLanguage txtLater = new TxtLanguage();
-
     public static readonly TxtLanguage txtApply = new TxtLanguage();
     public static readonly TxtLanguage txtCannotApply = new TxtLanguage();
     public static readonly TxtLanguage txtReset = new TxtLanguage();
@@ -116,9 +110,6 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
         // txt
         {
             txtSetting.add(Language.Type.vi, "Thiết Lập");
-            txtBack.add(Language.Type.vi, "Quay Lại");
-            txtImmediate.add(Language.Type.vi, "Ngay Lập Tức");
-            txtLater.add(Language.Type.vi, "Sau này");
             txtApply.add(Language.Type.vi, "Áp Dụng");
             txtCannotApply.add(Language.Type.vi, "Không thể áp dụng");
             txtReset.add(Language.Type.vi, "Đặt lại");
@@ -195,12 +186,7 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
                             {
                                 // options
                                 {
-                                    List<string> options = new List<string>();
-                                    {
-                                        options.Add(txtImmediate.get("Immediately"));
-                                        options.Add(txtLater.get("Later"));
-                                    }
-                                    requestEditType.options.copyList(options);
+                                    Data.RefreshStrEditType(requestEditType);
                                 }
                                 // origin
                                 RequestChangeUpdate<int>.UpdateData updateData = requestEditType.updateData.v;
@@ -334,6 +320,10 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
                         Debug.LogError("editSetting null");
                     }
                 }
+                // siblingIndex
+                {
+                    UIRectTransform.SetSiblingIndex(this.data.settingUIData.v, 0);
+                }
                 // txt
                 {
                     if (tvSetting != null)
@@ -343,14 +333,6 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
                     else
                     {
                         Debug.LogError("tvSetting null: " + this);
-                    }
-                    if (tvBack != null)
-                    {
-                        tvBack.text = txtBack.get("Back");
-                    }
-                    else
-                    {
-                        // Debug.LogError ("tvBack null: " + this);
                     }
                 }
             }
@@ -794,6 +776,18 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
         else
         {
             Debug.LogError("data null: " + this);
+        }
+    }
+
+    public void onClickBtnRefreshUI()
+    {
+        MonoBehaviour[] allGameObjects = FindObjectsOfType<MonoBehaviour>();
+        foreach (MonoBehaviour gameObject in allGameObjects)
+        {
+            foreach(HaveTransformInterface ui in gameObject.GetComponents<HaveTransformInterface>())
+            {
+                ui.setDirty(true);
+            }
         }
     }
 

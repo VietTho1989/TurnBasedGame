@@ -122,6 +122,10 @@ public class GameActionsUI : UIBehavior<GameActionsUI.UIData>
                     {
                         // find
                         RectTransform boardTransform = null;
+                        float boardLeft = 0;
+                        float boardRight = 0;
+                        float boardTop = 0;
+                        float boardBottom = 0;
                         {
                             GameDataUI.UIData gameDataUIData = this.data.findDataInParent<GameDataUI.UIData>();
                             if (gameDataUIData != null)
@@ -129,14 +133,24 @@ public class GameActionsUI : UIBehavior<GameActionsUI.UIData>
                                 GameDataBoardUI.UIData gameDataBoardUIData = gameDataUIData.board.v;
                                 if (gameDataBoardUIData != null)
                                 {
-                                    GameDataBoardUI gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
-                                    if (gameDataBoardUI != null)
+                                    // boardTransform
                                     {
-                                        boardTransform = (RectTransform)gameDataBoardUI.transform;
+                                        GameDataBoardUI gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                                        if (gameDataBoardUI != null)
+                                        {
+                                            boardTransform = (RectTransform)gameDataBoardUI.transform;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("gameDataBoardUI null");
+                                        }
                                     }
-                                    else
+                                    // margin
                                     {
-                                        Debug.LogError("gameDataBoardUI null");
+                                        boardLeft = gameDataBoardUIData.left.v;
+                                        boardRight = gameDataBoardUIData.right.v;
+                                        boardTop = gameDataBoardUIData.top.v;
+                                        boardBottom = gameDataBoardUIData.bottom.v;
                                     }
                                 }
                                 else
@@ -153,10 +167,10 @@ public class GameActionsUI : UIBehavior<GameActionsUI.UIData>
                         if (boardTransform != null)
                         {
                             // find
-                            float left = boardTransform.rect.xMin;
-                            float right = boardTransform.rect.xMax;
-                            float top = boardTransform.rect.yMin;
-                            float bottom = boardTransform.rect.yMax;
+                            float left = boardTransform.rect.xMin - boardLeft;
+                            float right = boardTransform.rect.xMax + boardRight;
+                            float top = boardTransform.rect.yMin + boardTop;
+                            float bottom = boardTransform.rect.yMax - boardBottom;
                             {
                                 UIRectTransform.GetMargin(boardTransform, out left, out right, out top, out bottom);
                             }
@@ -249,6 +263,8 @@ public class GameActionsUI : UIBehavior<GameActionsUI.UIData>
     public UndoRedoActionUI undoRedoActionPrefab;
     public WaitInputActionUI waitInputActionPrefab;
 
+    private GameDataUI.UIData gameDataUIData = null;
+
     public override void onAddCallBack<T>(T data)
     {
         if (data is UIData)
@@ -256,6 +272,10 @@ public class GameActionsUI : UIBehavior<GameActionsUI.UIData>
             UIData uiData = data as UIData;
             // Global
             Global.get().addCallBack(this);
+            // Parent
+            {
+                DataUtils.addParentCallBack(uiData, this, ref this.gameDataUIData);
+            }
             // Child
             {
                 uiData.gameAction.allAddCallBack(this);
@@ -269,6 +289,38 @@ public class GameActionsUI : UIBehavior<GameActionsUI.UIData>
         {
             dirty = true;
             return;
+        }
+        // Parent
+        {
+            if (data is GameDataUI.UIData)
+            {
+                GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
+                // Child
+                {
+                    gameDataUIData.board.allAddCallBack(this);
+                }
+                dirty = true;
+                return;
+            }
+            // Child
+            {
+                if(data is GameDataBoardUI.UIData)
+                {
+                    GameDataBoardUI.UIData gameDataBoardUIData = data as GameDataBoardUI.UIData;
+                    // Child
+                    {
+                        TransformData.AddCallBack(gameDataBoardUIData, this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                if(data is TransformData)
+                {
+                    dirty = true;
+                    return;
+                }
+            }
         }
         // Child
         {
@@ -331,6 +383,10 @@ public class GameActionsUI : UIBehavior<GameActionsUI.UIData>
             UIData uiData = data as UIData;
             // Global
             Global.get().removeCallBack(this);
+            // Parent
+            {
+                DataUtils.removeParentCallBack(uiData, this, ref this.gameDataUIData);
+            }
             // Child
             {
                 uiData.gameAction.allRemoveCallBack(this);
@@ -343,6 +399,35 @@ public class GameActionsUI : UIBehavior<GameActionsUI.UIData>
         if (data is Global)
         {
             return;
+        }
+        // Parent
+        {
+            if (data is GameDataUI.UIData)
+            {
+                GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
+                // Child
+                {
+                    gameDataUIData.board.allRemoveCallBack(this);
+                }
+                return;
+            }
+            // Child
+            {
+                if (data is GameDataBoardUI.UIData)
+                {
+                    GameDataBoardUI.UIData gameDataBoardUIData = data as GameDataBoardUI.UIData;
+                    // Child
+                    {
+                        TransformData.RemoveCallBack(gameDataBoardUIData, this);
+                    }
+                    return;
+                }
+                // Child
+                if (data is TransformData)
+                {
+                    return;
+                }
+            }
         }
         // Child
         {
@@ -430,6 +515,82 @@ public class GameActionsUI : UIBehavior<GameActionsUI.UIData>
         {
             Global.OnValueTransformChange(wrapProperty, this);
             return;
+        }
+        // Parent
+        {
+            if (wrapProperty.p is GameDataUI.UIData)
+            {
+                switch ((GameDataUI.UIData.Property)wrapProperty.n)
+                {
+                    case GameDataUI.UIData.Property.gameData:
+                        break;
+                    case GameDataUI.UIData.Property.board:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case GameDataUI.UIData.Property.allowLastMove:
+                        break;
+                    case GameDataUI.UIData.Property.hintUI:
+                        break;
+                    case GameDataUI.UIData.Property.allowInput:
+                        break;
+                    case GameDataUI.UIData.Property.requestChangeUseRule:
+                        break;
+                    case GameDataUI.UIData.Property.perspectiveUIData:
+                        break;
+                    case GameDataUI.UIData.Property.gamePlayerList:
+                        break;
+                    case GameDataUI.UIData.Property.gameActionsUI:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            {
+                if (wrapProperty.p is GameDataBoardUI.UIData)
+                {
+                    switch ((GameDataBoardUI.UIData.Property)wrapProperty.n)
+                    {
+                        case GameDataBoardUI.UIData.Property.gameData:
+                            break;
+                        case GameDataBoardUI.UIData.Property.animationManager:
+                            break;
+                        case GameDataBoardUI.UIData.Property.sub:
+                            break;
+                        case GameDataBoardUI.UIData.Property.heightWidth:
+                            break;
+                        case GameDataBoardUI.UIData.Property.left:
+                            dirty = true;
+                            break;
+                        case GameDataBoardUI.UIData.Property.right:
+                            dirty = true;
+                            break;
+                        case GameDataBoardUI.UIData.Property.top:
+                            dirty = true;
+                            break;
+                        case GameDataBoardUI.UIData.Property.bottom:
+                            dirty = true;
+                            break;
+                        case GameDataBoardUI.UIData.Property.perspective:
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+                // Child
+                if (wrapProperty.p is TransformData)
+                {
+                    dirty = true;
+                    return;
+                }
+            }
         }
         // Child
         {

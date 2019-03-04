@@ -126,6 +126,11 @@ public abstract class UIBehavior<K> : GameBehavior<K>, TrashMan.DespawnInterface
         return this.data;
     }
 
+    public void setDirty(bool dirty)
+    {
+        this.dirty = dirty;
+    }
+
     #endregion
 
 }
