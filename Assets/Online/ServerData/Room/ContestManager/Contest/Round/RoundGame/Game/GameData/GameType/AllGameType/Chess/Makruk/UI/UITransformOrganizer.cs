@@ -127,6 +127,8 @@ namespace Makruk
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().addCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.addCallBack(this);
@@ -136,6 +138,12 @@ namespace Makruk
                 {
                     DataUtils.addParentCallBack(updateData, this, ref this.makrukGameDataUIData);
                 }
+                dirty = true;
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
                 dirty = true;
                 return;
             }
@@ -152,15 +160,7 @@ namespace Makruk
                     MakrukGameDataUI.UIData makrukGameDataUIData = data as MakrukGameDataUI.UIData;
                     // Child
                     {
-                        MakrukGameDataUI makrukGameDataUI = makrukGameDataUIData.findCallBack<MakrukGameDataUI>();
-                        if (makrukGameDataUI != null)
-                        {
-                            makrukGameDataUI.transformData.addCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("makrukGameDataUI null");
-                        }
+                        TransformData.AddCallBack(makrukGameDataUIData, this);
                     }
                     dirty = true;
                     return;
@@ -179,6 +179,8 @@ namespace Makruk
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().removeCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.removeCallBack(this);
@@ -189,6 +191,11 @@ namespace Makruk
                     DataUtils.removeParentCallBack(updateData, this, ref this.makrukGameDataUIData);
                 }
                 this.setDataNull(updateData);
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
                 return;
             }
             // CheckChange
@@ -203,15 +210,7 @@ namespace Makruk
                     MakrukGameDataUI.UIData makrukGameDataUIData = data as MakrukGameDataUI.UIData;
                     // Child
                     {
-                        MakrukGameDataUI makrukGameDataUI = makrukGameDataUIData.findCallBack<MakrukGameDataUI>();
-                        if (makrukGameDataUI != null)
-                        {
-                            makrukGameDataUI.transformData.removeCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("makrukGameDataUI null");
-                        }
+                        TransformData.RemoveCallBack(makrukGameDataUIData, this);
                     }
                     return;
                 }
@@ -235,9 +234,15 @@ namespace Makruk
                 switch ((UpdateData.Property)wrapProperty.n)
                 {
                     default:
-                        Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
+                return;
+            }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // CheckChange

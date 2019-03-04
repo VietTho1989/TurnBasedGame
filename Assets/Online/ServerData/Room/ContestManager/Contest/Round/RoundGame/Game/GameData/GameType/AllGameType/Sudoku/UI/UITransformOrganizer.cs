@@ -127,6 +127,8 @@ namespace Sudoku
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().addCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.addCallBack(this);
@@ -136,6 +138,12 @@ namespace Sudoku
                 {
                     DataUtils.addParentCallBack(updateData, this, ref this.sudokuGameDataUIData);
                 }
+                dirty = true;
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
                 dirty = true;
                 return;
             }
@@ -152,15 +160,7 @@ namespace Sudoku
                     SudokuGameDataUI.UIData sudokuGameDataUIData = data as SudokuGameDataUI.UIData;
                     // Child
                     {
-                        SudokuGameDataUI sudokuGameDataUI = sudokuGameDataUIData.findCallBack<SudokuGameDataUI>();
-                        if (sudokuGameDataUI != null)
-                        {
-                            sudokuGameDataUI.transformData.addCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("sudokuGameDataUI null");
-                        }
+                        TransformData.AddCallBack(sudokuGameDataUIData, this);
                     }
                     dirty = true;
                     return;
@@ -180,6 +180,8 @@ namespace Sudoku
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().removeCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.removeCallBack(this);
@@ -190,6 +192,11 @@ namespace Sudoku
                     DataUtils.removeParentCallBack(updateData, this, ref this.sudokuGameDataUIData);
                 }
                 this.setDataNull(updateData);
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
                 return;
             }
             // CheckChange
@@ -204,15 +211,7 @@ namespace Sudoku
                     SudokuGameDataUI.UIData sudokuGameDataUIData = data as SudokuGameDataUI.UIData;
                     // Child
                     {
-                        SudokuGameDataUI sudokuGameDataUI = sudokuGameDataUIData.findCallBack<SudokuGameDataUI>();
-                        if (sudokuGameDataUI != null)
-                        {
-                            sudokuGameDataUI.transformData.removeCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("sudokuGameDataUI null");
-                        }
+                        TransformData.RemoveCallBack(sudokuGameDataUIData, this);
                     }
                     return;
                 }
@@ -239,6 +238,12 @@ namespace Sudoku
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
+                return;
+            }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // CheckChange

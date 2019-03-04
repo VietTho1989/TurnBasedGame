@@ -5,39 +5,41 @@ using System.Collections.Generic;
 
 namespace FairyChess
 {
-	public class UITransformOrganizer : UpdateBehavior<UITransformOrganizer.UpdateData>
-	{
+    public class UITransformOrganizer : UpdateBehavior<UITransformOrganizer.UpdateData>
+    {
 
-		#region UpdateData
+        #region UpdateData
 
-		public class UpdateData : Data
-		{
+        public class UpdateData : Data
+        {
 
-			#region Constructor
+            #region Constructor
 
-			public enum Property
-			{
+            public enum Property
+            {
 
-			}
+            }
 
-			public UpdateData() : base()
-			{
+            public UpdateData() : base()
+            {
 
-			}
+            }
 
-			#endregion
+            #endregion
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		#region Update
+        #region Update
 
-		public override void update ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
+        public override void update()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
                     FairyChessGameDataUI fairyChessGameDataUI = null;
                     {
                         FairyChessGameDataUI.UIData fairyChessGameDataUIData = this.data.findDataInParent<FairyChessGameDataUI.UIData>();
@@ -51,7 +53,7 @@ namespace FairyChess
                         }
                     }
                     GameDataBoardUI gameDataBoardUI = null;
-					GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
+                    GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData>();
                     {
                         if (gameDataBoardUIData != null)
                         {
@@ -62,10 +64,11 @@ namespace FairyChess
                             Debug.LogError("gameDataBoardUIData null");
                         }
                     }
-                    if (fairyChessGameDataUI != null && gameDataBoardUI != null) {
-						RectTransform fairyChessTransform = (RectTransform)fairyChessGameDataUI.transform;
-						RectTransform boardTransform = (RectTransform)gameDataBoardUI.transform;
-                        if(fairyChessTransform!=null && boardTransform != null)
+                    if (fairyChessGameDataUI != null && gameDataBoardUI != null)
+                    {
+                        RectTransform fairyChessTransform = (RectTransform)fairyChessGameDataUI.transform;
+                        RectTransform boardTransform = (RectTransform)gameDataBoardUI.transform;
+                        if (fairyChessTransform != null && boardTransform != null)
                         {
                             Vector2 fairyChessSize = new Vector2(fairyChessTransform.rect.width, fairyChessTransform.rect.height);
                             Vector2 boardSize = new Vector2(boardTransform.rect.width, boardTransform.rect.height);
@@ -94,155 +97,178 @@ namespace FairyChess
                         {
                             Debug.LogError("fairyChessTransform, boardTransform null");
                         }
-					} else {
-						Debug.LogError ("fairyChessGameDataUI or gameDataBoardUI null: " + this);
-					}
-				} else {
-					Debug.LogError ("data null: " + this);
-				}
-			}
-		}
-
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
-
-		#endregion
-
-		#region implement callBacks
-
-		private FairyChessGameDataUI.UIData fairyChessGameDataUIData = null;
-		private GameDataBoardCheckTransformChange<UpdateData> gameDataBoardCheckTransformChange = new GameDataBoardCheckTransformChange<UpdateData>();
-
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UpdateData) {
-				UpdateData updateData = data as UpdateData;
-				// CheckChange
-				{
-					gameDataBoardCheckTransformChange.addCallBack (this);
-					gameDataBoardCheckTransformChange.setData (updateData);
-				}
-				// Parent
-				{
-					DataUtils.addParentCallBack (updateData, this, ref this.fairyChessGameDataUIData);
-				}
-				dirty = true;
-				return;
-			}
-			// CheckChange
-			if (data is GameDataBoardCheckTransformChange<UpdateData>) {
-				dirty = true;
-				return;
-			}
-			// Parent
-			{
-				if (data is FairyChessGameDataUI.UIData) {
-					FairyChessGameDataUI.UIData fairyChessGameDataUIData = data as FairyChessGameDataUI.UIData;
-                    // Child
-                    {
-                        FairyChessGameDataUI fairyChessGameDataUI = fairyChessGameDataUIData.findCallBack<FairyChessGameDataUI>();
-                        if (fairyChessGameDataUI != null)
-                        {
-                            fairyChessGameDataUI.transformData.addCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("fairyChessGameDataUI null");
-                        }
                     }
-					dirty = true;
-					return;
-				}
-                // Child
-				if (data is TransformData) {
-					dirty = true;
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
-
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UpdateData) {
-				UpdateData updateData = data as UpdateData;
-				// CheckChange
-				{
-					gameDataBoardCheckTransformChange.removeCallBack (this);
-					gameDataBoardCheckTransformChange.setData (null);
-				}
-				// Parent
-				{
-					DataUtils.removeParentCallBack (updateData, this, ref this.fairyChessGameDataUIData);
-				}
-				this.setDataNull (updateData);
-				return;
-			}
-			// CheckChange
-			if (data is GameDataBoardCheckTransformChange<UpdateData>) {
-				return;
-			}
-			// Parent
-			{
-				if (data is FairyChessGameDataUI.UIData) {
-					FairyChessGameDataUI.UIData fairyChessGameDataUIData = data as FairyChessGameDataUI.UIData;
-					// Child
+                    else
                     {
-                        FairyChessGameDataUI fairyChessGameDataUI = fairyChessGameDataUIData.findCallBack<FairyChessGameDataUI>();
-                        if (fairyChessGameDataUI != null)
-                        {
-                            fairyChessGameDataUI.transformData.removeCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("fairyChessGameDataUI null");
-                        }
+                        Debug.LogError("fairyChessGameDataUI or gameDataBoardUI null: " + this);
                     }
-					return;
-				}
-                // Child
-				if (data is TransformData) {
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+                }
+                else
+                {
+                    Debug.LogError("data null: " + this);
+                }
+            }
+        }
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UpdateData) {
-				switch ((UpdateData.Property)wrapProperty.n) {
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// CheckChange
-			if (wrapProperty.p is GameDataBoardCheckTransformChange<UpdateData>) {
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region implement callBacks
+
+        private FairyChessGameDataUI.UIData fairyChessGameDataUIData = null;
+        private GameDataBoardCheckTransformChange<UpdateData> gameDataBoardCheckTransformChange = new GameDataBoardCheckTransformChange<UpdateData>();
+
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UpdateData)
+            {
+                UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().addCallBack(this);
+                // CheckChange
+                {
+                    gameDataBoardCheckTransformChange.addCallBack(this);
+                    gameDataBoardCheckTransformChange.setData(updateData);
+                }
+                // Parent
+                {
+                    DataUtils.addParentCallBack(updateData, this, ref this.fairyChessGameDataUIData);
+                }
                 dirty = true;
                 return;
-			}
-			// Parent
-			{
-				if (wrapProperty.p is FairyChessGameDataUI.UIData) {
-					return;
-				}
-                // Child
-				if (wrapProperty.p is TransformData) {
+            }
+            // Global
+            if (data is Global)
+            {
+                dirty = true;
+                return;
+            }
+            // CheckChange
+            if (data is GameDataBoardCheckTransformChange<UpdateData>)
+            {
+                dirty = true;
+                return;
+            }
+            // Parent
+            {
+                if (data is FairyChessGameDataUI.UIData)
+                {
+                    FairyChessGameDataUI.UIData fairyChessGameDataUIData = data as FairyChessGameDataUI.UIData;
+                    // Child
+                    {
+                        TransformData.AddCallBack(fairyChessGameDataUIData, this);
+                    }
                     dirty = true;
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+                    return;
+                }
+                // Child
+                if (data is TransformData)
+                {
+                    dirty = true;
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		#endregion
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UpdateData)
+            {
+                UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().removeCallBack(this);
+                // CheckChange
+                {
+                    gameDataBoardCheckTransformChange.removeCallBack(this);
+                    gameDataBoardCheckTransformChange.setData(null);
+                }
+                // Parent
+                {
+                    DataUtils.removeParentCallBack(updateData, this, ref this.fairyChessGameDataUIData);
+                }
+                this.setDataNull(updateData);
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
+                return;
+            }
+            // CheckChange
+            if (data is GameDataBoardCheckTransformChange<UpdateData>)
+            {
+                return;
+            }
+            // Parent
+            {
+                if (data is FairyChessGameDataUI.UIData)
+                {
+                    FairyChessGameDataUI.UIData fairyChessGameDataUIData = data as FairyChessGameDataUI.UIData;
+                    // Child
+                    {
+                        TransformData.RemoveCallBack(fairyChessGameDataUIData, this);
+                    }
+                    return;
+                }
+                // Child
+                if (data is TransformData)
+                {
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-	}
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UpdateData)
+            {
+                switch ((UpdateData.Property)wrapProperty.n)
+                {
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
+                return;
+            }
+            // CheckChange
+            if (wrapProperty.p is GameDataBoardCheckTransformChange<UpdateData>)
+            {
+                dirty = true;
+                return;
+            }
+            // Parent
+            {
+                if (wrapProperty.p is FairyChessGameDataUI.UIData)
+                {
+                    return;
+                }
+                // Child
+                if (wrapProperty.p is TransformData)
+                {
+                    dirty = true;
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
+
+        #endregion
+
+    }
 }

@@ -129,6 +129,8 @@ namespace Weiqi
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().addCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.addCallBack(this);
@@ -138,6 +140,12 @@ namespace Weiqi
                 {
                     DataUtils.addParentCallBack(updateData, this, ref this.weiqiGameDataUIData);
                 }
+                dirty = true;
+                return;
+            }
+            // Global
+            if(data is Global)
+            {
                 dirty = true;
                 return;
             }
@@ -154,15 +162,7 @@ namespace Weiqi
                     WeiqiGameDataUI.UIData weiqiGameDataUIData = data as WeiqiGameDataUI.UIData;
                     // Child
                     {
-                        WeiqiGameDataUI weiqiGameDataUI = weiqiGameDataUIData.findCallBack<WeiqiGameDataUI>();
-                        if (weiqiGameDataUI != null)
-                        {
-                            weiqiGameDataUI.transformData.addCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("weiqiGameDataUI null");
-                        }
+                        TransformData.AddCallBack(weiqiGameDataUIData, this);
                     }
                     dirty = true;
                     return;
@@ -182,6 +182,8 @@ namespace Weiqi
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().removeCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.removeCallBack(this);
@@ -192,6 +194,11 @@ namespace Weiqi
                     DataUtils.removeParentCallBack(updateData, this, ref this.weiqiGameDataUIData);
                 }
                 this.setDataNull(updateData);
+                return;
+            }
+            // Global
+            if(data is Global)
+            {
                 return;
             }
             // CheckChange
@@ -206,15 +213,7 @@ namespace Weiqi
                     WeiqiGameDataUI.UIData weiqiGameDataUIData = data as WeiqiGameDataUI.UIData;
                     // Child
                     {
-                        WeiqiGameDataUI weiqiGameDataUI = weiqiGameDataUIData.findCallBack<WeiqiGameDataUI>();
-                        if (weiqiGameDataUI != null)
-                        {
-                            weiqiGameDataUI.transformData.removeCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("weiqiGameDataUI null");
-                        }
+                        TransformData.RemoveCallBack(weiqiGameDataUIData, this);
                     }
                     return;
                 }
@@ -241,6 +240,12 @@ namespace Weiqi
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
+                return;
+            }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // CheckChange

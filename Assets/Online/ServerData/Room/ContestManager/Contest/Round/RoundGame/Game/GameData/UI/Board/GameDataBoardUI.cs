@@ -27,11 +27,19 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>, HaveTransform
 
             public abstract bool processEvent(Event e);
 
+            public abstract void getUIRatio(out float heightWidth, out float left, out float right, out float top, out float bottom);
+
         }
 
         public VP<Sub> sub;
 
         #endregion
+
+        public VP<float> heightWidth;
+        public VP<float> left;
+        public VP<float> right;
+        public VP<float> top;
+        public VP<float> bottom;
 
         #region Perspective
 
@@ -68,6 +76,13 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>, HaveTransform
             gameData,
             animationManager,
             sub,
+
+            heightWidth,
+            left,
+            right,
+            top,
+            bottom,
+
             perspective
         }
 
@@ -76,6 +91,13 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>, HaveTransform
             this.gameData = new VP<ReferenceData<GameData>>(this, (byte)Property.gameData, new ReferenceData<GameData>(null));
             this.animationManager = new VP<AnimationManager>(this, (byte)Property.animationManager, new AnimationManager());
             this.sub = new VP<Sub>(this, (byte)Property.sub, null);
+
+            this.heightWidth = new VP<float>(this, (byte)Property.heightWidth, 1);
+            this.left = new VP<float>(this, (byte)Property.left, 0);
+            this.right = new VP<float>(this, (byte)Property.right, 0);
+            this.top = new VP<float>(this, (byte)Property.top, 0);
+            this.bottom = new VP<float>(this, (byte)Property.bottom, 0);
+
             this.perspective = new VP<Perspective>(this, (byte)Property.perspective, new Perspective());
         }
 
@@ -558,6 +580,34 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>, HaveTransform
                     {
                         Debug.LogError("not load full");
                         dirty = true;
+                    }
+                    // UIRatio
+                    {
+                        // find
+                        float heightWidth = 1;
+                        float left = 0;
+                        float right = 0;
+                        float top = 0;
+                        float bottom = 0;
+                        {
+                            UIData.Sub sub = this.data.sub.v;
+                            if (sub != null)
+                            {
+                                sub.getUIRatio(out heightWidth, out left, out right, out top, out bottom);
+                            }
+                            else
+                            {
+                                Debug.LogError("sub null");
+                            }
+                        }
+                        // set
+                        {
+                            this.data.heightWidth.v = heightWidth;
+                            this.data.left.v = left;
+                            this.data.right.v = right;
+                            this.data.top.v = top;
+                            this.data.bottom.v = bottom;
+                        }
                     }
                 }
                 else

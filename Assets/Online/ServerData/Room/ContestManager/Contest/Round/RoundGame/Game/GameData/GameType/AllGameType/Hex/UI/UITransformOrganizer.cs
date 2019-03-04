@@ -142,6 +142,8 @@ namespace HEX
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().addCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.addCallBack(this);
@@ -151,6 +153,12 @@ namespace HEX
                 {
                     DataUtils.addParentCallBack(updateData, this, ref this.hexGameDataUIData);
                 }
+                dirty = true;
+                return;
+            }
+            // Global
+            if(data is Global)
+            {
                 dirty = true;
                 return;
             }
@@ -167,18 +175,7 @@ namespace HEX
                     HexGameDataUI.UIData hexGameDataUIData = data as HexGameDataUI.UIData;
                     // Child
                     {
-                        // transformData
-                        {
-                            HexGameDataUI hexGameDataUI = hexGameDataUIData.findCallBack<HexGameDataUI>();
-                            if (hexGameDataUI != null)
-                            {
-                                hexGameDataUI.transformData.addCallBack(this);
-                            }
-                            else
-                            {
-                                Debug.LogError("hexGameDataUI null");
-                            }
-                        }
+                        TransformData.AddCallBack(hexGameDataUIData, this);
                         hexGameDataUIData.board.allAddCallBack(this);
                     }
                     dirty = true;
@@ -206,6 +203,8 @@ namespace HEX
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().removeCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.removeCallBack(this);
@@ -216,6 +215,11 @@ namespace HEX
                     DataUtils.removeParentCallBack(updateData, this, ref this.hexGameDataUIData);
                 }
                 this.setDataNull(updateData);
+                return;
+            }
+            // Global
+            if(data is Global)
+            {
                 return;
             }
             // CheckChange
@@ -230,18 +234,7 @@ namespace HEX
                     HexGameDataUI.UIData hexGameDataUIData = data as HexGameDataUI.UIData;
                     // Child
                     {
-                        // transformData
-                        {
-                            HexGameDataUI hexGameDataUI = hexGameDataUIData.findCallBack<HexGameDataUI>();
-                            if (hexGameDataUI != null)
-                            {
-                                hexGameDataUI.transformData.removeCallBack(this);
-                            }
-                            else
-                            {
-                                Debug.LogError("hexGameDataUI null");
-                            }
-                        }
+                        TransformData.RemoveCallBack(hexGameDataUIData, this);
                         hexGameDataUIData.board.allRemoveCallBack(this);
                     }
                     return;
@@ -275,6 +268,12 @@ namespace HEX
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
+                return;
+            }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // CheckChange

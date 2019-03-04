@@ -127,6 +127,8 @@ namespace MineSweeper
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().addCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.addCallBack(this);
@@ -136,6 +138,12 @@ namespace MineSweeper
                 {
                     DataUtils.addParentCallBack(updateData, this, ref this.mineSweeperGameDataUIData);
                 }
+                dirty = true;
+                return;
+            }
+            // Global
+            if(data is Global)
+            {
                 dirty = true;
                 return;
             }
@@ -152,15 +160,7 @@ namespace MineSweeper
                     MineSweeperGameDataUI.UIData mineSweeperGameDataUIData = data as MineSweeperGameDataUI.UIData;
                     // Child
                     {
-                        MineSweeperGameDataUI mineSweeperGameDataUI = mineSweeperGameDataUIData.findCallBack<MineSweeperGameDataUI>();
-                        if (mineSweeperGameDataUI != null)
-                        {
-                            mineSweeperGameDataUI.transformData.addCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("mineSweeperGameDataUI null");
-                        }
+                        TransformData.AddCallBack(mineSweeperGameDataUIData, this);
                     }
                     dirty = true;
                     return;
@@ -180,6 +180,8 @@ namespace MineSweeper
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().removeCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.removeCallBack(this);
@@ -190,6 +192,11 @@ namespace MineSweeper
                     DataUtils.removeParentCallBack(updateData, this, ref this.mineSweeperGameDataUIData);
                 }
                 this.setDataNull(updateData);
+                return;
+            }
+            // Global
+            if(data is Global)
+            {
                 return;
             }
             // CheckChange
@@ -239,6 +246,12 @@ namespace MineSweeper
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
+                return;
+            }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // CheckChange

@@ -127,6 +127,8 @@ namespace NineMenMorris
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().addCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.addCallBack(this);
@@ -136,6 +138,12 @@ namespace NineMenMorris
                 {
                     DataUtils.addParentCallBack(updateData, this, ref this.nineMenMorrisGameDataUIData);
                 }
+                dirty = true;
+                return;
+            }
+            // Global
+            if(data is Global)
+            {
                 dirty = true;
                 return;
             }
@@ -152,15 +160,7 @@ namespace NineMenMorris
                     NineMenMorrisGameDataUI.UIData nineMenMorrisGameDataUIData = data as NineMenMorrisGameDataUI.UIData;
                     // Child
                     {
-                        NineMenMorrisGameDataUI nineMenMorrisGameDataUI = nineMenMorrisGameDataUIData.findCallBack<NineMenMorrisGameDataUI>();
-                        if (nineMenMorrisGameDataUI != null)
-                        {
-                            nineMenMorrisGameDataUI.transformData.addCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("nineMenMorrisGameDataUI null");
-                        }
+                        TransformData.AddCallBack(nineMenMorrisGameDataUIData, this);
                     }
                     dirty = true;
                     return;
@@ -180,6 +180,8 @@ namespace NineMenMorris
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().removeCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.removeCallBack(this);
@@ -190,6 +192,11 @@ namespace NineMenMorris
                     DataUtils.removeParentCallBack(updateData, this, ref this.nineMenMorrisGameDataUIData);
                 }
                 this.setDataNull(updateData);
+                return;
+            }
+            // Global
+            if(data is Global)
+            {
                 return;
             }
             // CheckChange
@@ -204,15 +211,7 @@ namespace NineMenMorris
                     NineMenMorrisGameDataUI.UIData nineMenMorrisGameDataUIData = data as NineMenMorrisGameDataUI.UIData;
                     // Child
                     {
-                        NineMenMorrisGameDataUI nineMenMorrisGameDataUI = nineMenMorrisGameDataUIData.findCallBack<NineMenMorrisGameDataUI>();
-                        if (nineMenMorrisGameDataUI != null)
-                        {
-                            nineMenMorrisGameDataUI.transformData.removeCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("nineMenMorrisGameDataUI null");
-                        }
+                        TransformData.RemoveCallBack(nineMenMorrisGameDataUIData, this);
                     }
                     return;
                 }
@@ -239,6 +238,12 @@ namespace NineMenMorris
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
+                return;
+            }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // CheckChange

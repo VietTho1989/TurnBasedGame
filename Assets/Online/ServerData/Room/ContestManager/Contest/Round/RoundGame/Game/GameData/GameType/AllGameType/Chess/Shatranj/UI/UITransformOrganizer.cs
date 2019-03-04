@@ -127,6 +127,8 @@ namespace Shatranj
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().addCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.addCallBack(this);
@@ -136,6 +138,12 @@ namespace Shatranj
                 {
                     DataUtils.addParentCallBack(updateData, this, ref this.shatranjGameDataUIData);
                 }
+                dirty = true;
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
                 dirty = true;
                 return;
             }
@@ -152,15 +160,7 @@ namespace Shatranj
                     ShatranjGameDataUI.UIData shatranjGameDataUIData = data as ShatranjGameDataUI.UIData;
                     // Child
                     {
-                        ShatranjGameDataUI shatranjGameDataUI = shatranjGameDataUIData.findCallBack<ShatranjGameDataUI>();
-                        if (shatranjGameDataUI != null)
-                        {
-                            shatranjGameDataUI.transformData.addCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("shatranjGameDataUI null");
-                        }
+                        TransformData.AddCallBack(shatranjGameDataUIData, this);
                     }
                     dirty = true;
                     return;
@@ -180,6 +180,8 @@ namespace Shatranj
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().removeCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.removeCallBack(this);
@@ -190,6 +192,11 @@ namespace Shatranj
                     DataUtils.removeParentCallBack(updateData, this, ref this.shatranjGameDataUIData);
                 }
                 this.setDataNull(updateData);
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
                 return;
             }
             // CheckChange
@@ -204,15 +211,7 @@ namespace Shatranj
                     ShatranjGameDataUI.UIData shatranjGameDataUIData = data as ShatranjGameDataUI.UIData;
                     // Child
                     {
-                        ShatranjGameDataUI shatranjGameDataUI = shatranjGameDataUIData.findCallBack<ShatranjGameDataUI>();
-                        if (shatranjGameDataUI != null)
-                        {
-                            shatranjGameDataUI.transformData.removeCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("shatranjGameDataUI null");
-                        }
+                        TransformData.RemoveCallBack(shatranjGameDataUIData, this);
                     }
                     return;
                 }
@@ -239,6 +238,12 @@ namespace Shatranj
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
+                return;
+            }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // CheckChange

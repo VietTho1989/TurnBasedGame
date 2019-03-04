@@ -129,6 +129,8 @@ namespace Xiangqi
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().addCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.addCallBack(this);
@@ -138,6 +140,12 @@ namespace Xiangqi
                 {
                     DataUtils.addParentCallBack(updateData, this, ref this.xiangqiGameDataUIData);
                 }
+                dirty = true;
+                return;
+            }
+            // Global
+            if(data is Global)
+            {
                 dirty = true;
                 return;
             }
@@ -154,15 +162,7 @@ namespace Xiangqi
                     XiangqiGameDataUI.UIData xiangqiGameDataUIData = data as XiangqiGameDataUI.UIData;
                     // Child
                     {
-                        XiangqiGameDataUI xiangqiGameDataUI = xiangqiGameDataUIData.findCallBack<XiangqiGameDataUI>();
-                        if (xiangqiGameDataUI != null)
-                        {
-                            xiangqiGameDataUI.transformData.addCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("xiangqiGameDataUI null");
-                        }
+                        TransformData.AddCallBack(xiangqiGameDataUIData, this);
                     }
                     dirty = true;
                     return;
@@ -182,6 +182,8 @@ namespace Xiangqi
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().removeCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.removeCallBack(this);
@@ -192,6 +194,11 @@ namespace Xiangqi
                     DataUtils.removeParentCallBack(updateData, this, ref this.xiangqiGameDataUIData);
                 }
                 this.setDataNull(updateData);
+                return;
+            }
+            // Global
+            if(data is Global)
+            {
                 return;
             }
             // CheckChange
@@ -206,15 +213,7 @@ namespace Xiangqi
                     XiangqiGameDataUI.UIData xiangqiGameDataUIData = data as XiangqiGameDataUI.UIData;
                     // Child
                     {
-                        XiangqiGameDataUI xiangqiGameDataUI = xiangqiGameDataUIData.findCallBack<XiangqiGameDataUI>();
-                        if (xiangqiGameDataUI != null)
-                        {
-                            xiangqiGameDataUI.transformData.removeCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("xiangqiGameDataUI null");
-                        }
+                        TransformData.RemoveCallBack(xiangqiGameDataUIData, this);
                     }
                     return;
                 }
@@ -241,6 +240,12 @@ namespace Xiangqi
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
+                return;
+            }
+            // Global
+            if(wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // CheckChange

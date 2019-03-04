@@ -150,15 +150,7 @@ namespace Chess
 					ChessGameDataUI.UIData chessGameDataUIData = data as ChessGameDataUI.UIData;
 					// Child
 					{
-                        ChessGameDataUI chessGameDataUI = chessGameDataUIData.findCallBack<ChessGameDataUI>();
-                        if (chessGameDataUI != null)
-                        {
-                            chessGameDataUI.transformData.addCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("chessGameDataUI null");
-                        }
+                        TransformData.AddCallBack(chessGameDataUIData, this);
 					}
 					dirty = true;
 					return;
@@ -205,15 +197,7 @@ namespace Chess
 					ChessGameDataUI.UIData chessGameDataUIData = data as ChessGameDataUI.UIData;
 					// Child
 					{
-                        ChessGameDataUI chessGameDataUI = chessGameDataUIData.findCallBack<ChessGameDataUI>();
-                        if (chessGameDataUI != null)
-                        {
-                            chessGameDataUI.transformData.removeCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("chessGameDataUI null");
-                        }
+                        TransformData.RemoveCallBack(chessGameDataUIData, this);
                     }
 					return;
 				}

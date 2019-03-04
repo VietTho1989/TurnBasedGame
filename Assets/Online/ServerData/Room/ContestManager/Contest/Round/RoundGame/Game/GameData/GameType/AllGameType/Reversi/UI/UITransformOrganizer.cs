@@ -35,9 +35,11 @@ namespace Reversi
 
         public override void update()
         {
-            if (dirty) {
+            if (dirty)
+            {
                 dirty = false;
-                if (this.data != null) {
+                if (this.data != null)
+                {
                     ReversiGameDataUI reversiGameDataUI = null;
                     {
                         ReversiGameDataUI.UIData reversiGameDataUIData = this.data.findDataInParent<ReversiGameDataUI.UIData>();
@@ -62,7 +64,8 @@ namespace Reversi
                             Debug.LogError("gameDataBoardUIData null");
                         }
                     }
-                    if (reversiGameDataUI != null && gameDataBoardUI != null) {
+                    if (reversiGameDataUI != null && gameDataBoardUI != null)
+                    {
                         RectTransform reversiTransform = (RectTransform)reversiGameDataUI.transform;
                         RectTransform boardTransform = (RectTransform)gameDataBoardUI.transform;
                         if (reversiTransform != null && boardTransform != null)
@@ -94,12 +97,16 @@ namespace Reversi
                         }
                         else
                         {
-                            Debug.LogError("reversiTransform, boardTransform null")
+                            Debug.LogError("reversiTransform, boardTransform null");
                         }
-                    } else {
+                    }
+                    else
+                    {
                         Debug.LogError("reversiGameDataUI or gameDataBoardUI null: " + this);
                     }
-                } else {
+                }
+                else
+                {
                     Debug.LogError("data null: " + this);
                 }
             }
@@ -119,8 +126,11 @@ namespace Reversi
 
         public override void onAddCallBack<T>(T data)
         {
-            if (data is UpdateData) {
+            if (data is UpdateData)
+            {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().addCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.addCallBack(this);
@@ -133,32 +143,33 @@ namespace Reversi
                 dirty = true;
                 return;
             }
+            // Global
+            if (data is Global)
+            {
+                dirty = true;
+                return;
+            }
             // CheckChange
-            if (data is GameDataBoardCheckTransformChange<UpdateData>) {
+            if (data is GameDataBoardCheckTransformChange<UpdateData>)
+            {
                 dirty = true;
                 return;
             }
             // Parent
             {
-                if (data is ReversiGameDataUI.UIData) {
+                if (data is ReversiGameDataUI.UIData)
+                {
                     ReversiGameDataUI.UIData reversiGameDataUIData = data as ReversiGameDataUI.UIData;
                     // Child
                     {
-                        ReversiGameDataUI reversiGameDataUI = reversiGameDataUIData.findCallBack<ReversiGameDataUI>();
-                        if (reversiGameDataUI != null)
-                        {
-                            reversiGameDataUI.transformData.addCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("reversiGameDataUI null");
-                        }
+                        TransformData.AddCallBack(reversiGameDataUIData, this);
                     }
                     dirty = true;
                     return;
                 }
                 // Child
-                if (data is TransformData) {
+                if (data is TransformData)
+                {
                     dirty = true;
                     return;
                 }
@@ -168,8 +179,11 @@ namespace Reversi
 
         public override void onRemoveCallBack<T>(T data, bool isHide)
         {
-            if (data is UpdateData) {
+            if (data is UpdateData)
+            {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().removeCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.removeCallBack(this);
@@ -182,30 +196,30 @@ namespace Reversi
                 this.setDataNull(updateData);
                 return;
             }
+            // Global
+            if (data is Global)
+            {
+                return;
+            }
             // CheckChange
-            if (data is GameDataBoardCheckTransformChange<UpdateData>) {
+            if (data is GameDataBoardCheckTransformChange<UpdateData>)
+            {
                 return;
             }
             // Parent
             {
-                if (data is ReversiGameDataUI.UIData) {
+                if (data is ReversiGameDataUI.UIData)
+                {
                     ReversiGameDataUI.UIData reversiGameDataUIData = data as ReversiGameDataUI.UIData;
                     // Child
                     {
-                        ReversiGameDataUI reversiGameDataUI = reversiGameDataUIData.findCallBack<ReversiGameDataUI>();
-                        if (reversiGameDataUI != null)
-                        {
-                            reversiGameDataUI.transformData.removeCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("reversiGameDataUI null");
-                        }
+                        TransformData.RemoveCallBack(reversiGameDataUIData, this);
                     }
                     return;
                 }
                 // Child
-                if (data is TransformData) {
+                if (data is TransformData)
+                {
                     return;
                 }
             }
@@ -214,29 +228,41 @@ namespace Reversi
 
         public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
         {
-            if (WrapProperty.checkError(wrapProperty)) {
+            if (WrapProperty.checkError(wrapProperty))
+            {
                 return;
             }
-            if (wrapProperty.p is UpdateData) {
-                switch ((UpdateData.Property)wrapProperty.n) {
+            if (wrapProperty.p is UpdateData)
+            {
+                switch ((UpdateData.Property)wrapProperty.n)
+                {
                     default:
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
                 return;
             }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
+                return;
+            }
             // CheckChange
-            if (wrapProperty.p is GameDataBoardCheckTransformChange<UpdateData>) {
+            if (wrapProperty.p is GameDataBoardCheckTransformChange<UpdateData>)
+            {
                 dirty = true;
                 return;
             }
             // Parent
             {
-                if (wrapProperty.p is ReversiGameDataUI.UIData) {
+                if (wrapProperty.p is ReversiGameDataUI.UIData)
+                {
                     return;
                 }
                 // Child
-                if (wrapProperty.p is TransformData) {
+                if (wrapProperty.p is TransformData)
+                {
                     dirty = true;
                     return;
                 }

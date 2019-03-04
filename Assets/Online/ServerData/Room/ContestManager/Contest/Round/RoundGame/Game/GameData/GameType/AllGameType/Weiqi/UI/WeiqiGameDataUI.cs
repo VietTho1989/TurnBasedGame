@@ -78,7 +78,16 @@ namespace Weiqi
 				return isProcess;
 			}
 
-		}
+            public override void getUIRatio(out float heightWidth, out float left, out float right, out float top, out float bottom)
+            {
+                heightWidth = 1;
+                left = 0;
+                right = 0;
+                top = 0;
+                bottom = 0;
+            }
+
+        }
 
         #endregion
 
@@ -88,11 +97,6 @@ namespace Weiqi
 
         private void updateTransformData()
         {
-            /*if (transform.hasChanged)
-            {
-                transform.hasChanged = false;
-                this.transformData.update(this.transform);
-            }*/
             this.transformData.update(this.transform);
         }
 

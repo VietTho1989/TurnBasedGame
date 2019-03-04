@@ -129,6 +129,8 @@ namespace Janggi
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().addCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.addCallBack(this);
@@ -138,6 +140,12 @@ namespace Janggi
                 {
                     DataUtils.addParentCallBack(updateData, this, ref this.janggiGameDataUIData);
                 }
+                dirty = true;
+                return;
+            }
+            // Global
+            if(data is Global)
+            {
                 dirty = true;
                 return;
             }
@@ -154,15 +162,7 @@ namespace Janggi
                     JanggiGameDataUI.UIData janggiGameDataUIData = data as JanggiGameDataUI.UIData;
                     // Child
                     {
-                        JanggiGameDataUI janggiGameDataUI = janggiGameDataUIData.findCallBack<JanggiGameDataUI>();
-                        if (janggiGameDataUI != null)
-                        {
-                            janggiGameDataUI.transformData.addCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("janggiGameDataUI null");
-                        }
+                        TransformData.AddCallBack(janggiGameDataUIData, this);
                     }
                     dirty = true;
                     return;
@@ -182,6 +182,8 @@ namespace Janggi
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().removeCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.removeCallBack(this);
@@ -192,6 +194,11 @@ namespace Janggi
                     DataUtils.removeParentCallBack(updateData, this, ref this.janggiGameDataUIData);
                 }
                 this.setDataNull(updateData);
+                return;
+            }
+            // Global
+            if(data is Global)
+            {
                 return;
             }
             // CheckChange
@@ -206,15 +213,7 @@ namespace Janggi
                     JanggiGameDataUI.UIData janggiGameDataUIData = data as JanggiGameDataUI.UIData;
                     // Child
                     {
-                        JanggiGameDataUI janggiGameDataUI = janggiGameDataUIData.findCallBack<JanggiGameDataUI>();
-                        if (janggiGameDataUI != null)
-                        {
-                            janggiGameDataUI.transformData.removeCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("janggiGameDataUI null");
-                        }
+                        TransformData.RemoveCallBack(janggiGameDataUIData, this);
                     }
                     return;
                 }
@@ -241,6 +240,12 @@ namespace Janggi
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
+                return;
+            }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // CheckChange

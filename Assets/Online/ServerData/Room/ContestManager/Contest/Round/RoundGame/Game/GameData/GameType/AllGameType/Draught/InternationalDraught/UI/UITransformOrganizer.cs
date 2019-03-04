@@ -129,6 +129,8 @@ namespace InternationalDraught
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().addCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.addCallBack(this);
@@ -138,6 +140,12 @@ namespace InternationalDraught
                 {
                     DataUtils.addParentCallBack(updateData, this, ref this.internationalDraughtGameDataUIData);
                 }
+                dirty = true;
+                return;
+            }
+            // Global
+            if(data is Global)
+            {
                 dirty = true;
                 return;
             }
@@ -154,15 +162,7 @@ namespace InternationalDraught
                     InternationalDraughtGameDataUI.UIData internationalDraughtGameDataUIData = data as InternationalDraughtGameDataUI.UIData;
                     // Child
                     {
-                        InternationalDraughtGameDataUI internationalDraughtGameDataUI = internationalDraughtGameDataUIData.findCallBack<InternationalDraughtGameDataUI>();
-                        if (internationalDraughtGameDataUI != null)
-                        {
-                            internationalDraughtGameDataUI.transformData.addCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("internationalDraughtGameDataUI null");
-                        }
+                        TransformData.AddCallBack(internationalDraughtGameDataUIData, this);
                     }
                     dirty = true;
                     return;
@@ -182,6 +182,8 @@ namespace InternationalDraught
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().removeCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.removeCallBack(this);
@@ -192,6 +194,11 @@ namespace InternationalDraught
                     DataUtils.removeParentCallBack(updateData, this, ref this.internationalDraughtGameDataUIData);
                 }
                 this.setDataNull(updateData);
+                return;
+            }
+            // Global
+            if(data is Global)
+            {
                 return;
             }
             // CheckChange
@@ -206,15 +213,7 @@ namespace InternationalDraught
                     InternationalDraughtGameDataUI.UIData internationalDraughtGameDataUIData = data as InternationalDraughtGameDataUI.UIData;
                     // Child
                     {
-                        InternationalDraughtGameDataUI internationalDraughtGameDataUI = internationalDraughtGameDataUIData.findCallBack<InternationalDraughtGameDataUI>();
-                        if (internationalDraughtGameDataUI != null)
-                        {
-                            internationalDraughtGameDataUI.transformData.removeCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("internationalDraughtGameDataUI null");
-                        }
+                        TransformData.RemoveCallBack(internationalDraughtGameDataUIData, this);
                     }
                     return;
                 }
@@ -241,6 +240,12 @@ namespace InternationalDraught
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
+                return;
+            }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // CheckChange

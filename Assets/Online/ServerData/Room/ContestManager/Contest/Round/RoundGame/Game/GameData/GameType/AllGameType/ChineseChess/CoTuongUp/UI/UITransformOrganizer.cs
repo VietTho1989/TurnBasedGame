@@ -127,6 +127,8 @@ namespace CoTuongUp
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().addCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.addCallBack(this);
@@ -136,6 +138,12 @@ namespace CoTuongUp
                 {
                     DataUtils.addParentCallBack(updateData, this, ref this.coTuongUpGameDataUIData);
                 }
+                dirty = true;
+                return;
+            }
+            // Global
+            if(data is Global)
+            {
                 dirty = true;
                 return;
             }
@@ -152,15 +160,7 @@ namespace CoTuongUp
                     CoTuongUpGameDataUI.UIData coTuongUpGameDataUIData = data as CoTuongUpGameDataUI.UIData;
                     // Child
                     {
-                        CoTuongUpGameDataUI coTuongUpGameDataUI = coTuongUpGameDataUIData.findCallBack<CoTuongUpGameDataUI>();
-                        if (coTuongUpGameDataUI != null)
-                        {
-                            coTuongUpGameDataUI.transformData.addCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("coTuongUpGameDataUI null");
-                        }
+                        TransformData.AddCallBack(coTuongUpGameDataUIData, this);
                     }
                     dirty = true;
                     return;
@@ -180,6 +180,8 @@ namespace CoTuongUp
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().removeCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.removeCallBack(this);
@@ -190,6 +192,11 @@ namespace CoTuongUp
                     DataUtils.removeParentCallBack(updateData, this, ref this.coTuongUpGameDataUIData);
                 }
                 this.setDataNull(updateData);
+                return;
+            }
+            // Global
+            if(data is Global)
+            {
                 return;
             }
             // CheckChange
@@ -204,15 +211,7 @@ namespace CoTuongUp
                     CoTuongUpGameDataUI.UIData coTuongUpGameDataUIData = data as CoTuongUpGameDataUI.UIData;
                     // Child
                     {
-                        CoTuongUpGameDataUI coTuongUpGameDataUI = coTuongUpGameDataUIData.findCallBack<CoTuongUpGameDataUI>();
-                        if (coTuongUpGameDataUI != null)
-                        {
-                            coTuongUpGameDataUI.transformData.removeCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("coTuongUpGameDataUI null");
-                        }
+                        TransformData.RemoveCallBack(coTuongUpGameDataUIData, this);
                     }
                     return;
                 }
@@ -239,6 +238,12 @@ namespace CoTuongUp
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
+                return;
+            }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // CheckChange

@@ -132,33 +132,6 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 
 	#region Refresh
 
-	#region txt
-
-	public Text tvRooms;
-	public static readonly TxtLanguage txtRooms = new TxtLanguage();
-
-	public Text tvChats;
-	public static readonly TxtLanguage txtChats = new TxtLanguage();
-
-	public Text tvFriends;
-	public static readonly TxtLanguage txtFriends = new TxtLanguage();
-
-	public Text tvProfile;
-	public static readonly TxtLanguage txtProfile = new TxtLanguage();
-
-	static GlobalViewUI()
-	{
-        // txt
-        {
-            txtRooms.add(Language.Type.vi, "Các Phòng");
-            txtChats.add(Language.Type.vi, "Trò chuyện");
-            txtFriends.add(Language.Type.vi, "Bạn bè");
-            txtProfile.add(Language.Type.vi, "Tiểu sử");
-        }
-    }
-
-	#endregion
-
 	public Button btnRooms;
 	public Button btnChats;
 	public Button btnFriends;
@@ -443,29 +416,6 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                         Debug.LogError("btn null: " + this);
                     }
                 }
-                // txt
-                {
-					if (tvRooms != null) {
-						tvRooms.text = txtRooms.get ("Rooms");
-					} else {
-						Debug.LogError ("tvRooms null: " + this);
-					}
-					if (tvChats != null) {
-						tvChats.text = txtChats.get ("Chats");
-					} else {
-						Debug.LogError ("tvChats null: " + this);
-					}
-					if (tvFriends != null) {
-						tvFriends.text = txtFriends.get ("Friends");
-					} else {
-						Debug.LogError ("tvFriends null: " + this);
-					}
-					if (tvProfile != null) {
-						tvProfile.text = txtProfile.get ("Profile");
-					} else {
-						Debug.LogError ("tvProfile null: " + this);
-					}
-				}
 			} else {
 				Debug.LogError ("data null: " + this);
 			}

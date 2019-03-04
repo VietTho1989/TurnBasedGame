@@ -127,6 +127,8 @@ namespace Solitaire
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().addCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.addCallBack(this);
@@ -136,6 +138,12 @@ namespace Solitaire
                 {
                     DataUtils.addParentCallBack(updateData, this, ref this.solitaireGameDataUIData);
                 }
+                dirty = true;
+                return;
+            }
+            // Global
+            if(data is Global)
+            {
                 dirty = true;
                 return;
             }
@@ -152,15 +160,7 @@ namespace Solitaire
                     SolitaireGameDataUI.UIData solitaireGameDataUIData = data as SolitaireGameDataUI.UIData;
                     // Child
                     {
-                        SolitaireGameDataUI solitaireGameDataUI = solitaireGameDataUIData.findCallBack<SolitaireGameDataUI>();
-                        if (solitaireGameDataUI != null)
-                        {
-                            solitaireGameDataUI.transformData.addCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("solitairGameDataUI null");
-                        }
+                        TransformData.AddCallBack(solitaireGameDataUIData, this);
                     }
                     dirty = true;
                     return;
@@ -180,6 +180,8 @@ namespace Solitaire
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().removeCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.removeCallBack(this);
@@ -190,6 +192,11 @@ namespace Solitaire
                     DataUtils.removeParentCallBack(updateData, this, ref this.solitaireGameDataUIData);
                 }
                 this.setDataNull(updateData);
+                return;
+            }
+            // Global
+            if(data is Global)
+            {
                 return;
             }
             // CheckChange
@@ -204,15 +211,7 @@ namespace Solitaire
                     SolitaireGameDataUI.UIData solitaireGameDataUIData = data as SolitaireGameDataUI.UIData;
                     // Child
                     {
-                        SolitaireGameDataUI solitaireGameDataUI = solitaireGameDataUIData.findCallBack<SolitaireGameDataUI>();
-                        if (solitaireGameDataUI != null)
-                        {
-                            solitaireGameDataUI.transformData.removeCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("solitairGameDataUI null");
-                        }
+                        TransformData.RemoveCallBack(solitaireGameDataUIData, this);
                     }
                     return;
                 }
@@ -239,6 +238,12 @@ namespace Solitaire
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
+                return;
+            }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // CheckChange

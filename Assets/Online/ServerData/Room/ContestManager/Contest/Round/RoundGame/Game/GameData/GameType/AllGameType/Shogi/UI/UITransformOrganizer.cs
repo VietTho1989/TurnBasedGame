@@ -129,6 +129,8 @@ namespace Shogi
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().addCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.addCallBack(this);
@@ -138,6 +140,12 @@ namespace Shogi
                 {
                     DataUtils.addParentCallBack(updateData, this, ref this.shogiGameDataUIData);
                 }
+                dirty = true;
+                return;
+            }
+            // Global
+            if(data is Global)
+            {
                 dirty = true;
                 return;
             }
@@ -154,15 +162,7 @@ namespace Shogi
                     ShogiGameDataUI.UIData shogiGameDataUIData = data as ShogiGameDataUI.UIData;
                     // Child
                     {
-                        ShogiGameDataUI shogiGameDataUI = shogiGameDataUIData.findCallBack<ShogiGameDataUI>();
-                        if (shogiGameDataUI != null)
-                        {
-                            shogiGameDataUI.transformData.addCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("shogiGameDataUI null");
-                        }
+                        TransformData.AddCallBack(shogiGameDataUIData, this);
                     }
                     dirty = true;
                     return;
@@ -182,6 +182,8 @@ namespace Shogi
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().removeCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.removeCallBack(this);
@@ -192,6 +194,11 @@ namespace Shogi
                     DataUtils.removeParentCallBack(updateData, this, ref this.shogiGameDataUIData);
                 }
                 this.setDataNull(updateData);
+                return;
+            }
+            // Global
+            if(data is Global)
+            {
                 return;
             }
             // CheckChange
@@ -206,15 +213,7 @@ namespace Shogi
                     ShogiGameDataUI.UIData shogiGameDataUIData = data as ShogiGameDataUI.UIData;
                     // Child
                     {
-                        ShogiGameDataUI shogiGameDataUI = shogiGameDataUIData.findCallBack<ShogiGameDataUI>();
-                        if (shogiGameDataUI != null)
-                        {
-                            shogiGameDataUI.transformData.removeCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("shogiGameDataUI null");
-                        }
+                        TransformData.RemoveCallBack(shogiGameDataUIData, this);
                     }
                     return;
                 }
@@ -241,6 +240,12 @@ namespace Shogi
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
+                return;
+            }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // CheckChange

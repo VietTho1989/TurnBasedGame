@@ -167,6 +167,7 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
             }
             // Child
             {
+                gameDataUIData.board.allAddCallBack(this);
                 TransformData.AddCallBack(gameDataUIData, this);
             }
             dirty = true;
@@ -204,10 +205,17 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
                 }
             }
             // Child
-            if (data is TransformData)
             {
-                dirty = true;
-                return;
+                if(data is GameDataBoardUI.UIData)
+                {
+                    dirty = true;
+                    return;
+                }
+                if (data is TransformData)
+                {
+                    dirty = true;
+                    return;
+                }
             }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
@@ -226,6 +234,7 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
             }
             // Child
             {
+                gameDataUIData.board.allRemoveCallBack(this);
                 TransformData.RemoveCallBack(gameDataUIData, this);
             }
             this.setDataNull(gameDataUIData);
@@ -260,9 +269,15 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
                 }
             }
             // Child
-            if (data is TransformData)
             {
-                return;
+                if(data is GameDataBoardUI.UIData)
+                {
+                    return;
+                }
+                if (data is TransformData)
+                {
+                    return;
+                }
             }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
@@ -281,6 +296,10 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
                 case GameDataUI.UIData.Property.gameData:
                     break;
                 case GameDataUI.UIData.Property.board:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
                     break;
                 case GameDataUI.UIData.Property.allowLastMove:
                     break;
@@ -376,38 +395,73 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
                 {
                     return;
                 }
-                // Child
-                if (wrapProperty.p is TransformData)
+            }
+        }
+        // Child
+        {
+            if(wrapProperty.p is GameDataBoardUI.UIData)
+            {
+                switch ((GameDataBoardUI.UIData.Property)wrapProperty.n)
                 {
-                    switch ((TransformData.Property)wrapProperty.n)
-                    {
-                        case TransformData.Property.anchoredPosition:
-                            break;
-                        case TransformData.Property.anchorMin:
-                            break;
-                        case TransformData.Property.anchorMax:
-                            break;
-                        case TransformData.Property.pivot:
-                            break;
-                        case TransformData.Property.offsetMin:
-                            break;
-                        case TransformData.Property.offsetMax:
-                            break;
-                        case TransformData.Property.sizeDelta:
-                            break;
-                        case TransformData.Property.rotation:
-                            break;
-                        case TransformData.Property.scale:
-                            break;
-                        case TransformData.Property.size:
-                            dirty = true;
-                            break;
-                        default:
-                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                            break;
-                    }
-                    return;
+                    case GameDataBoardUI.UIData.Property.gameData:
+                        break;
+                    case GameDataBoardUI.UIData.Property.animationManager:
+                        break;
+                    case GameDataBoardUI.UIData.Property.sub:
+                        break;
+                    case GameDataBoardUI.UIData.Property.heightWidth:
+                        dirty = true;
+                        break;
+                    case GameDataBoardUI.UIData.Property.left:
+                        dirty = true;
+                        break;
+                    case GameDataBoardUI.UIData.Property.right:
+                        dirty = true;
+                        break;
+                    case GameDataBoardUI.UIData.Property.top:
+                        dirty = true;
+                        break;
+                    case GameDataBoardUI.UIData.Property.bottom:
+                        dirty = true;
+                        break;
+                    case GameDataBoardUI.UIData.Property.perspective:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
                 }
+                return;
+            }
+            if (wrapProperty.p is TransformData)
+            {
+                switch ((TransformData.Property)wrapProperty.n)
+                {
+                    case TransformData.Property.anchoredPosition:
+                        break;
+                    case TransformData.Property.anchorMin:
+                        break;
+                    case TransformData.Property.anchorMax:
+                        break;
+                    case TransformData.Property.pivot:
+                        break;
+                    case TransformData.Property.offsetMin:
+                        break;
+                    case TransformData.Property.offsetMax:
+                        break;
+                    case TransformData.Property.sizeDelta:
+                        break;
+                    case TransformData.Property.rotation:
+                        break;
+                    case TransformData.Property.scale:
+                        break;
+                    case TransformData.Property.size:
+                        dirty = true;
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
             }
         }
         Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);

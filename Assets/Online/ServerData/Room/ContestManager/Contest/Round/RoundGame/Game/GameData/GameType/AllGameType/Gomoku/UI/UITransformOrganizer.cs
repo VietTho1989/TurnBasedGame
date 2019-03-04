@@ -99,7 +99,7 @@ namespace Gomoku
                                             Debug.LogError ("gomoku null: " + this);
                                         }*/
                                     }
-                                    float scale = Mathf.Min(Mathf.Abs(boardTransform.size.v.x / boardSizeX), Mathf.Abs(boardTransform.size.v.y / boardSizeY));
+                                    float scale = Mathf.Min(Mathf.Abs(boardSize.x / boardSizeX), Mathf.Abs(boardSize.y / boardSizeY));
                                     // new scale
                                     Vector3 newLocalScale = new Vector3();
                                     {
@@ -157,6 +157,8 @@ namespace Gomoku
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().addCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.addCallBack(this);
@@ -166,6 +168,12 @@ namespace Gomoku
                 {
                     DataUtils.addParentCallBack(updateData, this, ref this.gomokuGameDataUIData);
                 }
+                dirty = true;
+                return;
+            }
+            // Global
+            if(data is Global)
+            {
                 dirty = true;
                 return;
             }
@@ -235,6 +243,8 @@ namespace Gomoku
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().removeCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.removeCallBack(this);
@@ -245,6 +255,11 @@ namespace Gomoku
                     DataUtils.removeParentCallBack(updateData, this, ref this.gomokuGameDataUIData);
                 }
                 this.setDataNull(updateData);
+                return;
+            }
+            // Global
+            if(data is Global)
+            {
                 return;
             }
             // CheckChange
@@ -317,6 +332,12 @@ namespace Gomoku
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
+                return;
+            }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // CheckChange

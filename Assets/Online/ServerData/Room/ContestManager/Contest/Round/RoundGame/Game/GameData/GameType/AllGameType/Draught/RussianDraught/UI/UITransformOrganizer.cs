@@ -129,6 +129,8 @@ namespace RussianDraught
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().addCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.addCallBack(this);
@@ -138,6 +140,12 @@ namespace RussianDraught
                 {
                     DataUtils.addParentCallBack(updateData, this, ref this.russianDraughtGameDataUIData);
                 }
+                dirty = true;
+                return;
+            }
+            // Global
+            if(data is Global)
+            {
                 dirty = true;
                 return;
             }
@@ -154,15 +162,7 @@ namespace RussianDraught
                     RussianDraughtGameDataUI.UIData russianDraughtGameDataUIData = data as RussianDraughtGameDataUI.UIData;
                     // Child
                     {
-                        RussianDraughtGameDataUI russianDraughtGameDataUI = russianDraughtGameDataUIData.findCallBack<RussianDraughtGameDataUI>();
-                        if (russianDraughtGameDataUI != null)
-                        {
-                            russianDraughtGameDataUI.transformData.addCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("russianDraughtGameDataUI null");
-                        }
+                        TransformData.AddCallBack(russianDraughtGameDataUIData, this);
                     }
                     dirty = true;
                     return;
@@ -182,6 +182,8 @@ namespace RussianDraught
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().removeCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.removeCallBack(this);
@@ -192,6 +194,11 @@ namespace RussianDraught
                     DataUtils.removeParentCallBack(updateData, this, ref this.russianDraughtGameDataUIData);
                 }
                 this.setDataNull(updateData);
+                return;
+            }
+            // Global
+            if(data is Global)
+            {
                 return;
             }
             // CheckChange
@@ -206,15 +213,7 @@ namespace RussianDraught
                     RussianDraughtGameDataUI.UIData russianDraughtGameDataUIData = data as RussianDraughtGameDataUI.UIData;
                     // Child
                     {
-                        RussianDraughtGameDataUI russianDraughtGameDataUI = russianDraughtGameDataUIData.findCallBack<RussianDraughtGameDataUI>();
-                        if (russianDraughtGameDataUI != null)
-                        {
-                            russianDraughtGameDataUI.transformData.removeCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("russianDraughtGameDataUI null");
-                        }
+                        TransformData.RemoveCallBack(russianDraughtGameDataUIData, this);
                     }
                     return;
                 }
@@ -241,6 +240,12 @@ namespace RussianDraught
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
+                return;
+            }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // CheckChange

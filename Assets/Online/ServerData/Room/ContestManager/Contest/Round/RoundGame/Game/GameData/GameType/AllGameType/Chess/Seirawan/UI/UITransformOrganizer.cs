@@ -127,6 +127,8 @@ namespace Seirawan
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().addCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.addCallBack(this);
@@ -136,6 +138,12 @@ namespace Seirawan
                 {
                     DataUtils.addParentCallBack(updateData, this, ref this.seirawanGameDataUIData);
                 }
+                dirty = true;
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
                 dirty = true;
                 return;
             }
@@ -152,15 +160,7 @@ namespace Seirawan
                     SeirawanGameDataUI.UIData seirawanGameDataUIData = data as SeirawanGameDataUI.UIData;
                     // Child
                     {
-                        SeirawanGameDataUI seirawanGameDataUI = seirawanGameDataUIData.findCallBack<SeirawanGameDataUI>();
-                        if (seirawanGameDataUI != null)
-                        {
-                            seirawanGameDataUI.transformData.addCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("seirawanGameDataUI null");
-                        }
+                        TransformData.AddCallBack(seirawanGameDataUIData, this);
                     }
                     dirty = true;
                     return;
@@ -180,6 +180,8 @@ namespace Seirawan
             if (data is UpdateData)
             {
                 UpdateData updateData = data as UpdateData;
+                // Global
+                Global.get().removeCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.removeCallBack(this);
@@ -190,6 +192,11 @@ namespace Seirawan
                     DataUtils.removeParentCallBack(updateData, this, ref this.seirawanGameDataUIData);
                 }
                 this.setDataNull(updateData);
+                return;
+            }
+            // Global
+            if (data is Global)
+            {
                 return;
             }
             // CheckChange
@@ -204,15 +211,7 @@ namespace Seirawan
                     SeirawanGameDataUI.UIData seirawanGameDataUIData = data as SeirawanGameDataUI.UIData;
                     // Child
                     {
-                        SeirawanGameDataUI seirawanGameDataUI = seirawanGameDataUIData.findCallBack<SeirawanGameDataUI>();
-                        if (seirawanGameDataUI != null)
-                        {
-                            seirawanGameDataUI.transformData.removeCallBack(this);
-                        }
-                        else
-                        {
-                            Debug.LogError("seirawanGameDataUI null");
-                        }
+                        TransformData.RemoveCallBack(seirawanGameDataUIData, this);
                     }
                     return;
                 }
@@ -238,6 +237,12 @@ namespace Seirawan
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
+                return;
+            }
+            // Global
+            if (wrapProperty.p is Global)
+            {
+                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // CheckChange
