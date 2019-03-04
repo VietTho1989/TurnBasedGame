@@ -66,29 +66,38 @@ namespace ChineseCheckers
                     }
                     if (chineseCheckersGameDataUI != null && gameDataBoardUI != null)
                     {
-                        TransformData chineseCheckersTransform = chineseCheckersGameDataUI.transformData;
-                        TransformData boardTransform = gameDataBoardUI.transformData;
-                        if (chineseCheckersTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero)
+                        RectTransform chineseCheckersTransform = (RectTransform)chineseCheckersGameDataUI.transform;
+                        RectTransform boardTransform = (RectTransform)gameDataBoardUI.transform;
+                        if (chineseCheckersTransform != null && boardTransform != null)
                         {
-                            float boardSizeX = 19f;
-                            float boardSizeY = 19f;
-                            float scale = Mathf.Min(Mathf.Abs(boardTransform.size.v.x / boardSizeX), Mathf.Abs(boardTransform.size.v.y / boardSizeY));
-                            // new scale
-                            Vector3 newLocalScale = new Vector3();
+                            Vector2 chineseCheckersSize = new Vector2(chineseCheckersTransform.rect.width, chineseCheckersTransform.rect.height);
+                            Vector2 boardSize = new Vector2(boardTransform.rect.width, boardTransform.rect.height);
+                            if (chineseCheckersSize != Vector2.zero && boardSize != Vector2.zero)
                             {
-                                Vector3 currentLocalScale = this.transform.localScale;
-                                // x
-                                newLocalScale.x = scale;
-                                // y
-                                newLocalScale.y = (gameDataBoardUIData.perspective.v.playerView.v == 0 ? 1 : -1) * scale;
-                                // z
-                                newLocalScale.z = 1;
+                                float boardSizeX = 19f;
+                                float boardSizeY = 19f;
+                                float scale = Mathf.Min(Mathf.Abs(boardSize.x / boardSizeX), Mathf.Abs(boardSize.y / boardSizeY));
+                                // new scale
+                                Vector3 newLocalScale = new Vector3();
+                                {
+                                    Vector3 currentLocalScale = this.transform.localScale;
+                                    // x
+                                    newLocalScale.x = scale;
+                                    // y
+                                    newLocalScale.y = (gameDataBoardUIData.perspective.v.playerView.v == 0 ? 1 : -1) * scale;
+                                    // z
+                                    newLocalScale.z = 1;
+                                }
+                                this.transform.localScale = newLocalScale;
                             }
-                            this.transform.localScale = newLocalScale;
+                            else
+                            {
+                                Debug.LogError("why transform zero");
+                            }
                         }
                         else
                         {
-                            Debug.LogError("why transform zero");
+                            Debug.LogError("chineseCheckersTransform, boardTransform null");
                         }
                     }
                     else

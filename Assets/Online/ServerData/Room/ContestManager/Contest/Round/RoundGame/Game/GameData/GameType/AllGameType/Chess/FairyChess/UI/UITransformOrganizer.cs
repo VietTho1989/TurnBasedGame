@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 
 namespace FairyChess
 {
@@ -63,25 +63,37 @@ namespace FairyChess
                         }
                     }
                     if (fairyChessGameDataUI != null && gameDataBoardUI != null) {
-						TransformData fairyChessTransform = fairyChessGameDataUI.transformData;
-						TransformData boardTransform = gameDataBoardUI.transformData;
-						if (fairyChessTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
-							float scale = Mathf.Min (Mathf.Abs (boardTransform.size.v.x / 8f), Mathf.Abs (boardTransform.size.v.y / 8f));
-							// new scale
-							Vector3 newLocalScale = new Vector3 ();
-							{
-								Vector3 currentLocalScale = this.transform.localScale;
-								// x
-								newLocalScale.x = scale;
-								// y
-								newLocalScale.y = (gameDataBoardUIData.perspective.v.playerView.v == 0 ? 1 : -1) * scale;
-								// z
-								newLocalScale.z = 1;
-							}
-							this.transform.localScale = newLocalScale;
-						} else {
-							Debug.LogError ("why transform zero");
-						}
+						RectTransform fairyChessTransform = (RectTransform)fairyChessGameDataUI.transform;
+						RectTransform boardTransform = (RectTransform)gameDataBoardUI.transform;
+                        if(fairyChessTransform!=null && boardTransform != null)
+                        {
+                            Vector2 fairyChessSize = new Vector2(fairyChessTransform.rect.width, fairyChessTransform.rect.height);
+                            Vector2 boardSize = new Vector2(boardTransform.rect.width, boardTransform.rect.height);
+                            if (fairyChessSize != Vector2.zero && boardSize != Vector2.zero)
+                            {
+                                float scale = Mathf.Min(Mathf.Abs(boardSize.x / 8f), Mathf.Abs(boardSize.y / 8f));
+                                // new scale
+                                Vector3 newLocalScale = new Vector3();
+                                {
+                                    Vector3 currentLocalScale = this.transform.localScale;
+                                    // x
+                                    newLocalScale.x = scale;
+                                    // y
+                                    newLocalScale.y = (gameDataBoardUIData.perspective.v.playerView.v == 0 ? 1 : -1) * scale;
+                                    // z
+                                    newLocalScale.z = 1;
+                                }
+                                this.transform.localScale = newLocalScale;
+                            }
+                            else
+                            {
+                                Debug.LogError("why transform zero");
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("fairyChessTransform, boardTransform null");
+                        }
 					} else {
 						Debug.LogError ("fairyChessGameDataUI or gameDataBoardUI null: " + this);
 					}

@@ -5,37 +5,38 @@ using System.Collections.Generic;
 
 namespace Makruk
 {
-	public class MakrukSpriteContainer : MonoBehaviour
-	{
+    public class MakrukSpriteContainer : MonoBehaviour
+    {
 
-		private static MakrukSpriteContainer instance;
+        private static MakrukSpriteContainer instance;
 
-		void Awake() {
-			instance = this;
-		}
+        void Awake()
+        {
+            instance = this;
+        }
 
-		public static MakrukSpriteContainer get()
-		{
-			return instance;
-		}
+        public static MakrukSpriteContainer get()
+        {
+            return instance;
+        }
 
-		public Sprite NoPiece;
+        public Sprite NoPiece;
 
         #region Normal
 
         public Sprite NormalWPawn;
-		public Sprite NormalWKnight;
-		public Sprite NormalWBishop;
-		public Sprite NormalWRook;
-		public Sprite NormalWQueen;
-		public Sprite NormalWKing;
+        public Sprite NormalWKnight;
+        public Sprite NormalWBishop;
+        public Sprite NormalWRook;
+        public Sprite NormalWQueen;
+        public Sprite NormalWKing;
 
-		public Sprite NormalBPawn;
-		public Sprite NormalBKnight;
-		public Sprite NormalBBishop;
-		public Sprite NormalBRook;
-		public Sprite NormalBQueen;
-		public Sprite NormalBKing;
+        public Sprite NormalBPawn;
+        public Sprite NormalBKnight;
+        public Sprite NormalBBishop;
+        public Sprite NormalBRook;
+        public Sprite NormalBQueen;
+        public Sprite NormalBKing;
 
         #endregion
 
@@ -87,9 +88,9 @@ namespace Makruk
                             // transform
                             {
                                 RectTransform rectTransform = (RectTransform)bg.transform;
-                                if (rectTransform.sizeDelta.x != 9.2f || rectTransform.sizeDelta.y != 9.2f)
+                                if (rectTransform.sizeDelta.x != 8f || rectTransform.sizeDelta.y != 8f)
                                 {
-                                    rectTransform.sizeDelta = new Vector2(9.2f, 9.2f);
+                                    rectTransform.sizeDelta = new Vector2(8, 8);
                                 }
                             }
                         }
@@ -109,8 +110,8 @@ namespace Makruk
 
         public Sprite Unknown;
 
-		public Sprite getSprite(Setting.Style style, Common.Piece piece)
-		{
+        public Sprite getSprite(Setting.Style style, Common.Piece piece)
+        {
             switch (style)
             {
                 case Setting.Style.Normal:
@@ -184,10 +185,10 @@ namespace Makruk
                         }
                     }
                 default:
-                    Debug.LogError("unknown style: "+style);
+                    Debug.LogError("unknown style: " + style);
                     return NoPiece;
             }
-		}
+        }
 
-	}
+    }
 }

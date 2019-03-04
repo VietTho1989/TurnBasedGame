@@ -5,39 +5,41 @@ using UnityEngine.UI;
 
 namespace Janggi
 {
-	public class UITransformOrganizer : UpdateBehavior<UITransformOrganizer.UpdateData>
-	{
+    public class UITransformOrganizer : UpdateBehavior<UITransformOrganizer.UpdateData>
+    {
 
-		#region UpdateData
+        #region UpdateData
 
-		public class UpdateData : Data
-		{
+        public class UpdateData : Data
+        {
 
-			#region Constructor
+            #region Constructor
 
-			public enum Property
-			{
+            public enum Property
+            {
 
-			}
+            }
 
-			public UpdateData() : base()
-			{
+            public UpdateData() : base()
+            {
 
-			}
+            }
 
-			#endregion
+            #endregion
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		#region Update
+        #region Update
 
-		public override void update ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
+        public override void update()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
                     JanggiGameDataUI janggiGameDataUI = null;
                     {
                         JanggiGameDataUI.UIData janggiGameDataUIData = this.data.findDataInParent<JanggiGameDataUI.UIData>();
@@ -51,7 +53,7 @@ namespace Janggi
                         }
                     }
                     GameDataBoardUI gameDataBoardUI = null;
-					GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
+                    GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData>();
                     {
                         if (gameDataBoardUIData != null)
                         {
@@ -62,74 +64,94 @@ namespace Janggi
                             Debug.LogError("gameDataBoardUIData null");
                         }
                     }
-                    if (janggiGameDataUI != null && gameDataBoardUI != null) {
-						TransformData reversiTransform = janggiGameDataUI.transformData;
-						TransformData boardTransform = gameDataBoardUI.transformData;
-						if (reversiTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
-							float boardSizeX = 9f;
-							float boardSizeY = 10f;
-							float scale = Mathf.Min (Mathf.Abs (boardTransform.size.v.x / boardSizeX), Mathf.Abs (boardTransform.size.v.y / boardSizeY));
-							// new scale
-							Vector3 newLocalScale = new Vector3 ();
-							{
-								Vector3 currentLocalScale = this.transform.localScale;
-								// x
-								newLocalScale.x = scale;
-								// y
-								newLocalScale.y = (gameDataBoardUIData.perspective.v.playerView.v == 0 ? 1 : -1) * scale;
-								// z
-								newLocalScale.z = 1;
-							}
-							this.transform.localScale = newLocalScale;
-						} else {
-							Debug.LogError ("why transform zero");
-						}
-					} else {
-						Debug.LogError ("janggiGameDataUI or gameDataBoardUI null: " + this);
-					}
-				} else {
-					Debug.LogError ("data null: " + this);
-				}
-			}
-		}
+                    if (janggiGameDataUI != null && gameDataBoardUI != null)
+                    {
+                        RectTransform janggiTransform = (RectTransform)janggiGameDataUI.transform;
+                        RectTransform boardTransform = (RectTransform)gameDataBoardUI.transform;
+                        if (janggiTransform != null && boardTransform != null)
+                        {
+                            Vector2 janggiSize = new Vector2(janggiTransform.rect.width, janggiTransform.rect.height);
+                            Vector2 boardSize = new Vector2(boardTransform.rect.width, boardTransform.rect.height);
+                            if (janggiSize != Vector2.zero && boardSize != Vector2.zero)
+                            {
+                                float boardSizeX = 9f;
+                                float boardSizeY = 10f;
+                                float scale = Mathf.Min(Mathf.Abs(boardSize.x / boardSizeX), Mathf.Abs(boardSize.y / boardSizeY));
+                                // new scale
+                                Vector3 newLocalScale = new Vector3();
+                                {
+                                    Vector3 currentLocalScale = this.transform.localScale;
+                                    // x
+                                    newLocalScale.x = scale;
+                                    // y
+                                    newLocalScale.y = (gameDataBoardUIData.perspective.v.playerView.v == 0 ? 1 : -1) * scale;
+                                    // z
+                                    newLocalScale.z = 1;
+                                }
+                                this.transform.localScale = newLocalScale;
+                            }
+                            else
+                            {
+                                Debug.LogError("why transform zero");
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("janggiTransform, boardTransform null");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("janggiGameDataUI or gameDataBoardUI null: " + this);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("data null: " + this);
+                }
+            }
+        }
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		#endregion
+        #endregion
 
-		#region implement callBacks
+        #region implement callBacks
 
-		private JanggiGameDataUI.UIData janggiGameDataUIData = null;
-		private GameDataBoardCheckTransformChange<UpdateData> gameDataBoardCheckTransformChange = new GameDataBoardCheckTransformChange<UpdateData>();
+        private JanggiGameDataUI.UIData janggiGameDataUIData = null;
+        private GameDataBoardCheckTransformChange<UpdateData> gameDataBoardCheckTransformChange = new GameDataBoardCheckTransformChange<UpdateData>();
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UpdateData) {
-				UpdateData updateData = data as UpdateData;
-				// CheckChange
-				{
-					gameDataBoardCheckTransformChange.addCallBack (this);
-					gameDataBoardCheckTransformChange.setData (updateData);
-				}
-				// Parent
-				{
-					DataUtils.addParentCallBack (updateData, this, ref this.janggiGameDataUIData);
-				}
-				dirty = true;
-				return;
-			}
-			// CheckChange
-			if (data is GameDataBoardCheckTransformChange<UpdateData>) {
-				dirty = true;
-				return;
-			}
-			// Parent
-			{
-				if (data is JanggiGameDataUI.UIData) {
-					JanggiGameDataUI.UIData janggiGameDataUIData = data as JanggiGameDataUI.UIData;
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UpdateData)
+            {
+                UpdateData updateData = data as UpdateData;
+                // CheckChange
+                {
+                    gameDataBoardCheckTransformChange.addCallBack(this);
+                    gameDataBoardCheckTransformChange.setData(updateData);
+                }
+                // Parent
+                {
+                    DataUtils.addParentCallBack(updateData, this, ref this.janggiGameDataUIData);
+                }
+                dirty = true;
+                return;
+            }
+            // CheckChange
+            if (data is GameDataBoardCheckTransformChange<UpdateData>)
+            {
+                dirty = true;
+                return;
+            }
+            // Parent
+            {
+                if (data is JanggiGameDataUI.UIData)
+                {
+                    JanggiGameDataUI.UIData janggiGameDataUIData = data as JanggiGameDataUI.UIData;
                     // Child
                     {
                         JanggiGameDataUI janggiGameDataUI = janggiGameDataUIData.findCallBack<JanggiGameDataUI>();
@@ -142,44 +164,48 @@ namespace Janggi
                             Debug.LogError("janggiGameDataUI null");
                         }
                     }
-					dirty = true;
-					return;
-				}
-				// Child
-				if (data is TransformData) {
-					dirty = true;
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+                    dirty = true;
+                    return;
+                }
+                // Child
+                if (data is TransformData)
+                {
+                    dirty = true;
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UpdateData) {
-				UpdateData updateData = data as UpdateData;
-				// CheckChange
-				{
-					gameDataBoardCheckTransformChange.removeCallBack (this);
-					gameDataBoardCheckTransformChange.setData (null);
-				}
-				// Parent
-				{
-					DataUtils.removeParentCallBack (updateData, this, ref this.janggiGameDataUIData);
-				}
-				this.setDataNull (updateData);
-				return;
-			}
-			// CheckChange
-			if (data is GameDataBoardCheckTransformChange<UpdateData>) {
-				return;
-			}
-			// Parent
-			{
-				if (data is JanggiGameDataUI.UIData) {
-					JanggiGameDataUI.UIData janggiGameDataUIData = data as JanggiGameDataUI.UIData;
-					// Child
-					{
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UpdateData)
+            {
+                UpdateData updateData = data as UpdateData;
+                // CheckChange
+                {
+                    gameDataBoardCheckTransformChange.removeCallBack(this);
+                    gameDataBoardCheckTransformChange.setData(null);
+                }
+                // Parent
+                {
+                    DataUtils.removeParentCallBack(updateData, this, ref this.janggiGameDataUIData);
+                }
+                this.setDataNull(updateData);
+                return;
+            }
+            // CheckChange
+            if (data is GameDataBoardCheckTransformChange<UpdateData>)
+            {
+                return;
+            }
+            // Parent
+            {
+                if (data is JanggiGameDataUI.UIData)
+                {
+                    JanggiGameDataUI.UIData janggiGameDataUIData = data as JanggiGameDataUI.UIData;
+                    // Child
+                    {
                         JanggiGameDataUI janggiGameDataUI = janggiGameDataUIData.findCallBack<JanggiGameDataUI>();
                         if (janggiGameDataUI != null)
                         {
@@ -190,49 +216,56 @@ namespace Janggi
                             Debug.LogError("janggiGameDataUI null");
                         }
                     }
-					return;
-				}
-				// Child
-				if (data is TransformData) {
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
-
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UpdateData) {
-				switch ((UpdateData.Property)wrapProperty.n) {
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// CheckChange
-			if (wrapProperty.p is GameDataBoardCheckTransformChange<UpdateData>) {
-				dirty = true;
-				return;
-			}
-			// Parent
-			{
-				if (wrapProperty.p is JanggiGameDataUI.UIData) {
-					return;
-				}
+                    return;
+                }
                 // Child
-				if (wrapProperty.p is TransformData) {
+                if (data is TransformData)
+                {
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
+
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UpdateData)
+            {
+                switch ((UpdateData.Property)wrapProperty.n)
+                {
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // CheckChange
+            if (wrapProperty.p is GameDataBoardCheckTransformChange<UpdateData>)
+            {
+                dirty = true;
+                return;
+            }
+            // Parent
+            {
+                if (wrapProperty.p is JanggiGameDataUI.UIData)
+                {
+                    return;
+                }
+                // Child
+                if (wrapProperty.p is TransformData)
+                {
                     dirty = true;
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
 
-		#endregion
+        #endregion
 
-	}
+    }
 }

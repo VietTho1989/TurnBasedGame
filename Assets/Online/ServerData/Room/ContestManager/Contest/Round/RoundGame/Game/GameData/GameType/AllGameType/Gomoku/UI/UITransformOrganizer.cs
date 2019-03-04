@@ -1,43 +1,45 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 
 namespace Gomoku
 {
-	public class UITransformOrganizer : UpdateBehavior<UITransformOrganizer.UpdateData>
-	{
+    public class UITransformOrganizer : UpdateBehavior<UITransformOrganizer.UpdateData>
+    {
 
-		#region UpdateData
+        #region UpdateData
 
-		public class UpdateData : Data
-		{
+        public class UpdateData : Data
+        {
 
-			#region Constructor
+            #region Constructor
 
-			public enum Property
-			{
+            public enum Property
+            {
 
-			}
+            }
 
-			public UpdateData() : base()
-			{
+            public UpdateData() : base()
+            {
 
-			}
+            }
 
-			#endregion
+            #endregion
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		#region Update
+        #region Update
 
-		public override void update ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
+        public override void update()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
                     GomokuGameDataUI gomokuGameDataUI = null;
                     {
                         GomokuGameDataUI.UIData gomokuGameDataUIData = this.data.findDataInParent<GomokuGameDataUI.UIData>();
@@ -51,7 +53,7 @@ namespace Gomoku
                         }
                     }
                     GameDataBoardUI gameDataBoardUI = null;
-					GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
+                    GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData>();
                     {
                         if (gameDataBoardUIData != null)
                         {
@@ -62,97 +64,124 @@ namespace Gomoku
                             Debug.LogError("gameDataBoardUIData null");
                         }
                     }
-                    if (gomokuGameDataUI != null && gameDataBoardUI != null) {
-						TransformData gomokuTransform = gomokuGameDataUI.transformData;
-						TransformData boardTransform = gameDataBoardUI.transformData;
-						if (gomokuTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
-							float boardSizeX = 19f;
-							float boardSizeY = 19f;
-							{
-								// Find gomoku
-								/*Gomoku gomoku = null;
-								{
-									GameData gameData = gomokuGameDataUIData.gameData.v.data;
-									if (gameData != null) {
-										if (gameData.gameType.v != null && gameData.gameType.v is Gomoku) {
-											gomoku = gameData.gameType.v as Gomoku;
-										}
-									} else {
-										Debug.LogError ("gameData null: " + this);
-									}
-								}
-								// Process
-								if (gomoku != null) {
-									boardSizeX = Mathf.Clamp (gomoku.boardSize.v, Gomoku.MinBoardSize, Gomoku.MaxBoardSize);
-									boardSizeY = gomoku.boardSize.v;
-								} else {
-									Debug.LogError ("gomoku null: " + this);
-								}*/
-							}
-							float scale = Mathf.Min (Mathf.Abs (boardTransform.size.v.x / boardSizeX), Mathf.Abs (boardTransform.size.v.y / boardSizeY));
-							// new scale
-							Vector3 newLocalScale = new Vector3 ();
-							{
-								Vector3 currentLocalScale = this.transform.localScale;
-								// x
-								newLocalScale.x = scale;
-								// y
-								newLocalScale.y = (gameDataBoardUIData.perspective.v.playerView.v == 0 ? 1 : -1) * scale;
-								// z
-								newLocalScale.z = 1;
-							}
-							this.transform.localScale = newLocalScale;
-						} else {
-							Debug.LogError ("why transform zero");
-						}
-					} else {
-						Debug.LogError ("gomokuGameDataUI or gameDataBoardUI null: " + this);
-					}
-				} else {
-					Debug.LogError ("data null: " + this);
-				}
-			}
-		}
+                    if (gomokuGameDataUI != null && gameDataBoardUI != null)
+                    {
+                        RectTransform gomokuTransform = (RectTransform)gomokuGameDataUI.transform;
+                        RectTransform boardTransform = (RectTransform)gameDataBoardUI.transform;
+                        if (gomokuTransform != null && boardTransform != null)
+                        {
+                            Vector2 gomokuSize = new Vector2(gomokuTransform.rect.width, gomokuTransform.rect.height);
+                            Vector2 boardSize = new Vector2(boardTransform.rect.width, boardTransform.rect.height);
+                            if (gomokuSize != null && boardSize != null)
+                            {
+                                if (gomokuSize != Vector2.zero && boardSize != Vector2.zero)
+                                {
+                                    float boardSizeX = 19f;
+                                    float boardSizeY = 19f;
+                                    {
+                                        // Find gomoku
+                                        /*Gomoku gomoku = null;
+                                        {
+                                            GameData gameData = gomokuGameDataUIData.gameData.v.data;
+                                            if (gameData != null) {
+                                                if (gameData.gameType.v != null && gameData.gameType.v is Gomoku) {
+                                                    gomoku = gameData.gameType.v as Gomoku;
+                                                }
+                                            } else {
+                                                Debug.LogError ("gameData null: " + this);
+                                            }
+                                        }
+                                        // Process
+                                        if (gomoku != null) {
+                                            boardSizeX = Mathf.Clamp (gomoku.boardSize.v, Gomoku.MinBoardSize, Gomoku.MaxBoardSize);
+                                            boardSizeY = gomoku.boardSize.v;
+                                        } else {
+                                            Debug.LogError ("gomoku null: " + this);
+                                        }*/
+                                    }
+                                    float scale = Mathf.Min(Mathf.Abs(boardTransform.size.v.x / boardSizeX), Mathf.Abs(boardTransform.size.v.y / boardSizeY));
+                                    // new scale
+                                    Vector3 newLocalScale = new Vector3();
+                                    {
+                                        Vector3 currentLocalScale = this.transform.localScale;
+                                        // x
+                                        newLocalScale.x = scale;
+                                        // y
+                                        newLocalScale.y = (gameDataBoardUIData.perspective.v.playerView.v == 0 ? 1 : -1) * scale;
+                                        // z
+                                        newLocalScale.z = 1;
+                                    }
+                                    this.transform.localScale = newLocalScale;
+                                }
+                                else
+                                {
+                                    Debug.LogError("why transform zero");
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("gomokuSize, boardSize null");
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("gomokuTransform, boardTransform null");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("gomokuGameDataUI or gameDataBoardUI null: " + this);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("data null: " + this);
+                }
+            }
+        }
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		#endregion
+        #endregion
 
-		#region implement callBacks
+        #region implement callBacks
 
-		private GomokuGameDataUI.UIData gomokuGameDataUIData = null;
-		private GameDataBoardCheckTransformChange<UpdateData> gameDataBoardCheckTransformChange = new GameDataBoardCheckTransformChange<UpdateData>();
+        private GomokuGameDataUI.UIData gomokuGameDataUIData = null;
+        private GameDataBoardCheckTransformChange<UpdateData> gameDataBoardCheckTransformChange = new GameDataBoardCheckTransformChange<UpdateData>();
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UpdateData) {
-				UpdateData updateData = data as UpdateData;
-				// CheckChange
-				{
-					gameDataBoardCheckTransformChange.addCallBack (this);
-					gameDataBoardCheckTransformChange.setData (updateData);
-				}
-				// Parent
-				{
-					DataUtils.addParentCallBack (updateData, this, ref this.gomokuGameDataUIData);
-				}
-				dirty = true;
-				return;
-			}
-			// CheckChange
-			if (data is GameDataBoardCheckTransformChange<UpdateData>) {
-				dirty = true;
-				return;
-			}
-			// Parent
-			{
-				if (data is GomokuGameDataUI.UIData) {
-					GomokuGameDataUI.UIData gomokuGameDataUIData = data as GomokuGameDataUI.UIData;
-					// Child
-					{
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UpdateData)
+            {
+                UpdateData updateData = data as UpdateData;
+                // CheckChange
+                {
+                    gameDataBoardCheckTransformChange.addCallBack(this);
+                    gameDataBoardCheckTransformChange.setData(updateData);
+                }
+                // Parent
+                {
+                    DataUtils.addParentCallBack(updateData, this, ref this.gomokuGameDataUIData);
+                }
+                dirty = true;
+                return;
+            }
+            // CheckChange
+            if (data is GameDataBoardCheckTransformChange<UpdateData>)
+            {
+                dirty = true;
+                return;
+            }
+            // Parent
+            {
+                if (data is GomokuGameDataUI.UIData)
+                {
+                    GomokuGameDataUI.UIData gomokuGameDataUIData = data as GomokuGameDataUI.UIData;
+                    // Child
+                    {
                         // transformData
                         {
                             GomokuGameDataUI gomokuGameDataUI = gomokuGameDataUIData.findCallBack<GomokuGameDataUI>();
@@ -165,11 +194,11 @@ namespace Gomoku
                                 Debug.LogError("gomokuGameDataUI null");
                             }
                         }
-						gomokuGameDataUIData.gameData.allAddCallBack (this);
-					}
-					dirty = true;
-					return;
-				}
+                        gomokuGameDataUIData.gameData.allAddCallBack(this);
+                    }
+                    dirty = true;
+                    return;
+                }
                 // Child
                 {
                     if (data is TransformData)
@@ -197,36 +226,39 @@ namespace Gomoku
                         }
                     }
                 }
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UpdateData) {
-				UpdateData updateData = data as UpdateData;
-				// CheckChange
-				{
-					gameDataBoardCheckTransformChange.removeCallBack (this);
-					gameDataBoardCheckTransformChange.setData (null);
-				}
-				// Parent
-				{
-					DataUtils.removeParentCallBack (updateData, this, ref this.gomokuGameDataUIData);
-				}
-				this.setDataNull (updateData);
-				return;
-			}
-			// CheckChange
-			if (data is GameDataBoardCheckTransformChange<UpdateData>) {
-				return;
-			}
-			// Parent
-			{
-				if (data is GomokuGameDataUI.UIData) {
-					GomokuGameDataUI.UIData gomokuGameDataUIData = data as GomokuGameDataUI.UIData;
-					// Child
-					{
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UpdateData)
+            {
+                UpdateData updateData = data as UpdateData;
+                // CheckChange
+                {
+                    gameDataBoardCheckTransformChange.removeCallBack(this);
+                    gameDataBoardCheckTransformChange.setData(null);
+                }
+                // Parent
+                {
+                    DataUtils.removeParentCallBack(updateData, this, ref this.gomokuGameDataUIData);
+                }
+                this.setDataNull(updateData);
+                return;
+            }
+            // CheckChange
+            if (data is GameDataBoardCheckTransformChange<UpdateData>)
+            {
+                return;
+            }
+            // Parent
+            {
+                if (data is GomokuGameDataUI.UIData)
+                {
+                    GomokuGameDataUI.UIData gomokuGameDataUIData = data as GomokuGameDataUI.UIData;
+                    // Child
+                    {
                         // transformData
                         {
                             GomokuGameDataUI gomokuGameDataUI = gomokuGameDataUIData.findCallBack<GomokuGameDataUI>();
@@ -239,10 +271,10 @@ namespace Gomoku
                                 Debug.LogError("gomokuGameDataUI null");
                             }
                         }
-						gomokuGameDataUIData.gameData.allRemoveCallBack (this);
-					}
-					return;
-				}
+                        gomokuGameDataUIData.gameData.allRemoveCallBack(this);
+                    }
+                    return;
+                }
                 // Child
                 {
                     if (data is TransformData)
@@ -267,56 +299,62 @@ namespace Gomoku
                         }
                     }
                 }
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UpdateData) {
-				switch ((UpdateData.Property)wrapProperty.n) {
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// CheckChange
-			if (wrapProperty.p is GameDataBoardCheckTransformChange<UpdateData>) {
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UpdateData)
+            {
+                switch ((UpdateData.Property)wrapProperty.n)
+                {
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // CheckChange
+            if (wrapProperty.p is GameDataBoardCheckTransformChange<UpdateData>)
+            {
                 dirty = true;
                 return;
-			}
-			// Parent
-			{
-				if (wrapProperty.p is GomokuGameDataUI.UIData) {
-					switch ((GomokuGameDataUI.UIData.Property)wrapProperty.n) {
-					case GomokuGameDataUI.UIData.Property.gameData:
-						{
-							ValueChangeUtils.replaceCallBack (this, syncs);
-							dirty = true;
-						}
-						break;
-					case GomokuGameDataUI.UIData.Property.transformOrganizer:
-						break;
-					case GomokuGameDataUI.UIData.Property.isOnAnimation:
-						break;
-					case GomokuGameDataUI.UIData.Property.board:
-						break;
-					case GomokuGameDataUI.UIData.Property.lastMove:
-						break;
-					case GomokuGameDataUI.UIData.Property.showHint:
-						break;
-					case GomokuGameDataUI.UIData.Property.inputUI:
-						break;
-					default:
-						Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-						break;
-					}
-					return;
-				}
+            }
+            // Parent
+            {
+                if (wrapProperty.p is GomokuGameDataUI.UIData)
+                {
+                    switch ((GomokuGameDataUI.UIData.Property)wrapProperty.n)
+                    {
+                        case GomokuGameDataUI.UIData.Property.gameData:
+                            {
+                                ValueChangeUtils.replaceCallBack(this, syncs);
+                                dirty = true;
+                            }
+                            break;
+                        case GomokuGameDataUI.UIData.Property.transformOrganizer:
+                            break;
+                        case GomokuGameDataUI.UIData.Property.isOnAnimation:
+                            break;
+                        case GomokuGameDataUI.UIData.Property.board:
+                            break;
+                        case GomokuGameDataUI.UIData.Property.lastMove:
+                            break;
+                        case GomokuGameDataUI.UIData.Property.showHint:
+                            break;
+                        case GomokuGameDataUI.UIData.Property.inputUI:
+                            break;
+                        default:
+                            Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
                 // Child
                 {
                     if (wrapProperty.p is TransformData)
@@ -384,11 +422,11 @@ namespace Gomoku
                         }
                     }
                 }
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
 
-		#endregion
+        #endregion
 
-	}
+    }
 }

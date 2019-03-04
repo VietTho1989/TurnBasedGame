@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 
 namespace Khet
 {
@@ -66,27 +66,36 @@ namespace Khet
                     }
                     if (khetGameDataUI != null && gameDataBoardUI != null)
                     {
-                        TransformData khetTransform = khetGameDataUI.transformData;
-                        TransformData boardTransform = gameDataBoardUI.transformData;
-                        if (khetTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero)
+                        RectTransform khetTransform = (RectTransform)khetGameDataUI.transform;
+                        RectTransform boardTransform = (RectTransform)gameDataBoardUI.transform;
+                        if (khetTransform != null && boardTransform != null)
                         {
-                            float scale = Mathf.Min(Mathf.Abs(boardTransform.size.v.x / 10f), Mathf.Abs(boardTransform.size.v.y / 8f));
-                            // new scale
-                            Vector3 newLocalScale = new Vector3();
+                            Vector2 khetSize = new Vector2(khetTransform.rect.width, khetTransform.rect.height);
+                            Vector2 boardSize = new Vector2(boardTransform.rect.width, boardTransform.rect.height);
+                            if (khetSize != Vector2.zero && boardSize != Vector2.zero)
                             {
-                                Vector3 currentLocalScale = this.transform.localScale;
-                                // x
-                                newLocalScale.x = scale;
-                                // y
-                                newLocalScale.y = (gameDataBoardUIData.perspective.v.playerView.v == 0 ? 1 : -1) * scale;
-                                // z
-                                newLocalScale.z = 1;
+                                float scale = Mathf.Min(Mathf.Abs(boardSize.x / 10f), Mathf.Abs(boardSize.y / 8f));
+                                // new scale
+                                Vector3 newLocalScale = new Vector3();
+                                {
+                                    Vector3 currentLocalScale = this.transform.localScale;
+                                    // x
+                                    newLocalScale.x = scale;
+                                    // y
+                                    newLocalScale.y = (gameDataBoardUIData.perspective.v.playerView.v == 0 ? 1 : -1) * scale;
+                                    // z
+                                    newLocalScale.z = 1;
+                                }
+                                this.transform.localScale = newLocalScale;
                             }
-                            this.transform.localScale = newLocalScale;
+                            else
+                            {
+                                Debug.LogError("why transform zero");
+                            }
                         }
                         else
                         {
-                            Debug.LogError("why transform zero");
+                            Debug.LogError("khetTransform, boardTransform null");
                         }
                     }
                     else

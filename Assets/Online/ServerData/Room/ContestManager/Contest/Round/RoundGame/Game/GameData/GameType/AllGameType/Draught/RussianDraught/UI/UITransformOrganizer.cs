@@ -5,39 +5,41 @@ using UnityEngine.UI;
 
 namespace RussianDraught
 {
-	public class UITransformOrganizer : UpdateBehavior<UITransformOrganizer.UpdateData>
-	{
+    public class UITransformOrganizer : UpdateBehavior<UITransformOrganizer.UpdateData>
+    {
 
-		#region UpdateData
+        #region UpdateData
 
-		public class UpdateData : Data
-		{
+        public class UpdateData : Data
+        {
 
-			#region Constructor
+            #region Constructor
 
-			public enum Property
-			{
+            public enum Property
+            {
 
-			}
+            }
 
-			public UpdateData() : base()
-			{
+            public UpdateData() : base()
+            {
 
-			}
+            }
 
-			#endregion
+            #endregion
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		#region Update
+        #region Update
 
-		public override void update ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
+        public override void update()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
                     RussianDraughtGameDataUI russianDraughtGameDataUI = null;
                     {
                         RussianDraughtGameDataUI.UIData russianDraughtGameDataUIData = this.data.findDataInParent<RussianDraughtGameDataUI.UIData>();
@@ -51,7 +53,7 @@ namespace RussianDraught
                         }
                     }
                     GameDataBoardUI gameDataBoardUI = null;
-					GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData> ();
+                    GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData>();
                     {
                         if (gameDataBoardUIData != null)
                         {
@@ -62,75 +64,95 @@ namespace RussianDraught
                             Debug.LogError("gameDataBoardUIData null");
                         }
                     }
-                    if (russianDraughtGameDataUI != null && gameDataBoardUI != null) {
-						TransformData russianDraughtTransform = russianDraughtGameDataUI.transformData;
-						TransformData boardTransform = gameDataBoardUI.transformData;
-						if (russianDraughtTransform.size.v != Vector2.zero && boardTransform.size.v != Vector2.zero) {
-							float boardSizeX = 8f;
-							float boardSizeY = 8f;
-							float scale = Mathf.Min (Mathf.Abs (boardTransform.size.v.x / boardSizeX), Mathf.Abs (boardTransform.size.v.y / boardSizeY));
-							// new scale
-							Vector3 newLocalScale = new Vector3 ();
-							{
-								Vector3 currentLocalScale = this.transform.localScale;
-								// x
-								newLocalScale.x = scale;
-								// y
-								newLocalScale.y = (gameDataBoardUIData.perspective.v.playerView.v == 0 ? 1 : -1) * scale;
-								// z
-								newLocalScale.z = 1;
-							}
-							this.transform.localScale = newLocalScale;
-						} else {
-							Debug.LogError ("why transform zero");
-						}
-					} else {
-						Debug.LogError ("russianDraughtGameDataUI or gameDataBoardUI null: " + this);
-					}
-				} else {
-					Debug.LogError ("data null: " + this);
-				}
-			}
-		}
+                    if (russianDraughtGameDataUI != null && gameDataBoardUI != null)
+                    {
+                        RectTransform russianDraughtTransform = (RectTransform)russianDraughtGameDataUI.transform;
+                        RectTransform boardTransform = (RectTransform)gameDataBoardUI.transform;
+                        if (russianDraughtTransform != null && boardTransform != null)
+                        {
+                            Vector2 russianDraughtSize = new Vector2(russianDraughtTransform.rect.width, russianDraughtTransform.rect.height);
+                            Vector2 boardSize = new Vector2(boardTransform.rect.width, boardTransform.rect.height);
+                            if (russianDraughtSize != Vector2.zero && boardSize != Vector2.zero)
+                            {
+                                float boardSizeX = 8f;
+                                float boardSizeY = 8f;
+                                float scale = Mathf.Min(Mathf.Abs(boardSize.x / boardSizeX), Mathf.Abs(boardSize.y / boardSizeY));
+                                // new scale
+                                Vector3 newLocalScale = new Vector3();
+                                {
+                                    Vector3 currentLocalScale = this.transform.localScale;
+                                    // x
+                                    newLocalScale.x = scale;
+                                    // y
+                                    newLocalScale.y = (gameDataBoardUIData.perspective.v.playerView.v == 0 ? 1 : -1) * scale;
+                                    // z
+                                    newLocalScale.z = 1;
+                                }
+                                this.transform.localScale = newLocalScale;
+                            }
+                            else
+                            {
+                                Debug.LogError("why transform zero");
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("russianDraughtTransform, boardTransform null");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("russianDraughtGameDataUI or gameDataBoardUI null: " + this);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("data null: " + this);
+                }
+            }
+        }
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		#endregion
+        #endregion
 
-		#region implement callBacks
+        #region implement callBacks
 
-		private RussianDraughtGameDataUI.UIData russianDraughtGameDataUIData = null;
-		private GameDataBoardCheckTransformChange<UpdateData> gameDataBoardCheckTransformChange = new GameDataBoardCheckTransformChange<UpdateData>();
+        private RussianDraughtGameDataUI.UIData russianDraughtGameDataUIData = null;
+        private GameDataBoardCheckTransformChange<UpdateData> gameDataBoardCheckTransformChange = new GameDataBoardCheckTransformChange<UpdateData>();
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UpdateData) {
-				UpdateData updateData = data as UpdateData;
-				// CheckChange
-				{
-					gameDataBoardCheckTransformChange.addCallBack (this);
-					gameDataBoardCheckTransformChange.setData (updateData);
-				}
-				// Parent
-				{
-					DataUtils.addParentCallBack (updateData, this, ref this.russianDraughtGameDataUIData);
-				}
-				dirty = true;
-				return;
-			}
-			// CheckChange
-			if (data is GameDataBoardCheckTransformChange<UpdateData>) {
-				dirty = true;
-				return;
-			}
-			// Parent
-			{
-				if (data is RussianDraughtGameDataUI.UIData) {
-					RussianDraughtGameDataUI.UIData russianDraughtGameDataUIData = data as RussianDraughtGameDataUI.UIData;
-					// Child
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UpdateData)
+            {
+                UpdateData updateData = data as UpdateData;
+                // CheckChange
+                {
+                    gameDataBoardCheckTransformChange.addCallBack(this);
+                    gameDataBoardCheckTransformChange.setData(updateData);
+                }
+                // Parent
+                {
+                    DataUtils.addParentCallBack(updateData, this, ref this.russianDraughtGameDataUIData);
+                }
+                dirty = true;
+                return;
+            }
+            // CheckChange
+            if (data is GameDataBoardCheckTransformChange<UpdateData>)
+            {
+                dirty = true;
+                return;
+            }
+            // Parent
+            {
+                if (data is RussianDraughtGameDataUI.UIData)
+                {
+                    RussianDraughtGameDataUI.UIData russianDraughtGameDataUIData = data as RussianDraughtGameDataUI.UIData;
+                    // Child
                     {
                         RussianDraughtGameDataUI russianDraughtGameDataUI = russianDraughtGameDataUIData.findCallBack<RussianDraughtGameDataUI>();
                         if (russianDraughtGameDataUI != null)
@@ -141,44 +163,48 @@ namespace RussianDraught
                         {
                             Debug.LogError("russianDraughtGameDataUI null");
                         }
-					}
-					dirty = true;
-					return;
-				}
+                    }
+                    dirty = true;
+                    return;
+                }
                 // Child
-				if (data is TransformData) {
-					dirty = true;
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+                if (data is TransformData)
+                {
+                    dirty = true;
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UpdateData) {
-				UpdateData updateData = data as UpdateData;
-				// CheckChange
-				{
-					gameDataBoardCheckTransformChange.removeCallBack (this);
-					gameDataBoardCheckTransformChange.setData (null);
-				}
-				// Parent
-				{
-					DataUtils.removeParentCallBack (updateData, this, ref this.russianDraughtGameDataUIData);
-				}
-				this.setDataNull (updateData);
-				return;
-			}
-			// CheckChange
-			if (data is GameDataBoardCheckTransformChange<UpdateData>) {
-				return;
-			}
-			// Parent
-			{
-				if (data is RussianDraughtGameDataUI.UIData) {
-					RussianDraughtGameDataUI.UIData russianDraughtGameDataUIData = data as RussianDraughtGameDataUI.UIData;
-					// Child
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UpdateData)
+            {
+                UpdateData updateData = data as UpdateData;
+                // CheckChange
+                {
+                    gameDataBoardCheckTransformChange.removeCallBack(this);
+                    gameDataBoardCheckTransformChange.setData(null);
+                }
+                // Parent
+                {
+                    DataUtils.removeParentCallBack(updateData, this, ref this.russianDraughtGameDataUIData);
+                }
+                this.setDataNull(updateData);
+                return;
+            }
+            // CheckChange
+            if (data is GameDataBoardCheckTransformChange<UpdateData>)
+            {
+                return;
+            }
+            // Parent
+            {
+                if (data is RussianDraughtGameDataUI.UIData)
+                {
+                    RussianDraughtGameDataUI.UIData russianDraughtGameDataUIData = data as RussianDraughtGameDataUI.UIData;
+                    // Child
                     {
                         RussianDraughtGameDataUI russianDraughtGameDataUI = russianDraughtGameDataUIData.findCallBack<RussianDraughtGameDataUI>();
                         if (russianDraughtGameDataUI != null)
@@ -190,49 +216,56 @@ namespace RussianDraught
                             Debug.LogError("russianDraughtGameDataUI null");
                         }
                     }
-					return;
-				}
+                    return;
+                }
                 // Child
-				if (data is TransformData) {
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+                if (data is TransformData)
+                {
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UpdateData) {
-				switch ((UpdateData.Property)wrapProperty.n) {
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// CheckChange
-			if (wrapProperty.p is GameDataBoardCheckTransformChange<UpdateData>) {
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UpdateData)
+            {
+                switch ((UpdateData.Property)wrapProperty.n)
+                {
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // CheckChange
+            if (wrapProperty.p is GameDataBoardCheckTransformChange<UpdateData>)
+            {
                 dirty = true;
                 return;
-			}
-			// Parent
-			{
-				if (wrapProperty.p is RussianDraughtGameDataUI.UIData) {
-					return;
-				}
+            }
+            // Parent
+            {
+                if (wrapProperty.p is RussianDraughtGameDataUI.UIData)
+                {
+                    return;
+                }
                 // Child
-				if (wrapProperty.p is TransformData) {
+                if (wrapProperty.p is TransformData)
+                {
                     dirty = true;
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
 
-		#endregion
+        #endregion
 
-	}
+    }
 }
