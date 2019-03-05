@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace NineMenMorris
 {
-    public class DefaultNineMenMorrisUI : UIBehavior<DefaultNineMenMorrisUI.UIData>, HaveTransformData
+    public class DefaultNineMenMorrisUI : UIHaveTransformDataBehavior<DefaultNineMenMorrisUI.UIData>
     {
 
         #region UIData
@@ -50,22 +50,6 @@ namespace NineMenMorris
         static DefaultNineMenMorrisUI()
         {
             txtTitle.add(Language.Type.vi, "Mặc Định Nine men's morris");
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        public TransformData getTransformData()
-        {
-            return this.transformData;
         }
 
         #endregion
@@ -215,7 +199,6 @@ namespace NineMenMorris
                     // Debug.LogError ("data null: " + this);
                 }
             }
-            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate()
@@ -237,8 +220,6 @@ namespace NineMenMorris
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -246,12 +227,6 @@ namespace NineMenMorris
                     uiData.editDefaultNineMenMorris.allAddCallBack(this);
                     uiData.miniGameDataUIData.allAddCallBack(this);
                 }
-                dirty = true;
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 dirty = true;
                 return;
             }
@@ -344,8 +319,6 @@ namespace NineMenMorris
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -354,11 +327,6 @@ namespace NineMenMorris
                     uiData.miniGameDataUIData.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 return;
             }
             // Setting
@@ -462,12 +430,6 @@ namespace NineMenMorris
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
-                return;
-            }
-            // Global
-            if (wrapProperty.p is Global)
-            {
-                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Posture;
 using GameManager.Match;
 
-public class PostureGameDataFactoryUI : UIBehavior<PostureGameDataFactoryUI.UIData>, HaveTransformData
+public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameDataFactoryUI.UIData>
 {
 
     #region UIData
@@ -188,22 +188,6 @@ public class PostureGameDataFactoryUI : UIBehavior<PostureGameDataFactoryUI.UIDa
             gameTypeRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
             useRuleRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + UIConstants.DefaultMiniGameDataUISize + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
         }
-    }
-
-    #endregion
-
-    #region TransformData
-
-    public TransformData transformData = new TransformData();
-
-    private void updateTransformData()
-    {
-        this.transformData.update(this.transform);
-    }
-
-    public TransformData getTransformData()
-    {
-        return this.transformData;
     }
 
     #endregion
@@ -496,7 +480,6 @@ public class PostureGameDataFactoryUI : UIBehavior<PostureGameDataFactoryUI.UIDa
                 Debug.LogError("data null: " + this);
             }
         }
-        updateTransformData();
     }
 
     public override bool isShouldDisableUpdate()
@@ -525,8 +508,6 @@ public class PostureGameDataFactoryUI : UIBehavior<PostureGameDataFactoryUI.UIDa
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().addCallBack(this);
             // Setting
             Setting.get().addCallBack(this);
             // Child
@@ -537,12 +518,6 @@ public class PostureGameDataFactoryUI : UIBehavior<PostureGameDataFactoryUI.UIDa
                 uiData.miniGameDataUI.allAddCallBack(this);
                 uiData.useRule.allAddCallBack(this);
             }
-            dirty = true;
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             dirty = true;
             return;
         }
@@ -710,8 +685,6 @@ public class PostureGameDataFactoryUI : UIBehavior<PostureGameDataFactoryUI.UIDa
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().removeCallBack(this);
             // Setting
             Setting.get().removeCallBack(this);
             // Child
@@ -723,11 +696,6 @@ public class PostureGameDataFactoryUI : UIBehavior<PostureGameDataFactoryUI.UIDa
                 uiData.useRule.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             return;
         }
         // Setting
@@ -864,12 +832,6 @@ public class PostureGameDataFactoryUI : UIBehavior<PostureGameDataFactoryUI.UIDa
                     Debug.LogError("Don't process: " + data + "; " + this);
                     break;
             }
-            return;
-        }
-        // Global
-        if (wrapProperty.p is Global)
-        {
-            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Setting

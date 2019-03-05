@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace GameManager.Match.RoundRobin
 {
-    public class RoundRobinFactoryUI : UIBehavior<RoundRobinFactoryUI.UIData>, HaveTransformData
+    public class RoundRobinFactoryUI : UIHaveTransformDataBehavior<RoundRobinFactoryUI.UIData>
     {
 
         #region UIData
@@ -157,13 +157,13 @@ namespace GameManager.Match.RoundRobin
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
         public Text lbTeamCount;
-        public static readonly TxtLanguage txtTeamCount = new TxtLanguage();
+        private static readonly TxtLanguage txtTeamCount = new TxtLanguage();
 
         public Text lbNeedReturnRound;
-        public static readonly TxtLanguage txtNeedReturnRound = new TxtLanguage();
+        private static readonly TxtLanguage txtNeedReturnRound = new TxtLanguage();
 
         static RoundRobinFactoryUI()
         {
@@ -177,22 +177,6 @@ namespace GameManager.Match.RoundRobin
             {
 
             }
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        public TransformData getTransformData()
-        {
-            return this.transformData;
         }
 
         #endregion
@@ -541,7 +525,6 @@ namespace GameManager.Match.RoundRobin
                     // Debug.LogError ("data null: " + this);
                 }
             }
-            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate()
@@ -567,8 +550,6 @@ namespace GameManager.Match.RoundRobin
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -578,12 +559,6 @@ namespace GameManager.Match.RoundRobin
                     uiData.teamCount.allAddCallBack(this);
                     uiData.needReturnRound.allAddCallBack(this);
                 }
-                dirty = true;
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 dirty = true;
                 return;
             }
@@ -717,8 +692,6 @@ namespace GameManager.Match.RoundRobin
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -729,11 +702,6 @@ namespace GameManager.Match.RoundRobin
                     uiData.needReturnRound.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 return;
             }
             // Setting
@@ -858,12 +826,6 @@ namespace GameManager.Match.RoundRobin
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
-                return;
-            }
-            // Global
-            if (wrapProperty.p is Global)
-            {
-                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

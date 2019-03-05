@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using AdvancedCoroutines;
 using Foundation.Tasks;
 
-public class GamePlayerStateNormalUI : UIBehavior<GamePlayerStateNormalUI.UIData>, HaveTransformData
+public class GamePlayerStateNormalUI : UIHaveTransformDataBehavior<GamePlayerStateNormalUI.UIData>
 {
 
     #region UIData
@@ -89,22 +89,6 @@ public class GamePlayerStateNormalUI : UIBehavior<GamePlayerStateNormalUI.UIData
         txtCannotSurrender.add(Language.Type.vi, "Không thể hàng");
 
         txtRequestError.add(Language.Type.vi, "Gửi yêu cầu bỏ cuộc lỗi");
-    }
-
-    #endregion
-
-    #region TransformData
-
-    public TransformData transformData = new TransformData();
-
-    private void updateTransformData()
-    {
-        this.transformData.update(this.transform);
-    }
-
-    public TransformData getTransformData()
-    {
-        return this.transformData;
     }
 
     #endregion
@@ -244,7 +228,6 @@ public class GamePlayerStateNormalUI : UIBehavior<GamePlayerStateNormalUI.UIData
                 Debug.LogError("data null");
             }
         }
-        updateTransformData();
     }
 
     public override bool isShouldDisableUpdate()
@@ -304,20 +287,12 @@ public class GamePlayerStateNormalUI : UIBehavior<GamePlayerStateNormalUI.UIData
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().addCallBack(this);
             // Setting
             Setting.get().addCallBack(this);
             // Child
             {
                 uiData.normal.allAddCallBack(this);
             }
-            dirty = true;
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             dirty = true;
             return;
         }
@@ -402,8 +377,6 @@ public class GamePlayerStateNormalUI : UIBehavior<GamePlayerStateNormalUI.UIData
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().removeCallBack(this);
             // Setting
             Setting.get().removeCallBack(this);
             // Child
@@ -411,11 +384,6 @@ public class GamePlayerStateNormalUI : UIBehavior<GamePlayerStateNormalUI.UIData
                 uiData.normal.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             return;
         }
         // Setting
@@ -510,12 +478,6 @@ public class GamePlayerStateNormalUI : UIBehavior<GamePlayerStateNormalUI.UIData
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
-            return;
-        }
-        // Global
-        if (wrapProperty.p is Global)
-        {
-            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Setting

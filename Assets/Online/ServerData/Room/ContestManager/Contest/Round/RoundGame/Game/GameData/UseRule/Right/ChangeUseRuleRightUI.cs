@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class ChangeUseRuleRightUI : UIBehavior<ChangeUseRuleRightUI.UIData>, HaveTransformData
+public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRightUI.UIData>
 {
 
     #region UIData
@@ -198,22 +198,6 @@ public class ChangeUseRuleRightUI : UIBehavior<ChangeUseRuleRightUI.UIData>, Hav
             needAdminRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
             needAcceptRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
         }
-    }
-
-    #endregion
-
-    #region TransformData
-
-    public TransformData transformData = new TransformData();
-
-    private void updateTransformData()
-    {
-        this.transformData.update(this.transform);
-    }
-
-    public TransformData getTransformData()
-    {
-        return this.transformData;
     }
 
     #endregion
@@ -565,7 +549,6 @@ public class ChangeUseRuleRightUI : UIBehavior<ChangeUseRuleRightUI.UIData>, Hav
                 Debug.LogError("data null: " + this);
             }
         }
-        updateTransformData();
     }
 
     public override bool isShouldDisableUpdate()
@@ -591,8 +574,6 @@ public class ChangeUseRuleRightUI : UIBehavior<ChangeUseRuleRightUI.UIData>, Hav
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().addCallBack(this);
             // Setting
             Setting.get().addCallBack(this);
             // Child
@@ -603,12 +584,6 @@ public class ChangeUseRuleRightUI : UIBehavior<ChangeUseRuleRightUI.UIData>, Hav
                 uiData.needAdmin.allAddCallBack(this);
                 uiData.needAccept.allAddCallBack(this);
             }
-            dirty = true;
-            return;
-        }
-        // Global
-        if(data is Global)
-        {
             dirty = true;
             return;
         }
@@ -701,8 +676,6 @@ public class ChangeUseRuleRightUI : UIBehavior<ChangeUseRuleRightUI.UIData>, Hav
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().removeCallBack(this);
             // Setting
             Setting.get().removeCallBack(this);
             // Child
@@ -714,11 +687,6 @@ public class ChangeUseRuleRightUI : UIBehavior<ChangeUseRuleRightUI.UIData>, Hav
                 uiData.needAccept.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
-            return;
-        }
-        // Global
-        if(data is Global)
-        {
             return;
         }
         // Setting
@@ -818,12 +786,6 @@ public class ChangeUseRuleRightUI : UIBehavior<ChangeUseRuleRightUI.UIData>, Hav
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
-            return;
-        }
-        // Global
-        if (wrapProperty.p is Global)
-        {
-            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Setting

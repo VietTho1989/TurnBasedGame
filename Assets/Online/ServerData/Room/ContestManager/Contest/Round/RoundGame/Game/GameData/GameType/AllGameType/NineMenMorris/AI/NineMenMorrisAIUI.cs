@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace NineMenMorris
 {
-    public class NineMenMorrisAIUI : UIBehavior<NineMenMorrisAIUI.UIData>, HaveTransformData
+    public class NineMenMorrisAIUI : UIHaveTransformDataBehavior<NineMenMorrisAIUI.UIData>
     {
 
         #region UIData
@@ -290,22 +290,22 @@ namespace NineMenMorris
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
         public Text lbMaxNormal;
-        public static readonly TxtLanguage txtMaxNormal = new TxtLanguage();
+        private static readonly TxtLanguage txtMaxNormal = new TxtLanguage();
 
         public Text lbMaxPositioning;
-        public static readonly TxtLanguage txtMaxPositioning = new TxtLanguage();
+        private static readonly TxtLanguage txtMaxPositioning = new TxtLanguage();
 
         public Text lbMaxBlackAndWhite3;
-        public static readonly TxtLanguage txtMaxBlackAndWhite3 = new TxtLanguage();
+        private static readonly TxtLanguage txtMaxBlackAndWhite3 = new TxtLanguage();
 
         public Text lbMaxBlackOrWhite3;
-        public static readonly TxtLanguage txtMaxBlackOrWhite3 = new TxtLanguage();
+        private static readonly TxtLanguage txtMaxBlackOrWhite3 = new TxtLanguage();
 
         public Text lbPickBestMove;
-        public static readonly TxtLanguage txtPickBestMove = new TxtLanguage();
+        private static readonly TxtLanguage txtPickBestMove = new TxtLanguage();
 
         static NineMenMorrisAIUI()
         {
@@ -326,22 +326,6 @@ namespace NineMenMorris
                 maxBlackOrWhite3Rect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
                 pickBestMoveRect.setPosY(UIConstants.HeaderHeight + 4 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
             }
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        public TransformData getTransformData()
-        {
-            return this.transformData;
         }
 
         #endregion
@@ -965,7 +949,6 @@ namespace NineMenMorris
                     // Debug.LogError ("data null: " + this);
                 }
             }
-            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate()
@@ -977,11 +960,11 @@ namespace NineMenMorris
 
         #region implement callBacks
 
-        public static readonly UIRectTransform maxNormalRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform maxPositioningRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform maxBlackAndWhite3Rect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform maxBlackOrWhite3Rect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform pickBestMoveRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform maxNormalRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform maxPositioningRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform maxBlackAndWhite3Rect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform maxBlackOrWhite3Rect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform pickBestMoveRect = new UIRectTransform(UIConstants.RequestRect);
 
         public RequestChangeIntUI requestIntPrefab;
 
@@ -992,8 +975,6 @@ namespace NineMenMorris
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -1005,12 +986,6 @@ namespace NineMenMorris
                     uiData.MaxBlackOrWhite3.allAddCallBack(this);
                     uiData.pickBestMove.allAddCallBack(this);
                 }
-                dirty = true;
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 dirty = true;
                 return;
             }
@@ -1105,8 +1080,6 @@ namespace NineMenMorris
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -1119,11 +1092,6 @@ namespace NineMenMorris
                     uiData.pickBestMove.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 return;
             }
             // Setting
@@ -1228,12 +1196,6 @@ namespace NineMenMorris
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
-                return;
-            }
-            // Global
-            if (wrapProperty.p is Global)
-            {
-                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

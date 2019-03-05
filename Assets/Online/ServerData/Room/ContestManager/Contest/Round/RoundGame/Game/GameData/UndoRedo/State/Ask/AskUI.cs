@@ -7,7 +7,7 @@ using Foundation.Tasks;
 
 namespace UndoRedo
 {
-    public class AskUI : UIBehavior<AskUI.UIData>, HaveTransformData
+    public class AskUI : UIHaveTransformDataBehavior<AskUI.UIData>
     {
 
         #region UIData
@@ -77,25 +77,27 @@ namespace UndoRedo
 
         #region txt
 
-        public static readonly TxtLanguage txtLastTurn = new TxtLanguage();
-        public static readonly TxtLanguage txtLastYourTurn = new TxtLanguage();
+        private static readonly TxtLanguage txtLastTurn = new TxtLanguage();
+        private static readonly TxtLanguage txtLastYourTurn = new TxtLanguage();
 
-        public static readonly TxtLanguage txtAlreadyAccept = new TxtLanguage();
-        public static readonly TxtLanguage txtAccept = new TxtLanguage();
-        public static readonly TxtLanguage txtAlreadyCancel = new TxtLanguage();
-        public static readonly TxtLanguage txtCancel = new TxtLanguage();
+        private static readonly TxtLanguage txtAlreadyAccept = new TxtLanguage();
+        private static readonly TxtLanguage txtAccept = new TxtLanguage();
+        private static readonly TxtLanguage txtAlreadyCancel = new TxtLanguage();
+        private static readonly TxtLanguage txtCancel = new TxtLanguage();
 
-        public static readonly TxtLanguage txtCannotAccept = new TxtLanguage();
-        public static readonly TxtLanguage txtCannotCancel = new TxtLanguage();
+        private static readonly TxtLanguage txtCannotAccept = new TxtLanguage();
+        private static readonly TxtLanguage txtCannotCancel = new TxtLanguage();
 
-        public static readonly TxtLanguage txtCancelAccept = new TxtLanguage();
-        public static readonly TxtLanguage txtCancelCancel = new TxtLanguage();
+        private static readonly TxtLanguage txtCancelAccept = new TxtLanguage();
+        private static readonly TxtLanguage txtCancelCancel = new TxtLanguage();
 
-        public static readonly TxtLanguage txtAccepting = new TxtLanguage();
-        public static readonly TxtLanguage txtCancelling = new TxtLanguage();
+        private static readonly TxtLanguage txtAccepting = new TxtLanguage();
+        private static readonly TxtLanguage txtCancelling = new TxtLanguage();
 
-        public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private Text lbTitle;
+        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+
+        private static readonly TxtLanguage txtRequestError = new TxtLanguage();
 
         static AskUI()
         {
@@ -119,6 +121,8 @@ namespace UndoRedo
                 txtCancelling.add(Language.Type.vi, "Đang huỷ bỏ...");
 
                 txtTitle.add(Language.Type.vi, "Trả Lời Yêu Cầu Undo/Redo");
+
+                txtRequestError.add(Language.Type.vi, "Gửi yêu cầu lỗi");
             }
             // rect
             {
@@ -134,22 +138,6 @@ namespace UndoRedo
                     whoCanAskAdapterRect.sizeDelta = new Vector2(0.0f, 60.0f);
                 }
             }
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        public TransformData getTransformData()
-        {
-            return this.transformData;
         }
 
         #endregion
@@ -454,7 +442,6 @@ namespace UndoRedo
                     Debug.LogError("data null: " + this);
                 }
             }
-            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate()
@@ -474,7 +461,7 @@ namespace UndoRedo
             {
                 yield return new Wait(Global.WaitSendTime);
                 this.data.state.v = UIData.State.None;
-                Debug.LogError("request error: " + this);
+                Toast.showMessage(txtRequestError.get("Send request error"));
             }
             else
             {
@@ -507,8 +494,6 @@ namespace UndoRedo
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -516,12 +501,6 @@ namespace UndoRedo
                     uiData.ask.allAddCallBack(this);
                     uiData.whoCanAskAdapter.allAddCallBack(this);
                 }
-                dirty = true;
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 dirty = true;
                 return;
             }
@@ -593,8 +572,6 @@ namespace UndoRedo
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -603,11 +580,6 @@ namespace UndoRedo
                     uiData.whoCanAskAdapter.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 return;
             }
             // Setting
@@ -696,12 +668,6 @@ namespace UndoRedo
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
-                return;
-            }
-            // Global
-            if (wrapProperty.p is Global)
-            {
-                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

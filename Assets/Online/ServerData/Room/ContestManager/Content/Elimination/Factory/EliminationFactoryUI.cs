@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace GameManager.Match.Elimination
 {
-    public class EliminationFactoryUI : UIBehavior<EliminationFactoryUI.UIData>, HaveTransformData
+    public class EliminationFactoryUI : UIHaveTransformDataBehavior<EliminationFactoryUI.UIData>
     {
 
         #region UIData
@@ -191,22 +191,6 @@ namespace GameManager.Match.Elimination
             {
 
             }
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        public TransformData getTransformData()
-        {
-            return this.transformData;
         }
 
         #endregion
@@ -635,7 +619,6 @@ namespace GameManager.Match.Elimination
                     // Debug.LogError ("data null: " + this);
                 }
             }
-            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate()
@@ -660,8 +643,6 @@ namespace GameManager.Match.Elimination
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -671,12 +652,6 @@ namespace GameManager.Match.Elimination
                     uiData.initTeamCountLength.allAddCallBack(this);
                     uiData.initTeamCounts.allAddCallBack(this);
                 }
-                dirty = true;
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 dirty = true;
                 return;
             }
@@ -786,8 +761,6 @@ namespace GameManager.Match.Elimination
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -798,11 +771,6 @@ namespace GameManager.Match.Elimination
                     uiData.initTeamCounts.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 return;
             }
             // Setting
@@ -917,12 +885,6 @@ namespace GameManager.Match.Elimination
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
-                return;
-            }
-            // Global
-            if (wrapProperty.p is Global)
-            {
-                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

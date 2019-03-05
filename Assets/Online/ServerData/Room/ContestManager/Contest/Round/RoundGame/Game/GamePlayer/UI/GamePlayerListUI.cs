@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class GamePlayerListUI : UIBehavior<GamePlayerListUI.UIData>, HaveTransformData
+public class GamePlayerListUI : UIHaveTransformDataBehavior<GamePlayerListUI.UIData>
 {
 
     #region UIData
@@ -49,22 +49,6 @@ public class GamePlayerListUI : UIBehavior<GamePlayerListUI.UIData>, HaveTransfo
             return isProcess;
         }
 
-    }
-
-    #endregion
-
-    #region TransformData
-
-    public TransformData transformData = new TransformData();
-
-    private void updateTransformData()
-    {
-        this.transformData.update(this.transform);
-    }
-
-    public TransformData getTransformData()
-    {
-        return this.transformData;
     }
 
     #endregion
@@ -135,7 +119,6 @@ public class GamePlayerListUI : UIBehavior<GamePlayerListUI.UIData>, HaveTransfo
                 Debug.LogError("data null: " + this);
             }
         }
-        updateTransformData();
     }
 
     public override bool isShouldDisableUpdate()
@@ -154,19 +137,11 @@ public class GamePlayerListUI : UIBehavior<GamePlayerListUI.UIData>, HaveTransfo
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().addCallBack(this);
             // Child
             {
                 uiData.game.allAddCallBack(this);
                 uiData.gamePlayerUIs.allAddCallBack(this);
             }
-            dirty = true;
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             dirty = true;
             return;
         }
@@ -197,19 +172,12 @@ public class GamePlayerListUI : UIBehavior<GamePlayerListUI.UIData>, HaveTransfo
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().removeCallBack(this);
             // Child
             {
                 uiData.game.allRemoveCallBack(this);
                 uiData.gamePlayerUIs.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             return;
         }
         // Child
@@ -258,12 +226,6 @@ public class GamePlayerListUI : UIBehavior<GamePlayerListUI.UIData>, HaveTransfo
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
-            return;
-        }
-        // Global
-        if (wrapProperty.p is Global)
-        {
-            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Child

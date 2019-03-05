@@ -6,6 +6,8 @@ public interface HaveTransformData
 
     TransformData getTransformData();
 
+    void setDirtyForTransformData();
+
     /*
     #region TransformData
 

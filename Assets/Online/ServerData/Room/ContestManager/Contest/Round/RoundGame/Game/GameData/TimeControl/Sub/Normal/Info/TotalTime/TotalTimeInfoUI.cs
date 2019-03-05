@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace TimeControl.Normal
 {
-    public class TotalTimeInfoUI : UIBehavior<TotalTimeInfoUI.UIData>, HaveTransformData
+    public class TotalTimeInfoUI : UIHaveTransformDataBehavior<TotalTimeInfoUI.UIData>
     {
 
         #region UIData
@@ -56,22 +56,6 @@ namespace TimeControl.Normal
         static TotalTimeInfoUI()
         {
             txtTitle.add(Language.Type.vi, "Tổng Thời Gian");
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        public TransformData getTransformData()
-        {
-            return this.transformData;
         }
 
         #endregion
@@ -253,7 +237,6 @@ namespace TimeControl.Normal
                     Debug.LogError("data null: " + this);
                 }
             }
-            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate()
@@ -275,8 +258,6 @@ namespace TimeControl.Normal
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -284,12 +265,6 @@ namespace TimeControl.Normal
                     uiData.editTotalTimeInfo.allAddCallBack(this);
                     uiData.sub.allAddCallBack(this);
                 }
-                dirty = true;
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 dirty = true;
                 return;
             }
@@ -374,8 +349,6 @@ namespace TimeControl.Normal
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -384,11 +357,6 @@ namespace TimeControl.Normal
                     uiData.sub.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 return;
             }
             // Setting
@@ -487,12 +455,6 @@ namespace TimeControl.Normal
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
-                return;
-            }
-            // Global
-            if (wrapProperty.p is Global)
-            {
-                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

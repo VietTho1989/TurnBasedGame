@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class PerspectiveForceUI : UIBehavior<PerspectiveForceUI.UIData>, HaveTransformData
+public class PerspectiveForceUI : UIHaveTransformDataBehavior<PerspectiveForceUI.UIData>
 {
 
     #region UIData
@@ -65,22 +65,6 @@ public class PerspectiveForceUI : UIBehavior<PerspectiveForceUI.UIData>, HaveTra
 
     #endregion
 
-    #region TransformData
-
-    public TransformData transformData = new TransformData();
-
-    private void updateTransformData()
-    {
-        this.transformData.update(this.transform);
-    }
-
-    public TransformData getTransformData()
-    {
-        return this.transformData;
-    }
-
-    #endregion
-
     #region Refresh
 
     public override void refresh()
@@ -123,7 +107,6 @@ public class PerspectiveForceUI : UIBehavior<PerspectiveForceUI.UIData>, HaveTra
                 Debug.LogError("data null: " + this);
             }
         }
-        updateTransformData();
     }
 
     public override bool isShouldDisableUpdate()
@@ -140,20 +123,12 @@ public class PerspectiveForceUI : UIBehavior<PerspectiveForceUI.UIData>, HaveTra
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().addCallBack(this);
             // Setting
             Setting.get().addCallBack(this);
             // Child
             {
                 uiData.force.allAddCallBack(this);
             }
-            dirty = true;
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             dirty = true;
             return;
         }
@@ -177,8 +152,6 @@ public class PerspectiveForceUI : UIBehavior<PerspectiveForceUI.UIData>, HaveTra
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().removeCallBack(this);
             // Setting
             Setting.get().removeCallBack(this);
             // Child
@@ -186,11 +159,6 @@ public class PerspectiveForceUI : UIBehavior<PerspectiveForceUI.UIData>, HaveTra
                 uiData.force.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             return;
         }
         // Setting
@@ -226,12 +194,6 @@ public class PerspectiveForceUI : UIBehavior<PerspectiveForceUI.UIData>, HaveTra
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
-            return;
-        }
-        // Global
-        if (wrapProperty.p is Global)
-        {
-            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Setting

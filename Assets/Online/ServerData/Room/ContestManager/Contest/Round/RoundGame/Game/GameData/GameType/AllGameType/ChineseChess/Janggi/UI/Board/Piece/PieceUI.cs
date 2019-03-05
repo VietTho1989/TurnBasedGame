@@ -113,14 +113,140 @@ namespace Janggi
 						// Scale
 						{
 							int playerView = GameDataBoardUI.UIData.getPlayerView (this.data);
-							this.transform.localScale = (playerView == 0 ? new Vector3 (1, 1, 1) : new Vector3 (1, -1, 1));
+                            float scale = 1;
+                            {
+                                float PawnScale = 0.65f;
+                                float AdvisorScale = 0.65f;
+                                float ElephantScale = 0.8f;
+                                float HorseScale = 0.8f;
+                                float CannonScale = 0.8f;
+                                float ChariotScale = 0.8f;
+                                float GeneralScale = 1.0f;
+                                switch ((StoneHelper.Stones)this.data.piece.v)
+                                {
+                                    case StoneHelper.Stones.Empty:
+                                        break;
+                                    case StoneHelper.Stones.GreenPawn1:
+                                    case StoneHelper.Stones.GreenPawn2:
+                                    case StoneHelper.Stones.GreenPawn3:
+                                    case StoneHelper.Stones.GreenPawn4:
+                                    case StoneHelper.Stones.GreenPawn5:
+                                        scale = PawnScale;
+                                        break;
+                                    case StoneHelper.Stones.GreenElephant1:
+                                    case StoneHelper.Stones.GreenElephant2:
+                                        scale = ElephantScale;
+                                        break;
+                                    case StoneHelper.Stones.GreenHorse1:
+                                    case StoneHelper.Stones.GreenHorse2:
+                                        scale = HorseScale;
+                                        break;
+                                    case StoneHelper.Stones.GreenCannon1:
+                                    case StoneHelper.Stones.GreenCannon2:
+                                        scale = CannonScale;
+                                        break;
+                                    case StoneHelper.Stones.GreenChariot1:
+                                    case StoneHelper.Stones.GreenChariot2:
+                                        scale = ChariotScale;
+                                        break;
+                                    case StoneHelper.Stones.GreenAdvisor1:
+                                    case StoneHelper.Stones.GreenAdvisor2:
+                                        scale = AdvisorScale;
+                                        break;
+                                    case StoneHelper.Stones.GreenGeneral:
+                                        scale = GeneralScale;
+                                        break;
+
+                                    case StoneHelper.Stones.RedPawn1:
+                                    case StoneHelper.Stones.RedPawn2:
+                                    case StoneHelper.Stones.RedPawn3:
+                                    case StoneHelper.Stones.RedPawn4:
+                                    case StoneHelper.Stones.RedPawn5:
+                                        scale = PawnScale;
+                                        break;
+                                    case StoneHelper.Stones.RedElephant1:
+                                    case StoneHelper.Stones.RedElephant2:
+                                        scale = ElephantScale;
+                                        break;
+                                    case StoneHelper.Stones.RedHorse1:
+                                    case StoneHelper.Stones.RedHorse2:
+                                        scale = HorseScale;
+                                        break;
+                                    case StoneHelper.Stones.RedCannon1:
+                                    case StoneHelper.Stones.RedCannon2:
+                                        scale = CannonScale;
+                                        break;
+                                    case StoneHelper.Stones.RedChariot1:
+                                    case StoneHelper.Stones.RedChariot2:
+                                        scale = ChariotScale;
+                                        break;
+                                    case StoneHelper.Stones.RedAdvisor1:
+                                    case StoneHelper.Stones.RedAdvisor2:
+                                        scale = AdvisorScale;
+                                        break;
+                                    case StoneHelper.Stones.RedGeneral:
+                                        scale = GeneralScale;
+                                        break;
+
+                                    case StoneHelper.Stones.Pawn:
+                                        scale = PawnScale;
+                                        break;
+                                    case StoneHelper.Stones.GreenPawn:
+                                        scale = PawnScale;
+                                        break;
+                                    case StoneHelper.Stones.RedPawn:
+                                        scale = PawnScale;
+                                        break;
+                                    case StoneHelper.Stones.Elephant:
+                                        scale = ElephantScale;
+                                        break;
+                                    case StoneHelper.Stones.Horse:
+                                        scale = HorseScale;
+                                        break;
+                                    case StoneHelper.Stones.Cannon:
+                                        scale = CannonScale;
+                                        break;
+                                    case StoneHelper.Stones.GreenCannon:
+                                        scale = CannonScale;
+                                        break;
+                                    case StoneHelper.Stones.RedCannon:
+                                        scale = CannonScale;
+                                        break;
+                                    case StoneHelper.Stones.Chariot:
+                                        scale = ChariotScale;
+                                        break;
+                                    case StoneHelper.Stones.GreenChariot:
+                                        scale = ChariotScale;
+                                        break;
+                                    case StoneHelper.Stones.RedChariot:
+                                        scale = ChariotScale;
+                                        break;
+                                    case StoneHelper.Stones.Advisor:
+                                        scale = AdvisorScale;
+                                        break;
+                                    case StoneHelper.Stones.General:
+                                        scale = GeneralScale;
+                                        break;
+                                    case StoneHelper.Stones.Green:
+                                        scale = PawnScale;
+                                        break;
+                                    case StoneHelper.Stones.Red:
+                                        scale = PawnScale;
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown piece: " + this.data.piece.v);
+                                        scale = 1;
+                                        break;
+                                }
+                            }
+                            this.transform.localScale = (playerView == 0 ? new Vector3 (scale, scale, scale) : new Vector3 (scale, -scale, scale));
 						}
 					} else {
 						Debug.LogError ("not load full");
 						dirty = true;
 					}
 				} else {
-					Debug.LogError ("data null");
+					// Debug.LogError ("data null");
 				}
 			}
 		}

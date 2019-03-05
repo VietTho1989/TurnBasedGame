@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Weiqi
 {
-    public class DefaultWeiqiUI : UIBehavior<DefaultWeiqiUI.UIData>, HaveTransformData
+    public class DefaultWeiqiUI : UIHaveTransformDataBehavior<DefaultWeiqiUI.UIData>
     {
 
         #region UIData
@@ -262,22 +262,6 @@ namespace Weiqi
                 ruleRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
                 handicapRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
             }
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        public TransformData getTransformData()
-        {
-            return this.transformData;
         }
 
         #endregion
@@ -709,7 +693,6 @@ namespace Weiqi
                     // Debug.LogError ("data null: " + this);
                 }
             }
-            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate()
@@ -727,10 +710,10 @@ namespace Weiqi
         public RequestChangeFloatUI requestFloatPrefab;
         public RequestChangeEnumUI requestEnumPrefab;
 
-        public static readonly UIRectTransform sizeRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform komiRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform ruleRect = new UIRectTransform(UIConstants.RequestEnumRect);
-        public static readonly UIRectTransform handicapRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform sizeRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform komiRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform ruleRect = new UIRectTransform(UIConstants.RequestEnumRect);
+        private static readonly UIRectTransform handicapRect = new UIRectTransform(UIConstants.RequestRect);
 
         private Server server = null;
 
@@ -739,8 +722,6 @@ namespace Weiqi
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -752,12 +733,6 @@ namespace Weiqi
                     uiData.handicap.allAddCallBack(this);
                     uiData.miniGameDataUIData.allAddCallBack(this);
                 }
-                dirty = true;
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 dirty = true;
                 return;
             }
@@ -932,8 +907,6 @@ namespace Weiqi
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -946,11 +919,6 @@ namespace Weiqi
                     uiData.miniGameDataUIData.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 return;
             }
             // Setting
@@ -1105,12 +1073,6 @@ namespace Weiqi
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
-                return;
-            }
-            // Global
-            if (wrapProperty.p is Global)
-            {
-                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

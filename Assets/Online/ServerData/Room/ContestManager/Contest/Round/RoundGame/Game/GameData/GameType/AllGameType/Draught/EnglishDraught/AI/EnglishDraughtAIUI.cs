@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace EnglishDraught
 {
-    public class EnglishDraughtAIUI : UIBehavior<EnglishDraughtAIUI.UIData>, HaveTransformData
+    public class EnglishDraughtAIUI : UIHaveTransformDataBehavior<EnglishDraughtAIUI.UIData>
     {
 
         #region UIData
@@ -252,22 +252,6 @@ namespace EnglishDraught
                 g_MaxDepthRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
                 pickBestMoveRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
             }
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        public TransformData getTransformData()
-        {
-            return this.transformData;
         }
 
         #endregion
@@ -798,7 +782,6 @@ namespace EnglishDraught
                     // Debug.LogError ("data null: " + this);
                 }
             }
-            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate()
@@ -810,10 +793,10 @@ namespace EnglishDraught
 
         #region implement callBacks
 
-        public static readonly UIRectTransform threeMoveRandomRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        public static readonly UIRectTransform fMaxSecondsRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform g_MaxDepthRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform pickBestMoveRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform threeMoveRandomRect = new UIRectTransform(UIConstants.RequestBoolRect);
+        private static readonly UIRectTransform fMaxSecondsRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform g_MaxDepthRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform pickBestMoveRect = new UIRectTransform(UIConstants.RequestRect);
 
         public RequestChangeIntUI requestIntPrefab;
         public RequestChangeBoolUI requestBoolPrefab;
@@ -826,8 +809,6 @@ namespace EnglishDraught
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -838,12 +819,6 @@ namespace EnglishDraught
                     uiData.g_MaxDepth.allAddCallBack(this);
                     uiData.pickBestMove.allAddCallBack(this);
                 }
-                dirty = true;
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 dirty = true;
                 return;
             }
@@ -989,8 +964,6 @@ namespace EnglishDraught
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -1002,11 +975,6 @@ namespace EnglishDraught
                     uiData.pickBestMove.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 return;
             }
             // Setting
@@ -1126,12 +1094,6 @@ namespace EnglishDraught
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
-                return;
-            }
-            // Global
-            if (wrapProperty.p is Global)
-            {
-                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

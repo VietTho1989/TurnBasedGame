@@ -7,7 +7,7 @@ using Foundation.Tasks;
 
 namespace UndoRedo
 {
-    public class RequestLastYourTurnUI : UIBehavior<RequestLastYourTurnUI.UIData>, HaveTransformData
+    public class RequestLastYourTurnUI : UIHaveTransformDataBehavior<RequestLastYourTurnUI.UIData>
     {
 
         #region UIData
@@ -94,22 +94,6 @@ namespace UndoRedo
             txtCannotRedo.add(Language.Type.vi, "Không thể đi tiếp");
 
             txtRequestError.add(Language.Type.vi, "Gửi yêu cầu lỗi");
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        public TransformData getTransformData()
-        {
-            return this.transformData;
         }
 
         #endregion
@@ -375,7 +359,6 @@ namespace UndoRedo
                     Debug.LogError("data null: " + this);
                 }
             }
-            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate()
@@ -426,8 +409,6 @@ namespace UndoRedo
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Parent
@@ -439,12 +420,6 @@ namespace UndoRedo
                 {
                     uiData.requestLastYourTurn.allAddCallBack(this);
                 }
-                dirty = true;
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 dirty = true;
                 return;
             }
@@ -546,8 +521,6 @@ namespace UndoRedo
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Parent
@@ -560,11 +533,6 @@ namespace UndoRedo
                     uiData.requestLastYourTurn.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 return;
             }
             // Setting
@@ -664,12 +632,6 @@ namespace UndoRedo
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
-                return;
-            }
-            // Global
-            if (wrapProperty.p is Global)
-            {
-                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

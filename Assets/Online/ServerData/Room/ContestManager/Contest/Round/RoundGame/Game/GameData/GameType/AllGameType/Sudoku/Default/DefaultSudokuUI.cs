@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Sudoku
 {
-    public class DefaultSudokuUI : UIBehavior<DefaultSudokuUI.UIData>, HaveTransformData
+    public class DefaultSudokuUI : UIHaveTransformDataBehavior<DefaultSudokuUI.UIData>
     {
 
         #region UIData
@@ -50,22 +50,6 @@ namespace Sudoku
         static DefaultSudokuUI()
         {
             txtTitle.add(Language.Type.vi, "Mặc Định Sudoku");
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        public TransformData getTransformData()
-        {
-            return this.transformData;
         }
 
         #endregion
@@ -213,7 +197,6 @@ namespace Sudoku
                     // Debug.LogError ("data null: " + this);
                 }
             }
-            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate()
@@ -234,8 +217,6 @@ namespace Sudoku
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -243,12 +224,6 @@ namespace Sudoku
                     uiData.editDefaultSudoku.allAddCallBack(this);
                     uiData.miniGameDataUIData.allAddCallBack(this);
                 }
-                dirty = true;
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 dirty = true;
                 return;
             }
@@ -342,8 +317,6 @@ namespace Sudoku
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -352,11 +325,6 @@ namespace Sudoku
                     uiData.miniGameDataUIData.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 return;
             }
             // Setting
@@ -458,12 +426,6 @@ namespace Sudoku
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
-                return;
-            }
-            // Global
-            if (wrapProperty.p is Global)
-            {
-                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

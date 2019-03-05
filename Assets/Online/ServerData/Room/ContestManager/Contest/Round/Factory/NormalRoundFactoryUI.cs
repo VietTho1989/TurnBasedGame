@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace GameManager.Match
 {
-    public class NormalRoundFactoryUI : UIBehavior<NormalRoundFactoryUI.UIData>, HaveTransformData
+    public class NormalRoundFactoryUI : UIHaveTransformDataBehavior<NormalRoundFactoryUI.UIData>
     {
 
         #region UIData
@@ -235,19 +235,19 @@ namespace GameManager.Match
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
         public Text lbIsChangeSideBetweenRound;
-        public static readonly TxtLanguage txtIsChangeSideBetweenRound = new TxtLanguage();
+        private static readonly TxtLanguage txtIsChangeSideBetweenRound = new TxtLanguage();
 
         public Text lbIsSwitchPlayer;
-        public static readonly TxtLanguage txtIsSwitchPlayer = new TxtLanguage();
+        private static readonly TxtLanguage txtIsSwitchPlayer = new TxtLanguage();
 
         public Text lbIsDifferentInTeam;
-        public static readonly TxtLanguage txtIsDifferentInTeam = new TxtLanguage();
+        private static readonly TxtLanguage txtIsDifferentInTeam = new TxtLanguage();
 
         public Text lbCalculateScoreType;
-        public static readonly TxtLanguage txtCalculateScoreType = new TxtLanguage();
+        private static readonly TxtLanguage txtCalculateScoreType = new TxtLanguage();
 
         static NormalRoundFactoryUI()
         {
@@ -263,22 +263,6 @@ namespace GameManager.Match
             {
 
             }
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        public TransformData getTransformData()
-        {
-            return this.transformData;
         }
 
         #endregion
@@ -891,7 +875,6 @@ namespace GameManager.Match
                     Debug.LogError("data null: " + this);
                 }
             }
-            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate()
@@ -910,13 +893,11 @@ namespace GameManager.Match
         public CalculateScoreSumUI calculateScoreSumPrefab;
         public CalculateScoreWinLoseDrawUI calculateScoreWinLoseDrawPrefab;
 
-        // public Transform gameFactoryContainer;
         private static readonly UIRectTransform isChangeSideBetweenRoundRect = new UIRectTransform(UIConstants.RequestBoolRect);
         private static readonly UIRectTransform isSwitchPlayerRect = new UIRectTransform(UIConstants.RequestBoolRect);
         private static readonly UIRectTransform isDifferentInTeamRect = new UIRectTransform(UIConstants.RequestBoolRect);
 
         private static readonly UIRectTransform calculateScoreTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
-        // public Transform calculateScoreUIContainer;
 
         private Server server = null;
 
@@ -925,8 +906,6 @@ namespace GameManager.Match
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -942,12 +921,6 @@ namespace GameManager.Match
                         uiData.calculateScoreUI.allAddCallBack(this);
                     }
                 }
-                dirty = true;
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 dirty = true;
                 return;
             }
@@ -1116,8 +1089,6 @@ namespace GameManager.Match
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -1134,11 +1105,6 @@ namespace GameManager.Match
                     }
                 }
                 this.setDataNull(uiData);
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 return;
             }
             // Setting
@@ -1310,12 +1276,6 @@ namespace GameManager.Match
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
-                return;
-            }
-            // Global
-            if (wrapProperty.p is Global)
-            {
-                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

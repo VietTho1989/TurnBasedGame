@@ -44,7 +44,7 @@ public abstract class UIBehavior<K> : GameBehavior<K>, TrashMan.DespawnInterface
 
     public abstract void refresh();
 
-    void FixedUpdate()
+    public virtual void FixedUpdate()
     {
 
         // var watch = System.Diagnostics.Stopwatch.StartNew();
@@ -54,18 +54,18 @@ public abstract class UIBehavior<K> : GameBehavior<K>, TrashMan.DespawnInterface
         // Debug.Log ("UIBehaviorUpdate: " + elapsedMs + "; " + this);
     }
 
-    void LateUpdate()
+    public virtual void LateUpdate()
     {
         refresh();
     }
 
-    void OnGUI()
+    public virtual void OnGUI()
     {
         // updateTransformData();
         refresh();
     }
 
-    void OnPreCull()
+    public virtual void OnPreCull()
     {
         refresh();
     }

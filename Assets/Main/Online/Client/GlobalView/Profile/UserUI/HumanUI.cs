@@ -4,7 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class HumanUI : UIBehavior<HumanUI.UIData>, HaveTransformData
+public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
 {
 
     #region UIData
@@ -314,22 +314,6 @@ public class HumanUI : UIBehavior<HumanUI.UIData>, HaveTransformData
         {
 
         }
-    }
-
-    #endregion
-
-    #region TransformData
-
-    public TransformData transformData = new TransformData();
-
-    private void updateTransformData()
-    {
-        this.transformData.update(this.transform);
-    }
-
-    public TransformData getTransformData()
-    {
-        return this.transformData;
     }
 
     #endregion
@@ -1185,7 +1169,6 @@ public class HumanUI : UIBehavior<HumanUI.UIData>, HaveTransformData
                 Debug.LogError("data null: " + this);
             }
         }
-        updateTransformData();
     }
 
     public override bool isShouldDisableUpdate()
@@ -1210,7 +1193,6 @@ public class HumanUI : UIBehavior<HumanUI.UIData>, HaveTransformData
     private static readonly UIRectTransform statusRect = new UIRectTransform(UIConstants.RequestEnumRect);
     private static readonly UIRectTransform birthdayRect = new UIRectTransform(UIConstants.RequestEnumRect);
     private static readonly UIRectTransform sexRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    // public Transform banContainer;
 
     private Server server = null;
 
@@ -1219,8 +1201,6 @@ public class HumanUI : UIBehavior<HumanUI.UIData>, HaveTransformData
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().addCallBack(this);
             // Setting
             Setting.get().addCallBack(this);
             // Child
@@ -1235,12 +1215,6 @@ public class HumanUI : UIBehavior<HumanUI.UIData>, HaveTransformData
                 uiData.sex.allAddCallBack(this);
                 uiData.ban.allAddCallBack(this);
             }
-            dirty = true;
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             dirty = true;
             return;
         }
@@ -1423,8 +1397,6 @@ public class HumanUI : UIBehavior<HumanUI.UIData>, HaveTransformData
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().removeCallBack(this);
             // Setting
             Setting.get().removeCallBack(this);
             // Child
@@ -1440,11 +1412,6 @@ public class HumanUI : UIBehavior<HumanUI.UIData>, HaveTransformData
                 uiData.ban.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             return;
         }
         // Setting
@@ -1624,12 +1591,6 @@ public class HumanUI : UIBehavior<HumanUI.UIData>, HaveTransformData
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
-            return;
-        }
-        // Global
-        if (wrapProperty.p is Global)
-        {
-            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Setting

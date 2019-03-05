@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Weiqi
 {
-    public class WeiqiAIUI : UIBehavior<WeiqiAIUI.UIData>, HaveTransformData
+    public class WeiqiAIUI : UIHaveTransformDataBehavior<WeiqiAIUI.UIData>
     {
 
         #region UIData
@@ -300,22 +300,6 @@ namespace Weiqi
                 gamesRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
                 engineRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
             }
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        public TransformData getTransformData()
-        {
-            return this.transformData;
         }
 
         #endregion
@@ -1016,7 +1000,6 @@ namespace Weiqi
                     // Debug.LogError ("data null: " + this);
                 }
             }
-            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate()
@@ -1045,8 +1028,6 @@ namespace Weiqi
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -1058,12 +1039,6 @@ namespace Weiqi
                     uiData.games.allAddCallBack(this);
                     uiData.engine.allAddCallBack(this);
                 }
-                dirty = true;
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 dirty = true;
                 return;
             }
@@ -1204,8 +1179,6 @@ namespace Weiqi
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -1218,11 +1191,6 @@ namespace Weiqi
                     uiData.engine.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 return;
             }
             // Setting
@@ -1348,12 +1316,6 @@ namespace Weiqi
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
-                return;
-            }
-            // Global
-            if (wrapProperty.p is Global)
-            {
-                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

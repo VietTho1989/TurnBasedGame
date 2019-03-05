@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Makruk
 {
-    public class DefaultMakrukUI : UIBehavior<DefaultMakrukUI.UIData>, HaveTransformData
+    public class DefaultMakrukUI : UIHaveTransformDataBehavior<DefaultMakrukUI.UIData>
     {
 
         #region UIData
@@ -99,22 +99,6 @@ namespace Makruk
             {
                 chess960Rect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
             }
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        public TransformData getTransformData()
-        {
-            return this.transformData;
         }
 
         #endregion
@@ -342,7 +326,6 @@ namespace Makruk
                     // Debug.LogError ("data null: " + this);
                 }
             }
-            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate()
@@ -366,8 +349,6 @@ namespace Makruk
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -376,12 +357,6 @@ namespace Makruk
                     uiData.chess960.allAddCallBack(this);
                     uiData.miniGameDataUIData.allAddCallBack(this);
                 }
-                dirty = true;
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 dirty = true;
                 return;
             }
@@ -501,8 +476,6 @@ namespace Makruk
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -512,11 +485,6 @@ namespace Makruk
                     uiData.miniGameDataUIData.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 return;
             }
             // Setting
@@ -635,12 +603,6 @@ namespace Makruk
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
-                return;
-            }
-            // Global
-            if (wrapProperty.p is Global)
-            {
-                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

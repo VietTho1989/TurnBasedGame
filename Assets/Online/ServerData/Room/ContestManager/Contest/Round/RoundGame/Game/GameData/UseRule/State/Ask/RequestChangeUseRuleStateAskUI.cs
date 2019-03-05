@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using RequestUseRule;
 
-public class RequestChangeUseRuleStateAskUI : UIBehavior<RequestChangeUseRuleStateAskUI.UIData>, HaveTransformData
+public class RequestChangeUseRuleStateAskUI : UIHaveTransformDataBehavior<RequestChangeUseRuleStateAskUI.UIData>
 {
 
     #region UIData
@@ -108,22 +108,6 @@ public class RequestChangeUseRuleStateAskUI : UIBehavior<RequestChangeUseRuleSta
                 btnRefuseRect.sizeDelta = new Vector2(120.0f, 30.0f);
             }
         }
-    }
-
-    #endregion
-
-    #region TransformData
-
-    public TransformData transformData = new TransformData();
-
-    private void updateTransformData()
-    {
-        this.transformData.update(this.transform);
-    }
-
-    public TransformData getTransformData()
-    {
-        return this.transformData;
     }
 
     #endregion
@@ -257,7 +241,6 @@ public class RequestChangeUseRuleStateAskUI : UIBehavior<RequestChangeUseRuleSta
                 Debug.LogError("data null: " + this);
             }
         }
-        updateTransformData();
     }
 
     public override bool isShouldDisableUpdate()
@@ -285,8 +268,6 @@ public class RequestChangeUseRuleStateAskUI : UIBehavior<RequestChangeUseRuleSta
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().addCallBack(this);
             // Setting
             Setting.get().addCallBack(this);
             // Child
@@ -296,12 +277,6 @@ public class RequestChangeUseRuleStateAskUI : UIBehavior<RequestChangeUseRuleSta
                 uiData.btnAccept.allAddCallBack(this);
                 uiData.btnRefuse.allAddCallBack(this);
             }
-            dirty = true;
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             dirty = true;
             return;
         }
@@ -384,8 +359,6 @@ public class RequestChangeUseRuleStateAskUI : UIBehavior<RequestChangeUseRuleSta
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().removeCallBack(this);
             // Setting
             Setting.get().removeCallBack(this);
             // Child
@@ -396,11 +369,6 @@ public class RequestChangeUseRuleStateAskUI : UIBehavior<RequestChangeUseRuleSta
                 uiData.btnRefuse.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             return;
         }
         // Setting
@@ -508,12 +476,6 @@ public class RequestChangeUseRuleStateAskUI : UIBehavior<RequestChangeUseRuleSta
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
-            return;
-        }
-        // Global
-        if (wrapProperty.p is Global)
-        {
-            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Setting

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Seirawan
 {
-    public class SeirawanAIUI : UIBehavior<SeirawanAIUI.UIData>, HaveTransformData
+    public class SeirawanAIUI : UIHaveTransformDataBehavior<SeirawanAIUI.UIData>
     {
 
         #region UIData
@@ -208,22 +208,6 @@ namespace Seirawan
                 skillLevelRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
                 durationRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
             }
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        public TransformData getTransformData()
-        {
-            return this.transformData;
         }
 
         #endregion
@@ -658,7 +642,6 @@ namespace Seirawan
                     // Debug.LogError ("data null: " + this);
                 }
             }
-            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate()

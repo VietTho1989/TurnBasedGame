@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>, HaveTransformData
+public class GameDataBoardUI : UIHaveTransformDataBehavior<GameDataBoardUI.UIData>
 {
 
     #region UIData
@@ -265,23 +265,7 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>, HaveTransform
 
     #endregion
 
-    #region TransformData
-
     public const float Margin = 8;
-
-    public TransformData transformData = new TransformData();
-
-    private void updateTransformData()
-    {
-        this.transformData.update(this.transform);
-    }
-
-    public TransformData getTransformData()
-    {
-        return this.transformData;
-    }
-
-    #endregion
 
     #region Refresh
 
@@ -620,7 +604,6 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>, HaveTransform
                 // Debug.LogError("data null: " + this);
             }
         }
-        updateTransformData();
     }
 
     public override bool isShouldDisableUpdate()
@@ -665,8 +648,6 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>, HaveTransform
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().addCallBack(this);
             // Child
             {
                 uiData.animationManager.allAddCallBack(this);
@@ -674,12 +655,6 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>, HaveTransform
                 uiData.gameData.allAddCallBack(this);
                 uiData.sub.allAddCallBack(this);
             }
-            dirty = true;
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             dirty = true;
             return;
         }
@@ -892,8 +867,6 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>, HaveTransform
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().removeCallBack(this);
             // Child
             {
                 uiData.animationManager.allRemoveCallBack(this);
@@ -902,11 +875,6 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>, HaveTransform
                 uiData.sub.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             return;
         }
         // Child
@@ -1146,12 +1114,6 @@ public class GameDataBoardUI : UIBehavior<GameDataBoardUI.UIData>, HaveTransform
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
-            return;
-        }
-        // Global
-        if (wrapProperty.p is Global)
-        {
-            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Child

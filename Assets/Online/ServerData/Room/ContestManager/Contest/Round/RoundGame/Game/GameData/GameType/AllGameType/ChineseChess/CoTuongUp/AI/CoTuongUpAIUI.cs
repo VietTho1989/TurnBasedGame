@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CoTuongUp
 {
-    public class CoTuongUpAIUI : UIBehavior<CoTuongUpAIUI.UIData>, HaveTransformData
+    public class CoTuongUpAIUI : UIHaveTransformDataBehavior<CoTuongUpAIUI.UIData>
     {
 
         #region UIData
@@ -50,22 +50,6 @@ namespace CoTuongUp
         static CoTuongUpAIUI()
         {
             txtTitle.add(Language.Type.vi, "Cờ Úp AI");
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        public TransformData getTransformData()
-        {
-            return this.transformData;
         }
 
         #endregion
@@ -229,7 +213,6 @@ namespace CoTuongUp
                     // Debug.LogError ("data null: " + this);
                 }
             }
-            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate()
@@ -248,20 +231,12 @@ namespace CoTuongUp
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
                 {
                     uiData.editCoTuongUpAI.allAddCallBack(this);
                 }
-                dirty = true;
-                return;
-            }
-            // Global
-            if(data is Global)
-            {
                 dirty = true;
                 return;
             }
@@ -318,8 +293,6 @@ namespace CoTuongUp
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -327,11 +300,6 @@ namespace CoTuongUp
                     uiData.editCoTuongUpAI.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
-                return;
-            }
-            // Global
-            if(data is Global)
-            {
                 return;
             }
             // Setting
@@ -400,12 +368,6 @@ namespace CoTuongUp
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
-                return;
-            }
-            // Global
-            if (wrapProperty.p is Global)
-            {
-                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

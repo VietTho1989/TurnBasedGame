@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Chess
 {
-    public class DefaultChessUI : UIBehavior<DefaultChessUI.UIData>, HaveTransformData
+    public class DefaultChessUI : UIHaveTransformDataBehavior<DefaultChessUI.UIData>
     {
 
         #region UIData
@@ -99,27 +99,6 @@ namespace Chess
             {
                 chess960Rect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
             }
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            /*if (transform.hasChanged)
-            {
-                transform.hasChanged = false;
-                this.transformData.update(this.transform);
-            }*/
-            this.transformData.update(this.transform);
-        }
-
-        public TransformData getTransformData()
-        {
-            return this.transformData;
         }
 
         #endregion
@@ -343,7 +322,6 @@ namespace Chess
                     // Debug.LogError ("data null: " + this);
                 }
             }
-            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate()
@@ -367,8 +345,6 @@ namespace Chess
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -377,12 +353,6 @@ namespace Chess
                     uiData.chess960.allAddCallBack(this);
                     uiData.miniGameDataUIData.allAddCallBack(this);
                 }
-                dirty = true;
-                return;
-            }
-            // Global
-            if(data is Global)
-            {
                 dirty = true;
                 return;
             }
@@ -503,8 +473,6 @@ namespace Chess
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -514,11 +482,6 @@ namespace Chess
                     uiData.miniGameDataUIData.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
-                return;
-            }
-            // Global
-            if(data is Global)
-            {
                 return;
             }
             // Setting
@@ -638,12 +601,6 @@ namespace Chess
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
-                return;
-            }
-            // Global
-            if(wrapProperty.p is Global)
-            {
-                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

@@ -6,7 +6,7 @@ using Foundation.Tasks;
 using AdvancedCoroutines;
 using GamePlayerState;
 
-public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrenderAskUI.UIData>, HaveTransformData
+public class GamePlayerStateSurrenderAskUI : UIHaveTransformDataBehavior<GamePlayerStateSurrenderAskUI.UIData>
 {
 
     #region UIData
@@ -115,22 +115,6 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
                 whoCanAskRect.sizeDelta = new Vector2(0.0f, 60.0f);
             }
         }
-    }
-
-    #endregion
-
-    #region TransformData
-
-    public TransformData transformData = new TransformData();
-
-    private void updateTransformData()
-    {
-        this.transformData.update(this.transform);
-    }
-
-    public TransformData getTransformData()
-    {
-        return this.transformData;
     }
 
     #endregion
@@ -409,7 +393,6 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
                 Debug.LogError("data null: " + this);
             }
         }
-        updateTransformData();
     }
 
     public override bool isShouldDisableUpdate()
@@ -459,8 +442,6 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().addCallBack(this);
             // Setting
             Setting.get().addCallBack(this);
             // Child
@@ -468,12 +449,6 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
                 uiData.ask.allAddCallBack(this);
                 uiData.whoCanAsks.allAddCallBack(this);
             }
-            dirty = true;
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             dirty = true;
             return;
         }
@@ -523,8 +498,6 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().removeCallBack(this);
             // Setting
             Setting.get().removeCallBack(this);
             // Child
@@ -533,11 +506,6 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
                 uiData.whoCanAsks.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             return;
         }
         // Setting
@@ -606,12 +574,6 @@ public class GamePlayerStateSurrenderAskUI : UIBehavior<GamePlayerStateSurrender
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
-            return;
-        }
-        // Global
-        if (wrapProperty.p is Global)
-        {
-            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Setting

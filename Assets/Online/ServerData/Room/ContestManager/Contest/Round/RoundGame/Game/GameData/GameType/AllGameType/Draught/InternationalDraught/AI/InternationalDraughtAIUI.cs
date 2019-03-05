@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace InternationalDraught
 {
-    public class InternationalDraughtAIUI : UIBehavior<InternationalDraughtAIUI.UIData>, HaveTransformData
+    public class InternationalDraughtAIUI : UIHaveTransformDataBehavior<InternationalDraughtAIUI.UIData>
     {
 
         #region UIData
@@ -387,22 +387,6 @@ namespace InternationalDraught
                 useEndGameDatabaseRect.setPosY(UIConstants.HeaderHeight + 5 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
                 pickBestMoveRect.setPosY(UIConstants.HeaderHeight + 6 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
             }
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        public TransformData getTransformData()
-        {
-            return this.transformData;
         }
 
         #endregion
@@ -1205,7 +1189,6 @@ namespace InternationalDraught
                     // Debug.LogError ("data null: " + this);
                 }
             }
-            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate()
@@ -1217,13 +1200,13 @@ namespace InternationalDraught
 
         #region implement callBacks
 
-        public static readonly UIRectTransform bMoveRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        public static readonly UIRectTransform bookRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        public static readonly UIRectTransform depthRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform timeRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform inputRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        public static readonly UIRectTransform useEndGameDatabaseRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        public static readonly UIRectTransform pickBestMoveRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform bMoveRect = new UIRectTransform(UIConstants.RequestBoolRect);
+        private static readonly UIRectTransform bookRect = new UIRectTransform(UIConstants.RequestBoolRect);
+        private static readonly UIRectTransform depthRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform timeRect = new UIRectTransform(UIConstants.RequestRect);
+        private static readonly UIRectTransform inputRect = new UIRectTransform(UIConstants.RequestBoolRect);
+        private static readonly UIRectTransform useEndGameDatabaseRect = new UIRectTransform(UIConstants.RequestBoolRect);
+        private static readonly UIRectTransform pickBestMoveRect = new UIRectTransform(UIConstants.RequestRect);
 
         public RequestChangeIntUI requestIntPrefab;
         public RequestChangeFloatUI requestFloatPrefab;
@@ -1236,8 +1219,6 @@ namespace InternationalDraught
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -1251,12 +1232,6 @@ namespace InternationalDraught
                     uiData.useEndGameDatabase.allAddCallBack(this);
                     uiData.pickBestMove.allAddCallBack(this);
                 }
-                dirty = true;
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 dirty = true;
                 return;
             }
@@ -1403,8 +1378,6 @@ namespace InternationalDraught
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -1419,11 +1392,6 @@ namespace InternationalDraught
                     uiData.pickBestMove.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 return;
             }
             // Setting
@@ -1561,12 +1529,6 @@ namespace InternationalDraught
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
-                return;
-            }
-            // Global
-            if (wrapProperty.p is Global)
-            {
-                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

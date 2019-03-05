@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace LoginState
 {
-    public class StateFailUI : UIBehavior<StateFailUI.UIData>, HaveTransformData
+    public class StateFailUI : UIHaveTransformDataBehavior<StateFailUI.UIData>
     {
 
         #region UIData
@@ -41,33 +41,17 @@ namespace LoginState
         #region txt
 
         public Text tvReason;
-        public static readonly TxtLanguage txtTimeOut = new TxtLanguage();
-        public static readonly TxtLanguage txtConnectFail = new TxtLanguage();
-        public static readonly TxtLanguage txtWrongPassword = new TxtLanguage();
-        public static readonly TxtLanguage txtGetFacebookDataFail = new TxtLanguage();
+        private static readonly TxtLanguage txtTimeOut = new TxtLanguage();
+        private static readonly TxtLanguage txtConnectFail = new TxtLanguage();
+        private static readonly TxtLanguage txtWrongPassword = new TxtLanguage();
+        private static readonly TxtLanguage txtGetFacebookDataFail = new TxtLanguage();
 
         static StateFailUI()
         {
-            txtTimeOut.add(Language.Type.vi, "");
-            txtConnectFail.add(Language.Type.vi, "");
-            txtWrongPassword.add(Language.Type.vi, "");
-            txtGetFacebookDataFail.add(Language.Type.vi, "");
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        public TransformData getTransformData()
-        {
-            return this.transformData;
+            txtTimeOut.add(Language.Type.vi, "Hết giờ");
+            txtConnectFail.add(Language.Type.vi, "Kết nối thất bại");
+            txtWrongPassword.add(Language.Type.vi, "Nhầm mật khẩu");
+            txtGetFacebookDataFail.add(Language.Type.vi, "Lấy dữ liệu facebook thất bại");
         }
 
         #endregion
@@ -121,7 +105,6 @@ namespace LoginState
                     Debug.LogError("data null: " + this);
                 }
             }
-            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate()
@@ -138,20 +121,12 @@ namespace LoginState
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
                 {
                     uiData.stateFail.allAddCallBack(this);
                 }
-                dirty = true;
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 dirty = true;
                 return;
             }
@@ -175,8 +150,6 @@ namespace LoginState
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -184,11 +157,6 @@ namespace LoginState
                     uiData.stateFail.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 return;
             }
             // Setting

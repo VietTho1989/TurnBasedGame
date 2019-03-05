@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class AccountNoneUI : UIBehavior<AccountNoneUI.UIData>, HaveTransformData
+public class AccountNoneUI : UIHaveTransformDataBehavior<AccountNoneUI.UIData>
 {
 
     #region UIData
@@ -36,22 +36,6 @@ public class AccountNoneUI : UIBehavior<AccountNoneUI.UIData>, HaveTransformData
             return Account.Type.NONE;
         }
 
-    }
-
-    #endregion
-
-    #region TransformData
-
-    public TransformData transformData = new TransformData();
-
-    private void updateTransformData()
-    {
-        this.transformData.update(this.transform);
-    }
-
-    public TransformData getTransformData()
-    {
-        return this.transformData;
     }
 
     #endregion
@@ -227,7 +211,6 @@ public class AccountNoneUI : UIBehavior<AccountNoneUI.UIData>, HaveTransformData
                 Debug.LogError("data null: " + this);
             }
         }
-        updateTransformData();
     }
 
     public override bool isShouldDisableUpdate()
@@ -246,20 +229,12 @@ public class AccountNoneUI : UIBehavior<AccountNoneUI.UIData>, HaveTransformData
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().addCallBack(this);
             // Setting
             Setting.get().addCallBack(this);
             // Child
             {
                 uiData.editAccountNone.allAddCallBack(this);
             }
-            dirty = true;
-            return;
-        }
-        // Global
-        if(data is Global)
-        {
             dirty = true;
             return;
         }
@@ -316,8 +291,6 @@ public class AccountNoneUI : UIBehavior<AccountNoneUI.UIData>, HaveTransformData
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().removeCallBack(this);
             // Setting
             Setting.get().removeCallBack(this);
             // Child
@@ -325,11 +298,6 @@ public class AccountNoneUI : UIBehavior<AccountNoneUI.UIData>, HaveTransformData
                 uiData.editAccountNone.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
-            return;
-        }
-        // Global
-        if(data is Global)
-        {
             return;
         }
         // Setting
@@ -398,12 +366,6 @@ public class AccountNoneUI : UIBehavior<AccountNoneUI.UIData>, HaveTransformData
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
-            return;
-        }
-        // Global
-        if(wrapProperty.p is Global)
-        {
-            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Setting

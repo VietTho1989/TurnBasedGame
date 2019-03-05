@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Shogi
 {
-    public class ShogiAIUI : UIBehavior<ShogiAIUI.UIData>, HaveTransformData
+    public class ShogiAIUI : UIHaveTransformDataBehavior<ShogiAIUI.UIData>
     {
 
         #region UIData
@@ -261,22 +261,22 @@ namespace Shogi
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
         public Text lbDepth;
-        public static readonly TxtLanguage txtDepth = new TxtLanguage();
+        private static readonly TxtLanguage txtDepth = new TxtLanguage();
 
         public Text lbSkillLevel;
-        public static readonly TxtLanguage txtSkillLevel = new TxtLanguage();
+        private static readonly TxtLanguage txtSkillLevel = new TxtLanguage();
 
         public Text lbMr;
-        public static readonly TxtLanguage txtMr = new TxtLanguage();
+        private static readonly TxtLanguage txtMr = new TxtLanguage();
 
         public Text lbDuration;
-        public static readonly TxtLanguage txtDuration = new TxtLanguage();
+        private static readonly TxtLanguage txtDuration = new TxtLanguage();
 
         public Text lbUseBook;
-        public static readonly TxtLanguage txtUseBook = new TxtLanguage();
+        private static readonly TxtLanguage txtUseBook = new TxtLanguage();
 
         static ShogiAIUI()
         {
@@ -297,22 +297,6 @@ namespace Shogi
                 durationRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
                 useBookRect.setPosY(UIConstants.HeaderHeight + 4 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
             }
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        public TransformData getTransformData()
-        {
-            return this.transformData;
         }
 
         #endregion
@@ -931,7 +915,6 @@ namespace Shogi
                     // Debug.LogError ("data null: " + this);
                 }
             }
-            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate()
@@ -959,8 +942,6 @@ namespace Shogi
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -972,12 +953,6 @@ namespace Shogi
                     uiData.duration.allAddCallBack(this);
                     uiData.useBook.allAddCallBack(this);
                 }
-                dirty = true;
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 dirty = true;
                 return;
             }
@@ -1095,8 +1070,6 @@ namespace Shogi
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -1109,11 +1082,6 @@ namespace Shogi
                     uiData.useBook.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 return;
             }
             // Setting
@@ -1231,12 +1199,6 @@ namespace Shogi
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
-                return;
-            }
-            // Global
-            if (wrapProperty.p is Global)
-            {
-                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

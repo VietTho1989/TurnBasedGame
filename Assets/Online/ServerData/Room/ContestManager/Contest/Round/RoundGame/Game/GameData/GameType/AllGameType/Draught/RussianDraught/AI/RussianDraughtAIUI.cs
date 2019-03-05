@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace RussianDraught
 {
-    public class RussianDraughtAIUI : UIBehavior<RussianDraughtAIUI.UIData>, HaveTransformData
+    public class RussianDraughtAIUI : UIHaveTransformDataBehavior<RussianDraughtAIUI.UIData>
     {
 
         #region UIData
@@ -143,13 +143,13 @@ namespace RussianDraught
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
         public Text lbTimeLimit;
-        public static readonly TxtLanguage txtTimeLimit = new TxtLanguage();
+        private static readonly TxtLanguage txtTimeLimit = new TxtLanguage();
 
         public Text lbPickBestMove;
-        public static readonly TxtLanguage txtPickBestMove = new TxtLanguage();
+        private static readonly TxtLanguage txtPickBestMove = new TxtLanguage();
 
         static RussianDraughtAIUI()
         {
@@ -164,22 +164,6 @@ namespace RussianDraught
                 timeLimitRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
                 pickBestMoveRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
             }
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        public TransformData getTransformData()
-        {
-            return this.transformData;
         }
 
         #endregion
@@ -524,7 +508,6 @@ namespace RussianDraught
                     // Debug.LogError ("data null: " + this);
                 }
             }
-            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate()
@@ -548,8 +531,6 @@ namespace RussianDraught
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -558,12 +539,6 @@ namespace RussianDraught
                     uiData.timeLimit.allAddCallBack(this);
                     uiData.pickBestMove.allAddCallBack(this);
                 }
-                dirty = true;
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 dirty = true;
                 return;
             }
@@ -653,8 +628,6 @@ namespace RussianDraught
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -664,11 +637,6 @@ namespace RussianDraught
                     uiData.pickBestMove.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 return;
             }
             // Setting
@@ -758,12 +726,6 @@ namespace RussianDraught
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
-                return;
-            }
-            // Global
-            if (wrapProperty.p is Global)
-            {
-                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

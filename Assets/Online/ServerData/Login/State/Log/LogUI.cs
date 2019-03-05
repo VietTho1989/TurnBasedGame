@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace LoginState
 {
-    public class LogUI : UIBehavior<LogUI.UIData>, HaveTransformData
+    public class LogUI : UIHaveTransformDataBehavior<LogUI.UIData>
     {
 
         #region UIData
@@ -42,16 +42,16 @@ namespace LoginState
         #region txt
 
         public Text tvCancel;
-        public static readonly TxtLanguage txtCancel = new TxtLanguage();
+        private static readonly TxtLanguage txtCancel = new TxtLanguage();
 
-        public static readonly TxtLanguage txtTime = new TxtLanguage();
+        private static readonly TxtLanguage txtTime = new TxtLanguage();
 
-        public static readonly TxtLanguage txtConnect = new TxtLanguage();
-        public static readonly TxtLanguage txtGetDevice = new TxtLanguage();
-        public static readonly TxtLanguage txtGetEmail = new TxtLanguage();
-        public static readonly TxtLanguage txtGetFacebook = new TxtLanguage();
-        public static readonly TxtLanguage txtLogin = new TxtLanguage();
-        public static readonly TxtLanguage txtLoggingIn = new TxtLanguage();
+        private static readonly TxtLanguage txtConnect = new TxtLanguage();
+        private static readonly TxtLanguage txtGetDevice = new TxtLanguage();
+        private static readonly TxtLanguage txtGetEmail = new TxtLanguage();
+        private static readonly TxtLanguage txtGetFacebook = new TxtLanguage();
+        private static readonly TxtLanguage txtLogin = new TxtLanguage();
+        private static readonly TxtLanguage txtLoggingIn = new TxtLanguage();
 
         static LogUI()
         {
@@ -63,22 +63,6 @@ namespace LoginState
             txtGetFacebook.add(Language.Type.vi, "Đang lấy thông tin facebook...");
             txtLogin.add(Language.Type.vi, "Đăng nhập");
             txtLoggingIn.add(Language.Type.vi, "Đang đăng nhập...");
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        public TransformData getTransformData()
-        {
-            return this.transformData;
         }
 
         #endregion
@@ -200,7 +184,6 @@ namespace LoginState
                     Debug.Log("data null: " + this);
                 }
             }
-            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate()
@@ -217,20 +200,12 @@ namespace LoginState
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
                 {
                     uiData.log.allAddCallBack(this);
                 }
-                dirty = true;
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 dirty = true;
                 return;
             }
@@ -267,8 +242,6 @@ namespace LoginState
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -276,11 +249,6 @@ namespace LoginState
                     uiData.log.allAddCallBack(this);
                 }
                 this.setDataNull(uiData);
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 return;
             }
             // Setting
@@ -328,12 +296,6 @@ namespace LoginState
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
-                return;
-            }
-            // Global
-            if (wrapProperty.p is Global)
-            {
-                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

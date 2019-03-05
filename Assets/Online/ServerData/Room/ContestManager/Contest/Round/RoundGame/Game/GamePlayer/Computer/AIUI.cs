@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class AIUI : UIBehavior<AIUI.UIData>, HaveTransformData
+public class AIUI : UIHaveTransformDataBehavior<AIUI.UIData>
 {
 
     #region UIData
@@ -45,22 +45,6 @@ public class AIUI : UIBehavior<AIUI.UIData>, HaveTransformData
 
         #endregion
 
-    }
-
-    #endregion
-
-    #region TransformData
-
-    public TransformData transformData = new TransformData();
-
-    private void updateTransformData()
-    {
-        this.transformData.update(this.transform);
-    }
-
-    public TransformData getTransformData()
-    {
-        return this.transformData;
     }
 
     #endregion
@@ -822,7 +806,6 @@ public class AIUI : UIBehavior<AIUI.UIData>, HaveTransformData
                 Debug.LogError("data null: " + this);
             }
         }
-        updateTransformData();
     }
 
     public override bool isShouldDisableUpdate()
@@ -868,19 +851,11 @@ public class AIUI : UIBehavior<AIUI.UIData>, HaveTransformData
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().addCallBack(this);
             // Child
             {
                 uiData.editAI.allAddCallBack(this);
                 uiData.sub.allAddCallBack(this);
             }
-            dirty = true;
-            return;
-        }
-        // Global
-        if(data is Global)
-        {
             dirty = true;
             return;
         }
@@ -1071,19 +1046,12 @@ public class AIUI : UIBehavior<AIUI.UIData>, HaveTransformData
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().removeCallBack(this);
             // Child
             {
                 uiData.editAI.allRemoveCallBack(this);
                 uiData.sub.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
-            return;
-        }
-        // Global
-        if(data is Global)
-        {
             return;
         }
         // Child
@@ -1290,12 +1258,6 @@ public class AIUI : UIBehavior<AIUI.UIData>, HaveTransformData
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
-            return;
-        }
-        // Global
-        if (wrapProperty.p is Global)
-        {
-            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Child

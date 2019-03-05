@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace InternationalDraught
 {
-	public class DefaultInternationalDraughtUI : UIBehavior<DefaultInternationalDraughtUI.UIData>, HaveTransformData
+	public class DefaultInternationalDraughtUI : UIHaveTransformDataBehavior<DefaultInternationalDraughtUI.UIData>
 	{
 
 		#region UIData
@@ -98,22 +98,6 @@ namespace InternationalDraught
             {
                 variantRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
             }
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        public TransformData getTransformData()
-        {
-            return this.transformData;
         }
 
         #endregion
@@ -278,7 +262,6 @@ namespace InternationalDraught
 					// Debug.LogError ("data null: " + this);
 				}
 			}
-            updateTransformData();
 		}
 
 		public override bool isShouldDisableUpdate ()
@@ -301,8 +284,6 @@ namespace InternationalDraught
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
-                // Global
-                Global.get().addCallBack(this);
 				// Setting
 				Setting.get ().addCallBack (this);
 				// Child
@@ -314,12 +295,6 @@ namespace InternationalDraught
 				dirty = true;
 				return;
 			}
-            // Global
-            if(data is Global)
-            {
-                dirty = true;
-                return;
-            }
             // Setting
             if (data is Setting) {
 				dirty = true;
@@ -426,8 +401,6 @@ namespace InternationalDraught
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
-                // Global
-                Global.get().removeCallBack(this);
 				// Setting
 				Setting.get ().removeCallBack (this);
 				// Child
@@ -439,11 +412,6 @@ namespace InternationalDraught
 				this.setDataNull (uiData);
 				return;
 			}
-            // Global
-            if(data is Global)
-            {
-                return;
-            }
             // Setting
             if (data is Setting) {
 				return;
@@ -552,12 +520,6 @@ namespace InternationalDraught
 				}
 				return;
 			}
-            // Global
-            if(wrapProperty.p is Global)
-            {
-                Global.OnValueTransformChange(wrapProperty, this);
-                return;
-            }
             // Setting
             if (wrapProperty.p is Setting) {
 				switch ((Setting.Property)wrapProperty.n) {

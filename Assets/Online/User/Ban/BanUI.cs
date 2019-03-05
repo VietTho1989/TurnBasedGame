@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class BanUI : UIBehavior<BanUI.UIData>, HaveTransformData
+public class BanUI : UIHaveTransformDataBehavior<BanUI.UIData>
 {
 
     #region UIData
@@ -39,22 +39,6 @@ public class BanUI : UIBehavior<BanUI.UIData>, HaveTransformData
 
         #endregion
 
-    }
-
-    #endregion
-
-    #region TransformData
-
-    public TransformData transformData = new TransformData();
-
-    private void updateTransformData()
-    {
-        this.transformData.update(this.transform);
-    }
-
-    public TransformData getTransformData()
-    {
-        return this.transformData;
     }
 
     #endregion
@@ -110,7 +94,6 @@ public class BanUI : UIBehavior<BanUI.UIData>, HaveTransformData
                 Debug.LogError("data null: " + this);
             }
         }
-        updateTransformData();
     }
 
     public override bool isShouldDisableUpdate()
@@ -130,19 +113,11 @@ public class BanUI : UIBehavior<BanUI.UIData>, HaveTransformData
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().addCallBack(this);
             // Child
             {
                 uiData.ban.allAddCallBack(this);
                 uiData.sub.allAddCallBack(this);
             }
-            dirty = true;
-            return;
-        }
-        // Global
-        if(data is Global)
-        {
             dirty = true;
             return;
         }
@@ -189,19 +164,12 @@ public class BanUI : UIBehavior<BanUI.UIData>, HaveTransformData
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().removeCallBack(this);
             // Child
             {
                 uiData.ban.allRemoveCallBack(this);
                 uiData.sub.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
-            return;
-        }
-        // Global
-        if(data is Global)
-        {
             return;
         }
         // Child
@@ -266,12 +234,6 @@ public class BanUI : UIBehavior<BanUI.UIData>, HaveTransformData
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
-            return;
-        }
-        // Global
-        if (wrapProperty.p is Global)
-        {
-            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Child

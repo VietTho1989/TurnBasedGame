@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class AccountUI : UIBehavior<AccountUI.UIData>, HaveTransformData
+public class AccountUI : UIHaveTransformDataBehavior<AccountUI.UIData>
 {
 
     #region UIData
@@ -81,22 +81,6 @@ public class AccountUI : UIBehavior<AccountUI.UIData>, HaveTransformData
             accountAvatarRect.offsetMax = new Vector2(25.0f, 0.0f);
             accountAvatarRect.sizeDelta = new Vector2(50.0f, 50.0f);
         }
-    }
-
-    #endregion
-
-    #region TransformData
-
-    public TransformData transformData = new TransformData();
-
-    private void updateTransformData()
-    {
-        this.transformData.update(this.transform);
-    }
-
-    public TransformData getTransformData()
-    {
-        return this.transformData;
     }
 
     #endregion
@@ -351,7 +335,6 @@ public class AccountUI : UIBehavior<AccountUI.UIData>, HaveTransformData
                 Debug.LogError("data null: " + this);
             }
         }
-        updateTransformData();
     }
 
     public override bool isShouldDisableUpdate()
@@ -377,20 +360,12 @@ public class AccountUI : UIBehavior<AccountUI.UIData>, HaveTransformData
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().addCallBack(this);
             // Child
             {
                 uiData.editAccount.allAddCallBack(this);
                 uiData.accountAvatar.allAddCallBack(this);
                 uiData.sub.allAddCallBack(this);
             }
-            dirty = true;
-            return;
-        }
-        // Global
-        if(data is Global)
-        {
             dirty = true;
             return;
         }
@@ -478,8 +453,6 @@ public class AccountUI : UIBehavior<AccountUI.UIData>, HaveTransformData
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().removeCallBack(this);
             // Child
             {
                 uiData.editAccount.allRemoveCallBack(this);
@@ -487,11 +460,6 @@ public class AccountUI : UIBehavior<AccountUI.UIData>, HaveTransformData
                 uiData.sub.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
-            return;
-        }
-        // Global
-        if(data is Global)
-        {
             return;
         }
         // Child
@@ -607,12 +575,6 @@ public class AccountUI : UIBehavior<AccountUI.UIData>, HaveTransformData
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
-            return;
-        }
-        // Global
-        if(wrapProperty.p is Global)
-        {
-            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Child

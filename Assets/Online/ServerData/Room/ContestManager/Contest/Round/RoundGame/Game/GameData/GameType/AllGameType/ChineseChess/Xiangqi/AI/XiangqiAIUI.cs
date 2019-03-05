@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Xiangqi
 {
-    public class XiangqiAIUI : UIBehavior<XiangqiAIUI.UIData>, HaveTransformData
+    public class XiangqiAIUI : UIHaveTransformDataBehavior<XiangqiAIUI.UIData>
     {
 
         #region UIData
@@ -252,22 +252,6 @@ namespace Xiangqi
                 useBookRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
                 pickBestMoveRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
             }
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        public TransformData getTransformData()
-        {
-            return this.transformData;
         }
 
         #endregion
@@ -795,7 +779,6 @@ namespace Xiangqi
                     // Debug.LogError ("data null: " + this);
                 }
             }
-            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate()
@@ -822,8 +805,6 @@ namespace Xiangqi
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -834,12 +815,6 @@ namespace Xiangqi
                     uiData.useBook.allAddCallBack(this);
                     uiData.pickBestMove.allAddCallBack(this);
                 }
-                dirty = true;
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 dirty = true;
                 return;
             }
@@ -962,8 +937,6 @@ namespace Xiangqi
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -975,11 +948,6 @@ namespace Xiangqi
                     uiData.pickBestMove.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 return;
             }
             // Setting
@@ -1088,12 +1056,6 @@ namespace Xiangqi
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
-                return;
-            }
-            // Global
-            if (wrapProperty.p is Global)
-            {
-                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

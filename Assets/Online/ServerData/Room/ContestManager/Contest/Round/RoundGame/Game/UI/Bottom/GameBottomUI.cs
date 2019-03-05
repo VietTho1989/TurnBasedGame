@@ -6,7 +6,7 @@ using GameManager.Match;
 using GameManager.Match.Swap;
 using Record;
 
-public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
+public class GameBottomUI : UIHaveTransformDataBehavior<GameBottomUI.UIData>
 {
 
     #region UIData
@@ -99,22 +99,6 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
             return isProcess;
         }
 
-    }
-
-    #endregion
-
-    #region TransformData
-
-    public TransformData transformData = new TransformData();
-
-    private void updateTransformData()
-    {
-        this.transformData.update(this.transform);
-    }
-
-    public TransformData getTransformData()
-    {
-        return this.transformData;
     }
 
     #endregion
@@ -349,7 +333,6 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
                 Debug.LogError("data null");
             }
         }
-        updateTransformData();
     }
 
     public override bool isShouldDisableUpdate()
@@ -399,8 +382,6 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().addCallBack(this);
             // Parent
             {
                 DataUtils.addParentCallBack(uiData, this, ref this.gameUIData);
@@ -420,12 +401,6 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
                 uiData.btnSaveGame.allAddCallBack(this);
                 uiData.btnRecord.allAddCallBack(this);
             }
-            dirty = true;
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             dirty = true;
             return;
         }
@@ -611,8 +586,6 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().removeCallBack(this);
             // Parent
             {
                 DataUtils.removeParentCallBack(uiData, this, ref this.gameUIData);
@@ -633,11 +606,6 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
                 uiData.btnRecord.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             return;
         }
         // Parent
@@ -888,12 +856,6 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
             }
             return;
         }
-        // Global
-        if (wrapProperty.p is Global)
-        {
-            Global.OnValueTransformChange(wrapProperty, this);
-            return;
-        }
         // Parent
         {
             if (wrapProperty.p is GameUI.UIData)
@@ -968,6 +930,16 @@ public class GameBottomUI : UIBehavior<GameBottomUI.UIData>, HaveTransformData
                         case GameDataBoardUI.UIData.Property.animationManager:
                             break;
                         case GameDataBoardUI.UIData.Property.sub:
+                            break;
+                        case GameDataBoardUI.UIData.Property.heightWidth:
+                            break;
+                        case GameDataBoardUI.UIData.Property.left:
+                            break;
+                        case GameDataBoardUI.UIData.Property.right:
+                            break;
+                        case GameDataBoardUI.UIData.Property.top:
+                            break;
+                        case GameDataBoardUI.UIData.Property.bottom:
                             break;
                         case GameDataBoardUI.UIData.Property.perspective:
                             dirty = true;

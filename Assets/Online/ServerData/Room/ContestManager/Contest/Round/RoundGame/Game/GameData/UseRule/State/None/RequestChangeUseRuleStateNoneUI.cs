@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using AdvancedCoroutines;
 using Foundation.Tasks;
 
-public class RequestChangeUseRuleStateNoneUI : UIBehavior<RequestChangeUseRuleStateNoneUI.UIData>, HaveTransformData
+public class RequestChangeUseRuleStateNoneUI : UIHaveTransformDataBehavior<RequestChangeUseRuleStateNoneUI.UIData>
 {
 
     #region UIData
@@ -84,22 +84,6 @@ public class RequestChangeUseRuleStateNoneUI : UIBehavior<RequestChangeUseRuleSt
         txtCannotRequest.add(Language.Type.vi, "Không thể yêu cầu");
 
         txtRequestError.add(Language.Type.vi, "Gửi yêu cầu đổi luật lỗi");
-    }
-
-    #endregion
-
-    #region TransformData
-
-    public TransformData transformData = new TransformData();
-
-    private void updateTransformData()
-    {
-        this.transformData.update(this.transform);
-    }
-
-    public TransformData getTransformData()
-    {
-        return this.transformData;
     }
 
     #endregion
@@ -233,7 +217,6 @@ public class RequestChangeUseRuleStateNoneUI : UIBehavior<RequestChangeUseRuleSt
                 Debug.LogError("data null: " + this);
             }
         }
-        updateTransformData();
     }
 
     public override bool isShouldDisableUpdate()
@@ -283,20 +266,12 @@ public class RequestChangeUseRuleStateNoneUI : UIBehavior<RequestChangeUseRuleSt
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().addCallBack(this);
             // Setting
             Setting.get().addCallBack(this);
             // Child
             {
                 uiData.requestChangeUseRuleStateNone.allAddCallBack(this);
             }
-            dirty = true;
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             dirty = true;
             return;
         }
@@ -362,8 +337,6 @@ public class RequestChangeUseRuleStateNoneUI : UIBehavior<RequestChangeUseRuleSt
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().removeCallBack(this);
             // Setting
             Setting.get().removeCallBack(this);
             // Child
@@ -371,11 +344,6 @@ public class RequestChangeUseRuleStateNoneUI : UIBehavior<RequestChangeUseRuleSt
                 uiData.requestChangeUseRuleStateNone.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             return;
         }
         // Setting
@@ -446,12 +414,6 @@ public class RequestChangeUseRuleStateNoneUI : UIBehavior<RequestChangeUseRuleSt
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
-            return;
-        }
-        // Global
-        if (wrapProperty.p is Global)
-        {
-            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Setting

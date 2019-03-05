@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace GameManager.Match
 {
-    public class SingleContestFactoryUI : UIBehavior<SingleContestFactoryUI.UIData>, HaveTransformData
+    public class SingleContestFactoryUI : UIHaveTransformDataBehavior<SingleContestFactoryUI.UIData>
     {
 
         #region UIData
@@ -293,19 +293,19 @@ namespace GameManager.Match
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
         public Text lbPlayerPerTeam;
-        public static readonly TxtLanguage txtPlayerPerTeam = new TxtLanguage();
+        private static readonly TxtLanguage txtPlayerPerTeam = new TxtLanguage();
 
         public Text lbRoundFactoryType;
-        public static readonly TxtLanguage txtRoundFactoryType = new TxtLanguage();
+        private static readonly TxtLanguage txtRoundFactoryType = new TxtLanguage();
 
         public Text lbNewRoundLimitType;
-        public static readonly TxtLanguage txtNewRoundLimitType = new TxtLanguage();
+        private static readonly TxtLanguage txtNewRoundLimitType = new TxtLanguage();
 
         public Text lbCalculateScoreType;
-        public static readonly TxtLanguage txtCalculateScoreType = new TxtLanguage();
+        private static readonly TxtLanguage txtCalculateScoreType = new TxtLanguage();
 
         static SingleContestFactoryUI()
         {
@@ -321,22 +321,6 @@ namespace GameManager.Match
             {
 
             }
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        public TransformData getTransformData()
-        {
-            return this.transformData;
         }
 
         #endregion
@@ -1044,7 +1028,6 @@ namespace GameManager.Match
                     // Debug.LogError ("data null: " + this);
                 }
             }
-            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate()
@@ -1082,8 +1065,6 @@ namespace GameManager.Match
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -1106,12 +1087,6 @@ namespace GameManager.Match
                         uiData.calculateScoreUI.allAddCallBack(this);
                     }
                 }
-                dirty = true;
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 dirty = true;
                 return;
             }
@@ -1323,8 +1298,6 @@ namespace GameManager.Match
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -1348,11 +1321,6 @@ namespace GameManager.Match
                     }
                 }
                 this.setDataNull(uiData);
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 return;
             }
             // Setting
@@ -1572,12 +1540,6 @@ namespace GameManager.Match
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
-                return;
-            }
-            // Global
-            if (wrapProperty.p is Global)
-            {
-                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

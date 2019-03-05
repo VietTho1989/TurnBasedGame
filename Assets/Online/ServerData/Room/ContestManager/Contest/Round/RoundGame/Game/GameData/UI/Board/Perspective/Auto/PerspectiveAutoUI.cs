@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class PerspectiveAutoUI : UIBehavior<PerspectiveAutoUI.UIData>, HaveTransformData
+public class PerspectiveAutoUI : UIHaveTransformDataBehavior<PerspectiveAutoUI.UIData>
 {
 
     #region UIData
@@ -61,22 +61,6 @@ public class PerspectiveAutoUI : UIBehavior<PerspectiveAutoUI.UIData>, HaveTrans
 
     #endregion
 
-    #region TransformData
-
-    public TransformData transformData = new TransformData();
-
-    private void updateTransformData()
-    {
-        this.transformData.update(this.transform);
-    }
-
-    public TransformData getTransformData()
-    {
-        return this.transformData;
-    }
-
-    #endregion
-
     #region Refresh
 
     public override void refresh()
@@ -111,7 +95,6 @@ public class PerspectiveAutoUI : UIBehavior<PerspectiveAutoUI.UIData>, HaveTrans
                 Debug.LogError("data null: " + this);
             }
         }
-        updateTransformData();
     }
 
     public override bool isShouldDisableUpdate()
@@ -128,20 +111,12 @@ public class PerspectiveAutoUI : UIBehavior<PerspectiveAutoUI.UIData>, HaveTrans
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().addCallBack(this);
             // Setting
             Setting.get().addCallBack(this);
             // Child
             {
                 uiData.auto.allAddCallBack(this);
             }
-            dirty = true;
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             dirty = true;
             return;
         }
@@ -165,8 +140,6 @@ public class PerspectiveAutoUI : UIBehavior<PerspectiveAutoUI.UIData>, HaveTrans
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().removeCallBack(this);
             // Setting
             Setting.get().removeCallBack(this);
             // Child
@@ -174,11 +147,6 @@ public class PerspectiveAutoUI : UIBehavior<PerspectiveAutoUI.UIData>, HaveTrans
                 uiData.auto.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             return;
         }
         // Setting
@@ -214,12 +182,6 @@ public class PerspectiveAutoUI : UIBehavior<PerspectiveAutoUI.UIData>, HaveTrans
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
-            return;
-        }
-        // Global
-        if (wrapProperty.p is Global)
-        {
-            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Setting

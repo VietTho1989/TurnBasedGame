@@ -6,7 +6,7 @@ using AdvancedCoroutines;
 using Foundation.Tasks;
 using RequestDrawAsk;
 
-public class RequestDrawStateAskUI : UIBehavior<RequestDrawStateAskUI.UIData>, HaveTransformData
+public class RequestDrawStateAskUI : UIHaveTransformDataBehavior<RequestDrawStateAskUI.UIData>
 {
 
     #region UIData
@@ -127,22 +127,6 @@ public class RequestDrawStateAskUI : UIBehavior<RequestDrawStateAskUI.UIData>, H
                 whoCanAskAdapterRect.sizeDelta = new Vector2(0.0f, 60.0f);
             }
         }
-    }
-
-    #endregion
-
-    #region TransformData
-
-    public TransformData transformData = new TransformData();
-
-    private void updateTransformData()
-    {
-        this.transformData.update(this.transform);
-    }
-
-    public TransformData getTransformData()
-    {
-        return this.transformData;
     }
 
     #endregion
@@ -490,7 +474,6 @@ public class RequestDrawStateAskUI : UIBehavior<RequestDrawStateAskUI.UIData>, H
                 Debug.LogError("data null");
             }
         }
-        updateTransformData();
     }
 
     public override bool isShouldDisableUpdate()
@@ -544,8 +527,6 @@ public class RequestDrawStateAskUI : UIBehavior<RequestDrawStateAskUI.UIData>, H
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().addCallBack(this);
             // Setting
             Setting.get().addCallBack(this);
             // Child
@@ -553,12 +534,6 @@ public class RequestDrawStateAskUI : UIBehavior<RequestDrawStateAskUI.UIData>, H
                 uiData.requestDrawStateAsk.allAddCallBack(this);
                 uiData.whoCanAskAdapter.allAddCallBack(this);
             }
-            dirty = true;
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             dirty = true;
             return;
         }
@@ -654,8 +629,6 @@ public class RequestDrawStateAskUI : UIBehavior<RequestDrawStateAskUI.UIData>, H
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().removeCallBack(this);
             // Setting
             Setting.get().removeCallBack(this);
             // Child
@@ -664,11 +637,6 @@ public class RequestDrawStateAskUI : UIBehavior<RequestDrawStateAskUI.UIData>, H
                 uiData.whoCanAskAdapter.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             return;
         }
         // Setting
@@ -767,12 +735,6 @@ public class RequestDrawStateAskUI : UIBehavior<RequestDrawStateAskUI.UIData>, H
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
-            return;
-        }
-        // Global
-        if (wrapProperty.p is Global)
-        {
-            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Setting

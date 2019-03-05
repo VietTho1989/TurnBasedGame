@@ -178,7 +178,7 @@ public class MainUI : UIBehavior<MainUI.UIData>
 
 	private bool alreadyPress = false;
 
-	public void OnGUI() {
+	public override void OnGUI() {
 		Event e = Event.current;
 		if (this.data != null) {
 			bool canProcess = false;

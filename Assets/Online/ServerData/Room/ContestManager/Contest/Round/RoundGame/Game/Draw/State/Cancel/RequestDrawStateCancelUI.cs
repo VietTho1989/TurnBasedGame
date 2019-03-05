@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class RequestDrawStateCancelUI : UIBehavior<RequestDrawStateCancelUI.UIData>, HaveTransformData
+public class RequestDrawStateCancelUI : UIHaveTransformDataBehavior<RequestDrawStateCancelUI.UIData>
 {
 
     #region UIData
@@ -57,22 +57,6 @@ public class RequestDrawStateCancelUI : UIBehavior<RequestDrawStateCancelUI.UIDa
 
     #endregion
 
-    #region TransformData
-
-    public TransformData transformData = new TransformData();
-
-    private void updateTransformData()
-    {
-        this.transformData.update(this.transform);
-    }
-
-    public TransformData getTransformData()
-    {
-        return this.transformData;
-    }
-
-    #endregion
-
     #region Refresh
 
     public override void refresh()
@@ -99,7 +83,6 @@ public class RequestDrawStateCancelUI : UIBehavior<RequestDrawStateCancelUI.UIDa
                 Debug.LogError("data null: " + this);
             }
         }
-        updateTransformData();
     }
 
     public override bool isShouldDisableUpdate()
@@ -116,20 +99,12 @@ public class RequestDrawStateCancelUI : UIBehavior<RequestDrawStateCancelUI.UIDa
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().addCallBack(this);
             // Setting
             Setting.get().addCallBack(this);
             // Child
             {
                 uiData.requestDrawStateCancel.allAddCallBack(this);
             }
-            dirty = true;
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             dirty = true;
             return;
         }
@@ -153,8 +128,6 @@ public class RequestDrawStateCancelUI : UIBehavior<RequestDrawStateCancelUI.UIDa
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().removeCallBack(this);
             // Setting
             Setting.get().removeCallBack(this);
             // Child
@@ -162,11 +135,6 @@ public class RequestDrawStateCancelUI : UIBehavior<RequestDrawStateCancelUI.UIDa
                 uiData.requestDrawStateCancel.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             return;
         }
         // Setting
@@ -202,12 +170,6 @@ public class RequestDrawStateCancelUI : UIBehavior<RequestDrawStateCancelUI.UIDa
                     Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
                     break;
             }
-            return;
-        }
-        // Global
-        if (wrapProperty.p is Global)
-        {
-            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Setting

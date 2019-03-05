@@ -195,12 +195,12 @@ public class BtnPauseNormalUI : UIBehavior<BtnPauseNormalUI.UIData>
                 }
                 else
                 {
-                    Debug.LogError("playNormal null");
+                    // Debug.LogError("playNormal null");
                 }
             }
             else
             {
-                Debug.LogError("data null");
+                // Debug.LogError("data null");
             }
         }
     }

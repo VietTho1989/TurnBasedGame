@@ -6,7 +6,7 @@ using GameManager.Match.Swap;
 
 namespace Rights
 {
-    public class ChangeRightsUI : UIBehavior<ChangeRightsUI.UIData>, HaveTransformData
+    public class ChangeRightsUI : UIHaveTransformDataBehavior<ChangeRightsUI.UIData>
     {
 
         #region UIData
@@ -54,22 +54,6 @@ namespace Rights
         static ChangeRightsUI()
         {
             txtTitle.add(Language.Type.vi, "Quyền thay đổi");
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        public TransformData getTransformData()
-        {
-            return this.transformData;
         }
 
         #endregion
@@ -432,7 +416,6 @@ namespace Rights
                     Debug.LogError("data null: " + this);
                 }
             }
-            updateTransformData();
         }
 
         public override bool isShouldDisableUpdate()
@@ -455,8 +438,6 @@ namespace Rights
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -466,12 +447,6 @@ namespace Rights
                     uiData.changeGamePlayerRight.allAddCallBack(this);
                     uiData.changeUseRuleRight.allAddCallBack(this);
                 }
-                dirty = true;
-                return;
-            }
-            // Global
-            if(data is Global)
-            {
                 dirty = true;
                 return;
             }
@@ -576,8 +551,6 @@ namespace Rights
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -588,11 +561,6 @@ namespace Rights
                     uiData.changeUseRuleRight.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
-                return;
-            }
-            // Global
-            if(data is Global)
-            {
                 return;
             }
             // Setting
@@ -720,12 +688,6 @@ namespace Rights
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
-                return;
-            }
-            // Global
-            if(wrapProperty.p is Global)
-            {
-                Global.OnValueTransformChange(wrapProperty, this);
                 return;
             }
             // Setting

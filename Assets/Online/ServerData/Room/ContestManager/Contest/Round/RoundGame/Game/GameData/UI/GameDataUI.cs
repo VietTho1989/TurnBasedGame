@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 using Hint;
 
-public class GameDataUI : UIBehavior<GameDataUI.UIData>, HaveTransformData
+public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
 {
 
     #region UIData
@@ -186,22 +186,6 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>, HaveTransformData
 
     #endregion
 
-    #region TransformData
-
-    public TransformData transformData = new TransformData();
-
-    private void updateTransformData()
-    {
-        this.transformData.update(this.transform);
-    }
-
-    public TransformData getTransformData()
-    {
-        return this.transformData;
-    }
-
-    #endregion
-
     #region Refresh
 
     public override void refresh()
@@ -333,7 +317,6 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>, HaveTransformData
                 Debug.LogError("data null: " + this);
             }
         }
-        updateTransformData();
     }
 
     public override bool isShouldDisableUpdate()
@@ -367,8 +350,6 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>, HaveTransformData
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().addCallBack(this);
             // Child
             {
                 uiData.gameData.allAddCallBack(this);
@@ -391,12 +372,6 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>, HaveTransformData
                     Debug.LogError("boardTransformUpdate null");
                 }
             }
-            dirty = true;
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             dirty = true;
             return;
         }
@@ -490,8 +465,6 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>, HaveTransformData
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().removeCallBack(this);
             // Child
             {
                 uiData.gameData.allRemoveCallBack(this);
@@ -515,11 +488,6 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>, HaveTransformData
                 }
             }
             this.setDataNull(uiData);
-            return;
-        }
-        // Global
-        if (data is Global)
-        {
             return;
         }
         // Parent
@@ -666,12 +634,6 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>, HaveTransformData
             }
             return;
         }
-        // Global
-        if (wrapProperty.p is Global)
-        {
-            Global.OnValueTransformChange(wrapProperty, this);
-            return;
-        }
         // Child
         {
             // gameData
@@ -743,6 +705,18 @@ public class GameDataUI : UIBehavior<GameDataUI.UIData>, HaveTransformData
                         break;
                     case GameDataBoardUI.UIData.Property.sub:
                         break;
+
+                    case GameDataBoardUI.UIData.Property.heightWidth:
+                        break;
+                    case GameDataBoardUI.UIData.Property.left:
+                        break;
+                    case GameDataBoardUI.UIData.Property.right:
+                        break;
+                    case GameDataBoardUI.UIData.Property.top:
+                        break;
+                    case GameDataBoardUI.UIData.Property.bottom:
+                        break;
+
                     case GameDataBoardUI.UIData.Property.perspective:
                         dirty = true;
                         break;

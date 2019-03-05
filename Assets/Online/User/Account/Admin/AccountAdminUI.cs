@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class AccountAdminUI : UIBehavior<AccountAdminUI.UIData>, HaveTransformData
+public class AccountAdminUI : UIHaveTransformDataBehavior<AccountAdminUI.UIData>
 {
 
     #region UIData
@@ -139,22 +139,6 @@ public class AccountAdminUI : UIBehavior<AccountAdminUI.UIData>, HaveTransformDa
         {
 
         }
-    }
-
-    #endregion
-
-    #region TransformData
-
-    public TransformData transformData = new TransformData();
-
-    private void updateTransformData()
-    {
-        this.transformData.update(this.transform);
-    }
-
-    public TransformData getTransformData()
-    {
-        return this.transformData;
     }
 
     #endregion
@@ -492,7 +476,6 @@ public class AccountAdminUI : UIBehavior<AccountAdminUI.UIData>, HaveTransformDa
                 Debug.LogError("data null: " + this);
             }
         }
-        updateTransformData();
     }
 
     public override bool isShouldDisableUpdate()
@@ -516,8 +499,6 @@ public class AccountAdminUI : UIBehavior<AccountAdminUI.UIData>, HaveTransformDa
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().addCallBack(this);
             // Setting
             Setting.get().addCallBack(this);
             // Child
@@ -526,12 +507,6 @@ public class AccountAdminUI : UIBehavior<AccountAdminUI.UIData>, HaveTransformDa
                 uiData.customName.allAddCallBack(this);
                 uiData.avatarUrl.allAddCallBack(this);
             }
-            dirty = true;
-            return;
-        }
-        // Global
-        if(data is Global)
-        {
             dirty = true;
             return;
         }
@@ -617,8 +592,6 @@ public class AccountAdminUI : UIBehavior<AccountAdminUI.UIData>, HaveTransformDa
         if (data is UIData)
         {
             UIData uiData = data as UIData;
-            // Global
-            Global.get().removeCallBack(this);
             // Setting
             Setting.get().removeCallBack(this);
             // Child
@@ -628,11 +601,6 @@ public class AccountAdminUI : UIBehavior<AccountAdminUI.UIData>, HaveTransformDa
                 uiData.avatarUrl.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
-            return;
-        }
-        // Global
-        if(data is Global)
-        {
             return;
         }
         // Setting
@@ -722,12 +690,6 @@ public class AccountAdminUI : UIBehavior<AccountAdminUI.UIData>, HaveTransformDa
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
-            return;
-        }
-        // Global
-        if(wrapProperty.p is Global)
-        {
-            Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
         // Setting
