@@ -791,7 +791,6 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.TestRunner.xml
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEngine.TestRunner.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEngine.TestRunner.xml
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/nunit.framework.pdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/nunit.framework.xml
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEngine.Timeline.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEngine.Timeline.xml
@@ -827,3 +826,10 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Mirror.Tests.csproj.CopyComplete
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Mirror.Tests.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Mirror.Tests.pdb
+/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.Android.Extensions.dll
+/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.AppleTV.Extensions.dll
+/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.iOS.Extensions.dll
+/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.iOS.Extensions.Common.dll
+/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.iOS.Extensions.dll.mdb
+/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.AppleTV.Extensions.dll.mdb
+/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.iOS.Extensions.Common.dll.mdb

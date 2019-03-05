@@ -5,39 +5,40 @@ using System.Collections.Generic;
 public abstract class GameType : Data
 {
 
-	public enum Type
+    // https://www.miniwebtool.com/adler32-checksum-calculator/
+    public enum Type
 	{
-		CHESS,
-		Shatranj,
-		Makruk,
-		Seirawan,
-		FairyChess,
+		CHESS = 71041399,
+		Shatranj = 238224188,
+		Makruk = 135266924,
+		Seirawan = 237765435,
+		FairyChess = 350356466,
 
-		Weiqi,
-		SHOGI,
-		ROCK_SCISSOR_PAPER,
-		Reversi,
+		Weiqi = 97649152,
+		SHOGI = 76022139,
+		ROCK_SCISSOR_PAPER = 886244748,
+		Reversi = 187302625,
 
-		Xiangqi,
-		CO_TUONG_UP,
-		Janggi,
-		Banqi,
+		Xiangqi = 184681170,
+		CO_TUONG_UP = 350159747,
+		Janggi = 130744913,
+		Banqi = 90702316,
 
-		Gomoku,
+		Gomoku = 136774259,
 
-		InternationalDraught,
-		EnglishDraught,
-		RussianDraught,
-        ChineseCheckers,
+		InternationalDraught = 1427310632,
+		EnglishDraught = 687932826,
+		RussianDraught = 712836533,
+        ChineseCheckers = 771360232,
 
-		MineSweeper,
-		Hex,
-		Solitaire,
+		MineSweeper = 430048357,
+		Hex = 35455270,
+		Solitaire = 304219053,
 
-		Sudoku,
-		Khet,
-		NineMenMorris
-	}
+		Sudoku = 141099644,
+		Khet = 61211021,
+		NineMenMorris = 584451367
+    }
 
     #region txt
 

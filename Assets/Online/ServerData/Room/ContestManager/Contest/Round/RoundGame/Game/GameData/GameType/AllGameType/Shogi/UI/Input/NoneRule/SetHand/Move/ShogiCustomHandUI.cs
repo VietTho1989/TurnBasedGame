@@ -78,7 +78,7 @@ namespace Shogi.NoneRule
 												if (handPieceUIData.handPiece.v == shogiCustomHand.handPiece.v && handPieceUIData.color.v == shogiCustomHand.color.v) {
 													HandPieceUI handPieceUI = handPieceUIData.findCallBack<HandPieceUI> ();
 													if (handPieceUI != null) {
-														parentTransform = handPieceUI.shogiCustomHandContainer;
+														parentTransform = handPieceUI.transform;
 													} else {
 														Debug.LogError ("handPieceUI null: " + this);
 													}

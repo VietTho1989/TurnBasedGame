@@ -121,7 +121,7 @@ namespace Xiangqi.UseRule
 
 		#region Refresh
 
-		public Image imgSelect;
+		public GameObject ivSelect;
 
 		public GameObject keySelect;
 
@@ -146,12 +146,12 @@ namespace Xiangqi.UseRule
 					}
 					// imgSelect
 					{
-						if (imgSelect != null) {
+						if (ivSelect != null) {
 							// localPosition
 							{
 								int x = this.data.x.v;
 								int y = this.data.y.v;
-								imgSelect.transform.localPosition = new Vector3 (x - 4f, y - 4.5f, 0);
+								ivSelect.transform.localPosition = new Vector3 (x - 4f, y - 4.5f, 0);
 							}
 							// TODO co the co rotate
 							{

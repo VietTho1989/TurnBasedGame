@@ -738,7 +738,6 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEngine.UI.xml
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEngine.TestRunner.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEngine.TestRunner.xml
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/nunit.framework.pdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/nunit.framework.xml
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEngine.Timeline.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEngine.Timeline.xml

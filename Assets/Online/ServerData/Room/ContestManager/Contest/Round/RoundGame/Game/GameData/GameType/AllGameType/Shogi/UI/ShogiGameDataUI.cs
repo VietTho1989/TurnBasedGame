@@ -76,7 +76,7 @@ namespace Shogi
 
             public override void getUIRatio(out float heightWidth, out float left, out float right, out float top, out float bottom)
             {
-                heightWidth = 1;
+                heightWidth = 12.8f / 9;
                 left = 0;
                 right = 0;
                 top = 0;

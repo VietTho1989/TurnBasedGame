@@ -40,10 +40,6 @@ namespace Weiqi
 		{
 			if (dirty) {
 				dirty = false;
-				// set global scale 1
-				{
-					this.transform.localScale = new Vector3 (0.02f, 0.02f, 1f);
-				}
 				// set information
 				if (this.data != null) {
 					Weiqi weiqi = this.data.weiqi.v.data;
@@ -51,13 +47,13 @@ namespace Weiqi
 						// tvScore
 						{
 							if (tvScore != null) {
-								tvScore.text = string.Format ("black score: {0}, white score: {1}, dame: {2}, score: {3}, capture black: {4}, caputre white: {5}", weiqi.scoreBlack.v, weiqi.scoreWhite.v, weiqi.dame.v, weiqi.score.v, weiqi.b.v.getCaptures((int)Common.stone.S_BLACK), weiqi.b.v.getCaptures((int)Common.stone.S_WHITE));
+								tvScore.text = string.Format ("black score: {0}, white score: {1}, dame: {2}, score: {3}, black capture: {4}, white capture: {5}", weiqi.scoreBlack.v, weiqi.scoreWhite.v, weiqi.dame.v, weiqi.score.v, weiqi.b.v.getCaptures((int)Common.stone.S_BLACK), weiqi.b.v.getCaptures((int)Common.stone.S_WHITE));
 							} else {
 								Debug.LogError ("tvScore null: " + this);
 							}
 						}
 						// btnToggleScore
-						{
+						/*{
 							if (btnToggleScore != null) {
 								Text tvToggleScore = (Text)btnToggleScore.GetComponentInChildren (typeof(Text));
 								if (tvToggleScore != null) {
@@ -85,11 +81,46 @@ namespace Weiqi
 							} else {
 								Debug.LogError ("btnToggleScore null: " + this);
 							}
-						}
+						}*/
 					} else {
 						Debug.LogError ("weiqi null: " + this);
 					}
-				} else {
+                    // show or not
+                    {
+                        // find
+                        bool isShow = true;
+                        {
+                            MiniGameDataUI.UIData miniGameDataUIData = this.data.findDataInParent<MiniGameDataUI.UIData>();
+                            if (miniGameDataUIData != null)
+                            {
+                                isShow = false;
+                            }
+                            else
+                            {
+                                Debug.LogError("miniGameDataUIData null");
+                            }
+                        }
+                        // process
+                        {
+                            if (tvScore != null)
+                            {
+                                tvScore.gameObject.SetActive(isShow);
+                            }
+                            else
+                            {
+                                Debug.LogError("tvScore null");
+                            }
+                            if (btnToggleScore != null)
+                            {
+                                btnToggleScore.gameObject.SetActive(isShow);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnToggleScore null");
+                            }
+                        }
+                    }
+                } else {
 					// Debug.LogError ("data null: " + this);
 				}
 			}

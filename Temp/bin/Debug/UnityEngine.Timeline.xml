@@ -79,6 +79,11 @@
         <para>A playable asset wrapper that represents a single AnimationClip clip in Timeline.</para>
       </summary>
     </member>
+    <member name="P:UnityEngine.Timeline.AnimationPlayableAsset.applyFootIK">
+      <summary>
+        <para>Enable to apply foot IK to the AnimationClip when the target is humanoid.</para>
+      </summary>
+    </member>
     <member name="P:UnityEngine.Timeline.AnimationPlayableAsset.clip">
       <summary>
         <para>The animation clip.</para>

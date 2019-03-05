@@ -94,7 +94,7 @@ namespace UndoRedo
         private static readonly TxtLanguage txtAccepting = new TxtLanguage();
         private static readonly TxtLanguage txtCancelling = new TxtLanguage();
 
-        private Text lbTitle;
+        public Text lbTitle;
         private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
         private static readonly TxtLanguage txtRequestError = new TxtLanguage();

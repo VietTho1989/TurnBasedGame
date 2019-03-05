@@ -460,6 +460,8 @@ namespace GameManager.Match.Swap
                             break;
                         case SwapPlayerInformUI.UIData.Property.informUI:
                             break;
+                        case SwapPlayerInformUI.UIData.Property.sub:
+                            break;
                         default:
                             Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                             break;

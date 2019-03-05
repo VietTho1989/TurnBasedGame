@@ -71,7 +71,7 @@
     </member>
     <member name="M:UnityEngine.ParticlePhysicsExtensions.SetTriggerParticles">
       <summary>
-        <para>Write modified particles back to the particle system, during a call to OnParticleTrigger.</para>
+        <para>Write modified particles back to the Particle System, during a call to OnParticleTrigger.</para>
       </summary>
       <param name="ps">Particle system.</param>
       <param name="type">Type of trigger to set particles for.</param>
@@ -81,7 +81,7 @@
     </member>
     <member name="M:UnityEngine.ParticlePhysicsExtensions.SetTriggerParticles">
       <summary>
-        <para>Write modified particles back to the particle system, during a call to OnParticleTrigger.</para>
+        <para>Write modified particles back to the Particle System, during a call to OnParticleTrigger.</para>
       </summary>
       <param name="ps">Particle system.</param>
       <param name="type">Type of trigger to set particles for.</param>
@@ -91,7 +91,7 @@
     </member>
     <member name="T:UnityEngine.ParticleSystem">
       <summary>
-        <para>Script interface for Particle Systems (Shuriken).</para>
+        <para>Script interface for Particle Systems.</para>
       </summary>
     </member>
     <member name="P:UnityEngine.ParticleSystem.automaticCullingEnabled">
@@ -462,7 +462,7 @@
     </member>
     <member name="P:UnityEngine.ParticleSystem.CollisionModule.collidesWith">
       <summary>
-        <para>Control which layers this particle system collides with.</para>
+        <para>Control which layers this Particle System collides with.</para>
       </summary>
     </member>
     <member name="P:UnityEngine.ParticleSystem.CollisionModule.dampen">
@@ -567,7 +567,7 @@
     </member>
     <member name="M:UnityEngine.ParticleSystem.CollisionModule.GetPlane(System.Int32)">
       <summary>
-        <para>Get a collision plane associated with this particle system.</para>
+        <para>Get a collision plane associated with this Particle System.</para>
       </summary>
       <param name="index">Specifies which plane to access.</param>
       <returns>
@@ -576,7 +576,7 @@
     </member>
     <member name="M:UnityEngine.ParticleSystem.CollisionModule.SetPlane(System.Int32,UnityEngine.Transform)">
       <summary>
-        <para>Set a collision plane to be used with this particle system.</para>
+        <para>Set a collision plane to be used with this Particle System.</para>
       </summary>
       <param name="index">Specifies which plane to set.</param>
       <param name="transform">The plane to set.</param>
@@ -1299,7 +1299,7 @@
     </member>
     <member name="P:UnityEngine.ParticleSystem.MainModule.duration">
       <summary>
-        <para>The duration of the particle system in seconds.</para>
+        <para>The duration of the Particle System in seconds.</para>
       </summary>
     </member>
     <member name="P:UnityEngine.ParticleSystem.MainModule.emitterVelocityMode">
@@ -1324,7 +1324,7 @@
     </member>
     <member name="P:UnityEngine.ParticleSystem.MainModule.loop">
       <summary>
-        <para>Is the particle system looping?</para>
+        <para>Is the Particle System looping?</para>
       </summary>
     </member>
     <member name="P:UnityEngine.ParticleSystem.MainModule.maxParticles">
@@ -1334,12 +1334,12 @@
     </member>
     <member name="P:UnityEngine.ParticleSystem.MainModule.playOnAwake">
       <summary>
-        <para>If set to true, the particle system will automatically start playing on startup.</para>
+        <para>If set to true, the Particle System will automatically start playing on startup.</para>
       </summary>
     </member>
     <member name="P:UnityEngine.ParticleSystem.MainModule.prewarm">
       <summary>
-        <para>When looping is enabled, this controls whether this particle system will look like it has already simulated for one loop when first becoming visible.</para>
+        <para>When looping is enabled, this controls whether this Particle System will look like it has already simulated for one loop when first becoming visible.</para>
       </summary>
     </member>
     <member name="P:UnityEngine.ParticleSystem.MainModule.randomizeRotationDirection">
@@ -1359,7 +1359,7 @@
     </member>
     <member name="P:UnityEngine.ParticleSystem.MainModule.scalingMode">
       <summary>
-        <para>Control how the particle system's Transform Component is applied to the particle system.</para>
+        <para>Control how the Particle System's Transform Component is applied to the Particle System.</para>
       </summary>
     </member>
     <member name="P:UnityEngine.ParticleSystem.MainModule.simulationSpace">
@@ -1788,7 +1788,7 @@ The Noise Module allows you to apply turbulence to the movement of your particle
     </member>
     <member name="P:UnityEngine.ParticleSystem.NoiseModule.scrollSpeed">
       <summary>
-        <para>Scroll the noise map over the particle system.</para>
+        <para>Scroll the noise map over the Particle System.</para>
       </summary>
     </member>
     <member name="P:UnityEngine.ParticleSystem.NoiseModule.scrollSpeedMultiplier">
@@ -1940,7 +1940,7 @@ The Noise Module allows you to apply turbulence to the movement of your particle
       <summary>
         <para>Calculate the current color of the particle by applying the relevant curves to its startColor property.</para>
       </summary>
-      <param name="system">The particle system from which this particle was emitted.</param>
+      <param name="system">The Particle System from which this particle was emitted.</param>
       <returns>
         <para>Current color.</para>
       </returns>
@@ -1949,7 +1949,7 @@ The Noise Module allows you to apply turbulence to the movement of your particle
       <summary>
         <para>Calculate the current size of the particle by applying the relevant curves to its startSize property.</para>
       </summary>
-      <param name="system">The particle system from which this particle was emitted.</param>
+      <param name="system">The Particle System from which this particle was emitted.</param>
       <returns>
         <para>Current size.</para>
       </returns>
@@ -1958,7 +1958,7 @@ The Noise Module allows you to apply turbulence to the movement of your particle
       <summary>
         <para>Calculate the current 3D size of the particle by applying the relevant curves to its startSize3D property.</para>
       </summary>
-      <param name="system">The particle system from which this particle was emitted.</param>
+      <param name="system">The Particle System from which this particle was emitted.</param>
       <returns>
         <para>Current size.</para>
       </returns>
@@ -2542,32 +2542,32 @@ The Noise Module allows you to apply turbulence to the movement of your particle
     </member>
     <member name="P:UnityEngine.ParticleSystem.SubEmittersModule.birth0">
       <summary>
-        <para>Sub particle system which spawns at the locations of the birth of the particles from the parent system.</para>
+        <para>Sub Particle System which spawns at the locations of the birth of the particles from the parent system.</para>
       </summary>
     </member>
     <member name="P:UnityEngine.ParticleSystem.SubEmittersModule.birth1">
       <summary>
-        <para>Sub particle system which spawns at the locations of the birth of the particles from the parent system.</para>
+        <para>Sub Particle System which spawns at the locations of the birth of the particles from the parent system.</para>
       </summary>
     </member>
     <member name="P:UnityEngine.ParticleSystem.SubEmittersModule.collision0">
       <summary>
-        <para>Sub particle system which spawns at the locations of the collision of the particles from the parent system.</para>
+        <para>Sub Particle System which spawns at the locations of the collision of the particles from the parent system.</para>
       </summary>
     </member>
     <member name="P:UnityEngine.ParticleSystem.SubEmittersModule.collision1">
       <summary>
-        <para>Sub particle system which spawns at the locations of the collision of the particles from the parent system.</para>
+        <para>Sub Particle System which spawns at the locations of the collision of the particles from the parent system.</para>
       </summary>
     </member>
     <member name="P:UnityEngine.ParticleSystem.SubEmittersModule.death0">
       <summary>
-        <para>Sub particle system which spawns at the locations of the death of the particles from the parent system.</para>
+        <para>Sub Particle System which spawns at the locations of the death of the particles from the parent system.</para>
       </summary>
     </member>
     <member name="P:UnityEngine.ParticleSystem.SubEmittersModule.death1">
       <summary>
-        <para>Sub particle system to spawn on death of the parent system's particles.</para>
+        <para>Sub Particle System to spawn on death of the parent system's particles.</para>
       </summary>
     </member>
     <member name="P:UnityEngine.ParticleSystem.SubEmittersModule.enabled">
@@ -2933,7 +2933,7 @@ The Noise Module allows you to apply turbulence to the movement of your particle
     </member>
     <member name="P:UnityEngine.ParticleSystem.TriggerModule.maxColliderCount">
       <summary>
-        <para>The maximum number of collision shapes that can be attached to this particle system trigger.</para>
+        <para>The maximum number of collision shapes that can be attached to this Particle System trigger.</para>
       </summary>
     </member>
     <member name="P:UnityEngine.ParticleSystem.TriggerModule.outside">
@@ -2948,7 +2948,7 @@ The Noise Module allows you to apply turbulence to the movement of your particle
     </member>
     <member name="M:UnityEngine.ParticleSystem.TriggerModule.GetCollider(System.Int32)">
       <summary>
-        <para>Get a collision shape associated with this particle system trigger.</para>
+        <para>Get a collision shape associated with this Particle System trigger.</para>
       </summary>
       <param name="index">Which collider to return.</param>
       <returns>
@@ -2957,7 +2957,7 @@ The Noise Module allows you to apply turbulence to the movement of your particle
     </member>
     <member name="M:UnityEngine.ParticleSystem.TriggerModule.SetCollider(System.Int32,UnityEngine.Component)">
       <summary>
-        <para>Set a collision shape associated with this particle system trigger.</para>
+        <para>Set a collision shape associated with this Particle System trigger.</para>
       </summary>
       <param name="index">Which collider to set.</param>
       <param name="collider">The collider to associate with this trigger.</param>
@@ -3196,7 +3196,7 @@ The Noise Module allows you to apply turbulence to the movement of your particle
     </member>
     <member name="T:UnityEngine.ParticleSystemCollisionType">
       <summary>
-        <para>The type of collisions to use for a given particle system.</para>
+        <para>The type of collisions to use for a given Particle System.</para>
       </summary>
     </member>
     <member name="F:UnityEngine.ParticleSystemCollisionType.Planes">
@@ -3236,7 +3236,7 @@ The Noise Module allows you to apply turbulence to the movement of your particle
     </member>
     <member name="T:UnityEngine.ParticleSystemCurveMode">
       <summary>
-        <para>The particle curve mode (Shuriken).</para>
+        <para>The particle curve mode.</para>
       </summary>
     </member>
     <member name="F:UnityEngine.ParticleSystemCurveMode.Constant">
@@ -3446,12 +3446,17 @@ The Noise Module allows you to apply turbulence to the movement of your particle
     </member>
     <member name="T:UnityEngine.ParticleSystemGameObjectFilter">
       <summary>
-        <para>The particle Game Object filtering mode that specifies which objects are used by specific Particle System modules (Shuriken).</para>
+        <para>The particle GameObject filtering mode that specifies which objects are used by specific Particle System modules.</para>
       </summary>
     </member>
     <member name="F:UnityEngine.ParticleSystemGameObjectFilter.LayerMask">
       <summary>
         <para>Include objects based on a layer mask, where all objects that match the mask are included.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.ParticleSystemGameObjectFilter.LayerMaskAndList">
+      <summary>
+        <para>Include objects based on both a layer mask and an explicitly provided list.</para>
       </summary>
     </member>
     <member name="F:UnityEngine.ParticleSystemGameObjectFilter.List">
@@ -3461,7 +3466,7 @@ The Noise Module allows you to apply turbulence to the movement of your particle
     </member>
     <member name="T:UnityEngine.ParticleSystemGradientMode">
       <summary>
-        <para>The particle gradient mode (Shuriken).</para>
+        <para>The particle gradient mode.</para>
       </summary>
     </member>
     <member name="F:UnityEngine.ParticleSystemGradientMode.Color">
@@ -3551,7 +3556,7 @@ The Noise Module allows you to apply turbulence to the movement of your particle
     </member>
     <member name="F:UnityEngine.ParticleSystemOverlapAction.Callback">
       <summary>
-        <para>Send the OnParticleTrigger command to the particle system's script.</para>
+        <para>Send the OnParticleTrigger command to the Particle System's script.</para>
       </summary>
     </member>
     <member name="F:UnityEngine.ParticleSystemOverlapAction.Ignore">
@@ -3566,7 +3571,7 @@ The Noise Module allows you to apply turbulence to the movement of your particle
     </member>
     <member name="T:UnityEngine.ParticleSystemRenderer">
       <summary>
-        <para>Renders particles on to the screen (Shuriken).</para>
+        <para>Renders particles on to the screen.</para>
       </summary>
     </member>
     <member name="P:UnityEngine.ParticleSystemRenderer.activeVertexStreamsCount">
@@ -3651,7 +3656,7 @@ The Noise Module allows you to apply turbulence to the movement of your particle
     </member>
     <member name="P:UnityEngine.ParticleSystemRenderer.sortingFudge">
       <summary>
-        <para>Biases particle system sorting amongst other transparencies.</para>
+        <para>Biases Particle System sorting amongst other transparencies.</para>
       </summary>
     </member>
     <member name="P:UnityEngine.ParticleSystemRenderer.sortMode">
@@ -3671,7 +3676,7 @@ The Noise Module allows you to apply turbulence to the movement of your particle
     </member>
     <member name="M:UnityEngine.ParticleSystemRenderer.AreVertexStreamsEnabled(UnityEngine.ParticleSystemVertexStreams)">
       <summary>
-        <para>Query whether the particle system renderer uses a particular set of vertex streams.</para>
+        <para>Query whether the Particle System renderer uses a particular set of vertex streams.</para>
       </summary>
       <param name="streams">Streams to query.</param>
       <returns>
@@ -3744,14 +3749,14 @@ The Noise Module allows you to apply turbulence to the movement of your particle
     </member>
     <member name="M:UnityEngine.ParticleSystemRenderer.DisableVertexStreams(UnityEngine.ParticleSystemVertexStreams)">
       <summary>
-        <para>Disable a set of vertex shader streams on the particle system renderer.
+        <para>Disable a set of vertex shader streams on the Particle System renderer.
 The position stream is always enabled, and any attempts to remove it will be ignored.</para>
       </summary>
       <param name="streams">Streams to disable.</param>
     </member>
     <member name="M:UnityEngine.ParticleSystemRenderer.EnableVertexStreams(UnityEngine.ParticleSystemVertexStreams)">
       <summary>
-        <para>Enable a set of vertex shader streams on the particle system renderer.</para>
+        <para>Enable a set of vertex shader streams on the Particle System renderer.</para>
       </summary>
       <param name="streams">Streams to enable.</param>
     </member>
@@ -3763,7 +3768,7 @@ The position stream is always enabled, and any attempts to remove it will be ign
     </member>
     <member name="M:UnityEngine.ParticleSystemRenderer.GetEnabledVertexStreams(UnityEngine.ParticleSystemVertexStreams)">
       <summary>
-        <para>Query whether the particle system renderer uses a particular set of vertex streams.</para>
+        <para>Query whether the Particle System renderer uses a particular set of vertex streams.</para>
       </summary>
       <param name="streams">Streams to query.</param>
       <returns>
@@ -3801,7 +3806,7 @@ The position stream is always enabled, and any attempts to remove it will be ign
     </member>
     <member name="T:UnityEngine.ParticleSystemRenderMode">
       <summary>
-        <para>The rendering mode for particle systems (Shuriken).</para>
+        <para>The rendering mode for particle systems.</para>
       </summary>
     </member>
     <member name="F:UnityEngine.ParticleSystemRenderMode.Billboard">
@@ -3891,12 +3896,12 @@ The position stream is always enabled, and any attempts to remove it will be ign
     </member>
     <member name="F:UnityEngine.ParticleSystemScalingMode.Hierarchy">
       <summary>
-        <para>Scale the particle system using the entire transform hierarchy.</para>
+        <para>Scale the Particle System using the entire transform hierarchy.</para>
       </summary>
     </member>
     <member name="F:UnityEngine.ParticleSystemScalingMode.Local">
       <summary>
-        <para>Scale the particle system using only its own transform scale. (Ignores parent scale).</para>
+        <para>Scale the Particle System using only its own transform scale. (Ignores parent scale).</para>
       </summary>
     </member>
     <member name="F:UnityEngine.ParticleSystemScalingMode.Shape">
@@ -3908,7 +3913,7 @@ The position stream is always enabled, and any attempts to remove it will be ign
     </member>
     <member name="T:UnityEngine.ParticleSystemShapeMultiModeValue">
       <summary>
-        <para>The mode used to generate new points in a shape (Shuriken).</para>
+        <para>The mode used to generate new points in a shape.</para>
       </summary>
     </member>
     <member name="F:UnityEngine.ParticleSystemShapeMultiModeValue.BurstSpread">
@@ -3933,7 +3938,7 @@ The position stream is always enabled, and any attempts to remove it will be ign
     </member>
     <member name="T:UnityEngine.ParticleSystemShapeTextureChannel">
       <summary>
-        <para>The texture channel (Shuriken).</para>
+        <para>The texture channel.</para>
       </summary>
     </member>
     <member name="F:UnityEngine.ParticleSystemShapeTextureChannel.Alpha">
@@ -3958,7 +3963,7 @@ The position stream is always enabled, and any attempts to remove it will be ign
     </member>
     <member name="T:UnityEngine.ParticleSystemShapeType">
       <summary>
-        <para>The emission shape (Shuriken).</para>
+        <para>The emission shape.</para>
       </summary>
     </member>
     <member name="F:UnityEngine.ParticleSystemShapeType.Box">
@@ -4143,12 +4148,12 @@ The position stream is always enabled, and any attempts to remove it will be ign
     </member>
     <member name="F:UnityEngine.ParticleSystemStopBehavior.StopEmitting">
       <summary>
-        <para>Stops particle system emitting any further particles. All existing particles will remain until they expire.</para>
+        <para>Stops Particle System emitting any further particles. All existing particles will remain until they expire.</para>
       </summary>
     </member>
     <member name="F:UnityEngine.ParticleSystemStopBehavior.StopEmittingAndClear">
       <summary>
-        <para>Stops particle system emitting and removes all existing emitted particles.</para>
+        <para>Stops Particle System emitting and removes all existing emitted particles.</para>
       </summary>
     </member>
     <member name="T:UnityEngine.ParticleSystemSubEmitterProperties">
@@ -4288,7 +4293,7 @@ The position stream is always enabled, and any attempts to remove it will be ign
     </member>
     <member name="T:UnityEngine.ParticleSystemVertexStream">
       <summary>
-        <para>All possible particle system vertex shader inputs.</para>
+        <para>All possible Particle System vertex shader inputs.</para>
       </summary>
     </member>
     <member name="F:UnityEngine.ParticleSystemVertexStream.AgePercent">
@@ -4518,7 +4523,7 @@ The position stream is always enabled, and any attempts to remove it will be ign
     </member>
     <member name="T:UnityEngine.ParticleSystemVertexStreams">
       <summary>
-        <para>All possible particle system vertex shader inputs.</para>
+        <para>All possible Particle System vertex shader inputs.</para>
       </summary>
     </member>
     <member name="F:UnityEngine.ParticleSystemVertexStreams.All">
@@ -4629,7 +4634,7 @@ To get the current particle age, simply multiply X by Y.</para>
     </member>
     <member name="A:UnityEngine.ParticleSystemModule">
       <summary>
-        <para>The ParticleSystem module implements Unity's particle system.</para>
+        <para>The ParticleSystem module implements Unity's Particle System.</para>
       </summary>
     </member>
   </members>

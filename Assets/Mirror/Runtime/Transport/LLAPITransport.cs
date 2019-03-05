@@ -268,7 +268,14 @@ namespace Mirror
 
         public void ServerStop()
         {
-            NetworkTransport.RemoveHost(serverHostId);
+            try
+            {
+                NetworkTransport.RemoveHost(serverHostId);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
             serverHostId = -1;
             Debug.Log("LLAPITransport.ServerStop");
         }

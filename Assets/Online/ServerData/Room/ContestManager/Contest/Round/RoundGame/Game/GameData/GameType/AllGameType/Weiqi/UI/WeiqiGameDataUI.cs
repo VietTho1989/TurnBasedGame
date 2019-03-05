@@ -83,8 +83,8 @@ namespace Weiqi
                 heightWidth = 1;
                 left = 0;
                 right = 0;
-                top = 0;
-                bottom = 0;
+                top = 30;
+                bottom = 30;
             }
 
         }
@@ -234,7 +234,30 @@ namespace Weiqi
 					InformationUI.UIData informationUIData = data as InformationUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (informationUIData, informationPrefab, this.transform);
+                        // find transform
+                        Transform informationContainer = null;
+                        {
+                            GameDataBoardUI.UIData gameDataBoardUIData = informationUIData.findDataInParent<GameDataBoardUI.UIData>();
+                            if (gameDataBoardUIData != null)
+                            {
+                                GameDataBoardUI gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                                if (gameDataBoardUI != null)
+                                {
+                                    informationContainer = gameDataBoardUI.transform;
+                                }
+                                else
+                                {
+                                    Debug.LogError("gameDataBoardUI null");
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("gameDataBoardUIData null");
+                            }
+                        }
+                        UIUtils.Instantiate(informationUIData, informationPrefab, informationContainer);
+                        // set siblingIndex
+                        UIRectTransform.SetSiblingIndex(informationUIData, 0);
 					}
 					dirty = true;
 					return;

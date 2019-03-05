@@ -75,9 +75,6 @@ namespace GameManager.Match
 		public Button btnStart;
 		public Text tvStart;
 
-		public GameObject contentContainer;
-		public GameObject enableClick;
-
 		public override void refresh ()
 		{
 			if (dirty) {
@@ -94,16 +91,8 @@ namespace GameManager.Match
 									isAdmin = true;
 								}
 							}
-							// Process
-							{
-								// Enable Click or not
-								{
-									if (enableClick != null) {
-										enableClick.SetActive (!isAdmin);
-									} else {
-										Debug.LogError ("enableClick null: " + this);
-									}
-								}
+                            // Process
+                            {
 								// set content
 								ContestManagerStateLobby.State state = lobby.state.v;
 								if (state != null) {
@@ -157,13 +146,13 @@ namespace GameManager.Match
 														switch (this.data.state.v) {
 														case UIData.State.None:
 															{
-																btnStart.interactable = true;
+																btnStart.interactable = isAdmin;
 																tvStart.text = txtStart.get ("Start");
 															}
 															break;
 														case UIData.State.Request:
 															{
-																btnStart.interactable = true;
+																btnStart.interactable = isAdmin;
 																tvStart.text = txtCancelStart.get ("Cancel Start?");
 															}
 															break;

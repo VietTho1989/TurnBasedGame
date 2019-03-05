@@ -131,7 +131,7 @@ namespace CoTuongUp
 		public DefaultCoTuongUp () : base ()
 		{
 			this.allowViewCapture = new VP<bool> (this, (byte)Property.allowViewCapture, true);
-			this.allowWatcherViewHidden = new VP<bool> (this, (byte)Property.allowWatcherViewHidden, true);
+			this.allowWatcherViewHidden = new VP<bool> (this, (byte)Property.allowWatcherViewHidden, false);
 			this.allowOnlyFlip = new VP<bool> (this, (byte)Property.allowOnlyFlip, true);
 		}
 

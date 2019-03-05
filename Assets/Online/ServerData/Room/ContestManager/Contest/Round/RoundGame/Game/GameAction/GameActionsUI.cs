@@ -167,12 +167,16 @@ public class GameActionsUI : UIBehavior<GameActionsUI.UIData>
                         if (boardTransform != null)
                         {
                             // find
-                            float left = boardTransform.rect.xMin - boardLeft;
-                            float right = boardTransform.rect.xMax + boardRight;
-                            float top = boardTransform.rect.yMin + boardTop;
-                            float bottom = boardTransform.rect.yMax - boardBottom;
+                            float left = boardTransform.rect.xMin;
+                            float right = boardTransform.rect.xMax;
+                            float top = boardTransform.rect.yMin;
+                            float bottom = boardTransform.rect.yMax;
                             {
                                 UIRectTransform.GetMargin(boardTransform, out left, out right, out top, out bottom);
+                                left -= boardLeft;
+                                right += boardRight;
+                                top -= boardTop;
+                                bottom += boardBottom;
                             }
                             // process
                             RectTransform gameActionsTransform = (RectTransform)this.transform;

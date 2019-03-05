@@ -139,7 +139,7 @@ namespace Chess.UseRule
 
 		#region Refresh
 
-		public Image imgSelect;
+		public GameObject ivSelect;
 
 		public GameObject keySelect;
 
@@ -164,13 +164,13 @@ namespace Chess.UseRule
 					}
 					// imgSelect
 					{
-						if (imgSelect != null) {
+						if (ivSelect != null) {
 							ClickDestUI.UIData clickDestUIData = this.data.findDataInParent<ClickDestUI.UIData> ();
 							if (clickDestUIData != null) {
 								int x = clickDestUIData.x.v;
 								int y = clickDestUIData.y.v;
 								// Debug.LogError ("imgSelect: " + x + "; " + y);
-								imgSelect.transform.localPosition = new Vector3 (x - 3.5f, y - 3.5f, 0);
+								ivSelect.transform.localPosition = new Vector3 (x - 3.5f, y - 3.5f, 0);
 							} else {
 								Debug.LogError ("clickDestUIData null: " + this);
 							}

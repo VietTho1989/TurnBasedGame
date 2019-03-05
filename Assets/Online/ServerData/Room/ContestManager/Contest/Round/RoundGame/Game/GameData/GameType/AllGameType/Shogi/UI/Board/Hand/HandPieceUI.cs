@@ -39,13 +39,11 @@ namespace Shogi
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region Refresh
 
-		public Transform shogiCustomHandContainer;
-
-		public Image imgPiece;
+		public Image ivPiece;
 		public Text tvCount;
 
 		public override void refresh ()
@@ -65,7 +63,7 @@ namespace Shogi
 					if (isLoadFull) {
 						// imgPiece
 						{
-							if (imgPiece != null) {
+							if (ivPiece != null) {
 								// Find style
 								Setting.Style style = Setting.get().style.v;
 								// Process
@@ -81,7 +79,7 @@ namespace Shogi
                                             color = Common.Color.Black;
                                         }
                                     }
-                                    imgPiece.sprite = ShogiSpriteContainer.get().getSpriteForHandPiece(style, this.data.handPiece.v, color);
+                                    ivPiece.sprite = ShogiSpriteContainer.get().getSpriteForHandPiece(style, this.data.handPiece.v, color);
                                 }
 							} else {
 								Debug.LogError ("imgPiece null: " + this);

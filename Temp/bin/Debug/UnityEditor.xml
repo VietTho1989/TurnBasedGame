@@ -17635,10 +17635,46 @@ If the Unity Editor setting "Auto-Update" is set to enabled, editing a script ou
         <para>The containing Prefab stage.</para>
       </returns>
     </member>
+    <member name="T:UnityEditor.Experimental.TerrainAPI.BrushGUIEditFlags">
+      <summary>
+        <para>Flags that toggle which brush controls are displayed when calling [IOnInspectorGUI.ShowBrushesGUI].</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Experimental.TerrainAPI.BrushGUIEditFlags.All">
+      <summary>
+        <para>Display all brush controls.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Experimental.TerrainAPI.BrushGUIEditFlags.Inspect">
+      <summary>
+        <para>Display the brush inspector for the currently selected brush.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Experimental.TerrainAPI.BrushGUIEditFlags.Opacity">
+      <summary>
+        <para>Display the brush opacity control.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Experimental.TerrainAPI.BrushGUIEditFlags.Select">
+      <summary>
+        <para>Display the brush selection control.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Experimental.TerrainAPI.BrushGUIEditFlags.SelectAndInspect">
+      <summary>
+        <para>Display the brush selection control, and the brush inspector for the currently selected brush.</para>
+      </summary>
+    </member>
     <member name="?:UnityEditor.Experimental.TerrainAPI.IOnInspectorGUI">
       <summary>
         <para>Interface that provides parameters and utility functions for the OnInspectorGUI event in the terrain paint tools.</para>
       </summary>
+    </member>
+    <member name="M:UnityEditor.Experimental.TerrainAPI.IOnInspectorGUI.Repaint(UnityEditor.Experimental.TerrainAPI.RepaintFlags)">
+      <summary>
+        <para>Instructs the Editor to repaint the tool UI and/or the scene view.</para>
+      </summary>
+      <param name="flags">What to repaint.</param>
     </member>
     <member name="M:UnityEditor.Experimental.TerrainAPI.IOnInspectorGUI.ShowBrushesGUI(System.Int32)">
       <summary>
@@ -17670,6 +17706,12 @@ If the Unity Editor setting "Auto-Update" is set to enabled, editing a script ou
       <summary>
         <para>Read Only. The normalized position (between 0 and 1) on the active terrain.</para>
       </summary>
+    </member>
+    <member name="M:UnityEditor.Experimental.TerrainAPI.IOnPaint.Repaint(UnityEditor.Experimental.TerrainAPI.RepaintFlags)">
+      <summary>
+        <para>Instructs the Editor to repaint the tool UI and/or the scene view.</para>
+      </summary>
+      <param name="flags">What to repaint.</param>
     </member>
     <member name="M:UnityEditor.Experimental.TerrainAPI.IOnPaint.RepaintAllInspectors">
       <summary>
@@ -17709,6 +17751,27 @@ If the Unity Editor setting "Auto-Update" is set to enabled, editing a script ou
     <member name="P:UnityEditor.Experimental.TerrainAPI.IOnSceneGUI.sceneView">
       <summary>
         <para>Read only. SceneView object.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.Experimental.TerrainAPI.IOnSceneGUI.Repaint(UnityEditor.Experimental.TerrainAPI.RepaintFlags)">
+      <summary>
+        <para>Instructs the Editor to repaint the tool UI and/or the scene view.</para>
+      </summary>
+      <param name="flags">What to repaint.</param>
+    </member>
+    <member name="T:UnityEditor.Experimental.TerrainAPI.RepaintFlags">
+      <summary>
+        <para>Flags that indicate what to repaint on the Terrain tools.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Experimental.TerrainAPI.RepaintFlags.Scene">
+      <summary>
+        <para>Indicates to Unity to repaint the scene view.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Experimental.TerrainAPI.RepaintFlags.UI">
+      <summary>
+        <para>Indicates to Unity to repaint the tool UI.</para>
       </summary>
     </member>
     <member name="T:UnityEditor.Experimental.TerrainAPI.TerrainPaintTool`1">
@@ -23808,6 +23871,11 @@ If the Unity Editor setting "Auto-Update" is set to enabled, editing a script ou
       </summary>
       <param name="brushTarget">Target of the GridBrushBase.Tool operation. By default the currently selected GameObject.</param>
       <param name="tool">Current GridBrushBase.Tool selected.</param>
+    </member>
+    <member name="T:UnityEditor.GridPaintSortingAttribute">
+      <summary>
+        <para>Use this attribute to add an option to customize the sorting of Active Targets in the Active Tilemap list of the Tile Palette window.</para>
+      </summary>
     </member>
     <member name="T:UnityEditor.GridPalette">
       <summary>
@@ -34584,9 +34652,9 @@ See Also: PauseState, EditorApplication.playModeStateChanged, EditorApplication.
       <summary>
         <para>Instantiates the given Prefab in a given Scene.</para>
       </summary>
-      <param name="target">Prefab Asset to instantiate.</param>
+      <param name="assetComponentOrGameObject">Prefab Asset to instantiate.</param>
       <param name="destinationScene">Scene to instantiate the Prefab in.</param>
-      <param name="assetComponentOrGameObject"></param>
+      <param name="parent">The parent Transform to be assigned.</param>
       <returns>
         <para>The GameObject at the root of the Prefab.</para>
       </returns>
@@ -34595,9 +34663,20 @@ See Also: PauseState, EditorApplication.playModeStateChanged, EditorApplication.
       <summary>
         <para>Instantiates the given Prefab in a given Scene.</para>
       </summary>
-      <param name="target">Prefab Asset to instantiate.</param>
+      <param name="assetComponentOrGameObject">Prefab Asset to instantiate.</param>
       <param name="destinationScene">Scene to instantiate the Prefab in.</param>
-      <param name="assetComponentOrGameObject"></param>
+      <param name="parent">The parent Transform to be assigned.</param>
+      <returns>
+        <para>The GameObject at the root of the Prefab.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.PrefabUtility.InstantiatePrefab(UnityEngine.Object,UnityEngine.Transform)">
+      <summary>
+        <para>Instantiates the given Prefab in a given Scene.</para>
+      </summary>
+      <param name="assetComponentOrGameObject">Prefab Asset to instantiate.</param>
+      <param name="destinationScene">Scene to instantiate the Prefab in.</param>
+      <param name="parent">The parent Transform to be assigned.</param>
       <returns>
         <para>The GameObject at the root of the Prefab.</para>
       </returns>

@@ -186,8 +186,12 @@ namespace Weiqi
 							{
 								if (passContainer != null) {
 									passContainer.SetActive (true);
-									// Text
-									if (tvPass != null) {
+                                    // UITransform
+                                    {
+                                        // passContainer.transform.localPosition = new Vector3(0, 0, 0);
+                                    }
+                                    // Text
+                                    if (tvPass != null) {
 										if (this.data.isHint.v) {
 											// find playerIndex
 											int playerIndex = 0;
@@ -195,7 +199,7 @@ namespace Weiqi
 												if (weiqi != null) {
 													playerIndex = weiqi.getPlayerIndex ();
 												} else {
-													Debug.LogError ("reversi null: " + this);
+													Debug.LogError ("weiqi null: " + this);
 												}
 											}
 											// process: black move first
