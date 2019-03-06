@@ -53,8 +53,8 @@ namespace Sudoku
                         }
                     }
                     GameDataBoardUI gameDataBoardUI = null;
-                    GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData>();
                     {
+                        GameDataBoardUI.UIData gameDataBoardUIData = this.data.findDataInParent<GameDataBoardUI.UIData>();
                         if (gameDataBoardUIData != null)
                         {
                             gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
@@ -74,6 +74,7 @@ namespace Sudoku
                             Vector2 boardSize = new Vector2(boardTransform.rect.width, boardTransform.rect.height);
                             if (sudokuSize != Vector2.zero && boardSize != Vector2.zero)
                             {
+                                Debug.LogError("sudokuBoardSize: " + boardSize);
                                 float scale = Mathf.Min(Mathf.Abs(boardSize.x / 9f), Mathf.Abs(boardSize.y / 9f));
                                 // new scale
                                 Vector3 newLocalScale = new Vector3();
@@ -249,6 +250,7 @@ namespace Sudoku
             // CheckChange
             if (wrapProperty.p is GameDataBoardCheckTransformChange<UpdateData>)
             {
+                Debug.LogError("gameDataBoard change");
                 dirty = true;
                 return;
             }

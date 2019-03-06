@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Sudoku
 {
-	public class SudokuGameDataUI : UIBehavior<SudokuGameDataUI.UIData>
+	public class SudokuGameDataUI : UIHaveTransformDataBehavior<SudokuGameDataUI.UIData>
 	{
 
 		#region UIData
@@ -76,29 +76,39 @@ namespace Sudoku
 
             public override void getUIRatio(out float heightWidth, out float left, out float right, out float top, out float bottom)
             {
+                /*// find
+                bool isMiniGameData = false;
+                {
+                    MiniGameDataUI.UIData miniGameDataUIData = this.findDataInParent<MiniGameDataUI.UIData>();
+                    if (miniGameDataUIData != null)
+                    {
+                        isMiniGameData = true;
+                    }
+                }
+                // process
+                if (!isMiniGameData)
+                {
+                    heightWidth = 11.2f / 9.0f;
+                    left = 0;
+                    right = 0;
+                    top = 0;
+                    bottom = 0;
+                }
+                else
+                {
+                    heightWidth = 1;
+                    left = 0;
+                    right = 0;
+                    top = 0;
+                    bottom = 0;
+                }*/
                 heightWidth = 1;
                 left = 0;
                 right = 0;
-                top = 0;
-                bottom = 0;
+                top = 30;
+                bottom = 30;
             }
 
-        }
-
-        #endregion
-
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            /*if (transform.hasChanged)
-            {
-                transform.hasChanged = false;
-                this.transformData.update(this.transform);
-            }*/
-            this.transformData.update(this.transform);
         }
 
         #endregion
@@ -107,7 +117,6 @@ namespace Sudoku
 
         public override void refresh ()
 		{
-            updateTransformData();
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {
@@ -278,12 +287,12 @@ namespace Sudoku
 				}
 				// Child
 				{
-					uiData.gameData.allRemoveCallBack (this);
-					uiData.board.allRemoveCallBack (this);
-					uiData.lastMove.allRemoveCallBack (this);
-					uiData.showHint.allRemoveCallBack (this);
-					uiData.inputUI.allRemoveCallBack (this);
                     uiData.transformOrganizer.allRemoveCallBack(this);
+                    uiData.inputUI.allRemoveCallBack(this);
+                    uiData.showHint.allRemoveCallBack(this);
+                    uiData.lastMove.allRemoveCallBack(this);
+                    uiData.board.allRemoveCallBack(this);
+                    uiData.gameData.allRemoveCallBack (this);
                 }
 				this.setDataNull (uiData);
 				return;

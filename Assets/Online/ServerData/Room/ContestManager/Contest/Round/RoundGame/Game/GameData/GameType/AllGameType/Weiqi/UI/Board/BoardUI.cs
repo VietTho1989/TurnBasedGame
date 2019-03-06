@@ -169,7 +169,7 @@ namespace Weiqi
                                                     }
                                                 }
 											} else {
-												Debug.LogError ("not use rule: so, cannot dead: " + this);
+												// Debug.LogError ("not use rule: so, cannot dead: " + this);
 											}
 										}
 										for (int y = boardSize - 2; y >= 1; y--) {

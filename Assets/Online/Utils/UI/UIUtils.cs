@@ -139,6 +139,72 @@ public class UIUtils
 		}
 	}
 
-	#endregion
+    #endregion
+
+    #region scale
+
+    public static void SetGlobalScale(Transform transform, Vector3 globalScale)
+    {
+        transform.localScale = Vector3.one;
+        if (transform.lossyScale.x != 0 && transform.lossyScale.y != 0 && transform.lossyScale.z != 0)
+        {
+            transform.localScale = new Vector3(globalScale.x / transform.lossyScale.x, globalScale.y / transform.lossyScale.y, globalScale.z / transform.lossyScale.z);
+        }
+        else
+        {
+            Debug.LogError("lossyScale error: " + transform.lossyScale);
+        }
+    }
+
+    #endregion
+
+    public static void UpdateTransformData(Data data)
+    {
+        if (data != null)
+        {
+            // find
+            HaveTransformData ui = null;
+            {
+                for (int i = data.callBacks.Count - 1; i >= 0; i--)
+                {
+                    ValueChangeCallBack callBack = data.callBacks[i];
+                    if (typeof(HaveTransformData).IsAssignableFrom(callBack.GetType()))
+                    {
+                        HaveTransformData haveTransformData = (HaveTransformData)callBack;
+                        if (haveTransformData.getDataHaveTransformData() == data)
+                        {
+                            ui = haveTransformData;
+                            break;
+                        }
+                    }
+                }
+            }
+            // process
+            if (ui != null)
+            {
+                ui.setDirtyForTransformData();
+                // updateTransform
+                TransformData transformData = ui.getTransformData();
+                RectTransform transform = (RectTransform)ui.getUITransform();
+                if(transformData!=null && transform != null)
+                {
+                    transformData.update(transform);
+                    Debug.LogError("haveUI set dirty: " + ui + ", " + transformData + ", " + transform);
+                }
+                else
+                {
+                    Debug.LogError("transformData, transform null");
+                }
+            }
+            else
+            {
+                Debug.LogError("ui null");
+            }
+        }
+        else
+        {
+            Debug.LogError("data null");
+        }
+    }
 
 }

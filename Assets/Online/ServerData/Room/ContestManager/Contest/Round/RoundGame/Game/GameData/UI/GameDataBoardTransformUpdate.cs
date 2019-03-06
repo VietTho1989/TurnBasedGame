@@ -166,6 +166,10 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
                     }
                     // set
                     boardRect.set(boardTransform);
+                    // set board dirty
+                    {
+                        UIUtils.UpdateTransformData(this.data.board.v);
+                    }
                 }
                 else
                 {

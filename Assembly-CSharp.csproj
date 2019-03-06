@@ -3499,6 +3499,7 @@
     <Compile Include="Assets\Online\Utils\UI\ListShow\ListShowAll.cs" />
     <Compile Include="Assets\Online\Utils\UI\ListShow\ListShowLimit.cs" />
     <Compile Include="Assets\Online\Utils\UI\ReportTransformChange.cs" />
+    <Compile Include="Assets\Online\Utils\UI\UIGlobalScale1.cs" />
     <Compile Include="Assets\Online\Utils\UI\UIInterface.cs" />
     <Compile Include="Assets\Online\Utils\UI\UIUtils.cs" />
     <Compile Include="Assets\Online\Utils\UI\UrlImage.cs" />

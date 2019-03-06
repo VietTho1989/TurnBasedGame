@@ -604,6 +604,7 @@ public class GameDataBoardUI : UIHaveTransformDataBehavior<GameDataBoardUI.UIDat
                 // Debug.LogError("data null: " + this);
             }
         }
+        Debug.LogError("board update transformData: " + this.transformData);
     }
 
     public override bool isShouldDisableUpdate()
@@ -869,10 +870,10 @@ public class GameDataBoardUI : UIHaveTransformDataBehavior<GameDataBoardUI.UIDat
             UIData uiData = data as UIData;
             // Child
             {
-                uiData.animationManager.allRemoveCallBack(this);
-                uiData.perspective.allRemoveCallBack(this);
-                uiData.gameData.allRemoveCallBack(this);
                 uiData.sub.allRemoveCallBack(this);
+                uiData.gameData.allRemoveCallBack(this);
+                uiData.perspective.allRemoveCallBack(this);
+                uiData.animationManager.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
             return;
@@ -1103,6 +1104,21 @@ public class GameDataBoardUI : UIHaveTransformDataBehavior<GameDataBoardUI.UIDat
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
                     }
+                    break;
+                case UIData.Property.heightWidth:
+                    dirty = true;
+                    break;
+                case UIData.Property.left:
+                    dirty = true;
+                    break;
+                case UIData.Property.right:
+                    dirty = true;
+                    break;
+                case UIData.Property.top:
+                    dirty = true;
+                    break;
+                case UIData.Property.bottom:
+                    dirty = true;
                     break;
                 case UIData.Property.sub:
                     {

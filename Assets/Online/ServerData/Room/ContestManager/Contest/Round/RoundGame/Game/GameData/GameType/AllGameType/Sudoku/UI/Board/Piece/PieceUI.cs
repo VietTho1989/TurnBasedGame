@@ -87,7 +87,7 @@ namespace Sudoku
 						dirty = true;
 					}
 				} else {
-					Debug.LogError ("data null");
+					// Debug.LogError ("data null");
 				}
 			}
 		}

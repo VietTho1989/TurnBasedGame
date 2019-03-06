@@ -421,7 +421,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
             {
                 uiData.game.allAddCallBack(this);
                 uiData.stateUI.allAddCallBack(this);
-                uiData.gameDataUI.allAddCallBack(this);
                 // bottom
                 {
                     uiData.gameBottom.allAddCallBack(this);
@@ -431,6 +430,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 }
                 uiData.saveUIData.allAddCallBack(this);
                 uiData.gameHistoryUIData.allAddCallBack(this);
+                uiData.gameDataUI.allAddCallBack(this);
             }
             dirty = true;
             return;
@@ -548,7 +548,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
             // Child
             {
                 uiData.game.allRemoveCallBack(this);
-                uiData.gameDataUI.allRemoveCallBack(this);
                 // bottom
                 {
                     uiData.gameBottom.allRemoveCallBack(this);
@@ -559,6 +558,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 uiData.stateUI.allRemoveCallBack(this);
                 uiData.saveUIData.allRemoveCallBack(this);
                 uiData.gameHistoryUIData.allRemoveCallBack(this);
+                uiData.gameDataUI.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
             return;

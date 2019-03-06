@@ -19,6 +19,16 @@ public abstract class UIHaveTransformDataBehavior<K> : UIBehavior<K>, HaveTransf
         return this.transformData;
     }
 
+    public Data getDataHaveTransformData()
+    {
+        return this.data;
+    }
+
+    public Transform getUITransform()
+    {
+        return this.transform;
+    }
+
     #endregion
 
     public void setDirtyForTransformData()

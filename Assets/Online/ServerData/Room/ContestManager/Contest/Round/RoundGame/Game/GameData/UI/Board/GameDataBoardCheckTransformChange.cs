@@ -8,76 +8,71 @@ using System.Collections.Generic;
 public class GameDataBoardCheckTransformChange<K> : Data, ValueChangeCallBack where K : Data
 {
 
-	public VP<int> change;
+    public VP<int> change;
 
-	private void notifyChange()
-	{
-		this.change.v = this.change.v + 1;
-	}
+    private void notifyChange()
+    {
+        this.change.v = this.change.v + 1;
+    }
 
-	#region Constructor
+    #region Constructor
 
-	public enum Property
-	{
-		change
-	}
+    public enum Property
+    {
+        change
+    }
 
-	public GameDataBoardCheckTransformChange() : base()
-	{
-		this.change = new VP<int> (this, (byte)Property.change, 0);
-	}
+    public GameDataBoardCheckTransformChange() : base()
+    {
+        this.change = new VP<int>(this, (byte)Property.change, 0);
+    }
 
-	#endregion
+    #endregion
 
-	public K data;
+    public K data;
 
-	public void setData(K newData){
-		if (this.data != newData) {
-			// remove old
-			{
-				DataUtils.removeParentCallBack (this.data, this, ref this.gameDataBoardUIData);
-			}
-			// set new 
-			{
-				this.data = newData;
-				DataUtils.addParentCallBack (this.data, this, ref this.gameDataBoardUIData);
-			}
-		} else {
-			Debug.LogError ("the same: " + this + ", " + data + ", " + newData);
-		}
-	}
+    public void setData(K newData)
+    {
+        if (this.data != newData)
+        {
+            // remove old
+            {
+                DataUtils.removeParentCallBack(this.data, this, ref this.gameDataBoardUIData);
+            }
+            // set new 
+            {
+                this.data = newData;
+                DataUtils.addParentCallBack(this.data, this, ref this.gameDataBoardUIData);
+            }
+        }
+        else
+        {
+            Debug.LogError("the same: " + this + ", " + data + ", " + newData);
+        }
+    }
 
-	#region implement callBacks
+    #region implement callBacks
 
-	private GameDataBoardUI.UIData gameDataBoardUIData = null;
+    private GameDataBoardUI.UIData gameDataBoardUIData = null;
 
-	public void onAddCallBack<T> (T data) where T:Data
-	{
-		if (data is GameDataBoardUI.UIData) {
-			GameDataBoardUI.UIData gameDataBoardUIData = data as GameDataBoardUI.UIData;
+    public void onAddCallBack<T>(T data) where T : Data
+    {
+        if (data is GameDataBoardUI.UIData)
+        {
+            GameDataBoardUI.UIData gameDataBoardUIData = data as GameDataBoardUI.UIData;
             // Child
-			{
-                // transformData
-                {
-                    GameDataBoardUI gameDataBoardUI = gameDataBoardUIData.findDataInParent<GameDataBoardUI>();
-                    if (gameDataBoardUI != null)
-                    {
-                        gameDataBoardUI.transformData.addCallBack(this);
-                    }
-                    else
-                    {
-                        // Debug.LogError("gameDataBoardUI null");
-                    }
-                }
-				gameDataBoardUIData.perspective.allAddCallBack (this);
-			}
-			this.notifyChange ();
-			return;
-		}
+            {
+                TransformData.AddCallBack(gameDataBoardUIData, this);
+                gameDataBoardUIData.perspective.allAddCallBack(this);
+            }
+            this.notifyChange();
+            return;
+        }
         // Child
         {
             if (data is TransformData)
             {
+                Debug.LogError("gameDataBoardCheckChange1: TransformData");
                 this.notifyChange();
                 return;
             }
@@ -87,31 +82,21 @@ public class GameDataBoardCheckTransformChange<K> : Data, ValueChangeCallBack wh
                 return;
             }
         }
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	public void onRemoveCallBack<T> (T data, bool isHide) where T:Data
-	{
-		if (data is GameDataBoardUI.UIData) {
-			GameDataBoardUI.UIData gameDataBoardUIData = data as GameDataBoardUI.UIData;
+    public void onRemoveCallBack<T>(T data, bool isHide) where T : Data
+    {
+        if (data is GameDataBoardUI.UIData)
+        {
+            GameDataBoardUI.UIData gameDataBoardUIData = data as GameDataBoardUI.UIData;
             // Child
-			{
-                // transformData
-                {
-                    GameDataBoardUI gameDataBoardUI = gameDataBoardUIData.findDataInParent<GameDataBoardUI>();
-                    if (gameDataBoardUI != null)
-                    {
-                        gameDataBoardUI.transformData.removeCallBack(this);
-                    }
-                    else
-                    {
-                        Debug.LogError("gameDataBoardUI null");
-                    }
-                }
-                gameDataBoardUIData.perspective.allRemoveCallBack (this);
-			}
-			return;
-		}
+            {
+                TransformData.RemoveCallBack(gameDataBoardUIData, this);
+                gameDataBoardUIData.perspective.allRemoveCallBack(this);
+            }
+            return;
+        }
         // Child
         {
             if (data is TransformData)
@@ -123,36 +108,56 @@ public class GameDataBoardCheckTransformChange<K> : Data, ValueChangeCallBack wh
                 return;
             }
         }
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	public void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-	{
-		if (WrapProperty.checkError (wrapProperty)) {
-			return;
-		}
-		if (wrapProperty.p is GameDataBoardUI.UIData) {
-			switch ((GameDataBoardUI.UIData.Property)wrapProperty.n) {
-			case GameDataBoardUI.UIData.Property.gameData:
-				break;
-			case GameDataBoardUI.UIData.Property.sub:
-				break;
-			case GameDataBoardUI.UIData.Property.perspective:
-				{
-					ValueChangeUtils.replaceCallBack(this, syncs);
-					this.notifyChange();
-				}
-				break;
-			default:
-				Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-				break;
-			}
-			return;
-		}
+    public void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+    {
+        if (WrapProperty.checkError(wrapProperty))
+        {
+            return;
+        }
+        if (wrapProperty.p is GameDataBoardUI.UIData)
+        {
+            switch ((GameDataBoardUI.UIData.Property)wrapProperty.n)
+            {
+                case GameDataBoardUI.UIData.Property.gameData:
+                    break;
+                case GameDataBoardUI.UIData.Property.sub:
+                    this.notifyChange();
+                    break;
+                case GameDataBoardUI.UIData.Property.heightWidth:
+                    this.notifyChange();
+                    break;
+                case GameDataBoardUI.UIData.Property.left:
+                    this.notifyChange();
+                    break;
+                case GameDataBoardUI.UIData.Property.right:
+                    this.notifyChange();
+                    break;
+                case GameDataBoardUI.UIData.Property.top:
+                    this.notifyChange();
+                    break;
+                case GameDataBoardUI.UIData.Property.bottom:
+                    this.notifyChange();
+                    break;
+                case GameDataBoardUI.UIData.Property.perspective:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        this.notifyChange();
+                    }
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
         // Child
         {
             if (wrapProperty.p is TransformData)
             {
+                Debug.LogError("gameDataBoardCheckChange: TransformData");
                 this.notifyChange();
                 return;
             }
@@ -172,9 +177,9 @@ public class GameDataBoardCheckTransformChange<K> : Data, ValueChangeCallBack wh
                 return;
             }
         }
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	#endregion
+    #endregion
 
 }

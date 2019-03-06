@@ -236,7 +236,7 @@ namespace Sudoku
 								if (this.data.x.v >= 0 && this.data.x.v < 9 && this.data.y.v >= 0 && this.data.y.v < 9) {
 									isShow = true;
 								} else {
-									Debug.LogError ("outside board: " + this.data.x.v + ", " + this.data.y.v);
+									// Debug.LogError ("outside board: " + this.data.x.v + ", " + this.data.y.v);
 								}
 							}
 							// process

@@ -695,6 +695,16 @@ public class AnimationManagerUpdate : UpdateBehavior<AnimationManager>
                             break;
                         case GameDataBoardUI.UIData.Property.sub:
                             break;
+                        case GameDataBoardUI.UIData.Property.heightWidth:
+                            break;
+                        case GameDataBoardUI.UIData.Property.left:
+                            break;
+                        case GameDataBoardUI.UIData.Property.right:
+                            break;
+                        case GameDataBoardUI.UIData.Property.top:
+                            break;
+                        case GameDataBoardUI.UIData.Property.bottom:
+                            break;
                         case GameDataBoardUI.UIData.Property.perspective:
                             break;
                         default:

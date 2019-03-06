@@ -317,7 +317,7 @@ namespace Sudoku
 											if (index >= 0 && index < this.userSolve.vs.Count) {
 												value = this.userSolve.vs [index];
 											} else {
-												Debug.LogError ("index error: " + index + ", " + this.userSolve.vs.Count);
+												// Debug.LogError ("index error: " + index + ", " + this.userSolve.vs.Count);
 											}
 										}
 									} else {

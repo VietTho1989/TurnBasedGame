@@ -50,6 +50,11 @@ public class TransformData : Data
         this.size = new VP<Vector2>(this, (byte)Property.size, new Vector2());
     }
 
+    public override string ToString()
+    {
+        return ""+ this.size.v;
+    }
+
     #endregion
 
     public void update(Transform transform)
@@ -89,7 +94,7 @@ public class TransformData : Data
             }
             else
             {
-                Debug.LogError("haveTransformData null");
+                Debug.LogWarning("haveTransformData null: " + data);
             }
         }
         else
@@ -109,7 +114,7 @@ public class TransformData : Data
             }
             else
             {
-                Debug.LogError("haveTransformData null");
+                Debug.LogWarning("haveTransformData null: " + data);
             }
         }
         else

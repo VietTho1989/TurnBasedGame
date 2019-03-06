@@ -57,14 +57,45 @@ namespace Weiqi.NoneRule
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		public GameObject ivSelect;
+        public Text lbTitle;
+        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+
+        public Text tvSetPiece;
+        private static readonly TxtLanguage txtSetPiece = new TxtLanguage();
+
+        public Text tvMove;
+        private static readonly TxtLanguage txtMove = new TxtLanguage();
+
+        public Text tvEndTurn;
+        private static readonly TxtLanguage txtEndTurn = new TxtLanguage();
+
+        public Text tvClear;
+        private static readonly TxtLanguage txtClear = new TxtLanguage();
+
+        static ClickPosUI()
+        {
+            txtTitle.add(Language.Type.vi, "Chọn Hành Động");
+            txtSetPiece.add(Language.Type.vi, "Đặt quân cờ");
+            txtMove.add(Language.Type.vi, "Dời quân cờ");
+            txtEndTurn.add(Language.Type.vi, "Kết thúc lượt");
+            txtClear.add(Language.Type.vi, "Xoá sạch");
+        }
+
+        #endregion
+
+        #region Refresh
+
+        public GameObject ivSelect;
 		public Transform contentContainer;
 
+        public Button btnSetPiece;
 		public Button btnMove;
+        public Button btnEndTurn;
+        public Button btnClear;
 
 		public override void refresh ()
 		{
@@ -109,9 +140,9 @@ namespace Weiqi.NoneRule
 					{
 						if (contentContainer != null) {
 							int playerView = GameDataBoardUI.UIData.getPlayerView (this.data);
-							float scale = 0.015f;
-							contentContainer.localScale = (playerView == 0 ? new Vector3 (scale, scale, 1f) : new Vector3 (scale, -scale, 1f));
-						} else {
+                            // contentContainer.localScale = (playerView == 0 ? new Vector3 (scale, scale, 1f) : new Vector3 (scale, -scale, 1f));
+                            // UIUtils.SetGlobalScale(contentContainer.transform, new Vector3(1, 1, 1));
+                        } else {
 							Debug.LogError ("contentContainer null: " + this);
 						}
 					}
@@ -140,7 +171,113 @@ namespace Weiqi.NoneRule
 							Debug.LogError ("btnMove null: " + this);
 						}
 					}
-				} else {
+                    // UI
+                    {
+                        float deltaY = 0;
+                        // header
+                        deltaY += 30 + 10;
+                        // btnSetPiece
+                        {
+                            if (btnSetPiece != null && btnSetPiece.gameObject.activeSelf)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnSetPiece.transform, deltaY);
+                                deltaY += 40;
+                            }
+                            else
+                            {
+                                Debug.LogError("btnSetPiece null");
+                            }
+                        }
+                        // btnMove
+                        {
+                            if (btnMove != null && btnMove.gameObject.activeSelf)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnMove.transform, deltaY);
+                                deltaY += 40;
+                            }
+                            else
+                            {
+                                Debug.LogError("btnMove null");
+                            }
+                        }
+                        // btnEndTurn
+                        {
+                            if (btnEndTurn != null && btnEndTurn.gameObject.activeSelf)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnEndTurn.transform, deltaY);
+                                deltaY += 40;
+                            }
+                            else
+                            {
+                                Debug.LogError("btnEndTurn null");
+                            }
+                        }
+                        // btnClear
+                        {
+                            if (btnClear != null && btnClear.gameObject.activeSelf)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnClear.transform, deltaY);
+                                deltaY += 40;
+                            }
+                            else
+                            {
+                                Debug.LogError("btnClear null");
+                            }
+                        }
+                        // set
+                        if (contentContainer != null)
+                        {
+                            UIRectTransform.SetHeight((RectTransform)contentContainer, deltaY);
+                        }
+                        else
+                        {
+                            Debug.LogError("contentContainer null");
+                        }
+                    }
+                    // txt
+                    {
+                        if (lbTitle != null)
+                        {
+                            lbTitle.text = txtTitle.get("Choose Action");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null");
+                        }
+                        if (tvSetPiece != null)
+                        {
+                            tvSetPiece.text = txtSetPiece.get("Set piece");
+                        }
+                        else
+                        {
+                            Debug.LogError("tvSetPiece null");
+                        }
+                        if (tvMove != null)
+                        {
+                            tvMove.text = txtMove.get("Move piece");
+                        }
+                        else
+                        {
+                            Debug.LogError("tvMove null");
+                        }
+                        if (tvEndTurn != null)
+                        {
+                            tvEndTurn.text = txtEndTurn.get("End turn");
+                        }
+                        else
+                        {
+                            Debug.LogError("tvEndTurn null");
+                        }
+                        if (tvClear != null)
+                        {
+                            tvClear.text = txtClear.get("Clear");
+                        }
+                        else
+                        {
+                            Debug.LogError("tvClear null");
+                        }
+                    }
+                } else {
 					// Debug.LogError ("data null: " + this);
 				}
 			}
@@ -162,6 +299,8 @@ namespace Weiqi.NoneRule
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
 				// CheckChange
 				{
 					perspectiveChange.addCallBack (this);
@@ -174,8 +313,14 @@ namespace Weiqi.NoneRule
 				dirty = true;
 				return;
 			}
-			// CheckChange
-			if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // CheckChange
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
 				dirty = true;
 				return;
 			}
@@ -215,6 +360,8 @@ namespace Weiqi.NoneRule
 		{
 			if (data is UIData) {
 				UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
 				// CheckChange
 				{
 					perspectiveChange.removeCallBack (this);
@@ -227,8 +374,13 @@ namespace Weiqi.NoneRule
 				this.setDataNull (uiData);
 				return;
 			}
-			// CheckChange
-			if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
+            // Setting
+            if(data is Setting)
+            {
+                return;
+            }
+            // CheckChange
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
 				return;
 			}
 			// Parent
@@ -276,8 +428,32 @@ namespace Weiqi.NoneRule
 				}
 				return;
 			}
-			// CheckChange
-			if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>) {
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // CheckChange
+            if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>) {
 				dirty = true;
 				return;
 			}

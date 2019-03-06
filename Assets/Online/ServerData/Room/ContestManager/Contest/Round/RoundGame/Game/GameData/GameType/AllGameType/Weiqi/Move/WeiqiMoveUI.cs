@@ -282,14 +282,6 @@ namespace Weiqi
 									} else {
 										Debug.LogError ("tvPass null: " + this);
 									}
-									// position
-									{
-										if (this.data.isHint.v) {
-											passContainer.transform.localPosition = new Vector3 (-1 - boardSize / 2.0f + 0.5f, (boardSize + 1) - boardSize / 2.0f + 0.5f, 0);
-										} else {
-											passContainer.transform.localPosition = new Vector3 (-1 - boardSize / 2.0f + 0.5f, (0 + 1) - boardSize / 2.0f + 0.5f, 0);
-										}
-									}
 								} else {
 									Debug.LogError ("tvPass null: " + this);
 								}

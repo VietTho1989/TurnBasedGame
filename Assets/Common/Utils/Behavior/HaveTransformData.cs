@@ -8,6 +8,10 @@ public interface HaveTransformData
 
     void setDirtyForTransformData();
 
+    Data getDataHaveTransformData();
+
+    Transform getUITransform();
+
     /*
     #region TransformData
 

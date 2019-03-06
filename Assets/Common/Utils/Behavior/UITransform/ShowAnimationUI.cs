@@ -341,7 +341,7 @@ public class ShowAnimationUI : UIBehavior<ShowAnimationUI.UIData>
             }
             else
             {
-                Debug.LogError("data null");
+                // Debug.LogError("data null");
             }
         }
     }

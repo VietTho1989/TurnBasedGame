@@ -182,10 +182,10 @@ namespace Sudoku
 							dirty = true;
 						}
 					} else {
-						Debug.LogError ("sudoku null");
+						// Debug.LogError ("sudoku null");
 					}
 				} else {
-					Debug.LogError ("sudoku null");
+					// Debug.LogError ("sudoku null");
 				}
 			}
 		}
