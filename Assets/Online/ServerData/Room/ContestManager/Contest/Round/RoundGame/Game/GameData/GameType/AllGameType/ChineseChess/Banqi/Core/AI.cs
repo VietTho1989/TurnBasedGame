@@ -436,7 +436,7 @@ namespace Banqi
 
 
 		public int[] negamax(string state, int depthLimit){
-			Debug.LogError ("ai negamax: " + depthLimit + "; " + state);
+			// Debug.LogError ("ai negamax: " + depthLimit + "; " + state);
 			double alpha = double.MinValue;
 			double beta = double.MaxValue;
 			int bestScore = -1000;

@@ -193,7 +193,7 @@ namespace GameManager.Match
 							}
 						}
 					} else {
-						Debug.LogError ("lobbyPlayer null: " + this);
+						// Debug.LogError ("lobbyPlayer null: " + this);
 					}
 					// txt
 					{

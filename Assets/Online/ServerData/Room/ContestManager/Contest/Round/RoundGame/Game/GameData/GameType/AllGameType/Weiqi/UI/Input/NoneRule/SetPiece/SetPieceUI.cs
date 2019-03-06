@@ -70,28 +70,6 @@ namespace Weiqi.NoneRule
         #region txt, rect
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
-
-        static SetPieceUI()
-        {
-            // txt
-            txtTitle.add(Language.Type.vi, "Chọn Quân Cờ Để Đặt");
-            // rect
-            {
-                // adapterRect
-                {
-                    // anchoredPosition: (0.0, -40.0); anchorMin: (0.0, 1.0); anchorMax: (1.0, 1.0); pivot: (0.5, 1.0);
-                    // offsetMin: (0.0, -100.0); offsetMax: (0.0, -40.0); sizeDelta: (0.0, 60.0);
-                    choosePieceAdapterRect.anchoredPosition = new Vector3(0.0f, -40.0f, 0.0f);
-                    choosePieceAdapterRect.anchorMin = new Vector2(0.0f, 1.0f);
-                    choosePieceAdapterRect.anchorMax = new Vector2(1.0f, 1.0f);
-                    choosePieceAdapterRect.pivot = new Vector2(0.5f, 1.0f);
-                    choosePieceAdapterRect.offsetMin = new Vector2(0.0f, -100.0f);
-                    choosePieceAdapterRect.offsetMax = new Vector2(0.0f, -40.0f);
-                    choosePieceAdapterRect.sizeDelta = new Vector2(0.0f, 60.0f);
-                }
-            }
-        }
 
         #endregion
 
@@ -153,24 +131,11 @@ namespace Weiqi.NoneRule
                             Debug.LogError("imgSelect null: " + this);
                         }
                     }
-                    // Scale
-                    {
-                        if (contentContainer != null)
-                        {
-                            int playerView = GameDataBoardUI.UIData.getPlayerView(this.data);
-                            float scale = 0.015f;
-                            contentContainer.localScale = (playerView == 0 ? new Vector3(scale, scale, 1f) : new Vector3(scale, -scale, 1f));
-                        }
-                        else
-                        {
-                            Debug.LogError("contentContainer null: " + this);
-                        }
-                    }
                     // txt
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Choose Piece To Set");
+                            lbTitle.text = ClickPosTxt.txtSetPieceTitle.get(ClickPosTxt.DefaultSetPieceTitle);
                         }
                         else
                         {
@@ -197,7 +162,6 @@ namespace Weiqi.NoneRule
         private GameDataBoardCheckPerspectiveChange<UIData> checkPerspectiveChange = new GameDataBoardCheckPerspectiveChange<UIData>();
 
         public ChoosePieceAdapter choosePieceAdapterPrefab;
-        private static readonly UIRectTransform choosePieceAdapterRect = new UIRectTransform();
 
         private NoneRuleInputUI.UIData noneRuleInputUIData = null;
 
@@ -274,7 +238,7 @@ namespace Weiqi.NoneRule
                 ChoosePieceAdapter.UIData choosePieceAdapterUIData = data as ChoosePieceAdapter.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(choosePieceAdapterUIData, choosePieceAdapterPrefab, contentContainer, choosePieceAdapterRect);
+                    UIUtils.Instantiate(choosePieceAdapterUIData, choosePieceAdapterPrefab, contentContainer, ClickPosTxt.setPieceChoosePieceAdapterRect);
                 }
                 dirty = true;
                 return;

@@ -56,12 +56,6 @@ namespace Weiqi.NoneRule
         #region txt
 
         public Text tvChoose;
-        private static readonly TxtLanguage txtChoose = new TxtLanguage();
-
-        static ChoosePieceHolder()
-        {
-            txtChoose.add(Language.Type.vi, "Chọn");
-        }
 
         #endregion
 
@@ -92,7 +86,7 @@ namespace Weiqi.NoneRule
                     {
                         if (tvChoose != null)
                         {
-                            tvChoose.text = txtChoose.get("Choose");
+                            tvChoose.text = ClickPosTxt.txtChoose.get(ClickPosTxt.DefaultChoose);
                         }
                         else
                         {

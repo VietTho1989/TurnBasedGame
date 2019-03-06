@@ -5,114 +5,129 @@ using System.Collections.Generic;
 
 namespace Janggi
 {
-	public class PieceUI : UIBehavior<PieceUI.UIData>
-	{
+    public class PieceUI : UIBehavior<PieceUI.UIData>
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : Data
-		{
+        public class UIData : Data
+        {
 
-			public VP<uint> piece;
+            public VP<uint> piece;
 
-			public VP<int> x;
+            public VP<int> x;
 
-			public VP<int> y;
+            public VP<int> y;
 
-			#region Constructor
+            #region Constructor
 
-			public enum Property
-			{
-				piece,
-				x,
-				y
-			}
+            public enum Property
+            {
+                piece,
+                x,
+                y
+            }
 
-			public UIData() : base()
-			{
-				this.piece = new VP<uint>(this, (byte)Property.piece, 0);
-				this.x = new VP<int>(this, (byte)Property.x, 0);
-				this.y = new VP<int>(this, (byte)Property.y, 0);
-			}
+            public UIData() : base()
+            {
+                this.piece = new VP<uint>(this, (byte)Property.piece, 0);
+                this.x = new VP<int>(this, (byte)Property.x, 0);
+                this.y = new VP<int>(this, (byte)Property.y, 0);
+            }
 
-			#endregion
+            #endregion
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region Refresh
 
-		public Image image;
+        public Image image;
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
-					// check load full
-					bool isLoadFull = true;
-					{
-						// animation
-						if (isLoadFull) {
-							isLoadFull = AnimationManager.IsLoadFull (this.data);
-						}
-					}
-					// process
-					if (isLoadFull) {
-						// Find MoveAnimation
-						MoveAnimation moveAnimation = null;
-						float time = 0;
-						float duration = 0;
-						{
-							GameDataBoardUI.UIData.getCurrentMoveAnimationInfo (this.data, out moveAnimation, out time, out duration);
-						}
-						// image
-						{
-							if (image != null) {
-								Sprite sprite = JanggiSpriteContainer.get ().getSprite (this.data.piece.v);
-								{
-									// animation?
-								}
-								image.sprite = sprite;
-							} else {
-								Debug.LogError ("image null");
-							}
-						}
-						// position
-						{
-							Vector2 localPos = Common.convertXYToLocalPosition (this.data.x.v, this.data.y.v);
-							{
-								if (moveAnimation != null) {
-									switch (moveAnimation.getType ()) {
-									case GameMove.Type.JanggiMove:
-										{
-											JanggiMoveAnimation janggiMoveAnimation = moveAnimation as JanggiMoveAnimation;
-											if (duration > 0) {
-												if (this.data.x.v == janggiMoveAnimation.fromX.v && this.data.y.v == janggiMoveAnimation.fromY.v) {
-													this.transform.SetAsLastSibling ();
-													Vector2 fromPos = Common.convertXYToLocalPosition (janggiMoveAnimation.fromX.v, janggiMoveAnimation.fromY.v);
-													Vector2 destPos = Common.convertXYToLocalPosition (janggiMoveAnimation.toX.v, janggiMoveAnimation.toY.v);
-													localPos = Vector2.Lerp (fromPos, destPos, MoveAnimation.getAccelerateDecelerateInterpolation (time / duration));
-												}
-											} else {
-												Debug.LogError ("why duration < 0");
-											}
-										}
-										break;
-									default:
-										Debug.LogError ("unknown moveAnimation: " + moveAnimation);
-										break;
-									}
-								} else {
-									Debug.LogError ("moveAnimation null");
-								}
-							}
-							this.transform.localPosition = localPos;
-						}
-						// Scale
-						{
-							int playerView = GameDataBoardUI.UIData.getPlayerView (this.data);
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
+                    // check load full
+                    bool isLoadFull = true;
+                    {
+                        // animation
+                        if (isLoadFull)
+                        {
+                            isLoadFull = AnimationManager.IsLoadFull(this.data);
+                        }
+                    }
+                    // process
+                    if (isLoadFull)
+                    {
+                        // Find MoveAnimation
+                        MoveAnimation moveAnimation = null;
+                        float time = 0;
+                        float duration = 0;
+                        {
+                            GameDataBoardUI.UIData.getCurrentMoveAnimationInfo(this.data, out moveAnimation, out time, out duration);
+                        }
+                        // image
+                        {
+                            if (image != null)
+                            {
+                                Sprite sprite = JanggiSpriteContainer.get().getSprite(this.data.piece.v, Setting.get().style.v);
+                                {
+                                    // animation?
+                                }
+                                image.sprite = sprite;
+                            }
+                            else
+                            {
+                                Debug.LogError("image null");
+                            }
+                        }
+                        // position
+                        {
+                            Vector2 localPos = Common.convertXYToLocalPosition(this.data.x.v, this.data.y.v);
+                            {
+                                if (moveAnimation != null)
+                                {
+                                    switch (moveAnimation.getType())
+                                    {
+                                        case GameMove.Type.JanggiMove:
+                                            {
+                                                JanggiMoveAnimation janggiMoveAnimation = moveAnimation as JanggiMoveAnimation;
+                                                if (duration > 0)
+                                                {
+                                                    if (this.data.x.v == janggiMoveAnimation.fromX.v && this.data.y.v == janggiMoveAnimation.fromY.v)
+                                                    {
+                                                        this.transform.SetAsLastSibling();
+                                                        Vector2 fromPos = Common.convertXYToLocalPosition(janggiMoveAnimation.fromX.v, janggiMoveAnimation.fromY.v);
+                                                        Vector2 destPos = Common.convertXYToLocalPosition(janggiMoveAnimation.toX.v, janggiMoveAnimation.toY.v);
+                                                        localPos = Vector2.Lerp(fromPos, destPos, MoveAnimation.getAccelerateDecelerateInterpolation(time / duration));
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("why duration < 0");
+                                                }
+                                            }
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown moveAnimation: " + moveAnimation);
+                                            break;
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("moveAnimation null");
+                                }
+                            }
+                            this.transform.localPosition = localPos;
+                        }
+                        // Scale
+                        {
+                            int playerView = GameDataBoardUI.UIData.getPlayerView(this.data);
                             float scale = 1;
                             {
                                 float PawnScale = 0.65f;
@@ -239,105 +254,156 @@ namespace Janggi
                                         break;
                                 }
                             }
-                            this.transform.localScale = (playerView == 0 ? new Vector3 (scale, scale, scale) : new Vector3 (scale, -scale, scale));
-						}
-					} else {
-						Debug.LogError ("not load full");
-						dirty = true;
-					}
-				} else {
-					// Debug.LogError ("data null");
-				}
-			}
-		}
+                            this.transform.localScale = (playerView == 0 ? new Vector3(scale, scale, scale) : new Vector3(scale, -scale, scale));
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("not load full");
+                        dirty = true;
+                    }
+                }
+                else
+                {
+                    // Debug.LogError ("data null");
+                }
+            }
+        }
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		#endregion
+        #endregion
 
-		#region implement callBacks
+        #region implement callBacks
 
-		private GameDataBoardCheckPerspectiveChange<UIData> perspectiveChange = new GameDataBoardCheckPerspectiveChange<UIData>();
+        private GameDataBoardCheckPerspectiveChange<UIData> perspectiveChange = new GameDataBoardCheckPerspectiveChange<UIData>();
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// CheckChange
-				{
-					// perspective
-					{
-						perspectiveChange.addCallBack (this);
-						perspectiveChange.setData (uiData);
-					}
-				}
-				dirty = true;
-				return;
-			}
-			// checkChange
-			if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
-				dirty = true;
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
+                // CheckChange
+                {
+                    // perspective
+                    {
+                        perspectiveChange.addCallBack(this);
+                        perspectiveChange.setData(uiData);
+                    }
+                }
+                dirty = true;
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // checkChange
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>)
+            {
+                dirty = true;
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// CheckChange
-				{
-					// perspective
-					{
-						perspectiveChange.removeCallBack (this);
-						perspectiveChange.setData (null);
-					}
-				}
-				this.setDataNull (uiData);
-				return;
-			}
-			// checkChange
-			if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
+                // CheckChange
+                {
+                    // perspective
+                    {
+                        perspectiveChange.removeCallBack(this);
+                        perspectiveChange.setData(null);
+                    }
+                }
+                this.setDataNull(uiData);
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
+                return;
+            }
+            // checkChange
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>)
+            {
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.piece:
-					dirty = true;
-					break;
-				case UIData.Property.x:
-					dirty = true;
-					break;
-				case UIData.Property.y:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// Check Change
-			if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>) {
-				dirty = true;
-				return;
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.piece:
+                        dirty = true;
+                        break;
+                    case UIData.Property.x:
+                        dirty = true;
+                        break;
+                    case UIData.Property.y:
+                        dirty = true;
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Setting
+            if (wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        break;
+                    case Setting.Property.style:
+                        dirty = true;
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Check Change
+            if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>)
+            {
+                dirty = true;
+                return;
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
 
-		#endregion
+        #endregion
 
-	}
+    }
 }

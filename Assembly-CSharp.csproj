@@ -2212,6 +2212,7 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\ChineseChess\Xiangqi\XiangqiIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\ChineseChess\Xiangqi\ZobristStruct.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\ChineseChess\Xiangqi\ZobristStructIdentity.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\ClickPosTxt.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\ChineseCheckers\AI\ChineseCheckersAI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\ChineseCheckers\AI\ChineseCheckersAIIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\ChineseCheckers\AI\ChineseCheckersAIUI.cs" />
