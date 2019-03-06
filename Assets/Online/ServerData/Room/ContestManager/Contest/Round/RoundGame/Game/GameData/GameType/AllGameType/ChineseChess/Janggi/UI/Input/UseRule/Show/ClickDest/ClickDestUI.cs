@@ -121,7 +121,7 @@ namespace Janggi.UseRule
 
 		#region Refresh
 
-		public Image imgSelect;
+		public GameObject ivSelect;
 
 		public GameObject keySelect;
 
@@ -146,10 +146,10 @@ namespace Janggi.UseRule
 					}
 					// imgSelect
 					{
-						if (imgSelect != null) {
+						if (ivSelect != null) {
 							// localPosition
 							{
-								imgSelect.transform.localPosition = Common.convertXYToLocalPosition (this.data.x.v, this.data.y.v);
+								ivSelect.transform.localPosition = Common.convertXYToLocalPosition (this.data.x.v, this.data.y.v);
 							}
 							// TODO co the co rotate
 							{

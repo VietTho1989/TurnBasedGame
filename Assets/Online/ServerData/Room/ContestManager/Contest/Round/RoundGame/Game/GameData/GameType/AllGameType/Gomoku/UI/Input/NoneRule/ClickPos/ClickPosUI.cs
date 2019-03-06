@@ -61,7 +61,7 @@ namespace Gomoku.NoneRule
 
 		#region Refresh
 
-		public Image imgSelect;
+		public GameObject ivSelect;
 		public Transform contentContainer;
 
 		public Button btnMove;
@@ -73,7 +73,7 @@ namespace Gomoku.NoneRule
 				if (this.data != null) {
 					// imgSelect
 					{
-						if (imgSelect != null) {
+						if (ivSelect != null) {
 							// position
 							{
 								// find boardSize
@@ -91,12 +91,12 @@ namespace Gomoku.NoneRule
 										Debug.LogError ("noneRuleInputUIData null: " + this);
 									}
 								}
-								imgSelect.transform.localPosition = Common.convertSquareToLocalPosition (boardSize, this.data.square.v);
+								ivSelect.transform.localPosition = Common.convertSquareToLocalPosition (boardSize, this.data.square.v);
 							}
 							// Scale
 							{
 								int playerView = GameDataBoardUI.UIData.getPlayerView (this.data);
-								imgSelect.transform.localScale = (playerView == 0 ? new Vector3 (1f, 1f, 1f) : new Vector3 (1f, -1f, 1f));
+								ivSelect.transform.localScale = (playerView == 0 ? new Vector3 (1f, 1f, 1f) : new Vector3 (1f, -1f, 1f));
 							}
 						} else {
 							Debug.LogError ("imgSelect null: " + this);

@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace Banqi.UseRule
 {
@@ -121,7 +121,7 @@ namespace Banqi.UseRule
 
 		#region Refresh
 
-		public Image imgSelect;
+		public GameObject ivSelect;
 
 		public GameObject keySelect;
 
@@ -146,10 +146,10 @@ namespace Banqi.UseRule
 					}
 					// imgSelect
 					{
-						if (imgSelect != null) {
+						if (ivSelect != null) {
 							// localPosition
 							{
-								imgSelect.transform.localPosition = Common.convertPosToLocalPosition (8 * this.data.y.v + this.data.x.v);
+								ivSelect.transform.localPosition = Common.convertPosToLocalPosition (8 * this.data.y.v + this.data.x.v);
 							}
 							// TODO co the co rotate
 							{

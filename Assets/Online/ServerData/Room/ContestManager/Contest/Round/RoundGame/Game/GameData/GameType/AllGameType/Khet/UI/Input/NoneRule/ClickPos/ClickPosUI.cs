@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.EventSystems;
 
 namespace Khet.NoneRule
 {
@@ -61,7 +61,7 @@ namespace Khet.NoneRule
 
 		#region Refresh
 
-		public Image imgSelect;
+		public GameObject ivSelect;
 		public Transform contentContainer;
 
 		public Button btnMove;
@@ -75,13 +75,13 @@ namespace Khet.NoneRule
 				if (this.data != null) {
 					// imgSelect
 					{
-						if (imgSelect != null) {
+						if (ivSelect != null) {
 							// position
-							imgSelect.transform.localPosition = Common.getLocalPosition (this.data.position.v);
+							ivSelect.transform.localPosition = Common.getLocalPosition (this.data.position.v);
 							// Scale
 							{
 								int playerView = GameDataBoardUI.UIData.getPlayerView (this.data);
-								imgSelect.transform.localScale = (playerView == 0 ? new Vector3 (1f, 1f, 1f) : new Vector3 (1f, -1f, 1f));
+								ivSelect.transform.localScale = (playerView == 0 ? new Vector3 (1f, 1f, 1f) : new Vector3 (1f, -1f, 1f));
 							}
 						} else {
 							Debug.LogError ("imgSelect null: " + this);

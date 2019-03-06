@@ -114,7 +114,7 @@ namespace Shogi.UseRule
 
 		#endregion
 
-		public Image imgSelect;
+		public GameObject ivSelect;
 
 		public GameObject keySelect;
 
@@ -137,12 +137,12 @@ namespace Shogi.UseRule
 							Debug.LogError ("keySelect null: " + this);
 						}
 					}
-					// imgSelect
+					// ivSelect
 					{
-						if (imgSelect != null) {
+						if (ivSelect != null) {
 							ClickDestUI.UIData clickDestUIData = this.data.findDataInParent<ClickDestUI.UIData> ();
 							if (clickDestUIData != null) {
-								imgSelect.transform.localPosition = Common.convertSquareToLocalPosition (clickDestUIData.square.v);
+								ivSelect.transform.localPosition = Common.convertSquareToLocalPosition (clickDestUIData.square.v);
 							} else {
 								Debug.LogError ("clickDestUIData null: " + this);
 							}

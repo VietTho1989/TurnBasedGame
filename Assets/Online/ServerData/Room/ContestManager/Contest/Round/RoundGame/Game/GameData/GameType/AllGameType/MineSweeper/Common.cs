@@ -45,7 +45,7 @@ namespace MineSweeper
 
 		#region show
 
-		public static void show(Image img, int square, Data data)
+		public static void show(GameObject img, int square, Data data)
 		{
 			if (img != null && data != null) {
 				bool isShow = false;

@@ -122,7 +122,7 @@ namespace CoTuongUp.UseRule
 
 		#region Refresh
 
-		public Image imgSelect;
+		public GameObject ivSelect;
 		public Button btnFlip;
 
 		public GameObject keySelect;
@@ -147,10 +147,10 @@ namespace CoTuongUp.UseRule
 						}
 					}
 					// imgSelect
-					if (imgSelect != null) {
-						imgSelect.enabled = true;
+					if (ivSelect != null) {
+                        ivSelect.SetActive(true);
 						// transform
-						imgSelect.transform.localPosition = Common.convertCoordToLocalPosition (this.data.coord.v);
+						ivSelect.transform.localPosition = Common.convertCoordToLocalPosition (this.data.coord.v);
 						// TODO co the co rotate
 						{
 							// TODO Can hoan thien
@@ -259,8 +259,8 @@ namespace CoTuongUp.UseRule
 				} else {
 					// Debug.LogError ("data null: " + this);
 					// imgSelect
-					if (imgSelect != null) {
-						imgSelect.enabled = false;
+					if (ivSelect != null) {
+                        ivSelect.SetActive(false);
 					} else {
 						Debug.LogError ("imgSelect null: " + this);
 					}

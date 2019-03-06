@@ -117,7 +117,7 @@ namespace Khet.UseRule
 
 		#region Refresh
 
-		public Image imgSelect;
+		public GameObject ivSelect;
 
 		public GameObject keySelect;
 
@@ -146,8 +146,8 @@ namespace Khet.UseRule
 					}
 					// imgSelect
 					{
-						if (imgSelect != null) {
-							imgSelect.transform.localPosition = Common.getLocalPosition (this.data.piecePosition.v);
+						if (ivSelect != null) {
+							ivSelect.transform.localPosition = Common.getLocalPosition (this.data.piecePosition.v);
 						} else {
 							Debug.LogError ("imgSelect null: " + this);
 						}

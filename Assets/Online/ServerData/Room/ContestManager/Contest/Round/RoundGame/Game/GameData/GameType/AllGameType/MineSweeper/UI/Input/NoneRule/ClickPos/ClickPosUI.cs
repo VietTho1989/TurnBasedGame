@@ -61,7 +61,7 @@ namespace MineSweeper.NoneRule
 
 		#region Refresh
 
-		public Image imgSelect;
+		public GameObject ivSelect;
 		public Transform contentContainer;
 
 		public Button btnMove;
@@ -73,15 +73,15 @@ namespace MineSweeper.NoneRule
 				if (this.data != null) {
 					// imgSelect
 					{
-						if (imgSelect != null) {
+						if (ivSelect != null) {
 							// show
 							{
-								Common.show (imgSelect, this.data.square.v, this.data);
+								Common.show (ivSelect, this.data.square.v, this.data);
 							}
 							// Scale
 							{
 								int playerView = GameDataBoardUI.UIData.getPlayerView (this.data);
-								imgSelect.transform.localScale = (playerView == 0 ? new Vector3 (1f, 1f, 1f) : new Vector3 (1f, -1f, 1f));
+								ivSelect.transform.localScale = (playerView == 0 ? new Vector3 (1f, 1f, 1f) : new Vector3 (1f, -1f, 1f));
 							}
 						} else {
 							Debug.LogError ("imgSelect null: " + this);

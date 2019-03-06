@@ -61,7 +61,7 @@ namespace RussianDraught.NoneRule
 
 		#region Refresh
 
-		public Image imgSelect;
+		public GameObject ivSelect;
 		public Transform contentContainer;
 
 		public Button btnMove;
@@ -71,15 +71,15 @@ namespace RussianDraught.NoneRule
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {
-					// imgSelect
+					// ivSelect
 					{
-						if (imgSelect != null) {
+						if (ivSelect != null) {
 							// position
-							imgSelect.transform.localPosition = Common.convertSquareToLocalPosition (this.data.square.v);
+							ivSelect.transform.localPosition = Common.convertSquareToLocalPosition (this.data.square.v);
 							// Scale
 							{
 								int playerView = GameDataBoardUI.UIData.getPlayerView (this.data);
-								imgSelect.transform.localScale = (playerView == 0 ? new Vector3 (1f, 1f, 1f) : new Vector3 (1f, -1f, 1f));
+								ivSelect.transform.localScale = (playerView == 0 ? new Vector3 (1f, 1f, 1f) : new Vector3 (1f, -1f, 1f));
 							}
 						} else {
 							Debug.LogError ("imgSelect null: " + this);

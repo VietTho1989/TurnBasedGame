@@ -64,7 +64,7 @@ namespace CoTuongUp.NoneRule
 
 		#region Refresh
 
-		public Image imgSelect;
+		public GameObject ivSelect;
 		public Transform contentContainer;
 
 		public Toggle tgHide; 
@@ -76,13 +76,13 @@ namespace CoTuongUp.NoneRule
 				if (this.data != null) {
 					// imgSelect
 					{
-						if (imgSelect != null) {
+						if (ivSelect != null) {
 							// position
-							imgSelect.transform.localPosition = Common.convertCoordToLocalPosition (this.data.coord.v);
+							ivSelect.transform.localPosition = Common.convertCoordToLocalPosition (this.data.coord.v);
 							// Scale
 							{
 								int playerView = GameDataBoardUI.UIData.getPlayerView (this.data);
-								imgSelect.transform.localScale = (playerView == 0 ? new Vector3 (1f, 1f, 1f) : new Vector3 (1f, -1f, 1f));
+								ivSelect.transform.localScale = (playerView == 0 ? new Vector3 (1f, 1f, 1f) : new Vector3 (1f, -1f, 1f));
 							}
 						} else {
 							Debug.LogError ("imgSelect null: " + this);
