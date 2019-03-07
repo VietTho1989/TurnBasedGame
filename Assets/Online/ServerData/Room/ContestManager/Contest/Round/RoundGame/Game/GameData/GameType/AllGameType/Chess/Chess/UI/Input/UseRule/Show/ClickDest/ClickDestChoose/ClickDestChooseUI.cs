@@ -373,7 +373,6 @@ namespace Chess.UseRule
                 // clickDestUIData
                 if (data is ClickDestUI.UIData)
                 {
-                    // ClickDestUI.UIData clickDestUIData = data as ClickDestUI.UIData;
                     return;
                 }
             }

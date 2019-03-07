@@ -1,8 +1,8 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/State/End/Result/ResultUI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Chess/Shatranj/UI/Input/UseRule/Show/ClickDest/ClickDestClick/ClickDestClickMoveOrChooseUI.cs">
     <Files>
-      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/UI/Bottom/Pause/Normal/BtnPauseNormalUI.cs" Line="434" Column="27" />
-      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/State/End/Result/ResultUI.cs" Line="246" Column="1" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Chess/Shatranj/UI/Input/UseRule/Show/ClickDest/ClickDestClick/ClickDestClickMoveOrChooseUI.cs" Line="59" Column="9" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Chess/Chess/UI/Input/UseRule/Show/ClickDest/ClickDestClick/ClickDestClickMoveOrChooseUI.cs" Line="72" Column="19" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

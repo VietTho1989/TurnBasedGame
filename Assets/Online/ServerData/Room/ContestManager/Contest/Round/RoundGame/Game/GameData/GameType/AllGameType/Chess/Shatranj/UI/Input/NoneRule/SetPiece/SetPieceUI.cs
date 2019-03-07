@@ -5,241 +5,315 @@ using System.Collections.Generic;
 
 namespace Shatranj.NoneRule
 {
-	public class SetPieceUI : UIBehavior<SetPieceUI.UIData>
-	{
+    public class SetPieceUI : UIBehavior<SetPieceUI.UIData>
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : NoneRuleInputUI.UIData.Sub
-		{
+        public class UIData : NoneRuleInputUI.UIData.Sub
+        {
 
-			public VP<int> x;
+            public VP<int> x;
 
-			public VP<int> y;
+            public VP<int> y;
 
-			public VP<ChoosePieceAdapter.UIData> choosePieceAdapter;
+            public VP<ChoosePieceAdapter.UIData> choosePieceAdapter;
 
-			#region Constructor
+            #region Constructor
 
-			public enum Property
-			{
-				x,
-				y,
-				choosePieceAdapter
-			}
+            public enum Property
+            {
+                x,
+                y,
+                choosePieceAdapter
+            }
 
-			public UIData() : base()
-			{
-				this.x = new VP<int>(this, (byte)Property.x, 0);
-				this.y = new VP<int>(this, (byte)Property.y, 0);
-				this.choosePieceAdapter = new VP<ChoosePieceAdapter.UIData>(this, (byte)Property.choosePieceAdapter, new ChoosePieceAdapter.UIData());
-			}
+            public UIData() : base()
+            {
+                this.x = new VP<int>(this, (byte)Property.x, 0);
+                this.y = new VP<int>(this, (byte)Property.y, 0);
+                this.choosePieceAdapter = new VP<ChoosePieceAdapter.UIData>(this, (byte)Property.choosePieceAdapter, new ChoosePieceAdapter.UIData());
+            }
 
-			#endregion
+            #endregion
 
-			public override Type getType ()
-			{
-				return Type.SetPiece;
-			}
+            public override Type getType()
+            {
+                return Type.SetPiece;
+            }
 
-			public override bool processEvent (Event e)
-			{
-				bool isProcess = false;
-				{
-					// back
-					if (!isProcess) {
-						if (InputEvent.isBackEvent (e)) {
-							SetPieceUI setPieceUI = this.findCallBack<SetPieceUI> ();
-							if (setPieceUI != null) {
-								setPieceUI.onClickBtnBtnBack ();
-							} else {
-								Debug.LogError ("setPieceUI null: " + this);
-							}
-							isProcess = true;
-						}
-					}
-				}
-				return isProcess;
-			}
+            public override bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // back
+                    if (!isProcess)
+                    {
+                        if (InputEvent.isBackEvent(e))
+                        {
+                            SetPieceUI setPieceUI = this.findCallBack<SetPieceUI>();
+                            if (setPieceUI != null)
+                            {
+                                setPieceUI.onClickBtnBtnBack();
+                            }
+                            else
+                            {
+                                Debug.LogError("setPieceUI null: " + this);
+                            }
+                            isProcess = true;
+                        }
+                    }
+                }
+                return isProcess;
+            }
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		public GameObject ivSelect;
-		public Transform contentContainer;
+        public Text lbTitle;
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
-					// imgSelect
-					{
-						if (ivSelect != null) {
-							// position
-							ivSelect.transform.localPosition = Common.convertXYToLocalPosition (this.data.x.v, this.data.y.v);
-							// Scale
-							{
-								int playerView = GameDataBoardUI.UIData.getPlayerView (this.data);
-								ivSelect.transform.localScale = (playerView == 0 ? new Vector3 (1f, 1f, 1f) : new Vector3 (1f, -1f, 1f));
-							}
-						} else {
-							Debug.LogError ("imgSelect null: " + this);
-						}
-					}
-					// Scale
-					{
-						if (contentContainer != null) {
-							int playerView = GameDataBoardUI.UIData.getPlayerView (this.data);
-							float scale = 0.015f;
-							contentContainer.localScale = (playerView == 0 ? new Vector3 (scale, scale, 1f) : new Vector3 (scale, -scale, 1f));
-						} else {
-							Debug.LogError ("contentContainer null: " + this);
-						}
-					}
-				} else {
-					Debug.LogError ("data null: " + this);
-				}
-			}
-		}
+        #endregion
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+        #region Refresh
 
-		#endregion
+        public GameObject ivSelect;
+        public Transform contentContainer;
 
-		#region implement callBacks
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
+                    // imgSelect
+                    {
+                        if (ivSelect != null)
+                        {
+                            // position
+                            ivSelect.transform.localPosition = Common.convertXYToLocalPosition(this.data.x.v, this.data.y.v);
+                            // Scale
+                            {
+                                int playerView = GameDataBoardUI.UIData.getPlayerView(this.data);
+                                ivSelect.transform.localScale = (playerView == 0 ? new Vector3(1f, 1f, 1f) : new Vector3(1f, -1f, 1f));
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("imgSelect null: " + this);
+                        }
+                    }
+                    // txt
+                    {
+                        if (lbTitle != null)
+                        {
+                            lbTitle.text = ClickPosTxt.txtSetPieceTitle.get(ClickPosTxt.DefaultSetPieceTitle);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null");
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogError("data null: " + this);
+                }
+            }
+        }
 
-		private GameDataBoardCheckPerspectiveChange<UIData> checkPerspectiveChange = new GameDataBoardCheckPerspectiveChange<UIData> ();
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		public ChoosePieceAdapter choosePieceAdapterPrefab;
-		public Transform choosePieceAdapterContainer;
+        #endregion
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// CheckChange
-				{
-					checkPerspectiveChange.addCallBack (this);
-					checkPerspectiveChange.setData (uiData);
-				}
-				// Child
-				{
-					uiData.choosePieceAdapter.allAddCallBack (this);
-				}
-				dirty = true;
-				return;
-			}
-			// CheckChange
-			if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
-				dirty = true;
-				return;
-			}
-			// Child
-			if (data is ChoosePieceAdapter.UIData) {
-				ChoosePieceAdapter.UIData choosePieceAdapterUIData = data as ChoosePieceAdapter.UIData;
-				// UI
-				{
-					UIUtils.Instantiate (choosePieceAdapterUIData, choosePieceAdapterPrefab, choosePieceAdapterContainer);
-				}
-				dirty = true;
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        #region implement callBacks
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// CheckChange
-				{
-					checkPerspectiveChange.removeCallBack (this);
-					checkPerspectiveChange.setData (null);
-				}
-				// Child
-				{
-					uiData.choosePieceAdapter.allRemoveCallBack (this);
-				}
-				this.setDataNull (uiData);
-				return;
-			}
-			// CheckChange
-			if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
-				return;
-			}
-			// Child
-			if (data is ChoosePieceAdapter.UIData) {
-				ChoosePieceAdapter.UIData choosePieceAdapterUIData = data as ChoosePieceAdapter.UIData;
-				// UI
-				{
-					choosePieceAdapterUIData.removeCallBackAndDestroy (typeof(ChoosePieceAdapter));
-				}
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        private GameDataBoardCheckPerspectiveChange<UIData> checkPerspectiveChange = new GameDataBoardCheckPerspectiveChange<UIData>();
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.x:
-					break;
-				case UIData.Property.y:
-					break;
-				case UIData.Property.choosePieceAdapter:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// CheckChange
-			if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>) {
-				dirty = true;
-				return;
-			}
-			// Child
-			if (wrapProperty.p is ChoosePieceAdapter.UIData) {
-				return;
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+        public ChoosePieceAdapter choosePieceAdapterPrefab;
 
-		#endregion
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
+                // CheckChange
+                {
+                    checkPerspectiveChange.addCallBack(this);
+                    checkPerspectiveChange.setData(uiData);
+                }
+                // Child
+                {
+                    uiData.choosePieceAdapter.allAddCallBack(this);
+                }
+                dirty = true;
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // CheckChange
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>)
+            {
+                dirty = true;
+                return;
+            }
+            // Child
+            if (data is ChoosePieceAdapter.UIData)
+            {
+                ChoosePieceAdapter.UIData choosePieceAdapterUIData = data as ChoosePieceAdapter.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(choosePieceAdapterUIData, choosePieceAdapterPrefab, contentContainer, ClickPosTxt.setPieceChoosePieceAdapterRect);
+                }
+                dirty = true;
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public void onClickBtnBtnBack()
-		{
-			if (this.data != null) {
-				NoneRuleInputUI.UIData noneRuleInputUIData = this.data.findDataInParent<NoneRuleInputUI.UIData> ();
-				if (noneRuleInputUIData != null) {
-					ClickNoneUI.UIData clickNoneUIData = noneRuleInputUIData.sub.newOrOld<ClickNoneUI.UIData> ();
-					{
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
+                // CheckChange
+                {
+                    checkPerspectiveChange.removeCallBack(this);
+                    checkPerspectiveChange.setData(null);
+                }
+                // Child
+                {
+                    uiData.choosePieceAdapter.allRemoveCallBack(this);
+                }
+                this.setDataNull(uiData);
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
+                return;
+            }
+            // CheckChange
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>)
+            {
+                return;
+            }
+            // Child
+            if (data is ChoosePieceAdapter.UIData)
+            {
+                ChoosePieceAdapter.UIData choosePieceAdapterUIData = data as ChoosePieceAdapter.UIData;
+                // UI
+                {
+                    choosePieceAdapterUIData.removeCallBackAndDestroy(typeof(ChoosePieceAdapter));
+                }
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-					}
-					noneRuleInputUIData.sub.v = clickNoneUIData;
-				} else {
-					Debug.LogError ("noneRuleInputUIData null: " + this);
-				}
-			} else {
-				Debug.LogError ("data null: " + this);
-			}
-		}
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.x:
+                        break;
+                    case UIData.Property.y:
+                        break;
+                    case UIData.Property.choosePieceAdapter:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Setting
+            if (wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // CheckChange
+            if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>)
+            {
+                dirty = true;
+                return;
+            }
+            // Child
+            if (wrapProperty.p is ChoosePieceAdapter.UIData)
+            {
+                return;
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
 
-	}
+        #endregion
+
+        public void onClickBtnBtnBack()
+        {
+            if (this.data != null)
+            {
+                NoneRuleInputUI.UIData noneRuleInputUIData = this.data.findDataInParent<NoneRuleInputUI.UIData>();
+                if (noneRuleInputUIData != null)
+                {
+                    ClickNoneUI.UIData clickNoneUIData = noneRuleInputUIData.sub.newOrOld<ClickNoneUI.UIData>();
+                    {
+
+                    }
+                    noneRuleInputUIData.sub.v = clickNoneUIData;
+                }
+                else
+                {
+                    Debug.LogError("noneRuleInputUIData null: " + this);
+                }
+            }
+            else
+            {
+                Debug.LogError("data null: " + this);
+            }
+        }
+
+    }
 }

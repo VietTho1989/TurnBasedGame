@@ -53,6 +53,12 @@ namespace Shatranj.NoneRule
 
         #endregion
 
+        #region txt
+
+        public Text tvChoose;
+
+        #endregion
+
         #region Refresh
 
         public Image imgPiece;
@@ -74,6 +80,17 @@ namespace Shatranj.NoneRule
                         else
                         {
                             Debug.LogError("imgPiece null: " + this);
+                        }
+                    }
+                    // txt
+                    {
+                        if (tvChoose != null)
+                        {
+                            tvChoose.text = ClickPosTxt.txtChoose.get(ClickPosTxt.DefaultChoose);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvChoose null");
                         }
                     }
                 }
