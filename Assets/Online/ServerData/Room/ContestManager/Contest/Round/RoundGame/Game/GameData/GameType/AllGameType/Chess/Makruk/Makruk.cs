@@ -9,7 +9,6 @@ namespace Makruk
 {
 	public class Makruk : GameType
 	{
-		// private static bool log = false;
 
 		public const string DefaultFen = "rnsmksnr/8/pppppppp/8/8/PPPPPPPP/8/RNSKMSNR w 0 1";
 

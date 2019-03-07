@@ -200,7 +200,7 @@ namespace Makruk
 					{
 						// legalMoves
 						{
-							Debug.LogError ("show legalMoves: " + GameUtils.Utils.getListString (legalMoves));
+							// Debug.LogError ("show legalMoves: " + GameUtils.Utils.getListString (legalMoves));
 							show.legalMoves.clear ();
 							for (int i = 0; i < legalMoves.Count; i++) {
 								MakrukMove legalMove = legalMoves [i];

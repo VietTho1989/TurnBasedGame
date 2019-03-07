@@ -216,7 +216,7 @@ namespace Chess.NoneRule
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = ClickPosTxt.txtClickPosTitle.get(ClickPosTxt.DefaultTitle);
+                            lbTitle.text = ClickPosTxt.txtClickPosTitle.get(ClickPosTxt.DefaultClickPosTitle);
                         }
                         else
                         {
@@ -224,7 +224,7 @@ namespace Chess.NoneRule
                         }
                         if (tvSetPiece != null)
                         {
-                            tvSetPiece.text = ClickPosTxt.txtSetPiece.get(ClickPosTxt.DefaultSetPiece);
+                            tvSetPiece.text = ClickPosTxt.txtClickPosSetPiece.get(ClickPosTxt.DefaultClickPosSetPiece);
                         }
                         else
                         {
@@ -232,7 +232,7 @@ namespace Chess.NoneRule
                         }
                         if (tvMove != null)
                         {
-                            tvMove.text = ClickPosTxt.txtMove.get(ClickPosTxt.DefaultMove);
+                            tvMove.text = ClickPosTxt.txtClickPosMove.get(ClickPosTxt.DefaultClickPosMove);
                         }
                         else
                         {
@@ -240,7 +240,7 @@ namespace Chess.NoneRule
                         }
                         if (tvEndTurn != null)
                         {
-                            tvEndTurn.text = ClickPosTxt.txtEndTurn.get(ClickPosTxt.DefaultEndTurn);
+                            tvEndTurn.text = ClickPosTxt.txtClickPosEndTurn.get(ClickPosTxt.DefaultClickPosEndTurn);
                         }
                         else
                         {
@@ -248,7 +248,7 @@ namespace Chess.NoneRule
                         }
                         if (tvClear != null)
                         {
-                            tvClear.text = ClickPosTxt.txtClear.get(ClickPosTxt.DefaultClear);
+                            tvClear.text = ClickPosTxt.txtClickPosClear.get(ClickPosTxt.DefaultClickPosClear);
                         }
                         else
                         {

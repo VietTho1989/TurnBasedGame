@@ -5,300 +5,390 @@ using System.Collections.Generic;
 
 namespace Shatranj
 {
-	public class PieceUI : UIBehavior<PieceUI.UIData>
-	{
+    public class PieceUI : UIBehavior<PieceUI.UIData>
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : Data
-		{
-			
-			#region Property
+        public class UIData : Data
+        {
 
-			public VP<Common.Piece> piece;
+            #region Property
 
-			public VP<int> position;
+            public VP<Common.Piece> piece;
 
-			#endregion
+            public VP<int> position;
 
-			#region Constructor
+            #endregion
 
-			public enum Property
-			{
-				piece,
-				position
-			}
+            #region Constructor
 
-			public UIData() : base()
-			{
-				this.piece = new VP<Common.Piece> (this, (byte)Property.piece, Common.Piece.NO_PIECE);
-				this.position = new VP<int> (this, (byte)Property.position, 0);
-			}
+            public enum Property
+            {
+                piece,
+                position
+            }
 
-			#endregion
+            public UIData() : base()
+            {
+                this.piece = new VP<Common.Piece>(this, (byte)Property.piece, Common.Piece.NO_PIECE);
+                this.position = new VP<int>(this, (byte)Property.position, 0);
+            }
 
-		}
+            #endregion
 
-		#endregion
+        }
 
-		#region Refresh
+        #endregion
 
-		public Image image;
+        #region Refresh
 
-		public static Vector2 ConvertPositionToLocalPosition(int position)
-		{
-			float x = position % 8;
-			float y = position / 8;
-			return new Vector2 (x + 0.5f - 8 / 2f, y + 0.5f - 8 / 2f);
-		}
+        public Image image;
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
-					if (this.data.position.v >= 0 && this.data.position.v < 64) {
-						// check load full
-						bool isLoadFull = true;
-						{
-							// animation
-							if (isLoadFull) {
-								isLoadFull = AnimationManager.IsLoadFull (this.data);
-							}
-						}
-						// process
-						if (isLoadFull) {
-							// Find MoveAnimation
-							MoveAnimation moveAnimation = null;
-							float time = 0;
-							float duration = 0;
-							{
-								GameDataBoardUI.UIData.getCurrentMoveAnimationInfo (this.data, out moveAnimation, out time, out duration);
-							}
-							// Image
-							{
-								if (image != null) {
-									if (image != null) {
-										// sprite
-										if (moveAnimation != null) {
-											switch (moveAnimation.getType ()) {
-											case GameMove.Type.ShatranjMove:
-												{
-													ShatranjMoveAnimation shatranjMoveAnimation = moveAnimation as ShatranjMoveAnimation;
-													ShatranjMove.Move move = new ShatranjMove.Move (shatranjMoveAnimation.move.v);
-													switch (move.type) {
-													case Common.MoveType.NORMAL:
-														image.sprite = ShatranjSpriteContainer.get ().getSprite (this.data.piece.v);
-														break;
-													case Common.MoveType.PROMOTION:
-														{
-															if ((int)move.ori == this.data.position.v) {
-																float distanceDuration = MoveAnimation.GetDistanceMoveDuration (Common.GetDistance (move.ori, move.dest));
-																if (time <= distanceDuration) {
-																	image.sprite = ShatranjSpriteContainer.get ().getSprite (this.data.piece.v);
-																} else {
-																	bool showPromotion = true;
-																	{
-																		float promotionTime = time - distanceDuration;
-																		int flipFlop = Mathf.CeilToInt (promotionTime / (ShatranjMoveAnimation.PromotionDuration * AnimationManager.DefaultDuration / 4));
-																		showPromotion = (flipFlop % 2 == 0);
-																	}
-																	image.sprite = ShatranjSpriteContainer.get ().getSprite (showPromotion ? Common.make_piece (Common.color_of (this.data.piece.v), move.promotion) : this.data.piece.v);
-																}
-															} else {
-																image.sprite = ShatranjSpriteContainer.get ().getSprite (this.data.piece.v);
-															}
-														}
-														break;
-													default:
-														Debug.LogError ("unknown moveType: " + move.GetType () + "; " + this);
-														image.sprite = ShatranjSpriteContainer.get ().getSprite (this.data.piece.v);
-														break;
-													}
-												}
-												break;
-											default:
-												Debug.LogError ("unknown moveAnimationType: " + moveAnimation.getType () + "; " + this);
-												image.sprite = ShatranjSpriteContainer.get ().getSprite (this.data.piece.v);
-												break;
-											}
-										} else {
-											// Debug.LogError ("moveAnimation null: " + this);
-											image.sprite = ShatranjSpriteContainer.get ().getSprite (this.data.piece.v);
-										}
-									} else {
-										Debug.LogError ("image null: " + this);
-									}
-								} else {
-									Debug.LogError ("image null: " + this);
-								}
-							}
-							// Position
-							{
-								if (moveAnimation != null) {
-									switch (moveAnimation.getType ()) {
-									case GameMove.Type.ShatranjMove:
-										{
-											ShatranjMoveAnimation shatranjMoveAnimation = moveAnimation as ShatranjMoveAnimation;
-											ShatranjMove.Move move = new ShatranjMove.Move (shatranjMoveAnimation.move.v);
-											switch (move.type) {
-											case Common.MoveType.NORMAL:
-												{
-													if ((int)move.ori == this.data.position.v) {
-														this.transform.SetAsLastSibling ();
-														Vector2 from = ConvertPositionToLocalPosition ((int)move.ori);
-														Vector2 dest = ConvertPositionToLocalPosition ((int)move.dest);
-														// set 
-														if (duration > 0) {
-															this.transform.localPosition = Vector2.Lerp (from, dest, MoveAnimation.getAccelerateDecelerateInterpolation (time / duration));
-														} else {
-															Debug.LogError ("why duration < 0: " + duration + "; " + this);
-														}
-													} else {
-														this.transform.localPosition = ConvertPositionToLocalPosition (this.data.position.v);
-													}
-												}
-												break;
-											case Common.MoveType.PROMOTION:
-												{
-													if ((int)move.ori == this.data.position.v) {
-														this.transform.SetAsLastSibling ();
-														Vector2 from = ConvertPositionToLocalPosition ((int)move.ori);
-														Vector2 dest = ConvertPositionToLocalPosition ((int)move.dest);
-														// set 
-														if (duration > 0) {
-															this.transform.localPosition = Vector2.Lerp (from, dest, MoveAnimation.getAccelerateDecelerateInterpolation (time / (duration - ShatranjMoveAnimation.PromotionDuration * AnimationManager.DefaultDuration)));
-														} else {
-															Debug.LogError ("why duration < 0: " + duration + "; " + this);
-														}
-													} else {
-														this.transform.localPosition = ConvertPositionToLocalPosition (this.data.position.v);
-													}
-												}
-												break;
-											default:
-												Debug.LogError ("unknown move type: " + move.type + "; " + this);
-												this.transform.localPosition = ConvertPositionToLocalPosition (this.data.position.v);
-												break;
-											}
-										}
-										break;
-									default:
-										Debug.LogError ("unknown moveAnimation: " + moveAnimation + "; " + this);
-										this.transform.localPosition = ConvertPositionToLocalPosition (this.data.position.v);
-										break;
-									}
-								} else {
-									this.transform.localPosition = ConvertPositionToLocalPosition (this.data.position.v);
-								}
-							}
-							// Scale
-							{
-								int playerView = GameDataBoardUI.UIData.getPlayerView (this.data);
-								this.transform.localScale = (playerView == 0 ? new Vector3 (1f, 1f, 1f) : new Vector3 (1f, -1f, 1f));
-							}
-						} else {
-							Debug.LogError ("not load full");
-							dirty = true;
-						}
-					} else {
-						Debug.LogError ("outside board: " + this);
-					}
-				} else {
-					// Debug.LogError ("data null: " + this);
-				}
-			}
-		}
+        public static Vector2 ConvertPositionToLocalPosition(int position)
+        {
+            float x = position % 8;
+            float y = position / 8;
+            return new Vector2(x + 0.5f - 8 / 2f, y + 0.5f - 8 / 2f);
+        }
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
+                    if (this.data.position.v >= 0 && this.data.position.v < 64)
+                    {
+                        // check load full
+                        bool isLoadFull = true;
+                        {
+                            // animation
+                            if (isLoadFull)
+                            {
+                                isLoadFull = AnimationManager.IsLoadFull(this.data);
+                            }
+                        }
+                        // process
+                        if (isLoadFull)
+                        {
+                            // Find MoveAnimation
+                            MoveAnimation moveAnimation = null;
+                            float time = 0;
+                            float duration = 0;
+                            {
+                                GameDataBoardUI.UIData.getCurrentMoveAnimationInfo(this.data, out moveAnimation, out time, out duration);
+                            }
+                            // Image
+                            {
+                                if (image != null)
+                                {
+                                    Sprite sprite = ShatranjSpriteContainer.get().getSprite(this.data.piece.v, Setting.get().style.v);
+                                    {
+                                        // sprite
+                                        if (moveAnimation != null)
+                                        {
+                                            switch (moveAnimation.getType())
+                                            {
+                                                case GameMove.Type.ShatranjMove:
+                                                    {
+                                                        ShatranjMoveAnimation shatranjMoveAnimation = moveAnimation as ShatranjMoveAnimation;
+                                                        ShatranjMove.Move move = new ShatranjMove.Move(shatranjMoveAnimation.move.v);
+                                                        switch (move.type)
+                                                        {
+                                                            case Common.MoveType.NORMAL:
+                                                                sprite = ShatranjSpriteContainer.get().getSprite(this.data.piece.v, Setting.get().style.v);
+                                                                break;
+                                                            case Common.MoveType.PROMOTION:
+                                                                {
+                                                                    if ((int)move.ori == this.data.position.v)
+                                                                    {
+                                                                        float distanceDuration = MoveAnimation.GetDistanceMoveDuration(Common.GetDistance(move.ori, move.dest));
+                                                                        if (time <= distanceDuration)
+                                                                        {
+                                                                            sprite = ShatranjSpriteContainer.get().getSprite(this.data.piece.v, Setting.get().style.v);
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            bool showPromotion = true;
+                                                                            {
+                                                                                float promotionTime = time - distanceDuration;
+                                                                                int flipFlop = Mathf.CeilToInt(promotionTime / (ShatranjMoveAnimation.PromotionDuration * AnimationManager.DefaultDuration / 4));
+                                                                                showPromotion = (flipFlop % 2 == 0);
+                                                                            }
+                                                                            sprite = ShatranjSpriteContainer.get().getSprite(showPromotion ? Common.make_piece(Common.color_of(this.data.piece.v), move.promotion) : this.data.piece.v, Setting.get().style.v);
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        sprite = ShatranjSpriteContainer.get().getSprite(this.data.piece.v, Setting.get().style.v);
+                                                                    }
+                                                                }
+                                                                break;
+                                                            default:
+                                                                Debug.LogError("unknown moveType: " + move.GetType() + "; " + this);
+                                                                sprite = ShatranjSpriteContainer.get().getSprite(this.data.piece.v, Setting.get().style.v);
+                                                                break;
+                                                        }
+                                                    }
+                                                    break;
+                                                default:
+                                                    Debug.LogError("unknown moveAnimationType: " + moveAnimation.getType() + "; " + this);
+                                                    sprite = ShatranjSpriteContainer.get().getSprite(this.data.piece.v, Setting.get().style.v);
+                                                    break;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            // Debug.LogError ("moveAnimation null: " + this);
+                                            sprite = ShatranjSpriteContainer.get().getSprite(this.data.piece.v, Setting.get().style.v);
+                                        }
+                                    }
+                                    image.sprite = sprite;
+                                }
+                                else
+                                {
+                                    Debug.LogError("image null: " + this);
+                                }
+                            }
+                            // Position
+                            {
+                                if (moveAnimation != null)
+                                {
+                                    switch (moveAnimation.getType())
+                                    {
+                                        case GameMove.Type.ShatranjMove:
+                                            {
+                                                ShatranjMoveAnimation shatranjMoveAnimation = moveAnimation as ShatranjMoveAnimation;
+                                                ShatranjMove.Move move = new ShatranjMove.Move(shatranjMoveAnimation.move.v);
+                                                switch (move.type)
+                                                {
+                                                    case Common.MoveType.NORMAL:
+                                                        {
+                                                            if ((int)move.ori == this.data.position.v)
+                                                            {
+                                                                this.transform.SetAsLastSibling();
+                                                                Vector2 from = ConvertPositionToLocalPosition((int)move.ori);
+                                                                Vector2 dest = ConvertPositionToLocalPosition((int)move.dest);
+                                                                // set 
+                                                                if (duration > 0)
+                                                                {
+                                                                    this.transform.localPosition = Vector2.Lerp(from, dest, MoveAnimation.getAccelerateDecelerateInterpolation(time / duration));
+                                                                }
+                                                                else
+                                                                {
+                                                                    Debug.LogError("why duration < 0: " + duration + "; " + this);
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                this.transform.localPosition = ConvertPositionToLocalPosition(this.data.position.v);
+                                                            }
+                                                        }
+                                                        break;
+                                                    case Common.MoveType.PROMOTION:
+                                                        {
+                                                            if ((int)move.ori == this.data.position.v)
+                                                            {
+                                                                this.transform.SetAsLastSibling();
+                                                                Vector2 from = ConvertPositionToLocalPosition((int)move.ori);
+                                                                Vector2 dest = ConvertPositionToLocalPosition((int)move.dest);
+                                                                // set 
+                                                                if (duration > 0)
+                                                                {
+                                                                    this.transform.localPosition = Vector2.Lerp(from, dest, MoveAnimation.getAccelerateDecelerateInterpolation(time / (duration - ShatranjMoveAnimation.PromotionDuration * AnimationManager.DefaultDuration)));
+                                                                }
+                                                                else
+                                                                {
+                                                                    Debug.LogError("why duration < 0: " + duration + "; " + this);
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                this.transform.localPosition = ConvertPositionToLocalPosition(this.data.position.v);
+                                                            }
+                                                        }
+                                                        break;
+                                                    default:
+                                                        Debug.LogError("unknown move type: " + move.type + "; " + this);
+                                                        this.transform.localPosition = ConvertPositionToLocalPosition(this.data.position.v);
+                                                        break;
+                                                }
+                                            }
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown moveAnimation: " + moveAnimation + "; " + this);
+                                            this.transform.localPosition = ConvertPositionToLocalPosition(this.data.position.v);
+                                            break;
+                                    }
+                                }
+                                else
+                                {
+                                    this.transform.localPosition = ConvertPositionToLocalPosition(this.data.position.v);
+                                }
+                            }
+                            // Scale
+                            {
+                                int playerView = GameDataBoardUI.UIData.getPlayerView(this.data);
+                                this.transform.localScale = (playerView == 0 ? new Vector3(1f, 1f, 1f) : new Vector3(1f, -1f, 1f));
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("not load full");
+                            dirty = true;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("outside board: " + this);
+                    }
+                }
+                else
+                {
+                    // Debug.LogError ("data null: " + this);
+                }
+            }
+        }
 
-		#endregion
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		#region implement callBacks
+        #endregion
 
-		private GameDataBoardCheckPerspectiveChange<UIData> perspectiveChange = new GameDataBoardCheckPerspectiveChange<UIData>();
+        #region implement callBacks
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// CheckChange
-				{
-					// perspective
-					{
-						perspectiveChange.addCallBack (this);
-						perspectiveChange.setData (uiData);
-					}
-				}
-				dirty = true;
-				return;
-			}
-			// CheckChange
-			{
-				if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
-					dirty = true;
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        private GameDataBoardCheckPerspectiveChange<UIData> perspectiveChange = new GameDataBoardCheckPerspectiveChange<UIData>();
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// CheckChange
-				{
-					// perspective
-					{
-						perspectiveChange.removeCallBack (this);
-						perspectiveChange.setData (null);
-					}
-				}
-				this.setDataNull (uiData);
-				return;
-			}
-			// CheckChange
-			{
-				if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
+                // CheckChange
+                {
+                    // perspective
+                    {
+                        perspectiveChange.addCallBack(this);
+                        perspectiveChange.setData(uiData);
+                    }
+                }
+                dirty = true;
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // CheckChange
+            {
+                if (data is GameDataBoardCheckPerspectiveChange<UIData>)
+                {
+                    dirty = true;
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.piece:
-					dirty = true;
-					break;
-				case UIData.Property.position:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// CheckChange
-			{
-				if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>) {
-					dirty = true;
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
+                // CheckChange
+                {
+                    // perspective
+                    {
+                        perspectiveChange.removeCallBack(this);
+                        perspectiveChange.setData(null);
+                    }
+                }
+                this.setDataNull(uiData);
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
+                return;
+            }
+            // CheckChange
+            {
+                if (data is GameDataBoardCheckPerspectiveChange<UIData>)
+                {
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		#endregion
-	}
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.piece:
+                        dirty = true;
+                        break;
+                    case UIData.Property.position:
+                        dirty = true;
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Setting
+            if (wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        break;
+                    case Setting.Property.style:
+                        dirty = true;
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // CheckChange
+            {
+                if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>)
+                {
+                    dirty = true;
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
+
+        #endregion
+
+    }
 }

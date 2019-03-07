@@ -1,218 +1,343 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace Chess.UseRule
 {
-	public class ClickDestClickMoveOrChooseUI : UIBehavior<ClickDestClickMoveOrChooseUI.UIData>
-	{
+    public class ClickDestClickMoveOrChooseUI : UIBehavior<ClickDestClickMoveOrChooseUI.UIData>
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : Data
-		{
-			
-			public VP<int> destX;
+        public class UIData : Data
+        {
 
-			public VP<int> destY;
+            public VP<int> destX;
 
-			#region Constructor
+            public VP<int> destY;
 
-			public enum Property
-			{
-				destX,
-				destY
-			}
+            #region Constructor
 
-			public UIData() : base()
-			{
-				this.destX = new VP<int>(this, (byte)Property.destX, 0);
-				this.destY = new VP<int>(this, (byte)Property.destY, 0);
-			}
+            public enum Property
+            {
+                destX,
+                destY
+            }
 
-			#endregion
+            public UIData() : base()
+            {
+                this.destX = new VP<int>(this, (byte)Property.destX, 0);
+                this.destY = new VP<int>(this, (byte)Property.destY, 0);
+            }
 
-			public bool processEvent(Event e)
-			{
-				bool isProcess = false;
-				{
-					// back
-					if (!isProcess) {
-						if (InputEvent.isBackEvent (e)) {
-							ClickDestClickMoveOrChooseUI moveOrChooseUI = this.findCallBack<ClickDestClickMoveOrChooseUI> ();
-							if (moveOrChooseUI != null) {
-								moveOrChooseUI.onClickBtnCancel ();
-							} else {
-								Debug.LogError ("moveOrChooseUI null: " + this);
-							}
-							isProcess = true;
-						}
-					}
-				}
-				return isProcess;
-			}
+            #endregion
 
-		}
+            public bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // back
+                    if (!isProcess)
+                    {
+                        if (InputEvent.isBackEvent(e))
+                        {
+                            ClickDestClickMoveOrChooseUI moveOrChooseUI = this.findCallBack<ClickDestClickMoveOrChooseUI>();
+                            if (moveOrChooseUI != null)
+                            {
+                                moveOrChooseUI.onClickBtnCancel();
+                            }
+                            else
+                            {
+                                Debug.LogError("moveOrChooseUI null: " + this);
+                            }
+                            isProcess = true;
+                        }
+                    }
+                }
+                return isProcess;
+            }
 
-		#endregion
+        }
 
-		#region Refresh
+        #endregion
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
-					// TODO co le ko can
-				} else {
-					// Debug.LogError ("data null: " + this);
-				}
-			}
-		}
+        #region txt
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+        public Text lbTitle;
+        public Text tvMove;
+        public Text tvChoose;
+        public Text tvCancel;
 
-		#endregion
+        #endregion
 
-		#region implement callBacks
+        #region Refresh
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if(data is UIData){
-				dirty = true;
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
+                    // txt
+                    {
+                        if (lbTitle != null)
+                        {
+                            lbTitle.text = ClickPosTxt.txtMoveOrChooseTitle.get(ClickPosTxt.DefaultMoveOrChooseTitle);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null");
+                        }
+                        if (tvMove != null)
+                        {
+                            tvMove.text = ClickPosTxt.txtMove.get(ClickPosTxt.DefaultMove);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvMove null");
+                        }
+                        if (tvChoose != null)
+                        {
+                            tvChoose.text = ClickPosTxt.txtChoose.get(ClickPosTxt.DefaultChoose);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvChoose null");
+                        }
+                        if (tvCancel != null)
+                        {
+                            tvCancel.text = ClickPosTxt.txtCancel.get(ClickPosTxt.DefaultCancel);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvCancel null");
+                        }
+                    }
+                }
+                else
+                {
+                    // Debug.LogError ("data null: " + this);
+                }
+            }
+        }
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if(data is UIData){
-				UIData uiData = data as UIData;
-				// Child
-				{
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-				}
-				this.setDataNull (uiData);
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        #endregion
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.destX:
-					dirty = true;
-					break;
-				case UIData.Property.destY:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        #region implement callBacks
 
-		#endregion
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                // Setting
+                Setting.get().addCallBack(this);
+                dirty = true;
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		private void resetMoveOrChoose()
-		{
-			if (this.data != null) {
-				ClickDestClickUI.UIData clickDestClickUIData = this.data.findDataInParent<ClickDestClickUI.UIData> ();
-				if (clickDestClickUIData != null) {
-					if (clickDestClickUIData.moveOrChoose.v != null) {
-						clickDestClickUIData.moveOrChoose.v = null;
-					} else {
-						Debug.LogError ("why already null: " + this);
-					}
-				} else {
-					Debug.LogError ("clickDestClickUIData null: " + this);
-				}
-			} else {
-				Debug.LogError ("data null");
-			}
-		}
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
+                this.setDataNull(uiData);
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public void onClickBtnMove()
-		{
-			Debug.LogError ("onClickBtnMove: " + this);
-			if (this.data != null) {
-				ClickDestUI.UIData clickDestUIData = this.data.findDataInParent<ClickDestUI.UIData> ();
-				if (clickDestUIData != null) {
-					ClickDestChooseUI.UIData clickDestChooseUIData = new ClickDestChooseUI.UIData ();
-					{
-						clickDestChooseUIData.x.v = this.data.destX.v;
-						clickDestChooseUIData.y.v = this.data.destY.v;
-					}
-					clickDestUIData.sub.v = clickDestChooseUIData;
-				} else {
-					Debug.LogError ("clickDestUIData null: " + this);
-				}
-			} else {
-				Debug.LogError ("data null: " + this);
-			}
-			resetMoveOrChoose ();
-		}
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.destX:
+                        dirty = true;
+                        break;
+                    case UIData.Property.destY:
+                        dirty = true;
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Setting
+            if (wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public void onClickBtnChoose()
-		{
-			Debug.LogError ("onClickBtnChoose: " + this);
-			if (this.data != null) {
-				// Check select same position
-				bool isSelectSamePosition = false;
-				{
-					ClickDestUI.UIData clickDestUIData = this.data.findDataInParent<ClickDestUI.UIData> ();
-					if (clickDestUIData != null) {
-						if (clickDestUIData.x.v == this.data.destX.v && clickDestUIData.y.v == this.data.destY.v) {
-							isSelectSamePosition = true;
-						}
-					} else {
-						Debug.LogError ("clickDestUIData null: " + this);
-					}
-				}
-				// process
-				if (isSelectSamePosition) {
-					// Chuyen ve ClickPieceUI
-					ShowUI.UIData show = this.data.findDataInParent<ShowUI.UIData>();
-					if (show != null) {
-						ClickPieceUI.UIData clickPieceUIData = new ClickPieceUI.UIData ();
-						{
-							clickPieceUIData.uid = show.sub.makeId ();
-						}
-						show.sub.v = clickPieceUIData;
-					} else {
-						Debug.LogError ("show null: " + this);
-					}
-				} else {
-					ClickDestUI.UIData clickDestUIData = this.data.findDataInParent<ClickDestUI.UIData> ();
-					if (clickDestUIData != null) {
-						clickDestUIData.x.v = this.data.destX.v;
-						clickDestUIData.y.v = this.data.destY.v;
-					} else {
-						Debug.LogError ("clickDestUIData null: " + this);
-					}
-				}
-			} else {
-				Debug.LogError ("data null: " + this);
-			}
-			resetMoveOrChoose ();
-		}
+        #endregion
 
-		public void onClickBtnCancel()
-		{
-			Debug.LogError ("onClickBtnCancel: " + this);
-			resetMoveOrChoose ();
-		}
-	}
+        private void resetMoveOrChoose()
+        {
+            if (this.data != null)
+            {
+                ClickDestClickUI.UIData clickDestClickUIData = this.data.findDataInParent<ClickDestClickUI.UIData>();
+                if (clickDestClickUIData != null)
+                {
+                    if (clickDestClickUIData.moveOrChoose.v != null)
+                    {
+                        clickDestClickUIData.moveOrChoose.v = null;
+                    }
+                    else
+                    {
+                        Debug.LogError("why already null: " + this);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("clickDestClickUIData null: " + this);
+                }
+            }
+            else
+            {
+                Debug.LogError("data null");
+            }
+        }
+
+        public void onClickBtnMove()
+        {
+            Debug.LogError("onClickBtnMove: " + this);
+            if (this.data != null)
+            {
+                ClickDestUI.UIData clickDestUIData = this.data.findDataInParent<ClickDestUI.UIData>();
+                if (clickDestUIData != null)
+                {
+                    ClickDestChooseUI.UIData clickDestChooseUIData = new ClickDestChooseUI.UIData();
+                    {
+                        clickDestChooseUIData.x.v = this.data.destX.v;
+                        clickDestChooseUIData.y.v = this.data.destY.v;
+                    }
+                    clickDestUIData.sub.v = clickDestChooseUIData;
+                }
+                else
+                {
+                    Debug.LogError("clickDestUIData null: " + this);
+                }
+            }
+            else
+            {
+                Debug.LogError("data null: " + this);
+            }
+            resetMoveOrChoose();
+        }
+
+        public void onClickBtnChoose()
+        {
+            Debug.LogError("onClickBtnChoose: " + this);
+            if (this.data != null)
+            {
+                // Check select same position
+                bool isSelectSamePosition = false;
+                {
+                    ClickDestUI.UIData clickDestUIData = this.data.findDataInParent<ClickDestUI.UIData>();
+                    if (clickDestUIData != null)
+                    {
+                        if (clickDestUIData.x.v == this.data.destX.v && clickDestUIData.y.v == this.data.destY.v)
+                        {
+                            isSelectSamePosition = true;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("clickDestUIData null: " + this);
+                    }
+                }
+                // process
+                if (isSelectSamePosition)
+                {
+                    // Chuyen ve ClickPieceUI
+                    ShowUI.UIData show = this.data.findDataInParent<ShowUI.UIData>();
+                    if (show != null)
+                    {
+                        ClickPieceUI.UIData clickPieceUIData = new ClickPieceUI.UIData();
+                        {
+                            clickPieceUIData.uid = show.sub.makeId();
+                        }
+                        show.sub.v = clickPieceUIData;
+                    }
+                    else
+                    {
+                        Debug.LogError("show null: " + this);
+                    }
+                }
+                else
+                {
+                    ClickDestUI.UIData clickDestUIData = this.data.findDataInParent<ClickDestUI.UIData>();
+                    if (clickDestUIData != null)
+                    {
+                        clickDestUIData.x.v = this.data.destX.v;
+                        clickDestUIData.y.v = this.data.destY.v;
+                    }
+                    else
+                    {
+                        Debug.LogError("clickDestUIData null: " + this);
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("data null: " + this);
+            }
+            resetMoveOrChoose();
+        }
+
+        public void onClickBtnCancel()
+        {
+            Debug.LogError("onClickBtnCancel: " + this);
+            resetMoveOrChoose();
+        }
+
+    }
 }

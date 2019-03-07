@@ -76,7 +76,7 @@ namespace FairyChess
 
             public override void getUIRatio(out float heightWidth, out float left, out float right, out float top, out float bottom)
             {
-                heightWidth = 1;
+                heightWidth = (8 + 1.4f + 1.4f + 0.1f + 0.1f + 0.1f + 0.1f) / 8;
                 left = 0;
                 right = 0;
                 top = 0;

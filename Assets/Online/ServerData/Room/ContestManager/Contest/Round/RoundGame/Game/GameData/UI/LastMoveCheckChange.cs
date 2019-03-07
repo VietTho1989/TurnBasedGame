@@ -230,6 +230,10 @@ public class LastMoveCheckChange<K> : Data, ValueChangeCallBack where K : Data
         {
             switch ((Setting.Property)wrapProperty.n)
             {
+                case Setting.Property.language:
+                    break;
+                case Setting.Property.style:
+                    break;
                 case Setting.Property.showLastMove:
                     this.notifyChange();
                     break;

@@ -63,6 +63,14 @@ namespace FairyChess.NoneRule
 
         #endregion
 
+        #region txt, rect
+
+        public Text lbTitle;
+        public Text edtPieceCountPlaceHolder;
+        public Text tvSet;
+
+        #endregion
+
         #region Refresh
 
         public Transform contentContainer;
@@ -76,7 +84,33 @@ namespace FairyChess.NoneRule
                 dirty = false;
                 if (this.data != null)
                 {
-
+                    // txt
+                    {
+                        if (lbTitle != null)
+                        {
+                            lbTitle.text = ClickPosTxt.txtSetHandTitle.get(ClickPosTxt.DefaultSetHandTitle);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null");
+                        }
+                        if (edtPieceCountPlaceHolder != null)
+                        {
+                            edtPieceCountPlaceHolder.text = ClickPosTxt.txtEdtPieceCountPlaceHolder.get(ClickPosTxt.DefaultEdtPieceCountPlaceHolder);
+                        }
+                        else
+                        {
+                            Debug.LogError("edtPieceCountPlaceHolder null");
+                        }
+                        if (tvSet != null)
+                        {
+                            tvSet.text = ClickPosTxt.txtSet.get(ClickPosTxt.DefaultSet);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvSet null");
+                        }
+                    }
                 }
                 else
                 {
@@ -97,13 +131,14 @@ namespace FairyChess.NoneRule
         private GameDataBoardCheckPerspectiveChange<UIData> checkPerspectiveChange = new GameDataBoardCheckPerspectiveChange<UIData>();
 
         public SetHandAdapter setHandAdapterPrefab;
-        public Transform setHandAdapterContainer;
 
         public override void onAddCallBack<T>(T data)
         {
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
                 // CheckChange
                 {
                     checkPerspectiveChange.addCallBack(this);
@@ -113,6 +148,12 @@ namespace FairyChess.NoneRule
                 {
                     uiData.setHandAdapter.allAddCallBack(this);
                 }
+                dirty = true;
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
                 dirty = true;
                 return;
             }
@@ -128,7 +169,7 @@ namespace FairyChess.NoneRule
                 SetHandAdapter.UIData setHandAdapterUIData = data as SetHandAdapter.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(setHandAdapterUIData, setHandAdapterPrefab, setHandAdapterContainer);
+                    UIUtils.Instantiate(setHandAdapterUIData, setHandAdapterPrefab, contentContainer, ClickPosTxt.setHandChoosePieceAdapterRect);
                 }
                 dirty = true;
                 return;
@@ -141,6 +182,8 @@ namespace FairyChess.NoneRule
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
                 // CheckChange
                 {
                     checkPerspectiveChange.removeCallBack(this);
@@ -151,6 +194,11 @@ namespace FairyChess.NoneRule
                     uiData.setHandAdapter.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
                 return;
             }
             // CheckChange
@@ -186,6 +234,30 @@ namespace FairyChess.NoneRule
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
                         }
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Setting
+            if (wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
                         break;
                     default:
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);

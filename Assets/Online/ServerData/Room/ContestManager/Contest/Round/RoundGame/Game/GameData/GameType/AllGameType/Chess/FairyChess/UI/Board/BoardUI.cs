@@ -270,9 +270,6 @@ namespace FairyChess
 
 		#region implement callBacks
 
-		public FairyChessFenUI fairyChessFenPrefab;
-		public Transform fairyChessFenContainer;
-
 		public PieceUI piecePrefab;
 		private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData> ();
 

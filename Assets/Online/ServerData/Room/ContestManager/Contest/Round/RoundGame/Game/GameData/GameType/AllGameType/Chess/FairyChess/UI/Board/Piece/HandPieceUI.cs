@@ -46,8 +46,6 @@ namespace FairyChess
 		public Image imgPiece;
 		public Text txtCount;
 
-		public Transform handMoveContainer;
-
 		public override void refresh ()
 		{
 			if (dirty) {

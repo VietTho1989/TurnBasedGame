@@ -423,6 +423,8 @@ namespace GameManager.Match
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.style:
+                        break;
                     case Setting.Property.showLastMove:
                         break;
                     case Setting.Property.viewUrlImage:

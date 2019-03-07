@@ -153,11 +153,6 @@ namespace FairyChess
                 txtVariantType.add(Language.Type.vi, "Thể loại");
                 txtChess960.add(Language.Type.vi, "Chess960");
             }
-            // rect
-            {
-                variantTypeRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                chess960Rect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-            }
         }
 
         #endregion
@@ -460,10 +455,10 @@ namespace FairyChess
         public MiniGameDataUI miniGameDataUIPrefab;
 
         public RequestChangeEnumUI requestEnumPrefab;
-        public static readonly UIRectTransform variantTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
+        private static readonly UIRectTransform variantTypeRect = new UIRectTransform(UIConstants.RequestEnumRect, UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
 
         public RequestChangeBoolUI requestBoolPrefab;
-        public static readonly UIRectTransform chess960Rect = new UIRectTransform(UIConstants.RequestBoolRect);
+        private static readonly UIRectTransform chess960Rect = new UIRectTransform(UIConstants.RequestBoolRect, UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
 
         private Server server = null;
 
