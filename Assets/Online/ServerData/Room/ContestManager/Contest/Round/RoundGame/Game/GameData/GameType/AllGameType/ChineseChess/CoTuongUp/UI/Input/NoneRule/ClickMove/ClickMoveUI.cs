@@ -104,7 +104,24 @@ namespace CoTuongUp.NoneRule
 						}
 						isProcess = true;
 					}
-				}
+                    // back
+                    if (!isProcess)
+                    {
+                        if (InputEvent.isBackEvent(e))
+                        {
+                            ClickMoveUI clickMoveUI = this.findCallBack<ClickMoveUI>();
+                            if (clickMoveUI != null)
+                            {
+                                clickMoveUI.onClickBtnBack();
+                                isProcess = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("clickMoveUI null");
+                            }
+                        }
+                    }
+                }
 				return isProcess;
 			}
 
@@ -485,9 +502,37 @@ namespace CoTuongUp.NoneRule
 			int x = 0;
 			int y = 0;
 			Common.convertLocalPositionToXY (localPosition, out x, out y);
-			Debug.LogError ("localPosition: " + localPosition + ", " + x + ", " + y);
+			// Debug.LogError ("localPosition: " + localPosition + ", " + x + ", " + y);
 			this.clickMove ((byte)x, (byte)y);
 		}
 
-	}
+        #region back
+
+        public void onClickBtnBack()
+        {
+            if (this.data != null)
+            {
+                NoneRuleInputUI.UIData noneRuleInputUIData = this.data.findDataInParent<NoneRuleInputUI.UIData>();
+                if (noneRuleInputUIData != null)
+                {
+                    ClickNoneUI.UIData clickNoneUIData = new ClickNoneUI.UIData();
+                    {
+                        clickNoneUIData.uid = noneRuleInputUIData.sub.makeId();
+                    }
+                    noneRuleInputUIData.sub.v = clickNoneUIData;
+                }
+                else
+                {
+                    Debug.LogError("noneRuleInputUIData null");
+                }
+            }
+            else
+            {
+                Debug.LogError("data null");
+            }
+        }
+
+        #endregion
+
+    }
 }
