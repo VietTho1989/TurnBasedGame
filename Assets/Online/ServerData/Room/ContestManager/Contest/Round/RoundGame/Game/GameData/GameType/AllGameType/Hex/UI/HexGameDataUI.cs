@@ -163,6 +163,13 @@ namespace HEX
                             }
                         }
                     }
+                    // siblingIndex
+                    {
+                        UIRectTransform.SetSiblingIndex(this.data.board.v, 0);
+                        UIRectTransform.SetSiblingIndex(this.data.lastMove.v, 1);
+                        UIRectTransform.SetSiblingIndex(this.data.showHint.v, 2);
+                        UIRectTransform.SetSiblingIndex(this.data.inputUI.v, 3);
+                    }
                 }
                 else
                 {
@@ -181,16 +188,12 @@ namespace HEX
         #region implement callBacks
 
         public BoardUI boardPrefab;
-        public Transform boardContainer;
 
         public LastMoveUI lastMovePrefab;
-        public Transform lastMoveContainer;
 
         public ShowHintUI showHintPrefab;
-        public Transform showHintContainer;
 
         public InputUI inputPrefab;
-        public Transform inputContainer;
 
         private CheckHaveAnimation<UIData> checkHaveAnimation = new CheckHaveAnimation<UIData>();
 
@@ -234,7 +237,7 @@ namespace HEX
                     BoardUI.UIData boardUIData = data as BoardUI.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(boardUIData, boardPrefab, boardContainer);
+                        UIUtils.Instantiate(boardUIData, boardPrefab, this.transform);
                     }
                     dirty = true;
                     return;
@@ -244,7 +247,7 @@ namespace HEX
                     LastMoveUI.UIData lastMoveUIData = data as LastMoveUI.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(lastMoveUIData, lastMovePrefab, lastMoveContainer);
+                        UIUtils.Instantiate(lastMoveUIData, lastMovePrefab, this.transform);
                     }
                     dirty = true;
                     return;
@@ -254,7 +257,7 @@ namespace HEX
                     ShowHintUI.UIData showHintUIData = data as ShowHintUI.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(showHintUIData, showHintPrefab, showHintContainer);
+                        UIUtils.Instantiate(showHintUIData, showHintPrefab, this.transform);
                     }
                     dirty = true;
                     return;
@@ -264,7 +267,7 @@ namespace HEX
                     InputUI.UIData inputUIData = data as InputUI.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(inputUIData, inputPrefab, inputContainer);
+                        UIUtils.Instantiate(inputUIData, inputPrefab, this.transform);
                     }
                     dirty = true;
                     return;

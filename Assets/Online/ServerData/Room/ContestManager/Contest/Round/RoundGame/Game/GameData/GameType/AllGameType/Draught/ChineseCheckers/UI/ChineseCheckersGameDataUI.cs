@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ChineseCheckers
 {
-    public class ChineseCheckersGameDataUI : UIBehavior<ChineseCheckersGameDataUI.UIData>
+    public class ChineseCheckersGameDataUI : UIHaveTransformDataBehavior<ChineseCheckersGameDataUI.UIData>
     {
 
         #region UIData
@@ -92,22 +92,10 @@ namespace ChineseCheckers
 
         #endregion
 
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        #endregion
-
         #region Refresh
 
         public override void refresh()
         {
-            updateTransformData();
             if (dirty)
             {
                 dirty = false;
@@ -175,6 +163,13 @@ namespace ChineseCheckers
                                 Debug.LogError("inputUI null: " + this);
                             }
                         }*/
+                    }
+                    // siblingIndex
+                    {
+                        UIRectTransform.SetSiblingIndex(this.data.board.v, 0);
+                        // UIRectTransform.SetSiblingIndex(this.data.lastMove.v, 1);
+                        // UIRectTransform.SetSiblingIndex(this.data.showHint.v, 2);
+                        // UIRectTransform.SetSiblingIndex(this.data.inputUI.v, 3);
                     }
                 }
                 else
@@ -270,15 +265,7 @@ namespace ChineseCheckers
                     InputUI.UIData inputUIData = data as InputUI.UIData;
                     // UI
                     {
-                        InputUI inputUI = (InputUI)UIUtils.Instantiate(inputUIData, inputPrefab, this.transform);
-                        if (inputUI != null)
-                        {
-                            inputUI.transform.SetAsLastSibling();
-                        }
-                        else
-                        {
-                            Debug.LogError("inputUI null: " + this);
-                        }
+                        UIUtils.Instantiate(inputUIData, inputPrefab, this.transform);
                     }
                     dirty = true;
                     return;

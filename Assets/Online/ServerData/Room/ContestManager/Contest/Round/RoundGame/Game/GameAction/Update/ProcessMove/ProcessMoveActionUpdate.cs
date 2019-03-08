@@ -231,7 +231,7 @@ public class ProcessMoveActionUpdate : GameActionsUpdate.Sub<ProcessMoveAction>
 					Debug.LogError ("animationData null: " + this);
 				}
 			}
-			waitTime += 0.5f;
+			waitTime += 0.1f;
 			if (waitTime > 0 && waitTime < 10) {
 				yield return new Wait (waitTime);
 			} else {

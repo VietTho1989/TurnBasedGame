@@ -229,90 +229,6 @@ namespace FairyChess.UseRule
             return true;
         }
 
-        public void onClickMove(FairyChessMove fairyChessMove)
-        {
-            if (this.data != null)
-            {
-                // Find ClientInput
-                ClientInput clientInput = null;
-                {
-                    // Find FairyChess
-                    FairyChess fairyChess = null;
-                    {
-                        InputUI.UIData inputUIData = this.data.findDataInParent<InputUI.UIData>();
-                        if (inputUIData != null)
-                        {
-                            fairyChess = inputUIData.fairyChess.v.data;
-                        }
-                        else
-                        {
-                            Debug.LogError("inputUIData null: " + this);
-                        }
-                    }
-                    // Process
-                    if (fairyChess != null)
-                    {
-                        Game game = fairyChess.findDataInParent<Game>();
-                        if (game != null)
-                        {
-                            GameAction gameAction = game.gameAction.v;
-                            if (gameAction != null && gameAction is WaitInputAction)
-                            {
-                                WaitInputAction waitInputAction = gameAction as WaitInputAction;
-                                clientInput = waitInputAction.clientInput.v;
-                            }
-                            else
-                            {
-                                Debug.LogError("not waitInputAction null: " + this);
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("game null: " + this);
-                        }
-                    }
-                }
-                // Send
-                if (clientInput != null)
-                {
-                    clientInput.makeSend(fairyChessMove);
-                }
-                else
-                {
-                    Debug.LogError("clientInput null: " + this);
-                }
-            }
-            else
-            {
-                Debug.LogError("data null: " + this);
-            }
-        }
-
-        public void onClickCancel()
-        {
-            Debug.LogError("onClickCancel: " + this);
-            if (this.data != null)
-            {
-                ShowUI.UIData showUI = this.data.findDataInParent<ShowUI.UIData>();
-                if (showUI != null)
-                {
-                    ClickPieceUI.UIData clickPieceUIData = new ClickPieceUI.UIData();
-                    {
-                        clickPieceUIData.uid = showUI.sub.makeId();
-                    }
-                    showUI.sub.v = clickPieceUIData;
-                }
-                else
-                {
-                    Debug.LogError("showUI null: " + this);
-                }
-            }
-            else
-            {
-                Debug.LogError("data null: " + this);
-            }
-        }
-
         #endregion
 
         #region implement callBacks
@@ -537,6 +453,90 @@ namespace FairyChess.UseRule
         }
 
         #endregion
+
+        public void onClickMove(FairyChessMove fairyChessMove)
+        {
+            if (this.data != null)
+            {
+                // Find ClientInput
+                ClientInput clientInput = null;
+                {
+                    // Find FairyChess
+                    FairyChess fairyChess = null;
+                    {
+                        InputUI.UIData inputUIData = this.data.findDataInParent<InputUI.UIData>();
+                        if (inputUIData != null)
+                        {
+                            fairyChess = inputUIData.fairyChess.v.data;
+                        }
+                        else
+                        {
+                            Debug.LogError("inputUIData null: " + this);
+                        }
+                    }
+                    // Process
+                    if (fairyChess != null)
+                    {
+                        Game game = fairyChess.findDataInParent<Game>();
+                        if (game != null)
+                        {
+                            GameAction gameAction = game.gameAction.v;
+                            if (gameAction != null && gameAction is WaitInputAction)
+                            {
+                                WaitInputAction waitInputAction = gameAction as WaitInputAction;
+                                clientInput = waitInputAction.clientInput.v;
+                            }
+                            else
+                            {
+                                Debug.LogError("not waitInputAction null: " + this);
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("game null: " + this);
+                        }
+                    }
+                }
+                // Send
+                if (clientInput != null)
+                {
+                    clientInput.makeSend(fairyChessMove);
+                }
+                else
+                {
+                    Debug.LogError("clientInput null: " + this);
+                }
+            }
+            else
+            {
+                Debug.LogError("data null: " + this);
+            }
+        }
+
+        public void onClickCancel()
+        {
+            Debug.LogError("onClickCancel: " + this);
+            if (this.data != null)
+            {
+                ShowUI.UIData showUI = this.data.findDataInParent<ShowUI.UIData>();
+                if (showUI != null)
+                {
+                    ClickPieceUI.UIData clickPieceUIData = new ClickPieceUI.UIData();
+                    {
+                        clickPieceUIData.uid = showUI.sub.makeId();
+                    }
+                    showUI.sub.v = clickPieceUIData;
+                }
+                else
+                {
+                    Debug.LogError("showUI null: " + this);
+                }
+            }
+            else
+            {
+                Debug.LogError("data null: " + this);
+            }
+        }
 
     }
 }

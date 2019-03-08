@@ -2491,6 +2491,7 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Khet\TestKhet.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Khet\UI\Board\BoardUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Khet\UI\Board\Fen\FenUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Khet\UI\Board\LaserPath\LaserPathDrShowUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Khet\UI\Board\LaserPath\LaserPathUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Khet\UI\Board\LaserPath\LaserPointUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Khet\UI\Board\LaserTarget\LaserTargetUI.cs" />
@@ -2516,6 +2517,7 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Khet\UI\Input\NoneRule\SetPiece\SetPieceUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Khet\UI\Input\UseRule\Get\GetUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Khet\UI\Input\UseRule\Getting\GettingUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Khet\UI\Input\UseRule\Show\ClickDest\ClickDestBtnRotateUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Khet\UI\Input\UseRule\Show\ClickDest\ClickDestUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Khet\UI\Input\UseRule\Show\ClickDest\LegalMoveUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Khet\UI\Input\UseRule\Show\ClickPiece\ClickPieceUI.cs" />

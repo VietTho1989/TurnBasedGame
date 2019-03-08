@@ -163,6 +163,13 @@ namespace Khet
                             }
                         }
                     }
+                    // siblingIndex
+                    {
+                        UIRectTransform.SetSiblingIndex(this.data.board.v, 0);
+                        UIRectTransform.SetSiblingIndex(this.data.lastMove.v, 1);
+                        UIRectTransform.SetSiblingIndex(this.data.showHint.v, 2);
+                        UIRectTransform.SetSiblingIndex(this.data.inputUI.v, 3);
+                    }
                 }
                 else
                 {
@@ -257,15 +264,7 @@ namespace Khet
                     InputUI.UIData inputUIData = data as InputUI.UIData;
                     // UI
                     {
-                        InputUI inputUI = (InputUI)UIUtils.Instantiate(inputUIData, inputPrefab, this.transform);
-                        if (inputUI != null)
-                        {
-                            inputUI.transform.SetAsLastSibling();
-                        }
-                        else
-                        {
-                            Debug.LogError("inputUI null: " + this);
-                        }
+                        UIUtils.Instantiate(inputUIData, inputPrefab, this.transform);
                     }
                     dirty = true;
                     return;
@@ -474,5 +473,6 @@ namespace Khet
         }
 
         #endregion
+
     }
 }
