@@ -323,12 +323,12 @@ namespace CoTuongUp.UseRule
 
 		public void OnPointerDown(PointerEventData eventData)
 		{
-			Debug.LogError ("OnPointerDown: " + eventData);
+			// Debug.LogError ("OnPointerDown: " + eventData);
 			Vector3 localPosition = transform.InverseTransformPoint (eventData.position);
 			int x = 0;
 			int y = 0;
 			Common.convertLocalPositionToXY (localPosition, out x, out y);
-			Debug.LogError ("localPosition: " + localPosition + ", " + x + ", " + y);
+			// Debug.LogError ("localPosition: " + localPosition + ", " + x + ", " + y);
 			this.clickPiece ((byte)x, (byte)y);
 		}
 

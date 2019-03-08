@@ -25,6 +25,9 @@ public class ClickPosTxt
     public static readonly TxtLanguage txtClickPosClear = new TxtLanguage();
     public const string DefaultClickPosClear = "Clear";
 
+    public static readonly TxtLanguage txtClickPosFlip = new TxtLanguage();
+    public const string DefaultClickPosFlip = "Flip";
+
     #endregion
 
     #region setPiece
@@ -95,6 +98,7 @@ public class ClickPosTxt
             txtClickPosMove.add(Language.Type.vi, "Dời quân cờ");
             txtClickPosEndTurn.add(Language.Type.vi, "Kết thúc lượt");
             txtClickPosClear.add(Language.Type.vi, "Xoá sạch");
+            txtClickPosFlip.add(Language.Type.vi, "Lật");
         }
         // setPiece
         {

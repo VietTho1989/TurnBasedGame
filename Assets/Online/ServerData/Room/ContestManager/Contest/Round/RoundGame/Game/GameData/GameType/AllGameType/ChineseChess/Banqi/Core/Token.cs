@@ -7,7 +7,9 @@ namespace Banqi
 	public class Token
 	{
 
-		public enum Type 
+        #region type
+
+        public enum Type 
 		{
 			GENERAL, 
 			ADVISOR, 
@@ -18,14 +20,82 @@ namespace Banqi
 			SOLDIER
 		}
 
-		public enum Ecolor
+        private static readonly TxtLanguage txtGeneral = new TxtLanguage();
+        private static readonly TxtLanguage txtAdvisor = new TxtLanguage();
+        private static readonly TxtLanguage txtElephant = new TxtLanguage();
+        private static readonly TxtLanguage txtChariot = new TxtLanguage();
+        private static readonly TxtLanguage txtHorse = new TxtLanguage();
+        private static readonly TxtLanguage txtCannon = new TxtLanguage();
+        private static readonly TxtLanguage txtSoldier = new TxtLanguage();
+
+        public static List<string> GetTxtType()
+        {
+            List<string> ret = new List<string>();
+            {
+                ret.Add(txtGeneral.get("General"));
+                ret.Add(txtAdvisor.get("Advisor"));
+                ret.Add(txtElephant.get("Elephant"));
+                ret.Add(txtChariot.get("Chariot"));
+                ret.Add(txtHorse.get("Horse"));
+                ret.Add(txtCannon.get("Cannon"));
+                ret.Add(txtSoldier.get("Soldier"));
+            }
+            return ret;
+        }
+
+        #endregion
+
+        #region color
+
+        public enum Ecolor
 		{
 			RED, 
 			BLACK,
 			None
 		}
 
-		public enum Status 
+        private static readonly TxtLanguage txtRed = new TxtLanguage();
+        private static readonly TxtLanguage txtBlack = new TxtLanguage();
+        private static readonly TxtLanguage txtNone = new TxtLanguage();
+
+        public static List<string> GetTxtColor()
+        {
+            List<string> ret = new List<string>();
+            {
+                ret.Add(txtRed.get("Red"));
+                ret.Add(txtBlack.get("Black"));
+                ret.Add(txtNone.get("None"));
+            }
+            return ret;
+        }
+
+        #endregion
+
+        #region static
+
+        static Token()
+        {
+            // type
+            {
+                txtGeneral.add(Language.Type.vi, "Tướng");
+                txtAdvisor.add(Language.Type.vi, "Sĩ");
+                txtElephant.add(Language.Type.vi, "Tượng");
+                txtChariot.add(Language.Type.vi, "Xe");
+                txtHorse.add(Language.Type.vi, "Mã");
+                txtCannon.add(Language.Type.vi, "Pháo");
+                txtSoldier.add(Language.Type.vi, "Tốt");
+            }
+            // color
+            {
+                txtRed.add(Language.Type.vi, "Đỏ");
+                txtBlack.add(Language.Type.vi, "Đen");
+                txtNone.add(Language.Type.vi, "Trống");
+            }
+        }
+
+        #endregion
+
+        public enum Status 
 		{
 			ACTIVE, 
 			INACTIVE

@@ -53,6 +53,12 @@ namespace CoTuongUp.NoneRule
 
         #endregion
 
+        #region txt
+
+        public Text tvChoose;
+
+        #endregion
+
         #region Refresh
 
         public Image imgPiece;
@@ -74,6 +80,17 @@ namespace CoTuongUp.NoneRule
                         else
                         {
                             Debug.LogError("imgPiece null: " + this);
+                        }
+                    }
+                    // txt
+                    {
+                        if (tvChoose != null)
+                        {
+                            tvChoose.text = ClickPosTxt.txtChoose.get(ClickPosTxt.DefaultChoose);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvChoose null");
                         }
                     }
                 }
@@ -149,6 +166,7 @@ namespace CoTuongUp.NoneRule
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
                         break;
                     case Setting.Property.style:
                         dirty = true;

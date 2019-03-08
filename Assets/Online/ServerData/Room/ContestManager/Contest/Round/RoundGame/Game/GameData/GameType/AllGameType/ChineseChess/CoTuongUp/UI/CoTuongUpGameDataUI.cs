@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CoTuongUp
 {
-	public class CoTuongUpGameDataUI : UIBehavior<CoTuongUpGameDataUI.UIData>
+	public class CoTuongUpGameDataUI : UIHaveTransformDataBehavior<CoTuongUpGameDataUI.UIData>
 	{
 
 		#region UIData
@@ -82,7 +82,7 @@ namespace CoTuongUp
 
             public override void getUIRatio(out float heightWidth, out float left, out float right, out float top, out float bottom)
             {
-                heightWidth = 10 / 9.0f;
+                heightWidth = (10 + 3.0f) / 9.0f;
                 left = 0;
                 right = 0;
                 top = 0;
@@ -93,22 +93,10 @@ namespace CoTuongUp
 
         #endregion
 
-        #region TransformData
-
-        public TransformData transformData = new TransformData();
-
-        private void updateTransformData()
-        {
-            this.transformData.update(this.transform);
-        }
-
-        #endregion
-
         #region Refresh
 
         public override void refresh ()
 		{
-            updateTransformData();
 			if (dirty) {
 				dirty = false;
 				if (this.data != null) {

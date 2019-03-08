@@ -62,6 +62,8 @@ public abstract class UIHaveTransformDataBehavior<K> : UIBehavior<K>, HaveTransf
         {
             Debug.LogError("checkChange null");
         }
+        // transformData
+        transformData.callBacks.Clear();
     }
 
     #endregion

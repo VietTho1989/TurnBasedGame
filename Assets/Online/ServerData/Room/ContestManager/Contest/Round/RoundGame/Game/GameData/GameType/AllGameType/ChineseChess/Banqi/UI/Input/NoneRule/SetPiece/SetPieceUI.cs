@@ -5,334 +5,501 @@ using System.Collections.Generic;
 
 namespace Banqi.NoneRule
 {
-	public class SetPieceUI : UIBehavior<SetPieceUI.UIData>
-	{
+    public class SetPieceUI : UIBehavior<SetPieceUI.UIData>
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : NoneRuleInputUI.UIData.Sub
-		{
+        public class UIData : NoneRuleInputUI.UIData.Sub
+        {
 
-			public VP<int> x;
+            public VP<int> x;
 
-			public VP<int> y;
+            public VP<int> y;
 
-			#region Constructor
+            #region Constructor
 
-			public enum Property
-			{
-				x,
-				y
-			}
+            public enum Property
+            {
+                x,
+                y
+            }
 
-			public UIData() : base()
-			{
-				this.x = new VP<int>(this, (byte)Property.x, 0);
-				this.y = new VP<int>(this, (byte)Property.y, 0);
-			}
+            public UIData() : base()
+            {
+                this.x = new VP<int>(this, (byte)Property.x, 0);
+                this.y = new VP<int>(this, (byte)Property.y, 0);
+            }
 
-			#endregion
+            #endregion
 
-			public override Type getType ()
-			{
-				return Type.SetPiece;
-			}
+            public override Type getType()
+            {
+                return Type.SetPiece;
+            }
 
-			public override bool processEvent (Event e)
-			{
-				bool isProcess = false;
-				{
-					// back
-					if (!isProcess) {
-						if (InputEvent.isBackEvent (e)) {
-							SetPieceUI setPieceUI = this.findCallBack<SetPieceUI> ();
-							if (setPieceUI != null) {
-								setPieceUI.onClickBtnCancel ();
-							} else {
-								Debug.LogError ("setPieceUI null: " + this);
-							}
-							isProcess = true;
-						}
-					}
-				}
-				return isProcess;
-			}
+            public override bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // back
+                    if (!isProcess)
+                    {
+                        if (InputEvent.isBackEvent(e))
+                        {
+                            SetPieceUI setPieceUI = this.findCallBack<SetPieceUI>();
+                            if (setPieceUI != null)
+                            {
+                                setPieceUI.onClickBtnBack();
+                            }
+                            else
+                            {
+                                Debug.LogError("setPieceUI null: " + this);
+                            }
+                            isProcess = true;
+                        }
+                    }
+                }
+                return isProcess;
+            }
 
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		public Dropdown drColor;
-		public Dropdown drType;
-		public Toggle tgFaceUp;
+        public Text lbTitle;
+        private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public override void Awake ()
-		{
-			base.Awake ();
-			// drColor
-			{
-				if (drColor != null) {
-					drColor.onValueChanged.AddListener (delegate(int newValue) {
-						if (this.data != null) {
-						
-						} else {
-							Debug.LogError ("data null: " + this);
-						}
-					});
-					// options
-					foreach(Token.Ecolor color in System.Enum.GetValues(typeof(Token.Ecolor))){
-						Dropdown.OptionData optionData = new Dropdown.OptionData ();
-						{
-							optionData.text = "" + color;
-						}
-						drColor.options.Add (optionData);
-					}
-					drColor.RefreshShownValue ();
-				} else {
-					Debug.LogError ("drColor null: " + this);
-				}
-			}
-			// drType
-			{
-				if (drType != null) {
-					drType.onValueChanged.AddListener (delegate(int newValue) {
-						if (this.data != null) {
+        public Text tvFaceUp;
+        private static readonly TxtLanguage txtFaceUp = new TxtLanguage();
 
-						} else {
-							Debug.LogError ("data null: " + this);
-						}
-					});
-					// options
-					foreach(Token.Type type in System.Enum.GetValues(typeof(Token.Type))){
-						Dropdown.OptionData optionData = new Dropdown.OptionData ();
-						{
-							optionData.text = "" + type;
-						}
-						drType.options.Add (optionData);
-					}
-					drType.RefreshShownValue ();
-				} else {
-					Debug.LogError ("drType null: " + this);
-				}
-			}
-		}
+        public Text tvChoose;
+        private static readonly TxtLanguage txtChoose = new TxtLanguage();
 
-		public GameObject ivSelect;
-		public Transform contentContainer;
+        static SetPieceUI()
+        {
+            txtTitle.add(Language.Type.vi, "Chọn Quân Cờ Để Đặt");
+            txtFaceUp.add(Language.Type.vi, "Lật");
+            txtChoose.add(Language.Type.vi, "Chọn");
+        }
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
-					// imgSelect
-					{
-						if (ivSelect != null) {
-							// position
-							ivSelect.transform.localPosition = Common.convertPosToLocalPosition (8 * this.data.y.v + this.data.y.v);
-							// Scale
-							{
-								int playerView = GameDataBoardUI.UIData.getPlayerView (this.data);
-								ivSelect.transform.localScale = (playerView == 0 ? new Vector3 (1f, 1f, 1f) : new Vector3 (1f, -1f, 1f));
-							}
-						} else {
-							Debug.LogError ("imgSelect null: " + this);
-						}
-					}
-					// Scale
-					{
-						if (contentContainer != null) {
-							int playerView = GameDataBoardUI.UIData.getPlayerView (this.data);
-							float scale = 0.015f;
-							contentContainer.localScale = (playerView == 0 ? new Vector3 (scale, scale, 1f) : new Vector3 (scale, -scale, 1f));
-						} else {
-							Debug.LogError ("contentContainer null: " + this);
-						}
-					}
-				} else {
-					Debug.LogError ("data null: " + this);
-				}
-			}
-		}
+        #endregion
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+        #region Refresh
 
-		#endregion
+        public Dropdown drColor;
+        public Dropdown drType;
+        public Toggle tgFaceUp;
 
-		#region implement callBacks
+        public override void Awake()
+        {
+            base.Awake();
+            // drColor
+            {
+                if (drColor != null)
+                {
+                    drColor.onValueChanged.AddListener(delegate (int newValue)
+                    {
+                        if (this.data != null)
+                        {
 
-		private GameDataBoardCheckPerspectiveChange<UIData> checkPerspectiveChange = new GameDataBoardCheckPerspectiveChange<UIData> ();
+                        }
+                        else
+                        {
+                            Debug.LogError("data null: " + this);
+                        }
+                    });
+                    // options
+                    foreach (Token.Ecolor color in System.Enum.GetValues(typeof(Token.Ecolor)))
+                    {
+                        Dropdown.OptionData optionData = new Dropdown.OptionData();
+                        {
+                            optionData.text = "" + color;
+                        }
+                        drColor.options.Add(optionData);
+                    }
+                    drColor.RefreshShownValue();
+                }
+                else
+                {
+                    Debug.LogError("drColor null: " + this);
+                }
+            }
+            // drType
+            {
+                if (drType != null)
+                {
+                    drType.onValueChanged.AddListener(delegate (int newValue)
+                    {
+                        if (this.data != null)
+                        {
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// CheckChange
-				{
-					checkPerspectiveChange.addCallBack (this);
-					checkPerspectiveChange.setData (uiData);
-				}
-				dirty = true;
-				return;
-			}
-			// CheckChange
-			if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
-				dirty = true;
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+                        }
+                        else
+                        {
+                            Debug.LogError("data null: " + this);
+                        }
+                    });
+                    // options
+                    foreach (Token.Type type in System.Enum.GetValues(typeof(Token.Type)))
+                    {
+                        Dropdown.OptionData optionData = new Dropdown.OptionData();
+                        {
+                            optionData.text = "" + type;
+                        }
+                        drType.options.Add(optionData);
+                    }
+                    drType.RefreshShownValue();
+                }
+                else
+                {
+                    Debug.LogError("drType null: " + this);
+                }
+            }
+        }
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// CheckChange
-				{
-					checkPerspectiveChange.removeCallBack (this);
-					checkPerspectiveChange.setData (null);
-				}
-				this.setDataNull (uiData);
-				return;
-			}
-			// CheckChange
-			if (data is GameDataBoardCheckPerspectiveChange<UIData>) {
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public GameObject ivSelect;
+        public Transform contentContainer;
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.x:
-					dirty = true;
-					break;
-				case UIData.Property.y:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// CheckChange
-			if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>) {
-				dirty = true;
-				return;
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
+                    // drType
+                    {
+                        if (drType != null)
+                        {
+                            UIUtils.RefreshDropDownOptions(drType, Token.GetTxtType());
+                            drType.RefreshShownValue();
+                        }
+                        else
+                        {
+                            Debug.LogError("drType null");
+                        }
+                    }
+                    // drColor
+                    {
+                        if (drColor != null)
+                        {
+                            UIUtils.RefreshDropDownOptions(drColor, Token.GetTxtColor());
+                            drColor.RefreshShownValue();
+                        }
+                        else
+                        {
+                            Debug.LogError("drColor null");
+                        }
+                    }
+                    // ivSelect
+                    {
+                        if (ivSelect != null)
+                        {
+                            // position
+                            ivSelect.transform.localPosition = Common.convertPosToLocalPosition(8 * this.data.y.v + this.data.x.v);
+                            // Scale
+                            {
+                                int playerView = GameDataBoardUI.UIData.getPlayerView(this.data);
+                                ivSelect.transform.localScale = (playerView == 0 ? new Vector3(1f, 1f, 1f) : new Vector3(1f, -1f, 1f));
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("imgSelect null: " + this);
+                        }
+                    }
+                    // txt
+                    {
+                        if (lbTitle != null)
+                        {
+                            lbTitle.text = txtTitle.get("Select Piece To Set");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null");
+                        }
+                        if (tvFaceUp != null)
+                        {
+                            tvFaceUp.text = txtFaceUp.get("Face Up");
+                        }
+                        else
+                        {
+                            Debug.LogError("tvFaceUp null");
+                        }
+                        if (tvChoose != null)
+                        {
+                            tvChoose.text = txtChoose.get("Choose");
+                        }
+                        else
+                        {
+                            Debug.LogError("tvChoose null");
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogError("data null: " + this);
+                }
+            }
+        }
 
-		#endregion
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		public void onClickBtnCancel()
-		{
-			if (this.data != null) {
-				NoneRuleInputUI.UIData noneRuleInputUIData = this.data.findDataInParent<NoneRuleInputUI.UIData> ();
-				if (noneRuleInputUIData != null) {
-					ClickNoneUI.UIData clickNoneUIData = noneRuleInputUIData.sub.newOrOld<ClickNoneUI.UIData> ();
-					{
+        #endregion
 
-					}
-					noneRuleInputUIData.sub.v = clickNoneUIData;
-				} else {
-					Debug.LogError ("noneRuleInputUIData null: " + this);
-				}
-			} else {
-				Debug.LogError ("data null: " + this);
-			}
-		}
+        #region implement callBacks
 
-		public void onClickBtnChoose()
-		{
-			if (this.data != null) {
-				Banqi banqi = null;
-				// Check isActive
-				bool isActive = false;
-				{
-					NoneRuleInputUI.UIData noneRuleInputUIData = this.data.findDataInParent<NoneRuleInputUI.UIData> ();
-					if (noneRuleInputUIData != null) {
-						banqi = noneRuleInputUIData.banqi.v.data;
-						if (banqi != null) {
-							if (global::Game.IsPlaying (banqi)) {
-								isActive = true;
-							}
-						} else {
-							Debug.LogError ("banqi null: " + this);
-							return;
-						}
-					} else {
-						Debug.LogError ("useRuleInputUIData null: " + this);
-					}
-				}
-				if (isActive) {
-					// send move
-					ClientInput clientInput = InputUI.UIData.findClientInput(this.data);
-					if (clientInput != null) {
-						BanqiCustomSet banqiCustomSet = new BanqiCustomSet ();
-						{
-							banqiCustomSet.x.v = this.data.x.v;
-							banqiCustomSet.y.v = this.data.y.v;
-							// color
-							{
-								Token.Ecolor color = Token.Ecolor.RED;
-								{
-									if (drColor != null) {
-										color = (Token.Ecolor)drColor.value;
-									} else {
-										Debug.LogError ("drColor null");
-									}
-								}
-								banqiCustomSet.color.v = color;
-							}
-							// type
-							{
-								Token.Type type = Token.Type.SOLDIER;
-								{
-									if (drType != null) {
-										type = (Token.Type)drType.value;
-									} else {
-										Debug.LogError ("drType null");
-									}
-								}
-								banqiCustomSet.type.v = type;
-							}
-							// isFaceUp
-							{
-								bool isFaceUp = true;
-								{
-									if (tgFaceUp != null) {
-										isFaceUp = tgFaceUp.isOn;
-									} else {
-										Debug.LogError ("tgFaceUp null");
-									}
-								}
-								banqiCustomSet.isFaceUp.v = isFaceUp;
-							}
-						}
-						clientInput.makeSend (banqiCustomSet);
-					} else {
-						Debug.LogError ("clientInput null: " + this);
-					}
-				} else {
-					Debug.LogError ("not active: " + this);
-				}
-			} else {
-				Debug.LogError ("data null: " + this);
-			}
-		}
+        private GameDataBoardCheckPerspectiveChange<UIData> checkPerspectiveChange = new GameDataBoardCheckPerspectiveChange<UIData>();
 
-	}
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
+                // CheckChange
+                {
+                    checkPerspectiveChange.addCallBack(this);
+                    checkPerspectiveChange.setData(uiData);
+                }
+                dirty = true;
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // CheckChange
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>)
+            {
+                dirty = true;
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
+
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
+                // CheckChange
+                {
+                    checkPerspectiveChange.removeCallBack(this);
+                    checkPerspectiveChange.setData(null);
+                }
+                this.setDataNull(uiData);
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
+                return;
+            }
+            // CheckChange
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>)
+            {
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
+
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.x:
+                        dirty = true;
+                        break;
+                    case UIData.Property.y:
+                        dirty = true;
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Setting
+            if (wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // CheckChange
+            if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>)
+            {
+                dirty = true;
+                return;
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
+
+        #endregion
+
+        public void onClickBtnBack()
+        {
+            if (this.data != null)
+            {
+                NoneRuleInputUI.UIData noneRuleInputUIData = this.data.findDataInParent<NoneRuleInputUI.UIData>();
+                if (noneRuleInputUIData != null)
+                {
+                    ClickNoneUI.UIData clickNoneUIData = noneRuleInputUIData.sub.newOrOld<ClickNoneUI.UIData>();
+                    {
+
+                    }
+                    noneRuleInputUIData.sub.v = clickNoneUIData;
+                }
+                else
+                {
+                    Debug.LogError("noneRuleInputUIData null: " + this);
+                }
+            }
+            else
+            {
+                Debug.LogError("data null: " + this);
+            }
+        }
+
+        public void onClickBtnChoose()
+        {
+            if (this.data != null)
+            {
+                Banqi banqi = null;
+                // Check isActive
+                bool isActive = false;
+                {
+                    NoneRuleInputUI.UIData noneRuleInputUIData = this.data.findDataInParent<NoneRuleInputUI.UIData>();
+                    if (noneRuleInputUIData != null)
+                    {
+                        banqi = noneRuleInputUIData.banqi.v.data;
+                        if (banqi != null)
+                        {
+                            if (global::Game.IsPlaying(banqi))
+                            {
+                                isActive = true;
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("banqi null: " + this);
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("useRuleInputUIData null: " + this);
+                    }
+                }
+                if (isActive)
+                {
+                    // send move
+                    ClientInput clientInput = InputUI.UIData.findClientInput(this.data);
+                    if (clientInput != null)
+                    {
+                        BanqiCustomSet banqiCustomSet = new BanqiCustomSet();
+                        {
+                            banqiCustomSet.x.v = this.data.x.v;
+                            banqiCustomSet.y.v = this.data.y.v;
+                            // color
+                            {
+                                Token.Ecolor color = Token.Ecolor.RED;
+                                {
+                                    if (drColor != null)
+                                    {
+                                        color = (Token.Ecolor)drColor.value;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("drColor null");
+                                    }
+                                }
+                                banqiCustomSet.color.v = color;
+                            }
+                            // type
+                            {
+                                Token.Type type = Token.Type.SOLDIER;
+                                {
+                                    if (drType != null)
+                                    {
+                                        type = (Token.Type)drType.value;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("drType null");
+                                    }
+                                }
+                                banqiCustomSet.type.v = type;
+                            }
+                            // isFaceUp
+                            {
+                                bool isFaceUp = true;
+                                {
+                                    if (tgFaceUp != null)
+                                    {
+                                        isFaceUp = tgFaceUp.isOn;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("tgFaceUp null");
+                                    }
+                                }
+                                banqiCustomSet.isFaceUp.v = isFaceUp;
+                            }
+                        }
+                        clientInput.makeSend(banqiCustomSet);
+                    }
+                    else
+                    {
+                        Debug.LogError("clientInput null: " + this);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("not active: " + this);
+                }
+            }
+            else
+            {
+                Debug.LogError("data null: " + this);
+            }
+        }
+
+    }
 }

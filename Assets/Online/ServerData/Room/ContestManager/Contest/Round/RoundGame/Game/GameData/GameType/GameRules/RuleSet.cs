@@ -15,6 +15,7 @@ namespace Rule
 
 		#region Other
 
+        /** chinese chess: general vs general*/
 		public byte otherKing = 0;
 
 		#endregion

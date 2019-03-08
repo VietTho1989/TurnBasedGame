@@ -250,10 +250,11 @@ namespace CoTuongUp
 
 		public PieceUI piecePrefab;
 
-		public Transform captureContainer;
 		public CaptureUI capturePrefab;
+        public Transform redCaptureContainer;
+        public Transform blackCaptureContainer;
 
-		private GameCheckPlayerChange<CoTuongUp> gameCheckPlayerChange = new GameCheckPlayerChange<CoTuongUp> ();
+        private GameCheckPlayerChange<CoTuongUp> gameCheckPlayerChange = new GameCheckPlayerChange<CoTuongUp> ();
 		private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData> ();
 
 		public override void onAddCallBack<T> (T data)
@@ -328,7 +329,7 @@ namespace CoTuongUp
 					CaptureUI.UIData captureUIData = data as CaptureUI.UIData;
 					// UI
 					{
-						UIUtils.Instantiate (captureUIData, capturePrefab, captureContainer);
+						UIUtils.Instantiate (captureUIData, capturePrefab, redCaptureContainer);
 					}
 					dirty = true;
 					return;

@@ -124,7 +124,7 @@ namespace CoTuongUp
 							break;
 						}
 					} else {
-						Debug.LogError ("lastMove null: " + this);
+						// Debug.LogError ("lastMove null: " + this);
 						this.data.sub.v = null;
 					}
 				} else {

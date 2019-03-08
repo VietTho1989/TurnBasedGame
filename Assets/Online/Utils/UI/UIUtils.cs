@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 using UnityImageLoader;
 
 public class UIUtils
@@ -138,6 +139,30 @@ public class UIUtils
 			}
 		}
 	}
+
+    public static void RefreshDropDownOptions(Dropdown drValue, List<string> options)
+    {
+        if (drValue.options.Count != options.Count)
+        {
+            drValue.options.Clear();
+            for (int i = 0; i < options.Count; i++)
+            {
+                Dropdown.OptionData optionData = new Dropdown.OptionData();
+                {
+                    optionData.text = options[i];
+                }
+                drValue.options.Add(optionData);
+            }
+        }
+        else
+        {
+            // options
+            for (int i = 0; i < options.Count; i++)
+            {
+                drValue.options[i].text = options[i];
+            }
+        }
+    }
 
     #endregion
 

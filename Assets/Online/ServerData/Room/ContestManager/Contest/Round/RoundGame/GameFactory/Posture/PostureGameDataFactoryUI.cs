@@ -398,7 +398,6 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                         {
                             if (btnEdit != null)
                             {
-                                UIConstants.PostureMiniGameDataUIRect.set((RectTransform)btnEdit.transform);
                                 btnEdit.gameObject.SetActive(editPostureGameDataFactory.canEdit.v);
                             }
                             else
