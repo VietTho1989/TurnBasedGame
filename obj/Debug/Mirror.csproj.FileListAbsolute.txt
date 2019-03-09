@@ -815,3 +815,4 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Mirror.csproj.CopyComplete
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Mirror.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Mirror.pdb
+/Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Mirror.csprojAssemblyReference.cache

@@ -74,7 +74,7 @@ namespace Solitaire
                             Vector2 boardSize = new Vector2(boardTransform.rect.width, boardTransform.rect.height);
                             if (solitaireSize != Vector2.zero && boardSize != Vector2.zero)
                             {
-                                float scale = Mathf.Min(Mathf.Abs(boardSize.x / 8f), Mathf.Abs(boardSize.y / 8f));
+                                float scale = Mathf.Min(Mathf.Abs(boardSize.x / 8f), Mathf.Abs(boardSize.y / 6.4f));
                                 // new scale
                                 Vector3 newLocalScale = new Vector3();
                                 {
@@ -142,7 +142,7 @@ namespace Solitaire
                 return;
             }
             // Global
-            if(data is Global)
+            if (data is Global)
             {
                 dirty = true;
                 return;
@@ -195,7 +195,7 @@ namespace Solitaire
                 return;
             }
             // Global
-            if(data is Global)
+            if (data is Global)
             {
                 return;
             }

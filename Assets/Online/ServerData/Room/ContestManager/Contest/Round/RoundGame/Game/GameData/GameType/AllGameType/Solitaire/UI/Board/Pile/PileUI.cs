@@ -51,7 +51,7 @@ namespace Solitaire
 		{
 			switch (pileType) {
 			case Pile.Piles.WASTE:
-				return new Vector2 (-2.5f, 3);
+				return new Vector2 (-2.5f, 2.5f);
 			case Pile.Piles.TABLEAU1:
 				return new Vector2 (-2.5f, 1);
 			case Pile.Piles.TABLEAU2:
@@ -67,15 +67,15 @@ namespace Solitaire
 			case Pile.Piles.TABLEAU7:
 				return new Vector2 (3.5f, 1);
 			case Pile.Piles.STOCK:
-				return new Vector2 (-3.5f, 3);
+				return new Vector2 (-3.5f, 2.5f);
 			case Pile.Piles.FOUNDATION1C:
-				return new Vector2 (0.5f, 3);
+				return new Vector2 (0.5f, 2.5f);
 			case Pile.Piles.FOUNDATION2D:
-				return new Vector2 (1.5f, 3);
+				return new Vector2 (1.5f, 2.5f);
 			case Pile.Piles.FOUNDATION3S:
-				return new Vector2 (2.5f, 3);
+				return new Vector2 (2.5f, 2.5f);
 			case Pile.Piles.FOUNDATION4H:
-				return new Vector2 (3.5f, 3);
+				return new Vector2 (3.5f, 2.5f);
 			default:
 				Debug.LogError ("unknown pileIndex: " + pileType);
 				return Vector2.zero;
