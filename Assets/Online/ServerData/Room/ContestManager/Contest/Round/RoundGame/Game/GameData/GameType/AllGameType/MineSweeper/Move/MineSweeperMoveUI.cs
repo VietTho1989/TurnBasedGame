@@ -322,8 +322,6 @@ namespace MineSweeper
 					switch ((BoardUI.UIData.Property)wrapProperty.n) {
 					case BoardUI.UIData.Property.mineSweeper:
 						break;
-					case BoardUI.UIData.Property.background:
-						break;
 					case BoardUI.UIData.Property.boundary:
 						break;
 					case BoardUI.UIData.Property.pieces:

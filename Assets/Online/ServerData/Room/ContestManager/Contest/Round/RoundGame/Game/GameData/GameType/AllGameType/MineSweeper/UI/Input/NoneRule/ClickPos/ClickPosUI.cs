@@ -490,8 +490,6 @@ namespace MineSweeper.NoneRule
                                     dirty = true;
                                 }
                                 break;
-                            case BoardUI.UIData.Property.background:
-                                break;
                             case BoardUI.UIData.Property.boundary:
                                 break;
                             case BoardUI.UIData.Property.scrollView:

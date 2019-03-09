@@ -466,8 +466,6 @@ namespace MineSweeper.NoneRule
                     {
                         case BoardUI.UIData.Property.mineSweeper:
                             break;
-                        case BoardUI.UIData.Property.background:
-                            break;
                         case BoardUI.UIData.Property.boundary:
                             break;
                         case BoardUI.UIData.Property.scrollView:
