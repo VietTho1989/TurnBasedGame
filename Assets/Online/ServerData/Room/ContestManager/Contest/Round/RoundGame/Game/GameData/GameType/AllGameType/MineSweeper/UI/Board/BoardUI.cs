@@ -187,12 +187,17 @@ namespace MineSweeper
                             List<sbyte> board = new List<sbyte>();// mineSweeper.board.vs;
                             List<sbyte> bombs = new List<sbyte>();// mineSweeper.bombs.vs;
                             List<sbyte> flags = new List<sbyte>();// mineSweeper.flags.vs;
+                            List<ushort> myFlags = new List<ushort>();
                             {
                                 foreach(MineSweeperSub sub in mineSweeper.sub.vs)
                                 {
                                     board.AddRange(sub.board.vs);
                                     bombs.AddRange(sub.bombs.vs);
                                     flags.AddRange(sub.flags.vs);
+                                }
+                                foreach(MineSweeperFlags mineSweeperFlags in mineSweeper.myFlags.vs)
+                                {
+                                    myFlags.AddRange(mineSweeperFlags.myFlags.vs);
                                 }
                             }
                             bool booom = mineSweeper.booom.v;
@@ -217,6 +222,7 @@ namespace MineSweeper
                                                         board.Clear();
                                                         bombs.Clear();
                                                         flags.Clear();
+                                                        myFlags.Clear();
                                                         // get
                                                         {
                                                             foreach (MineSweeperSub sub in mineSweeperMoveAnimation.sub.vs)
@@ -224,6 +230,10 @@ namespace MineSweeper
                                                                 board.AddRange(sub.board.vs);
                                                                 bombs.AddRange(sub.bombs.vs);
                                                                 flags.AddRange(sub.flags.vs);
+                                                            }
+                                                            foreach (MineSweeperFlags mineSweeperFlags in mineSweeperMoveAnimation.myFlags.vs)
+                                                            {
+                                                                myFlags.AddRange(mineSweeperFlags.myFlags.vs);
                                                             }
                                                         }
                                                     }
@@ -322,6 +332,7 @@ namespace MineSweeper
                                         sbyte piece = -1;
                                         sbyte bomb = 0;
                                         sbyte flag = 0;
+                                        bool isMyFlag = myFlags.Contains((ushort)(x * Y + y));
                                         {
                                             if (index >= 0 && index < board.Count)
                                             {
@@ -381,6 +392,7 @@ namespace MineSweeper
                                                 pieceUIData.piece.v = piece;
                                                 pieceUIData.bomb.v = bomb;
                                                 pieceUIData.flag.v = flag;
+                                                pieceUIData.isMyFlag.v = isMyFlag;
                                             }
                                             // Add
                                             if (needAdd)
@@ -510,6 +522,7 @@ namespace MineSweeper
                         // Child
                         {
                             mineSweeper.sub.allAddCallBack(this);
+                            mineSweeper.myFlags.allAddCallBack(this);
                         }
                         dirty = true;
                         return;
@@ -521,10 +534,17 @@ namespace MineSweeper
                         return;
                     }
                     // Child
-                    if(data is MineSweeperSub)
                     {
-                        dirty = true;
-                        return;
+                        if (data is MineSweeperSub)
+                        {
+                            dirty = true;
+                            return;
+                        }
+                        if(data is MineSweeperFlags)
+                        {
+                            dirty = true;
+                            return;
+                        }
                     }
                 }
                 if (data is BoundaryUI.UIData)
@@ -628,6 +648,7 @@ namespace MineSweeper
                         // Child
                         {
                             mineSweeper.sub.allRemoveCallBack(this);
+                            mineSweeper.myFlags.allRemoveCallBack(this);
                         }
                         return;
                     }
@@ -637,9 +658,15 @@ namespace MineSweeper
                         return;
                     }
                     // Child
-                    if(data is MineSweeperSub)
                     {
-                        return;
+                        if (data is MineSweeperSub)
+                        {
+                            return;
+                        }
+                        if(data is MineSweeperFlags)
+                        {
+                            return;
+                        }
                     }
                 }
                 if (data is BoundaryUI.UIData)
@@ -777,6 +804,12 @@ namespace MineSweeper
                             case MineSweeper.Property.allowWatchBoomb:
                                 dirty = true;
                                 break;
+                            case MineSweeper.Property.myFlags:
+                                {
+                                    ValueChangeUtils.replaceCallBack(this, syncs);
+                                    dirty = true;
+                                }
+                                break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                                 break;
@@ -790,24 +823,39 @@ namespace MineSweeper
                         return;
                     }
                     // Child
-                    if(wrapProperty.p is MineSweeperSub)
                     {
-                        switch ((MineSweeperSub.Property)wrapProperty.n)
+                        if (wrapProperty.p is MineSweeperSub)
                         {
-                            case MineSweeperSub.Property.bombs:
-                                dirty = true;
-                                break;
-                            case MineSweeperSub.Property.flags:
-                                dirty = true;
-                                break;
-                            case MineSweeperSub.Property.board:
-                                dirty = true;
-                                break;
-                            default:
-                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                                break;
+                            switch ((MineSweeperSub.Property)wrapProperty.n)
+                            {
+                                case MineSweeperSub.Property.bombs:
+                                    dirty = true;
+                                    break;
+                                case MineSweeperSub.Property.flags:
+                                    dirty = true;
+                                    break;
+                                case MineSweeperSub.Property.board:
+                                    dirty = true;
+                                    break;
+                                default:
+                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                    break;
+                            }
+                            return;
                         }
-                        return;
+                        if(wrapProperty.p is MineSweeperFlags)
+                        {
+                            switch ((MineSweeperFlags.Property)wrapProperty.n)
+                            {
+                                case MineSweeperFlags.Property.myFlags:
+                                    dirty = true;
+                                    break;
+                                default:
+                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                    break;
+                            }
+                            return;
+                        }
                     }
                 }
                 if (wrapProperty.p is BoundaryUI.UIData)

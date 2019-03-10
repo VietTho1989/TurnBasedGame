@@ -9,7 +9,19 @@ namespace MineSweeper
 
 		public VP<int> move;
 
-		public VP<int> Y;
+        #region type
+
+        public enum MoveType
+        {
+            Normal,
+            Flag
+        }
+
+        public VP<MoveType> type;
+
+        #endregion
+
+        public VP<int> Y;
 
 		public VP<int> X;
 
@@ -18,13 +30,15 @@ namespace MineSweeper
 		public enum Property
 		{
 			move,
-			Y,
+            type,
+            Y,
 			X
 		}
 
 		public MineSweeperMove() : base()
 		{
 			this.move = new VP<int> (this, (byte)Property.move, -1);
+            this.type = new VP<MoveType>(this, (byte)Property.type, MoveType.Normal);
 			this.Y = new VP<int> (this, (byte)Property.Y, 10);
 			this.X = new VP<int> (this, (byte)Property.X, 10);
 		}
@@ -59,8 +73,20 @@ namespace MineSweeper
                             }
                         }
 						mineSweeperMoveAnimation.booom.v = mineSweeper.booom.v;
-					}
+                        // myFlags
+                        {
+                            foreach(MineSweeperFlags myFlags in mineSweeper.myFlags.vs)
+                            {
+                                MineSweeperFlags newMyFlags = DataUtils.cloneData(myFlags) as MineSweeperFlags;
+                                {
+                                    newMyFlags.uid = mineSweeperMoveAnimation.myFlags.makeId();
+                                }
+                                mineSweeperMoveAnimation.myFlags.add(newMyFlags);
+                            }
+                        }
+                    }
 					mineSweeperMoveAnimation.move.v = this.move.v;
+                    mineSweeperMoveAnimation.type.v = this.type.v;
 				}
 				return mineSweeperMoveAnimation;
 			} else {

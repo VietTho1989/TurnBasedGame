@@ -77,6 +77,13 @@ namespace MineSweeper
 
         #endregion
 
+        #region myFlags
+
+        [SyncVar]
+        public int myFlags;
+
+        #endregion
+
         #region move
 
         [SyncVar(hook = "onChangeMove")]
@@ -88,6 +95,26 @@ namespace MineSweeper
             if (this.netData.clientData != null)
             {
                 this.netData.clientData.move.v = newMove;
+            }
+            else
+            {
+                // Debug.LogError ("clientData null: "+this);
+            }
+        }
+
+        #endregion
+
+        #region type
+
+        [SyncVar(hook = "onChangeType")]
+        public MineSweeperMove.MoveType type;
+
+        public void onChangeType(MineSweeperMove.MoveType newType)
+        {
+            this.type = newType;
+            if (this.netData.clientData != null)
+            {
+                this.netData.clientData.type.v = newType;
             }
             else
             {
@@ -121,6 +148,7 @@ namespace MineSweeper
                 this.onChangeY(this.Y);
                 this.onChangeBooom(this.booom);
                 this.onChangeMove(this.move);
+                this.onChangeType(this.type);
             }
             else
             {
@@ -136,6 +164,7 @@ namespace MineSweeper
                 ret += GetDataSize(this.Y);
                 ret += GetDataSize(this.booom);
                 ret += GetDataSize(this.move);
+                ret += GetDataSize(this.type);
             }
             return ret;
         }
@@ -158,7 +187,9 @@ namespace MineSweeper
                     this.Y = mineSweeperMoveAnimation.Y.v;
                     this.sub = mineSweeperMoveAnimation.sub.vs.Count;
                     this.booom = mineSweeperMoveAnimation.booom.v;
+                    this.myFlags = mineSweeperMoveAnimation.myFlags.vs.Count;
                     this.move = mineSweeperMoveAnimation.move.v;
+                    this.type = mineSweeperMoveAnimation.type.v;
                 }
                 // Observer
                 {
@@ -225,8 +256,17 @@ namespace MineSweeper
                     case MineSweeperMoveAnimation.Property.booom:
                         this.booom = (System.Boolean)wrapProperty.getValue();
                         break;
+                    case MineSweeperMoveAnimation.Property.myFlags:
+                        {
+                            MineSweeperMoveAnimation mineSweeperMoveAnimation = wrapProperty.p as MineSweeperMoveAnimation;
+                            this.myFlags = mineSweeperMoveAnimation.myFlags.vs.Count;
+                        }
+                        break;
                     case MineSweeperMoveAnimation.Property.move:
                         this.move = (System.Int32)wrapProperty.getValue();
+                        break;
+                    case MineSweeperMoveAnimation.Property.type:
+                        this.type = (MineSweeperMove.MoveType)wrapProperty.getValue();
                         break;
                     default:
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);

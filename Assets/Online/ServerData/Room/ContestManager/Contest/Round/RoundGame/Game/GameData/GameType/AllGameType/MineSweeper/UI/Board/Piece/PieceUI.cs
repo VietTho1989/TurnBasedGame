@@ -23,6 +23,8 @@ namespace MineSweeper
 
             public VP<sbyte> flag;
 
+            public VP<bool> isMyFlag;
+
             #region Constructor
 
             public enum Property
@@ -31,7 +33,8 @@ namespace MineSweeper
                 y,
                 piece,
                 bomb,
-                flag
+                flag,
+                isMyFlag
             }
 
             public UIData() : base()
@@ -41,6 +44,7 @@ namespace MineSweeper
                 this.piece = new VP<sbyte>(this, (byte)Property.piece, 0);
                 this.bomb = new VP<sbyte>(this, (byte)Property.bomb, 0);
                 this.flag = new VP<sbyte>(this, (byte)Property.flag, 0);
+                this.isMyFlag = new VP<bool>(this, (byte)Property.isMyFlag, false);
             }
 
             #endregion
@@ -218,18 +222,6 @@ namespace MineSweeper
                                     Debug.LogError("bomb null: " + this);
                                 }
                             }
-                            // flag
-                            {
-                                if (flag != null)
-                                {
-                                    // TODO Cu an het da
-                                    flag.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("flag null: " + this);
-                                }
-                            }
                             // LocalPosition
                             {
                                 BoardUI.UIData boardUIData = this.data.findDataInParent<BoardUI.UIData>();
@@ -247,6 +239,34 @@ namespace MineSweeper
 								int playerView = GameDataBoardUI.UIData.getPlayerView (this.data);
 								this.transform.localScale = (playerView == 0 ? new Vector3 (1f, 1f, 1f) : new Vector3 (1f, -1f, 1f));
 							}*/
+                            // flag
+                            {
+                                if (flag != null)
+                                {
+                                    bool isFlag = false;
+                                    {
+                                        if (imgBomb != null && piece != null)
+                                        {
+                                            if(!imgBomb.gameObject.activeSelf && !piece.activeSelf)
+                                            {
+                                                if (this.data.isMyFlag.v)
+                                                {
+                                                    isFlag = true;
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("imgBomb, piece null");
+                                        }
+                                    }
+                                    flag.SetActive(isFlag);
+                                }
+                                else
+                                {
+                                    Debug.LogError("flag null: " + this);
+                                }
+                            }
                         }
                         else
                         {
@@ -377,6 +397,9 @@ namespace MineSweeper
                         dirty = true;
                         break;
                     case UIData.Property.flag:
+                        dirty = true;
+                        break;
+                    case UIData.Property.isMyFlag:
                         dirty = true;
                         break;
                     default:

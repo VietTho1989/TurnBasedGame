@@ -25,6 +25,7 @@ namespace MineSweeper
                 // Debug.LogError ("clientData null: " + this);
             }
         }
+
         #endregion
 
         #region flags
@@ -42,6 +43,7 @@ namespace MineSweeper
                 // Debug.LogError ("clientData null: " + this);
             }
         }
+
         #endregion
 
         #region board
@@ -59,6 +61,7 @@ namespace MineSweeper
                 // Debug.LogError ("clientData null: " + this);
             }
         }
+
         #endregion
 
         #endregion
@@ -183,7 +186,7 @@ namespace MineSweeper
                         IdentityUtils.UpdateSyncList(this.board, syncs, GlobalCast<T>.CastingMySByte);
                         break;
                     default:
-                        Debug.LogError("Unknown wrapProperty: " + wrapProperty + "; " + this);
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
                 return;
@@ -192,7 +195,6 @@ namespace MineSweeper
         }
 
         #endregion
-
 
     }
 }

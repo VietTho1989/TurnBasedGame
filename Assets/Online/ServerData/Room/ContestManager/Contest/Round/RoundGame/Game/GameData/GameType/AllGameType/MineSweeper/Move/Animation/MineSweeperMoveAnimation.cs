@@ -17,11 +17,15 @@ namespace MineSweeper
 
         public VP<bool> booom;
 
+        public LP<MineSweeperFlags> myFlags;
+
         #endregion
 
         #region move
 
         public VP<int> move;
+
+        public VP<MineSweeperMove.MoveType> type;
 
         #endregion
 
@@ -33,8 +37,10 @@ namespace MineSweeper
             Y,
             sub,
             booom,
+            myFlags,
 
-            move
+            move,
+            type
         }
 
         public MineSweeperMoveAnimation() : base()
@@ -45,8 +51,10 @@ namespace MineSweeper
                 this.Y = new VP<int>(this, (byte)Property.Y, 10);
                 this.sub = new LP<MineSweeperSub>(this, (byte)Property.sub);
                 this.booom = new VP<bool>(this, (byte)Property.booom, false);
+                this.myFlags = new LP<MineSweeperFlags>(this, (byte)Property.myFlags);
             }
             this.move = new VP<int>(this, (byte)Property.move, -1);
+            this.type = new VP<MineSweeperMove.MoveType>(this, (byte)Property.type, MineSweeperMove.MoveType.Normal);
         }
 
         #endregion
@@ -70,7 +78,7 @@ namespace MineSweeper
 
         public override float getDuration()
         {
-            return 1 * AnimationManager.DefaultDuration;
+            return 0.1f;
         }
 
         public override GameMove makeGameMove()
@@ -78,6 +86,7 @@ namespace MineSweeper
             MineSweeperMove mineSweeperMove = new MineSweeperMove();
             {
                 mineSweeperMove.move.v = this.move.v;
+                mineSweeperMove.type.v = this.type.v;
                 // N
                 // M
             }
@@ -97,9 +106,10 @@ namespace MineSweeper
                         if (dataIdentity is MineSweeperMoveAnimationIdentity)
                         {
                             MineSweeperMoveAnimationIdentity mineSweeperMoveAnimationIdentity = dataIdentity as MineSweeperMoveAnimationIdentity;
-                            if (mineSweeperMoveAnimationIdentity.sub != this.sub.vs.Count)
+                            if (mineSweeperMoveAnimationIdentity.sub != this.sub.vs.Count 
+                                || mineSweeperMoveAnimationIdentity.myFlags != this.myFlags.vs.Count)
                             {
-                                Debug.LogError("sub count error");
+                                Debug.LogError("sub. myFlags count error");
                                 ret = false;
                             }
                         }

@@ -184,6 +184,13 @@ namespace MineSweeper
 
         #endregion
 
+        #region myFlags
+
+        [SyncVar]
+        public int myFlags;
+
+        #endregion
+
         #endregion
 
         #region NetData
@@ -231,6 +238,7 @@ namespace MineSweeper
                 ret += GetDataSize(this.init);
                 ret += GetDataSize(this.allowWatchBomb);
                 ret += GetDataSize(this.isCustom);
+                ret += GetDataSize(this.myFlags);
             }
             return ret;
         }
@@ -259,6 +267,7 @@ namespace MineSweeper
                     this.neb = mineSweeper.neb.vs.Count;
                     this.allowWatchBomb = mineSweeper.allowWatchBoomb.v;
                     this.isCustom = mineSweeper.isCustom.v;
+                    this.myFlags = mineSweeper.myFlags.vs.Count;
                 }
                 // Observer
                 {
@@ -345,6 +354,12 @@ namespace MineSweeper
                         break;
                     case MineSweeper.Property.isCustom:
                         this.isCustom = (bool)wrapProperty.getValue();
+                        break;
+                    case MineSweeper.Property.myFlags:
+                        {
+                            MineSweeper mineSweeper = wrapProperty.p as MineSweeper;
+                            this.myFlags = mineSweeper.myFlags.vs.Count;
+                        }
                         break;
                     default:
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);

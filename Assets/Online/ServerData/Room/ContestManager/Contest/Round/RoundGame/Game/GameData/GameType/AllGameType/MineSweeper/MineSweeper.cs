@@ -185,6 +185,8 @@ namespace MineSweeper
 
         public VP<bool> isCustom;
 
+        public LP<MineSweeperFlags> myFlags;
+
         #region Constructor
 
         public enum Property
@@ -198,7 +200,8 @@ namespace MineSweeper
             init,
             neb,
             allowWatchBoomb,
-            isCustom
+            isCustom,
+            myFlags
         }
 
         public static readonly List<byte> AllowNames = new List<byte>();
@@ -228,13 +231,14 @@ namespace MineSweeper
             this.neb = new LP<Neb>(this, (byte)Property.neb);
             this.allowWatchBoomb = new VP<bool>(this, (byte)Property.allowWatchBoomb, true);
             this.isCustom = new VP<bool>(this, (byte)Property.isCustom, false);
+            this.myFlags = new LP<MineSweeperFlags>(this, (byte)Property.myFlags);
         }
 
         public bool isLoadFull()
         {
             bool ret = true;
             {
-                // board
+                // board, neb, flags
                 if (ret)
                 {
                     DataIdentity dataIdentity = null;
@@ -243,28 +247,9 @@ namespace MineSweeper
                         if (dataIdentity is MineSweeperIdentity)
                         {
                             MineSweeperIdentity mineSweeperIdentity = dataIdentity as MineSweeperIdentity;
-                            if (mineSweeperIdentity.sub != this.sub.vs.Count)
-                            {
-                                Debug.LogError("sub count error");
-                                ret = false;
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("why not subIdentity");
-                        }
-                    }
-                }
-                // neb
-                if (ret)
-                {
-                    DataIdentity dataIdentity = null;
-                    if (DataIdentity.clientMap.TryGetValue(this, out dataIdentity))
-                    {
-                        if (dataIdentity is MineSweeperIdentity)
-                        {
-                            MineSweeperIdentity mineSweeperIdentity = dataIdentity as MineSweeperIdentity;
-                            if (mineSweeperIdentity.neb != this.neb.vs.Count)
+                            if (mineSweeperIdentity.neb != this.neb.vs.Count
+                                || mineSweeperIdentity.sub != this.sub.vs.Count
+                                || mineSweeperIdentity.myFlags != this.myFlags.vs.Count)
                             {
                                 Debug.LogError("neb count error");
                                 ret = false;
@@ -886,12 +871,79 @@ namespace MineSweeper
             {
                 case GameMove.Type.MineSweeperMove:
                     {
-                        // get information
                         MineSweeperMove mineSweeperMove = gameMove as MineSweeperMove;
-                        // make request to native
-                        MineSweeper newMineSweeper = Core.unityDoMove(this, Core.CanCorrect, mineSweeperMove.move.v);
-                        // Copy to current chess
-                        DataUtils.copyData(this, newMineSweeper, AllowNames);
+                        switch (mineSweeperMove.type.v)
+                        {
+                            case MineSweeperMove.MoveType.Normal:
+                                {
+                                    // make request to native
+                                    MineSweeper newMineSweeper = Core.unityDoMove(this, Core.CanCorrect, mineSweeperMove.move.v);
+                                    // Copy to current chess
+                                    DataUtils.copyData(this, newMineSweeper, AllowNames);
+                                }
+                                break;
+                            case MineSweeperMove.MoveType.Flag:
+                                {
+                                    ushort move = (ushort)mineSweeperMove.move.v;
+                                    // find
+                                    bool alreadyContain = false;
+                                    {
+                                        foreach (MineSweeperFlags mineSweeperFlags in this.myFlags.vs)
+                                        {
+                                            if (mineSweeperFlags.myFlags.vs.Contains(move))
+                                            {
+                                                Debug.LogError("already contain: " + move + ", " + mineSweeperFlags);
+                                                mineSweeperFlags.myFlags.remove(move);
+                                                alreadyContain = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    // process
+                                    if (!alreadyContain)
+                                    {
+                                        // find myFlags
+                                        MineSweeperFlags myFlags = null;
+                                        {
+                                            foreach(MineSweeperFlags mineSweeperFlags in this.myFlags.vs)
+                                            {
+                                                if (mineSweeperFlags.myFlags.vs.Count < MineSweeperFlags.MaxCount)
+                                                {
+                                                    myFlags = mineSweeperFlags;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        // make new
+                                        if (myFlags == null)
+                                        {
+                                            myFlags = new MineSweeperFlags();
+                                            {
+                                                myFlags.uid = this.myFlags.makeId();
+                                            }
+                                            this.myFlags.add(myFlags);
+                                        }
+                                        // add
+                                        myFlags.myFlags.add(move);
+                                        // remove not contain anything
+                                        {
+                                            for (int i = this.myFlags.vs.Count - 1; i >= 0; i--)
+                                            {
+                                                MineSweeperFlags check = this.myFlags.vs[i];
+                                                if (check.myFlags.vs.Count == 0)
+                                                {
+                                                    Debug.LogError("Don't have any flags, so remove: " + check);
+                                                    this.myFlags.removeAt(i);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            default:
+                                Debug.LogError("unknown type: " + mineSweeperMove.type.v);
+                                break;
+                        }
                     }
                     break;
                 case GameMove.Type.None:
