@@ -66,6 +66,9 @@ namespace MineSweeper
         private static readonly Color color3 = new Color(255 / 255f, 24 / 255f, 42 / 255f);
         private static readonly Color color4 = new Color(2 / 255f, 12 / 255f, 127 / 255f);
         private static readonly Color color5 = new Color(124 / 255f, 0 / 255f, 0 / 255f);
+        private static readonly Color color6 = new Color(0 / 255f, 123 / 255f, 123 / 255f);
+        private static readonly Color color7 = new Color(6 / 255f, 10 / 255f, 9 / 255f);
+        private static readonly Color color8 = new Color(123 / 255f, 123 / 255f, 123 / 255f);
 
         #endregion
 
@@ -132,6 +135,15 @@ namespace MineSweeper
                                                         break;
                                                     case 5:
                                                         tvPiece.color = color5;
+                                                        break;
+                                                    case 6:
+                                                        tvPiece.color = color6;
+                                                        break;
+                                                    case 7:
+                                                        tvPiece.color = color7;
+                                                        break;
+                                                    case 8:
+                                                        tvPiece.color = color8;
                                                         break;
                                                     default:
                                                         // Debug.LogError("unknown piece: " + this.data.piece.v);

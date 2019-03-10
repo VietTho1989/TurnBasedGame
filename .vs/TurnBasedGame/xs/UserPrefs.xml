@@ -1,7 +1,10 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/MineSweeper/UI/Board/BoardUI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/MineSweeper/MineSweeper.cs">
     <Files>
-      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/MineSweeper/UI/Board/BoardUI.cs" Line="321" Column="90" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/MineSweeper/MineSweeperSub.cs" Line="10" Column="39" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Khet/KhetSub.cs" Line="10" Column="34" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Khet/Khet.cs" Line="101" Column="66" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/MineSweeper/MineSweeper.cs" Line="24" Column="22" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

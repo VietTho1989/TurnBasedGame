@@ -74,7 +74,7 @@ namespace MineSweeper
                             Vector2 boardSize = new Vector2(boardTransform.rect.width, boardTransform.rect.height);
                             if (mineSweeperSize != Vector2.zero && boardSize != Vector2.zero)
                             {
-                                float scale = Mathf.Min(Mathf.Abs(boardSize.x / 20f), Mathf.Abs(boardSize.y / 20f));
+                                float scale = Mathf.Min(Mathf.Abs(boardSize.x / 22f), Mathf.Abs(boardSize.y / 22f));
                                 // new scale
                                 Vector3 newLocalScale = new Vector3();
                                 {

@@ -511,7 +511,28 @@ namespace MineSweeper
                     ScrollViewUI.UIData scrollViewUIData = data as ScrollViewUI.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(scrollViewUIData, scrollViewPrefab, this.transform);
+                        // find container
+                        Transform container = null;
+                        {
+                            GameDataBoardUI.UIData gameDataBoardUIData = scrollViewUIData.findDataInParent<GameDataBoardUI.UIData>();
+                            if (gameDataBoardUIData != null)
+                            {
+                                GameDataBoardUI gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                                if (gameDataBoardUI != null)
+                                {
+                                    container = gameDataBoardUI.transform;
+                                }
+                                else
+                                {
+                                    Debug.LogError("gameDataBoardUI null");
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("gameDataBoardUIData null");
+                            }
+                        }
+                        UIUtils.Instantiate(scrollViewUIData, scrollViewPrefab, container);
                     }
                     dirty = true;
                     return;

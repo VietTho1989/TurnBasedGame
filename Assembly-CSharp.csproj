@@ -2537,6 +2537,7 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\MineSweeper\Default\DefaultMineSweeperUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\MineSweeper\MineSweeper.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\MineSweeper\MineSweeperIdentity.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\MineSweeper\MineSweeperSub.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\MineSweeper\Move\Animation\MineSweeperMoveAnimation.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\MineSweeper\Move\Animation\MineSweeperMoveAnimationIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\MineSweeper\Move\MineSweeperMove.cs" />
@@ -2551,6 +2552,7 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\MineSweeper\UI\Board\BoardUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\MineSweeper\UI\Board\Boundary\BoundaryUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\MineSweeper\UI\Board\Piece\PieceUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\MineSweeper\UI\Board\ScrollIvew\ScrollRequestChangeUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\MineSweeper\UI\Board\ScrollIvew\ScrollViewUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\MineSweeper\UI\Input\InputUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\MineSweeper\UI\Input\NoneRule\ClickMove\ClickMoveUI.cs" />
