@@ -52,6 +52,7 @@ aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:GameManager.Match.TeamState
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:GameManager.Match.RequestNewContestManagerStateNoneIdentity
 e2e29cc5f0bcc165ccd38da1c7590bdc Assembly-CSharp.dll:Shatranj.NoneRule.ClickMoveUI
 d2031487a08b6ae877993d2fb26144b0 Assembly-CSharp.dll:.AnimationSettingUI
+aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:MineSweeper.MineSweeperSubIdentity
 01aa15e337e3a9c62f15153dfac6d589 Unity.TextMeshPro.dll:TMPro.TMP_Dropdown
 0021c204a83b02993453d7ae6622397b Assembly-CSharp.dll:GameManager.Match.BtnRoundUI
 6b14b0478b8e2ea629b1e35eb6570097 Assembly-CSharp.dll:FileSystem.FileHolder
@@ -133,6 +134,7 @@ e2e29cc5f0bcc165ccd38da1c7590bdc Assembly-CSharp.dll:Gomoku.NoneRule.ClickMoveUI
 7d12bdf8d4c029cbbab04b5ccdb622a9 Assembly-CSharp.dll:.WaitHumanInputIdentity
 90a344a40811539c37fddb798a50da37 Assembly-CSharp.dll:.ServerIdentity
 2fb4823a4d65d63ff5fb60ee39dc6ea6 Assembly-CSharp.dll:.WrapChangeIdentity
+3513044a324e2da1403fa3e5a8dce498 Assembly-CSharp.dll:.ScrollRequestChangeUI
 cf5534e1ac6cf2dc6625087247e9a604 Assembly-CSharp.dll:InternationalDraught.UseRule.ClickDestUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:GameManager.Match.MakeTeamCountCorrectUpdate
 18b86b71118601ccc396d9346bde855c Assembly-CSharp.dll:Gomoku.BoardUI
@@ -206,7 +208,7 @@ bcc77ded3a1d8c60468cd882c6efb872 Assembly-CSharp.dll:frame8.ScrollRectItemsAdapt
 5e67956f9d7777356aaf47b77bea7c14 Assembly-CSharp.dll:.HumanUI
 1a69b27f97639b87b404cf8b33f302d9 Assembly-CSharp.dll:Shatranj.UseRule.ClickPieceUI
 3e5b91bf2fdf8a6f054b362fce1d0012 Assembly-CSharp.dll:FullSerializer.fsAotConfiguration
-3cf6d26269d77f5434552e6dd08cfb20 Assembly-CSharp.dll:MineSweeper.MineSweeperIdentity
+0dd2b3474727747b5274ff3f416882cf Assembly-CSharp.dll:MineSweeper.MineSweeperIdentity
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.WaitAIInputSearchUpdate
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.RoomUserRoleAdminUpdate
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.RoomStateEndUpdate
@@ -859,7 +861,7 @@ aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:.GlobalChatIdentity
 80d1822b3495d495c6c8deb6cd769e7c Assembly-CSharp.dll:GameManager.Match.RequestNewRoundStateNoneUI
 1951ea544a111687fd17dbd0a0cc2ed6 Assembly-CSharp.dll:Makruk.MakrukFenUI
 de1889f568e5c8a542523d940221914d Assembly-CSharp.dll:CoTuongUp.BoardUI
-ce567129a0a48797e0a543e952761a86 Assembly-CSharp.dll:MineSweeper.MineSweeperMoveAnimationIdentity
+5c690d1664ae32321113cb4f5d273703 Assembly-CSharp.dll:MineSweeper.MineSweeperMoveAnimationIdentity
 80d1822b3495d495c6c8deb6cd769e7c Assembly-CSharp.dll:Weiqi.UseRuleInputBtnUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:GameManager.Match.Lobby.StateNormalUpdate
 7893ad174f0f0e30fa9e3daeacd152bc Assembly-CSharp.dll:Banqi.NoneRule.BanqiCustomFlipUI
@@ -2177,4 +2179,3 @@ aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:TimeControl.Normal.TotalTim
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:Sudoku.SudokuSolveIdentity
 d06ddf90227012b27a616415bdb3af92 Assembly-CSharp.dll:.LoadDataUI
 4b42596d3d9e2de01e9541fb5c8d5953 Assembly-CSharp.dll:GameManager.Match.SingleContestContentUI
-3513044a324e2da1403fa3e5a8dce498 Assembly-CSharp.dll:.ScrollRequestChangeUI

@@ -4,100 +4,116 @@ using System.Collections.Generic;
 
 namespace MineSweeper
 {
-	public class MineSweeperMoveAnimation : MoveAnimation
-	{
+    public class MineSweeperMoveAnimation : MoveAnimation
+    {
 
-		#region mineSweeper inform
+        #region mineSweeper inform
 
-		public VP<int> X;
+        public VP<int> X;
 
-		public VP<int> Y;
+        public VP<int> Y;
 
-		public LP<sbyte> board;
+        public LP<MineSweeperSub> sub;
 
-		public LP<sbyte> bombs;
+        public VP<bool> booom;
 
-		public LP<sbyte> flags;
+        #endregion
 
-		public VP<bool> booom;
+        #region move
 
-		#endregion
+        public VP<int> move;
 
-		#region move
+        #endregion
 
-		public VP<int> move;
+        #region Constructor
 
-		#endregion
+        public enum Property
+        {
+            X,
+            Y,
+            sub,
+            booom,
 
-		#region Constructor
+            move
+        }
 
-		public enum Property
-		{
-			X,
-			Y,
-			board,
-			bombs,
-			flags,
-			booom,
+        public MineSweeperMoveAnimation() : base()
+        {
+            // inform
+            {
+                this.X = new VP<int>(this, (byte)Property.X, 10);
+                this.Y = new VP<int>(this, (byte)Property.Y, 10);
+                this.sub = new LP<MineSweeperSub>(this, (byte)Property.sub);
+                this.booom = new VP<bool>(this, (byte)Property.booom, false);
+            }
+            this.move = new VP<int>(this, (byte)Property.move, -1);
+        }
 
-			move
-		}
+        #endregion
 
-		public MineSweeperMoveAnimation() : base()
-		{
-			// inform
-			{
-				this.X = new VP<int> (this, (byte)Property.X, 10);
-				this.Y = new VP<int> (this, (byte)Property.Y, 10);
-				this.board = new LP<sbyte> (this, (byte)Property.board);
-				this.bombs = new LP<sbyte> (this, (byte)Property.bombs);
-				this.flags = new LP<sbyte> (this, (byte)Property.flags);
-				this.booom = new VP<bool> (this, (byte)Property.booom, false);
-			}
-			this.move = new VP<int> (this, (byte)Property.move, -1);
-		}
+        #region implement base
 
-		#endregion
+        public override GameMove.Type getType()
+        {
+            return GameMove.Type.MineSweeperMove;
+        }
 
-		#region implement base
+        public override void updateAfterProcessGameMove(GameType gameType)
+        {
 
-		public override GameMove.Type getType ()
-		{
-			return GameMove.Type.MineSweeperMove;
-		}
+        }
 
-		public override void updateAfterProcessGameMove (GameType gameType)
-		{
-			
-		}
+        public override void initDuration()
+        {
 
-		public override void initDuration ()
-		{
-			
-		}
+        }
 
-		public override float getDuration ()
-		{
-			return 1 * AnimationManager.DefaultDuration;
-		}
+        public override float getDuration()
+        {
+            return 1 * AnimationManager.DefaultDuration;
+        }
 
-		public override GameMove makeGameMove ()
-		{
-			MineSweeperMove mineSweeperMove = new MineSweeperMove ();
-			{
-				mineSweeperMove.move.v = this.move.v;
-				// N
-				// M
-			}
-			return mineSweeperMove;
-		}
+        public override GameMove makeGameMove()
+        {
+            MineSweeperMove mineSweeperMove = new MineSweeperMove();
+            {
+                mineSweeperMove.move.v = this.move.v;
+                // N
+                // M
+            }
+            return mineSweeperMove;
+        }
 
-		public override bool isLoadFullData ()
-		{
-			return true;
-		}
+        public override bool isLoadFullData()
+        {
+            bool ret = true;
+            {
+                // check sub
+                if (ret)
+                {
+                    DataIdentity dataIdentity = null;
+                    if (DataIdentity.clientMap.TryGetValue(this, out dataIdentity))
+                    {
+                        if (dataIdentity is MineSweeperMoveAnimationIdentity)
+                        {
+                            MineSweeperMoveAnimationIdentity mineSweeperMoveAnimationIdentity = dataIdentity as MineSweeperMoveAnimationIdentity;
+                            if (mineSweeperMoveAnimationIdentity.sub != this.sub.vs.Count)
+                            {
+                                Debug.LogError("sub count error");
+                                ret = false;
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("why not subIdentity");
+                        }
+                    }
+                }
+            }
+            return true;
+        }
 
-		#endregion
+        #endregion
 
-	}
+    }
 }

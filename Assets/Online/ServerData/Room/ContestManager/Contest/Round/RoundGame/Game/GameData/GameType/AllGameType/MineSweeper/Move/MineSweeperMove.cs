@@ -47,9 +47,17 @@ namespace MineSweeper
 					{
 						mineSweeperMoveAnimation.X.v = mineSweeper.X.v;
 						mineSweeperMoveAnimation.Y.v = mineSweeper.Y.v;
-						mineSweeperMoveAnimation.board.vs.AddRange (mineSweeper.board.vs);
-						mineSweeperMoveAnimation.bombs.vs.AddRange (mineSweeper.bombs.vs);
-						mineSweeperMoveAnimation.flags.vs.AddRange (mineSweeper.flags.vs);
+                        // sub
+                        {
+                            foreach(MineSweeperSub sub in mineSweeper.sub.vs)
+                            {
+                                MineSweeperSub newSub = DataUtils.cloneData(sub) as MineSweeperSub;
+                                {
+                                    newSub.uid = mineSweeperMoveAnimation.sub.makeId();
+                                }
+                                mineSweeperMoveAnimation.sub.add(newSub);
+                            }
+                        }
 						mineSweeperMoveAnimation.booom.v = mineSweeper.booom.v;
 					}
 					mineSweeperMoveAnimation.move.v = this.move.v;

@@ -260,7 +260,7 @@ public class GameObserver : NetworkBehaviour
 					if (Controller.checkAllowAdd (dataIdentity, connection)) {
 						observers.Add (connection);
 					} else {
-						Debug.LogError ("intial cannot add: " + connection + "; " + this);
+						// Debug.LogError ("intial cannot add: " + connection + "; " + this);
 					}
 				}
 			}

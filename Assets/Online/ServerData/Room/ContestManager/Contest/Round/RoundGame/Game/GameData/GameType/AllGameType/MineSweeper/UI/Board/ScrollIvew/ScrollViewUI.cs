@@ -651,13 +651,9 @@ namespace MineSweeper
                             break;
                         case MineSweeper.Property.K:
                             break;
-                        case MineSweeper.Property.bombs:
+                        case MineSweeper.Property.sub:
                             break;
                         case MineSweeper.Property.booom:
-                            break;
-                        case MineSweeper.Property.flags:
-                            break;
-                        case MineSweeper.Property.board:
                             break;
                         case MineSweeper.Property.minesFound:
                             break;

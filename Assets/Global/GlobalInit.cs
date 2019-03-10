@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.IO;
 using FileSystem;
-using ChineseCheckers;
+using MineSweeper;
 
 public class GlobalInit : MonoBehaviour
 {
@@ -17,7 +17,7 @@ public class GlobalInit : MonoBehaviour
 
 		// MakeIdentity
 		{
-			// DataMakeIdentityUtils.makeIdentity (typeof(ChineseCheckersAI));
+            // DataMakeIdentityUtils.makeIdentity(typeof(MineSweeperSub));
 		}
 
 		// Set AssetManager

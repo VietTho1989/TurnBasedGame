@@ -328,10 +328,23 @@ namespace MineSweeper.NoneRule
                         return;
                     }
                     // Child
-                    if (data is MineSweeper)
                     {
-                        dirty = true;
-                        return;
+                        if (data is MineSweeper)
+                        {
+                            MineSweeper mineSweeper = data as MineSweeper;
+                            // Child
+                            {
+                                mineSweeper.sub.allAddCallBack(this);
+                            }
+                            dirty = true;
+                            return;
+                        }
+                        // Child
+                        if(data is MineSweeperSub)
+                        {
+                            dirty = true;
+                            return;
+                        }
                     }
                 }
             }
@@ -390,9 +403,21 @@ namespace MineSweeper.NoneRule
                         return;
                     }
                     // Child
-                    if (data is MineSweeper)
                     {
-                        return;
+                        if (data is MineSweeper)
+                        {
+                            MineSweeper mineSweeper = data as MineSweeper;
+                            // Child
+                            {
+                                mineSweeper.sub.allRemoveCallBack(this);
+                            }
+                            return;
+                        }
+                        // Child
+                        if(data is MineSweeperSub)
+                        {
+                            return;
+                        }
                     }
                 }
             }
@@ -525,39 +550,59 @@ namespace MineSweeper.NoneRule
                         return;
                     }
                     // Child
-                    if (wrapProperty.p is MineSweeper)
                     {
-                        switch ((MineSweeper.Property)wrapProperty.n)
+                        if (wrapProperty.p is MineSweeper)
                         {
-                            case MineSweeper.Property.Y:
-                                break;
-                            case MineSweeper.Property.X:
-                                break;
-                            case MineSweeper.Property.K:
-                                break;
-                            case MineSweeper.Property.bombs:
-                                dirty = true;
-                                break;
-                            case MineSweeper.Property.booom:
-                                break;
-                            case MineSweeper.Property.flags:
-                                break;
-                            case MineSweeper.Property.board:
-                                dirty = true;
-                                break;
-                            case MineSweeper.Property.minesFound:
-                                break;
-                            case MineSweeper.Property.init:
-                                break;
-                            case MineSweeper.Property.neb:
-                                break;
-                            case MineSweeper.Property.allowWatchBoomb:
-                                break;
-                            default:
-                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                                break;
+                            switch ((MineSweeper.Property)wrapProperty.n)
+                            {
+                                case MineSweeper.Property.Y:
+                                    break;
+                                case MineSweeper.Property.X:
+                                    break;
+                                case MineSweeper.Property.K:
+                                    break;
+                                case MineSweeper.Property.sub:
+                                    {
+                                        ValueChangeUtils.replaceCallBack(this, syncs);
+                                        dirty = true;
+                                    }
+                                    break;
+                                case MineSweeper.Property.booom:
+                                    break;
+                                case MineSweeper.Property.minesFound:
+                                    break;
+                                case MineSweeper.Property.init:
+                                    break;
+                                case MineSweeper.Property.neb:
+                                    break;
+                                case MineSweeper.Property.allowWatchBoomb:
+                                    break;
+                                default:
+                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                    break;
+                            }
+                            return;
                         }
-                        return;
+                        // Child
+                        if(wrapProperty.p is MineSweeperSub)
+                        {
+                            switch ((MineSweeperSub.Property)wrapProperty.n)
+                            {
+                                case MineSweeperSub.Property.bombs:
+                                    dirty = true;
+                                    break;
+                                case MineSweeperSub.Property.flags:
+                                    dirty = true;
+                                    break;
+                                case MineSweeperSub.Property.board:
+                                    dirty = true;
+                                    break;
+                                default:
+                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                    break;
+                            }
+                            return;
+                        }
                     }
                 }
             }

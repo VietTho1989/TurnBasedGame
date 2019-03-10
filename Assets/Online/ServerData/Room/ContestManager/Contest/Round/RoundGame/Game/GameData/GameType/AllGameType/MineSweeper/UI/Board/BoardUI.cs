@@ -184,9 +184,17 @@ namespace MineSweeper
                             // board
                             int X = mineSweeper.X.v;
                             int Y = mineSweeper.Y.v;
-                            List<sbyte> board = mineSweeper.board.vs;
-                            List<sbyte> bombs = mineSweeper.bombs.vs;
-                            List<sbyte> flags = mineSweeper.flags.vs;
+                            List<sbyte> board = new List<sbyte>();// mineSweeper.board.vs;
+                            List<sbyte> bombs = new List<sbyte>();// mineSweeper.bombs.vs;
+                            List<sbyte> flags = new List<sbyte>();// mineSweeper.flags.vs;
+                            {
+                                foreach(MineSweeperSub sub in mineSweeper.sub.vs)
+                                {
+                                    board.AddRange(sub.board.vs);
+                                    bombs.AddRange(sub.bombs.vs);
+                                    flags.AddRange(sub.flags.vs);
+                                }
+                            }
                             bool booom = mineSweeper.booom.v;
                             int newMoveAnimation = -1;
                             // Get Inform
@@ -203,9 +211,22 @@ namespace MineSweeper
                                                 {
                                                     X = mineSweeperMoveAnimation.X.v;
                                                     Y = mineSweeperMoveAnimation.Y.v;
-                                                    board = mineSweeperMoveAnimation.board.vs;
-                                                    bombs = mineSweeperMoveAnimation.bombs.vs;
-                                                    flags = mineSweeperMoveAnimation.flags.vs;
+                                                    // board information
+                                                    {
+                                                        // init 
+                                                        board.Clear();
+                                                        bombs.Clear();
+                                                        flags.Clear();
+                                                        // get
+                                                        {
+                                                            foreach (MineSweeperSub sub in mineSweeperMoveAnimation.sub.vs)
+                                                            {
+                                                                board.AddRange(sub.board.vs);
+                                                                bombs.AddRange(sub.bombs.vs);
+                                                                flags.AddRange(sub.flags.vs);
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                                 // move view to lastMove
                                                 {
@@ -486,11 +507,21 @@ namespace MineSweeper
                             gameCheckPlayerChange.addCallBack(this);
                             gameCheckPlayerChange.setData(mineSweeper);
                         }
+                        // Child
+                        {
+                            mineSweeper.sub.allAddCallBack(this);
+                        }
                         dirty = true;
                         return;
                     }
                     // CheckChange
                     if (data is GameCheckPlayerChange<MineSweeper>)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                    // Child
+                    if(data is MineSweeperSub)
                     {
                         dirty = true;
                         return;
@@ -588,16 +619,25 @@ namespace MineSweeper
                 {
                     if (data is MineSweeper)
                     {
-                        // MineSweeper mineSweeper = data as MineSweeper;
+                        MineSweeper mineSweeper = data as MineSweeper;
                         // CheckChange
                         {
                             gameCheckPlayerChange.removeCallBack(this);
                             gameCheckPlayerChange.setData(null);
                         }
+                        // Child
+                        {
+                            mineSweeper.sub.allRemoveCallBack(this);
+                        }
                         return;
                     }
                     // CheckChange
                     if (data is GameCheckPlayerChange<MineSweeper>)
+                    {
+                        return;
+                    }
+                    // Child
+                    if(data is MineSweeperSub)
                     {
                         return;
                     }
@@ -716,16 +756,13 @@ namespace MineSweeper
                             case MineSweeper.Property.K:
                                 dirty = true;
                                 break;
-                            case MineSweeper.Property.bombs:
-                                dirty = true;
+                            case MineSweeper.Property.sub:
+                                {
+                                    ValueChangeUtils.replaceCallBack(this, syncs);
+                                    dirty = true;
+                                }
                                 break;
                             case MineSweeper.Property.booom:
-                                dirty = true;
-                                break;
-                            case MineSweeper.Property.flags:
-                                dirty = true;
-                                break;
-                            case MineSweeper.Property.board:
                                 dirty = true;
                                 break;
                             case MineSweeper.Property.minesFound:
@@ -750,6 +787,26 @@ namespace MineSweeper
                     if (wrapProperty.p is GameCheckPlayerChange<MineSweeper>)
                     {
                         dirty = true;
+                        return;
+                    }
+                    // Child
+                    if(wrapProperty.p is MineSweeperSub)
+                    {
+                        switch ((MineSweeperSub.Property)wrapProperty.n)
+                        {
+                            case MineSweeperSub.Property.bombs:
+                                dirty = true;
+                                break;
+                            case MineSweeperSub.Property.flags:
+                                dirty = true;
+                                break;
+                            case MineSweeperSub.Property.board:
+                                dirty = true;
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
                         return;
                     }
                 }
