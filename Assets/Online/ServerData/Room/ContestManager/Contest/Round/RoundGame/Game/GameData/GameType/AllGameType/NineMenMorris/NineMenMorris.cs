@@ -141,13 +141,28 @@ namespace NineMenMorris
         public static byte[] convertToBytes(NineMenMorris nineMenMorris, bool needCheckCustom = true)
         {
             // custom
-            // TODO Can hoan thien
-            /*if (nineMenMorris.isCustom.v && needCheckCustom) {
-				string strFen = Core.unityPositionToFen (russianDraught, Core.CanCorrect);
-				Debug.LogError ("russianDraught custom fen: " + strFen);
-				RussianDraught newRussianDraught = Core.unityMakePositionByFen (strFen);
-				return convertToBytes (newRussianDraught);
-			}*/
+            if (nineMenMorris.isCustom.v && needCheckCustom)
+            {
+                bool haveAnyPiece = false;
+                {
+                    for (int i = 0; i < nineMenMorris.board.vs.Count; i++)
+                    {
+                        if (nineMenMorris.board.vs[i] != (int)Common.SpotStatus.SS_Empty)
+                        {
+                            haveAnyPiece = true;
+                            break;
+                        }
+                    }
+                }
+                if (haveAnyPiece)
+                {
+                    return convertToBytes(nineMenMorris, false);
+                }
+                else
+                {
+                    return convertToBytes(Core.unityMakeDefaultPosition(), false);
+                }
+            }
             // normal
             byte[] byteArray;
             using (MemoryStream memStream = new MemoryStream())

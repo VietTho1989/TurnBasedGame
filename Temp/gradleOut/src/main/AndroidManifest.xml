@@ -23,7 +23,7 @@
     <activity android:name="com.facebook.unity.AppInviteDialogActivity" />
     <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="fb318885675562568" />
     <provider android:name="com.facebook.FacebookContentProvider" android:authorities="com.facebook.app.FacebookContentProvider318885675562568" android:exported="true" />
-    <meta-data android:name="unity.build-id" android:value="1a0089d1-6016-42f0-9ba1-1aeac61734f6" />
+    <meta-data android:name="unity.build-id" android:value="88e43063-ed02-4c5b-bc6b-de798f73ff8d" />
     <meta-data android:name="unity.splash-mode" android:value="0" />
     <meta-data android:name="unity.splash-enable" android:value="True" />
   </application>
