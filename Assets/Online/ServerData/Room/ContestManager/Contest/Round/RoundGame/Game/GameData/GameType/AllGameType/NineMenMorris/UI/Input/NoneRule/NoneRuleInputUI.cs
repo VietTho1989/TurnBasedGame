@@ -1,128 +1,320 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using NineMenMorris.NoneRule;
 
 namespace NineMenMorris
 {
-	public class NoneRuleInputUI : UIBehavior<NoneRuleInputUI.UIData>
-	{
+    public class NoneRuleInputUI : UIBehavior<NoneRuleInputUI.UIData>
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : InputUI.UIData.Sub
-		{
+        public class UIData : InputUI.UIData.Sub
+        {
 
-			public VP<ReferenceData<NineMenMorris>> nineMenMorris;
+            public VP<ReferenceData<NineMenMorris>> nineMenMorris;
 
-			#region Constructor
+            #region Sub
 
-			public enum Property
-			{
-				nineMenMorris
-			}
+            public abstract class Sub : Data
+            {
 
-			public UIData() : base()
-			{
-				this.nineMenMorris = new VP<ReferenceData<NineMenMorris>>(this, (byte)Property.nineMenMorris, new ReferenceData<NineMenMorris>(null));
-			}
+                public enum Type
+                {
+                    ClickNone,
+                    ClickPos,
+                    SetPiece,
+                    ClickMove
+                }
 
-			#endregion
+                public abstract Type getType();
 
-			public override Type getType ()
-			{
-				return Type.NoneRule;
-			}
+                public abstract bool processEvent(Event e);
 
-			public override bool processEvent (Event e)
-			{
-				bool isProcess = false;
-				{
-					// TODO Can hoan thien
-				}
-				return isProcess;
-			}
+            }
 
-		}
+            public VP<Sub> sub;
 
-		#endregion
+            #endregion
 
-		#region Refresh
+            #region Constructor
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
-					NineMenMorris nineMenMorris = this.data.nineMenMorris.v.data;
-					if (nineMenMorris != null) {
+            public enum Property
+            {
+                nineMenMorris,
+                sub
+            }
 
-					} else {
-						Debug.LogError ("nineMenMorris null");
-					}
-				} else {
-					Debug.LogError ("data null");
-				}
-			}
-		}
+            public UIData() : base()
+            {
+                this.nineMenMorris = new VP<ReferenceData<NineMenMorris>>(this, (byte)Property.nineMenMorris, new ReferenceData<NineMenMorris>(null));
+                this.sub = new VP<Sub>(this, (byte)Property.sub, new ClickNoneUI.UIData());
+            }
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+            #endregion
 
-		#endregion
+            public override Type getType()
+            {
+                return Type.NoneRule;
+            }
 
-		#region implement callBacks
+            public override bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
+                    // sub
+                    if (!isProcess)
+                    {
+                        Sub sub = this.sub.v;
+                        if (sub != null)
+                        {
+                            isProcess = sub.processEvent(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("sub null: " + this);
+                        }
+                    }
+                }
+                return isProcess;
+            }
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				// UIData uiData = data as UIData;
-				// Child
-				{
+            public void reset()
+            {
+                // sub
+                {
+                    ClickNoneUI.UIData noneUIData = this.sub.newOrOld<ClickNoneUI.UIData>();
+                    {
 
-				}
-				dirty = true;
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+                    }
+                    this.sub.v = noneUIData;
+                }
+            }
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
+        }
 
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Child
-				{
+        #endregion
 
-				}
-				this.setDataNull (uiData);
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        #region Refresh
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.nineMenMorris:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
+                    NineMenMorris nineMenMorris = this.data.nineMenMorris.v.data;
+                    if (nineMenMorris != null)
+                    {
 
-		#endregion
+                    }
+                    else
+                    {
+                        Debug.LogError("nineMenMorris null");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("data null");
+                }
+            }
+        }
 
-	}
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region implement callBacks
+
+        public ClickNoneUI nonePrefab;
+        public ClickPosUI posPrefab;
+        public SetPieceUI setPiecePrefab;
+        public ClickMoveUI clickMovePrefab;
+        public Transform subContainer;
+
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Child
+                {
+                    uiData.nineMenMorris.allAddCallBack(this);
+                    uiData.sub.allAddCallBack(this);
+                }
+                dirty = true;
+                return;
+            }
+            // Child
+            {
+                if (data is NineMenMorris)
+                {
+                    // reset
+                    {
+                        if (this.data != null)
+                        {
+                            this.data.reset();
+                        }
+                        else
+                        {
+                            Debug.LogError("data null: " + this);
+                        }
+                    }
+                    dirty = true;
+                    return;
+                }
+                if (data is UIData.Sub)
+                {
+                    UIData.Sub sub = data as UIData.Sub;
+                    // UI
+                    {
+                        switch (sub.getType())
+                        {
+                            case UIData.Sub.Type.ClickNone:
+                                {
+                                    ClickNoneUI.UIData clickNoneUIData = sub as ClickNoneUI.UIData;
+                                    UIUtils.Instantiate(clickNoneUIData, nonePrefab, subContainer);
+                                }
+                                break;
+                            case UIData.Sub.Type.ClickPos:
+                                {
+                                    ClickPosUI.UIData clickPosUIData = sub as ClickPosUI.UIData;
+                                    UIUtils.Instantiate(clickPosUIData, posPrefab, subContainer);
+                                }
+                                break;
+                            case UIData.Sub.Type.SetPiece:
+                                {
+                                    SetPieceUI.UIData setPieceUIData = sub as SetPieceUI.UIData;
+                                    UIUtils.Instantiate(setPieceUIData, setPiecePrefab, subContainer);
+                                }
+                                break;
+                            case UIData.Sub.Type.ClickMove:
+                                {
+                                    ClickMoveUI.UIData clickMoveUIData = sub as ClickMoveUI.UIData;
+                                    UIUtils.Instantiate(clickMoveUIData, clickMovePrefab, subContainer);
+                                }
+                                break;
+                            default:
+                                Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                                break;
+                        }
+                    }
+                    dirty = true;
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
+
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Child
+                {
+                    uiData.nineMenMorris.allRemoveCallBack(this);
+                    uiData.sub.allRemoveCallBack(this);
+                }
+                this.setDataNull(uiData);
+                return;
+            }
+            // Child
+            {
+                if (data is NineMenMorris)
+                {
+                    return;
+                }
+                if (data is UIData.Sub)
+                {
+                    UIData.Sub sub = data as UIData.Sub;
+                    // UI
+                    {
+                        switch (sub.getType())
+                        {
+                            case UIData.Sub.Type.ClickNone:
+                                {
+                                    ClickNoneUI.UIData clickNoneUIData = sub as ClickNoneUI.UIData;
+                                    clickNoneUIData.removeCallBackAndDestroy(typeof(ClickNoneUI));
+                                }
+                                break;
+                            case UIData.Sub.Type.ClickPos:
+                                {
+                                    ClickPosUI.UIData clickPosUIData = sub as ClickPosUI.UIData;
+                                    clickPosUIData.removeCallBackAndDestroy(typeof(ClickPosUI));
+                                }
+                                break;
+                            case UIData.Sub.Type.SetPiece:
+                                {
+                                    SetPieceUI.UIData setPieceUIData = sub as SetPieceUI.UIData;
+                                    setPieceUIData.removeCallBackAndDestroy(typeof(SetPieceUI));
+                                }
+                                break;
+                            case UIData.Sub.Type.ClickMove:
+                                {
+                                    ClickMoveUI.UIData clickMoveUIData = sub as ClickMoveUI.UIData;
+                                    clickMoveUIData.removeCallBackAndDestroy(typeof(ClickMoveUI));
+                                }
+                                break;
+                            default:
+                                Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                                break;
+                        }
+                    }
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
+
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.nineMenMorris:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.sub:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            {
+                if (wrapProperty.p is NineMenMorris)
+                {
+                    return;
+                }
+                if (wrapProperty.p is UIData.Sub)
+                {
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
+
+        #endregion
+
+    }
 }

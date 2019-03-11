@@ -103,8 +103,10 @@ public abstract class GameMove : Data
 		KhetCusomSet,
 		KhetCustomRotate,
 
-		NineMenMorrisMove
-	}
+		NineMenMorrisMove,
+        NineMenMorrisCustomMove,
+        NineMenMorrisCustomSet
+    }
 
 	public abstract Type getType();
 

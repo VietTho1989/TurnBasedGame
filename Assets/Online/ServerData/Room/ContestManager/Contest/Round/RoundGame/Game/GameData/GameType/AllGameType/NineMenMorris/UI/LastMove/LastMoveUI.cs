@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-// using Chess.NoneRule;
+using NineMenMorris.NoneRule;
 
 namespace NineMenMorris
 {
@@ -67,6 +67,34 @@ namespace NineMenMorris
                                     this.data.sub.v = nineMenMorrisMoveUIData;
                                 }
                                 break;
+                            case GameMove.Type.NineMenMorrisCustomMove:
+                                {
+                                    NineMenMorrisCustomMove nineMenMorrisCustomMove = lastMove as NineMenMorrisCustomMove;
+                                    // Find
+                                    NineMenMorrisCustomMoveUI.UIData nineMenMorrisCustomMoveUIData = this.data.sub.newOrOld<NineMenMorrisCustomMoveUI.UIData>();
+                                    {
+                                        // move
+                                        nineMenMorrisCustomMoveUIData.nineMenMorrisCustomMove.v = new ReferenceData<NineMenMorrisCustomMove>(nineMenMorrisCustomMove);
+                                        // isHint
+                                        nineMenMorrisCustomMoveUIData.isHint.v = false;
+                                    }
+                                    this.data.sub.v = nineMenMorrisCustomMoveUIData;
+                                }
+                                break;
+                            case GameMove.Type.NineMenMorrisCustomSet:
+                                {
+                                    NineMenMorrisCustomSet nineMenMorrisCustomSet = lastMove as NineMenMorrisCustomSet;
+                                    // Find
+                                    NineMenMorrisCustomSetUI.UIData nineMenMorrisCustomSetUIData = this.data.sub.newOrOld<NineMenMorrisCustomSetUI.UIData>();
+                                    {
+                                        // move
+                                        nineMenMorrisCustomSetUIData.nineMenMorrisCustomSet.v = new ReferenceData<NineMenMorrisCustomSet>(nineMenMorrisCustomSet);
+                                        // isHint
+                                        nineMenMorrisCustomSetUIData.isHint.v = false;
+                                    }
+                                    this.data.sub.v = nineMenMorrisCustomSetUIData;
+                                }
+                                break;
                             case GameMove.Type.None:
                                 this.data.sub.v = null;
                                 break;
@@ -99,6 +127,8 @@ namespace NineMenMorris
         #region implement callBacks
 
         public NineMenMorrisMoveUI nineMenMorrisMovePrefab;
+        public NineMenMorrisCustomMoveUI nineMenMorrisCustomMovePrefab;
+        public NineMenMorrisCustomSetUI nineMenMorrisCustomSetPrefab;
 
         private LastMoveCheckChange<UIData> lastMoveCheckChange = new LastMoveCheckChange<UIData>();
 
@@ -137,6 +167,18 @@ namespace NineMenMorris
                             {
                                 NineMenMorrisMoveUI.UIData nineMenMorrisMoveUIData = lastMoveSub as NineMenMorrisMoveUI.UIData;
                                 UIUtils.Instantiate(nineMenMorrisMoveUIData, nineMenMorrisMovePrefab, this.transform);
+                            }
+                            break;
+                        case GameMove.Type.NineMenMorrisCustomMove:
+                            {
+                                NineMenMorrisCustomMoveUI.UIData nineMenMorrisCustomMoveUIData = lastMoveSub as NineMenMorrisCustomMoveUI.UIData;
+                                UIUtils.Instantiate(nineMenMorrisCustomMoveUIData, nineMenMorrisCustomMovePrefab, this.transform);
+                            }
+                            break;
+                        case GameMove.Type.NineMenMorrisCustomSet:
+                            {
+                                NineMenMorrisCustomSetUI.UIData nineMenMorrisCustomSetUIData = lastMoveSub as NineMenMorrisCustomSetUI.UIData;
+                                UIUtils.Instantiate(nineMenMorrisCustomSetUIData, nineMenMorrisCustomSetPrefab, this.transform);
                             }
                             break;
                         default:
@@ -184,6 +226,18 @@ namespace NineMenMorris
                             {
                                 NineMenMorrisMoveUI.UIData nineMenMorrisMoveUIData = lastMoveSub as NineMenMorrisMoveUI.UIData;
                                 nineMenMorrisMoveUIData.removeCallBackAndDestroy(typeof(NineMenMorrisMoveUI));
+                            }
+                            break;
+                        case GameMove.Type.NineMenMorrisCustomMove:
+                            {
+                                NineMenMorrisCustomMoveUI.UIData nineMenMorrisCustomMoveUIData = lastMoveSub as NineMenMorrisCustomMoveUI.UIData;
+                                nineMenMorrisCustomMoveUIData.removeCallBackAndDestroy(typeof(NineMenMorrisCustomMoveUI));
+                            }
+                            break;
+                        case GameMove.Type.NineMenMorrisCustomSet:
+                            {
+                                NineMenMorrisCustomSetUI.UIData nineMenMorrisCustomSetUIData = lastMoveSub as NineMenMorrisCustomSetUI.UIData;
+                                nineMenMorrisCustomSetUIData.removeCallBackAndDestroy(typeof(NineMenMorrisCustomSetUI));
                             }
                             break;
                         default:

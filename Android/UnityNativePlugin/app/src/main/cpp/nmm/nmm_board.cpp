@@ -407,6 +407,12 @@ namespace NMM
         if(sts == SS_Empty)
             return 0;
         
+        // check pos
+        if(!(pos>=0 && pos<BOARD_SPOT)){
+            printf("pos error: %d", pos);
+            return 0;
+        }
+        
         Spot* s = spot[pos];
         int32_t in = 0;
         
@@ -434,6 +440,11 @@ namespace NMM
         // se estado verificado é vazio, então não tem mill
         if(sts == SS_Empty)
             return 0;
+        // check pos
+        if(!(pos>=0 && pos<BOARD_SPOT)){
+            printf("pos error: %d", pos);
+            return 0;
+        }
         
         Spot* s = spot[pos];
         int32_t in = 0;

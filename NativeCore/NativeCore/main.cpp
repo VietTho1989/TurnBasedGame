@@ -64,8 +64,8 @@ int main(int argc, const char * argv[]) {
         // Hex::hex_main(matchCount, ResourcePath);
         // Solitaire::solitaire_main(matchCount, ResourcePath);
         // Khet::khet_main(matchCount, ResourcePath);
-        // NMM::nmm_main(matchCount, ResourcePath);
-        ChineseCheckers::chinese_checkers_main(matchCount, ResourcePath);
+        NMM::nmm_main(matchCount, ResourcePath);
+        // ChineseCheckers::chinese_checkers_main(matchCount, ResourcePath);
     }
     
     return 0;
