@@ -44,7 +44,7 @@ namespace NMM
             /*out.open("mill.txt", ios::out);
              out << gPos2Coord[state->removed];
              out.close();*/
-            printf("mill: %s\n", gPos2Coord[state->removed].c_str());
+            // printf("mill: %s\n", gPos2Coord[state->removed].c_str());
         }
         
         // grava a jogada
@@ -53,11 +53,11 @@ namespace NMM
         {
             case Positioning:
                 // out << gPos2Coord[state->moved];
-                printf("move: %s\n", gPos2Coord[state->moved].c_str());
+                // printf("move: %s\n", gPos2Coord[state->moved].c_str());
                 break;
             case Playing:
                 // out << gPos2Coord[state->moved] << " " << gPos2Coord[state->moved_to];
-                printf("move: %s %s\n", gPos2Coord[state->moved].c_str(), gPos2Coord[state->moved_to].c_str());
+                // printf("move: %s %s\n", gPos2Coord[state->moved].c_str(), gPos2Coord[state->moved_to].c_str());
                 break;
         }
         // out.close();
@@ -67,6 +67,18 @@ namespace NMM
     {
         if(phase == Positioning)
             return false;
+        
+        // check error
+        {
+            if(!(state->moved_to>=0 && state->moved_to<24)){
+                printf("moved_to error: %d\n", state->moved_to);
+                return false;
+            }
+            if(!(state->moved>=0 && state->moved<24)){
+                printf("moved error: %d\n", state->moved);
+                return false;
+            }
+        }
         
         return (gPos2Coord[state->moved_to] == last_from) && gPos2Coord[state->moved] == last_to;
     }
@@ -311,6 +323,13 @@ namespace NMM
             return e;
         
         int32_t m = (e+b)/2;
+        // check error
+        {
+            if(!(m>=0 && m<l.size())){
+                printf("binarysrc: m error: %d\n", m);
+                return 0;
+            }
+        }
         if(utility > l[m]->utility) {
             // printf("utility compare: %f, %f\n", utility, l[m]->utility);
             return binarysrc(utility, b, m, l);

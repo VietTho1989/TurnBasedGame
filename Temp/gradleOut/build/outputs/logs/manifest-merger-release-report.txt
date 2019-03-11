@@ -4,7 +4,7 @@ ADDED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/src/ma
 INJECTED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/src/main/AndroidManifest.xml:2:1-36:12
 INJECTED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/src/main/AndroidManifest.xml:2:1-36:12
 INJECTED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/src/main/AndroidManifest.xml:2:1-36:12
-MERGED from [:AddComponentNative:] /Users/viettho/.gradle/caches/transforms-1/files-1.1/AddComponentNative.aar/10ffe9e8b419d6efb5b04a37d4a58fa7/AndroidManifest.xml:2:1-11:12
+MERGED from [:AddComponentNative:] /Users/viettho/.gradle/caches/transforms-1/files-1.1/AddComponentNative.aar/c0e43006c547df53cff7866806c10cbb/AndroidManifest.xml:2:1-11:12
 MERGED from [:com.android.support.animated-vector-drawable-25.3.1:] /Users/viettho/.gradle/caches/transforms-1/files-1.1/com.android.support.animated-vector-drawable-25.3.1.aar/a5ddcfeb9a68963af09eb6012de76f4d/AndroidManifest.xml:17:1-28:12
 MERGED from [:com.android.support.appcompat-v7-25.3.1:] /Users/viettho/.gradle/caches/transforms-1/files-1.1/com.android.support.appcompat-v7-25.3.1.aar/1b891b0327f6e921fe0dd7a2ef3ca53d/AndroidManifest.xml:17:1-31:12
 MERGED from [:com.android.support.cardview-v7-25.3.1:] /Users/viettho/.gradle/caches/transforms-1/files-1.1/com.android.support.cardview-v7-25.3.1.aar/1168b129136b6a9ac523348a2769a903/AndroidManifest.xml:17:1-28:12
@@ -57,8 +57,8 @@ uses-sdk
 ADDED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/src/main/AndroidManifest.xml:5:3-72
 INJECTED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/src/main/AndroidManifest.xml:5:3-72
 INJECTED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/src/main/AndroidManifest.xml:5:3-72
-MERGED from [:AddComponentNative:] /Users/viettho/.gradle/caches/transforms-1/files-1.1/AddComponentNative.aar/10ffe9e8b419d6efb5b04a37d4a58fa7/AndroidManifest.xml:7:5-9:41
-MERGED from [:AddComponentNative:] /Users/viettho/.gradle/caches/transforms-1/files-1.1/AddComponentNative.aar/10ffe9e8b419d6efb5b04a37d4a58fa7/AndroidManifest.xml:7:5-9:41
+MERGED from [:AddComponentNative:] /Users/viettho/.gradle/caches/transforms-1/files-1.1/AddComponentNative.aar/c0e43006c547df53cff7866806c10cbb/AndroidManifest.xml:7:5-9:41
+MERGED from [:AddComponentNative:] /Users/viettho/.gradle/caches/transforms-1/files-1.1/AddComponentNative.aar/c0e43006c547df53cff7866806c10cbb/AndroidManifest.xml:7:5-9:41
 MERGED from [:com.android.support.animated-vector-drawable-25.3.1:] /Users/viettho/.gradle/caches/transforms-1/files-1.1/com.android.support.animated-vector-drawable-25.3.1.aar/a5ddcfeb9a68963af09eb6012de76f4d/AndroidManifest.xml:20:5-44
 MERGED from [:com.android.support.animated-vector-drawable-25.3.1:] /Users/viettho/.gradle/caches/transforms-1/files-1.1/com.android.support.animated-vector-drawable-25.3.1.aar/a5ddcfeb9a68963af09eb6012de76f4d/AndroidManifest.xml:20:5-44
 MERGED from [:com.android.support.appcompat-v7-25.3.1:] /Users/viettho/.gradle/caches/transforms-1/files-1.1/com.android.support.appcompat-v7-25.3.1.aar/1b891b0327f6e921fe0dd7a2ef3ca53d/AndroidManifest.xml:21:5-23:78

@@ -141,6 +141,7 @@ namespace NineMenMorris
         public static byte[] convertToBytes(NineMenMorris nineMenMorris, bool needCheckCustom = true)
         {
             // custom
+            // TODO Can hoan thien
             /*if (nineMenMorris.isCustom.v && needCheckCustom) {
 				string strFen = Core.unityPositionToFen (russianDraught, Core.CanCorrect);
 				Debug.LogError ("russianDraught custom fen: " + strFen);
@@ -563,8 +564,8 @@ namespace NineMenMorris
                     }
                     else
                     {
-                        useNormalMove = false;
-                        /*GameData gameData = this.findDataInParent<GameData>();
+                        // useNormalMove = false;
+                        GameData gameData = this.findDataInParent<GameData>();
                         if (gameData != null)
                         {
                             Turn turn = gameData.turn.v;
@@ -583,7 +584,7 @@ namespace NineMenMorris
                         else
                         {
                             Debug.LogError("gameData null: " + this);
-                        }*/
+                        }
                     }
                 }
                 // process

@@ -303,7 +303,7 @@ namespace NMM
             case Mv_Up:
                 if(s->up == NULL || s->up->status != SS_Empty)
                 {
-                    printf("move spot: invalid movement! (%s -> %s)\n", spot[pos]->id.c_str(), gAction2Str[action].c_str());
+                    // printf("move spot: invalid movement! (%s -> %s)\n", spot[pos]->id.c_str(), gAction2Str[action].c_str());
                     return 0;
                 }
                 else
@@ -316,7 +316,7 @@ namespace NMM
             case Mv_Down:
                 if(s->dn == NULL || s->dn->status != SS_Empty)
                 {
-                    printf("move spot: invalid movement! (%s -> %s)\n", spot[pos]->id.c_str(), gAction2Str[action].c_str());
+                    // printf("move spot: invalid movement! (%s -> %s)\n", spot[pos]->id.c_str(), gAction2Str[action].c_str());
                     return 0;
                 }
                 else
@@ -329,7 +329,7 @@ namespace NMM
             case Mv_Left:
                 if(s->lf == NULL || s->lf->status != SS_Empty)
                 {
-                    printf("move spot: invalid movement! (%s -> %s)\n", spot[pos]->id.c_str(), gAction2Str[action].c_str());
+                    // printf("move spot: invalid movement! (%s -> %s)\n", spot[pos]->id.c_str(), gAction2Str[action].c_str());
                     return 0;
                 }
                 else
@@ -342,7 +342,7 @@ namespace NMM
             case Mv_Right:
                 if(s->rt == NULL || s->rt->status != SS_Empty)
                 {
-                    printf("move spot: invalid movement! (%s -> %s)\n", spot[pos]->id.c_str(), gAction2Str[action].c_str());
+                    // printf("move spot: invalid movement! (%s -> %s)\n", spot[pos]->id.c_str(), gAction2Str[action].c_str());
                     return 0;
                 }
                 else

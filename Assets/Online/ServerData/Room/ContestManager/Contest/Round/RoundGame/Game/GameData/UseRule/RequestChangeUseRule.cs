@@ -89,7 +89,8 @@ public class RequestChangeUseRule : Data
 				}
 			} else {
 				Debug.LogError ("changeUseRuleRight null: " + this);
-			}
+                ret.Add(0);
+            }
 		}
 		return ret;
 	}
