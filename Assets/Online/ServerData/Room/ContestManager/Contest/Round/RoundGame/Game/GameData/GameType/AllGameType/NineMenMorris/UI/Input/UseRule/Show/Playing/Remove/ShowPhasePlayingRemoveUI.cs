@@ -124,8 +124,8 @@ namespace NineMenMorris.UseRule
 
 		#region Refresh
 
-		public Image imgFrom;
-		public Image imgDest;
+		public GameObject ivFrom;
+		public GameObject ivDest;
 
 		public GameObject keySelect;
 
@@ -150,8 +150,8 @@ namespace NineMenMorris.UseRule
 					}
 					// imgFrom
 					{
-						if (imgFrom != null) {
-							imgFrom.transform.localPosition = Common.convertPositionToLocal (this.data.from.v);
+						if (ivFrom != null) {
+							ivFrom.transform.localPosition = Common.convertPositionToLocal (this.data.from.v);
 							// TODO co the co rotate
 							{
 								// TODO Can hoan thien
@@ -162,8 +162,8 @@ namespace NineMenMorris.UseRule
 					}
 					// imgDest
 					{
-						if (imgDest != null) {
-							imgDest.transform.localPosition = Common.convertPositionToLocal (this.data.dest.v);
+						if (ivDest != null) {
+							ivDest.transform.localPosition = Common.convertPositionToLocal (this.data.dest.v);
 							// TODO co the co rotate
 							{
 								// TODO Can hoan thien

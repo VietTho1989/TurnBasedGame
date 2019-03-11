@@ -39,8 +39,6 @@ namespace NineMenMorris
 
 		#region Refresh
 
-		public Transform contentContainer;
-
 		public override void refresh ()
 		{
 			if (dirty) {
@@ -48,14 +46,6 @@ namespace NineMenMorris
 				if (this.data != null) {
 					// Find last move
 					GameMove lastMove = LastMoveCheckChange<UIData>.getLastMove(this.data);
-					// contentContainer
-					{
-						if (contentContainer != null) {
-							contentContainer.gameObject.SetActive (lastMove != null);
-						} else {
-							Debug.LogError ("contentContainer null: " + this);
-						}
-					}
 					// Process
 					if (lastMove != null) {
 						switch (lastMove.getType ()) {
