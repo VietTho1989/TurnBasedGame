@@ -290,6 +290,12 @@ namespace NMM
     
     int32_t Board::move_spot(const int32_t &pos, const NMMAction &action)
     {
+        if(pos < 0 || pos >= BOARD_SPOT)
+        {
+            printf("grab spot: out of range (%i)\n", pos);
+            return 0;
+        }
+        
         int32_t new_pos = 0;
         Spot* s = spot[pos];
         switch (action)
