@@ -5,307 +5,318 @@ using CoTuongUp.NoneRule;
 
 namespace CoTuongUp
 {
-	public class LastMoveUI : UIBehavior<LastMoveUI.UIData>
-	{
+    public class LastMoveUI : UIBehavior<LastMoveUI.UIData>
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : Data
-		{
-			
-			public VP<ReferenceData<GameData>> gameData;
+        public class UIData : Data
+        {
 
-			public VP<LastMoveSub> sub;
+            public VP<ReferenceData<GameData>> gameData;
 
-			#region Constructor
+            public VP<LastMoveSub> sub;
 
-			public enum Property
-			{
-				gameData,
-				sub
-			}
+            #region Constructor
 
-			public UIData() : base()
-			{
-				this.gameData = new VP<ReferenceData<GameData>>(this, (byte)Property.gameData, new ReferenceData<GameData>(null));
-				this.sub = new VP<LastMoveSub>(this, (byte)Property.sub, null);
-			}
+            public enum Property
+            {
+                gameData,
+                sub
+            }
 
-			#endregion
+            public UIData() : base()
+            {
+                this.gameData = new VP<ReferenceData<GameData>>(this, (byte)Property.gameData, new ReferenceData<GameData>(null));
+                this.sub = new VP<LastMoveSub>(this, (byte)Property.sub, null);
+            }
 
-		}
+            #endregion
 
-		#endregion
+        }
 
-		#region Refresh
+        #endregion
 
-		public Transform contentContainer;
+        #region Refresh
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
-					// Find last move
-					GameMove lastMove = LastMoveCheckChange<UIData>.getLastMove(this.data);
-					// contentContainer
-					{
-						if (contentContainer != null) {
-							contentContainer.gameObject.SetActive (lastMove != null);
-						} else {
-							Debug.LogError ("contentContainer null: " + this);
-						}
-					}
-					// Process
-					if (lastMove != null) {
-						switch (lastMove.getType ()) {
-						case GameMove.Type.CoTuongUpMove:
-							{
-								CoTuongUpMove coTuongUpMove = lastMove as CoTuongUpMove;
-								// Find
-								CoTuongUpMoveUI.UIData coTuongUpMoveUIData = this.data.sub.newOrOld<CoTuongUpMoveUI.UIData>();
-								{
-									// move
-									coTuongUpMoveUIData.coTuongUpMove.v = new ReferenceData<CoTuongUpMove> (coTuongUpMove);
-									// isHint
-									coTuongUpMoveUIData.isHint.v = false;
-								}
-								this.data.sub.v = coTuongUpMoveUIData;
-							}
-							break;
-						case GameMove.Type.CoTuongUpCustomSet:
-							{
-								CoTuongUpCustomSet coTuongUpCustomSet = lastMove as CoTuongUpCustomSet;
-								// Find
-								CoTuongUpCustomSetUI.UIData coTuongUpCustomSetUIData = this.data.sub.newOrOld<CoTuongUpCustomSetUI.UIData>();
-								{
-									// move
-									coTuongUpCustomSetUIData.coTuongUpCustomSet.v = new ReferenceData<CoTuongUpCustomSet> (coTuongUpCustomSet);
-									// isHint
-									coTuongUpCustomSetUIData.isHint.v = false;
-								}
-								this.data.sub.v = coTuongUpCustomSetUIData;
-							}
-							break;
-						case GameMove.Type.CoTuongUpCustomMove:
-							{
-								CoTuongUpCustomMove coTuongUpCustomMove = lastMove as CoTuongUpCustomMove;
-								// Find
-								CoTuongUpCustomMoveUI.UIData coTuongUpCustomMoveUIData = this.data.sub.newOrOld<CoTuongUpCustomMoveUI.UIData>();
-								{
-									// move
-									coTuongUpCustomMoveUIData.coTuongUpCustomMove.v = new ReferenceData<CoTuongUpCustomMove> (coTuongUpCustomMove);
-									// isHint
-									coTuongUpCustomMoveUIData.isHint.v = false;
-								}
-								this.data.sub.v = coTuongUpCustomMoveUIData;
-							}
-							break;
-						case GameMove.Type.CoTuongUpCustomFlip:
-							{
-								CoTuongUpCustomFlip coTuongUpCustomFlip = lastMove as CoTuongUpCustomFlip;
-								// Find
-								CoTuongUpCustomFlipUI.UIData coTuongUpCustomFlipUIData = this.data.sub.newOrOld<CoTuongUpCustomFlipUI.UIData>();
-								{
-									// move
-									coTuongUpCustomFlipUIData.coTuongUpCustomFlip.v = new ReferenceData<CoTuongUpCustomFlip> (coTuongUpCustomFlip);
-									// isHint
-									coTuongUpCustomFlipUIData.isHint.v = false;
-								}
-								this.data.sub.v = coTuongUpCustomFlipUIData;
-							}
-							break;
-						case GameMove.Type.None:
-							this.data.sub.v = null;
-							break;
-						default:
-							Debug.LogError ("unknown lastMove: " + lastMove + ";" + this);
-							this.data.sub.v = null;
-							break;
-						}
-					} else {
-						// Debug.LogError ("lastMove null: " + this);
-						this.data.sub.v = null;
-					}
-				} else {
-					// Debug.LogError ("data null: " + this);
-				}
-			}
-		}
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
+                    // Find last move
+                    GameMove lastMove = LastMoveCheckChange<UIData>.getLastMove(this.data);
+                    // Process
+                    if (lastMove != null)
+                    {
+                        switch (lastMove.getType())
+                        {
+                            case GameMove.Type.CoTuongUpMove:
+                                {
+                                    CoTuongUpMove coTuongUpMove = lastMove as CoTuongUpMove;
+                                    // Find
+                                    CoTuongUpMoveUI.UIData coTuongUpMoveUIData = this.data.sub.newOrOld<CoTuongUpMoveUI.UIData>();
+                                    {
+                                        // move
+                                        coTuongUpMoveUIData.coTuongUpMove.v = new ReferenceData<CoTuongUpMove>(coTuongUpMove);
+                                        // isHint
+                                        coTuongUpMoveUIData.isHint.v = false;
+                                    }
+                                    this.data.sub.v = coTuongUpMoveUIData;
+                                }
+                                break;
+                            case GameMove.Type.CoTuongUpCustomSet:
+                                {
+                                    CoTuongUpCustomSet coTuongUpCustomSet = lastMove as CoTuongUpCustomSet;
+                                    // Find
+                                    CoTuongUpCustomSetUI.UIData coTuongUpCustomSetUIData = this.data.sub.newOrOld<CoTuongUpCustomSetUI.UIData>();
+                                    {
+                                        // move
+                                        coTuongUpCustomSetUIData.coTuongUpCustomSet.v = new ReferenceData<CoTuongUpCustomSet>(coTuongUpCustomSet);
+                                        // isHint
+                                        coTuongUpCustomSetUIData.isHint.v = false;
+                                    }
+                                    this.data.sub.v = coTuongUpCustomSetUIData;
+                                }
+                                break;
+                            case GameMove.Type.CoTuongUpCustomMove:
+                                {
+                                    CoTuongUpCustomMove coTuongUpCustomMove = lastMove as CoTuongUpCustomMove;
+                                    // Find
+                                    CoTuongUpCustomMoveUI.UIData coTuongUpCustomMoveUIData = this.data.sub.newOrOld<CoTuongUpCustomMoveUI.UIData>();
+                                    {
+                                        // move
+                                        coTuongUpCustomMoveUIData.coTuongUpCustomMove.v = new ReferenceData<CoTuongUpCustomMove>(coTuongUpCustomMove);
+                                        // isHint
+                                        coTuongUpCustomMoveUIData.isHint.v = false;
+                                    }
+                                    this.data.sub.v = coTuongUpCustomMoveUIData;
+                                }
+                                break;
+                            case GameMove.Type.CoTuongUpCustomFlip:
+                                {
+                                    CoTuongUpCustomFlip coTuongUpCustomFlip = lastMove as CoTuongUpCustomFlip;
+                                    // Find
+                                    CoTuongUpCustomFlipUI.UIData coTuongUpCustomFlipUIData = this.data.sub.newOrOld<CoTuongUpCustomFlipUI.UIData>();
+                                    {
+                                        // move
+                                        coTuongUpCustomFlipUIData.coTuongUpCustomFlip.v = new ReferenceData<CoTuongUpCustomFlip>(coTuongUpCustomFlip);
+                                        // isHint
+                                        coTuongUpCustomFlipUIData.isHint.v = false;
+                                    }
+                                    this.data.sub.v = coTuongUpCustomFlipUIData;
+                                }
+                                break;
+                            case GameMove.Type.None:
+                                this.data.sub.v = null;
+                                break;
+                            default:
+                                Debug.LogError("unknown lastMove: " + lastMove + ";" + this);
+                                this.data.sub.v = null;
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        // Debug.LogError ("lastMove null: " + this);
+                        this.data.sub.v = null;
+                    }
+                }
+                else
+                {
+                    // Debug.LogError ("data null: " + this);
+                }
+            }
+        }
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		#endregion
+        #endregion
 
-		#region implement callBacks
+        #region implement callBacks
 
-		public CoTuongUpMoveUI coTuongUpMovePrefab;
-		public CoTuongUpCustomSetUI coTuongUpCustomSetPrefab;
-		public CoTuongUpCustomMoveUI coTuongUpCustomMovePrefab;
-		public CoTuongUpCustomFlipUI coTuongUpCustomFlipPrefab;
+        public CoTuongUpMoveUI coTuongUpMovePrefab;
+        public CoTuongUpCustomSetUI coTuongUpCustomSetPrefab;
+        public CoTuongUpCustomMoveUI coTuongUpCustomMovePrefab;
+        public CoTuongUpCustomFlipUI coTuongUpCustomFlipPrefab;
 
-		private LastMoveCheckChange<UIData> lastMoveCheckChange = new LastMoveCheckChange<UIData> ();
+        private LastMoveCheckChange<UIData> lastMoveCheckChange = new LastMoveCheckChange<UIData>();
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// CheckChange
-				{
-					lastMoveCheckChange.addCallBack (this);
-					lastMoveCheckChange.setData (uiData);
-				}
-				// Child
-				{
-					uiData.sub.allAddCallBack (this);
-				}
-				dirty = true;
-				return;
-			}
-			// CheckChange
-			if (data is LastMoveCheckChange<UIData>) {
-				dirty = true;
-				return;
-			}
-			// Child
-			if (data is LastMoveSub) {
-				LastMoveSub lastMoveSub = data as LastMoveSub;
-				// UI
-				{
-					switch (lastMoveSub.getType ()) {
-					case GameMove.Type.CoTuongUpMove:
-						{
-							CoTuongUpMoveUI.UIData coTuongUpMoveUIData = lastMoveSub as CoTuongUpMoveUI.UIData;
-							UIUtils.Instantiate (coTuongUpMoveUIData, coTuongUpMovePrefab, this.transform);
-						}
-						break;
-					case GameMove.Type.CoTuongUpCustomSet:
-						{
-							CoTuongUpCustomSetUI.UIData coTuongUpCustomSetUIData = lastMoveSub as CoTuongUpCustomSetUI.UIData;
-							UIUtils.Instantiate (coTuongUpCustomSetUIData, coTuongUpCustomSetPrefab, this.transform);
-						}
-						break;
-					case GameMove.Type.CoTuongUpCustomMove:
-						{
-							CoTuongUpCustomMoveUI.UIData coTuongUpCustomMoveUIData = lastMoveSub as CoTuongUpCustomMoveUI.UIData;
-							UIUtils.Instantiate (coTuongUpCustomMoveUIData, coTuongUpCustomMovePrefab, this.transform);
-						}
-						break;
-					case GameMove.Type.CoTuongUpCustomFlip:
-						{
-							CoTuongUpCustomFlipUI.UIData coTuongUpCustomFlipUIData = lastMoveSub as CoTuongUpCustomFlipUI.UIData;
-							UIUtils.Instantiate (coTuongUpCustomFlipUIData, coTuongUpCustomFlipPrefab, this.transform);
-						}
-						break;
-					default:
-						Debug.LogError ("unknown type: " + lastMoveSub.getType () + "; " + this);
-						break;
-					}
-				}
-				dirty = true;
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // CheckChange
+                {
+                    lastMoveCheckChange.addCallBack(this);
+                    lastMoveCheckChange.setData(uiData);
+                }
+                // Child
+                {
+                    uiData.sub.allAddCallBack(this);
+                }
+                dirty = true;
+                return;
+            }
+            // CheckChange
+            if (data is LastMoveCheckChange<UIData>)
+            {
+                dirty = true;
+                return;
+            }
+            // Child
+            if (data is LastMoveSub)
+            {
+                LastMoveSub lastMoveSub = data as LastMoveSub;
+                // UI
+                {
+                    switch (lastMoveSub.getType())
+                    {
+                        case GameMove.Type.CoTuongUpMove:
+                            {
+                                CoTuongUpMoveUI.UIData coTuongUpMoveUIData = lastMoveSub as CoTuongUpMoveUI.UIData;
+                                UIUtils.Instantiate(coTuongUpMoveUIData, coTuongUpMovePrefab, this.transform);
+                            }
+                            break;
+                        case GameMove.Type.CoTuongUpCustomSet:
+                            {
+                                CoTuongUpCustomSetUI.UIData coTuongUpCustomSetUIData = lastMoveSub as CoTuongUpCustomSetUI.UIData;
+                                UIUtils.Instantiate(coTuongUpCustomSetUIData, coTuongUpCustomSetPrefab, this.transform);
+                            }
+                            break;
+                        case GameMove.Type.CoTuongUpCustomMove:
+                            {
+                                CoTuongUpCustomMoveUI.UIData coTuongUpCustomMoveUIData = lastMoveSub as CoTuongUpCustomMoveUI.UIData;
+                                UIUtils.Instantiate(coTuongUpCustomMoveUIData, coTuongUpCustomMovePrefab, this.transform);
+                            }
+                            break;
+                        case GameMove.Type.CoTuongUpCustomFlip:
+                            {
+                                CoTuongUpCustomFlipUI.UIData coTuongUpCustomFlipUIData = lastMoveSub as CoTuongUpCustomFlipUI.UIData;
+                                UIUtils.Instantiate(coTuongUpCustomFlipUIData, coTuongUpCustomFlipPrefab, this.transform);
+                            }
+                            break;
+                        default:
+                            Debug.LogError("unknown type: " + lastMoveSub.getType() + "; " + this);
+                            break;
+                    }
+                }
+                dirty = true;
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// CheckChange
-				{
-					lastMoveCheckChange.removeCallBack (this);
-					lastMoveCheckChange.setData (null);
-				}
-				// Child
-				{
-					uiData.sub.allRemoveCallBack (this);
-				}
-				this.setDataNull (uiData);
-				return;
-			}
-			// CheckChange
-			if (data is LastMoveCheckChange<UIData>) {
-				return;
-			}
-			// Child
-			if (data is LastMoveSub) {
-				LastMoveSub lastMoveSub = data as LastMoveSub;
-				// UI
-				{
-					switch (lastMoveSub.getType ()) {
-					case GameMove.Type.CoTuongUpMove:
-						{
-							CoTuongUpMoveUI.UIData coTuongUpMoveUIData = lastMoveSub as CoTuongUpMoveUI.UIData;
-							coTuongUpMoveUIData.removeCallBackAndDestroy (typeof(CoTuongUpMoveUI));
-						}
-						break;
-					case GameMove.Type.CoTuongUpCustomSet:
-						{
-							CoTuongUpCustomSetUI.UIData coTuongUpCustomSetUIData = lastMoveSub as CoTuongUpCustomSetUI.UIData;
-							coTuongUpCustomSetUIData.removeCallBackAndDestroy (typeof(CoTuongUpCustomSetUI));
-						}
-						break;
-					case GameMove.Type.CoTuongUpCustomMove:
-						{
-							CoTuongUpCustomMoveUI.UIData coTuongUpCustomMoveUIData = lastMoveSub as CoTuongUpCustomMoveUI.UIData;
-							coTuongUpCustomMoveUIData.removeCallBackAndDestroy (typeof(CoTuongUpCustomMoveUI));
-						}
-						break;
-					case GameMove.Type.CoTuongUpCustomFlip:
-						{
-							CoTuongUpCustomFlipUI.UIData coTuongUpCustomFlipUIData = lastMoveSub as CoTuongUpCustomFlipUI.UIData;
-							coTuongUpCustomFlipUIData.removeCallBackAndDestroy (typeof(CoTuongUpCustomFlipUI));
-						}
-						break;
-					default:
-						Debug.LogError ("unknown type: " + lastMoveSub.getType () + "; " + this);
-						break;
-					}
-				}
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // CheckChange
+                {
+                    lastMoveCheckChange.removeCallBack(this);
+                    lastMoveCheckChange.setData(null);
+                }
+                // Child
+                {
+                    uiData.sub.allRemoveCallBack(this);
+                }
+                this.setDataNull(uiData);
+                return;
+            }
+            // CheckChange
+            if (data is LastMoveCheckChange<UIData>)
+            {
+                return;
+            }
+            // Child
+            if (data is LastMoveSub)
+            {
+                LastMoveSub lastMoveSub = data as LastMoveSub;
+                // UI
+                {
+                    switch (lastMoveSub.getType())
+                    {
+                        case GameMove.Type.CoTuongUpMove:
+                            {
+                                CoTuongUpMoveUI.UIData coTuongUpMoveUIData = lastMoveSub as CoTuongUpMoveUI.UIData;
+                                coTuongUpMoveUIData.removeCallBackAndDestroy(typeof(CoTuongUpMoveUI));
+                            }
+                            break;
+                        case GameMove.Type.CoTuongUpCustomSet:
+                            {
+                                CoTuongUpCustomSetUI.UIData coTuongUpCustomSetUIData = lastMoveSub as CoTuongUpCustomSetUI.UIData;
+                                coTuongUpCustomSetUIData.removeCallBackAndDestroy(typeof(CoTuongUpCustomSetUI));
+                            }
+                            break;
+                        case GameMove.Type.CoTuongUpCustomMove:
+                            {
+                                CoTuongUpCustomMoveUI.UIData coTuongUpCustomMoveUIData = lastMoveSub as CoTuongUpCustomMoveUI.UIData;
+                                coTuongUpCustomMoveUIData.removeCallBackAndDestroy(typeof(CoTuongUpCustomMoveUI));
+                            }
+                            break;
+                        case GameMove.Type.CoTuongUpCustomFlip:
+                            {
+                                CoTuongUpCustomFlipUI.UIData coTuongUpCustomFlipUIData = lastMoveSub as CoTuongUpCustomFlipUI.UIData;
+                                coTuongUpCustomFlipUIData.removeCallBackAndDestroy(typeof(CoTuongUpCustomFlipUI));
+                            }
+                            break;
+                        default:
+                            Debug.LogError("unknown type: " + lastMoveSub.getType() + "; " + this);
+                            break;
+                    }
+                }
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.gameData:
-					dirty = true;
-					break;
-				case UIData.Property.sub:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// CheckChange
-			if (wrapProperty.p is LastMoveCheckChange<UIData>) {
-				dirty = true;
-				return;
-			}
-			// Child
-			if (wrapProperty.p is LastMoveSub) {
-				return;
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.gameData:
+                        dirty = true;
+                        break;
+                    case UIData.Property.sub:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // CheckChange
+            if (wrapProperty.p is LastMoveCheckChange<UIData>)
+            {
+                dirty = true;
+                return;
+            }
+            // Child
+            if (wrapProperty.p is LastMoveSub)
+            {
+                return;
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
 
-		#endregion
+        #endregion
 
-	}
+    }
 }
