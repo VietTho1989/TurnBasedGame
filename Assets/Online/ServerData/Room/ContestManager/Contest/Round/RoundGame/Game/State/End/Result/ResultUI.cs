@@ -64,6 +64,9 @@ namespace GameState
 
         public Text tvResult;
 
+        private static readonly Color normalColor = new Color(50 / 255.0f, 50 / 255.0f, 50 / 255.0f);
+        private static readonly Color endColor = new Color(0f, 0f, 1f);
+
         public override void refresh()
         {
             if (dirty)
@@ -78,6 +81,7 @@ namespace GameState
                         if (tvResult != null)
                         {
                             // tvResult.text = result.score.v + "; " + result.reason.v;
+                            // txt
                             switch (result.reason.v)
                             {
                                 case Result.Reason.None:
@@ -112,6 +116,8 @@ namespace GameState
                                     tvResult.text = result.score.v + "; " + result.reason.v;
                                     break;
                             }
+                            // color
+                            tvResult.color = (result.reason.v == Result.Reason.None) ? normalColor : endColor;
                         }
                         else
                         {
@@ -125,6 +131,7 @@ namespace GameState
                         if (tvResult != null)
                         {
                             tvResult.text = txtNone.get("Result: game not end");
+                            tvResult.color = normalColor;
                         }
                         else
                         {

@@ -4,150 +4,183 @@ using System.Collections.Generic;
 
 namespace GameManager.Match
 {
-	public class RequestNewRound : Data
-	{
-		
-		#region State
+    public class RequestNewRound : Data
+    {
 
-		public abstract class State : Data
-		{
+        #region State
 
-			public enum Type
-			{
-				None,
-				Ask,
-				Accept
-			}
+        public abstract class State : Data
+        {
 
-			public abstract Type getType();
+            public enum Type
+            {
+                None,
+                Ask,
+                Accept
+            }
 
-		}
+            public abstract Type getType();
 
-		public VP<State> state;
+        }
 
-		public static HashSet<uint> WhoCanAsk(Data data)
-		{
-			HashSet<uint> ret = new HashSet<uint> ();
-			{
-				if (data != null) {
-					RequestNewRound requestNewRound = data.findDataInParent<RequestNewRound> ();
-					if (requestNewRound != null) {
-						// add all team member of round
-						{
-							Contest contest = requestNewRound.findDataInParent<Contest> ();
-							if (contest != null) {
-								foreach (MatchTeam team in contest.teams.vs) {
-									foreach (TeamPlayer teamPlayer in team.players.vs) {
-										if (teamPlayer.inform.v is Human) {
-											Human human = teamPlayer.inform.v as Human;
-											ret.Add (human.playerId.v);
-										}
-									}
-								}
-							} else {
-								Debug.LogError ("contest null: " + data);
-							}
-						}
-						// add admin
-						if (ret.Count == 0) {
-							RoomUser admin = Room.findAdmin (requestNewRound);
-							if (admin != null) {
-								Human adminHuman = admin.inform.v;
-								if (adminHuman != null) {
-									ret.Add (adminHuman.playerId.v);
-								} else {
-									Debug.LogError ("adminHuman null: " + data);
-								}
-							} else {
-								Debug.LogError ("admin null: " + data);
-							}
-						}
-					} else {
-						Debug.LogError ("requestNewRound null: " + data);
-					}
-				} else {
-					Debug.LogError ("data null");
-				}
-			}
-			return ret;
-		}
+        public VP<State> state;
 
-		#endregion
+        public static HashSet<uint> WhoCanAsk(Data data)
+        {
+            HashSet<uint> ret = new HashSet<uint>();
+            {
+                if (data != null)
+                {
+                    RequestNewRound requestNewRound = data.findDataInParent<RequestNewRound>();
+                    if (requestNewRound != null)
+                    {
+                        // add all team member of round
+                        {
+                            Contest contest = requestNewRound.findDataInParent<Contest>();
+                            if (contest != null)
+                            {
+                                foreach (MatchTeam team in contest.teams.vs)
+                                {
+                                    foreach (TeamPlayer teamPlayer in team.players.vs)
+                                    {
+                                        if (teamPlayer.inform.v is Human)
+                                        {
+                                            Human human = teamPlayer.inform.v as Human;
+                                            ret.Add(human.playerId.v);
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("contest null: " + data);
+                            }
+                        }
+                        // add admin
+                        if (ret.Count == 0)
+                        {
+                            RoomUser admin = Room.findAdmin(requestNewRound);
+                            if (admin != null)
+                            {
+                                Human adminHuman = admin.inform.v;
+                                if (adminHuman != null)
+                                {
+                                    ret.Add(adminHuman.playerId.v);
+                                }
+                                else
+                                {
+                                    Debug.LogError("adminHuman null: " + data);
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("admin null: " + data);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("requestNewRound null: " + data);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("data null");
+                }
+            }
+            return ret;
+        }
 
-		#region Limit
+        #endregion
 
-		public abstract class Limit : Data
-		{
+        #region Limit
 
-			public enum Type
-			{
-				NoLimit,
-				HaveLimit
-			}
+        public abstract class Limit : Data
+        {
 
-			public abstract Type getType();
+            public enum Type
+            {
+                NoLimit,
+                HaveLimit
+            }
 
-			public abstract bool isCanMakeMoreRound();
+            public abstract Type getType();
 
-		}
+            public abstract bool isCanMakeMoreRound();
 
-		public VP<Limit> limit;
+        }
 
-		#endregion
+        public VP<Limit> limit;
 
-		#region Constructor
+        #endregion
 
-		public enum Property
-		{
-			state,
-			limit
-		}
+        #region Constructor
 
-		public RequestNewRound() : base()
-		{
-			this.state = new VP<State> (this, (byte)Property.state, new RequestNewRoundStateNone ());
-			this.limit = new VP<Limit> (this, (byte)Property.limit, new RequestNewRoundNoLimit ());
-		}
+        public enum Property
+        {
+            state,
+            limit
+        }
 
-		#endregion
+        public RequestNewRound() : base()
+        {
+            this.state = new VP<State>(this, (byte)Property.state, new RequestNewRoundStateNone());
+            this.limit = new VP<Limit>(this, (byte)Property.limit, new RequestNewRoundNoLimit());
+        }
 
-		public static bool IsCanMakeNewRound(Data data)
-		{
-			if (data != null) {
-				RequestNewRound requestNewRound = data.findDataInParent<RequestNewRound> ();
-				if (requestNewRound != null) {
-					return requestNewRound.isCanMakeNewRound ();
-				} else {
-					Debug.LogError ("requestNewRound null: " + data);
-				}
-			} else {
-				Debug.LogError ("data null");
-			}
-			return false;
-		}
+        #endregion
 
-		public bool isCanMakeNewRound()
-		{
-			bool allRoundEnd = true;
-			{
-				Contest contest = this.findDataInParent<Contest> ();
-				if (contest != null) {
-					foreach (Round round in contest.rounds.vs) {
-						if (!(round.state.v is RoundStateEnd)) {
-							allRoundEnd = false;
-							break;
-						}
-					}
-				} else {
-					Debug.LogError ("contest null: " + this);
-				}
-			}
-			if (allRoundEnd) {
-				return this.limit.v.isCanMakeMoreRound ();
-			} else {
-				return false;
-			}
-		}
+        public static bool IsCanMakeNewRound(Data data)
+        {
+            if (data != null)
+            {
+                RequestNewRound requestNewRound = data.findDataInParent<RequestNewRound>();
+                if (requestNewRound != null)
+                {
+                    return requestNewRound.isCanMakeNewRound();
+                }
+                else
+                {
+                    Debug.LogError("requestNewRound null: " + data);
+                }
+            }
+            else
+            {
+                Debug.LogError("data null");
+            }
+            return false;
+        }
 
-	}
+        public bool isCanMakeNewRound()
+        {
+            bool allRoundEnd = true;
+            {
+                Contest contest = this.findDataInParent<Contest>();
+                if (contest != null)
+                {
+                    foreach (Round round in contest.rounds.vs)
+                    {
+                        if (!(round.state.v is RoundStateEnd))
+                        {
+                            allRoundEnd = false;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogError("contest null: " + this);
+                }
+            }
+            if (allRoundEnd)
+            {
+                return this.limit.v.isCanMakeMoreRound();
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+    }
 }

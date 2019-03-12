@@ -6,189 +6,221 @@ using GameManager.Match;
 
 namespace GameManager.ContestManager
 {
-	public class RequestNewContestManagerStateAcceptUI : UIBehavior<RequestNewContestManagerStateAcceptUI.UIData>
-	{
+    public class RequestNewContestManagerStateAcceptUI : UIBehavior<RequestNewContestManagerStateAcceptUI.UIData>
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : RequestNewContestManagerUI.UIData.Sub
-		{
+        public class UIData : RequestNewContestManagerUI.UIData.Sub
+        {
 
-			public VP<ReferenceData<RequestNewContestManagerStateAccept>> requestNewContestManagerStateAccept;
+            public VP<ReferenceData<RequestNewContestManagerStateAccept>> requestNewContestManagerStateAccept;
 
-			#region Constructor
+            #region Constructor
 
-			public enum Property
-			{
-				requestNewContestManagerStateAccept
-			}
+            public enum Property
+            {
+                requestNewContestManagerStateAccept
+            }
 
-			public UIData() : base()
-			{
-				this.requestNewContestManagerStateAccept = new VP<ReferenceData<RequestNewContestManagerStateAccept>>(this, (byte)Property.requestNewContestManagerStateAccept, new ReferenceData<RequestNewContestManagerStateAccept>(null));
-			}
+            public UIData() : base()
+            {
+                this.requestNewContestManagerStateAccept = new VP<ReferenceData<RequestNewContestManagerStateAccept>>(this, (byte)Property.requestNewContestManagerStateAccept, new ReferenceData<RequestNewContestManagerStateAccept>(null));
+            }
 
-			#endregion
+            #endregion
 
-			public override RequestNewContestManager.State.Type getType ()
-			{
-				return RequestNewContestManager.State.Type.Accept;
-			}
+            public override RequestNewContestManager.State.Type getType()
+            {
+                return RequestNewContestManager.State.Type.Accept;
+            }
 
-		}
+            public override bool processEvent(Event e)
+            {
+                bool isProcess = false;
+                {
 
-		#endregion
+                }
+                return isProcess;
+            }
 
-		#region Refresh
+        }
 
-		#region txt
+        #endregion
 
-		public Text lbMessage;
-		public static readonly TxtLanguage txtMessage = new TxtLanguage();
+        #region Refresh
 
-		static RequestNewContestManagerStateAcceptUI()
-		{
-			txtMessage.add (Language.Type.vi, "Yêu cấu tạo giải đấu mới: trạng thời chấp nhận");
-		}
+        #region txt
 
-		#endregion
+        public Text tvMessage;
+        public static readonly TxtLanguage txtMessage = new TxtLanguage();
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
-					RequestNewContestManagerStateAccept requestNewContestManagerStateAccept = this.data.requestNewContestManagerStateAccept.v.data;
-					if (requestNewContestManagerStateAccept != null) {
+        static RequestNewContestManagerStateAcceptUI()
+        {
+            txtMessage.add(Language.Type.vi, "Yêu Cầu Giải Mới Chấp Nhận");
+        }
 
-					} else {
-						Debug.LogError ("requestNewContestManagerStateAccept null: " + this);
-					}
-					// txt
-					{
-						if (lbMessage != null) {
-							lbMessage.text = txtMessage.get ("Request new tournament: state accept");
-						} else {
-							Debug.LogError ("lbMessage null: " + this);
-						}
-					}
-				} else {
-					Debug.LogError ("data null: " + this);
-				}
-			}
-		}
+        #endregion
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
+                    RequestNewContestManagerStateAccept requestNewContestManagerStateAccept = this.data.requestNewContestManagerStateAccept.v.data;
+                    if (requestNewContestManagerStateAccept != null)
+                    {
 
-		#endregion
+                    }
+                    else
+                    {
+                        Debug.LogError("requestNewContestManagerStateAccept null: " + this);
+                    }
+                    // txt
+                    {
+                        if (tvMessage != null)
+                        {
+                            tvMessage.text = txtMessage.get("Request New Tournament Accepted");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbMessage null: " + this);
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogError("data null: " + this);
+                }
+            }
+        }
 
-		#region implement callBacks
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Setting
-				Setting.get().addCallBack(this);
-				// Child
-				{
-					uiData.requestNewContestManagerStateAccept.allAddCallBack (this);
-				}
-				dirty = true;
-				return;
-			}
-			// Setting
-			if (data is Setting) {
-				dirty = true;
-				return;
-			}
-			// Child
-			if (data is RequestNewContestManagerStateAccept) {
-				dirty = true;
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        #endregion
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Setting
-				Setting.get().removeCallBack(this);
-				// Child
-				{
-					uiData.requestNewContestManagerStateAccept.allRemoveCallBack (this);
-				}
-				this.setDataNull (uiData);
-				return;
-			}
-			// Setting
-			if (data is Setting) {
-				return;
-			}
-			// Child
-			if (data is RequestNewContestManagerStateAccept) {
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        #region implement callBacks
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.requestNewContestManagerStateAccept:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// Setting
-			if (wrapProperty.p is Setting) {
-				switch ((Setting.Property)wrapProperty.n) {
-				case Setting.Property.language:
-					dirty = true;
-					break;
-				case Setting.Property.showLastMove:
-					break;
-				case Setting.Property.viewUrlImage:
-					break;
-				case Setting.Property.animationSetting:
-					break;
-				case Setting.Property.maxThinkCount:
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// Child
-			if (wrapProperty.p is RequestNewContestManagerStateAccept) {
-				switch ((RequestNewContestManagerStateAccept.Property)wrapProperty.n) {
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-		}
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
+                // Child
+                {
+                    uiData.requestNewContestManagerStateAccept.allAddCallBack(this);
+                }
+                dirty = true;
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // Child
+            if (data is RequestNewContestManagerStateAccept)
+            {
+                dirty = true;
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		#endregion
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
+                // Child
+                {
+                    uiData.requestNewContestManagerStateAccept.allRemoveCallBack(this);
+                }
+                this.setDataNull(uiData);
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
+                return;
+            }
+            // Child
+            if (data is RequestNewContestManagerStateAccept)
+            {
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-	}
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.requestNewContestManagerStateAccept:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Setting
+            if (wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            if (wrapProperty.p is RequestNewContestManagerStateAccept)
+            {
+                switch ((RequestNewContestManagerStateAccept.Property)wrapProperty.n)
+                {
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+        }
+
+        #endregion
+
+    }
 }

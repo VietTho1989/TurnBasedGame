@@ -8,77 +8,91 @@ using GameManager.Match;
 
 namespace GameManager.ContestManager
 {
-	public class WhoCanAskHolder : SriaHolderBehavior<WhoCanAskHolder.UIData>
-	{
+    public class WhoCanAskHolder : SriaHolderBehavior<WhoCanAskHolder.UIData>
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : BaseItemViewsHolder
-		{
+        public class UIData : BaseItemViewsHolder
+        {
 
-			public VP<ReferenceData<Human>> human;
+            public VP<ReferenceData<Human>> human;
 
-			public VP<AccountAvatarUI.UIData> avatar;
+            public VP<AccountAvatarUI.UIData> avatar;
 
-			#region Constructor
+            #region Constructor
 
-			public enum Property
-			{
-				human,
-				avatar
-			}
+            public enum Property
+            {
+                human,
+                avatar
+            }
 
-			public UIData() : base()
-			{
-				this.human = new VP<ReferenceData<Human>>(this, (byte)Property.human, new ReferenceData<Human>(null));
-				this.avatar = new VP<AccountAvatarUI.UIData>(this, (byte)Property.avatar, new AccountAvatarUI.UIData());
-			}
+            public UIData() : base()
+            {
+                this.human = new VP<ReferenceData<Human>>(this, (byte)Property.human, new ReferenceData<Human>(null));
+                this.avatar = new VP<AccountAvatarUI.UIData>(this, (byte)Property.avatar, new AccountAvatarUI.UIData());
+            }
 
-			#endregion
+            #endregion
 
-			public void updateView(WhoCanAskAdapter.UIData myParams)
-			{
-				// Find
-				Human human = null;
-				{
-					if (ItemIndex >= 0 && ItemIndex < myParams.humans.Count) {
-						human = myParams.humans [ItemIndex];
-					} else {
-						Debug.LogError ("ItemIdex error: " + this);
-					}
-				}
-				// Update
-				this.human.v = new ReferenceData<Human> (human);
-			}
+            public void updateView(WhoCanAskAdapter.UIData myParams)
+            {
+                // Find
+                Human human = null;
+                {
+                    if (ItemIndex >= 0 && ItemIndex < myParams.humans.Count)
+                    {
+                        human = myParams.humans[ItemIndex];
+                    }
+                    else
+                    {
+                        Debug.LogError("ItemIdex error: " + this);
+                    }
+                }
+                // Update
+                this.human.v = new ReferenceData<Human>(human);
+            }
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt, rect
 
-		#region txt
+        static WhoCanAskHolder()
+        {
+            // rect
+            {
+                // avatarRect
+                {
+                    // anchoredPosition: (0.0, -4.0); anchorMin: (0.5, 1.0); anchorMax: (0.5, 1.0); pivot: (0.5, 1.0);
+                    // offsetMin: (-18.0, -40.0); offsetMax: (18.0, -4.0); sizeDelta: (36.0, 36.0);
+                    avatarRect.anchoredPosition = new Vector3(0.0f, -4.0f, 0.0f);
+                    avatarRect.anchorMin = new Vector2(0.5f, 1.0f);
+                    avatarRect.anchorMax = new Vector2(0.5f, 1.0f);
+                    avatarRect.pivot = new Vector2(0.5f, 1.0f);
+                    avatarRect.offsetMin = new Vector2(-18.0f, -40.0f);
+                    avatarRect.offsetMax = new Vector2(18.0f, -4.0f);
+                    avatarRect.sizeDelta = new Vector2(36.0f, 36.0f);
+                }
+            }
+        }
 
-		public static readonly TxtLanguage txtName = new TxtLanguage();
+        #endregion
 
-		public static readonly TxtLanguage txtAlreadyAccept = new TxtLanguage ();
-		public static readonly TxtLanguage txtNotAccept = new TxtLanguage ();
+        #region Refresh
 
-		static WhoCanAskHolder()
-		{
-			txtName.add (Language.Type.vi, "Tên");
-			txtAlreadyAccept.add (Language.Type.vi, "Đã chấp nhận");
-			txtNotAccept.add (Language.Type.vi, "Chưa chấp nhận");
-		}
+        public Text tvName;
 
-		#endregion
+        public Sprite ivAnswerNone;
+        public Sprite ivAnswerAccept;
+        public Sprite ivAnswerCancel;
+        public Image ivAnswer;
 
-		public Text tvName;
-		public Text tvAnswer;
-
-		public override void refresh ()
-		{
-			base.refresh ();
+        public override void refresh()
+        {
+            base.refresh();
             if (dirty)
             {
                 dirty = false;
@@ -87,20 +101,32 @@ namespace GameManager.ContestManager
                     Human human = this.data.human.v.data;
                     if (human != null)
                     {
+                        // avatar
+                        {
+                            AccountAvatarUI.UIData avatar = this.data.avatar.v;
+                            if (avatar != null)
+                            {
+                                avatar.account.v = new ReferenceData<Account>(human.account.v);
+                            }
+                            else
+                            {
+                                Debug.LogError("avatar null: " + this);
+                            }
+                        }
                         // tvName
                         {
                             if (tvName != null)
                             {
-                                tvName.text = txtName.get("Name") + ": " + human.getPlayerName();
+                                tvName.text = human.getPlayerName();
                             }
                             else
                             {
                                 Debug.LogError("tvName null: " + this);
                             }
                         }
-                        // tvAnswer
+                        // ivAnswer
                         {
-                            if (tvAnswer != null)
+                            if (ivAnswer != null)
                             {
                                 bool alreadyAccept = false;
                                 {
@@ -114,23 +140,23 @@ namespace GameManager.ContestManager
                                         Debug.LogError("requestNewContestManagerStateAsk null: " + this);
                                     }
                                 }
-                                tvAnswer.text = alreadyAccept ? txtAlreadyAccept.get("Already Accept") : txtNotAccept.get("Not Accept");
+                                ivAnswer.sprite = alreadyAccept ? ivAnswerAccept : ivAnswerNone;
                             }
                             else
                             {
                                 Debug.LogError("tvAnswer null: " + this);
                             }
                         }
-                        // avatar
+                        // siblingIndex
                         {
-                            AccountAvatarUI.UIData avatar = this.data.avatar.v;
-                            if (avatar != null)
+                            UIRectTransform.SetSiblingIndex(this.data.avatar.v, 0);
+                            if (ivAnswer != null)
                             {
-                                avatar.account.v = new ReferenceData<Account>(human.account.v);
+                                ivAnswer.transform.SetSiblingIndex(1);
                             }
                             else
                             {
-                                Debug.LogError("avatar null: " + this);
+                                Debug.LogError("ivAnswer null");
                             }
                         }
                     }
@@ -144,244 +170,267 @@ namespace GameManager.ContestManager
                     // Debug.LogError ("data null: " + this);
                 }
             }
-		}
+        }
 
-		#endregion
+        #endregion
 
-		#region implement callBacks
+        #region implement callBacks
 
-		public AccountAvatarUI avatarPrefab;
-		public Transform avatarContainer;
+        public AccountAvatarUI avatarPrefab;
+        private static readonly UIRectTransform avatarRect = new UIRectTransform();
 
-		private RequestNewContestManagerStateAsk requestNewContestManagerStateAsk = null;
+        private RequestNewContestManagerStateAsk requestNewContestManagerStateAsk = null;
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Setting
-				Setting.get().addCallBack(this);
-				// Child
-				{
-					uiData.human.allAddCallBack (this);
-					uiData.avatar.allAddCallBack (this);
-				}
-				dirty = true;
-				return;
-			}
-			// Setting
-			if (data is Setting) {
-				dirty = true;
-				return;
-			}
-			// Child
-			{
-				// Human
-				{
-					if (data is Human) {
-						Human human = data as Human;
-						// Parent
-						{
-							DataUtils.addParentCallBack (human, this, ref this.requestNewContestManagerStateAsk);
-						}
-						// Child
-						{
-							human.account.allAddCallBack (this);
-						}
-						dirty = true;
-						return;
-					}
-					// Child
-					if (data is Account) {
-						dirty = true;
-						return;
-					}
-				}
-				// Parent
-				if (data is RequestNewContestManagerStateAsk) {
-					dirty = true;
-					return;
-				}
-				// avatar
-				if (data is AccountAvatarUI.UIData) {
-					AccountAvatarUI.UIData accountAvatarUIData = data as AccountAvatarUI.UIData;
-					// UI
-					{
-						UIUtils.Instantiate (accountAvatarUIData, avatarPrefab, avatarContainer);
-					}
-					dirty = true;
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
+                // Child
+                {
+                    uiData.human.allAddCallBack(this);
+                    uiData.avatar.allAddCallBack(this);
+                }
+                dirty = true;
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // Child
+            {
+                // Human
+                {
+                    if (data is Human)
+                    {
+                        Human human = data as Human;
+                        // Parent
+                        {
+                            DataUtils.addParentCallBack(human, this, ref this.requestNewContestManagerStateAsk);
+                        }
+                        // Child
+                        {
+                            human.account.allAddCallBack(this);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // Child
+                    if (data is Account)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                }
+                // Parent
+                if (data is RequestNewContestManagerStateAsk)
+                {
+                    dirty = true;
+                    return;
+                }
+                // avatar
+                if (data is AccountAvatarUI.UIData)
+                {
+                    AccountAvatarUI.UIData accountAvatarUIData = data as AccountAvatarUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(accountAvatarUIData, avatarPrefab, this.transform, avatarRect);
+                    }
+                    dirty = true;
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Setting
-				Setting.get().removeCallBack(this);
-				// Child
-				{
-					uiData.human.allRemoveCallBack (this);
-					uiData.avatar.allRemoveCallBack (this);
-				}
-				this.setDataNull (uiData);
-				return;
-			}
-			// Setting
-			if (data is Setting) {
-				return;
-			}
-			// Child
-			{
-				// Human
-				{
-					if (data is Human) {
-						Human human = data as Human;
-						// Parent
-						{
-							DataUtils.removeParentCallBack (human, this, ref this.requestNewContestManagerStateAsk);
-						}
-						// Child
-						{
-							human.account.allRemoveCallBack (this);
-						}
-						return;
-					}
-					// Parent
-					if (data is RequestNewContestManagerStateAsk) {
-						return;
-					}
-					// Child
-					if (data is Account) {
-						return;
-					}
-				}
-				// avatar
-				if (data is AccountAvatarUI.UIData) {
-					AccountAvatarUI.UIData accountAvatarUIData = data as AccountAvatarUI.UIData;
-					// UI
-					{
-						accountAvatarUIData.removeCallBackAndDestroy (typeof(AccountAvatarUI));
-					}
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
+                // Child
+                {
+                    uiData.human.allRemoveCallBack(this);
+                    uiData.avatar.allRemoveCallBack(this);
+                }
+                this.setDataNull(uiData);
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
+                return;
+            }
+            // Child
+            {
+                // Human
+                {
+                    if (data is Human)
+                    {
+                        Human human = data as Human;
+                        // Parent
+                        {
+                            DataUtils.removeParentCallBack(human, this, ref this.requestNewContestManagerStateAsk);
+                        }
+                        // Child
+                        {
+                            human.account.allRemoveCallBack(this);
+                        }
+                        return;
+                    }
+                    // Parent
+                    if (data is RequestNewContestManagerStateAsk)
+                    {
+                        return;
+                    }
+                    // Child
+                    if (data is Account)
+                    {
+                        return;
+                    }
+                }
+                // avatar
+                if (data is AccountAvatarUI.UIData)
+                {
+                    AccountAvatarUI.UIData accountAvatarUIData = data as AccountAvatarUI.UIData;
+                    // UI
+                    {
+                        accountAvatarUIData.removeCallBackAndDestroy(typeof(AccountAvatarUI));
+                    }
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.human:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				case UIData.Property.avatar:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// Setting
-			if (wrapProperty.p is Setting) {
-				switch ((Setting.Property)wrapProperty.n) {
-				case Setting.Property.language:
-					dirty = true;
-					break;
-				case Setting.Property.showLastMove:
-					break;
-				case Setting.Property.viewUrlImage:
-					break;
-				case Setting.Property.animationSetting:
-					break;
-				case Setting.Property.maxThinkCount:
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// Child
-			{
-				// Human
-				{
-					if (wrapProperty.p is Human) {
-						switch ((Human.Property)wrapProperty.n) {
-						case Human.Property.playerId:
-							break;
-						case Human.Property.account:
-							{
-								ValueChangeUtils.replaceCallBack (this, syncs);
-								dirty = true;
-							}
-							break;
-						case Human.Property.state:
-							break;
-						case Human.Property.email:
-							break;
-						case Human.Property.phoneNumber:
-							break;
-						case Human.Property.status:
-							break;
-						case Human.Property.birthday:
-							break;
-						case Human.Property.sex:
-							break;
-						case Human.Property.connection:
-							break;
-						case Human.Property.ban:
-							break;
-						default:
-							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-							break;
-						}
-						return;
-					}
-					// Parent
-					if (wrapProperty.p is RequestNewContestManagerStateAsk) {
-						switch ((RequestNewContestManagerStateAsk.Property)wrapProperty.n) {
-						case RequestNewContestManagerStateAsk.Property.whoCanAsks:
-							break;
-						case RequestNewContestManagerStateAsk.Property.accepts:
-							dirty = true;
-							break;
-						default:
-							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-							break;
-						}
-						return;
-					}
-					// Child
-					if (wrapProperty.p is Account) {
-						Account.OnUpdateSyncAccount (wrapProperty, this);
-						return;
-					}
-				}
-				// avatar
-				if (wrapProperty.p is AccountAvatarUI.UIData) {
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-		}
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.human:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.avatar:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Setting
+            if (wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            {
+                // Human
+                {
+                    if (wrapProperty.p is Human)
+                    {
+                        switch ((Human.Property)wrapProperty.n)
+                        {
+                            case Human.Property.playerId:
+                                break;
+                            case Human.Property.account:
+                                {
+                                    ValueChangeUtils.replaceCallBack(this, syncs);
+                                    dirty = true;
+                                }
+                                break;
+                            case Human.Property.state:
+                                break;
+                            case Human.Property.email:
+                                break;
+                            case Human.Property.phoneNumber:
+                                break;
+                            case Human.Property.status:
+                                break;
+                            case Human.Property.birthday:
+                                break;
+                            case Human.Property.sex:
+                                break;
+                            case Human.Property.connection:
+                                break;
+                            case Human.Property.ban:
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
+                    // Parent
+                    if (wrapProperty.p is RequestNewContestManagerStateAsk)
+                    {
+                        switch ((RequestNewContestManagerStateAsk.Property)wrapProperty.n)
+                        {
+                            case RequestNewContestManagerStateAsk.Property.whoCanAsks:
+                                break;
+                            case RequestNewContestManagerStateAsk.Property.accepts:
+                                dirty = true;
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
+                    // Child
+                    if (wrapProperty.p is Account)
+                    {
+                        Account.OnUpdateSyncAccount(wrapProperty, this);
+                        return;
+                    }
+                }
+                // avatar
+                if (wrapProperty.p is AccountAvatarUI.UIData)
+                {
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+        }
 
-		#endregion
+        #endregion
 
-	}
+    }
 }

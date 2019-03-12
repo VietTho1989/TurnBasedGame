@@ -114,18 +114,7 @@ namespace UndoRedo
                         // tvName
                         if (tvName != null)
                         {
-                            string name = "";
-                            {
-                                if (human.account.v != null)
-                                {
-                                    name = human.getPlayerName();
-                                }
-                                else
-                                {
-                                    Debug.LogError("account null: " + this);
-                                }
-                            }
-                            tvName.text = "" + name;
+                            tvName.text = human.getPlayerName();
                         }
                         else
                         {

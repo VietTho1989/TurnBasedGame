@@ -179,21 +179,49 @@ public class WaitInputActionUI : UIBehavior<WaitInputActionUI.UIData>
                     {
 
                     }
+                    // title
+                    {
+                        if (lbTitle != null)
+                        {
+                            int turnIndex = 0;
+                            {
+                                Game game = waitInputAction.findDataInParent<Game>();
+                                if (game != null)
+                                {
+                                    GameData gameData = game.gameData.v;
+                                    if (gameData != null)
+                                    {
+                                        Turn turn = gameData.turn.v;
+                                        if (turn != null)
+                                        {
+                                            turnIndex = turn.turn.v;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("turn null");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("gameData null");
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("game null");
+                                }
+                            }
+                            lbTitle.text = txtTitle.get("Waiting move " + turnIndex);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null: " + this);
+                        }
+                    }
                 }
                 else
                 {
                     // Debug.LogError ("waitInputAction null: " + this);
-                }
-                // txt
-                {
-                    if (lbTitle != null)
-                    {
-                        lbTitle.text = txtTitle.get("Waiting move");
-                    }
-                    else
-                    {
-                        Debug.LogError("lbTitle null: " + this);
-                    }
                 }
             }
             else
@@ -216,6 +244,8 @@ public class WaitInputActionUI : UIBehavior<WaitInputActionUI.UIData>
     public WaitAIInputUI waitAIInputUIPrefab;
 
     public ClientInputUI clientInputUIPrefab;
+
+    private Game game = null;
 
     public override void onAddCallBack<T>(T data)
     {
@@ -281,6 +311,10 @@ public class WaitInputActionUI : UIBehavior<WaitInputActionUI.UIData>
                 if (data is WaitInputAction)
                 {
                     WaitInputAction waitInputAction = data as WaitInputAction;
+                    // Parent
+                    {
+                        DataUtils.addParentCallBack(waitInputAction, this, ref this.game);
+                    }
                     // Child
                     {
                         waitInputAction.sub.allAddCallBack(this);
@@ -288,6 +322,38 @@ public class WaitInputActionUI : UIBehavior<WaitInputActionUI.UIData>
                     }
                     dirty = true;
                     return;
+                }
+                // Parent
+                {
+                    if(data is Game)
+                    {
+                        Game game = data as Game;
+                        // Child
+                        {
+                            game.gameData.allAddCallBack(this);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // Child
+                    {
+                        if(data is GameData)
+                        {
+                            GameData gameData = data as GameData;
+                            // Child
+                            {
+                                gameData.turn.allAddCallBack(this);
+                            }
+                            dirty = true;
+                            return;
+                        }
+                        // Child
+                        if(data is Turn)
+                        {
+                            dirty = true;
+                            return;
+                        }
+                    }
                 }
                 // Child
                 {
@@ -368,12 +434,44 @@ public class WaitInputActionUI : UIBehavior<WaitInputActionUI.UIData>
                 if (data is WaitInputAction)
                 {
                     WaitInputAction waitInputAction = data as WaitInputAction;
+                    {
+                        DataUtils.removeParentCallBack(waitInputAction, this, ref this.game);
+                    }
                     // Child
                     {
                         waitInputAction.sub.allRemoveCallBack(this);
                         waitInputAction.clientInput.allRemoveCallBack(this);
                     }
                     return;
+                }
+                // Parent
+                {
+                    if (data is Game)
+                    {
+                        Game game = data as Game;
+                        // Child
+                        {
+                            game.gameData.allRemoveCallBack(this);
+                        }
+                        return;
+                    }
+                    // Child
+                    {
+                        if (data is GameData)
+                        {
+                            GameData gameData = data as GameData;
+                            // Child
+                            {
+                                gameData.turn.allRemoveCallBack(this);
+                            }
+                            return;
+                        }
+                        // Child
+                        if (data is Turn)
+                        {
+                            return;
+                        }
+                    }
                 }
                 // Child
                 {
@@ -491,6 +589,90 @@ public class WaitInputActionUI : UIBehavior<WaitInputActionUI.UIData>
                             break;
                     }
                     return;
+                }
+                // Parent
+                {
+                    if (wrapProperty.p is Game)
+                    {
+                        switch ((Game.Property)wrapProperty.n)
+                        {
+                            case Game.Property.gamePlayers:
+                                break;
+                            case Game.Property.requestDraw:
+                                break;
+                            case Game.Property.state:
+                                break;
+                            case Game.Property.gameData:
+                                {
+                                    ValueChangeUtils.replaceCallBack(this, syncs);
+                                    dirty = true;
+                                }
+                                break;
+                            case Game.Property.history:
+                                break;
+                            case Game.Property.gameAction:
+                                break;
+                            case Game.Property.undoRedoRequest:
+                                break;
+                            case Game.Property.chatRoom:
+                                break;
+                            case Game.Property.animationData:
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
+                    // Child
+                    {
+                        if (wrapProperty.p is GameData)
+                        {
+                            switch ((GameData.Property)wrapProperty.n)
+                            {
+                                case GameData.Property.gameType:
+                                    break;
+                                case GameData.Property.useRule:
+                                    break;
+                                case GameData.Property.requestChangeUseRule:
+                                    break;
+                                case GameData.Property.turn:
+                                    {
+                                        ValueChangeUtils.replaceCallBack(this, syncs);
+                                        dirty = true;
+                                    }
+                                    break;
+                                case GameData.Property.timeControl:
+                                    break;
+                                case GameData.Property.lastMove:
+                                    break;
+                                case GameData.Property.state:
+                                    break;
+                                default:
+                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                    break;
+                            }
+                            return;
+                        }
+                        // Child
+                        if (wrapProperty.p is Turn)
+                        {
+                            switch ((Turn.Property)wrapProperty.n)
+                            {
+                                case Turn.Property.turn:
+                                    dirty = true;
+                                    break;
+                                case Turn.Property.playerIndex:
+                                    break;
+                                case Turn.Property.gameTurn:
+                                    break;
+                                default:
+                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                    break;
+                            }
+                            return;
+                        }
+                    }
                 }
                 // Child
                 {
