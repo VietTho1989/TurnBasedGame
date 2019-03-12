@@ -7,37 +7,37 @@ public abstract class GameType : Data
 
     // https://www.miniwebtool.com/adler32-checksum-calculator/
     public enum Type
-	{
-		CHESS = 71041399,
-		Shatranj = 238224188,
-		Makruk = 135266924,
-		Seirawan = 237765435,
-		FairyChess = 350356466,
+    {
+        CHESS = 71041399,
+        Shatranj = 238224188,
+        Makruk = 135266924,
+        Seirawan = 237765435,
+        FairyChess = 350356466,
 
-		Weiqi = 97649152,
-		SHOGI = 76022139,
-		ROCK_SCISSOR_PAPER = 886244748,
-		Reversi = 187302625,
+        Weiqi = 97649152,
+        SHOGI = 76022139,
+        ROCK_SCISSOR_PAPER = 886244748,
+        Reversi = 187302625,
 
-		Xiangqi = 184681170,
-		CO_TUONG_UP = 350159747,
-		Janggi = 130744913,
-		Banqi = 90702316,
+        Xiangqi = 184681170,
+        CO_TUONG_UP = 350159747,
+        Janggi = 130744913,
+        Banqi = 90702316,
 
-		Gomoku = 136774259,
+        Gomoku = 136774259,
 
-		InternationalDraught = 1427310632,
-		EnglishDraught = 687932826,
-		RussianDraught = 712836533,
+        InternationalDraught = 1427310632,
+        EnglishDraught = 687932826,
+        RussianDraught = 712836533,
         ChineseCheckers = 771360232,
 
-		MineSweeper = 430048357,
-		Hex = 35455270,
-		Solitaire = 304219053,
+        MineSweeper = 430048357,
+        Hex = 35455270,
+        Solitaire = 304219053,
 
-		Sudoku = 141099644,
-		Khet = 61211021,
-		NineMenMorris = 584451367
+        Sudoku = 141099644,
+        Khet = 61211021,
+        NineMenMorris = 584451367
     }
 
     #region txt
@@ -311,219 +311,234 @@ public abstract class GameType : Data
 
     #endregion
 
-    public abstract Type getType ();
+    public abstract Type getType();
 
-	public static readonly GameType.Type[] EnableTypes = {
-		GameType.Type.CHESS,
-		GameType.Type.Shatranj,
-		GameType.Type.Makruk,
-		GameType.Type.Seirawan,
-		GameType.Type.FairyChess,
+    public static readonly GameType.Type[] EnableTypes = {
+        GameType.Type.CHESS,
+        GameType.Type.Shatranj,
+        GameType.Type.Makruk,
+        GameType.Type.Seirawan,
+        GameType.Type.FairyChess,
 
-		GameType.Type.Weiqi,
-		GameType.Type.SHOGI,
-		GameType.Type.Reversi,
+        GameType.Type.Weiqi,
+        GameType.Type.SHOGI,
+        GameType.Type.Reversi,
 
-		GameType.Type.Xiangqi,
-		GameType.Type.CO_TUONG_UP,
-		GameType.Type.Janggi,
-		GameType.Type.Banqi,
+        GameType.Type.Xiangqi,
+        GameType.Type.CO_TUONG_UP,
+        GameType.Type.Janggi,
+        GameType.Type.Banqi,
 
-		GameType.Type.Gomoku,
+        GameType.Type.Gomoku,
 
-		GameType.Type.InternationalDraught,
-		GameType.Type.EnglishDraught,
-		GameType.Type.RussianDraught,
+        GameType.Type.InternationalDraught,
+        GameType.Type.EnglishDraught,
+        GameType.Type.RussianDraught,
         GameType.Type.ChineseCheckers,
 
         GameType.Type.MineSweeper,
-		GameType.Type.Hex,
-		GameType.Type.Solitaire,
+        GameType.Type.Hex,
+        GameType.Type.Solitaire,
 
-		GameType.Type.Sudoku,
-		GameType.Type.Khet,
-		GameType.Type.NineMenMorris
-	};
+        GameType.Type.Sudoku,
+        GameType.Type.Khet,
+        GameType.Type.NineMenMorris
+    };
 
-	public static readonly List<GameType.Type> AllEnableGameTypes = new List<Type> ();
+    public static readonly List<GameType.Type> AllEnableGameTypes = new List<Type>();
 
-	public static int getEnableIndex(GameType.Type gameTypeType)
-	{
-		int index = 0;
-		{
-			for (int i = 0; i < EnableTypes.Length; i++) {
-				if (EnableTypes [i] == gameTypeType) {
-					index = i;
-				}
-			}
-		}
-		return index;
-	}
-		
-	#region Logic
+    public static int getEnableIndex(GameType.Type gameTypeType)
+    {
+        int index = 0;
+        {
+            for (int i = 0; i < EnableTypes.Length; i++)
+            {
+                if (EnableTypes[i] == gameTypeType)
+                {
+                    index = i;
+                }
+            }
+        }
+        return index;
+    }
 
-	public abstract int getTeamCount();
+    #region Logic
 
-	public abstract int getPerspectiveCount();
+    public abstract int getTeamCount();
+
+    public abstract int getPerspectiveCount();
 
     public virtual int getDefaultPerspective(int playerIndex)
     {
         return playerIndex;
     }
 
-    public abstract int getPlayerIndex ();
+    public abstract int getPlayerIndex();
 
-	public abstract bool checkLegalMove (InputData inputData);
+    public abstract bool checkLegalMove(InputData inputData);
 
-	public abstract void processGameMove(GameMove gameMove);
+    public abstract void processGameMove(GameMove gameMove);
 
-	public abstract GameMove getAIMove (Computer.AI computerAI, bool isFindHint);
+    public abstract GameMove getAIMove(Computer.AI computerAI, bool isFindHint);
 
-	public abstract Result isGameFinish();
+    public abstract Result isGameFinish();
 
-	#region solved move
+    #region solved move
 
-	public virtual bool isHaveSolvedMove()
-	{
-		return false;
-	}
+    public virtual bool isHaveSolvedMove()
+    {
+        return false;
+    }
 
-	public virtual GameMove getSolvedMove()
-	{
-		return this.getAIMove (null, false);
-	}
+    public virtual GameMove getSolvedMove()
+    {
+        return this.getAIMove(null, false);
+    }
 
-	public virtual GameMove preprocessGameMove(GameMove gameMove)
-	{
-		return gameMove;
-	}
+    public virtual GameMove preprocessGameMove(GameMove gameMove)
+    {
+        return gameMove;
+    }
 
-	#endregion
+    #endregion
 
-	#region check isGameFinish and score
+    #region check isGameFinish and score
 
-	public class Score
-	{
-		public int playerIndex;
-		public float score;
+    public class Score
+    {
+        public int playerIndex;
+        public float score;
 
-		public Score(int playerIndex, float score){
-			this.playerIndex = playerIndex;
-			this.score = score;
-		}
-	}
+        public Score(int playerIndex, float score)
+        {
+            this.playerIndex = playerIndex;
+            this.score = score;
+        }
+    }
 
-	public struct Result
-	{
-		public bool isGameFinish;
-		public List<Score> scores;
+    public struct Result
+    {
+        public bool isGameFinish;
+        public List<Score> scores;
 
-		public Result(bool isGameFinish, List<Score> scores){
-			this.isGameFinish = isGameFinish;
-			this.scores = scores;
-		}
+        public Result(bool isGameFinish, List<Score> scores)
+        {
+            this.isGameFinish = isGameFinish;
+            this.scores = scores;
+        }
 
-		public Score findScore(int playerIndex){
-			for (int i = 0; i < scores.Count; i++) {
-				Score score = scores [i];
-				if (score.playerIndex == playerIndex) {
-					return score;
-				}
-			}
-			return null;
-		}
+        public Score findScore(int playerIndex)
+        {
+            for (int i = 0; i < scores.Count; i++)
+            {
+                Score score = scores[i];
+                if (score.playerIndex == playerIndex)
+                {
+                    return score;
+                }
+            }
+            return null;
+        }
 
-		public static Result makeDefault()
-		{
-			bool isGameFinish = false;
-			List<Score> scores = new List<Score> ();
-			return new Result (isGameFinish, scores);
-		}
-	}
+        public static Result makeDefault()
+        {
+            bool isGameFinish = false;
+            List<Score> scores = new List<Score>();
+            return new Result(isGameFinish, scores);
+        }
+    }
 
-	#endregion
+    #endregion
 
-	#region convert
+    #region convert
 
-	public class Cast<K> : ConvertDelegate<GameType.Type, K>
-	{
-		public override GameType.Type convert (K value)
-		{
-			if (value is int) {
-				return (GameType.Type) ((int)(object)value);
-			} else {
-				Debug.LogError ("convert gameType error");
-				return GameType.Type.CHESS;
-			}
-		}
-	}
+    public class Cast<K> : ConvertDelegate<GameType.Type, K>
+    {
+        public override GameType.Type convert(K value)
+        {
+            if (value is int)
+            {
+                return (GameType.Type)((int)(object)value);
+            }
+            else
+            {
+                Debug.LogError("convert gameType error");
+                return GameType.Type.CHESS;
+            }
+        }
+    }
 
-	#region gameTypeConvert
+    #region gameTypeConvert
 
-	public class GameTypeConvert : ConvertDelegate<GameType.Type, int>
-	{
-		public override GameType.Type convert (int value)
-		{
-			return (GameType.Type)value;
-		}
-	}
+    public class GameTypeConvert : ConvertDelegate<GameType.Type, int>
+    {
+        public override GameType.Type convert(int value)
+        {
+            return (GameType.Type)value;
+        }
+    }
 
-	public static GameTypeConvert gameTypeConvert = new GameTypeConvert();
+    public static GameTypeConvert gameTypeConvert = new GameTypeConvert();
 
-	#endregion
+    #endregion
 
-	#region intConvert
+    #region intConvert
 
-	public class IntConvert : ConvertDelegate<int, GameType.Type>
-	{
-		public override int convert (GameType.Type value)
-		{
-			return (int)value;
-		}
-	}
+    public class IntConvert : ConvertDelegate<int, GameType.Type>
+    {
+        public override int convert(GameType.Type value)
+        {
+            return (int)value;
+        }
+    }
 
-	public static IntConvert intConvert = new IntConvert();
+    public static IntConvert intConvert = new IntConvert();
 
-	#endregion
+    #endregion
 
-	#endregion
+    #endregion
 
-	#endregion
+    #endregion
 
-	public static GameType makeDefaultGameType(GameType.Type type)
-	{
-		GameType gameType = null;
-		{
-			DefaultGameDataFactory defaultGameDataFactory = new DefaultGameDataFactory ();
-			{
-				defaultGameDataFactory.makeNewDefaultGameType (type);
-			}
-			if (defaultGameDataFactory.defaultGameType.v == null) {
-				defaultGameDataFactory.defaultGameType.v = new Xiangqi.DefaultXiangqi ();
-			}
-			gameType = defaultGameDataFactory.defaultGameType.v.makeDefaultGameType ();
-		}
-		return gameType;
-	}
+    public static GameType makeDefaultGameType(GameType.Type type)
+    {
+        GameType gameType = null;
+        {
+            DefaultGameDataFactory defaultGameDataFactory = new DefaultGameDataFactory();
+            {
+                defaultGameDataFactory.makeNewDefaultGameType(type);
+            }
+            if (defaultGameDataFactory.defaultGameType.v == null)
+            {
+                defaultGameDataFactory.defaultGameType.v = new Xiangqi.DefaultXiangqi();
+            }
+            gameType = defaultGameDataFactory.defaultGameType.v.makeDefaultGameType();
+        }
+        return gameType;
+    }
 
-	public const string AlwaysIn = "AlwaysIn";
-	public const string NotAlwaysIn = "NotAlwaysIn";
+    public const string AlwaysIn = "AlwaysIn";
+    public const string NotAlwaysIn = "NotAlwaysIn";
 
-	#region BundleName
+    #region BundleName
 
-	#if UNITY_STANDALONE_OSX
+#if UNITY_STANDALONE_OSX
 
 	public const string BundleName = "UnityNativeCore";
 
-	#elif UNITY_IPHONE 
+#elif UNITY_IPHONE
 
 	public const string BundleName = "__Internal";
 
-	#elif UNITY_ANDROID
+#elif UNITY_ANDROID
 
 	public const string BundleName = "NativeCore";
 
-	#endif
+#elif UNITY_STANDALONE_LINUX
 
-	#endregion
+    public const string BundleName = "NativeCore";
+
+#endif
+
+    #endregion
 }

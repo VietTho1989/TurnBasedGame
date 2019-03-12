@@ -579,8 +579,8 @@ namespace NineMenMorris
                     }
                     else
                     {
-                        // useNormalMove = false;
-                        GameData gameData = this.findDataInParent<GameData>();
+                        useNormalMove = false;
+                        /*GameData gameData = this.findDataInParent<GameData>();
                         if (gameData != null)
                         {
                             Turn turn = gameData.turn.v;
@@ -599,7 +599,7 @@ namespace NineMenMorris
                         else
                         {
                             Debug.LogError("gameData null: " + this);
-                        }
+                        }*/
                     }
                 }
                 // process

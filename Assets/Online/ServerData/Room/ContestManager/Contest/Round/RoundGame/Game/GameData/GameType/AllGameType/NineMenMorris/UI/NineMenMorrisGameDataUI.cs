@@ -80,11 +80,32 @@ namespace NineMenMorris
 
             public override void getUIRatio(out float heightWidth, out float left, out float right, out float top, out float bottom)
             {
-                heightWidth = 1;
-                left = 0;
-                right = 0;
-                top = 30;
-                bottom = 30;
+                // find isMini?
+                bool isMini = false;
+                {
+                    MiniGameDataUI.UIData miniGameDataUIData = this.findDataInParent<MiniGameDataUI.UIData>();
+                    if (miniGameDataUIData != null)
+                    {
+                        isMini = true;
+                    }
+                }
+                // process
+                if (!isMini)
+                {
+                    heightWidth = 1;
+                    left = 0;
+                    right = 0;
+                    top = 30;
+                    bottom = 30;
+                }
+                else
+                {
+                    heightWidth = 1;
+                    left = 0;
+                    right = 0;
+                    top = 0;
+                    bottom = 0;
+                }
             }
 
         }

@@ -170,14 +170,35 @@ public class UIUtils
 
     public static void SetGlobalScale(Transform transform, Vector3 globalScale)
     {
-        transform.localScale = Vector3.one;
-        if (transform.lossyScale.x != 0 && transform.lossyScale.y != 0 && transform.lossyScale.z != 0)
+        if (transform.parent != null)
         {
-            transform.localScale = new Vector3(globalScale.x / transform.lossyScale.x, globalScale.y / transform.lossyScale.y, globalScale.z / transform.lossyScale.z);
+            /*Vector3 parentScale = transform.parent.lossyScale;
+            {
+                if (parentScale.x == 0)
+                {
+                    Debug.LogError("parent scale x = 0");
+                    parentScale.x = 1;
+                }
+                if (parentScale.y == 0)
+                {
+                    Debug.LogError("parent scale y = 0");
+                    parentScale.y = 1;
+                }
+                if (parentScale.z == 0)
+                {
+                    Debug.LogError("parent scale x = 0");
+                    parentScale.z = 1;
+                }
+            }
+            transform.localScale = new Vector3(1 / parentScale.x, 1 / parentScale.y, 1 / parentScale.z);*/
+
+            Vector3 localScale = transform.parent.InverseTransformVector(globalScale);
+            transform.localScale = localScale;
         }
         else
         {
-            Debug.LogError("lossyScale error: " + transform.lossyScale);
+            Debug.LogError("transform parent null");
+            transform.localScale = globalScale;
         }
     }
 

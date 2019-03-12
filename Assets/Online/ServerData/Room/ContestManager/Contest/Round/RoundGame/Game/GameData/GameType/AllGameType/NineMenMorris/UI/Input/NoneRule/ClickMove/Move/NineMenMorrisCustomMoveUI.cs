@@ -79,11 +79,11 @@ namespace NineMenMorris.NoneRule
                             {
                                 if (this.data.isHint.v)
                                 {
-                                    lineRendererFrom.color = new Color(1, 0, 0, 0.5f);
+                                    lineRendererFrom.color = new Color(0, 0, 1, 0.5f);
                                 }
                                 else
                                 {
-                                    lineRendererFrom.color = new Color(1, 0, 0, 1f);
+                                    lineRendererFrom.color = new Color(0, 0, 1, 1f);
                                 }
                             }
                         }
@@ -111,11 +111,11 @@ namespace NineMenMorris.NoneRule
                             {
                                 if (this.data.isHint.v)
                                 {
-                                    lineRendererDest.color = new Color(0, 1, 0, 0.5f);
+                                    lineRendererDest.color = new Color(100 / 255f, 100 / 255f, 255 / 255f, 0.5f);
                                 }
                                 else
                                 {
-                                    lineRendererDest.color = new Color(0, 1, 0, 1f);
+                                    lineRendererDest.color = new Color(100 / 255f, 100 / 255f, 255 / 255f, 1f);
                                 }
                             }
                         }

@@ -574,11 +574,8 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.Cecil.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.Cecil.Mdb.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.Cecil.Pdb.dll
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.CollabProxy.Editor.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.Locator.dll
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.PackageManagerUI.Editor.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.TextMeshPro.dll
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.TextMeshPro.Editor.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.Advertisements.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.GoogleAudioSpatializer.dll
@@ -683,9 +680,6 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEngine.xml
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.xml
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.TextMeshPro.Editor.pdb
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.PackageManagerUI.Editor.pdb
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.CollabProxy.Editor.pdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.TextMeshPro.pdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.Analytics.DataPrivacy.pdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEngine.AIModule.dll.mdb

@@ -45,9 +45,15 @@ public class Global : Data
 		return instance;
 	}
 
-	#endregion
+    #endregion
 
-	public VP<NetworkReachability> networkReachability;
+    #region mainUI
+
+    public Transform mainUI;
+
+    #endregion
+
+    public VP<NetworkReachability> networkReachability;
 
     public VP<DeviceOrientation> deviceOrientation;
 

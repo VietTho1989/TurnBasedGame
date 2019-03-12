@@ -317,7 +317,7 @@ namespace NineMenMorris.NoneRule
                 }
                 if (isActive)
                 {
-                    if (x >= 0 && x < 6 && y >= 0 && y < 6)
+                    if (x >= 0 && x <= 6 && y >= 0 && y <= 6)
                     {
                         NoneRuleInputUI.UIData noneRuleInputUIData = this.data.findDataInParent<NoneRuleInputUI.UIData>();
                         if (noneRuleInputUIData != null)

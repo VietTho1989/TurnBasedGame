@@ -11,6 +11,7 @@ public class GlobalUpdate : MonoBehaviour
 
     void FixedUpdate()
     {
+        Global.get().mainUI = mainUI;
         Global.get().networkReachability.v = Application.internetReachability;
         Global.get().deviceOrientation.v = Input.deviceOrientation;
         Global.get().screenOrientation.v = Screen.orientation;

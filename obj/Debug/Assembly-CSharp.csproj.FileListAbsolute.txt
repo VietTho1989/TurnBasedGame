@@ -521,11 +521,8 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.Cecil.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.Cecil.Mdb.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.Cecil.Pdb.dll
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.CollabProxy.Editor.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.Locator.dll
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.PackageManagerUI.Editor.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.TextMeshPro.dll
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.TextMeshPro.Editor.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEngine.AccessibilityModule.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEngine.AIModule.dll
@@ -600,7 +597,6 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.Legacy.NRefactory.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.UNetWeaver.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Boo.Lang.dll
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.UI.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.IvyParser.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.CecilTools.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Assembly-CSharp-firstpass.pdb
@@ -610,9 +606,6 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEngine.xml
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.xml
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.TextMeshPro.Editor.pdb
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.PackageManagerUI.Editor.pdb
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.CollabProxy.Editor.pdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.TextMeshPro.pdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.Analytics.DataPrivacy.pdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEngine.AIModule.dll.mdb
@@ -753,8 +746,6 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.Analytics.StandardEvents.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.Analytics.Tracker.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.UI.dll.mdb
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.UI.xml
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.IvyParser.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Assembly-CSharp.csproj.CopyComplete
 /Users/viettho/Desktop/NewProject/TurnBasedGame/obj/Debug/Assembly-CSharp.dll
