@@ -63,49 +63,7 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
                 if (boardTransform != null)
                 {
                     // find bottomHeight
-                    float bottomHeight = 0;
-                    {
-                        // find gameBottom transform
-                        RectTransform gameBottomTransform = null;
-                        {
-                            GameUI.UIData gameUIData = this.data.findDataInParent<GameUI.UIData>();
-                            if (gameUIData != null)
-                            {
-                                GameBottomUI.UIData gameBottomUIData = gameUIData.gameBottom.v;
-                                if (gameBottomUIData != null)
-                                {
-                                    GameBottomUI gameBottomUI = gameBottomUIData.findCallBack<GameBottomUI>();
-                                    if (gameBottomUI != null)
-                                    {
-                                        gameBottomTransform = (RectTransform)gameBottomUI.transform;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("gameBottomUI null");
-                                        // TODO Can kiem tra lai
-                                        bottomHeight = 60;
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("gameBottomUIData null");
-                                }
-                            }
-                            else
-                            {
-                                Debug.LogError("gameUIData null");
-                            }
-                        }
-                        // process
-                        if (gameBottomTransform != null)
-                        {
-                            bottomHeight = gameBottomTransform.rect.height;
-                        }
-                        else
-                        {
-                            Debug.LogError("gameBottomTransform null");
-                        }
-                    }
+                    float bottomHeight = this.data.bottomHeight.v;
                     // find width, height
                     float width = 480;
                     float height = 480;
@@ -128,12 +86,14 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
                                         // portrait
                                         if (gameDataWidth <= gameDataHeight)
                                         {
+                                            Debug.LogError("portrait");
                                             width = Mathf.Min(gameDataWidth - (boardLeft + boardRight), (gameDataHeight - (boardTop + boardBottom) - 120 - 32) / heightWidth);
                                         }
                                         // landscape
                                         else
                                         {
-                                            width = Mathf.Min(gameDataWidth - (boardLeft + boardRight) - 360 - 32, (gameDataHeight - (boardTop + boardBottom) - 16) / heightWidth);
+                                            Debug.LogError("landscape");
+                                            width = Mathf.Min(gameDataWidth - (boardLeft + boardRight) - 320 - 32, (gameDataHeight - (boardTop + boardBottom) - 16) / heightWidth);
                                         }
                                     }
                                     else
@@ -141,11 +101,13 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
                                         // portrait
                                         if (gameDataWidth <= gameDataHeight)
                                         {
+                                            Debug.LogError("portrait");
                                             width = Mathf.Min(gameDataWidth - (boardLeft + boardRight), (gameDataHeight - (boardTop + boardBottom) - 16) / heightWidth);
                                         }
                                         // landscape
                                         else
                                         {
+                                            Debug.LogError("landscape");
                                             width = Mathf.Min(gameDataWidth - (boardLeft + boardRight) - 16, (gameDataHeight - (boardTop + boardBottom) - 16) / heightWidth);
                                         }
                                     }
@@ -192,8 +154,6 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
 
     #region implement callBacks
 
-    private GameUI.UIData gameUIData = null;
-
     public override void onAddCallBack<T>(T data)
     {
         if(data is GameDataUI.UIData)
@@ -201,10 +161,6 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
             GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
             // Global
             Global.get().addCallBack(this);
-            // Parent
-            {
-                DataUtils.addParentCallBack(gameDataUIData, this, ref this.gameUIData);
-            }
             // Child
             {
                 gameDataUIData.board.allAddCallBack(this);
@@ -219,43 +175,17 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
             dirty = true;
             return;
         }
-        // Parent
+        // Child
         {
-            if(data is GameUI.UIData)
+            if (data is GameDataBoardUI.UIData)
             {
-                GameUI.UIData gameUIData = data as GameUI.UIData;
-                // Child
-                {
-                    gameUIData.gameBottom.allAddCallBack(this);
-                }
                 dirty = true;
                 return;
             }
-            // Child
+            if (data is TransformData)
             {
-                if(data is GameBottomUI.UIData)
-                {
-                    GameBottomUI.UIData gameBottomUIData = data as GameBottomUI.UIData;
-                    // Child
-                    {
-                        TransformData.AddCallBack(gameBottomUIData, this);
-                    }
-                    dirty = true;
-                    return;
-                }
-            }
-            // Child
-            {
-                if(data is GameDataBoardUI.UIData)
-                {
-                    dirty = true;
-                    return;
-                }
-                if (data is TransformData)
-                {
-                    dirty = true;
-                    return;
-                }
+                dirty = true;
+                return;
             }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
@@ -268,10 +198,6 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
             GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
             // Global
             Global.get().removeCallBack(this);
-            // Parent
-            {
-                DataUtils.removeParentCallBack(gameDataUIData, this, ref this.gameUIData);
-            }
             // Child
             {
                 gameDataUIData.board.allRemoveCallBack(this);
@@ -285,39 +211,15 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
         {
             return;
         }
-        // Parent
+        // Child
         {
-            if (data is GameUI.UIData)
+            if (data is GameDataBoardUI.UIData)
             {
-                GameUI.UIData gameUIData = data as GameUI.UIData;
-                // Child
-                {
-                    gameUIData.gameBottom.allRemoveCallBack(this);
-                }
                 return;
             }
-            // Child
+            if (data is TransformData)
             {
-                if (data is GameBottomUI.UIData)
-                {
-                    GameBottomUI.UIData gameBottomUIData = data as GameBottomUI.UIData;
-                    // Child
-                    {
-                        TransformData.RemoveCallBack(gameBottomUIData, this);
-                    }
-                    return;
-                }
-            }
-            // Child
-            {
-                if(data is GameDataBoardUI.UIData)
-                {
-                    return;
-                }
-                if (data is TransformData)
-                {
-                    return;
-                }
+                return;
             }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
@@ -357,6 +259,9 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
                 case GameDataUI.UIData.Property.gameActionsUI:
                     dirty = true;
                     break;
+                case GameDataUI.UIData.Property.bottomHeight:
+                    dirty = true;
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
@@ -368,49 +273,6 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
         {
             Global.OnValueTransformChange(wrapProperty, this);
             return;
-        }
-        // Parent
-        {
-            if (wrapProperty.p is GameUI.UIData)
-            {
-                switch ((GameUI.UIData.Property)wrapProperty.n)
-                {
-                    case GameUI.UIData.Property.game:
-                        break;
-                    case GameUI.UIData.Property.isReplay:
-                        break;
-                    case GameUI.UIData.Property.gameDataUI:
-                        break;
-                    case GameUI.UIData.Property.gameBottom:
-                        {
-                            ValueChangeUtils.replaceCallBack(this, syncs);
-                            dirty = true;
-                        }
-                        break;
-                    case GameUI.UIData.Property.undoRedoRequestUIData:
-                        break;
-                    case GameUI.UIData.Property.requestDraw:
-                        break;
-                    case GameUI.UIData.Property.gameChatRoom:
-                        break;
-                    case GameUI.UIData.Property.gameHistoryUIData:
-                        break;
-                    case GameUI.UIData.Property.stateUI:
-                        break;
-                    case GameUI.UIData.Property.saveUIData:
-                        break;
-                    default:
-                        break;
-                }
-                return;
-            }
-            // Child
-            {
-                if (wrapProperty.p is GameBottomUI.UIData)
-                {
-                    return;
-                }
-            }
         }
         // Child
         {

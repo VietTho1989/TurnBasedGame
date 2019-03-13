@@ -32,6 +32,9 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
 
         public VP<GameActionsUI.UIData> gameActionsUI;
 
+        /** bottomHeight for gameBottomUI*/
+        public VP<float> bottomHeight;
+
         #region Constructor
 
         public enum Property
@@ -44,7 +47,8 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
             requestChangeUseRule,
             perspectiveUIData,
             gamePlayerList,
-            gameActionsUI
+            gameActionsUI,
+            bottomHeight
         }
 
         public UIData() : base()
@@ -58,6 +62,7 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
             this.perspectiveUIData = new VP<PerspectiveUI.UIData>(this, (byte)Property.perspectiveUIData, null);
             this.gamePlayerList = new VP<GamePlayerListUI.UIData>(this, (byte)Property.gamePlayerList, new GamePlayerListUI.UIData());
             this.gameActionsUI = new VP<GameActionsUI.UIData>(this, (byte)Property.gameActionsUI, new GameActionsUI.UIData());
+            this.bottomHeight = new VP<float>(this, (byte)Property.bottomHeight, 60);
         }
 
         #endregion

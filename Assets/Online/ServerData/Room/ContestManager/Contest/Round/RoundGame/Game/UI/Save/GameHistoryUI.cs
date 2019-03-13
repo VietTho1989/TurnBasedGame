@@ -36,6 +36,25 @@ public class GameHistoryUI : UIBehavior<GameHistoryUI.UIData>
         public void OnHide()
         {
             this.visibility.v = Visibility.Hide;
+            // contentContainer
+            {
+                GameHistoryUI gameHistoryUI = this.findCallBack<GameHistoryUI>();
+                if (gameHistoryUI != null)
+                {
+                    if (gameHistoryUI.contentContainer != null)
+                    {
+                        gameHistoryUI.contentContainer.gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        Debug.LogError("contentContainer null");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("gameHistoryUI null");
+                }
+            }
         }
 
         #endregion
@@ -224,7 +243,7 @@ public class GameHistoryUI : UIBehavior<GameHistoryUI.UIData>
     #region implement callBacks
 
     public ViewSaveDataUI viewSaveDataPrefab;
-    private static readonly UIRectTransform viewSaveDataRect = UIRectTransform.CreateFullRect(60, 60, 60, 60);
+    private static readonly UIRectTransform viewSaveDataRect = UIRectTransform.CreateFullRect(30, 30, 30, 30);
 
     public BtnLoadHistoryUI btnLoadHistoryPrefab;
     public Transform contentContainer;
@@ -402,6 +421,9 @@ public class GameHistoryUI : UIBehavior<GameHistoryUI.UIData>
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
                     }
+                    break;
+                case UIData.Property.visibility:
+                    dirty = true;
                     break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

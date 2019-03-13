@@ -36,6 +36,7 @@ public class ViewSaveGameUI : UIBehavior<ViewSaveGameUI.UIData>
                     this.gameDataUIData.v.hintUI.v = null;
                     this.gameDataUIData.v.allowInput.v = false;
                 }
+                this.gameDataUIData.v.bottomHeight.v = 0;
             }
             this.history = new VP<ViewSaveGameHistoryUI.UIData>(this, (byte)Property.history, new ViewSaveGameHistoryUI.UIData());
         }
@@ -167,7 +168,7 @@ public class ViewSaveGameUI : UIBehavior<ViewSaveGameUI.UIData>
     #region implement callBacks
 
     public GameDataUI gameDataUIDataPrefab;
-    private static readonly UIRectTransform gameDataUIDataRect = UIRectTransform.CreateFullRect(0, 0, 30, 60);
+    private static readonly UIRectTransform gameDataUIDataRect = UIRectTransform.CreateFullRect(0, 0, 0, 60);
 
     public ViewSaveGameHistoryUI viewSaveGameHistoryPrefab;
     private static readonly UIRectTransform viewSaveGameHistoryRect = new UIRectTransform();

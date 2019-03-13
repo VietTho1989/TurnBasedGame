@@ -376,7 +376,8 @@ public class BtnHistoryUI : UIBehavior<BtnHistoryUI.UIData>
                     // create
                     GameHistoryUI.UIData gameHistoryUIData = gameUIData.gameHistoryUIData.newOrOld<GameHistoryUI.UIData>();
                     {
-                       
+                        gameHistoryUIData.history.v = new ReferenceData<History>(history);
+                        gameHistoryUIData.visibility.v = GameHistoryUI.UIData.Visibility.Show;
                     }
                     gameUIData.gameHistoryUIData.v = gameHistoryUIData;
                     // showAnimation

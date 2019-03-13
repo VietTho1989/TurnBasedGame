@@ -89,7 +89,12 @@ public class GameUI : UIBehavior<GameUI.UIData>
         {
             this.game = new VP<ReferenceData<Game>>(this, (byte)Property.game, new ReferenceData<Game>(null));
             this.isReplay = new VP<bool>(this, (byte)Property.isReplay, false);
-            this.gameDataUI = new VP<GameDataUI.UIData>(this, (byte)Property.gameDataUI, new GameDataUI.UIData());
+
+            // gameDataUI
+            {
+                this.gameDataUI = new VP<GameDataUI.UIData>(this, (byte)Property.gameDataUI, new GameDataUI.UIData());
+                this.gameDataUI.v.bottomHeight.v = 60;
+            }
 
             // bottom
             {
