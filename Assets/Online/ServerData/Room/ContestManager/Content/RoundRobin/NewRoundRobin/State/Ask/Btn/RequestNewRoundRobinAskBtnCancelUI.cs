@@ -7,366 +7,479 @@ using Foundation.Tasks;
 
 namespace GameManager.Match.RoundRobin
 {
-	public class RequestNewRoundRobinAskBtnCancelUI : UIBehavior<RequestNewRoundRobinAskBtnCancelUI.UIData>
-	{
+    public class RequestNewRoundRobinAskBtnCancelUI : UIBehavior<RequestNewRoundRobinAskBtnCancelUI.UIData>
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : RequestNewRoundRobinStateAskUI.UIData.Btn
-		{
+        public class UIData : RequestNewRoundRobinStateAskUI.UIData.Btn
+        {
 
-			#region state
+            #region state
 
-			public enum State
-			{
-				None,
-				Request,
-				Wait
-			}
+            public enum State
+            {
+                None,
+                Request,
+                Wait
+            }
 
-			public VP<State> state;
+            public VP<State> state;
 
-			#endregion
+            #endregion
 
-			#region Constructor
+            #region Constructor
 
-			public enum Property
-			{
-				state
-			}
+            public enum Property
+            {
+                state
+            }
 
-			public UIData() : base()
-			{
-				this.state = new VP<State>(this, (byte)Property.state, State.None);
-			}
+            public UIData() : base()
+            {
+                this.state = new VP<State>(this, (byte)Property.state, State.None);
+            }
 
-			#endregion
+            #endregion
 
-			public override Type getType ()
-			{
-				return Type.Cancel;
-			}
+            public override Type getType()
+            {
+                return Type.Cancel;
+            }
 
-			public void reset()
-			{
-				this.state.v = State.None;
-			}
+            public void reset()
+            {
+                this.state.v = State.None;
+            }
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		public Button btnCancel;
-		public Text tvCancel;
+        private static readonly TxtLanguage txtCancel = new TxtLanguage();
+        private static readonly TxtLanguage txtCancelCancel = new TxtLanguage();
+        private static readonly TxtLanguage txtCancelling = new TxtLanguage();
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
-					// Task
-					{
-						switch (this.data.state.v) {
-						case UIData.State.None:
-							{
-								destroyRoutine (wait);
-							}
-							break;
-						case UIData.State.Request:
-							{
-								destroyRoutine (wait);
-								// request
-								{
-									RequestNewRoundRobinStateAskUI.UIData requestNewRoundRobinStateAskUIData = this.data.findDataInParent<RequestNewRoundRobinStateAskUI.UIData> ();
-									if (requestNewRoundRobinStateAskUIData != null) {
-										RequestNewRoundRobinStateAsk requestNewRoundRobinStateAsk = requestNewRoundRobinStateAskUIData.requestNewRoundRobinStateAsk.v.data;
-										if (requestNewRoundRobinStateAsk != null) {
-											if (Server.IsServerOnline (requestNewRoundRobinStateAsk)) {
-												requestNewRoundRobinStateAsk.requestCancel (Server.getProfileUserId (requestNewRoundRobinStateAsk));
-												this.data.state.v = UIData.State.Wait;
-											} else {
-												Debug.LogError ("server not online: " + this);
-											}
-										} else {
-											Debug.LogError ("requestNewRoundRobinStateAsk null: " + this);
-										}
-									} else {
-										Debug.LogError ("requestNewRoundRobinStateAskUIData null: " + this);
-									}
-								}
-							}
-							break;
-						case UIData.State.Wait:
-							{
-								RequestNewRoundRobinStateAskUI.UIData requestNewRoundRobinStateAskUIData = this.data.findDataInParent<RequestNewRoundRobinStateAskUI.UIData> ();
-								if (requestNewRoundRobinStateAskUIData != null) {
-									RequestNewRoundRobinStateAsk requestNewRoundRobinStateAsk = requestNewRoundRobinStateAskUIData.requestNewRoundRobinStateAsk.v.data;
-									if (requestNewRoundRobinStateAsk != null) {
-										if (Server.IsServerOnline (requestNewRoundRobinStateAsk)) {
-											startRoutine (ref this.wait, TaskWait ());
-										} else {
-											Debug.LogError ("server not online: " + this);
-											destroyRoutine (wait);
-										}
-									} else {
-										Debug.LogError ("requestNewRoundRobinStateAsk null: " + this);
-									}
-								} else {
-									Debug.LogError ("requestNewRoundRobinStateAskUIData null: " + this);
-								}
-							}
-							break;
-						default:
-							Debug.LogError ("unknown state: " + this.data.state.v + "; " + this);
-							break;
-						}
-					}
-					// UI
-					{
-						if (btnCancel != null && tvCancel != null) {
-							switch (this.data.state.v) {
-							case UIData.State.None:
-								{
-									btnCancel.interactable = true;
-									tvCancel.text = "Cancel";
-								}
-								break;
-							case UIData.State.Request:
-								{
-									btnCancel.interactable = true;
-									tvCancel.text = "Cancel Cancel?";
-								}
-								break;
-							case UIData.State.Wait:
-								{
-									btnCancel.interactable = false;
-									tvCancel.text = "Cancelling...";
-								}
-								break;
-							default:
-								Debug.LogError ("unknown state: " + this.data.state.v + "; " + this);
-								break;
-							}
-						} else {
-							Debug.LogError ("btnCancel, tvCancel null: " + this);
-						}
-					}
-				} else {
-					// Debug.LogError ("data null: " + this);
-				}
-			}
-		}
+        private static readonly TxtLanguage txtRequestError = new TxtLanguage();
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return false;
-		}
+        static RequestNewRoundRobinAskBtnCancelUI()
+        {
+            txtCancel.add(Language.Type.vi, "Huỷ Bỏ");
+            txtCancelCancel.add(Language.Type.vi, "Huỷ huỷ bỏ?");
+            txtCancelling.add(Language.Type.vi, "Đang huỷ bỏ");
 
-		#endregion
+            txtRequestError.add(Language.Type.vi, "Gửi yêu cầu huỷ bỏ lỗi");
+        }
 
-		#region Task wait
+        #endregion
 
-		private Routine wait;
+        #region Refresh
 
-		public IEnumerator TaskWait()
-		{
-			if (this.data != null) {
-				yield return new Wait (Global.WaitSendTime);
-				if (this.data != null) {
-					this.data.state.v = UIData.State.None;
-				} else {
-					Debug.LogError ("data null: " + this);
-				}
-				Toast.showMessage ("request error");
-				Debug.LogError ("request error: " + this);
-			} else {
-				Debug.LogError ("data null: " + this);
-			}
-		}
+        public Button btnCancel;
+        public Text tvCancel;
 
-		public override List<Routine> getRoutineList ()
-		{
-			List<Routine> ret = new List<Routine> ();
-			{
-				ret.Add (wait);
-			}
-			return ret;
-		}
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
+                    // Task
+                    {
+                        switch (this.data.state.v)
+                        {
+                            case UIData.State.None:
+                                {
+                                    destroyRoutine(wait);
+                                }
+                                break;
+                            case UIData.State.Request:
+                                {
+                                    destroyRoutine(wait);
+                                    // request
+                                    {
+                                        RequestNewRoundRobinStateAskUI.UIData requestNewRoundRobinStateAskUIData = this.data.findDataInParent<RequestNewRoundRobinStateAskUI.UIData>();
+                                        if (requestNewRoundRobinStateAskUIData != null)
+                                        {
+                                            RequestNewRoundRobinStateAsk requestNewRoundRobinStateAsk = requestNewRoundRobinStateAskUIData.requestNewRoundRobinStateAsk.v.data;
+                                            if (requestNewRoundRobinStateAsk != null)
+                                            {
+                                                if (Server.IsServerOnline(requestNewRoundRobinStateAsk))
+                                                {
+                                                    requestNewRoundRobinStateAsk.requestCancel(Server.getProfileUserId(requestNewRoundRobinStateAsk));
+                                                    this.data.state.v = UIData.State.Wait;
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("server not online: " + this);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("requestNewRoundRobinStateAsk null: " + this);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("requestNewRoundRobinStateAskUIData null: " + this);
+                                        }
+                                    }
+                                }
+                                break;
+                            case UIData.State.Wait:
+                                {
+                                    RequestNewRoundRobinStateAskUI.UIData requestNewRoundRobinStateAskUIData = this.data.findDataInParent<RequestNewRoundRobinStateAskUI.UIData>();
+                                    if (requestNewRoundRobinStateAskUIData != null)
+                                    {
+                                        RequestNewRoundRobinStateAsk requestNewRoundRobinStateAsk = requestNewRoundRobinStateAskUIData.requestNewRoundRobinStateAsk.v.data;
+                                        if (requestNewRoundRobinStateAsk != null)
+                                        {
+                                            if (Server.IsServerOnline(requestNewRoundRobinStateAsk))
+                                            {
+                                                startRoutine(ref this.wait, TaskWait());
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("server not online: " + this);
+                                                destroyRoutine(wait);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("requestNewRoundRobinStateAsk null: " + this);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("requestNewRoundRobinStateAskUIData null: " + this);
+                                    }
+                                }
+                                break;
+                            default:
+                                Debug.LogError("unknown state: " + this.data.state.v + "; " + this);
+                                break;
+                        }
+                    }
+                    // UI
+                    {
+                        if (btnCancel != null && tvCancel != null)
+                        {
+                            switch (this.data.state.v)
+                            {
+                                case UIData.State.None:
+                                    {
+                                        btnCancel.interactable = true;
+                                        tvCancel.text = txtCancel.get("Cancel");
+                                    }
+                                    break;
+                                case UIData.State.Request:
+                                    {
+                                        btnCancel.interactable = true;
+                                        tvCancel.text = txtCancelCancel.get("Cancel cancel?");
+                                    }
+                                    break;
+                                case UIData.State.Wait:
+                                    {
+                                        btnCancel.interactable = false;
+                                        tvCancel.text = txtCancelling.get("Cancelling");
+                                    }
+                                    break;
+                                default:
+                                    Debug.LogError("unknown state: " + this.data.state.v + "; " + this);
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("btnCancel, tvCancel null: " + this);
+                        }
+                    }
+                }
+                else
+                {
+                    // Debug.LogError ("data null: " + this);
+                }
+            }
+        }
 
-		#endregion
+        public override bool isShouldDisableUpdate()
+        {
+            return false;
+        }
 
-		#region implement callBacks
+        #endregion
 
-		private RequestNewRoundRobinStateAskUI.UIData requestNewRoundRobinStateAskUIData = null;
-		private Server server = null;
+        #region Task wait
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Parent
-				{
-					DataUtils.addParentCallBack (uiData, this, ref this.requestNewRoundRobinStateAskUIData);
-				}
-				dirty = true;
-				return;
-			}
-			// Parent
-			{
-				if (data is RequestNewRoundRobinStateAskUI.UIData) {
-					RequestNewRoundRobinStateAskUI.UIData requestNewRoundRobinStateAskUIData = data as RequestNewRoundRobinStateAskUI.UIData;
-					// Child
-					{
-						requestNewRoundRobinStateAskUIData.requestNewRoundRobinStateAsk.allAddCallBack (this);
-					}
-					dirty = true;
-					return;
-				}
-				// Child
-				{
-					if (data is RequestNewRoundRobinStateAsk) {
-						RequestNewRoundRobinStateAsk requestNewRoundRobinStateAsk = data as RequestNewRoundRobinStateAsk;
-						// Reset
-						{
-							if (this.data != null) {
-								this.data.reset ();
-							} else {
-								Debug.LogError ("data null: " + this);
-							}
-						}
-						// Parent
-						{
-							DataUtils.addParentCallBack (requestNewRoundRobinStateAsk, this, ref this.server);
-						}
-						dirty = true;
-						return;
-					}
-					// Parent
-					if (data is Server) {
-						dirty = true;
-						return;
-					}
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        private Routine wait;
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Parent
-				{
-					DataUtils.removeParentCallBack (uiData, this, ref this.requestNewRoundRobinStateAskUIData);
-				}
-				this.setDataNull (uiData);
-				return;
-			}
-			// Parent
-			{
-				if (data is RequestNewRoundRobinStateAskUI.UIData) {
-					RequestNewRoundRobinStateAskUI.UIData requestNewRoundRobinStateAskUIData = data as RequestNewRoundRobinStateAskUI.UIData;
-					// Child
-					{
-						requestNewRoundRobinStateAskUIData.requestNewRoundRobinStateAsk.allRemoveCallBack (this);
-					}
-					return;
-				}
-				// Child
-				{
-					if (data is RequestNewRoundRobinStateAsk) {
-						RequestNewRoundRobinStateAsk requestNewRoundRobinStateAsk = data as RequestNewRoundRobinStateAsk;
-						// Parent
-						{
-							DataUtils.removeParentCallBack (requestNewRoundRobinStateAsk, this, ref this.server);
-						}
-						return;
-					}
-					// Parent
-					if (data is Server) {
-						return;
-					}
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public IEnumerator TaskWait()
+        {
+            if (this.data != null)
+            {
+                yield return new Wait(Global.WaitSendTime);
+                if (this.data != null)
+                {
+                    this.data.state.v = UIData.State.None;
+                }
+                else
+                {
+                    Debug.LogError("data null: " + this);
+                }
+                Toast.showMessage(txtRequestError.get("Send request to cancel error"));
+                Debug.LogError("request error: " + this);
+            }
+            else
+            {
+                Debug.LogError("data null: " + this);
+            }
+        }
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.state:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// Parent
-			{
-				if (wrapProperty.p is RequestNewRoundRobinStateAskUI.UIData) {
-					switch ((RequestNewRoundRobinStateAskUI.UIData.Property)wrapProperty.n) {
-					case RequestNewRoundRobinStateAskUI.UIData.Property.requestNewRoundRobinStateAsk:
-						{
-							ValueChangeUtils.replaceCallBack (this, syncs);
-							dirty = true;
-						}
-						break;
-					case RequestNewRoundRobinStateAskUI.UIData.Property.btn:
-						break;
-					case RequestNewRoundRobinStateAskUI.UIData.Property.visibility:
-						break;
-					default:
-						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-						break;
-					}
-					return;
-				}
-				// Child
-				{
-					if (wrapProperty.p is RequestNewRoundRobinStateAsk) {
-						return;
-					}
-					// Parent
-					if (wrapProperty.p is Server) {
-						Server.State.OnUpdateSyncStateChange (wrapProperty, this);
-						return;
-					}
-				}
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+        public override List<Routine> getRoutineList()
+        {
+            List<Routine> ret = new List<Routine>();
+            {
+                ret.Add(wait);
+            }
+            return ret;
+        }
 
-		#endregion
+        #endregion
 
-		public void onClickBtnCancel()
-		{
-			if (this.data != null) {
-				switch (this.data.state.v) {
-				case UIData.State.None:
-					this.data.state.v = UIData.State.Request;
-					break;
-				case UIData.State.Request:
-					this.data.state.v = UIData.State.None;
-					break;
-				case UIData.State.Wait:
-					Debug.LogError ("you are requesting: " + this);
-					break;
-				default:
-					Debug.LogError ("unknown state: " + this.data.state.v + "; " + this);
-					break;
-				}
-			} else {
-				Debug.LogError ("data null: " + this);
-			}
-		}
+        #region implement callBacks
 
-	}
+        private RequestNewRoundRobinStateAskUI.UIData requestNewRoundRobinStateAskUIData = null;
+        private Server server = null;
+
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
+                // Parent
+                {
+                    DataUtils.addParentCallBack(uiData, this, ref this.requestNewRoundRobinStateAskUIData);
+                }
+                dirty = true;
+                return;
+            }
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // Parent
+            {
+                if (data is RequestNewRoundRobinStateAskUI.UIData)
+                {
+                    RequestNewRoundRobinStateAskUI.UIData requestNewRoundRobinStateAskUIData = data as RequestNewRoundRobinStateAskUI.UIData;
+                    // Child
+                    {
+                        requestNewRoundRobinStateAskUIData.requestNewRoundRobinStateAsk.allAddCallBack(this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                {
+                    if (data is RequestNewRoundRobinStateAsk)
+                    {
+                        RequestNewRoundRobinStateAsk requestNewRoundRobinStateAsk = data as RequestNewRoundRobinStateAsk;
+                        // Reset
+                        {
+                            if (this.data != null)
+                            {
+                                this.data.reset();
+                            }
+                            else
+                            {
+                                Debug.LogError("data null: " + this);
+                            }
+                        }
+                        // Parent
+                        {
+                            DataUtils.addParentCallBack(requestNewRoundRobinStateAsk, this, ref this.server);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // Parent
+                    if (data is Server)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
+
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
+                // Parent
+                {
+                    DataUtils.removeParentCallBack(uiData, this, ref this.requestNewRoundRobinStateAskUIData);
+                }
+                this.setDataNull(uiData);
+                return;
+            }
+            // Setting
+            if(data is Setting)
+            {
+                return;
+            }
+            // Parent
+            {
+                if (data is RequestNewRoundRobinStateAskUI.UIData)
+                {
+                    RequestNewRoundRobinStateAskUI.UIData requestNewRoundRobinStateAskUIData = data as RequestNewRoundRobinStateAskUI.UIData;
+                    // Child
+                    {
+                        requestNewRoundRobinStateAskUIData.requestNewRoundRobinStateAsk.allRemoveCallBack(this);
+                    }
+                    return;
+                }
+                // Child
+                {
+                    if (data is RequestNewRoundRobinStateAsk)
+                    {
+                        RequestNewRoundRobinStateAsk requestNewRoundRobinStateAsk = data as RequestNewRoundRobinStateAsk;
+                        // Parent
+                        {
+                            DataUtils.removeParentCallBack(requestNewRoundRobinStateAsk, this, ref this.server);
+                        }
+                        return;
+                    }
+                    // Parent
+                    if (data is Server)
+                    {
+                        return;
+                    }
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
+
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.state:
+                        dirty = true;
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Parent
+            {
+                if (wrapProperty.p is RequestNewRoundRobinStateAskUI.UIData)
+                {
+                    switch ((RequestNewRoundRobinStateAskUI.UIData.Property)wrapProperty.n)
+                    {
+                        case RequestNewRoundRobinStateAskUI.UIData.Property.requestNewRoundRobinStateAsk:
+                            {
+                                ValueChangeUtils.replaceCallBack(this, syncs);
+                                dirty = true;
+                            }
+                            break;
+                        case RequestNewRoundRobinStateAskUI.UIData.Property.btn:
+                            break;
+                        case RequestNewRoundRobinStateAskUI.UIData.Property.visibility:
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+                // Child
+                {
+                    if (wrapProperty.p is RequestNewRoundRobinStateAsk)
+                    {
+                        return;
+                    }
+                    // Parent
+                    if (wrapProperty.p is Server)
+                    {
+                        Server.State.OnUpdateSyncStateChange(wrapProperty, this);
+                        return;
+                    }
+                }
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
+
+        #endregion
+
+        public void onClickBtnCancel()
+        {
+            if (this.data != null)
+            {
+                switch (this.data.state.v)
+                {
+                    case UIData.State.None:
+                        this.data.state.v = UIData.State.Request;
+                        break;
+                    case UIData.State.Request:
+                        this.data.state.v = UIData.State.None;
+                        break;
+                    case UIData.State.Wait:
+                        Debug.LogError("you are requesting: " + this);
+                        break;
+                    default:
+                        Debug.LogError("unknown state: " + this.data.state.v + "; " + this);
+                        break;
+                }
+            }
+            else
+            {
+                Debug.LogError("data null: " + this);
+            }
+        }
+
+    }
 }

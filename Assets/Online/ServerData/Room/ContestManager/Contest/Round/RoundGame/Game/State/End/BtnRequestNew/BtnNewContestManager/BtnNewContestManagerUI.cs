@@ -129,7 +129,6 @@ public class BtnNewContestManagerUI : UIBehavior<BtnNewContestManagerUI.UIData>
 
     public override void onRemoveCallBack<T>(T data, bool isHide)
     {
-        Debug.LogError("Don't process: " + data + "; " + this);
         if (data is UIData)
         {
             UIData uiData = data as UIData;
@@ -152,6 +151,7 @@ public class BtnNewContestManagerUI : UIBehavior<BtnNewContestManagerUI.UIData>
         {
             return;
         }
+        Debug.LogError("Don't process: " + data + "; " + this);
     }
 
     public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)

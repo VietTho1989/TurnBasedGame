@@ -98,8 +98,6 @@ namespace GameManager.Match.Elimination
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text lbTitle;
@@ -145,6 +143,8 @@ namespace GameManager.Match.Elimination
         }
 
         #endregion
+
+        #region Refresh
 
         public Transform contentContainer;
 

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using GameManager.Match;
 using GameManager.Match.Elimination;
+using GameManager.Match.RoundRobin;
 
 public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIData>
 {
@@ -21,7 +22,8 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
             {
                 Round,
                 ContestManager,
-                EliminationRound
+                EliminationRound,
+                RoundRobin
             }
 
             public abstract Type getType();
@@ -144,6 +146,49 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                             }
                         }
                     }
+                    // requestNewRoundRobin
+                    if (!isHaveSub)
+                    {
+                        // find
+                        RequestNewRoundRobin requestNewRoundRobin = null;
+                        {
+                            RoundRobinContentUI.UIData roundRobinContentUIData = this.data.findDataInParent<RoundRobinContentUI.UIData>();
+                            if (roundRobinContentUIData != null)
+                            {
+                                RequestNewRoundRobinUI.UIData requestNewRoundRobinUIData = roundRobinContentUIData.requestNewRoundRobinUIData.v;
+                                if (requestNewRoundRobinUIData != null)
+                                {
+                                    requestNewRoundRobin = requestNewRoundRobinUIData.requestNewRoundRobin.v.data;
+                                }
+                                else
+                                {
+                                    Debug.LogError("requestNewRoundRobinUIData null");
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("roundRobinContentUIData null");
+                            }
+                        }
+                        // process
+                        if (requestNewRoundRobin != null)
+                        {
+                            if (requestNewRoundRobin.state.v.getType() != RequestNewRoundRobin.State.Type.None)
+                            {
+                                isHaveSub = true;
+                                // make UI
+                                BtnNewRoundRobinUI.UIData btnNewRoundRobinUIData = this.data.sub.newOrOld<BtnNewRoundRobinUI.UIData>();
+                                {
+                                    btnNewRoundRobinUIData.requestNewRoundRobin.v = new ReferenceData<RequestNewRoundRobin>(requestNewRoundRobin);
+                                }
+                                this.data.sub.v = btnNewRoundRobinUIData;
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("requestNewRoundRobin null");
+                        }
+                    }
                     // requestNewRound
                     if (!isHaveSub)
                     {
@@ -219,6 +264,9 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
     private EliminationContentUI.UIData eliminationContentUIData = null;
     public BtnNewEliminationRoundUI btnNewEliminationRoundPrefab;
 
+    private RoundRobinContentUI.UIData roundRobinContentUIData = null;
+    public BtnNewRoundRobinUI btnNewRoundRobinPrefab;
+
     public override void onAddCallBack<T>(T data)
     {
         if (data is UIData)
@@ -229,6 +277,7 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                 DataUtils.addParentCallBack(uiData, this, ref this.contestUIData);
                 DataUtils.addParentCallBack(uiData, this, ref this.roomUIData);
                 DataUtils.addParentCallBack(uiData, this, ref this.eliminationContentUIData);
+                DataUtils.addParentCallBack(uiData, this, ref this.roundRobinContentUIData);
             }
             // Child
             {
@@ -335,6 +384,38 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                     }
                 }
             }
+            // roundRobinContentUIData
+            {
+                if(data is RoundRobinContentUI.UIData)
+                {
+                    RoundRobinContentUI.UIData roundRobinContentUIData = data as RoundRobinContentUI.UIData;
+                    // Child
+                    {
+                        roundRobinContentUIData.requestNewRoundRobinUIData.allAddCallBack(this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                {
+                    if(data is RequestNewRoundRobinUI.UIData)
+                    {
+                        RequestNewRoundRobinUI.UIData requestNewRoundRobinUIData = data as RequestNewRoundRobinUI.UIData;
+                        // Child
+                        {
+                            requestNewRoundRobinUIData.requestNewRoundRobin.allAddCallBack(this);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // Child
+                    if(data is RequestNewRoundRobin)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                }
+            }
         }
         // Child
         if (data is UIData.Sub)
@@ -362,6 +443,12 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                             UIUtils.Instantiate(btnNewEliminationRoundUIData, btnNewEliminationRoundPrefab, this.transform, UIConstants.FullParent);
                         }
                         break;
+                    case UIData.Sub.Type.RoundRobin:
+                        {
+                            BtnNewRoundRobinUI.UIData btnNewRoundRobinUIData = sub as BtnNewRoundRobinUI.UIData;
+                            UIUtils.Instantiate(btnNewRoundRobinUIData, btnNewRoundRobinPrefab, this.transform, UIConstants.FullParent);
+                        }
+                        break;
                     default:
                         Debug.LogError("unknown type: " + sub.getType());
                         break;
@@ -383,6 +470,7 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                 DataUtils.removeParentCallBack(uiData, this, ref this.contestUIData);
                 DataUtils.removeParentCallBack(uiData, this, ref this.roomUIData);
                 DataUtils.removeParentCallBack(uiData, this, ref this.eliminationContentUIData);
+                DataUtils.removeParentCallBack(uiData, this, ref this.roundRobinContentUIData);
             }
             // Child
             {
@@ -480,6 +568,35 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                     }
                 }
             }
+            // roundRobinContentUIData
+            {
+                if (data is RoundRobinContentUI.UIData)
+                {
+                    RoundRobinContentUI.UIData roundRobinContentUIData = data as RoundRobinContentUI.UIData;
+                    // Child
+                    {
+                        roundRobinContentUIData.requestNewRoundRobinUIData.allRemoveCallBack(this);
+                    }
+                    return;
+                }
+                // Child
+                {
+                    if (data is RequestNewRoundRobinUI.UIData)
+                    {
+                        RequestNewRoundRobinUI.UIData requestNewRoundRobinUIData = data as RequestNewRoundRobinUI.UIData;
+                        // Child
+                        {
+                            requestNewRoundRobinUIData.requestNewRoundRobin.allRemoveCallBack(this);
+                        }
+                        return;
+                    }
+                    // Child
+                    if (data is RequestNewRoundRobin)
+                    {
+                        return;
+                    }
+                }
+            }
         }
         // Child
         if (data is UIData.Sub)
@@ -505,6 +622,12 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                         {
                             BtnNewEliminationRoundUI.UIData btnNewEliminationRoundUIData = sub as BtnNewEliminationRoundUI.UIData;
                             btnNewEliminationRoundUIData.removeCallBackAndDestroy(typeof(BtnNewEliminationRoundUI));
+                        }
+                        break;
+                    case UIData.Sub.Type.RoundRobin:
+                        {
+                            BtnNewRoundRobinUI.UIData btnNewRoundRobinUIData = sub as BtnNewRoundRobinUI.UIData;
+                            btnNewRoundRobinUIData.removeCallBackAndDestroy(typeof(BtnNewRoundRobinUI));
                         }
                         break;
                     default:
@@ -719,6 +842,66 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                         switch ((RequestNewEliminationRound.Property)wrapProperty.n)
                         {
                             case RequestNewEliminationRound.Property.state:
+                                dirty = true;
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
+                }
+            }
+            // roundRobinContentUIData
+            {
+                if (wrapProperty.p is RoundRobinContentUI.UIData)
+                {
+                    switch ((RoundRobinContentUI.UIData.Property)wrapProperty.n)
+                    {
+                        case RoundRobinContentUI.UIData.Property.roundRobinContent:
+                            break;
+                        case RoundRobinContentUI.UIData.Property.roundRobinUIData:
+                            break;
+                        case RoundRobinContentUI.UIData.Property.chooseRoundRobinUIData:
+                            break;
+                        case RoundRobinContentUI.UIData.Property.requestNewRoundRobinUIData:
+                            {
+                                ValueChangeUtils.replaceCallBack(this, syncs);
+                                dirty = true;
+                            }
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+                // Child
+                {
+                    if (wrapProperty.p is RequestNewRoundRobinUI.UIData)
+                    {
+                        switch ((RequestNewRoundRobinUI.UIData.Property)wrapProperty.n)
+                        {
+                            case RequestNewRoundRobinUI.UIData.Property.requestNewRoundRobin:
+                                {
+                                    ValueChangeUtils.replaceCallBack(this, syncs);
+                                    dirty = true;
+                                }
+                                break;
+                            case RequestNewRoundRobinUI.UIData.Property.sub:
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
+                    // Child
+                    if (wrapProperty.p is RequestNewRoundRobin)
+                    {
+                        switch ((RequestNewRoundRobin.Property)wrapProperty.n)
+                        {
+                            case RequestNewRoundRobin.Property.state:
                                 dirty = true;
                                 break;
                             default:

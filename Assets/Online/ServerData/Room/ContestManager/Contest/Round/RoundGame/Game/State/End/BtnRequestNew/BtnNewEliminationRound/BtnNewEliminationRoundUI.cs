@@ -130,7 +130,6 @@ public class BtnNewEliminationRoundUI : UIBehavior<BtnNewEliminationRoundUI.UIDa
 
     public override void onRemoveCallBack<T>(T data, bool isHide)
     {
-        Debug.LogError("Don't process: " + data + "; " + this);
         if (data is UIData)
         {
             UIData uiData = data as UIData;
@@ -153,6 +152,7 @@ public class BtnNewEliminationRoundUI : UIBehavior<BtnNewEliminationRoundUI.UIDa
         {
             return;
         }
+        Debug.LogError("Don't process: " + data + "; " + this);
     }
 
     public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)

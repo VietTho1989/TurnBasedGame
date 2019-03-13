@@ -76,8 +76,8 @@ namespace GameState
                     normalContentRect.anchorMax = new Vector2(0.5f, 0.5f);
                     normalContentRect.pivot = new Vector2(0.5f, 0.5f);
                     normalContentRect.offsetMin = new Vector2(-60.0f, 15.0f);
-                    normalContentRect.offsetMax = new Vector2(60.0f, 45.0f);
-                    normalContentRect.sizeDelta = new Vector2(120.0f, 30.0f);
+                    normalContentRect.offsetMax = new Vector2(60.0f, 39.0f);
+                    normalContentRect.sizeDelta = new Vector2(120.0f, 24.0f);
                 }
                 // expandRect
                 {
@@ -284,8 +284,8 @@ namespace GameState
                                     // landscape view
                                     else
                                     {
-                                        float x = 0;
-                                        endTransform.anchoredPosition = new Vector2(x, bottom - 60 / 2);
+                                        float x = left - endWidth / 2 - GameDataBoardUI.Margin; ;
+                                        endTransform.anchoredPosition = new Vector2(x, 30);
                                     }
                                 }
                                 else

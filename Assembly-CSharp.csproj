@@ -3106,6 +3106,7 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\State\End\BtnRequestNew\BtnNewContestManager\BtnNewContestManagerUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\State\End\BtnRequestNew\BtnNewEliminationRound\BtnNewEliminationRoundUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\State\End\BtnRequestNew\BtnNewRound\BtnNewRoundUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\State\End\BtnRequestNew\BtnNewRoundRobin\BtnNewRoundRobinUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\State\End\BtnRequestNew\BtnRequestNewUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\State\End\CheckEndResultChange.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\State\End\End.cs" />

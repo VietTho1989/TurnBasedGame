@@ -410,7 +410,7 @@ public class RoomUI : UIBehavior<RoomUI.UIData>
     private static readonly UIRectTransform chooseContestManagerRect = UIConstants.FullParent;
 
     public RequestNewContestManagerUI requestNewContestManagerPrefab;
-    private static readonly UIRectTransform requestNewContestManagerRect = UIConstants.FullParent;
+    private static readonly UIRectTransform requestNewContestManagerRect = UIRectTransform.CreateCenterRect(360, 400);
 
     public RoomUserInformUI roomUserInformPrefab;
     private static readonly UIRectTransform roomUserInformRect = UIConstants.FullParent;
