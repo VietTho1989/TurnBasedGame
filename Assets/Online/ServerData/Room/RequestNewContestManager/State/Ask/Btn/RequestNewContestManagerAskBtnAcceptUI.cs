@@ -61,15 +61,19 @@ namespace GameManager.ContestManager
 
 		#region txt
 
-		public static readonly TxtLanguage txtAccept = new TxtLanguage();
-		public static readonly TxtLanguage txtCancelAccept = new TxtLanguage();
-		public static readonly TxtLanguage txtAccepting = new TxtLanguage ();
+		private static readonly TxtLanguage txtAccept = new TxtLanguage();
+		private static readonly TxtLanguage txtCancelAccept = new TxtLanguage();
+		private static readonly TxtLanguage txtAccepting = new TxtLanguage ();
+
+        private static readonly TxtLanguage txtRequestError = new TxtLanguage();
 
 		static RequestNewContestManagerAskBtnAcceptUI()
 		{
 			txtAccept.add (Language.Type.vi, "Chấp Nhận");
 			txtCancelAccept.add (Language.Type.vi, "Huỷ chấp nhận?");
 			txtAccepting.add (Language.Type.vi, "Đang chấp nhận");
+
+            txtRequestError.add(Language.Type.vi, "Gửi yêu cầu chấp nhận lỗi");
 		}
 
 		#endregion
@@ -153,13 +157,13 @@ namespace GameManager.ContestManager
 							case UIData.State.Request:
 								{
 									btnAccept.interactable = true;
-									tvAccept.text = txtCancelAccept.get ("Cancel Accept?");
+									tvAccept.text = txtCancelAccept.get ("Cancel accept?");
 								}
 								break;
 							case UIData.State.Wait:
 								{
 									btnAccept.interactable = false;
-									tvAccept.text = txtAccepting.get ("Accepting...");
+									tvAccept.text = txtAccepting.get ("Accepting");
 								}
 								break;
 							default:
@@ -192,7 +196,7 @@ namespace GameManager.ContestManager
 			if (this.data != null) {
 				yield return new Wait (Global.WaitSendTime);
 				this.data.state.v = UIData.State.None;
-				Toast.showMessage ("request error");
+                Toast.showMessage(txtRequestError.get("Send request to accept error"));
 				Debug.LogError ("request error: " + this);
 			} else {
 				Debug.LogError ("data null: " + this);

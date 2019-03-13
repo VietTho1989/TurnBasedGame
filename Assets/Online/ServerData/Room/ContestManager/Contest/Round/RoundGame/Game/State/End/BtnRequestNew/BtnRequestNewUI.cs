@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using GameManager.Match;
+using GameManager.Match.Elimination;
 
 public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIData>
 {
@@ -19,7 +20,8 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
             public enum Type
             {
                 Round,
-                ContestManager
+                ContestManager,
+                EliminationRound
             }
 
             public abstract Type getType();
@@ -103,6 +105,45 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                             Debug.LogError("requestNewContestManager null");
                         }
                     }
+                    // requestNewEliminationRound
+                    if (!isHaveSub)
+                    {
+                        // find
+                        RequestNewEliminationRound requestNewEliminationRound = null;
+                        {
+                            EliminationContentUI.UIData eliminationContentUIData = this.data.findDataInParent<EliminationContentUI.UIData>();
+                            if (eliminationContentUIData != null)
+                            {
+                                RequestNewEliminationRoundUI.UIData requestNewEliminationRoundUIData = eliminationContentUIData.requestNewEliminationRoundUIData.v;
+                                if (requestNewEliminationRoundUIData != null)
+                                {
+                                    requestNewEliminationRound = requestNewEliminationRoundUIData.requestNewEliminationRound.v.data;
+                                }
+                                else
+                                {
+                                    Debug.LogError("requestNewEliminationRoundUIData null");
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("eliminationContentUIData null");
+                            }
+                        }
+                        // process
+                        if (requestNewEliminationRound != null)
+                        {
+                            if (requestNewEliminationRound.state.v.getType() != RequestNewEliminationRound.State.Type.None)
+                            {
+                                isHaveSub = true;
+                                // make UI
+                                BtnNewEliminationRoundUI.UIData btnNewEliminationRoundUIData = this.data.sub.newOrOld<BtnNewEliminationRoundUI.UIData>();
+                                {
+                                    btnNewEliminationRoundUIData.requestNewEliminationRound.v = new ReferenceData<RequestNewEliminationRound>(requestNewEliminationRound);
+                                }
+                                this.data.sub.v = btnNewEliminationRoundUIData;
+                            }
+                        }
+                    }
                     // requestNewRound
                     if (!isHaveSub)
                     {
@@ -175,6 +216,9 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
     private RoomUI.UIData roomUIData = null;
     public BtnNewContestManagerUI btnNewContestManagerPrefab;
 
+    private EliminationContentUI.UIData eliminationContentUIData = null;
+    public BtnNewEliminationRoundUI btnNewEliminationRoundPrefab;
+
     public override void onAddCallBack<T>(T data)
     {
         if (data is UIData)
@@ -184,6 +228,7 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
             {
                 DataUtils.addParentCallBack(uiData, this, ref this.contestUIData);
                 DataUtils.addParentCallBack(uiData, this, ref this.roomUIData);
+                DataUtils.addParentCallBack(uiData, this, ref this.eliminationContentUIData);
             }
             // Child
             {
@@ -228,7 +273,7 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
             }
             // roomUIData
             {
-                if(data is RoomUI.UIData)
+                if (data is RoomUI.UIData)
                 {
                     RoomUI.UIData roomUIData = data as RoomUI.UIData;
                     // Child
@@ -240,7 +285,7 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                 }
                 // Child
                 {
-                    if(data is RequestNewContestManagerUI.UIData)
+                    if (data is RequestNewContestManagerUI.UIData)
                     {
                         RequestNewContestManagerUI.UIData requestNewContestManagerUIData = data as RequestNewContestManagerUI.UIData;
                         // Child
@@ -251,7 +296,39 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                         return;
                     }
                     // Child
-                    if(data is RequestNewContestManager)
+                    if (data is RequestNewContestManager)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                }
+            }
+            // eliminationContentUIData
+            {
+                if (data is EliminationContentUI.UIData)
+                {
+                    EliminationContentUI.UIData eliminationContentUIData = data as EliminationContentUI.UIData;
+                    // Child
+                    {
+                        eliminationContentUIData.requestNewEliminationRoundUIData.allAddCallBack(this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                {
+                    if (data is RequestNewEliminationRoundUI.UIData)
+                    {
+                        RequestNewEliminationRoundUI.UIData requestNewEliminationRoundUIData = data as RequestNewEliminationRoundUI.UIData;
+                        // Child
+                        {
+                            requestNewEliminationRoundUIData.requestNewEliminationRound.allAddCallBack(this);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // Child
+                    if (data is RequestNewEliminationRound)
                     {
                         dirty = true;
                         return;
@@ -279,6 +356,12 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                             UIUtils.Instantiate(btnNewContestManagerUIData, btnNewContestManagerPrefab, this.transform, UIConstants.FullParent);
                         }
                         break;
+                    case UIData.Sub.Type.EliminationRound:
+                        {
+                            BtnNewEliminationRoundUI.UIData btnNewEliminationRoundUIData = sub as BtnNewEliminationRoundUI.UIData;
+                            UIUtils.Instantiate(btnNewEliminationRoundUIData, btnNewEliminationRoundPrefab, this.transform, UIConstants.FullParent);
+                        }
+                        break;
                     default:
                         Debug.LogError("unknown type: " + sub.getType());
                         break;
@@ -299,6 +382,7 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
             {
                 DataUtils.removeParentCallBack(uiData, this, ref this.contestUIData);
                 DataUtils.removeParentCallBack(uiData, this, ref this.roomUIData);
+                DataUtils.removeParentCallBack(uiData, this, ref this.eliminationContentUIData);
             }
             // Child
             {
@@ -367,6 +451,35 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                     }
                 }
             }
+            // eliminationContentUIData
+            {
+                if (data is EliminationContentUI.UIData)
+                {
+                    EliminationContentUI.UIData eliminationContentUIData = data as EliminationContentUI.UIData;
+                    // Child
+                    {
+                        eliminationContentUIData.requestNewEliminationRoundUIData.allRemoveCallBack(this);
+                    }
+                    return;
+                }
+                // Child
+                {
+                    if (data is RequestNewEliminationRoundUI.UIData)
+                    {
+                        RequestNewEliminationRoundUI.UIData requestNewEliminationRoundUIData = data as RequestNewEliminationRoundUI.UIData;
+                        // Child
+                        {
+                            requestNewEliminationRoundUIData.requestNewEliminationRound.allRemoveCallBack(this);
+                        }
+                        return;
+                    }
+                    // Child
+                    if (data is RequestNewEliminationRound)
+                    {
+                        return;
+                    }
+                }
+            }
         }
         // Child
         if (data is UIData.Sub)
@@ -386,6 +499,12 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                         {
                             BtnNewContestManagerUI.UIData btnNewContestManagerUIData = sub as BtnNewContestManagerUI.UIData;
                             btnNewContestManagerUIData.removeCallBackAndDestroy(typeof(BtnNewContestManagerUI));
+                        }
+                        break;
+                    case UIData.Sub.Type.EliminationRound:
+                        {
+                            BtnNewEliminationRoundUI.UIData btnNewEliminationRoundUIData = sub as BtnNewEliminationRoundUI.UIData;
+                            btnNewEliminationRoundUIData.removeCallBackAndDestroy(typeof(BtnNewEliminationRoundUI));
                         }
                         break;
                     default:
@@ -540,6 +659,66 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                         switch ((RequestNewContestManager.Property)wrapProperty.n)
                         {
                             case RequestNewContestManager.Property.state:
+                                dirty = true;
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
+                }
+            }
+            // eliminationContentUIData
+            {
+                if (wrapProperty.p is EliminationContentUI.UIData)
+                {
+                    switch ((EliminationContentUI.UIData.Property)wrapProperty.n)
+                    {
+                        case EliminationContentUI.UIData.Property.eliminationContent:
+                            break;
+                        case EliminationContentUI.UIData.Property.eliminationRoundUIData:
+                            break;
+                        case EliminationContentUI.UIData.Property.chooseEliminationRoundUIData:
+                            break;
+                        case EliminationContentUI.UIData.Property.requestNewEliminationRoundUIData:
+                            {
+                                ValueChangeUtils.replaceCallBack(this, syncs);
+                                dirty = true;
+                            }
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+                // Child
+                {
+                    if (wrapProperty.p is RequestNewEliminationRoundUI.UIData)
+                    {
+                        switch ((RequestNewEliminationRoundUI.UIData.Property)wrapProperty.n)
+                        {
+                            case RequestNewEliminationRoundUI.UIData.Property.requestNewEliminationRound:
+                                {
+                                    ValueChangeUtils.replaceCallBack(this, syncs);
+                                    dirty = true;
+                                }
+                                break;
+                            case RequestNewEliminationRoundUI.UIData.Property.sub:
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
+                    // Child
+                    if (wrapProperty.p is RequestNewEliminationRound)
+                    {
+                        switch ((RequestNewEliminationRound.Property)wrapProperty.n)
+                        {
+                            case RequestNewEliminationRound.Property.state:
                                 dirty = true;
                                 break;
                             default:

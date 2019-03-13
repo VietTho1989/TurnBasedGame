@@ -221,40 +221,40 @@ namespace GameManager.ContestManager
                                 this.data.btn.v = null;
                             }
                         }
+                        // tvCannotRequest
+                        {
+                            if (tvCannotRequest != null)
+                            {
+                                tvCannotRequest.gameObject.SetActive(this.data.btn.v == null);
+                            }
+                            else
+                            {
+                                Debug.LogError("tvCannotRequest null");
+                            }
+                        }
+                        // txt
+                        {
+                            if (lbTitle != null)
+                            {
+                                lbTitle.text = txtTitle.get("Request New Tournament");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null: " + this);
+                            }
+                            if (tvCannotRequest != null)
+                            {
+                                tvCannotRequest.text = txtCannotRequest.get("Can't request");
+                            }
+                            else
+                            {
+                                Debug.LogError("tvCannotRequest null");
+                            }
+                        }
                     }
                     else
                     {
                         Debug.LogError("requestNewContestManagerStateAsk null: " + this);
-                    }
-                    // tvCannotRequest
-                    {
-                        if (tvCannotRequest != null)
-                        {
-                            tvCannotRequest.gameObject.SetActive(this.data.btn.v == null);
-                        }
-                        else
-                        {
-                            Debug.LogError("tvCannotRequest null");
-                        }
-                    }
-                    // txt
-                    {
-                        if (lbTitle != null)
-                        {
-                            lbTitle.text = txtTitle.get("Request New Tournament");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTitle null: " + this);
-                        }
-                        if (tvCannotRequest != null)
-                        {
-                            tvCannotRequest.text = txtCannotRequest.get("Can't request");
-                        }
-                        else
-                        {
-                            Debug.LogError("tvCannotRequest null");
-                        }
                     }
                 }
                 else

@@ -68,7 +68,14 @@ public class GameDataUICheckAllowInputChange<K> : Data, ValueChangeCallBack wher
         // gameDataUIData
         if (data is GameDataUI.UIData)
         {
-            // GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
+            GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
+            // set data null
+            {
+                if (this.gameDataUIData == gameDataUIData)
+                {
+                    this.gameDataUIData = null;
+                }
+            }
             return;
         }
         Debug.LogError("Don't process: " + data + "; " + this);

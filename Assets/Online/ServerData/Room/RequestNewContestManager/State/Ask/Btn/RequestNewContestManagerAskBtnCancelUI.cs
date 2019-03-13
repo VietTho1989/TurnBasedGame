@@ -61,15 +61,19 @@ namespace GameManager.ContestManager
 
 		#region txt
 
-		public static readonly TxtLanguage txtCancel = new TxtLanguage ();
-		public static readonly TxtLanguage txtCancelCancel = new TxtLanguage();
-		public static readonly TxtLanguage txtCanceling = new TxtLanguage ();
+		private static readonly TxtLanguage txtCancel = new TxtLanguage ();
+		private static readonly TxtLanguage txtCancelCancel = new TxtLanguage();
+		private static readonly TxtLanguage txtCancelling = new TxtLanguage ();
+
+        private static readonly TxtLanguage txtRequestError = new TxtLanguage();
 
 		static RequestNewContestManagerAskBtnCancelUI()
 		{
 			txtCancel.add (Language.Type.vi, "Huỷ Bỏ");
 			txtCancelCancel.add (Language.Type.vi, "Huỷ huỷ bỏ?");
-			txtCanceling.add (Language.Type.vi, "Đang huỷ bỏ");
+			txtCancelling.add (Language.Type.vi, "Đang huỷ bỏ");
+
+            txtRequestError.add(Language.Type.vi, "Gửi yêu cầu huỷ bỏ lỗi");
 		}
 
 		#endregion
@@ -152,13 +156,13 @@ namespace GameManager.ContestManager
 							case UIData.State.Request:
 								{
 									btnCancel.interactable = true;
-									tvCancel.text = txtCancelCancel.get ("Cancel Cancel?");
+									tvCancel.text = txtCancelCancel.get ("Cancel cancel?");
 								}
 								break;
 							case UIData.State.Wait:
 								{
 									btnCancel.interactable = false;
-									tvCancel.text = txtCanceling.get ("Cancelling...");
+									tvCancel.text = txtCancelling.get ("Cancelling");
 								}
 								break;
 							default:
@@ -191,7 +195,7 @@ namespace GameManager.ContestManager
 			if (this.data != null) {
 				yield return new Wait (Global.WaitSendTime);
 				this.data.state.v = UIData.State.None;
-				Toast.showMessage ("request error");
+                Toast.showMessage(txtRequestError.get("Send request to cancel error"));
 				Debug.LogError ("request error: " + this);
 			} else {
 				Debug.LogError ("data null: " + this);
