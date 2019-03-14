@@ -194,6 +194,8 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
 
     private bool needReset = true;
 
+    public Image bgChangeRights;
+
     public override void refresh()
     {
         if (dirty)
@@ -483,7 +485,26 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                         deltaY += UIConstants.ItemHeight;
                     }
                     // changeRights
-                    deltaY += UIRectTransform.SetPosY(this.data.changeRights.v, deltaY);
+                    {
+                        float bgY = deltaY;
+                        float bgHeight = 0;
+                        // UI
+                        {
+                            float height = UIRectTransform.SetPosY(this.data.changeRights.v, deltaY);
+                            bgHeight += height;
+                            deltaY += height;
+                        }
+                        // bg
+                        if (bgChangeRights != null)
+                        {
+                            UIRectTransform.SetPosY(bgChangeRights.rectTransform, bgY);
+                            UIRectTransform.SetHeight(bgChangeRights.rectTransform, bgHeight);
+                        }
+                        else
+                        {
+                            Debug.LogError("bgChangeRights null");
+                        }
+                    }
                     // set
                     UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                 }

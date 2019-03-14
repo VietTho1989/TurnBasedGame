@@ -62,6 +62,10 @@ namespace Rights
 
         private bool needReset = true;
 
+        public Image bgUndoRedoRight;
+        public Image bgChangeGamePlayerRight;
+        public Image bgChangeUseRuleRight;
+
         public override void refresh()
         {
             if (dirty)
@@ -391,11 +395,68 @@ namespace Rights
                     {
                         float deltaY = UIConstants.HeaderHeight;
                         // undoRedoRight
-                        deltaY += UIRectTransform.SetPosY(this.data.undoRedoRight.v, deltaY);
+                        {
+                            float bgY = deltaY;
+                            float bgHeight = 0;
+                            // UI
+                            {
+                                float height = UIRectTransform.SetPosY(this.data.undoRedoRight.v, deltaY);
+                                bgHeight += height;
+                                deltaY += height;
+                            }
+                            // bg
+                            if (bgUndoRedoRight != null)
+                            {
+                                UIRectTransform.SetPosY(bgUndoRedoRight.rectTransform, bgY);
+                                UIRectTransform.SetHeight(bgUndoRedoRight.rectTransform, bgHeight);
+                            }
+                            else
+                            {
+                                Debug.LogError("bgUndoRedoRight null");
+                            }
+                        }
                         // changeGamePlayerRight
-                        deltaY += UIRectTransform.SetPosY(this.data.changeGamePlayerRight.v, deltaY);
+                        {
+                            float bgY = deltaY;
+                            float bgHeight = 0;
+                            // UI
+                            {
+                                float height = UIRectTransform.SetPosY(this.data.changeGamePlayerRight.v, deltaY);
+                                bgHeight += height;
+                                deltaY += height;
+                            }
+                            // bg
+                            if (bgChangeGamePlayerRight != null)
+                            {
+                                UIRectTransform.SetPosY(bgChangeGamePlayerRight.rectTransform, bgY);
+                                UIRectTransform.SetHeight(bgChangeGamePlayerRight.rectTransform, bgHeight);
+                            }
+                            else
+                            {
+                                Debug.LogError("bgChangeGamePlayerRight null");
+                            }
+                        }
                         // changeUseRuleRight
-                        deltaY += UIRectTransform.SetPosY(this.data.changeUseRuleRight.v, deltaY);
+                        {
+                            float bgY = deltaY;
+                            float bgHeight = 0;
+                            // UI
+                            {
+                                float height = UIRectTransform.SetPosY(this.data.changeUseRuleRight.v, deltaY);
+                                bgHeight += height;
+                                deltaY += height;
+                            }
+                            // bg
+                            if (bgChangeUseRuleRight != null)
+                            {
+                                UIRectTransform.SetPosY(bgChangeUseRuleRight.rectTransform, bgY);
+                                UIRectTransform.SetHeight(bgChangeUseRuleRight.rectTransform, bgHeight);
+                            }
+                            else
+                            {
+                                Debug.LogError("bgChangeUseRuleRight null");
+                            }
+                        }
                         // set
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }

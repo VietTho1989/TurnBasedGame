@@ -15,6 +15,8 @@ namespace TimeControl.Normal
 
             public VP<EditData<TimeInfo>> editTimeInfo;
 
+            public VP<UIRectTransform.ShowType> showType;
+
             #region timePerTurn
 
             public VP<RequestChangeEnumUI.UIData> timePerTurnType;
@@ -154,6 +156,7 @@ namespace TimeControl.Normal
             public enum Property
             {
                 editTimeInfo,
+                showType,
                 timePerTurnType,
                 timePerTurn,
                 totalTimeType,
@@ -166,6 +169,7 @@ namespace TimeControl.Normal
             public UIData() : base()
             {
                 this.editTimeInfo = new VP<EditData<TimeInfo>>(this, (byte)Property.editTimeInfo, new EditData<TimeInfo>());
+                this.showType = new VP<UIRectTransform.ShowType>(this, (byte)Property.showType, UIRectTransform.ShowType.Normal);
                 // timePerTurnType
                 {
                     this.timePerTurnType = new VP<RequestChangeEnumUI.UIData>(this, (byte)Property.timePerTurnType, new RequestChangeEnumUI.UIData());
@@ -257,6 +261,10 @@ namespace TimeControl.Normal
         #region Refresh
 
         private bool needReset = true;
+
+        public Image bgTimePerTurn;
+        public Image bgTotalTime;
+        public Image bgOverTimePerTurn;
 
         public override void refresh()
         {
@@ -430,6 +438,7 @@ namespace TimeControl.Normal
                                             {
                                                 Debug.LogError("editTimePerTurnInfo null: " + this);
                                             }
+                                            timerPerTurn.showType.v = UIRectTransform.ShowType.HeadLess;
                                         }
                                         else
                                         {
@@ -548,6 +557,7 @@ namespace TimeControl.Normal
                                             {
                                                 Debug.LogError("editTotalTimeInfo null: " + this);
                                             }
+                                            totalTime.showType.v = UIRectTransform.ShowType.HeadLess;
                                         }
                                         else
                                         {
@@ -666,6 +676,7 @@ namespace TimeControl.Normal
                                             {
                                                 Debug.LogError("editOverTimePerTurnInfo null: " + this);
                                             }
+                                            overTimePerTurn.showType.v = UIRectTransform.ShowType.HeadLess;
                                         }
                                         else
                                         {
@@ -807,117 +818,271 @@ namespace TimeControl.Normal
                         {
                             // Debug.LogError ("show null: " + this);
                         }
-                    }
-                    else
-                    {
-                        Debug.LogError("editTimeInfo null: " + this);
-                    }
-                    // UI Position
-                    {
-                        float deltaY = UIConstants.HeaderHeight;
-                        // timePerTurnType
+                        // UI Position
                         {
-                            UIRectTransform.SetPosY(this.data.timePerTurnType.v, UIConstants.RequestEnumRect, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2);
+                            float deltaY = 0;
+                            // header
+                            {
+                                switch (this.data.showType.v)
+                                {
+                                    case UIRectTransform.ShowType.Normal:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(true);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                            deltaY += UIConstants.HeaderHeight;
+                                        }
+                                        break;
+                                    case UIRectTransform.ShowType.HeadLess:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(false);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown showType: " + this.data.showType.v);
+                                        break;
+                                }
+                            }
+                            // timePerTurn
+                            {
+                                float bgY = deltaY;
+                                float bgHeight = 0;
+                                // type
+                                {
+                                    if (this.data.timePerTurnType.v != null)
+                                    {
+                                        UIRectTransform.SetPosY(this.data.timePerTurnType.v, UIConstants.RequestEnumRect, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2);
+                                        if (lbTimePerTurnType != null)
+                                        {
+                                            lbTimePerTurnType.gameObject.SetActive(true);
+                                            UIRectTransform.SetPosY((RectTransform)lbTimePerTurnType.transform, deltaY);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("lbTimePerTurnType null: " + this);
+                                        }
+                                        bgHeight += UIConstants.ItemHeight;
+                                        deltaY += UIConstants.ItemHeight;
+                                    }
+                                    else
+                                    {
+                                        if (lbTimePerTurnType != null)
+                                        {
+                                            lbTimePerTurnType.gameObject.SetActive(false);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("lbTimePerTurnType null");
+                                        }
+                                    }
+                                }
+                                // UI
+                                {
+                                    float height = UIRectTransform.SetPosY(this.data.timePerTurn.v, deltaY);
+                                    bgHeight += height;
+                                    deltaY += height;
+                                }
+                                // bg
+                                if (bgTimePerTurn != null)
+                                {
+                                    UIRectTransform.SetPosY(bgTimePerTurn.rectTransform, bgY);
+                                    UIRectTransform.SetHeight(bgTimePerTurn.rectTransform, bgHeight);
+                                }
+                                else
+                                {
+                                    Debug.LogError("bgTimePerTurn null");
+                                }
+                            }
+                            // totalTime
+                            {
+                                float bgY = deltaY;
+                                float bgHeight = 0;
+                                // type
+                                {
+                                    if (this.data.totalTimeType.v != null)
+                                    {
+                                        UIRectTransform.SetPosY(this.data.totalTimeType.v, UIConstants.RequestEnumRect, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2);
+                                        if (lbTotalTimeType != null)
+                                        {
+                                            lbTotalTimeType.gameObject.SetActive(true);
+                                            UIRectTransform.SetPosY((RectTransform)lbTotalTimeType.transform, deltaY);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("lbTotalTimeType null: " + this);
+                                        }
+                                        bgHeight += UIConstants.ItemHeight;
+                                        deltaY += UIConstants.ItemHeight;
+                                    }
+                                    else
+                                    {
+                                        if (lbTotalTimeType != null)
+                                        {
+                                            lbTotalTimeType.gameObject.SetActive(false);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("lbTotalTimeType null");
+                                        }
+                                    }
+                                }
+                                // UI
+                                {
+                                    float height = UIRectTransform.SetPosY(this.data.totalTime.v, deltaY);
+                                    bgHeight += height;
+                                    deltaY += height;
+                                }
+                                // bg
+                                if (bgTotalTime != null)
+                                {
+                                    UIRectTransform.SetPosY(bgTotalTime.rectTransform, bgY);
+                                    UIRectTransform.SetHeight(bgTotalTime.rectTransform, bgHeight);
+                                }
+                                else
+                                {
+                                    Debug.LogError("bgTotalTime null");
+                                }
+                            }
+                            // overTimePerTurn
+                            {
+                                float bgY = deltaY;
+                                float bgHeight = 0;
+                                // Type
+                                {
+                                    if (this.data.overTimePerTurnType.v != null)
+                                    {
+                                        UIRectTransform.SetPosY(this.data.overTimePerTurnType.v, UIConstants.RequestEnumRect, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2);
+                                        if (lbOverTimePerTurnType != null)
+                                        {
+                                            lbOverTimePerTurnType.gameObject.SetActive(true);
+                                            UIRectTransform.SetPosY((RectTransform)lbOverTimePerTurnType.transform, deltaY);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("lbOverTimePerTurnType null: " + this);
+                                        }
+                                        bgHeight += UIConstants.ItemHeight;
+                                        deltaY += UIConstants.ItemHeight;
+                                    }
+                                    else
+                                    {
+                                        if (lbOverTimePerTurnType != null)
+                                        {
+                                            lbOverTimePerTurnType.gameObject.SetActive(false);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("lbOverTimePerTurnType null");
+                                        }
+                                    }
+                                }
+                                // UI
+                                {
+                                    float height = UIRectTransform.SetPosY(this.data.overTimePerTurn.v, deltaY);
+                                    bgHeight += height;
+                                    deltaY += height;
+                                }
+                                // bg
+                                if (bgOverTimePerTurn != null)
+                                {
+                                    UIRectTransform.SetPosY(bgOverTimePerTurn.rectTransform, bgY);
+                                    UIRectTransform.SetHeight(bgOverTimePerTurn.rectTransform, bgHeight);
+                                }
+                                else
+                                {
+                                    Debug.LogError("bgOverTimePerTurn null");
+                                }
+                            }
+                            // lagCompensation
+                            {
+                                if (this.data.lagCompensation.v != null)
+                                {
+                                    UIRectTransform.SetPosY(this.data.lagCompensation.v, UIConstants.RequestRect, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2);
+                                    if (lbLagCompensation != null)
+                                    {
+                                        lbLagCompensation.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY((RectTransform)lbLagCompensation.transform, deltaY);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbLagCompensation null: " + this);
+                                    }
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbLagCompensation != null)
+                                    {
+                                        lbLagCompensation.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbLagCompensation null");
+                                    }
+                                }
+                            }
+                            // set
+                            UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                        }
+                        // txt
+                        {
+                            if (lbTitle != null)
+                            {
+                                lbTitle.text = txtTitle.get("Time Information");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null: " + this);
+                            }
                             if (lbTimePerTurnType != null)
                             {
-                                UIRectTransform.SetPosY((RectTransform)lbTimePerTurnType.transform, deltaY);
+                                lbTimePerTurnType.text = txtTimePerTurnType.get("Time per turn type");
                             }
                             else
                             {
                                 Debug.LogError("lbTimePerTurnType null: " + this);
                             }
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        // timePerTurn
-                        deltaY += UIRectTransform.SetPosY(this.data.timePerTurn.v, deltaY);
-                        // totalTimeType
-                        {
-                            UIRectTransform.SetPosY(this.data.totalTimeType.v, UIConstants.RequestEnumRect, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2);
                             if (lbTotalTimeType != null)
                             {
-                                UIRectTransform.SetPosY((RectTransform)lbTotalTimeType.transform, deltaY);
+                                lbTotalTimeType.text = txtTotalTimeType.get("Total time type");
                             }
                             else
                             {
                                 Debug.LogError("lbTotalTimeType null: " + this);
                             }
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        // totalTime
-                        deltaY += UIRectTransform.SetPosY(this.data.totalTime.v, deltaY);
-                        // overTimePerTurnType
-                        {
-                            UIRectTransform.SetPosY(this.data.overTimePerTurnType.v, UIConstants.RequestEnumRect, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2);
                             if (lbOverTimePerTurnType != null)
                             {
-                                UIRectTransform.SetPosY((RectTransform)lbOverTimePerTurnType.transform, deltaY);
+                                lbOverTimePerTurnType.text = txtOverTimePerTurnType.get("Over time per turn type");
                             }
                             else
                             {
                                 Debug.LogError("lbOverTimePerTurnType null: " + this);
                             }
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        // overTimePerTurn
-                        deltaY += UIRectTransform.SetPosY(this.data.overTimePerTurn.v, deltaY);
-                        // lagCompensation
-                        {
-                            UIRectTransform.SetPosY(this.data.lagCompensation.v, UIConstants.RequestRect, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2);
                             if (lbLagCompensation != null)
                             {
-                                UIRectTransform.SetPosY((RectTransform)lbLagCompensation.transform, deltaY);
+                                lbLagCompensation.text = txtLagCompensation.get("Lag compensation");
                             }
                             else
                             {
                                 Debug.LogError("lbLagCompensation null: " + this);
                             }
-                            deltaY += UIConstants.ItemHeight;
                         }
-                        // set
-                        UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }
-                    // txt
+                    else
                     {
-                        if (lbTitle != null)
-                        {
-                            lbTitle.text = txtTitle.get("Time Information");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTitle null: " + this);
-                        }
-                        if (lbTimePerTurnType != null)
-                        {
-                            lbTimePerTurnType.text = txtTimePerTurnType.get("Time per turn type");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTimePerTurnType null: " + this);
-                        }
-                        if (lbTotalTimeType != null)
-                        {
-                            lbTotalTimeType.text = txtTotalTimeType.get("Total time type");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTotalTimeType null: " + this);
-                        }
-                        if (lbOverTimePerTurnType != null)
-                        {
-                            lbOverTimePerTurnType.text = txtOverTimePerTurnType.get("Over time per turn type");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbOverTimePerTurnType null: " + this);
-                        }
-                        if (lbLagCompensation != null)
-                        {
-                            lbLagCompensation.text = txtLagCompensation.get("Lag compensation");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbLagCompensation null: " + this);
-                        }
+                        Debug.LogError("editTimeInfo null: " + this);
                     }
                 }
                 else
@@ -1259,6 +1424,9 @@ namespace TimeControl.Normal
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
                         }
+                        break;
+                    case UIData.Property.showType:
+                        dirty = true;
                         break;
                     case UIData.Property.timePerTurnType:
                         {

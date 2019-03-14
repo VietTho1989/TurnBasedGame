@@ -26,7 +26,7 @@ public class UserTopic : Topic
 
 	public override bool isCanSendNormalMessage (uint userId)
 	{
-		return false;
+        return Server.getProfileUserId(this) == userId;
 	}
 
 	#region Message

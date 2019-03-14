@@ -15,6 +15,8 @@ namespace Rights
 
             public VP<EditData<HaveLimit>> editHaveLimit;
 
+            public VP<UIRectTransform.ShowType> showType;
+
             #region limit
 
             public VP<RequestChangeIntUI.UIData> limit;
@@ -52,12 +54,14 @@ namespace Rights
             public enum Property
             {
                 editHaveLimit,
+                showType,
                 limit
             }
 
             public UIData() : base()
             {
                 this.editHaveLimit = new VP<EditData<HaveLimit>>(this, (byte)Property.editHaveLimit, new EditData<HaveLimit>());
+                this.showType = new VP<UIRectTransform.ShowType>(this, (byte)Property.showType, UIRectTransform.ShowType.Normal);
                 // limit
                 {
                     this.limit = new VP<RequestChangeIntUI.UIData>(this, (byte)Property.limit, new RequestChangeIntUI.UIData());
@@ -242,29 +246,97 @@ namespace Rights
                         {
                             Debug.LogError("show null: " + this);
                         }
+                        // UI
+                        {
+                            float deltaY = 0;
+                            // header
+                            {
+                                switch (this.data.showType.v)
+                                {
+                                    case UIRectTransform.ShowType.Normal:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(true);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                            deltaY += UIConstants.HeaderHeight;
+                                        }
+                                        break;
+                                    case UIRectTransform.ShowType.HeadLess:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(false);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown showType: " + this.data.showType.v);
+                                        break;
+                                }
+                            }
+                            // limit
+                            {
+                                if (this.data.limit.v != null)
+                                {
+                                    if (lbLimit != null)
+                                    {
+                                        UIRectTransform.SetPosY(lbLimit.rectTransform, deltaY);
+                                        lbLimit.gameObject.SetActive(true);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbLimit null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.limit.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbLimit != null)
+                                    {
+                                        lbLimit.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbLimit null");
+                                    }
+                                }
+                            }
+                            // set
+                            UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                        }
+                        // txt
+                        {
+                            if (lbTitle != null)
+                            {
+                                lbTitle.text = txtTitle.get("Have Limit");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null: " + this);
+                            }
+                            if (lbLimit != null)
+                            {
+                                lbLimit.text = txtLimit.get("Limit");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbLimit null: " + this);
+                            }
+                        }
                     }
                     else
                     {
                         Debug.LogError("editHaveLimit null: " + this);
-                    }
-                    // txt
-                    {
-                        if (lbTitle != null)
-                        {
-                            lbTitle.text = txtTitle.get("Have Limit");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTitle null: " + this);
-                        }
-                        if (lbLimit != null)
-                        {
-                            lbLimit.text = txtLimit.get("Limit");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbLimit null: " + this);
-                        }
                     }
                 }
                 else
@@ -462,6 +534,9 @@ namespace Rights
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
                         }
+                        break;
+                    case UIData.Property.showType:
+                        dirty = true;
                         break;
                     case UIData.Property.limit:
                         {

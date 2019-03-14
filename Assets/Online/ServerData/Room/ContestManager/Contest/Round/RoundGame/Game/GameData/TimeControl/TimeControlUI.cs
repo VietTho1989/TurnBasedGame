@@ -17,6 +17,8 @@ namespace TimeControl
 
             public VP<EditData<TimeControl>> editTimeControl;
 
+            public VP<UIRectTransform.ShowType> showType;
+
             #region isEnable
 
             public VP<RequestChangeBoolUI.UIData> isEnable;
@@ -162,6 +164,7 @@ namespace TimeControl
             public enum Property
             {
                 editTimeControl,
+                showType,
                 isEnable,
                 aiCanTimeOut,
                 use,
@@ -172,6 +175,7 @@ namespace TimeControl
             public UIData() : base()
             {
                 this.editTimeControl = new VP<EditData<TimeControl>>(this, (byte)Property.editTimeControl, new EditData<TimeControl>());
+                this.showType = new VP<UIRectTransform.ShowType>(this, (byte)Property.showType, UIRectTransform.ShowType.Normal);
                 // isEnable
                 {
                     this.isEnable = new VP<RequestChangeBoolUI.UIData>(this, (byte)Property.isEnable, new RequestChangeBoolUI.UIData());
@@ -278,6 +282,8 @@ namespace TimeControl
         #region Refresh
 
         private bool needReset = true;
+
+        public Image bgSub;
 
         public override void refresh()
         {
@@ -537,6 +543,7 @@ namespace TimeControl
                                                             {
                                                                 Debug.LogError("editTimeControlNormal null: " + this);
                                                             }
+                                                            timeControlNormalUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
                                                         this.data.sub.v = timeControlNormalUIData;
                                                     }
@@ -567,6 +574,7 @@ namespace TimeControl
                                                             {
                                                                 Debug.LogError("editTimeControlHourGlass null: " + this);
                                                             }
+                                                            timeControlHourGlassUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
                                                         this.data.sub.v = timeControlHourGlassUIData;
                                                     }
@@ -681,58 +689,226 @@ namespace TimeControl
                         {
                             Debug.LogError("show null: " + this);
                         }
+                        // UI
+                        {
+                            float deltaY = 0;
+                            // header
+                            {
+                                switch (this.data.showType.v)
+                                {
+                                    case UIRectTransform.ShowType.Normal:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(true);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                            deltaY += UIConstants.HeaderHeight;
+                                        }
+                                        break;
+                                    case UIRectTransform.ShowType.HeadLess:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(false);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown showType: " + this.data.showType.v);
+                                        break;
+                                }
+                            }
+                            // isEnable
+                            {
+                                if (this.data.isEnable.v != null)
+                                {
+                                    if (lbIsEnable != null)
+                                    {
+                                        lbIsEnable.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY(lbIsEnable.rectTransform, deltaY);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbIsEnable null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.isEnable.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbIsEnable != null)
+                                    {
+                                        lbIsEnable.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbIsEnable null");
+                                    }
+                                }
+                            }
+                            // aiCanTimeOut
+                            {
+                                if (this.data.aiCanTimeOut.v != null)
+                                {
+                                    if (lbAICanTimeOut != null)
+                                    {
+                                        lbAICanTimeOut.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY(lbAICanTimeOut.rectTransform, deltaY);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbAICanTimeOut null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.aiCanTimeOut.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbAICanTimeOut != null)
+                                    {
+                                        lbAICanTimeOut.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbAICanTimeOut null");
+                                    }
+                                }
+                            }
+                            // use
+                            {
+                                if (this.data.use.v != null)
+                                {
+                                    if (lbUse != null)
+                                    {
+                                        lbUse.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY(lbUse.rectTransform, deltaY);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbUse null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.use.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbUse != null)
+                                    {
+                                        lbUse.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbUse null");
+                                    }
+                                }
+                            }
+                            // sub
+                            {
+                                float bgY = deltaY;
+                                float bgHeight = 0;
+                                // type
+                                {
+                                    if (this.data.subType.v != null)
+                                    {
+                                        if (lbSubType != null)
+                                        {
+                                            lbSubType.gameObject.SetActive(true);
+                                            UIRectTransform.SetPosY(lbSubType.rectTransform, deltaY);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("lbSubType null");
+                                        }
+                                        UIRectTransform.SetPosY(this.data.subType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                                        deltaY += UIConstants.ItemHeight;
+                                    }
+                                    else
+                                    {
+                                        if (lbSubType != null)
+                                        {
+                                            lbSubType.gameObject.SetActive(false);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("lbSubType null");
+                                        }
+                                    }
+                                }
+                                // UI
+                                {
+                                    float height = UIRectTransform.SetPosY(this.data.sub.v, deltaY);
+                                    bgHeight += height;
+                                    deltaY += height;
+                                }
+                                // bg
+                                if (bgSub != null)
+                                {
+                                    UIRectTransform.SetPosY(bgSub.rectTransform, bgY);
+                                    UIRectTransform.SetHeight(bgSub.rectTransform, bgHeight);
+                                }
+                                else
+                                {
+                                    Debug.LogError("bgSub null");
+                                }
+                            }
+                            // set
+                            UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                        }
+                        // txt
+                        {
+                            if (lbTitle != null)
+                            {
+                                lbTitle.text = txtTitle.get("Time Control");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null: " + this);
+                            }
+                            if (lbIsEnable != null)
+                            {
+                                lbIsEnable.text = txtIsEnable.get("Enable");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbIsEnable null: " + this);
+                            }
+                            if (lbAICanTimeOut != null)
+                            {
+                                lbAICanTimeOut.text = txtAICanTimeOut.get("AI can timeout");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbAICanTimeOut null: " + this);
+                            }
+                            if (lbUse != null)
+                            {
+                                lbUse.text = txtUse.get("Use");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbUse null: " + this);
+                            }
+                            if (lbSubType != null)
+                            {
+                                lbSubType.text = txtSubType.get("Type");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbSubType null: " + this);
+                            }
+                        }
                     }
                     else
                     {
                         Debug.LogError("editTimeControl null: " + this);
-                    }
-                    // UISize
-                    {
-                        float subSize = UIRectTransform.GetHeight(this.data.sub.v);
-                        UIRectTransform.SetHeight((RectTransform)this.transform, UIConstants.HeaderHeight + 4 * UIConstants.ItemHeight + subSize);
-                    }
-                    // txt
-                    {
-                        if (lbTitle != null)
-                        {
-                            lbTitle.text = txtTitle.get("Time Control");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTitle null: " + this);
-                        }
-                        if (lbIsEnable != null)
-                        {
-                            lbIsEnable.text = txtIsEnable.get("Enable");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbIsEnable null: " + this);
-                        }
-                        if (lbAICanTimeOut != null)
-                        {
-                            lbAICanTimeOut.text = txtAICanTimeOut.get("AI can timeout");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbAICanTimeOut null: " + this);
-                        }
-                        if (lbUse != null)
-                        {
-                            lbUse.text = txtUse.get("Use");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbUse null: " + this);
-                        }
-                        if (lbSubType != null)
-                        {
-                            lbSubType.text = txtSubType.get("Type");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbSubType null: " + this);
-                        }
                     }
                 }
                 else
@@ -1096,6 +1272,9 @@ namespace TimeControl
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
                         }
+                        break;
+                    case UIData.Property.showType:
+                        dirty = true;
                         break;
                     case UIData.Property.isEnable:
                         {

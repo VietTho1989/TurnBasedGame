@@ -192,6 +192,8 @@ namespace Rights
 
         private bool needReset = true;
 
+        public Image bgLimit;
+
         public override void refresh()
         {
             if (dirty)
@@ -415,6 +417,7 @@ namespace Rights
                                                             {
                                                                 Debug.LogError("editNoLimit null: " + this);
                                                             }
+                                                            noLimitUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
                                                         this.data.limitUIData.v = noLimitUIData;
                                                     }
@@ -445,6 +448,7 @@ namespace Rights
                                                             {
                                                                 Debug.LogError("editHaveLimit null: " + this);
                                                             }
+                                                            haveLimitUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
                                                         this.data.limitUIData.v = haveLimitUIData;
                                                     }
@@ -553,12 +557,32 @@ namespace Rights
                         {
                             deltaY += UIConstants.ItemHeight;
                         }
-                        // limitType
+                        // limit
                         {
-                            deltaY += UIConstants.ItemHeight;
+                            float bgY = deltaY;
+                            float bgHeight = 0;
+                            // type
+                            {
+                                bgHeight += UIConstants.ItemHeight;
+                                deltaY += UIConstants.ItemHeight;
+                            }
+                            // UI
+                            {
+                                float height = UIRectTransform.SetPosY(this.data.limitUIData.v, deltaY);
+                                bgHeight += height;
+                                deltaY += height;
+                            }
+                            // bg
+                            if (bgLimit != null)
+                            {
+                                UIRectTransform.SetPosY(bgLimit.rectTransform, bgY);
+                                UIRectTransform.SetHeight(bgLimit.rectTransform, bgHeight);
+                            }
+                            else
+                            {
+                                Debug.LogError("bgLimit null");
+                            }
                         }
-                        // limitUIData
-                        deltaY += UIRectTransform.SetPosY(this.data.limitUIData.v, deltaY);
                         // set
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }

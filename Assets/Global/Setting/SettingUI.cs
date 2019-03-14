@@ -268,8 +268,6 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 
     #region txt
 
-    public GameObject header;
-
     public Text lbTitle;
     public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
@@ -310,6 +308,8 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
     #region Refresh
 
     private bool needReset = true;
+
+    public Image bgAnimationSetting;
 
     public override void refresh()
     {
@@ -752,6 +752,7 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                 // UISize
                 {
                     float deltaY = UIConstants.HeaderHeight;
+                    // header
                     {
                         if (this.data.showType.v == UIRectTransform.ShowType.HeadLess)
                         {
@@ -764,14 +765,6 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                             {
                                 Debug.LogError("lbTitle null");
                             }
-                            if (header != null)
-                            {
-                                header.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("header null");
-                            }
                         }
                         else
                         {
@@ -782,14 +775,6 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                             else
                             {
                                 Debug.LogError("lbTitle null");
-                            }
-                            if (header != null)
-                            {
-                                header.SetActive(true);
-                            }
-                            else
-                            {
-                                Debug.LogError("header null");
                             }
                         }
                     }
@@ -906,7 +891,26 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                         }
                     }
                     // animationSetting
-                    deltaY += UIRectTransform.SetPosY(this.data.animationSetting.v, deltaY);
+                    {
+                        float bgY = deltaY;
+                        float bgHeight = 0;
+                        // UI
+                        {
+                            float height = UIRectTransform.SetPosY(this.data.animationSetting.v, deltaY);
+                            bgHeight += height;
+                            deltaY += height;
+                        }
+                        // bg
+                        if (bgAnimationSetting != null)
+                        {
+                            UIRectTransform.SetPosY(bgAnimationSetting.rectTransform, bgY);
+                            UIRectTransform.SetHeight(bgAnimationSetting.rectTransform, bgHeight);
+                        }
+                        else
+                        {
+                            Debug.LogError("bgAnimationSetting null");
+                        }
+                    }
                     // maxThinkCount
                     {
                         if (this.data.maxThinkCount.v != null)

@@ -15,6 +15,8 @@ namespace GameManager.Match
 
             public VP<EditData<CalculateScoreWinLoseDraw>> editCalculateScoreWinLoseDraw;
 
+            public VP<UIRectTransform.ShowType> showType;
+
             #region winScore
 
             public VP<RequestChangeFloatUI.UIData> winScore;
@@ -116,6 +118,7 @@ namespace GameManager.Match
             public enum Property
             {
                 editCalculateScoreWinLoseDraw,
+                showType,
                 winScore,
                 loseScore,
                 drawScore
@@ -124,6 +127,7 @@ namespace GameManager.Match
             public UIData() : base()
             {
                 this.editCalculateScoreWinLoseDraw = new VP<EditData<CalculateScoreWinLoseDraw>>(this, (byte)Property.editCalculateScoreWinLoseDraw, new EditData<CalculateScoreWinLoseDraw>());
+                this.showType = new VP<UIRectTransform.ShowType>(this, (byte)Property.showType, UIRectTransform.ShowType.Normal);
                 // winScore
                 {
                     this.winScore = new VP<RequestChangeFloatUI.UIData>(this, (byte)Property.winScore, new RequestChangeFloatUI.UIData());
@@ -431,45 +435,169 @@ namespace GameManager.Match
                         {
                             Debug.LogError("show null: " + this);
                         }
+                        // UI
+                        {
+                            float deltaY = 0;
+                            // header
+                            {
+                                switch (this.data.showType.v)
+                                {
+                                    case UIRectTransform.ShowType.Normal:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(true);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                            deltaY += UIConstants.HeaderHeight;
+                                        }
+                                        break;
+                                    case UIRectTransform.ShowType.HeadLess:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(false);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown type: " + this.data.showType.v);
+                                        break;
+                                }
+                            }
+                            // winScore
+                            {
+                                if (this.data.winScore.v != null)
+                                {
+                                    if (lbWinScore != null)
+                                    {
+                                        UIRectTransform.SetPosY(lbWinScore.rectTransform, deltaY);
+                                        lbWinScore.gameObject.SetActive(true);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbWinScore null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.winScore.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbWinScore != null)
+                                    {
+                                        lbWinScore.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbWinScore null");
+                                    }
+                                }
+                            }
+                            // loseScore
+                            {
+                                if (this.data.loseScore.v != null)
+                                {
+                                    if (lbLoseScore != null)
+                                    {
+                                        UIRectTransform.SetPosY(lbLoseScore.rectTransform, deltaY);
+                                        lbLoseScore.gameObject.SetActive(true);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbLoseScore null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.loseScore.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbLoseScore != null)
+                                    {
+                                        lbLoseScore.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbLoseScore null");
+                                    }
+                                }
+                            }
+                            // drawScore
+                            {
+                                if (this.data.drawScore.v != null)
+                                {
+                                    if (lbDrawScore != null)
+                                    {
+                                        UIRectTransform.SetPosY(lbDrawScore.rectTransform, deltaY);
+                                        lbDrawScore.gameObject.SetActive(true);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbDrawScore null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.drawScore.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbDrawScore != null)
+                                    {
+                                        lbDrawScore.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbDrawScore null");
+                                    }
+                                }
+                            }
+                            // set
+                            UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                        }
+                        // txt
+                        {
+                            if (lbTitle != null)
+                            {
+                                lbTitle.text = txtTitle.get("Calculate score by win, lose, draw score");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null");
+                            }
+                            if (lbWinScore != null)
+                            {
+                                lbWinScore.text = txtWinScore.get("Win score");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbWinScore null");
+                            }
+                            if (lbLoseScore != null)
+                            {
+                                lbLoseScore.text = txtLoseScore.get("Lose score");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbLoseScore null");
+                            }
+                            if (lbDrawScore != null)
+                            {
+                                lbDrawScore.text = txtDrawScore.get("Draw score");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbDrawScore null");
+                            }
+                        }
                     }
                     else
                     {
                         Debug.LogError("editCalculateScoreWinLoseScore null: " + this);
-                    }
-                    // txt
-                    {
-                        if (lbTitle != null)
-                        {
-                            lbTitle.text = txtTitle.get("Calculate score by win, lose, draw score");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTitle null");
-                        }
-                        if (lbWinScore != null)
-                        {
-                            lbWinScore.text = txtWinScore.get("Win score");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbWinScore null");
-                        }
-                        if (lbLoseScore != null)
-                        {
-                            lbLoseScore.text = txtLoseScore.get("Lose score");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbLoseScore null");
-                        }
-                        if (lbDrawScore != null)
-                        {
-                            lbDrawScore.text = txtDrawScore.get("Draw score");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbDrawScore null");
-                        }
                     }
                 }
                 else
@@ -679,6 +807,9 @@ namespace GameManager.Match
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
                         }
+                        break;
+                    case UIData.Property.showType:
+                        dirty = true;
                         break;
                     case UIData.Property.winScore:
                         {

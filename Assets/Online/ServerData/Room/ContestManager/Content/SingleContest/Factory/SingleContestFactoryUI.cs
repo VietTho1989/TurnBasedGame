@@ -627,6 +627,7 @@ namespace GameManager.Match
                                                             {
                                                                 Debug.LogError("editNoLimit null: " + this);
                                                             }
+                                                            newRoundNoLimitUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
                                                         this.data.newRoundLimitUI.v = newRoundNoLimitUIData;
                                                     }
@@ -657,6 +658,7 @@ namespace GameManager.Match
                                                             {
                                                                 Debug.LogError("editHaveLimit null: " + this);
                                                             }
+                                                            newRoundHaveLimitUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
                                                         this.data.newRoundLimitUI.v = newRoundHaveLimitUIData;
                                                     }
@@ -764,6 +766,7 @@ namespace GameManager.Match
                                                             {
                                                                 Debug.LogError("editCalculateScoreSum null: " + this);
                                                             }
+                                                            calculateScoreSumUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
                                                         this.data.calculateScoreUI.v = calculateScoreSumUIData;
                                                     }
@@ -794,6 +797,7 @@ namespace GameManager.Match
                                                             {
                                                                 Debug.LogError("editCalculateScoreWinLoseDraw null: " + this);
                                                             }
+                                                            calculateScoreWinLoseDrawUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
                                                         this.data.calculateScoreUI.v = calculateScoreWinLoseDrawUIData;
                                                     }

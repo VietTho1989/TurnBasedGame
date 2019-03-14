@@ -15,16 +15,20 @@ namespace GameManager.Match
 
             public VP<EditData<RequestNewRoundNoLimit>> editNoLimit;
 
+            public VP<UIRectTransform.ShowType> showType;
+
             #region Constructor
 
             public enum Property
             {
-                editNoLimit
+                editNoLimit,
+                showType
             }
 
             public UIData() : base()
             {
                 this.editNoLimit = new VP<EditData<RequestNewRoundNoLimit>>(this, (byte)Property.editNoLimit, new EditData<RequestNewRoundNoLimit>());
+                this.showType = new VP<UIRectTransform.ShowType>(this, (byte)Property.showType, UIRectTransform.ShowType.Normal);
             }
 
             #endregion
@@ -135,21 +139,61 @@ namespace GameManager.Match
                         {
                             Debug.LogError("show null: " + this);
                         }
+                        // UI
+                        {
+                            float deltaY = 0;
+                            // header
+                            {
+                                switch (this.data.showType.v)
+                                {
+                                    case UIRectTransform.ShowType.Normal:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(true);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                            deltaY += UIConstants.HeaderHeight;
+                                        }
+                                        break;
+                                    case UIRectTransform.ShowType.HeadLess:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(false);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown showType: " + this.data.showType.v);
+                                        break;
+                                }
+                            }
+                            // set
+                            UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                        }
+                        // txt
+                        {
+                            if (lbTitle != null)
+                            {
+                                lbTitle.text = txtTitle.get("No limit rounds");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null");
+                            }
+                        }
                     }
                     else
                     {
                         Debug.LogError("editNoLimit null: " + this);
-                    }
-                    // txt
-                    {
-                        if (lbTitle != null)
-                        {
-                            lbTitle.text = txtTitle.get("No limit rounds");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTitle null");
-                        }
                     }
                 }
                 else
@@ -304,6 +348,9 @@ namespace GameManager.Match
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
                         }
+                        break;
+                    case UIData.Property.showType:
+                        dirty = true;
                         break;
                     default:
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);

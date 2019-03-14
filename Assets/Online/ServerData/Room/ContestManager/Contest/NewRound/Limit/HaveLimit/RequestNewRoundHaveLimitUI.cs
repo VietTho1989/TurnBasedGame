@@ -15,6 +15,8 @@ namespace GameManager.Match
 
             public VP<EditData<RequestNewRoundHaveLimit>> editHaveLimit;
 
+            public VP<UIRectTransform.ShowType> showType;
+
             #region maxRound
 
             public VP<RequestChangeIntUI.UIData> maxRound;
@@ -84,6 +86,7 @@ namespace GameManager.Match
             public enum Property
             {
                 editHaveLimit,
+                showType,
                 maxRound,
                 enoughScoreStop
             }
@@ -91,6 +94,7 @@ namespace GameManager.Match
             public UIData() : base()
             {
                 this.editHaveLimit = new VP<EditData<RequestNewRoundHaveLimit>>(this, (byte)Property.editHaveLimit, new EditData<RequestNewRoundHaveLimit>());
+                this.showType = new VP<UIRectTransform.ShowType>(this, (byte)Property.showType, UIRectTransform.ShowType.Normal);
                 // maxRound
                 {
                     this.maxRound = new VP<RequestChangeIntUI.UIData>(this, (byte)Property.maxRound, new RequestChangeIntUI.UIData());
@@ -351,37 +355,133 @@ namespace GameManager.Match
                         {
                             Debug.LogError("show null: " + this);
                         }
+                        // UI
+                        {
+                            float deltaY = 0;
+                            // Header
+                            {
+                                switch (this.data.showType.v)
+                                {
+                                    case UIRectTransform.ShowType.Normal:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(true);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                            deltaY += UIConstants.HeaderHeight;
+                                        }
+                                        break;
+                                    case UIRectTransform.ShowType.HeadLess:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(false);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown showType: " + this.data.showType.v);
+                                        break;
+                                }
+                            }
+                            // maxRound
+                            {
+                                if (this.data.maxRound.v != null)
+                                {
+                                    if (lbMaxRound != null)
+                                    {
+                                        UIRectTransform.SetPosY(lbMaxRound.rectTransform, deltaY);
+                                        lbMaxRound.gameObject.SetActive(true);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbMaxRound null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.maxRound.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbMaxRound != null)
+                                    {
+                                        lbMaxRound.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbMaxRound null");
+                                    }
+                                }
+                            }
+                            // enoughScoreStop
+                            {
+                                if (this.data.enoughScoreStop.v != null)
+                                {
+                                    if (lbEnoughScoreStop != null)
+                                    {
+                                        UIRectTransform.SetPosY(lbEnoughScoreStop.rectTransform, deltaY);
+                                        lbEnoughScoreStop.gameObject.SetActive(true);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbEnoughScoreStop null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.enoughScoreStop.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbEnoughScoreStop != null)
+                                    {
+                                        lbEnoughScoreStop.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbEnoughScoreStop null");
+                                    }
+                                }
+                            }
+                            // set
+                            UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                        }
+                        // txt
+                        {
+                            if (lbTitle != null)
+                            {
+                                lbTitle.text = txtTitle.get("Have limit rounds");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null");
+                            }
+                            if (lbMaxRound != null)
+                            {
+                                lbMaxRound.text = txtMaxRound.get("Max round count");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbMaxRound null");
+                            }
+                            if (lbEnoughScoreStop != null)
+                            {
+                                lbEnoughScoreStop.text = txtEnoughScoreStop.get("Enough score stop");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbEnoughScoreStop null");
+                            }
+                        }
                     }
                     else
                     {
                         Debug.LogError("editHaveLimit null: " + this);
-                    }
-                    // txt
-                    {
-                        if (lbTitle != null)
-                        {
-                            lbTitle.text = txtTitle.get("Have limit rounds");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTitle null");
-                        }
-                        if (lbMaxRound != null)
-                        {
-                            lbMaxRound.text = txtMaxRound.get("Max round count");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbMaxRound null");
-                        }
-                        if (lbEnoughScoreStop != null)
-                        {
-                            lbEnoughScoreStop.text = txtEnoughScoreStop.get("Enough score stop");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbEnoughScoreStop null");
-                        }
                     }
                 }
                 else
@@ -620,6 +720,9 @@ namespace GameManager.Match
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
                         }
+                        break;
+                    case UIData.Property.showType:
+                        dirty = true;
                         break;
                     case UIData.Property.maxRound:
                         {

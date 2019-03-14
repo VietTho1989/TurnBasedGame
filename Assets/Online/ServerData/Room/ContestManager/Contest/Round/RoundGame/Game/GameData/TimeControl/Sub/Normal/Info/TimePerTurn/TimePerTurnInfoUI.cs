@@ -15,6 +15,8 @@ namespace TimeControl.Normal
 
             public VP<EditData<TimePerTurnInfo>> editTimePerTurnInfo;
 
+            public VP<UIRectTransform.ShowType> showType;
+
             #region sub
 
             public abstract class Sub : Data
@@ -33,12 +35,14 @@ namespace TimeControl.Normal
             public enum Property
             {
                 editTimePerTurnInfo,
+                showType,
                 sub
             }
 
             public UIData() : base()
             {
                 this.editTimePerTurnInfo = new VP<EditData<TimePerTurnInfo>>(this, (byte)Property.editTimePerTurnInfo, new EditData<TimePerTurnInfo>());
+                this.showType = new VP<UIRectTransform.ShowType>(this, (byte)Property.showType, UIRectTransform.ShowType.Normal);
                 this.sub = new VP<Sub>(this, (byte)Property.sub, null);
             }
 
@@ -153,6 +157,7 @@ namespace TimeControl.Normal
                                                         {
                                                             Debug.LogError("editHaveLimit null: " + this);
                                                         }
+                                                        haveLimitUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
                                                     this.data.sub.v = haveLimitUIData;
                                                 }
@@ -183,6 +188,7 @@ namespace TimeControl.Normal
                                                         {
                                                             Debug.LogError("editNoLimit null: " + this);
                                                         }
+                                                        noLimitUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
                                                     this.data.sub.v = noLimitUIData;
                                                 }
@@ -211,7 +217,41 @@ namespace TimeControl.Normal
                     }
                     // UISize
                     {
-                        float deltaY = UIConstants.HeaderHeight;
+                        float deltaY = 0;
+                        // header
+                        {
+                            switch (this.data.showType.v)
+                            {
+                                case UIRectTransform.ShowType.Normal:
+                                    {
+                                        if (lbTitle != null)
+                                        {
+                                            lbTitle.gameObject.SetActive(true);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("lbTitle null");
+                                        }
+                                        deltaY += UIConstants.HeaderHeight;
+                                    }
+                                    break;
+                                case UIRectTransform.ShowType.HeadLess:
+                                    {
+                                        if (lbTitle != null)
+                                        {
+                                            lbTitle.gameObject.SetActive(false);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("lbTitle null");
+                                        }
+                                    }
+                                    break;
+                                default:
+                                    Debug.LogError("unknown showType: " + this.data.showType.v);
+                                    break;
+                            }
+                        }
                         // sub
                         {
                             deltaY += UIRectTransform.SetPosY(this.data.sub.v, deltaY);
@@ -443,6 +483,9 @@ namespace TimeControl.Normal
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
                         }
+                        break;
+                    case UIData.Property.showType:
+                        dirty = true;
                         break;
                     case UIData.Property.sub:
                         {

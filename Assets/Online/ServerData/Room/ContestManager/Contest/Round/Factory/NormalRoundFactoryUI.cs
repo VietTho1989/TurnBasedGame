@@ -614,6 +614,7 @@ namespace GameManager.Match
                                                             {
                                                                 Debug.LogError("editCalculateScoreSum null: " + this);
                                                             }
+                                                            calculateScoreSumUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
                                                         this.data.calculateScoreUI.v = calculateScoreSumUIData;
                                                     }
@@ -644,6 +645,7 @@ namespace GameManager.Match
                                                             {
                                                                 Debug.LogError("editCalculateScoreWinLoseDraw null: " + this);
                                                             }
+                                                            calculateScoreWinLoseDrawUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
                                                         this.data.calculateScoreUI.v = calculateScoreWinLoseDrawUIData;
                                                     }
