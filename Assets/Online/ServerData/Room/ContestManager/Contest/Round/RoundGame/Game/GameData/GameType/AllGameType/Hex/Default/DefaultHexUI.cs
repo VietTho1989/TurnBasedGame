@@ -15,6 +15,8 @@ namespace HEX
 
             public VP<EditData<DefaultHex>> editDefaultHex;
 
+            public VP<UIRectTransform.ShowType> showType;
+
             #region boardSize
 
             public VP<RequestChangeIntUI.UIData> boardSize;
@@ -54,6 +56,7 @@ namespace HEX
             public enum Property
             {
                 editDefaultHex,
+                showType,
                 boardSize,
                 miniGameDataUIData
             }
@@ -61,6 +64,7 @@ namespace HEX
             public UIData() : base()
             {
                 this.editDefaultHex = new VP<EditData<DefaultHex>>(this, (byte)Property.editDefaultHex, new EditData<DefaultHex>());
+                this.showType = new VP<UIRectTransform.ShowType>(this, (byte)Property.showType, UIRectTransform.ShowType.Normal);
                 // boardSize
                 {
                     this.boardSize = new VP<RequestChangeIntUI.UIData>(this, (byte)Property.boardSize, new RequestChangeIntUI.UIData());
@@ -290,29 +294,102 @@ namespace HEX
                         {
                             Debug.LogError("show null: " + this);
                         }
+                        // UI
+                        {
+                            float deltaY = 0;
+                            // header
+                            {
+                                switch (this.data.showType.v)
+                                {
+                                    case UIRectTransform.ShowType.Normal:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(true);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                            deltaY += UIConstants.HeaderHeight;
+                                        }
+                                        break;
+                                    case UIRectTransform.ShowType.HeadLess:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(false);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown showType: " + this.data.showType.v);
+                                        break;
+                                }
+                            }
+                            // miniGameDataUI
+                            {
+                                UIRectTransform.SetPosY(this.data.miniGameDataUIData.v, deltaY + UIConstants.DefaultMiniGameDataUIPadding);
+                                deltaY += UIConstants.DefaultMiniGameDataUISize;
+                            }
+                            // boardSize
+                            {
+                                if (this.data.boardSize.v != null)
+                                {
+                                    if (lbBoardSize != null)
+                                    {
+                                        lbBoardSize.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY(lbBoardSize.rectTransform, deltaY);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbBoardSize null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.boardSize.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbBoardSize != null)
+                                    {
+                                        lbBoardSize.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbBoardSize null");
+                                    }
+                                }
+                            }
+                            // Set
+                            UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                        }
+                        // txt
+                        {
+                            if (lbTitle != null)
+                            {
+                                lbTitle.text = txtTitle.get("Default Hex");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null: " + this);
+                            }
+                            if (lbBoardSize != null)
+                            {
+                                lbBoardSize.text = txtBoardSize.get("Board size");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbBoardSize null: " + this);
+                            }
+                        }
                     }
                     else
                     {
                         Debug.LogError("editDefaultHex null: " + this);
-                    }
-                    // txt
-                    {
-                        if (lbTitle != null)
-                        {
-                            lbTitle.text = txtTitle.get("Default Hex");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTitle null: " + this);
-                        }
-                        if (lbBoardSize != null)
-                        {
-                            lbBoardSize.text = txtBoardSize.get("Board size");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbBoardSize null: " + this);
-                        }
                     }
                 }
                 else
@@ -585,6 +662,9 @@ namespace HEX
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
                         }
+                        break;
+                    case UIData.Property.showType:
+                        dirty = true;
                         break;
                     case UIData.Property.boardSize:
                         {

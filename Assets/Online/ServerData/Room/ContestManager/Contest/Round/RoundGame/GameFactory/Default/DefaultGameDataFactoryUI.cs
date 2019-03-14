@@ -172,6 +172,8 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
 
     private bool needReset = true;
 
+    public Image bgGameType;
+
     public override void refresh()
     {
         if (dirty)
@@ -326,6 +328,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                                                         {
                                                             Debug.LogError("editDefaultChess null: " + this);
                                                         }
+                                                        defaultChessUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
                                                     this.data.defaultGameTypeUI.v = defaultChessUIData;
                                                 }
@@ -354,6 +357,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                                                         {
                                                             Debug.LogError("editDefaultShatranj null: " + this);
                                                         }
+                                                        defaultShatranjUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
                                                     this.data.defaultGameTypeUI.v = defaultShatranjUIData;
                                                 }
@@ -382,6 +386,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                                                         {
                                                             Debug.LogError("editDefaultMakruk null: " + this);
                                                         }
+                                                        defaultMakrukUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
                                                     this.data.defaultGameTypeUI.v = defaultMakrukUIData;
                                                 }
@@ -410,6 +415,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                                                         {
                                                             Debug.LogError("editDefaultSeirawan null: " + this);
                                                         }
+                                                        defaultSeirawanUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
                                                     this.data.defaultGameTypeUI.v = defaultSeirawanUIData;
                                                 }
@@ -438,6 +444,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                                                         {
                                                             Debug.LogError("editDefaultFairyChess null: " + this);
                                                         }
+                                                        defaultFairyChessUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
                                                     this.data.defaultGameTypeUI.v = defaultFairyChessUIData;
                                                 }
@@ -467,6 +474,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                                                         {
                                                             Debug.LogError("editDefaultXiangqi null: " + this);
                                                         }
+                                                        defaultXiangqiUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
                                                     this.data.defaultGameTypeUI.v = defaultXiangqiUIData;
                                                 }
@@ -495,6 +503,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                                                         {
                                                             Debug.LogError("editDefaultCoTuongUp null: " + this);
                                                         }
+                                                        defaultCoTuongUpUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
                                                     this.data.defaultGameTypeUI.v = defaultCoTuongUpUIData;
                                                 }
@@ -523,6 +532,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                                                         {
                                                             Debug.LogError("editDefaultJanggi null: " + this);
                                                         }
+                                                        defaultJanggiUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
                                                     this.data.defaultGameTypeUI.v = defaultJanggiUIData;
                                                 }
@@ -551,6 +561,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                                                         {
                                                             Debug.LogError("editDefaultBanqi null: " + this);
                                                         }
+                                                        defaultBanqiUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
                                                     this.data.defaultGameTypeUI.v = defaultBanqiUIData;
                                                 }
@@ -580,6 +591,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                                                         {
                                                             Debug.LogError("editDefaultWeiqi null: " + this);
                                                         }
+                                                        defaultWeiqiUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
                                                     this.data.defaultGameTypeUI.v = defaultWeiqiUIData;
                                                 }
@@ -608,6 +620,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                                                         {
                                                             Debug.LogError("editDefaultShogi null: " + this);
                                                         }
+                                                        defaultShogiUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
                                                     this.data.defaultGameTypeUI.v = defaultShogiUIData;
                                                 }
@@ -636,6 +649,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                                                         {
                                                             Debug.LogError("editDefaultReversi null: " + this);
                                                         }
+                                                        defaultReversiUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
                                                     this.data.defaultGameTypeUI.v = defaultReversiUIData;
                                                 }
@@ -664,6 +678,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                                                         {
                                                             Debug.LogError("editDefaultGomoku null: " + this);
                                                         }
+                                                        defaultGomokuUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
                                                     this.data.defaultGameTypeUI.v = defaultGomokuUIData;
                                                 }
@@ -692,6 +707,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                                                         {
                                                             Debug.LogError("editDefaultInternationalDraught null: " + this);
                                                         }
+                                                        defaultInternationalDraughtUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
                                                     this.data.defaultGameTypeUI.v = defaultInternationalDraughtUIData;
                                                 }
@@ -720,6 +736,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                                                         {
                                                             Debug.LogError("editDefaultEnglishDraught null: " + this);
                                                         }
+                                                        defaultEnglishDraughtUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
                                                     this.data.defaultGameTypeUI.v = defaultEnglishDraughtUIData;
                                                 }
@@ -748,6 +765,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                                                         {
                                                             Debug.LogError("editDefaultRussianDraught null: " + this);
                                                         }
+                                                        defaultRussianDraughtUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
                                                     this.data.defaultGameTypeUI.v = defaultRussianDraughtUIData;
                                                 }
@@ -776,6 +794,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                                                         {
                                                             Debug.LogError("editDefaultChineseCheckers null: " + this);
                                                         }
+                                                        defaultChineseCheckersUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
                                                     this.data.defaultGameTypeUI.v = defaultChineseCheckersUIData;
                                                 }
@@ -805,6 +824,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                                                         {
                                                             Debug.LogError("editDefaultMineSweeper null: " + this);
                                                         }
+                                                        defaultMineSweeperUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
                                                     this.data.defaultGameTypeUI.v = defaultMineSweeperUIData;
                                                 }
@@ -833,6 +853,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                                                         {
                                                             Debug.LogError("editDefaultHex null: " + this);
                                                         }
+                                                        defaultHexUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
                                                     this.data.defaultGameTypeUI.v = defaultHexUIData;
                                                 }
@@ -861,6 +882,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                                                         {
                                                             Debug.LogError("editDefaultSolitaire null: " + this);
                                                         }
+                                                        defaultSolitaireUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
                                                     this.data.defaultGameTypeUI.v = defaultSolitaireUIData;
                                                 }
@@ -889,6 +911,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                                                         {
                                                             Debug.LogError("editDefaultSudoku null: " + this);
                                                         }
+                                                        defaultSudokuUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
                                                     this.data.defaultGameTypeUI.v = defaultSudokuUIData;
                                                 }
@@ -917,6 +940,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                                                         {
                                                             Debug.LogError("editDefaultKhet null: " + this);
                                                         }
+                                                        defaultKhetUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
                                                     this.data.defaultGameTypeUI.v = defaultKhetUIData;
                                                 }
@@ -945,6 +969,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                                                         {
                                                             Debug.LogError("editDefaultNineMenMorris null: " + this);
                                                         }
+                                                        defaultNineMenMorrisUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
                                                     this.data.defaultGameTypeUI.v = defaultNineMenMorrisUIData;
                                                 }
@@ -1060,11 +1085,29 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                     float deltaY = UIConstants.HeaderHeight;
                     // gameType
                     {
-                        deltaY += UIConstants.ItemHeight;
-                    }
-                    // defaultGameTypeUI
-                    {
-                        deltaY += UIRectTransform.SetPosY(this.data.defaultGameTypeUI.v, deltaY);
+                        float bgY = deltaY;
+                        float bgHeight = 0;
+                        // type
+                        {
+                            bgHeight += UIConstants.ItemHeight;
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        // UI
+                        {
+                            float height = UIRectTransform.SetPosY(this.data.defaultGameTypeUI.v, deltaY);
+                            bgHeight += height;
+                            deltaY += height;
+                        }
+                        // bg
+                        if (bgGameType != null)
+                        {
+                            UIRectTransform.SetPosY(bgGameType.rectTransform, bgY);
+                            UIRectTransform.SetHeight(bgGameType.rectTransform, bgHeight);
+                        }
+                        else
+                        {
+                            Debug.LogError("bgGameType null");
+                        }
                     }
                     // useRule
                     {

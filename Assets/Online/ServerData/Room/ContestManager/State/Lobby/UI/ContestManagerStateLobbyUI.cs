@@ -216,6 +216,9 @@ namespace GameManager.Match
         private bool firstSet = false;
         public ScrollRect settingScrollView;
 
+        public Image bgContestManagerContentFactory;
+        public Image bgRoomSetting;
+
         public override void refresh()
         {
             if (dirty)
@@ -381,11 +384,6 @@ namespace GameManager.Match
                     {
                         Debug.LogError("lobby null: " + this);
                     }
-                    // setting sibling index
-                    {
-                        UIRectTransform.SetSiblingIndex(this.data.contentFactory.v, 0);
-                        UIRectTransform.SetSiblingIndex(this.data.roomSetting.v, 1);
-                    }
                     // siblingIndex
                     {
                         if (editLobbyPlayerContainer != null)
@@ -403,6 +401,77 @@ namespace GameManager.Match
                         else
                         {
                             Debug.LogError("editPostureGameDataUIContainer null");
+                        }
+                    }
+                    // setting
+                    {
+                        // siblingIndex
+                        {
+                            if (bgContestManagerContentFactory != null)
+                            {
+                                bgContestManagerContentFactory.transform.SetSiblingIndex(0);
+                            }
+                            else
+                            {
+                                Debug.LogError("bgContestManagerContentFactory null");
+                            }
+                            if (bgRoomSetting != null)
+                            {
+                                bgRoomSetting.transform.SetSiblingIndex(1);
+                            }
+                            else
+                            {
+                                Debug.LogError("bgRoomSetting null");
+                            }
+                            UIRectTransform.SetSiblingIndex(this.data.contentFactory.v, 2);
+                            UIRectTransform.SetSiblingIndex(this.data.roomSetting.v, 3);
+                        }
+                        // size
+                        {
+                            float deltaY = 0;
+                            // contestManagerContentFactory
+                            {
+                                float height = UIRectTransform.SetPosY(this.data.contentFactory.v, deltaY);
+                                // bg
+                                {
+                                    if (bgContestManagerContentFactory != null)
+                                    {
+                                        UIRectTransform.SetPosY(bgContestManagerContentFactory.rectTransform, deltaY);
+                                        UIRectTransform.SetHeight(bgContestManagerContentFactory.rectTransform, height);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("bgContestManagerContentFactory null");
+                                    }
+                                }
+                                deltaY += height;
+                            }
+                            // roomSetting
+                            {
+                                float height = UIRectTransform.SetPosY(this.data.roomSetting.v, deltaY);
+                                // bg
+                                {
+                                    if (bgRoomSetting != null)
+                                    {
+                                        UIRectTransform.SetPosY(bgRoomSetting.rectTransform, deltaY);
+                                        UIRectTransform.SetHeight(bgRoomSetting.rectTransform, height);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("bgRoomSetting null");
+                                    }
+                                }
+                                deltaY += height;
+                            }
+                            // settingContainer
+                            if (settingContainer != null)
+                            {
+                                UIRectTransform.SetHeight(settingContainer, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("settingContainer null");
+                            }
                         }
                     }
                 }
@@ -424,7 +493,7 @@ namespace GameManager.Match
 
         public ContestManagerContentFactoryUI contestManagerContentFactoryPrefab;
         public RoomSettingUI roomSettingPrefab;
-        public Transform settingContainer;
+        public RectTransform settingContainer;
 
         public RoomUserAdapter roomUserAdapterPrefab;
         public static readonly UIRectTransform roomUserAdapterRect = new UIRectTransform();
@@ -516,6 +585,10 @@ namespace GameManager.Match
                     {
                         UIUtils.Instantiate(roomSettingUIData, roomSettingPrefab, settingContainer);
                     }
+                    // Child
+                    {
+                        TransformData.AddCallBack(roomSettingUIData, this);
+                    }
                     dirty = true;
                     return;
                 }
@@ -545,6 +618,10 @@ namespace GameManager.Match
                     // UI
                     {
                         UIUtils.Instantiate(contestManagerContentFactoryUIData, contestManagerContentFactoryPrefab, settingContainer);
+                    }
+                    // Child
+                    {
+                        TransformData.AddCallBack(contestManagerContentFactoryUIData, this);
                     }
                     dirty = true;
                     return;
@@ -576,6 +653,12 @@ namespace GameManager.Match
                     {
                         UIUtils.Instantiate(editLobbyPlayerUIData, editLobbyPlayerPrefab, editLobbyPlayerContainer);
                     }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                if(data is TransformData)
+                {
                     dirty = true;
                     return;
                 }
@@ -634,6 +717,10 @@ namespace GameManager.Match
                 if (data is RoomSettingUI.UIData)
                 {
                     RoomSettingUI.UIData roomSettingUIData = data as RoomSettingUI.UIData;
+                    // Child
+                    {
+                        TransformData.RemoveCallBack(roomSettingUIData, this);
+                    }
                     // UI
                     {
                         roomSettingUIData.removeCallBackAndDestroy(typeof(RoomSettingUI));
@@ -661,6 +748,10 @@ namespace GameManager.Match
                 if (data is ContestManagerContentFactoryUI.UIData)
                 {
                     ContestManagerContentFactoryUI.UIData contestManagerContentFactoryUIData = data as ContestManagerContentFactoryUI.UIData;
+                    // Child
+                    {
+                        TransformData.RemoveCallBack(contestManagerContentFactoryUIData, this);
+                    }
                     // UI
                     {
                         contestManagerContentFactoryUIData.removeCallBackAndDestroy(typeof(ContestManagerContentFactoryUI));
@@ -692,6 +783,11 @@ namespace GameManager.Match
                     {
                         editLobbyPlayerUIData.removeCallBackAndDestroy(typeof(EditLobbyPlayerUI));
                     }
+                    return;
+                }
+                // Child
+                if(data is TransformData)
+                {
                     return;
                 }
             }
@@ -851,6 +947,37 @@ namespace GameManager.Match
                 }
                 if (wrapProperty.p is EditLobbyPlayerUI.UIData)
                 {
+                    return;
+                }
+                // Child
+                if(wrapProperty.p is TransformData)
+                {
+                    switch ((TransformData.Property)wrapProperty.n)
+                    {
+                        case TransformData.Property.anchoredPosition:
+                            break;
+                        case TransformData.Property.anchorMin:
+                            break;
+                        case TransformData.Property.anchorMax:
+                            break;
+                        case TransformData.Property.pivot:
+                            break;
+                        case TransformData.Property.offsetMin:
+                            break;
+                        case TransformData.Property.offsetMax:
+                            break;
+                        case TransformData.Property.sizeDelta:
+                            break;
+                        case TransformData.Property.rotation:
+                            break;
+                        case TransformData.Property.scale:
+                            break;
+                        case TransformData.Property.size:
+                            dirty = true;
+                            break;
+                        default:
+                            break;
+                    }
                     return;
                 }
             }

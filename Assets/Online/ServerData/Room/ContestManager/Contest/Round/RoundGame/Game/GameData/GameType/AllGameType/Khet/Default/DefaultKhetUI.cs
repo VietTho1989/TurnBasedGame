@@ -15,6 +15,8 @@ namespace Khet
 
             public VP<EditData<DefaultKhet>> editDefaultKhet;
 
+            public VP<UIRectTransform.ShowType> showType;
+
             #region startPos
 
             public VP<RequestChangeEnumUI.UIData> startPos;
@@ -54,6 +56,7 @@ namespace Khet
             public enum Property
             {
                 editDefaultKhet,
+                showType,
                 startPos,
                 miniGameDataUIData
             }
@@ -61,6 +64,7 @@ namespace Khet
             public UIData() : base()
             {
                 this.editDefaultKhet = new VP<EditData<DefaultKhet>>(this, (byte)Property.editDefaultKhet, new EditData<DefaultKhet>());
+                this.showType = new VP<UIRectTransform.ShowType>(this, (byte)Property.showType, UIRectTransform.ShowType.Normal);
                 {
                     this.startPos = new VP<RequestChangeEnumUI.UIData>(this, (byte)Property.startPos, new RequestChangeEnumUI.UIData());
                     // event
@@ -279,29 +283,102 @@ namespace Khet
                                 this.data.miniGameDataUIData.v = miniGameDataUIData;
                                 miniGameDataDirty = false;
                             }
+                            // UI
+                            {
+                                float deltaY = 0;
+                                // header
+                                {
+                                    switch (this.data.showType.v)
+                                    {
+                                        case UIRectTransform.ShowType.Normal:
+                                            {
+                                                if (lbTitle != null)
+                                                {
+                                                    lbTitle.gameObject.SetActive(true);
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("lbTitle null");
+                                                }
+                                                deltaY += UIConstants.HeaderHeight;
+                                            }
+                                            break;
+                                        case UIRectTransform.ShowType.HeadLess:
+                                            {
+                                                if (lbTitle != null)
+                                                {
+                                                    lbTitle.gameObject.SetActive(false);
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("lbTitle null");
+                                                }
+                                            }
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown showType: " + this.data.showType.v);
+                                            break;
+                                    }
+                                }
+                                // miniGameDataUI
+                                {
+                                    UIRectTransform.SetPosY(this.data.miniGameDataUIData.v, deltaY + UIConstants.DefaultMiniGameDataUIPadding);
+                                    deltaY += UIConstants.DefaultMiniGameDataUISize;
+                                }
+                                // startPos
+                                {
+                                    if (this.data.startPos.v != null)
+                                    {
+                                        if (lbStartPos != null)
+                                        {
+                                            lbStartPos.gameObject.SetActive(true);
+                                            UIRectTransform.SetPosY(lbStartPos.rectTransform, deltaY);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("lbChess960 null");
+                                        }
+                                        UIRectTransform.SetPosY(this.data.startPos.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                                        deltaY += UIConstants.ItemHeight;
+                                    }
+                                    else
+                                    {
+                                        if (lbStartPos != null)
+                                        {
+                                            lbStartPos.gameObject.SetActive(false);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("lbChess960 null");
+                                        }
+                                    }
+                                }
+                                // Set
+                                UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                            }
+                            // txt
+                            {
+                                if (lbTitle != null)
+                                {
+                                    lbTitle.text = txtTitle.get("Default Khet");
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbTitle null: " + this);
+                                }
+                                if (lbStartPos != null)
+                                {
+                                    lbStartPos.text = txtStartPos.get("Start pos");
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbStartPos null: " + this);
+                                }
+                            }
                         }
                         else
                         {
                             Debug.LogError("defaultKhet null: " + this);
-                        }
-                    }
-                    // txt
-                    {
-                        if (lbTitle != null)
-                        {
-                            lbTitle.text = txtTitle.get("Default Khet");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTitle null: " + this);
-                        }
-                        if (lbStartPos != null)
-                        {
-                            lbStartPos.text = txtStartPos.get("Start pos");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbStartPos null: " + this);
                         }
                     }
                 }
@@ -572,6 +649,9 @@ namespace Khet
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
                         }
+                        break;
+                    case UIData.Property.showType:
+                        dirty = true;
                         break;
                     case UIData.Property.startPos:
                         {

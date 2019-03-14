@@ -120,6 +120,18 @@ namespace Khet
                                 drShow.value = (int)show;
                             }
                             drShow.RefreshShownValue();
+                            // show or not
+                            {
+                                bool isShow = true;
+                                {
+                                    MiniGameDataUI.UIData miniGameDataUIData = this.data.findDataInParent<MiniGameDataUI.UIData>();
+                                    if (miniGameDataUIData != null)
+                                    {
+                                        isShow = false;
+                                    }
+                                }
+                                drShow.gameObject.SetActive(isShow);
+                            }
                         }
                         else
                         {

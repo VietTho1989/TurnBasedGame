@@ -12,6 +12,7 @@ public static class UIConstants
     public const float HeaderHeight = 30;
 
     public const float DefaultMiniGameDataUISize = 120;
+    public const float DefaultMiniGameDataUIPadding = 20;
 
     public const float ItemHeight = 60;
 
@@ -63,7 +64,7 @@ public static class UIConstants
 
         // MiniGameDataUIRect
         {
-            float padding = 20;
+            float padding = DefaultMiniGameDataUIPadding;
             MiniGameDataUIRect.anchoredPosition = new Vector2(0.0f, -HeaderHeight - padding);
             MiniGameDataUIRect.anchorMin = new Vector2(0.5f, 1f);
             MiniGameDataUIRect.anchorMax = new Vector2(0.5f, 1f);

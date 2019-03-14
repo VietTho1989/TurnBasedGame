@@ -253,7 +253,7 @@ namespace GameManager.Match
         {
             // txt
             {
-                txtTitle.add(Language.Type.vi, "Cách Tạo Set");
+                txtTitle.add(Language.Type.vi, "Cách Tạo Set Đấu");
                 txtIsChangeSideBetweenRound.add(Language.Type.vi, "Đổi bên giữa các set");
                 txtIsSwitchPlayer.add(Language.Type.vi, "Hoán đổi bên");
                 txtIsDifferentInTeam.add(Language.Type.vi, "Đổi trong đội");
@@ -270,6 +270,9 @@ namespace GameManager.Match
         #region Refresh
 
         private bool needReset = true;
+
+        public Image bgGameFactory;
+        public Image bgCalculateScore;
 
         public override void refresh()
         {
@@ -765,7 +768,24 @@ namespace GameManager.Match
                         float deltaY = UIConstants.HeaderHeight;
                         // gameFactory
                         {
-                            deltaY += UIRectTransform.SetPosY(this.data.gameFactory.v, deltaY);
+                            float bgY = deltaY;
+                            float bgHeight = 0;
+                            // UI
+                            {
+                                float height = UIRectTransform.SetPosY(this.data.gameFactory.v, deltaY);
+                                bgHeight += height;
+                                deltaY += height;
+                            }
+                            // bg
+                            if (bgGameFactory != null)
+                            {
+                                UIRectTransform.SetPosY(bgGameFactory.rectTransform, bgY);
+                                UIRectTransform.SetHeight(bgGameFactory.rectTransform, bgHeight);
+                            }
+                            else
+                            {
+                                Debug.LogError("bgGameFactory null");
+                            }
                         }
                         // isChangeSideBetweenRound
                         {
@@ -806,22 +826,55 @@ namespace GameManager.Match
                             UIRectTransform.SetPosY(this.data.isDifferentInTeam.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
                             deltaY += UIConstants.ItemHeight;
                         }
-                        // calculateScoreType
+                        // calculateScore
                         {
-                            if (lbCalculateScoreType != null)
+                            float bgY = deltaY;
+                            float bgHeight = 0;
+                            // type
                             {
-                                UIRectTransform.SetPosY((RectTransform)lbCalculateScoreType.transform, deltaY);
+                                if (this.data.calculateScoreType.v != null)
+                                {
+                                    if (lbCalculateScoreType != null)
+                                    {
+                                        lbCalculateScoreType.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY((RectTransform)lbCalculateScoreType.transform, deltaY);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbCalculateScoreType null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.calculateScoreType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                                    bgHeight += UIConstants.ItemHeight;
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbCalculateScoreType != null)
+                                    {
+                                        lbCalculateScoreType.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbCalculateScoreType null");
+                                    }
+                                }
+                            }
+                            // UI
+                            {
+                                float height = UIRectTransform.SetPosY(this.data.calculateScoreUI.v, deltaY);
+                                bgHeight += height;
+                                deltaY += height;
+                            }
+                            // bg
+                            if (bgCalculateScore != null)
+                            {
+                                UIRectTransform.SetPosY(bgCalculateScore.rectTransform, bgY);
+                                UIRectTransform.SetHeight(bgCalculateScore.rectTransform, bgHeight);
                             }
                             else
                             {
-                                Debug.LogError("lbCalculateScoreType null");
+                                Debug.LogError("bgCalculateScore null");
                             }
-                            UIRectTransform.SetPosY(this.data.calculateScoreType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        // calculateScoreUI
-                        {
-                            deltaY += UIRectTransform.SetPosY(this.data.calculateScoreUI.v, deltaY);
                         }
                         // set
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);

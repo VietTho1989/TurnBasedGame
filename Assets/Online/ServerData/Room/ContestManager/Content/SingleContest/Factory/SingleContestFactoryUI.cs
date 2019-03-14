@@ -205,15 +205,15 @@ namespace GameManager.Match
                 }
                 // roundFactoryType
                 {
-                    this.roundFactoryType = new VP<RequestChangeEnumUI.UIData>(this, (byte)Property.roundFactoryType, new RequestChangeEnumUI.UIData());
+                    this.roundFactoryType = new VP<RequestChangeEnumUI.UIData>(this, (byte)Property.roundFactoryType, null);
                     // event
-                    this.roundFactoryType.v.updateData.v.request.v = makeRequestChangeRoundFactoryType;
-                    {
+                    // this.roundFactoryType.v.updateData.v.request.v = makeRequestChangeRoundFactoryType;
+                    /*{
                         foreach (RoundFactory.Type type in System.Enum.GetValues(typeof(RoundFactory.Type)))
                         {
                             this.roundFactoryType.v.options.add(type.ToString());
                         }
-                    }
+                    }*/
                 }
                 this.roundFactoryUI = new VP<RoundFactoryUI>(this, (byte)Property.roundFactoryUI, null);
                 // newRoundLimitType
@@ -328,6 +328,10 @@ namespace GameManager.Match
         #region Refresh
 
         private bool needReset = true;
+
+        public Image bgRoundFactory;
+        public Image bgNewRoundLimit;
+        public Image bgCalculateScore;
 
         public override void refresh()
         {
@@ -925,56 +929,155 @@ namespace GameManager.Match
                             UIRectTransform.SetPosY(this.data.playerPerTeam.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
                             deltaY += UIConstants.ItemHeight;
                         }
-                        // roundFactoryType
+                        // roundFactory
                         {
-                            if (lbRoundFactoryType != null)
+                            float bgY = deltaY;
+                            float bgHeight = 0;
+                            // type
                             {
-                                UIRectTransform.SetPosY((RectTransform)lbRoundFactoryType.transform, deltaY);
+                                if (this.data.roundFactoryType.v != null)
+                                {
+                                    if (lbRoundFactoryType != null)
+                                    {
+                                        lbRoundFactoryType.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY((RectTransform)lbRoundFactoryType.transform, deltaY);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbRoundFactoryType null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.roundFactoryType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                                    bgHeight += UIConstants.ItemHeight;
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbRoundFactoryType != null)
+                                    {
+                                        lbRoundFactoryType.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbRoundFactoryType null");
+                                    }
+                                }
+                            }
+                            // UI
+                            {
+                                float roundFactoryHeight = UIRectTransform.SetPosY(this.data.roundFactoryUI.v, deltaY);
+                                bgHeight += roundFactoryHeight;
+                                deltaY += roundFactoryHeight;
+                            }
+                            // bg
+                            if (bgRoundFactory != null)
+                            {
+                                UIRectTransform.SetPosY(bgRoundFactory.rectTransform, bgY);
+                                UIRectTransform.SetHeight(bgRoundFactory.rectTransform, bgHeight);
                             }
                             else
                             {
-                                Debug.LogError("lbRoundFactoryType null");
+                                Debug.LogError("bgRoundFactory null");
                             }
-                            UIRectTransform.SetPosY(this.data.roundFactoryType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
                         }
-                        // roundFactoryUI
+                        // newRoundLimit
                         {
-                            deltaY += UIRectTransform.SetPosY(this.data.roundFactoryUI.v, deltaY);
-                        }
-                        // newRoundLimitType
-                        {
-                            if (lbNewRoundLimitType != null)
+                            float bgY = deltaY;
+                            float bgHeight = 0;
+                            // type
                             {
-                                UIRectTransform.SetPosY((RectTransform)lbNewRoundLimitType.transform, deltaY);
+                                if (this.data.newRoundLimitType.v != null)
+                                {
+                                    if (lbNewRoundLimitType != null)
+                                    {
+                                        lbNewRoundLimitType.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY((RectTransform)lbNewRoundLimitType.transform, deltaY);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbNewRoundLimitType null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.newRoundLimitType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                                    bgHeight += UIConstants.ItemHeight;
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbNewRoundLimitType != null)
+                                    {
+                                        lbNewRoundLimitType.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbNewRoundLimitType null");
+                                    }
+                                }
+                            }
+                            // UI
+                            {
+                                float height = UIRectTransform.SetPosY(this.data.newRoundLimitUI.v, deltaY);
+                                bgHeight += height;
+                                deltaY += height;
+                            }
+                            // bg
+                            if (bgNewRoundLimit != null)
+                            {
+                                UIRectTransform.SetPosY(bgNewRoundLimit.rectTransform, bgY);
+                                UIRectTransform.SetHeight(bgNewRoundLimit.rectTransform, bgHeight);
                             }
                             else
                             {
-                                Debug.LogError("lbNewRoundLimitType null");
+                                Debug.LogError("bgNewRoundLimit null");
                             }
-                            UIRectTransform.SetPosY(this.data.newRoundLimitType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
                         }
-                        // newRoundLimitUI
+                        // calculateScore
                         {
-                            deltaY += UIRectTransform.SetPosY(this.data.newRoundLimitUI.v, deltaY);
-                        }
-                        // calculateScoreType
-                        {
-                            if (lbCalculateScoreType != null)
+                            float bgY = deltaY;
+                            float bgHeight = 0;
+                            // type
                             {
-                                UIRectTransform.SetPosY((RectTransform)lbCalculateScoreType.transform, deltaY);
+                                if (this.data.calculateScoreType.v != null)
+                                {
+                                    if (lbCalculateScoreType != null)
+                                    {
+                                        UIRectTransform.SetPosY((RectTransform)lbCalculateScoreType.transform, deltaY);
+                                        lbCalculateScoreType.gameObject.SetActive(true);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbCalculateScoreType null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.calculateScoreType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                                    bgHeight += UIConstants.ItemHeight;
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbCalculateScoreType != null)
+                                    {
+                                        lbCalculateScoreType.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbCalculateScoreType null");
+                                    }
+                                }
+                            }
+                            // UI
+                            {
+                                float height = UIRectTransform.SetPosY(this.data.calculateScoreUI.v, deltaY);
+                                bgHeight += height;
+                                deltaY += height;
+                            }
+                            // bg
+                            if (bgCalculateScore != null)
+                            {
+                                UIRectTransform.SetPosY(bgCalculateScore.rectTransform, bgY);
+                                UIRectTransform.SetHeight(bgCalculateScore.rectTransform, bgHeight);
                             }
                             else
                             {
-                                Debug.LogError("lbCalculateScoreType null");
+                                Debug.LogError("bgCalculateScore null");
                             }
-                            UIRectTransform.SetPosY(this.data.calculateScoreType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        // calculateScoreUI
-                        {
-                            deltaY += UIRectTransform.SetPosY(this.data.calculateScoreUI.v, deltaY);
                         }
                         // set
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);

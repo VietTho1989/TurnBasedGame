@@ -15,6 +15,8 @@ namespace Seirawan
 
             public VP<EditData<DefaultSeirawan>> editDefaultSeirawan;
 
+            public VP<UIRectTransform.ShowType> showType;
+
             #region chess960
 
             public VP<RequestChangeBoolUI.UIData> chess960;
@@ -54,6 +56,7 @@ namespace Seirawan
             public enum Property
             {
                 editDefaultSeirawan,
+                showType,
                 chess960,
                 miniGameDataUIData
             }
@@ -61,6 +64,7 @@ namespace Seirawan
             public UIData() : base()
             {
                 this.editDefaultSeirawan = new VP<EditData<DefaultSeirawan>>(this, (byte)Property.editDefaultSeirawan, new EditData<DefaultSeirawan>());
+                this.showType = new VP<UIRectTransform.ShowType>(this, (byte)Property.showType, UIRectTransform.ShowType.Normal);
                 {
                     this.chess960 = new VP<RequestChangeBoolUI.UIData>(this, (byte)Property.chess960, new RequestChangeBoolUI.UIData());
                     // event
@@ -296,29 +300,102 @@ namespace Seirawan
                         {
                             Debug.LogError("show null: " + this);
                         }
+                        // UI
+                        {
+                            float deltaY = 0;
+                            // header
+                            {
+                                switch (this.data.showType.v)
+                                {
+                                    case UIRectTransform.ShowType.Normal:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(true);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                            deltaY += UIConstants.HeaderHeight;
+                                        }
+                                        break;
+                                    case UIRectTransform.ShowType.HeadLess:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(false);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown showType: " + this.data.showType.v);
+                                        break;
+                                }
+                            }
+                            // miniGameDataUI
+                            {
+                                UIRectTransform.SetPosY(this.data.miniGameDataUIData.v, deltaY + UIConstants.DefaultMiniGameDataUIPadding);
+                                deltaY += UIConstants.DefaultMiniGameDataUISize;
+                            }
+                            // chess960
+                            {
+                                if (this.data.chess960.v != null)
+                                {
+                                    if (lbChess960 != null)
+                                    {
+                                        lbChess960.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY(lbChess960.rectTransform, deltaY);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbChess960 null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.chess960.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbChess960 != null)
+                                    {
+                                        lbChess960.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbChess960 null");
+                                    }
+                                }
+                            }
+                            // Set
+                            UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                        }
+                        // txt
+                        {
+                            if (lbTitle != null)
+                            {
+                                lbTitle.text = txtTitle.get("Default Seirawan");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null: " + this);
+                            }
+                            if (lbChess960 != null)
+                            {
+                                lbChess960.text = txtChess960.get("Chess960");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbChess960 null: " + this);
+                            }
+                        }
                     }
                     else
                     {
                         Debug.LogError("editDefaultSeirawan null: " + this);
-                    }
-                    // txt
-                    {
-                        if (lbTitle != null)
-                        {
-                            lbTitle.text = txtTitle.get("Default Seirawan");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTitle null: " + this);
-                        }
-                        if (lbChess960 != null)
-                        {
-                            lbChess960.text = txtChess960.get("Chess960");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbChess960 null: " + this);
-                        }
                     }
                 }
                 else
@@ -586,6 +663,9 @@ namespace Seirawan
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
                         }
+                        break;
+                    case UIData.Property.showType:
+                        dirty = true;
                         break;
                     case UIData.Property.chess960:
                         {

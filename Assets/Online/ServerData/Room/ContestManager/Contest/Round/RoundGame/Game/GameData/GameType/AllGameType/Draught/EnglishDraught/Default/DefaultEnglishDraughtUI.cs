@@ -15,6 +15,8 @@ namespace EnglishDraught
 
             public VP<EditData<DefaultEnglishDraught>> editDefaultEnglishDraught;
 
+            public VP<UIRectTransform.ShowType> showType;
+
             #region threeMoveRandom
 
             public VP<RequestChangeBoolUI.UIData> threeMoveRandom;
@@ -86,6 +88,7 @@ namespace EnglishDraught
             public enum Property
             {
                 editDefaultEnglishDraught,
+                showType,
                 threeMoveRandom,
                 maxPly,
                 miniGameDataUIData
@@ -94,6 +97,7 @@ namespace EnglishDraught
             public UIData() : base()
             {
                 this.editDefaultEnglishDraught = new VP<EditData<DefaultEnglishDraught>>(this, (byte)Property.editDefaultEnglishDraught, new EditData<DefaultEnglishDraught>());
+                this.showType = new VP<UIRectTransform.ShowType>(this, (byte)Property.showType, UIRectTransform.ShowType.Normal);
                 {
                     this.threeMoveRandom = new VP<RequestChangeBoolUI.UIData>(this, (byte)Property.threeMoveRandom, new RequestChangeBoolUI.UIData());
                     // event
@@ -396,37 +400,138 @@ namespace EnglishDraught
                         {
                             Debug.LogError("show null: " + this);
                         }
+                        // UI
+                        {
+                            float deltaY = 0;
+                            // header
+                            {
+                                switch (this.data.showType.v)
+                                {
+                                    case UIRectTransform.ShowType.Normal:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(true);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                            deltaY += UIConstants.HeaderHeight;
+                                        }
+                                        break;
+                                    case UIRectTransform.ShowType.HeadLess:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(false);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown showType: " + this.data.showType.v);
+                                        break;
+                                }
+                            }
+                            // miniGameDataUI
+                            {
+                                UIRectTransform.SetPosY(this.data.miniGameDataUIData.v, deltaY + UIConstants.DefaultMiniGameDataUIPadding);
+                                deltaY += UIConstants.DefaultMiniGameDataUISize;
+                            }
+                            // threeMoveRandom
+                            {
+                                if (this.data.threeMoveRandom.v != null)
+                                {
+                                    if (lbThreeMoveRandom != null)
+                                    {
+                                        lbThreeMoveRandom.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY(lbThreeMoveRandom.rectTransform, deltaY);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbThreeMoveRandom null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.threeMoveRandom.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbThreeMoveRandom != null)
+                                    {
+                                        lbThreeMoveRandom.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbThreeMoveRandom null");
+                                    }
+                                }
+                            }
+                            // maxPly
+                            {
+                                if (this.data.maxPly.v != null)
+                                {
+                                    if (lbMaxPly != null)
+                                    {
+                                        lbMaxPly.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY(lbMaxPly.rectTransform, deltaY);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbMaxPly null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.maxPly.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbMaxPly != null)
+                                    {
+                                        lbMaxPly.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbMaxPly null");
+                                    }
+                                }
+                            }
+                            // Set
+                            UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                        }
+                        // txt
+                        {
+                            if (lbTitle != null)
+                            {
+                                lbTitle.text = txtTitle.get("Default English Draughts");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null: " + this);
+                            }
+                            if (lbThreeMoveRandom != null)
+                            {
+                                lbThreeMoveRandom.text = txtThreeMoveRandom.get("Three moves random");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbThreeMoveRandom null: " + this);
+                            }
+                            if (lbMaxPly != null)
+                            {
+                                lbMaxPly.text = txtMaxPly.get("Max ply");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbMaxPlay null: " + this);
+                            }
+                        }
                     }
                     else
                     {
                         Debug.LogError("editDefaultEnglishDraught null: " + this);
-                    }
-                    // txt
-                    {
-                        if (lbTitle != null)
-                        {
-                            lbTitle.text = txtTitle.get("Default English Draughts");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTitle null: " + this);
-                        }
-                        if (lbThreeMoveRandom != null)
-                        {
-                            lbThreeMoveRandom.text = txtThreeMoveRandom.get("Three moves random");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbThreeMoveRandom null: " + this);
-                        }
-                        if (lbMaxPly != null)
-                        {
-                            lbMaxPly.text = txtMaxPly.get("Max ply");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbMaxPlay null: " + this);
-                        }
                     }
                 }
                 else
@@ -738,6 +843,9 @@ namespace EnglishDraught
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
                         }
+                        break;
+                    case UIData.Property.showType:
+                        dirty = true;
                         break;
                     case UIData.Property.threeMoveRandom:
                         {

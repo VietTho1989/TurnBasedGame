@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Rights;
 
-public class RoomSettingUI : UIBehavior<RoomSettingUI.UIData>
+public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
 {
 
     #region UIData

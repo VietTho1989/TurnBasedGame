@@ -15,6 +15,8 @@ namespace Reversi
 
             public VP<EditData<DefaultReversi>> editDefaultReversi;
 
+            public VP<UIRectTransform.ShowType> showType;
+
             public VP<MiniGameDataUI.UIData> miniGameDataUIData;
 
             #region Constructor
@@ -22,12 +24,14 @@ namespace Reversi
             public enum Property
             {
                 editDefaultReversi,
+                showType,
                 miniGameDataUIData
             }
 
             public UIData() : base()
             {
                 this.editDefaultReversi = new VP<EditData<DefaultReversi>>(this, (byte)Property.editDefaultReversi, new EditData<DefaultReversi>());
+                this.showType = new VP<UIRectTransform.ShowType>(this, (byte)Property.showType, UIRectTransform.ShowType.Normal);
                 this.miniGameDataUIData = new VP<MiniGameDataUI.UIData>(this, (byte)Property.miniGameDataUIData, new MiniGameDataUI.UIData());
             }
 
@@ -177,21 +181,66 @@ namespace Reversi
                         {
                             Debug.LogError("show null: " + this);
                         }
+                        // UI
+                        {
+                            float deltaY = 0;
+                            // header
+                            {
+                                switch (this.data.showType.v)
+                                {
+                                    case UIRectTransform.ShowType.Normal:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(true);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                            deltaY += UIConstants.HeaderHeight;
+                                        }
+                                        break;
+                                    case UIRectTransform.ShowType.HeadLess:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(false);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown showType: " + this.data.showType.v);
+                                        break;
+                                }
+                            }
+                            // miniGameDataUI
+                            {
+                                UIRectTransform.SetPosY(this.data.miniGameDataUIData.v, deltaY + UIConstants.DefaultMiniGameDataUIPadding);
+                                deltaY += UIConstants.DefaultMiniGameDataUISize;
+                            }
+                            // Set
+                            UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                        }
+                        // txt
+                        {
+                            if (lbTitle != null)
+                            {
+                                lbTitle.text = txtTitle.get("Default Reversi");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null: " + this);
+                            }
+                        }
                     }
                     else
                     {
                         Debug.LogError("editDefaultReversi null: " + this);
-                    }
-                    // txt
-                    {
-                        if (lbTitle != null)
-                        {
-                            lbTitle.text = txtTitle.get("Default Reversi");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTitle null: " + this);
-                        }
                     }
                 }
                 else
@@ -419,6 +468,9 @@ namespace Reversi
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
                         }
+                        break;
+                    case UIData.Property.showType:
+                        dirty = true;
                         break;
                     case UIData.Property.miniGameDataUIData:
                         {

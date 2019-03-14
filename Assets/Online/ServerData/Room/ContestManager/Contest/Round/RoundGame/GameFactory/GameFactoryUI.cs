@@ -166,6 +166,9 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
 
     private bool needReset = true;
 
+    public Image bgGameDataFactory;
+    public Image bgTimeControl;
+
     public override void refresh()
     {
         if (dirty)
@@ -487,17 +490,52 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                 // UISize
                 {
                     float deltaY = UIConstants.HeaderHeight;
-                    // gameDataFactoryType
+                    // gameDataFactory
                     {
-                        deltaY += UIConstants.ItemHeight;
-                    }
-                    // gameDataFactoryUI
-                    {
-                        deltaY += UIRectTransform.SetPosY(this.data.gameDataFactoryUIData.v, deltaY);
+                        float bgY = deltaY;
+                        float bgHeight = 0;
+                        // type
+                        {
+                            bgHeight += UIConstants.ItemHeight;
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        // UI
+                        {
+                            float height = UIRectTransform.SetPosY(this.data.gameDataFactoryUIData.v, deltaY);
+                            bgHeight += height;
+                            deltaY += height;
+                        }
+                        // bg
+                        if (bgGameDataFactory != null)
+                        {
+                            UIRectTransform.SetPosY(bgGameDataFactory.rectTransform, bgY);
+                            UIRectTransform.SetHeight(bgGameDataFactory.rectTransform, bgHeight);
+                        }
+                        else
+                        {
+                            Debug.LogError("bgGameDataFactory null");
+                        }
                     }
                     // timeControlUI
                     {
-                        deltaY += UIRectTransform.SetPosY(this.data.timeControl.v, deltaY);
+                        float bgY = deltaY;
+                        float bgHeight = 0;
+                        // UI
+                        {
+                            float height = UIRectTransform.SetPosY(this.data.timeControl.v, deltaY);
+                            bgHeight += height;
+                            deltaY += height;
+                        }
+                        // bg
+                        if (bgTimeControl != null)
+                        {
+                            UIRectTransform.SetPosY(bgTimeControl.rectTransform, bgY);
+                            UIRectTransform.SetHeight(bgTimeControl.rectTransform, bgHeight);
+                        }
+                        else
+                        {
+                            Debug.LogError("bgTimeControl null");
+                        }
                     }
                     // set size
                     UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);

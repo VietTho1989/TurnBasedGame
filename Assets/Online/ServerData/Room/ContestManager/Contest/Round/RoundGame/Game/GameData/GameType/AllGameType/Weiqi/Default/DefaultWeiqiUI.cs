@@ -15,6 +15,8 @@ namespace Weiqi
 
             public VP<EditData<DefaultWeiqi>> editDefaultWeiqi;
 
+            public VP<UIRectTransform.ShowType> showType;
+
             #region boardSize
 
             public VP<RequestChangeIntUI.UIData> size;
@@ -150,6 +152,7 @@ namespace Weiqi
             public enum Property
             {
                 editDefaultWeiqi,
+                showType,
 
                 size,
                 komi,
@@ -162,6 +165,7 @@ namespace Weiqi
             public UIData() : base()
             {
                 this.editDefaultWeiqi = new VP<EditData<DefaultWeiqi>>(this, (byte)Property.editDefaultWeiqi, new EditData<DefaultWeiqi>());
+                this.showType = new VP<UIRectTransform.ShowType>(this, (byte)Property.showType, UIRectTransform.ShowType.Normal);
                 // size
                 {
                     this.size = new VP<RequestChangeIntUI.UIData>(this, (byte)Property.size, new RequestChangeIntUI.UIData());
@@ -639,53 +643,210 @@ namespace Weiqi
                         {
                             Debug.LogError("show null: " + this);
                         }
+                        // UI
+                        {
+                            float deltaY = 0;
+                            // header
+                            {
+                                switch (this.data.showType.v)
+                                {
+                                    case UIRectTransform.ShowType.Normal:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(true);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                            deltaY += UIConstants.HeaderHeight;
+                                        }
+                                        break;
+                                    case UIRectTransform.ShowType.HeadLess:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(false);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown showType: " + this.data.showType.v);
+                                        break;
+                                }
+                            }
+                            // miniGameDataUI
+                            {
+                                UIRectTransform.SetPosY(this.data.miniGameDataUIData.v, deltaY + UIConstants.DefaultMiniGameDataUIPadding);
+                                deltaY += UIConstants.DefaultMiniGameDataUISize;
+                            }
+                            // size
+                            {
+                                if (this.data.size.v != null)
+                                {
+                                    if (lbSize != null)
+                                    {
+                                        lbSize.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY(lbSize.rectTransform, deltaY);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbSize null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.size.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbSize != null)
+                                    {
+                                        lbSize.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbSize null");
+                                    }
+                                }
+                            }
+                            // komi
+                            {
+                                if (this.data.komi.v != null)
+                                {
+                                    if (lbKomi != null)
+                                    {
+                                        lbKomi.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY(lbKomi.rectTransform, deltaY);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbKomi null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.komi.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbKomi != null)
+                                    {
+                                        lbKomi.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbKomi null");
+                                    }
+                                }
+                            }
+                            // rule
+                            {
+                                if (this.data.rule.v != null)
+                                {
+                                    if (lbRule != null)
+                                    {
+                                        lbRule.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY(lbRule.rectTransform, deltaY);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbRule null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.rule.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbRule != null)
+                                    {
+                                        lbRule.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbRule null");
+                                    }
+                                }
+                            }
+                            // handicap
+                            {
+                                if (this.data.handicap.v != null)
+                                {
+                                    if (lbHandicap != null)
+                                    {
+                                        lbHandicap.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY(lbHandicap.rectTransform, deltaY);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbHandicap null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.handicap.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbHandicap != null)
+                                    {
+                                        lbHandicap.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbHandicap null");
+                                    }
+                                }
+                            }
+                            // Set
+                            UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                        }
+                        // txt
+                        {
+                            if (lbTitle != null)
+                            {
+                                lbTitle.text = txtTitle.get("Default Weiqi");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null: " + this);
+                            }
+                            if (lbSize != null)
+                            {
+                                lbSize.text = txtSize.get("Size");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbSize null: " + this);
+                            }
+                            if (lbKomi != null)
+                            {
+                                lbKomi.text = txtKomi.get("Komi");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbKomi null: " + this);
+                            }
+                            if (lbRule != null)
+                            {
+                                lbRule.text = txtRule.get("Rule");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbRule null: " + this);
+                            }
+                            if (lbHandicap != null)
+                            {
+                                lbHandicap.text = txtHandicap.get("Handicap");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbHandicap null: " + this);
+                            }
+                        }
                     }
                     else
                     {
                         Debug.LogError("editDefaultWeiqi null: " + this);
-                    }
-                    // txt
-                    {
-                        if (lbTitle != null)
-                        {
-                            lbTitle.text = txtTitle.get("Default Weiqi");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTitle null: " + this);
-                        }
-                        if (lbSize != null)
-                        {
-                            lbSize.text = txtSize.get("Size");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbSize null: " + this);
-                        }
-                        if (lbKomi != null)
-                        {
-                            lbKomi.text = txtKomi.get("Komi");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbKomi null: " + this);
-                        }
-                        if (lbRule != null)
-                        {
-                            lbRule.text = txtRule.get("Rule");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbRule null: " + this);
-                        }
-                        if (lbHandicap != null)
-                        {
-                            lbHandicap.text = txtHandicap.get("Handicap");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbHandicap null: " + this);
-                        }
                     }
                 }
                 else
@@ -1038,6 +1199,9 @@ namespace Weiqi
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
                         }
+                        break;
+                    case UIData.Property.showType:
+                        dirty = true;
                         break;
                     case UIData.Property.size:
                         {

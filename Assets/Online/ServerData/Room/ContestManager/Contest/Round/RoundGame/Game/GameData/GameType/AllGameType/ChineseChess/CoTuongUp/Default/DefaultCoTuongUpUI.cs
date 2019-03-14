@@ -15,6 +15,8 @@ namespace CoTuongUp
 
             public VP<EditData<DefaultCoTuongUp>> editDefaultCoTuongUp;
 
+            public VP<UIRectTransform.ShowType> showType;
+
             #region allowViewCaputre
 
             public VP<RequestChangeBoolUI.UIData> allowViewCapture;
@@ -118,6 +120,7 @@ namespace CoTuongUp
             public enum Property
             {
                 editDefaultCoTuongUp,
+                showType,
 
                 allowViewCapture,
                 allowWatcherViewHidden,
@@ -129,6 +132,7 @@ namespace CoTuongUp
             public UIData() : base()
             {
                 this.editDefaultCoTuongUp = new VP<EditData<DefaultCoTuongUp>>(this, (byte)Property.editDefaultCoTuongUp, new EditData<DefaultCoTuongUp>());
+                this.showType = new VP<UIRectTransform.ShowType>(this, (byte)Property.showType, UIRectTransform.ShowType.Normal);
                 // allowViewCapture
                 {
                     this.allowViewCapture = new VP<RequestChangeBoolUI.UIData>(this, (byte)Property.allowViewCapture, new RequestChangeBoolUI.UIData());
@@ -509,45 +513,174 @@ namespace CoTuongUp
                         {
                             Debug.LogError("defaultCoTuongUp null: " + this);
                         }
+                        // UI
+                        {
+                            float deltaY = 0;
+                            // header
+                            {
+                                switch (this.data.showType.v)
+                                {
+                                    case UIRectTransform.ShowType.Normal:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(true);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                            deltaY += UIConstants.HeaderHeight;
+                                        }
+                                        break;
+                                    case UIRectTransform.ShowType.HeadLess:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(false);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown showType: " + this.data.showType.v);
+                                        break;
+                                }
+                            }
+                            // miniGameDataUI
+                            {
+                                UIRectTransform.SetPosY(this.data.miniGameDataUIData.v, deltaY + UIConstants.DefaultMiniGameDataUIPadding);
+                                deltaY += UIConstants.DefaultMiniGameDataUISize;
+                            }
+                            // allowViewCapture
+                            {
+                                if (this.data.allowViewCapture.v != null)
+                                {
+                                    if (lbAllowViewCapture != null)
+                                    {
+                                        lbAllowViewCapture.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY(lbAllowViewCapture.rectTransform, deltaY);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbAllowViewCapture null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.allowViewCapture.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbAllowViewCapture != null)
+                                    {
+                                        lbAllowViewCapture.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbAllowViewCapture null");
+                                    }
+                                }
+                            }
+                            // allowWatcherViewHidden
+                            {
+                                if (this.data.allowWatcherViewHidden.v != null)
+                                {
+                                    if (lbAllowWatcherViewHidden != null)
+                                    {
+                                        lbAllowWatcherViewHidden.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY(lbAllowWatcherViewHidden.rectTransform, deltaY);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbAllowWatcherViewHidden null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.allowWatcherViewHidden.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbAllowWatcherViewHidden != null)
+                                    {
+                                        lbAllowWatcherViewHidden.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbAllowWatcherViewHidden null");
+                                    }
+                                }
+                            }
+                            // allowOnlyFlip
+                            {
+                                if (this.data.allowOnlyFlip.v != null)
+                                {
+                                    if (lbAllowOnlyFlip != null)
+                                    {
+                                        lbAllowOnlyFlip.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY(lbAllowOnlyFlip.rectTransform, deltaY);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbAllowOnlyFlip null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.allowOnlyFlip.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbAllowOnlyFlip != null)
+                                    {
+                                        lbAllowOnlyFlip.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbAllowOnlyFlip null");
+                                    }
+                                }
+                            }
+                            // Set
+                            UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                        }
+                        // txt
+                        {
+                            if (lbTitle != null)
+                            {
+                                lbTitle.text = txtTitle.get("Default Hidden Chinese Chess");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null: " + this);
+                            }
+                            if (lbAllowViewCapture != null)
+                            {
+                                lbAllowViewCapture.text = txtAllowViewCapture.get("Allow view capture");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbAllowViewCapture null: " + this);
+                            }
+                            if (lbAllowWatcherViewHidden != null)
+                            {
+                                lbAllowWatcherViewHidden.text = txtAllowWatcherViewHidden.get("Allow watcher view hidden");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbAllowWatcherViewHidden null: " + this);
+                            }
+                            if (lbAllowOnlyFlip != null)
+                            {
+                                lbAllowOnlyFlip.text = txtAllowOnlyFlip.get("Allow only flip");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbAllowOnlyFlip null: " + this);
+                            }
+                        }
                     }
                     else
                     {
                         Debug.LogError("editDefaultCoTuongUp null: " + this);
-                    }
-                    // txt
-                    {
-                        if (lbTitle != null)
-                        {
-                            lbTitle.text = txtTitle.get("Default Hidden Chinese Chess");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTitle null: " + this);
-                        }
-                        if (lbAllowViewCapture != null)
-                        {
-                            lbAllowViewCapture.text = txtAllowViewCapture.get("Allow view capture");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbAllowViewCapture null: " + this);
-                        }
-                        if (lbAllowWatcherViewHidden != null)
-                        {
-                            lbAllowWatcherViewHidden.text = txtAllowWatcherViewHidden.get("Allow watcher view hidden");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbAllowWatcherViewHidden null: " + this);
-                        }
-                        if (lbAllowOnlyFlip != null)
-                        {
-                            lbAllowOnlyFlip.text = txtAllowOnlyFlip.get("Allow only flip");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbAllowOnlyFlip null: " + this);
-                        }
                     }
                 }
                 else
@@ -829,6 +962,9 @@ namespace CoTuongUp
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
                         }
+                        break;
+                    case UIData.Property.showType:
+                        dirty = true;
                         break;
                     case UIData.Property.allowViewCapture:
                         {

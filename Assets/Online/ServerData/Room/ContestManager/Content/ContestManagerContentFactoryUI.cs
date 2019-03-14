@@ -7,7 +7,7 @@ using GameManager.Match.Elimination;
 
 namespace GameManager.Match
 {
-	public class ContestManagerContentFactoryUI : UIBehavior<ContestManagerContentFactoryUI.UIData>
+	public class ContestManagerContentFactoryUI : UIHaveTransformDataBehavior<ContestManagerContentFactoryUI.UIData>
 	{
 
 		#region UIData
@@ -171,6 +171,8 @@ namespace GameManager.Match
 		#endregion
 
 		private bool needReset = true;
+
+        public Image bgSub;
 
 		public override void refresh ()
 		{
@@ -432,12 +434,32 @@ namespace GameManager.Match
                         {
                             deltaY += UIConstants.ItemHeight;
                         }
-                        // contentType
-                        {
-                            deltaY += UIConstants.ItemHeight;
-                        }
                         // sub
-                        deltaY += UIRectTransform.SetPosY(this.data.sub.v, deltaY);
+                        {
+                            float bgY = deltaY;
+                            float bgHeight = 0;
+                            // drSubType
+                            {
+                                deltaY += UIConstants.ItemHeight;
+                                bgHeight += UIConstants.ItemHeight;
+                            }
+                            // sub
+                            {
+                                float subHeight = UIRectTransform.SetPosY(this.data.sub.v, deltaY);
+                                bgHeight += subHeight;
+                                deltaY += subHeight;
+                            }
+                            // bg
+                            if (bgSub != null)
+                            {
+                                UIRectTransform.SetPosY(bgSub.rectTransform, bgY);
+                                UIRectTransform.SetHeight(bgSub.rectTransform, bgHeight);
+                            }
+                            else
+                            {
+                                Debug.LogError("bgSub null");
+                            }
+                        }
                         // set
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }

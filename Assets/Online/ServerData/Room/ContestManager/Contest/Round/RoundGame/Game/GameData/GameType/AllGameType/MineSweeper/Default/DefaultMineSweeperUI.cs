@@ -15,6 +15,8 @@ namespace MineSweeper
 
             public VP<EditData<DefaultMineSweeper>> editDefaultMineSweeper;
 
+            public VP<UIRectTransform.ShowType> showType;
+
             #region N
 
             public VP<RequestChangeIntUI.UIData> N;
@@ -182,6 +184,7 @@ namespace MineSweeper
             public enum Property
             {
                 editDefaultMineSweeper,
+                showType,
                 N,
                 M,
                 minK,
@@ -193,6 +196,7 @@ namespace MineSweeper
             public UIData() : base()
             {
                 this.editDefaultMineSweeper = new VP<EditData<DefaultMineSweeper>>(this, (byte)Property.editDefaultMineSweeper, new EditData<DefaultMineSweeper>());
+                this.showType = new VP<UIRectTransform.ShowType>(this, (byte)Property.showType, UIRectTransform.ShowType.Normal);
                 // N
                 {
                     this.N = new VP<RequestChangeIntUI.UIData>(this, (byte)Property.N, new RequestChangeIntUI.UIData());
@@ -723,61 +727,246 @@ namespace MineSweeper
                         {
                             Debug.LogError("show null: " + this);
                         }
+                        // UI
+                        {
+                            float deltaY = 0;
+                            // header
+                            {
+                                switch (this.data.showType.v)
+                                {
+                                    case UIRectTransform.ShowType.Normal:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(true);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                            deltaY += UIConstants.HeaderHeight;
+                                        }
+                                        break;
+                                    case UIRectTransform.ShowType.HeadLess:
+                                        {
+                                            if (lbTitle != null)
+                                            {
+                                                lbTitle.gameObject.SetActive(false);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("lbTitle null");
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown showType: " + this.data.showType.v);
+                                        break;
+                                }
+                            }
+                            // miniGameDataUI
+                            {
+                                UIRectTransform.SetPosY(this.data.miniGameDataUIData.v, deltaY + UIConstants.DefaultMiniGameDataUIPadding);
+                                deltaY += UIConstants.DefaultMiniGameDataUISize;
+                            }
+                            // N
+                            {
+                                if (this.data.N.v != null)
+                                {
+                                    if (lbN != null)
+                                    {
+                                        lbN.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY(lbN.rectTransform, deltaY);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbN null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.N.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbN != null)
+                                    {
+                                        lbN.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbN null");
+                                    }
+                                }
+                            }
+                            // M
+                            {
+                                if (this.data.M.v != null)
+                                {
+                                    if (lbM != null)
+                                    {
+                                        lbM.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY(lbM.rectTransform, deltaY);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbM null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.M.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbM != null)
+                                    {
+                                        lbM.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbM null");
+                                    }
+                                }
+                            }
+                            // minK
+                            {
+                                if (this.data.minK.v != null)
+                                {
+                                    if (lbMinK != null)
+                                    {
+                                        lbMinK.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY(lbMinK.rectTransform, deltaY);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbMinK null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.minK.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbMinK != null)
+                                    {
+                                        lbMinK.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbMinK null");
+                                    }
+                                }
+                            }
+                            // maxK
+                            {
+                                if (this.data.maxK.v != null)
+                                {
+                                    if (lbMaxK != null)
+                                    {
+                                        lbMaxK.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY(lbMaxK.rectTransform, deltaY);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbMaxK null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.maxK.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbMaxK != null)
+                                    {
+                                        lbMaxK.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbMaxK null");
+                                    }
+                                }
+                            }
+                            // allowWatchBomb
+                            {
+                                if (this.data.allowWatchBomb.v != null)
+                                {
+                                    if (lbAllowWatchBomb != null)
+                                    {
+                                        lbAllowWatchBomb.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY(lbAllowWatchBomb.rectTransform, deltaY);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbAllowWatchBomb null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.allowWatchBomb.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbAllowWatchBomb != null)
+                                    {
+                                        lbAllowWatchBomb.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbAllowWatchBom null");
+                                    }
+                                }
+                            }
+                            // Set
+                            UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                        }
+                        // txt
+                        {
+                            if (lbTitle != null)
+                            {
+                                lbTitle.text = txtTitle.get("Default Mine Sweeper");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null: " + this);
+                            }
+                            if (lbN != null)
+                            {
+                                lbN.text = txtN.get("N");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbN null: " + this);
+                            }
+                            if (lbM != null)
+                            {
+                                lbM.text = txtM.get("M");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbM null: " + this);
+                            }
+                            if (lbMinK != null)
+                            {
+                                lbMinK.text = txtMinK.get("MinK");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbMinK null: " + this);
+                            }
+                            if (lbMaxK != null)
+                            {
+                                lbMaxK.text = txtMaxK.get("MaxK");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbMaxK null: " + this);
+                            }
+                            if (lbAllowWatchBomb != null)
+                            {
+                                lbAllowWatchBomb.text = txtAllowWatchBomb.get("Allow watch bomb");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbAllowWatchBomb null: " + this);
+                            }
+                        }
                     }
                     else
                     {
                         Debug.LogError("editDefaultMineSweeper null: " + this);
-                    }
-                    // txt
-                    {
-                        if (lbTitle != null)
-                        {
-                            lbTitle.text = txtTitle.get("Default Mine Sweeper");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTitle null: " + this);
-                        }
-                        if (lbN != null)
-                        {
-                            lbN.text = txtN.get("N");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbN null: " + this);
-                        }
-                        if (lbM != null)
-                        {
-                            lbM.text = txtM.get("M");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbM null: " + this);
-                        }
-                        if (lbMinK != null)
-                        {
-                            lbMinK.text = txtMinK.get("MinK");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbMinK null: " + this);
-                        }
-                        if (lbMaxK != null)
-                        {
-                            lbMaxK.text = txtMaxK.get("MaxK");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbMaxK null: " + this);
-                        }
-                        if (lbAllowWatchBomb != null)
-                        {
-                            lbAllowWatchBomb.text = txtAllowWatchBomb.get("Allow watch bomb");
-                        }
-                        else
-                        {
-                            Debug.LogError("lbAllowWatchBomb null: " + this);
-                        }
                     }
                 }
                 else
@@ -1144,6 +1333,9 @@ namespace MineSweeper
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
                         }
+                        break;
+                    case UIData.Property.showType:
+                        dirty = true;
                         break;
                     case UIData.Property.N:
                         {
