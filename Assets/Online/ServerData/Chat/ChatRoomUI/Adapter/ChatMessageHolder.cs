@@ -19,7 +19,9 @@ public class ChatMessageHolder : SriaHolderBehavior<ChatMessageHolder.UIData>
 
         public abstract class Sub : Data
         {
+
             public abstract ChatMessage.Content.Type getType();
+
         }
 
         public VP<Sub> sub;
@@ -147,6 +149,28 @@ public class ChatMessageHolder : SriaHolderBehavior<ChatMessageHolder.UIData>
                                     this.data.sub.v = undoRedoRequestMessageUIData;
                                 }
                                 break;
+                            case ChatMessage.Content.Type.RequestDraw:
+                                {
+                                    RequestDrawMessage requestDrawMessage = content as RequestDrawMessage;
+                                    // UIData
+                                    RequestDrawMessageUI.UIData requestDrawMessageUIData = this.data.sub.newOrOld<RequestDrawMessageUI.UIData>();
+                                    {
+                                        requestDrawMessageUIData.requestDrawMessage.v = new ReferenceData<RequestDrawMessage>(requestDrawMessage);
+                                    }
+                                    this.data.sub.v = requestDrawMessageUIData;
+                                }
+                                break;
+                            case ChatMessage.Content.Type.GamePlayerState:
+                                {
+                                    GamePlayerStateMessage gamePlayerStateMessage = content as GamePlayerStateMessage;
+                                    // UIData
+                                    GamePlayerStateMessageUI.UIData gamePlayerStateMessageUIData = this.data.sub.newOrOld<GamePlayerStateMessageUI.UIData>();
+                                    {
+                                        gamePlayerStateMessageUIData.gamePlayerStateMessage.v = new ReferenceData<GamePlayerStateMessage>(gamePlayerStateMessage);
+                                    }
+                                    this.data.sub.v = gamePlayerStateMessageUIData;
+                                }
+                                break;
                             default:
                                 Debug.LogError("unknown type: " + chatMessage.content.v.getType() + "; " + this);
                                 break;
@@ -179,6 +203,8 @@ public class ChatMessageHolder : SriaHolderBehavior<ChatMessageHolder.UIData>
     public FriendStateChangeContentUI friendStateChangePrefab;
     public ChatGameMoveContentUI chatGameMoveContentPrefab;
     public UndoRedoRequestMessageUI undoRedoRequestMessagePrefab;
+    public RequestDrawMessageUI requestDrawMessagePrefab;
+    public GamePlayerStateMessageUI gamePlayerStateMessagePrefab;
 
     public override void onAddCallBack<T>(T data)
     {
@@ -241,6 +267,18 @@ public class ChatMessageHolder : SriaHolderBehavior<ChatMessageHolder.UIData>
                             {
                                 UndoRedoRequestMessageUI.UIData undoRedoRequestMessageUIData = sub as UndoRedoRequestMessageUI.UIData;
                                 UIUtils.Instantiate(undoRedoRequestMessageUIData, undoRedoRequestMessagePrefab, this.transform);
+                            }
+                            break;
+                        case ChatMessage.Content.Type.RequestDraw:
+                            {
+                                RequestDrawMessageUI.UIData requestDrawMessageUIData = sub as RequestDrawMessageUI.UIData;
+                                UIUtils.Instantiate(requestDrawMessageUIData, requestDrawMessagePrefab, this.transform);
+                            }
+                            break;
+                        case ChatMessage.Content.Type.GamePlayerState:
+                            {
+                                GamePlayerStateMessageUI.UIData gamePlayerStateMessageUIData = sub as GamePlayerStateMessageUI.UIData;
+                                UIUtils.Instantiate(gamePlayerStateMessageUIData, gamePlayerStateMessagePrefab, this.transform);
                             }
                             break;
                         default:
@@ -315,6 +353,18 @@ public class ChatMessageHolder : SriaHolderBehavior<ChatMessageHolder.UIData>
                             {
                                 UndoRedoRequestMessageUI.UIData undoRedoRequestMessageUIData = sub as UndoRedoRequestMessageUI.UIData;
                                 undoRedoRequestMessageUIData.removeCallBackAndDestroy(typeof(UndoRedoRequestMessageUI));
+                            }
+                            break;
+                        case ChatMessage.Content.Type.RequestDraw:
+                            {
+                                RequestDrawMessageUI.UIData requestDrawMessageUIData = sub as RequestDrawMessageUI.UIData;
+                                requestDrawMessageUIData.removeCallBackAndDestroy(typeof(RequestDrawMessageUI));
+                            }
+                            break;
+                        case ChatMessage.Content.Type.GamePlayerState:
+                            {
+                                GamePlayerStateMessageUI.UIData gamePlayerStateMessageUIData = sub as GamePlayerStateMessageUI.UIData;
+                                gamePlayerStateMessageUIData.removeCallBackAndDestroy(typeof(GamePlayerStateMessageUI));
                             }
                             break;
                         default:

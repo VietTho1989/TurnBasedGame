@@ -99,7 +99,7 @@ namespace UndoRedo
                             {
                                 this.accepts.add(userId);
                                 // add message
-                                GameTopic.AddUndoRedoRequest(this, userId, UndoRedoRequestMessage.Action.Accept, this.requestInform.v.getOperation());
+                                UndoRedoRequestMessage.Add(this, userId, UndoRedoRequestMessage.Action.Accept, this.requestInform.v.getOperation());
                             }
                             else
                             {
@@ -113,7 +113,7 @@ namespace UndoRedo
                             {
                                 this.cancels.add(userId);
                                 // add message
-                                GameTopic.AddUndoRedoRequest(this, userId, UndoRedoRequestMessage.Action.Refuse, this.requestInform.v.getOperation());
+                                UndoRedoRequestMessage.Add(this, userId, UndoRedoRequestMessage.Action.Refuse, this.requestInform.v.getOperation());
                             }
                             else
                             {

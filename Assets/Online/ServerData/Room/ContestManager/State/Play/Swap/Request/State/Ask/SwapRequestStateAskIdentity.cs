@@ -5,176 +5,205 @@ using System.Collections.Generic;
 
 namespace GameManager.Match.Swap
 {
-	public class SwapRequestStateAskIdentity : DataIdentity
-	{
+    public class SwapRequestStateAskIdentity : DataIdentity
+    {
 
-		#region SyncVar
+        #region SyncVar
 
-		#region accepts
+        #region accepts
 
-		public SyncListUInt accepts = new SyncListUInt();
+        public SyncListUInt accepts = new SyncListUInt();
 
-		private void OnAcceptsChanged(SyncListUInt.Operation op, int index, uint item)
-		{
-			if (this.netData.clientData != null) {
-				IdentityUtils.onSyncListChange (this.netData.clientData.accepts, this.accepts, op, index);
-			} else {
-				// Debug.LogError ("clientData null: " + this);
-			}
-		}
-		#endregion
+        private void OnAcceptsChanged(SyncListUInt.Operation op, int index, uint item)
+        {
+            if (this.netData.clientData != null)
+            {
+                IdentityUtils.onSyncListChange(this.netData.clientData.accepts, this.accepts, op, index);
+            }
+            else
+            {
+                // Debug.LogError ("clientData null: " + this);
+            }
+        }
+        #endregion
 
-		#endregion
+        #endregion
 
-		#region NetData
+        #region NetData
 
-		private NetData<SwapRequestStateAsk> netData = new NetData<SwapRequestStateAsk>();
+        private NetData<SwapRequestStateAsk> netData = new NetData<SwapRequestStateAsk>();
 
-		public override NetDataDelegate getNetData ()
-		{
-			return this.netData;
-		}
+        public override NetDataDelegate getNetData()
+        {
+            return this.netData;
+        }
 
-		public override void addSyncListCallBack ()
-		{
-			base.addSyncListCallBack ();
-			this.accepts.Callback += OnAcceptsChanged;
-		}
+        public override void addSyncListCallBack()
+        {
+            base.addSyncListCallBack();
+            this.accepts.Callback += OnAcceptsChanged;
+        }
 
-		public override void refreshClientData ()
-		{
-			if (this.netData.clientData != null) {
-				IdentityUtils.refresh(this.netData.clientData.accepts, this.accepts);
-			} else {
-				Debug.Log ("clientData null");
-			}
-		}
+        public override void refreshClientData()
+        {
+            if (this.netData.clientData != null)
+            {
+                IdentityUtils.refresh(this.netData.clientData.accepts, this.accepts);
+            }
+            else
+            {
+                Debug.Log("clientData null");
+            }
+        }
 
-		public override int refreshDataSize ()
-		{
-			int ret = GetDataSize (this.netId);
-			{
-				ret += GetDataSize (this.accepts);
-			}
-			return ret;
-		}
+        public override int refreshDataSize()
+        {
+            int ret = GetDataSize(this.netId);
+            {
+                ret += GetDataSize(this.accepts);
+            }
+            return ret;
+        }
 
-		#endregion
+        #endregion
 
-		#region implemt callback
+        #region implemt callback
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is SwapRequestStateAsk) {
-				SwapRequestStateAsk swapRequestStateAsk = data as SwapRequestStateAsk;
-				// Set new parent
-				this.addTransformToParent();
-				// Set property
-				{
-					this.serialize (this.searchInfor, swapRequestStateAsk.makeSearchInforms ());
-					IdentityUtils.InitSync(this.accepts, swapRequestStateAsk.accepts.vs);
-				}
-				// Observer
-				{
-					GameObserver observer = GetComponent<GameObserver> ();
-					if (observer != null) {
-						observer.checkChange = new FollowParentObserver (observer);
-						observer.setCheckChangeData (swapRequestStateAsk);
-					} else {
-						Debug.LogError ("observer null: " + this);
-					}
-				}
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is SwapRequestStateAsk)
+            {
+                SwapRequestStateAsk swapRequestStateAsk = data as SwapRequestStateAsk;
+                // Set new parent
+                this.addTransformToParent();
+                // Set property
+                {
+                    this.serialize(this.searchInfor, swapRequestStateAsk.makeSearchInforms());
+                    IdentityUtils.InitSync(this.accepts, swapRequestStateAsk.accepts.vs);
+                }
+                // Observer
+                {
+                    GameObserver observer = GetComponent<GameObserver>();
+                    if (observer != null)
+                    {
+                        observer.checkChange = new FollowParentObserver(observer);
+                        observer.setCheckChangeData(swapRequestStateAsk);
+                    }
+                    else
+                    {
+                        Debug.LogError("observer null: " + this);
+                    }
+                }
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is SwapRequestStateAsk) {
-				// SwapRequestStateAsk swapRequestStateAsk = data as SwapRequestStateAsk;
-				// Observer
-				{
-					GameObserver observer = GetComponent<GameObserver> ();
-					if (observer != null) {
-						observer.setCheckChangeData (null);
-					} else {
-						Debug.LogError ("observer null: " + this);
-					}
-				}
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is SwapRequestStateAsk)
+            {
+                // SwapRequestStateAsk swapRequestStateAsk = data as SwapRequestStateAsk;
+                // Observer
+                {
+                    GameObserver observer = GetComponent<GameObserver>();
+                    if (observer != null)
+                    {
+                        observer.setCheckChangeData(null);
+                    }
+                    else
+                    {
+                        Debug.LogError("observer null: " + this);
+                    }
+                }
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is SwapRequestStateAsk) {
-				switch ((SwapRequestStateAsk.Property)wrapProperty.n) {
-				case SwapRequestStateAsk.Property.whoCanAsks:
-					break;
-				case SwapRequestStateAsk.Property.accepts:
-					IdentityUtils.UpdateSyncList (this.accepts, syncs, GlobalCast<T>.CastingUInt32);
-					break;
-				default:
-					Debug.LogError ("Unknown wrapProperty: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is SwapRequestStateAsk)
+            {
+                switch ((SwapRequestStateAsk.Property)wrapProperty.n)
+                {
+                    case SwapRequestStateAsk.Property.whoCanAsks:
+                        break;
+                    case SwapRequestStateAsk.Property.accepts:
+                        IdentityUtils.UpdateSyncList(this.accepts, syncs, GlobalCast<T>.CastingUInt32);
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
 
-		#endregion
+        #endregion
 
-		#region accept
+        #region accept
 
-		public void requestAccept(uint userId)
-		{
-			ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity (this.netData.clientData);
-			if (clientConnect != null) {
-				clientConnect.CmdSwapRequestStateAskAccept (this.netId, userId);
-			} else {
-				Debug.LogError ("Cannot find clientConnect: " + this);
-			}
-		}
+        public void requestAccept(uint userId)
+        {
+            ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity(this.netData.clientData);
+            if (clientConnect != null)
+            {
+                clientConnect.CmdSwapRequestStateAskAccept(this.netId, userId);
+            }
+            else
+            {
+                Debug.LogError("Cannot find clientConnect: " + this);
+            }
+        }
 
-		public void accept(uint userId)
-		{
-			if (this.netData.serverData != null) {
-				this.netData.serverData.accept(userId);
-			} else {
-				Debug.LogError ("serverData null: " + this);
-			}
-		}
+        public void accept(uint userId)
+        {
+            if (this.netData.serverData != null)
+            {
+                this.netData.serverData.accept(userId);
+            }
+            else
+            {
+                Debug.LogError("serverData null: " + this);
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region refuse
+        #region refuse
 
-		public void requestRefuse(uint userId)
-		{
-			ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity (this.netData.clientData);
-			if (clientConnect != null) {
-				clientConnect.CmdSwapRequestStateAskRefuse (this.netId, userId);
-			} else {
-				Debug.LogError ("Cannot find clientConnect: " + this);
-			}
-		}
+        public void requestRefuse(uint userId)
+        {
+            ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity(this.netData.clientData);
+            if (clientConnect != null)
+            {
+                clientConnect.CmdSwapRequestStateAskRefuse(this.netId, userId);
+            }
+            else
+            {
+                Debug.LogError("Cannot find clientConnect: " + this);
+            }
+        }
 
-		public void refuse(uint userId)
-		{
-			if (this.netData.serverData != null) {
-				this.netData.serverData.refuse(userId);
-			} else {
-				Debug.LogError ("serverData null: " + this);
-			}
-		}
+        public void refuse(uint userId)
+        {
+            if (this.netData.serverData != null)
+            {
+                this.netData.serverData.refuse(userId);
+            }
+            else
+            {
+                Debug.LogError("serverData null: " + this);
+            }
+        }
 
-		#endregion
+        #endregion
 
-	}
+    }
 }

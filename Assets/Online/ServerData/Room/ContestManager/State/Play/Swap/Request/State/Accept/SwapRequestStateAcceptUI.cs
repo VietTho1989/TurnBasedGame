@@ -123,7 +123,7 @@ namespace GameManager.Match.Swap
                 return;
             }
             // Setting
-            if(data is Setting)
+            if (data is Setting)
             {
                 dirty = true;
                 return;
@@ -152,7 +152,7 @@ namespace GameManager.Match.Swap
                 return;
             }
             // Setting
-            if(data is Setting)
+            if (data is Setting)
             {
                 return;
             }
@@ -187,7 +187,7 @@ namespace GameManager.Match.Swap
                 return;
             }
             // Setting
-            if(wrapProperty.p is Setting)
+            if (wrapProperty.p is Setting)
             {
                 switch ((Setting.Property)wrapProperty.n)
                 {

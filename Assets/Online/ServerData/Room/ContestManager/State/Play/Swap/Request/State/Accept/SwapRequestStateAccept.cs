@@ -4,33 +4,33 @@ using System.Collections.Generic;
 
 namespace GameManager.Match.Swap
 {
-	public class SwapRequestStateAccept : SwapRequest.State
-	{
+    public class SwapRequestStateAccept : SwapRequest.State
+    {
 
-		public VP<float> time;
+        public VP<float> time;
 
-		public VP<float> duration;
+        public VP<float> duration;
 
-		#region Constructor
+        #region Constructor
 
-		public enum Property
-		{
-			time,
-			duration
-		}
+        public enum Property
+        {
+            time,
+            duration
+        }
 
-		public SwapRequestStateAccept() : base()
-		{
-			this.time = new VP<float> (this, (byte)Property.time, 0);
-			this.duration = new VP<float> (this, (byte)Property.duration, 1);
-		}
+        public SwapRequestStateAccept() : base()
+        {
+            this.time = new VP<float>(this, (byte)Property.time, 0);
+            this.duration = new VP<float>(this, (byte)Property.duration, 1);
+        }
 
-		#endregion
+        #endregion
 
-		public override Type getType ()
-		{
-			return Type.Accept;
-		}
+        public override Type getType()
+        {
+            return Type.Accept;
+        }
 
-	}
+    }
 }

@@ -7,142 +7,143 @@ using AdvancedCoroutines;
 
 namespace GameManager.Match.Swap
 {
-	public class AdminRequestSwapPlayerHumanUI : UIBehavior<AdminRequestSwapPlayerHumanUI.UIData>
-	{
+    public class AdminRequestSwapPlayerHumanUI : UIBehavior<AdminRequestSwapPlayerHumanUI.UIData>
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : Data
-		{
+        public class UIData : Data
+        {
 
-			public VP<ReferenceData<TeamPlayer>> teamPlayer;
+            public VP<ReferenceData<TeamPlayer>> teamPlayer;
 
-			#region State
+            #region State
 
-			public abstract class State : Data
-			{
+            public abstract class State : Data
+            {
 
-				public enum Type
-				{
-					None,
-					Request,
-					Wait
-				}
+                public enum Type
+                {
+                    None,
+                    Request,
+                    Wait
+                }
 
-				public abstract Type getType();
+                public abstract Type getType();
 
-			}
+            }
 
-			public class StateNone : State
-			{
+            public class StateNone : State
+            {
 
-				#region Constructor
+                #region Constructor
 
-				public enum Property
-				{
+                public enum Property
+                {
 
-				}
+                }
 
-				public StateNone() : base()
-				{
+                public StateNone() : base()
+                {
 
-				}
+                }
 
-				#endregion
+                #endregion
 
-				public override Type getType ()
-				{
-					return Type.None;
-				}
+                public override Type getType()
+                {
+                    return Type.None;
+                }
 
-			}
+            }
 
-			public class StateRequest : State
-			{
+            public class StateRequest : State
+            {
 
-				public VP<uint> humanId;
+                public VP<uint> humanId;
 
-				#region Constructor
+                #region Constructor
 
-				public enum Property
-				{
-					humanId
-				}
+                public enum Property
+                {
+                    humanId
+                }
 
-				public StateRequest() : base()
-				{
-					this.humanId = new VP<uint>(this, (byte)Property.humanId, 0);
-				}
+                public StateRequest() : base()
+                {
+                    this.humanId = new VP<uint>(this, (byte)Property.humanId, 0);
+                }
 
-				#endregion
+                #endregion
 
-				public override Type getType ()
-				{
-					return Type.Request;
-				}
+                public override Type getType()
+                {
+                    return Type.Request;
+                }
 
-			}
+            }
 
-			public class StateWait : State
-			{
+            public class StateWait : State
+            {
 
-				#region Constructor
+                #region Constructor
 
-				public enum Property
-				{
+                public enum Property
+                {
 
-				}
+                }
 
-				public StateWait() : base()
-				{
+                public StateWait() : base()
+                {
 
-				}
+                }
 
-				#endregion
+                #endregion
 
-				public override Type getType ()
-				{
-					return Type.Wait;
-				}
+                public override Type getType()
+                {
+                    return Type.Wait;
+                }
 
-			}
+            }
 
-			public VP<State> state;
+            public VP<State> state;
 
-			#endregion
+            #endregion
 
-			public VP<AdminRequestSwapPlayerChooseHumanAdapter.UIData> humanAdapter;
+            public VP<AdminRequestSwapPlayerChooseHumanAdapter.UIData> humanAdapter;
 
-			#region Constructor
+            #region Constructor
 
-			public enum Property
-			{
-				teamPlayer,
-				state,
-				humanAdapter
-			}
+            public enum Property
+            {
+                teamPlayer,
+                state,
+                humanAdapter
+            }
 
-			public UIData() : base()
-			{
-				this.teamPlayer = new VP<ReferenceData<TeamPlayer>>(this, (byte)Property.teamPlayer, new ReferenceData<TeamPlayer>(null));
-				this.state = new VP<State>(this, (byte)Property.state, new StateNone());
-				this.humanAdapter = new VP<AdminRequestSwapPlayerChooseHumanAdapter.UIData>(this, (byte)Property.humanAdapter, new AdminRequestSwapPlayerChooseHumanAdapter.UIData());
-			}
+            public UIData() : base()
+            {
+                this.teamPlayer = new VP<ReferenceData<TeamPlayer>>(this, (byte)Property.teamPlayer, new ReferenceData<TeamPlayer>(null));
+                this.state = new VP<State>(this, (byte)Property.state, new StateNone());
+                this.humanAdapter = new VP<AdminRequestSwapPlayerChooseHumanAdapter.UIData>(this, (byte)Property.humanAdapter, new AdminRequestSwapPlayerChooseHumanAdapter.UIData());
+            }
 
-			#endregion
+            #endregion
 
-			public void reset()
-			{
-				if (!(this.state.v is StateNone)) {
-					StateNone stateNone = new StateNone ();
-					{
-						stateNone.uid = this.state.makeId ();
-					}
-					this.state.v = stateNone;
-				}
-			}
+            public void reset()
+            {
+                if (!(this.state.v is StateNone))
+                {
+                    StateNone stateNone = new StateNone();
+                    {
+                        stateNone.uid = this.state.makeId();
+                    }
+                    this.state.v = stateNone;
+                }
+            }
 
-		}
+        }
 
         #endregion
 
@@ -169,146 +170,176 @@ namespace GameManager.Match.Swap
         #region Refresh
 
         public GameObject requestingContainer;
-		public Button btnCancel;
+        public Button btnCancel;
 
-		private bool needReset = false;
+        private bool needReset = false;
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
-					// reset
-					{
-						if (needReset) {
-							needReset = false;
-							this.data.reset();
-						}
-					}
-					TeamPlayer teamPlayer = this.data.teamPlayer.v.data;
-					if (teamPlayer != null) {
-						// humanAdapter
-						{
-							AdminRequestSwapPlayerChooseHumanAdapter.UIData humanAdapter = this.data.humanAdapter.v;
-							if (humanAdapter != null) {
-								humanAdapter.teamPlayer.v = new ReferenceData<TeamPlayer> (teamPlayer);
-							} else {
-								Debug.LogError ("humanAdapter null: " + this);
-							}
-						}
-						// state
-						{
-							UIData.State state = this.data.state.v;
-							if (state != null) {
-								// Task
-								{
-									switch (state.getType ()) {
-									case UIData.State.Type.None:
-										{
-											destroyRoutine (wait);
-										}
-										break;
-									case UIData.State.Type.Request:
-										{
-											destroyRoutine (wait);
-											UIData.StateRequest stateRequest = state as UIData.StateRequest;
-											if (Server.IsServerOnline (teamPlayer)) {
-												// Request
-												{
-													// find swap
-													Swap swap = null;
-													{
-														ContestManagerStatePlay contestManagerStatePlay = teamPlayer.findDataInParent<ContestManagerStatePlay> ();
-														if (contestManagerStatePlay != null) {
-															swap = contestManagerStatePlay.swap.v;
-														} else {
-															Debug.LogError ("contestManagerStatePlay null: " + this);
-														}
-													}
-													// process
-													if (swap != null) {
-														int playerIndex = teamPlayer.playerIndex.v;
-														// get teamIndex
-														int teamIndex = 0;
-														{
-															MatchTeam matchTeam = teamPlayer.findDataInParent<MatchTeam> ();
-															if (matchTeam != null) {
-																teamIndex = matchTeam.teamIndex.v;
-															} else {
-																Debug.LogError ("matchTeam null: " + this);
-															}
-														}
-														swap.requestChangeHuman (Server.getProfileUserId (teamPlayer), teamIndex, playerIndex, stateRequest.humanId.v);
-													} else {
-														Debug.LogError ("swap null: " + this);
-													}
-												}
-												// change to wait
-												{
-													UIData.StateWait stateWait = new UIData.StateWait ();
-													{
-														stateWait.uid = this.data.state.makeId ();
-													}
-													this.data.state.v = stateWait;
-												}
-											} else {
-												Debug.LogError ("server not online");
-											}
-										}
-										break;
-									case UIData.State.Type.Wait:
-										{
-											if (Server.IsServerOnline (teamPlayer)) {
-												startRoutine (ref this.wait, TaskWait ());
-											} else {
-												// Chuyen sang state none
-												UIData.StateNone stateNone = new UIData.StateNone ();
-												{
-													stateNone.uid = this.data.state.makeId ();
-												}
-												this.data.state.v = stateNone;
-											}
-										}
-										break;
-									default:
-										Debug.LogError ("unknown type: " + state.getType () + "; " + this);
-										break;
-									}
-								}
-								// UI
-								{
-									if (requestingContainer != null && btnCancel != null) {
-										switch (state.getType ()) {
-										case UIData.State.Type.None:
-											{
-												requestingContainer.SetActive (false);
-												btnCancel.gameObject.SetActive (false);
-											}
-											break;
-										case UIData.State.Type.Request:
-											{
-												requestingContainer.SetActive (true);
-												btnCancel.gameObject.SetActive (true);
-											}
-											break;
-										case UIData.State.Type.Wait:
-											{
-												requestingContainer.SetActive (true);
-												btnCancel.gameObject.SetActive (false);
-											}
-											break;
-										default:
-											Debug.LogError ("unknown type: " + state.getType () + "; " + this);
-											break;
-										}
-									} else {
-										Debug.LogError ("requestingContainer, btnCancel null: " + this);
-									}
-								}
-							} else {
-								Debug.LogError ("state null: " + this);
-							}
-						}
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
+                    // reset
+                    {
+                        if (needReset)
+                        {
+                            needReset = false;
+                            this.data.reset();
+                        }
+                    }
+                    TeamPlayer teamPlayer = this.data.teamPlayer.v.data;
+                    if (teamPlayer != null)
+                    {
+                        // humanAdapter
+                        {
+                            AdminRequestSwapPlayerChooseHumanAdapter.UIData humanAdapter = this.data.humanAdapter.v;
+                            if (humanAdapter != null)
+                            {
+                                humanAdapter.teamPlayer.v = new ReferenceData<TeamPlayer>(teamPlayer);
+                            }
+                            else
+                            {
+                                Debug.LogError("humanAdapter null: " + this);
+                            }
+                        }
+                        // state
+                        {
+                            UIData.State state = this.data.state.v;
+                            if (state != null)
+                            {
+                                // Task
+                                {
+                                    switch (state.getType())
+                                    {
+                                        case UIData.State.Type.None:
+                                            {
+                                                destroyRoutine(wait);
+                                            }
+                                            break;
+                                        case UIData.State.Type.Request:
+                                            {
+                                                destroyRoutine(wait);
+                                                UIData.StateRequest stateRequest = state as UIData.StateRequest;
+                                                if (Server.IsServerOnline(teamPlayer))
+                                                {
+                                                    // Request
+                                                    {
+                                                        // find swap
+                                                        Swap swap = null;
+                                                        {
+                                                            ContestManagerStatePlay contestManagerStatePlay = teamPlayer.findDataInParent<ContestManagerStatePlay>();
+                                                            if (contestManagerStatePlay != null)
+                                                            {
+                                                                swap = contestManagerStatePlay.swap.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("contestManagerStatePlay null: " + this);
+                                                            }
+                                                        }
+                                                        // process
+                                                        if (swap != null)
+                                                        {
+                                                            int playerIndex = teamPlayer.playerIndex.v;
+                                                            // get teamIndex
+                                                            int teamIndex = 0;
+                                                            {
+                                                                MatchTeam matchTeam = teamPlayer.findDataInParent<MatchTeam>();
+                                                                if (matchTeam != null)
+                                                                {
+                                                                    teamIndex = matchTeam.teamIndex.v;
+                                                                }
+                                                                else
+                                                                {
+                                                                    Debug.LogError("matchTeam null: " + this);
+                                                                }
+                                                            }
+                                                            swap.requestChangeHuman(Server.getProfileUserId(teamPlayer), teamIndex, playerIndex, stateRequest.humanId.v);
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("swap null: " + this);
+                                                        }
+                                                    }
+                                                    // change to wait
+                                                    {
+                                                        UIData.StateWait stateWait = new UIData.StateWait();
+                                                        {
+                                                            stateWait.uid = this.data.state.makeId();
+                                                        }
+                                                        this.data.state.v = stateWait;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("server not online");
+                                                }
+                                            }
+                                            break;
+                                        case UIData.State.Type.Wait:
+                                            {
+                                                if (Server.IsServerOnline(teamPlayer))
+                                                {
+                                                    startRoutine(ref this.wait, TaskWait());
+                                                }
+                                                else
+                                                {
+                                                    // Chuyen sang state none
+                                                    UIData.StateNone stateNone = new UIData.StateNone();
+                                                    {
+                                                        stateNone.uid = this.data.state.makeId();
+                                                    }
+                                                    this.data.state.v = stateNone;
+                                                }
+                                            }
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown type: " + state.getType() + "; " + this);
+                                            break;
+                                    }
+                                }
+                                // UI
+                                {
+                                    if (requestingContainer != null && btnCancel != null)
+                                    {
+                                        switch (state.getType())
+                                        {
+                                            case UIData.State.Type.None:
+                                                {
+                                                    requestingContainer.SetActive(false);
+                                                    btnCancel.gameObject.SetActive(false);
+                                                }
+                                                break;
+                                            case UIData.State.Type.Request:
+                                                {
+                                                    requestingContainer.SetActive(true);
+                                                    btnCancel.gameObject.SetActive(true);
+                                                }
+                                                break;
+                                            case UIData.State.Type.Wait:
+                                                {
+                                                    requestingContainer.SetActive(true);
+                                                    btnCancel.gameObject.SetActive(false);
+                                                }
+                                                break;
+                                            default:
+                                                Debug.LogError("unknown type: " + state.getType() + "; " + this);
+                                                break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("requestingContainer, btnCancel null: " + this);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("state null: " + this);
+                            }
+                        }
                         // siblingIndex
                         {
                             if (lbTitle != null)
@@ -356,246 +387,272 @@ namespace GameManager.Match.Swap
                                 Debug.LogError("tvCancel null");
                             }
                         }
-                    } else {
-						Debug.LogError ("lobbyPlayer null: " + this);
-					}
-				} else {
-					// Debug.LogError ("data null: " + this);
-				}
-			}
-		}
+                    }
+                    else
+                    {
+                        Debug.LogError("lobbyPlayer null: " + this);
+                    }
+                }
+                else
+                {
+                    // Debug.LogError ("data null: " + this);
+                }
+            }
+        }
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return false;
-		}
+        public override bool isShouldDisableUpdate()
+        {
+            return false;
+        }
 
-		#endregion
+        #endregion
 
-		#region Task wait
+        #region Task wait
 
-		private Routine wait;
+        private Routine wait;
 
-		public IEnumerator TaskWait()
-		{
-			if (this.data != null) {
-				yield return new Wait (Global.WaitSendTime);
-				// Chuyen sang state none
-				{
-					if (this.data != null) {
-						if (!(this.data.state.v is UIData.StateNone)) {
-							UIData.StateNone stateNone = new UIData.StateNone ();
-							{
-								stateNone.uid = this.data.state.makeId ();
-							}
-							this.data.state.v = stateNone;
-						}
-					} else {
-						Debug.LogError ("data null: " + this);
-					}
-				}
-				Toast.showMessage ("request error");
-				Debug.LogError ("request error: " + this);
-			} else {
-				Debug.LogError ("data null: " + this);
-			}
-		}
+        public IEnumerator TaskWait()
+        {
+            if (this.data != null)
+            {
+                yield return new Wait(Global.WaitSendTime);
+                // Chuyen sang state none
+                {
+                    if (this.data != null)
+                    {
+                        if (!(this.data.state.v is UIData.StateNone))
+                        {
+                            UIData.StateNone stateNone = new UIData.StateNone();
+                            {
+                                stateNone.uid = this.data.state.makeId();
+                            }
+                            this.data.state.v = stateNone;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("data null: " + this);
+                    }
+                }
+                Toast.showMessage("request error");
+                Debug.LogError("request error: " + this);
+            }
+            else
+            {
+                Debug.LogError("data null: " + this);
+            }
+        }
 
-		public override List<Routine> getRoutineList ()
-		{
-			List<Routine> ret = new List<Routine> ();
-			{
-				ret.Add (wait);
-			}
-			return ret;
-		}
+        public override List<Routine> getRoutineList()
+        {
+            List<Routine> ret = new List<Routine>();
+            {
+                ret.Add(wait);
+            }
+            return ret;
+        }
 
-		#endregion
+        #endregion
 
-		#region implement callBacks
+        #region implement callBacks
 
-		public AdminRequestSwapPlayerChooseHumanAdapter humanAdapterPrefab;
+        public AdminRequestSwapPlayerChooseHumanAdapter humanAdapterPrefab;
         private static readonly UIRectTransform humanAdapterRect = UIRectTransform.CreateFullRect(0, 0, 30, 0);
 
-		private Server server = null;
+        private Server server = null;
 
-		private ContestManagerStatePlay contestManagerStatePlay = null;
-		private ContestManagerStatePlayTeamCheckChange<ContestManagerStatePlay> contestManagerStatePlayTeamCheckChange = new ContestManagerStatePlayTeamCheckChange<ContestManagerStatePlay>();
+        private ContestManagerStatePlay contestManagerStatePlay = null;
+        private ContestManagerStatePlayTeamCheckChange<ContestManagerStatePlay> contestManagerStatePlayTeamCheckChange = new ContestManagerStatePlayTeamCheckChange<ContestManagerStatePlay>();
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
                 // Setting
                 Setting.get().addCallBack(this);
-				// Child
-				{
-					uiData.teamPlayer.allAddCallBack (this);
-					uiData.humanAdapter.allAddCallBack (this);
-				}
-				dirty = true;
-				return;
-			}
+                // Child
+                {
+                    uiData.teamPlayer.allAddCallBack(this);
+                    uiData.humanAdapter.allAddCallBack(this);
+                }
+                dirty = true;
+                return;
+            }
             // Setting
-            if(data is Setting)
+            if (data is Setting)
             {
                 dirty = true;
                 return;
             }
             // Child
             {
-				// teamPlayer
-				{
-					if (data is TeamPlayer) {
-						TeamPlayer teamPlayer = data as TeamPlayer;
-						// reset
-						{
-							needReset = true;
-						}
-						// Parent
-						{
-							DataUtils.addParentCallBack (teamPlayer, this, ref this.server);
-							DataUtils.addParentCallBack (teamPlayer, this, ref this.contestManagerStatePlay);
-						}
-						dirty = true;
-						return;
-					}
-					// Parent
-					{
-						if (data is Server) {
-							dirty = true;
-							return;
-						}
-						// contestMaangerStatePlay
-						{
-							if (data is ContestManagerStatePlay) {
-								ContestManagerStatePlay contestManagerStatePlay = data as ContestManagerStatePlay;
-								// CheckChange
-								{
-									contestManagerStatePlayTeamCheckChange.addCallBack (this);
-									contestManagerStatePlayTeamCheckChange.setData (contestManagerStatePlay);
-								}
-								dirty = true;
-								return;
-							}
-							// CheckChange
-							if (data is ContestManagerStatePlayTeamCheckChange<ContestManagerStatePlay>) {
-								dirty = true;
-								return;
-							}
-						}
-					}
-				}
-				if (data is AdminRequestSwapPlayerChooseHumanAdapter.UIData) {
-					AdminRequestSwapPlayerChooseHumanAdapter.UIData humanAdapter = data as AdminRequestSwapPlayerChooseHumanAdapter.UIData;
-					// UI
-					{
-						UIUtils.Instantiate (humanAdapter, humanAdapterPrefab, this.transform, humanAdapterRect);
-					}
-					dirty = true;
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+                // teamPlayer
+                {
+                    if (data is TeamPlayer)
+                    {
+                        TeamPlayer teamPlayer = data as TeamPlayer;
+                        // reset
+                        {
+                            needReset = true;
+                        }
+                        // Parent
+                        {
+                            DataUtils.addParentCallBack(teamPlayer, this, ref this.server);
+                            DataUtils.addParentCallBack(teamPlayer, this, ref this.contestManagerStatePlay);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // Parent
+                    {
+                        if (data is Server)
+                        {
+                            dirty = true;
+                            return;
+                        }
+                        // contestMaangerStatePlay
+                        {
+                            if (data is ContestManagerStatePlay)
+                            {
+                                ContestManagerStatePlay contestManagerStatePlay = data as ContestManagerStatePlay;
+                                // CheckChange
+                                {
+                                    contestManagerStatePlayTeamCheckChange.addCallBack(this);
+                                    contestManagerStatePlayTeamCheckChange.setData(contestManagerStatePlay);
+                                }
+                                dirty = true;
+                                return;
+                            }
+                            // CheckChange
+                            if (data is ContestManagerStatePlayTeamCheckChange<ContestManagerStatePlay>)
+                            {
+                                dirty = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                if (data is AdminRequestSwapPlayerChooseHumanAdapter.UIData)
+                {
+                    AdminRequestSwapPlayerChooseHumanAdapter.UIData humanAdapter = data as AdminRequestSwapPlayerChooseHumanAdapter.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(humanAdapter, humanAdapterPrefab, this.transform, humanAdapterRect);
+                    }
+                    dirty = true;
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
                 // Setting
                 Setting.get().removeCallBack(this);
-				// Child
-				{
-					uiData.teamPlayer.allRemoveCallBack (this);
-					uiData.humanAdapter.allRemoveCallBack (this);
-				}
-				this.setDataNull (uiData);
-				return;
-			}
+                // Child
+                {
+                    uiData.teamPlayer.allRemoveCallBack(this);
+                    uiData.humanAdapter.allRemoveCallBack(this);
+                }
+                this.setDataNull(uiData);
+                return;
+            }
             // Setting
-            if(data is Setting)
+            if (data is Setting)
             {
                 return;
             }
             // Child
             {
-				// teamPlayer
-				{
-					if (data is TeamPlayer) {
-						TeamPlayer teamPlayer = data as TeamPlayer;
-						// Parent
-						{
-							DataUtils.removeParentCallBack (teamPlayer, this, ref this.server);
-							DataUtils.removeParentCallBack (teamPlayer, this, ref this.contestManagerStatePlay);
-						}
-						return;
-					}
-					// Parent
-					{
-						if (data is Server) {
-							return;
-						}
-						// contestManagerStatePlay
-						{
-							if (data is ContestManagerStatePlay) {
-								// ContestManagerStatePlay contestManagerStatePlay = data as ContestManagerStatePlay;
-								// CheckChange
-								{
-									contestManagerStatePlayTeamCheckChange.removeCallBack (this);
-									contestManagerStatePlayTeamCheckChange.setData (null);
-								}
-								return;
-							}
-							// CheckChange
-							if (data is ContestManagerStatePlayTeamCheckChange<ContestManagerStatePlay>) {
-								return;
-							}
-						}
-					}
-				}
-				if (data is AdminRequestSwapPlayerChooseHumanAdapter.UIData) {
-					AdminRequestSwapPlayerChooseHumanAdapter.UIData humanAdapter = data as AdminRequestSwapPlayerChooseHumanAdapter.UIData;
-					// UI
-					{
-						humanAdapter.removeCallBackAndDestroy (typeof(AdminRequestSwapPlayerChooseHumanAdapter));
-					}
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+                // teamPlayer
+                {
+                    if (data is TeamPlayer)
+                    {
+                        TeamPlayer teamPlayer = data as TeamPlayer;
+                        // Parent
+                        {
+                            DataUtils.removeParentCallBack(teamPlayer, this, ref this.server);
+                            DataUtils.removeParentCallBack(teamPlayer, this, ref this.contestManagerStatePlay);
+                        }
+                        return;
+                    }
+                    // Parent
+                    {
+                        if (data is Server)
+                        {
+                            return;
+                        }
+                        // contestManagerStatePlay
+                        {
+                            if (data is ContestManagerStatePlay)
+                            {
+                                // ContestManagerStatePlay contestManagerStatePlay = data as ContestManagerStatePlay;
+                                // CheckChange
+                                {
+                                    contestManagerStatePlayTeamCheckChange.removeCallBack(this);
+                                    contestManagerStatePlayTeamCheckChange.setData(null);
+                                }
+                                return;
+                            }
+                            // CheckChange
+                            if (data is ContestManagerStatePlayTeamCheckChange<ContestManagerStatePlay>)
+                            {
+                                return;
+                            }
+                        }
+                    }
+                }
+                if (data is AdminRequestSwapPlayerChooseHumanAdapter.UIData)
+                {
+                    AdminRequestSwapPlayerChooseHumanAdapter.UIData humanAdapter = data as AdminRequestSwapPlayerChooseHumanAdapter.UIData;
+                    // UI
+                    {
+                        humanAdapter.removeCallBackAndDestroy(typeof(AdminRequestSwapPlayerChooseHumanAdapter));
+                    }
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.teamPlayer:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				case UIData.Property.state:
-					dirty = true;
-					break;
-				case UIData.Property.humanAdapter:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.teamPlayer:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.state:
+                        dirty = true;
+                        break;
+                    case UIData.Property.humanAdapter:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
             // Setting
-            if(wrapProperty.p is Setting)
+            if (wrapProperty.p is Setting)
             {
                 switch ((Setting.Property)wrapProperty.n)
                 {
@@ -620,54 +677,63 @@ namespace GameManager.Match.Swap
             }
             // Child
             {
-				// teamPlayer
-				{
-					if (wrapProperty.p is TeamPlayer) {
-						return;
-					}
-					// Parent
-					{
-						if (wrapProperty.p is Server) {
-							Server.State.OnUpdateSyncStateChange (wrapProperty, this);
-							return;
-						}
-						// contestManagerStatePlay
-						{
-							if (wrapProperty.p is ContestManagerStatePlay) {
-								return;
-							}
-							// CheckChange
-							if (wrapProperty.p is ContestManagerStatePlayTeamCheckChange<ContestManagerStatePlay>) {
-								dirty = true;
-								needReset = true;
-								return;
-							}
-						}
-					}
-				}
-				if (wrapProperty.p is AdminRequestSwapPlayerChooseHumanAdapter.UIData) {
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+                // teamPlayer
+                {
+                    if (wrapProperty.p is TeamPlayer)
+                    {
+                        return;
+                    }
+                    // Parent
+                    {
+                        if (wrapProperty.p is Server)
+                        {
+                            Server.State.OnUpdateSyncStateChange(wrapProperty, this);
+                            return;
+                        }
+                        // contestManagerStatePlay
+                        {
+                            if (wrapProperty.p is ContestManagerStatePlay)
+                            {
+                                return;
+                            }
+                            // CheckChange
+                            if (wrapProperty.p is ContestManagerStatePlayTeamCheckChange<ContestManagerStatePlay>)
+                            {
+                                dirty = true;
+                                needReset = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                if (wrapProperty.p is AdminRequestSwapPlayerChooseHumanAdapter.UIData)
+                {
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
 
-		#endregion
+        #endregion
 
-		public void onClickBtnCancel()
-		{
-			if (this.data != null) {
-				if (this.data.state.v is UIData.StateRequest) {
-					UIData.StateNone stateNone = new UIData.StateNone ();
-					{
-						stateNone.uid = this.data.state.makeId ();
-					}
-					this.data.state.v = stateNone;
-				}
-			} else {
-				Debug.LogError ("data null: " + this);
-			}
-		}
+        public void onClickBtnCancel()
+        {
+            if (this.data != null)
+            {
+                if (this.data.state.v is UIData.StateRequest)
+                {
+                    UIData.StateNone stateNone = new UIData.StateNone();
+                    {
+                        stateNone.uid = this.data.state.makeId();
+                    }
+                    this.data.state.v = stateNone;
+                }
+            }
+            else
+            {
+                Debug.LogError("data null: " + this);
+            }
+        }
 
-	}
+    }
 }

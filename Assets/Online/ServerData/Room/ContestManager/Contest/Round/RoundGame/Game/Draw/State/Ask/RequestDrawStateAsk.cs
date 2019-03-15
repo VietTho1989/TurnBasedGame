@@ -136,12 +136,16 @@ public class RequestDrawStateAsk : RequestDraw.State
                     {
                         this.refuses.remove(userId);
                         this.accepts.add(userId);
+                        // add message
+                        RequestDrawMessage.Add(this, userId, RequestDrawMessage.Action.AskAccept);
                     }
                     break;
                 case Answer.Refuse:
                     {
                         this.accepts.remove(userId);
                         this.refuses.add(userId);
+                        // add message
+                        RequestDrawMessage.Add(this, userId, RequestDrawMessage.Action.AskRefuse);
                     }
                     break;
             }

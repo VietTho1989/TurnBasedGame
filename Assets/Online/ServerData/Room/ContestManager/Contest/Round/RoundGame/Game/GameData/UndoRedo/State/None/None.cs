@@ -103,7 +103,7 @@ namespace UndoRedo
                 if (isCorrectRequest)
                 {
                     // makeMessage
-                    GameTopic.AddUndoRedoRequest(this, userId, UndoRedoRequestMessage.Action.Ask, operation);
+                    UndoRedoRequestMessage.Add(this, userId, UndoRedoRequestMessage.Action.Ask, operation);
                     // Chuyen sang ask
                     UndoRedoRequest undoRedoRequest = this.findDataInParent<UndoRedoRequest>();
                     if (undoRedoRequest != null)
@@ -212,7 +212,7 @@ namespace UndoRedo
                 if (isCorrectRequest)
                 {
                     // makeMessage
-                    GameTopic.AddUndoRedoRequest(this, userId, UndoRedoRequestMessage.Action.Ask, operation);
+                    UndoRedoRequestMessage.Add(this, userId, UndoRedoRequestMessage.Action.Ask, operation);
                     // Chuyen sang ask
                     UndoRedoRequest undoRedoRequest = this.findDataInParent<UndoRedoRequest>();
                     if (undoRedoRequest != null)

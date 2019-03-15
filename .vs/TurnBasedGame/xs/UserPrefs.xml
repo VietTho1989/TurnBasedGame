@@ -1,7 +1,8 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameTopic/GameTopic.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/State/Play/Swap/Swap.cs">
     <Files>
-      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameTopic/GameTopic.cs" Line="149" Column="2" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/State/Play/Swap/Message/SwapMessage.cs" Line="10" Column="9" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/State/Play/Swap/Swap.cs" Line="4" Column="14" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

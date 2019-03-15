@@ -7,143 +7,194 @@ using System.Collections.Generic;
  * */
 public class GamePlayer : Data
 {
-	public VP<int> playerIndex;
 
-	#region Infor
+    #region playerIndex
 
-	public abstract class Inform : Data
-	{
+    public VP<int> playerIndex;
 
-		public enum Type
-		{
-			None,
-			Human,
-			Computer
-		}
+    public static int GetPlayerIndex(Data data)
+    {
+        int ret = 0;
+        {
+            if (data != null)
+            {
+                GamePlayer gamePlayer = data.findDataInParent<GamePlayer>();
+                if (gamePlayer != null)
+                {
+                    ret = gamePlayer.playerIndex.v;
+                }
+                else
+                {
+                    Debug.LogError("gamePlayer null");
+                }
+            }
+            else
+            {
+                Debug.LogError("data null");
+            }
+        }
+        return ret;
+    }
 
-		public abstract Type getType ();
+    #endregion
 
-		public virtual string getPlayerName ()
-		{
-			return "";
-		}
+    #region Infor
 
-		public static GamePlayer.Inform parse(Type type, string strInform){
-			switch (type) {
-			case Type.None:
-				{
-					EmptyInform emptyInform = (EmptyInform)StringSerializationAPI.Deserialize (typeof(EmptyInform), strInform);
-					return emptyInform;
-				}
-			case Type.Human:
-				{
-					Human human = (Human)StringSerializationAPI.Deserialize (typeof(Human), strInform);
-					return human;
-				}
-			case Type.Computer:
-				{
-					Computer computer = (Computer)StringSerializationAPI.Deserialize (typeof(Computer), strInform);
-					return computer;
-				}
-			default:
-				// Debug.LogError ("unknown type: " + type);
-				break;
-			}
-			return null;
-		}
+    public abstract class Inform : Data
+    {
 
-		public bool isCorrectHuman(uint userId)
-		{
-			if (this.getType () == Type.Human) {
-				Human human = this as Human;
-				if (human.playerId.v == userId) {
-					return true;
-				} else {
-					// Other human
-				}
-			}
-			return false;
-		}
+        public enum Type
+        {
+            None,
+            Human,
+            Computer
+        }
 
-	}
+        public abstract Type getType();
 
-	public VP<Inform> inform;
+        public virtual string getPlayerName()
+        {
+            return "";
+        }
 
-	public Computer.AI getAI()
-	{
-		if (inform.v is Computer) {
-			Computer computer = inform.v as Computer;
-			return computer.ai.v;
-		} else {
-			Debug.LogError ("Why not computer: "+this);
-		}
-		return null;
-	}
+        public static GamePlayer.Inform parse(Type type, string strInform)
+        {
+            switch (type)
+            {
+                case Type.None:
+                    {
+                        EmptyInform emptyInform = (EmptyInform)StringSerializationAPI.Deserialize(typeof(EmptyInform), strInform);
+                        return emptyInform;
+                    }
+                case Type.Human:
+                    {
+                        Human human = (Human)StringSerializationAPI.Deserialize(typeof(Human), strInform);
+                        return human;
+                    }
+                case Type.Computer:
+                    {
+                        Computer computer = (Computer)StringSerializationAPI.Deserialize(typeof(Computer), strInform);
+                        return computer;
+                    }
+                default:
+                    // Debug.LogError ("unknown type: " + type);
+                    break;
+            }
+            return null;
+        }
 
-	#endregion
+        public bool isCorrectHuman(uint userId)
+        {
+            if (this.getType() == Type.Human)
+            {
+                Human human = this as Human;
+                if (human.playerId.v == userId)
+                {
+                    return true;
+                }
+                else
+                {
+                    // Other human
+                }
+            }
+            return false;
+        }
 
-	#region State
+    }
 
-	public abstract class State : Data
-	{
-		public enum Type
-		{
-			Normal,
-			Surrender
-		}
+    public VP<Inform> inform;
 
-		public abstract Type getType ();
+    public Computer.AI getAI()
+    {
+        if (inform.v is Computer)
+        {
+            Computer computer = inform.v as Computer;
+            return computer.ai.v;
+        }
+        else
+        {
+            Debug.LogError("Why not computer: " + this);
+        }
+        return null;
+    }
 
-	}
+    #endregion
 
-	public VP<State> state;
+    #region State
 
-	#endregion
+    public abstract class State : Data
+    {
+        public enum Type
+        {
+            Normal,
+            Surrender
+        }
 
-	#region Constructor
+        public abstract Type getType();
 
-	public enum Property
-	{
-		playerIndex,
-		inform,
-		state
-	}
+    }
 
-	public GamePlayer() : base()
-	{
-		this.playerIndex = new VP<int>(this, (byte)Property.playerIndex, -1);
-		this.inform = new VP<Inform> (this, (byte)Property.inform, new EmptyInform ());
-		this.state = new VP<State> (this, (byte)Property.state, new GamePlayerStateNormal());
-	}
+    public VP<State> state;
 
-	#endregion
+    #endregion
 
-	public static GamePlayer findYourGamePlayer(Data data){
-		Game game = data.findDataInParent<Game> ();
-		if (game != null) {
-			Server server = data.findDataInParent<Server> ();
-			if (server != null) {
-				for (int i = 0; i < game.gamePlayers.vs.Count; i++) {
-					GamePlayer gamePlayer = game.gamePlayers.vs [i];
-					if (gamePlayer.inform.v is Human) {
-						Human human = gamePlayer.inform.v as Human;
-						if (human.playerId.v == server.profileId.v) {
-							return gamePlayer;
-						}
-					}
-				}
-			} else {
-				// Debug.LogError ("server null");
-				for (int i = 0; i < game.gamePlayers.vs.Count; i++) {
-					GamePlayer gamePlayer = game.gamePlayers.vs [i];
-					if (gamePlayer.inform.v is Human) {
-						return gamePlayer;
-					}
-				}
-			}
-		} else {
-			// Debug.LogError ("Cannot find duel");
-		}
-		return null;
-	}
+    #region Constructor
+
+    public enum Property
+    {
+        playerIndex,
+        inform,
+        state
+    }
+
+    public GamePlayer() : base()
+    {
+        this.playerIndex = new VP<int>(this, (byte)Property.playerIndex, -1);
+        this.inform = new VP<Inform>(this, (byte)Property.inform, new EmptyInform());
+        this.state = new VP<State>(this, (byte)Property.state, new GamePlayerStateNormal());
+    }
+
+    #endregion
+
+    public static GamePlayer findYourGamePlayer(Data data)
+    {
+        Game game = data.findDataInParent<Game>();
+        if (game != null)
+        {
+            Server server = data.findDataInParent<Server>();
+            if (server != null)
+            {
+                for (int i = 0; i < game.gamePlayers.vs.Count; i++)
+                {
+                    GamePlayer gamePlayer = game.gamePlayers.vs[i];
+                    if (gamePlayer.inform.v is Human)
+                    {
+                        Human human = gamePlayer.inform.v as Human;
+                        if (human.playerId.v == server.profileId.v)
+                        {
+                            return gamePlayer;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // Debug.LogError ("server null");
+                for (int i = 0; i < game.gamePlayers.vs.Count; i++)
+                {
+                    GamePlayer gamePlayer = game.gamePlayers.vs[i];
+                    if (gamePlayer.inform.v is Human)
+                    {
+                        return gamePlayer;
+                    }
+                }
+            }
+        }
+        else
+        {
+            // Debug.LogError ("Cannot find duel");
+        }
+        return null;
+    }
+
 }

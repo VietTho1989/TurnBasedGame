@@ -99,7 +99,10 @@ public class ChatMessage : Data
 			RoomUserState,
 			FriendStateChange,
 			GameMove,
-            UndoRedoRequest
+
+            UndoRedoRequest,
+            RequestDraw,
+            GamePlayerState
 		}
 
 		public abstract Type getType();

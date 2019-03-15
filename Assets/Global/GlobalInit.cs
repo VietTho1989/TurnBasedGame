@@ -17,7 +17,7 @@ public class GlobalInit : MonoBehaviour
 
 		// MakeIdentity
 		{
-            // DataMakeIdentityUtils.makeIdentity(typeof(MineSweeperSub));
+            // DataMakeIdentityUtils.makeIdentity(typeof(GamePlayerStateMessage));
 		}
 
 		// Set AssetManager

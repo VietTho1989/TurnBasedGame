@@ -139,12 +139,16 @@ public class RequestDrawStateAccept : RequestDraw.State
                     {
                         this.accepts.add(userId);
                         this.refuses.remove(userId);
+                        // add message
+                        RequestDrawMessage.Add(this, userId, RequestDrawMessage.Action.AcceptAccept);
                     }
                     break;
                 case Answer.Refuse:
                     {
                         this.accepts.remove(userId);
                         this.refuses.add(userId);
+                        // add message
+                        RequestDrawMessage.Add(this, userId, RequestDrawMessage.Action.AcceptRefuse);
                     }
                     break;
             }
