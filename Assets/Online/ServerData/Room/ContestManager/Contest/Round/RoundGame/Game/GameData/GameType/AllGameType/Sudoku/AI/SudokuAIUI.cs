@@ -58,8 +58,6 @@ namespace Sudoku
 
         private bool needReset = true;
 
-        public Image header;
-
         public override void refresh()
         {
             if (dirty)
@@ -151,14 +149,6 @@ namespace Sudoku
                                         {
                                             Debug.LogError("lbTitle null");
                                         }
-                                        if (header != null)
-                                        {
-                                            header.gameObject.SetActive(true);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("header null");
-                                        }
                                         deltaY += UIConstants.HeaderHeight;
                                     }
                                     break;
@@ -171,14 +161,6 @@ namespace Sudoku
                                         else
                                         {
                                             Debug.LogError("lbTitle null");
-                                        }
-                                        if (header != null)
-                                        {
-                                            header.gameObject.SetActive(false);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("header null");
                                         }
                                     }
                                     break;

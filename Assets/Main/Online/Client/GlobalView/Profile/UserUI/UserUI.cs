@@ -65,7 +65,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
         public VP<RequestChangeStringUI.UIData> ipAddress;
 
         // registerTime
-        public VP<RequestChangeLongUI.UIData> registerTime;
+        public VP<RequestChangeStringUI.UIData> registerTime;
 
         public VP<BtnUpdateUser.UIData> btnUpdate;
 
@@ -120,7 +120,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
             }
             // registerTime
             {
-                this.registerTime = new VP<RequestChangeLongUI.UIData>(this, (byte)Property.registerTime, new RequestChangeLongUI.UIData());
+                this.registerTime = new VP<RequestChangeStringUI.UIData>(this, (byte)Property.registerTime, new RequestChangeStringUI.UIData());
                 this.registerTime.v.updateData.v.canRequestChange.v = false;
             }
             this.btnUpdate = new VP<BtnUpdateUser.UIData>(this, (byte)Property.btnUpdate, new BtnUpdateUser.UIData());
@@ -600,14 +600,14 @@ public class UserUI : UIBehavior<UserUI.UIData>
                             }
                             // registerTime
                             {
-                                RequestChangeLongUI.UIData registerTime = this.data.registerTime.v;
+                                RequestChangeStringUI.UIData registerTime = this.data.registerTime.v;
                                 if (registerTime != null)
                                 {
                                     // update
-                                    RequestChangeUpdate<long>.UpdateData updateData = registerTime.updateData.v;
+                                    RequestChangeUpdate<string>.UpdateData updateData = registerTime.updateData.v;
                                     if (updateData != null)
                                     {
-                                        updateData.origin.v = show.registerTime.v;
+                                        updateData.origin.v = Human.GetStrBirthday(show.registerTime.v);
                                         updateData.canRequestChange.v = false; // editUser.canEdit.v;
                                         updateData.serverState.v = serverState;
                                     }
@@ -620,7 +620,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
                                         if (compare != null)
                                         {
                                             registerTime.showDifferent.v = true;
-                                            registerTime.compare.v = compare.registerTime.v;
+                                            registerTime.compare.v = Human.GetStrBirthday(compare.registerTime.v);
                                         }
                                         else
                                         {
@@ -684,14 +684,14 @@ public class UserUI : UIBehavior<UserUI.UIData>
                             }
                             // registerTime
                             {
-                                RequestChangeLongUI.UIData registerTime = this.data.registerTime.v;
+                                RequestChangeStringUI.UIData registerTime = this.data.registerTime.v;
                                 if (registerTime != null)
                                 {
                                     // update
-                                    RequestChangeUpdate<long>.UpdateData updateData = registerTime.updateData.v;
+                                    RequestChangeUpdate<string>.UpdateData updateData = registerTime.updateData.v;
                                     if (updateData != null)
                                     {
-                                        updateData.current.v = show.registerTime.v;
+                                        updateData.current.v = Human.GetStrBirthday(show.registerTime.v);
                                         updateData.changeState.v = Data.ChangeState.None;
                                     }
                                     else
@@ -979,7 +979,6 @@ public class UserUI : UIBehavior<UserUI.UIData>
     public HumanUI humanPrefab;
     public RequestChangeEnumUI requestEnumPrefab;
     public RequestChangeStringUI requestStringPrefab;
-    public RequestChangeLongUI requestLongPrefab;
 
     private static readonly UIRectTransform roleRect = new UIRectTransform(UIConstants.RequestEnumRect);
     private static readonly UIRectTransform ipAddressRect = new UIRectTransform(UIConstants.RequestEnumRect);
@@ -1074,7 +1073,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
                 dirty = true;
                 return;
             }
-            // ipAddress
+            // ipAddress, registerTime
             if (data is RequestChangeStringUI.UIData)
             {
                 RequestChangeStringUI.UIData requestChange = data as RequestChangeStringUI.UIData;
@@ -1088,32 +1087,8 @@ public class UserUI : UIBehavior<UserUI.UIData>
                             case UIData.Property.ipAddress:
                                 UIUtils.Instantiate(requestChange, requestStringPrefab, contentContainer, ipAddressRect);
                                 break;
-                            default:
-                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        Debug.LogError("wrapProperty null: " + this);
-                    }
-                }
-                dirty = true;
-                return;
-            }
-            // registerTime
-            if (data is RequestChangeLongUI.UIData)
-            {
-                RequestChangeLongUI.UIData requestChange = data as RequestChangeLongUI.UIData;
-                // UI
-                {
-                    WrapProperty wrapProperty = requestChange.p;
-                    if (wrapProperty != null)
-                    {
-                        switch ((UIData.Property)wrapProperty.n)
-                        {
                             case UIData.Property.registerTime:
-                                UIUtils.Instantiate(requestChange, requestLongPrefab, contentContainer, registerTimeRect);
+                                UIUtils.Instantiate(requestChange, requestStringPrefab, contentContainer, registerTimeRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -1257,23 +1232,13 @@ public class UserUI : UIBehavior<UserUI.UIData>
                 }
                 return;
             }
-            // ipAddress
+            // ipAddress, registerTime
             if (data is RequestChangeStringUI.UIData)
             {
                 RequestChangeStringUI.UIData requestChange = data as RequestChangeStringUI.UIData;
                 // UI
                 {
                     requestChange.removeCallBackAndDestroy(typeof(RequestChangeStringUI));
-                }
-                return;
-            }
-            // registerTime
-            if (data is RequestChangeLongUI.UIData)
-            {
-                RequestChangeLongUI.UIData requestChange = data as RequestChangeLongUI.UIData;
-                // UI
-                {
-                    requestChange.removeCallBackAndDestroy(typeof(RequestChangeLongUI));
                 }
                 return;
             }
@@ -1413,6 +1378,8 @@ public class UserUI : UIBehavior<UserUI.UIData>
                 case Setting.Property.language:
                     dirty = true;
                     break;
+                case Setting.Property.style:
+                    break;
                 case Setting.Property.showLastMove:
                     break;
                 case Setting.Property.viewUrlImage:
@@ -1473,13 +1440,8 @@ public class UserUI : UIBehavior<UserUI.UIData>
             {
                 return;
             }
-            // ipAddress
+            // ipAddress, registerTime
             if (wrapProperty.p is RequestChangeStringUI.UIData)
-            {
-                return;
-            }
-            // registerTime
-            if (wrapProperty.p is RequestChangeLongUI.UIData)
             {
                 return;
             }

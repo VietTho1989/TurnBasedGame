@@ -320,7 +320,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
 
     private bool needReset = true;
 
-    public Image header;
+    public Image bgAccount;
 
     public override void refresh()
     {
@@ -857,14 +857,6 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                                     {
                                         Debug.LogError("lbTitle null");
                                     }
-                                    if (header != null)
-                                    {
-                                        header.gameObject.SetActive(true);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("header null");
-                                    }
                                     deltaY += UIConstants.HeaderHeight;
                                 }
                                 break;
@@ -877,14 +869,6 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                                     else
                                     {
                                         Debug.LogError("lbTitle null");
-                                    }
-                                    if (header != null)
-                                    {
-                                        header.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("header null");
                                     }
                                 }
                                 break;
@@ -924,7 +908,26 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                         }
                     }
                     // account
-                    deltaY += UIRectTransform.SetPosY(this.data.account.v, deltaY);
+                    {
+                        float bgY = deltaY;
+                        float bgHeight = 0;
+                        // UI
+                        {
+                            float height = UIRectTransform.SetPosY(this.data.account.v, deltaY);
+                            bgHeight += height;
+                            deltaY += height;
+                        }
+                        // bg
+                        if (bgAccount != null)
+                        {
+                            UIRectTransform.SetPosY(bgAccount.rectTransform, bgY);
+                            UIRectTransform.SetHeight(bgAccount.rectTransform, bgHeight);
+                        }
+                        else
+                        {
+                            Debug.LogError("bgAccount null");
+                        }
+                    }
                     // email
                     {
                         if (this.data.email.v != null)

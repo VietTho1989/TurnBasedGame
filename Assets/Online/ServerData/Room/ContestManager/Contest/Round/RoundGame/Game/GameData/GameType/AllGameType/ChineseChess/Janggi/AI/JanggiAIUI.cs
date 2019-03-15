@@ -108,8 +108,6 @@ namespace Janggi
 
         private bool needReset = true;
 
-        public Image header;
-
         public override void refresh()
         {
             if (dirty)
@@ -249,14 +247,6 @@ namespace Janggi
                             {
                                 case UIRectTransform.ShowType.Normal:
                                     {
-                                        if (header != null)
-                                        {
-                                            header.gameObject.SetActive(true);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("header null");
-                                        }
                                         if (lbTitle != null)
                                         {
                                             lbTitle.gameObject.SetActive(true);
@@ -270,14 +260,6 @@ namespace Janggi
                                     break;
                                 case UIRectTransform.ShowType.HeadLess:
                                     {
-                                        if (header != null)
-                                        {
-                                            header.gameObject.SetActive(false);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("header null");
-                                        }
                                         if (lbTitle != null)
                                         {
                                             lbTitle.gameObject.SetActive(false);

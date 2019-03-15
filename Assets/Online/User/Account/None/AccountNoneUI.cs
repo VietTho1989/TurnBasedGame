@@ -56,8 +56,6 @@ public class AccountNoneUI : UIHaveTransformDataBehavior<AccountNoneUI.UIData>
 
     private bool needReset = true;
 
-    public GameObject header;
-
     public override void refresh()
     {
         if (dirty)
@@ -151,14 +149,6 @@ public class AccountNoneUI : UIHaveTransformDataBehavior<AccountNoneUI.UIData>
                                     {
                                         Debug.LogError("lbTitle null");
                                     }
-                                    if (header != null)
-                                    {
-                                        header.gameObject.SetActive(true);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("header null");
-                                    }
                                 }
                                 // size
                                 UIRectTransform.SetHeight((RectTransform)this.transform, UIConstants.HeaderHeight);
@@ -175,14 +165,6 @@ public class AccountNoneUI : UIHaveTransformDataBehavior<AccountNoneUI.UIData>
                                     else
                                     {
                                         Debug.LogError("lbTitle null");
-                                    }
-                                    if (header != null)
-                                    {
-                                        header.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("header null");
                                     }
                                 }
                                 // size

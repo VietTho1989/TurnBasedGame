@@ -260,8 +260,6 @@ namespace Xiangqi
 
         private bool needReset = true;
 
-        public Image header;
-
         public override void refresh()
         {
             if (dirty)
@@ -577,14 +575,6 @@ namespace Xiangqi
                                         {
                                             Debug.LogError("lbTitle null");
                                         }
-                                        if (header != null)
-                                        {
-                                            header.gameObject.SetActive(true);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("header null");
-                                        }
                                         deltaY += UIConstants.HeaderHeight;
                                     }
                                     break;
@@ -597,14 +587,6 @@ namespace Xiangqi
                                         else
                                         {
                                             Debug.LogError("lbTitle null");
-                                        }
-                                        if (header != null)
-                                        {
-                                            header.gameObject.SetActive(false);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("header null");
                                         }
                                     }
                                     break;

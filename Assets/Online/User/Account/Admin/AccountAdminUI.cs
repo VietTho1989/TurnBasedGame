@@ -147,8 +147,6 @@ public class AccountAdminUI : UIHaveTransformDataBehavior<AccountAdminUI.UIData>
 
     private bool needReset = true;
 
-    public GameObject header;
-
     public override void refresh()
     {
         if (dirty)
@@ -348,14 +346,6 @@ public class AccountAdminUI : UIHaveTransformDataBehavior<AccountAdminUI.UIData>
                                     {
                                         Debug.LogError("lbTitle null");
                                     }
-                                    if (header != null)
-                                    {
-                                        header.gameObject.SetActive(true);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("header null");
-                                    }
                                     deltaY += UIConstants.HeaderHeight;
                                 }
                                 break;
@@ -368,14 +358,6 @@ public class AccountAdminUI : UIHaveTransformDataBehavior<AccountAdminUI.UIData>
                                     else
                                     {
                                         Debug.LogError("lbTitle null");
-                                    }
-                                    if (header != null)
-                                    {
-                                        header.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("header null");
                                     }
                                 }
                                 break;

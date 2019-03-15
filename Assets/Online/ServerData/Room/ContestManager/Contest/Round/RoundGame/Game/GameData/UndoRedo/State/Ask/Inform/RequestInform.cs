@@ -19,5 +19,7 @@ namespace UndoRedo
 
 		public abstract bool isRequestCorrect(History history);
 
+        public abstract UndoRedoRequest.Operation getOperation();
+
 	}
 }

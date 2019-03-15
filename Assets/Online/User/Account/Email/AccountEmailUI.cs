@@ -315,8 +315,6 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
 
     private bool needReset = true;
 
-    public Image header;
-
     public override void refresh()
     {
         if (dirty)
@@ -929,14 +927,6 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
                                     {
                                         Debug.LogError("lbTitle null");
                                     }
-                                    if (header != null)
-                                    {
-                                        header.gameObject.SetActive(true);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("header null");
-                                    }
                                     deltaY += UIConstants.HeaderHeight;
                                 }
                                 break;
@@ -949,14 +939,6 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
                                     else
                                     {
                                         Debug.LogError("lbTitle null");
-                                    }
-                                    if (header != null)
-                                    {
-                                        header.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("header null");
                                     }
                                 }
                                 break;

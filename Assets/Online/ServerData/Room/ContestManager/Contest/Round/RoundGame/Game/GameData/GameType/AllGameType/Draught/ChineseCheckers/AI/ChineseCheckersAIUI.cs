@@ -294,8 +294,6 @@ namespace ChineseCheckers
 
         private bool needReset = true;
 
-        public Image header;
-
         public override void refresh()
         {
             if (dirty)
@@ -671,14 +669,6 @@ namespace ChineseCheckers
                                         {
                                             Debug.LogError("lbTitle null");
                                         }
-                                        if (header != null)
-                                        {
-                                            header.gameObject.SetActive(true);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("header null");
-                                        }
                                         deltaY += UIConstants.HeaderHeight;
                                     }
                                     break;
@@ -691,14 +681,6 @@ namespace ChineseCheckers
                                         else
                                         {
                                             Debug.LogError("lbTitle null");
-                                        }
-                                        if (header != null)
-                                        {
-                                            header.gameObject.SetActive(false);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("header null");
                                         }
                                     }
                                     break;

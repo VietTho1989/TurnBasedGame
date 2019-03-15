@@ -305,8 +305,6 @@ namespace Shogi
 
         private bool needReset = true;
 
-        public Image header;
-
         public override void refresh()
         {
             if (dirty)
@@ -677,14 +675,6 @@ namespace Shogi
                                         {
                                             Debug.LogError("lbTitle null");
                                         }
-                                        if (header != null)
-                                        {
-                                            header.gameObject.SetActive(true);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("header null");
-                                        }
                                         deltaY += UIConstants.HeaderHeight;
                                     }
                                     break;
@@ -697,14 +687,6 @@ namespace Shogi
                                         else
                                         {
                                             Debug.LogError("lbTitle null");
-                                        }
-                                        if (header != null)
-                                        {
-                                            header.gameObject.SetActive(false);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("header null");
                                         }
                                     }
                                     break;
