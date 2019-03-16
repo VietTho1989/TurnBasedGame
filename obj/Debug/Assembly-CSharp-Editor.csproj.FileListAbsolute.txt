@@ -851,11 +851,4 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.TextMeshPro.Editor.pdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.PackageManagerUI.Editor.pdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Unity.CollabProxy.Editor.pdb
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.Android.Extensions.dll
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.AppleTV.Extensions.dll
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.iOS.Extensions.Common.dll
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.iOS.Extensions.dll
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.iOS.Extensions.dll.mdb
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.AppleTV.Extensions.dll.mdb
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.iOS.Extensions.Xcode.dll.mdb
-/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.iOS.Extensions.Common.dll.mdb
+/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.iOS.Extensions.Xcode.xml

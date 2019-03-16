@@ -143,7 +143,7 @@ public abstract class GameBehavior<K> : MonoBehaviour, ValueChangeCallBack where
 		if (Routine.IsNull (routine)) {
 			routine = CoroutineManager.StartCoroutine (task, this.gameObject);
 		} else {
-			Debug.LogError ("Why routine != null: " + this);
+			// Debug.LogError ("Why routine != null: " + this);
 		}
 	}
 

@@ -74,7 +74,7 @@ namespace Shatranj
                             Vector2 boardSize = new Vector2(boardTransform.rect.width, boardTransform.rect.height);
                             if (shatranjSize != Vector2.zero && boardSize != Vector2.zero)
                             {
-                                float scale = Mathf.Min(Mathf.Abs(boardSize.x / 8f), Mathf.Abs(boardSize.y / 8f));
+                                float scale = Mathf.Min(Mathf.Abs(boardSize.x / 9f), Mathf.Abs(boardSize.y / 9f));
                                 // new scale
                                 Vector3 newLocalScale = new Vector3();
                                 {

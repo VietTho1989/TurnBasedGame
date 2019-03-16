@@ -70,17 +70,6 @@ public class GlobalInit : MonoBehaviour
 				Debug.LogError ("create folder database error: " + e);
 			}
 		}
-		// language
-		{
-			switch (Application.systemLanguage) {
-			case SystemLanguage.Vietnamese:
-				Setting.get ().language.v = Language.Type.vi;
-				break;
-			default:
-				Setting.get ().language.v = Language.Type.en;
-				break;
-			}
-		}
 	}
 		
 }

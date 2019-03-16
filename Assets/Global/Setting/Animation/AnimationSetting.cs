@@ -23,7 +23,7 @@ public class AnimationSetting : Data
 	public AnimationSetting() : base()
 	{
 		this.scale = new VP<float> (this, (byte)Property.scale, 1);
-		this.fastForward = new VP<bool> (this, (byte)Property.fastForward, false);
+		this.fastForward = new VP<bool> (this, (byte)Property.fastForward, true);
 		this.maxWaitAnimationCount = new VP<int> (this, (byte)Property.maxWaitAnimationCount, 10);
 	}
 
