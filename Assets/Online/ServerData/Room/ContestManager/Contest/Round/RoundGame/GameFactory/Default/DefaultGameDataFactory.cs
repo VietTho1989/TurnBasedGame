@@ -6,41 +6,60 @@ using System.Collections;
  * */
 public class DefaultGameDataFactory : GameDataFactory
 {
-	
-	#region GameType
 
-	public VP<DefaultGameType> defaultGameType;
+    #region GameType
 
-	public void requestChangeGameType(uint userId, GameType.Type newGameType){
-		Data.NeedRequest needRequest = this.isNeedRequestServerByNetworkIdentity ();
-		if (needRequest.canRequest) {
-			if (!needRequest.needIdentity) {
-				this.changeGameType (userId, newGameType);
-			} else {
-				DataIdentity dataIdentity = null;
-				if (DataIdentity.clientMap.TryGetValue (this, out dataIdentity)) {
-					if (dataIdentity is DefaultGameDataFactoryIdentity) {
-						DefaultGameDataFactoryIdentity defaultGameDataFactoryIdentity = dataIdentity as DefaultGameDataFactoryIdentity;
-						defaultGameDataFactoryIdentity.requestChangeType (userId, newGameType);
-					} else {
-						Debug.LogError ("Why isn't correct identity");
-					}
-				} else {
-					Debug.LogError ("cannot find dataIdentity");
-				}
-			}
-		} else {
-			Debug.LogError ("You cannot request");
-		}
-	}
+    public VP<DefaultGameType> defaultGameType;
 
-	public void changeGameType(uint userId, GameType.Type newGameType){
-		if (GameManager.Match.ContestManagerStateLobby.IsCanChange (this, userId)) {
-			this.makeNewDefaultGameType (newGameType);
-		} else {
-			Debug.LogError ("Cannot change: " + userId + ", " + newGameType);
-		}
-	}
+    public void requestChangeGameType(uint userId, GameType.Type newGameType)
+    {
+        Data.NeedRequest needRequest = this.isNeedRequestServerByNetworkIdentity();
+        if (needRequest.canRequest)
+        {
+            if (!needRequest.needIdentity)
+            {
+                this.changeGameType(userId, newGameType);
+            }
+            else
+            {
+                DataIdentity dataIdentity = null;
+                if (DataIdentity.clientMap.TryGetValue(this, out dataIdentity))
+                {
+                    if (dataIdentity is DefaultGameDataFactoryIdentity)
+                    {
+                        DefaultGameDataFactoryIdentity defaultGameDataFactoryIdentity = dataIdentity as DefaultGameDataFactoryIdentity;
+                        defaultGameDataFactoryIdentity.requestChangeType(userId, newGameType);
+                    }
+                    else
+                    {
+                        Debug.LogError("Why isn't correct identity");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("cannot find dataIdentity");
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("You cannot request");
+        }
+        // DefaultChosenGame
+        Setting.get().defaultChosenGame.v.setLast(newGameType);
+    }
+
+    public void changeGameType(uint userId, GameType.Type newGameType)
+    {
+        if (GameManager.Match.ContestManagerStateLobby.IsCanChange(this, userId))
+        {
+            this.makeNewDefaultGameType(newGameType);
+        }
+        else
+        {
+            Debug.LogError("Cannot change: " + userId + ", " + newGameType);
+        }
+    }
 
     public void makeNewDefaultGameType(GameType.Type newGameType)
     {
@@ -156,118 +175,145 @@ public class DefaultGameDataFactory : GameDataFactory
         }
     }
 
-	public override GameType.Type getGameTypeType()
-	{
-		GameType.Type ret = GameType.Type.Xiangqi;
-		{
-			DefaultGameType defaultGameType = this.defaultGameType.v;
-			if (defaultGameType != null) {
-				ret = defaultGameType.getType ();
-			} else {
-				Debug.LogError ("defaultGameType null: " + this);
-			}
-		}
-		return ret;
-	}
+    public override GameType.Type getGameTypeType()
+    {
+        GameType.Type ret = GameType.Type.Xiangqi;
+        {
+            DefaultGameType defaultGameType = this.defaultGameType.v;
+            if (defaultGameType != null)
+            {
+                ret = defaultGameType.getType();
+            }
+            else
+            {
+                Debug.LogError("defaultGameType null: " + this);
+            }
+        }
+        return ret;
+    }
 
-	#endregion
+    #endregion
 
-	#region UserRule
+    #region UserRule
 
-	public VP<bool> useRule;
+    public VP<bool> useRule;
 
-	public void requestChangeUseRule(uint userId, bool newUseRule){
-		Data.NeedRequest needRequest = this.isNeedRequestServerByNetworkIdentity ();
-		if (needRequest.canRequest) {
-			if (!needRequest.needIdentity) {
-				this.changeUseRule (userId, newUseRule);
-			} else {
-				DataIdentity dataIdentity = null;
-				if (DataIdentity.clientMap.TryGetValue (this, out dataIdentity)) {
-					if (dataIdentity is DefaultGameDataFactoryIdentity) {
-						DefaultGameDataFactoryIdentity defaultGameDataFactoryIdentity = dataIdentity as DefaultGameDataFactoryIdentity;
-						defaultGameDataFactoryIdentity.requestChangeUseRule (userId, newUseRule);
-					} else {
-						Debug.LogError ("Why isn't correct identity");
-					}
-				} else {
-					Debug.LogError ("cannot find dataIdentity");
-				}
-			}
-		} else {
-			Debug.LogError ("You cannot request");
-		}
-	}
+    public void requestChangeUseRule(uint userId, bool newUseRule)
+    {
+        Data.NeedRequest needRequest = this.isNeedRequestServerByNetworkIdentity();
+        if (needRequest.canRequest)
+        {
+            if (!needRequest.needIdentity)
+            {
+                this.changeUseRule(userId, newUseRule);
+            }
+            else
+            {
+                DataIdentity dataIdentity = null;
+                if (DataIdentity.clientMap.TryGetValue(this, out dataIdentity))
+                {
+                    if (dataIdentity is DefaultGameDataFactoryIdentity)
+                    {
+                        DefaultGameDataFactoryIdentity defaultGameDataFactoryIdentity = dataIdentity as DefaultGameDataFactoryIdentity;
+                        defaultGameDataFactoryIdentity.requestChangeUseRule(userId, newUseRule);
+                    }
+                    else
+                    {
+                        Debug.LogError("Why isn't correct identity");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("cannot find dataIdentity");
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("You cannot request");
+        }
+    }
 
-	public void changeUseRule(uint userId, bool newUseRule){
-		// Process
-		if (GameManager.Match.ContestManagerStateLobby.IsCanChange (this, userId)) {
-			this.useRule.v = newUseRule;
-		}
-	}
+    public void changeUseRule(uint userId, bool newUseRule)
+    {
+        // Process
+        if (GameManager.Match.ContestManagerStateLobby.IsCanChange(this, userId))
+        {
+            this.useRule.v = newUseRule;
+        }
+    }
 
-	#endregion
+    #endregion
 
-	#region Constructor
+    #region Constructor
 
-	public enum Property
-	{
-		defaultGameType,
-		useRule
-	}
+    public enum Property
+    {
+        defaultGameType,
+        useRule
+    }
 
-	public DefaultGameDataFactory() : base()
-	{
-		this.defaultGameType = new VP<DefaultGameType> (this, (byte)Property.defaultGameType, new Xiangqi.DefaultXiangqi ());
-		this.useRule = new VP<bool> (this, (byte)Property.useRule, true);
-	}
+    public DefaultGameDataFactory() : base()
+    {
+        this.defaultGameType = new VP<DefaultGameType>(this, (byte)Property.defaultGameType, new Xiangqi.DefaultXiangqi());
+        this.useRule = new VP<bool>(this, (byte)Property.useRule, true);
+    }
 
-	#endregion
+    #endregion
 
-	public override Type getType ()
-	{
-		return GameDataFactory.Type.Default;
-	}
+    public override Type getType()
+    {
+        return GameDataFactory.Type.Default;
+    }
 
-	public override void initGameData (GameData gameData)
-	{
-		gameData.useRule.v = this.useRule.v;
-		// gameType
-		{
-			// find gameType
-			GameType newDefaultGameType = null;
-			{
-				if (this.defaultGameType.v != null) {
-					newDefaultGameType = this.defaultGameType.v.makeDefaultGameType ();
-				} else {
-					Debug.LogError ("defaultGameType null: " + this);
-				}
-			}
-			// check null
-			if (newDefaultGameType == null) {
-				Debug.LogError ("newDefaultGameType null: " + this);
-				Xiangqi.DefaultXiangqi defaultXiangqi = new Xiangqi.DefaultXiangqi ();
-				newDefaultGameType = (Xiangqi.Xiangqi)defaultXiangqi.makeDefaultGameType();
-			}
-			// set
-			{
-				// check need set
-				bool needSet = true;
-				{
-					if (gameData.gameType.v != null) {
-						if (gameData.gameType.v.getType () == newDefaultGameType.getType ()) {
-							needSet = false;
-						}
-					}
-				}
-				if (needSet) {
-					newDefaultGameType.uid = gameData.gameType.makeId ();
-					gameData.gameType.v = newDefaultGameType;
-				} else {
-					DataUtils.copyData (gameData.gameType.v, newDefaultGameType);
-				}
-			}
-		}
-	}
+    public override void initGameData(GameData gameData)
+    {
+        gameData.useRule.v = this.useRule.v;
+        // gameType
+        {
+            // find gameType
+            GameType newDefaultGameType = null;
+            {
+                if (this.defaultGameType.v != null)
+                {
+                    newDefaultGameType = this.defaultGameType.v.makeDefaultGameType();
+                }
+                else
+                {
+                    Debug.LogError("defaultGameType null: " + this);
+                }
+            }
+            // check null
+            if (newDefaultGameType == null)
+            {
+                Debug.LogError("newDefaultGameType null: " + this);
+                Xiangqi.DefaultXiangqi defaultXiangqi = new Xiangqi.DefaultXiangqi();
+                newDefaultGameType = (Xiangqi.Xiangqi)defaultXiangqi.makeDefaultGameType();
+            }
+            // set
+            {
+                // check need set
+                bool needSet = true;
+                {
+                    if (gameData.gameType.v != null)
+                    {
+                        if (gameData.gameType.v.getType() == newDefaultGameType.getType())
+                        {
+                            needSet = false;
+                        }
+                    }
+                }
+                if (needSet)
+                {
+                    newDefaultGameType.uid = gameData.gameType.makeId();
+                    gameData.gameType.v = newDefaultGameType;
+                }
+                else
+                {
+                    DataUtils.copyData(gameData.gameType.v, newDefaultGameType);
+                }
+            }
+        }
+    }
 
 }

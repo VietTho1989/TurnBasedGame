@@ -587,6 +587,9 @@ public class RoomListUI : UIBehavior<RoomListUI.UIData>
                         // origin
                         {
                             CreateRoom createRoom = new CreateRoom();
+                            {
+                                createRoom.gameType.v = Setting.get().defaultChosenGame.v.getGame();
+                            }
                             editCreateRoom.origin.v = new ReferenceData<CreateRoom>(createRoom);
                         }
                         // show

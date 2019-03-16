@@ -92,10 +92,10 @@ namespace InternationalDraught
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
         public Text lbVariant;
-        public static readonly TxtLanguage txtVariant = new TxtLanguage();
+        private static readonly TxtLanguage txtVariant = new TxtLanguage();
 
         static DefaultInternationalDraughtUI()
         {

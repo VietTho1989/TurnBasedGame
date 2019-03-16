@@ -177,6 +177,42 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 
         #endregion
 
+        #region defaultChosenGameType
+
+        public VP<RequestChangeEnumUI.UIData> defaultChosenGameType;
+
+        public void makeRequestChangeDefaultChosenGameType(RequestChangeUpdate<int>.UpdateData update, int newDefaultChosenGameType)
+        {
+            // Find
+            Setting setting = null;
+            {
+                EditData<Setting> editSetting = this.editSetting.v;
+                if (editSetting != null)
+                {
+                    setting = editSetting.show.v.data;
+                }
+                else
+                {
+                    Debug.LogError("editSetting null: " + this);
+                }
+            }
+            // Process
+            if (setting != null)
+            {
+                // Find
+                DefaultChosenGame.Type defaultChosenGameType = (DefaultChosenGame.Type)newDefaultChosenGameType;
+                setting.changeDefaultChosenGameType(defaultChosenGameType);
+            }
+            else
+            {
+                Debug.LogError("gameFactory null: " + this);
+            }
+        }
+
+        public VP<DefaultChosenGame.UIData> defaultChosenGameUIData;
+
+        #endregion
+
         #region Constructor
 
         public enum Property
@@ -188,7 +224,9 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
             showLastMove,
             viewUrlImage,
             animationSetting,
-            maxThinkCount
+            maxThinkCount,
+            defaultChosenGameType,
+            defaultChosenGameUIData
         }
 
         public UIData() : base()
@@ -258,6 +296,22 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                 // event
                 this.maxThinkCount.v.updateData.v.request.v = makeRequestChangeMaxThinkCount;
             }
+            // defaultChosenGameType
+            {
+                // gameType
+                {
+                    this.defaultChosenGameType = new VP<RequestChangeEnumUI.UIData>(this, (byte)Property.defaultChosenGameType, new RequestChangeEnumUI.UIData());
+                    // event
+                    this.defaultChosenGameType.v.updateData.v.request.v = makeRequestChangeDefaultChosenGameType;
+                    {
+                        foreach (DefaultChosenGame.Type type in System.Enum.GetValues(typeof(DefaultChosenGame.Type)))
+                        {
+                            this.defaultChosenGameType.v.options.add(type.ToString());
+                        }
+                    }
+                }
+                this.defaultChosenGameUIData = new VP<DefaultChosenGame.UIData>(this, (byte)Property.defaultChosenGameUIData, null);
+            }
         }
 
         #endregion
@@ -269,22 +323,27 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
     public Text lbLanguage;
-    public static readonly TxtLanguage txtLanguage = new TxtLanguage();
+    private static readonly TxtLanguage txtLanguage = new TxtLanguage();
 
     public Text lbStyle;
-    public static readonly TxtLanguage txtStyle = new TxtLanguage();
+    private static readonly TxtLanguage txtStyle = new TxtLanguage();
 
     public Text lbShowLastMove;
-    public static readonly TxtLanguage txtShowLastMove = new TxtLanguage();
+    private static readonly TxtLanguage txtShowLastMove = new TxtLanguage();
 
     public Text lbViewUrlImage;
-    public static readonly TxtLanguage txtViewUrlImage = new TxtLanguage();
+    private static readonly TxtLanguage txtViewUrlImage = new TxtLanguage();
 
     public Text lbMaxThinkCount;
-    public static readonly TxtLanguage txtMaxThinkCount = new TxtLanguage();
+    private static readonly TxtLanguage txtMaxThinkCount = new TxtLanguage();
+
+    public Text lbDefaultChosenGameType;
+    private static readonly TxtLanguage txtDefaultChosenGameType = new TxtLanguage();
+    private static readonly TxtLanguage txtDefaultChosenGameLast = new TxtLanguage();
+    private static readonly TxtLanguage txtDefaultChosenGameAlways = new TxtLanguage();
 
     static SettingUI()
     {
@@ -296,6 +355,10 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
             txtShowLastMove.add(Language.Type.vi, "Hiện nước đi ");
             txtViewUrlImage.add(Language.Type.vi, "Xem ảnh url");
             txtMaxThinkCount.add(Language.Type.vi, "Số luồng nghĩ tối đa");
+
+            txtDefaultChosenGameType.add(Language.Type.vi, "Game mặc định");
+            txtDefaultChosenGameLast.add(Language.Type.vi, "Chọn Trước");
+            txtDefaultChosenGameAlways.add(Language.Type.vi, "Luôn Chọn");
         }
         // rect
         {
@@ -310,6 +373,7 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
     private bool needReset = true;
 
     public Image bgAnimationSetting;
+    public Image bgDefaultChosenGame;
 
     public override void refresh()
     {
@@ -622,6 +686,155 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                                         Debug.LogError("useRule null: " + this);
                                     }
                                 }
+
+                                // defaultChosenGameType
+                                {
+                                    RequestChangeEnumUI.UIData defaultChosenGameType = this.data.defaultChosenGameType.v;
+                                    if (defaultChosenGameType != null)
+                                    {
+                                        // options
+                                        {
+                                            List<string> options = new List<string>();
+                                            {
+                                                options.Add(txtDefaultChosenGameLast.get("Last Chosen"));
+                                                options.Add(txtDefaultChosenGameAlways.get("Always Choose"));
+                                            }
+                                            defaultChosenGameType.options.copyList(options);
+                                        }
+                                        // update
+                                        RequestChangeUpdate<int>.UpdateData updateData = defaultChosenGameType.updateData.v;
+                                        if (updateData != null)
+                                        {
+                                            updateData.origin.v = (int)show.defaultChosenGame.v.getType();
+                                            updateData.canRequestChange.v = editSetting.canEdit.v;
+                                            updateData.serverState.v = serverState;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("updateData null: " + this);
+                                        }
+                                        // compare
+                                        {
+                                            if (compare != null)
+                                            {
+                                                defaultChosenGameType.showDifferent.v = true;
+                                                defaultChosenGameType.compare.v = (int)compare.defaultChosenGame.v.getType();
+                                            }
+                                            else
+                                            {
+                                                defaultChosenGameType.showDifferent.v = false;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("useRule null: " + this);
+                                    }
+                                }
+                                // defaultChosenGameType
+                                {
+                                    DefaultChosenGame defaultChosenGame = show.defaultChosenGame.v;
+                                    if (defaultChosenGame != null)
+                                    {
+                                        // find origin 
+                                        DefaultChosenGame originDefaultChosenGame = null;
+                                        {
+                                            Setting originSetting = editSetting.origin.v.data;
+                                            if (originSetting != null)
+                                            {
+                                                originDefaultChosenGame = originSetting.defaultChosenGame.v;
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("origin null: " + this);
+                                            }
+                                        }
+                                        // find compare
+                                        DefaultChosenGame compareDefaultChosenGame = null;
+                                        {
+                                            if (compare != null)
+                                            {
+                                                compareDefaultChosenGame = compare.defaultChosenGame.v;
+                                            }
+                                            else
+                                            {
+                                                // Debug.LogError ("compare null: " + this);
+                                            }
+                                        }
+                                        switch (defaultChosenGame.getType())
+                                        {
+                                            case DefaultChosenGame.Type.Last:
+                                                {
+                                                    DefaultChosenGameLast defaultChosenGameLast = defaultChosenGame as DefaultChosenGameLast;
+                                                    // UIData
+                                                    DefaultChosenGameLastUI.UIData defaultChosenGameLastUIData = this.data.defaultChosenGameUIData.newOrOld<DefaultChosenGameLastUI.UIData>();
+                                                    {
+                                                        EditData<DefaultChosenGameLast> editDefaultChosenGameLast = defaultChosenGameLastUIData.editDefaultChosenGameLast.v;
+                                                        if (editDefaultChosenGameLast != null)
+                                                        {
+                                                            // origin
+                                                            editDefaultChosenGameLast.origin.v = new ReferenceData<DefaultChosenGameLast>((DefaultChosenGameLast)originDefaultChosenGame);
+                                                            // show
+                                                            editDefaultChosenGameLast.show.v = new ReferenceData<DefaultChosenGameLast>(defaultChosenGameLast);
+                                                            // compare
+                                                            editDefaultChosenGameLast.compare.v = new ReferenceData<DefaultChosenGameLast>((DefaultChosenGameLast)compareDefaultChosenGame);
+                                                            // compareOtherType
+                                                            editDefaultChosenGameLast.compareOtherType.v = new ReferenceData<Data>(compareDefaultChosenGame);
+                                                            // canEdit
+                                                            editDefaultChosenGameLast.canEdit.v = editSetting.canEdit.v;
+                                                            // editType
+                                                            editDefaultChosenGameLast.editType.v = editSetting.editType.v;
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("editDefaultGameDataFactory null: " + this);
+                                                        }
+                                                        defaultChosenGameLastUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                    }
+                                                    this.data.defaultChosenGameUIData.v = defaultChosenGameLastUIData;
+                                                }
+                                                break;
+                                            case DefaultChosenGame.Type.Always:
+                                                {
+                                                    DefaultChosenGameAlways defaultChosenGameAlways = defaultChosenGame as DefaultChosenGameAlways;
+                                                    // UIData
+                                                    DefaultChosenGameAlwaysUI.UIData defaultChosenGameAlwaysUIData = this.data.defaultChosenGameUIData.newOrOld<DefaultChosenGameAlwaysUI.UIData>();
+                                                    {
+                                                        EditData<DefaultChosenGameAlways> editDefaultChosenGameAlways = defaultChosenGameAlwaysUIData.editDefaultChosenGameAlways.v;
+                                                        if (editDefaultChosenGameAlways != null)
+                                                        {
+                                                            // origin
+                                                            editDefaultChosenGameAlways.origin.v = new ReferenceData<DefaultChosenGameAlways>((DefaultChosenGameAlways)originDefaultChosenGame);
+                                                            // show
+                                                            editDefaultChosenGameAlways.show.v = new ReferenceData<DefaultChosenGameAlways>(defaultChosenGameAlways);
+                                                            // compare
+                                                            editDefaultChosenGameAlways.compare.v = new ReferenceData<DefaultChosenGameAlways>((DefaultChosenGameAlways)compareDefaultChosenGame);
+                                                            // compareOtherType
+                                                            editDefaultChosenGameAlways.compareOtherType.v = new ReferenceData<Data>(compareDefaultChosenGame);
+                                                            // canEdit
+                                                            editDefaultChosenGameAlways.canEdit.v = editSetting.canEdit.v;
+                                                            // editType
+                                                            editDefaultChosenGameAlways.editType.v = editSetting.editType.v;
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("editDefaultChosenGameAlways null: " + this);
+                                                        }
+                                                        defaultChosenGameAlwaysUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                    }
+                                                    this.data.defaultChosenGameUIData.v = defaultChosenGameAlwaysUIData;
+                                                }
+                                                break;
+                                            default:
+                                                Debug.LogError("unknown type: " + defaultChosenGame.getType() + "; " + this);
+                                                break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("show null: " + this);
+                                    }
+                                }
                             }
                         }
                         // reset
@@ -726,6 +939,29 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                                     if (updateData != null)
                                     {
                                         updateData.current.v = show.maxThinkCount.v;
+                                        updateData.changeState.v = Data.ChangeState.None;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("updateData null: " + this);
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("useRule null: " + this);
+                                }
+                            }
+
+                            // defaultChosenGameType
+                            {
+                                RequestChangeEnumUI.UIData defaultChosenGameType = this.data.defaultChosenGameType.v;
+                                if (defaultChosenGameType != null)
+                                {
+                                    // update
+                                    RequestChangeUpdate<int>.UpdateData updateData = defaultChosenGameType.updateData.v;
+                                    if (updateData != null)
+                                    {
+                                        updateData.current.v = (int)show.defaultChosenGame.v.getType();
                                         updateData.changeState.v = Data.ChangeState.None;
                                     }
                                     else
@@ -939,6 +1175,56 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                             }
                         }
                     }
+                    // defaultChosenGame
+                    {
+                        float bgY = deltaY;
+                        float bgHeight = 0;
+                        // type
+                        {
+                            if (this.data.defaultChosenGameType.v != null)
+                            {
+                                if (lbDefaultChosenGameType != null)
+                                {
+                                    lbDefaultChosenGameType.gameObject.SetActive(true);
+                                    UIRectTransform.SetPosY(lbDefaultChosenGameType.rectTransform, deltaY);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbDefaultChosenGameType null");
+                                }
+                                UIRectTransform.SetPosY(this.data.defaultChosenGameType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                                bgHeight += UIConstants.ItemHeight;
+                                deltaY += UIConstants.ItemHeight;
+                            }
+                            else
+                            {
+                                if (lbDefaultChosenGameType != null)
+                                {
+                                    lbDefaultChosenGameType.gameObject.SetActive(false);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbDefaultChosenGameType null");
+                                }
+                            }
+                        }
+                        // UI
+                        {
+                            float height = UIRectTransform.SetPosY(this.data.defaultChosenGameUIData.v, deltaY);
+                            bgHeight += height;
+                            deltaY += height;
+                        }
+                        // bg
+                        if (bgDefaultChosenGame != null)
+                        {
+                            UIRectTransform.SetPosY(bgDefaultChosenGame.rectTransform, bgY);
+                            UIRectTransform.SetHeight(bgDefaultChosenGame.rectTransform, bgHeight);
+                        }
+                        else
+                        {
+                            Debug.LogError("bgDefaultChosenGame null");
+                        }
+                    }
                     // set
                     UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                 }
@@ -992,6 +1278,14 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                     {
                         Debug.LogError("tvMaxThinkCount null: " + this);
                     }
+                    if (lbDefaultChosenGameType != null)
+                    {
+                        lbDefaultChosenGameType.text = txtDefaultChosenGameType.get("Default game");
+                    }
+                    else
+                    {
+                        Debug.LogError("lbDefaultChosenGameType null");
+                    }
                 }
             }
             else
@@ -1019,10 +1313,11 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
     private static readonly UIRectTransform styleRect = new UIRectTransform(UIConstants.RequestEnumRect);
     private static readonly UIRectTransform showLastMoveRect = new UIRectTransform(UIConstants.RequestBoolRect);
     private static readonly UIRectTransform viewUrlImageRect = new UIRectTransform(UIConstants.RequestBoolRect);
-    // public Transform animationSettingContainer;
     private static readonly UIRectTransform maxThinkCountRect = new UIRectTransform(UIConstants.RequestRect);
+    private static readonly UIRectTransform defaultChosenGameTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
-    // private Server server = null;
+    public DefaultChosenGameLastUI defaultChosenGameLastPrefab;
+    public DefaultChosenGameAlwaysUI defaultChosenGameAlwaysPrefab;
 
     public override void onAddCallBack<T>(T data)
     {
@@ -1042,6 +1337,8 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                 uiData.viewUrlImage.allAddCallBack(this);
                 uiData.animationSetting.allAddCallBack(this);
                 uiData.maxThinkCount.allAddCallBack(this);
+                uiData.defaultChosenGameType.allAddCallBack(this);
+                uiData.defaultChosenGameUIData.allAddCallBack(this);
             }
             dirty = true;
             return;
@@ -1068,25 +1365,11 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                     return;
                 }
                 // Child
+                if (data is Setting)
                 {
-                    if (data is Setting)
-                    {
-                        /*Setting setting = data as Setting;
-						// Parent
-						{
-							DataUtils.addParentCallBack (setting, this, ref this.server);
-						}*/
-                        needReset = true;
-                        dirty = true;
-                        return;
-                    }
-                    // Parent
-                    /*{
-						if (data is Server) {
-							dirty = true;
-							return;
-						}
-					}*/
+                    needReset = true;
+                    dirty = true;
+                    return;
                 }
             }
             // language, style
@@ -1105,6 +1388,9 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                                 break;
                             case UIData.Property.style:
                                 UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, styleRect);
+                                break;
+                            case UIData.Property.defaultChosenGameType:
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, defaultChosenGameTypeRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -1150,27 +1436,19 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                 return;
             }
             // animationSettingUIData
+            if (data is AnimationSettingUI.UIData)
             {
-                if (data is AnimationSettingUI.UIData)
+                AnimationSettingUI.UIData animationSettingUIData = data as AnimationSettingUI.UIData;
+                // UI
                 {
-                    AnimationSettingUI.UIData animationSettingUIData = data as AnimationSettingUI.UIData;
-                    // UI
-                    {
-                        UIUtils.Instantiate(animationSettingUIData, animationSettingPrefab, this.transform);
-                    }
-                    // Child
-                    {
-                        TransformData.AddCallBack(animationSettingUIData, this);
-                    }
-                    dirty = true;
-                    return;
+                    UIUtils.Instantiate(animationSettingUIData, animationSettingPrefab, this.transform);
                 }
                 // Child
-                if (data is TransformData)
                 {
-                    dirty = true;
-                    return;
+                    TransformData.AddCallBack(animationSettingUIData, this);
                 }
+                dirty = true;
+                return;
             }
             // maxThinkCount
             if (data is RequestChangeIntUI.UIData)
@@ -1199,6 +1477,44 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                 dirty = true;
                 return;
             }
+            // defaultChosenGameUIData
+            if (data is DefaultChosenGame.UIData)
+            {
+                DefaultChosenGame.UIData defaultChosenGameUIData = data as DefaultChosenGame.UIData;
+                // UI
+                {
+                    switch (defaultChosenGameUIData.getType())
+                    {
+                        case DefaultChosenGame.Type.Last:
+                            {
+                                DefaultChosenGameLastUI.UIData defaultChosenGameLastUIData = defaultChosenGameUIData as DefaultChosenGameLastUI.UIData;
+                                UIUtils.Instantiate(defaultChosenGameLastUIData, defaultChosenGameLastPrefab, this.transform);
+                            }
+                            break;
+                        case DefaultChosenGame.Type.Always:
+                            {
+                                DefaultChosenGameAlwaysUI.UIData defaultChosenGameAlwaysUIData = defaultChosenGameUIData as DefaultChosenGameAlwaysUI.UIData;
+                                UIUtils.Instantiate(defaultChosenGameAlwaysUIData, defaultChosenGameAlwaysPrefab, this.transform);
+                            }
+                            break;
+                        default:
+                            Debug.LogError("unknown type: " + defaultChosenGameUIData.getType());
+                            break;
+                    }
+                }
+                // Child
+                {
+                    TransformData.AddCallBack(defaultChosenGameUIData, this);
+                }
+                dirty = true;
+                return;
+            }
+            // Child
+            if (data is TransformData)
+            {
+                dirty = true;
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -1221,6 +1537,8 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                 uiData.viewUrlImage.allRemoveCallBack(this);
                 uiData.animationSetting.allRemoveCallBack(this);
                 uiData.maxThinkCount.allRemoveCallBack(this);
+                uiData.defaultChosenGameType.allRemoveCallBack(this);
+                uiData.defaultChosenGameUIData.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
             return;
@@ -1245,22 +1563,9 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                     return;
                 }
                 // Child
+                if (data is Setting)
                 {
-                    if (data is Setting)
-                    {
-                        /*Setting setting = data as Setting;
-						// Parent
-						{
-							DataUtils.removeParentCallBack (setting, this, ref this.server);
-						}*/
-                        return;
-                    }
-                    // Parent
-                    /*{
-						if (data is Server) {
-							return;
-						}
-					}*/
+                    return;
                 }
             }
             // language, style
@@ -1284,25 +1589,18 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                 return;
             }
             // animationSettingUIData
+            if (data is AnimationSettingUI.UIData)
             {
-                if (data is AnimationSettingUI.UIData)
-                {
-                    AnimationSettingUI.UIData animationSettingUIData = data as AnimationSettingUI.UIData;
-                    // Child
-                    {
-                        TransformData.RemoveCallBack(animationSettingUIData, this);
-                    }
-                    // UI
-                    {
-                        animationSettingUIData.removeCallBackAndDestroy(typeof(AnimationSettingUI));
-                    }
-                    return;
-                }
+                AnimationSettingUI.UIData animationSettingUIData = data as AnimationSettingUI.UIData;
                 // Child
-                if (data is TransformData)
                 {
-                    return;
+                    TransformData.RemoveCallBack(animationSettingUIData, this);
                 }
+                // UI
+                {
+                    animationSettingUIData.removeCallBackAndDestroy(typeof(AnimationSettingUI));
+                }
+                return;
             }
             // maxThinkCount
             if (data is RequestChangeIntUI.UIData)
@@ -1312,6 +1610,42 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                 {
                     requestChange.removeCallBackAndDestroy(typeof(RequestChangeIntUI));
                 }
+                return;
+            }
+            // defaultChosenGameUIData
+            if (data is DefaultChosenGame.UIData)
+            {
+                DefaultChosenGame.UIData defaultChosenGameUIData = data as DefaultChosenGame.UIData;
+                // Child
+                {
+                    TransformData.RemoveCallBack(defaultChosenGameUIData, this);
+                }
+                // UI
+                {
+                    switch (defaultChosenGameUIData.getType())
+                    {
+                        case DefaultChosenGame.Type.Last:
+                            {
+                                DefaultChosenGameLastUI.UIData defaultChosenGameLastUIData = defaultChosenGameUIData as DefaultChosenGameLastUI.UIData;
+                                defaultChosenGameLastUIData.removeCallBackAndDestroy(typeof(DefaultChosenGameLastUI));
+                            }
+                            break;
+                        case DefaultChosenGame.Type.Always:
+                            {
+                                DefaultChosenGameAlwaysUI.UIData defaultChosenGameAlwaysUIData = defaultChosenGameUIData as DefaultChosenGameAlwaysUI.UIData;
+                                defaultChosenGameAlwaysUIData.removeCallBackAndDestroy(typeof(DefaultChosenGameAlwaysUI));
+                            }
+                            break;
+                        default:
+                            Debug.LogError("unknown type: " + defaultChosenGameUIData.getType());
+                            break;
+                    }
+                }
+                return;
+            }
+            // Child
+            if (data is TransformData)
+            {
                 return;
             }
         }
@@ -1373,34 +1707,17 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                         dirty = true;
                     }
                     break;
-                default:
-                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                case UIData.Property.defaultChosenGameType:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
                     break;
-            }
-            return;
-        }
-        // Setting
-        if (wrapProperty.p is Setting)
-        {
-            switch ((Setting.Property)wrapProperty.n)
-            {
-                case Setting.Property.language:
-                    dirty = true;
-                    break;
-                case Setting.Property.style:
-                    dirty = true;
-                    break;
-                case Setting.Property.showLastMove:
-                    dirty = true;
-                    break;
-                case Setting.Property.viewUrlImage:
-                    dirty = true;
-                    break;
-                case Setting.Property.animationSetting:
-                    dirty = true;
-                    break;
-                case Setting.Property.maxThinkCount:
-                    dirty = true;
+                case UIData.Property.defaultChosenGameUIData:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
                     break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -1447,42 +1764,36 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                     return;
                 }
                 // Child
+                if (wrapProperty.p is Setting)
                 {
-                    if (wrapProperty.p is Setting)
+                    switch ((Setting.Property)wrapProperty.n)
                     {
-                        switch ((Setting.Property)wrapProperty.n)
-                        {
-                            case Setting.Property.language:
-                                dirty = true;
-                                break;
-                            case Setting.Property.style:
-                                dirty = true;
-                                break;
-                            case Setting.Property.showLastMove:
-                                dirty = true;
-                                break;
-                            case Setting.Property.viewUrlImage:
-                                dirty = true;
-                                break;
-                            case Setting.Property.animationSetting:
-                                dirty = true;
-                                break;
-                            case Setting.Property.maxThinkCount:
-                                dirty = true;
-                                break;
-                            default:
-                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                                break;
-                        }
-                        return;
+                        case Setting.Property.language:
+                            dirty = true;
+                            break;
+                        case Setting.Property.style:
+                            dirty = true;
+                            break;
+                        case Setting.Property.showLastMove:
+                            dirty = true;
+                            break;
+                        case Setting.Property.viewUrlImage:
+                            dirty = true;
+                            break;
+                        case Setting.Property.animationSetting:
+                            dirty = true;
+                            break;
+                        case Setting.Property.maxThinkCount:
+                            dirty = true;
+                            break;
+                        case Setting.Property.defaultChosenGame:
+                            dirty = true;
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
                     }
-                    // Parent
-                    /*{
-						if (wrapProperty.p is Server) {
-							Server.State.OnUpdateSyncStateChange (wrapProperty, this);
-							return;
-						}
-					}*/
+                    return;
                 }
             }
             // language, style
@@ -1496,47 +1807,50 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                 return;
             }
             // animationSettingUIData
+            if (wrapProperty.p is AnimationSettingUI.UIData)
             {
-                if (wrapProperty.p is AnimationSettingUI.UIData)
-                {
-                    return;
-                }
-                // Child
-                if (wrapProperty.p is TransformData)
-                {
-                    switch ((TransformData.Property)wrapProperty.n)
-                    {
-                        case TransformData.Property.anchoredPosition:
-                            break;
-                        case TransformData.Property.anchorMin:
-                            break;
-                        case TransformData.Property.anchorMax:
-                            break;
-                        case TransformData.Property.pivot:
-                            break;
-                        case TransformData.Property.offsetMin:
-                            break;
-                        case TransformData.Property.offsetMax:
-                            break;
-                        case TransformData.Property.sizeDelta:
-                            break;
-                        case TransformData.Property.rotation:
-                            break;
-                        case TransformData.Property.scale:
-                            break;
-                        case TransformData.Property.size:
-                            dirty = true;
-                            break;
-                        default:
-                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                            break;
-                    }
-                    return;
-                }
+                return;
             }
             // maxThinkCount
             if (wrapProperty.p is RequestChangeIntUI.UIData)
             {
+                return;
+            }
+            // defaultChosenGameUIData
+            if (wrapProperty.p is DefaultChosenGame.UIData)
+            {
+                return;
+            }
+            // Child
+            if (wrapProperty.p is TransformData)
+            {
+                switch ((TransformData.Property)wrapProperty.n)
+                {
+                    case TransformData.Property.anchoredPosition:
+                        break;
+                    case TransformData.Property.anchorMin:
+                        break;
+                    case TransformData.Property.anchorMax:
+                        break;
+                    case TransformData.Property.pivot:
+                        break;
+                    case TransformData.Property.offsetMin:
+                        break;
+                    case TransformData.Property.offsetMax:
+                        break;
+                    case TransformData.Property.sizeDelta:
+                        break;
+                    case TransformData.Property.rotation:
+                        break;
+                    case TransformData.Property.scale:
+                        break;
+                    case TransformData.Property.size:
+                        dirty = true;
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
                 return;
             }
         }

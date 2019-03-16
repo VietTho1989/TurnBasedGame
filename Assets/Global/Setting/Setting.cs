@@ -46,17 +46,63 @@ public class Setting : Data
 
 	public VP<int> maxThinkCount;
 
-	#region Constructor
+    #region defaultChosenGame
 
-	public enum Property
+    public VP<DefaultChosenGame> defaultChosenGame;
+
+    public void changeDefaultChosenGameType(DefaultChosenGame.Type newType)
+    {
+        if (this.defaultChosenGame.v.getType() != newType)
+        {
+            GameType.Type oldGameType = this.defaultChosenGame.v.getGame();
+            // make new
+            switch (newType)
+            {
+                case DefaultChosenGame.Type.Last:
+                    {
+                        DefaultChosenGameLast defaultChosenGameLast = new DefaultChosenGameLast();
+                        {
+                            defaultChosenGameLast.uid = this.defaultChosenGame.makeId();
+                            defaultChosenGameLast.gameType.v = oldGameType;
+                        }
+                        this.defaultChosenGame.v = defaultChosenGameLast;
+                    }
+                    break;
+                case DefaultChosenGame.Type.Always:
+                    {
+                        DefaultChosenGameAlways defaultChosenGameAlways = new DefaultChosenGameAlways();
+                        {
+                            defaultChosenGameAlways.uid = this.defaultChosenGame.makeId();
+                            defaultChosenGameAlways.gameType.v = oldGameType;
+                        }
+                        this.defaultChosenGame.v = defaultChosenGameAlways;
+                    }
+                    break;
+                default:
+                    Debug.LogError("unknown type: " + newType);
+                    break;
+            }
+        }
+        else
+        {
+            Debug.LogError("the same type: " + newType);
+        }
+    }
+
+    #endregion
+
+    #region Constructor
+
+    public enum Property
 	{
 		language,
         style,
         showLastMove,
 		viewUrlImage,
 		animationSetting,
-		maxThinkCount
-	}
+		maxThinkCount,
+        defaultChosenGame
+    }
 
 	public Setting() : base()
 	{
@@ -66,7 +112,8 @@ public class Setting : Data
 		this.viewUrlImage = new VP<bool> (this, (byte)Property.viewUrlImage, true);
 		this.animationSetting = new VP<AnimationSetting> (this, (byte)Property.animationSetting, new AnimationSetting ());
 		this.maxThinkCount = new VP<int> (this, (byte)Property.maxThinkCount, 12);
-	}
+        this.defaultChosenGame = new VP<DefaultChosenGame>(this, (byte)Property.defaultChosenGame, new DefaultChosenGameLast());
+    }
 
 	#endregion
 

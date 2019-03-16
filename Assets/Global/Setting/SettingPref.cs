@@ -27,7 +27,7 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
 
     #endregion
 
-    #region lifeCycle
+    #region setting pref
 
     private const string Setting_Language = "Setting_Language";
     private const string Setting_Style = "Setting_Style";
@@ -35,6 +35,22 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
     private const string Setting_ViewUrlImage = "Setting_ViewUrlImage";
     // private const string Setting_AnimationSetting = "Setting_AnimationSetting";
     private const string Setting_MaxThinkCount = "Setting_MaxThinkCount";
+
+    private HashSet<byte> settingUpdateNames = new HashSet<byte>();
+
+    #endregion
+
+    #region defaultChosenGame
+
+    private const string SettingDefaultChosenGameType = "SettingDefaultChosenGameType";
+    private const string SettingDefaultChosenGame = "SettingDefaultChosenGame";
+
+    private bool needUpdateDefaultChosenGameType = false;
+    private bool needUpdateDefaultChosenGame = false;
+
+    #endregion
+
+    #region lifeCycle
 
     void Awake()
     {
@@ -68,6 +84,35 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                 Setting.get().viewUrlImage.v = PlayerPrefs.GetInt(Setting_ViewUrlImage, 1) != 0;
                 // maxThinkCount
                 Setting.get().maxThinkCount.v = PlayerPrefs.GetInt(Setting_MaxThinkCount, 12);
+
+                // defaultChosenGameType
+                {
+                    GameType.Type defaultGameType = (GameType.Type)PlayerPrefs.GetInt(SettingDefaultChosenGame, (int)GameType.Type.CHESS);
+                    switch((DefaultChosenGame.Type)PlayerPrefs.GetInt(SettingDefaultChosenGameType, (int)DefaultChosenGame.Type.Last))
+                    {
+                        case DefaultChosenGame.Type.Last:
+                            {
+                                DefaultChosenGameLast last = Setting.get().defaultChosenGame.newOrOld<DefaultChosenGameLast>();
+                                {
+                                    last.gameType.v = defaultGameType;
+                                }
+                                Setting.get().defaultChosenGame.v = last;
+                            }
+                            break;
+                        case DefaultChosenGame.Type.Always:
+                            {
+                                DefaultChosenGameAlways always = Setting.get().defaultChosenGame.newOrOld<DefaultChosenGameAlways>();
+                                {
+                                    always.gameType.v = defaultGameType;
+                                }
+                                Setting.get().defaultChosenGame.v = always;
+                            }
+                            break;
+                        default:
+                            Debug.LogError("unknown type");
+                            break;
+                    }
+                }
             }
             catch(System.Exception e)
             {
@@ -86,8 +131,6 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
 
     #region update
 
-    private HashSet<byte> updateNames = new HashSet<byte>();
-
     void Update()
     {
         if (dirty)
@@ -99,8 +142,8 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                 // set
                 bool needSave = false;
                 {
-                    // Debug.LogError("update setting pref");
-                    foreach (byte updateName in updateNames)
+                    // settings
+                    foreach (byte updateName in settingUpdateNames)
                     {
                         switch ((Setting.Property)updateName)
                         {
@@ -141,6 +184,19 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                                 break;
                         }
                     }
+                    // defaultChosenGame
+                    {
+                        if (needUpdateDefaultChosenGameType)
+                        {
+                            PlayerPrefs.SetInt(SettingDefaultChosenGameType, (int)Setting.get().defaultChosenGame.v.getType());
+                            needSave = true;
+                        }
+                        if (needUpdateDefaultChosenGame)
+                        {
+                            PlayerPrefs.SetInt(SettingDefaultChosenGame, (int)Setting.get().defaultChosenGame.v.getGame());
+                            needSave = true;
+                        }
+                    }
                 }
                 // save
                 if (needSave)
@@ -151,7 +207,7 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                 Debug.LogError(e);
             }
             // clear
-            updateNames.Clear();
+            settingUpdateNames.Clear();
         }
     }
 
@@ -163,6 +219,17 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
     {
         if(data is Setting)
         {
+            Setting setting = data as Setting;
+            // Child
+            {
+                setting.defaultChosenGame.allAddCallBack(this);
+            }
+            dirty = true;
+            return;
+        }
+        // Child
+        if(data is DefaultChosenGame)
+        {
             dirty = true;
             return;
         }
@@ -172,6 +239,16 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
     public void onRemoveCallBack<T>(T data, bool isHide) where T : Data
     {
         if(data is Setting)
+        {
+            Setting setting = data as Setting;
+            // Child
+            {
+                setting.defaultChosenGame.allRemoveCallBack(this);
+            }
+            return;
+        }
+        // Child
+        if(data is DefaultChosenGame)
         {
             return;
         }
@@ -190,25 +267,25 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
             {
                 case Setting.Property.language:
                     {
-                        updateNames.Add(wrapProperty.n);
+                        settingUpdateNames.Add(wrapProperty.n);
                         dirty = true;
                     }
                     break;
                 case Setting.Property.style:
                     {
-                        updateNames.Add(wrapProperty.n);
+                        settingUpdateNames.Add(wrapProperty.n);
                         dirty = true;
                     }
                     break;
                 case Setting.Property.showLastMove:
                     {
-                        updateNames.Add(wrapProperty.n);
+                        settingUpdateNames.Add(wrapProperty.n);
                         dirty = true;
                     }
                     break;
                 case Setting.Property.viewUrlImage:
                     {
-                        updateNames.Add(wrapProperty.n);
+                        settingUpdateNames.Add(wrapProperty.n);
                         dirty = true;
                     }
                     break;
@@ -216,12 +293,63 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                     break;
                 case Setting.Property.maxThinkCount:
                     {
-                        updateNames.Add(wrapProperty.n);
+                        settingUpdateNames.Add(wrapProperty.n);
+                        dirty = true;
+                    }
+                    break;
+                case Setting.Property.defaultChosenGame:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        needUpdateDefaultChosenGameType = true;
                         dirty = true;
                     }
                     break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Child
+        if(wrapProperty.p is DefaultChosenGame)
+        {
+            DefaultChosenGame defaultChosenGame = wrapProperty.p as DefaultChosenGame;
+            switch (defaultChosenGame.getType())
+            {
+                case DefaultChosenGame.Type.Last:
+                    {
+                        switch ((DefaultChosenGameLast.Property)wrapProperty.n)
+                        {
+                            case DefaultChosenGameLast.Property.gameType:
+                                {
+                                    needUpdateDefaultChosenGame = true;
+                                    dirty = true;
+                                }
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                    }
+                    break;
+                case DefaultChosenGame.Type.Always:
+                    {
+                        switch ((DefaultChosenGameAlways.Property)wrapProperty.n)
+                        {
+                            case DefaultChosenGameAlways.Property.gameType:
+                                {
+                                    needUpdateDefaultChosenGame = true;
+                                    dirty = true;
+                                }
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                    }
+                    break;
+                default:
+                    Debug.LogError("unknown type: " + defaultChosenGame.getType());
                     break;
             }
             return;

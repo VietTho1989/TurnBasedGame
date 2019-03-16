@@ -65,7 +65,7 @@ public abstract class GameType : Data
             {
                 TxtLanguage txt = new TxtLanguage();
                 {
-                    txt.add(Language.Type.vi, "Cờ Ba Tư(Shatranj)");
+                    txt.add(Language.Type.vi, "Cờ Ba Tư (Shatranj)");
                     txt.add(Language.Type.en, "Shatranj");
                 }
                 typeTxtDict.Add(Type.Shatranj, txt);
@@ -74,7 +74,7 @@ public abstract class GameType : Data
             {
                 TxtLanguage txt = new TxtLanguage();
                 {
-                    txt.add(Language.Type.vi, "Cờ Thái(Makruk)");
+                    txt.add(Language.Type.vi, "Cờ Thái (Makruk)");
                     txt.add(Language.Type.en, "Makruk");
                 }
                 typeTxtDict.Add(Type.Makruk, txt);
@@ -111,7 +111,7 @@ public abstract class GameType : Data
             {
                 TxtLanguage txt = new TxtLanguage();
                 {
-                    txt.add(Language.Type.vi, "Cờ Tướng Nhật(Shogi)");
+                    txt.add(Language.Type.vi, "Cờ Tướng Nhật (Shogi)");
                     txt.add(Language.Type.en, "Shogi");
                 }
                 typeTxtDict.Add(Type.SHOGI, txt);
@@ -157,7 +157,7 @@ public abstract class GameType : Data
             {
                 TxtLanguage txt = new TxtLanguage();
                 {
-                    txt.add(Language.Type.vi, "Cờ Tướng Triều Tiên(Janggi)");
+                    txt.add(Language.Type.vi, "Cờ Tướng Triều Tiên (Janggi)");
                     txt.add(Language.Type.en, "Janggi");
                 }
                 typeTxtDict.Add(Type.Janggi, txt);
@@ -175,7 +175,7 @@ public abstract class GameType : Data
             {
                 TxtLanguage txt = new TxtLanguage();
                 {
-                    txt.add(Language.Type.vi, "Cờ Caro(Gomoku)");
+                    txt.add(Language.Type.vi, "Cờ Caro (Gomoku)");
                     txt.add(Language.Type.en, "Gomoku");
                 }
                 typeTxtDict.Add(Type.Gomoku, txt);
@@ -185,7 +185,7 @@ public abstract class GameType : Data
             {
                 TxtLanguage txt = new TxtLanguage();
                 {
-                    txt.add(Language.Type.vi, "Cờ Đam Quốc Tế(International Draught)");
+                    txt.add(Language.Type.vi, "Cờ Đam Quốc Tế (International Draught)");
                     txt.add(Language.Type.en, "International Draught");
                 }
                 typeTxtDict.Add(Type.InternationalDraught, txt);
@@ -194,7 +194,7 @@ public abstract class GameType : Data
             {
                 TxtLanguage txt = new TxtLanguage();
                 {
-                    txt.add(Language.Type.vi, "Cờ Đam Anh(English Draught)");
+                    txt.add(Language.Type.vi, "Cờ Đam Anh (English Draught)");
                     txt.add(Language.Type.en, "English Draught");
                 }
                 typeTxtDict.Add(Type.EnglishDraught, txt);
@@ -203,7 +203,7 @@ public abstract class GameType : Data
             {
                 TxtLanguage txt = new TxtLanguage();
                 {
-                    txt.add(Language.Type.vi, "Cờ Đam Nga(Russian Draught)");
+                    txt.add(Language.Type.vi, "Cờ Đam Nga (Russian Draught)");
                     txt.add(Language.Type.en, "Russian Draught");
                 }
                 typeTxtDict.Add(Type.RussianDraught, txt);
@@ -524,7 +524,7 @@ public abstract class GameType : Data
 
 #if UNITY_STANDALONE_OSX
 
-	public const string BundleName = "UnityNativeCore";
+    public const string BundleName = "UnityNativeCore";
 
 #elif UNITY_IPHONE
 
@@ -541,4 +541,5 @@ public abstract class GameType : Data
 #endif
 
     #endregion
+
 }

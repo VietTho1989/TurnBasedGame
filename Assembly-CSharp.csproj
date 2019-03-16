@@ -1157,6 +1157,11 @@
     <Compile Include="Assets\Global\Setting\Animation\AnimationSetting.cs" />
     <Compile Include="Assets\Global\Setting\Animation\AnimationSettingPref.cs" />
     <Compile Include="Assets\Global\Setting\Animation\AnimationSettingUI.cs" />
+    <Compile Include="Assets\Global\Setting\DefaultChosenGame\Always\DefaultChosenGameAlways.cs" />
+    <Compile Include="Assets\Global\Setting\DefaultChosenGame\Always\DefaultChosenGameAlwaysUI.cs" />
+    <Compile Include="Assets\Global\Setting\DefaultChosenGame\DefaultChosenGame.cs" />
+    <Compile Include="Assets\Global\Setting\DefaultChosenGame\Last\DefaultChosenGameLast.cs" />
+    <Compile Include="Assets\Global\Setting\DefaultChosenGame\Last\DefaultChosenGameLastUI.cs" />
     <Compile Include="Assets\Global\Setting\Language\Language.cs" />
     <Compile Include="Assets\Global\Setting\Language\Locale.cs" />
     <Compile Include="Assets\Global\Setting\Language\TxtLanguage.cs" />
