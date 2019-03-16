@@ -1198,7 +1198,6 @@
     <Compile Include="Assets\Main\MainUI.cs" />
     <Compile Include="Assets\Main\Offline\OfflineUI.cs" />
     <Compile Include="Assets\Main\Online\Client\AfterLoginUI.cs" />
-    <Compile Include="Assets\Main\Online\Client\ClientUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalBan\GlobalBanUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\BtnBack\AfterLoginMainBtnBackUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\BtnBack\Client\AfterLoginMainBtnBackClientUI.cs" />
@@ -1240,7 +1239,10 @@
     <Compile Include="Assets\Main\Online\Client\GlobalView\State\Disconnect\StateDisconnectUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\State\GlobalStateUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\State\Offline\StateOfflineUI.cs" />
-    <Compile Include="Assets\Main\Online\MenuOnlineUI.cs" />
+    <Compile Include="Assets\Main\Online\Client\UI\Menu\OnlineClientMenuUI.cs" />
+    <Compile Include="Assets\Main\Online\Client\UI\OnlineClientUI.cs" />
+    <Compile Include="Assets\Main\Online\Client\UI\Play\OnlineClientPlayUI.cs" />
+    <Compile Include="Assets\Main\Online\Menu\MenuOnlineUI.cs" />
     <Compile Include="Assets\Main\Online\PlayOnlineUI.cs" />
     <Compile Include="Assets\Main\Online\Server\CreateDataIdentityUpdate.cs" />
     <Compile Include="Assets\Main\Online\Server\ServerOnlineUI.cs" />

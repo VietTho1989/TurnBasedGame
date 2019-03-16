@@ -80,7 +80,7 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
 		// lan
 		txtLan.add (Language.Type.vi, "Chơi mạng Lan");
 		// online
-		txtOnline.add (Language.Type.vi, "Tạo Server");
+		txtOnline.add (Language.Type.vi, "Chơi Online");
 		// load
 		txtLoad.add (Language.Type.vi, "Tải");
 	}
@@ -104,7 +104,7 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
 				}
 				// tvOnline
 				if (tvOnline != null) {
-					tvOnline.text = txtOnline.get ("Play Server");
+					tvOnline.text = txtOnline.get ("Play Online");
 				} else {
 					Debug.LogError ("tvOnline null: " + this);
 				}

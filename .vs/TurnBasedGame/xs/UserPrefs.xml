@@ -1,10 +1,7 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Chess/Shatranj/UI/UITransformOrganizer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Main/Online/Client/UI/OnlineClientUI.cs">
     <Files>
-      <File FileName="Assets/Global/Setting/Animation/AnimationSettingPref.cs" Line="99" Column="53" />
-      <File FileName="Assets/Global/Setting/SettingPref.cs" Line="156" Column="6" />
-      <File FileName="Assets/Global/Setting/Animation/AnimationSetting.cs" Line="20" Column="24" />
-      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Chess/Shatranj/UI/UITransformOrganizer.cs" Line="77" Column="82" />
+      <File FileName="Assets/Main/Online/Client/UI/OnlineClientUI.cs" Line="35" Column="9" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

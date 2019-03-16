@@ -132,9 +132,6 @@ public class LanClientMenuUI : UIBehavior<LanClientMenuUI.UIData>
     public Text lbTitle;
     private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-    public Text tvBack;
-    private static readonly TxtLanguage txtBack = new TxtLanguage();
-
     public Text tvNoLan;
     private static readonly TxtLanguage txtNoLan = new TxtLanguage();
 
@@ -145,7 +142,6 @@ public class LanClientMenuUI : UIBehavior<LanClientMenuUI.UIData>
             txtStart.add(Language.Type.vi, "Đang bắt đầu");
             txtScan.add(Language.Type.vi, "Đang quét");
             txtTitle.add(Language.Type.vi, "Chọn mạng LAN");
-            txtBack.add(Language.Type.vi, "Quay lại");
             txtNoLan.add(Language.Type.vi, "Không có server LAN nào cả");
         }
     }
@@ -185,15 +181,6 @@ public class LanClientMenuUI : UIBehavior<LanClientMenuUI.UIData>
                 else
                 {
                     Debug.LogError("lbTitle null: " + this);
-                }
-                // tvBack
-                if (tvBack != null)
-                {
-                    tvBack.text = txtBack.get("Back");
-                }
-                else
-                {
-                    Debug.LogError("tvBack null: " + this);
                 }
                 // tvNoLan
                 if (tvNoLan != null)
@@ -454,4 +441,5 @@ public class LanClientMenuUI : UIBehavior<LanClientMenuUI.UIData>
             Debug.LogError("uiData null");
         }
     }
+
 }
