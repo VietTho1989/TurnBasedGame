@@ -3225,8 +3225,9 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\State\End\RoundStateEndIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\State\End\RoundStateEndUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\State\End\RoundStateEndUpdate.cs" />
-    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\State\End\TeamResult.cs" />
-    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\State\End\TeamResultIdentity.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\State\End\TeamResult\TeamResult.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\State\End\TeamResult\TeamResultIdentity.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\State\End\TeamResult\TeamResultUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\State\Load\RoundStateLoad.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\State\Load\RoundStateLoadIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\State\Load\RoundStateLoadUI.cs" />

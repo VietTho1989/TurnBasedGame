@@ -4,43 +4,45 @@ using System.Collections.Generic;
 
 namespace GameManager.Match
 {
-	public class RoundStateEnd : RoundState
-	{
+    public class RoundStateEnd : RoundState
+    {
 
-		#region teamResults
+        #region teamResults
 
-		public LP<TeamResult> teamResults;
+        public LP<TeamResult> teamResults;
 
-		public float getResult(int teamIndex)
-		{
-			foreach (TeamResult teamResult in this.teamResults.vs) {
-				if (teamResult.teamIndex.v == teamIndex) {
-					return teamResult.score.v;
-				}
-			}
-			return 0;
-		}
+        public float getResult(int teamIndex)
+        {
+            foreach (TeamResult teamResult in this.teamResults.vs)
+            {
+                if (teamResult.teamIndex.v == teamIndex)
+                {
+                    return teamResult.score.v;
+                }
+            }
+            return 0;
+        }
 
-		#endregion
+        #endregion
 
-		#region Constructor
+        #region Constructor
 
-		public enum Property
-		{
-			teamResults
-		}
+        public enum Property
+        {
+            teamResults
+        }
 
-		public RoundStateEnd()
-		{
-			this.teamResults = new LP<TeamResult> (this, (byte)Property.teamResults);
-		}
+        public RoundStateEnd()
+        {
+            this.teamResults = new LP<TeamResult>(this, (byte)Property.teamResults);
+        }
 
-		#endregion
+        #endregion
 
-		public override Type getType ()
-		{
-			return Type.End;
-		}
+        public override Type getType()
+        {
+            return Type.End;
+        }
 
-	}
+    }
 }

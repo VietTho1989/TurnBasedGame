@@ -396,4 +396,39 @@ public abstract class SriaHolderBehavior<K> : UIBehavior<K>, SriaHolderInterface
 
     #endregion
 
+    public void setHolderSize(float holderSize)
+    {
+        if (this.data != null)
+        {
+            // Find adapter
+            ISRIA adapter = null;
+            {
+                BaseParams baseParams = this.data.findDataInParent<BaseParams>();
+                if (baseParams != null)
+                {
+                    // Debug.LogError ("find base params: " + baseParams + "; " + this);
+                    // find adapter in callBack
+                    adapter = baseParams.findCallBack<ISRIA>();
+                }
+                else
+                {
+                    Debug.LogError("baseParams null: " + this);
+                }
+            }
+            // Process
+            if (adapter != null)
+            {
+                adapter.RequestChangeItemSizeAndUpdateLayout(this.data.ItemIndex, holderSize);
+            }
+            else
+            {
+                // Debug.LogError ("adapter null: " + this);
+            }
+        }
+        else
+        {
+            Debug.LogError("data null");
+        }
+    }
+
 }

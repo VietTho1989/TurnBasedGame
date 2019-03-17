@@ -288,6 +288,18 @@ namespace GameManager.Match
                                 List<RoundGamePlayerUI.UIData> players = new List<RoundGamePlayerUI.UIData>();
                                 {
                                     players.AddRange(this.data.roundGamePlayers.vs);
+                                    players.Sort(delegate (RoundGamePlayerUI.UIData p1, RoundGamePlayerUI.UIData p2)
+                                    {
+                                        if (p1.gamePlayer.v.data == null)
+                                        {
+                                            return 1;
+                                        }
+                                        if (p2.gamePlayer.v.data == null)
+                                        {
+                                            return -1;
+                                        }
+                                        return p1.gamePlayer.v.data.playerIndex.v.CompareTo(p2.gamePlayer.v.data.playerIndex.v);
+                                    });
                                 }
                                 // position
                                 foreach(RoundGamePlayerUI.UIData player in players)

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace GameManager.Match
 {
-	public class RoundStateStartUI : UIBehavior<RoundStateStartUI.UIData>
+	public class RoundStateStartUI : UIHaveTransformDataBehavior<RoundStateStartUI.UIData>
 	{
 
 		#region UIData

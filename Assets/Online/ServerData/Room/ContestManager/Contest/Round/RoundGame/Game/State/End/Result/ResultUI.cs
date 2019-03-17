@@ -48,14 +48,14 @@ namespace GameState
         static ResultUI()
         {
             txtNone.add(Language.Type.vi, "Kết quả: chưa kết thúc");
-            txtRequestDraw.add(Language.Type.vi, "Hoà: người chơi thoả thuận");
+            txtRequestDraw.add(Language.Type.vi, "Hoà: thoả thuận");
             txtGameDraw.add(Language.Type.vi, "Ván đấu hoà");
             txtCheckMate.add(Language.Type.vi, "Thắng: chiếu hết");
-            txtCheckMated.add(Language.Type.vi, "Thua: bị chiếu hết");
+            txtCheckMated.add(Language.Type.vi, "Thua: chiếu hết");
             txtTimeOut.add(Language.Type.vi, "Thua: hết giờ");
-            txtEnemyTimeOut.add(Language.Type.vi, "Thắng: đối phương hết giờ");
+            txtEnemyTimeOut.add(Language.Type.vi, "Thắng: hết giờ");
             txtSurrender.add(Language.Type.vi, "Thua: bỏ cuộc");
-            txtEnemySurrender.add(Language.Type.vi, "Thắng: đối phương bỏ cuộc");
+            txtEnemySurrender.add(Language.Type.vi, "Thắng: bỏ cuộc");
         }
 
         #endregion
