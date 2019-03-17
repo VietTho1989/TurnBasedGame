@@ -104,9 +104,6 @@ namespace GameManager.Match
         public Text lbTitle;
         private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-        public Text tvBack;
-        private static readonly TxtLanguage txtBack = new TxtLanguage();
-
         public Text tvTeamIndex;
         private static readonly TxtLanguage txtTeamIndex = new TxtLanguage();
 
@@ -121,7 +118,6 @@ namespace GameManager.Match
             // txt
             {
                 txtTitle.add(Language.Type.vi, "Chỉnh Sửa Người chơi");
-                txtBack.add(Language.Type.vi, "Quay Lại");
                 txtTeamIndex.add(Language.Type.vi, "Chỉ số đội");
                 txtPlayerIndex.add(Language.Type.vi, "Chỉ số người chơi");
                 txtCannotEdit.add(Language.Type.vi, "Không thể chỉnh sửa");
@@ -327,14 +323,6 @@ namespace GameManager.Match
                         else
                         {
                             Debug.LogError("lbTitle null: " + this);
-                        }
-                        if (tvBack != null)
-                        {
-                            tvBack.text = txtBack.get("Back");
-                        }
-                        else
-                        {
-                            Debug.LogError("tvBack null: " + this);
                         }
                         if (tvCannotEdit != null)
                         {

@@ -367,7 +367,7 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
                                                 }
                                                 else
                                                 {
-                                                    Debug.LogError("compareComputer null: " + this);
+                                                    // Debug.LogError("compareComputer null: " + this);
                                                 }
                                             }
                                             editComputerAI.compare.v = new ReferenceData<Computer.AI>(compareComputerAI);

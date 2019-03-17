@@ -74,7 +74,20 @@ namespace Shatranj
                             Vector2 boardSize = new Vector2(boardTransform.rect.width, boardTransform.rect.height);
                             if (shatranjSize != Vector2.zero && boardSize != Vector2.zero)
                             {
-                                float scale = Mathf.Min(Mathf.Abs(boardSize.x / 9f), Mathf.Abs(boardSize.y / 9f));
+                                // find scale
+                                float scale = 1;
+                                {
+                                    switch (Setting.get().style.v)
+                                    {
+                                        case Setting.Style.Western:
+                                            scale = Mathf.Min(Mathf.Abs(boardSize.x / 8f), Mathf.Abs(boardSize.y / 8f));
+                                            break;
+                                        case Setting.Style.Normal:
+                                        default:
+                                            scale = Mathf.Min(Mathf.Abs(boardSize.x / 9f), Mathf.Abs(boardSize.y / 9f));
+                                            break;
+                                    }
+                                }
                                 // new scale
                                 Vector3 newLocalScale = new Vector3();
                                 {
@@ -129,6 +142,8 @@ namespace Shatranj
                 UpdateData updateData = data as UpdateData;
                 // Global
                 Global.get().addCallBack(this);
+                // Setting
+                Setting.get().addCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.addCallBack(this);
@@ -143,6 +158,12 @@ namespace Shatranj
             }
             // Global
             if (data is Global)
+            {
+                dirty = true;
+                return;
+            }
+            // Setting
+            if(data is Setting)
             {
                 dirty = true;
                 return;
@@ -182,6 +203,8 @@ namespace Shatranj
                 UpdateData updateData = data as UpdateData;
                 // Global
                 Global.get().removeCallBack(this);
+                // Setting
+                Setting.get().removeCallBack(this);
                 // CheckChange
                 {
                     gameDataBoardCheckTransformChange.removeCallBack(this);
@@ -196,6 +219,11 @@ namespace Shatranj
             }
             // Global
             if (data is Global)
+            {
+                return;
+            }
+            // Setting
+            if(data is Setting)
             {
                 return;
             }
@@ -244,6 +272,32 @@ namespace Shatranj
             if (wrapProperty.p is Global)
             {
                 Global.OnValueTransformChange(wrapProperty, this);
+                return;
+            }
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        break;
+                    case Setting.Property.style:
+                        dirty = true;
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    case Setting.Property.defaultChosenGame:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
                 return;
             }
             // CheckChange

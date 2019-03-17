@@ -215,6 +215,12 @@ namespace GameManager.Match
                                 Debug.LogError("chooseRoundUIData null: " + this);
                             }
                         }
+                        // SiblingIndex
+                        {
+                            UIRectTransform.SetSiblingIndex(this.data.roundUIData.v, 0);
+                            UIRectTransform.SetSiblingIndex(this.data.requestNewRoundUIData.v, 1);
+                            UIRectTransform.SetSiblingIndex(this.data.chooseRoundUIData.v, 2);
+                        }
                     }
                     else
                     {
@@ -238,13 +244,13 @@ namespace GameManager.Match
         #region implement callBacks
 
         public RoundUI roundPrefab;
-        public Transform roundContainer;
+        private static readonly UIRectTransform roundRect = UIConstants.FullParent;
 
         public RequestNewRoundUI requestNewRoundPrefab;
-        public Transform requestNewRoundContainer;
+        private static readonly UIRectTransform requestNewRoundRect = UIConstants.FullParent;
 
         public ChooseRoundUI chooseRoundPrefab;
-        public Transform chooseRoundContainer;
+        private static readonly UIRectTransform chooseRoundRect = UIRectTransform.CreateCenterRect(400, 400);
 
         private RoomUI.UIData roomUIData = null;
 
@@ -305,7 +311,7 @@ namespace GameManager.Match
                     RoundUI.UIData roundUIData = data as RoundUI.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(roundUIData, roundPrefab, roundContainer);
+                        UIUtils.Instantiate(roundUIData, roundPrefab, this.transform, roundRect);
                     }
                     dirty = true;
                     return;
@@ -315,7 +321,7 @@ namespace GameManager.Match
                     RequestNewRoundUI.UIData requestNewRoundUIData = data as RequestNewRoundUI.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(requestNewRoundUIData, requestNewRoundPrefab, requestNewRoundContainer);
+                        UIUtils.Instantiate(requestNewRoundUIData, requestNewRoundPrefab, this.transform, requestNewRoundRect);
                     }
                     dirty = true;
                     return;
@@ -325,7 +331,7 @@ namespace GameManager.Match
                     ChooseRoundUI.UIData chooseRoundUIData = data as ChooseRoundUI.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(chooseRoundUIData, chooseRoundPrefab, chooseRoundContainer);
+                        UIUtils.Instantiate(chooseRoundUIData, chooseRoundPrefab, this.transform, chooseRoundRect);
                     }
                     dirty = true;
                     return;
