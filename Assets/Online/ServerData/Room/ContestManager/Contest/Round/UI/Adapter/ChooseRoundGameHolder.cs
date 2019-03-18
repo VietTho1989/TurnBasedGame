@@ -88,15 +88,15 @@ namespace GameManager.Match
             {
                 // stateUIRect
                 {
-                    // anchoredPosition: (-58.0, 0.0); anchorMin: (1.0, 0.0); anchorMax: (1.0, 1.0); pivot: (1.0, 0.5);
-                    // offsetMin: (-108.0, 0.0); offsetMax: (-58.0, 0.0); sizeDelta: (50.0, 0.0);
+                    // anchoredPosition: (-58.0, 0.0); anchorMin: (1.0, 0.5); anchorMax: (1.0, 0.5); pivot: (1.0, 0.5);
+                    // offsetMin: (-118.0, -15.0); offsetMax: (-58.0, 15.0); sizeDelta: (60.0, 30.0);
                     stateUIRect.anchoredPosition = new Vector3(-58.0f, 0.0f);
-                    stateUIRect.anchorMin = new Vector2(1.0f, 0.0f);
-                    stateUIRect.anchorMax = new Vector2(1.0f, 1.0f);
+                    stateUIRect.anchorMin = new Vector2(1.0f, 0.5f);
+                    stateUIRect.anchorMax = new Vector2(1.0f, 0.5f);
                     stateUIRect.pivot = new Vector2(1.0f, 0.5f);
-                    stateUIRect.offsetMin = new Vector2(-108.0f, 0.0f);
-                    stateUIRect.offsetMax = new Vector2(-58.0f, 0.0f);
-                    stateUIRect.sizeDelta = new Vector2(50.0f, 0.0f);
+                    stateUIRect.offsetMin = new Vector2(-118.0f, -15.0f);
+                    stateUIRect.offsetMax = new Vector2(-58.0f, 15.0f);
+                    stateUIRect.sizeDelta = new Vector2(60.0f, 30.0f);
                 }
                 // roundGamePlayerRect
                 {
@@ -302,38 +302,13 @@ namespace GameManager.Match
                                     });
                                 }
                                 // position
-                                foreach(RoundGamePlayerUI.UIData player in players)
+                                foreach (RoundGamePlayerUI.UIData player in players)
                                 {
                                     deltaY += UIRectTransform.SetPosY(player, deltaY);
                                 }
                             }
                             // set size
-                            {
-                                ISRIA adapter = null;
-                                {
-                                    BaseParams baseParams = this.data.findDataInParent<BaseParams>();
-                                    if (baseParams != null)
-                                    {
-                                        // Debug.LogError ("find base params: " + baseParams + "; " + this);
-                                        // find adapter in callBack
-                                        adapter = baseParams.findCallBack<ISRIA>();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("baseParams null: " + this);
-                                    }
-                                }
-                                // Process
-                                if (adapter != null)
-                                {
-                                    float holderSize = Mathf.Max(deltaY, 40);
-                                    adapter.RequestChangeItemSizeAndUpdateLayout(this.data.ItemIndex, holderSize);
-                                }
-                                else
-                                {
-                                    Debug.LogError("adapter null");
-                                }
-                            }
+                            this.setHolderSize(Mathf.Max(deltaY, 40));
                         }
                         // btnShow
                         {

@@ -35,8 +35,10 @@ namespace GameManager.Match
 
         #region txt
 
-        public Text tvResult;
+        public Text tvTeam;
         private static readonly TxtLanguage txtTeam = new TxtLanguage();
+
+        public Text tvScore;
         private static readonly TxtLanguage txtScore = new TxtLanguage();
 
         static TeamResultUI()
@@ -59,13 +61,21 @@ namespace GameManager.Match
                     TeamResult teamResult = this.data.teamResult.v.data;
                     if (teamResult != null)
                     {
-                        if (tvResult != null)
+                        if (tvTeam != null)
                         {
-                            tvResult.text = txtTeam.get("Team") + ": " + teamResult.teamIndex.v + "; " + txtScore.get("Score") + ": " + teamResult.score.v;
+                            tvTeam.text = txtTeam.get("Team") + ": " + teamResult.teamIndex.v;
                         }
                         else
                         {
-                            Debug.LogError("tvResult null");
+                            Debug.LogError("tvTeam null");
+                        }
+                        if (tvScore != null)
+                        {
+                            tvScore.text = txtScore.get("Score") + ": " + teamResult.score.v;
+                        }
+                        else
+                        {
+                            Debug.LogError("tvScore null");
                         }
                     }
                     else

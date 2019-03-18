@@ -151,7 +151,7 @@ namespace GameManager.Match
                                 }
                             }
                             // set
-                            UIRectTransform.SetHeight((RectTransform)this.transform, deltaY + 4);
+                            UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                         }
                     }
                     else

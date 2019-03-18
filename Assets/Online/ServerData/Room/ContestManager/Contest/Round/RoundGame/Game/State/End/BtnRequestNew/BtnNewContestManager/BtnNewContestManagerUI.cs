@@ -84,7 +84,7 @@ public class BtnNewContestManagerUI : UIBehavior<BtnNewContestManagerUI.UIData>
             }
             else
             {
-                Debug.LogError("data null");
+                // Debug.LogError("data null");
             }
         }
     }

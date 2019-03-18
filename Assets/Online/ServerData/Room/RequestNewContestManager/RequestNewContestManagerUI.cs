@@ -43,7 +43,7 @@ namespace GameManager.Match
             public UIData() : base()
             {
                 this.requestNewContestManager = new VP<ReferenceData<RequestNewContestManager>>(this, (byte)Property.requestNewContestManager, new ReferenceData<RequestNewContestManager>(null));
-                this.sub = new VP<Sub>(this, (byte)Property.requestNewContestManager, null);
+                this.sub = new VP<Sub>(this, (byte)Property.sub, null);
             }
 
             #endregion

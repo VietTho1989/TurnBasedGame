@@ -1,134 +1,213 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace GameManager.Match
 {
-	public class ChooseContestManagerStateLobbyUI : UIBehavior<ChooseContestManagerStateLobbyUI.UIData>
-	{
+    public class ChooseContestManagerStateLobbyUI : UIBehavior<ChooseContestManagerStateLobbyUI.UIData>
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : ChooseContestManagerHolder.UIData.StateUI
-		{
+        public class UIData : ChooseContestManagerHolder.UIData.StateUI
+        {
 
-			public VP<ReferenceData<ContestManagerStateLobby>> contestManagerStateLobby;
+            public VP<ReferenceData<ContestManagerStateLobby>> contestManagerStateLobby;
 
-			#region Constructor
+            #region Constructor
 
-			public enum Property
-			{
-				contestManagerStateLobby
-			}
+            public enum Property
+            {
+                contestManagerStateLobby
+            }
 
-			public UIData() : base()
-			{
-				this.contestManagerStateLobby = new VP<ReferenceData<ContestManagerStateLobby>>(this, (byte)Property.contestManagerStateLobby, new ReferenceData<ContestManagerStateLobby>(null));
-			}
+            public UIData() : base()
+            {
+                this.contestManagerStateLobby = new VP<ReferenceData<ContestManagerStateLobby>>(this, (byte)Property.contestManagerStateLobby, new ReferenceData<ContestManagerStateLobby>(null));
+            }
 
-			#endregion
+            #endregion
 
-			public override ContestManager.State.Type getType ()
-			{
-				return ContestManager.State.Type.Lobby;
-			}
+            public override ContestManager.State.Type getType()
+            {
+                return ContestManager.State.Type.Lobby;
+            }
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
-					ContestManagerStateLobby contestManagerStateLobby = this.data.contestManagerStateLobby.v.data;
-					if (contestManagerStateLobby != null) {
+        public Text lbTitle;
+        private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-					} else {
-						Debug.LogError ("contestManagerStateLobby null: " + this);
-					}
-				} else {
-					Debug.LogError ("data null: " + this);
-				}
-			}
-		}
+        static ChooseContestManagerStateLobbyUI()
+        {
+            txtTitle.add(Language.Type.vi, "Đang Tạo");
+        }
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+        #endregion
 
-		#endregion
+        #region Refresh
 
-		#region implement callBacks
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
+                    ContestManagerStateLobby contestManagerStateLobby = this.data.contestManagerStateLobby.v.data;
+                    if (contestManagerStateLobby != null)
+                    {
+                        // txt
+                        {
+                            if (lbTitle != null)
+                            {
+                                lbTitle.text = txtTitle.get("Lobbying");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("contestManagerStateLobby null: " + this);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("data null: " + this);
+                }
+            }
+        }
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Child
-				{
-					uiData.contestManagerStateLobby.allAddCallBack (this);
-				}
-				dirty = true;
-				return;
-			}
-			// Child
-			if (data is ContestManagerStateLobby) {
-				dirty = true;
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Child
-				{
-					uiData.contestManagerStateLobby.allRemoveCallBack (this);
-				}
-				this.setDataNull (uiData);
-				return;
-			}
-			// Child
-			if (data is ContestManagerStateLobby) {
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        #endregion
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.contestManagerStateLobby:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// Child
-			if (wrapProperty.p is ContestManagerStateLobby) {
-				return;
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+        #region implement callBacks
 
-		#endregion
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
+                // Child
+                {
+                    uiData.contestManagerStateLobby.allAddCallBack(this);
+                }
+                dirty = true;
+                return;
+            }
+            // Setting
+            if(data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // Child
+            if (data is ContestManagerStateLobby)
+            {
+                dirty = true;
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-	}
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
+                // Child
+                {
+                    uiData.contestManagerStateLobby.allRemoveCallBack(this);
+                }
+                this.setDataNull(uiData);
+                return;
+            }
+            // Setting
+            if(data is Setting)
+            {
+                return;
+            }
+            // Child
+            if (data is ContestManagerStateLobby)
+            {
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
+
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.contestManagerStateLobby:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    case Setting.Property.defaultChosenGame:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            if (wrapProperty.p is ContestManagerStateLobby)
+            {
+                return;
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
+
+        #endregion
+
+    }
 }

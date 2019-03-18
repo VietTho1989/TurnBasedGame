@@ -386,7 +386,7 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
             }
             // roundRobinContentUIData
             {
-                if(data is RoundRobinContentUI.UIData)
+                if (data is RoundRobinContentUI.UIData)
                 {
                     RoundRobinContentUI.UIData roundRobinContentUIData = data as RoundRobinContentUI.UIData;
                     // Child
@@ -398,7 +398,7 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                 }
                 // Child
                 {
-                    if(data is RequestNewRoundRobinUI.UIData)
+                    if (data is RequestNewRoundRobinUI.UIData)
                     {
                         RequestNewRoundRobinUI.UIData requestNewRoundRobinUIData = data as RequestNewRoundRobinUI.UIData;
                         // Child
@@ -409,7 +409,7 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                         return;
                     }
                     // Child
-                    if(data is RequestNewRoundRobin)
+                    if (data is RequestNewRoundRobin)
                     {
                         dirty = true;
                         return;

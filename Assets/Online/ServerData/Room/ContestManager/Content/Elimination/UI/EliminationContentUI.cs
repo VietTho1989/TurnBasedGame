@@ -293,7 +293,7 @@ namespace GameManager.Match.Elimination
         public EliminationRoundUI eliminationRoundPrefab;
 
         public ChooseEliminationRoundUI chooseEliminationRoundPrefab;
-        private static readonly UIRectTransform chooseEliminationRoundRect = UIRectTransform.CreateCenterRect(360, 400);
+        private static readonly UIRectTransform chooseEliminationRoundRect = UIRectTransform.CreateCenterRect(400, 400);
 
         public RequestNewEliminationRoundUI requestNewEliminationRoundPrefab;
 
