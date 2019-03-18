@@ -211,7 +211,7 @@ public class WaitInputActionUI : UIBehavior<WaitInputActionUI.UIData>
                                     Debug.LogError("game null");
                                 }
                             }
-                            lbTitle.text = txtTitle.get("Waiting move " + turnIndex);
+                            lbTitle.text = txtTitle.get("Waiting move") + " " + turnIndex;
                         }
                         else
                         {

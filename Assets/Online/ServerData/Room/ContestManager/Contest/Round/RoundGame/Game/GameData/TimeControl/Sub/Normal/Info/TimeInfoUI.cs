@@ -331,6 +331,8 @@ namespace TimeControl.Normal
                                         RequestChangeEnumUI.UIData timePerTurnType = this.data.timePerTurnType.v;
                                         if (timePerTurnType != null)
                                         {
+                                            // options
+                                            timePerTurnType.options.copyList(TimePerTurnInfo.getStrTypes());
                                             // update
                                             RequestChangeUpdate<int>.UpdateData updateData = timePerTurnType.updateData.v;
                                             if (updateData != null)
@@ -450,6 +452,8 @@ namespace TimeControl.Normal
                                         RequestChangeEnumUI.UIData totalTimeType = this.data.totalTimeType.v;
                                         if (totalTimeType != null)
                                         {
+                                            // options
+                                            totalTimeType.options.copyList(TotalTimeInfo.getStrTypes());
                                             // update
                                             RequestChangeUpdate<int>.UpdateData updateData = totalTimeType.updateData.v;
                                             if (updateData != null)
@@ -569,6 +573,8 @@ namespace TimeControl.Normal
                                         RequestChangeEnumUI.UIData overTimePerTurnType = this.data.overTimePerTurnType.v;
                                         if (overTimePerTurnType != null)
                                         {
+                                            // options
+                                            overTimePerTurnType.options.copyList(TimePerTurnInfo.getStrTypes());
                                             // update
                                             RequestChangeUpdate<int>.UpdateData updateData = overTimePerTurnType.updateData.v;
                                             if (updateData != null)

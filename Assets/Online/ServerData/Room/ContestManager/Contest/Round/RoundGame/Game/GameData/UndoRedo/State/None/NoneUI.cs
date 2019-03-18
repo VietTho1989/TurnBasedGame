@@ -137,6 +137,18 @@ namespace UndoRedo
                     None none = this.data.none.v.data;
                     if (none != null)
                     {
+                        // requestType
+                        {
+                            RequestChangeEnumUI.UIData requestType = this.data.requestType.v;
+                            if (requestType != null)
+                            {
+                                requestType.options.copyList(RequestInform.getStrTypes());
+                            }
+                            else
+                            {
+                                Debug.LogError("requestType null");
+                            }
+                        }
                         // Check can ask
                         bool canAsk = false;
                         {

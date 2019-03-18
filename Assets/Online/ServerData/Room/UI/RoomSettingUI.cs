@@ -295,6 +295,8 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                                     RequestChangeEnumUI.UIData allowHint = this.data.allowHint.v;
                                     if (allowHint != null)
                                     {
+                                        // options
+                                        allowHint.options.copyList(Room.getAllowHintStr());
                                         // update
                                         RequestChangeUpdate<int>.UpdateData updateData = allowHint.updateData.v;
                                         if (updateData != null)

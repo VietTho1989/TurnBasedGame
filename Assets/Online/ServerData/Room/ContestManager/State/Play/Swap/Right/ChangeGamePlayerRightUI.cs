@@ -206,7 +206,7 @@ namespace GameManager.Match.Swap
         {
             // txt
             {
-                txtTitle.add(Language.Type.vi, "Quyền thay đổi người chơi");
+                txtTitle.add(Language.Type.vi, "Quyền Thay Đổi Người Chơi");
                 txtCanChange.add(Language.Type.vi, "Có thể đổi");
                 txtCanChangePlayerLeft.add(Language.Type.vi, "Có thể đổi người đã rời");
                 txtNeedAdminAccept.add(Language.Type.vi, "Cần admin chấp nhận");
@@ -525,6 +525,14 @@ namespace GameManager.Match.Swap
                     }
                     // txt
                     {
+                        if (lbTitle != null)
+                        {
+                            lbTitle.text = txtTitle.get("Change Game Player Rights");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null");
+                        }
                         if (lbCanChange != null)
                         {
                             lbCanChange.text = txtCanChange.get("Can change");

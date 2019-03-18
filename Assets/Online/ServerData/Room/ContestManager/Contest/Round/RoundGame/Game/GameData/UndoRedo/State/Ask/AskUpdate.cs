@@ -195,6 +195,50 @@ namespace UndoRedo
                                 // Process
                                 if (allAccept)
                                 {
+                                    // add count
+                                    {
+                                        // find playerIndex
+                                        int playerIndex = 0;
+                                        {
+                                            Game game = this.data.findDataInParent<Game>();
+                                            if (game != null)
+                                            {
+                                                GameData gameData = game.gameData.v;
+                                                if (gameData != null)
+                                                {
+                                                    Turn turn = gameData.turn.v;
+                                                    if (turn != null)
+                                                    {
+                                                        playerIndex = turn.playerIndex.v;
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("turn null");
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("gameData null");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("game null");
+                                            }
+                                        }
+                                        // add
+                                        {
+                                            UndoRedoRequest undoRedoRequest = this.data.findDataInParent<UndoRedoRequest>();
+                                            if (undoRedoRequest != null)
+                                            {
+                                                undoRedoRequest.addCount(playerIndex);
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("undoRedoRequest null");
+                                            }
+                                        }
+                                    }
                                     // goi undoRedoAction
                                     {
                                         Game game = this.data.findDataInParent<Game>();
@@ -635,6 +679,8 @@ namespace UndoRedo
                     switch ((UndoRedoRequest.Property)wrapProperty.n)
                     {
                         case UndoRedoRequest.Property.state:
+                            break;
+                        case UndoRedoRequest.Property.count:
                             break;
                         default:
                             Debug.LogError("Don't process: " + wrapProperty + "; " + this);

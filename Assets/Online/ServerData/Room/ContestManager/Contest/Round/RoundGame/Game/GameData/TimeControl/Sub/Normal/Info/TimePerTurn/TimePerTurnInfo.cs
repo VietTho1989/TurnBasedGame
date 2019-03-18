@@ -4,124 +4,162 @@ using System.Collections.Generic;
 
 namespace TimeControl.Normal
 {
-	public abstract class TimePerTurnInfo : Data
-	{
+    public abstract class TimePerTurnInfo : Data
+    {
 
-		public const float DefaultPerTurn = 120f;
-		// public const float DefaultPerTurn = 30f;
+        public const float DefaultPerTurn = 120f;
+        // public const float DefaultPerTurn = 30f;
 
-		public enum Type
-		{
-			Limit,
-			NoLimit
-		}
+        public enum Type
+        {
+            Limit,
+            NoLimit
+        }
 
-		public abstract Type getType ();
+        #region txt
 
-		public abstract bool isOverTime(float time);
+        private static readonly TxtLanguage txtLimit = new TxtLanguage();
+        private static readonly TxtLanguage txtNoLimit = new TxtLanguage();
 
-		#region Limit
+        static TimePerTurnInfo()
+        {
+            txtLimit.add(Language.Type.vi, "Có Giới Hạn");
+            txtNoLimit.add(Language.Type.vi, "Không Giới Hạn");
+        }
 
-		public class Limit : TimePerTurnInfo
-		{
+        public static List<string> getStrTypes()
+        {
+            List<string> ret = new List<string>();
+            {
+                ret.Add(txtLimit.get("Have Limit"));
+                ret.Add(txtNoLimit.get("No Limit"));
+            }
+            return ret;
+        }
 
-			#region perTurn
+        #endregion
 
-			/** second*/
-			public VP<float> perTurn;
+        public abstract Type getType();
 
-			public void requestChangePerTurn(uint userId, float newPerTurn){
-				Data.NeedRequest needRequest = this.isNeedRequestServerByNetworkIdentity ();
-				if (needRequest.canRequest) {
-					if (!needRequest.needIdentity) {
-						this.changePerTurn (userId, newPerTurn);
-					} else {
-						DataIdentity dataIdentity = null;
-						if (DataIdentity.clientMap.TryGetValue (this, out dataIdentity)) {
-							if (dataIdentity is TimePerTurnInfoLimitIdentity) {
-								TimePerTurnInfoLimitIdentity timePerTurnInfoLimitIdentity = dataIdentity as TimePerTurnInfoLimitIdentity;
-								timePerTurnInfoLimitIdentity.requestChangePerTurn (userId, newPerTurn);
-							} else {
-								Debug.LogError ("Why isn't correct identity");
-							}
-						} else {
-							Debug.LogError ("cannot find dataIdentity");
-						}
-					}
-				} else {
-					Debug.LogError ("You cannot request");
-				}
-			}
+        public abstract bool isOverTime(float time);
 
-			public void changePerTurn(uint userId, float newPerTurn){
-				// Process
-				if (GameManager.Match.ContestManagerStateLobby.IsCanChange (this, userId)) {
-					this.perTurn.v = newPerTurn;
-				}
-			}
+        #region Limit
 
-			#endregion
+        public class Limit : TimePerTurnInfo
+        {
 
-			#region Constructor
+            #region perTurn
 
-			public enum Property
-			{
-				perTurn
-			}
+            /** second*/
+            public VP<float> perTurn;
 
-			public Limit() : base()
-			{
-				this.perTurn = new VP<float>(this, (byte)Property.perTurn, DefaultPerTurn);
-			}
+            public void requestChangePerTurn(uint userId, float newPerTurn)
+            {
+                Data.NeedRequest needRequest = this.isNeedRequestServerByNetworkIdentity();
+                if (needRequest.canRequest)
+                {
+                    if (!needRequest.needIdentity)
+                    {
+                        this.changePerTurn(userId, newPerTurn);
+                    }
+                    else
+                    {
+                        DataIdentity dataIdentity = null;
+                        if (DataIdentity.clientMap.TryGetValue(this, out dataIdentity))
+                        {
+                            if (dataIdentity is TimePerTurnInfoLimitIdentity)
+                            {
+                                TimePerTurnInfoLimitIdentity timePerTurnInfoLimitIdentity = dataIdentity as TimePerTurnInfoLimitIdentity;
+                                timePerTurnInfoLimitIdentity.requestChangePerTurn(userId, newPerTurn);
+                            }
+                            else
+                            {
+                                Debug.LogError("Why isn't correct identity");
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("cannot find dataIdentity");
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogError("You cannot request");
+                }
+            }
 
-			#endregion
+            public void changePerTurn(uint userId, float newPerTurn)
+            {
+                // Process
+                if (GameManager.Match.ContestManagerStateLobby.IsCanChange(this, userId))
+                {
+                    this.perTurn.v = newPerTurn;
+                }
+            }
 
-			public override Type getType ()
-			{
-				return Type.Limit;
-			}
+            #endregion
 
-			public override bool isOverTime (float time)
-			{
-				return time >= this.perTurn.v;
-			}
+            #region Constructor
 
-		}
+            public enum Property
+            {
+                perTurn
+            }
 
-		#endregion
+            public Limit() : base()
+            {
+                this.perTurn = new VP<float>(this, (byte)Property.perTurn, DefaultPerTurn);
+            }
 
-		#region NoLimt
+            #endregion
 
-		public class NoLimit : TimePerTurnInfo
-		{
+            public override Type getType()
+            {
+                return Type.Limit;
+            }
 
-			#region Constructor
+            public override bool isOverTime(float time)
+            {
+                return time >= this.perTurn.v;
+            }
 
-			public enum Property
-			{
+        }
 
-			}
+        #endregion
 
-			public NoLimit() : base()
-			{
+        #region NoLimt
 
-			}
+        public class NoLimit : TimePerTurnInfo
+        {
 
-			#endregion
+            #region Constructor
 
-			public override Type getType ()
-			{
-				return Type.NoLimit;
-			}
+            public enum Property
+            {
 
-			public override bool isOverTime (float time)
-			{
-				return false;
-			}
+            }
 
-		}
+            public NoLimit() : base()
+            {
 
-		#endregion
+            }
 
-	}
+            #endregion
+
+            public override Type getType()
+            {
+                return Type.NoLimit;
+            }
+
+            public override bool isOverTime(float time)
+            {
+                return false;
+            }
+
+        }
+
+        #endregion
+
+    }
 }

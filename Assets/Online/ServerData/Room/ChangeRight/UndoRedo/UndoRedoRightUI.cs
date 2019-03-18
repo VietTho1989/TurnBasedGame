@@ -328,6 +328,8 @@ namespace Rights
                                         RequestChangeEnumUI.UIData limitType = this.data.limitType.v;
                                         if (limitType != null)
                                         {
+                                            // options
+                                            limitType.options.copyList(Limit.getStrTypes());
                                             // update
                                             RequestChangeUpdate<int>.UpdateData updateData = limitType.updateData.v;
                                             if (updateData != null)

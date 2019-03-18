@@ -104,6 +104,29 @@ namespace GameManager.Match
                 HaveLimit
             }
 
+            #region txt
+
+            private static readonly TxtLanguage txtNoLimit = new TxtLanguage();
+            private static readonly TxtLanguage txtHaveLimit = new TxtLanguage();
+
+            static Limit()
+            {
+                txtNoLimit.add(Language.Type.vi, "Không Giới Hạn");
+                txtHaveLimit.add(Language.Type.vi, "Có Giới Hạn");
+            }
+
+            public static List<string> getStrTypes()
+            {
+                List<string> ret = new List<string>();
+                {
+                    ret.Add(txtNoLimit.get("No Limit"));
+                    ret.Add(txtHaveLimit.get("Have Limit"));
+                }
+                return ret;
+            }
+
+            #endregion
+
             public abstract Type getType();
 
             public abstract bool isCanMakeMoreRound();

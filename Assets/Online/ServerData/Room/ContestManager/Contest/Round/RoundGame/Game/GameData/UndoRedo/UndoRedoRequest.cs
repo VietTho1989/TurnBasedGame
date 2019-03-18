@@ -61,38 +61,90 @@ public class UndoRedoRequest : Data
             // Process
             if (undoRedoRight != null)
             {
-                // GamePlayer
+                // check undo redo limit
+                bool isAlreadyLimit = false;
                 {
-                    Game game = this.findDataInParent<Game>();
-                    if (game != null)
+                    // find count
+                    int count = 0;
                     {
-                        for (int i = 0; i < game.gamePlayers.vs.Count; i++)
+                        // find playerIndex
+                        int playerIndex = 0;
                         {
-                            GamePlayer gamePlayer = game.gamePlayers.vs[i];
-                            if (gamePlayer.inform.v is Human)
+                            Game game = this.findDataInParent<Game>();
+                            if (game != null)
                             {
-                                Human human = gamePlayer.inform.v as Human;
-                                ret.Add(human.playerId.v);
+                                GameData gameData = game.gameData.v;
+                                if (gameData != null)
+                                {
+                                    Turn turn = gameData.turn.v;
+                                    if (turn != null)
+                                    {
+                                        playerIndex = turn.playerIndex.v;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("turn null");
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("gameData null");
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("game null");
                             }
                         }
+                        // process
+                        count = this.getCount(playerIndex);
                     }
-                    else
+                    // process
+                    if (undoRedoRight.limit.v.isOverLimit(count))
                     {
-                        Debug.LogError("Duel null");
+                        isAlreadyLimit = true;
                     }
                 }
-                // Admin
-                if (ret.Count == 0 || undoRedoRight.needAdmin.v)
+                // process
+                if (!isAlreadyLimit)
                 {
-                    RoomUser admin = Room.findAdmin(this);
-                    if (admin != null)
+                    // GamePlayer
                     {
-                        ret.Add(admin.inform.v.playerId.v);
+                        Game game = this.findDataInParent<Game>();
+                        if (game != null)
+                        {
+                            for (int i = 0; i < game.gamePlayers.vs.Count; i++)
+                            {
+                                GamePlayer gamePlayer = game.gamePlayers.vs[i];
+                                if (gamePlayer.inform.v is Human)
+                                {
+                                    Human human = gamePlayer.inform.v as Human;
+                                    ret.Add(human.playerId.v);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("Duel null");
+                        }
                     }
-                    else
+                    // Admin
+                    if (ret.Count == 0 || undoRedoRight.needAdmin.v)
                     {
-                        Debug.LogError("admin null");
+                        RoomUser admin = Room.findAdmin(this);
+                        if (admin != null)
+                        {
+                            ret.Add(admin.inform.v.playerId.v);
+                        }
+                        else
+                        {
+                            Debug.LogError("admin null");
+                        }
                     }
+                }
+                else
+                {
+                    // already limit
                 }
             }
             else
@@ -147,16 +199,68 @@ public class UndoRedoRequest : Data
 
     #endregion
 
+    #region count
+
+    public LP<int> count;
+
+    public int getCount(int playerIndex)
+    {
+        int ret = 0;
+        {
+            if(playerIndex>=0 && playerIndex < this.count.vs.Count)
+            {
+                ret = this.count.vs[playerIndex];
+            }
+            else
+            {
+                Debug.LogError("playerIndex error");
+            }
+        }
+        return ret;
+    }
+
+    public void addCount(int playerIndex)
+    {
+        if (playerIndex < this.count.vs.Count)
+        {
+            int oldCount = this.count.vs[playerIndex];
+            this.count.set(playerIndex, oldCount + 1);
+        }
+        else
+        {
+            List<int> countList = new List<int>();
+            {
+                for (int i = 0; i < playerIndex; i++)
+                {
+                    int count = 0;
+                    {
+                        if (i < this.count.vs.Count)
+                        {
+                            count = this.count.vs[i];
+                        }
+                    }
+                    countList.Add(count);
+                }
+                countList.Add(1);
+            }
+            this.count.copyList(countList);
+        }
+    }
+
+    #endregion
+
     #region Constructor
 
     public enum Property
     {
-        state
+        state,
+        count
     }
 
     public UndoRedoRequest() : base()
     {
         this.state = new VP<State>(this, (byte)Property.state, new None());
+        this.count = new LP<int>(this, (byte)Property.count);
     }
 
     #endregion

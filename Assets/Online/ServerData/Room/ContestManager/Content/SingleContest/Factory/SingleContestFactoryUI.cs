@@ -539,6 +539,8 @@ namespace GameManager.Match
                                         RequestChangeEnumUI.UIData newRoundLimitType = this.data.newRoundLimitType.v;
                                         if (newRoundLimitType != null)
                                         {
+                                            // options
+                                            newRoundLimitType.options.copyList(RequestNewRound.Limit.getStrTypes());
                                             // update
                                             RequestChangeUpdate<int>.UpdateData updateData = newRoundLimitType.updateData.v;
                                             if (updateData != null)
@@ -678,6 +680,8 @@ namespace GameManager.Match
                                         RequestChangeEnumUI.UIData calculateScoreType = this.data.calculateScoreType.v;
                                         if (calculateScoreType != null)
                                         {
+                                            // options
+                                            calculateScoreType.options.copyList(CalculateScore.getStrTypes());
                                             // update
                                             RequestChangeUpdate<int>.UpdateData updateData = calculateScoreType.updateData.v;
                                             if (updateData != null)

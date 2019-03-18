@@ -7,511 +7,681 @@ using GameManager.Match;
 public class Room : Data
 {
 
-	public VP<RoomInform> roomInform;
+    public VP<RoomInform> roomInform;
 
-	#region Rights
+    #region Rights
 
-	public VP<ChangeRights> changeRights;
+    public VP<ChangeRights> changeRights;
 
-	#endregion
+    #endregion
 
-	#region name
+    #region name
 
-	public VP<string> name;
+    public VP<string> name;
 
-	public void requestChangeName(uint userId, string newName)
-	{
-		Data.NeedRequest needRequest = this.isNeedRequestServerByNetworkIdentity ();
-		if (needRequest.canRequest) {
-			if (!needRequest.needIdentity) {
-				this.changeName (userId, newName);
-			} else {
-				DataIdentity dataIdentity = null;
-				if (DataIdentity.clientMap.TryGetValue (this, out dataIdentity)) {
-					if (dataIdentity is RoomIdentity) {
-						RoomIdentity roomIdentity = dataIdentity as RoomIdentity;
-						roomIdentity.requestChangeName(userId, newName);
-					} else {
-						Debug.LogError ("Why isn't correct identity");
-					}
-				} else {
-					Debug.LogError ("cannot find dataIdentity");
-				}
-			}
-		} else {
-			Debug.LogError ("You cannot request");
-		}
-	}
+    public void requestChangeName(uint userId, string newName)
+    {
+        Data.NeedRequest needRequest = this.isNeedRequestServerByNetworkIdentity();
+        if (needRequest.canRequest)
+        {
+            if (!needRequest.needIdentity)
+            {
+                this.changeName(userId, newName);
+            }
+            else
+            {
+                DataIdentity dataIdentity = null;
+                if (DataIdentity.clientMap.TryGetValue(this, out dataIdentity))
+                {
+                    if (dataIdentity is RoomIdentity)
+                    {
+                        RoomIdentity roomIdentity = dataIdentity as RoomIdentity;
+                        roomIdentity.requestChangeName(userId, newName);
+                    }
+                    else
+                    {
+                        Debug.LogError("Why isn't correct identity");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("cannot find dataIdentity");
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("You cannot request");
+        }
+    }
 
-	public void changeName(uint userId, string newName)
-	{
-		if (Room.IsCanEditSetting (this, userId)) {
-			this.name.v = newName;
-		} else {
-			Debug.LogError ("cannot change name: " + userId + "; " + this);
-		}
-	}
+    public void changeName(uint userId, string newName)
+    {
+        if (Room.IsCanEditSetting(this, userId))
+        {
+            this.name.v = newName;
+        }
+        else
+        {
+            Debug.LogError("cannot change name: " + userId + "; " + this);
+        }
+    }
 
-	#endregion
+    #endregion
 
-	public VP<string> password;
+    public VP<string> password;
 
-	public static bool IsCanEditSetting(Data data, uint userId)
-	{
-		if (data != null) {
-			Room room = data.findDataInParent<Room> ();
-			if (room != null) {
-				RoomUser admin = Room.findAdmin (data);
-				if (admin != null) {
-					Human human = admin.inform.v;
-					if (human != null) {
-						if (human.playerId.v == userId) {
-							return true;
-						}
-					} else {
-						Debug.LogError ("human null: " + data);
-					}
-				} else {
-					Debug.LogError ("admin null: " + data);
-				}
-			} else {
-				Debug.LogError ("room null: " + data);
-				return true;
-			}
-		} else {
-			Debug.LogError ("data null");
-		}
-		return false;
-	}
+    public static bool IsCanEditSetting(Data data, uint userId)
+    {
+        if (data != null)
+        {
+            Room room = data.findDataInParent<Room>();
+            if (room != null)
+            {
+                RoomUser admin = Room.findAdmin(data);
+                if (admin != null)
+                {
+                    Human human = admin.inform.v;
+                    if (human != null)
+                    {
+                        if (human.playerId.v == userId)
+                        {
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("human null: " + data);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("admin null: " + data);
+                }
+            }
+            else
+            {
+                Debug.LogError("room null: " + data);
+                return true;
+            }
+        }
+        else
+        {
+            Debug.LogError("data null");
+        }
+        return false;
+    }
 
-	#region User
+    #region User
 
-	public LP<RoomUser> users;
+    public LP<RoomUser> users;
 
-	public static RoomUser findUser(uint userId, Data data){
-		Room room = data.findDataInParent<Room> ();
-		if (room != null) {
-			return room.findUser (userId);
-		} else {
-			Debug.LogError ("room null");
-		}
-		return null;
-	}
+    public static RoomUser findUser(uint userId, Data data)
+    {
+        Room room = data.findDataInParent<Room>();
+        if (room != null)
+        {
+            return room.findUser(userId);
+        }
+        else
+        {
+            Debug.LogError("room null");
+        }
+        return null;
+    }
 
-	public static bool isUserAdmin(uint userId, Data data){
-		Room room = data.findDataInParent<Room> ();
-		if (room != null) {
-			RoomUser roomUser = room.findUser (userId);
-			if (roomUser != null && roomUser.isInsideRoom()) {
-				if (roomUser.role.v == RoomUser.Role.ADMIN) {
-					return true;
-				}
-			} else {
-				Debug.LogError ("Why cannot find your roomUser");
-			}
-		} else {
-			Debug.LogError ("room null");
-		}
-		return false;
-	}
+    public static bool isUserAdmin(uint userId, Data data)
+    {
+        Room room = data.findDataInParent<Room>();
+        if (room != null)
+        {
+            RoomUser roomUser = room.findUser(userId);
+            if (roomUser != null && roomUser.isInsideRoom())
+            {
+                if (roomUser.role.v == RoomUser.Role.ADMIN)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                Debug.LogError("Why cannot find your roomUser");
+            }
+        }
+        else
+        {
+            Debug.LogError("room null");
+        }
+        return false;
+    }
 
-	public static bool isYouAdmin(Data data){
-		if (data != null) {
-			Room room = data.findDataInParent<Room> ();
-			if (room != null) {
-				Server server = data.findDataInParent<Server> ();
-				if (server != null) {
-					RoomUser roomUser = room.findUser (server.profileId.v);
-					if (roomUser != null && roomUser.isInsideRoom()) {
-						if (roomUser.role.v == RoomUser.Role.ADMIN) {
-							return true;
-						}
-					} else {
-						Debug.LogError ("Why cannot find your roomUser");
-					}
-				} else {
-					Debug.LogError ("why server null");
-				}
-			} else {
-				Debug.LogError ("room null");
-			}
-		} else {
-			Debug.LogError ("data null");
-		}
-		return false;
-	}
+    public static bool isYouAdmin(Data data)
+    {
+        if (data != null)
+        {
+            Room room = data.findDataInParent<Room>();
+            if (room != null)
+            {
+                Server server = data.findDataInParent<Server>();
+                if (server != null)
+                {
+                    RoomUser roomUser = room.findUser(server.profileId.v);
+                    if (roomUser != null && roomUser.isInsideRoom())
+                    {
+                        if (roomUser.role.v == RoomUser.Role.ADMIN)
+                        {
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("Why cannot find your roomUser");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("why server null");
+                }
+            }
+            else
+            {
+                Debug.LogError("room null");
+            }
+        }
+        else
+        {
+            Debug.LogError("data null");
+        }
+        return false;
+    }
 
-	public RoomUser findAdmin(){
-		return this.users.vs.Find (user => user.role.v == RoomUser.Role.ADMIN);
-	}
+    public RoomUser findAdmin()
+    {
+        return this.users.vs.Find(user => user.role.v == RoomUser.Role.ADMIN);
+    }
 
-	public static RoomUser findAdmin(Data data)
-	{
-		Room room = data.findDataInParent<Room> ();
-		if (room != null) {
-			return room.findAdmin ();
-		} else {
-			Debug.LogError ("room null");
-		}
-		return null;
-	}
+    public static RoomUser findAdmin(Data data)
+    {
+        Room room = data.findDataInParent<Room>();
+        if (room != null)
+        {
+            return room.findAdmin();
+        }
+        else
+        {
+            Debug.LogError("room null");
+        }
+        return null;
+    }
 
-	public RoomUser findUser(uint userId){
-		return this.users.vs.Find (user => user.inform.v.playerId.v == userId);
-	}
+    public RoomUser findUser(uint userId)
+    {
+        return this.users.vs.Find(user => user.inform.v.playerId.v == userId);
+    }
 
-	public bool isHaveActiveUser()
-	{
-		foreach (RoomUser roomUser in this.users.vs) {
-			if (roomUser.isInsideRoom ()) {
-				return true;
-			}
-		}
-		// Debug.LogError ("Don't have any active user: " + this);
-		return false;
-	}
+    public bool isHaveActiveUser()
+    {
+        foreach (RoomUser roomUser in this.users.vs)
+        {
+            if (roomUser.isInsideRoom())
+            {
+                return true;
+            }
+        }
+        // Debug.LogError ("Don't have any active user: " + this);
+        return false;
+    }
 
-	#endregion
-		
-	#region State
+    #endregion
 
-	public abstract class State:Data
-	{
+    #region State
 
-		public enum Type
-		{
-			Normal,
-			End
-		}
+    public abstract class State : Data
+    {
 
-		public abstract Type getType();
-		
-	}
+        public enum Type
+        {
+            Normal,
+            End
+        }
 
-	public VP<State> state;
+        public abstract Type getType();
 
-	public bool isActive()
-	{
-		switch (this.state.v.getType()) {
-		case Room.State.Type.Normal:
-			return true;
-		case Room.State.Type.End:
-			return false;
-		default:
-			Debug.LogError ("unknown room state: " + this.state.v.getType ());
-			return false;;
-		}
-	}
+    }
 
-	#endregion
+    public VP<State> state;
 
-	#region Contest Manager
+    public bool isActive()
+    {
+        switch (this.state.v.getType())
+        {
+            case Room.State.Type.Normal:
+                return true;
+            case Room.State.Type.End:
+                return false;
+            default:
+                Debug.LogError("unknown room state: " + this.state.v.getType());
+                return false; ;
+        }
+    }
 
-	public VP<RequestNewContestManager> requestNewContestManager;
+    #endregion
 
-	public LP<ContestManager> contestManagers;
+    #region Contest Manager
 
-	#endregion
-		
-	public VP<long> timeCreated;
+    public VP<RequestNewContestManager> requestNewContestManager;
 
-	#region ChatRoom
+    public LP<ContestManager> contestManagers;
 
-	public VP<ChatRoom> chatRoom;
+    #endregion
 
-	#endregion
+    public VP<long> timeCreated;
 
-	#region AllowHint
+    #region ChatRoom
 
-	public enum AllowHint
-	{
-		No,
-		OnlyWatcher,
-		Allow
-	}
+    public VP<ChatRoom> chatRoom;
 
-	public VP<AllowHint> allowHint;
+    #endregion
 
-	public void requestChangeAllowHint(uint userId, int newAllowHint)
-	{
-		Data.NeedRequest needRequest = this.isNeedRequestServerByNetworkIdentity ();
-		if (needRequest.canRequest) {
-			if (!needRequest.needIdentity) {
-				this.changeAllowHint (userId, newAllowHint);
-			} else {
-				DataIdentity dataIdentity = null;
-				if (DataIdentity.clientMap.TryGetValue (this, out dataIdentity)) {
-					if (dataIdentity is RoomIdentity) {
-						RoomIdentity roomIdentity = dataIdentity as RoomIdentity;
-						roomIdentity.requestChangeAllowHint(userId, newAllowHint);	
-					} else {
-						Debug.LogError ("Why isn't correct identity");
-					}
-				} else {
-					Debug.LogError ("cannot find dataIdentity");
-				}
-			}
-		} else {
-			Debug.LogError ("You cannot request");
-		}
-	}
+    #region AllowHint
 
-	public void changeAllowHint(uint userId, int newAllowHint)
-	{
-		if (Room.IsCanEditSetting (this, userId)) {
-			this.allowHint.v = (AllowHint)newAllowHint;
-		} else {
-			Debug.LogError ("cannot change name: " + userId + "; " + this);
-		}
-	}
+    public enum AllowHint
+    {
+        No,
+        OnlyWatcher,
+        Allow
+    }
 
-	#endregion
+    #region txt
 
-	#region allowLoadHistory
+    private static readonly TxtLanguage txtAllowHintNo = new TxtLanguage();
+    private static readonly TxtLanguage txtAllowHintOnlyWatcher = new TxtLanguage();
+    private static readonly TxtLanguage txtAllowHintAllow = new TxtLanguage();
 
-	public VP<bool> allowLoadHistory;
+    static Room()
+    {
+        txtAllowHintNo.add(Language.Type.vi, "Không Cho Phép");
+        txtAllowHintOnlyWatcher.add(Language.Type.vi, "Cho Người Xem");
+        txtAllowHintAllow.add(Language.Type.vi, "Được Phép");
+    }
 
-	// TODO Can hoan thien
+    public static List<string> getAllowHintStr()
+    {
+        List<string> ret = new List<string>();
+        {
+            ret.Add(txtAllowHintNo.get("Not Allow"));
+            ret.Add(txtAllowHintOnlyWatcher.get("Only Watcher"));
+            ret.Add(txtAllowHintAllow.get("Allow"));
+        }
+        return ret;
+    }
 
-	#endregion
+    #endregion
 
-	#region Constructor
+    public VP<AllowHint> allowHint;
 
-	public enum Property
-	{
-		roomInform,
-		changeRights,
-		name,
-		password,
-		users,
-		state,
+    public void requestChangeAllowHint(uint userId, int newAllowHint)
+    {
+        Data.NeedRequest needRequest = this.isNeedRequestServerByNetworkIdentity();
+        if (needRequest.canRequest)
+        {
+            if (!needRequest.needIdentity)
+            {
+                this.changeAllowHint(userId, newAllowHint);
+            }
+            else
+            {
+                DataIdentity dataIdentity = null;
+                if (DataIdentity.clientMap.TryGetValue(this, out dataIdentity))
+                {
+                    if (dataIdentity is RoomIdentity)
+                    {
+                        RoomIdentity roomIdentity = dataIdentity as RoomIdentity;
+                        roomIdentity.requestChangeAllowHint(userId, newAllowHint);
+                    }
+                    else
+                    {
+                        Debug.LogError("Why isn't correct identity");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("cannot find dataIdentity");
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("You cannot request");
+        }
+    }
 
-		requestNewContestManager,
-		contestManagers,
+    public void changeAllowHint(uint userId, int newAllowHint)
+    {
+        if (Room.IsCanEditSetting(this, userId))
+        {
+            this.allowHint.v = (AllowHint)newAllowHint;
+        }
+        else
+        {
+            Debug.LogError("cannot change name: " + userId + "; " + this);
+        }
+    }
 
-		timeCreated,
-		chatRoom,
-		allowHint,
-		allowLoadHistory
-	}
+    #endregion
 
-	public Room() : base() 
-	{
-		this.roomInform = new VP<RoomInform> (this, (byte)Property.roomInform, new RoomInform ());
-		this.changeRights = new VP<ChangeRights> (this, (byte)Property.changeRights, new ChangeRights ());
-		this.name = new VP<string> (this, (byte)Property.name, "");
-		this.password = new VP<string> (this, (byte)Property.password, "");
-		this.users = new LP<RoomUser> (this, (byte)Property.users);
-		this.state = new VP<State> (this, (byte)Property.state, new RoomStateNormal ());
+    #region allowLoadHistory
 
-		this.requestNewContestManager = new VP<RequestNewContestManager> (this, (byte)Property.requestNewContestManager, new RequestNewContestManager ());
-		this.contestManagers = new LP<ContestManager> (this, (byte)Property.contestManagers);
+    public VP<bool> allowLoadHistory;
 
-		this.timeCreated = new VP<long> (this, (byte)Property.timeCreated, Constants.UNKNOWN_TIME);
-		// chatRoom
-		{
-			ChatRoom chatRoom = new ChatRoom ();
-			{
-				chatRoom.topic.v = new RoomTopic ();
-			}
-			this.chatRoom = new VP<ChatRoom> (this, (byte)Property.chatRoom, chatRoom);
-		}
-		this.allowHint = new VP<AllowHint> (this, (byte)Property.allowHint, AllowHint.Allow);
-		this.allowLoadHistory = new VP<bool> (this, (byte)Property.allowLoadHistory, true);
-	}
+    // TODO Can hoan thien
 
-	#endregion
+    #endregion
 
-	#region join room
+    #region Constructor
 
-	public enum JoinRoomState
-	{
-		Can,
-		RoomEnd,
-		AlreadyInSideRoom,
-		Ban,
-		WrongPassword
-	}
+    public enum Property
+    {
+        roomInform,
+        changeRights,
+        name,
+        password,
+        users,
+        state,
 
-	public JoinRoomState isCanJoinRoom(uint userId)
-	{
-		if (this.isActive ()) {
-			RoomUser roomUser = this.findUser (userId);
-			if (roomUser != null && roomUser.state.v == RoomUser.State.NORMAL) {
-				Debug.LogError ("you already inside room: " + this);
-				return JoinRoomState.AlreadyInSideRoom;
-			} else {
-				bool adminBanYou = false;
-				{
-					RoomUser adminUser = this.findAdmin ();
-					if (adminUser != null) {
-						Server server = this.findDataInParent<Server> ();
-						if (server != null) {
-							FriendWorld friendWorld = server.friendWorld.v;
-							if (friendWorld != null) {
-								Friend friend = friendWorld.findFriend (adminUser.inform.v.playerId.v, userId);
-								if (friend != null) {
-									if (friend.state.v != null && friend.state.v.getType () == Friend.State.Type.Ban) {
-										adminBanYou = true;
-									}
-								} else {
-									Debug.LogError ("friend null: " + this);
-								}
-							} else {
-								Debug.LogError ("friendWorld null: " + this);
-							}
-						} else {
-							Debug.LogError ("server null: " + this);
-						}
-					} else {
-						Debug.LogError ("adminUser null: " + this);
-					}
-				}
-				if (adminBanYou) {
-					return JoinRoomState.Ban;
-				} else {
-					return JoinRoomState.Can;
-				}
-			}
-		} else {
-			Debug.LogError ("room not active: " + this);
-			return JoinRoomState.RoomEnd;
-		}
-	}
+        requestNewContestManager,
+        contestManagers,
 
-	public void requestJoinRoom(uint userId, string password)
-	{
-		Data.NeedRequest needRequest = this.isNeedRequestServerByNetworkIdentity ();
-		if (needRequest.canRequest) {
-			if (!needRequest.needIdentity) {
-				this.joinRoom (userId, password, null);
-			} else {
-				DataIdentity dataIdentity = null;
-				if (DataIdentity.clientMap.TryGetValue (this, out dataIdentity)) {
-					if (dataIdentity is RoomIdentity) {
-						RoomIdentity roomIdentity = dataIdentity as RoomIdentity;
-						roomIdentity.requestJoinRoom (userId, password);
-					} else {
-						Debug.LogError ("Why isn't correct identity");
-					}
-				} else {
-					Debug.LogError ("cannot find dataIdentity");
-				}
-			}
-		} else {
-			Debug.LogError ("You cannot request");
-		}
-	}
+        timeCreated,
+        chatRoom,
+        allowHint,
+        allowLoadHistory
+    }
 
-	public void joinRoom(uint userId, string password, ClientConnectIdentity clientConnectIdentity)
-	{
-		JoinRoomState isCan = isCanJoinRoom (userId);
-		if (isCan == JoinRoomState.Can) {
-			if (string.IsNullOrEmpty (this.password.v) || this.password.v == password) {
-				// Already inside room
-				RoomUser oldRoomUser = this.findUser (userId);
-				if (oldRoomUser == null) {
-					RoomUser roomUser = new RoomUser ();
-					{
-						roomUser.uid = this.users.makeId ();
-						roomUser.role.v = RoomUser.Role.NORMAL;
-						{
-							Human human = new Human ();
-							{
-								human.playerId.v = userId;
-							}
-							roomUser.inform.v = human;
-						}
-						roomUser.state.v = RoomUser.State.NORMAL;
-					}
-					this.users.add (roomUser);
-				} else {
-					Debug.LogError ("already inside room: " + oldRoomUser);
-					switch (oldRoomUser.state.v) {
-					case RoomUser.State.NORMAL:
-						Debug.LogError ("already inside room");
-						break;
-					case RoomUser.State.LEFT:
-						oldRoomUser.state.v = RoomUser.State.NORMAL;
-						break;
-					case RoomUser.State.KICK:
-						Debug.LogError ("You already kicked, cannot join this room");
-						break;
-					default:
-						Debug.LogError ("unknown roomUser state: " + oldRoomUser.state.v);
-						break;
-					}
-				}
-				// Add join message
-				{
-					// Find RoomTopic
-					RoomTopic roomTopic = null;
-					{
-						ChatRoom chatRoom = this.chatRoom.v;
-						if (chatRoom != null) {
-							roomTopic = chatRoom.topic.v as RoomTopic;
-						} else {
-							Debug.LogError ("chatRoom null: " + this);
-						}
-					}
-					if (roomTopic != null) {
-						roomTopic.addRoomUserState (userId, ChatRoomUserStateContent.Action.Join);
-					} else {
-						Debug.LogError ("roomTopic null: " + this);
-					}
-				}
-				// add to lobby
-				{
-					if (this.contestManagers.vs.Count > 0) {
-						ContestManager contestManager = this.contestManagers.vs [this.contestManagers.vs.Count - 1];
-						if (contestManager.state.v is ContestManagerStateLobby) {
-							ContestManagerStateLobby contestManagerStateLobby = contestManager.state.v as ContestManagerStateLobby;
-							if (contestManagerStateLobby.state.v.getType () == ContestManagerStateLobby.State.Type.Normal) {
-								bool alreadyAdd = false;
-								foreach (LobbyTeam lobbyTeam in contestManagerStateLobby.teams.vs) {
-									// find empty player
-									foreach (LobbyPlayer lobbyPlayer in lobbyTeam.players.vs) {
-										if (lobbyPlayer.inform.v.getType () == GamePlayer.Inform.Type.None) {
-											Human human = new Human ();
-											{
-												human.uid = lobbyPlayer.inform.makeId ();
-												human.playerId.v = userId;
-											}
-											lobbyPlayer.inform.v = human;
-											alreadyAdd = true;
-											break;
-										}
-									}
-									// check already add
-									if (alreadyAdd) {
-										break;
-									}
-								}
-							} else {
-								// already start, not add
-							}
-						} else {
-							// not lobby, already play, not add
-						}
-					}
-				}
-			} else {
-				Debug.LogError ("Not correct password");
-				if (clientConnectIdentity != null) {
-					clientConnectIdentity.TargetJoinRoomError (clientConnectIdentity.connectionToClient, JoinRoomState.WrongPassword);
-				} else {
-					Debug.LogError ("password error: " + this);
-				}
-			}
-		} else {
-			Debug.LogError ("Cannot join room: " + this);
-			if (clientConnectIdentity != null) {
-				clientConnectIdentity.TargetJoinRoomError (clientConnectIdentity.connectionToClient, isCan);
-			} else {
-				Debug.LogError ("join room error: " + isCan + "; " + this);
-			}
-		}
-	}
+    public Room() : base()
+    {
+        this.roomInform = new VP<RoomInform>(this, (byte)Property.roomInform, new RoomInform());
+        this.changeRights = new VP<ChangeRights>(this, (byte)Property.changeRights, new ChangeRights());
+        this.name = new VP<string>(this, (byte)Property.name, "");
+        this.password = new VP<string>(this, (byte)Property.password, "");
+        this.users = new LP<RoomUser>(this, (byte)Property.users);
+        this.state = new VP<State>(this, (byte)Property.state, new RoomStateNormal());
+
+        this.requestNewContestManager = new VP<RequestNewContestManager>(this, (byte)Property.requestNewContestManager, new RequestNewContestManager());
+        this.contestManagers = new LP<ContestManager>(this, (byte)Property.contestManagers);
+
+        this.timeCreated = new VP<long>(this, (byte)Property.timeCreated, Constants.UNKNOWN_TIME);
+        // chatRoom
+        {
+            ChatRoom chatRoom = new ChatRoom();
+            {
+                chatRoom.topic.v = new RoomTopic();
+            }
+            this.chatRoom = new VP<ChatRoom>(this, (byte)Property.chatRoom, chatRoom);
+        }
+        this.allowHint = new VP<AllowHint>(this, (byte)Property.allowHint, AllowHint.Allow);
+        this.allowLoadHistory = new VP<bool>(this, (byte)Property.allowLoadHistory, true);
+    }
+
+    #endregion
+
+    #region join room
+
+    public enum JoinRoomState
+    {
+        Can,
+        RoomEnd,
+        AlreadyInSideRoom,
+        Ban,
+        WrongPassword
+    }
+
+    public JoinRoomState isCanJoinRoom(uint userId)
+    {
+        if (this.isActive())
+        {
+            RoomUser roomUser = this.findUser(userId);
+            if (roomUser != null && roomUser.state.v == RoomUser.State.NORMAL)
+            {
+                Debug.LogError("you already inside room: " + this);
+                return JoinRoomState.AlreadyInSideRoom;
+            }
+            else
+            {
+                bool adminBanYou = false;
+                {
+                    RoomUser adminUser = this.findAdmin();
+                    if (adminUser != null)
+                    {
+                        Server server = this.findDataInParent<Server>();
+                        if (server != null)
+                        {
+                            FriendWorld friendWorld = server.friendWorld.v;
+                            if (friendWorld != null)
+                            {
+                                Friend friend = friendWorld.findFriend(adminUser.inform.v.playerId.v, userId);
+                                if (friend != null)
+                                {
+                                    if (friend.state.v != null && friend.state.v.getType() == Friend.State.Type.Ban)
+                                    {
+                                        adminBanYou = true;
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("friend null: " + this);
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("friendWorld null: " + this);
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("server null: " + this);
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("adminUser null: " + this);
+                    }
+                }
+                if (adminBanYou)
+                {
+                    return JoinRoomState.Ban;
+                }
+                else
+                {
+                    return JoinRoomState.Can;
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("room not active: " + this);
+            return JoinRoomState.RoomEnd;
+        }
+    }
+
+    public void requestJoinRoom(uint userId, string password)
+    {
+        Data.NeedRequest needRequest = this.isNeedRequestServerByNetworkIdentity();
+        if (needRequest.canRequest)
+        {
+            if (!needRequest.needIdentity)
+            {
+                this.joinRoom(userId, password, null);
+            }
+            else
+            {
+                DataIdentity dataIdentity = null;
+                if (DataIdentity.clientMap.TryGetValue(this, out dataIdentity))
+                {
+                    if (dataIdentity is RoomIdentity)
+                    {
+                        RoomIdentity roomIdentity = dataIdentity as RoomIdentity;
+                        roomIdentity.requestJoinRoom(userId, password);
+                    }
+                    else
+                    {
+                        Debug.LogError("Why isn't correct identity");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("cannot find dataIdentity");
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("You cannot request");
+        }
+    }
+
+    public void joinRoom(uint userId, string password, ClientConnectIdentity clientConnectIdentity)
+    {
+        JoinRoomState isCan = isCanJoinRoom(userId);
+        if (isCan == JoinRoomState.Can)
+        {
+            if (string.IsNullOrEmpty(this.password.v) || this.password.v == password)
+            {
+                // Already inside room
+                RoomUser oldRoomUser = this.findUser(userId);
+                if (oldRoomUser == null)
+                {
+                    RoomUser roomUser = new RoomUser();
+                    {
+                        roomUser.uid = this.users.makeId();
+                        roomUser.role.v = RoomUser.Role.NORMAL;
+                        {
+                            Human human = new Human();
+                            {
+                                human.playerId.v = userId;
+                            }
+                            roomUser.inform.v = human;
+                        }
+                        roomUser.state.v = RoomUser.State.NORMAL;
+                    }
+                    this.users.add(roomUser);
+                }
+                else
+                {
+                    Debug.LogError("already inside room: " + oldRoomUser);
+                    switch (oldRoomUser.state.v)
+                    {
+                        case RoomUser.State.NORMAL:
+                            Debug.LogError("already inside room");
+                            break;
+                        case RoomUser.State.LEFT:
+                            oldRoomUser.state.v = RoomUser.State.NORMAL;
+                            break;
+                        case RoomUser.State.KICK:
+                            Debug.LogError("You already kicked, cannot join this room");
+                            break;
+                        default:
+                            Debug.LogError("unknown roomUser state: " + oldRoomUser.state.v);
+                            break;
+                    }
+                }
+                // Add join message
+                {
+                    // Find RoomTopic
+                    RoomTopic roomTopic = null;
+                    {
+                        ChatRoom chatRoom = this.chatRoom.v;
+                        if (chatRoom != null)
+                        {
+                            roomTopic = chatRoom.topic.v as RoomTopic;
+                        }
+                        else
+                        {
+                            Debug.LogError("chatRoom null: " + this);
+                        }
+                    }
+                    if (roomTopic != null)
+                    {
+                        roomTopic.addRoomUserState(userId, ChatRoomUserStateContent.Action.Join);
+                    }
+                    else
+                    {
+                        Debug.LogError("roomTopic null: " + this);
+                    }
+                }
+                // add to lobby
+                {
+                    if (this.contestManagers.vs.Count > 0)
+                    {
+                        ContestManager contestManager = this.contestManagers.vs[this.contestManagers.vs.Count - 1];
+                        if (contestManager.state.v is ContestManagerStateLobby)
+                        {
+                            ContestManagerStateLobby contestManagerStateLobby = contestManager.state.v as ContestManagerStateLobby;
+                            if (contestManagerStateLobby.state.v.getType() == ContestManagerStateLobby.State.Type.Normal)
+                            {
+                                bool alreadyAdd = false;
+                                foreach (LobbyTeam lobbyTeam in contestManagerStateLobby.teams.vs)
+                                {
+                                    // find empty player
+                                    foreach (LobbyPlayer lobbyPlayer in lobbyTeam.players.vs)
+                                    {
+                                        if (lobbyPlayer.inform.v.getType() == GamePlayer.Inform.Type.None)
+                                        {
+                                            Human human = new Human();
+                                            {
+                                                human.uid = lobbyPlayer.inform.makeId();
+                                                human.playerId.v = userId;
+                                            }
+                                            lobbyPlayer.inform.v = human;
+                                            alreadyAdd = true;
+                                            break;
+                                        }
+                                    }
+                                    // check already add
+                                    if (alreadyAdd)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                // already start, not add
+                            }
+                        }
+                        else
+                        {
+                            // not lobby, already play, not add
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("Not correct password");
+                if (clientConnectIdentity != null)
+                {
+                    clientConnectIdentity.TargetJoinRoomError(clientConnectIdentity.connectionToClient, JoinRoomState.WrongPassword);
+                }
+                else
+                {
+                    Debug.LogError("password error: " + this);
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("Cannot join room: " + this);
+            if (clientConnectIdentity != null)
+            {
+                clientConnectIdentity.TargetJoinRoomError(clientConnectIdentity.connectionToClient, isCan);
+            }
+            else
+            {
+                Debug.LogError("join room error: " + isCan + "; " + this);
+            }
+        }
+    }
 
     #endregion
 

@@ -4,123 +4,161 @@ using System.Collections.Generic;
 
 namespace TimeControl.Normal
 {
-	public abstract class TotalTimeInfo : Data
-	{
+    public abstract class TotalTimeInfo : Data
+    {
 
-		public const float DefaultTotalTime = 60*60f;
+        public const float DefaultTotalTime = 60 * 60f;
 
-		public enum Type
-		{
-			Limit,
-			NoLimit
-		}
+        public enum Type
+        {
+            Limit,
+            NoLimit
+        }
 
-		public abstract Type getType();
+        #region txt
 
-		public abstract bool isOverTime (float time);
+        private static readonly TxtLanguage txtLimit = new TxtLanguage();
+        private static readonly TxtLanguage txtNoLimit = new TxtLanguage();
 
-		#region Limit
+        static TotalTimeInfo()
+        {
+            txtLimit.add(Language.Type.vi, "Có Giới Hạn");
+            txtNoLimit.add(Language.Type.vi, "Không Giới Hạn");
+        }
 
-		public class Limit : TotalTimeInfo
-		{
+        public static List<string> getStrTypes()
+        {
+            List<string> ret = new List<string>();
+            {
+                ret.Add(txtLimit.get("Have Limit"));
+                ret.Add(txtNoLimit.get("No Limit"));
+            }
+            return ret;
+        }
 
-			#region totalTime
+        #endregion
 
-			/** seconds*/
-			public VP<float> totalTime;
+        public abstract Type getType();
 
-			public void requestChangeTotalTime(uint userId, float newTotalTime){
-				Data.NeedRequest needRequest = this.isNeedRequestServerByNetworkIdentity ();
-				if (needRequest.canRequest) {
-					if (!needRequest.needIdentity) {
-						this.changeTotalTime (userId, newTotalTime);
-					} else {
-						DataIdentity dataIdentity = null;
-						if (DataIdentity.clientMap.TryGetValue (this, out dataIdentity)) {
-							if (dataIdentity is TotalTimeInfoLimitIdentity) {
-								TotalTimeInfoLimitIdentity totalTimeInfoLimitIdentity = dataIdentity as TotalTimeInfoLimitIdentity;
-								totalTimeInfoLimitIdentity.requestChangeTotalTime (userId, newTotalTime);
-							} else {
-								Debug.LogError ("Why isn't correct identity");
-							}
-						} else {
-							Debug.LogError ("cannot find dataIdentity");
-						}
-					}
-				} else {
-					Debug.LogError ("You cannot request");
-				}
-			}
+        public abstract bool isOverTime(float time);
 
-			public void changeTotalTime(uint userId, float newTotalTime){
-				// Process
-				if (GameManager.Match.ContestManagerStateLobby.IsCanChange (this, userId)) {
-					this.totalTime.v = newTotalTime;
-				}
-			}
+        #region Limit
 
-			#endregion
+        public class Limit : TotalTimeInfo
+        {
 
-			#region Constructor
+            #region totalTime
 
-			public enum Property
-			{
-				totalTime
-			}
+            /** seconds*/
+            public VP<float> totalTime;
 
-			public Limit() : base()
-			{
-				this.totalTime = new VP<float>(this, (byte)Property.totalTime, DefaultTotalTime);
-			}
+            public void requestChangeTotalTime(uint userId, float newTotalTime)
+            {
+                Data.NeedRequest needRequest = this.isNeedRequestServerByNetworkIdentity();
+                if (needRequest.canRequest)
+                {
+                    if (!needRequest.needIdentity)
+                    {
+                        this.changeTotalTime(userId, newTotalTime);
+                    }
+                    else
+                    {
+                        DataIdentity dataIdentity = null;
+                        if (DataIdentity.clientMap.TryGetValue(this, out dataIdentity))
+                        {
+                            if (dataIdentity is TotalTimeInfoLimitIdentity)
+                            {
+                                TotalTimeInfoLimitIdentity totalTimeInfoLimitIdentity = dataIdentity as TotalTimeInfoLimitIdentity;
+                                totalTimeInfoLimitIdentity.requestChangeTotalTime(userId, newTotalTime);
+                            }
+                            else
+                            {
+                                Debug.LogError("Why isn't correct identity");
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("cannot find dataIdentity");
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogError("You cannot request");
+                }
+            }
 
-			#endregion
+            public void changeTotalTime(uint userId, float newTotalTime)
+            {
+                // Process
+                if (GameManager.Match.ContestManagerStateLobby.IsCanChange(this, userId))
+                {
+                    this.totalTime.v = newTotalTime;
+                }
+            }
 
-			public override Type getType ()
-			{
-				return Type.Limit;
-			}
+            #endregion
 
-			public override bool isOverTime (float time)
-			{
-				return time >= this.totalTime.v;
-			}
+            #region Constructor
 
-		}
+            public enum Property
+            {
+                totalTime
+            }
 
-		#endregion
+            public Limit() : base()
+            {
+                this.totalTime = new VP<float>(this, (byte)Property.totalTime, DefaultTotalTime);
+            }
 
-		#region NoLimit
+            #endregion
 
-		public class NoLimit : TotalTimeInfo
-		{
+            public override Type getType()
+            {
+                return Type.Limit;
+            }
 
-			#region Constructor
+            public override bool isOverTime(float time)
+            {
+                return time >= this.totalTime.v;
+            }
 
-			public enum Property
-			{
+        }
 
-			}
+        #endregion
 
-			public NoLimit() : base()
-			{
+        #region NoLimit
 
-			}
+        public class NoLimit : TotalTimeInfo
+        {
 
-			#endregion
+            #region Constructor
 
-			public override Type getType ()
-			{
-				return Type.NoLimit;
-			}
+            public enum Property
+            {
 
-			public override bool isOverTime (float time)
-			{
-				return false;
-			}
+            }
 
-		}
+            public NoLimit() : base()
+            {
 
-		#endregion
+            }
 
-	}
+            #endregion
+
+            public override Type getType()
+            {
+                return Type.NoLimit;
+            }
+
+            public override bool isOverTime(float time)
+            {
+                return false;
+            }
+
+        }
+
+        #endregion
+
+    }
 }

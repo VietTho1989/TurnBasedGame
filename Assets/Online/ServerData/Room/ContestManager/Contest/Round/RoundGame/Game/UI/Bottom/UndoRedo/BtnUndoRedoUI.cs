@@ -215,6 +215,8 @@ public class BtnUndoRedoUI : UIBehavior<BtnUndoRedoUI.UIData>
                 case UndoRedoRequest.Property.state:
                     dirty = true;
                     break;
+                case UndoRedoRequest.Property.count:
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;

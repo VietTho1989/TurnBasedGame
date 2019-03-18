@@ -229,6 +229,8 @@ public class UndoRedoRequestUpdate : UpdateBehavior<UndoRedoRequest>
                         dirty = true;
                     }
                     break;
+                case UndoRedoRequest.Property.count:
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;

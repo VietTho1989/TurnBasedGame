@@ -526,6 +526,8 @@ namespace GameManager.Match
                                         RequestChangeEnumUI.UIData calculateScoreType = this.data.calculateScoreType.v;
                                         if (calculateScoreType != null)
                                         {
+                                            // options
+                                            calculateScoreType.options.copyList(CalculateScore.getStrTypes());
                                             // update
                                             RequestChangeUpdate<int>.UpdateData updateData = calculateScoreType.updateData.v;
                                             if (updateData != null)
