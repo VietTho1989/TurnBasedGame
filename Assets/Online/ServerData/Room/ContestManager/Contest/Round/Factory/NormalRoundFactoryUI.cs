@@ -253,8 +253,8 @@ namespace GameManager.Match
         {
             // txt
             {
-                txtTitle.add(Language.Type.vi, "Cách Tạo Set Đấu");
-                txtIsChangeSideBetweenRound.add(Language.Type.vi, "Đổi bên giữa các set");
+                txtTitle.add(Language.Type.vi, "Cách Tạo Hiệp Đấu");
+                txtIsChangeSideBetweenRound.add(Language.Type.vi, "Đổi bên giữa các hiệp");
                 txtIsSwitchPlayer.add(Language.Type.vi, "Hoán đổi bên");
                 txtIsDifferentInTeam.add(Language.Type.vi, "Đổi trong đội");
                 txtCalculateScoreType.add(Language.Type.vi, "Loại tính điểm");

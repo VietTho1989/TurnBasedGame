@@ -50,8 +50,8 @@ namespace GameManager.Match
 
         static RequestNewRoundHaveLimitInformUI()
         {
-            txtTitle.add(Language.Type.vi, "Yêu Cầu Set Mới: Có Giới Hạn");
-            txtMaxRound.add(Language.Type.vi, "Số set tối đa");
+            txtTitle.add(Language.Type.vi, "Yêu Cầu Hiệp Mới: Có Giới Hạn");
+            txtMaxRound.add(Language.Type.vi, "Số hiệp tối đa");
             txtEnoughScoreStop.add(Language.Type.vi, "Đủ điểm thì dừng");
         }
 

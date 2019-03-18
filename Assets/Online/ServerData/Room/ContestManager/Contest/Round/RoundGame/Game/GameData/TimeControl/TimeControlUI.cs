@@ -244,19 +244,23 @@ namespace TimeControl
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
         public Text lbIsEnable;
-        public static readonly TxtLanguage txtIsEnable = new TxtLanguage();
+        private static readonly TxtLanguage txtIsEnable = new TxtLanguage();
 
         public Text lbAICanTimeOut;
-        public static readonly TxtLanguage txtAICanTimeOut = new TxtLanguage();
+        private static readonly TxtLanguage txtAICanTimeOut = new TxtLanguage();
 
         public Text lbUse;
-        public static readonly TxtLanguage txtUse = new TxtLanguage();
+        private static readonly TxtLanguage txtUse = new TxtLanguage();
+        private static readonly TxtLanguage txtServer = new TxtLanguage();
+        private static readonly TxtLanguage txtClient = new TxtLanguage();
 
         public Text lbSubType;
-        public static readonly TxtLanguage txtSubType = new TxtLanguage();
+        private static readonly TxtLanguage txtSubType = new TxtLanguage();
+        private static readonly TxtLanguage txtNormal = new TxtLanguage();
+        private static readonly TxtLanguage txtHourglass = new TxtLanguage();
 
         static TimeControlUI()
         {
@@ -265,8 +269,18 @@ namespace TimeControl
                 txtTitle.add(Language.Type.vi, "Điều Khiển Thời Gian");
                 txtIsEnable.add(Language.Type.vi, "Kích hoạt");
                 txtAICanTimeOut.add(Language.Type.vi, "AI có thể hết giờ");
-                txtUse.add(Language.Type.vi, "Dùng");
-                txtSubType.add(Language.Type.vi, "Loại");
+                // use
+                {
+                    txtUse.add(Language.Type.vi, "Dùng");
+                    txtServer.add(Language.Type.vi, "Máy Chủ");
+                    txtClient.add(Language.Type.vi, "Máy Khách");
+                }
+                // subType
+                {
+                    txtSubType.add(Language.Type.vi, "Loại");
+                    txtNormal.add(Language.Type.vi, "Bình Thường");
+                    txtHourglass.add(Language.Type.vi, "Đồng Hồ Cát");
+                }
             }
             // rect
             {
@@ -420,6 +434,15 @@ namespace TimeControl
                                         RequestChangeEnumUI.UIData use = this.data.use.v;
                                         if (use != null)
                                         {
+                                            // options
+                                            {
+                                                List<string> options = new List<string>();
+                                                {
+                                                    options.Add(txtServer.get("Server"));
+                                                    options.Add(txtClient.get("Client"));
+                                                }
+                                                use.options.copyList(options);
+                                            }
                                             // update
                                             RequestChangeUpdate<int>.UpdateData updateData = use.updateData.v;
                                             if (updateData != null)
@@ -455,6 +478,15 @@ namespace TimeControl
                                         RequestChangeEnumUI.UIData subType = this.data.subType.v;
                                         if (subType != null)
                                         {
+                                            // options
+                                            {
+                                                List<string> options = new List<string>();
+                                                {
+                                                    options.Add(txtNormal.get("Normal"));
+                                                    options.Add(txtHourglass.get("Hourglass"));
+                                                }
+                                                subType.options.copyList(options);
+                                            }
                                             // update
                                             RequestChangeUpdate<int>.UpdateData updateData = subType.updateData.v;
                                             if (updateData != null)

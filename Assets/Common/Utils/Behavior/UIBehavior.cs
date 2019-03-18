@@ -8,15 +8,20 @@ public abstract class UIBehavior<K> : GameBehavior<K>, TrashMan.DespawnInterface
 
     private bool Dirty = true;
 
-    public bool dirty {
-        get {
+    public bool dirty
+    {
+        get
+        {
             return Dirty;
         }
-        set {
+        set
+        {
             // Debug.LogError ("setDirty: " + value + "; " + this);
             Dirty = value;
-            if (this) {
-                if (this.isShouldDisableUpdate()) {
+            if (this)
+            {
+                if (this.isShouldDisableUpdate())
+                {
                     this.enabled = Dirty;
                 }
             }
@@ -30,7 +35,8 @@ public abstract class UIBehavior<K> : GameBehavior<K>, TrashMan.DespawnInterface
 
     public abstract bool isShouldDisableUpdate();
 
-    public virtual void Awake() {
+    public virtual void Awake()
+    {
         dirty = true;
         // this.transformData.update(this.transform);
         refresh();
@@ -105,9 +111,12 @@ public abstract class UIBehavior<K> : GameBehavior<K>, TrashMan.DespawnInterface
 
     public GameObject getGameObject()
     {
-        if (!alreadyDestroy) {
+        if (!alreadyDestroy)
+        {
             return this.gameObject;
-        } else {
+        }
+        else
+        {
             return null;
         }
     }

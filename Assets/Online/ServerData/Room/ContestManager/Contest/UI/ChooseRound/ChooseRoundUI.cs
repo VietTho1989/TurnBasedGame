@@ -87,7 +87,7 @@ namespace GameManager.Match
         static ChooseRoundUI()
         {
             // txt
-            txtTitle.add(Language.Type.vi, "Chọn Set Đấu");
+            txtTitle.add(Language.Type.vi, "Chọn Hiệp Đấu");
             // rect
             {
                 // chooseRoundAdapterRect

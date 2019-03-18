@@ -142,17 +142,25 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
     public Text lbGameDataFactoryType;
-    public static readonly TxtLanguage txtGameDataFactoryType = new TxtLanguage();
+    private static readonly TxtLanguage txtGameDataFactoryType = new TxtLanguage();
+
+    private static readonly TxtLanguage txtDefault = new TxtLanguage();
+    private static readonly TxtLanguage txtPosture = new TxtLanguage();
 
     static GameFactoryUI()
     {
         // txt
         {
             txtTitle.add(Language.Type.vi, "Cách Tạo Game");
-            txtGameDataFactoryType.add(Language.Type.vi, "Loại tạo dữ liệu game");
+            txtGameDataFactoryType.add(Language.Type.vi, "Loại tạo game");
+            // type
+            {
+                txtDefault.add(Language.Type.vi, "Mặc Định");
+                txtPosture.add(Language.Type.vi, "Cờ Thế");
+            }
         }
         // rect
         {
@@ -233,6 +241,15 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                                     RequestChangeEnumUI.UIData gameDataFactoryType = this.data.gameDataFactoryType.v;
                                     if (gameDataFactoryType != null)
                                     {
+                                        // options
+                                        {
+                                            List<string> options = new List<string>();
+                                            {
+                                                options.Add(txtDefault.get("Default"));
+                                                options.Add(txtPosture.get("Posture"));
+                                            }
+                                            gameDataFactoryType.options.copyList(options);
+                                        }
                                         // update
                                         RequestChangeUpdate<int>.UpdateData updateData = gameDataFactoryType.updateData.v;
                                         if (updateData != null)
@@ -552,7 +569,7 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                     }
                     if (lbGameDataFactoryType != null)
                     {
-                        lbGameDataFactoryType.text = txtGameDataFactoryType.get("Game data factory type");
+                        lbGameDataFactoryType.text = txtGameDataFactoryType.get("Game factory type");
                     }
                     else
                     {

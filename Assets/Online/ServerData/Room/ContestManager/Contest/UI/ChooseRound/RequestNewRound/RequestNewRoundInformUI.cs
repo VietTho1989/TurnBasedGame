@@ -64,7 +64,7 @@ namespace GameManager.Match
 
         static RequestNewRoundInformUI()
         {
-            txtTitle.add(Language.Type.vi, "Số Set Giới Hạn");
+            txtTitle.add(Language.Type.vi, "Số Hiệp Giới Hạn");
         }
 
         #endregion

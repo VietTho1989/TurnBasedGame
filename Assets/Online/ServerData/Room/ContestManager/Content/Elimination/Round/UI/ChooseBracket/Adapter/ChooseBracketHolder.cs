@@ -58,35 +58,55 @@ namespace GameManager.Match.Elimination
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
-        public static readonly TxtLanguage txtByes = new TxtLanguage();
+        private static readonly TxtLanguage txtByes = new TxtLanguage();
 
-        public static readonly TxtLanguage txtPlaying = new TxtLanguage();
-        public static readonly TxtLanguage txtWinner = new TxtLanguage();
-        public static readonly TxtLanguage txtLoser = new TxtLanguage();
+        private static readonly TxtLanguage txtPlaying = new TxtLanguage();
+        private static readonly TxtLanguage txtWinner = new TxtLanguage();
+        private static readonly TxtLanguage txtLoser = new TxtLanguage();
 
         public Text tvShow;
         public static readonly TxtLanguage txtShow = new TxtLanguage();
 
         static ChooseBracketHolder()
         {
-            txtByes.add(Language.Type.vi, "Dư ra");
+            // txt
+            {
+                txtByes.add(Language.Type.vi, "Dư ra");
 
-            txtPlaying.add(Language.Type.vi, "Đang chơi");
-            txtWinner.add(Language.Type.vi, "Đội thắng");
-            txtLoser.add(Language.Type.vi, "Đội thua");
+                txtPlaying.add(Language.Type.vi, "Đang chơi");
+                txtWinner.add(Language.Type.vi, "Đội thắng");
+                txtLoser.add(Language.Type.vi, "Đội thua");
 
-            txtShow.add(Language.Type.vi, "Hiện");
+                txtShow.add(Language.Type.vi, "Hiện");
+            }
+            // rect
+            {
+                // bracketContestRect
+                {
+                    // anchoredPosition: (-12.0, -40.0); anchorMin: (0.0, 1.0); anchorMax: (1.0, 1.0); pivot: (0.5, 1.0);
+                    // offsetMin: (34.0, -70.0); offsetMax: (-58.0, -40.0); sizeDelta: (-92.0, 30.0);
+                    bracketContestRect.anchoredPosition = new Vector3(-12.0f, -40.0f, 0.0f);
+                    bracketContestRect.anchorMin = new Vector2(0.0f, 1.0f);
+                    bracketContestRect.anchorMax = new Vector2(1.0f, 1.0f);
+                    bracketContestRect.pivot = new Vector2(0.5f, 1.0f);
+                    bracketContestRect.offsetMin = new Vector2(34.0f, -70.0f);
+                    bracketContestRect.offsetMax = new Vector2(-58.0f, -40.0f);
+                    bracketContestRect.sizeDelta = new Vector2(-92.0f, 30.0f);
+                }
+            }
         }
 
         #endregion
 
+        #region Refresh
+
         public Text tvIndex;
         public Text tvState;
         public Text tvByes;
+
+        public Button btnShow;
 
         public override void refresh()
         {
@@ -110,25 +130,58 @@ namespace GameManager.Match.Elimination
                                 Debug.LogError("tvIndex null: " + this);
                             }
                         }
-                        // tvByes
+                        // tvState
                         {
-                            if (tvByes != null)
+                            if (tvState != null)
                             {
-                                StringBuilder builder = new StringBuilder();
+                                Bracket.State state = bracket.state.v;
+                                if (state != null)
                                 {
-                                    foreach (int byeTeamIndex in bracket.byeTeamIndexs.vs)
+                                    switch (state.getType())
                                     {
-                                        builder.Append("" + byeTeamIndex + ", ");
+                                        case Bracket.State.Type.Play:
+                                            tvState.text = txtPlaying.get("Playing");
+                                            break;
+                                        case Bracket.State.Type.End:
+                                            {
+                                                BracketStateEnd bracketStateEnd = state as BracketStateEnd;
+                                                // winner
+                                                StringBuilder winnerBuilder = new StringBuilder();
+                                                {
+                                                    winnerBuilder.Append(txtWinner.get("Winner") + ": ");
+                                                    foreach (int winner in bracketStateEnd.winTeamIndexs.vs)
+                                                    {
+                                                        winnerBuilder.Append(winner + ", ");
+                                                    }
+                                                }
+                                                // loser
+                                                StringBuilder loserBuilder = new StringBuilder();
+                                                {
+                                                    loserBuilder.Append(txtLoser.get("Loser") + ": ");
+                                                    foreach (int loser in bracketStateEnd.loseTeamIndexs.vs)
+                                                    {
+                                                        loserBuilder.Append(loser + ", ");
+                                                    }
+                                                }
+                                                tvState.text = winnerBuilder.ToString() + "\n" + loserBuilder.ToString();
+                                            }
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown type: " + state.getType() + "; " + this);
+                                            break;
                                     }
                                 }
-                                tvByes.text = txtByes.get("Byes") + ": " + builder.ToString();
+                                else
+                                {
+                                    Debug.LogError("state null: " + this);
+                                }
                             }
                             else
                             {
-                                Debug.LogError("tvByes null: " + this);
+                                Debug.LogError("tvStatate null: " + this);
                             }
                         }
-                        // teams
+                        // bracketContests
                         {
                             // get old
                             List<ChooseBracketBracketContestUI.UIData> oldBracketContests = new List<ChooseBracketBracketContestUI.UIData>();
@@ -185,72 +238,117 @@ namespace GameManager.Match.Elimination
                                 this.data.bracketContests.remove(oldBracketContest);
                             }
                         }
-                        // tvState
+                        // tvByes
                         {
-                            if (tvState != null)
+                            if (tvByes != null)
                             {
-                                Bracket.State state = bracket.state.v;
-                                if (state != null)
+                                if (bracket.byeTeamIndexs.vs.Count > 0)
                                 {
-                                    switch (state.getType())
+                                    StringBuilder builder = new StringBuilder();
                                     {
-                                        case Bracket.State.Type.Play:
-                                            tvState.text = txtPlaying.get("Playing");
-                                            break;
-                                        case Bracket.State.Type.End:
+                                        for (int i = 0; i < bracket.byeTeamIndexs.vs.Count; i++)
+                                        {
+                                            int byeTeamIndex = bracket.byeTeamIndexs.vs[i];
+                                            builder.Append("" + byeTeamIndex);
+                                            if (i != bracket.byeTeamIndexs.vs.Count - 1)
                                             {
-                                                BracketStateEnd bracketStateEnd = state as BracketStateEnd;
-                                                // winner
-                                                StringBuilder winnerBuilder = new StringBuilder();
-                                                {
-                                                    winnerBuilder.Append(txtWinner.get("Winner") + ": ");
-                                                    foreach (int winner in bracketStateEnd.winTeamIndexs.vs)
-                                                    {
-                                                        winnerBuilder.Append(winner + ", ");
-                                                    }
-                                                }
-                                                // loser
-                                                StringBuilder loserBuilder = new StringBuilder();
-                                                {
-                                                    loserBuilder.Append(txtLoser.get("Loser") + ": ");
-                                                    foreach (int loser in bracketStateEnd.loseTeamIndexs.vs)
-                                                    {
-                                                        loserBuilder.Append(loser + ", ");
-                                                    }
-                                                }
-                                                tvState.text = winnerBuilder.ToString() + "\n" + loserBuilder.ToString();
+                                                builder.Append(", ");
                                             }
-                                            break;
-                                        default:
-                                            Debug.LogError("unknown type: " + state.getType() + "; " + this);
-                                            break;
+                                        }
                                     }
+                                    tvByes.text = txtByes.get("Byes") + ": " + builder.ToString();
                                 }
                                 else
                                 {
-                                    Debug.LogError("state null: " + this);
+                                    tvByes.text = "";
                                 }
                             }
                             else
                             {
-                                Debug.LogError("tvStatate null: " + this);
+                                Debug.LogError("tvByes null: " + this);
+                            }
+                        }
+                        // UI
+                        {
+                            float deltaY = 0;
+                            // state
+                            {
+                                deltaY += 40;
+                            }
+                            // bracketContests
+                            {
+                                foreach (ChooseBracketBracketContestUI.UIData bracketContest in this.data.bracketContests.vs)
+                                {
+                                    deltaY += UIRectTransform.SetPosY(bracketContest, deltaY);
+                                }
+                            }
+                            // bye
+                            {
+                                if (tvByes != null)
+                                {
+                                    if (!string.IsNullOrEmpty(tvByes.text))
+                                    {
+                                        UIRectTransform.SetPosY(tvByes.rectTransform, deltaY);
+                                        deltaY += 20;
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("tvByes null");
+                                }
+                            }
+                            // set
+                            this.setHolderSize(Mathf.Max(40, deltaY));
+                        }
+                        // btnShow
+                        {
+                            if (btnShow != null)
+                            {
+                                bool isAlreadyShow = false;
+                                {
+                                    EliminationRoundUI.UIData eliminationRoundUIData = this.data.findDataInParent<EliminationRoundUI.UIData>();
+                                    if (eliminationRoundUIData != null)
+                                    {
+                                        BracketUI.UIData bracketUIData = eliminationRoundUIData.bracketUIData.v;
+                                        if (bracketUIData != null)
+                                        {
+                                            if (bracketUIData.bracket.v.data == bracket)
+                                            {
+                                                isAlreadyShow = true;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("bracketUIData null");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("eliminationRoundUIData null");
+                                    }
+                                }
+                                btnShow.interactable = !isAlreadyShow;
+                            }
+                            else
+                            {
+                                Debug.LogError("btnShow null");
+                            }
+                        }
+                        // txt
+                        {
+                            if (tvShow != null)
+                            {
+                                tvShow.text = txtShow.get("Show");
+                            }
+                            else
+                            {
+                                Debug.LogError("tvShow null: " + this);
                             }
                         }
                     }
                     else
                     {
                         Debug.LogError("bracket null: " + this);
-                    }
-                    // txt
-                    {
-                        if (tvShow != null)
-                        {
-                            tvShow.text = txtShow.get("Show");
-                        }
-                        else
-                        {
-                            Debug.LogError("tvShow null: " + this);
-                        }
                     }
                 }
                 else
@@ -265,7 +363,9 @@ namespace GameManager.Match.Elimination
         #region implement callBacks
 
         public ChooseBracketBracketContestUI bracketContestPrefab;
-        public Transform bracketContestContainer;
+        private static readonly UIRectTransform bracketContestRect = new UIRectTransform();
+
+        private EliminationRoundUI.UIData eliminationRoundUIData = null;
 
         public override void onAddCallBack<T>(T data)
         {
@@ -274,6 +374,10 @@ namespace GameManager.Match.Elimination
                 UIData uiData = data as UIData;
                 // Setting
                 Setting.get().addCallBack(this);
+                // Parent
+                {
+                    DataUtils.addParentCallBack(uiData, this, ref this.eliminationRoundUIData);
+                }
                 // Child
                 {
                     uiData.bracket.allAddCallBack(this);
@@ -287,6 +391,25 @@ namespace GameManager.Match.Elimination
             {
                 dirty = true;
                 return;
+            }
+            // Parent
+            {
+                if(data is EliminationRoundUI.UIData)
+                {
+                    EliminationRoundUI.UIData eliminationRoundUIData = data as EliminationRoundUI.UIData;
+                    // Child
+                    {
+                        eliminationRoundUIData.bracketUIData.allAddCallBack(this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                if(data is BracketUI.UIData)
+                {
+                    dirty = true;
+                    return;
+                }
             }
             // Child
             {
@@ -309,15 +432,28 @@ namespace GameManager.Match.Elimination
                         return;
                     }
                 }
-                if (data is ChooseBracketBracketContestUI.UIData)
+                // bracketContestUIData
                 {
-                    ChooseBracketBracketContestUI.UIData bracketContestUIData = data as ChooseBracketBracketContestUI.UIData;
-                    // UI
+                    if (data is ChooseBracketBracketContestUI.UIData)
                     {
-                        UIUtils.Instantiate(bracketContestUIData, bracketContestPrefab, bracketContestContainer);
+                        ChooseBracketBracketContestUI.UIData bracketContestUIData = data as ChooseBracketBracketContestUI.UIData;
+                        // UI
+                        {
+                            UIUtils.Instantiate(bracketContestUIData, bracketContestPrefab, this.transform, bracketContestRect);
+                        }
+                        // Child
+                        {
+                            TransformData.AddCallBack(bracketContestUIData, this);
+                        }
+                        dirty = true;
+                        return;
                     }
-                    dirty = true;
-                    return;
+                    // Child
+                    if(data is TransformData)
+                    {
+                        dirty = true;
+                        return;
+                    }
                 }
             }
             Debug.LogError("Don't process: " + data + "; " + this);
@@ -330,6 +466,10 @@ namespace GameManager.Match.Elimination
                 UIData uiData = data as UIData;
                 // Setting
                 Setting.get().removeCallBack(this);
+                // Parent
+                {
+                    DataUtils.removeParentCallBack(uiData, this, ref this.eliminationRoundUIData);
+                }
                 // Child
                 {
                     uiData.bracket.allRemoveCallBack(this);
@@ -342,6 +482,23 @@ namespace GameManager.Match.Elimination
             if (data is Setting)
             {
                 return;
+            }
+            // Parent
+            {
+                if (data is EliminationRoundUI.UIData)
+                {
+                    EliminationRoundUI.UIData eliminationRoundUIData = data as EliminationRoundUI.UIData;
+                    // Child
+                    {
+                        eliminationRoundUIData.bracketUIData.allRemoveCallBack(this);
+                    }
+                    return;
+                }
+                // Child
+                if (data is BracketUI.UIData)
+                {
+                    return;
+                }
             }
             // Child
             {
@@ -362,14 +519,26 @@ namespace GameManager.Match.Elimination
                         return;
                     }
                 }
-                if (data is ChooseBracketBracketContestUI.UIData)
+                // bracketContestUIData
                 {
-                    ChooseBracketBracketContestUI.UIData bracketContestUIData = data as ChooseBracketBracketContestUI.UIData;
-                    // UI
+                    if (data is ChooseBracketBracketContestUI.UIData)
                     {
-                        bracketContestUIData.removeCallBackAndDestroy(typeof(ChooseBracketBracketContestUI));
+                        ChooseBracketBracketContestUI.UIData bracketContestUIData = data as ChooseBracketBracketContestUI.UIData;
+                        // Child
+                        {
+                            TransformData.RemoveCallBack(bracketContestUIData, this);
+                        }
+                        // UI
+                        {
+                            bracketContestUIData.removeCallBackAndDestroy(typeof(ChooseBracketBracketContestUI));
+                        }
+                        return;
                     }
-                    return;
+                    // Child
+                    if(data is TransformData)
+                    {
+                        return;
+                    }
                 }
             }
             Debug.LogError("Don't process: " + data + "; " + this);
@@ -425,6 +594,47 @@ namespace GameManager.Match.Elimination
                 }
                 return;
             }
+            // Parent
+            {
+                if (wrapProperty.p is EliminationRoundUI.UIData)
+                {
+                    switch ((EliminationRoundUI.UIData.Property)wrapProperty.n)
+                    {
+                        case EliminationRoundUI.UIData.Property.eliminationRound:
+                            break;
+                        case EliminationRoundUI.UIData.Property.bracketUIData:
+                            {
+                                ValueChangeUtils.replaceCallBack(this, syncs);
+                                dirty = true;
+                            }
+                            break;
+                        case EliminationRoundUI.UIData.Property.chooseBracketUIData:
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+                // Child
+                if (wrapProperty.p is BracketUI.UIData)
+                {
+                    switch ((BracketUI.UIData.Property)wrapProperty.n)
+                    {
+                        case BracketUI.UIData.Property.bracket:
+                            dirty = true;
+                            break;
+                        case BracketUI.UIData.Property.bracketContestUIData:
+                            break;
+                        case BracketUI.UIData.Property.chooseBracketContestUIData:
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+            }
             // Child
             {
                 // bracket
@@ -476,9 +686,44 @@ namespace GameManager.Match.Elimination
                         }
                     }
                 }
-                if (wrapProperty.p is ChooseBracketBracketContestUI.UIData)
+                // bracketContestUIData
                 {
-                    return;
+                    if (wrapProperty.p is ChooseBracketBracketContestUI.UIData)
+                    {
+                        return;
+                    }
+                    // Child
+                    if(wrapProperty.p is TransformData)
+                    {
+                        switch ((TransformData.Property)wrapProperty.n)
+                        {
+                            case TransformData.Property.anchoredPosition:
+                                break;
+                            case TransformData.Property.anchorMin:
+                                break;
+                            case TransformData.Property.anchorMax:
+                                break;
+                            case TransformData.Property.pivot:
+                                break;
+                            case TransformData.Property.offsetMin:
+                                break;
+                            case TransformData.Property.offsetMax:
+                                break;
+                            case TransformData.Property.sizeDelta:
+                                break;
+                            case TransformData.Property.rotation:
+                                break;
+                            case TransformData.Property.scale:
+                                break;
+                            case TransformData.Property.size:
+                                dirty = true;
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
                 }
             }
             Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);

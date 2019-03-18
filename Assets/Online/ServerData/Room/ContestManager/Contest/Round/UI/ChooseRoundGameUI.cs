@@ -69,7 +69,7 @@ namespace GameManager.Match
 
         static ChooseRoundGameUI()
         {
-            txtTitle.add(Language.Type.vi, "Chọn Game Trong Set");
+            txtTitle.add(Language.Type.vi, "Chọn Game Trong Hiệp");
         }
 
         #endregion
