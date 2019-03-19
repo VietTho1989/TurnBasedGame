@@ -90,6 +90,10 @@ namespace GameManager.Match.Elimination
         static BracketUI()
         {
             txtNoBracketContest.add(Language.Type.vi, "Không có trận đấu nào");
+            // rect
+            {
+                chooseBracketContestRect.setPosY(-30);
+            }
         }
 
         #endregion

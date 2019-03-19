@@ -69,7 +69,7 @@ namespace GameManager.Match.Elimination
                             if (tvTeam != null)
                             {
                                 float score = bracketContest.getResult(this.data.teamIndex.v);
-                                tvTeam.text = txtTeamIndex.get("Team") + ": " + this.data.teamIndex.v + "; " + txtTeamScore.get("Score") + ": " + score;
+                                tvTeam.text = txtTeamIndex.get("Team") + ": " + this.data.teamIndex.v + "\t\t\t" + txtTeamScore.get("Score") + ": " + score;
                             }
                             else
                             {

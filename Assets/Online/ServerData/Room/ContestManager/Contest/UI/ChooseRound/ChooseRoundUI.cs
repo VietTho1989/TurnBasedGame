@@ -163,7 +163,13 @@ namespace GameManager.Match
                             // requestNewRound
                             deltaY += UIRectTransform.SetPosY(this.data.requestNewRoundInformUIData.v, deltaY);
                             // set
-                            UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                            {
+                                UIRectTransform rect = UIRectTransform.CreateCenterRect(400, deltaY);
+                                {
+                                    rect.setPosY(-30);
+                                }
+                                rect.set((RectTransform)this.transform);
+                            }
                         }
                         // txt
                         {

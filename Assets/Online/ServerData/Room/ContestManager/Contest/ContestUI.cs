@@ -252,6 +252,11 @@ namespace GameManager.Match
         public ChooseRoundUI chooseRoundPrefab;
         private static readonly UIRectTransform chooseRoundRect = UIRectTransform.CreateCenterRect(400, 400);
 
+        static ContestUI()
+        {
+            // chooseRoundRect.setPosY(-30);
+        }
+
         private RoomUI.UIData roomUIData = null;
 
         public override void onAddCallBack<T>(T data)

@@ -295,6 +295,11 @@ namespace GameManager.Match.Elimination
         public ChooseEliminationRoundUI chooseEliminationRoundPrefab;
         private static readonly UIRectTransform chooseEliminationRoundRect = UIRectTransform.CreateCenterRect(400, 400);
 
+        static EliminationContentUI()
+        {
+            chooseEliminationRoundRect.setPosY(-30);
+        }
+
         public RequestNewEliminationRoundUI requestNewEliminationRoundPrefab;
 
         private RoomUI.UIData roomUIData = null;

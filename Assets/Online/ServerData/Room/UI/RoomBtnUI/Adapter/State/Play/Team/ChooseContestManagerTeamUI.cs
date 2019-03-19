@@ -48,8 +48,7 @@ namespace GameManager.Match
 
         #region Refresh
 
-        public Text tvIndex;
-        public Text tvScore;
+        public Text tvTeam;
 
         public override void refresh()
         {
@@ -61,21 +60,11 @@ namespace GameManager.Match
                     MatchTeam matchTeam = this.data.matchTeam.v.data;
                     if (matchTeam != null)
                     {
-                        // tvIndex
+                        // tvTeam
                         {
-                            if (tvIndex != null)
+                            if (tvTeam != null)
                             {
-                                tvIndex.text = txtIndex.get("Team") + ": " + matchTeam.teamIndex.v;
-                            }
-                            else
-                            {
-                                Debug.LogError("tvIndex null: " + this);
-                            }
-                        }
-                        // tvScore
-                        {
-                            if (tvScore != null)
-                            {
+                                // get score
                                 float score = 0;
                                 {
                                     ContestManagerStatePlay contestManagerStatePlay = matchTeam.findDataInParent<ContestManagerStatePlay>();
@@ -96,11 +85,13 @@ namespace GameManager.Match
                                         Debug.LogError("contestManagerStatePlay null: " + this);
                                     }
                                 }
-                                tvScore.text = txtScore.get("Score") + ": " + score;
+                                // set
+                                tvTeam.text = txtIndex.get("Team") + ": " + matchTeam.teamIndex.v
+                                                + "\t\t\t" + txtScore.get("Score") + ": " + score;
                             }
                             else
                             {
-                                Debug.LogError("tvScore null: " + this);
+                                Debug.LogError("tvIndex null: " + this);
                             }
                         }
                     }
