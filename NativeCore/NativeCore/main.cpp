@@ -43,8 +43,8 @@ int main(int argc, const char * argv[]) {
         if(strcmp(buf, "q\n")==0){
             break;
         }
-        const std::string ResourcePath = "/Users/viettho/Desktop/NewProject/TurnbaseGame/NativeCore/Resources";
-        int matchCount = 1;
+        const std::string ResourcePath = "/Users/viettho/Desktop/NewProject/TurnbasedGame/NativeCore/Resources";
+        int matchCount = 5;
         // StockFishChess::chess_main(matchCount, ResourcePath);
         // Shatranj::shatranj_main(matchCount, ResourcePath);
         // Makruk::makruk_main(matchCount, ResourcePath);
@@ -57,14 +57,14 @@ int main(int argc, const char * argv[]) {
         
         // weiqi::weiqi_main(matchCount, ResourcePath);
         // gomoku::gomoku_main(matchCount, ResourcePath);
-        // Reversi::reversi_main(matchCount, ResourcePath);
+        Reversi::reversi_main(matchCount, ResourcePath);
         // Shogi::shogi_main(matchCount, ResourcePath);
         // Xiangqi::xiangqi_main(matchCount, ResourcePath);
         // MineSweeper::mine_sweeper_main(matchCount, ResourcePath);
         // Hex::hex_main(matchCount, ResourcePath);
         // Solitaire::solitaire_main(matchCount, ResourcePath);
         // Khet::khet_main(matchCount, ResourcePath);
-        NMM::nmm_main(matchCount, ResourcePath);
+        // NMM::nmm_main(matchCount, ResourcePath);
         // ChineseCheckers::chinese_checkers_main(matchCount, ResourcePath);
     }
     

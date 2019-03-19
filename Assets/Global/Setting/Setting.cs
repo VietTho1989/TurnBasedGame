@@ -42,9 +42,20 @@ public class Setting : Data
 
 	public VP<AnimationSetting> animationSetting;
 
-	#endregion
+    #endregion
 
-	public VP<int> maxThinkCount;
+
+#if UNITY_ANDROID
+
+    public const int DefaultMaxThinkCount = 1;
+
+#else
+
+    public const int DefaultMaxThinkCount = 12;
+
+#endif
+
+    public VP<int> maxThinkCount;
 
     #region defaultChosenGame
 
@@ -111,7 +122,7 @@ public class Setting : Data
         this.showLastMove = new VP<bool> (this, (byte)Property.showLastMove, true);
 		this.viewUrlImage = new VP<bool> (this, (byte)Property.viewUrlImage, true);
 		this.animationSetting = new VP<AnimationSetting> (this, (byte)Property.animationSetting, new AnimationSetting ());
-		this.maxThinkCount = new VP<int> (this, (byte)Property.maxThinkCount, 12);
+		this.maxThinkCount = new VP<int> (this, (byte)Property.maxThinkCount, DefaultMaxThinkCount);
         this.defaultChosenGame = new VP<DefaultChosenGame>(this, (byte)Property.defaultChosenGame, new DefaultChosenGameLast());
     }
 

@@ -12,6 +12,8 @@ namespace Reversi
     const int32_t TIMEOUT = (1 << 21);
     const int32_t EVAL_SCALE_FACTOR = 2000;
     
+    Openings* openingBook = nullptr;
+    
     /**
      * @brief Constructor for the player.
      *
@@ -108,7 +110,7 @@ namespace Reversi
         
         // check opening book
         if (!bookExhausted) {
-            int32_t openMove = openingBook.get(game.getTaken(), game.getBits(CBLACK));
+            int32_t openMove = openingBook->get(game.getTaken(), game.getBits(CBLACK));
             if (openMove != OPENING_NOT_FOUND) {
 #if PRINT_SEARCH_INFO
                 printf("Opening book: bestmove ");
@@ -332,7 +334,7 @@ namespace Reversi
         // check opening book
         if(useBook){
             if (!bookExhausted) {
-                int32_t openMove = openingBook.get(game.getTaken(), game.getBits(CBLACK));
+                int32_t openMove = openingBook->get(game.getTaken(), game.getBits(CBLACK));
                 if (openMove != OPENING_NOT_FOUND) {
 #if PRINT_SEARCH_INFO
                     printf("Opening book: bestmove ");

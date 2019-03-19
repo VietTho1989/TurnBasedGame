@@ -9,7 +9,8 @@ public class Global : Data
 
 	public const float WaitSendTime = 30f;
 
-	public const int ThreadSize = 1048576;
+    /** TODO Test*/
+    public const int ThreadSize = 1048576;// 1048576;
 
     #region time
 

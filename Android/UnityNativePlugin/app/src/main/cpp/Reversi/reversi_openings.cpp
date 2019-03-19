@@ -51,6 +51,7 @@ namespace Reversi
     }
     
     bool Openings::readFile() {
+        printf("read file\n");
 #ifdef Android
         std::string line;
         assetistream openingbk(assetManager, bookPath+ "/openings.txt");

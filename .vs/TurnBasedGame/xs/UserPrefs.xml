@@ -1,7 +1,8 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/State/Play/ContestManagerStatePlayUI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Global/Setting/Setting.cs">
     <Files>
-      <File FileName="Assets/Online/ServerData/Room/ContestManager/State/Play/ContestManagerStatePlayUI.cs" Line="395" Column="2" />
+      <File FileName="Assets/Global/Setting/SettingPref.cs" Line="1" Column="1" />
+      <File FileName="Assets/Global/Setting/Setting.cs" Line="54" Column="48" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

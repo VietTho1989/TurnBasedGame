@@ -10,19 +10,20 @@ using MineSweeper;
 public class GlobalInit : MonoBehaviour
 {
 
-	void Awake() {
-		Global.DataPath = Application.dataPath;
+    void Awake()
+    {
+        Global.DataPath = Application.dataPath;
 
         // Transport.layer = new LLAPITransport();
 
-		// MakeIdentity
-		{
+        // MakeIdentity
+        {
             // DataMakeIdentityUtils.makeIdentity(typeof(GamePlayerStateMessage));
-		}
+        }
 
-		// Set AssetManager
-		{
-			#if UNITY_ANDROID
+        // Set AssetManager
+        {
+#if UNITY_ANDROID
 			{
 				// Get activity
 				AndroidJavaClass jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
@@ -34,42 +35,63 @@ public class GlobalInit : MonoBehaviour
 					Debug.LogError("setAssetManagerForNative: "+ret);
 				}
 			}
-			#endif
-		}
+#endif
+        }
 
-	}
+    }
 
-	void Start()
-	{
-		// NativeCore
-		/*{
-			// TODO Tai sao phai them vao nhi, ko the hieu noi?
-			Chess.Core.unityInitCore();
-			Shatranj.Core.unityInitCore ();
-			Makruk.Core.unityInitCore ();
-			Seirawan.Core.unityInitCore ();
-			FairyChess.Core.unityInitCore ();
-			FairyChess.VariantMap.GetStartFen (FairyChess.Common.VariantType.asean);
-			RussianDraught.Core.unityInitCore ();
-		}*/
-		// create folder Save
-		{
-			try {
-				string path = Path.Combine (Application.persistentDataPath, FileSystemBrowser.SaveFolder);
-				Directory.CreateDirectory (path);
-			} catch (System.Exception e) {
-				Debug.LogError ("create folder save error: " + e);
-			}
-		}
-		// create folder database
-		{
-			try {
-				string path = Path.Combine (Application.persistentDataPath, FileSystemBrowser.DatabaseFolder);
-				Directory.CreateDirectory (path);
-			} catch (System.Exception e) {
-				Debug.LogError ("create folder database error: " + e);
-			}
-		}
-	}
-		
+    void Start()
+    {
+        // NativeCore
+        {
+            // var watch = System.Diagnostics.Stopwatch.StartNew();
+            {
+                // TODO Tai sao phai them vao nhi, ko the hieu noi?
+                Chess.Core.unityInitCore();
+                Shatranj.Core.unityInitCore();
+                Makruk.Core.unityInitCore();
+                Seirawan.Core.unityInitCore();
+                FairyChess.Core.unityInitCore();
+                RussianDraught.Core.unityInitCore();
+
+                EnglishDraught.Core.unityInitCore();
+                InternationalDraught.Core.unityInitCore();
+                RussianDraught.Core.unityInitCore();
+
+                MineSweeper.Core.unityInitCore();
+
+                Reversi.Core.firstInitCore();
+                Shogi.Core.unityInitCore();
+                Khet.Core.unityInitCore();
+            }
+            // watch.Stop();
+            // var elapsedMs = watch.ElapsedMilliseconds;
+            // Debug.Log ("Init Update: " + elapsedMs + "; " + this);
+        }
+        // create folder Save
+        {
+            try
+            {
+                string path = Path.Combine(Application.persistentDataPath, FileSystemBrowser.SaveFolder);
+                Directory.CreateDirectory(path);
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError("create folder save error: " + e);
+            }
+        }
+        // create folder database
+        {
+            try
+            {
+                string path = Path.Combine(Application.persistentDataPath, FileSystemBrowser.DatabaseFolder);
+                Directory.CreateDirectory(path);
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError("create folder database error: " + e);
+            }
+        }
+    }
+
 }

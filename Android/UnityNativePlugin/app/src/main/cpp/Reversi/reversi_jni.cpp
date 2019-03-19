@@ -18,6 +18,14 @@ namespace Reversi
     void reversi_setBookPath(const char* newBookPath)
     {
         bookPath = newBookPath;
+        // init openingBook
+        {
+            if(openingBook!=nullptr){
+                printf("error, why openingBook not null\n");
+                delete openingBook;
+            }
+            openingBook = new Openings;
+        }
     }
 
     int32_t reversi_makeDefaultPosition(uint8_t* &outRet)

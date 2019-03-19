@@ -10,6 +10,9 @@
 
 namespace Reversi
 {
+    
+    extern Openings* openingBook;
+    
     class Player {
         
     private:
@@ -24,7 +27,7 @@ namespace Reversi
         
         Endgame endgameSolver;
         
-        Openings openingBook;
+        // Openings openingBook;
     public:
         bool useBook;
         int32_t percent = 95;

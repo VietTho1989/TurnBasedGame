@@ -106,7 +106,7 @@ namespace ChineseCheckers
         #endregion
 
         #region letComputerThink
-       
+
         [DllImport(GameType.BundleName)]
         private static extern int chinese_checkers_letComputerThink(IntPtr chineseCheckersPtr, int chineseCheckersLength, bool canCorrect, int type, int depth, int time, int node, int pickBestMove, out IntPtr outMovePtr);
 
