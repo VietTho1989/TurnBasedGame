@@ -18,7 +18,9 @@ namespace GameState
 
             public abstract class Sub : Data
             {
+
                 public abstract Play.Sub.Type getType();
+
             }
 
             public VP<Sub> sub;
@@ -121,6 +123,138 @@ namespace GameState
                             UIRectTransform.SetSiblingIndex(this.data.sub.v, 0);
                             UIRectTransform.SetSiblingIndex(this.data.btnRequestNew.v, 1);
                         }
+                        // position
+                        {
+                            // find
+                            RectTransform boardTransform = null;
+                            float boardLeft = 0;
+                            float boardRight = 0;
+                            float boardTop = 0;
+                            float boardBottom = 0;
+                            {
+                                GameUI.UIData gameUIData = this.data.findDataInParent<GameUI.UIData>();
+                                if (gameUIData != null)
+                                {
+                                    GameDataUI.UIData gameDataUIData = gameUIData.gameDataUI.v;
+                                    if (gameDataUIData != null)
+                                    {
+                                        GameDataBoardUI.UIData gameDataBoardUIData = gameDataUIData.board.v;
+                                        if (gameDataBoardUIData != null)
+                                        {
+                                            // boardTransform
+                                            {
+                                                GameDataBoardUI gameDataBoardUI = gameDataBoardUIData.findCallBack<GameDataBoardUI>();
+                                                if (gameDataBoardUI != null)
+                                                {
+                                                    boardTransform = (RectTransform)gameDataBoardUI.transform;
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("gameDataBoardUI null");
+                                                }
+                                            }
+                                            // margin
+                                            {
+                                                boardLeft = gameDataBoardUIData.left.v;
+                                                boardRight = gameDataBoardUIData.right.v;
+                                                boardTop = gameDataBoardUIData.top.v;
+                                                boardBottom = gameDataBoardUIData.bottom.v;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("gameDataBoardUIData null");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("gameDataUIData null");
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("gameUIData null");
+                                }
+                            }
+                            // process
+                            if (boardTransform != null)
+                            {
+                                // find
+                                float left = boardTransform.rect.xMin;
+                                float right = boardTransform.rect.xMax;
+                                float top = boardTransform.rect.yMin;
+                                float bottom = boardTransform.rect.yMax;
+                                {
+                                    UIRectTransform.GetMargin(boardTransform, out left, out right, out top, out bottom);
+                                    left -= boardLeft;
+                                    right += boardRight;
+                                    top -= boardTop;
+                                    bottom += boardBottom;
+                                }
+                                // process
+                                RectTransform btnRequestNewTransform = null;
+                                {
+                                    BtnRequestNewUI.UIData btnRequestNewUIData = this.data.btnRequestNew.v;
+                                    if (btnRequestNewUIData != null)
+                                    {
+                                        BtnRequestNewUI btnRequestNewUI = btnRequestNewUIData.findCallBack<BtnRequestNewUI>();
+                                        if (btnRequestNewUI != null)
+                                        {
+                                            btnRequestNewTransform = (RectTransform)btnRequestNewUI.transform;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("btnRequestNewUI null");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("btnRequestNewUIData null");
+                                    }
+                                }
+                                if (btnRequestNewTransform != null)
+                                {
+                                    // get gameActions dimension
+                                    float endWidth = btnRequestNewTransform.rect.width;
+                                    float endHeight = btnRequestNewTransform.rect.height;
+                                    // get gameDataUI dimension
+                                    float gameWidth = 0;
+                                    float gameHeight = 0;
+                                    {
+                                        RectTransform gameDataUITransform = (RectTransform)this.transform;
+                                        if (gameDataUITransform != null)
+                                        {
+                                            gameWidth = gameDataUITransform.rect.width;
+                                            gameHeight = gameDataUITransform.rect.height;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("gameDataUITransform null");
+                                        }
+                                    }
+                                    // portrait view
+                                    if (gameWidth <= gameHeight)
+                                    {
+                                        float x = 0;
+                                        btnRequestNewTransform.anchoredPosition = new Vector2(x, bottom + 60 / 2 + GameDataBoardUI.Margin);
+                                    }
+                                    // landscape view
+                                    else
+                                    {
+                                        float x = left - endWidth / 2 - GameDataBoardUI.Margin; ;
+                                        btnRequestNewTransform.anchoredPosition = new Vector2(x, 30);
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("gameActionsTransform null");
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("boardTransform null");
+                            }
+                        }
                     }
                     else
                     {
@@ -155,11 +289,18 @@ namespace GameState
             btnRequestNewRect.setPosY(-7.5f);
         }
 
+        private GameUI.UIData gameUIData = null;
+        private GameDataBoardTransformCheckChange<GameDataUI.UIData> gameDataBoardTransformCheckChange = new GameDataBoardTransformCheckChange<GameDataUI.UIData>();
+
         public override void onAddCallBack<T>(T data)
         {
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Parent
+                {
+                    DataUtils.addParentCallBack(uiData, this, ref this.gameUIData);
+                }
                 // Child
                 {
                     uiData.play.allAddCallBack(this);
@@ -168,6 +309,39 @@ namespace GameState
                 }
                 dirty = true;
                 return;
+            }
+            // Parent
+            {
+                if (data is GameUI.UIData)
+                {
+                    GameUI.UIData gameUIData = data as GameUI.UIData;
+                    // Child
+                    {
+                        gameUIData.gameDataUI.allAddCallBack(this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                {
+                    if (data is GameDataUI.UIData)
+                    {
+                        GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
+                        // CheckChange
+                        {
+                            gameDataBoardTransformCheckChange.addCallBack(this);
+                            gameDataBoardTransformCheckChange.setData(gameDataUIData);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // CheckChange
+                    if (data is GameDataBoardTransformCheckChange<GameDataUI.UIData>)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                }
             }
             // Child
             {
@@ -228,6 +402,10 @@ namespace GameState
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Parent
+                {
+                    DataUtils.removeParentCallBack(uiData, this, ref this.gameUIData);
+                }
                 // Child
                 {
                     uiData.play.allRemoveCallBack(this);
@@ -236,6 +414,36 @@ namespace GameState
                 }
                 this.setDataNull(uiData);
                 return;
+            }
+            // Parent
+            {
+                if (data is GameUI.UIData)
+                {
+                    GameUI.UIData gameUIData = data as GameUI.UIData;
+                    // Child
+                    {
+                        gameUIData.gameDataUI.allRemoveCallBack(this);
+                    }
+                    return;
+                }
+                // Child
+                {
+                    if (data is GameDataUI.UIData)
+                    {
+                        GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
+                        // CheckChange
+                        {
+                            gameDataBoardTransformCheckChange.removeCallBack(this);
+                            gameDataBoardTransformCheckChange.setData(null);
+                        }
+                        return;
+                    }
+                    // CheckChange
+                    if (data is GameDataBoardTransformCheckChange<GameDataUI.UIData>)
+                    {
+                        return;
+                    }
+                }
             }
             // Child
             {
@@ -321,6 +529,56 @@ namespace GameState
                         break;
                 }
                 return;
+            }
+            // Parent
+            {
+                if (wrapProperty.p is GameUI.UIData)
+                {
+                    switch ((GameUI.UIData.Property)wrapProperty.n)
+                    {
+                        case GameUI.UIData.Property.game:
+                            break;
+                        case GameUI.UIData.Property.isReplay:
+                            break;
+                        case GameUI.UIData.Property.gameDataUI:
+                            {
+                                ValueChangeUtils.replaceCallBack(this, syncs);
+                                dirty = true;
+                            }
+                            break;
+                        case GameUI.UIData.Property.gameBottom:
+                            break;
+                        case GameUI.UIData.Property.undoRedoRequestUIData:
+                            break;
+                        case GameUI.UIData.Property.requestDraw:
+                            break;
+                        case GameUI.UIData.Property.gameChatRoom:
+                            break;
+                        case GameUI.UIData.Property.gameHistoryUIData:
+                            break;
+                        case GameUI.UIData.Property.stateUI:
+                            break;
+                        case GameUI.UIData.Property.saveUIData:
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+                // Child
+                {
+                    if (wrapProperty.p is GameDataUI.UIData)
+                    {
+                        return;
+                    }
+                    // CheckChange
+                    if (wrapProperty.p is GameDataBoardTransformCheckChange<GameDataUI.UIData>)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                }
             }
             // Child
             {

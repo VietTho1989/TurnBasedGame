@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Tue Mar 19 16:34:54 ICT 2019
+#Tue Mar 19 17:49:57 ICT 2019
 2.path=lib/armeabi-v7a/libsqlite3.so
 14.set=ASSET
 107.baseType=DIRECTORY
