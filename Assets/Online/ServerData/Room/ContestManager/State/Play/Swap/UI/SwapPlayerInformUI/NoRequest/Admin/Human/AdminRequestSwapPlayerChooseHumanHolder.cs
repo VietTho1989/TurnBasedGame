@@ -71,15 +71,15 @@ namespace GameManager.Match.Swap
             {
                 // avatarRect
                 {
-                    // anchoredPosition: (5.0, 0.0); anchorMin: (0.0, 0.5); anchorMax: (0.0, 0.5); pivot: (0.0, 0.5);
-                    // offsetMin: (5.0, -18.0); offsetMax: (41.0, 18.0); sizeDelta: (36.0, 36.0);
-                    avatarRect.anchoredPosition = new Vector3(5.0f, 0.0f, 0.0f);
+                    // anchoredPosition: (8.0, 0.0); anchorMin: (0.0, 0.5); anchorMax: (0.0, 0.5); pivot: (0.0, 0.5);
+                    // offsetMin: (8.0, -20.0); offsetMax: (48.0, 20.0); sizeDelta: (40.0, 40.0);
+                    avatarRect.anchoredPosition = new Vector3(8.0f, 0.0f, 0.0f);
                     avatarRect.anchorMin = new Vector2(0.0f, 0.5f);
                     avatarRect.anchorMax = new Vector2(0.0f, 0.5f);
                     avatarRect.pivot = new Vector2(0.0f, 0.5f);
-                    avatarRect.offsetMin = new Vector2(5.0f, -18.0f);
-                    avatarRect.offsetMax = new Vector2(41.0f, 18.0f);
-                    avatarRect.sizeDelta = new Vector2(36.0f, 36.0f);
+                    avatarRect.offsetMin = new Vector2(8.0f, -20.0f);
+                    avatarRect.offsetMax = new Vector2(48.0f, 20.0f);
+                    avatarRect.sizeDelta = new Vector2(40.0f, 40.0f);
                 }
             }
         }

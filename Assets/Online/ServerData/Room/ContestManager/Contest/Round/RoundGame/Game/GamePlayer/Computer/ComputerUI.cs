@@ -130,8 +130,6 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text lbTitle;
@@ -184,9 +182,11 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
 
     #endregion
 
+    #region Refresh
+
     private bool needReset = true;
 
-    public Image header;
+    public Image bgAI;
 
     public override void refresh()
     {
@@ -485,14 +485,6 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
                                         {
                                             Debug.LogError("lbTitle null");
                                         }
-                                        if (header != null)
-                                        {
-                                            header.gameObject.SetActive(true);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("header null");
-                                        }
                                         deltaY += UIConstants.HeaderHeight;
                                     }
                                     break;
@@ -505,14 +497,6 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
                                         else
                                         {
                                             Debug.LogError("lbTitle null");
-                                        }
-                                        if (header != null)
-                                        {
-                                            header.gameObject.SetActive(false);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("header null");
                                         }
                                     }
                                     break;
@@ -579,7 +563,26 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
                             }
                         }
                         // aiUIData
-                        deltaY += UIRectTransform.SetPosY(this.data.aiUIData.v, deltaY);
+                        {
+                            float bgY = deltaY;
+                            float bgHeight = 0;
+                            // UI
+                            {
+                                float height = UIRectTransform.SetPosY(this.data.aiUIData.v, deltaY);
+                                bgHeight += height;
+                                deltaY += height;
+                            }
+                            // bg
+                            if (bgAI != null)
+                            {
+                                UIRectTransform.SetPosY(bgAI.rectTransform, bgY);
+                                UIRectTransform.SetHeight(bgAI.rectTransform, bgHeight);
+                            }
+                            else
+                            {
+                                Debug.LogError("bgAI null");
+                            }
+                        }
                         // set
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }

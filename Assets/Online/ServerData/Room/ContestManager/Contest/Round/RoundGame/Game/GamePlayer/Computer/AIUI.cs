@@ -789,6 +789,14 @@ public class AIUI : UIHaveTransformDataBehavior<AIUI.UIData>
                                     Debug.LogError("unknown type: " + show.getType() + "; " + this);
                                     break;
                             }
+                            // UI
+                            {
+                                float deltaY = 0;
+                                // sub
+                                deltaY += UIRectTransform.SetPosY(this.data.sub.v, deltaY);
+                                // set
+                                UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                            }
                         }
                         else
                         {
