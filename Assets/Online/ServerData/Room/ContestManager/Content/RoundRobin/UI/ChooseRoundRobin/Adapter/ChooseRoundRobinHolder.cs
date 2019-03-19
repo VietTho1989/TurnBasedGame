@@ -17,16 +17,20 @@ namespace GameManager.Match.RoundRobin
 
             public VP<ReferenceData<RoundRobin>> roundRobin;
 
+            public LP<ChooseRoundRobinTeamUI.UIData> teams;
+
             #region Constructor
 
             public enum Property
             {
-                roundRobin
+                roundRobin,
+                teams
             }
 
             public UIData() : base()
             {
                 this.roundRobin = new VP<ReferenceData<RoundRobin>>(this, (byte)Property.roundRobin, new ReferenceData<RoundRobin>(null));
+                this.teams = new LP<ChooseRoundRobinTeamUI.UIData>(this, (byte)Property.teams);
             }
 
             #endregion
@@ -58,9 +62,43 @@ namespace GameManager.Match.RoundRobin
         public Text tvShow;
         private static readonly TxtLanguage txtShow = new TxtLanguage();
 
+        #region txt
+
+        private static readonly TxtLanguage txtLoad = new TxtLanguage();
+        private static readonly TxtLanguage txtStart = new TxtLanguage();
+        private static readonly TxtLanguage txtPlay = new TxtLanguage();
+        private static readonly TxtLanguage txtEnd = new TxtLanguage();
+
+        #endregion
+
         static ChooseRoundRobinHolder()
         {
-            txtShow.add(Language.Type.vi, "Hiện");
+            // txt
+            {
+                txtShow.add(Language.Type.vi, "Hiện");
+                // state
+                {
+                    txtLoad.add(Language.Type.vi, "Đang Tải");
+                    txtStart.add(Language.Type.vi, "Bắt Đầu");
+                    txtPlay.add(Language.Type.vi, "Đang Chơi");
+                    txtEnd.add(Language.Type.vi, "Kết Thúc");
+                }
+            }
+            // rect
+            {
+                // teamRect
+                {
+                    // anchoredPosition: (-46.0, 0.0); anchorMin: (0.0, 1.0); anchorMax: (1.0, 1.0); pivot: (0.5, 1.0);
+                    // offsetMin: (30.0, -30.0); offsetMax: (-122.0, 0.0); sizeDelta: (-152.0, 30.0);
+                    teamRect.anchoredPosition = new Vector3(-46.0f, 0.0f, 0.0f);
+                    teamRect.anchorMin = new Vector2(0.0f, 1.0f);
+                    teamRect.anchorMax = new Vector2(1.0f, 1.0f);
+                    teamRect.pivot = new Vector2(0.5f, 1.0f);
+                    teamRect.offsetMin = new Vector2(30.0f, -30.0f);
+                    teamRect.offsetMax = new Vector2(-122.0f, 0.0f);
+                    teamRect.sizeDelta = new Vector2(-152.0f, 30.0f);
+                }
+            }
         }
 
         #endregion
@@ -68,6 +106,7 @@ namespace GameManager.Match.RoundRobin
         #region Refresh
 
         public Text tvIndex;
+        public Text tvState;
 
         public Button btnShow;
 
@@ -91,6 +130,34 @@ namespace GameManager.Match.RoundRobin
                             else
                             {
                                 Debug.LogError("tvIndex null: " + this);
+                            }
+                        }
+                        // tvState
+                        {
+                            if (tvState != null)
+                            {
+                                switch (roundRobin.state.v.getType())
+                                {
+                                    case RoundRobin.State.Type.Load:
+                                        tvState.text = txtLoad.get("Loading");
+                                        break;
+                                    case RoundRobin.State.Type.Start:
+                                        tvState.text = txtStart.get("Starting");
+                                        break;
+                                    case RoundRobin.State.Type.Play:
+                                        tvState.text = txtPlay.get("Playing");
+                                        break;
+                                    case RoundRobin.State.Type.End:
+                                        tvState.text = txtEnd.get("End");
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown type: " + roundRobin.state.v.getType());
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("tvState null");
                             }
                         }
                         // btnShow
@@ -138,6 +205,126 @@ namespace GameManager.Match.RoundRobin
                                 Debug.LogError("tvShow null");
                             }
                         }
+                        // teams
+                        {
+                            // get team list
+                            List<TeamResult> teamResults = new List<TeamResult>();
+                            {
+                                // get
+                                ContestManagerStatePlay play = roundRobin.findDataInParent<ContestManagerStatePlay>();
+                                if (play != null)
+                                {
+                                    RoundRobinContent roundRobinContent = roundRobin.findDataInParent<RoundRobinContent>();
+                                    if (roundRobinContent != null)
+                                    {
+                                        foreach(MatchTeam matchTeam in play.teams.vs)
+                                        {
+                                            TeamResult teamResult = new TeamResult();
+                                            {
+                                                teamResult.teamIndex.v = matchTeam.teamIndex.v;
+                                                // score
+                                                {
+                                                    float score = 0;
+                                                    {
+                                                        foreach (RoundRobin check in roundRobinContent.roundRobins.vs)
+                                                        {
+                                                            if (check.index.v <= roundRobin.index.v)
+                                                            {
+                                                                if (check.state.v.getType() == RoundRobin.State.Type.End)
+                                                                {
+                                                                    RoundRobinStateEnd end = check.state.v as RoundRobinStateEnd;
+                                                                    score += end.getResult(matchTeam.teamIndex.v);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    teamResult.score.v = score;
+                                                }
+                                            }
+                                            teamResults.Add(teamResult);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("roundRobinContent null");
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("play null");
+                                }
+                                // sort
+                                teamResults.Sort(delegate (TeamResult p1, TeamResult p2)
+                                {
+                                    return p2.score.v.CompareTo(p1.score.v);
+                                });
+                            }
+                            // make UI
+                            {
+                                // get old
+                                List<ChooseRoundRobinTeamUI.UIData> oldTeamUIDatas = new List<ChooseRoundRobinTeamUI.UIData>();
+                                {
+                                    oldTeamUIDatas.AddRange(this.data.teams.vs);
+                                }
+                                // make UI
+                                {
+                                    foreach (TeamResult teamResult in teamResults)
+                                    {
+                                        // find UI
+                                        ChooseRoundRobinTeamUI.UIData teamUIData = null;
+                                        bool needAdd = false;
+                                        {
+                                            // find old
+                                            if (oldTeamUIDatas.Count > 0)
+                                            {
+                                                teamUIData = oldTeamUIDatas[0];
+                                            }
+                                            // make new
+                                            if (teamUIData == null)
+                                            {
+                                                teamUIData = new ChooseRoundRobinTeamUI.UIData();
+                                                {
+                                                    teamUIData.uid = this.data.teams.makeId();
+                                                }
+                                                needAdd = true;
+                                            }
+                                            else
+                                            {
+                                                oldTeamUIDatas.Remove(teamUIData);
+                                            }
+                                        }
+                                        // update
+                                        {
+                                            teamUIData.teamIndex.v = teamResult.teamIndex.v;
+                                            teamUIData.score.v = teamResult.score.v;
+                                        }
+                                        // add
+                                        if (needAdd)
+                                        {
+                                            this.data.teams.add(teamUIData);
+                                        }
+                                    }
+                                }
+                                // remove old
+                                foreach(ChooseRoundRobinTeamUI.UIData teamUIData in oldTeamUIDatas)
+                                {
+                                    this.data.teams.remove(teamUIData);
+                                }
+                            }
+                        }
+                        // UI
+                        {
+                            float deltaY = 0;
+                            // teams
+                            {
+                                foreach(ChooseRoundRobinTeamUI.UIData team in this.data.teams.vs)
+                                {
+                                    deltaY += UIRectTransform.SetPosY(team, deltaY);
+                                }
+                            }
+                            // set
+                            this.setHolderSize(Mathf.Max(30, deltaY));
+                        }
                     }
                     else
                     {
@@ -157,6 +344,11 @@ namespace GameManager.Match.RoundRobin
 
         private RoundRobinContentUI.UIData roundRobinContentUIData = null;
 
+        public ChooseRoundRobinTeamUI teamPrefab;
+        private static readonly UIRectTransform teamRect = new UIRectTransform();
+
+        private ChooseRoundRobinHolderScoreCheckChange<RoundRobin> chooseRoundRobinHolderScoreCheckChange = new ChooseRoundRobinHolderScoreCheckChange<RoundRobin>();
+
         public override void onAddCallBack<T>(T data)
         {
             if (data is UIData)
@@ -171,6 +363,7 @@ namespace GameManager.Match.RoundRobin
                 // Child
                 {
                     uiData.roundRobin.allAddCallBack(this);
+                    uiData.teams.allAddCallBack(this);
                 }
                 dirty = true;
                 return;
@@ -201,10 +394,37 @@ namespace GameManager.Match.RoundRobin
                 }
             }
             // Child
-            if (data is RoundRobin)
             {
-                dirty = true;
-                return;
+                // roundRobin
+                {
+                    if (data is RoundRobin)
+                    {
+                        RoundRobin roundRobin = data as RoundRobin;
+                        // checkChange
+                        {
+                            chooseRoundRobinHolderScoreCheckChange.addCallBack(this);
+                            chooseRoundRobinHolderScoreCheckChange.setData(roundRobin);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // checkChange
+                    if (data is ChooseRoundRobinHolderScoreCheckChange<RoundRobin>)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                }
+                if(data is ChooseRoundRobinTeamUI.UIData)
+                {
+                    ChooseRoundRobinTeamUI.UIData teamUIData = data as ChooseRoundRobinTeamUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(teamUIData, teamPrefab, this.transform, teamRect);
+                    }
+                    dirty = true;
+                    return;
+                }
             }
             Debug.LogError("Don't process: " + data + "; " + this);
         }
@@ -223,6 +443,7 @@ namespace GameManager.Match.RoundRobin
                 // Child
                 {
                     uiData.roundRobin.allRemoveCallBack(this);
+                    uiData.teams.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
                 return;
@@ -250,9 +471,33 @@ namespace GameManager.Match.RoundRobin
                 }
             }
             // Child
-            if (data is RoundRobin)
             {
-                return;
+                // roundRobin
+                {
+                    if (data is RoundRobin)
+                    {
+                        // checkChange
+                        {
+                            chooseRoundRobinHolderScoreCheckChange.removeCallBack(this);
+                            chooseRoundRobinHolderScoreCheckChange.setData(null);
+                        }
+                        return;
+                    }
+                    // checkChange
+                    if (data is ChooseRoundRobinHolderScoreCheckChange<RoundRobin>)
+                    {
+                        return;
+                    }
+                }
+                if (data is ChooseRoundRobinTeamUI.UIData)
+                {
+                    ChooseRoundRobinTeamUI.UIData teamUIData = data as ChooseRoundRobinTeamUI.UIData;
+                    // UI
+                    {
+                        teamUIData.removeCallBackAndDestroy(typeof(ChooseRoundRobinTeamUI));
+                    }
+                    return;
+                }
             }
             Debug.LogError("Don't process: " + data + "; " + this);
         }
@@ -268,6 +513,12 @@ namespace GameManager.Match.RoundRobin
                 switch ((UIData.Property)wrapProperty.n)
                 {
                     case UIData.Property.roundRobin:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.teams:
                         {
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
@@ -349,23 +600,38 @@ namespace GameManager.Match.RoundRobin
                 }
             }
             // Child
-            if (wrapProperty.p is RoundRobin)
             {
-                switch ((RoundRobin.Property)wrapProperty.n)
+                // roundRobin
                 {
-                    case RoundRobin.Property.state:
+                    if (wrapProperty.p is RoundRobin)
+                    {
+                        switch ((RoundRobin.Property)wrapProperty.n)
+                        {
+                            case RoundRobin.Property.state:
+                                dirty = true;
+                                break;
+                            case RoundRobin.Property.index:
+                                dirty = true;
+                                break;
+                            case RoundRobin.Property.roundContests:
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
+                    // checkChange
+                    if (wrapProperty.p is ChooseRoundRobinHolderScoreCheckChange<RoundRobin>)
+                    {
                         dirty = true;
-                        break;
-                    case RoundRobin.Property.index:
-                        dirty = true;
-                        break;
-                    case RoundRobin.Property.roundContests:
-                        break;
-                    default:
-                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                        break;
+                        return;
+                    }
                 }
-                return;
+                if (wrapProperty.p is ChooseRoundRobinTeamUI.UIData)
+                {
+                    return;
+                }
             }
             Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
         }

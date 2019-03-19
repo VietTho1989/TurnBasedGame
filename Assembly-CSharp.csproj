@@ -1575,6 +1575,8 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Content\RoundRobin\UI\BtnRoundRobinContentUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Content\RoundRobin\UI\ChooseRoundRobin\Adapter\ChooseRoundRobinAdapter.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Content\RoundRobin\UI\ChooseRoundRobin\Adapter\ChooseRoundRobinHolder.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Content\RoundRobin\UI\ChooseRoundRobin\Adapter\ChooseRoundRobinHolderScoreCheckChange.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Content\RoundRobin\UI\ChooseRoundRobin\Adapter\Team\ChooseRoundRobinTeamUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Content\RoundRobin\UI\ChooseRoundRobin\ChooseRoundRobinUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Content\RoundRobin\UI\RoundRobinContentUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Content\RoundRobin\Update\RoundRobinContentCheckEndUpdate.cs" />
