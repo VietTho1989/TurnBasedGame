@@ -246,6 +246,11 @@ namespace GameManager.Match.RoundRobin
         public ChooseRoundRobinUI chooseRoundRobinPrefab;
         private static readonly UIRectTransform chooseRoundRobinRect = UIRectTransform.CreateCenterRect(400, 400);
 
+        static RoundRobinContentUI()
+        {
+            chooseRoundRobinRect.setPosY(-30);
+        }
+
         public RequestNewRoundRobinUI requestNewRoundRobinPrefab;
 
         private RoomUI.UIData roomUIData = null;
