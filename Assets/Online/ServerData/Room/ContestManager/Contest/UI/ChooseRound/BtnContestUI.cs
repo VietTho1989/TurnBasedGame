@@ -38,8 +38,6 @@ namespace GameManager.Match
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public static readonly TxtLanguage txtContest = new TxtLanguage();
@@ -50,6 +48,8 @@ namespace GameManager.Match
         }
 
         #endregion
+
+        #region Refresh
 
         public Text tvContest;
 
@@ -103,7 +103,7 @@ namespace GameManager.Match
                                         }
                                     }
                                 }
-                                tvContest.text = txtContest.get("Set") + " " + roundIndex + "/" + roundCount;
+                                tvContest.text = txtContest.get("Set") + " " + (roundIndex + 1) + "/" + roundCount;
                             }
                             else
                             {

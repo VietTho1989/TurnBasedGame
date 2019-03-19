@@ -84,8 +84,6 @@ namespace GameManager.Match
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public static readonly TxtLanguage txtContestManager = new TxtLanguage();
@@ -96,6 +94,8 @@ namespace GameManager.Match
         }
 
         #endregion
+
+        #region Refresh
 
         public Text tvContestManager;
 
@@ -150,7 +150,7 @@ namespace GameManager.Match
                                     }
                                     int contestManagerCount = room.contestManagers.vs.Count;
                                     // Set
-                                    tvContestManager.text = txtContestManager.get("Tournament") + ": " + contestManagerIndex + "/" + contestManagerCount;
+                                    tvContestManager.text = txtContestManager.get("Tournament") + ": " + (contestManagerIndex + 1) + "/" + contestManagerCount;
                                 }
                                 else
                                 {
