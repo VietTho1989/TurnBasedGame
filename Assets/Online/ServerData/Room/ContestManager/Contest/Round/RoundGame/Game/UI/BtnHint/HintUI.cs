@@ -139,17 +139,25 @@ namespace Hint
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
+        public Text lbTitle;
+        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+
         public Text tvAuto;
-        public static readonly TxtLanguage txtAuto = new TxtLanguage();
+        private static readonly TxtLanguage txtAuto = new TxtLanguage();
+
+        public Text tvEditAI;
+        private static readonly TxtLanguage txtEditAI = new TxtLanguage();
 
         static HintUI()
         {
             // txt
-            txtAuto.add(Language.Type.vi, "Tự Động");
+            {
+                txtTitle.add(Language.Type.vi, "Gợi Ý");
+                txtAuto.add(Language.Type.vi, "Tự Động");
+                txtEditAI.add(Language.Type.vi, "Chỉnh AI");
+            }
             // rect
             {
                 // stateRect
@@ -168,6 +176,8 @@ namespace Hint
         }
 
         #endregion
+
+        #region Refresh
 
         public Toggle tgAutoHint;
         public Transform contentContainer;
@@ -239,13 +249,29 @@ namespace Hint
                     }
                     // txt
                     {
+                        if (lbTitle != null)
+                        {
+                            lbTitle.text = txtTitle.get("Hint");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null");
+                        }
                         if (tvAuto != null)
                         {
                             tvAuto.text = txtAuto.get("Auto");
                         }
                         else
                         {
-                            Debug.LogError("tvAuto null: " + this);
+                            Debug.LogError("tvAuto null");
+                        }
+                        if (tvEditAI != null)
+                        {
+                            tvEditAI.text = txtEditAI.get("Edit AI");
+                        }
+                        else
+                        {
+                            Debug.LogError("tvEditAI null");
                         }
                     }
                 }
