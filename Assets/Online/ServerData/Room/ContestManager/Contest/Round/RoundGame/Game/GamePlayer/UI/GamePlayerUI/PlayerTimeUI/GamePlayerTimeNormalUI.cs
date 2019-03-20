@@ -363,7 +363,8 @@ namespace TimeControl.Normal
                                         }
                                     }
                                     // set
-                                    tvTime.text = txtTime.get("Time") + ": " + strTurnTime + " | " + strTotalTime;
+                                    // tvTime.text = txtTime.get("Time") + ": " + strTurnTime + " | " + strTotalTime;
+                                    tvTime.text = strTurnTime + " | " + strTotalTime;
                                 }
                                 else
                                 {

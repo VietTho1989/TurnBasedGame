@@ -16,16 +16,16 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
             if (this.data != null)
             {
                 // find boardTransform
+                GameDataBoardUI.UIData boardUIData = this.data.board.v;
                 RectTransform boardTransform = null;
                 float heightWidth = 1;
                 float boardLeft = 0;
                 float boardRight = 0;
                 float boardTop = 0;
                 float boardBottom = 0;
+                if (boardUIData != null)
                 {
                     // find
-                    GameDataBoardUI.UIData boardUIData = this.data.board.v;
-                    if (boardUIData != null)
                     {
                         // boardTransform
                         {
@@ -47,95 +47,99 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
                             boardTop = boardUIData.top.v;
                             boardBottom = boardUIData.bottom.v;
                         }
+                        // correct
+                        if (heightWidth <= 0)
+                        {
+                            Debug.LogError("heightWidth: " + heightWidth);
+                            heightWidth = 1;
+                        }
+                    }
+                    // process
+                    if (boardTransform != null)
+                    {
+                        // find bottomHeight
+                        float bottomHeight = this.data.bottomHeight.v;
+                        // find width, height
+                        float width = 480;
+                        float height = 480;
+                        float gameDataWidth = 480;
+                        float gameDataHeight = 480;
+                        {
+                            RectTransform gameDataTransform = (RectTransform)this.transform;
+                            if (gameDataTransform != null)
+                            {
+                                gameDataWidth = gameDataTransform.rect.width;
+                                gameDataHeight = gameDataTransform.rect.height - bottomHeight;
+                                // check need other information
+                                bool needOtherInformation = this.data.gamePlayerList.v != null || this.data.gameActionsUI.v != null;
+                                // set width, height
+                                {
+                                    // find width
+                                    {
+                                        if (needOtherInformation)
+                                        {
+                                            // portrait
+                                            if (gameDataWidth <= gameDataHeight)
+                                            {
+                                                Debug.LogError("portrait");
+                                                boardUIData.screen.v = GameDataBoardUI.UIData.Screen.Portrait;
+                                                width = Mathf.Min(gameDataWidth - (boardLeft + boardRight), (gameDataHeight - (boardTop + boardBottom) - 120 - 32) / heightWidth);
+                                            }
+                                            // landscape
+                                            else
+                                            {
+                                                Debug.LogError("landscape");
+                                                boardUIData.screen.v = GameDataBoardUI.UIData.Screen.LandScape;
+                                                width = Mathf.Min(gameDataWidth - (boardLeft + boardRight) - 320 - 32, (gameDataHeight - (boardTop + boardBottom) - 16) / heightWidth);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            // portrait
+                                            if (gameDataWidth <= gameDataHeight)
+                                            {
+                                                Debug.LogError("portrait");
+                                                boardUIData.screen.v = GameDataBoardUI.UIData.Screen.Portrait;
+                                                width = Mathf.Min(gameDataWidth - (boardLeft + boardRight), (gameDataHeight - (boardTop + boardBottom) - 16) / heightWidth);
+                                            }
+                                            // landscape
+                                            else
+                                            {
+                                                Debug.LogError("landscape");
+                                                boardUIData.screen.v = GameDataBoardUI.UIData.Screen.LandScape;
+                                                width = Mathf.Min(gameDataWidth - (boardLeft + boardRight) - 16, (gameDataHeight - (boardTop + boardBottom) - 16) / heightWidth);
+                                            }
+                                        }
+                                    }
+                                    height = width * heightWidth;
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("gameDataTransform null");
+                            }
+                        }
+                        // find boardRect
+                        Debug.LogError("boardRect: " + width + ", " + height + ", " + bottomHeight + ", " + gameDataWidth + ", " + gameDataHeight);
+                        UIRectTransform boardRect = UIRectTransform.CreateCenterRect(width, height);
+                        {
+                            boardRect.setPosY(-bottomHeight / 2);
+                        }
+                        // set
+                        boardRect.set(boardTransform);
+                        // set board dirty
+                        {
+                            UIUtils.UpdateTransformData(this.data.board.v);
+                        }
                     }
                     else
                     {
-                        Debug.LogError("boardUIData null");
-                    }
-                    // correct
-                    if (heightWidth <= 0)
-                    {
-                        Debug.LogError("heightWidth: " + heightWidth);
-                        heightWidth = 1;
-                    }
-                }
-                // process
-                if (boardTransform != null)
-                {
-                    // find bottomHeight
-                    float bottomHeight = this.data.bottomHeight.v;
-                    // find width, height
-                    float width = 480;
-                    float height = 480;
-                    float gameDataWidth = 480;
-                    float gameDataHeight = 480;
-                    {
-                        RectTransform gameDataTransform = (RectTransform)this.transform;
-                        if (gameDataTransform != null)
-                        {
-                            gameDataWidth = gameDataTransform.rect.width;
-                            gameDataHeight = gameDataTransform.rect.height - bottomHeight;
-                            // check need other information
-                            bool needOtherInformation = this.data.gamePlayerList.v != null || this.data.gameActionsUI.v != null;
-                            // set width, height
-                            {
-                                // find width
-                                {
-                                    if (needOtherInformation)
-                                    {
-                                        // portrait
-                                        if (gameDataWidth <= gameDataHeight)
-                                        {
-                                            Debug.LogError("portrait");
-                                            width = Mathf.Min(gameDataWidth - (boardLeft + boardRight), (gameDataHeight - (boardTop + boardBottom) - 120 - 32) / heightWidth);
-                                        }
-                                        // landscape
-                                        else
-                                        {
-                                            Debug.LogError("landscape");
-                                            width = Mathf.Min(gameDataWidth - (boardLeft + boardRight) - 320 - 32, (gameDataHeight - (boardTop + boardBottom) - 16) / heightWidth);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        // portrait
-                                        if (gameDataWidth <= gameDataHeight)
-                                        {
-                                            Debug.LogError("portrait");
-                                            width = Mathf.Min(gameDataWidth - (boardLeft + boardRight), (gameDataHeight - (boardTop + boardBottom) - 16) / heightWidth);
-                                        }
-                                        // landscape
-                                        else
-                                        {
-                                            Debug.LogError("landscape");
-                                            width = Mathf.Min(gameDataWidth - (boardLeft + boardRight) - 16, (gameDataHeight - (boardTop + boardBottom) - 16) / heightWidth);
-                                        }
-                                    }
-                                }
-                                height = width * heightWidth;
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("gameDataTransform null");
-                        }
-                    }
-                    // find boardRect
-                    Debug.LogError("boardRect: " + width + ", " + height + ", " + bottomHeight + ", " + gameDataWidth + ", " + gameDataHeight);
-                    UIRectTransform boardRect = UIRectTransform.CreateCenterRect(width, height);
-                    {
-                        boardRect.setPosY(-bottomHeight/2);
-                    }
-                    // set
-                    boardRect.set(boardTransform);
-                    // set board dirty
-                    {
-                        UIUtils.UpdateTransformData(this.data.board.v);
+                        Debug.LogError("boardTransform null");
                     }
                 }
                 else
                 {
-                    Debug.LogError("boardTransform null");
+                    Debug.LogError("boardUIData null");
                 }
             }
             else

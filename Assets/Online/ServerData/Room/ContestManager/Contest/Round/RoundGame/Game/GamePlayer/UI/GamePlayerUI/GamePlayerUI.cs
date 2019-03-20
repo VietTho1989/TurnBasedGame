@@ -6,6 +6,9 @@ using System.Collections.Generic;
 public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
 {
 
+    public const float Width = 164;
+    public const float Height = 60;
+
     #region UIData
 
     public class UIData : Data

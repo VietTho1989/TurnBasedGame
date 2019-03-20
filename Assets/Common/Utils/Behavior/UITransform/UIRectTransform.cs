@@ -349,6 +349,21 @@ public class UIRectTransform
         return ret;
     }
 
+    public static UIRectTransform CreateCenterRect(float width, float height, float x, float y)
+    {
+        UIRectTransform ret = new UIRectTransform();
+        {
+            ret.anchoredPosition = new Vector3(x, y, 0.0f);
+            ret.anchorMin = new Vector2(0.5f, 0.5f);
+            ret.anchorMax = new Vector2(0.5f, 0.5f);
+            ret.pivot = new Vector2(0.5f, 0.5f);
+            ret.offsetMin = new Vector2(x - width / 2, y - height / 2);
+            ret.offsetMax = new Vector2(x + width / 2, y + height / 2);
+            ret.sizeDelta = new Vector2(width, height);
+        }
+        return ret;
+    }
+
     #region set center posY
 
     public static void SetCenterPosY(RectTransform rectTransform, float posY)

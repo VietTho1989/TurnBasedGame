@@ -30,6 +30,8 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
 
         public VP<GamePlayerListUI.UIData> gamePlayerList;
 
+        public VP<InformGameMessageUI.UIData> informGameMessage;
+
         public VP<GameActionsUI.UIData> gameActionsUI;
 
         /** bottomHeight for gameBottomUI*/
@@ -47,6 +49,7 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
             requestChangeUseRule,
             perspectiveUIData,
             gamePlayerList,
+            informGameMessage,
             gameActionsUI,
             bottomHeight
         }
@@ -61,6 +64,7 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
             this.requestChangeUseRule = new VP<RequestChangeUseRuleUI.UIData>(this, (byte)Property.requestChangeUseRule, null);
             this.perspectiveUIData = new VP<PerspectiveUI.UIData>(this, (byte)Property.perspectiveUIData, null);
             this.gamePlayerList = new VP<GamePlayerListUI.UIData>(this, (byte)Property.gamePlayerList, new GamePlayerListUI.UIData());
+            this.informGameMessage = new VP<InformGameMessageUI.UIData>(this, (byte)Property.informGameMessage, new InformGameMessageUI.UIData());
             this.gameActionsUI = new VP<GameActionsUI.UIData>(this, (byte)Property.gameActionsUI, new GameActionsUI.UIData());
             this.bottomHeight = new VP<float>(this, (byte)Property.bottomHeight, 60);
         }
@@ -267,19 +271,47 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
                     }
                     // gamePlayerList
                     {
-                        if (this.data.gamePlayerList.v != null)
+                        GamePlayerListUI.UIData gamePlayerListUIData = this.data.gamePlayerList.v;
+                        if (gamePlayerListUIData != null)
                         {
                             Game game = gameData.findDataInParent<Game>();
-                            this.data.gamePlayerList.v.game.v = new ReferenceData<Game>(game);
+                            gamePlayerListUIData.game.v = new ReferenceData<Game>(game);
                         }
                         else
                         {
                             Debug.LogError("gamePlayerList null: " + this);
                         }
                     }
+                    // informGameMessage
+                    {
+                        InformGameMessageUI.UIData informGameMessageUIData = this.data.informGameMessage.v;
+                        if (informGameMessageUIData != null)
+                        {
+                            // find chatRoom
+                            ChatRoom chatRoom = null;
+                            {
+                                Game game = gameData.findDataInParent<Game>();
+                                if (game != null)
+                                {
+                                    chatRoom = game.chatRoom.v;
+                                }
+                                else
+                                {
+                                    Debug.LogError("game null");
+                                }
+                            }
+                            // set
+                            informGameMessageUIData.chatRoom.v = new ReferenceData<ChatRoom>(chatRoom);
+                        }
+                        else
+                        {
+                            Debug.LogError("informGameMessageUIData null");
+                        }
+                    }
                     // GameAction
                     {
-                        if (this.data.gameActionsUI.v != null)
+                        GameActionsUI.UIData gameActionsUIData = this.data.gameActionsUI.v;
+                        if (gameActionsUIData != null)
                         {
                             // find
                             GameAction gameAction = null;
@@ -295,7 +327,7 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
                                 }
                             }
                             // set
-                            this.data.gameActionsUI.v.gameAction.v = new ReferenceData<GameAction>(gameAction);
+                            gameActionsUIData.gameAction.v = new ReferenceData<GameAction>(gameAction);
                         }
                         else
                         {
@@ -306,10 +338,11 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
                     {
                         UIRectTransform.SetSiblingIndex(this.data.board.v, 0);
                         UIRectTransform.SetSiblingIndex(this.data.gamePlayerList.v, 1);
-                        UIRectTransform.SetSiblingIndex(this.data.gameActionsUI.v, 2);
-                        UIRectTransform.SetSiblingIndex(this.data.perspectiveUIData.v, 3);
-                        UIRectTransform.SetSiblingIndex(this.data.hintUI.v, 4);
-                        UIRectTransform.SetSiblingIndex(this.data.requestChangeUseRule.v, 5);
+                        UIRectTransform.SetSiblingIndex(this.data.informGameMessage.v, 2);
+                        UIRectTransform.SetSiblingIndex(this.data.gameActionsUI.v, 3);
+                        UIRectTransform.SetSiblingIndex(this.data.perspectiveUIData.v, 4);
+                        UIRectTransform.SetSiblingIndex(this.data.hintUI.v, 5);
+                        UIRectTransform.SetSiblingIndex(this.data.requestChangeUseRule.v, 6);
                     }
                 }
                 else
@@ -344,6 +377,7 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
     public RequestChangeUseRuleUI requestChangeUseRulePrefab;
 
     public GamePlayerListUI gamePlayerListPrefab;
+    public InformGameMessageUI informGameMessagePrefab;
     public GameActionsUI gameActionsPrefab;
 
     public GameDataBoardTransformUpdate boardTransformUpdate;
@@ -363,6 +397,7 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
                 uiData.requestChangeUseRule.allAddCallBack(this);
                 uiData.perspectiveUIData.allAddCallBack(this);
                 uiData.gamePlayerList.allAddCallBack(this);
+                uiData.informGameMessage.allAddCallBack(this);
                 uiData.gameActionsUI.allAddCallBack(this);
             }
             // Update
@@ -451,6 +486,16 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
                 dirty = true;
                 return;
             }
+            if(data is InformGameMessageUI.UIData)
+            {
+                InformGameMessageUI.UIData informGameMessageUIData = data as InformGameMessageUI.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(informGameMessageUIData, informGameMessagePrefab, this.transform);
+                }
+                dirty = true;
+                return;
+            }
             if (data is GameActionsUI.UIData)
             {
                 GameActionsUI.UIData gameActionsUIData = data as GameActionsUI.UIData;
@@ -478,6 +523,7 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
                 uiData.requestChangeUseRule.allRemoveCallBack(this);
                 uiData.perspectiveUIData.allRemoveCallBack(this);
                 uiData.gamePlayerList.allRemoveCallBack(this);
+                uiData.informGameMessage.allRemoveCallBack(this);
                 uiData.gameActionsUI.allRemoveCallBack(this);
             }
             // Update
@@ -564,6 +610,15 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
                 }
                 return;
             }
+            if(data is InformGameMessageUI.UIData)
+            {
+                InformGameMessageUI.UIData informGameMessageUIData = data as InformGameMessageUI.UIData;
+                // UI
+                {
+                    informGameMessageUIData.removeCallBackAndDestroy(typeof(InformGameMessageUI));
+                }
+                return;
+            }
             if (data is GameActionsUI.UIData)
             {
                 GameActionsUI.UIData subUIData = data as GameActionsUI.UIData;
@@ -622,6 +677,12 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
                     }
                     break;
                 case UIData.Property.gamePlayerList:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.informGameMessage:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
@@ -690,6 +751,7 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
                         case Game.Property.undoRedoRequest:
                             break;
                         case Game.Property.chatRoom:
+                            dirty = true;
                             break;
                         case Game.Property.animationData:
                             break;
@@ -744,6 +806,10 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
                 return;
             }
             if (wrapProperty.p is GamePlayerListUI.UIData)
+            {
+                return;
+            }
+            if(wrapProperty.p is InformGameMessageUI.UIData)
             {
                 return;
             }

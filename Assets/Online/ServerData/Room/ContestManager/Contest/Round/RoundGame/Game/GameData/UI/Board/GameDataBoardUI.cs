@@ -41,6 +41,18 @@ public class GameDataBoardUI : UIHaveTransformDataBehavior<GameDataBoardUI.UIDat
         public VP<float> top;
         public VP<float> bottom;
 
+        #region screen
+
+        public enum Screen
+        {
+            Portrait,
+            LandScape
+        }
+
+        public VP<Screen> screen;
+
+        #endregion
+
         #region Perspective
 
         public VP<Perspective> perspective;
@@ -82,6 +94,7 @@ public class GameDataBoardUI : UIHaveTransformDataBehavior<GameDataBoardUI.UIDat
             right,
             top,
             bottom,
+            screen,
 
             perspective
         }
@@ -97,6 +110,7 @@ public class GameDataBoardUI : UIHaveTransformDataBehavior<GameDataBoardUI.UIDat
             this.right = new VP<float>(this, (byte)Property.right, 0);
             this.top = new VP<float>(this, (byte)Property.top, 0);
             this.bottom = new VP<float>(this, (byte)Property.bottom, 0);
+            this.screen = new VP<Screen>(this, (byte)Property.screen, Screen.Portrait);
 
             this.perspective = new VP<Perspective>(this, (byte)Property.perspective, new Perspective());
         }
