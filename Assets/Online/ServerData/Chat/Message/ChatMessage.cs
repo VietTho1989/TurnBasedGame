@@ -104,6 +104,8 @@ public class ChatMessage : Data
         }
     }
 
+    public long clientTime = Global.getRealTimeInMiliSeconds();
+
     #endregion
 
     #region Content

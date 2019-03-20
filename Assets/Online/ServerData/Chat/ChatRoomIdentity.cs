@@ -6,197 +6,258 @@ using System.Collections.Generic;
 
 public class ChatRoomIdentity : DataIdentity
 {
-	#region messageCount
 
-	[SyncVar(hook="onChangeMessageCount")]
-	public uint messageCount;
+    #region messageCount
 
-	public void onChangeMessageCount(uint newMessageCount)
-	{
-		this.messageCount = newMessageCount;
-	}
+    [SyncVar(hook = "onChangeMessageCount")]
+    public uint messageCount;
 
-	#endregion
+    public void onChangeMessageCount(uint newMessageCount)
+    {
+        this.messageCount = newMessageCount;
+    }
 
-	#region isEnable
+    #endregion
 
-	[SyncVar(hook="onChangeIsEnable")]
-	public bool isEnable;
+    #region maxId
 
-	public void onChangeIsEnable(bool newIsEnable)
-	{
-		this.isEnable = newIsEnable;
-		if (this.netData.clientData != null) {
-			this.netData.clientData.isEnable.v = newIsEnable;
-		} else {
-			// Debug.Log ("clientData null");
-		}
-	}
+    [SyncVar(hook = "onChangeMaxId")]
+    public uint maxId;
 
-	#endregion
+    public void onChangeMaxId(uint newMaxId)
+    {
+        this.maxId = newMaxId;
+        if (this.netData.clientData != null)
+        {
+            this.netData.clientData.maxId.v = newMaxId;
+        }
+        else
+        {
+            // Debug.Log ("clientData null");
+        }
+    }
 
-	#region NetData
+    #endregion
 
-	public NetData<ChatRoom> netData = new NetData<ChatRoom>();
+    #region isEnable
 
-	public override NetDataDelegate getNetData ()
-	{
-		return this.netData;
-	}
+    [SyncVar(hook = "onChangeIsEnable")]
+    public bool isEnable;
 
-	public override void refreshClientData ()
-	{
-		if (this.netData.clientData != null) {
-			this.onChangeIsEnable (this.isEnable);
-		} else {
-			// Debug.LogError ("clientData null");
-		}
-	}
+    public void onChangeIsEnable(bool newIsEnable)
+    {
+        this.isEnable = newIsEnable;
+        if (this.netData.clientData != null)
+        {
+            this.netData.clientData.isEnable.v = newIsEnable;
+        }
+        else
+        {
+            // Debug.Log ("clientData null");
+        }
+    }
 
-	public override int refreshDataSize ()
-	{
-		int ret = GetDataSize (this.netId);
-		{
-			ret+=GetDataSize(this.isEnable);
-		}
-		return ret;
-	}
+    #endregion
 
-	#endregion
+    #region NetData
 
-	#region implement callBack
+    public NetData<ChatRoom> netData = new NetData<ChatRoom>();
 
-	public override void onAddCallBack<T> (T data)
-	{
-		if (data is ChatRoom) {
-			ChatRoom chatRoom = data as ChatRoom;
-			// Parent
-			this.addTransformToParent();
-			// Set Property
-			{
-				this.serialize (this.searchInfor, chatRoom.makeSearchInforms ());
-				this.isEnable = chatRoom.isEnable.v;
-				this.messageCount = (uint)chatRoom.messages.vs.Count;
-			}
-			this.getDataSize ();
-			// Observer
-			{
-				GameObserver observer = GetComponent<GameObserver> ();
-				if (observer != null) {
-					// Find room parent
-					Room room = chatRoom.getDataParent() as Room;
-					// Process
-					if (room == null) {
-						observer.checkChange = new FollowParentObserver (observer);
-						observer.setCheckChangeData (chatRoom);
-					} else {
-						observer.checkChange = new OnlyRoomPlayerObserver (observer);
-						observer.setCheckChangeData (room);
-					}
-				} else {
-					Debug.LogError ("observer null");
-				}
-			}
-			return;
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+    public override NetDataDelegate getNetData()
+    {
+        return this.netData;
+    }
 
-	public override void onRemoveCallBack<T> (T data, bool isHide)
-	{
-		// Hero
-		if (data is ChatRoom) {
-			//ChatRoom chatRoom = data as ChatRoom;
-			// Observer
-			{
-				GameObserver observer = GetComponent<GameObserver> ();
-				if (observer != null) {
-					observer.checkChange.setData (null);
-				} else {
-					Debug.LogError ("observer null");
-				}
-			}
-			return;
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+    public override void refreshClientData()
+    {
+        if (this.netData.clientData != null)
+        {
+            this.onChangeIsEnable(this.isEnable);
+            this.onChangeMaxId(this.maxId);
+        }
+        else
+        {
+            // Debug.LogError ("clientData null");
+        }
+    }
 
-	public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-	{
-		if (WrapProperty.checkError (wrapProperty)) {
-			return;
-		}
-		if (wrapProperty.p is ChatRoom) {
-			switch ((ChatRoom.Property)wrapProperty.n) {
-			case ChatRoom.Property.topic:
-				break;
-			case ChatRoom.Property.isEnable:
-				this.isEnable = (bool)wrapProperty.getValue ();
-				break;
-			case ChatRoom.Property.players:
-				break;
-			case ChatRoom.Property.messages:
-				{
-					ChatRoom chatRoom = wrapProperty.p as ChatRoom;
-					this.messageCount = (uint)chatRoom.messages.vs.Count;
-				}
-				break;
-			case ChatRoom.Property.typing:
-				break;
-			default:
-				Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-				break;
-			}
-			return;
-		}
-		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-	}
+    public override int refreshDataSize()
+    {
+        int ret = GetDataSize(this.netId);
+        {
+            ret += GetDataSize(this.isEnable);
+            ret += GetDataSize(this.messageCount);
+            ret += GetDataSize(this.maxId);
+        }
+        return ret;
+    }
 
-	#endregion
+    #endregion
 
-	#region loadMore
+    #region implement callBack
 
-	public void requestLoadMore(uint userId, uint loadMoreCount)
-	{
-		ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity (this.netData.clientData);
-		if (clientConnect != null) {
-			clientConnect.CmdChatRoomLoadMore (this.netId, userId, loadMoreCount);
-		} else {
-			Debug.LogError ("Cannot find clientConnect: " + this);
-		}
-	}
+    public override void onAddCallBack<T>(T data)
+    {
+        if (data is ChatRoom)
+        {
+            ChatRoom chatRoom = data as ChatRoom;
+            // Parent
+            this.addTransformToParent();
+            // Set Property
+            {
+                this.serialize(this.searchInfor, chatRoom.makeSearchInforms());
+                this.isEnable = chatRoom.isEnable.v;
+                this.messageCount = (uint)chatRoom.messages.vs.Count;
+                this.maxId = chatRoom.maxId.v;
+            }
+            this.getDataSize();
+            // Observer
+            {
+                GameObserver observer = GetComponent<GameObserver>();
+                if (observer != null)
+                {
+                    // Find room parent
+                    Room room = chatRoom.getDataParent() as Room;
+                    // Process
+                    if (room == null)
+                    {
+                        observer.checkChange = new FollowParentObserver(observer);
+                        observer.setCheckChangeData(chatRoom);
+                    }
+                    else
+                    {
+                        observer.checkChange = new OnlyRoomPlayerObserver(observer);
+                        observer.setCheckChangeData(room);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("observer null");
+                }
+            }
+            return;
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	public void loadMore(uint userId, uint loadMoreCount)
-	{
-		if (this.netData.serverData != null) {
-			this.netData.serverData.loadMore (userId, loadMoreCount);
-		} else {
-			Debug.LogError ("serverData null");
-		}
-	}
+    public override void onRemoveCallBack<T>(T data, bool isHide)
+    {
+        // Hero
+        if (data is ChatRoom)
+        {
+            //ChatRoom chatRoom = data as ChatRoom;
+            // Observer
+            {
+                GameObserver observer = GetComponent<GameObserver>();
+                if (observer != null)
+                {
+                    observer.checkChange.setData(null);
+                }
+                else
+                {
+                    Debug.LogError("observer null");
+                }
+            }
+            return;
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	#endregion
+    public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+    {
+        if (WrapProperty.checkError(wrapProperty))
+        {
+            return;
+        }
+        if (wrapProperty.p is ChatRoom)
+        {
+            switch ((ChatRoom.Property)wrapProperty.n)
+            {
+                case ChatRoom.Property.topic:
+                    break;
+                case ChatRoom.Property.isEnable:
+                    this.isEnable = (bool)wrapProperty.getValue();
+                    break;
+                case ChatRoom.Property.players:
+                    break;
+                case ChatRoom.Property.messages:
+                    {
+                        ChatRoom chatRoom = wrapProperty.p as ChatRoom;
+                        this.messageCount = (uint)chatRoom.messages.vs.Count;
+                    }
+                    break;
+                case ChatRoom.Property.maxId:
+                    this.maxId = (uint)wrapProperty.getValue();
+                    break;
+                case ChatRoom.Property.typing:
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+    }
 
-	#region Send normal message
+    #endregion
 
-	public void requestSendNormalMessage(uint userId, string message)
-	{
-		ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity (this.netData.clientData);
-		if (clientConnect != null) {
-			clientConnect.CmdChatRoomSendNormalMessage (this.netId, userId, message);
-		} else {
-			Debug.LogError ("Cannot find clientConnect: " + this);
-		}
-	}
+    #region loadMore
 
-	public void sendNormalMessage(uint userId, string message)
-	{
-		if (this.netData.serverData != null) {
-			this.netData.serverData.sendNormalMessage (userId, message);
-		} else {
-			Debug.LogError ("serverData null");
-		}
-	}
+    public void requestLoadMore(uint userId, uint loadMoreCount)
+    {
+        ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity(this.netData.clientData);
+        if (clientConnect != null)
+        {
+            clientConnect.CmdChatRoomLoadMore(this.netId, userId, loadMoreCount);
+        }
+        else
+        {
+            Debug.LogError("Cannot find clientConnect: " + this);
+        }
+    }
 
-	#endregion
+    public void loadMore(uint userId, uint loadMoreCount)
+    {
+        if (this.netData.serverData != null)
+        {
+            this.netData.serverData.loadMore(userId, loadMoreCount);
+        }
+        else
+        {
+            Debug.LogError("serverData null");
+        }
+    }
+
+    #endregion
+
+    #region Send normal message
+
+    public void requestSendNormalMessage(uint userId, string message)
+    {
+        ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity(this.netData.clientData);
+        if (clientConnect != null)
+        {
+            clientConnect.CmdChatRoomSendNormalMessage(this.netId, userId, message);
+        }
+        else
+        {
+            Debug.LogError("Cannot find clientConnect: " + this);
+        }
+    }
+
+    public void sendNormalMessage(uint userId, string message)
+    {
+        if (this.netData.serverData != null)
+        {
+            this.netData.serverData.sendNormalMessage(userId, message);
+        }
+        else
+        {
+            Debug.LogError("serverData null");
+        }
+    }
+
+    #endregion
+
 }

@@ -6,33 +6,33 @@ using System.Collections.Generic;
 public class TurnChange : HistoryChange
 {
 
-	public VP<int> turn;
+    public VP<int> turn;
 
-	public VP<int> playerIndex;
+    public VP<int> playerIndex;
 
-	public VP<int> gameTurn;
+    public VP<int> gameTurn;
 
-	#region Constructor
+    #region Constructor
 
-	public enum Property
-	{
-		turn,
-		playerIndex,
-		gameTurn
-	}
+    public enum Property
+    {
+        turn,
+        playerIndex,
+        gameTurn
+    }
 
-	public TurnChange() : base()
-	{
-		this.turn = new VP<int> (this, (byte)Property.turn, 0);
-		this.playerIndex = new VP<int> (this, (byte)Property.playerIndex, 0);
-		this.gameTurn = new VP<int> (this, (byte)Property.gameTurn, 0);
-	}
+    public TurnChange() : base()
+    {
+        this.turn = new VP<int>(this, (byte)Property.turn, 0);
+        this.playerIndex = new VP<int>(this, (byte)Property.playerIndex, 0);
+        this.gameTurn = new VP<int>(this, (byte)Property.gameTurn, 0);
+    }
 
-	#endregion
+    #endregion
 
-	public override Type getType ()
-	{
-		return Type.Turn;
-	}
+    public override Type getType()
+    {
+        return Type.Turn;
+    }
 
 }

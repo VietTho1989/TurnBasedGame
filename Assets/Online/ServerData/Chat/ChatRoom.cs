@@ -68,6 +68,12 @@ public class ChatRoom : Data
 
     public LP<ChatMessage> messages;
 
+    public VP<uint> maxId;
+
+    #endregion
+
+    #region chatViewer
+
     public const uint LoadMorePerRequest = 20;
 
     public LP<ChatViewer> chatViewers;
@@ -115,13 +121,39 @@ public class ChatRoom : Data
         ChatViewer chatViewer = this.findChatViewer(userId);
         if (chatViewer != null)
         {
-            if (chatViewer.minViewId.v > loadMoreCount)
+            if (chatViewer.isActive.v)
             {
-                chatViewer.minViewId.v = chatViewer.minViewId.v - loadMoreCount;
+                if (chatViewer.minViewId.v > loadMoreCount)
+                {
+                    chatViewer.minViewId.v = chatViewer.minViewId.v - loadMoreCount;
+                }
+                else
+                {
+                    chatViewer.minViewId.v = 0;
+                }
             }
             else
             {
-                chatViewer.minViewId.v = 0;
+                chatViewer.isActive.v = true;
+                // minViewId
+                {
+                    if (this.messages.vs.Count > 0)
+                    {
+                        ChatMessage lastMessage = this.messages.vs[this.messages.vs.Count - 1];
+                        if (lastMessage.uid > loadMoreCount)
+                        {
+                            chatViewer.minViewId.v = lastMessage.uid - loadMoreCount;
+                        }
+                        else
+                        {
+                            chatViewer.minViewId.v = 0;
+                        }
+                    }
+                    else
+                    {
+                        chatViewer.minViewId.v = 0;
+                    }
+                }
             }
         }
         else
@@ -172,6 +204,7 @@ public class ChatRoom : Data
         isEnable,
         players,
         messages,
+        maxId,
         chatViewers,
         typing
     }
@@ -182,6 +215,7 @@ public class ChatRoom : Data
         this.isEnable = new VP<bool>(this, (byte)Property.isEnable, true);
         this.players = new LP<Human>(this, (byte)Property.players);
         this.messages = new LP<ChatMessage>(this, (byte)Property.messages);
+        this.maxId = new VP<uint>(this, (byte)Property.maxId, 0);
         this.chatViewers = new LP<ChatViewer>(this, (byte)Property.chatViewers);
         this.typing = new VP<Typing>(this, (byte)Property.typing, new Typing());
     }

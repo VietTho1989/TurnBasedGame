@@ -39,6 +39,11 @@ public class UndoRedoRequestUpdate : UpdateBehavior<UndoRedoRequest>
                         this.data.state.v = none;
                     }
                 }
+                // canUndo, canRedo
+                {
+                    this.data.canUndo.v = this.data.isCanAnswer(UndoRedoRequest.Operation.Undo);
+                    this.data.canRedo.v = this.data.isCanAnswer(UndoRedoRequest.Operation.Redo);
+                }
             }
             else
             {
@@ -82,27 +87,36 @@ public class UndoRedoRequestUpdate : UpdateBehavior<UndoRedoRequest>
                 // Child
                 {
                     game.gameData.allAddCallBack(this);
+                    game.history.allAddCallBack(this);
                 }
                 dirty = true;
                 return;
             }
             // Child
             {
-                if (data is GameData)
+                // gameData
                 {
-                    GameData gameData = data as GameData;
-                    // Child
+                    if (data is GameData)
                     {
-                        gameData.turn.allAddCallBack(this);
+                        GameData gameData = data as GameData;
+                        // Child
+                        {
+                            gameData.turn.allAddCallBack(this);
+                        }
+                        dirty = true;
+                        return;
                     }
-                    dirty = true;
-                    return;
+                    // Child
+                    if (data is Turn)
+                    {
+                        dirty = true;
+                        needReset = true;
+                        return;
+                    }
                 }
-                // Child
-                if (data is Turn)
+                if(data is History)
                 {
                     dirty = true;
-                    needReset = true;
                     return;
                 }
             }
@@ -162,22 +176,30 @@ public class UndoRedoRequestUpdate : UpdateBehavior<UndoRedoRequest>
                 // Child
                 {
                     game.gameData.allRemoveCallBack(this);
+                    game.history.allRemoveCallBack(this);
                 }
                 return;
             }
             // Child
             {
-                if (data is GameData)
+                // gameData
                 {
-                    GameData gameData = data as GameData;
-                    // Child
+                    if (data is GameData)
                     {
-                        gameData.turn.allRemoveCallBack(this);
+                        GameData gameData = data as GameData;
+                        // Child
+                        {
+                            gameData.turn.allRemoveCallBack(this);
+                        }
+                        return;
                     }
-                    return;
+                    // Child
+                    if (data is Turn)
+                    {
+                        return;
+                    }
                 }
-                // Child
-                if (data is Turn)
+                if(data is History)
                 {
                     return;
                 }
@@ -256,6 +278,10 @@ public class UndoRedoRequestUpdate : UpdateBehavior<UndoRedoRequest>
                         }
                         break;
                     case Game.Property.history:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
                         break;
                     case Game.Property.gameAction:
                         break;
@@ -273,37 +299,62 @@ public class UndoRedoRequestUpdate : UpdateBehavior<UndoRedoRequest>
             }
             // Child
             {
-                if (wrapProperty.p is GameData)
+                // gameData
                 {
-                    switch ((GameData.Property)wrapProperty.n)
+                    if (wrapProperty.p is GameData)
                     {
-                        case GameData.Property.gameType:
+                        switch ((GameData.Property)wrapProperty.n)
+                        {
+                            case GameData.Property.gameType:
+                                break;
+                            case GameData.Property.useRule:
+                                break;
+                            case GameData.Property.turn:
+                                {
+                                    ValueChangeUtils.replaceCallBack(this, syncs);
+                                    dirty = true;
+                                }
+                                break;
+                            case GameData.Property.timeControl:
+                                break;
+                            case GameData.Property.lastMove:
+                                break;
+                            case GameData.Property.state:
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
+                    // Child
+                    if (wrapProperty.p is Turn)
+                    {
+                        dirty = true;
+                        needReset = true;
+                        return;
+                    }
+                }
+                if(wrapProperty.p is History)
+                {
+                    switch ((History.Property)wrapProperty.n)
+                    {
+                        case History.Property.isActive:
                             break;
-                        case GameData.Property.useRule:
+                        case History.Property.changes:
+                            dirty = true;
                             break;
-                        case GameData.Property.turn:
-                            {
-                                ValueChangeUtils.replaceCallBack(this, syncs);
-                                dirty = true;
-                            }
+                        case History.Property.position:
+                            dirty = true;
                             break;
-                        case GameData.Property.timeControl:
+                        case History.Property.changeCount:
                             break;
-                        case GameData.Property.lastMove:
-                            break;
-                        case GameData.Property.state:
+                        case History.Property.humanConnections:
                             break;
                         default:
                             Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                             break;
                     }
-                    return;
-                }
-                // Child
-                if (wrapProperty.p is Turn)
-                {
-                    dirty = true;
-                    needReset = true;
                     return;
                 }
             }

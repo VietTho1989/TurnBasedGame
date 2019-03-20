@@ -60,13 +60,13 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
         {
             // anchoredPosition: (0.0, -5.0); anchorMin: (0.0, 1.0); anchorMax: (0.0, 1.0); pivot: (0.0, 1.0);
             // offsetMin: (0.0, -41.0); offsetMax: (36.0, -5.0); sizeDelta: (36.0, 36.0);
-            avatarRect.anchoredPosition = new Vector3(0.0f, -5.0f, 0.0f);
+            avatarRect.anchoredPosition = new Vector3(0.0f, -4.0f, 0.0f);
             avatarRect.anchorMin = new Vector2(0.0f, 1.0f);
             avatarRect.anchorMax = new Vector2(0.0f, 1.0f);
             avatarRect.pivot = new Vector2(0.0f, 1.0f);
-            avatarRect.offsetMin = new Vector2(0.0f, -41.0f);
-            avatarRect.offsetMax = new Vector2(36.0f, -5.0f);
-            avatarRect.sizeDelta = new Vector2(36.0f, 36.0f);
+            avatarRect.offsetMin = new Vector2(0.0f, -34.0f);
+            avatarRect.offsetMax = new Vector2(30.0f, -4.0f);
+            avatarRect.sizeDelta = new Vector2(30.0f, 30.0f);
         }
     }
 

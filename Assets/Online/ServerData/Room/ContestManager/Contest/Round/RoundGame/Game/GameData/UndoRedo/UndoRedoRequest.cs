@@ -199,6 +199,146 @@ public class UndoRedoRequest : Data
 
     #endregion
 
+    #region canAnswer
+
+    public bool isCanAnswer(Operation operation)
+    {
+        bool ret = false;
+        {
+            // find turn
+            Turn turn = null;
+            {
+                Game game = this.findDataInParent<Game>();
+                if (game != null)
+                {
+                    GameData gameData = game.gameData.v;
+                    if (gameData != null)
+                    {
+                        turn = gameData.turn.v;
+                    }
+                    else
+                    {
+                        Debug.LogError("gameData null");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("game null");
+                }
+            }
+            // find history
+            History history = null;
+            {
+                Game game = this.findDataInParent<Game>();
+                if (game != null)
+                {
+                    history = game.history.v;
+                }
+                else
+                {
+                    Debug.LogError("game null");
+                }
+            }
+            // process
+            if(turn!=null && history != null)
+            {
+                switch (operation)
+                {
+                    case Operation.Undo:
+                        {
+                            // find
+                            bool haveUndoMove = false;
+                            {
+                                for (int i = history.position.v - 1; i >= 0; i--)
+                                {
+                                    if(i>=0 && i < history.changes.vs.Count)
+                                    {
+                                        HistoryChange historyChange = history.changes.vs[i];
+                                        if(historyChange is TurnChange)
+                                        {
+                                            TurnChange turnChange = historyChange as TurnChange;
+                                            if (turnChange.turn.v < turn.turn.v)
+                                            {
+                                                haveUndoMove = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("i error");
+                                        break;
+                                    }
+                                }
+                                /*if (history.changes.vs.Count > 0 && history.position.v >= 0)
+                                {
+                                    haveUndoMove = true;
+                                }*/
+                            }
+                            // process
+                            if (haveUndoMove)
+                            {
+                                ret = true;
+                            }
+                        }
+                        break;
+                    case Operation.Redo:
+                        {
+                            // find
+                            bool haveRedoMove = false;
+                            {
+                                /*for (int i = history.position.v + 1; i < history.changes.vs.Count; i++)
+                                {
+                                    if (i >= 0 && i < history.changes.vs.Count)
+                                    {
+                                        HistoryChange historyChange = history.changes.vs[i];
+                                        if (historyChange is TurnChange)
+                                        {
+                                            TurnChange turnChange = historyChange as TurnChange;
+                                            if (turnChange.turn.v > turn.turn.v)
+                                            {
+                                                haveRedoMove = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("i error");
+                                        break;
+                                    }
+                                }*/
+                                if (history.changes.vs.Count - 1 > history.position.v)
+                                {
+                                    haveRedoMove = true;
+                                }
+                            }
+                            // process
+                            if (haveRedoMove)
+                            {
+                                ret = true;
+                            }
+                        }
+                        break;
+                    default:
+                        Debug.LogError("unknown operation: " + operation);
+                        break;
+                }
+            }
+            else
+            {
+                Debug.LogError("turn, history null");
+            }
+        }
+        return ret;
+    }
+
+    public VP<bool> canUndo;
+
+    public VP<bool> canRedo;
+
+    #endregion
+
     #region count
 
     public LP<int> count;
@@ -254,12 +394,16 @@ public class UndoRedoRequest : Data
     public enum Property
     {
         state,
+        canUndo,
+        canRedo,
         count
     }
 
     public UndoRedoRequest() : base()
     {
         this.state = new VP<State>(this, (byte)Property.state, new None());
+        this.canUndo = new VP<bool>(this, (byte)Property.canUndo, true);
+        this.canRedo = new VP<bool>(this, (byte)Property.canRedo, true);
         this.count = new LP<int>(this, (byte)Property.count);
     }
 

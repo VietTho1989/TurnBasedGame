@@ -68,9 +68,9 @@ public class UserActionMessageUI : UIBehavior<UserActionMessageUI.UIData>
             avatarRect.anchorMin = new Vector2(0.0f, 0.5f);
             avatarRect.anchorMax = new Vector2(0.0f, 0.5f);
             avatarRect.pivot = new Vector2(0.0f, 0.5f);
-            avatarRect.offsetMin = new Vector2(0.0f, -18.0f);
-            avatarRect.offsetMax = new Vector2(36.0f, 18.0f);
-            avatarRect.sizeDelta = new Vector2(36.0f, 36.0f);
+            avatarRect.offsetMin = new Vector2(0.0f, -15.0f);
+            avatarRect.offsetMax = new Vector2(30.0f, 15.0f);
+            avatarRect.sizeDelta = new Vector2(30.0f, 30.0f);
         }
     }
 

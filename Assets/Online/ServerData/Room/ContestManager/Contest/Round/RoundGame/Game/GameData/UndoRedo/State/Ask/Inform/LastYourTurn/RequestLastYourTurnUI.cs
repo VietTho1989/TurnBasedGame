@@ -210,126 +210,113 @@ namespace UndoRedo
                         {
                             if (btnUndo != null && tvUndo != null && btnRedo != null && tvRedo != null)
                             {
-                                // find history
-                                History history = null;
+                                UndoRedoRequestUI.UIData undoRedoRequestUIData = this.data.findDataInParent<UndoRedoRequestUI.UIData>();
+                                if (undoRedoRequestUIData != null)
                                 {
-                                    GameUI.UIData gameUIData = this.data.findDataInParent<GameUI.UIData>();
-                                    if (gameUIData != null)
+                                    UndoRedoRequest undoRedoRequest = undoRedoRequestUIData.undoRedoRequest.v.data;
+                                    if (undoRedoRequest != null)
                                     {
-                                        Game game = gameUIData.game.v.data;
-                                        if (game != null)
+                                        switch (this.data.state.v)
                                         {
-                                            history = game.history.v;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("game null: " + this);
+                                            case UIData.State.None:
+                                                {
+                                                    // undo
+                                                    {
+                                                        if (undoRedoRequest.canUndo.v)
+                                                        {
+                                                            btnUndo.interactable = true;
+                                                            tvUndo.text = txtUndo.get("Undo");
+                                                        }
+                                                        else
+                                                        {
+                                                            btnUndo.interactable = false;
+                                                            tvUndo.text = txtCannotUndo.get("Cannot Undo");
+                                                        }
+                                                    }
+                                                    // redo
+                                                    {
+                                                        if (undoRedoRequest.canRedo.v)
+                                                        {
+                                                            btnRedo.interactable = true;
+                                                            tvRedo.text = txtRedo.get("Redo");
+                                                        }
+                                                        else
+                                                        {
+                                                            btnRedo.interactable = false;
+                                                            tvRedo.text = txtCannotRedo.get("Cannot Redo");
+                                                        }
+                                                    }
+                                                }
+                                                break;
+                                            case UIData.State.RequestUndo:
+                                                {
+                                                    // undo
+                                                    {
+                                                        btnUndo.interactable = true;
+                                                        tvUndo.text = txtCancelUndo.get("Cancel undo?");
+                                                    }
+                                                    // redo
+                                                    {
+                                                        btnRedo.interactable = false;
+                                                        tvRedo.text = txtRedo.get("Redo");
+                                                    }
+                                                }
+                                                break;
+                                            case UIData.State.WaitUndo:
+                                                {
+                                                    // undo
+                                                    {
+                                                        btnUndo.interactable = false;
+                                                        tvUndo.text = txtUndoing.get("Requesting undo");
+                                                    }
+                                                    // redo
+                                                    {
+                                                        btnRedo.interactable = false;
+                                                        tvRedo.text = txtRedo.get("Redo");
+                                                    }
+                                                }
+                                                break;
+                                            case UIData.State.RequestRedo:
+                                                {
+                                                    // undo
+                                                    {
+                                                        btnUndo.interactable = false;
+                                                        tvUndo.text = txtUndo.get("Undo");
+                                                    }
+                                                    // redo
+                                                    {
+                                                        btnRedo.interactable = true;
+                                                        tvRedo.text = txtCannotRedo.get("Cancel redo?");
+                                                    }
+                                                }
+                                                break;
+                                            case UIData.State.WaitRedo:
+                                                {
+                                                    // undo
+                                                    {
+                                                        btnUndo.interactable = false;
+                                                        tvUndo.text = txtUndo.get("Undo");
+                                                    }
+                                                    // redo
+                                                    {
+                                                        btnRedo.interactable = false;
+                                                        tvRedo.text = txtRedoing.get("Requesting redo");
+                                                    }
+                                                }
+                                                break;
+                                            default:
+                                                Debug.LogError("unknown state: " + this.data.state.v + "; " + this);
+                                                break;
                                         }
                                     }
                                     else
                                     {
-                                        Debug.LogError("gameUIData null: " + this);
-                                    }
-                                }
-                                if (history != null)
-                                {
-                                    // Debug.LogError ("history: " + history.position.v + "; " + history.changeCount.v);
-                                    switch (this.data.state.v)
-                                    {
-                                        case UIData.State.None:
-                                            {
-                                                // undo
-                                                {
-                                                    if (history.position.v > 0)
-                                                    {
-                                                        btnUndo.interactable = true;
-                                                        tvUndo.text = txtUndo.get("Undo");
-                                                    }
-                                                    else
-                                                    {
-                                                        btnUndo.interactable = false;
-                                                        tvUndo.text = txtCannotUndo.get("Cannot Undo");
-                                                    }
-                                                }
-                                                // redo
-                                                {
-                                                    if (history.position.v < history.changeCount.v - 1)
-                                                    {
-                                                        btnRedo.interactable = true;
-                                                        tvRedo.text = txtRedo.get("Redo");
-                                                    }
-                                                    else
-                                                    {
-                                                        btnRedo.interactable = false;
-                                                        tvRedo.text = txtCannotRedo.get("Cannot Redo");
-                                                    }
-                                                }
-                                            }
-                                            break;
-                                        case UIData.State.RequestUndo:
-                                            {
-                                                // undo
-                                                {
-                                                    btnUndo.interactable = true;
-                                                    tvUndo.text = txtCancelUndo.get("Cancel undo?");
-                                                }
-                                                // redo
-                                                {
-                                                    btnRedo.interactable = false;
-                                                    tvRedo.text = txtRedo.get("Redo");
-                                                }
-                                            }
-                                            break;
-                                        case UIData.State.WaitUndo:
-                                            {
-                                                // undo
-                                                {
-                                                    btnUndo.interactable = false;
-                                                    tvUndo.text = txtUndoing.get("Requesting undo");
-                                                }
-                                                // redo
-                                                {
-                                                    btnRedo.interactable = false;
-                                                    tvRedo.text = txtRedo.get("Redo");
-                                                }
-                                            }
-                                            break;
-                                        case UIData.State.RequestRedo:
-                                            {
-                                                // undo
-                                                {
-                                                    btnUndo.interactable = false;
-                                                    tvUndo.text = txtUndo.get("Undo");
-                                                }
-                                                // redo
-                                                {
-                                                    btnRedo.interactable = true;
-                                                    tvRedo.text = txtCannotRedo.get("Cancel redo?");
-                                                }
-                                            }
-                                            break;
-                                        case UIData.State.WaitRedo:
-                                            {
-                                                // undo
-                                                {
-                                                    btnUndo.interactable = false;
-                                                    tvUndo.text = txtUndo.get("Undo");
-                                                }
-                                                // redo
-                                                {
-                                                    btnRedo.interactable = false;
-                                                    tvRedo.text = txtRedoing.get("Requesting redo");
-                                                }
-                                            }
-                                            break;
-                                        default:
-                                            Debug.LogError("unknown state: " + this.data.state.v + "; " + this);
-                                            break;
+                                        Debug.LogError("undoRedoRequest null");
                                     }
                                 }
                                 else
                                 {
-                                    Debug.LogError("history null: " + this);
+                                    Debug.LogError("undoRedoRequestUIData null");
                                 }
                             }
                             else
@@ -402,7 +389,7 @@ namespace UndoRedo
         private NoneUI.UIData noneUIData = null;
         private Server server = null;
 
-        private GameUI.UIData gameUIData = null;
+        private UndoRedoRequestUI.UIData undoRedoRequestUIData = null;
 
         public override void onAddCallBack<T>(T data)
         {
@@ -414,7 +401,7 @@ namespace UndoRedo
                 // Parent
                 {
                     DataUtils.addParentCallBack(uiData, this, ref this.noneUIData);
-                    DataUtils.addParentCallBack(uiData, this, ref this.gameUIData);
+                    DataUtils.addParentCallBack(uiData, this, ref this.undoRedoRequestUIData);
                 }
                 // Child
                 {
@@ -474,36 +461,23 @@ namespace UndoRedo
                         }
                     }
                 }
-                // gameUIData
+                // undoRedoRequestUIData
                 {
-                    if (data is GameUI.UIData)
+                    if (data is UndoRedoRequestUI.UIData)
                     {
-                        GameUI.UIData gameUIData = data as GameUI.UIData;
+                        UndoRedoRequestUI.UIData undoRedoRequestUIData = data as UndoRedoRequestUI.UIData;
                         // Child
                         {
-                            gameUIData.game.allAddCallBack(this);
+                            undoRedoRequestUIData.undoRedoRequest.allAddCallBack(this);
                         }
                         dirty = true;
                         return;
                     }
                     // Child
+                    if (data is UndoRedoRequest)
                     {
-                        if (data is Game)
-                        {
-                            Game game = data as Game;
-                            // Child
-                            {
-                                game.history.allAddCallBack(this);
-                            }
-                            dirty = true;
-                            return;
-                        }
-                        // Child
-                        if (data is History)
-                        {
-                            dirty = true;
-                            return;
-                        }
+                        dirty = true;
+                        return;
                     }
                 }
             }
@@ -526,7 +500,7 @@ namespace UndoRedo
                 // Parent
                 {
                     DataUtils.removeParentCallBack(uiData, this, ref this.noneUIData);
-                    DataUtils.removeParentCallBack(uiData, this, ref this.gameUIData);
+                    DataUtils.removeParentCallBack(uiData, this, ref this.undoRedoRequestUIData);
                 }
                 // Child
                 {
@@ -571,33 +545,21 @@ namespace UndoRedo
                         }
                     }
                 }
-                // gameUIData
+                // undoRedoRequestUIData
                 {
-                    if (data is GameUI.UIData)
+                    if (data is UndoRedoRequestUI.UIData)
                     {
-                        GameUI.UIData gameUIData = data as GameUI.UIData;
+                        UndoRedoRequestUI.UIData undoRedoRequestUIData = data as UndoRedoRequestUI.UIData;
                         // Child
                         {
-                            gameUIData.game.allRemoveCallBack(this);
+                            undoRedoRequestUIData.undoRedoRequest.allRemoveCallBack(this);
                         }
                         return;
                     }
                     // Child
+                    if (data is UndoRedoRequest)
                     {
-                        if (data is Game)
-                        {
-                            Game game = data as Game;
-                            // Child
-                            {
-                                game.history.allRemoveCallBack(this);
-                            }
-                            return;
-                        }
-                        // Child
-                        if (data is History)
-                        {
-                            return;
-                        }
+                        return;
                     }
                 }
             }
@@ -696,33 +658,21 @@ namespace UndoRedo
                         }
                     }
                 }
-                // gameUIData
+                // undoRedoRequestUIData
                 {
-                    if (wrapProperty.p is GameUI.UIData)
+                    if (wrapProperty.p is UndoRedoRequestUI.UIData)
                     {
-                        switch ((GameUI.UIData.Property)wrapProperty.n)
+                        switch ((UndoRedoRequestUI.UIData.Property)wrapProperty.n)
                         {
-                            case GameUI.UIData.Property.game:
+                            case UndoRedoRequestUI.UIData.Property.undoRedoRequest:
                                 {
                                     ValueChangeUtils.replaceCallBack(this, syncs);
                                     dirty = true;
                                 }
                                 break;
-                            case GameUI.UIData.Property.isReplay:
+                            case UndoRedoRequestUI.UIData.Property.sub:
                                 break;
-                            case GameUI.UIData.Property.stateUI:
-                                break;
-                            case GameUI.UIData.Property.gameDataUI:
-                                break;
-                            case GameUI.UIData.Property.undoRedoRequestUIData:
-                                break;
-                            case GameUI.UIData.Property.gameChatRoom:
-                                break;
-                            case GameUI.UIData.Property.requestDraw:
-                                break;
-                            case GameUI.UIData.Property.saveUIData:
-                                break;
-                            case GameUI.UIData.Property.gameHistoryUIData:
+                            case UndoRedoRequestUI.UIData.Property.showAnimation:
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -731,62 +681,25 @@ namespace UndoRedo
                         return;
                     }
                     // Child
+                    if (wrapProperty.p is UndoRedoRequest)
                     {
-                        if (wrapProperty.p is Game)
+                        switch ((UndoRedoRequest.Property)wrapProperty.n)
                         {
-                            switch ((Game.Property)wrapProperty.n)
-                            {
-                                case Game.Property.gamePlayers:
-                                    break;
-                                case Game.Property.requestDraw:
-                                    break;
-                                case Game.Property.state:
-                                    break;
-                                case Game.Property.gameData:
-                                    break;
-                                case Game.Property.history:
-                                    {
-                                        ValueChangeUtils.replaceCallBack(this, syncs);
-                                        dirty = true;
-                                    }
-                                    break;
-                                case Game.Property.gameAction:
-                                    break;
-                                case Game.Property.undoRedoRequest:
-                                    break;
-                                case Game.Property.chatRoom:
-                                    break;
-                                case Game.Property.animationData:
-                                    break;
-                                default:
-                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                                    break;
-                            }
-                            return;
+                            case UndoRedoRequest.Property.state:
+                                break;
+                            case UndoRedoRequest.Property.canUndo:
+                                dirty = true;
+                                break;
+                            case UndoRedoRequest.Property.canRedo:
+                                dirty = true;
+                                break;
+                            case UndoRedoRequest.Property.count:
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
                         }
-                        // Child
-                        if (wrapProperty.p is History)
-                        {
-                            switch ((History.Property)wrapProperty.n)
-                            {
-                                case History.Property.isActive:
-                                    break;
-                                case History.Property.changes:
-                                    break;
-                                case History.Property.position:
-                                    dirty = true;
-                                    break;
-                                case History.Property.changeCount:
-                                    dirty = true;
-                                    break;
-                                case History.Property.humanConnections:
-                                    break;
-                                default:
-                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                                    break;
-                            }
-                            return;
-                        }
+                        return;
                     }
                 }
             }

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Foundation.Tasks;
+using AdvancedCoroutines;
 
 public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
 {
@@ -12,20 +14,63 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
 
         public VP<ReferenceData<ChatRoom>> chatRoom;
 
+        public LP<ChatMessageHolder.UIData> chatMessageUIDatas;
+
+        #region state
+
+        public enum State
+        {
+            None,
+            Request,
+            Wait
+        }
+
+        public VP<State> state;
+
+        #endregion
+
         #region Constructor
 
         public enum Property
         {
-            chatRoom
+            chatRoom,
+            chatMessageUIDatas,
+            state
         }
 
         public UIData() : base()
         {
             this.chatRoom = new VP<ReferenceData<ChatRoom>>(this, (byte)Property.chatRoom, new ReferenceData<ChatRoom>(null));
+            this.chatMessageUIDatas = new LP<ChatMessageHolder.UIData>(this, (byte)Property.chatMessageUIDatas);
+            this.state = new VP<State>(this, (byte)Property.state, State.None);
         }
 
         #endregion
 
+        public void reset()
+        {
+            this.state.v = State.None;
+        }
+
+    }
+
+    #endregion
+
+    #region txt, rect
+
+    private static readonly TxtLanguage txtLoadError = new TxtLanguage();
+
+    static InformGameMessageUI()
+    {
+        // txt
+        txtLoadError.add(Language.Type.vi, "Tải thông báo lỗi");
+        // rect
+        {
+            // chatMessageRect.anchoredPosition = new Vector3(0, 0, 0);
+            chatMessageRect.anchorMin = new Vector2(0.0f, 1.0f);
+            chatMessageRect.anchorMax = new Vector2(1.0f, 1.0f);
+            chatMessageRect.pivot = new Vector2(0.5f, 1.0f);
+        }
     }
 
     #endregion
@@ -116,7 +161,7 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
                                 top -= boardTop;
                                 bottom += boardBottom;
                             }
-                            Debug.LogError("boardTransform: " + left + ", " + right + ", " + top + ", " + bottom);
+                            // Debug.LogError("boardTransform: " + left + ", " + right + ", " + top + ", " + bottom);
                             // process
                             RectTransform chatRoomTransform = (RectTransform)this.transform;
                             if (chatRoomTransform != null)
@@ -162,7 +207,7 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
                                     {
                                         float boardWidth = right - left;
                                         float boardHeight = bottom - top;
-                                        Debug.LogError("gameData: " + gameDataWidth + ", " + gameDataHeight + ", " + boardWidth + ", " + boardHeight);
+                                        // Debug.LogError("gameData: " + gameDataWidth + ", " + gameDataHeight + ", " + boardWidth + ", " + boardHeight);
                                         switch (screen)
                                         {
                                             case GameDataBoardUI.UIData.Screen.Portrait:
@@ -203,7 +248,7 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
                                 }
                                 // set
                                 {
-                                    Debug.LogError("informGameMessage transform: " + chatRoomWidth + ", " + chatRoomHeight + ", " + chatRoomX + ", " + chatRoomY);
+                                    // Debug.LogError("informGameMessage transform: " + chatRoomWidth + ", " + chatRoomHeight + ", " + chatRoomX + ", " + chatRoomY);
                                     UIRectTransform rectTransform = UIRectTransform.CreateCenterRect(chatRoomWidth, chatRoomHeight, chatRoomX, chatRoomY);
                                     rectTransform.set(chatRoomTransform);
                                 }
@@ -216,6 +261,174 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
                         else
                         {
                             Debug.LogError("boardTransform null");
+                        }
+                    }
+                    // chatMessages
+                    {
+                        // get chatMessage: tin gan day nhat xep dau
+                        List<ChatMessage> chatMessages = new List<ChatMessage>();
+                        {
+                            long currentTime = Global.getRealTimeInMiliSeconds();
+                            long maxDeltaTime = 2 * 60 * 1000;
+                            int maxCount = 20;
+                            int count = 0;
+                            for (int i = chatRoom.messages.vs.Count - 1; i >= 0; i--)
+                            {
+                                ChatMessage chatMessage = chatRoom.messages.vs[i];
+                                if (currentTime - chatMessage.clientTime <= maxDeltaTime
+                                    && Mathf.Abs(chatMessage.time.v - chatMessage.clientTime) <= maxDeltaTime)
+                                {
+                                    chatMessages.Add(chatMessage);
+                                    count++;
+                                    if (count >= maxCount)
+                                    {
+                                        // Debug.LogError("maxCount");
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+                            // Debug.LogError("chatMessage count: " + chatMessages.Count + ", " + chatRoom.messages.vs.Count);
+                        }
+                        // make UI
+                        {
+                            // get old
+                            List<ChatMessageHolder.UIData> oldMessages = new List<ChatMessageHolder.UIData>();
+                            {
+                                oldMessages.AddRange(this.data.chatMessageUIDatas.vs);
+                            }
+                            // update
+                            foreach (ChatMessage chatMessage in chatMessages)
+                            {
+                                // find UI
+                                ChatMessageHolder.UIData chatMessageUIData = null;
+                                bool needAdd = false;
+                                {
+                                    // find old
+                                    if (oldMessages.Count > 0)
+                                    {
+                                        chatMessageUIData = oldMessages[0];
+                                    }
+                                    // make new
+                                    if (chatMessageUIData == null)
+                                    {
+                                        chatMessageUIData = new ChatMessageHolder.UIData();
+                                        {
+                                            chatMessageUIData.uid = this.data.chatMessageUIDatas.makeId();
+                                        }
+                                        needAdd = true;
+                                    }
+                                    else
+                                    {
+                                        oldMessages.Remove(chatMessageUIData);
+                                    }
+                                }
+                                // update
+                                {
+                                    chatMessageUIData.chatMessage.v = new ReferenceData<ChatMessage>(chatMessage);
+                                }
+                                // add
+                                if (needAdd)
+                                {
+                                    this.data.chatMessageUIDatas.add(chatMessageUIData);
+                                }
+                            }
+                            // remove old
+                            foreach (ChatMessageHolder.UIData oldMessage in oldMessages)
+                            {
+                                this.data.chatMessageUIDatas.remove(oldMessage);
+                            }
+                        }
+                    }
+                    // UI
+                    {
+                        float deltaY = 0;
+                        // chatMessages
+                        {
+                            for (int i = 0; i < this.data.chatMessageUIDatas.vs.Count; i++)
+                            {
+                                ChatMessageHolder.UIData chatMessageUIData = this.data.chatMessageUIDatas.vs[i];
+                                deltaY += UIRectTransform.SetPosY(chatMessageUIData, deltaY);
+                            }
+                        }
+                        // Debug.LogError("deltaY: " + deltaY);
+                    }
+                    // autoLoad
+                    {
+                        // find can load more
+                        uint profileId = Server.getProfileUserId(chatRoom);
+                        bool needLoad = false;
+                        {
+                            Server server = chatRoom.findDataInParent<Server>();
+                            if (server != null && server.type.v == Server.Type.Client)
+                            {
+                                ChatViewer chatViewer = chatRoom.findChatViewer(profileId);
+                                if (chatViewer != null)
+                                {
+                                    if (chatViewer.isActive.v)
+                                    {
+                                        needLoad = false;
+                                    }
+                                    else
+                                    {
+                                        needLoad = true;
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("chatViewer null: " + this);
+                                    needLoad = true;
+                                }
+                            }
+                        }
+                        if (needLoad)
+                        {
+                            switch (this.data.state.v)
+                            {
+                                case UIData.State.None:
+                                    {
+                                        destroyRoutine(waitLoad);
+                                    }
+                                    break;
+                                case UIData.State.Request:
+                                    {
+                                        destroyRoutine(waitLoad);
+                                        if (Server.IsServerOnline(chatRoom))
+                                        {
+                                            chatRoom.requestLoadMore(profileId, ChatRoom.LoadMorePerRequest);
+                                            this.data.state.v = UIData.State.Wait;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("server not online");
+                                        }
+                                    }
+                                    break;
+                                case UIData.State.Wait:
+                                    {
+                                        if (Server.IsServerOnline(chatRoom))
+                                        {
+                                            startRoutine(ref this.waitLoad, TaskWaitLoad());
+                                        }
+                                        else
+                                        {
+                                            destroyRoutine(waitLoad);
+                                            this.data.state.v = UIData.State.None;
+                                        }
+                                    }
+                                    break;
+                                default:
+                                    Debug.LogError("unknown state: " + this.data.state.v + "; " + this);
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            this.data.state.v = UIData.State.None;
+                            destroyRoutine(waitLoad);
                         }
                     }
                 }
@@ -233,7 +446,66 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
 
     public override bool isShouldDisableUpdate()
     {
-        return true;
+        return false;
+    }
+
+    #endregion
+
+    #region Task wait
+
+    private Routine waitLoad;
+
+    public IEnumerator TaskWaitLoad()
+    {
+        if (this.data != null)
+        {
+            yield return new Wait(Global.WaitSendTime);
+            this.data.state.v = UIData.State.None;
+            Toast.showMessage(txtLoadError.get("Load game messages error"));
+            Debug.LogError("request error: " + this);
+        }
+        else
+        {
+            Debug.LogError("data null: " + this);
+        }
+    }
+
+    #endregion
+
+    #region Task
+
+    private Routine timeRoutine;
+
+    public override void Awake()
+    {
+        base.Awake();
+        startRoutine(ref this.timeRoutine, updateTime());
+    }
+
+    public override List<Routine> getRoutineList()
+    {
+        List<Routine> ret = new List<Routine>();
+        {
+            ret.Add(timeRoutine);
+            ret.Add(waitLoad);
+        }
+        return ret;
+    }
+
+    public IEnumerator updateTime()
+    {
+        while (true)
+        {
+            yield return new Wait(1f);
+            if (this.data != null)
+            {
+                dirty = true;
+            }
+            else
+            {
+                Debug.LogError("data null");
+            }
+        }
     }
 
     #endregion
@@ -241,6 +513,9 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
     #region implement callBacks
 
     private GameDataUI.UIData gameDataUIData = null;
+
+    public ChatMessageHolder chatMessagePrefab;
+    private static readonly UIRectTransform chatMessageRect = new UIRectTransform();
 
     public override void onAddCallBack<T>(T data)
     {
@@ -254,6 +529,7 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
             // Child
             {
                 uiData.chatRoom.allAddCallBack(this);
+                uiData.chatMessageUIDatas.allAddCallBack(this);
             }
             dirty = true;
             return;
@@ -292,19 +568,43 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
         }
         // Child
         {
-            if(data is ChatRoom)
+            // chatRoom
             {
-                ChatRoom chatRoom = data as ChatRoom;
+                if (data is ChatRoom)
+                {
+                    ChatRoom chatRoom = data as ChatRoom;
+                    // reset
+                    {
+                        if (this.data != null)
+                        {
+                            this.data.reset();
+                        }
+                        else
+                        {
+                            Debug.LogError("data null");
+                        }
+                    }
+                    // Child
+                    {
+                        chatRoom.chatViewers.allAddCallBack(this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                if (data is ChatViewer)
+                {
+                    dirty = true;
+                    return;
+                }
+            }
+            if(data is ChatMessageHolder.UIData)
+            {
+                ChatMessageHolder.UIData chatMessageUIData = data as ChatMessageHolder.UIData;
                 // Child
                 {
-                    chatRoom.messages.allAddCallBack(this);
+                    UIUtils.Instantiate(chatMessageUIData, chatMessagePrefab, this.transform, chatMessageRect);
                 }
-                dirty = true;
-                return;
-            }
-            // Child
-            if(data is ChatMessage)
-            {
                 dirty = true;
                 return;
             }
@@ -324,6 +624,7 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
             // Child
             {
                 uiData.chatRoom.allRemoveCallBack(this);
+                uiData.chatMessageUIDatas.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
             return;
@@ -359,18 +660,30 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
         }
         // Child
         {
-            if (data is ChatRoom)
+            // chatRoom
             {
-                ChatRoom chatRoom = data as ChatRoom;
+                if (data is ChatRoom)
+                {
+                    ChatRoom chatRoom = data as ChatRoom;
+                    // Child
+                    {
+                        chatRoom.chatViewers.allRemoveCallBack(this);
+                    }
+                    return;
+                }
+                // Child
+                if (data is ChatViewer)
+                {
+                    return;
+                }
+            }
+            if (data is ChatMessageHolder.UIData)
+            {
+                ChatMessageHolder.UIData chatMessageUIData = data as ChatMessageHolder.UIData;
                 // Child
                 {
-                    chatRoom.messages.allRemoveCallBack(this);
+                    chatMessageUIData.removeCallBackAndDestroy(typeof(ChatMessageHolder));
                 }
-                return;
-            }
-            // Child
-            if (data is ChatMessage)
-            {
                 return;
             }
         }
@@ -392,6 +705,15 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
                     }
+                    break;
+                case UIData.Property.chatMessageUIDatas:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.state:
+                    dirty = true;
                     break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -484,36 +806,61 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
             }
             // Child
             {
-                if (wrapProperty.p is ChatRoom)
+                // chatRoom
                 {
-                    switch ((ChatRoom.Property)wrapProperty.n)
+                    if (wrapProperty.p is ChatRoom)
                     {
-                        case ChatRoom.Property.topic:
-                            break;
-                        case ChatRoom.Property.isEnable:
-                            break;
-                        case ChatRoom.Property.players:
-                            break;
-                        case ChatRoom.Property.messages:
-                            {
-                                ValueChangeUtils.replaceCallBack(this, syncs);
+                        switch ((ChatRoom.Property)wrapProperty.n)
+                        {
+                            case ChatRoom.Property.topic:
+                                break;
+                            case ChatRoom.Property.isEnable:
+                                break;
+                            case ChatRoom.Property.players:
+                                break;
+                            case ChatRoom.Property.messages:
                                 dirty = true;
-                            }
-                            break;
-                        case ChatRoom.Property.chatViewers:
-                            break;
-                        case ChatRoom.Property.typing:
-                            break;
-                        default:
-                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                            break;
+                                break;
+                            case ChatRoom.Property.chatViewers:
+                                {
+                                    ValueChangeUtils.replaceCallBack(this, syncs);
+                                    dirty = true;
+                                }
+                                break;
+                            case ChatRoom.Property.typing:
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
                     }
-                    return;
+                    // Child
+                    if (wrapProperty.p is ChatViewer)
+                    {
+                        switch ((ChatViewer.Property)wrapProperty.n)
+                        {
+                            case ChatViewer.Property.userId:
+                                dirty = true;
+                                break;
+                            case ChatViewer.Property.minViewId:
+                                break;
+                            case ChatViewer.Property.subViews:
+                                break;
+                            case ChatViewer.Property.connection:
+                                break;
+                            case ChatViewer.Property.isActive:
+                                dirty = true;
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
                 }
-                // Child
-                if (wrapProperty.p is ChatMessage)
+                if (wrapProperty.p is ChatMessageHolder.UIData)
                 {
-                    dirty = true;
                     return;
                 }
             }
