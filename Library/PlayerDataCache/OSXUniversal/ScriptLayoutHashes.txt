@@ -351,7 +351,7 @@ aa9fab4e4b48d77fa07e250f0b84a919 Assembly-CSharp.dll:.ConfirmBackClientUI
 eb9e6da526428b593898840a594149e7 Assembly-CSharp.dll:.GamePlayerStateMessageUI
 0d30aadef070e9407851c02655619fbe Assembly-CSharp.dll:UnityEngine.UI.Extensions.HorizontalScrollSnap
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:GameManager.Match.ContestStateStartIdentity
-a984e8e7ea5b6a4a4e27034c454b593e Assembly-CSharp.dll:.FriendIdentity
+00ac36c122524580d066f7cb43fea8d3 Assembly-CSharp.dll:.FriendIdentity
 1036a7b01bdf029422d30a71245f8990 Assembly-CSharp.dll:Makruk.NoneRule.ChoosePieceAdapter
 c002714673a65076a086e69b1de47979 Assembly-CSharp.dll:GameManager.Match.RequestNewRoundStateAcceptUI
 c4335a32d9a2ed992483bfcce7dfedba Assembly-CSharp.dll:GameManager.Match.RoundRobin.RoundRobinContentUI

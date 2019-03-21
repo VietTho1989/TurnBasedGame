@@ -161,7 +161,7 @@ public class WaitAIInputUpdate : UpdateBehavior<WaitAIInput>
 							}
 							this.data.sub.v = search;
 						} else {
-							Debug.LogError ("not correct user: " + this);
+							// Debug.LogError ("not correct user: " + this);
 							// chuyen sang none
 							WaitAIInputNone waitAIInputNone = this.data.sub.newOrOld<WaitAIInputNone> ();
 							{

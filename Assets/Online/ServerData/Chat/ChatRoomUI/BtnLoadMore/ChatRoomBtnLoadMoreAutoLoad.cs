@@ -20,7 +20,7 @@ public class ChatRoomBtnLoadMoreAutoLoad : UpdateBehavior<ChatRoomBtnLoadMoreUI.
                     if (chatRoom != null)
                     {
                         uint profileId = Server.getProfileUserId(chatRoom);
-                        ChatViewer chatViewer = chatRoom.findChatViewer(profileId);
+                        ChatViewer chatViewer = chatRoom.chatViewers.getInList(profileId);
                         if (chatViewer == null || !chatViewer.isActive.v)
                         {
                             this.data.state.v = ChatRoomBtnLoadMoreUI.UIData.State.Request;

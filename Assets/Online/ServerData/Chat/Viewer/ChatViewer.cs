@@ -149,7 +149,7 @@ public class ChatViewer : Data
                             {
                                 // show with minViewId
                                 // find chatView
-                                ChatViewer chatViewer = chatRoom.findChatViewer(userId);
+                                ChatViewer chatViewer = chatRoom.chatViewers.getInList(userId);
                                 {
                                     if (chatViewer == null)
                                     {
@@ -170,7 +170,7 @@ public class ChatViewer : Data
                             else
                             {
                                 // remove chatViewer
-                                ChatViewer chatViewer = chatRoom.findChatViewer(userId);
+                                ChatViewer chatViewer = chatRoom.chatViewers.getInList(userId);
                                 if (chatViewer != null)
                                 {
                                     // chatRoom.chatViewers.remove(chatViewer);

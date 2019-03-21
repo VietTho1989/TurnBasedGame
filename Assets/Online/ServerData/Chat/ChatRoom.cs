@@ -1,8 +1,7 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-/** TODO AlreadyView voi moi nguoi nen cho vao 1 list, ko de o tung message*/
 public class ChatRoom : Data
 {
 
@@ -76,12 +75,7 @@ public class ChatRoom : Data
 
     public const uint LoadMorePerRequest = 20;
 
-    public LP<ChatViewer> chatViewers;
-
-    public ChatViewer findChatViewer(uint userId)
-    {
-        return this.chatViewers.vs.Find(chatViewer => chatViewer.userId.v == userId);
-    }
+    public ChatViewerLP chatViewers;
 
     public void requestLoadMore(uint userId, uint loadMoreCount)
     {
@@ -118,7 +112,7 @@ public class ChatRoom : Data
     public void loadMore(uint userId, uint loadMoreCount)
     {
         Debug.LogError("loadMore: " + userId + ", " + loadMoreCount);
-        ChatViewer chatViewer = this.findChatViewer(userId);
+        ChatViewer chatViewer = this.chatViewers.getInList(userId);
         if (chatViewer != null)
         {
             if (chatViewer.isActive.v)
@@ -216,7 +210,7 @@ public class ChatRoom : Data
         this.players = new LP<Human>(this, (byte)Property.players);
         this.messages = new LP<ChatMessage>(this, (byte)Property.messages);
         this.maxId = new VP<uint>(this, (byte)Property.maxId, 0);
-        this.chatViewers = new LP<ChatViewer>(this, (byte)Property.chatViewers);
+        this.chatViewers = new ChatViewerLP(this, (byte)Property.chatViewers);
         this.typing = new VP<Typing>(this, (byte)Property.typing, new Typing());
     }
 

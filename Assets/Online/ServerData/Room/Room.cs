@@ -459,7 +459,7 @@ public class Room : Data
                             FriendWorld friendWorld = server.friendWorld.v;
                             if (friendWorld != null)
                             {
-                                Friend friend = friendWorld.findFriend(adminUser.inform.v.playerId.v, userId);
+                                Friend friend = friendWorld.friends.getInList(adminUser.inform.v.playerId.v, userId);
                                 if (friend != null)
                                 {
                                     if (friend.state.v != null && friend.state.v.getType() == Friend.State.Type.Ban)
@@ -697,7 +697,7 @@ public class Room : Data
                 Server server = this.findDataInParent<Server>();
                 if (server != null)
                 {
-                    User user = server.findUser(userId);
+                    User user = server.users.getInList(userId);
                     if (user != null)
                     {
                         if (user.role.v == User.Role.Admin)

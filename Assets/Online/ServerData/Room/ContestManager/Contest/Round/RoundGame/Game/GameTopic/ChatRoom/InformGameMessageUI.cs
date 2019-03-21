@@ -269,7 +269,7 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
                         List<ChatMessage> chatMessages = new List<ChatMessage>();
                         {
                             long currentTime = Global.getRealTimeInMiliSeconds();
-                            long maxDeltaTime = 2 * 60 * 1000;
+                            long maxDeltaTime = 1 * 60 * 1000;
                             int maxCount = 20;
                             int count = 0;
                             for (int i = chatRoom.messages.vs.Count - 1; i >= 0; i--)
@@ -365,7 +365,7 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
                             Server server = chatRoom.findDataInParent<Server>();
                             if (server != null && server.type.v == Server.Type.Client)
                             {
-                                ChatViewer chatViewer = chatRoom.findChatViewer(profileId);
+                                ChatViewer chatViewer = chatRoom.chatViewers.getInList(profileId);
                                 if (chatViewer != null)
                                 {
                                     if (chatViewer.isActive.v)
@@ -391,6 +391,7 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
                                 case UIData.State.None:
                                     {
                                         destroyRoutine(waitLoad);
+                                        this.data.state.v = UIData.State.Request;
                                     }
                                     break;
                                 case UIData.State.Request:
@@ -398,6 +399,7 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
                                         destroyRoutine(waitLoad);
                                         if (Server.IsServerOnline(chatRoom))
                                         {
+                                            Debug.LogError("informGameMessageUI: load more");
                                             chatRoom.requestLoadMore(profileId, ChatRoom.LoadMorePerRequest);
                                             this.data.state.v = UIData.State.Wait;
                                         }
@@ -496,7 +498,7 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
     {
         while (true)
         {
-            yield return new Wait(1f);
+            yield return new Wait(5f);
             if (this.data != null)
             {
                 dirty = true;

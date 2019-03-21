@@ -136,7 +136,7 @@ public class FriendDetailUI : UIBehavior<FriendDetailUI.UIData>
                             Human human = null;
                             {
                                 uint profileId = Server.getProfileUserId(friend);
-                                if (friend.user1.v.playerId.v != profileId)
+                                if (friend.user1Id.v != profileId)
                                 {
                                     human = friend.user1.v;
                                 }

@@ -11,341 +11,363 @@ public class Server : Data
 
     public VP<ServerConfig> serverConfig;
 
-	public VP<long> instanceId;
+    public VP<long> instanceId;
 
-	#region StartState
+    #region StartState
 
-	public enum StartState
-	{
-		Begin,
-		Start,
-		Starting,
-		Success,
-		Fail
-	}
+    public enum StartState
+    {
+        Begin,
+        Start,
+        Starting,
+        Success,
+        Fail
+    }
 
-	public VP<StartState> startState;
+    public VP<StartState> startState;
 
-	#endregion
+    #endregion
 
-	#region Server Type
+    #region Server Type
 
-	public enum Type
-	{
-		Server,
-		Client,
-		Host,
-		Offline
-	}
+    public enum Type
+    {
+        Server,
+        Client,
+        Host,
+        Offline
+    }
 
-	public VP<Type> type;
+    public VP<Type> type;
 
-	#endregion
+    #endregion
 
-	public VP<uint> profileId;
+    public VP<uint> profileId;
 
-	public User getProfileUser()
-	{
-		for (int i = 0; i < this.users.vs.Count; i++) {
-			User user = this.users.vs [i];
-			if (user.human.v.playerId.v == this.profileId.v) {
-				return user;
-			}
-		}
-		return null;
-	}
+    public User getProfileUser()
+    {
+        /*for (int i = 0; i < this.users.vs.Count; i++)
+        {
+            User user = this.users.vs[i];
+            if (user.human.v.playerId.v == this.profileId.v)
+            {
+                return user;
+            }
+        }
+        return null;*/
+        return this.users.getInList(this.profileId.v);
+    }
 
-	public static User GetProfileUser(Data data)
-	{
-		if (data != null) {
-			Server server = data.findDataInParent<Server> ();
-			if (server != null) {
-				return server.getProfileUser ();
-			} else {
-				Debug.LogError ("server null");
-				return null;
-			}
-		} else {
-			Debug.LogError ("data null");
-			return null;
-		}
-	}
+    public static User GetProfileUser(Data data)
+    {
+        if (data != null)
+        {
+            Server server = data.findDataInParent<Server>();
+            if (server != null)
+            {
+                return server.getProfileUser();
+            }
+            else
+            {
+                Debug.LogError("server null");
+                return null;
+            }
+        }
+        else
+        {
+            Debug.LogError("data null");
+            return null;
+        }
+    }
 
-	public static uint getProfileUserId(Data data){
-		if (data != null) {
-			Server server = data.findDataInParent<Server> ();
-			if (server != null) {
-				return server.profileId.v;
-			} else {
-				// Debug.LogError ("server null: " + data);
-			}
-		} else {
-			Debug.LogError ("data null");
-		}
-		return 0;
-	}
+    public static uint getProfileUserId(Data data)
+    {
+        if (data != null)
+        {
+            Server server = data.findDataInParent<Server>();
+            if (server != null)
+            {
+                return server.profileId.v;
+            }
+            else
+            {
+                // Debug.LogError ("server null: " + data);
+            }
+        }
+        else
+        {
+            Debug.LogError("data null");
+        }
+        return 0;
+    }
 
-	#region State
+    #region State
 
-	public abstract class State : Data
-	{
+    public abstract class State : Data
+    {
 
-		public enum Type
-		{
-			Offline,
-			Connect, 
-			Disconnect
-		}
+        public enum Type
+        {
+            Offline,
+            Connect,
+            Disconnect
+        }
 
-		public abstract Type getType();
+        public abstract Type getType();
 
-		public class Offline : State
-		{
-			public VP<Login> login;
+        public class Offline : State
+        {
+            public VP<Login> login;
 
-			#region Constructor
+            #region Constructor
 
-			public enum Property
-			{
-				login
-			}
+            public enum Property
+            {
+                login
+            }
 
-			public Offline() : base()
-			{
-				this.login = new VP<Login>(this, (byte)Property.login, new Login());
-			}
+            public Offline() : base()
+            {
+                this.login = new VP<Login>(this, (byte)Property.login, new Login());
+            }
 
-			#endregion
+            #endregion
 
-			public override Type getType ()
-			{
-				return Type.Offline;
-			}
+            public override Type getType()
+            {
+                return Type.Offline;
+            }
 
-		}
+        }
 
-		public class Connect : State
-		{
-			
-			public enum State
-			{
-				Normal,
-				Logout,
-				LoggingOut
-			}
+        public class Connect : State
+        {
 
-			public VP<State> state;
+            public enum State
+            {
+                Normal,
+                Logout,
+                LoggingOut
+            }
 
-			#region Constructor
+            public VP<State> state;
 
-			public enum Property
-			{
-				state
-			}
+            #region Constructor
 
-			public Connect() : base()
-			{
-				this.state = new VP<State>(this, (byte)Property.state, State.Normal);
-			}
+            public enum Property
+            {
+                state
+            }
 
-			#endregion
+            public Connect() : base()
+            {
+                this.state = new VP<State>(this, (byte)Property.state, State.Normal);
+            }
 
-			public override Type getType ()
-			{
-				return Type.Connect;
-			}
+            #endregion
 
-		}
+            public override Type getType()
+            {
+                return Type.Connect;
+            }
 
-		public class Disconnect : State
-		{
+        }
 
-			public VP<float> time;
+        public class Disconnect : State
+        {
 
-			public VP<Login> login;
+            public VP<float> time;
 
-			#region Constructor
+            public VP<Login> login;
 
-			public enum Property
-			{
-				time,
-				login
-			}
+            #region Constructor
 
-			public Disconnect() : base()
-			{
-				this.time = new VP<float>(this, (byte)Property.time, 0);
-				this.login = new VP<Login>(this, (byte)Property.login, new Login());
-			}
+            public enum Property
+            {
+                time,
+                login
+            }
 
-			#endregion
+            public Disconnect() : base()
+            {
+                this.time = new VP<float>(this, (byte)Property.time, 0);
+                this.login = new VP<Login>(this, (byte)Property.login, new Login());
+            }
 
-			public override Type getType ()
-			{
-				return Type.Disconnect;
-			}
+            #endregion
 
-		}
+            public override Type getType()
+            {
+                return Type.Disconnect;
+            }
 
-		public static void OnUpdateSyncStateChange(WrapProperty wrapProperty, DirtyInterface dirtyInterface)
-		{
-			switch ((Server.Property)wrapProperty.n) {
-			case Property.serverConfig:
-				break;
-			case Property.startState:
-				break;
-			case Property.type:
-				break;
-			case Property.profile:
-				break;
-			case Property.state:
-				dirtyInterface.makeDirty();
-				break;
-			case Property.users:
-				break;
-			case Property.disconnectTime:
-				break;
-			case Property.globalChat:
-				break;
-			case Property.friendWorld:
-				break;
-			case Property.guilds:
-				break;
-			default:
-				Debug.LogError ("Don't process: " + wrapProperty + "; " + dirtyInterface);
-				break;
-			}
-		}
+        }
 
-	}
-		
-	public VP<State> state;
+        public static void OnUpdateSyncStateChange(WrapProperty wrapProperty, DirtyInterface dirtyInterface)
+        {
+            switch ((Server.Property)wrapProperty.n)
+            {
+                case Property.serverConfig:
+                    break;
+                case Property.startState:
+                    break;
+                case Property.type:
+                    break;
+                case Property.profile:
+                    break;
+                case Property.state:
+                    dirtyInterface.makeDirty();
+                    break;
+                case Property.users:
+                    break;
+                case Property.disconnectTime:
+                    break;
+                case Property.globalChat:
+                    break;
+                case Property.friendWorld:
+                    break;
+                case Property.guilds:
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + dirtyInterface);
+                    break;
+            }
+        }
 
-	public static bool IsServerOnline(Data data)
-	{
-		bool ret = false;
-		if (data != null) {
-			Server server = data.findDataInParent<Server> ();
-			if (server != null) {
-				Server.State state = server.state.v;
-				if (state != null && state.getType () == Server.State.Type.Connect) {
-					return true;
-				}
-			} else {
-				// Debug.LogError ("server null: " + data);
-				ret = true;
-			}
-		} else {
-			Debug.LogError ("data null: " + data);
-		}
-		return ret;
-	}
+    }
 
-	#endregion
+    public VP<State> state;
 
-	#region User
+    public static bool IsServerOnline(Data data)
+    {
+        bool ret = false;
+        if (data != null)
+        {
+            Server server = data.findDataInParent<Server>();
+            if (server != null)
+            {
+                Server.State state = server.state.v;
+                if (state != null && state.getType() == Server.State.Type.Connect)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                // Debug.LogError ("server null: " + data);
+                ret = true;
+            }
+        }
+        else
+        {
+            Debug.LogError("data null: " + data);
+        }
+        return ret;
+    }
 
-	public LP<User> users;
+    #endregion
 
-	public User findUser(uint userId){
-		return this.users.vs.Find (user => user.human.v.playerId.v == userId);
-	}
+    #region User
 
-	/** 30 minutes*/
-	public const float DefaultDisconnectTime = 30 * 60;
+    public UserLP users;
 
-	public VP<float> disconnectTime;
+    /** 30 minutes*/
+    public const float DefaultDisconnectTime = 30 * 60;
 
-	#endregion
+    public VP<float> disconnectTime;
 
-	#region Room
+    #endregion
 
-	public VP<RoomManager> roomManager;
+    #region Room
 
-	#endregion
+    public VP<RoomManager> roomManager;
 
-	public VP<GlobalChat> globalChat;
+    #endregion
 
-	public VP<FriendWorld> friendWorld;
-	public VP<GuildWorld> guilds;
+    public VP<GlobalChat> globalChat;
 
-	#region Constructor
+    public VP<FriendWorld> friendWorld;
+    public VP<GuildWorld> guilds;
 
-	public enum Property
-	{
-		serverConfig,
-		instanceId,
-		startState,
-		type,
-		profile,
-		state,
-		users,
-		disconnectTime,
-		roomManager,
-		globalChat,
-		friendWorld,
-		guilds
-	}
+    #region Constructor
 
-	public Server() : base(){
-		this.serverConfig = new VP<ServerConfig> (this, (byte)Property.serverConfig, new ServerConfig ());
-		this.instanceId = new VP<long> (this, (byte)Property.instanceId, Global.getRealTimeInMiliSeconds ());
-		this.startState = new VP<StartState> (this, (byte)Property.startState, StartState.Start);
-		this.type = new VP<Type> (this, (byte)Property.type, Type.Client);
-		this.profileId = new VP<uint> (this, (byte)Property.profile, Data.UNKNOWN_ID);
-		this.state = new VP<State> (this, (byte)Property.state, new State.Offline());
-		this.users = new LP<User> (this, (byte)Property.users);
-		this.disconnectTime = new VP<float> (this, (byte)Property.disconnectTime, DefaultDisconnectTime);
+    public enum Property
+    {
+        serverConfig,
+        instanceId,
+        startState,
+        type,
+        profile,
+        state,
+        users,
+        disconnectTime,
+        roomManager,
+        globalChat,
+        friendWorld,
+        guilds
+    }
 
-		this.roomManager = new VP<RoomManager> (this, (byte)Property.roomManager, new RoomManager ());
+    public Server() : base()
+    {
+        this.serverConfig = new VP<ServerConfig>(this, (byte)Property.serverConfig, new ServerConfig());
+        this.instanceId = new VP<long>(this, (byte)Property.instanceId, Global.getRealTimeInMiliSeconds());
+        this.startState = new VP<StartState>(this, (byte)Property.startState, StartState.Start);
+        this.type = new VP<Type>(this, (byte)Property.type, Type.Client);
+        this.profileId = new VP<uint>(this, (byte)Property.profile, Data.UNKNOWN_ID);
+        this.state = new VP<State>(this, (byte)Property.state, new State.Offline());
+        this.users = new UserLP(this, (byte)Property.users);
+        this.disconnectTime = new VP<float>(this, (byte)Property.disconnectTime, DefaultDisconnectTime);
 
-		this.globalChat = new VP<GlobalChat> (this, (byte)Property.globalChat, new GlobalChat ());
-		this.friendWorld = new VP<FriendWorld> (this, (byte)Property.friendWorld, new FriendWorld ());
-		this.guilds = new VP<GuildWorld> (this, (byte)Property.guilds, new GuildWorld ());
-	}
+        this.roomManager = new VP<RoomManager>(this, (byte)Property.roomManager, new RoomManager());
 
-	#endregion
+        this.globalChat = new VP<GlobalChat>(this, (byte)Property.globalChat, new GlobalChat());
+        this.friendWorld = new VP<FriendWorld>(this, (byte)Property.friendWorld, new FriendWorld());
+        this.guilds = new VP<GuildWorld>(this, (byte)Property.guilds, new GuildWorld());
+    }
 
-	public void init(Server.Type serverType, int port)
-	{
-		this.type.v = serverType;
-		switch (this.type.v) {
-		case Server.Type.Server:
-			{
-				this.serverConfig.v.address.v = "localhost";
-				this.serverConfig.v.port.v = Config.serverPort;
-				this.startState.v = Server.StartState.Start;
-				this.state.v = new Server.State.Connect();
-			}
-			break;
-		case Server.Type.Client:
-			{
-				Debug.LogError ("Cannot occur: " + this);
-				this.state.v = new Server.State.Offline();
-				this.startState.v = Server.StartState.Begin;
-			}
-			break;
-		case Server.Type.Host:
-			{
-				this.state.v = new Server.State.Connect ();
-				this.startState.v = Server.StartState.Begin;
-				// Address
-				{
-					this.serverConfig.v.address.v = "localhost";
-					this.serverConfig.v.port.v = port;
-				}
-			}
-			break;
-		case Server.Type.Offline:
-			{
-				this.state.v = new Server.State.Connect();
-				this.startState.v = Server.StartState.Begin;
-			}
-			break;
-		default:
-			Debug.LogError ("unknown server type: " + this.type.v + "; " + this);
-			break;
-		}
-	}
+    #endregion
+
+    public void init(Server.Type serverType, int port)
+    {
+        this.type.v = serverType;
+        switch (this.type.v)
+        {
+            case Server.Type.Server:
+                {
+                    this.serverConfig.v.address.v = "localhost";
+                    this.serverConfig.v.port.v = Config.serverPort;
+                    this.startState.v = Server.StartState.Start;
+                    this.state.v = new Server.State.Connect();
+                }
+                break;
+            case Server.Type.Client:
+                {
+                    Debug.LogError("Cannot occur: " + this);
+                    this.state.v = new Server.State.Offline();
+                    this.startState.v = Server.StartState.Begin;
+                }
+                break;
+            case Server.Type.Host:
+                {
+                    this.state.v = new Server.State.Connect();
+                    this.startState.v = Server.StartState.Begin;
+                    // Address
+                    {
+                        this.serverConfig.v.address.v = "localhost";
+                        this.serverConfig.v.port.v = port;
+                    }
+                }
+                break;
+            case Server.Type.Offline:
+                {
+                    this.state.v = new Server.State.Connect();
+                    this.startState.v = Server.StartState.Begin;
+                }
+                break;
+            default:
+                Debug.LogError("unknown server type: " + this.type.v + "; " + this);
+                break;
+        }
+    }
 
 }

@@ -106,7 +106,7 @@ public class ChatRoomBtnLoadMoreUI : UIBehavior<ChatRoomBtnLoadMoreUI.UIData>
                         Server server = chatRoom.findDataInParent<Server>();
                         if (server != null && server.type.v == Server.Type.Client)
                         {
-                            ChatViewer chatViewer = chatRoom.findChatViewer(profileId);
+                            ChatViewer chatViewer = chatRoom.chatViewers.getInList(profileId);
                             if (chatViewer != null)
                             {
                                 if (chatViewer.minViewId.v > 0 || !chatViewer.isActive.v)

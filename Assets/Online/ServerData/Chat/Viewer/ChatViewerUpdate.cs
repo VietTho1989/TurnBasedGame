@@ -48,7 +48,7 @@ public class ChatViewerUpdate : UpdateBehavior<ChatViewer>
                             Server server = this.data.findDataInParent<Server>();
                             if (server != null)
                             {
-                                User serverUser = server.findUser(this.data.userId.v);
+                                User serverUser = server.users.getInList(this.data.userId.v);
                                 if (serverUser != null)
                                 {
                                     this.serverHuman = serverUser.human.v;
