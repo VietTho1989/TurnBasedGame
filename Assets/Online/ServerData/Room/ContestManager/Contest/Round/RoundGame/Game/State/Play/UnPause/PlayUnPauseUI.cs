@@ -5,55 +5,55 @@ using System.Collections.Generic;
 
 namespace GameState
 {
-	public class PlayUnPauseUI : UIBehavior<PlayUnPauseUI.UIData>
-	{
+    public class PlayUnPauseUI : UIBehavior<PlayUnPauseUI.UIData>
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : PlayUI.UIData.Sub
-		{
+        public class UIData : PlayUI.UIData.Sub
+        {
 
-			public VP<ReferenceData<PlayUnPause>> playUnPause;
+            public VP<ReferenceData<PlayUnPause>> playUnPause;
 
-			public VP<AccountAvatarUI.UIData> accountAvatar;
+            public VP<AccountAvatarUI.UIData> accountAvatar;
 
-			#region Constructor
+            #region Constructor
 
-			public enum Property
-			{
-				playUnPause,
-				accountAvatar
-			}
+            public enum Property
+            {
+                playUnPause,
+                accountAvatar
+            }
 
-			public UIData() : base()
-			{
-				this.playUnPause = new VP<ReferenceData<PlayUnPause>>(this, (byte)Property.playUnPause, new ReferenceData<PlayUnPause>(null));
-				this.accountAvatar = new VP<AccountAvatarUI.UIData>(this, (byte)Property.accountAvatar, new AccountAvatarUI.UIData());
-			}
+            public UIData() : base()
+            {
+                this.playUnPause = new VP<ReferenceData<PlayUnPause>>(this, (byte)Property.playUnPause, new ReferenceData<PlayUnPause>(null));
+                this.accountAvatar = new VP<AccountAvatarUI.UIData>(this, (byte)Property.accountAvatar, new AccountAvatarUI.UIData());
+            }
 
-			#endregion
+            #endregion
 
-			public override Play.Sub.Type getType ()
-			{
-				return Play.Sub.Type.UnPause;
-			}
+            public override Play.Sub.Type getType()
+            {
+                return Play.Sub.Type.UnPause;
+            }
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region Refresh
 
-		#region txt
+        #region txt
 
-		public Text lbTitle;
-		public static readonly TxtLanguage txtTitle = new TxtLanguage ();
+        public Text lbTitle;
+        public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-		public static readonly TxtLanguage txtName = new TxtLanguage();
-		public static readonly TxtLanguage txtTime = new TxtLanguage();
+        public static readonly TxtLanguage txtName = new TxtLanguage();
+        public static readonly TxtLanguage txtTime = new TxtLanguage();
 
-		static PlayUnPauseUI()
-		{
+        static PlayUnPauseUI()
+        {
             // txt
             {
                 txtTitle.add(Language.Type.vi, "Tiếp Tục Lại");
@@ -77,331 +77,533 @@ namespace GameState
             }
         }
 
-		#endregion
+        #endregion
 
-		public Text tvName;
-		public Text tvTime;
+        public Text tvName;
+        public Text tvTime;
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
-					PlayUnPause playUnPause = this.data.playUnPause.v.data;
-					if (playUnPause != null) {
-						Human human = playUnPause.human.v;
-						// accountAvatar
-						{
-							AccountAvatarUI.UIData accountAvatarUIData = this.data.accountAvatar.v;
-							if (accountAvatarUIData != null) {
-								// Find account
-								Account account = null;
-								{
-									if (human != null) {
-										account = human.account.v;
-									} else {
-										Debug.LogError ("human null: " + this);
-									}
-								}
-								accountAvatarUIData.account.v = new ReferenceData<Account> (account);
-							} else {
-								Debug.LogError ("accountAvatarUIData null: " + this);
-							}
-						}
-						// tvName
-						if (tvName != null) {
-							string name = "";
-							{
-								if (human != null) {
-									if (human.account.v != null) {
-										name = human.account.v.getName ();
-									} else {
-										Debug.LogError ("account null: " + this);
-									}
-								} else {
-									Debug.LogError ("human null: " + this);
-								}
-							}
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
+                    PlayUnPause playUnPause = this.data.playUnPause.v.data;
+                    if (playUnPause != null)
+                    {
+                        Human human = playUnPause.human.v;
+                        // accountAvatar
+                        {
+                            AccountAvatarUI.UIData accountAvatarUIData = this.data.accountAvatar.v;
+                            if (accountAvatarUIData != null)
+                            {
+                                // Find account
+                                Account account = null;
+                                {
+                                    if (human != null)
+                                    {
+                                        account = human.account.v;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("human null: " + this);
+                                    }
+                                }
+                                accountAvatarUIData.account.v = new ReferenceData<Account>(account);
+                            }
+                            else
+                            {
+                                Debug.LogError("accountAvatarUIData null: " + this);
+                            }
+                        }
+                        // tvName
+                        if (tvName != null)
+                        {
+                            string name = "";
+                            {
+                                if (human != null)
+                                {
+                                    if (human.account.v != null)
+                                    {
+                                        name = human.account.v.getName();
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("account null: " + this);
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("human null: " + this);
+                                }
+                            }
                             tvName.text = name;
-						} else {
-							Debug.LogError ("tvName null: " + this);
-						}
-						// tvTime
-						if (tvTime != null) {
+                        }
+                        else
+                        {
+                            Debug.LogError("tvName null: " + this);
+                        }
+                        // tvTime
+                        if (tvTime != null)
+                        {
                             tvTime.text = txtTime.get("Time") + ": " + Mathf.Min(playUnPause.time.v, playUnPause.duration.v) + "/" + playUnPause.duration.v;
-						} else {
-							Debug.LogError ("tvTime null: " + this);
-						}
-					} else {
-						Debug.LogError ("playUnPause null: " + this);
-					}
-					// txt
-					{
-						if (lbTitle != null) {
-							lbTitle.text = txtTitle.get ("Unpause");
-						} else {
-							Debug.LogError ("lbTitle null: " + this);
-						}
-					}
-				} else {
-					Debug.LogError ("data null: " + this);
-				}
-			}
-		}
+                        }
+                        else
+                        {
+                            Debug.LogError("tvTime null: " + this);
+                        }
+                        // UI
+                        {
+                            float rightWidth = 0;
+                            float bottomHeight = 0;
+                            {
+                                GameUI.UIData gameUIData = this.data.findDataInParent<GameUI.UIData>();
+                                if (gameUIData != null)
+                                {
+                                    GameDataUI.UIData gameDataUIData = gameUIData.gameDataUI.v;
+                                    if (gameDataUIData != null)
+                                    {
+                                        rightWidth = gameDataUIData.rightWidth.v;
+                                        bottomHeight = gameDataUIData.bottomHeight.v;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("gameDataUIData null");
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("gameUIData null");
+                                }
+                            }
+                            // set
+                            UIRectTransform.CreateCenterRect(300, 170, -rightWidth / 2, bottomHeight / 2).set(contentContainer);
+                        }
+                        // txt
+                        {
+                            if (lbTitle != null)
+                            {
+                                lbTitle.text = txtTitle.get("Unpause");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null: " + this);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("playUnPause null: " + this);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("data null: " + this);
+                }
+            }
+        }
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		#endregion
+        #endregion
 
-		#region implement callBacks
+        #region implement callBacks
 
-		public AccountAvatarUI accountAvatarPrefab;
+        public AccountAvatarUI accountAvatarPrefab;
         private static readonly UIRectTransform accountAvatarRect = new UIRectTransform();
 
-        public Transform contentContainer;
+        public RectTransform contentContainer;
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Setting
-				Setting.get().addCallBack(this);
-				// Child
-				{
-					uiData.playUnPause.allAddCallBack (this);
-					uiData.accountAvatar.allAddCallBack (this);
-				}
-				dirty = true;
-				return;
-			}
-			// Setting
-			if (data is Setting) {
-				dirty = true;
-				return;
-			}
-			// Child
-			{
-				// PlayUnPause
-				{
-					if (data is PlayUnPause) {
-						PlayUnPause playUnPause = data as PlayUnPause;
-						// Child
-						{
-							playUnPause.human.allAddCallBack (this);
-						}
-						dirty = true;
-						return;
-					}
-					// Child
-					{
-						if (data is Human) {
-							Human human = data as Human;
-							// Child
-							{
-								human.account.allAddCallBack (this);
-							}
-							dirty = true;
-							return;
-						}
-						// Child
-						if (data is Account) {
-							dirty = true;
-							return;
-						}
-					}
-				}
-				if (data is AccountAvatarUI.UIData) {
-					AccountAvatarUI.UIData accountAvatarUIData = data as AccountAvatarUI.UIData;
-					// UI
-					{
+        private GameUI.UIData gameUIData = null;
+        private GameDataBoardTransformCheckChange<GameDataUI.UIData> gameDataBoardTransformCheckChange = new GameDataBoardTransformCheckChange<GameDataUI.UIData>();
+
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
+                // Parent
+                {
+                    DataUtils.addParentCallBack(uiData, this, ref this.gameUIData);
+                }
+                // Child
+                {
+                    uiData.playUnPause.allAddCallBack(this);
+                    uiData.accountAvatar.allAddCallBack(this);
+                }
+                dirty = true;
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            // Parent
+            {
+                if (data is GameUI.UIData)
+                {
+                    GameUI.UIData gameUIData = data as GameUI.UIData;
+                    // Child
+                    {
+                        gameUIData.gameDataUI.allAddCallBack(this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                {
+                    if (data is GameDataUI.UIData)
+                    {
+                        GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
+                        // CheckChange
+                        {
+                            gameDataBoardTransformCheckChange.addCallBack(this);
+                            gameDataBoardTransformCheckChange.setData(gameDataUIData);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // CheckChange
+                    if (data is GameDataBoardTransformCheckChange<GameDataUI.UIData>)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                }
+            }
+            // Child
+            {
+                // PlayUnPause
+                {
+                    if (data is PlayUnPause)
+                    {
+                        PlayUnPause playUnPause = data as PlayUnPause;
+                        // Child
+                        {
+                            playUnPause.human.allAddCallBack(this);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // Child
+                    {
+                        if (data is Human)
+                        {
+                            Human human = data as Human;
+                            // Child
+                            {
+                                human.account.allAddCallBack(this);
+                            }
+                            dirty = true;
+                            return;
+                        }
+                        // Child
+                        if (data is Account)
+                        {
+                            dirty = true;
+                            return;
+                        }
+                    }
+                }
+                if (data is AccountAvatarUI.UIData)
+                {
+                    AccountAvatarUI.UIData accountAvatarUIData = data as AccountAvatarUI.UIData;
+                    // UI
+                    {
                         UIUtils.Instantiate(accountAvatarUIData, accountAvatarPrefab, contentContainer, accountAvatarRect);
-					}
-					dirty = true;
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+                    }
+                    dirty = true;
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Setting
-				Setting.get().removeCallBack(this);
-				// Child
-				{
-					uiData.playUnPause.allRemoveCallBack (this);
-					uiData.accountAvatar.allRemoveCallBack (this);
-				}
-				this.setDataNull (uiData);
-				return;
-			}
-			// Setting
-			if (data is Setting) {
-				return;
-			}
-			// Child
-			{
-				// PlayUnPause
-				{
-					if (data is PlayUnPause) {
-						PlayUnPause playUnPause = data as PlayUnPause;
-						// Child
-						{
-							playUnPause.human.allRemoveCallBack (this);
-						}
-						return;
-					}
-					// Child
-					{
-						if (data is Human) {
-							Human human = data as Human;
-							// Child
-							{
-								human.account.allRemoveCallBack (this);
-							}
-							return;
-						}
-						// Child
-						if (data is Account) {
-							return;
-						}
-					}
-				}
-				if (data is AccountAvatarUI.UIData) {
-					AccountAvatarUI.UIData accountAvatarUIData = data as AccountAvatarUI.UIData;
-					// UI
-					{
-						accountAvatarUIData.removeCallBackAndDestroy (typeof(AccountAvatarUI));
-					}
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
+                // Parent
+                {
+                    DataUtils.removeParentCallBack(uiData, this, ref this.gameUIData);
+                }
+                // Child
+                {
+                    uiData.playUnPause.allRemoveCallBack(this);
+                    uiData.accountAvatar.allRemoveCallBack(this);
+                }
+                this.setDataNull(uiData);
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
+                return;
+            }
+            // Parent
+            {
+                if (data is GameUI.UIData)
+                {
+                    GameUI.UIData gameUIData = data as GameUI.UIData;
+                    // Child
+                    {
+                        gameUIData.gameDataUI.allRemoveCallBack(this);
+                    }
+                    return;
+                }
+                // Child
+                {
+                    if (data is GameDataUI.UIData)
+                    {
+                        GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
+                        // CheckChange
+                        {
+                            gameDataBoardTransformCheckChange.removeCallBack(this);
+                            gameDataBoardTransformCheckChange.setData(null);
+                        }
+                        return;
+                    }
+                    // CheckChange
+                    if (data is GameDataBoardTransformCheckChange<GameDataUI.UIData>)
+                    {
+                        return;
+                    }
+                }
+            }
+            // Child
+            {
+                // PlayUnPause
+                {
+                    if (data is PlayUnPause)
+                    {
+                        PlayUnPause playUnPause = data as PlayUnPause;
+                        // Child
+                        {
+                            playUnPause.human.allRemoveCallBack(this);
+                        }
+                        return;
+                    }
+                    // Child
+                    {
+                        if (data is Human)
+                        {
+                            Human human = data as Human;
+                            // Child
+                            {
+                                human.account.allRemoveCallBack(this);
+                            }
+                            return;
+                        }
+                        // Child
+                        if (data is Account)
+                        {
+                            return;
+                        }
+                    }
+                }
+                if (data is AccountAvatarUI.UIData)
+                {
+                    AccountAvatarUI.UIData accountAvatarUIData = data as AccountAvatarUI.UIData;
+                    // UI
+                    {
+                        accountAvatarUIData.removeCallBackAndDestroy(typeof(AccountAvatarUI));
+                    }
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.playUnPause:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				case UIData.Property.accountAvatar:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// Setting
-			if (wrapProperty.p is Setting) {
-				switch ((Setting.Property)wrapProperty.n) {
-				case Setting.Property.language:
-					dirty = true;
-					break;
-				case Setting.Property.showLastMove:
-					break;
-				case Setting.Property.viewUrlImage:
-					break;
-				case Setting.Property.animationSetting:
-					break;
-				case Setting.Property.maxThinkCount:
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// Child
-			{
-				// PlayUnPause
-				{
-					if (wrapProperty.p is PlayUnPause) {
-						switch ((PlayUnPause.Property)wrapProperty.n) {
-						case PlayUnPause.Property.human:
-							{
-								ValueChangeUtils.replaceCallBack (this, syncs);
-								dirty = true;
-							}
-							break;
-						case PlayUnPause.Property.time:
-							dirty = true;
-							break;
-						case PlayUnPause.Property.duration:
-							dirty = true;
-							break;
-						default:
-							Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-							break;
-						}
-						return;
-					}
-					// Child
-					{
-						if (wrapProperty.p is Human) {
-							switch ((Human.Property)wrapProperty.n) {
-							case Human.Property.playerId:
-								break;
-							case Human.Property.account:
-								{
-									ValueChangeUtils.replaceCallBack (this, syncs);
-									dirty = true;
-								}
-								break;
-							case Human.Property.state:
-								break;
-							case Human.Property.email:
-								break;
-							case Human.Property.phoneNumber:
-								break;
-							case Human.Property.status:
-								break;
-							case Human.Property.birthday:
-								break;
-							case Human.Property.sex:
-								break;
-							case Human.Property.connection:
-								break;
-							case Human.Property.ban:
-								break;
-							default:
-								Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-								break;
-							}
-							return;
-						}
-						// Child
-						if (wrapProperty.p is Account) {
-							Account.OnUpdateSyncAccount (wrapProperty, this);
-							return;
-						}
-					}
-				}
-				if (wrapProperty.p is AccountAvatarUI.UIData) {
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.playUnPause:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.accountAvatar:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Setting
+            if (wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Parent
+            {
+                if (wrapProperty.p is GameUI.UIData)
+                {
+                    switch ((GameUI.UIData.Property)wrapProperty.n)
+                    {
+                        case GameUI.UIData.Property.game:
+                            break;
+                        case GameUI.UIData.Property.isReplay:
+                            break;
+                        case GameUI.UIData.Property.gameDataUI:
+                            {
+                                ValueChangeUtils.replaceCallBack(this, syncs);
+                                dirty = true;
+                            }
+                            break;
+                        case GameUI.UIData.Property.gameBottom:
+                            break;
+                        case GameUI.UIData.Property.undoRedoRequestUIData:
+                            break;
+                        case GameUI.UIData.Property.requestDraw:
+                            break;
+                        case GameUI.UIData.Property.gameChatRoom:
+                            break;
+                        case GameUI.UIData.Property.gameHistoryUIData:
+                            break;
+                        case GameUI.UIData.Property.stateUI:
+                            break;
+                        case GameUI.UIData.Property.saveUIData:
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+                // Child
+                {
+                    if (wrapProperty.p is GameDataUI.UIData)
+                    {
+                        return;
+                    }
+                    // CheckChange
+                    if (wrapProperty.p is GameDataBoardTransformCheckChange<GameDataUI.UIData>)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                }
+            }
+            // Child
+            {
+                // PlayUnPause
+                {
+                    if (wrapProperty.p is PlayUnPause)
+                    {
+                        switch ((PlayUnPause.Property)wrapProperty.n)
+                        {
+                            case PlayUnPause.Property.human:
+                                {
+                                    ValueChangeUtils.replaceCallBack(this, syncs);
+                                    dirty = true;
+                                }
+                                break;
+                            case PlayUnPause.Property.time:
+                                dirty = true;
+                                break;
+                            case PlayUnPause.Property.duration:
+                                dirty = true;
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
+                    // Child
+                    {
+                        if (wrapProperty.p is Human)
+                        {
+                            switch ((Human.Property)wrapProperty.n)
+                            {
+                                case Human.Property.playerId:
+                                    break;
+                                case Human.Property.account:
+                                    {
+                                        ValueChangeUtils.replaceCallBack(this, syncs);
+                                        dirty = true;
+                                    }
+                                    break;
+                                case Human.Property.state:
+                                    break;
+                                case Human.Property.email:
+                                    break;
+                                case Human.Property.phoneNumber:
+                                    break;
+                                case Human.Property.status:
+                                    break;
+                                case Human.Property.birthday:
+                                    break;
+                                case Human.Property.sex:
+                                    break;
+                                case Human.Property.connection:
+                                    break;
+                                case Human.Property.ban:
+                                    break;
+                                default:
+                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                    break;
+                            }
+                            return;
+                        }
+                        // Child
+                        if (wrapProperty.p is Account)
+                        {
+                            Account.OnUpdateSyncAccount(wrapProperty, this);
+                            return;
+                        }
+                    }
+                }
+                if (wrapProperty.p is AccountAvatarUI.UIData)
+                {
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
 
-		#endregion
+        #endregion
 
-	}
+    }
 }

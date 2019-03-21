@@ -1,7 +1,8 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/User/UserLP.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/State/Play/UnPause/PlayUnPauseUI.cs">
     <Files>
-      <File FileName="Assets/Online/User/UserLP.cs" Line="253" Column="2" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/State/Play/UnPause/PlayUnPauseUI.cs" Line="192" Column="34" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/State/Play/Pause/PlayPauseUI.cs" Line="418" Column="165" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

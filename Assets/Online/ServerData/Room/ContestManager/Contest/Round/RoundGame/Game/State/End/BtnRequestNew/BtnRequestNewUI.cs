@@ -104,7 +104,7 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                         }
                         else
                         {
-                            Debug.LogError("requestNewContestManager null");
+                            // Debug.LogError("requestNewContestManager null");
                         }
                     }
                     // requestNewEliminationRound
@@ -128,7 +128,7 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                             }
                             else
                             {
-                                Debug.LogError("eliminationContentUIData null");
+                                // Debug.LogError("eliminationContentUIData null");
                             }
                         }
                         // process
@@ -167,7 +167,7 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                             }
                             else
                             {
-                                Debug.LogError("roundRobinContentUIData null");
+                                // Debug.LogError("roundRobinContentUIData null");
                             }
                         }
                         // process
@@ -229,7 +229,7 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                         }
                         else
                         {
-                            Debug.LogError("requestNewRound null");
+                            // Debug.LogError("requestNewRound null");
                         }
                     }
                 }

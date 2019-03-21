@@ -134,11 +134,13 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
                                 Debug.LogError("gameDataUIData null");
                             }
                         }
+                        float rightWidth = 0;
                         float bottomHeight = 0;
                         {
                             GameDataUI.UIData gameDataUIData = this.data.findDataInParent<GameDataUI.UIData>();
                             if (gameDataUIData != null)
                             {
+                                rightWidth = gameDataUIData.rightWidth.v;
                                 bottomHeight = gameDataUIData.bottomHeight.v;
                             }
                             else
@@ -207,20 +209,19 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
                                     {
                                         float boardWidth = right - left;
                                         float boardHeight = bottom - top;
-                                        // Debug.LogError("gameData: " + gameDataWidth + ", " + gameDataHeight + ", " + boardWidth + ", " + boardHeight);
+                                        // Debug.LogError("gameData: " + gameDataWidth + ", " + gameDataHeight + ", " + boardWidth + ", " + boardHeight + ", " + right + ", " + left + ", " + top + ", " + bottom);
                                         switch (screen)
                                         {
                                             case GameDataBoardUI.UIData.Screen.Portrait:
                                                 {
                                                     // width
                                                     {
-                                                        float leftBoardWidth = GameDataBoardUI.Margin;
-                                                        chatRoomWidth = gameDataWidth - leftBoardWidth - GameDataBoardUI.Margin - GamePlayerUI.Width - GameDataBoardUI.Margin - GameDataBoardUI.Margin;
-                                                        chatRoomX = gameDataWidth / 2 - GameDataBoardUI.Margin - chatRoomWidth / 2;
+                                                        chatRoomWidth = gameDataWidth - GameDataBoardUI.Margin - GameDataBoardUI.Margin - GamePlayerUI.Width - GameDataBoardUI.Margin - rightWidth;
+                                                        chatRoomX = -gameDataWidth / 2 + GameDataBoardUI.Margin + GamePlayerUI.Width + GameDataBoardUI.Margin + chatRoomWidth / 2;
                                                     }
                                                     // height
                                                     {
-                                                        chatRoomHeight = gameDataHeight - boardHeight - bottomHeight - (2 * GameDataBoardUI.Margin + GamePlayerUI.Height) - 2 * GameDataBoardUI.Margin;
+                                                        chatRoomHeight = gameDataHeight / 2 - bottom - GameDataBoardUI.Margin - GameDataBoardUI.Margin;
                                                         chatRoomY = -(gameDataHeight / 2 - bottomHeight - GameDataBoardUI.Margin - chatRoomHeight / 2);
                                                     }
                                                 }
@@ -229,13 +230,12 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
                                                 {
                                                     // width
                                                     {
-                                                        chatRoomWidth = gameDataWidth / 2 - boardWidth / 2 - 2 * GameDataBoardUI.Margin;
-                                                        chatRoomX = gameDataWidth / 2 - GameDataBoardUI.Margin - chatRoomWidth / 2;
+                                                        chatRoomWidth = gameDataWidth / 2 - boardWidth / 2 - rightWidth / 2 - 2 * GameDataBoardUI.Margin;
+                                                        chatRoomX = right + GameDataBoardUI.Margin + chatRoomWidth / 2;
                                                     }
                                                     // height
                                                     {
-                                                        float topBoardWidth = GameDataBoardUI.Margin;
-                                                        chatRoomHeight = gameDataHeight - bottomHeight - topBoardWidth - GamePlayerUI.Height - GameDataBoardUI.Margin - GameDataBoardUI.Margin - GameDataBoardUI.Margin;
+                                                        chatRoomHeight = boardHeight - GamePlayerUI.Height - GameDataBoardUI.Margin + (gameDataHeight / 2 - bottom - GameDataBoardUI.Margin);
                                                         chatRoomY = -gameDataHeight / 2 + bottomHeight + GameDataBoardUI.Margin + chatRoomHeight / 2;
                                                     }
                                                 }
@@ -752,6 +752,12 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
                     case GameDataUI.UIData.Property.informGameMessage:
                         break;
                     case GameDataUI.UIData.Property.gameActionsUI:
+                        break;
+                    case GameDataUI.UIData.Property.type:
+                        dirty = true;
+                        break;
+                    case GameDataUI.UIData.Property.rightWidth:
+                        dirty = true;
                         break;
                     case GameDataUI.UIData.Property.bottomHeight:
                         dirty = true;

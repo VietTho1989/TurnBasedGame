@@ -42,8 +42,6 @@ namespace GameState
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text tvMessage;
@@ -95,6 +93,8 @@ namespace GameState
         }
 
         #endregion
+
+        #region Refresh
 
         private static readonly UIRectTransform normalContentRect = new UIRectTransform();
         private static readonly UIRectTransform expandContentRect = new UIRectTransform();

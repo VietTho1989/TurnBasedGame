@@ -308,6 +308,14 @@ public class ChatRoomUpdate : UpdateBehavior<ChatRoom>
         {
             switch ((ChatRoom.Property)wrapProperty.n)
             {
+                case ChatRoom.Property.topic:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case ChatRoom.Property.isEnable:
+                    break;
                 case ChatRoom.Property.players:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
@@ -317,6 +325,8 @@ public class ChatRoomUpdate : UpdateBehavior<ChatRoom>
                 case ChatRoom.Property.messages:
                     dirty = true;
                     break;
+                case ChatRoom.Property.maxId:
+                    break;
                 case ChatRoom.Property.chatViewers:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
@@ -324,12 +334,6 @@ public class ChatRoomUpdate : UpdateBehavior<ChatRoom>
                     }
                     break;
                 case ChatRoom.Property.typing:
-                    {
-                        ValueChangeUtils.replaceCallBack(this, syncs);
-                        dirty = true;
-                    }
-                    break;
-                case ChatRoom.Property.topic:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;

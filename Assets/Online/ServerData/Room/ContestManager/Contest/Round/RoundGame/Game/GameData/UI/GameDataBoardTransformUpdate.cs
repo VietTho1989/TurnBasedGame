@@ -17,14 +17,14 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
             {
                 // find boardTransform
                 GameDataBoardUI.UIData boardUIData = this.data.board.v;
-                RectTransform boardTransform = null;
-                float heightWidth = 1;
-                float boardLeft = 0;
-                float boardRight = 0;
-                float boardTop = 0;
-                float boardBottom = 0;
                 if (boardUIData != null)
                 {
+                    RectTransform boardTransform = null;
+                    float heightWidth = 1;
+                    float boardLeft = 0;
+                    float boardRight = 0;
+                    float boardTop = 0;
+                    float boardBottom = 0;
                     // find
                     {
                         // boardTransform
@@ -57,7 +57,8 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
                     // process
                     if (boardTransform != null)
                     {
-                        // find bottomHeight
+                        // find UI Size
+                        float rightWidth = this.data.rightWidth.v;
                         float bottomHeight = this.data.bottomHeight.v;
                         // find width, height
                         float width = 480;
@@ -68,7 +69,7 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
                             RectTransform gameDataTransform = (RectTransform)this.transform;
                             if (gameDataTransform != null)
                             {
-                                gameDataWidth = gameDataTransform.rect.width;
+                                gameDataWidth = gameDataTransform.rect.width - rightWidth;
                                 gameDataHeight = gameDataTransform.rect.height - bottomHeight;
                                 // check need other information
                                 bool needOtherInformation = this.data.gamePlayerList.v != null || this.data.gameActionsUI.v != null;
@@ -120,10 +121,10 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
                             }
                         }
                         // find boardRect
-                        Debug.LogError("boardRect: " + width + ", " + height + ", " + bottomHeight + ", " + gameDataWidth + ", " + gameDataHeight);
-                        UIRectTransform boardRect = UIRectTransform.CreateCenterRect(width, height);
+                        // Debug.LogError("boardRect: " + width + ", " + height + ", " + bottomHeight + ", " + gameDataWidth + ", " + gameDataHeight);
+                        UIRectTransform boardRect = UIRectTransform.CreateCenterRect(width, height, -rightWidth / 2, bottomHeight / 2);
                         {
-                            boardRect.setPosY(-bottomHeight / 2);
+                            // boardRect.setPosY(-bottomHeight / 2);
                         }
                         // set
                         boardRect.set(boardTransform);
@@ -264,6 +265,9 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
                     dirty = true;
                     break;
                 case GameDataUI.UIData.Property.bottomHeight:
+                    dirty = true;
+                    break;
+                case GameDataUI.UIData.Property.rightWidth:
                     dirty = true;
                     break;
                 default:

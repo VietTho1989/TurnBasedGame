@@ -44,7 +44,7 @@ public class PerspectiveUpdate : UpdateBehavior<Perspective>
                                         }
                                         else
                                         {
-                                            Debug.LogError("gameData null: " + this);
+                                            // Debug.LogError("gameData null: " + this);
                                         }
                                     }
                                     else

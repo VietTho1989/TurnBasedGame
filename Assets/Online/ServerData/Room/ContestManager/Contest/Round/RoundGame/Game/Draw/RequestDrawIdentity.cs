@@ -6,104 +6,120 @@ using System.Collections.Generic;
 public class RequestDrawIdentity : DataIdentity
 {
 
-	#region SyncVar
+    #region SyncVar
 
 
-	#endregion
+    #endregion
 
-	#region NetData
+    #region NetData
 
-	private NetData<RequestDraw> netData = new NetData<RequestDraw>();
+    private NetData<RequestDraw> netData = new NetData<RequestDraw>();
 
-	public override NetDataDelegate getNetData ()
-	{
-		return this.netData;
-	}
+    public override NetDataDelegate getNetData()
+    {
+        return this.netData;
+    }
 
-	public override void refreshClientData ()
-	{
-		if (this.netData.clientData != null) {
-			
-		} else {
-			// Debug.Log ("clientData null");
-		}
-	}
+    public override void refreshClientData()
+    {
+        if (this.netData.clientData != null)
+        {
 
-	public override int refreshDataSize ()
-	{
-		int ret = GetDataSize (this.netId);
-		{
-			
-		}
-		return ret;
-	}
+        }
+        else
+        {
+            // Debug.Log ("clientData null");
+        }
+    }
 
-	#endregion
+    public override int refreshDataSize()
+    {
+        int ret = GetDataSize(this.netId);
+        {
 
-	#region implemt callback
+        }
+        return ret;
+    }
 
-	public override void onAddCallBack<T> (T data)
-	{
-		if (data is RequestDraw) {
-			RequestDraw requestDraw = data as RequestDraw;
-			// Set new parent
-			this.addTransformToParent();
-			// Set property
-			{
-				this.serialize (this.searchInfor, requestDraw.makeSearchInforms ());
-			}
-			this.getDataSize ();
-			// Observer
-			{
-				GameObserver observer = GetComponent<GameObserver> ();
-				if (observer != null) {
-					observer.checkChange = new FollowParentObserver (observer);
-					observer.setCheckChangeData (requestDraw);
-				} else {
-					Debug.LogError ("observer null");
-				}
-			}
-			return;
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+    #endregion
 
-	public override void onRemoveCallBack<T> (T data, bool isHide)
-	{
-		if (data is RequestDraw) {
-			// RequestDraw requestDraw = data as RequestDraw;
-			// Observer
-			{
-				GameObserver observer = GetComponent<GameObserver> ();
-				if (observer != null) {
-					observer.setCheckChangeData (null);
-				} else {
-					Debug.LogError ("observer null");
-				}
-			}
-			return;
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+    #region implemt callback
 
-	public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-	{
-		if (WrapProperty.checkError (wrapProperty)) {
-			return;
-		}
-		if (wrapProperty.p is RequestDraw) {
-			switch ((RequestDraw.Property)wrapProperty.n) {
-			case RequestDraw.Property.state:
-				break;
-			default:
-				Debug.LogError ("Unknown wrapProperty: " + wrapProperty + "; " + this);
-				break;
-			}
-			return;
-		}
-		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-	}
+    public override void onAddCallBack<T>(T data)
+    {
+        if (data is RequestDraw)
+        {
+            RequestDraw requestDraw = data as RequestDraw;
+            // Set new parent
+            this.addTransformToParent();
+            // Set property
+            {
+                this.serialize(this.searchInfor, requestDraw.makeSearchInforms());
+            }
+            this.getDataSize();
+            // Observer
+            {
+                GameObserver observer = GetComponent<GameObserver>();
+                if (observer != null)
+                {
+                    observer.checkChange = new FollowParentObserver(observer);
+                    observer.setCheckChangeData(requestDraw);
+                }
+                else
+                {
+                    Debug.LogError("observer null");
+                }
+            }
+            return;
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	#endregion
+    public override void onRemoveCallBack<T>(T data, bool isHide)
+    {
+        if (data is RequestDraw)
+        {
+            // RequestDraw requestDraw = data as RequestDraw;
+            // Observer
+            {
+                GameObserver observer = GetComponent<GameObserver>();
+                if (observer != null)
+                {
+                    observer.setCheckChangeData(null);
+                }
+                else
+                {
+                    Debug.LogError("observer null");
+                }
+            }
+            return;
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
+
+    public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+    {
+        if (WrapProperty.checkError(wrapProperty))
+        {
+            return;
+        }
+        if (wrapProperty.p is RequestDraw)
+        {
+            switch ((RequestDraw.Property)wrapProperty.n)
+            {
+                case RequestDraw.Property.state:
+                    break;
+                case RequestDraw.Property.whoCanAsks:
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+    }
+
+    #endregion
 
 }

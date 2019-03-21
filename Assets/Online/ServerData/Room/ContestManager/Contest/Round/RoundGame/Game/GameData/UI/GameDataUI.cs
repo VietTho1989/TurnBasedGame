@@ -34,8 +34,22 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
 
         public VP<GameActionsUI.UIData> gameActionsUI;
 
+        #region UI
+
+        public enum Type
+        {
+            Game,
+            ViewSave
+        }
+
+        public VP<Type> type;
+
         /** bottomHeight for gameBottomUI*/
         public VP<float> bottomHeight;
+
+        public VP<float> rightWidth;
+
+        #endregion
 
         #region Constructor
 
@@ -51,7 +65,10 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
             gamePlayerList,
             informGameMessage,
             gameActionsUI,
-            bottomHeight
+
+            type,
+            bottomHeight,
+            rightWidth
         }
 
         public UIData() : base()
@@ -66,7 +83,10 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
             this.gamePlayerList = new VP<GamePlayerListUI.UIData>(this, (byte)Property.gamePlayerList, new GamePlayerListUI.UIData());
             this.informGameMessage = new VP<InformGameMessageUI.UIData>(this, (byte)Property.informGameMessage, new InformGameMessageUI.UIData());
             this.gameActionsUI = new VP<GameActionsUI.UIData>(this, (byte)Property.gameActionsUI, new GameActionsUI.UIData());
+
+            this.type = new VP<Type>(this, (byte)Property.type, Type.Game);
             this.bottomHeight = new VP<float>(this, (byte)Property.bottomHeight, 60);
+            this.rightWidth = new VP<float>(this, (byte)Property.rightWidth, 0);
         }
 
         #endregion
@@ -176,21 +196,7 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
 
     static GameDataUI()
     {
-        // rect
-        {
-            // boardRect
-            {
-                // anchoredPosition: (0.0, 0.0); anchorMin: (0.2, 0.2); anchorMax: (0.8, 0.8); pivot: (0.5, 0.5);
-                // offsetMin: (0.0, 0.0); offsetMax: (0.0, 0.0); sizeDelta: (0.0, 0.0);
-                boardRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
-                boardRect.anchorMin = new Vector2(0.2f, 0.2f);
-                boardRect.anchorMax = new Vector2(0.8f, 0.8f);
-                boardRect.pivot = new Vector2(0.5f, 0.5f);
-                boardRect.offsetMin = new Vector2(0.0f, 0.0f);
-                boardRect.offsetMax = new Vector2(0.0f, 0.0f);
-                boardRect.sizeDelta = new Vector2(0.0f, 0.0f);
-            }
-        }
+
     }
 
     #endregion
@@ -336,13 +342,34 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
                     }
                     // UI
                     {
-                        UIRectTransform.SetSiblingIndex(this.data.board.v, 0);
-                        UIRectTransform.SetSiblingIndex(this.data.gamePlayerList.v, 1);
-                        UIRectTransform.SetSiblingIndex(this.data.informGameMessage.v, 2);
+                        UIRectTransform.SetSiblingIndex(this.data.informGameMessage.v, 0);
+                        UIRectTransform.SetSiblingIndex(this.data.board.v, 1);
+                        UIRectTransform.SetSiblingIndex(this.data.gamePlayerList.v, 2);
                         UIRectTransform.SetSiblingIndex(this.data.gameActionsUI.v, 3);
                         UIRectTransform.SetSiblingIndex(this.data.perspectiveUIData.v, 4);
                         UIRectTransform.SetSiblingIndex(this.data.hintUI.v, 5);
                         UIRectTransform.SetSiblingIndex(this.data.requestChangeUseRule.v, 6);
+                    }
+                    // UI Size
+                    {
+                        switch (this.data.type.v)
+                        {
+                            case UIData.Type.Game:
+                                {
+                                    this.data.bottomHeight.v = 60;
+                                    this.data.rightWidth.v = 0;
+                                }
+                                break;
+                            case UIData.Type.ViewSave:
+                                {
+                                    this.data.bottomHeight.v = 0;
+                                    this.data.rightWidth.v = 0;
+                                }
+                                break;
+                            default:
+                                Debug.LogError("unknown type: " + this.data.type.v);
+                                break;
+                        }
                     }
                 }
                 else
@@ -367,7 +394,6 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
     #region implement callBacks
 
     public GameDataBoardUI boardPrefab;
-    private static readonly UIRectTransform boardRect = new UIRectTransform();
 
     public HintUI hintPrefab;
     private readonly UIRectTransform hintRect = UIConstants.FullParent;
@@ -441,7 +467,7 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
                 GameDataBoardUI.UIData boardData = data as GameDataBoardUI.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(boardData, boardPrefab, this.transform, boardRect);
+                    UIUtils.Instantiate(boardData, boardPrefab, this.transform);
                 }
                 dirty = true;
                 return;

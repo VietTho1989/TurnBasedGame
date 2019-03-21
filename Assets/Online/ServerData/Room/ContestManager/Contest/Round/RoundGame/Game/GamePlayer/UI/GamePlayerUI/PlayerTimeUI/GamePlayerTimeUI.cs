@@ -136,12 +136,12 @@ public class GamePlayerTimeUI : UIBehavior<GamePlayerTimeUI.UIData>
                 }
                 else
                 {
-                    Debug.LogError("gamePlayer null: " + this);
+                    // Debug.LogError("gamePlayer null: " + this);
                 }
             }
             else
             {
-                Debug.LogError("data null: " + this);
+                // Debug.LogError("data null: " + this);
             }
         }
     }

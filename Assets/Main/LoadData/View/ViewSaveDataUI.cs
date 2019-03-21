@@ -251,7 +251,7 @@ public class ViewSaveDataUI : UIBehavior<ViewSaveDataUI.UIData>
     #region implement callBacks
 
     public ViewSaveGameUI viewSaveGamePrefab;
-    private static readonly UIRectTransform viewSaveGameRect = UIRectTransform.CreateFullRect(0, 0, 30, 0);
+    private static readonly UIRectTransform viewSaveGameRect = UIRectTransform.CreateFullRect(10, 10, 30, 0);
 
     public override void onAddCallBack<T>(T data)
     {

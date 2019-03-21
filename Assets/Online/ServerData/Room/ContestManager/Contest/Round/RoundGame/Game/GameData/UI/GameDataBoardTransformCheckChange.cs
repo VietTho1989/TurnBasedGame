@@ -157,6 +157,15 @@ public class GameDataBoardTransformCheckChange<K> : Data, ValueChangeCallBack wh
                     break;
                 case GameDataUI.UIData.Property.gameActionsUI:
                     break;
+                case GameDataUI.UIData.Property.type:
+                    this.notifyChange();
+                    break;
+                case GameDataUI.UIData.Property.bottomHeight:
+                    this.notifyChange();
+                    break;
+                case GameDataUI.UIData.Property.rightWidth:
+                    this.notifyChange();
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;

@@ -91,7 +91,7 @@ namespace GameManager.Match.Swap
                     }
                     else
                     {
-                        Debug.LogError("swap null: " + this);
+                        // Debug.LogError("swap null: " + this);
                     }
                 }
                 else

@@ -189,6 +189,8 @@ public class ChatRoomIdentity : DataIdentity
                 case ChatRoom.Property.maxId:
                     this.maxId = (uint)wrapProperty.getValue();
                     break;
+                case ChatRoom.Property.chatViewers:
+                    break;
                 case ChatRoom.Property.typing:
                     break;
                 default:

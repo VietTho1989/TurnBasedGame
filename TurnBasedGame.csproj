@@ -1979,6 +1979,7 @@
     <Compile Include="Assets\Online\ServerData\Chat\Update\ChatRoomUpdate.cs" />
     <Compile Include="Assets\Online\ServerData\Chat\Viewer\ChatViewer.cs" />
     <Compile Include="Assets\Online\ServerData\Chat\Viewer\ChatViewerIdentity.cs" />
+    <Compile Include="Assets\Online\ServerData\Chat\Viewer\ChatViewerLP.cs" />
     <Compile Include="Assets\Online\ServerData\Chat\Viewer\ChatViewerObserver.cs" />
     <Compile Include="Assets\Online\ServerData\Chat\Viewer\ChatViewerUpdate.cs" />
     <Compile Include="Assets\Online\ServerData\Chat\Viewer\Sub\ChatSubView.cs" />
@@ -2018,6 +2019,7 @@
     <Compile Include="Assets\Online\ServerData\Friend\State\Request\FriendStateRequestUI.cs" />
     <Compile Include="Assets\Online\ServerData\Friend\State\Request\FriendStateRequestUpdate.cs" />
     <Compile Include="Assets\Online\ServerData\Friend\World\FriendHashMap.cs" />
+    <Compile Include="Assets\Online\ServerData\Friend\World\FriendLP.cs" />
     <Compile Include="Assets\Online\ServerData\Friend\World\FriendWorld.cs" />
     <Compile Include="Assets\Online\ServerData\Friend\World\FriendWorldIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Friend\World\FriendWorldUpdate.cs" />
@@ -3758,6 +3760,7 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\UI\InformUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\Update\GamePlayerCheckLeft.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\Update\GamePlayerUpdate.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameTopic\ChatRoom\InformGameMessageUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameTopic\Content\ChatGameMoveContent.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameTopic\Content\ChatGameMoveContentIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameTopic\Content\ChatGameMoveContentUI.cs" />
@@ -4185,8 +4188,8 @@
     <Compile Include="Assets\Online\User\Update\UserDisconnectUpdate.cs" />
     <Compile Include="Assets\Online\User\Update\UserUpdate.cs" />
     <Compile Include="Assets\Online\User\User.cs" />
-    <Compile Include="Assets\Online\User\UserHashMap.cs" />
     <Compile Include="Assets\Online\User\UserIdentity.cs" />
+    <Compile Include="Assets\Online\User\UserLP.cs" />
     <Compile Include="Assets\Online\Utils\EmptyGameObject.cs" />
     <Compile Include="Assets\Online\Utils\ShowToast.cs" />
     <Compile Include="Assets\Online\Utils\UI\EnableDisableInform.cs" />

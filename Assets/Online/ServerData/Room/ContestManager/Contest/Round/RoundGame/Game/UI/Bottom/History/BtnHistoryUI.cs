@@ -380,18 +380,6 @@ public class BtnHistoryUI : UIBehavior<BtnHistoryUI.UIData>
                         gameHistoryUIData.visibility.v = GameHistoryUI.UIData.Visibility.Show;
                     }
                     gameUIData.gameHistoryUIData.v = gameHistoryUIData;
-                    // showAnimation
-                    {
-                        ShowAnimationUI.UIData showAnimationUI = gameHistoryUIData.showAnimation.v;
-                        if (showAnimationUI != null)
-                        {
-                            showAnimationUI.show();
-                        }
-                        else
-                        {
-                            Debug.LogError("showAnimationUI null");
-                        }
-                    }
                     // show
                     {
                         // find alreadyLoad
@@ -409,6 +397,7 @@ public class BtnHistoryUI : UIBehavior<BtnHistoryUI.UIData>
                         // process
                         if (alreadyLoad)
                         {
+                            gameHistoryUIData.visibility.v = GameHistoryUI.UIData.Visibility.Hide;
                             // show view save
                             GameHistoryUI gameHistoryUI = gameHistoryUIData.findCallBack<GameHistoryUI>();
                             if (gameHistoryUI != null)
@@ -423,6 +412,18 @@ public class BtnHistoryUI : UIBehavior<BtnHistoryUI.UIData>
                         else
                         {
                             gameHistoryUIData.visibility.v = GameHistoryUI.UIData.Visibility.Show;
+                            // showAnimation
+                            {
+                                ShowAnimationUI.UIData showAnimationUI = gameHistoryUIData.showAnimation.v;
+                                if (showAnimationUI != null)
+                                {
+                                    showAnimationUI.show();
+                                }
+                                else
+                                {
+                                    Debug.LogError("showAnimationUI null");
+                                }
+                            }
                         }
                     }
                 }

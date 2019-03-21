@@ -413,6 +413,12 @@ public class UndoRedoRequestUI : UIBehavior<UndoRedoRequestUI.UIData>
                     case UndoRedoRequest.Property.state:
                         dirty = true;
                         break;
+                    case UndoRedoRequest.Property.canUndo:
+                        break;
+                    case UndoRedoRequest.Property.canRedo:
+                        break;
+                    case UndoRedoRequest.Property.count:
+                        break;
                     default:
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;

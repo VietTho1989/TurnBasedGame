@@ -93,6 +93,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
             // gameDataUI
             {
                 this.gameDataUI = new VP<GameDataUI.UIData>(this, (byte)Property.gameDataUI, new GameDataUI.UIData());
+                this.gameDataUI.v.type.v = GameDataUI.UIData.Type.Game;
                 this.gameDataUI.v.bottomHeight.v = 60;
             }
 

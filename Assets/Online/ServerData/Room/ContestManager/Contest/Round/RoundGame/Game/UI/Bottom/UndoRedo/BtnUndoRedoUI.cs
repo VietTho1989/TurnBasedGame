@@ -215,6 +215,10 @@ public class BtnUndoRedoUI : UIBehavior<BtnUndoRedoUI.UIData>
                 case UndoRedoRequest.Property.state:
                     dirty = true;
                     break;
+                case UndoRedoRequest.Property.canUndo:
+                    break;
+                case UndoRedoRequest.Property.canRedo:
+                    break;
                 case UndoRedoRequest.Property.count:
                     break;
                 default:

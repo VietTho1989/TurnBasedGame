@@ -35,7 +35,9 @@ public class ViewSaveGameUI : UIBehavior<ViewSaveGameUI.UIData>
                 {
                     this.gameDataUIData.v.hintUI.v = null;
                     this.gameDataUIData.v.allowInput.v = false;
+                    this.gameDataUIData.v.informGameMessage.v = null;
                 }
+                this.gameDataUIData.v.type.v = GameDataUI.UIData.Type.ViewSave;
                 this.gameDataUIData.v.bottomHeight.v = 0;
             }
             this.history = new VP<ViewSaveGameHistoryUI.UIData>(this, (byte)Property.history, new ViewSaveGameHistoryUI.UIData());

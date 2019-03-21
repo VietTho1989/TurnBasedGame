@@ -82,12 +82,12 @@ public class BtnUseRuleUI : UIBehavior<BtnUseRuleUI.UIData>
                 }
                 else
                 {
-                    Debug.LogError("requestChangeUseRule null");
+                    // Debug.LogError("requestChangeUseRule null");
                 }
             }
             else
             {
-                Debug.LogError("data null");
+                // Debug.LogError("data null");
             }
         }
     }

@@ -858,6 +858,15 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                             break;
                         case GameDataUI.UIData.Property.perspectiveUIData:
                             break;
+                        case GameDataUI.UIData.Property.type:
+                            dirty = true;
+                            break;
+                        case GameDataUI.UIData.Property.bottomHeight:
+                            dirty = true;
+                            break;
+                        case GameDataUI.UIData.Property.rightWidth:
+                            dirty = true;
+                            break;
                         default:
                             Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                             break;

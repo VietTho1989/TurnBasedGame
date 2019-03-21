@@ -318,8 +318,33 @@ namespace GameState
                                 }
                                 deltaY += 50;
                             }
-                            // set
-                            UIRectTransform.SetHeight((RectTransform)contentContainer, deltaY);
+                            // set contentContainer 
+                            {
+                                float rightWidth = 0;
+                                float bottomHeight = 0;
+                                {
+                                    GameUI.UIData gameUIData = this.data.findDataInParent<GameUI.UIData>();
+                                    if (gameUIData != null)
+                                    {
+                                        GameDataUI.UIData gameDataUIData = gameUIData.gameDataUI.v;
+                                        if (gameDataUIData != null)
+                                        {
+                                            rightWidth = gameDataUIData.rightWidth.v;
+                                            bottomHeight = gameDataUIData.bottomHeight.v;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("gameDataUIData null");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("gameUIData null");
+                                    }
+                                }
+                                // set
+                                UIRectTransform.CreateCenterRect(300, deltaY, -rightWidth/2, bottomHeight/2).set(contentContainer);
+                            }
                         }
                     }
                     else
@@ -387,7 +412,10 @@ namespace GameState
         public AccountAvatarUI accountAvatarPrefab;
         private static readonly UIRectTransform accountAvatarRect = new UIRectTransform();
 
-        public Transform contentContainer;
+        public RectTransform contentContainer;
+
+        private GameUI.UIData gameUIData = null;
+        private GameDataBoardTransformCheckChange<GameDataUI.UIData> gameDataBoardTransformCheckChange = new GameDataBoardTransformCheckChange<GameDataUI.UIData>();
 
         public override void onAddCallBack<T>(T data)
         {
@@ -396,6 +424,10 @@ namespace GameState
                 UIData uiData = data as UIData;
                 // Setting
                 Setting.get().addCallBack(this);
+                // Parent
+                {
+                    DataUtils.addParentCallBack(uiData, this, ref this.gameUIData);
+                }
                 // Child
                 {
                     uiData.playPause.allAddCallBack(this);
@@ -409,6 +441,39 @@ namespace GameState
             {
                 dirty = true;
                 return;
+            }
+            // Parent
+            {
+                if (data is GameUI.UIData)
+                {
+                    GameUI.UIData gameUIData = data as GameUI.UIData;
+                    // Child
+                    {
+                        gameUIData.gameDataUI.allAddCallBack(this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                {
+                    if (data is GameDataUI.UIData)
+                    {
+                        GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
+                        // CheckChange
+                        {
+                            gameDataBoardTransformCheckChange.addCallBack(this);
+                            gameDataBoardTransformCheckChange.setData(gameDataUIData);
+                        }
+                        dirty = true;
+                        return;
+                    }
+                    // CheckChange
+                    if (data is GameDataBoardTransformCheckChange<GameDataUI.UIData>)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                }
             }
             // Child
             {
@@ -512,6 +577,10 @@ namespace GameState
                 UIData uiData = data as UIData;
                 // Setting
                 Setting.get().removeCallBack(this);
+                // Parent
+                {
+                    DataUtils.removeParentCallBack(uiData, this, ref this.gameUIData);
+                }
                 // Child
                 {
                     uiData.playPause.allRemoveCallBack(this);
@@ -524,6 +593,36 @@ namespace GameState
             if (data is Setting)
             {
                 return;
+            }
+            // Parent
+            {
+                if (data is GameUI.UIData)
+                {
+                    GameUI.UIData gameUIData = data as GameUI.UIData;
+                    // Child
+                    {
+                        gameUIData.gameDataUI.allRemoveCallBack(this);
+                    }
+                    return;
+                }
+                // Child
+                {
+                    if (data is GameDataUI.UIData)
+                    {
+                        GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
+                        // CheckChange
+                        {
+                            gameDataBoardTransformCheckChange.removeCallBack(this);
+                            gameDataBoardTransformCheckChange.setData(null);
+                        }
+                        return;
+                    }
+                    // CheckChange
+                    if (data is GameDataBoardTransformCheckChange<GameDataUI.UIData>)
+                    {
+                        return;
+                    }
+                }
             }
             // Child
             {
@@ -654,6 +753,56 @@ namespace GameState
                         break;
                 }
                 return;
+            }
+            // Parent
+            {
+                if (wrapProperty.p is GameUI.UIData)
+                {
+                    switch ((GameUI.UIData.Property)wrapProperty.n)
+                    {
+                        case GameUI.UIData.Property.game:
+                            break;
+                        case GameUI.UIData.Property.isReplay:
+                            break;
+                        case GameUI.UIData.Property.gameDataUI:
+                            {
+                                ValueChangeUtils.replaceCallBack(this, syncs);
+                                dirty = true;
+                            }
+                            break;
+                        case GameUI.UIData.Property.gameBottom:
+                            break;
+                        case GameUI.UIData.Property.undoRedoRequestUIData:
+                            break;
+                        case GameUI.UIData.Property.requestDraw:
+                            break;
+                        case GameUI.UIData.Property.gameChatRoom:
+                            break;
+                        case GameUI.UIData.Property.gameHistoryUIData:
+                            break;
+                        case GameUI.UIData.Property.stateUI:
+                            break;
+                        case GameUI.UIData.Property.saveUIData:
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+                // Child
+                {
+                    if (wrapProperty.p is GameDataUI.UIData)
+                    {
+                        return;
+                    }
+                    // CheckChange
+                    if (wrapProperty.p is GameDataBoardTransformCheckChange<GameDataUI.UIData>)
+                    {
+                        dirty = true;
+                        return;
+                    }
+                }
             }
             // Child
             {
