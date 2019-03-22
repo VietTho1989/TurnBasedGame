@@ -74,6 +74,10 @@ public class HumanLP : LP<Human>, ValueChangeCallBack
 
     public void onAddCallBack<T>(T data) where T : Data
     {
+        if(data == p)
+        {
+            return;
+        }
         if (data is Human)
         {
             Human human = data as Human;
@@ -104,6 +108,10 @@ public class HumanLP : LP<Human>, ValueChangeCallBack
 
     public void onRemoveCallBack<T>(T data, bool isHide) where T : Data
     {
+        if (data == p)
+        {
+            return;
+        }
         if (data is Human)
         {
             Human human = data as Human;

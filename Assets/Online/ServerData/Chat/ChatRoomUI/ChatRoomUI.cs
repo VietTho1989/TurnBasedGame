@@ -32,6 +32,8 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
 
         public VP<ChatRoomBtnLoadMoreUI.UIData> btnLoadMore;
 
+        public VP<ChatRoomAlreadyViewUpdate.UpdateData> alreadyView;
+
         #region Constructor
 
         public enum Property
@@ -43,7 +45,8 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
             typingUI,
             chatMessageMenu,
             canSendMessage,
-            btnLoadMore
+            btnLoadMore,
+            alreadyView
         }
 
         public UIData() : base()
@@ -56,6 +59,7 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
             this.chatMessageMenu = new VP<ChatMessageMenuUI.UIData>(this, (byte)Property.chatMessageMenu, null);
             this.canSendMessage = new VP<bool>(this, (byte)Property.canSendMessage, true);
             this.btnLoadMore = new VP<ChatRoomBtnLoadMoreUI.UIData>(this, (byte)Property.btnLoadMore, null);
+            this.alreadyView = new VP<ChatRoomAlreadyViewUpdate.UpdateData>(this, (byte)Property.alreadyView, new ChatRoomAlreadyViewUpdate.UpdateData());
         }
 
         #endregion
@@ -67,7 +71,7 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
 
         public bool processEvent(Event e)
         {
-            Debug.LogError("processEvent: " + e + "; " + this);
+            // Debug.LogError("processEvent: " + e + "; " + this);
             bool isProcess = false;
             {
                 // chatMessageMenu
@@ -90,8 +94,6 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
     }
 
     #endregion
-
-    #region Refresh
 
     #region txt
 
@@ -136,12 +138,12 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
             {
                 // anchoredPosition: (0.0, -30.0); anchorMin: (0.0, 1.0); anchorMax: (1.0, 1.0); pivot: (0.5, 1.0); offsetMin: (0.0, -60.0); offsetMax: (0.0, -30.0); sizeDelta: (0.0, 30.0);
                 btnLoadMoreRect.anchoredPosition = new Vector3(0.0f, -30.0f, 0.0f);
-                btnLoadMoreRect.anchorMin = new Vector2(0.0f, 1.0f);
-                btnLoadMoreRect.anchorMax = new Vector2(1.0f, 1.0f);
+                btnLoadMoreRect.anchorMin = new Vector2(0.5f, 1.0f);
+                btnLoadMoreRect.anchorMax = new Vector2(0.5f, 1.0f);
                 btnLoadMoreRect.pivot = new Vector2(0.5f, 1.0f);
-                btnLoadMoreRect.offsetMin = new Vector2(0.0f, -60.0f);
-                btnLoadMoreRect.offsetMax = new Vector2(0.0f, -30.0f);
-                btnLoadMoreRect.sizeDelta = new Vector2(0.0f, 30.0f);
+                btnLoadMoreRect.offsetMin = new Vector2(-45.0f, -60.0f);
+                btnLoadMoreRect.offsetMax = new Vector2(45.0f, -30.0f);
+                btnLoadMoreRect.sizeDelta = new Vector2(90.0f, 30.0f);
             }
             // chatMessageMenuRect
             {
@@ -159,7 +161,7 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
 
     #endregion
 
-    private bool needSetPlayerIndex = true;
+    #region Refresh
 
     public override void refresh()
     {
@@ -351,70 +353,62 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
                             this.data.btnLoadMore.v = null;
                         }
                     }
+                    // edtMessage
+                    {
+                        if (edtMessage != null)
+                        {
+                            edtMessage.interactable = this.data.canSendMessage.v;
+                        }
+                        else
+                        {
+                            Debug.LogError("edtMessage null: " + this);
+                        }
+                    }
+                    // txt
+                    {
+                        if (tvSend != null)
+                        {
+                            tvSend.text = txtSend.get("Send");
+                        }
+                        else
+                        {
+                            Debug.LogError("tvSend null: " + this);
+                        }
+                        if (edtMessagePlaceHolder != null)
+                        {
+                            edtMessagePlaceHolder.text = txtMessagePlaceHolder.get("Please type your message");
+                        }
+                        else
+                        {
+                            Debug.LogError("edtMessagePlaceHolder null: " + this);
+                        }
+                    }
+                    // set siblingIndex
+                    {
+                        UIRectTransform.SetSiblingIndex(this.data.chatRoomAdapter.v, 0);
+                        UIRectTransform.SetSiblingIndex(this.data.topicUI.v, 2);
+                        UIRectTransform.SetSiblingIndex(this.data.btnLoadMore.v, 3);
+                        UIRectTransform.SetSiblingIndex(this.data.chatMessageMenu.v, 4);
+                        // UI
+                        {
+                            UIRectTransform.SetActive(this.data.topicUI.v, this.data.needHeader.v);
+                            // chatRoomAdapter
+                            {
+                                UIRectTransform.Set(this.data.chatRoomAdapter.v, this.data.needHeader.v
+                                    ? UIRectTransform.CreateFullRect(0, 0, 30, 70)
+                                    : UIRectTransform.CreateFullRect(0, 0, 0, 70));
+                            }
+                        }
+                    }
                 }
                 else
                 {
                     Debug.LogError("chatRoom null: " + this);
                 }
-                // edtMessage
-                {
-                    if (edtMessage != null)
-                    {
-                        edtMessage.interactable = this.data.canSendMessage.v;
-                    }
-                    else
-                    {
-                        Debug.LogError("edtMessage null: " + this);
-                    }
-                }
-                // txt
-                {
-                    if (tvSend != null)
-                    {
-                        tvSend.text = txtSend.get("Send");
-                    }
-                    else
-                    {
-                        Debug.LogError("tvSend null: " + this);
-                    }
-                    if (edtMessagePlaceHolder != null)
-                    {
-                        edtMessagePlaceHolder.text = txtMessagePlaceHolder.get("Please type your message");
-                    }
-                    else
-                    {
-                        Debug.LogError("edtMessagePlaceHolder null: " + this);
-                    }
-                }
             }
             else
             {
                 // Debug.LogError ("data null: " + this);
-            }
-        }
-        if (needSetPlayerIndex)
-        {
-            needSetPlayerIndex = false;
-            if (this.data != null)
-            {
-                UIRectTransform.SetSiblingIndex(this.data.chatRoomAdapter.v, 0);
-                UIRectTransform.SetSiblingIndex(this.data.topicUI.v, 2);
-                UIRectTransform.SetSiblingIndex(this.data.btnLoadMore.v, 3);
-                UIRectTransform.SetSiblingIndex(this.data.chatMessageMenu.v, 4);
-                // UI
-                {
-                    UIRectTransform.SetActive(this.data.topicUI.v, this.data.needHeader.v);
-                    // chatRoomAdapter
-                    {
-                        UIRectTransform.Set(this.data.chatRoomAdapter.v, this.data.needHeader.v
-                            ? UIRectTransform.CreateFullRect(0, 0, 30, 70)
-                            : UIRectTransform.CreateFullRect(0, 0, 0, 70));
-                    }
-                }
-            }
-            else
-            {
-                Debug.LogError("data null");
             }
         }
     }
@@ -452,6 +446,8 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
     public ChatRoomBtnLoadMoreUI btnLoadMorePrefab;
     private static readonly UIRectTransform btnLoadMoreRect = new UIRectTransform();
 
+    public ChatRoomAlreadyViewUpdate chatRoomAlreadyViewUpdate;
+
     public override void onAddCallBack<T>(T data)
     {
         if (data is UIData)
@@ -467,9 +463,9 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
                 uiData.typingUI.allAddCallBack(this);
                 uiData.chatMessageMenu.allAddCallBack(this);
                 uiData.btnLoadMore.allAddCallBack(this);
+                uiData.alreadyView.allAddCallBack(this);
             }
             dirty = true;
-            needSetPlayerIndex = true;
             return;
         }
         // Setting
@@ -618,6 +614,23 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
                 dirty = true;
                 return;
             }
+            if(data is ChatRoomAlreadyViewUpdate.UpdateData)
+            {
+                ChatRoomAlreadyViewUpdate.UpdateData alreadyViewUpdateData = data as ChatRoomAlreadyViewUpdate.UpdateData;
+                // update
+                {
+                    if (chatRoomAlreadyViewUpdate != null)
+                    {
+                        chatRoomAlreadyViewUpdate.setData(alreadyViewUpdateData);
+                    }
+                    else
+                    {
+                        Debug.LogError("chatRoomAlreadyViewUpdate null");
+                    }
+                }
+                dirty = true;
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -637,6 +650,7 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
                 uiData.typingUI.allRemoveCallBack(this);
                 uiData.chatMessageMenu.allRemoveCallBack(this);
                 uiData.btnLoadMore.allRemoveCallBack(this);
+                uiData.alreadyView.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
             return;
@@ -792,7 +806,6 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
-                        needSetPlayerIndex = true;
                     }
                     break;
                 case UIData.Property.needHeader:
@@ -802,14 +815,12 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
-                        needSetPlayerIndex = true;
                     }
                     break;
                 case UIData.Property.chatRoomAdapter:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
-                        needSetPlayerIndex = true;
                     }
                     break;
                 case UIData.Property.typingUI:
@@ -822,7 +833,6 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
-                        needSetPlayerIndex = true;
                     }
                     break;
                 case UIData.Property.canSendMessage:
@@ -832,7 +842,12 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
-                        needSetPlayerIndex = true;
+                    }
+                    break;
+                case UIData.Property.alreadyView:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
                     }
                     break;
                 default:
@@ -906,6 +921,10 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
                 return;
             }
             if (wrapProperty.p is ChatRoomBtnLoadMoreUI.UIData)
+            {
+                return;
+            }
+            if(wrapProperty.p is ChatRoomAlreadyViewUpdate.UpdateData)
             {
                 return;
             }

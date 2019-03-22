@@ -33,6 +33,7 @@ public class ChatRoomNewMessageCountUI : UIBehavior<ChatRoomNewMessageCountUI.UI
 
     #region Refresh
 
+    public Image bg;
     public Text tvNewCount;
 
     private ChatViewer chatViewer = null;
@@ -92,36 +93,45 @@ public class ChatRoomNewMessageCountUI : UIBehavior<ChatRoomNewMessageCountUI.UI
                     // find count
                     uint newCount = 0;
                     {
-                        if (chatViewer != null)
+                        // find alreadyViewMaxId
+                        uint alreadyViewMaxId = 0;
                         {
-                            if (chatRoom.maxId.v >= chatViewer.alreadyViewMaxId.v)
+                            if (chatViewer != null)
                             {
-                                newCount = chatRoom.maxId.v - chatViewer.alreadyViewMaxId.v;
+                                alreadyViewMaxId = chatViewer.alreadyViewMaxId.v;
                             }
                             else
                             {
-                                Debug.LogError("error, why maxId < alreadyViewMaxId");
+                                Debug.LogError("chatViewer null");
                             }
+                        }
+                        // process
+                        if (chatRoom.maxId.v >= alreadyViewMaxId)
+                        {
+                            newCount = chatRoom.maxId.v - alreadyViewMaxId;
                         }
                         else
                         {
-                            Debug.LogError("chatViewer null");
+                            Debug.LogError("error, why maxId < alreadyViewMaxId");
                         }
                     }
                     // set
-                    if (tvNewCount != null)
+                    if (tvNewCount != null && bg!=null)
                     {
                         if (newCount <= 0)
                         {
                             tvNewCount.text = "";
+                            bg.enabled = false;
                         }
-                        else if (newCount > 100)
+                        else if (newCount > 50)
                         {
-                            tvNewCount.text = "100+";
+                            tvNewCount.text = "50+";
+                            bg.enabled = true;
                         }
                         else
                         {
                             tvNewCount.text = "" + newCount;
+                            bg.enabled = true;
                         }
                     }
                     else

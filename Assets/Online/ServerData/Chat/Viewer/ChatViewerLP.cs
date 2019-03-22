@@ -74,7 +74,11 @@ public class ChatViewerLP : LP<ChatViewer>, ValueChangeCallBack
 
     public void onAddCallBack<T>(T data) where T : Data
     {
-        if(data is ChatViewer)
+        if(data == p)
+        {
+            return;
+        }
+        if (data is ChatViewer)
         {
             ChatViewer chatViewer = data as ChatViewer;
             // add
@@ -104,7 +108,11 @@ public class ChatViewerLP : LP<ChatViewer>, ValueChangeCallBack
 
     public void onRemoveCallBack<T>(T data, bool isHide) where T : Data
     {
-        if(data is ChatViewer)
+        if(data == p)
+        {
+            return;
+        }
+        if (data is ChatViewer)
         {
             ChatViewer chatViewer = data as ChatViewer;
             // remove

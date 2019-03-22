@@ -1218,7 +1218,6 @@
     <Compile Include="Assets\Main\Online\Client\GlobalView\Friend\Detail\FriendDetailUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\Friend\FriendList\FriendAdapter.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\Friend\FriendList\FriendHolder.cs" />
-    <Compile Include="Assets\Main\Online\Client\GlobalView\Friend\FriendList\NewChatMessageNumberUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\Friend\GlobalFriendsUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\GlobalViewUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\Profile\GlobalProfileUI.cs" />
@@ -1296,6 +1295,7 @@
     <Compile Include="Assets\Online\ServerData\Chat\Message\Content\ChatNormalContent.cs" />
     <Compile Include="Assets\Online\ServerData\Chat\Message\Content\ChatNormalContentIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Chat\Message\Content\ChatNormalContentUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Chat\NewMessageCount\ChatRoomAlreadyViewUpdate.cs" />
     <Compile Include="Assets\Online\ServerData\Chat\NewMessageCount\ChatRoomNewMessageCountUI.cs" />
     <Compile Include="Assets\Online\ServerData\Chat\Topic\Bug\BugTopic.cs" />
     <Compile Include="Assets\Online\ServerData\Chat\Topic\Bug\BugTopicIdentity.cs" />

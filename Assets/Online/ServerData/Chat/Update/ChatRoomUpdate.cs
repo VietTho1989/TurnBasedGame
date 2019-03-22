@@ -15,6 +15,19 @@ public class ChatRoomUpdate : UpdateBehavior<ChatRoom>
             dirty = false;
             if (this.data != null)
             {
+                // add adminChatViewer
+                {
+                    uint profileId = Server.getProfileUserId(this.data);
+                    if (this.data.chatViewers.getInList(profileId) == null)
+                    {
+                        ChatViewer adminChatViewer = new ChatViewer();
+                        {
+                            adminChatViewer.uid = this.data.chatViewers.makeId();
+                            adminChatViewer.userId.v = profileId;
+                        }
+                        this.data.chatViewers.add(adminChatViewer);
+                    }
+                }
                 // maxId
                 {
                     uint maxId = 0;
@@ -61,6 +74,7 @@ public class ChatRoomUpdate : UpdateBehavior<ChatRoom>
                 chatRoom.typing.allAddCallBack(this);
                 chatRoom.topic.allAddCallBack(this);
             }
+            dirty = true;
             return;
         }
         // Child
@@ -72,6 +86,7 @@ public class ChatRoomUpdate : UpdateBehavior<ChatRoom>
                 {
                     UpdateUtils.makeUpdate<HumanUpdate, Human>(human, this.transform);
                 }
+                dirty = true;
                 return;
             }
             if (data is ChatViewer)
@@ -91,6 +106,7 @@ public class ChatRoomUpdate : UpdateBehavior<ChatRoom>
                 {
                     UpdateUtils.makeUpdate<TypingUpdate, Typing>(typing, this.transform);
                 }
+                dirty = true;
                 return;
             }
             if (data is Topic)

@@ -23,7 +23,7 @@ public class FriendHolder : SriaHolderBehavior<FriendHolder.UIData>
 
         public VP<AccountAvatarUI.UIData> accountAvatar;
 
-        public VP<NewChatMessageNumberUI.UIData> newChatMessageNumber;
+        public VP<ChatRoomNewMessageCountUI.UIData> chatRoomNewMessageCountUIData;
 
         #region Constructor
 
@@ -32,7 +32,7 @@ public class FriendHolder : SriaHolderBehavior<FriendHolder.UIData>
             friend,
             friendStateUIData,
             accountAvatar,
-            newChatMessageNumber
+            chatRoomNewMessageCountUIData
         }
 
         public UIData() : base()
@@ -40,7 +40,7 @@ public class FriendHolder : SriaHolderBehavior<FriendHolder.UIData>
             this.friend = new VP<ReferenceData<Friend>>(this, (byte)Property.friend, new ReferenceData<Friend>(null));
             this.accountAvatar = new VP<AccountAvatarUI.UIData>(this, (byte)Property.accountAvatar, new AccountAvatarUI.UIData());
             this.friendStateUIData = new VP<FriendStateUI.UIData>(this, (byte)Property.friendStateUIData, new FriendStateUI.UIData());
-            this.newChatMessageNumber = new VP<NewChatMessageNumberUI.UIData>(this, (byte)Property.newChatMessageNumber, new NewChatMessageNumberUI.UIData());
+            this.chatRoomNewMessageCountUIData = new VP<ChatRoomNewMessageCountUI.UIData>(this, (byte)Property.chatRoomNewMessageCountUIData, new ChatRoomNewMessageCountUI.UIData());
         }
 
         #endregion
@@ -125,13 +125,13 @@ public class FriendHolder : SriaHolderBehavior<FriendHolder.UIData>
             {
                 // anchoredPosition: (7.0, -32.0); anchorMin: (1.0, 1.0); anchorMax: (1.0, 1.0); pivot: (1.0, 1.0);
                 // offsetMin: (-23.0, -62.0); offsetMax: (7.0, -32.0); sizeDelta: (30.0, 30.0);
-                newChatMessageNumberRect.anchoredPosition = new Vector3(7.0f, -32.0f, 0.0f);
-                newChatMessageNumberRect.anchorMin = new Vector2(1.0f, 1.0f);
-                newChatMessageNumberRect.anchorMax = new Vector2(1.0f, 1.0f);
-                newChatMessageNumberRect.pivot = new Vector2(1.0f, 1.0f);
-                newChatMessageNumberRect.offsetMin = new Vector2(-23.0f, -62.0f);
-                newChatMessageNumberRect.offsetMax = new Vector2(7.0f, -32.0f);
-                newChatMessageNumberRect.sizeDelta = new Vector2(30.0f, 30.0f);
+                chatRoomNewMessageCountRect.anchoredPosition = new Vector3(7.0f, -32.0f, 0.0f);
+                chatRoomNewMessageCountRect.anchorMin = new Vector2(1.0f, 1.0f);
+                chatRoomNewMessageCountRect.anchorMax = new Vector2(1.0f, 1.0f);
+                chatRoomNewMessageCountRect.pivot = new Vector2(1.0f, 1.0f);
+                chatRoomNewMessageCountRect.offsetMin = new Vector2(-23.0f, -62.0f);
+                chatRoomNewMessageCountRect.offsetMax = new Vector2(7.0f, -32.0f);
+                chatRoomNewMessageCountRect.sizeDelta = new Vector2(30.0f, 30.0f);
             }
         }
     }
@@ -249,16 +249,16 @@ public class FriendHolder : SriaHolderBehavior<FriendHolder.UIData>
                             Debug.LogError("human null: " + this);
                         }
                     }
-                    // newChatMessageNumber
+                    // chatRoomNewMessageCount
                     {
-                        NewChatMessageNumberUI.UIData newChatMessageNumber = this.data.newChatMessageNumber.v;
-                        if (newChatMessageNumber != null)
+                        ChatRoomNewMessageCountUI.UIData chatRoomNewMessageCountUIData = this.data.chatRoomNewMessageCountUIData.v;
+                        if (chatRoomNewMessageCountUIData != null)
                         {
-                            newChatMessageNumber.chatRoom.v = new ReferenceData<ChatRoom>(friend.chatRoom.v);
+                            chatRoomNewMessageCountUIData.chatRoom.v = new ReferenceData<ChatRoom>(friend.chatRoom.v);
                         }
                         else
                         {
-                            Debug.LogError("newChatMessageNumber null: " + this);
+                            Debug.LogError("chatRoomNewMessageCountUIData null: " + this);
                         }
                     }
                 }
@@ -295,8 +295,8 @@ public class FriendHolder : SriaHolderBehavior<FriendHolder.UIData>
     public AccountAvatarUI accountAvatarPrefab;
     private static readonly UIRectTransform accountAvatarRect = new UIRectTransform();
 
-    public NewChatMessageNumberUI newChatMessageNumberPrefab;
-    private static readonly UIRectTransform newChatMessageNumberRect = new UIRectTransform();
+    public ChatRoomNewMessageCountUI chatRoomNewMessageCountPrefab;
+    private static readonly UIRectTransform chatRoomNewMessageCountRect = new UIRectTransform();
 
     public override void onAddCallBack<T>(T data)
     {
@@ -310,7 +310,7 @@ public class FriendHolder : SriaHolderBehavior<FriendHolder.UIData>
                 uiData.friend.allAddCallBack(this);
                 uiData.friendStateUIData.allAddCallBack(this);
                 uiData.accountAvatar.allAddCallBack(this);
-                uiData.newChatMessageNumber.allAddCallBack(this);
+                uiData.chatRoomNewMessageCountUIData.allAddCallBack(this);
             }
             dirty = true;
             return;
@@ -379,12 +379,12 @@ public class FriendHolder : SriaHolderBehavior<FriendHolder.UIData>
                 return;
             }
             // newChatMessageNumber
-            if (data is NewChatMessageNumberUI.UIData)
+            if (data is ChatRoomNewMessageCountUI.UIData)
             {
-                NewChatMessageNumberUI.UIData newChatMessageNumberUIData = data as NewChatMessageNumberUI.UIData;
+                ChatRoomNewMessageCountUI.UIData chatRoomNewMessageCountUIData = data as ChatRoomNewMessageCountUI.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(newChatMessageNumberUIData, newChatMessageNumberPrefab, this.transform, newChatMessageNumberRect);
+                    UIUtils.Instantiate(chatRoomNewMessageCountUIData, chatRoomNewMessageCountPrefab, this.transform, chatRoomNewMessageCountRect);
                 }
                 dirty = true;
                 return;
@@ -405,7 +405,7 @@ public class FriendHolder : SriaHolderBehavior<FriendHolder.UIData>
                 uiData.friend.allRemoveCallBack(this);
                 uiData.friendStateUIData.allRemoveCallBack(this);
                 uiData.accountAvatar.allRemoveCallBack(this);
-                uiData.newChatMessageNumber.allRemoveCallBack(this);
+                uiData.chatRoomNewMessageCountUIData.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
             return;
@@ -468,12 +468,12 @@ public class FriendHolder : SriaHolderBehavior<FriendHolder.UIData>
                 return;
             }
             // newChatMessageNumber
-            if (data is NewChatMessageNumberUI.UIData)
+            if (data is ChatRoomNewMessageCountUI.UIData)
             {
-                NewChatMessageNumberUI.UIData newChatMessageNumberUIData = data as NewChatMessageNumberUI.UIData;
+                ChatRoomNewMessageCountUI.UIData chatRoomNewMessageCountUIData = data as ChatRoomNewMessageCountUI.UIData;
                 // UI
                 {
-                    newChatMessageNumberUIData.removeCallBackAndDestroy(typeof(NewChatMessageNumberUI));
+                    chatRoomNewMessageCountUIData.removeCallBackAndDestroy(typeof(ChatRoomNewMessageCountUI));
                 }
                 return;
             }
@@ -509,7 +509,7 @@ public class FriendHolder : SriaHolderBehavior<FriendHolder.UIData>
                         dirty = true;
                     }
                     break;
-                case UIData.Property.newChatMessageNumber:
+                case UIData.Property.chatRoomNewMessageCountUIData:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
@@ -630,8 +630,8 @@ public class FriendHolder : SriaHolderBehavior<FriendHolder.UIData>
             {
                 return;
             }
-            // newChatMessageNumber
-            if (wrapProperty.p is NewChatMessageNumberUI.UIData)
+            // chatRoomNewMessageCount
+            if (wrapProperty.p is ChatRoomNewMessageCountUI.UIData)
             {
                 return;
             }

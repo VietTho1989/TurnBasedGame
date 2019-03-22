@@ -15,6 +15,7 @@ public class ChatRoomAdapter : SRIA<ChatRoomAdapter.UIData, ChatMessageHolder.UI
 	[Serializable]
 	public class UIData : BaseParams
 	{
+
 		public VP<ReferenceData<ChatRoom>> chatRoom;
 
 		public LP<ChatMessageHolder.UIData> holders;
