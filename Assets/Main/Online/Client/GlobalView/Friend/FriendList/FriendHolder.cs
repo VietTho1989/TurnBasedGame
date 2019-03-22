@@ -123,15 +123,15 @@ public class FriendHolder : SriaHolderBehavior<FriendHolder.UIData>
             }
             // newChatMessageNumber
             {
-                // anchoredPosition: (7.0, -32.0); anchorMin: (1.0, 1.0); anchorMax: (1.0, 1.0); pivot: (1.0, 1.0);
-                // offsetMin: (-23.0, -62.0); offsetMax: (7.0, -32.0); sizeDelta: (30.0, 30.0);
-                chatRoomNewMessageCountRect.anchoredPosition = new Vector3(7.0f, -32.0f, 0.0f);
+                // anchoredPosition: (-8.0, -47.0); anchorMin: (1.0, 1.0); anchorMax: (1.0, 1.0); pivot: (1.0, 1.0);
+                // offsetMin: (-23.0, -62.0); offsetMax: (-8.0, -47.0); sizeDelta: (15.0, 15.0);
+                chatRoomNewMessageCountRect.anchoredPosition = new Vector3(-8.0f, -47.0f, 0.0f);
                 chatRoomNewMessageCountRect.anchorMin = new Vector2(1.0f, 1.0f);
                 chatRoomNewMessageCountRect.anchorMax = new Vector2(1.0f, 1.0f);
                 chatRoomNewMessageCountRect.pivot = new Vector2(1.0f, 1.0f);
                 chatRoomNewMessageCountRect.offsetMin = new Vector2(-23.0f, -62.0f);
-                chatRoomNewMessageCountRect.offsetMax = new Vector2(7.0f, -32.0f);
-                chatRoomNewMessageCountRect.sizeDelta = new Vector2(30.0f, 30.0f);
+                chatRoomNewMessageCountRect.offsetMax = new Vector2(-8.0f, -47.0f);
+                chatRoomNewMessageCountRect.sizeDelta = new Vector2(15.0f, 15.0f);
             }
         }
     }
