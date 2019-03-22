@@ -114,14 +114,14 @@ public class Room : Data
 
     #region User
 
-    public LP<RoomUser> users;
+    public RoomUserLP users;
 
     public static RoomUser findUser(uint userId, Data data)
     {
         Room room = data.findDataInParent<Room>();
         if (room != null)
         {
-            return room.findUser(userId);
+            return room.users.getInList(userId);
         }
         else
         {
@@ -135,7 +135,7 @@ public class Room : Data
         Room room = data.findDataInParent<Room>();
         if (room != null)
         {
-            RoomUser roomUser = room.findUser(userId);
+            RoomUser roomUser = room.users.getInList(userId);
             if (roomUser != null && roomUser.isInsideRoom())
             {
                 if (roomUser.role.v == RoomUser.Role.ADMIN)
@@ -165,7 +165,7 @@ public class Room : Data
                 Server server = data.findDataInParent<Server>();
                 if (server != null)
                 {
-                    RoomUser roomUser = room.findUser(server.profileId.v);
+                    RoomUser roomUser = room.users.getInList(server.profileId.v);
                     if (roomUser != null && roomUser.isInsideRoom())
                     {
                         if (roomUser.role.v == RoomUser.Role.ADMIN)
@@ -212,11 +212,6 @@ public class Room : Data
             Debug.LogError("room null");
         }
         return null;
-    }
-
-    public RoomUser findUser(uint userId)
-    {
-        return this.users.vs.Find(user => user.inform.v.playerId.v == userId);
     }
 
     public bool isHaveActiveUser()
@@ -404,7 +399,7 @@ public class Room : Data
         this.changeRights = new VP<ChangeRights>(this, (byte)Property.changeRights, new ChangeRights());
         this.name = new VP<string>(this, (byte)Property.name, "");
         this.password = new VP<string>(this, (byte)Property.password, "");
-        this.users = new LP<RoomUser>(this, (byte)Property.users);
+        this.users = new RoomUserLP(this, (byte)Property.users);
         this.state = new VP<State>(this, (byte)Property.state, new RoomStateNormal());
 
         this.requestNewContestManager = new VP<RequestNewContestManager>(this, (byte)Property.requestNewContestManager, new RequestNewContestManager());
@@ -440,7 +435,7 @@ public class Room : Data
     {
         if (this.isActive())
         {
-            RoomUser roomUser = this.findUser(userId);
+            RoomUser roomUser = this.users.getInList(userId);
             if (roomUser != null && roomUser.state.v == RoomUser.State.NORMAL)
             {
                 Debug.LogError("you already inside room: " + this);
@@ -548,7 +543,7 @@ public class Room : Data
             if (string.IsNullOrEmpty(this.password.v) || this.password.v == password)
             {
                 // Already inside room
-                RoomUser oldRoomUser = this.findUser(userId);
+                RoomUser oldRoomUser = this.users.getInList(userId);
                 if (oldRoomUser == null)
                 {
                     RoomUser roomUser = new RoomUser();

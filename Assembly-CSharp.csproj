@@ -1296,6 +1296,7 @@
     <Compile Include="Assets\Online\ServerData\Chat\Message\Content\ChatNormalContent.cs" />
     <Compile Include="Assets\Online\ServerData\Chat\Message\Content\ChatNormalContentIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Chat\Message\Content\ChatNormalContentUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Chat\NewMessageCount\ChatRoomNewMessageCountUI.cs" />
     <Compile Include="Assets\Online\ServerData\Chat\Topic\Bug\BugTopic.cs" />
     <Compile Include="Assets\Online\ServerData\Chat\Topic\Bug\BugTopicIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Chat\Topic\Bug\BugTopicUI.cs" />
@@ -3076,6 +3077,7 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\Human\Human.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\Human\HumanAvatarUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\Human\HumanIdentity.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\Human\HumanLP.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\Human\HumanUpdate.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\Move\Clear\Clear.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\Move\Clear\ClearIdentity.cs" />
@@ -3459,6 +3461,7 @@
     <Compile Include="Assets\Online\ServerData\Room\User\KickRight\KickRight.cs" />
     <Compile Include="Assets\Online\ServerData\Room\User\RoomUser.cs" />
     <Compile Include="Assets\Online\ServerData\Room\User\RoomUserIdentity.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\User\RoomUserLP.cs" />
     <Compile Include="Assets\Online\ServerData\Room\User\RoomUserObserver.cs" />
     <Compile Include="Assets\Online\ServerData\Room\User\RoomUserRoleAdminUpdate.cs" />
     <Compile Include="Assets\Online\ServerData\Room\User\RoomUserUpdate.cs" />

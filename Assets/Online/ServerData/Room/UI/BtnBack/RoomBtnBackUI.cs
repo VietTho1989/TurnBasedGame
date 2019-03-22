@@ -147,7 +147,7 @@ public class RoomBtnBackUI : UIBehavior<RoomBtnBackUI.UIData>
                                     // request
                                     {
                                         // Find roomUser
-                                        RoomUser roomUser = room.findUser(Server.getProfileUserId(room));
+                                        RoomUser roomUser = room.users.getInList(Server.getProfileUserId(room));
                                         if (roomUser != null)
                                         {
                                             if (Server.IsServerOnline(room))

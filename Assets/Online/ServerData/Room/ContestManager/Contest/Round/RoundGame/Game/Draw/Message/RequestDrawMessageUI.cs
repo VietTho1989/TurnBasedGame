@@ -96,19 +96,42 @@ public class RequestDrawMessageUI : UIBehavior<RequestDrawMessageUI.UIData>
                     {
                         // Find human
                         {
-                            Human human = ChatRoom.findHuman(requestDrawMessage, requestDrawMessage.userId.v);
-                            if (this.human != human)
+                            // check old
+                            if (human != null)
                             {
-                                // remove old
-                                if (this.human != null)
+                                // isCorrect
+                                bool isCorrect = false;
                                 {
-                                    this.human.removeCallBack(this);
+                                    if (human.findDataInParent<ChatRoom>() == requestDrawMessage.findDataInParent<ChatRoom>())
+                                    {
+                                        if (human.playerId.v == requestDrawMessage.userId.v)
+                                        {
+                                            isCorrect = true;
+                                        }
+                                    }
                                 }
-                                // set new
-                                this.human = human;
-                                if (this.human != null)
+                                // process
+                                if (isCorrect)
                                 {
-                                    this.human.addCallBack(this);
+                                    // oldHumanOwner correct
+                                }
+                                else
+                                {
+                                    human.removeCallBack(this);
+                                    human = null;
+                                }
+                            }
+                            // find new
+                            if (human == null)
+                            {
+                                human = ChatRoom.findHuman(requestDrawMessage, requestDrawMessage.userId.v);
+                                if (human != null)
+                                {
+                                    human.addCallBack(this);
+                                }
+                                else
+                                {
+                                    Debug.LogError("don't find humanOwner: " + human);
                                 }
                             }
                         }

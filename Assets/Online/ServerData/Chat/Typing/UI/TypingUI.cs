@@ -61,7 +61,7 @@ public class TypingUI : UIBehavior<TypingUI.UIData>
                                         TypingPlayer typingPlayer = typing.typingPlayers.vs[i];
                                         if (typingPlayer.playerId.v != yourUserId)
                                         {
-                                            Human human = chatRoom.findHuman(typingPlayer.playerId.v);
+                                            Human human = chatRoom.players.getInList(typingPlayer.playerId.v);
                                             if (human != null)
                                             {
                                                 whoTypings.Add(human);

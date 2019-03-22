@@ -30,7 +30,13 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 
         public VP<GlobalRoomsUI.UIData> rooms;
 
+        #region chat
+
         public VP<GlobalChatUI.UIData> chats;
+
+
+
+        #endregion
 
         public VP<GlobalFriendsUI.UIData> friends;
 

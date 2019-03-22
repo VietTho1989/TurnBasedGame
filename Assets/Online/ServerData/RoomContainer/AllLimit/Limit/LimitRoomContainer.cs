@@ -121,7 +121,7 @@ public class LimitRoomContainer : RoomContainer
             {
                 if (room.state.v is RoomStateNormal)
                 {
-                    RoomUser roomUser = room.findUser(userId);
+                    RoomUser roomUser = room.users.getInList(userId);
                     if (roomUser != null && roomUser.isInsideRoom())
                     {
                         // Debug.LogError ("already inside this room: " + roomUser + ", " + room);

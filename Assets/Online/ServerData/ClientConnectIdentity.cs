@@ -9,24 +9,27 @@ using GameManager.Match.RoundRobin;
 using GameManager.Match.Elimination;
 using GameManager.Match.Swap;
 
-[RequireComponent (typeof (NetworkIdentity))]
+[RequireComponent(typeof(NetworkIdentity))]
 public class ClientConnectIdentity : NetworkBehaviour
 {
 
-	public ServerManager ServerManager;
-	public ServerManager serverManager
-	{
-		get{
-			if(ServerManager==null){
-				ServerManager = ServerManager.instance;
-			}
-			return ServerManager;
-		}
+    public ServerManager ServerManager;
+    public ServerManager serverManager
+    {
+        get
+        {
+            if (ServerManager == null)
+            {
+                ServerManager = ServerManager.instance;
+            }
+            return ServerManager;
+        }
 
-		set{
-			ServerManager = value;
-		}
-	}
+        set
+        {
+            ServerManager = value;
+        }
+    }
 
     public static T GetDataIdentity<T>(uint networkInstanceId) where T : DataIdentity
     {
@@ -42,28 +45,33 @@ public class ClientConnectIdentity : NetworkBehaviour
     }
 
     public static ClientConnectIdentity findYourClientConnectIdentity(Data yourData)
-	{
-		if (yourData == null) {
-			// Debug.LogError ("data null");
-			return null;
-		}
-		ClientConnectIdentity[] clientConnects = FindObjectsOfType<ClientConnectIdentity>();
-		{
-			foreach (ClientConnectIdentity clientConnect in clientConnects) {
-				if (clientConnect.hasAuthority) {
-					return clientConnect;
-				} else {
-					Debug.LogError ("clientConnect don't have authority: " + clientConnect);
-				}
-			}
-		}
-		return null;
-	}
+    {
+        if (yourData == null)
+        {
+            // Debug.LogError ("data null");
+            return null;
+        }
+        ClientConnectIdentity[] clientConnects = FindObjectsOfType<ClientConnectIdentity>();
+        {
+            foreach (ClientConnectIdentity clientConnect in clientConnects)
+            {
+                if (clientConnect.hasAuthority)
+                {
+                    return clientConnect;
+                }
+                else
+                {
+                    Debug.LogError("clientConnect don't have authority: " + clientConnect);
+                }
+            }
+        }
+        return null;
+    }
 
-	#region Delete when user lost connection
+    #region Delete when user lost connection
 
     // TODO Tam bo
-	/*void OnPlayerDisconnected(NetworkPlayer player) {
+    /*void OnPlayerDisconnected(NetworkPlayer player) {
 		// Debug.Log("Clean up after player " + player);
 		Network.RemoveRPCs(player);
 		Network.DestroyPlayerObjects(player);
@@ -79,494 +87,606 @@ public class ClientConnectIdentity : NetworkBehaviour
 		}
 	}*/
 
-	#endregion
+    #endregion
 
-	#region Observer: only who have authority can
+    #region Observer: only who have authority can
 
-	// called when a new player enters the game
-	public override bool OnCheckObserver(NetworkConnection newObserver)
-	{
-		// Debug.Log ("OnCheckObserver: "+newObserver);
-		return false;
-	}
+    // called when a new player enters the game
+    public override bool OnCheckObserver(NetworkConnection newObserver)
+    {
+        // Debug.Log ("OnCheckObserver: "+newObserver);
+        return false;
+    }
 
-	// Only client user can see this class
-	public override bool OnRebuildObservers(HashSet<NetworkConnection> observers, bool initial)
-	{
-		// Debug.Log ("OnRebuildObservers: " + observers.Count + ", " + initial + ", " + this.connectionToClient);
-		{
-			observers.Clear ();
-			observers.Add (this.connectionToClient);
-		}
-		return true;
-	}
+    // Only client user can see this class
+    public override bool OnRebuildObservers(HashSet<NetworkConnection> observers, bool initial)
+    {
+        // Debug.Log ("OnRebuildObservers: " + observers.Count + ", " + initial + ", " + this.connectionToClient);
+        {
+            observers.Clear();
+            observers.Add(this.connectionToClient);
+        }
+        return true;
+    }
 
-	#endregion
+    #endregion
 
-	#region MonoBehavior
+    #region MonoBehavior
 
-	void Start()
-	{
-		// Set new parent
-		if (serverManager != null) {
-			this.transform.SetParent (serverManager.transform, true);
-		} else {
-			// Debug.Log ("not in server");
-		}
-		// increate userIdentity count for login
-		{
-			if (serverManager != null) {
-				ServerManager.UIData serverManagerUIData = serverManager.data;
-				if (serverManagerUIData != null) {
-					Server server = serverManagerUIData.server.v.data;
-					if (server != null) {
-						if (server.type.v == Server.Type.Client) {
-							// Find Login
-							Login login = null;
-							{
-								if (server.state.v != null) {
-									switch (server.state.v.getType ()) {
-									case Server.State.Type.Offline:
-										{
-											Server.State.Offline offline = server.state.v as Server.State.Offline;
-											login = offline.login.v;
-										}
-										break;
-									case Server.State.Type.Connect:
-										break;
-									case Server.State.Type.Disconnect:
-										{
-											Server.State.Disconnect disconnect = server.state.v as Server.State.Disconnect;
-											login = disconnect.login.v;
-										}
-										break;
-									default:
-										Debug.LogError ("unknown type: " + server.state.v.getType () + "; " + this);
-										break;
-									}
-								} else {
-									Debug.LogError ("server state null: " + this);
-								}
-							}
-							// Process
-							if (login != null) {
-								LoginState.Log log = login.state.v as LoginState.Log;
-								if (log != null) {
-									LoginState.CheckConnectUpdate checkConnectUpdate = log.findCallBack<LoginState.CheckConnectUpdate> ();
-									if (checkConnectUpdate != null) {
-										checkConnectUpdate.makeDirty ();
-									} else {
-										Debug.LogError ("checkConnectUpdate null: " + this);
-									}
-								} else {
-									// Debug.LogError ("log null: " + this);
-								}
-							} else {
-								Debug.LogError ("login null: " + this);
-							}
-						}
-					} else {
-						Debug.LogError ("server null: " + this);
-					}
-				} else {
-					Debug.LogError ("serverManagerUIData null: " + this);
-				}
-			} else {
-				Debug.LogError ("serverManager null: " + this);
-			}
-		}
-	}
+    void Start()
+    {
+        // Set new parent
+        if (serverManager != null)
+        {
+            this.transform.SetParent(serverManager.transform, true);
+        }
+        else
+        {
+            // Debug.Log ("not in server");
+        }
+        // increate userIdentity count for login
+        {
+            if (serverManager != null)
+            {
+                ServerManager.UIData serverManagerUIData = serverManager.data;
+                if (serverManagerUIData != null)
+                {
+                    Server server = serverManagerUIData.server.v.data;
+                    if (server != null)
+                    {
+                        if (server.type.v == Server.Type.Client)
+                        {
+                            // Find Login
+                            Login login = null;
+                            {
+                                if (server.state.v != null)
+                                {
+                                    switch (server.state.v.getType())
+                                    {
+                                        case Server.State.Type.Offline:
+                                            {
+                                                Server.State.Offline offline = server.state.v as Server.State.Offline;
+                                                login = offline.login.v;
+                                            }
+                                            break;
+                                        case Server.State.Type.Connect:
+                                            break;
+                                        case Server.State.Type.Disconnect:
+                                            {
+                                                Server.State.Disconnect disconnect = server.state.v as Server.State.Disconnect;
+                                                login = disconnect.login.v;
+                                            }
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown type: " + server.state.v.getType() + "; " + this);
+                                            break;
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("server state null: " + this);
+                                }
+                            }
+                            // Process
+                            if (login != null)
+                            {
+                                LoginState.Log log = login.state.v as LoginState.Log;
+                                if (log != null)
+                                {
+                                    LoginState.CheckConnectUpdate checkConnectUpdate = log.findCallBack<LoginState.CheckConnectUpdate>();
+                                    if (checkConnectUpdate != null)
+                                    {
+                                        checkConnectUpdate.makeDirty();
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("checkConnectUpdate null: " + this);
+                                    }
+                                }
+                                else
+                                {
+                                    // Debug.LogError ("log null: " + this);
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("login null: " + this);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("server null: " + this);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("serverManagerUIData null: " + this);
+                }
+            }
+            else
+            {
+                Debug.LogError("serverManager null: " + this);
+            }
+        }
+    }
 
-	void OnDestroy()
-	{
-		// decrease userIdentity count for login
-		{
-			if (serverManager != null) {
-				ServerManager.UIData serverManagerUIData = serverManager.data;
-				if (serverManagerUIData != null) {
-					Server server = serverManagerUIData.server.v.data;
-					if (server != null) {
-						if (server.type.v == Server.Type.Client) {
-							// Find Login
-							Login login = null;
-							{
-								if (server.state.v != null) {
-									switch (server.state.v.getType ()) {
-									case Server.State.Type.Offline:
-										{
-											Server.State.Offline offline = server.state.v as Server.State.Offline;
-											login = offline.login.v;
-										}
-										break;
-									case Server.State.Type.Connect:
-										break;
-									case Server.State.Type.Disconnect:
-										{
-											Server.State.Disconnect disconnect = server.state.v as Server.State.Disconnect;
-											login = disconnect.login.v;
-										}
-										break;
-									default:
-										Debug.LogError ("unknown type: " + server.state.v.getType () + "; " + this);
-										break;
-									}
-								} else {
-									Debug.LogError ("server state null: " + this);
-								}
-							}
-							// Process
-							if (login != null) {
-								LoginState.Log log = login.state.v as LoginState.Log;
-								if (log != null) {
-									LoginState.CheckConnectUpdate checkConnectUpdate = log.findCallBack<LoginState.CheckConnectUpdate> ();
-									if (checkConnectUpdate != null) {
-										checkConnectUpdate.makeDirty ();
-									} else {
-										Debug.LogError ("checkConnectUpdate null: " + this);
-									}
-								} else {
-									Debug.LogError ("log null: " + this);
-								}
-							} else {
-								Debug.LogError ("login null: " + this);
-							}
-						}
-					} else {
-						Debug.LogError ("server null: " + this);
-					}
-				} else {
-					Debug.LogError ("serverManagerUIData null: " + this);
-				}
-			} else {
-				Debug.LogError ("serverManager null: " + this);
-			}
-		}
-	}
+    void OnDestroy()
+    {
+        // decrease userIdentity count for login
+        {
+            if (serverManager != null)
+            {
+                ServerManager.UIData serverManagerUIData = serverManager.data;
+                if (serverManagerUIData != null)
+                {
+                    Server server = serverManagerUIData.server.v.data;
+                    if (server != null)
+                    {
+                        if (server.type.v == Server.Type.Client)
+                        {
+                            // Find Login
+                            Login login = null;
+                            {
+                                if (server.state.v != null)
+                                {
+                                    switch (server.state.v.getType())
+                                    {
+                                        case Server.State.Type.Offline:
+                                            {
+                                                Server.State.Offline offline = server.state.v as Server.State.Offline;
+                                                login = offline.login.v;
+                                            }
+                                            break;
+                                        case Server.State.Type.Connect:
+                                            break;
+                                        case Server.State.Type.Disconnect:
+                                            {
+                                                Server.State.Disconnect disconnect = server.state.v as Server.State.Disconnect;
+                                                login = disconnect.login.v;
+                                            }
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown type: " + server.state.v.getType() + "; " + this);
+                                            break;
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("server state null: " + this);
+                                }
+                            }
+                            // Process
+                            if (login != null)
+                            {
+                                LoginState.Log log = login.state.v as LoginState.Log;
+                                if (log != null)
+                                {
+                                    LoginState.CheckConnectUpdate checkConnectUpdate = log.findCallBack<LoginState.CheckConnectUpdate>();
+                                    if (checkConnectUpdate != null)
+                                    {
+                                        checkConnectUpdate.makeDirty();
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("checkConnectUpdate null: " + this);
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("log null: " + this);
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("login null: " + this);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("server null: " + this);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("serverManagerUIData null: " + this);
+                }
+            }
+            else
+            {
+                Debug.LogError("serverManager null: " + this);
+            }
+        }
+    }
 
-	#endregion
+    #endregion
 
-	#region All Command
+    #region All Command
 
-	public void requestLogin(AccountMessage accountMessage, uint[] checkIds, byte[] currentChatViewer)
-	{
-		switch (accountMessage.getType ()) {
-		case Account.Type.DEVICE:
-			{
-				AccountDeviceMessage accountDeviceMessage = accountMessage as AccountDeviceMessage;
-				this.CmdLoginAccountDevice (accountDeviceMessage, checkIds, currentChatViewer);
-			}
-			break;
-		case Account.Type.EMAIL:
-			{
-				AccountEmailMessage accountEmailMessage = accountMessage as AccountEmailMessage;
-				this.CmdLoginAccountEmail (accountEmailMessage, checkIds, currentChatViewer);
-			}
-			break;
-		case Account.Type.FACEBOOK:
-			{
-				AccountFacebookMessage accountFacebookMessage = accountMessage as AccountFacebookMessage;
-				this.CmdLoginAccountFacebook (accountFacebookMessage, checkIds, currentChatViewer);
-			}
-			break;
-		default:
-			Debug.LogError ("unknown type: " + accountMessage.getType () + "; " + this);
-			break;
-		}
-	}
+    public void requestLogin(AccountMessage accountMessage, uint[] checkIds, byte[] currentChatViewer)
+    {
+        switch (accountMessage.getType())
+        {
+            case Account.Type.DEVICE:
+                {
+                    AccountDeviceMessage accountDeviceMessage = accountMessage as AccountDeviceMessage;
+                    this.CmdLoginAccountDevice(accountDeviceMessage, checkIds, currentChatViewer);
+                }
+                break;
+            case Account.Type.EMAIL:
+                {
+                    AccountEmailMessage accountEmailMessage = accountMessage as AccountEmailMessage;
+                    this.CmdLoginAccountEmail(accountEmailMessage, checkIds, currentChatViewer);
+                }
+                break;
+            case Account.Type.FACEBOOK:
+                {
+                    AccountFacebookMessage accountFacebookMessage = accountMessage as AccountFacebookMessage;
+                    this.CmdLoginAccountFacebook(accountFacebookMessage, checkIds, currentChatViewer);
+                }
+                break;
+            default:
+                Debug.LogError("unknown type: " + accountMessage.getType() + "; " + this);
+                break;
+        }
+    }
 
-	[Command]
-	public void CmdLoginAccountDevice(AccountDeviceMessage accountDeviceMessage, uint[] checkIds, byte[] currentChatViewer)
-	{
-		this.CmdLogin (accountDeviceMessage, checkIds, currentChatViewer);
-	}
+    [Command]
+    public void CmdLoginAccountDevice(AccountDeviceMessage accountDeviceMessage, uint[] checkIds, byte[] currentChatViewer)
+    {
+        this.CmdLogin(accountDeviceMessage, checkIds, currentChatViewer);
+    }
 
-	[Command]
-	public void CmdLoginAccountEmail(AccountEmailMessage accountEmailMessage, uint[] checkIds, byte[] currentChatViewer)
-	{
-		this.CmdLogin (accountEmailMessage, checkIds, currentChatViewer);
-	}
+    [Command]
+    public void CmdLoginAccountEmail(AccountEmailMessage accountEmailMessage, uint[] checkIds, byte[] currentChatViewer)
+    {
+        this.CmdLogin(accountEmailMessage, checkIds, currentChatViewer);
+    }
 
-	[Command]
-	public void CmdLoginAccountFacebook(AccountFacebookMessage accountFacebookMessage, uint[] checkIds, byte[] currentChatViewer)
-	{
-		this.CmdLogin (accountFacebookMessage, checkIds, currentChatViewer);
-	}
+    [Command]
+    public void CmdLoginAccountFacebook(AccountFacebookMessage accountFacebookMessage, uint[] checkIds, byte[] currentChatViewer)
+    {
+        this.CmdLogin(accountFacebookMessage, checkIds, currentChatViewer);
+    }
 
-	public void CmdLogin(AccountMessage accountMessage, uint[] checkIds, byte[] currentChatViewer)
-	{
-		Debug.LogError ("CmdLogin: " + accountMessage + "; " + this);
-		if (serverManager != null && serverManager.data!=null && serverManager.data.server.v.data!=null) {
-			// User login
-			// Debug.Log ("onLogin: " + login + ", " + connectionToClient+", "+login.imei);
-			User user = null;
-			// Find already have this user
-			{
-				foreach (User check in serverManager.data.server.v.data.users.vs) {
-					if (check.human.v.account.v.isEqual (accountMessage)) {
-						user = check;
-					}
-				}
-			}
-			// Make new user
-			if (user == null) {
-				if (accountMessage.getType () != Account.Type.EMAIL) {
-					// Make new user
-					user = new User ();
-					{
-						// UniqueId
-						user.uid = serverManager.data.server.v.data.users.makeId ();
-						user.human.v.playerId.v = user.uid;
-						// account
-						{
-							Account newAccount = (Account)DataUtils.cloneData (accountMessage.makeAccount ());
-							{
-								newAccount.uid = user.human.v.account.makeId ();
-							}
-							user.human.v.account.v = newAccount;
-						}
-						user.registerTime.v = Global.getRealTimeInMiliSeconds ();
-					}
-					serverManager.data.server.v.data.users.add (user);
-					// add message register
-					{
-						// Find user topic
-						UserTopic userTopic = null;
-						{
-							ChatRoom chatRoom = user.chatRoom.v;
-							if (chatRoom != null) {
-								if (chatRoom.topic.v != null && chatRoom.topic.v is UserTopic) {
-									userTopic = chatRoom.topic.v as UserTopic;
-								}
-							} else {
-								Debug.LogError ("chatRoom null");
-							}
-						}
-						// add message
-						if (userTopic != null) {
-							userTopic.addUserAction (user.human.v.playerId.v, UserActionMessage.Action.Register);
-						} else {
-							Debug.LogError ("userTopic null: " + this);
-						}
-					}
-				} else {
-					Debug.LogError ("email: cannot create new");
-				}
-			} else {
-				user.human.v.account.v.updateAccount (accountMessage);
-				// add message login
-				{
-					// Find user topic
-					UserTopic userTopic = null;
-					{
-						ChatRoom chatRoom = user.chatRoom.v;
-						if (chatRoom != null) {
-							if (chatRoom.topic.v != null && chatRoom.topic.v is UserTopic) {
-								userTopic = chatRoom.topic.v as UserTopic;
-							}
-						} else {
-							Debug.LogError ("chatRoom null");
-						}
-					}
-					// add message
-					if (userTopic != null) {
-						userTopic.addUserAction (user.human.v.playerId.v, UserActionMessage.Action.Login);
-					} else {
-						Debug.LogError ("userTopic null: " + this);
-					}
-				}
-			}
-			// Update data
-			if (user != null) {
-				user.ipAddress.v = connectionToClient.address;
-				// check correct 
-				if (user.human.v.account.v.checkCorrectAccount (accountMessage)) {
-					// Update data
-					{
-						// State
-						{
-							user.human.v.state.v.state.v = UserState.State.Online;
-							user.human.v.state.v.time.v = Global.getRealTimeInMiliSeconds ();
-						}
-						user.human.v.connection.v = connectionToClient;
-					}
-					// update chat
-					{
-						ChatViewer.UpdateChatViewer (user.human.v.playerId.v, currentChatViewer);
-					}
-					// connectionToClient.address
-					// Inform login success
-					TargetLoginSuccess(connectionToClient);
-				} else {
-					Debug.LogError ("account not correct: " + accountMessage + "; " + this);
-					TargetLoginError (connectionToClient);
-				}
-			} else {
-				Debug.LogError ("user null: " + this);
-				TargetLoginEmailError (connectionToClient);
-			}
-			// Destroy old identity
-			{
-				List<uint> destroyIds = new List<uint> ();
-				{
-					for (int i = checkIds.Length - 1; i >= 0; i--) {
-						uint checkId = checkIds [i];
-						Debug.Log ("checkIds: " + checkId);
-						if (!NetworkIdentity.spawned.ContainsKey (checkId)) {
-							Debug.LogError ("Don't contain networkIdentity anymore: " + checkId);
-							destroyIds.Add (checkId);
-						} else {
-							// Debug.Log ("still contain networkIdentity: " + checkId);
-						}
-					}
-				}
-				// Target destroy
-				TargetSendDestroyIdentity (connectionToClient, destroyIds.ToArray());
-			}
-		} else {
-			// Debug.LogError ("Why server manager null");
-		}
-	}
+    public void CmdLogin(AccountMessage accountMessage, uint[] checkIds, byte[] currentChatViewer)
+    {
+        Debug.LogError("CmdLogin: " + accountMessage + "; " + this);
+        if (serverManager != null && serverManager.data != null && serverManager.data.server.v.data != null)
+        {
+            // User login
+            // Debug.Log ("onLogin: " + login + ", " + connectionToClient+", "+login.imei);
+            User user = null;
+            // Find already have this user
+            {
+                foreach (User check in serverManager.data.server.v.data.users.vs)
+                {
+                    if (check.human.v.account.v.isEqual(accountMessage))
+                    {
+                        user = check;
+                    }
+                }
+            }
+            // Make new user
+            if (user == null)
+            {
+                if (accountMessage.getType() != Account.Type.EMAIL)
+                {
+                    // Make new user
+                    user = new User();
+                    {
+                        // UniqueId
+                        user.uid = serverManager.data.server.v.data.users.makeId();
+                        user.human.v.playerId.v = user.uid;
+                        // account
+                        {
+                            Account newAccount = (Account)DataUtils.cloneData(accountMessage.makeAccount());
+                            {
+                                newAccount.uid = user.human.v.account.makeId();
+                            }
+                            user.human.v.account.v = newAccount;
+                        }
+                        user.registerTime.v = Global.getRealTimeInMiliSeconds();
+                    }
+                    serverManager.data.server.v.data.users.add(user);
+                    // add message register
+                    {
+                        // Find user topic
+                        UserTopic userTopic = null;
+                        {
+                            ChatRoom chatRoom = user.chatRoom.v;
+                            if (chatRoom != null)
+                            {
+                                if (chatRoom.topic.v != null && chatRoom.topic.v is UserTopic)
+                                {
+                                    userTopic = chatRoom.topic.v as UserTopic;
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("chatRoom null");
+                            }
+                        }
+                        // add message
+                        if (userTopic != null)
+                        {
+                            userTopic.addUserAction(user.human.v.playerId.v, UserActionMessage.Action.Register);
+                        }
+                        else
+                        {
+                            Debug.LogError("userTopic null: " + this);
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogError("email: cannot create new");
+                }
+            }
+            else
+            {
+                user.human.v.account.v.updateAccount(accountMessage);
+                // add message login
+                {
+                    // Find user topic
+                    UserTopic userTopic = null;
+                    {
+                        ChatRoom chatRoom = user.chatRoom.v;
+                        if (chatRoom != null)
+                        {
+                            if (chatRoom.topic.v != null && chatRoom.topic.v is UserTopic)
+                            {
+                                userTopic = chatRoom.topic.v as UserTopic;
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("chatRoom null");
+                        }
+                    }
+                    // add message
+                    if (userTopic != null)
+                    {
+                        userTopic.addUserAction(user.human.v.playerId.v, UserActionMessage.Action.Login);
+                    }
+                    else
+                    {
+                        Debug.LogError("userTopic null: " + this);
+                    }
+                }
+            }
+            // Update data
+            if (user != null)
+            {
+                user.ipAddress.v = connectionToClient.address;
+                // check correct 
+                if (user.human.v.account.v.checkCorrectAccount(accountMessage))
+                {
+                    // Update data
+                    {
+                        // State
+                        {
+                            user.human.v.state.v.state.v = UserState.State.Online;
+                            user.human.v.state.v.time.v = Global.getRealTimeInMiliSeconds();
+                        }
+                        user.human.v.connection.v = connectionToClient;
+                    }
+                    // update chat
+                    {
+                        ChatViewer.UpdateChatViewer(user.human.v.playerId.v, currentChatViewer);
+                    }
+                    // connectionToClient.address
+                    // Inform login success
+                    TargetLoginSuccess(connectionToClient);
+                }
+                else
+                {
+                    Debug.LogError("account not correct: " + accountMessage + "; " + this);
+                    TargetLoginError(connectionToClient);
+                }
+            }
+            else
+            {
+                Debug.LogError("user null: " + this);
+                TargetLoginEmailError(connectionToClient);
+            }
+            // Destroy old identity
+            {
+                List<uint> destroyIds = new List<uint>();
+                {
+                    for (int i = checkIds.Length - 1; i >= 0; i--)
+                    {
+                        uint checkId = checkIds[i];
+                        Debug.Log("checkIds: " + checkId);
+                        if (!NetworkIdentity.spawned.ContainsKey(checkId))
+                        {
+                            Debug.LogError("Don't contain networkIdentity anymore: " + checkId);
+                            destroyIds.Add(checkId);
+                        }
+                        else
+                        {
+                            // Debug.Log ("still contain networkIdentity: " + checkId);
+                        }
+                    }
+                }
+                // Target destroy
+                TargetSendDestroyIdentity(connectionToClient, destroyIds.ToArray());
+            }
+        }
+        else
+        {
+            // Debug.LogError ("Why server manager null");
+        }
+    }
 
-	[TargetRpc]
-	public void TargetLoginSuccess(NetworkConnection target)
-	{
-		// ServerManager serverManager = ServerManager.instance;
-		if (serverManager != null) {
-			ServerManager.UIData serverUIData = serverManager.data;
-			if (serverUIData != null) {
-				Server server = serverUIData.server.v.data;
-				if (server != null) {
-					Server.State.Disconnect disconnect = server.state.v as Server.State.Disconnect;
-					if (disconnect != null) {
-						// set connect
-						{
-							Server.State.Connect connect = new Server.State.Connect ();
-							{
-								connect.uid = serverManager.data.server.v.data.state.makeId ();
-							}
-							serverManager.data.server.v.data.state.v = connect;
-						}
-					} else {
-						Debug.LogError ("disconnect null: " + this);
-					}
-				} else {
-					Debug.LogError ("server null: " + this);
-				}
-			} else {
-				Debug.LogError ("serverUIData null: " + this);
-			}
-		} else {
-			Debug.LogError ("serverManager null: " + this);
-		}
-	}
+    [TargetRpc]
+    public void TargetLoginSuccess(NetworkConnection target)
+    {
+        // ServerManager serverManager = ServerManager.instance;
+        if (serverManager != null)
+        {
+            ServerManager.UIData serverUIData = serverManager.data;
+            if (serverUIData != null)
+            {
+                Server server = serverUIData.server.v.data;
+                if (server != null)
+                {
+                    Server.State.Disconnect disconnect = server.state.v as Server.State.Disconnect;
+                    if (disconnect != null)
+                    {
+                        // set connect
+                        {
+                            Server.State.Connect connect = new Server.State.Connect();
+                            {
+                                connect.uid = serverManager.data.server.v.data.state.makeId();
+                            }
+                            serverManager.data.server.v.data.state.v = connect;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("disconnect null: " + this);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("server null: " + this);
+                }
+            }
+            else
+            {
+                Debug.LogError("serverUIData null: " + this);
+            }
+        }
+        else
+        {
+            Debug.LogError("serverManager null: " + this);
+        }
+    }
 
-	[TargetRpc]
-	public void TargetLoginEmailError(NetworkConnection target)
-	{
-		Debug.LogError ("login email error: " + this);
-	}
+    [TargetRpc]
+    public void TargetLoginEmailError(NetworkConnection target)
+    {
+        Debug.LogError("login email error: " + this);
+    }
 
-	[TargetRpc]
-	public void TargetLoginError(NetworkConnection target)
-	{
-		Debug.LogError ("login error: " + this);
-	}
+    [TargetRpc]
+    public void TargetLoginError(NetworkConnection target)
+    {
+        Debug.LogError("login error: " + this);
+    }
 
-	[Command]
-	public void CmdRegisterEmailAccount(AccountEmailMessage accountEmailMessage)
-	{
-		if (serverManager != null && serverManager.data!=null && serverManager.data.server.v.data!=null) {
-			// User login
-			// Debug.Log ("onLogin: " + login + ", " + connectionToClient+", "+login.imei);
-			User user = null;
-			// Find already have this user
-			{
-				foreach (User check in serverManager.data.server.v.data.users.vs) {
-					if (check.human.v.account.v.isEqual (accountEmailMessage)) {
-						user = check;
-					}
-				}
-			}
-			// Make new user
-			if (user == null) {
-				// Make new user
-				{
-					user = new User ();
-					{
-						// UniqueId
-						user.uid = serverManager.data.server.v.data.users.makeId ();
-						user.human.v.playerId.v = user.uid;
-						// account
-						{
-							Account newAccount = (Account)DataUtils.cloneData (accountEmailMessage.makeAccount ());
-							{
-								newAccount.uid = user.human.v.account.makeId ();
-							}
-							user.human.v.account.v = newAccount;
-						}
-						user.registerTime.v = Global.getRealTimeInMiliSeconds ();
-					}
-					serverManager.data.server.v.data.users.add (user);
-				}
-				// Update data
-				{
-					// State
-					{
-						user.human.v.state.v.state.v = UserState.State.Online;
-						user.human.v.state.v.time.v = Global.getRealTimeInMiliSeconds ();
-					}
-					user.human.v.connection.v = connectionToClient;
-				}
-				// add message register
-				{
-					// Find user topic
-					UserTopic userTopic = null;
-					{
-						ChatRoom chatRoom = user.chatRoom.v;
-						if (chatRoom != null) {
-							if (chatRoom.topic.v != null && chatRoom.topic.v is UserTopic) {
-								userTopic = chatRoom.topic.v as UserTopic;
-							}
-						} else {
-							Debug.LogError ("chatRoom null");
-						}
-					}
-					// add message
-					if (userTopic != null) {
-						userTopic.addUserAction (user.human.v.playerId.v, UserActionMessage.Action.Register);
-					} else {
-						Debug.LogError ("userTopic null: " + this);
-					}
-				}
-			} else {
-				Debug.LogError ("already have email: " + this);
-				TargetRegisterError (connectionToClient);
-			}
-		} else {
-			Debug.LogError ("Why server manager null: " + this);
-		}
-	}
+    [Command]
+    public void CmdRegisterEmailAccount(AccountEmailMessage accountEmailMessage)
+    {
+        if (serverManager != null && serverManager.data != null && serverManager.data.server.v.data != null)
+        {
+            // User login
+            // Debug.Log ("onLogin: " + login + ", " + connectionToClient+", "+login.imei);
+            User user = null;
+            // Find already have this user
+            {
+                foreach (User check in serverManager.data.server.v.data.users.vs)
+                {
+                    if (check.human.v.account.v.isEqual(accountEmailMessage))
+                    {
+                        user = check;
+                    }
+                }
+            }
+            // Make new user
+            if (user == null)
+            {
+                // Make new user
+                {
+                    user = new User();
+                    {
+                        // UniqueId
+                        user.uid = serverManager.data.server.v.data.users.makeId();
+                        user.human.v.playerId.v = user.uid;
+                        // account
+                        {
+                            Account newAccount = (Account)DataUtils.cloneData(accountEmailMessage.makeAccount());
+                            {
+                                newAccount.uid = user.human.v.account.makeId();
+                            }
+                            user.human.v.account.v = newAccount;
+                        }
+                        user.registerTime.v = Global.getRealTimeInMiliSeconds();
+                    }
+                    serverManager.data.server.v.data.users.add(user);
+                }
+                // Update data
+                {
+                    // State
+                    {
+                        user.human.v.state.v.state.v = UserState.State.Online;
+                        user.human.v.state.v.time.v = Global.getRealTimeInMiliSeconds();
+                    }
+                    user.human.v.connection.v = connectionToClient;
+                }
+                // add message register
+                {
+                    // Find user topic
+                    UserTopic userTopic = null;
+                    {
+                        ChatRoom chatRoom = user.chatRoom.v;
+                        if (chatRoom != null)
+                        {
+                            if (chatRoom.topic.v != null && chatRoom.topic.v is UserTopic)
+                            {
+                                userTopic = chatRoom.topic.v as UserTopic;
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("chatRoom null");
+                        }
+                    }
+                    // add message
+                    if (userTopic != null)
+                    {
+                        userTopic.addUserAction(user.human.v.playerId.v, UserActionMessage.Action.Register);
+                    }
+                    else
+                    {
+                        Debug.LogError("userTopic null: " + this);
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("already have email: " + this);
+                TargetRegisterError(connectionToClient);
+            }
+        }
+        else
+        {
+            Debug.LogError("Why server manager null: " + this);
+        }
+    }
 
-	[TargetRpc]
-	public void TargetRegisterError(NetworkConnection target)
-	{
-		Debug.LogError ("register error: " + this);
-		Toast.showMessage ("register error");
-	}
+    [TargetRpc]
+    public void TargetRegisterError(NetworkConnection target)
+    {
+        Debug.LogError("register error: " + this);
+        Toast.showMessage("register error");
+    }
 
-	[TargetRpc]
-	public void TargetRegisterSuccess(NetworkConnection target)
-	{
-		Debug.LogError ("register success: " + this);
-		Toast.showMessage ("register success");
-	}
+    [TargetRpc]
+    public void TargetRegisterSuccess(NetworkConnection target)
+    {
+        Debug.LogError("register success: " + this);
+        Toast.showMessage("register success");
+    }
 
-	[Command]
-	public void CmdLogOut(uint networkIdentityId, uint userId)
-	{
-		Debug.LogError ("cmdLogout: " + userId + "; " + this);
-		// TargetLogOut
-		TargetLogout(connectionToClient);
+    [Command]
+    public void CmdLogOut(uint networkIdentityId, uint userId)
+    {
+        Debug.LogError("cmdLogout: " + userId + "; " + this);
+        // TargetLogOut
+        TargetLogout(connectionToClient);
         // Update
         UserIdentity userIdentity = GetDataIdentity<UserIdentity>(networkIdentityId);
         if (userIdentity != null)
@@ -579,30 +699,35 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[TargetRpc]
-	public void TargetLogout(NetworkConnection target)
-	{
-		Debug.LogError ("Target logout: " + this);
-		// ServerManager serverManager = ServerManager.instance;
-		if (serverManager != null && serverManager.data != null && serverManager.data.server.v.data != null) {
-			if (serverManager.data.server.v.data.state.v.getType () == Server.State.Type.Connect) {
-				Server.State.Connect connect = serverManager.data.server.v.data.state.v as Server.State.Connect;
-				if (connect.state.v == Server.State.Connect.State.LoggingOut) {
-					serverManager.logOut ();
-				}
-			}
-		} else {
-			// Debug.LogError ("logOut: clientManager null");
-		}
-	}
+    [TargetRpc]
+    public void TargetLogout(NetworkConnection target)
+    {
+        Debug.LogError("Target logout: " + this);
+        // ServerManager serverManager = ServerManager.instance;
+        if (serverManager != null && serverManager.data != null && serverManager.data.server.v.data != null)
+        {
+            if (serverManager.data.server.v.data.state.v.getType() == Server.State.Type.Connect)
+            {
+                Server.State.Connect connect = serverManager.data.server.v.data.state.v as Server.State.Connect;
+                if (connect.state.v == Server.State.Connect.State.LoggingOut)
+                {
+                    serverManager.logOut();
+                }
+            }
+        }
+        else
+        {
+            // Debug.LogError ("logOut: clientManager null");
+        }
+    }
 
-	/////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////// Human ////////////////////////////
-	/////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////// Human ////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
 
-	[Command]
-	public void CmdHumanChangeEmail(uint networkIdentityId, uint userId, string newEmail)
-	{
+    [Command]
+    public void CmdHumanChangeEmail(uint networkIdentityId, uint userId, string newEmail)
+    {
         // Call
         HumanIdentity humanIdentity = GetDataIdentity<HumanIdentity>(networkIdentityId);
         if (humanIdentity != null)
@@ -615,9 +740,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdHumanChangePhoneNumber(uint networkIdentityId, uint userId, string newPhoneNumber)
-	{
+    [Command]
+    public void CmdHumanChangePhoneNumber(uint networkIdentityId, uint userId, string newPhoneNumber)
+    {
         // Call
         HumanIdentity humanIdentity = GetDataIdentity<HumanIdentity>(networkIdentityId);
         if (humanIdentity != null)
@@ -630,9 +755,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdHumanChangeStatus(uint networkIdentityId, uint userId, string newStatus)
-	{
+    [Command]
+    public void CmdHumanChangeStatus(uint networkIdentityId, uint userId, string newStatus)
+    {
         // Call
         HumanIdentity humanIdentity = GetDataIdentity<HumanIdentity>(networkIdentityId);
         if (humanIdentity != null)
@@ -645,9 +770,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdHumanChangeBirthday(uint networkIdentityId, uint userId, long newBirthday)
-	{
+    [Command]
+    public void CmdHumanChangeBirthday(uint networkIdentityId, uint userId, long newBirthday)
+    {
         HumanIdentity humanIdentity = GetDataIdentity<HumanIdentity>(networkIdentityId);
         if (humanIdentity != null)
         {
@@ -659,9 +784,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdHumanChangeSex(uint networkIdentityId, uint userId, User.SEX newSex)
-	{
+    [Command]
+    public void CmdHumanChangeSex(uint networkIdentityId, uint userId, User.SEX newSex)
+    {
         HumanIdentity humanIdentity = GetDataIdentity<HumanIdentity>(networkIdentityId);
         if (humanIdentity != null)
         {
@@ -673,15 +798,15 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	/////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////// Account ////////////////////////////
-	/////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////// Account ////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
 
-	#region Account Admin
+    #region Account Admin
 
-	[Command]
-	public void CmdAccountAdminChangeCustomName(uint networkIdentityId, uint userId, string newCustomName)
-	{
+    [Command]
+    public void CmdAccountAdminChangeCustomName(uint networkIdentityId, uint userId, string newCustomName)
+    {
         AccountAdminIdentity accountAdminIdentity = GetDataIdentity<AccountAdminIdentity>(networkIdentityId);
         if (accountAdminIdentity != null)
         {
@@ -693,9 +818,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdAccountAdminChangeAvatarUrl(uint networkIdentityId, uint userId, string newAvatarUrl)
-	{
+    [Command]
+    public void CmdAccountAdminChangeAvatarUrl(uint networkIdentityId, uint userId, string newAvatarUrl)
+    {
         AccountAdminIdentity accountAdminIdentity = GetDataIdentity<AccountAdminIdentity>(networkIdentityId);
         if (accountAdminIdentity != null)
         {
@@ -707,13 +832,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region Account Device
+    #region Account Device
 
-	[Command]
-	public void CmdAccountDeviceChangeCustomName(uint networkIdentityId, uint userId, string newCustomName)
-	{
+    [Command]
+    public void CmdAccountDeviceChangeCustomName(uint networkIdentityId, uint userId, string newCustomName)
+    {
         AccountDeviceIdentity accountDeviceIdentity = GetDataIdentity<AccountDeviceIdentity>(networkIdentityId);
         if (accountDeviceIdentity != null)
         {
@@ -725,9 +850,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdAccountDeviceChangeAvatarUrl(uint networkIdentityId, uint userId, string newAvatarUrl)
-	{
+    [Command]
+    public void CmdAccountDeviceChangeAvatarUrl(uint networkIdentityId, uint userId, string newAvatarUrl)
+    {
         AccountDeviceIdentity accountDeviceIdentity = GetDataIdentity<AccountDeviceIdentity>(networkIdentityId);
         if (accountDeviceIdentity != null)
         {
@@ -739,13 +864,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region Account Email
+    #region Account Email
 
-	[Command]
-	public void CmdAccountEmailChangePassword(uint networkIdentityId, uint userId, string newPassword, string oldPassword)
-	{
+    [Command]
+    public void CmdAccountEmailChangePassword(uint networkIdentityId, uint userId, string newPassword, string oldPassword)
+    {
         AccountEmailIdentity accountEmailIdentity = GetDataIdentity<AccountEmailIdentity>(networkIdentityId);
         if (accountEmailIdentity != null)
         {
@@ -757,9 +882,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdAccountEmailChangeCustomName(uint networkIdentityId, uint userId, string newCustomName)
-	{
+    [Command]
+    public void CmdAccountEmailChangeCustomName(uint networkIdentityId, uint userId, string newCustomName)
+    {
         AccountEmailIdentity accountEmailIdentity = GetDataIdentity<AccountEmailIdentity>(networkIdentityId);
         if (accountEmailIdentity != null)
         {
@@ -771,9 +896,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdAccountEmailChangeAvatarUrl(uint networkIdentityId, uint userId, string newAvatarUrl)
-	{
+    [Command]
+    public void CmdAccountEmailChangeAvatarUrl(uint networkIdentityId, uint userId, string newAvatarUrl)
+    {
         AccountEmailIdentity accountEmailIdentity = GetDataIdentity<AccountEmailIdentity>(networkIdentityId);
         if (accountEmailIdentity != null)
         {
@@ -785,15 +910,15 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region Room
+    #region Room
 
-	#region password
+    #region password
 
-	[Command]
-	public void CmdRoomJoinRoom(uint networkIdentityId, uint userId, string password)
-	{
+    [Command]
+    public void CmdRoomJoinRoom(uint networkIdentityId, uint userId, string password)
+    {
         RoomIdentity roomIdentity = GetDataIdentity<RoomIdentity>(networkIdentityId);
         if (roomIdentity != null)
         {
@@ -805,12 +930,12 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[TargetRpc]
-	public void TargetJoinRoomError(NetworkConnection target, Room.JoinRoomState joinRoomState)
-	{
-		Debug.LogError ("join room error: " + joinRoomState);
-		Toast.showMessage ("join room error: " + joinRoomState);
-	}
+    [TargetRpc]
+    public void TargetJoinRoomError(NetworkConnection target, Room.JoinRoomState joinRoomState)
+    {
+        Debug.LogError("join room error: " + joinRoomState);
+        Toast.showMessage("join room error: " + joinRoomState);
+    }
 
     [Command]
     public void CmdRoomEndRoom(uint networkIdentityId, uint userId)
@@ -827,8 +952,8 @@ public class ClientConnectIdentity : NetworkBehaviour
     }
 
     [Command]
-	public void CmdRoomChangeName(uint networkIdentityId, uint userId, string newName)
-	{
+    public void CmdRoomChangeName(uint networkIdentityId, uint userId, string newName)
+    {
         RoomIdentity roomIdentity = GetDataIdentity<RoomIdentity>(networkIdentityId);
         if (roomIdentity != null)
         {
@@ -840,9 +965,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdRoomChangeAllowHint(uint networkIdentityId, uint userId, int newAllowHint)
-	{
+    [Command]
+    public void CmdRoomChangeAllowHint(uint networkIdentityId, uint userId, int newAllowHint)
+    {
         RoomIdentity roomIdentity = GetDataIdentity<RoomIdentity>(networkIdentityId);
         if (roomIdentity != null)
         {
@@ -854,13 +979,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region roomState
+    #region roomState
 
-	[Command]
-	public void CmdRoomStateNormalNormalFreeze(uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdRoomStateNormalNormalFreeze(uint networkIdentityId, uint userId)
+    {
         RoomStateNormalNormalIdentity roomStateNormalNormalIdentity = GetDataIdentity<RoomStateNormalNormalIdentity>(networkIdentityId);
         if (roomStateNormalNormalIdentity != null)
         {
@@ -872,9 +997,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdRoomStateNormalFreezeUnFreeze(uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdRoomStateNormalFreezeUnFreeze(uint networkIdentityId, uint userId)
+    {
         RoomStateNormalFreezeIdentity roomStateNormalFreezeIdentity = GetDataIdentity<RoomStateNormalFreezeIdentity>(networkIdentityId);
         if (roomStateNormalFreezeIdentity != null)
         {
@@ -886,11 +1011,11 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	[Command]
-	public void CmdUserChangeRole(uint networkIdentityId, uint userId, User.Role newRole)
-	{
+    [Command]
+    public void CmdUserChangeRole(uint networkIdentityId, uint userId, User.Role newRole)
+    {
         UserIdentity userIdentity = GetDataIdentity<UserIdentity>(networkIdentityId);
         if (userIdentity != null)
         {
@@ -902,9 +1027,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdUserMakeFriendRequest(uint networkIdentityId, uint friendId)
-	{
+    [Command]
+    public void CmdUserMakeFriendRequest(uint networkIdentityId, uint friendId)
+    {
         UserIdentity userIdentity = GetDataIdentity<UserIdentity>(networkIdentityId);
         if (userIdentity != null)
         {
@@ -916,11 +1041,11 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#region Ban
+    #region Ban
 
-	[Command]
-	public void CmdBanNormalBan(uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdBanNormalBan(uint networkIdentityId, uint userId)
+    {
         BanNormalIdentity banNormalIdentity = GetDataIdentity<BanNormalIdentity>(networkIdentityId);
         if (banNormalIdentity != null)
         {
@@ -932,9 +1057,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdBanBanUnBan(uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdBanBanUnBan(uint networkIdentityId, uint userId)
+    {
         BanBanIdentity banBanIdentity = GetDataIdentity<BanBanIdentity>(networkIdentityId);
         if (banBanIdentity != null)
         {
@@ -946,47 +1071,51 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#endregion
+    #endregion
 
-	[TargetRpc]
-	public void TargetSendMessage(NetworkConnection target, string message)
-	{
-		Debug.Log (message);
-	}
+    [TargetRpc]
+    public void TargetSendMessage(NetworkConnection target, string message)
+    {
+        Debug.Log(message);
+    }
 
-	[TargetRpc]
-	public void TargetSendDestroyIdentity(NetworkConnection target, uint[] destroyIds)
-	{
-		NetworkIdentity[] identities = FindObjectsOfType<NetworkIdentity> ();
-		for (int i = identities.Length - 1; i >= 0; i--) {
-			NetworkIdentity identity = identities [i];
-			// Check contain
-			bool contain = false;
-			{
-				for (int j = 0; j < destroyIds.Length; j++) {
-					if (destroyIds [j] == identity.netId) {
-						contain = true;
-						break;
-					}
-				}
-			}
-			// Process
-			if (contain) {
+    [TargetRpc]
+    public void TargetSendDestroyIdentity(NetworkConnection target, uint[] destroyIds)
+    {
+        NetworkIdentity[] identities = FindObjectsOfType<NetworkIdentity>();
+        for (int i = identities.Length - 1; i >= 0; i--)
+        {
+            NetworkIdentity identity = identities[i];
+            // Check contain
+            bool contain = false;
+            {
+                for (int j = 0; j < destroyIds.Length; j++)
+                {
+                    if (destroyIds[j] == identity.netId)
+                    {
+                        contain = true;
+                        break;
+                    }
+                }
+            }
+            // Process
+            if (contain)
+            {
                 Debug.LogError("destroy object: " + identity + ", " + identity.netId);
-				Destroy (identity.gameObject);
-			}
-		}
-	}
+                Destroy(identity.gameObject);
+            }
+        }
+    }
 
-	#endregion
+    #endregion
 
-	#region UndoRedoRequest
+    #region UndoRedoRequest
 
-	[Command]
-	public void CmdUndoRedoNoneAskLastTurn(uint networkIdentityId, uint userId, UndoRedoRequest.Operation operation)
-	{
+    [Command]
+    public void CmdUndoRedoNoneAskLastTurn(uint networkIdentityId, uint userId, UndoRedoRequest.Operation operation)
+    {
         UndoRedo.NoneIdentity noneIdentity = GetDataIdentity<UndoRedo.NoneIdentity>(networkIdentityId);
         if (noneIdentity != null)
         {
@@ -998,9 +1127,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdUndoRedoNoneAskLastYourTurn(uint networkIdentityId, uint userId, UndoRedoRequest.Operation operation)
-	{
+    [Command]
+    public void CmdUndoRedoNoneAskLastYourTurn(uint networkIdentityId, uint userId, UndoRedoRequest.Operation operation)
+    {
         UndoRedo.NoneIdentity noneIdentity = GetDataIdentity<UndoRedo.NoneIdentity>(networkIdentityId);
         if (noneIdentity != null)
         {
@@ -1012,9 +1141,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdUndoRedoAskAnswer(uint networkIdentityId, uint userId, UndoRedo.Ask.Answer answer)
-	{
+    [Command]
+    public void CmdUndoRedoAskAnswer(uint networkIdentityId, uint userId, UndoRedo.Ask.Answer answer)
+    {
         UndoRedo.AskIdentity noneIdentity = GetDataIdentity<UndoRedo.AskIdentity>(networkIdentityId);
         if (noneIdentity != null)
         {
@@ -1026,13 +1155,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region Player
+    #region Player
 
-	[Command]
-	public void CmdPlayerLeaveRoom(uint networkIdentityId)
-	{
+    [Command]
+    public void CmdPlayerLeaveRoom(uint networkIdentityId)
+    {
         RoomUserIdentity roomUserIdentity = GetDataIdentity<RoomUserIdentity>(networkIdentityId);
         if (roomUserIdentity != null)
         {
@@ -1044,9 +1173,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdRoomUserKick(uint networkIdentityId, uint adminId)
-	{
+    [Command]
+    public void CmdRoomUserKick(uint networkIdentityId, uint adminId)
+    {
         RoomUserIdentity roomUserIdentity = GetDataIdentity<RoomUserIdentity>(networkIdentityId);
         if (roomUserIdentity != null)
         {
@@ -1058,9 +1187,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdRoomUserUnKick(uint networkIdentityId, uint adminId)
-	{
+    [Command]
+    public void CmdRoomUserUnKick(uint networkIdentityId, uint adminId)
+    {
         RoomUserIdentity roomUserIdentity = GetDataIdentity<RoomUserIdentity>(networkIdentityId);
         if (roomUserIdentity != null)
         {
@@ -1072,11 +1201,11 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#region RequestDraw
+    #region RequestDraw
 
-	[Command]
-	public void CmdRequestDrawStateNoneMakeRequest(uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdRequestDrawStateNoneMakeRequest(uint networkIdentityId, uint userId)
+    {
         RequestDrawStateNoneIdentity requestDrawStateNoneIdentity = GetDataIdentity<RequestDrawStateNoneIdentity>(networkIdentityId); if (requestDrawStateNoneIdentity != null)
         {
             requestDrawStateNoneIdentity.makeRequestDraw(userId);
@@ -1087,9 +1216,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdRequestDrawStateAskAnswer(uint networkIdentityId, uint userId, RequestDrawStateAsk.Answer answer)
-	{
+    [Command]
+    public void CmdRequestDrawStateAskAnswer(uint networkIdentityId, uint userId, RequestDrawStateAsk.Answer answer)
+    {
         RequestDrawStateAskIdentity requestDrawStateAskIdentity = GetDataIdentity<RequestDrawStateAskIdentity>(networkIdentityId);
         if (requestDrawStateAskIdentity != null)
         {
@@ -1101,9 +1230,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdRequestDrawStateAcceptAnswer(uint networkIdentityId, uint userId, RequestDrawStateAccept.Answer answer)
-	{
+    [Command]
+    public void CmdRequestDrawStateAcceptAnswer(uint networkIdentityId, uint userId, RequestDrawStateAccept.Answer answer)
+    {
         RequestDrawStateAcceptIdentity requestDrawStateAcceptIdentity = GetDataIdentity<RequestDrawStateAcceptIdentity>(networkIdentityId);
         if (requestDrawStateAcceptIdentity != null)
         {
@@ -1115,13 +1244,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region GameFactory
+    #region GameFactory
 
-	[Command]
-	public void CmdGameFactoryChangeGameDataFactoryType(uint networkIdentityId, uint userId, GameDataFactory.Type newType)
-	{
+    [Command]
+    public void CmdGameFactoryChangeGameDataFactoryType(uint networkIdentityId, uint userId, GameDataFactory.Type newType)
+    {
         GameFactoryIdentity gameFactoryIdentity = GetDataIdentity<GameFactoryIdentity>(networkIdentityId);
         if (gameFactoryIdentity != null)
         {
@@ -1133,13 +1262,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region PostureGameDataFactory
+    #region PostureGameDataFactory
 
-	[Command]
-	public void CmdPostureGameDataFactoryChangeGameData(uint networkIdentityId, uint userId, byte[] gameDataBytes)
-	{
+    [Command]
+    public void CmdPostureGameDataFactoryChangeGameData(uint networkIdentityId, uint userId, byte[] gameDataBytes)
+    {
         PostureGameDataFactoryIdentity postureGameDataFactoryIdentity = GetDataIdentity<PostureGameDataFactoryIdentity>(networkIdentityId);
         if (postureGameDataFactoryIdentity != null)
         {
@@ -1192,9 +1321,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdPostureGameDataFactoryChangeType(uint networkIdentityId, uint userId, GameType.Type newGameType)
-	{
+    [Command]
+    public void CmdPostureGameDataFactoryChangeType(uint networkIdentityId, uint userId, GameType.Type newGameType)
+    {
         PostureGameDataFactoryIdentity postureGameDataFactoryIdentity = GetDataIdentity<PostureGameDataFactoryIdentity>(networkIdentityId);
         if (postureGameDataFactoryIdentity != null)
         {
@@ -1206,13 +1335,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region DefaultGameDataFactory
+    #region DefaultGameDataFactory
 
-	[Command]
-	public void CmdDefaultGameDataFactoryChangeType(uint networkIdentityId, uint userId, GameType.Type newGameType)
-	{
+    [Command]
+    public void CmdDefaultGameDataFactoryChangeType(uint networkIdentityId, uint userId, GameType.Type newGameType)
+    {
         DefaultGameDataFactoryIdentity defaultGameDataFactoryIdentity = GetDataIdentity<DefaultGameDataFactoryIdentity>(networkIdentityId);
         if (defaultGameDataFactoryIdentity != null)
         {
@@ -1224,9 +1353,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdDefaultGameDataFactoryChangeUseRule(uint networkIdentityId, uint userId, bool newUseRule)
-	{
+    [Command]
+    public void CmdDefaultGameDataFactoryChangeUseRule(uint networkIdentityId, uint userId, bool newUseRule)
+    {
         DefaultGameDataFactoryIdentity defaultGameDataFactoryIdentity = GetDataIdentity<DefaultGameDataFactoryIdentity>(networkIdentityId);
         if (defaultGameDataFactoryIdentity != null)
         {
@@ -1238,13 +1367,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region PostureGameDataFactory
+    #region PostureGameDataFactory
 
-	[Command]
-	public void CmdPostureGameDataFactoryChangeUseRule(uint networkIdentityId, uint userId, bool newUseRule)
-	{
+    [Command]
+    public void CmdPostureGameDataFactoryChangeUseRule(uint networkIdentityId, uint userId, bool newUseRule)
+    {
         PostureGameDataFactoryIdentity postureGameDataFactoryIdentity = GetDataIdentity<PostureGameDataFactoryIdentity>(networkIdentityId);
         if (postureGameDataFactoryIdentity != null)
         {
@@ -1256,13 +1385,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region GamePlayer
+    #region GamePlayer
 
-	[Command]
-	public void CmdGamePlayerStateNormalSurrender(uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdGamePlayerStateNormalSurrender(uint networkIdentityId, uint userId)
+    {
         GamePlayerStateNormalIdentity gamePlayerStateNormalIdentity = GetDataIdentity<GamePlayerStateNormalIdentity>(networkIdentityId);
         if (gamePlayerStateNormalIdentity != null)
         {
@@ -1274,13 +1403,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region Game State
+    #region Game State
 
-	[Command]
-	public void CmdPlayNormalPause(uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdPlayNormalPause(uint networkIdentityId, uint userId)
+    {
         GameState.PlayNormalIdentity playNormalIdentity = GetDataIdentity<GameState.PlayNormalIdentity>(networkIdentityId);
         if (playNormalIdentity != null)
         {
@@ -1292,9 +1421,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdPlayPauseUnPause(uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdPlayPauseUnPause(uint networkIdentityId, uint userId)
+    {
         GameState.PlayPauseIdentity playPauseIdentity = GetDataIdentity<GameState.PlayPauseIdentity>(networkIdentityId);
         if (playPauseIdentity != null)
         {
@@ -1306,13 +1435,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region GamePlayerStateSurrender
+    #region GamePlayerStateSurrender
 
-	[Command]
-	public void CmdGamePlayerStateSurrenderNoneMakeRequestCancel(uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdGamePlayerStateSurrenderNoneMakeRequestCancel(uint networkIdentityId, uint userId)
+    {
         GamePlayerStateSurrenderNoneIdentity gamePlayerStateSurrenderNoneIdentity = GetDataIdentity<GamePlayerStateSurrenderNoneIdentity>(networkIdentityId);
         if (gamePlayerStateSurrenderNoneIdentity != null)
         {
@@ -1324,9 +1453,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdGamePlayerStateSurrenderAskAccept(uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdGamePlayerStateSurrenderAskAccept(uint networkIdentityId, uint userId)
+    {
         GamePlayerStateSurrenderAskIdentity gamePlayerStateSurrenderAskIdentity = GetDataIdentity<GamePlayerStateSurrenderAskIdentity>(networkIdentityId);
         if (gamePlayerStateSurrenderAskIdentity != null)
         {
@@ -1338,9 +1467,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdGamePlayerStateSurrenderAskRefuse(uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdGamePlayerStateSurrenderAskRefuse(uint networkIdentityId, uint userId)
+    {
         GamePlayerStateSurrenderAskIdentity gamePlayerStateSurrenderAskIdentity = GetDataIdentity<GamePlayerStateSurrenderAskIdentity>(networkIdentityId);
         if (gamePlayerStateSurrenderAskIdentity != null)
         {
@@ -1352,11 +1481,11 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	[Command]
-	public void CmdHistoryAddHumanConnection(uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdHistoryAddHumanConnection(uint networkIdentityId, uint userId)
+    {
         HistoryIdentity historyIdentity = GetDataIdentity<HistoryIdentity>(networkIdentityId);
         if (historyIdentity != null)
         {
@@ -1368,9 +1497,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdHistoryRemoveHumanConnection(uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdHistoryRemoveHumanConnection(uint networkIdentityId, uint userId)
+    {
         HistoryIdentity historyIdentity = GetDataIdentity<HistoryIdentity>(networkIdentityId);
         if (historyIdentity != null)
         {
@@ -1382,10 +1511,11 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#region Friend
+    #region Friend
 
-	[Command]
-	public void CmdFriendStateNoneMakeFriend(uint networkIdentityId, uint userId){
+    [Command]
+    public void CmdFriendStateNoneMakeFriend(uint networkIdentityId, uint userId)
+    {
         FriendStateNoneIdentity friendStateNoneIdentity = GetDataIdentity<FriendStateNoneIdentity>(networkIdentityId);
         if (friendStateNoneIdentity != null)
         {
@@ -1397,8 +1527,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdFriendStateNoneBan(uint networkIdentityId, uint userId){
+    [Command]
+    public void CmdFriendStateNoneBan(uint networkIdentityId, uint userId)
+    {
         FriendStateNoneIdentity friendStateNoneIdentity = GetDataIdentity<FriendStateNoneIdentity>(networkIdentityId);
         if (friendStateNoneIdentity != null)
         {
@@ -1410,10 +1541,11 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#region friendStateRequest
+    #region friendStateRequest
 
-	[Command]
-	public void CmdFriendStateRequestAccept(uint networkIdentityId, uint userId){
+    [Command]
+    public void CmdFriendStateRequestAccept(uint networkIdentityId, uint userId)
+    {
         FriendStateRequestIdentity friendStateRequestIdentity = GetDataIdentity<FriendStateRequestIdentity>(networkIdentityId);
         if (friendStateRequestIdentity != null)
         {
@@ -1425,8 +1557,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdFriendStateRequestRefuse(uint networkIdentityId, uint userId){
+    [Command]
+    public void CmdFriendStateRequestRefuse(uint networkIdentityId, uint userId)
+    {
         FriendStateRequestIdentity friendStateRequestIdentity = GetDataIdentity<FriendStateRequestIdentity>(networkIdentityId);
         if (friendStateRequestIdentity != null)
         {
@@ -1438,8 +1571,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdFriendStateRequestCancel(uint networkIdentityId, uint userId){
+    [Command]
+    public void CmdFriendStateRequestCancel(uint networkIdentityId, uint userId)
+    {
         FriendStateRequestIdentity friendStateRequestIdentity = GetDataIdentity<FriendStateRequestIdentity>(networkIdentityId);
         if (friendStateRequestIdentity != null)
         {
@@ -1451,10 +1585,11 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	[Command]
-	public void CmdFriendStateAcceptUnFriend(uint networkIdentityId, uint userId){
+    [Command]
+    public void CmdFriendStateAcceptUnFriend(uint networkIdentityId, uint userId)
+    {
         FriendStateAcceptIdentity friendStateAcceptIdentity = GetDataIdentity<FriendStateAcceptIdentity>(networkIdentityId);
         if (friendStateAcceptIdentity != null)
         {
@@ -1466,8 +1601,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdFriendStateBanUnBan(uint networkIdentityId, uint userId){
+    [Command]
+    public void CmdFriendStateBanUnBan(uint networkIdentityId, uint userId)
+    {
         FriendStateBanIdentity friendStateBanIdentity = GetDataIdentity<FriendStateBanIdentity>(networkIdentityId);
         if (friendStateBanIdentity != null)
         {
@@ -1479,15 +1615,15 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#endregion
+    #endregion
 
-	#region Chat
+    #region Chat
 
-	[Command]
-	public void CmdChatRoomLoadMore(uint networkIdentityId, uint userId, uint loadMoreCount)
-	{
+    [Command]
+    public void CmdChatRoomLoadMore(uint networkIdentityId, uint userId, uint loadMoreCount)
+    {
         ChatRoomIdentity chatRoomIdentity = GetDataIdentity<ChatRoomIdentity>(networkIdentityId);
         if (chatRoomIdentity != null)
         {
@@ -1499,9 +1635,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdChatRoomSendNormalMessage(uint networkIdentityId, uint userId, string message)
-	{
+    [Command]
+    public void CmdChatRoomSendNormalMessage(uint networkIdentityId, uint userId, string message)
+    {
         ChatRoomIdentity chatRoomIdentity = GetDataIdentity<ChatRoomIdentity>(networkIdentityId);
         if (chatRoomIdentity != null)
         {
@@ -1513,9 +1649,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdChatMessageChangeState(uint networkIdentityId, uint userId, ChatMessage.State newState)
-	{
+    [Command]
+    public void CmdChatMessageChangeState(uint networkIdentityId, uint userId, ChatMessage.State newState)
+    {
         ChatMessageIdentity chatMessageIdentity = GetDataIdentity<ChatMessageIdentity>(networkIdentityId);
         if (chatMessageIdentity != null)
         {
@@ -1527,9 +1663,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdChatNormalContentEdit(uint networkIdentityId, uint userId, string newMessage)
-	{
+    [Command]
+    public void CmdChatNormalContentEdit(uint networkIdentityId, uint userId, string newMessage)
+    {
         ChatNormalContentIdentity chatNormalContentIdentity = GetDataIdentity<ChatNormalContentIdentity>(networkIdentityId);
         if (chatNormalContentIdentity != null)
         {
@@ -1541,13 +1677,31 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region Typing
+    #region chatViewer
 
-	[Command]
-	public void CmdTypingSendTyping(uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdChatViewSetAlreadyViewMaxId(uint networkIdentityId, uint userId, uint newAlreadyViewMaxId)
+    {
+        ChatViewerIdentity chatViewerIdentity = GetDataIdentity<ChatViewerIdentity>(networkIdentityId);
+        if (chatViewerIdentity != null)
+        {
+            chatViewerIdentity.setAlreadyViewMaxId(userId, newAlreadyViewMaxId);
+        }
+        else
+        {
+            Debug.LogError("Identity null");
+        }
+    }
+
+    #endregion
+
+    #region Typing
+
+    [Command]
+    public void CmdTypingSendTyping(uint networkIdentityId, uint userId)
+    {
         TypingIdentity typingIdentity = GetDataIdentity<TypingIdentity>(networkIdentityId);
         if (typingIdentity != null)
         {
@@ -1559,17 +1713,17 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	//////////////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////// Default ////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////// Default ////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	#region Default
+    #region Default
 
-	[Command]
-	public void CmdDefaultChessChangeChess960(uint networkIdentityId, uint userId, bool newChess960)
-	{
+    [Command]
+    public void CmdDefaultChessChangeChess960(uint networkIdentityId, uint userId, bool newChess960)
+    {
         Chess.DefaultChessIdentity defaultChessIdentity = GetDataIdentity<Chess.DefaultChessIdentity>(networkIdentityId);
         if (defaultChessIdentity != null)
         {
@@ -1581,9 +1735,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdDefaultShatranjChangeChess960(uint networkIdentityId, uint userId, bool newChess960)
-	{
+    [Command]
+    public void CmdDefaultShatranjChangeChess960(uint networkIdentityId, uint userId, bool newChess960)
+    {
         Shatranj.DefaultShatranjIdentity defaultShatranjIdentity = GetDataIdentity<Shatranj.DefaultShatranjIdentity>(networkIdentityId);
         if (defaultShatranjIdentity != null)
         {
@@ -1595,9 +1749,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdDefaultMakrukChangeChess960(uint networkIdentityId, uint userId, bool newChess960)
-	{
+    [Command]
+    public void CmdDefaultMakrukChangeChess960(uint networkIdentityId, uint userId, bool newChess960)
+    {
         Makruk.DefaultMakrukIdentity defaultMakrukIdentity = GetDataIdentity<Makruk.DefaultMakrukIdentity>(networkIdentityId);
         if (defaultMakrukIdentity != null)
         {
@@ -1609,9 +1763,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdDefaultSeirawanChangeChess960(uint networkIdentityId, uint userId, bool newChess960)
-	{
+    [Command]
+    public void CmdDefaultSeirawanChangeChess960(uint networkIdentityId, uint userId, bool newChess960)
+    {
         Seirawan.DefaultSeirawanIdentity defaultSeirawanIdentity = GetDataIdentity<Seirawan.DefaultSeirawanIdentity>(networkIdentityId);
         if (defaultSeirawanIdentity != null)
         {
@@ -1623,11 +1777,11 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#region DefaultFairyChess
+    #region DefaultFairyChess
 
-	[Command]
-	public void CmdDefaultFairyChessChangeVariantType(uint networkIdentityId, uint userId, FairyChess.Common.VariantType newVariantType)
-	{
+    [Command]
+    public void CmdDefaultFairyChessChangeVariantType(uint networkIdentityId, uint userId, FairyChess.Common.VariantType newVariantType)
+    {
         FairyChess.DefaultFairyChessIdentity defaultFairyChessIdentity = GetDataIdentity<FairyChess.DefaultFairyChessIdentity>(networkIdentityId);
         if (defaultFairyChessIdentity != null)
         {
@@ -1639,9 +1793,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdDefaultFairyChessChangeChess960(uint networkIdentityId, uint userId, bool newChess960)
-	{
+    [Command]
+    public void CmdDefaultFairyChessChangeChess960(uint networkIdentityId, uint userId, bool newChess960)
+    {
         FairyChess.DefaultFairyChessIdentity defaultFairyChessIdentity = GetDataIdentity<FairyChess.DefaultFairyChessIdentity>(networkIdentityId);
         if (defaultFairyChessIdentity != null)
         {
@@ -1653,13 +1807,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region DefaultCoTuongUp
+    #region DefaultCoTuongUp
 
-	[Command]
-	public void CmdDefaultCoTuongUpChangeAllowViewCapture(uint networkIdentityId, uint userId, bool newAllowViewCapture)
-	{
+    [Command]
+    public void CmdDefaultCoTuongUpChangeAllowViewCapture(uint networkIdentityId, uint userId, bool newAllowViewCapture)
+    {
         CoTuongUp.DefaultCoTuongUpIdentity defaultCoTuongUpIdentity = GetDataIdentity<CoTuongUp.DefaultCoTuongUpIdentity>(networkIdentityId);
         if (defaultCoTuongUpIdentity != null)
         {
@@ -1671,9 +1825,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdDefaultCoTuongUpChangeAllowWatcherViewHidden(uint networkIdentityId, uint userId, bool newAllowViewHidden)
-	{
+    [Command]
+    public void CmdDefaultCoTuongUpChangeAllowWatcherViewHidden(uint networkIdentityId, uint userId, bool newAllowViewHidden)
+    {
         CoTuongUp.DefaultCoTuongUpIdentity defaultCoTuongUpIdentity = GetDataIdentity<CoTuongUp.DefaultCoTuongUpIdentity>(networkIdentityId);
         if (defaultCoTuongUpIdentity != null)
         {
@@ -1685,9 +1839,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdDefaultCoTuongUpChangeAllowOnlyFlip(uint networkIdentityId, uint userId, bool newAllowViewFlip)
-	{
+    [Command]
+    public void CmdDefaultCoTuongUpChangeAllowOnlyFlip(uint networkIdentityId, uint userId, bool newAllowViewFlip)
+    {
         CoTuongUp.DefaultCoTuongUpIdentity defaultCoTuongUpIdentity = GetDataIdentity<CoTuongUp.DefaultCoTuongUpIdentity>(networkIdentityId);
         if (defaultCoTuongUpIdentity != null)
         {
@@ -1699,11 +1853,11 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	[Command]
-	public void CmdDefaultGomokuChangeBoardSize(uint networkIdentityId, uint userId, int newBoardSize)
-	{
+    [Command]
+    public void CmdDefaultGomokuChangeBoardSize(uint networkIdentityId, uint userId, int newBoardSize)
+    {
         Gomoku.DefaultGomokuIdentity defaultGomokuIdentity = GetDataIdentity<Gomoku.DefaultGomokuIdentity>(networkIdentityId);
         if (defaultGomokuIdentity != null)
         {
@@ -1715,9 +1869,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdDefaultEnglishDraughtChangeMaxPly(uint networkIdentityId, uint userId, int newMaxPly)
-	{
+    [Command]
+    public void CmdDefaultEnglishDraughtChangeMaxPly(uint networkIdentityId, uint userId, int newMaxPly)
+    {
         EnglishDraught.DefaultEnglishDraughtIdentity defaultEnglishDraughtIdentity = GetDataIdentity<EnglishDraught.DefaultEnglishDraughtIdentity>(networkIdentityId);
         if (defaultEnglishDraughtIdentity != null)
         {
@@ -1729,9 +1883,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdDefaultEnglishDraughtChangeThreeMoveRandom(uint networkIdentityId, uint userId, bool newThreeMoveRandom)
-	{
+    [Command]
+    public void CmdDefaultEnglishDraughtChangeThreeMoveRandom(uint networkIdentityId, uint userId, bool newThreeMoveRandom)
+    {
         EnglishDraught.DefaultEnglishDraughtIdentity defaultEnglishDraughtIdentity = GetDataIdentity<EnglishDraught.DefaultEnglishDraughtIdentity>(networkIdentityId);
         if (defaultEnglishDraughtIdentity != null)
         {
@@ -1743,9 +1897,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdDefaultInternationalDraughtChangeVariant(uint networkIdentityId, uint userId, int newVariant)
-	{
+    [Command]
+    public void CmdDefaultInternationalDraughtChangeVariant(uint networkIdentityId, uint userId, int newVariant)
+    {
         InternationalDraught.DefaultInternationalDraughtIdentity defaultInternationalDraughtIdentity = GetDataIdentity<InternationalDraught.DefaultInternationalDraughtIdentity>(networkIdentityId);
         if (defaultInternationalDraughtIdentity != null)
         {
@@ -1757,9 +1911,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdDefaultWeiqiChangeSize(uint networkIdentityId, uint userId, int newSize)
-	{
+    [Command]
+    public void CmdDefaultWeiqiChangeSize(uint networkIdentityId, uint userId, int newSize)
+    {
         Weiqi.DefaultWeiqiIdentity defaultWeiqiIdentity = GetDataIdentity<Weiqi.DefaultWeiqiIdentity>(networkIdentityId);
         if (defaultWeiqiIdentity != null)
         {
@@ -1771,9 +1925,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdDefaultWeiqiChangeKomi(uint networkIdentityId, uint userId, float newKomi)
-	{
+    [Command]
+    public void CmdDefaultWeiqiChangeKomi(uint networkIdentityId, uint userId, float newKomi)
+    {
         Weiqi.DefaultWeiqiIdentity defaultWeiqiIdentity = GetDataIdentity<Weiqi.DefaultWeiqiIdentity>(networkIdentityId);
         if (defaultWeiqiIdentity != null)
         {
@@ -1785,9 +1939,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdDefaultWeiqiChangeRule(uint networkIdentityId, uint userId, int newRule)
-	{
+    [Command]
+    public void CmdDefaultWeiqiChangeRule(uint networkIdentityId, uint userId, int newRule)
+    {
         Weiqi.DefaultWeiqiIdentity defaultWeiqiIdentity = GetDataIdentity<Weiqi.DefaultWeiqiIdentity>(networkIdentityId);
         if (defaultWeiqiIdentity != null)
         {
@@ -1799,9 +1953,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdDefaultWeiqiChangeHandicap(uint networkIdentityId, uint userId, int newHandicap)
-	{
+    [Command]
+    public void CmdDefaultWeiqiChangeHandicap(uint networkIdentityId, uint userId, int newHandicap)
+    {
         Weiqi.DefaultWeiqiIdentity defaultWeiqiIdentity = GetDataIdentity<Weiqi.DefaultWeiqiIdentity>(networkIdentityId);
         if (defaultWeiqiIdentity != null)
         {
@@ -1813,13 +1967,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region MineSweeper
+    #region MineSweeper
 
-	[Command]
-	public void CmdDefaultMineSweeperChangeN(uint networkIdentityId, uint userId, int newN)
-	{
+    [Command]
+    public void CmdDefaultMineSweeperChangeN(uint networkIdentityId, uint userId, int newN)
+    {
         MineSweeper.DefaultMineSweeperIdentity defaultMineSweeperIdentity = GetDataIdentity<MineSweeper.DefaultMineSweeperIdentity>(networkIdentityId);
         if (defaultMineSweeperIdentity != null)
         {
@@ -1831,9 +1985,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdDefaultMineSweeperChangeM(uint networkIdentityId, uint userId, int newM)
-	{
+    [Command]
+    public void CmdDefaultMineSweeperChangeM(uint networkIdentityId, uint userId, int newM)
+    {
         MineSweeper.DefaultMineSweeperIdentity defaultMineSweeperIdentity = GetDataIdentity<MineSweeper.DefaultMineSweeperIdentity>(networkIdentityId);
         if (defaultMineSweeperIdentity != null)
         {
@@ -1845,9 +1999,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdDefaultMineSweeperChangeMinK(uint networkIdentityId, uint userId, float newMinK)
-	{
+    [Command]
+    public void CmdDefaultMineSweeperChangeMinK(uint networkIdentityId, uint userId, float newMinK)
+    {
         MineSweeper.DefaultMineSweeperIdentity defaultMineSweeperIdentity = GetDataIdentity<MineSweeper.DefaultMineSweeperIdentity>(networkIdentityId);
         if (defaultMineSweeperIdentity != null)
         {
@@ -1859,9 +2013,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdDefaultMineSweeperChangeMaxK(uint networkIdentityId, uint userId, float newMaxK)
-	{
+    [Command]
+    public void CmdDefaultMineSweeperChangeMaxK(uint networkIdentityId, uint userId, float newMaxK)
+    {
         MineSweeper.DefaultMineSweeperIdentity defaultMineSweeperIdentity = GetDataIdentity<MineSweeper.DefaultMineSweeperIdentity>(networkIdentityId);
         if (defaultMineSweeperIdentity != null)
         {
@@ -1873,9 +2027,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdDefaultMineSweeperChangeAllowWatchBomb(uint networkIdentityId, uint userId, bool newAllowWatchBomb)
-	{
+    [Command]
+    public void CmdDefaultMineSweeperChangeAllowWatchBomb(uint networkIdentityId, uint userId, bool newAllowWatchBomb)
+    {
         MineSweeper.DefaultMineSweeperIdentity defaultMineSweeperIdentity = GetDataIdentity<MineSweeper.DefaultMineSweeperIdentity>(networkIdentityId);
         if (defaultMineSweeperIdentity != null)
         {
@@ -1887,11 +2041,11 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	[Command]
-	public void CmdDefaultHexChangeBoardSize(uint networkIdentityId, uint userId, System.UInt16 newBoardSize)
-	{
+    [Command]
+    public void CmdDefaultHexChangeBoardSize(uint networkIdentityId, uint userId, System.UInt16 newBoardSize)
+    {
         HEX.DefaultHexIdentity defaultHexIdentity = GetDataIdentity<HEX.DefaultHexIdentity>(networkIdentityId);
         if (defaultHexIdentity != null)
         {
@@ -1903,11 +2057,11 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#region Solitaire
+    #region Solitaire
 
-	[Command]
-	public void CmdDefaultSolitaireChangeDrawCount(uint networkIdentityId, uint userId, int newDrawCount)
-	{
+    [Command]
+    public void CmdDefaultSolitaireChangeDrawCount(uint networkIdentityId, uint userId, int newDrawCount)
+    {
         Solitaire.DefaultSolitaireIdentity defaultSolitaireIdentity = GetDataIdentity<Solitaire.DefaultSolitaireIdentity>(networkIdentityId);
         if (defaultSolitaireIdentity != null)
         {
@@ -1919,13 +2073,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region Khet
+    #region Khet
 
-	[Command]
-	public void CmdDefaultKhetChangeStartPos(uint networkIdentityId, uint userId, Khet.DefaultKhet.StartPos newStartPos)
-	{
+    [Command]
+    public void CmdDefaultKhetChangeStartPos(uint networkIdentityId, uint userId, Khet.DefaultKhet.StartPos newStartPos)
+    {
         Khet.DefaultKhetIdentity defaultKhetIdentity = GetDataIdentity<Khet.DefaultKhetIdentity>(networkIdentityId);
         if (defaultKhetIdentity != null)
         {
@@ -1937,17 +2091,17 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	//////////////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////// Send Input ////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////// Send Input ////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	#region WaitAIMoveInput
+    #region WaitAIMoveInput
 
-	[Command]
-	public void CmdWaitAIMoveInputSendInput(uint networkIdentityId, uint userId, byte[] gameMoveBytes, float clientTime)
-	{
+    [Command]
+    public void CmdWaitAIMoveInputSendInput(uint networkIdentityId, uint userId, byte[] gameMoveBytes, float clientTime)
+    {
         WaitInputActionIdentity waitInputActionIdentity = GetDataIdentity<WaitInputActionIdentity>(networkIdentityId);
         if (waitInputActionIdentity != null)
         {
@@ -2000,17 +2154,17 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////// TimeControl /////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////// TimeControl /////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////
 
-	#region TimeControl
+    #region TimeControl
 
-	[Command]
-	public void CmdTimeReportClientTime(uint networkIdentityId, uint userId, float clientTime)
-	{
+    [Command]
+    public void CmdTimeReportClientTime(uint networkIdentityId, uint userId, float clientTime)
+    {
         TimeReportClientIdentity timeReportClientIdentity = GetDataIdentity<TimeReportClientIdentity>(networkIdentityId);
         if (timeReportClientIdentity != null)
         {
@@ -2022,9 +2176,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdTimeControlChangeIsEnable(uint networkIdentityId, uint userId, bool newIsEnable)
-	{
+    [Command]
+    public void CmdTimeControlChangeIsEnable(uint networkIdentityId, uint userId, bool newIsEnable)
+    {
         TimeControl.TimeControlIdentity timeControlIdentity = GetDataIdentity<TimeControl.TimeControlIdentity>(networkIdentityId);
         if (timeControlIdentity != null)
         {
@@ -2036,9 +2190,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdTimeControlChangeAICanTimeOut(uint networkIdentityId, uint userId, bool newAICanTimeOut)
-	{
+    [Command]
+    public void CmdTimeControlChangeAICanTimeOut(uint networkIdentityId, uint userId, bool newAICanTimeOut)
+    {
         TimeControl.TimeControlIdentity timeControlIdentity = GetDataIdentity<TimeControl.TimeControlIdentity>(networkIdentityId);
         if (timeControlIdentity != null)
         {
@@ -2050,9 +2204,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdTimeControlChangeUse(uint networkIdentityId, uint userId, int newUse)
-	{
+    [Command]
+    public void CmdTimeControlChangeUse(uint networkIdentityId, uint userId, int newUse)
+    {
         TimeControl.TimeControlIdentity timeControlIdentity = GetDataIdentity<TimeControl.TimeControlIdentity>(networkIdentityId);
         if (timeControlIdentity != null)
         {
@@ -2064,9 +2218,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdTimeControlChangeSubType(uint networkIdentityId, uint userId, int newSubType)
-	{
+    [Command]
+    public void CmdTimeControlChangeSubType(uint networkIdentityId, uint userId, int newSubType)
+    {
         TimeControl.TimeControlIdentity timeControlIdentity = GetDataIdentity<TimeControl.TimeControlIdentity>(networkIdentityId);
         if (timeControlIdentity != null)
         {
@@ -2078,9 +2232,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdTimePerTurnInfoLimitChangePerTurn(uint networkIdentityId, uint userId, float newPerTurn)
-	{
+    [Command]
+    public void CmdTimePerTurnInfoLimitChangePerTurn(uint networkIdentityId, uint userId, float newPerTurn)
+    {
         TimeControl.Normal.TimePerTurnInfoLimitIdentity timePerTurnInfoLimitIdentity = GetDataIdentity<TimeControl.Normal.TimePerTurnInfoLimitIdentity>(networkIdentityId);
         if (timePerTurnInfoLimitIdentity != null)
         {
@@ -2092,9 +2246,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdTotalTimeInfoLimitChangeTotalTime(uint networkIdentityId, uint userId, float newTotalTime)
-	{
+    [Command]
+    public void CmdTotalTimeInfoLimitChangeTotalTime(uint networkIdentityId, uint userId, float newTotalTime)
+    {
         TimeControl.Normal.TotalTimeInfoLimitIdentity totalTimeInfoLimitIdentity = GetDataIdentity<TimeControl.Normal.TotalTimeInfoLimitIdentity>(networkIdentityId);
         if (totalTimeInfoLimitIdentity != null)
         {
@@ -2106,11 +2260,11 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#region TimeInfo
+    #region TimeInfo
 
-	[Command]
-	public void CmdTimeInfoChangeTimePerTurnType(uint networkIdentityId, uint userId, int newTimePerTurnType)
-	{
+    [Command]
+    public void CmdTimeInfoChangeTimePerTurnType(uint networkIdentityId, uint userId, int newTimePerTurnType)
+    {
         TimeControl.Normal.TimeInfoIdentity timeInfoIdentity = GetDataIdentity<TimeControl.Normal.TimeInfoIdentity>(networkIdentityId);
         if (timeInfoIdentity != null)
         {
@@ -2122,9 +2276,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdTimeInfoChangeTotalTimeType(uint networkIdentityId, uint userId, int newTotalTimeType)
-	{
+    [Command]
+    public void CmdTimeInfoChangeTotalTimeType(uint networkIdentityId, uint userId, int newTotalTimeType)
+    {
         TimeControl.Normal.TimeInfoIdentity timeInfoIdentity = GetDataIdentity<TimeControl.Normal.TimeInfoIdentity>(networkIdentityId);
         if (timeInfoIdentity != null)
         {
@@ -2136,9 +2290,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdTimeInfoChangeOverTimePerTurnType(uint networkIdentityId, uint userId, int newOverTimePerTurnType)
-	{
+    [Command]
+    public void CmdTimeInfoChangeOverTimePerTurnType(uint networkIdentityId, uint userId, int newOverTimePerTurnType)
+    {
         TimeControl.Normal.TimeInfoIdentity timeInfoIdentity = GetDataIdentity<TimeControl.Normal.TimeInfoIdentity>(networkIdentityId);
         if (timeInfoIdentity != null)
         {
@@ -2150,9 +2304,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdTimeInfoChangeLagCompensation(uint networkIdentityId, uint userId, float newLagCompensation)
-	{
+    [Command]
+    public void CmdTimeInfoChangeLagCompensation(uint networkIdentityId, uint userId, float newLagCompensation)
+    {
         TimeControl.Normal.TimeInfoIdentity timeInfoIdentity = GetDataIdentity<TimeControl.Normal.TimeInfoIdentity>(networkIdentityId);
         if (timeInfoIdentity != null)
         {
@@ -2164,13 +2318,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region TimeControlHourGlass
+    #region TimeControlHourGlass
 
-	[Command]
-	public void CmdTimeControlHourGlassChangeInitTime(uint networkIdentityId, uint userId, float newInitTime)
-	{
+    [Command]
+    public void CmdTimeControlHourGlassChangeInitTime(uint networkIdentityId, uint userId, float newInitTime)
+    {
         TimeControl.HourGlass.TimeControlHourGlassIdentity timeControlHourGlassIdentity = GetDataIdentity<TimeControl.HourGlass.TimeControlHourGlassIdentity>(networkIdentityId);
         if (timeControlHourGlassIdentity != null)
         {
@@ -2182,9 +2336,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdTimeControlHourGlassChangeLagCompensation(uint networkIdentityId, uint userId, float newLagCompensation)
-	{
+    [Command]
+    public void CmdTimeControlHourGlassChangeLagCompensation(uint networkIdentityId, uint userId, float newLagCompensation)
+    {
         TimeControl.HourGlass.TimeControlHourGlassIdentity timeControlHourGlassIdentity = GetDataIdentity<TimeControl.HourGlass.TimeControlHourGlassIdentity>(networkIdentityId);
         if (timeControlHourGlassIdentity != null)
         {
@@ -2196,19 +2350,19 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#endregion
+    #endregion
 
-	/////////////////////////////////////////////////////////////////////////////////////////
-	/////////////////////////////// AI ////////////////////////////////
-	/////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////// AI ////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////
 
-	#region Chess
+    #region Chess
 
-	[Command]
-	public void CmdChessAIChangeDepth(uint networkIdentityId, uint userId, int newDepth)
-	{
+    [Command]
+    public void CmdChessAIChangeDepth(uint networkIdentityId, uint userId, int newDepth)
+    {
         Chess.ChessAIIdentity chessAIIdentity = GetDataIdentity<Chess.ChessAIIdentity>(networkIdentityId);
         if (chessAIIdentity != null)
         {
@@ -2220,9 +2374,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdChessAIChangeSkillLevel(uint networkIdentityId, uint userId, int newSkillLevel)
-	{
+    [Command]
+    public void CmdChessAIChangeSkillLevel(uint networkIdentityId, uint userId, int newSkillLevel)
+    {
         Chess.ChessAIIdentity chessAIIdentity = GetDataIdentity<Chess.ChessAIIdentity>(networkIdentityId);
         if (chessAIIdentity != null)
         {
@@ -2234,9 +2388,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdChessAIChangeDuration(uint networkIdentityId, uint userId, long newDuration)
-	{
+    [Command]
+    public void CmdChessAIChangeDuration(uint networkIdentityId, uint userId, long newDuration)
+    {
         Chess.ChessAIIdentity chessAIIdentity = GetDataIdentity<Chess.ChessAIIdentity>(networkIdentityId);
         if (chessAIIdentity != null)
         {
@@ -2248,13 +2402,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region FairyChess
+    #region FairyChess
 
-	[Command]
-	public void CmdFairyChessAIChangeDepth(uint networkIdentityId, uint userId, int newDepth)
-	{
+    [Command]
+    public void CmdFairyChessAIChangeDepth(uint networkIdentityId, uint userId, int newDepth)
+    {
         FairyChess.FairyChessAIIdentity fairyChessAIIdentity = GetDataIdentity<FairyChess.FairyChessAIIdentity>(networkIdentityId);
         if (fairyChessAIIdentity != null)
         {
@@ -2266,9 +2420,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdFairyChessAIChangeSkillLevel(uint networkIdentityId, uint userId, int newSkillLevel)
-	{
+    [Command]
+    public void CmdFairyChessAIChangeSkillLevel(uint networkIdentityId, uint userId, int newSkillLevel)
+    {
         FairyChess.FairyChessAIIdentity fairyChessAIIdentity = GetDataIdentity<FairyChess.FairyChessAIIdentity>(networkIdentityId);
         if (fairyChessAIIdentity != null)
         {
@@ -2280,9 +2434,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdFairyChessAIChangeDuration(uint networkIdentityId, uint userId, long newDuration)
-	{
+    [Command]
+    public void CmdFairyChessAIChangeDuration(uint networkIdentityId, uint userId, long newDuration)
+    {
         FairyChess.FairyChessAIIdentity fairyChessAIIdentity = GetDataIdentity<FairyChess.FairyChessAIIdentity>(networkIdentityId);
         if (fairyChessAIIdentity != null)
         {
@@ -2294,13 +2448,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region gomoku
+    #region gomoku
 
-	[Command]
-	public void CmdGomokuAIChangeSearchDepth(uint networkIdentityId, uint userId, int newSearchDepth)
-	{
+    [Command]
+    public void CmdGomokuAIChangeSearchDepth(uint networkIdentityId, uint userId, int newSearchDepth)
+    {
         Gomoku.GomokuAIIdentity gomokuAIIdentity = GetDataIdentity<Gomoku.GomokuAIIdentity>(networkIdentityId);
         if (gomokuAIIdentity != null)
         {
@@ -2312,9 +2466,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdGomokuAIChangeTimeLimit(uint networkIdentityId, uint userId, int newTimeLimit)
-	{
+    [Command]
+    public void CmdGomokuAIChangeTimeLimit(uint networkIdentityId, uint userId, int newTimeLimit)
+    {
         Gomoku.GomokuAIIdentity gomokuAIIdentity = GetDataIdentity<Gomoku.GomokuAIIdentity>(networkIdentityId);
         if (gomokuAIIdentity != null)
         {
@@ -2326,9 +2480,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdGomokuAIChangeLevel(uint networkIdentityId, uint userId, int newLevel)
-	{
+    [Command]
+    public void CmdGomokuAIChangeLevel(uint networkIdentityId, uint userId, int newLevel)
+    {
         Gomoku.GomokuAIIdentity gomokuAIIdentity = GetDataIdentity<Gomoku.GomokuAIIdentity>(networkIdentityId);
         if (gomokuAIIdentity != null)
         {
@@ -2340,13 +2494,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region InternationalDraught
+    #region InternationalDraught
 
-	[Command]
-	public void CmdInternationalDraughtAIChangeBMove(uint networkIdentityId, uint userId, bool newBMove)
-	{
+    [Command]
+    public void CmdInternationalDraughtAIChangeBMove(uint networkIdentityId, uint userId, bool newBMove)
+    {
         InternationalDraught.InternationalDraughtAIIdentity internationalDraughtAIIdentity = GetDataIdentity<InternationalDraught.InternationalDraughtAIIdentity>(networkIdentityId);
         if (internationalDraughtAIIdentity != null)
         {
@@ -2358,9 +2512,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdInternationalDraughtAIChangeBook(uint networkIdentityId, uint userId, bool newBook)
-	{
+    [Command]
+    public void CmdInternationalDraughtAIChangeBook(uint networkIdentityId, uint userId, bool newBook)
+    {
         InternationalDraught.InternationalDraughtAIIdentity internationalDraughtAIIdentity = GetDataIdentity<InternationalDraught.InternationalDraughtAIIdentity>(networkIdentityId);
         if (internationalDraughtAIIdentity != null)
         {
@@ -2372,9 +2526,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdInternationalDraughtAIChangeDepth(uint networkIdentityId, uint userId, int newDepth)
-	{
+    [Command]
+    public void CmdInternationalDraughtAIChangeDepth(uint networkIdentityId, uint userId, int newDepth)
+    {
         InternationalDraught.InternationalDraughtAIIdentity internationalDraughtAIIdentity = GetDataIdentity<InternationalDraught.InternationalDraughtAIIdentity>(networkIdentityId);
         if (internationalDraughtAIIdentity != null)
         {
@@ -2386,9 +2540,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdInternationalDraughtAIChangeTime(uint networkIdentityId, uint userId, float newTime)
-	{
+    [Command]
+    public void CmdInternationalDraughtAIChangeTime(uint networkIdentityId, uint userId, float newTime)
+    {
         InternationalDraught.InternationalDraughtAIIdentity internationalDraughtAIIdentity = GetDataIdentity<InternationalDraught.InternationalDraughtAIIdentity>(networkIdentityId);
         if (internationalDraughtAIIdentity != null)
         {
@@ -2400,9 +2554,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdInternationalDraughtAIChangeInput(uint networkIdentityId, uint userId, bool newInput)
-	{
+    [Command]
+    public void CmdInternationalDraughtAIChangeInput(uint networkIdentityId, uint userId, bool newInput)
+    {
         InternationalDraught.InternationalDraughtAIIdentity internationalDraughtAIIdentity = GetDataIdentity<InternationalDraught.InternationalDraughtAIIdentity>(networkIdentityId);
         if (internationalDraughtAIIdentity != null)
         {
@@ -2414,9 +2568,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdInternationalDraughtAIChangeUseEndGameDatabase(uint networkIdentityId, uint userId, bool newUseEndGameDatabase)
-	{
+    [Command]
+    public void CmdInternationalDraughtAIChangeUseEndGameDatabase(uint networkIdentityId, uint userId, bool newUseEndGameDatabase)
+    {
         InternationalDraught.InternationalDraughtAIIdentity internationalDraughtAIIdentity = GetDataIdentity<InternationalDraught.InternationalDraughtAIIdentity>(networkIdentityId);
         if (internationalDraughtAIIdentity != null)
         {
@@ -2428,9 +2582,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdInternationalDraughtAIChangePickBestMove(uint networkIdentityId, uint userId, int newPickBestMove)
-	{
+    [Command]
+    public void CmdInternationalDraughtAIChangePickBestMove(uint networkIdentityId, uint userId, int newPickBestMove)
+    {
         InternationalDraught.InternationalDraughtAIIdentity internationalDraughtAIIdentity = GetDataIdentity<InternationalDraught.InternationalDraughtAIIdentity>(networkIdentityId);
         if (internationalDraughtAIIdentity != null)
         {
@@ -2442,13 +2596,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region EnglishDraught
+    #region EnglishDraught
 
-	[Command]
-	public void CmdEnglishDraughtAIChangeThreeMoveRandom(uint networkIdentityId, uint userId, bool newThreeMoveRandom)
-	{
+    [Command]
+    public void CmdEnglishDraughtAIChangeThreeMoveRandom(uint networkIdentityId, uint userId, bool newThreeMoveRandom)
+    {
         EnglishDraught.EnglishDraughtAIIdentity englishDraughtAIIdentity = GetDataIdentity<EnglishDraught.EnglishDraughtAIIdentity>(networkIdentityId);
         if (englishDraughtAIIdentity != null)
         {
@@ -2460,9 +2614,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdEnglishDraughtAIChangeFMaxSeconds(uint networkIdentityId, uint userId, float newFMaxSeconds)
-	{
+    [Command]
+    public void CmdEnglishDraughtAIChangeFMaxSeconds(uint networkIdentityId, uint userId, float newFMaxSeconds)
+    {
         EnglishDraught.EnglishDraughtAIIdentity englishDraughtAIIdentity = GetDataIdentity<EnglishDraught.EnglishDraughtAIIdentity>(networkIdentityId);
         if (englishDraughtAIIdentity != null)
         {
@@ -2474,9 +2628,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdEnglishDraughtAIChangeGMaxDepth(uint networkIdentityId, uint userId, int newGMaxDepth)
-	{
+    [Command]
+    public void CmdEnglishDraughtAIChangeGMaxDepth(uint networkIdentityId, uint userId, int newGMaxDepth)
+    {
         EnglishDraught.EnglishDraughtAIIdentity englishDraughtAIIdentity = GetDataIdentity<EnglishDraught.EnglishDraughtAIIdentity>(networkIdentityId);
         if (englishDraughtAIIdentity != null)
         {
@@ -2488,9 +2642,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdEnglishDraughtAIChangePickBestMove(uint networkIdentityId, uint userId, int newPickBestMove)
-	{
+    [Command]
+    public void CmdEnglishDraughtAIChangePickBestMove(uint networkIdentityId, uint userId, int newPickBestMove)
+    {
         EnglishDraught.EnglishDraughtAIIdentity englishDraughtAIIdentity = GetDataIdentity<EnglishDraught.EnglishDraughtAIIdentity>(networkIdentityId);
         if (englishDraughtAIIdentity != null)
         {
@@ -2502,13 +2656,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region RussianDraught
+    #region RussianDraught
 
-	[Command]
-	public void CmdRussianDraughtAIChangeTimeLimit(uint networkIdentityId, uint userId, int newTimeLimit)
-	{
+    [Command]
+    public void CmdRussianDraughtAIChangeTimeLimit(uint networkIdentityId, uint userId, int newTimeLimit)
+    {
         RussianDraught.RussianDraughtAIIdentity russianDraughtAIIdentity = GetDataIdentity<RussianDraught.RussianDraughtAIIdentity>(networkIdentityId);
         if (russianDraughtAIIdentity != null)
         {
@@ -2520,9 +2674,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdRussianDraughtAIChangePickBestMove(uint networkIdentityId, uint userId, int newPickBestMove)
-	{
+    [Command]
+    public void CmdRussianDraughtAIChangePickBestMove(uint networkIdentityId, uint userId, int newPickBestMove)
+    {
         RussianDraught.RussianDraughtAIIdentity russianDraughtAIIdentity = GetDataIdentity<RussianDraught.RussianDraughtAIIdentity>(networkIdentityId);
         if (russianDraughtAIIdentity != null)
         {
@@ -2613,8 +2767,8 @@ public class ClientConnectIdentity : NetworkBehaviour
     #region Reversi
 
     [Command]
-	public void CmdReversiAIChangeSort(uint networkIdentityId, uint userId, int newSort)
-	{
+    public void CmdReversiAIChangeSort(uint networkIdentityId, uint userId, int newSort)
+    {
         Reversi.ReversiAIIdentity reversiAIIdentity = GetDataIdentity<Reversi.ReversiAIIdentity>(networkIdentityId);
         if (reversiAIIdentity != null)
         {
@@ -2626,9 +2780,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdReversiAIChangeMin(uint networkIdentityId, uint userId, int newMin)
-	{
+    [Command]
+    public void CmdReversiAIChangeMin(uint networkIdentityId, uint userId, int newMin)
+    {
         Reversi.ReversiAIIdentity reversiAIIdentity = GetDataIdentity<Reversi.ReversiAIIdentity>(networkIdentityId);
         if (reversiAIIdentity != null)
         {
@@ -2640,9 +2794,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdReversiAIChangeMax(uint networkIdentityId, uint userId, int newMax)
-	{
+    [Command]
+    public void CmdReversiAIChangeMax(uint networkIdentityId, uint userId, int newMax)
+    {
         Reversi.ReversiAIIdentity reversiAIIdentity = GetDataIdentity<Reversi.ReversiAIIdentity>(networkIdentityId);
         if (reversiAIIdentity != null)
         {
@@ -2654,9 +2808,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdReversiAIChangeEnd(uint networkIdentityId, uint userId, int newEnd)
-	{
+    [Command]
+    public void CmdReversiAIChangeEnd(uint networkIdentityId, uint userId, int newEnd)
+    {
         Reversi.ReversiAIIdentity reversiAIIdentity = GetDataIdentity<Reversi.ReversiAIIdentity>(networkIdentityId);
         if (reversiAIIdentity != null)
         {
@@ -2668,9 +2822,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdReversiAIChangeMsLeft(uint networkIdentityId, uint userId, int newMsLeft)
-	{
+    [Command]
+    public void CmdReversiAIChangeMsLeft(uint networkIdentityId, uint userId, int newMsLeft)
+    {
         Reversi.ReversiAIIdentity reversiAIIdentity = GetDataIdentity<Reversi.ReversiAIIdentity>(networkIdentityId);
         if (reversiAIIdentity != null)
         {
@@ -2682,9 +2836,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdReversiAIChangeUseBook(uint networkIdentityId, uint userId, bool newUseBook)
-	{
+    [Command]
+    public void CmdReversiAIChangeUseBook(uint networkIdentityId, uint userId, bool newUseBook)
+    {
         Reversi.ReversiAIIdentity reversiAIIdentity = GetDataIdentity<Reversi.ReversiAIIdentity>(networkIdentityId);
         if (reversiAIIdentity != null)
         {
@@ -2696,9 +2850,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdReversiAIChangePercent(uint networkIdentityId, uint userId, int newPercent)
-	{
+    [Command]
+    public void CmdReversiAIChangePercent(uint networkIdentityId, uint userId, int newPercent)
+    {
         Reversi.ReversiAIIdentity reversiAIIdentity = GetDataIdentity<Reversi.ReversiAIIdentity>(networkIdentityId);
         if (reversiAIIdentity != null)
         {
@@ -2710,13 +2864,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region Shatranj
+    #region Shatranj
 
-	[Command]
-	public void CmdShatranjAIChangeDepth(uint networkIdentityId, uint userId, int newDepth)
-	{
+    [Command]
+    public void CmdShatranjAIChangeDepth(uint networkIdentityId, uint userId, int newDepth)
+    {
         Shatranj.ShatranjAIIdentity shatranjAIIdentity = GetDataIdentity<Shatranj.ShatranjAIIdentity>(networkIdentityId);
         if (shatranjAIIdentity != null)
         {
@@ -2728,9 +2882,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdShatranjAIChangeSkillLevel(uint networkIdentityId, uint userId, int newSkillLevel)
-	{
+    [Command]
+    public void CmdShatranjAIChangeSkillLevel(uint networkIdentityId, uint userId, int newSkillLevel)
+    {
         Shatranj.ShatranjAIIdentity shatranjAIIdentity = GetDataIdentity<Shatranj.ShatranjAIIdentity>(networkIdentityId);
         if (shatranjAIIdentity != null)
         {
@@ -2742,9 +2896,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdShatranjAIChangeDuration(uint networkIdentityId, uint userId, long newDuration)
-	{
+    [Command]
+    public void CmdShatranjAIChangeDuration(uint networkIdentityId, uint userId, long newDuration)
+    {
         Shatranj.ShatranjAIIdentity shatranjAIIdentity = GetDataIdentity<Shatranj.ShatranjAIIdentity>(networkIdentityId);
         if (shatranjAIIdentity != null)
         {
@@ -2756,13 +2910,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region Makruk
+    #region Makruk
 
-	[Command]
-	public void CmdMakrukAIChangeDepth(uint networkIdentityId, uint userId, int newDepth)
-	{
+    [Command]
+    public void CmdMakrukAIChangeDepth(uint networkIdentityId, uint userId, int newDepth)
+    {
         Makruk.MakrukAIIdentity makrukAIIdentity = GetDataIdentity<Makruk.MakrukAIIdentity>(networkIdentityId);
         if (makrukAIIdentity != null)
         {
@@ -2774,9 +2928,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdMakrukAIChangeSkillLevel(uint networkIdentityId, uint userId, int newSkillLevel)
-	{
+    [Command]
+    public void CmdMakrukAIChangeSkillLevel(uint networkIdentityId, uint userId, int newSkillLevel)
+    {
         Makruk.MakrukAIIdentity makrukAIIdentity = GetDataIdentity<Makruk.MakrukAIIdentity>(networkIdentityId);
         if (makrukAIIdentity != null)
         {
@@ -2788,9 +2942,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdMakrukAIChangeDuration(uint networkIdentityId, uint userId, long newDuration)
-	{
+    [Command]
+    public void CmdMakrukAIChangeDuration(uint networkIdentityId, uint userId, long newDuration)
+    {
         Makruk.MakrukAIIdentity makrukAIIdentity = GetDataIdentity<Makruk.MakrukAIIdentity>(networkIdentityId);
         if (makrukAIIdentity != null)
         {
@@ -2802,13 +2956,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region Seirawan
+    #region Seirawan
 
-	[Command]
-	public void CmdSeirawanAIChangeDepth(uint networkIdentityId, uint userId, int newDepth)
-	{
+    [Command]
+    public void CmdSeirawanAIChangeDepth(uint networkIdentityId, uint userId, int newDepth)
+    {
         Seirawan.SeirawanAIIdentity seirawanAIIdentity = GetDataIdentity<Seirawan.SeirawanAIIdentity>(networkIdentityId);
         if (seirawanAIIdentity != null)
         {
@@ -2820,9 +2974,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdSeirawanAIChangeSkillLevel(uint networkIdentityId, uint userId, int newSkillLevel)
-	{
+    [Command]
+    public void CmdSeirawanAIChangeSkillLevel(uint networkIdentityId, uint userId, int newSkillLevel)
+    {
         Seirawan.SeirawanAIIdentity seirawanAIIdentity = GetDataIdentity<Seirawan.SeirawanAIIdentity>(networkIdentityId);
         if (seirawanAIIdentity != null)
         {
@@ -2834,9 +2988,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdSeirawanAIChangeDuration(uint networkIdentityId, uint userId, long newDuration)
-	{
+    [Command]
+    public void CmdSeirawanAIChangeDuration(uint networkIdentityId, uint userId, long newDuration)
+    {
         Seirawan.SeirawanAIIdentity seirawanAIIdentity = GetDataIdentity<Seirawan.SeirawanAIIdentity>(networkIdentityId);
         if (seirawanAIIdentity != null)
         {
@@ -2848,13 +3002,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region Shogi
+    #region Shogi
 
-	[Command]
-	public void CmdShogiAIChangeDepth(uint networkIdentityId, uint userId, int newDepth)
-	{
+    [Command]
+    public void CmdShogiAIChangeDepth(uint networkIdentityId, uint userId, int newDepth)
+    {
         Shogi.ShogiAIIdentity shogiAIIdentity = GetDataIdentity<Shogi.ShogiAIIdentity>(networkIdentityId);
         if (shogiAIIdentity != null)
         {
@@ -2866,9 +3020,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdShogiAIChangeSkillLevel(uint networkIdentityId, uint userId, int newSkillLevel)
-	{
+    [Command]
+    public void CmdShogiAIChangeSkillLevel(uint networkIdentityId, uint userId, int newSkillLevel)
+    {
         Shogi.ShogiAIIdentity shogiAIIdentity = GetDataIdentity<Shogi.ShogiAIIdentity>(networkIdentityId);
         if (shogiAIIdentity != null)
         {
@@ -2880,9 +3034,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdShogiAIChangeMr(uint networkIdentityId, uint userId, int newMr)
-	{
+    [Command]
+    public void CmdShogiAIChangeMr(uint networkIdentityId, uint userId, int newMr)
+    {
         Shogi.ShogiAIIdentity shogiAIIdentity = GetDataIdentity<Shogi.ShogiAIIdentity>(networkIdentityId);
         if (shogiAIIdentity != null)
         {
@@ -2892,11 +3046,11 @@ public class ClientConnectIdentity : NetworkBehaviour
         {
             Debug.LogError("identity null: " + this);
         }
-    } 
+    }
 
-	[Command]
-	public void CmdShogiAIChangeDuration(uint networkIdentityId, uint userId, int newDuration)
-	{
+    [Command]
+    public void CmdShogiAIChangeDuration(uint networkIdentityId, uint userId, int newDuration)
+    {
         Shogi.ShogiAIIdentity shogiAIIdentity = GetDataIdentity<Shogi.ShogiAIIdentity>(networkIdentityId);
         if (shogiAIIdentity != null)
         {
@@ -2908,9 +3062,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdShogiAIChangeUseBook(uint networkIdentityId, uint userId, bool newUseBook)
-	{
+    [Command]
+    public void CmdShogiAIChangeUseBook(uint networkIdentityId, uint userId, bool newUseBook)
+    {
         Shogi.ShogiAIIdentity shogiAIIdentity = GetDataIdentity<Shogi.ShogiAIIdentity>(networkIdentityId);
         if (shogiAIIdentity != null)
         {
@@ -2922,13 +3076,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region weiqi
+    #region weiqi
 
-	[Command]
-	public void CmdWeiqiAIChangeCanResign(uint networkIdentityId, uint userId, bool newCanResign)
-	{
+    [Command]
+    public void CmdWeiqiAIChangeCanResign(uint networkIdentityId, uint userId, bool newCanResign)
+    {
         Weiqi.WeiqiAIIdentity weiqiAIIdentity = GetDataIdentity<Weiqi.WeiqiAIIdentity>(networkIdentityId);
         if (weiqiAIIdentity != null)
         {
@@ -2940,9 +3094,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdWeiqiAIChangeUseBook(uint networkIdentityId, uint userId, bool newUseBook)
-	{
+    [Command]
+    public void CmdWeiqiAIChangeUseBook(uint networkIdentityId, uint userId, bool newUseBook)
+    {
         Weiqi.WeiqiAIIdentity weiqiAIIdentity = GetDataIdentity<Weiqi.WeiqiAIIdentity>(networkIdentityId);
         if (weiqiAIIdentity != null)
         {
@@ -2954,9 +3108,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdWeiqiAIChangeTime(uint networkIdentityId, uint userId, int newTime)
-	{
+    [Command]
+    public void CmdWeiqiAIChangeTime(uint networkIdentityId, uint userId, int newTime)
+    {
         Weiqi.WeiqiAIIdentity weiqiAIIdentity = GetDataIdentity<Weiqi.WeiqiAIIdentity>(networkIdentityId);
         if (weiqiAIIdentity != null)
         {
@@ -2968,9 +3122,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdWeiqiAIChangeGames(uint networkIdentityId, uint userId, int newGames)
-	{
+    [Command]
+    public void CmdWeiqiAIChangeGames(uint networkIdentityId, uint userId, int newGames)
+    {
         Weiqi.WeiqiAIIdentity weiqiAIIdentity = GetDataIdentity<Weiqi.WeiqiAIIdentity>(networkIdentityId);
         if (weiqiAIIdentity != null)
         {
@@ -2982,9 +3136,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdWeiqiAIChangeEngine(uint networkIdentityId, uint userId, int newEngine)
-	{
+    [Command]
+    public void CmdWeiqiAIChangeEngine(uint networkIdentityId, uint userId, int newEngine)
+    {
         Weiqi.WeiqiAIIdentity weiqiAIIdentity = GetDataIdentity<Weiqi.WeiqiAIIdentity>(networkIdentityId);
         if (weiqiAIIdentity != null)
         {
@@ -2996,13 +3150,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region Xiangqi
+    #region Xiangqi
 
-	[Command]
-	public void CmdXiangqiAIChangeDepth(uint networkIdentityId, uint userId, int newDepth)
-	{
+    [Command]
+    public void CmdXiangqiAIChangeDepth(uint networkIdentityId, uint userId, int newDepth)
+    {
         Xiangqi.XiangqiAIIdentity xiangqiAIIdentity = GetDataIdentity<Xiangqi.XiangqiAIIdentity>(networkIdentityId);
         if (xiangqiAIIdentity != null)
         {
@@ -3014,9 +3168,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdXiangqiAIChangeThinkTime(uint networkIdentityId, uint userId, int newThinkTime)
-	{
+    [Command]
+    public void CmdXiangqiAIChangeThinkTime(uint networkIdentityId, uint userId, int newThinkTime)
+    {
         Xiangqi.XiangqiAIIdentity xiangqiAIIdentity = GetDataIdentity<Xiangqi.XiangqiAIIdentity>(networkIdentityId);
         if (xiangqiAIIdentity != null)
         {
@@ -3028,9 +3182,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdXiangqiAIChangeUseBook(uint networkIdentityId, uint userId, bool newUseBook)
-	{
+    [Command]
+    public void CmdXiangqiAIChangeUseBook(uint networkIdentityId, uint userId, bool newUseBook)
+    {
         Xiangqi.XiangqiAIIdentity xiangqiAIIdentity = GetDataIdentity<Xiangqi.XiangqiAIIdentity>(networkIdentityId);
         if (xiangqiAIIdentity != null)
         {
@@ -3042,9 +3196,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdXiangqiAIChangePickBestMove(uint networkIdentityId, uint userId, int newPickBestMove)
-	{
+    [Command]
+    public void CmdXiangqiAIChangePickBestMove(uint networkIdentityId, uint userId, int newPickBestMove)
+    {
         Xiangqi.XiangqiAIIdentity xiangqiAIIdentity = GetDataIdentity<Xiangqi.XiangqiAIIdentity>(networkIdentityId);
         if (xiangqiAIIdentity != null)
         {
@@ -3056,13 +3210,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region MineSweeper
+    #region MineSweeper
 
-	[Command]
-	public void CmdMineSweeperAIChangeFirstMoveType(uint networkIdentityId, uint userId, int newFirstMoveType)
-	{
+    [Command]
+    public void CmdMineSweeperAIChangeFirstMoveType(uint networkIdentityId, uint userId, int newFirstMoveType)
+    {
         MineSweeper.MineSweeperAIIdentity mineSweeperAIIdentity = GetDataIdentity<MineSweeper.MineSweeperAIIdentity>(networkIdentityId);
         if (mineSweeperAIIdentity != null)
         {
@@ -3074,13 +3228,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region Hex
+    #region Hex
 
-	[Command]
-	public void CmdHexAIChangeLimitTime(uint networkIdentityId, uint userId, int newLimitTime)
-	{
+    [Command]
+    public void CmdHexAIChangeLimitTime(uint networkIdentityId, uint userId, int newLimitTime)
+    {
         HEX.HexAIIdentity hexAIIdentity = GetDataIdentity<HEX.HexAIIdentity>(networkIdentityId);
         if (hexAIIdentity != null)
         {
@@ -3092,9 +3246,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdHexAIChangeFirstMoveCenter(uint networkIdentityId, uint userId, bool newFirstMoveCenter)
-	{
+    [Command]
+    public void CmdHexAIChangeFirstMoveCenter(uint networkIdentityId, uint userId, bool newFirstMoveCenter)
+    {
         HEX.HexAIIdentity hexAIIdentity = GetDataIdentity<HEX.HexAIIdentity>(networkIdentityId);
         if (hexAIIdentity != null)
         {
@@ -3106,13 +3260,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region Solitaire
+    #region Solitaire
 
-	[Command]
-	public void CmdSolitaireAIChangeMultiThreaded(uint networkIdentityId, uint userId, int newMultiThreaded)
-	{
+    [Command]
+    public void CmdSolitaireAIChangeMultiThreaded(uint networkIdentityId, uint userId, int newMultiThreaded)
+    {
         Solitaire.SolitaireAIIdentity solitaireAIIdentity = GetDataIdentity<Solitaire.SolitaireAIIdentity>(networkIdentityId);
         if (solitaireAIIdentity != null)
         {
@@ -3124,9 +3278,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdSolitaireAIChangeMaxClosedCount(uint networkIdentityId, uint userId, int newMaxClosedCount)
-	{
+    [Command]
+    public void CmdSolitaireAIChangeMaxClosedCount(uint networkIdentityId, uint userId, int newMaxClosedCount)
+    {
         Solitaire.SolitaireAIIdentity solitaireAIIdentity = GetDataIdentity<Solitaire.SolitaireAIIdentity>(networkIdentityId);
         if (solitaireAIIdentity != null)
         {
@@ -3138,9 +3292,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdSolitaireAIChangeFastMode(uint networkIdentityId, uint userId, bool newFastMode)
-	{
+    [Command]
+    public void CmdSolitaireAIChangeFastMode(uint networkIdentityId, uint userId, bool newFastMode)
+    {
         Solitaire.SolitaireAIIdentity solitaireAIIdentity = GetDataIdentity<Solitaire.SolitaireAIIdentity>(networkIdentityId);
         if (solitaireAIIdentity != null)
         {
@@ -3152,13 +3306,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region Khet
+    #region Khet
 
-	[Command]
-	public void CmdKhetAIChangeInfinite(uint networkIdentityId, uint userId, bool newInfinite)
-	{
+    [Command]
+    public void CmdKhetAIChangeInfinite(uint networkIdentityId, uint userId, bool newInfinite)
+    {
         Khet.KhetAIIdentity khetAIIdentity = GetDataIdentity<Khet.KhetAIIdentity>(networkIdentityId);
         if (khetAIIdentity != null)
         {
@@ -3170,9 +3324,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdKhetAIChangeMoveTime(uint networkIdentityId, uint userId, int newMoveTime)
-	{
+    [Command]
+    public void CmdKhetAIChangeMoveTime(uint networkIdentityId, uint userId, int newMoveTime)
+    {
         Khet.KhetAIIdentity khetAIIdentity = GetDataIdentity<Khet.KhetAIIdentity>(networkIdentityId);
         if (khetAIIdentity != null)
         {
@@ -3184,9 +3338,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdKhetAIChangeDepth(uint networkIdentityId, uint userId, int newDepth)
-	{
+    [Command]
+    public void CmdKhetAIChangeDepth(uint networkIdentityId, uint userId, int newDepth)
+    {
         Khet.KhetAIIdentity khetAIIdentity = GetDataIdentity<Khet.KhetAIIdentity>(networkIdentityId);
         if (khetAIIdentity != null)
         {
@@ -3198,9 +3352,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdKhetAIChangePickBestMove(uint networkIdentityId, uint userId, int newPickBestMove)
-	{
+    [Command]
+    public void CmdKhetAIChangePickBestMove(uint networkIdentityId, uint userId, int newPickBestMove)
+    {
         Khet.KhetAIIdentity khetAIIdentity = GetDataIdentity<Khet.KhetAIIdentity>(networkIdentityId);
         if (khetAIIdentity != null)
         {
@@ -3212,13 +3366,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region Janggi
+    #region Janggi
 
-	[Command]
-	public void CmdJanggiAIChangeMaxVisitCount(uint networkIdentityId, uint userId, int newMaxVisitCount)
-	{
+    [Command]
+    public void CmdJanggiAIChangeMaxVisitCount(uint networkIdentityId, uint userId, int newMaxVisitCount)
+    {
         Janggi.JanggiAIIdentity janggiAIIdentity = GetDataIdentity<Janggi.JanggiAIIdentity>(networkIdentityId);
         if (janggiAIIdentity != null)
         {
@@ -3230,13 +3384,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region Banqi
+    #region Banqi
 
-	[Command]
-	public void CmdBanqiAIChangeDepth (uint networkIdentityId, uint userId, int newDepth)
-	{
+    [Command]
+    public void CmdBanqiAIChangeDepth(uint networkIdentityId, uint userId, int newDepth)
+    {
         Banqi.BanqiAIIdentity banqiAIIdentity = GetDataIdentity<Banqi.BanqiAIIdentity>(networkIdentityId);
         if (banqiAIIdentity != null)
         {
@@ -3248,13 +3402,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region NineMenMorris
+    #region NineMenMorris
 
-	[Command]
-	public void CmdNineMenMorrisAIChangeMaxNormal (uint networkIdentityId, uint userId, int newMaxNormal)
-	{
+    [Command]
+    public void CmdNineMenMorrisAIChangeMaxNormal(uint networkIdentityId, uint userId, int newMaxNormal)
+    {
         NineMenMorris.NineMenMorrisAIIdentity nineMenMorrisAIIdentity = GetDataIdentity<NineMenMorris.NineMenMorrisAIIdentity>(networkIdentityId);
         if (nineMenMorrisAIIdentity != null)
         {
@@ -3266,9 +3420,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdNineMenMorrisAIChangeMaxPositioning (uint networkIdentityId, uint userId, int newMaxPositioning)
-	{
+    [Command]
+    public void CmdNineMenMorrisAIChangeMaxPositioning(uint networkIdentityId, uint userId, int newMaxPositioning)
+    {
         NineMenMorris.NineMenMorrisAIIdentity nineMenMorrisAIIdentity = GetDataIdentity<NineMenMorris.NineMenMorrisAIIdentity>(networkIdentityId);
         if (nineMenMorrisAIIdentity != null)
         {
@@ -3280,9 +3434,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdNineMenMorrisAIChangeMaxBlackAndWhite3 (uint networkIdentityId, uint userId, int newMaxBlackAndWhite3)
-	{
+    [Command]
+    public void CmdNineMenMorrisAIChangeMaxBlackAndWhite3(uint networkIdentityId, uint userId, int newMaxBlackAndWhite3)
+    {
         NineMenMorris.NineMenMorrisAIIdentity nineMenMorrisAIIdentity = GetDataIdentity<NineMenMorris.NineMenMorrisAIIdentity>(networkIdentityId);
         if (nineMenMorrisAIIdentity != null)
         {
@@ -3294,9 +3448,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdNineMenMorrisAIChangeMaxBlackOrWhite3 (uint networkIdentityId, uint userId, int newMaxBlackOrWhite3)
-	{
+    [Command]
+    public void CmdNineMenMorrisAIChangeMaxBlackOrWhite3(uint networkIdentityId, uint userId, int newMaxBlackOrWhite3)
+    {
         NineMenMorris.NineMenMorrisAIIdentity nineMenMorrisAIIdentity = GetDataIdentity<NineMenMorris.NineMenMorrisAIIdentity>(networkIdentityId);
         if (nineMenMorrisAIIdentity != null)
         {
@@ -3308,9 +3462,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdNineMenMorrisAIChangePickBestMove (uint networkIdentityId, uint userId, int newPickBestMove)
-	{
+    [Command]
+    public void CmdNineMenMorrisAIChangePickBestMove(uint networkIdentityId, uint userId, int newPickBestMove)
+    {
         NineMenMorris.NineMenMorrisAIIdentity nineMenMorrisAIIdentity = GetDataIdentity<NineMenMorris.NineMenMorrisAIIdentity>(networkIdentityId);
         if (nineMenMorrisAIIdentity != null)
         {
@@ -3322,13 +3476,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region Computer
+    #region Computer
 
-	[Command]
-	public void CmdComputerChangeName(uint networkIdentityId, uint userId, string newName)
-	{
+    [Command]
+    public void CmdComputerChangeName(uint networkIdentityId, uint userId, string newName)
+    {
         ComputerIdentity computerIdentity = GetDataIdentity<ComputerIdentity>(networkIdentityId);
         if (computerIdentity != null)
         {
@@ -3340,9 +3494,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdComputerChangeAvatarUrl(uint networkIdentityId, uint userId, string newAvatarUrl)
-	{
+    [Command]
+    public void CmdComputerChangeAvatarUrl(uint networkIdentityId, uint userId, string newAvatarUrl)
+    {
         ComputerIdentity computerIdentity = GetDataIdentity<ComputerIdentity>(networkIdentityId);
         if (computerIdentity != null)
         {
@@ -3354,15 +3508,15 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	///////////////////////////////////////////////////////////////////////////////
-	/////////////////////// Rights //////////////////////
-	///////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////
+    /////////////////////// Rights //////////////////////
+    ///////////////////////////////////////////////////////////////////////////////
 
-	[Command]
-	public void CmdRightsHaveLimitChangeLimit(uint networkIdentityId, uint userId, int newLimit)
-	{
+    [Command]
+    public void CmdRightsHaveLimitChangeLimit(uint networkIdentityId, uint userId, int newLimit)
+    {
         Rights.HaveLimitIdentity haveLimitIdentity = GetDataIdentity<Rights.HaveLimitIdentity>(networkIdentityId);
         if (haveLimitIdentity != null)
         {
@@ -3374,11 +3528,11 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#region UndoRedoRight
+    #region UndoRedoRight
 
-	[Command]
-	public void CmdUndoRedoRightChangeNeedAccept(uint networkIdentityId, uint userId, bool newNeedAccept)
-	{
+    [Command]
+    public void CmdUndoRedoRightChangeNeedAccept(uint networkIdentityId, uint userId, bool newNeedAccept)
+    {
         Rights.UndoRedoRightIdentity undoRedoRightIdentity = GetDataIdentity<Rights.UndoRedoRightIdentity>(networkIdentityId);
         if (undoRedoRightIdentity != null)
         {
@@ -3390,9 +3544,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdUndoRedoRightChangeNeedAdmin(uint networkIdentityId, uint userId, bool newNeedAdmin)
-	{
+    [Command]
+    public void CmdUndoRedoRightChangeNeedAdmin(uint networkIdentityId, uint userId, bool newNeedAdmin)
+    {
         Rights.UndoRedoRightIdentity undoRedoRightIdentity = GetDataIdentity<Rights.UndoRedoRightIdentity>(networkIdentityId);
         if (undoRedoRightIdentity != null)
         {
@@ -3404,9 +3558,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdUndoRedoRightChangeLimitType(uint networkIdentityId, uint userId, int newLimitType)
-	{
+    [Command]
+    public void CmdUndoRedoRightChangeLimitType(uint networkIdentityId, uint userId, int newLimitType)
+    {
         Rights.UndoRedoRightIdentity undoRedoRightIdentity = GetDataIdentity<Rights.UndoRedoRightIdentity>(networkIdentityId);
         if (undoRedoRightIdentity != null)
         {
@@ -3418,13 +3572,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region changeGamePlayerRight
+    #region changeGamePlayerRight
 
-	[Command]
-	public void CmdChangeGamePlayerRightChangeCanChange(uint networkIdentityId, uint userId, bool newCanChange)
-	{
+    [Command]
+    public void CmdChangeGamePlayerRightChangeCanChange(uint networkIdentityId, uint userId, bool newCanChange)
+    {
         GameManager.Match.Swap.ChangeGamePlayerRightIdentity changeGamePlayerRightIdentity = GetDataIdentity<GameManager.Match.Swap.ChangeGamePlayerRightIdentity>(networkIdentityId);
         if (changeGamePlayerRightIdentity != null)
         {
@@ -3436,9 +3590,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdChangeGamePlayerRightChangeCanChangePlayerLeft(uint networkIdentityId, uint userId, bool newCanChangePlayerLeft)
-	{
+    [Command]
+    public void CmdChangeGamePlayerRightChangeCanChangePlayerLeft(uint networkIdentityId, uint userId, bool newCanChangePlayerLeft)
+    {
         GameManager.Match.Swap.ChangeGamePlayerRightIdentity changeGamePlayerRightIdentity = GetDataIdentity<GameManager.Match.Swap.ChangeGamePlayerRightIdentity>(networkIdentityId);
         if (changeGamePlayerRightIdentity != null)
         {
@@ -3450,9 +3604,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdChangeGamePlayerRightChangeNeedAdminAccept(uint networkIdentityId, uint userId, bool newNeedAdminAccept)
-	{
+    [Command]
+    public void CmdChangeGamePlayerRightChangeNeedAdminAccept(uint networkIdentityId, uint userId, bool newNeedAdminAccept)
+    {
         GameManager.Match.Swap.ChangeGamePlayerRightIdentity changeGamePlayerRightIdentity = GetDataIdentity<GameManager.Match.Swap.ChangeGamePlayerRightIdentity>(networkIdentityId);
         if (changeGamePlayerRightIdentity != null)
         {
@@ -3464,9 +3618,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdChangeGamePlayerRightChangeOnlyAdminNeed(uint networkIdentityId, uint userId, bool newOnlyAdminNeed)
-	{
+    [Command]
+    public void CmdChangeGamePlayerRightChangeOnlyAdminNeed(uint networkIdentityId, uint userId, bool newOnlyAdminNeed)
+    {
         GameManager.Match.Swap.ChangeGamePlayerRightIdentity changeGamePlayerRightIdentity = GetDataIdentity<GameManager.Match.Swap.ChangeGamePlayerRightIdentity>(networkIdentityId);
         if (changeGamePlayerRightIdentity != null)
         {
@@ -3478,17 +3632,17 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	///////////////////////////////////////////////////////////////////////////////
-	/////////////////////// Contest //////////////////////
-	///////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////
+    /////////////////////// Contest //////////////////////
+    ///////////////////////////////////////////////////////////////////////////////
 
-	#region SingleContestFactory
+    #region SingleContestFactory
 
-	[Command]
-	public void CmdSingleContestFactoryChangePlayerPerTeam(uint networkIdentityId, uint userId, int newPlayerPerTeam)
-	{
+    [Command]
+    public void CmdSingleContestFactoryChangePlayerPerTeam(uint networkIdentityId, uint userId, int newPlayerPerTeam)
+    {
         SingleContestFactoryIdentity singleContestFactoryIdentity = GetDataIdentity<SingleContestFactoryIdentity>(networkIdentityId);
         if (singleContestFactoryIdentity != null)
         {
@@ -3500,9 +3654,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdSingleContestFactoryChangeRoundFactoryType(uint networkIdentityId, uint userId, int newRoundFactoryType)
-	{
+    [Command]
+    public void CmdSingleContestFactoryChangeRoundFactoryType(uint networkIdentityId, uint userId, int newRoundFactoryType)
+    {
         SingleContestFactoryIdentity singleContestFactoryIdentity = GetDataIdentity<SingleContestFactoryIdentity>(networkIdentityId);
         if (singleContestFactoryIdentity != null)
         {
@@ -3514,9 +3668,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdSingleContestFactoryChangeNewRoundLimitType(uint networkIdentityId, uint userId, int newRoundLimitType)
-	{
+    [Command]
+    public void CmdSingleContestFactoryChangeNewRoundLimitType(uint networkIdentityId, uint userId, int newRoundLimitType)
+    {
         SingleContestFactoryIdentity singleContestFactoryIdentity = GetDataIdentity<SingleContestFactoryIdentity>(networkIdentityId);
         if (singleContestFactoryIdentity != null)
         {
@@ -3528,9 +3682,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdSingleContestFactoryChangeCalculateScoreType(uint networkIdentityId, uint userId, int newCalculateScoreType)
-	{
+    [Command]
+    public void CmdSingleContestFactoryChangeCalculateScoreType(uint networkIdentityId, uint userId, int newCalculateScoreType)
+    {
         SingleContestFactoryIdentity singleContestFactoryIdentity = GetDataIdentity<SingleContestFactoryIdentity>(networkIdentityId);
         if (singleContestFactoryIdentity != null)
         {
@@ -3542,17 +3696,17 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	///////////////////////////////////////////////////////////////////////////////
-	/////////////////////// Request New Round //////////////////////
-	///////////////////////////////////////////////////////////////////////////////
-	 
-	#region haveLimit
+    ///////////////////////////////////////////////////////////////////////////////
+    /////////////////////// Request New Round //////////////////////
+    ///////////////////////////////////////////////////////////////////////////////
 
-	[Command]
-	public void CmdRequestNewRoundHaveLimitChangeMaxRound(uint networkIdentityId, uint userId, int newMaxRound)
-	{
+    #region haveLimit
+
+    [Command]
+    public void CmdRequestNewRoundHaveLimitChangeMaxRound(uint networkIdentityId, uint userId, int newMaxRound)
+    {
         RequestNewRoundHaveLimitIdentity requestNewRoundHaveLimitIdentity = GetDataIdentity<RequestNewRoundHaveLimitIdentity>(networkIdentityId);
         if (requestNewRoundHaveLimitIdentity != null)
         {
@@ -3564,9 +3718,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdRequestNewRoundHaveLimitChangeEnoughScoreStop(uint networkIdentityId, uint userId, bool newEnoughScoreStop)
-	{
+    [Command]
+    public void CmdRequestNewRoundHaveLimitChangeEnoughScoreStop(uint networkIdentityId, uint userId, bool newEnoughScoreStop)
+    {
         RequestNewRoundHaveLimitIdentity requestNewRoundHaveLimitIdentity = GetDataIdentity<RequestNewRoundHaveLimitIdentity>(networkIdentityId);
         if (requestNewRoundHaveLimitIdentity != null)
         {
@@ -3578,13 +3732,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region noLimit
+    #region noLimit
 
-	[Command]
-	public void CmdRequestNewRoundNoLimitChangeIsStopMakeMoreRound(uint networkIdentityId, uint userId, bool newIsStopMakeMoreRound)
-	{
+    [Command]
+    public void CmdRequestNewRoundNoLimitChangeIsStopMakeMoreRound(uint networkIdentityId, uint userId, bool newIsStopMakeMoreRound)
+    {
         RequestNewRoundNoLimitIdentity requestNewRoundNoLimitIdentity = GetDataIdentity<RequestNewRoundNoLimitIdentity>(networkIdentityId);
         if (requestNewRoundNoLimitIdentity != null)
         {
@@ -3596,13 +3750,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region StateAsk
+    #region StateAsk
 
-	[Command]
-	public void CmdRequestNewRoundStateAskAccept(uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdRequestNewRoundStateAskAccept(uint networkIdentityId, uint userId)
+    {
         RequestNewRoundStateAskIdentity requestNewRoundStateAskIdentity = GetDataIdentity<RequestNewRoundStateAskIdentity>(networkIdentityId);
         if (requestNewRoundStateAskIdentity != null)
         {
@@ -3614,9 +3768,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdRequestNewRoundStateAskCancel(uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdRequestNewRoundStateAskCancel(uint networkIdentityId, uint userId)
+    {
         RequestNewRoundStateAskIdentity requestNewRoundStateAskIdentity = GetDataIdentity<RequestNewRoundStateAskIdentity>(networkIdentityId);
         if (requestNewRoundStateAskIdentity != null)
         {
@@ -3628,15 +3782,15 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	///////////////////////////////////////////////////////////////////////////////
-	/////////////////////// Normal Round Factory //////////////////////
-	///////////////////////////////////////////////////////////////////////////////
-	 
-	[Command]
-	public void CmdNormalRoundFactoryChangeIsChangeSideBetweenRound(uint networkIdentityId, uint userId, bool newIsChangeSideBetweenRound)
-	{
+    ///////////////////////////////////////////////////////////////////////////////
+    /////////////////////// Normal Round Factory //////////////////////
+    ///////////////////////////////////////////////////////////////////////////////
+
+    [Command]
+    public void CmdNormalRoundFactoryChangeIsChangeSideBetweenRound(uint networkIdentityId, uint userId, bool newIsChangeSideBetweenRound)
+    {
         NormalRoundFactoryIdentity normalRoundFactoryIdentity = GetDataIdentity<NormalRoundFactoryIdentity>(networkIdentityId);
         if (normalRoundFactoryIdentity != null)
         {
@@ -3648,9 +3802,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdNormalRoundFactoryChangeIsSwitchPlayer(uint networkIdentityId, uint userId, bool newIsSwitchPlayer)
-	{
+    [Command]
+    public void CmdNormalRoundFactoryChangeIsSwitchPlayer(uint networkIdentityId, uint userId, bool newIsSwitchPlayer)
+    {
         NormalRoundFactoryIdentity normalRoundFactoryIdentity = GetDataIdentity<NormalRoundFactoryIdentity>(networkIdentityId);
         if (normalRoundFactoryIdentity != null)
         {
@@ -3662,9 +3816,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdNormalRoundFactoryChangeIsDifferentInTeam(uint networkIdentityId, uint userId, bool newIsDifferentInTeam)
-	{
+    [Command]
+    public void CmdNormalRoundFactoryChangeIsDifferentInTeam(uint networkIdentityId, uint userId, bool newIsDifferentInTeam)
+    {
         NormalRoundFactoryIdentity normalRoundFactoryIdentity = GetDataIdentity<NormalRoundFactoryIdentity>(networkIdentityId);
         if (normalRoundFactoryIdentity != null)
         {
@@ -3676,9 +3830,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdNormalRoundFactoryChangeCalculateScoreType(uint networkIdentityId, uint userId, int newCalculateScoreType)
-	{
+    [Command]
+    public void CmdNormalRoundFactoryChangeCalculateScoreType(uint networkIdentityId, uint userId, int newCalculateScoreType)
+    {
         NormalRoundFactoryIdentity normalRoundFactoryIdentity = GetDataIdentity<NormalRoundFactoryIdentity>(networkIdentityId);
         if (normalRoundFactoryIdentity != null)
         {
@@ -3690,13 +3844,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	///////////////////////////////////////////////////////////////////////////////
-	/////////////////////// Lobby //////////////////////
-	///////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////
+    /////////////////////// Lobby //////////////////////
+    ///////////////////////////////////////////////////////////////////////////////
 
-	[Command]
-	public void CmdContestManagerStateLobbyChangeRandomTeamIndex(uint networkIdentityId, uint userId, bool newRandomTeamIndex)
-	{
+    [Command]
+    public void CmdContestManagerStateLobbyChangeRandomTeamIndex(uint networkIdentityId, uint userId, bool newRandomTeamIndex)
+    {
         ContestManagerStateLobbyIdentity contestManagerStateLobbyIdentity = GetDataIdentity<ContestManagerStateLobbyIdentity>(networkIdentityId);
         if (contestManagerStateLobbyIdentity != null)
         {
@@ -3708,9 +3862,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdContestManagerStateLobbyChangeContentFactoryType(uint networkIdentityId, uint userId, int newContentFactoryType)
-	{
+    [Command]
+    public void CmdContestManagerStateLobbyChangeContentFactoryType(uint networkIdentityId, uint userId, int newContentFactoryType)
+    {
         ContestManagerStateLobbyIdentity contestManagerStateLobbyIdentity = GetDataIdentity<ContestManagerStateLobbyIdentity>(networkIdentityId);
         if (contestManagerStateLobbyIdentity != null)
         {
@@ -3722,9 +3876,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdContestManagerStateLobbyStateNormalStart(uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdContestManagerStateLobbyStateNormalStart(uint networkIdentityId, uint userId)
+    {
         GameManager.Match.Lobby.StateNormalIdentity startNormalIdentity = GetDataIdentity<GameManager.Match.Lobby.StateNormalIdentity>(networkIdentityId);
         if (startNormalIdentity != null)
         {
@@ -3736,11 +3890,11 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#region lobbyPlayer
+    #region lobbyPlayer
 
-	[Command]
-	public void CmdLobbyPlayerSetReady(uint networkIdentityId, uint userId, bool newReady)
-	{
+    [Command]
+    public void CmdLobbyPlayerSetReady(uint networkIdentityId, uint userId, bool newReady)
+    {
         LobbyPlayerIdentity lobbyPlayerIdentity = GetDataIdentity<LobbyPlayerIdentity>(networkIdentityId);
         if (lobbyPlayerIdentity != null)
         {
@@ -3752,9 +3906,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdLobbyPlayerAdminChangeHuman(uint networkIdentityId, uint userId, uint humanId)
-	{
+    [Command]
+    public void CmdLobbyPlayerAdminChangeHuman(uint networkIdentityId, uint userId, uint humanId)
+    {
         LobbyPlayerIdentity lobbyPlayerIdentity = GetDataIdentity<LobbyPlayerIdentity>(networkIdentityId);
         if (lobbyPlayerIdentity != null)
         {
@@ -3766,9 +3920,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdLobbyPlayerAdminChangeEmpty(uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdLobbyPlayerAdminChangeEmpty(uint networkIdentityId, uint userId)
+    {
         LobbyPlayerIdentity lobbyPlayerIdentity = GetDataIdentity<LobbyPlayerIdentity>(networkIdentityId);
         if (lobbyPlayerIdentity != null)
         {
@@ -3780,9 +3934,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdLobbyPlayerAdminChangeComputer(uint networkIdentityId, uint userId, string strComputer)
-	{
+    [Command]
+    public void CmdLobbyPlayerAdminChangeComputer(uint networkIdentityId, uint userId, string strComputer)
+    {
         LobbyPlayerIdentity lobbyPlayerIdentity = GetDataIdentity<LobbyPlayerIdentity>(networkIdentityId);
         if (lobbyPlayerIdentity != null)
         {
@@ -3802,9 +3956,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdLobbyPlayerNormalSet(uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdLobbyPlayerNormalSet(uint networkIdentityId, uint userId)
+    {
         LobbyPlayerIdentity lobbyPlayerIdentity = GetDataIdentity<LobbyPlayerIdentity>(networkIdentityId);
         if (lobbyPlayerIdentity != null)
         {
@@ -3816,9 +3970,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdLobbyPlayerIdentityNormalEmpty(uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdLobbyPlayerIdentityNormalEmpty(uint networkIdentityId, uint userId)
+    {
         LobbyPlayerIdentity lobbyPlayerIdentity = GetDataIdentity<LobbyPlayerIdentity>(networkIdentityId);
         if (lobbyPlayerIdentity != null)
         {
@@ -3830,15 +3984,15 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	///////////////////////////////////////////////////////////////////////////////
-	/////////////////////// Play //////////////////////
-	///////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////
+    /////////////////////// Play //////////////////////
+    ///////////////////////////////////////////////////////////////////////////////
 
-	[Command]
-	public void CmdContestManagerStatePlayChangeIsForceEnd (uint networkIdentityId, uint userId, bool newIsForceEnd)
-	{
+    [Command]
+    public void CmdContestManagerStatePlayChangeIsForceEnd(uint networkIdentityId, uint userId, bool newIsForceEnd)
+    {
         ContestManagerStatePlayIdentity contestManagerStatePlayIdentity = GetDataIdentity<ContestManagerStatePlayIdentity>(networkIdentityId);
         if (contestManagerStatePlayIdentity != null)
         {
@@ -3850,11 +4004,11 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#region requestNewContestManagerStateAsk
+    #region requestNewContestManagerStateAsk
 
-	[Command]
-	public void CmdRequestNewContestManagerStateAskAccept (uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdRequestNewContestManagerStateAskAccept(uint networkIdentityId, uint userId)
+    {
         RequestNewContestManagerStateAskIdentity requestNewContestManagerStateAskIdentity = GetDataIdentity<RequestNewContestManagerStateAskIdentity>(networkIdentityId);
         if (requestNewContestManagerStateAskIdentity != null)
         {
@@ -3866,9 +4020,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdRequestNewContestManagerStateAskCancel (uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdRequestNewContestManagerStateAskCancel(uint networkIdentityId, uint userId)
+    {
         RequestNewContestManagerStateAskIdentity requestNewContestManagerStateAskIdentity = GetDataIdentity<RequestNewContestManagerStateAskIdentity>(networkIdentityId);
         if (requestNewContestManagerStateAskIdentity != null)
         {
@@ -3880,13 +4034,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region Calculate Score
+    #region Calculate Score
 
-	[Command]
-	public void CmdCalculateScoreWinLoseDrawChangeWinScore (uint networkIdentityId, uint userId, float newWinScore)
-	{
+    [Command]
+    public void CmdCalculateScoreWinLoseDrawChangeWinScore(uint networkIdentityId, uint userId, float newWinScore)
+    {
         CalculateScoreWinLoseDrawIdentity calculateScoreWinLoseDrawIdentity = GetDataIdentity<CalculateScoreWinLoseDrawIdentity>(networkIdentityId);
         if (calculateScoreWinLoseDrawIdentity != null)
         {
@@ -3898,9 +4052,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdCalculateScoreWinLoseDrawChangeLoseScore (uint networkIdentityId, uint userId, float newLoseScore)
-	{
+    [Command]
+    public void CmdCalculateScoreWinLoseDrawChangeLoseScore(uint networkIdentityId, uint userId, float newLoseScore)
+    {
         CalculateScoreWinLoseDrawIdentity calculateScoreWinLoseDrawIdentity = GetDataIdentity<CalculateScoreWinLoseDrawIdentity>(networkIdentityId);
         if (calculateScoreWinLoseDrawIdentity != null)
         {
@@ -3912,9 +4066,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdCalculateScoreWinLoseDrawChangeDrawScore (uint networkIdentityId, uint userId, float newDrawScore)
-	{
+    [Command]
+    public void CmdCalculateScoreWinLoseDrawChangeDrawScore(uint networkIdentityId, uint userId, float newDrawScore)
+    {
         CalculateScoreWinLoseDrawIdentity calculateScoreWinLoseDrawIdentity = GetDataIdentity<CalculateScoreWinLoseDrawIdentity>(networkIdentityId);
         if (calculateScoreWinLoseDrawIdentity != null)
         {
@@ -3926,17 +4080,17 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	/////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////// RoundRobinContent ////////////////////////
-	/////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////// RoundRobinContent ////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
 
-	#region RoundRobinFactory
+    #region RoundRobinFactory
 
-	[Command]
-	public void CmdRoundRobinFactoryChangeTeamCount (uint networkIdentityId, uint userId, int newTeamCount)
-	{
+    [Command]
+    public void CmdRoundRobinFactoryChangeTeamCount(uint networkIdentityId, uint userId, int newTeamCount)
+    {
         RoundRobinFactoryIdentity roundRobinFactoryIdentity = GetDataIdentity<RoundRobinFactoryIdentity>(networkIdentityId);
         if (roundRobinFactoryIdentity != null)
         {
@@ -3948,9 +4102,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdRoundRobinFactoryChangeNeedReturnRound (uint networkIdentityId, uint userId, bool newNeedReturnRound)
-	{
+    [Command]
+    public void CmdRoundRobinFactoryChangeNeedReturnRound(uint networkIdentityId, uint userId, bool newNeedReturnRound)
+    {
         RoundRobinFactoryIdentity roundRobinFactoryIdentity = GetDataIdentity<RoundRobinFactoryIdentity>(networkIdentityId);
         if (roundRobinFactoryIdentity != null)
         {
@@ -3962,13 +4116,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region requestNewRoundRobin
+    #region requestNewRoundRobin
 
-	[Command]
-	public void CmdRequestNewRoundRobinStateAskAccept (uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdRequestNewRoundRobinStateAskAccept(uint networkIdentityId, uint userId)
+    {
         RequestNewRoundRobinStateAskIdentity requestNewRoundRobinStateAskIdentity = GetDataIdentity<RequestNewRoundRobinStateAskIdentity>(networkIdentityId);
         if (requestNewRoundRobinStateAskIdentity != null)
         {
@@ -3980,9 +4134,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdRequestNewRoundRobinStateAskCancel (uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdRequestNewRoundRobinStateAskCancel(uint networkIdentityId, uint userId)
+    {
         RequestNewRoundRobinStateAskIdentity requestNewRoundRobinStateAskIdentity = GetDataIdentity<RequestNewRoundRobinStateAskIdentity>(networkIdentityId);
         if (requestNewRoundRobinStateAskIdentity != null)
         {
@@ -3994,17 +4148,17 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	/////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////// Elimination ////////////////////////
-	/////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////// Elimination ////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
 
-	#region eliminationFactory
+    #region eliminationFactory
 
-	[Command]
-	public void CmdEliminationFactoryChangeInitTeamCountLength (uint networkIdentityId, uint userId, int newLength)
-	{
+    [Command]
+    public void CmdEliminationFactoryChangeInitTeamCountLength(uint networkIdentityId, uint userId, int newLength)
+    {
         EliminationFactoryIdentity eliminationFactoryIdentity = GetDataIdentity<EliminationFactoryIdentity>(networkIdentityId);
         if (eliminationFactoryIdentity != null)
         {
@@ -4016,9 +4170,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdEliminationFactoryChangeInitTeamCount (uint networkIdentityId, uint userId, int index, uint newInitTeamCount)
-	{
+    [Command]
+    public void CmdEliminationFactoryChangeInitTeamCount(uint networkIdentityId, uint userId, int index, uint newInitTeamCount)
+    {
         EliminationFactoryIdentity eliminationFactoryIdentity = GetDataIdentity<EliminationFactoryIdentity>(networkIdentityId);
         if (eliminationFactoryIdentity != null)
         {
@@ -4030,13 +4184,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region requestNewEliminationRoundState
+    #region requestNewEliminationRoundState
 
-	[Command]
-	public void CmdRequestNewEliminationRoundStateAskAccept (uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdRequestNewEliminationRoundStateAskAccept(uint networkIdentityId, uint userId)
+    {
         RequestNewEliminationRoundStateAskIdentity requestNewEliminationRoundStateAskIdentity = GetDataIdentity<RequestNewEliminationRoundStateAskIdentity>(networkIdentityId);
         if (requestNewEliminationRoundStateAskIdentity != null)
         {
@@ -4048,9 +4202,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdRequestNewEliminationRoundStateAskCancel (uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdRequestNewEliminationRoundStateAskCancel(uint networkIdentityId, uint userId)
+    {
         RequestNewEliminationRoundStateAskIdentity requestNewEliminationRoundStateAskIdentity = GetDataIdentity<RequestNewEliminationRoundStateAskIdentity>(networkIdentityId);
         if (requestNewEliminationRoundStateAskIdentity != null)
         {
@@ -4062,17 +4216,17 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	/////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////// Swap ////////////////////////
-	/////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////// Swap ////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
 
-	#region makeRequest
+    #region makeRequest
 
-	[Command]
-	public void CmdSwapIdentityChangeHuman (uint networkIdentityId, uint userId, int teamIndex, int playerIndex, uint newHumanId)
-	{
+    [Command]
+    public void CmdSwapIdentityChangeHuman(uint networkIdentityId, uint userId, int teamIndex, int playerIndex, uint newHumanId)
+    {
         SwapIdentity swapIdentity = GetDataIdentity<SwapIdentity>(networkIdentityId);
         if (swapIdentity != null)
         {
@@ -4084,9 +4238,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdSwapIdentityChangeComputer (uint networkIdentityId, uint userId, int teamIndex, int playerIndex, string strComputer)
-	{
+    [Command]
+    public void CmdSwapIdentityChangeComputer(uint networkIdentityId, uint userId, int teamIndex, int playerIndex, string strComputer)
+    {
         SwapIdentity swapIdentity = GetDataIdentity<SwapIdentity>(networkIdentityId);
         if (swapIdentity != null)
         {
@@ -4099,13 +4253,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region swapRequestStateAsk
+    #region swapRequestStateAsk
 
-	[Command]
-	public void CmdSwapRequestStateAskAccept (uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdSwapRequestStateAskAccept(uint networkIdentityId, uint userId)
+    {
         SwapRequestStateAskIdentity swapRequestStateAskIdentity = GetDataIdentity<SwapRequestStateAskIdentity>(networkIdentityId);
         if (swapRequestStateAskIdentity != null)
         {
@@ -4117,9 +4271,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdSwapRequestStateAskRefuse (uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdSwapRequestStateAskRefuse(uint networkIdentityId, uint userId)
+    {
         SwapRequestStateAskIdentity swapRequestStateAskIdentity = GetDataIdentity<SwapRequestStateAskIdentity>(networkIdentityId);
         if (swapRequestStateAskIdentity != null)
         {
@@ -4131,15 +4285,15 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	/////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////// RequestChangeUseRule ////////////////////////
-	/////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////// RequestChangeUseRule ////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
 
-	[Command]
-	public void CmdRequestChangeUseRuleStateNoneChange (uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdRequestChangeUseRuleStateNoneChange(uint networkIdentityId, uint userId)
+    {
         RequestChangeUseRuleStateNoneIdentity requestChangeUseRuleStateNoneIdentity = GetDataIdentity<RequestChangeUseRuleStateNoneIdentity>(networkIdentityId);
         if (requestChangeUseRuleStateNoneIdentity != null)
         {
@@ -4151,9 +4305,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdRequestChangeUseRuleStateAskAccept (uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdRequestChangeUseRuleStateAskAccept(uint networkIdentityId, uint userId)
+    {
         RequestChangeUseRuleStateAskIdentity requestChangeUseRuleStateAskIdentity = GetDataIdentity<RequestChangeUseRuleStateAskIdentity>(networkIdentityId);
         if (requestChangeUseRuleStateAskIdentity != null)
         {
@@ -4165,9 +4319,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdRequestChangeUseRuleStateAskRefuse (uint networkIdentityId, uint userId)
-	{
+    [Command]
+    public void CmdRequestChangeUseRuleStateAskRefuse(uint networkIdentityId, uint userId)
+    {
         RequestChangeUseRuleStateAskIdentity requestChangeUseRuleStateAskIdentity = GetDataIdentity<RequestChangeUseRuleStateAskIdentity>(networkIdentityId);
         if (requestChangeUseRuleStateAskIdentity != null)
         {
@@ -4179,11 +4333,11 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#region changeUseRuleRight
+    #region changeUseRuleRight
 
-	[Command]
-	public void CmdChangeUseRuleRightChangeOnlyAdmin (uint networkIdentityId, uint userId, bool newOnlyAdmin)
-	{
+    [Command]
+    public void CmdChangeUseRuleRightChangeOnlyAdmin(uint networkIdentityId, uint userId, bool newOnlyAdmin)
+    {
         ChangeUseRuleRightIdentity changeUseRuleRightIdentity = GetDataIdentity<ChangeUseRuleRightIdentity>(networkIdentityId);
         if (changeUseRuleRightIdentity != null)
         {
@@ -4195,9 +4349,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdChangeUseRuleRightChangeNeedAdmin (uint networkIdentityId, uint userId, bool newNeedAdmin)
-	{
+    [Command]
+    public void CmdChangeUseRuleRightChangeNeedAdmin(uint networkIdentityId, uint userId, bool newNeedAdmin)
+    {
         ChangeUseRuleRightIdentity changeUseRuleRightIdentity = GetDataIdentity<ChangeUseRuleRightIdentity>(networkIdentityId);
         if (changeUseRuleRightIdentity != null)
         {
@@ -4209,9 +4363,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdChangeUseRuleRightChangeNeedAccept (uint networkIdentityId, uint userId, bool newNeedAccept)
-	{
+    [Command]
+    public void CmdChangeUseRuleRightChangeNeedAccept(uint networkIdentityId, uint userId, bool newNeedAccept)
+    {
         ChangeUseRuleRightIdentity changeUseRuleRightIdentity = GetDataIdentity<ChangeUseRuleRightIdentity>(networkIdentityId);
         if (changeUseRuleRightIdentity != null)
         {
@@ -4223,12 +4377,13 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
-	#region roomManager
+    #region roomManager
 
-	[Command]
-	public void CmdGlobalRoomContainerMakeRoom(uint networkIdentityId, uint userId, CreateRoomMessage makeRoom){
+    [Command]
+    public void CmdGlobalRoomContainerMakeRoom(uint networkIdentityId, uint userId, CreateRoomMessage makeRoom)
+    {
         GlobalRoomContainerIdentity globalRoomContainerIdentity = GetDataIdentity<GlobalRoomContainerIdentity>(networkIdentityId);
         if (globalRoomContainerIdentity != null)
         {
@@ -4240,8 +4395,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdLimitRoomContainerMakeRoom(uint networkIdentityId, uint userId, CreateRoomMessage makeRoom){
+    [Command]
+    public void CmdLimitRoomContainerMakeRoom(uint networkIdentityId, uint userId, CreateRoomMessage makeRoom)
+    {
         LimitRoomContainerIdentity limitRoomContainerIdentity = GetDataIdentity<LimitRoomContainerIdentity>(networkIdentityId);
         if (limitRoomContainerIdentity != null)
         {
@@ -4253,8 +4409,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdLimitRoomContainerJoin(uint networkIdentityId, uint userId){
+    [Command]
+    public void CmdLimitRoomContainerJoin(uint networkIdentityId, uint userId)
+    {
         LimitRoomContainerIdentity limitRoomContainerIdentity = GetDataIdentity<LimitRoomContainerIdentity>(networkIdentityId);
         if (limitRoomContainerIdentity != null)
         {
@@ -4266,8 +4423,9 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	[Command]
-	public void CmdLimitRoomContainerLeave(uint networkIdentityId, uint userId){
+    [Command]
+    public void CmdLimitRoomContainerLeave(uint networkIdentityId, uint userId)
+    {
         LimitRoomContainerIdentity limitRoomContainerIdentity = GetDataIdentity<LimitRoomContainerIdentity>(networkIdentityId);
         if (limitRoomContainerIdentity != null)
         {
@@ -4279,6 +4437,6 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-	#endregion
+    #endregion
 
 }

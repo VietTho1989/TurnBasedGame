@@ -11,12 +11,7 @@ public class ChatRoom : Data
 
     #region Player
 
-    public LP<Human> players;
-
-    public Human findHuman(uint humanId)
-    {
-        return this.players.vs.Find(player => player.playerId.v == humanId);
-    }
+    public HumanLP players;
 
     public static Human findHuman(Data childData, uint humanId)
     {
@@ -25,7 +20,7 @@ public class ChatRoom : Data
             ChatRoom chatRoom = childData.findDataInParent<ChatRoom>();
             if (chatRoom != null)
             {
-                return chatRoom.findHuman(humanId);
+                return chatRoom.players.getInList(humanId);
             }
             else
             {
@@ -207,7 +202,7 @@ public class ChatRoom : Data
     {
         this.topic = new VP<Topic>(this, (byte)Property.topic, new GeneralTopic());
         this.isEnable = new VP<bool>(this, (byte)Property.isEnable, true);
-        this.players = new LP<Human>(this, (byte)Property.players);
+        this.players = new HumanLP(this, (byte)Property.players);
         this.messages = new LP<ChatMessage>(this, (byte)Property.messages);
         this.maxId = new VP<uint>(this, (byte)Property.maxId, 0);
         this.chatViewers = new ChatViewerLP(this, (byte)Property.chatViewers);

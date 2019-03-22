@@ -963,7 +963,7 @@ f6d4e0980fd2b004ce6fb7a925eb3720 Assembly-CSharp.dll:.ComputerUI
 ae44e9ba1805d6d350564fc43c1114fa Assembly-CSharp.dll:Seirawan.NoneRule.SetHandHolder
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:GameManager.Match.RequestNewRoundStateAskUpdate
 c68d8f7a434f4c43144bd2bbf6061a98 Assembly-CSharp.dll:FileSystem.BtnRenameFileUI
-853d9c695c66b8f347e0852c9df1ee3b Assembly-CSharp.dll:GameState.PlayUnPauseUI
+03280a09131259583904a2e82bccb1a6 Assembly-CSharp.dll:GameState.PlayUnPauseUI
 b984a8a7682e0deb9bb2b643816402d1 Assembly-CSharp.dll:EnglishDraught.NoneRule.EnglishDraughtCustomMoveUI
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:.GameTopicIdentity
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Chess.AnimationSetDirtyUpdate
@@ -1659,7 +1659,7 @@ ae6c84bda1b0f34ace6c7887b81cb638 Assembly-CSharp.dll:GameState.PlayUnPauseIdenti
 a4f0a4f62100f1a4fb5cbe0e00dde83f Unity.TextMeshPro.dll:TMPro.TextMeshProUGUI
 0cfcddd956d8e0060e064a6513c8aa72 Assembly-CSharp.dll:GameManager.Match.RoundRobin.RoundRobinFactoryUI
 651e307753d04d19f3fe0eceb4e127ab Assembly-CSharp.dll:.JoinRoomUI
-e1c91ddaf493187ec2717c128c904e85 Assembly-CSharp.dll:GameState.PlayPauseUI
+94642570f4580ce302abef0185a13e78 Assembly-CSharp.dll:GameState.PlayPauseUI
 80d1822b3495d495c6c8deb6cd769e7c Assembly-CSharp.dll:EnglishDraught.UseRule.GetUI
 8d62fb5be2e995910a46821fb10e4ace Assembly-CSharp.dll:EnglishDraught.NoneRule.EnglishDraughtCustomSetIdentity
 7d55a72dc54fc3a8a7dcd223ce733d68 Assembly-CSharp.dll:.LoginUI

@@ -68,6 +68,26 @@ public class ChatViewerIdentity : DataIdentity
 
     #endregion
 
+    #region alreadyViewMaxId
+
+    [SyncVar(hook = "onChangeAlreadyViewMaxId")]
+    public uint alreadyViewMaxId;
+
+    public void onChangeAlreadyViewMaxId(uint newAlreadyViewMaxId)
+    {
+        this.alreadyViewMaxId = newAlreadyViewMaxId;
+        if (this.netData.clientData != null)
+        {
+            this.netData.clientData.alreadyViewMaxId.v = newAlreadyViewMaxId;
+        }
+        else
+        {
+            // Debug.LogError ("clientData null: "+this);
+        }
+    }
+
+    #endregion
+
     #endregion
 
     #region NetData
@@ -86,6 +106,7 @@ public class ChatViewerIdentity : DataIdentity
             this.onChangeUserId(this.userId);
             this.onChangeMinViewId(this.minViewId);
             this.onChangeIsActive(this.isActive);
+            this.onChangeAlreadyViewMaxId(this.alreadyViewMaxId);
         }
         else
         {
@@ -100,6 +121,7 @@ public class ChatViewerIdentity : DataIdentity
             ret += GetDataSize(this.userId);
             ret += GetDataSize(this.minViewId);
             ret += GetDataSize(this.isActive);
+            ret += GetDataSize(this.alreadyViewMaxId);
         }
         return ret;
     }
@@ -121,6 +143,7 @@ public class ChatViewerIdentity : DataIdentity
                 this.userId = chatViewer.userId.v;
                 this.minViewId = chatViewer.minViewId.v;
                 this.isActive = chatViewer.isActive.v;
+                this.alreadyViewMaxId = chatViewer.alreadyViewMaxId.v;
             }
             // Observer
             {
@@ -185,13 +208,45 @@ public class ChatViewerIdentity : DataIdentity
                 case ChatViewer.Property.isActive:
                     this.isActive = (bool)wrapProperty.getValue();
                     break;
+                case ChatViewer.Property.alreadyViewMaxId:
+                    this.alreadyViewMaxId = (uint)wrapProperty.getValue();
+                    break;
                 default:
-                    Debug.LogError("Unknown wrapProperty: " + wrapProperty + "; " + this);
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
             return;
         }
         Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+    }
+
+    #endregion
+
+    #region setAlreadyViewMaxId
+
+    public void requestSetAlreadyViewMaxId(uint userId, uint newAlreadyViewMaxId)
+    {
+        ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity(this.netData.clientData);
+        if (clientConnect != null)
+        {
+            clientConnect.CmdChatViewSetAlreadyViewMaxId(this.netId, userId, newAlreadyViewMaxId);
+        }
+        else
+        {
+            Debug.LogError("Cannot find clientConnect: " + this);
+        }
+    }
+
+    public void setAlreadyViewMaxId(uint userId, uint newAlreadyViewMaxId)
+    {
+        if (this.netData.serverData != null)
+        {
+            this.netData.serverData.setAlreadyViewMaxId(userId, newAlreadyViewMaxId);
+        }
+        else
+        {
+            Debug.LogError("serverData null");
+        }
     }
 
     #endregion

@@ -17,6 +17,8 @@ public class ChatViewer : Data
 
     public VP<bool> isActive;
 
+    public VP<uint> alreadyViewMaxId;
+
     #region Constructor
 
     public enum Property
@@ -25,7 +27,8 @@ public class ChatViewer : Data
         minViewId,
         subViews,
         connection,
-        isActive
+        isActive,
+        alreadyViewMaxId
     }
 
     public ChatViewer() : base()
@@ -35,6 +38,7 @@ public class ChatViewer : Data
         this.subViews = new LP<ChatSubView>(this, (byte)Property.subViews);
         this.connection = new VP<NetworkConnection>(this, (byte)Property.connection, null);
         this.isActive = new VP<bool>(this, (byte)Property.isActive, true);
+        this.alreadyViewMaxId = new VP<uint>(this, (byte)Property.alreadyViewMaxId, 0);
     }
 
     #endregion
@@ -199,5 +203,58 @@ public class ChatViewer : Data
             }
         }
     }
+
+    #region alreadyView
+
+    public bool isCanSetAlreadyViewMaxId(uint userId, uint newAlreadyViewMaxId)
+    {
+        return this.userId.v == userId && newAlreadyViewMaxId > this.alreadyViewMaxId.v;
+    }
+
+    public void requestSetAlreadyViewMaxId(uint userId, uint newAlreadyViewMaxId)
+    {
+        Data.NeedRequest needRequest = this.isNeedRequestServerByNetworkIdentity();
+        if (needRequest.canRequest)
+        {
+            if (!needRequest.needIdentity)
+            {
+                this.setAlreadyViewMaxId(userId, newAlreadyViewMaxId);
+            }
+            else
+            {
+                DataIdentity dataIdentity = null;
+                if (DataIdentity.clientMap.TryGetValue(this, out dataIdentity))
+                {
+                    if (dataIdentity is ChatViewerIdentity)
+                    {
+                        ChatViewerIdentity chatViewerIdentity = dataIdentity as ChatViewerIdentity;
+                        chatViewerIdentity.requestSetAlreadyViewMaxId(userId, newAlreadyViewMaxId);
+                    }
+                    else
+                    {
+                        Debug.LogError("Why isn't correct identity");
+                    }
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("You cannot request");
+        }
+    }
+
+    public void setAlreadyViewMaxId(uint userId, uint newAlreadyViewMaxId)
+    {
+        if(isCanSetAlreadyViewMaxId(userId, newAlreadyViewMaxId))
+        {
+            this.alreadyViewMaxId.v = newAlreadyViewMaxId;
+        }
+        else
+        {
+            Debug.LogError("Cannot set alreadyViewMaxId: " + newAlreadyViewMaxId);
+        }
+    }
+
+    #endregion
 
 }

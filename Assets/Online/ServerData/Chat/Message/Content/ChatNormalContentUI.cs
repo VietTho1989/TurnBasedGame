@@ -97,20 +97,42 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
                     {
                         // find human owner
                         {
-
-                            Human humanOwner = ChatRoom.findHuman(chatNormalContent, chatNormalContent.owner.v);
-                            if (this.humanOwner != humanOwner)
+                            // check old
+                            if (humanOwner != null)
                             {
-                                // remove old
-                                if (this.humanOwner != null)
+                                // isCorrect
+                                bool isCorrect = false;
                                 {
-                                    this.humanOwner.removeCallBack(this);
+                                    if (humanOwner.findDataInParent<ChatRoom>() == chatNormalContent.findDataInParent<ChatRoom>())
+                                    {
+                                        if (humanOwner.playerId.v == chatNormalContent.owner.v)
+                                        {
+                                            isCorrect = true;
+                                        }
+                                    }
                                 }
-                                // set new
-                                this.humanOwner = humanOwner;
-                                if (this.humanOwner != null)
+                                // process
+                                if (isCorrect)
                                 {
-                                    this.humanOwner.addCallBack(this);
+                                    // oldHumanOwner correct
+                                }
+                                else
+                                {
+                                    humanOwner.removeCallBack(this);
+                                    humanOwner = null;
+                                }
+                            }
+                            // find new
+                            if (humanOwner == null)
+                            {
+                                humanOwner = ChatRoom.findHuman(chatNormalContent, chatNormalContent.owner.v);
+                                if (humanOwner != null)
+                                {
+                                    humanOwner.addCallBack(this);
+                                }
+                                else
+                                {
+                                    Debug.LogError("don't find humanOwner: " + humanOwner);
                                 }
                             }
                         }
