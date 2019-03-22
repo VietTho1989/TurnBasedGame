@@ -43,7 +43,7 @@ public class GlobalInit : MonoBehaviour
     void Start()
     {
         // NativeCore
-        {
+        /*{
             // var watch = System.Diagnostics.Stopwatch.StartNew();
             {
                 // TODO Tai sao phai them vao nhi, ko the hieu noi?
@@ -67,7 +67,7 @@ public class GlobalInit : MonoBehaviour
             // watch.Stop();
             // var elapsedMs = watch.ElapsedMilliseconds;
             // Debug.Log ("Init Update: " + elapsedMs + "; " + this);
-        }
+        }*/
         // create folder Save
         {
             try

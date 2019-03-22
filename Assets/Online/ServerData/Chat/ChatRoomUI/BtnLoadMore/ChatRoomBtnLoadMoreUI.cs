@@ -554,6 +554,8 @@ public class ChatRoomBtnLoadMoreUI : UIBehavior<ChatRoomBtnLoadMoreUI.UIData>
                         case ChatViewer.Property.isActive:
                             dirty = true;
                             break;
+                        case ChatViewer.Property.alreadyViewMaxId:
+                            break;
                         default:
                             Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                             break;

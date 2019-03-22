@@ -38,7 +38,13 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 
         #endregion
 
+        #region friends
+
         public VP<GlobalFriendsUI.UIData> friends;
+
+        public VP<FriendListNewMessageCountUI.UIData> friendListNewMessageCountUIData;
+
+        #endregion
 
         public VP<GlobalProfileUI.UIData> profile;
 
@@ -54,6 +60,8 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
             chatRoomNewMessageUIData,
 
             friends,
+            friendListNewMessageCountUIData,
+
             profile
         }
 
@@ -67,7 +75,11 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                 this.chats = new VP<GlobalChatUI.UIData>(this, (byte)Property.chats, null);
                 this.chatRoomNewMessageCountUIData = new VP<ChatRoomNewMessageCountUI.UIData>(this, (byte)Property.chatRoomNewMessageUIData, new ChatRoomNewMessageCountUI.UIData());
             }
-            this.friends = new VP<GlobalFriendsUI.UIData>(this, (byte)Property.friends, null);
+            // friends
+            {
+                this.friends = new VP<GlobalFriendsUI.UIData>(this, (byte)Property.friends, null);
+                this.friendListNewMessageCountUIData = new VP<FriendListNewMessageCountUI.UIData>(this, (byte)Property.friendListNewMessageCountUIData, new FriendListNewMessageCountUI.UIData());
+            }
             this.profile = new VP<GlobalProfileUI.UIData>(this, (byte)Property.profile, null);
         }
 
@@ -504,6 +516,21 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                             Debug.LogError("newChatMessageNumberUIData null");
                         }
                     }
+                    // friendListNewMessageCountUIData
+                    {
+                        FriendListNewMessageCountUI.UIData friendListNewMessageCountUIData = this.data.friendListNewMessageCountUIData.v;
+                        if (friendListNewMessageCountUIData != null)
+                        {
+                            // find
+                            FriendWorld friendWorld = server.friendWorld.v;
+                            // set
+                            friendListNewMessageCountUIData.friendWorld.v = new ReferenceData<FriendWorld>(friendWorld);
+                        }
+                        else
+                        {
+                            Debug.LogError("friendListNewMessageCountUIData null");
+                        }
+                    }
                 }
                 else
                 {
@@ -542,6 +569,16 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                 chatRoomNewMessageCountRect.offsetMax = new Vector2(120.0f, 0.0f);
                 chatRoomNewMessageCountRect.sizeDelta = new Vector2(15.0f, 15.0f);
             }
+            // friendListNewMessageCountRect
+            {
+                friendListNewMessageCountRect.anchoredPosition = new Vector3(135.0f, 0.0f, 0.0f);
+                friendListNewMessageCountRect.anchorMin = new Vector2(0.0f, 1.0f);
+                friendListNewMessageCountRect.anchorMax = new Vector2(0.0f, 1.0f);
+                friendListNewMessageCountRect.pivot = new Vector2(0.0f, 1.0f);
+                friendListNewMessageCountRect.offsetMin = new Vector2(135.0f, -15.0f);
+                friendListNewMessageCountRect.offsetMax = new Vector2(150.0f, 0.0f);
+                friendListNewMessageCountRect.sizeDelta = new Vector2(15.0f, 15.0f);
+            }
         }
     }
 
@@ -557,6 +594,9 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 
     public ChatRoomNewMessageCountUI chatRoomNewMessageCountPrefab;
     private static readonly UIRectTransform chatRoomNewMessageCountRect = new UIRectTransform();
+
+    public FriendListNewMessageCountUI friendListNewMessageCountPrefab;
+    private static readonly UIRectTransform friendListNewMessageCountRect = new UIRectTransform();
 
     public override void onAddCallBack<T>(T data)
     {
@@ -574,7 +614,11 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                     uiData.chats.allAddCallBack(this);
                     uiData.chatRoomNewMessageCountUIData.allAddCallBack(this);
                 }
-                uiData.friends.allAddCallBack(this);
+                // friends
+                {
+                    uiData.friends.allAddCallBack(this);
+                    uiData.friendListNewMessageCountUIData.allAddCallBack(this);
+                }
                 uiData.profile.allAddCallBack(this);
             }
             dirty = true;
@@ -664,15 +708,28 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                     return;
                 }
             }
-            if (data is GlobalFriendsUI.UIData)
+            // friends
             {
-                GlobalFriendsUI.UIData friends = data as GlobalFriendsUI.UIData;
-                // UI
+                if (data is GlobalFriendsUI.UIData)
                 {
-                    UIUtils.Instantiate(friends, friendsPrefab, this.transform, contentRect);
+                    GlobalFriendsUI.UIData friends = data as GlobalFriendsUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(friends, friendsPrefab, this.transform, contentRect);
+                    }
+                    dirty = true;
+                    return;
                 }
-                dirty = true;
-                return;
+                if(data is FriendListNewMessageCountUI.UIData)
+                {
+                    FriendListNewMessageCountUI.UIData friendListNewMessageCountUIData = data as FriendListNewMessageCountUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(friendListNewMessageCountUIData, friendListNewMessageCountPrefab, this.transform, friendListNewMessageCountRect);
+                    }
+                    dirty = true;
+                    return;
+                }
             }
             if (data is GlobalProfileUI.UIData)
             {
@@ -704,7 +761,11 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                     uiData.chats.allRemoveCallBack(this);
                     uiData.chatRoomNewMessageCountUIData.allRemoveCallBack(this);
                 }
-                uiData.friends.allRemoveCallBack(this);
+                // friends
+                {
+                    uiData.friends.allRemoveCallBack(this);
+                    uiData.friendListNewMessageCountUIData.allRemoveCallBack(this);
+                }
                 uiData.profile.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
@@ -776,14 +837,26 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                     return;
                 }
             }
-            if (data is GlobalFriendsUI.UIData)
+            // friends
             {
-                GlobalFriendsUI.UIData friends = data as GlobalFriendsUI.UIData;
-                // UI
+                if (data is GlobalFriendsUI.UIData)
                 {
-                    friends.removeCallBackAndDestroy(typeof(GlobalFriendsUI));
+                    GlobalFriendsUI.UIData friends = data as GlobalFriendsUI.UIData;
+                    // UI
+                    {
+                        friends.removeCallBackAndDestroy(typeof(GlobalFriendsUI));
+                    }
+                    return;
                 }
-                return;
+                if(data is FriendListNewMessageCountUI.UIData)
+                {
+                    FriendListNewMessageCountUI.UIData friendListNewMessageCountUIData = data as FriendListNewMessageCountUI.UIData;
+                    // UI
+                    {
+                        friendListNewMessageCountUIData.removeCallBackAndDestroy(typeof(FriendListNewMessageCountUI));
+                    }
+                    return;
+                }
             }
             if (data is GlobalProfileUI.UIData)
             {
@@ -836,6 +909,12 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                     }
                     break;
                 case UIData.Property.friends:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.friendListNewMessageCountUIData:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
@@ -910,6 +989,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                             }
                             break;
                         case Server.Property.friendWorld:
+                            dirty = true;
                             break;
                         case Server.Property.guilds:
                             break;
@@ -1008,9 +1088,16 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                     return;
                 }
             }
-            if (wrapProperty.p is GlobalFriendsUI.UIData)
+            // friends
             {
-                return;
+                if (wrapProperty.p is GlobalFriendsUI.UIData)
+                {
+                    return;
+                }
+                if(wrapProperty.p is FriendListNewMessageCountUI.UIData)
+                {
+                    return;
+                }
             }
             if (wrapProperty.p is GlobalProfileUI.UIData)
             {

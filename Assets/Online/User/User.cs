@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class User : Data
 {
@@ -133,6 +134,18 @@ public class User : Data
                 Debug.LogError("unknown sex: " + sex);
                 return sex.ToString();
         }
+    }
+
+    public static List<string> GetStrSex()
+    {
+        List<string> ret = new List<string>();
+        {
+            foreach (User.SEX sex in System.Enum.GetValues(typeof(User.SEX)))
+            {
+                ret.Add(getStrSex(sex));
+            }
+        }
+        return ret;
     }
 
     #endregion

@@ -1,7 +1,7 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Main/Online/Client/GlobalView/Friend/FriendList/FriendHolder.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Chat/ChatRoomUI/ChatRoomUI.cs">
     <Files>
-      <File FileName="Assets/Main/Online/Client/GlobalView/Friend/FriendList/FriendHolder.cs" Line="125" Column="14" />
+      <File FileName="Assets/Online/ServerData/Chat/ChatRoomUI/ChatRoomUI.cs" Line="1016" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

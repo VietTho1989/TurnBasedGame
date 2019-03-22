@@ -4,6 +4,9 @@ using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 
+/**
+ * vi tri btnLoadMore co van de, can xem xet lai khi needHeader false
+ * */
 public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
 {
 
@@ -137,13 +140,13 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
             // btnLoadMoreRect
             {
                 // anchoredPosition: (0.0, -30.0); anchorMin: (0.0, 1.0); anchorMax: (1.0, 1.0); pivot: (0.5, 1.0); offsetMin: (0.0, -60.0); offsetMax: (0.0, -30.0); sizeDelta: (0.0, 30.0);
-                btnLoadMoreRect.anchoredPosition = new Vector3(0.0f, -30.0f, 0.0f);
+                btnLoadMoreRect.anchoredPosition = new Vector3(0.0f, -10.0f, 0.0f);
                 btnLoadMoreRect.anchorMin = new Vector2(0.5f, 1.0f);
                 btnLoadMoreRect.anchorMax = new Vector2(0.5f, 1.0f);
                 btnLoadMoreRect.pivot = new Vector2(0.5f, 1.0f);
-                btnLoadMoreRect.offsetMin = new Vector2(-45.0f, -60.0f);
-                btnLoadMoreRect.offsetMax = new Vector2(45.0f, -30.0f);
-                btnLoadMoreRect.sizeDelta = new Vector2(90.0f, 30.0f);
+                btnLoadMoreRect.offsetMin = new Vector2(-45.0f, -30.0f);
+                btnLoadMoreRect.offsetMax = new Vector2(45.0f, -10.0f);
+                btnLoadMoreRect.sizeDelta = new Vector2(90.0f, 20.0f);
             }
             // chatMessageMenuRect
             {
@@ -397,6 +400,10 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
                                 UIRectTransform.Set(this.data.chatRoomAdapter.v, this.data.needHeader.v
                                     ? UIRectTransform.CreateFullRect(0, 0, 30, 70)
                                     : UIRectTransform.CreateFullRect(0, 0, 0, 70));
+                            }
+                            // btnLoadMore
+                            {
+                                UIRectTransform.SetPosY(this.data.btnLoadMore.v, this.data.needHeader.v ? 34.0f : 4.0f);
                             }
                         }
                     }

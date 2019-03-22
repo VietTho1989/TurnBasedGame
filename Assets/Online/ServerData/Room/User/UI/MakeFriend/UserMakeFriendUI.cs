@@ -52,6 +52,31 @@ public class UserMakeFriendUI : UIBehavior<UserMakeFriendUI.UIData>, FriendHashM
 
     #endregion
 
+    #region txt
+
+    private static readonly TxtLanguage txtMakeFriend = new TxtLanguage();
+    private static readonly TxtLanguage txtCancelMakeFriend = new TxtLanguage();
+    private static readonly TxtLanguage txtMakingFriend = new TxtLanguage();
+
+    public Text tvYourInform;
+    private static readonly TxtLanguage txtYourInform = new TxtLanguage();
+
+    private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+
+    static UserMakeFriendUI()
+    {
+        // makeFriend
+        {
+            txtMakeFriend.add(Language.Type.vi, "Kết Bạn");
+            txtCancelMakeFriend.add(Language.Type.vi, "Huỷ kết bạn?");
+            txtMakingFriend.add(Language.Type.vi, "Đang kết bạn");
+        }
+        txtYourInform.add(Language.Type.vi, "Thông Tin Của Bạn");
+        txtRequestError.add(Language.Type.vi, "Gửi yêu cầu kết bạn lỗi");
+    }
+
+    #endregion
+
     #region Refresh
 
     public GameObject yourInform;
@@ -112,15 +137,16 @@ public class UserMakeFriendUI : UIBehavior<UserMakeFriendUI.UIData>, FriendHashM
                         // Process
                         if (friend == null)
                         {
-                            // friendStateUIContainer
+                            // UI
                             {
-                                if (friendStateContainer != null)
+                                UIRectTransform.SetActive(this.data.friendStateUIData.v, false);
+                                if (btnMakeFriend != null)
                                 {
-                                    friendStateContainer.gameObject.SetActive(false);
+                                    btnMakeFriend.gameObject.SetActive(true);
                                 }
                                 else
                                 {
-                                    Debug.LogError("friendStateUIContainer null: " + this);
+                                    Debug.LogError("btnMakeFriend null");
                                 }
                             }
                             // Task
@@ -182,19 +208,19 @@ public class UserMakeFriendUI : UIBehavior<UserMakeFriendUI.UIData>, FriendHashM
                                         case UIData.State.None:
                                             {
                                                 btnMakeFriend.interactable = true;
-                                                tvMakeFriend.text = "Make Friend";
+                                                tvMakeFriend.text = txtMakeFriend.get("Make Friend");
                                             }
                                             break;
                                         case UIData.State.Request:
                                             {
                                                 btnMakeFriend.interactable = true;
-                                                tvMakeFriend.text = "Cancel Make Friend?";
+                                                tvMakeFriend.text = txtCancelMakeFriend.get("Cancel make friend?");
                                             }
                                             break;
                                         case UIData.State.Wait:
                                             {
                                                 btnMakeFriend.interactable = false;
-                                                tvMakeFriend.text = "Making Friend...";
+                                                tvMakeFriend.text = txtMakingFriend.get("Making friend");
                                             }
                                             break;
                                         default:
@@ -210,15 +236,16 @@ public class UserMakeFriendUI : UIBehavior<UserMakeFriendUI.UIData>, FriendHashM
                         }
                         else
                         {
-                            // friendStateUIContainer
+                            // UI
                             {
-                                if (friendStateContainer != null)
+                                UIRectTransform.SetActive(this.data.friendStateUIData.v, true);
+                                if (btnMakeFriend != null)
                                 {
-                                    friendStateContainer.gameObject.SetActive(true);
+                                    btnMakeFriend.gameObject.SetActive(false);
                                 }
                                 else
                                 {
-                                    Debug.LogError("friendStateUIContainer null: " + this);
+                                    Debug.LogError("btnMakeFriend null");
                                 }
                             }
                             // Task
@@ -248,6 +275,17 @@ public class UserMakeFriendUI : UIBehavior<UserMakeFriendUI.UIData>, FriendHashM
                             {
                                 Debug.LogError("yourInform null: " + this);
                             }
+                        }
+                    }
+                    // txt
+                    {
+                        if (tvYourInform != null)
+                        {
+                            tvYourInform.text = txtYourInform.get("Your Information");
+                        }
+                        else
+                        {
+                            Debug.LogError("tvYourInform null");
                         }
                     }
                 }
@@ -290,7 +328,7 @@ public class UserMakeFriendUI : UIBehavior<UserMakeFriendUI.UIData>, FriendHashM
                     Debug.LogError("data null: " + this);
                 }
             }
-            Toast.showMessage("request error");
+            Toast.showMessage(txtRequestError.get("Send request to make friend error"));
             Debug.LogError("request error: " + this);
         }
         else
@@ -313,7 +351,7 @@ public class UserMakeFriendUI : UIBehavior<UserMakeFriendUI.UIData>, FriendHashM
     #region implement callBacks
 
     public FriendStateUI friendStatePrefab;
-    public Transform friendStateContainer;
+    private static readonly UIRectTransform friendStateRect = new UIRectTransform();
 
     private Server server = null;
 
@@ -322,11 +360,19 @@ public class UserMakeFriendUI : UIBehavior<UserMakeFriendUI.UIData>, FriendHashM
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Setting
+            Setting.get().addCallBack(this);
             // Child
             {
                 uiData.human.allAddCallBack(this);
                 uiData.friendStateUIData.allAddCallBack(this);
             }
+            dirty = true;
+            return;
+        }
+        // Setting
+        if(data is Setting)
+        {
             dirty = true;
             return;
         }
@@ -374,7 +420,7 @@ public class UserMakeFriendUI : UIBehavior<UserMakeFriendUI.UIData>, FriendHashM
                 FriendStateUI.UIData friendStateUIData = data as FriendStateUI.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(friendStateUIData, friendStatePrefab, friendStateContainer);
+                    UIUtils.Instantiate(friendStateUIData, friendStatePrefab, this.transform, friendStateRect);
                 }
                 dirty = true;
                 return;
@@ -388,12 +434,19 @@ public class UserMakeFriendUI : UIBehavior<UserMakeFriendUI.UIData>, FriendHashM
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Setting
+            Setting.get().removeCallBack(this);
             // Child
             {
                 uiData.human.allRemoveCallBack(this);
                 uiData.friendStateUIData.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
+            return;
+        }
+        // Setting
+        if(data is Setting)
+        {
             return;
         }
         // Child
@@ -466,6 +519,32 @@ public class UserMakeFriendUI : UIBehavior<UserMakeFriendUI.UIData>, FriendHashM
                     break;
                 case UIData.Property.state:
                     dirty = true;
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Setting
+        if(wrapProperty.p is Setting)
+        {
+            switch ((Setting.Property)wrapProperty.n)
+            {
+                case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.showLastMove:
+                    break;
+                case Setting.Property.viewUrlImage:
+                    break;
+                case Setting.Property.animationSetting:
+                    break;
+                case Setting.Property.maxThinkCount:
+                    break;
+                case Setting.Property.defaultChosenGame:
                     break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

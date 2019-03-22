@@ -269,8 +269,6 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text lbTitle;
@@ -317,6 +315,8 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
     }
 
     #endregion
+
+    #region Refresh
 
     private bool needReset = true;
 
@@ -642,6 +642,10 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                                 RequestChangeEnumUI.UIData sex = this.data.sex.v;
                                 if (sex != null)
                                 {
+                                    // options
+                                    {
+                                        sex.options.copyList(User.GetStrSex());
+                                    }
                                     // update
                                     RequestChangeUpdate<int>.UpdateData updateData = sex.updateData.v;
                                     if (updateData != null)

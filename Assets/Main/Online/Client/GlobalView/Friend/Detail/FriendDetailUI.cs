@@ -87,23 +87,19 @@ public class FriendDetailUI : UIBehavior<FriendDetailUI.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text lbTitle;
     public static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-    public Text tvBack;
-    public static readonly TxtLanguage txtBack = new TxtLanguage();
-
     static FriendDetailUI()
     {
-        txtTitle.add(Language.Type.vi, "Thông tin chi tiết bạn bè");
-        txtBack.add(Language.Type.vi, "Quay Lại");
+        txtTitle.add(Language.Type.vi, "Thông Tin Chi Tiết Bạn Bè");
     }
 
     #endregion
+
+    #region Refresh
 
     public override void refresh()
     {
@@ -167,19 +163,7 @@ public class FriendDetailUI : UIBehavior<FriendDetailUI.UIData>
                     }
                     // txt
                     {
-                        /*if (lbTitle != null) {
-							lbTitle.text = txtTitle.get ("Friend Detail");
-						} else {
-							Debug.LogError ("lbTitle null: " + this);
-						}*/
-                        if (tvBack != null)
-                        {
-                            tvBack.text = txtBack.get("Back");
-                        }
-                        else
-                        {
-                            Debug.LogError("tvBack null: " + this);
-                        }
+
                     }
                 }
                 else
@@ -204,7 +188,7 @@ public class FriendDetailUI : UIBehavior<FriendDetailUI.UIData>
     #region implement callBacks
 
     public ChatRoomUI chatRoomPrefab;
-    private static readonly UIRectTransform chatRoomRect = UIRectTransform.CreateFullRect(10, 10, UIConstants.HeaderHeight + 150.0f, 0);
+    private static readonly UIRectTransform chatRoomRect = UIRectTransform.CreateFullRect(0, 0, UIConstants.HeaderHeight + 150.0f, 0);
 
     public HumanUI humanPrefab;
     public Transform humanContainer;

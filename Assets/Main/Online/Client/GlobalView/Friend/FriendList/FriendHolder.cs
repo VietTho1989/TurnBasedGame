@@ -66,12 +66,7 @@ public class FriendHolder : SriaHolderBehavior<FriendHolder.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
-
-    public Text tvViewDetail;
-    public static readonly TxtLanguage txtViewDetail = new TxtLanguage();
 
     public Text tvName;
 
@@ -88,7 +83,6 @@ public class FriendHolder : SriaHolderBehavior<FriendHolder.UIData>
     {
         // txt
         {
-            txtViewDetail.add(Language.Type.vi, "Xem chi tiết");
             // status
             {
                 txtStatus.add(Language.Type.vi, "Status:");
@@ -137,6 +131,8 @@ public class FriendHolder : SriaHolderBehavior<FriendHolder.UIData>
     }
 
     #endregion
+
+    #region Refresh
 
     public override void refresh()
     {
@@ -268,14 +264,7 @@ public class FriendHolder : SriaHolderBehavior<FriendHolder.UIData>
                 }
                 // txt
                 {
-                    if (tvViewDetail != null)
-                    {
-                        tvViewDetail.text = txtViewDetail.get("View Detail");
-                    }
-                    else
-                    {
-                        Debug.LogError("tvViewDetail null: " + this);
-                    }
+
                 }
             }
             else

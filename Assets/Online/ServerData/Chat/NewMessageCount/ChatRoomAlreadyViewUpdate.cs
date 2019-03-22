@@ -160,7 +160,7 @@ public class ChatRoomAlreadyViewUpdate : UpdateBehavior<ChatRoomAlreadyViewUpdat
                                         {
                                             if (this.data.alreadyViewMaxId.v > chatViewer.alreadyViewMaxId.v)
                                             {
-                                                Debug.LogError("send new alreadyViewMaxId: " + this.data.alreadyViewMaxId.v);
+                                                // Debug.LogError("send new alreadyViewMaxId: " + this.data.alreadyViewMaxId.v);
                                                 if (Server.IsServerOnline(chatRoom))
                                                 {
                                                     chatViewer.requestSetAlreadyViewMaxId(profileId, this.data.alreadyViewMaxId.v);

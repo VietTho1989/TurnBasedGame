@@ -100,4 +100,57 @@ public class ValueChangeUtils
 
     #endregion
 
+    public static void getAddAndRemoveValues<T>(List<Sync<T>> syncs, List<T> addValues, List<T> removeValues)
+    {
+        for (int syncCount = 0; syncCount < syncs.Count; syncCount++)
+        {
+            Sync<T> sync = syncs[syncCount];
+            switch (sync.getType())
+            {
+                case Sync<T>.Type.Set:
+                    {
+                        SyncSet<T> syncSet = (SyncSet<T>)sync;
+                        if (syncSet.olds.Count == syncSet.news.Count)
+                        {
+                            for (int i = 0; i < syncSet.olds.Count; i++)
+                            {
+                                // od value
+                                removeValues.Add(syncSet.olds[i]);
+                                // add new value
+                                addValues.Add(syncSet.news[i]);
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("count error: " + syncSet.olds.Count + "; " + syncSet.news.Count);
+                        }
+                    }
+                    break;
+                case Sync<T>.Type.Add:
+                    {
+                        SyncAdd<T> syncAdd = (SyncAdd<T>)sync;
+                        for (int i = 0; i < syncAdd.values.Count; i++)
+                        {
+                            T value = syncAdd.values[i];
+                            addValues.Add(value);
+                        }
+                    }
+                    break;
+                case Sync<T>.Type.Remove:
+                    {
+                        SyncRemove<T> syncRemove = (SyncRemove<T>)sync;
+                        for (int i = 0; i < syncRemove.values.Count; i++)
+                        {
+                            T value = syncRemove.values[i];
+                            removeValues.Add(value);
+                        }
+                    }
+                    break;
+                default:
+                    Debug.LogError("unknown type: " + sync.getType());
+                    break;
+            }
+        }
+    }
+
 }

@@ -1218,6 +1218,7 @@
     <Compile Include="Assets\Main\Online\Client\GlobalView\Friend\Detail\FriendDetailUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\Friend\FriendList\FriendAdapter.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\Friend\FriendList\FriendHolder.cs" />
+    <Compile Include="Assets\Main\Online\Client\GlobalView\Friend\FriendList\NewMessage\FriendListNewMessageCountUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\Friend\GlobalFriendsUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\GlobalViewUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\Profile\GlobalProfileUI.cs" />
