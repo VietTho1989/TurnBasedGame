@@ -1,7 +1,7 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Chat/ChatRoomUI/ChatRoomUI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/UI/ContestManagerUI.cs">
     <Files>
-      <File FileName="Assets/Online/ServerData/Chat/ChatRoomUI/ChatRoomUI.cs" Line="1016" Column="2" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/UI/ContestManagerUI.cs" Line="251" Column="95" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

@@ -54,31 +54,49 @@ namespace UnityEditor.PackageManager.UI
                 return Description.Split(new[] {builtinPackageDocsUrlKey}, StringSplitOptions.None)[0];
         } }
 
-        // Method content must be matched in package-manager-doctools extension
-        public static string GetPackageUrlRedirect(string packageName)
+        private static Version ParseShortVersion(string shortVersionId)
+        {
+            try
+            {
+                var versionToken = shortVersionId.Split('@')[1];
+                return new Version(versionToken);
+            }
+            catch (Exception)
+            {
+                // Keep default version 0.0 on exception
+                return new Version();
+            }
+        }
+
+        // Method content must be matched in package manager UI
+        public static string GetPackageUrlRedirect(string packageName, string shortVersionId)
         {
             var redirectUrl = "";
             if (packageName == "com.unity.ads")
                 redirectUrl = "https://docs.unity3d.com/Manual/UnityAds.html";
-            else if  (packageName == "com.unity.analytics")
-                redirectUrl = "https://docs.unity3d.com/Manual/UnityAnalytics.html";
-            else if  (packageName == "com.unity.purchasing")
+            else if (packageName == "com.unity.analytics")
+            {
+                if (ParseShortVersion(shortVersionId) < new Version(3, 2))
+                    redirectUrl = "https://docs.unity3d.com/Manual/UnityAnalytics.html";
+            }
+            else if (packageName == "com.unity.purchasing")
                 redirectUrl = "https://docs.unity3d.com/Manual/UnityIAP.html";
-            else if  (packageName == "com.unity.standardevents")
+            else if (packageName == "com.unity.standardevents")
                 redirectUrl = "https://docs.unity3d.com/Manual/UnityAnalyticsStandardEvents.html";
-            else if  (packageName == "com.unity.xiaomi")
+            else if (packageName == "com.unity.xiaomi")
                 redirectUrl = "https://unity3d.com/cn/partners/xiaomi/guide";
             else if (packageName == "com.unity.shadergraph")
-                redirectUrl = "https://github.com/Unity-Technologies/ShaderGraph/wiki";
-            else if (packageName == "com.unity.collab-proxy")
-                redirectUrl = "https://docs.unity3d.com/Manual/UnityCollaborate.html";
+            {
+                if (ParseShortVersion(shortVersionId) < new Version(4, 1))
+                    redirectUrl = "https://github.com/Unity-Technologies/ShaderGraph/wiki";
+            }
 
             return redirectUrl;
         }
 
         public bool RedirectsToManual(PackageInfo packageInfo)
         {
-            return !string.IsNullOrEmpty(GetPackageUrlRedirect(packageInfo.Name));
+            return !string.IsNullOrEmpty(GetPackageUrlRedirect(packageInfo.Name, packageInfo.ShortVersionId));
         }
 
         public bool HasChangelog(PackageInfo packageInfo)
