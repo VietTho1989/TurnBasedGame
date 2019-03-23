@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using GameManager.Match;
 
 public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
 {
@@ -159,6 +160,8 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
 
     #region implement callBacks
 
+    private ContestManagerUI.UIData contestManagerUIData = null;
+
     public override void onAddCallBack<T>(T data)
     {
         if(data is GameDataUI.UIData)
@@ -166,6 +169,10 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
             GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
             // Global
             Global.get().addCallBack(this);
+            // Parent
+            {
+                DataUtils.addParentCallBack(gameDataUIData, this, ref this.contestManagerUIData);
+            }
             // Child
             {
                 gameDataUIData.board.allAddCallBack(this);
@@ -179,6 +186,38 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
         {
             dirty = true;
             return;
+        }
+        // Parent
+        {
+            if(data is ContestManagerUI.UIData)
+            {
+                ContestManagerUI.UIData contestManagerUIData = data as ContestManagerUI.UIData;
+                // Child
+                {
+                    contestManagerUIData.btns.allAddCallBack(this);
+                }
+                dirty = true;
+                return;
+            }
+            // Child
+            {
+                if(data is ContestManagerBtnUI.UIData)
+                {
+                    ContestManagerBtnUI.UIData contestManagerBtnUIData = data as ContestManagerBtnUI.UIData;
+                    // Child
+                    {
+                        contestManagerBtnUIData.btnChat.allAddCallBack(this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                if(data is ContestManagerBtnChatUI.UIData)
+                {
+                    dirty = true;
+                    return;
+                }
+            }
         }
         // Child
         {
@@ -203,6 +242,10 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
             GameDataUI.UIData gameDataUIData = data as GameDataUI.UIData;
             // Global
             Global.get().removeCallBack(this);
+            // Parent
+            {
+                DataUtils.removeParentCallBack(gameDataUIData, this, ref this.contestManagerUIData);
+            }
             // Child
             {
                 gameDataUIData.board.allRemoveCallBack(this);
@@ -215,6 +258,35 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
         if (data is Global)
         {
             return;
+        }
+        // Parent
+        {
+            if (data is ContestManagerUI.UIData)
+            {
+                ContestManagerUI.UIData contestManagerUIData = data as ContestManagerUI.UIData;
+                // Child
+                {
+                    contestManagerUIData.btns.allRemoveCallBack(this);
+                }
+                return;
+            }
+            // Child
+            {
+                if (data is ContestManagerBtnUI.UIData)
+                {
+                    ContestManagerBtnUI.UIData contestManagerBtnUIData = data as ContestManagerBtnUI.UIData;
+                    // Child
+                    {
+                        contestManagerBtnUIData.btnChat.allRemoveCallBack(this);
+                    }
+                    return;
+                }
+                // Child
+                if (data is ContestManagerBtnChatUI.UIData)
+                {
+                    return;
+                }
+            }
         }
         // Child
         {
@@ -282,6 +354,71 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
             Global.OnValueTransformChange(wrapProperty, this);
             return;
         }
+        // Parent
+        {
+            if (wrapProperty.p is ContestManagerUI.UIData)
+            {
+                switch ((ContestManagerUI.UIData.Property)wrapProperty.n)
+                {
+                    case ContestManagerUI.UIData.Property.contestManager:
+                        break;
+                    case ContestManagerUI.UIData.Property.sub:
+                        break;
+                    case ContestManagerUI.UIData.Property.btns:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case ContestManagerUI.UIData.Property.roomChat:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            {
+                if (wrapProperty.p is ContestManagerBtnUI.UIData)
+                {
+                    switch ((ContestManagerBtnUI.UIData.Property)wrapProperty.n)
+                    {
+                        case ContestManagerBtnUI.UIData.Property.btnChat:
+                            {
+                                ValueChangeUtils.replaceCallBack(this, syncs);
+                                dirty = true;
+                            }
+                            break;
+                        case ContestManagerBtnUI.UIData.Property.btnRoomUser:
+                            break;
+                        case ContestManagerBtnUI.UIData.Property.btnSetting:
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+                // Child
+                if (wrapProperty.p is ContestManagerBtnChatUI.UIData)
+                {
+                    switch ((ContestManagerBtnChatUI.UIData.Property)wrapProperty.n)
+                    {
+                        case ContestManagerBtnChatUI.UIData.Property.visibility:
+                            dirty = true;
+                            break;
+                        case ContestManagerBtnChatUI.UIData.Property.style:
+                            dirty = true;
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+            }
+        }
         // Child
         {
             if(wrapProperty.p is GameDataBoardUI.UIData)
@@ -307,6 +444,9 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
                         dirty = true;
                         break;
                     case GameDataBoardUI.UIData.Property.bottom:
+                        dirty = true;
+                        break;
+                    case GameDataBoardUI.UIData.Property.screen:
                         dirty = true;
                         break;
                     case GameDataBoardUI.UIData.Property.perspective:

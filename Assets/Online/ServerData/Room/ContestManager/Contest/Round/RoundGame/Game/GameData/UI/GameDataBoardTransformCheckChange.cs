@@ -198,6 +198,9 @@ public class GameDataBoardTransformCheckChange<K> : Data, ValueChangeCallBack wh
                     case GameDataBoardUI.UIData.Property.bottom:
                         this.notifyChange();
                         break;
+                    case GameDataBoardUI.UIData.Property.screen:
+                        this.notifyChange();
+                        break;
                     case GameDataBoardUI.UIData.Property.perspective:
                         break;
                     default:

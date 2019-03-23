@@ -186,7 +186,7 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                         }
                         else
                         {
-                            Debug.LogError("requestNewRoundRobin null");
+                            // Debug.LogError("requestNewRoundRobin null");
                         }
                     }
                     // requestNewRound

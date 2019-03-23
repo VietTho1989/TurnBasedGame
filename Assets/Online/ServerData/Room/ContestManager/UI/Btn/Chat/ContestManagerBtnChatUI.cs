@@ -30,6 +30,25 @@ public class ContestManagerBtnChatUI : UIBehavior<ContestManagerBtnChatUI.UIData
             Full
         }
 
+        private static readonly TxtLanguage txtOverlay = new TxtLanguage();
+        private static readonly TxtLanguage txtFull = new TxtLanguage();
+
+        public static List<string> GetStrStyles()
+        {
+            List<string> ret = new List<string>();
+            {
+                ret.Add(txtOverlay.get("Overlay"));
+                ret.Add(txtFull.get("By Side"));
+            }
+            return ret;
+        }
+
+        static UIData()
+        {
+            txtOverlay.add(Language.Type.vi, "Đặt Lên");
+            txtFull.add(Language.Type.vi, "Ngay Cạnh");
+        }
+
         public VP<Style> style;
 
         #endregion

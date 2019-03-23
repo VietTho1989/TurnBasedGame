@@ -149,13 +149,13 @@ public class RoomUI : UIBehavior<RoomUI.UIData>
             {
                 // anchoredPosition: (-40.0, 0.0); anchorMin: (0.0, 1.0); anchorMax: (1.0, 1.0); pivot: (0.5, 1.0);
                 // offsetMin: (0.0, -30.0); offsetMax: (-80.0, 0.0); sizeDelta: (-80.0, 30.0);
-                roomBtnRect.anchoredPosition = new Vector3(-40.0f, 0.0f, 0.0f);
+                roomBtnRect.anchoredPosition = new Vector3(-45.0f, 0.0f, 0.0f);
                 roomBtnRect.anchorMin = new Vector2(0.0f, 1.0f);
                 roomBtnRect.anchorMax = new Vector2(1.0f, 1.0f);
                 roomBtnRect.pivot = new Vector2(0.5f, 1.0f);
                 roomBtnRect.offsetMin = new Vector2(0.0f, -30.0f);
-                roomBtnRect.offsetMax = new Vector2(-80.0f, 0.0f);
-                roomBtnRect.sizeDelta = new Vector2(-80.0f, 30.0f);
+                roomBtnRect.offsetMax = new Vector2(-90.0f, 0.0f);
+                roomBtnRect.sizeDelta = new Vector2(-90.0f, 30.0f);
             }
             chooseContestManagerRect.setPosY(-15.0f);
         }

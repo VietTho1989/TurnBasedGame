@@ -192,9 +192,9 @@ namespace GameManager.Match
                 btnStartRect.anchorMin = new Vector2(1.0f, 1.0f);
                 btnStartRect.anchorMax = new Vector2(1.0f, 1.0f);
                 btnStartRect.pivot = new Vector2(1.0f, 1.0f);
-                btnStartRect.offsetMin = new Vector2(-80.0f, 0.0f);
+                btnStartRect.offsetMin = new Vector2(-90.0f, 0.0f);
                 btnStartRect.offsetMax = new Vector2(0.0f, 30.0f);
-                btnStartRect.sizeDelta = new Vector2(80.0f, 30f);
+                btnStartRect.sizeDelta = new Vector2(90.0f, 30f);
             }
             // teamAdapterRect
             {

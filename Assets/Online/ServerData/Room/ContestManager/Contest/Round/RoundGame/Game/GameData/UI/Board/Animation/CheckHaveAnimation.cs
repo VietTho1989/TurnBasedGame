@@ -127,6 +127,8 @@ public class CheckHaveAnimation<K> : Data, ValueChangeCallBack where K : Data
                     break;
                 case GameDataBoardUI.UIData.Property.bottom:
                     break;
+                case GameDataBoardUI.UIData.Property.screen:
+                    break;
                 case GameDataBoardUI.UIData.Property.perspective:
                     break;
                 default:

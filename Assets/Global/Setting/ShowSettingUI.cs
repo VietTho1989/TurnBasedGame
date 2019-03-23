@@ -32,7 +32,7 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
 
         #endregion
 
-            #region Constructor
+        #region Constructor
 
         public enum Property
         {

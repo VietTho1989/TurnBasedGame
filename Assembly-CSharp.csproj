@@ -3388,6 +3388,7 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Play\Swap\UI\TeamAdapter\SwapTeamAdapter.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Play\Swap\UI\TeamAdapter\SwapTeamHolder.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\UI\Btn\Chat\ContestManagerBtnChatUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\UI\Btn\Chat\RoomChat\RoomChatUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\UI\Btn\ContestManagerBtnUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\UI\Btn\RoomUser\ContestManagerBtnRoomUserUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\UI\Btn\Setting\ContestManagerBtnSettingUI.cs" />

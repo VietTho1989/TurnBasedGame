@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace GameManager.Match
 {
-    public class ContestManagerUI : UIBehavior<ContestManagerUI.UIData>
+    public class ContestManagerUI : UIHaveTransformDataBehavior<ContestManagerUI.UIData>
     {
 
         #region UIData
@@ -32,13 +32,16 @@ namespace GameManager.Match
 
             public VP<ContestManagerBtnUI.UIData> btns;
 
+            public VP<RoomChatUI.UIData> roomChat;
+
             #region Constructor
 
             public enum Property
             {
                 contestManager,
                 sub,
-                btns
+                btns,
+                roomChat
             }
 
             public UIData() : base()
@@ -46,6 +49,7 @@ namespace GameManager.Match
                 this.contestManager = new VP<ReferenceData<ContestManager>>(this, (byte)Property.contestManager, new ReferenceData<ContestManager>(null));
                 this.sub = new VP<Sub>(this, (byte)Property.sub, null);
                 this.btns = new VP<ContestManagerBtnUI.UIData>(this, (byte)Property.btns, new ContestManagerBtnUI.UIData());
+                this.roomChat = new VP<RoomChatUI.UIData>(this, (byte)Property.roomChat, null);
             }
 
             #endregion
@@ -55,6 +59,19 @@ namespace GameManager.Match
                 // Debug.LogError ("processEvent: " + e + "; " + this);
                 bool isProcess = false;
                 {
+                    // roomChat
+                    if (!isProcess)
+                    {
+                        RoomChatUI.UIData roomChat = this.roomChat.v;
+                        if (roomChat != null)
+                        {
+                            isProcess = roomChat.processEvent(e);
+                        }
+                        else
+                        {
+                            // Debug.LogError("roomChat null");
+                        }
+                    }
                     // sub
                     if (!isProcess)
                     {
@@ -99,6 +116,12 @@ namespace GameManager.Match
 
         #region txt, rect
 
+        private const float PortraitChatHeight = 180;
+        private const float LandscapeChatWidth = 240;
+
+        private static readonly UIRectTransform roomChatPortraitRect = new UIRectTransform();
+        private static readonly UIRectTransform roomChatLandscapeRect = new UIRectTransform();
+
         static ContestManagerUI()
         {
             // btnRect
@@ -113,14 +136,38 @@ namespace GameManager.Match
                 btnRect.offsetMax = new Vector2(0.0f, 30.0f);
                 btnRect.sizeDelta = new Vector2(90.0f, 30.0f);
             }
+            // roomChat
+            {
+                // portrait
+                {
+                    // anchoredPosition: (0.0, 0.0); anchorMin: (0.0, 0.0); anchorMax: (1.0, 0.0); pivot: (0.5, 0.0);
+                    // offsetMin: (0.0, 0.0); offsetMax: (0.0, 120.0); sizeDelta: (0.0, 120.0);
+                    roomChatPortraitRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                    roomChatPortraitRect.anchorMin = new Vector2(0.0f, 0.0f);
+                    roomChatPortraitRect.anchorMax = new Vector2(1.0f, 0.0f);
+                    roomChatPortraitRect.pivot = new Vector2(0.5f, 0.0f);
+                    roomChatPortraitRect.offsetMin = new Vector2(0.0f, 0.0f);
+                    roomChatPortraitRect.offsetMax = new Vector2(0.0f, PortraitChatHeight);
+                    roomChatPortraitRect.sizeDelta = new Vector2(0.0f, PortraitChatHeight);
+                }
+                // landscape
+                {
+                    // anchoredPosition: (0.0, 0.0); anchorMin: (1.0, 0.0); anchorMax: (1.0, 1.0); pivot: (1.0, 0.5);
+                    // offsetMin: (-160.0, 0.0); offsetMax: (0.0, 0.0); sizeDelta: (160.0, 0.0);
+                    roomChatLandscapeRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                    roomChatLandscapeRect.anchorMin = new Vector2(1.0f, 0.0f);
+                    roomChatLandscapeRect.anchorMax = new Vector2(1.0f, 1.0f);
+                    roomChatLandscapeRect.pivot = new Vector2(1.0f, 0.5f);
+                    roomChatLandscapeRect.offsetMin = new Vector2(-LandscapeChatWidth, 0.0f);
+                    roomChatLandscapeRect.offsetMax = new Vector2(0.0f, 0.0f);
+                    roomChatLandscapeRect.sizeDelta = new Vector2(LandscapeChatWidth, 0.0f);
+                }
+            }
         }
 
         #endregion
 
         #region Refresh
-
-        private const float PortraitChatHeight = 60;
-        private const float LandscapeChatWidth = 160;
 
         public override void refresh()
         {
@@ -180,75 +227,140 @@ namespace GameManager.Match
                                 {
                                     case ContestManager.State.Type.Lobby:
                                         {
+                                            // sub
                                             UIRectTransform fullScreenRect = UIRectTransform.CreateFullRect(0, 0, 0, 0);
                                             UIRectTransform.Set(sub, fullScreenRect);
+                                            // chat
+                                            this.data.roomChat.v = null;
                                         }
                                         break;
                                     case ContestManager.State.Type.Play:
                                         {
                                             // find
-                                            bool isHaveChatFull = false;
+                                            bool isPortrait = true;
                                             {
-                                                ContestManagerBtnUI.UIData btns = this.data.btns.v;
-                                                if (btns != null)
+                                                RectTransform rectTransform = (RectTransform)this.transform;
+                                                if (rectTransform != null)
                                                 {
-                                                    ContestManagerBtnChatUI.UIData btnChat = btns.btnChat.v;
-                                                    if (btnChat != null)
+                                                    if (rectTransform.rect.height >= rectTransform.rect.width)
                                                     {
-                                                        if (btnChat.visibility.v == ContestManagerBtnChatUI.UIData.Visibility.Show
-                                                            && btnChat.style.v == ContestManagerBtnChatUI.UIData.Style.Full)
-                                                        {
-                                                            isHaveChatFull = true;
-                                                        }
+                                                        isPortrait = true;
                                                     }
                                                     else
                                                     {
-                                                        Debug.LogError("btnChat null");
+                                                        isPortrait = false;
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    Debug.LogError("btns null");
+                                                    Debug.LogError("rectTransform null");
                                                 }
                                             }
-                                            // process
-                                            if (!isHaveChatFull)
-                                            {
-                                                UIRectTransform fullScreenRect = UIRectTransform.CreateFullRect(0, 0, 0, 0);
-                                                UIRectTransform.Set(sub, fullScreenRect);
-                                            }
-                                            else
+                                            // sub
                                             {
                                                 // find
-                                                bool isPortrait = true;
+                                                bool isHaveChatFull = false;
                                                 {
-                                                    RectTransform rectTransform = (RectTransform)this.transform;
-                                                    if (rectTransform != null)
+                                                    ContestManagerBtnUI.UIData btns = this.data.btns.v;
+                                                    if (btns != null)
                                                     {
-                                                        if (rectTransform.rect.height >= rectTransform.rect.width)
+                                                        ContestManagerBtnChatUI.UIData btnChat = btns.btnChat.v;
+                                                        if (btnChat != null)
                                                         {
-                                                            isPortrait = true;
+                                                            if (btnChat.visibility.v == ContestManagerBtnChatUI.UIData.Visibility.Show
+                                                                && btnChat.style.v == ContestManagerBtnChatUI.UIData.Style.Full)
+                                                            {
+                                                                isHaveChatFull = true;
+                                                            }
                                                         }
                                                         else
                                                         {
-                                                            isPortrait = false;
+                                                            Debug.LogError("btnChat null");
                                                         }
                                                     }
                                                     else
                                                     {
-                                                        Debug.LogError("rectTransform null");
+                                                        Debug.LogError("btns null");
                                                     }
                                                 }
                                                 // process
-                                                if (isPortrait)
+                                                if (!isHaveChatFull)
                                                 {
-                                                    UIRectTransform subHaveChatRect = UIRectTransform.CreateFullRect(0, 0, 0, PortraitChatHeight);
-                                                    UIRectTransform.Set(sub, subHaveChatRect);
+                                                    UIRectTransform fullScreenRect = UIRectTransform.CreateFullRect(0, 0, 0, 0);
+                                                    UIRectTransform.Set(sub, fullScreenRect);
                                                 }
                                                 else
                                                 {
-                                                    UIRectTransform subHaveChatRect = UIRectTransform.CreateFullRect(0, LandscapeChatWidth, 0, 0);
-                                                    UIRectTransform.Set(sub, subHaveChatRect);
+                                                    // process
+                                                    if (isPortrait)
+                                                    {
+                                                        UIRectTransform subHaveChatRect = UIRectTransform.CreateFullRect(0, 0, 0, PortraitChatHeight);
+                                                        UIRectTransform.Set(sub, subHaveChatRect);
+                                                    }
+                                                    else
+                                                    {
+                                                        UIRectTransform subHaveChatRect = UIRectTransform.CreateFullRect(0, LandscapeChatWidth, 0, 0);
+                                                        UIRectTransform.Set(sub, subHaveChatRect);
+                                                    }
+                                                }
+                                            }
+                                            // chat
+                                            {
+                                                // find
+                                                ContestManagerBtnChatUI.UIData.Visibility visibility = ContestManagerBtnChatUI.UIData.Visibility.Hide;
+                                                ContestManagerBtnChatUI.UIData.Style style = ContestManagerBtnChatUI.UIData.Style.Overlay;
+                                                {
+                                                    ContestManagerBtnUI.UIData btns = this.data.btns.v;
+                                                    if (btns != null)
+                                                    {
+                                                        ContestManagerBtnChatUI.UIData btnChat = btns.btnChat.v;
+                                                        if (btnChat != null)
+                                                        {
+                                                            visibility = btnChat.visibility.v;
+                                                            style = btnChat.style.v;
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("btnChat null");
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("btns null");
+                                                    }
+                                                }
+                                                // process
+                                                switch (visibility)
+                                                {
+                                                    case ContestManagerBtnChatUI.UIData.Visibility.Hide:
+                                                        this.data.roomChat.v = null;
+                                                        break;
+                                                    case ContestManagerBtnChatUI.UIData.Visibility.Show:
+                                                        {
+                                                            // make UI
+                                                            {
+                                                                RoomChatUI.UIData roomChatUIData = this.data.roomChat.newOrOld<RoomChatUI.UIData>();
+                                                                {
+
+                                                                }
+                                                                this.data.roomChat.v = roomChatUIData;
+                                                            }
+                                                            // UI Transform
+                                                            {
+                                                                if (isPortrait)
+                                                                {
+                                                                    UIRectTransform.Set(this.data.roomChat.v, roomChatPortraitRect);
+                                                                }
+                                                                else
+                                                                {
+                                                                    UIRectTransform.Set(this.data.roomChat.v, roomChatLandscapeRect);
+                                                                }
+                                                            }
+                                                        }
+                                                        break;
+                                                    default:
+                                                        Debug.LogError("unknown visiblity: " + visibility);
+                                                        break;
                                                 }
                                             }
                                         }
@@ -267,6 +379,7 @@ namespace GameManager.Match
                         {
                             UIRectTransform.SetSiblingIndex(this.data.btns.v, 0);
                             UIRectTransform.SetSiblingIndex(this.data.sub.v, 1);
+                            UIRectTransform.SetSiblingIndex(this.data.roomChat.v, 2);
                         }
                     }
                     else
@@ -297,6 +410,8 @@ namespace GameManager.Match
         public ContestManagerBtnUI btnPrefab;
         private static readonly UIRectTransform btnRect = new UIRectTransform();
 
+        public RoomChatUI roomChatPrefab;
+
         public override void onAddCallBack<T>(T data)
         {
             if (data is UIData)
@@ -307,6 +422,7 @@ namespace GameManager.Match
                     uiData.contestManager.allAddCallBack(this);
                     uiData.sub.allAddCallBack(this);
                     uiData.btns.allAddCallBack(this);
+                    uiData.roomChat.allAddCallBack(this);
                 }
                 dirty = true;
                 return;
@@ -390,6 +506,16 @@ namespace GameManager.Match
                         return;
                     }
                 }
+                if(data is RoomChatUI.UIData)
+                {
+                    RoomChatUI.UIData roomChatUIData = data as RoomChatUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(roomChatUIData, roomChatPrefab, this.transform);
+                    }
+                    dirty = true;
+                    return;
+                }
             }
             Debug.LogError("Don't process: " + data + "; " + this);
         }
@@ -404,6 +530,7 @@ namespace GameManager.Match
                     uiData.contestManager.allRemoveCallBack(this);
                     uiData.sub.allRemoveCallBack(this);
                     uiData.btns.allRemoveCallBack(this);
+                    uiData.roomChat.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
                 return;
@@ -461,6 +588,15 @@ namespace GameManager.Match
                         return;
                     }
                 }
+                if (data is RoomChatUI.UIData)
+                {
+                    RoomChatUI.UIData roomChatUIData = data as RoomChatUI.UIData;
+                    // UI
+                    {
+                        roomChatUIData.removeCallBackAndDestroy(typeof(RoomChatUI));
+                    }
+                    return;
+                }
             }
             Debug.LogError("Don't process: " + data + "; " + this);
         }
@@ -488,6 +624,12 @@ namespace GameManager.Match
                         }
                         break;
                     case UIData.Property.btns:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.roomChat:
                         {
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
@@ -557,6 +699,10 @@ namespace GameManager.Match
                         }
                         return;
                     }
+                }
+                if (wrapProperty.p is RoomChatUI.UIData)
+                {
+                    return;
                 }
             }
             Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);

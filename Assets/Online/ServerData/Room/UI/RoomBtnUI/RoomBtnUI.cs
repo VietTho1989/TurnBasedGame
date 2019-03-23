@@ -605,6 +605,10 @@ namespace GameManager.Match
                                     break;
                                 case ContestManagerUI.UIData.Property.sub:
                                     break;
+                                case ContestManagerUI.UIData.Property.btns:
+                                    break;
+                                case ContestManagerUI.UIData.Property.roomChat:
+                                    break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                                     break;

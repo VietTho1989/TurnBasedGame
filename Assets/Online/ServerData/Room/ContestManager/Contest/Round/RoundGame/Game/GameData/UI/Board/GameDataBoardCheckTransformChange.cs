@@ -157,7 +157,7 @@ public class GameDataBoardCheckTransformChange<K> : Data, ValueChangeCallBack wh
         {
             if (wrapProperty.p is TransformData)
             {
-                Debug.LogError("gameDataBoardCheckChange: TransformData");
+                // Debug.LogError("gameDataBoardCheckChange: TransformData");
                 this.notifyChange();
                 return;
             }

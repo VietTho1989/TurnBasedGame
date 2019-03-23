@@ -795,6 +795,25 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
                 }
                 return;
             }
+            if (data is ChatRoomAlreadyViewUpdate.UpdateData)
+            {
+                ChatRoomAlreadyViewUpdate.UpdateData alreadyViewUpdateData = data as ChatRoomAlreadyViewUpdate.UpdateData;
+                // update
+                {
+                    if (chatRoomAlreadyViewUpdate != null)
+                    {
+                        if (chatRoomAlreadyViewUpdate.data == alreadyViewUpdateData)
+                        {
+                            chatRoomAlreadyViewUpdate.setDataNull(alreadyViewUpdateData);
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("chatRoomAlreadyViewUpdate null");
+                    }
+                }
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }

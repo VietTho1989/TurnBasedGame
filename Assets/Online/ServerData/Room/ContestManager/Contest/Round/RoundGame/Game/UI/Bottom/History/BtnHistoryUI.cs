@@ -108,12 +108,12 @@ public class BtnHistoryUI : UIBehavior<BtnHistoryUI.UIData>
                 }
                 else
                 {
-                    Debug.LogError("history null");
+                    // Debug.LogError("history null");
                 }
             }
             else
             {
-                Debug.LogError("data null");
+                // Debug.LogError("data null");
             }
         }
     }

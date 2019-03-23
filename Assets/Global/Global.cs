@@ -100,7 +100,7 @@ public class Global : Data
 
     public static void OnValueTransformChange(WrapProperty wrapProperty, DirtyInterface dirtyInterface)
     {
-        Debug.LogError("global transform change");
+        // Debug.LogError("global transform change");
         switch ((Global.Property)wrapProperty.n)
         {
             case Property.networkReachability:

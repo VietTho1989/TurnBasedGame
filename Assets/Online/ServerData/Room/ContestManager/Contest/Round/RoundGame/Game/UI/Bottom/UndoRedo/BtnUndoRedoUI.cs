@@ -91,7 +91,7 @@ public class BtnUndoRedoUI : UIBehavior<BtnUndoRedoUI.UIData>
             }
             else
             {
-                Debug.LogError("data nulll");
+                // Debug.LogError("data nulll");
             }
         }
     }
