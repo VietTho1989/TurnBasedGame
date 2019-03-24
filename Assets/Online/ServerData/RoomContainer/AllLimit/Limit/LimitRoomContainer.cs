@@ -108,8 +108,11 @@ public class LimitRoomContainer : RoomContainer
         {
             // Debug.LogError ("You cannot request");
         }
-        // DefaultChosenGame
-        Setting.get().defaultChosenGame.v.setLast(makeRoom.gameType);
+        // Setting Default
+        {
+            Setting.get().defaultChosenGame.v.setLast(makeRoom.gameType);
+            Setting.get().defaultRoomName.v.setLast(makeRoom.roomName);
+        }
     }
 
     public void makeRoom(uint userId, CreateRoomMessage makeRoom)

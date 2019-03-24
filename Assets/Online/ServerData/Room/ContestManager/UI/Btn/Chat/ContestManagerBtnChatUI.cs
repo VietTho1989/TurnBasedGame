@@ -90,6 +90,7 @@ public class ContestManagerBtnChatUI : UIBehavior<ContestManagerBtnChatUI.UIData
         {
             this.visibility = new VP<Visibility>(this, (byte)Property.visibility, Setting.get().defaultChatRoomStyle.v.getVisibility());
             this.style = new VP<Style>(this, (byte)Property.style, Setting.get().defaultChatRoomStyle.v.getStyle());
+            // Debug.LogWarning("btnChat constructor: " + this.visibility.v + ", " + this.style.v);
         }
 
         #endregion

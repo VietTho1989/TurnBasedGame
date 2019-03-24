@@ -53,6 +53,10 @@ public class Room : Data
         {
             Debug.LogError("You cannot request");
         }
+        // Setting Default
+        {
+            Setting.get().defaultRoomName.v.setLast(newName);
+        }
     }
 
     public void changeName(uint userId, string newName)

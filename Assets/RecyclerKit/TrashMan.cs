@@ -115,7 +115,16 @@ public class TrashMan : MonoBehaviour
             if (recycleBin == null || recycleBin.prefab == null)
                 continue;
             recycleBin.initialize();
-            _instanceIdToRecycleBin.Add(recycleBin.prefab.GetInstanceID(), recycleBin);
+            // _instanceIdToRecycleBin.Add(GetInstanceId(recycleBin.prefab), recycleBin);
+            // add
+            {
+                int instanceId = GetInstanceId(recycleBin.prefab);
+                /*if (_instanceIdToRecycleBin.ContainsKey(instanceId))
+                {
+                    Debug.LogError("already contain: " + instanceId + ", " + recycleBin.prefab);
+                }*/
+                _instanceIdToRecycleBin[instanceId] = recycleBin;
+            }
         }
     }
 
@@ -130,11 +139,11 @@ public class TrashMan : MonoBehaviour
     /// <param name="recycleBin">Recycle bin.</param>
     public static void manageRecycleBin(TrashManRecycleBin recycleBin)
     {
-        if (!instance._instanceIdToRecycleBin.ContainsKey(recycleBin.prefab.GetInstanceID()))
+        if (!instance._instanceIdToRecycleBin.ContainsKey(GetInstanceId(recycleBin.prefab)))
         {
             instance.recycleBinCollection.Add(recycleBin);
             recycleBin.initialize();
-            instance._instanceIdToRecycleBin.Add(recycleBin.prefab.GetInstanceID(), recycleBin);
+            instance._instanceIdToRecycleBin.Add(GetInstanceId(recycleBin.prefab), recycleBin);
         }
         else
         {
@@ -149,9 +158,9 @@ public class TrashMan : MonoBehaviour
     /// <param name="shouldDestroyAllManagedObjects">If set to <c>true</c> should destroy all managed objects.</param>
     public static void removeRecycleBin(TrashManRecycleBin recycleBin, bool shouldDestroyAllManagedObjects = true)
     {
-        if (instance._instanceIdToRecycleBin.ContainsKey(recycleBin.prefab.GetInstanceID()))
+        if (instance._instanceIdToRecycleBin.ContainsKey(GetInstanceId(recycleBin.prefab)))
         {
-            instance._instanceIdToRecycleBin.Remove(recycleBin.prefab.GetInstanceID());
+            instance._instanceIdToRecycleBin.Remove(GetInstanceId(recycleBin.prefab));
             instance.recycleBinCollection.Remove(recycleBin);
             recycleBin.clearBin(shouldDestroyAllManagedObjects);
         }
@@ -237,7 +246,7 @@ public class TrashMan : MonoBehaviour
         // recycle
         {
             // find instanceId
-            int instanceId = go.gameObject.GetInstanceID();
+            int instanceId = GetInstanceId(go.gameObject);
             // find recycleBin
             TrashManRecycleBin recycleBin = null;
             if (instance._instanceIdToRecycleBin.TryGetValue(instanceId, out recycleBin))
@@ -280,7 +289,7 @@ public class TrashMan : MonoBehaviour
         // recycle
         {
             // find instanceId
-            int instanceId = go.gameObject.GetInstanceID();
+            int instanceId = GetInstanceId(go.gameObject);
             // find recycleBin
             TrashManRecycleBin recycleBin = null;
             if (instance._instanceIdToRecycleBin.TryGetValue(instanceId, out recycleBin))

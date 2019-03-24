@@ -50,6 +50,16 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
 
     #endregion
 
+    #region defaultRoomName
+
+    private const string SettingDefaultRoomNameType = "SettingDefaultRoomNameType";
+    private const string SettingDefaultRoomName = "SettingDefaultRoomName";
+
+    private bool needUpdateDefaultRoomNameType = false;
+    private bool needUpdateDefaultRoomName = false;
+
+    #endregion
+
     #region defaultChatRoomStyle
 
     private const string SettingDefaultChatRoomStyleType = "SettingDefaultChatRoomStyleType";
@@ -118,6 +128,34 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                                     always.gameType.v = defaultGameType;
                                 }
                                 Setting.get().defaultChosenGame.v = always;
+                            }
+                            break;
+                        default:
+                            Debug.LogError("unknown type");
+                            break;
+                    }
+                }
+                // defaultRoomName
+                {
+                    string defaultRoomName = PlayerPrefs.GetString(SettingDefaultRoomName, "");
+                    switch ((DefaultRoomName.Type)PlayerPrefs.GetInt(SettingDefaultRoomNameType, (int)DefaultRoomName.Type.Last))
+                    {
+                        case DefaultRoomName.Type.Last:
+                            {
+                                DefaultRoomNameLast last = Setting.get().defaultRoomName.newOrOld<DefaultRoomNameLast>();
+                                {
+                                    last.roomName.v = defaultRoomName;
+                                }
+                                Setting.get().defaultRoomName.v = last;
+                            }
+                            break;
+                        case DefaultRoomName.Type.Always:
+                            {
+                                DefaultRoomNameAlways always = Setting.get().defaultRoomName.newOrOld<DefaultRoomNameAlways>();
+                                {
+                                    always.roomName.v = defaultRoomName;
+                                }
+                                Setting.get().defaultRoomName.v = always;
                             }
                             break;
                         default:
@@ -246,6 +284,21 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                             needSave = true;
                         }
                     }
+                    // defaultRoomName
+                    {
+                        if (needUpdateDefaultRoomNameType)
+                        {
+                            PlayerPrefs.SetInt(SettingDefaultRoomNameType, (int)Setting.get().defaultRoomName.v.getType());
+                            needUpdateDefaultRoomNameType = false;
+                            needSave = true;
+                        }
+                        if (needUpdateDefaultRoomName)
+                        {
+                            PlayerPrefs.SetString(SettingDefaultRoomName, Setting.get().defaultRoomName.v.getRoomName());
+                            needUpdateDefaultRoomName = false;
+                            needSave = true;
+                        }
+                    }
                     // defaultChatRoomStyle
                     {
                         if (needUpdateDefaultChatRoomStyleType)
@@ -291,6 +344,7 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
             // Child
             {
                 setting.defaultChosenGame.allAddCallBack(this);
+                setting.defaultRoomName.allAddCallBack(this);
                 setting.defaultChatRoomStyle.allAddCallBack(this);
             }
             dirty = true;
@@ -303,7 +357,12 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                 dirty = true;
                 return;
             }
-            if(data is DefaultChatRoomStyle)
+            if(data is DefaultRoomName)
+            {
+                dirty = true;
+                return;
+            }
+            if (data is DefaultChatRoomStyle)
             {
                 dirty = true;
                 return;
@@ -320,6 +379,7 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
             // Child
             {
                 setting.defaultChosenGame.allRemoveCallBack(this);
+                setting.defaultRoomName.allRemoveCallBack(this);
                 setting.defaultChatRoomStyle.allRemoveCallBack(this);
             }
             return;
@@ -330,7 +390,11 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
             {
                 return;
             }
-            if(data is DefaultChatRoomStyle)
+            if(data is DefaultRoomName)
+            {
+                return;
+            }
+            if (data is DefaultChatRoomStyle)
             {
                 return;
             }
@@ -384,6 +448,13 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         needUpdateDefaultChosenGameType = true;
+                        dirty = true;
+                    }
+                    break;
+                case Setting.Property.defaultRoomName:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        needUpdateDefaultRoomNameType = true;
                         dirty = true;
                     }
                     break;
@@ -441,6 +512,49 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                         break;
                     default:
                         Debug.LogError("unknown type: " + defaultChosenGame.getType());
+                        break;
+                }
+                return;
+            }
+            if (wrapProperty.p is DefaultRoomName)
+            {
+                DefaultRoomName defaultRoomName = wrapProperty.p as DefaultRoomName;
+                switch (defaultRoomName.getType())
+                {
+                    case DefaultRoomName.Type.Last:
+                        {
+                            switch ((DefaultRoomNameLast.Property)wrapProperty.n)
+                            {
+                                case DefaultRoomNameLast.Property.roomName:
+                                    {
+                                        needUpdateDefaultRoomName = true;
+                                        dirty = true;
+                                    }
+                                    break;
+                                default:
+                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                    break;
+                            }
+                        }
+                        break;
+                    case DefaultRoomName.Type.Always:
+                        {
+                            switch ((DefaultRoomNameAlways.Property)wrapProperty.n)
+                            {
+                                case DefaultRoomNameAlways.Property.roomName:
+                                    {
+                                        needUpdateDefaultRoomName = true;
+                                        dirty = true;
+                                    }
+                                    break;
+                                default:
+                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                    break;
+                            }
+                        }
+                        break;
+                    default:
+                        Debug.LogError("unknown type: " + defaultRoomName.getType());
                         break;
                 }
                 return;

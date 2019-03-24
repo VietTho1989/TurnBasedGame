@@ -91,23 +91,7 @@ namespace GameManager.Match
 
             public void reset()
             {
-                ContestManagerBtnUI.UIData btns = this.btns.v;
-                if (btns != null)
-                {
-                    ContestManagerBtnChatUI.UIData btnChatUIData = btns.btnChat.v;
-                    if (btnChatUIData != null)
-                    {
-                        btnChatUIData.visibility.v = ContestManagerBtnChatUI.UIData.Visibility.Hide;
-                    }
-                    else
-                    {
-                        Debug.LogError("btnChatUIData null");
-                    }
-                }
-                else
-                {
-                    Debug.LogError("btns null");
-                }
+
             }
 
         }

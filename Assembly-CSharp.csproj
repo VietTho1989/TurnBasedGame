@@ -1167,6 +1167,11 @@
     <Compile Include="Assets\Global\Setting\DefaultChosenGame\DefaultChosenGame.cs" />
     <Compile Include="Assets\Global\Setting\DefaultChosenGame\Last\DefaultChosenGameLast.cs" />
     <Compile Include="Assets\Global\Setting\DefaultChosenGame\Last\DefaultChosenGameLastUI.cs" />
+    <Compile Include="Assets\Global\Setting\DefaultRoomName\Always\DefaultRoomNameAlways.cs" />
+    <Compile Include="Assets\Global\Setting\DefaultRoomName\Always\DefaultRoomNameAlwaysUI.cs" />
+    <Compile Include="Assets\Global\Setting\DefaultRoomName\DefaultRoomName.cs" />
+    <Compile Include="Assets\Global\Setting\DefaultRoomName\Last\DefaultRoomNameLast.cs" />
+    <Compile Include="Assets\Global\Setting\DefaultRoomName\Last\DefaultRoomNameLastUI.cs" />
     <Compile Include="Assets\Global\Setting\Language\Language.cs" />
     <Compile Include="Assets\Global\Setting\Language\Locale.cs" />
     <Compile Include="Assets\Global\Setting\Language\TxtLanguage.cs" />

@@ -67,8 +67,8 @@ public class DeviceOrientationCheckUI : MonoBehaviour, ValueChangeCallBack
         if (dirty)
         {
             dirty = false;
-            Debug.LogError("deviceOrientation: " + Global.get().deviceOrientation.v 
-                + ", " + Global.get().width.v + ", " + Global.get().height.v);
+            // Debug.LogError("deviceOrientation: " + Global.get().deviceOrientation.v 
+            //    + ", " + Global.get().width.v + ", " + Global.get().height.v);
             if (canvasScaler != null)
             {
                 bool isPortrait = true;

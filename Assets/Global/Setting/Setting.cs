@@ -102,6 +102,51 @@ public class Setting : Data
 
     #endregion
 
+    #region defaultRoomName
+
+    public VP<DefaultRoomName> defaultRoomName;
+
+    public void changeDefaultRoomNameType(DefaultRoomName.Type newType)
+    {
+        if (this.defaultRoomName.v.getType() != newType)
+        {
+            string oldRoomName = this.defaultRoomName.v.getRoomName();
+            // make new
+            switch (newType)
+            {
+                case DefaultRoomName.Type.Last:
+                    {
+                        DefaultRoomNameLast defaultRoomNameLast = new DefaultRoomNameLast();
+                        {
+                            defaultRoomNameLast.uid = this.defaultRoomName.makeId();
+                            defaultRoomNameLast.roomName.v = oldRoomName;
+                        }
+                        this.defaultRoomName.v = defaultRoomNameLast;
+                    }
+                    break;
+                case DefaultRoomName.Type.Always:
+                    {
+                        DefaultRoomNameAlways defaultRoomNameAlways = new DefaultRoomNameAlways();
+                        {
+                            defaultRoomNameAlways.uid = this.defaultRoomName.makeId();
+                            defaultRoomNameAlways.roomName.v = oldRoomName;
+                        }
+                        this.defaultRoomName.v = defaultRoomNameAlways;
+                    }
+                    break;
+                default:
+                    Debug.LogError("unknown type: " + newType);
+                    break;
+            }
+        }
+        else
+        {
+            Debug.LogError("the same type: " + newType);
+        }
+    }
+
+    #endregion
+
     #region defaultChatRoomStyle
 
     public VP<DefaultChatRoomStyle> defaultChatRoomStyle;
@@ -161,6 +206,7 @@ public class Setting : Data
 		animationSetting,
 		maxThinkCount,
         defaultChosenGame,
+        defaultRoomName,
         defaultChatRoomStyle
     }
 
@@ -173,6 +219,7 @@ public class Setting : Data
 		this.animationSetting = new VP<AnimationSetting> (this, (byte)Property.animationSetting, new AnimationSetting ());
 		this.maxThinkCount = new VP<int> (this, (byte)Property.maxThinkCount, DefaultMaxThinkCount);
         this.defaultChosenGame = new VP<DefaultChosenGame>(this, (byte)Property.defaultChosenGame, new DefaultChosenGameLast());
+        this.defaultRoomName = new VP<DefaultRoomName>(this, (byte)Property.defaultRoomName, new DefaultRoomNameLast());
         this.defaultChatRoomStyle = new VP<DefaultChatRoomStyle>(this, (byte)Property.defaultChatRoomStyle, new DefaultChatRoomStyleLast());
     }
 

@@ -590,6 +590,14 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
                             break;
                         case SettingUI.UIData.Property.maxThinkCount:
                             break;
+                        case SettingUI.UIData.Property.defaultChosenGameType:
+                            break;
+                        case SettingUI.UIData.Property.defaultChosenGameUIData:
+                            break;
+                        case SettingUI.UIData.Property.defaultChatRoomStyleType:
+                            break;
+                        case SettingUI.UIData.Property.defaultChatRoomStyleUIData:
+                            break;
                         default:
                             Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                             break;
