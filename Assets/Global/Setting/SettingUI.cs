@@ -177,7 +177,7 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 
         #endregion
 
-        #region defaultChosenGameType
+        #region defaultChosenGame
 
         public VP<RequestChangeEnumUI.UIData> defaultChosenGameType;
 
@@ -199,7 +199,6 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
             // Process
             if (setting != null)
             {
-                // Find
                 DefaultChosenGame.Type defaultChosenGameType = (DefaultChosenGame.Type)newDefaultChosenGameType;
                 setting.changeDefaultChosenGameType(defaultChosenGameType);
             }
@@ -210,6 +209,41 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
         }
 
         public VP<DefaultChosenGame.UIData> defaultChosenGameUIData;
+
+        #endregion
+
+        #region defaultChatRoomStyle
+
+        public VP<RequestChangeEnumUI.UIData> defaultChatRoomStyleType;
+
+        public void makeRequestChangeDefaultChatRoomStyleType(RequestChangeUpdate<int>.UpdateData update, int newDefaultChatRoomStyleType)
+        {
+            // Find
+            Setting setting = null;
+            {
+                EditData<Setting> editSetting = this.editSetting.v;
+                if (editSetting != null)
+                {
+                    setting = editSetting.show.v.data;
+                }
+                else
+                {
+                    Debug.LogError("editSetting null: " + this);
+                }
+            }
+            // Process
+            if (setting != null)
+            {
+                DefaultChatRoomStyle.Type defaultChatRoomStyleType = (DefaultChatRoomStyle.Type)newDefaultChatRoomStyleType;
+                setting.changeDefaultChatRoomStyle(defaultChatRoomStyleType);
+            }
+            else
+            {
+                Debug.LogError("gameFactory null: " + this);
+            }
+        }
+
+        public VP<DefaultChatRoomStyle.UIData> defaultChatRoomStyleUIData;
 
         #endregion
 
@@ -225,8 +259,12 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
             viewUrlImage,
             animationSetting,
             maxThinkCount,
+
             defaultChosenGameType,
-            defaultChosenGameUIData
+            defaultChosenGameUIData,
+
+            defaultChatRoomStyleType,
+            defaultChatRoomStyleUIData
         }
 
         public UIData() : base()
@@ -298,7 +336,7 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
             }
             // defaultChosenGameType
             {
-                // gameType
+                // type
                 {
                     this.defaultChosenGameType = new VP<RequestChangeEnumUI.UIData>(this, (byte)Property.defaultChosenGameType, new RequestChangeEnumUI.UIData());
                     // event
@@ -311,6 +349,22 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                     }
                 }
                 this.defaultChosenGameUIData = new VP<DefaultChosenGame.UIData>(this, (byte)Property.defaultChosenGameUIData, null);
+            }
+            // defaultChatRoomStyle
+            {
+                // type
+                {
+                    this.defaultChatRoomStyleType = new VP<RequestChangeEnumUI.UIData>(this, (byte)Property.defaultChatRoomStyleType, new RequestChangeEnumUI.UIData());
+                    // event
+                    this.defaultChatRoomStyleType.v.updateData.v.request.v = makeRequestChangeDefaultChatRoomStyleType;
+                    {
+                        foreach (DefaultChatRoomStyle.Type type in System.Enum.GetValues(typeof(DefaultChatRoomStyle.Type)))
+                        {
+                            this.defaultChatRoomStyleType.v.options.add(type.ToString());
+                        }
+                    }
+                }
+                this.defaultChatRoomStyleUIData = new VP<DefaultChatRoomStyle.UIData>(this, (byte)Property.defaultChatRoomStyleUIData, null);
             }
         }
 
@@ -345,6 +399,11 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
     private static readonly TxtLanguage txtDefaultChosenGameLast = new TxtLanguage();
     private static readonly TxtLanguage txtDefaultChosenGameAlways = new TxtLanguage();
 
+    public Text lbDefaultChatRoomStyleType;
+    private static readonly TxtLanguage txtDefaultChatRoomStyleType = new TxtLanguage();
+    private static readonly TxtLanguage txtDefaultChatRoomStyleLast = new TxtLanguage();
+    private static readonly TxtLanguage txtDefaultChatRoomStyleAlways = new TxtLanguage();
+
     static SettingUI()
     {
         // txt
@@ -359,6 +418,10 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
             txtDefaultChosenGameType.add(Language.Type.vi, "Game mặc định");
             txtDefaultChosenGameLast.add(Language.Type.vi, "Chọn Trước");
             txtDefaultChosenGameAlways.add(Language.Type.vi, "Luôn Chọn");
+
+            txtDefaultChatRoomStyleType.add(Language.Type.vi, "Phòng Chat mặc định");
+            txtDefaultChatRoomStyleLast.add(Language.Type.vi, "Chọn Trước");
+            txtDefaultChatRoomStyleAlways.add(Language.Type.vi, "Luôn Chọn");
         }
         // rect
         {
@@ -374,6 +437,7 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 
     public Image bgAnimationSetting;
     public Image bgDefaultChosenGame;
+    public Image bgDefaultChatRoomStyle;
 
     public override void refresh()
     {
@@ -731,7 +795,7 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                                         Debug.LogError("useRule null: " + this);
                                     }
                                 }
-                                // defaultChosenGameType
+                                // defaultChosenGame
                                 {
                                     DefaultChosenGame defaultChosenGame = show.defaultChosenGame.v;
                                     if (defaultChosenGame != null)
@@ -787,7 +851,7 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                                                         }
                                                         else
                                                         {
-                                                            Debug.LogError("editDefaultGameDataFactory null: " + this);
+                                                            Debug.LogError("editDefaultChosenGameLast null: " + this);
                                                         }
                                                         defaultChosenGameLastUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                     }
@@ -827,6 +891,155 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                                                 break;
                                             default:
                                                 Debug.LogError("unknown type: " + defaultChosenGame.getType() + "; " + this);
+                                                break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("show null: " + this);
+                                    }
+                                }
+
+                                // defaultChatRoomStyleType
+                                {
+                                    RequestChangeEnumUI.UIData defaultChatRoomStyleType = this.data.defaultChatRoomStyleType.v;
+                                    if (defaultChatRoomStyleType != null)
+                                    {
+                                        // options
+                                        {
+                                            List<string> options = new List<string>();
+                                            {
+                                                options.Add(txtDefaultChatRoomStyleLast.get("Last Chosen"));
+                                                options.Add(txtDefaultChatRoomStyleAlways.get("Always Choose"));
+                                            }
+                                            defaultChatRoomStyleType.options.copyList(options);
+                                        }
+                                        // update
+                                        RequestChangeUpdate<int>.UpdateData updateData = defaultChatRoomStyleType.updateData.v;
+                                        if (updateData != null)
+                                        {
+                                            updateData.origin.v = (int)show.defaultChatRoomStyle.v.getType();
+                                            updateData.canRequestChange.v = editSetting.canEdit.v;
+                                            updateData.serverState.v = serverState;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("updateData null: " + this);
+                                        }
+                                        // compare
+                                        {
+                                            if (compare != null)
+                                            {
+                                                defaultChatRoomStyleType.showDifferent.v = true;
+                                                defaultChatRoomStyleType.compare.v = (int)compare.defaultChatRoomStyle.v.getType();
+                                            }
+                                            else
+                                            {
+                                                defaultChatRoomStyleType.showDifferent.v = false;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("useRule null: " + this);
+                                    }
+                                }
+                                // defaultChatRoomStyle
+                                {
+                                    DefaultChatRoomStyle defaultChatRoomStyle = show.defaultChatRoomStyle.v;
+                                    if (defaultChatRoomStyle != null)
+                                    {
+                                        // find origin 
+                                        DefaultChatRoomStyle originDefaultChatRoomStyle = null;
+                                        {
+                                            Setting originSetting = editSetting.origin.v.data;
+                                            if (originSetting != null)
+                                            {
+                                                originDefaultChatRoomStyle = originSetting.defaultChatRoomStyle.v;
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("origin null: " + this);
+                                            }
+                                        }
+                                        // find compare
+                                        DefaultChatRoomStyle compareDefaultChatRoomStyle = null;
+                                        {
+                                            if (compare != null)
+                                            {
+                                                compareDefaultChatRoomStyle = compare.defaultChatRoomStyle.v;
+                                            }
+                                            else
+                                            {
+                                                // Debug.LogError ("compare null: " + this);
+                                            }
+                                        }
+                                        switch (defaultChatRoomStyle.getType())
+                                        {
+                                            case DefaultChatRoomStyle.Type.Last:
+                                                {
+                                                    DefaultChatRoomStyleLast defaultChatRoomStyleLast = defaultChatRoomStyle as DefaultChatRoomStyleLast;
+                                                    // UIData
+                                                    DefaultChatRoomStyleLastUI.UIData defaultChatRoomStyleLastUIData = this.data.defaultChatRoomStyleUIData.newOrOld<DefaultChatRoomStyleLastUI.UIData>();
+                                                    {
+                                                        EditData<DefaultChatRoomStyleLast> editDefaultChatRoomStyleLast = defaultChatRoomStyleLastUIData.editDefaultChatRoomStyleLast.v;
+                                                        if (editDefaultChatRoomStyleLast != null)
+                                                        {
+                                                            // origin
+                                                            editDefaultChatRoomStyleLast.origin.v = new ReferenceData<DefaultChatRoomStyleLast>((DefaultChatRoomStyleLast)originDefaultChatRoomStyle);
+                                                            // show
+                                                            editDefaultChatRoomStyleLast.show.v = new ReferenceData<DefaultChatRoomStyleLast>(defaultChatRoomStyleLast);
+                                                            // compare
+                                                            editDefaultChatRoomStyleLast.compare.v = new ReferenceData<DefaultChatRoomStyleLast>((DefaultChatRoomStyleLast)compareDefaultChatRoomStyle);
+                                                            // compareOtherType
+                                                            editDefaultChatRoomStyleLast.compareOtherType.v = new ReferenceData<Data>(compareDefaultChatRoomStyle);
+                                                            // canEdit
+                                                            editDefaultChatRoomStyleLast.canEdit.v = editSetting.canEdit.v;
+                                                            // editType
+                                                            editDefaultChatRoomStyleLast.editType.v = editSetting.editType.v;
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("editDefaultChatRoomStyleLast null: " + this);
+                                                        }
+                                                        defaultChatRoomStyleLastUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                    }
+                                                    this.data.defaultChatRoomStyleUIData.v = defaultChatRoomStyleLastUIData;
+                                                }
+                                                break;
+                                            case DefaultChatRoomStyle.Type.Always:
+                                                {
+                                                    DefaultChatRoomStyleAlways defaultChatRoomStyleAlways = defaultChatRoomStyle as DefaultChatRoomStyleAlways;
+                                                    // UIData
+                                                    DefaultChatRoomStyleAlwaysUI.UIData defaultChatRoomStyleAlwaysUIData = this.data.defaultChatRoomStyleUIData.newOrOld<DefaultChatRoomStyleAlwaysUI.UIData>();
+                                                    {
+                                                        EditData<DefaultChatRoomStyleAlways> editDefaultChatRoomStyleAlways = defaultChatRoomStyleAlwaysUIData.editDefaultChatRoomStyleAlways.v;
+                                                        if (editDefaultChatRoomStyleAlways != null)
+                                                        {
+                                                            // origin
+                                                            editDefaultChatRoomStyleAlways.origin.v = new ReferenceData<DefaultChatRoomStyleAlways>((DefaultChatRoomStyleAlways)originDefaultChatRoomStyle);
+                                                            // show
+                                                            editDefaultChatRoomStyleAlways.show.v = new ReferenceData<DefaultChatRoomStyleAlways>(defaultChatRoomStyleAlways);
+                                                            // compare
+                                                            editDefaultChatRoomStyleAlways.compare.v = new ReferenceData<DefaultChatRoomStyleAlways>((DefaultChatRoomStyleAlways)compareDefaultChatRoomStyle);
+                                                            // compareOtherType
+                                                            editDefaultChatRoomStyleAlways.compareOtherType.v = new ReferenceData<Data>(compareDefaultChatRoomStyle);
+                                                            // canEdit
+                                                            editDefaultChatRoomStyleAlways.canEdit.v = editSetting.canEdit.v;
+                                                            // editType
+                                                            editDefaultChatRoomStyleAlways.editType.v = editSetting.editType.v;
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("editDefaultChatRoomStyleAlways null: " + this);
+                                                        }
+                                                        defaultChatRoomStyleAlwaysUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                    }
+                                                    this.data.defaultChatRoomStyleUIData.v = defaultChatRoomStyleAlwaysUIData;
+                                                }
+                                                break;
+                                            default:
+                                                Debug.LogError("unknown type: " + defaultChatRoomStyle.getType() + "; " + this);
                                                 break;
                                         }
                                     }
@@ -972,6 +1185,29 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                                 else
                                 {
                                     Debug.LogError("useRule null: " + this);
+                                }
+                            }
+
+                            // defaultChatRoomStyleType
+                            {
+                                RequestChangeEnumUI.UIData defaultChatRoomStyleType = this.data.defaultChatRoomStyleType.v;
+                                if (defaultChatRoomStyleType != null)
+                                {
+                                    // update
+                                    RequestChangeUpdate<int>.UpdateData updateData = defaultChatRoomStyleType.updateData.v;
+                                    if (updateData != null)
+                                    {
+                                        updateData.current.v = (int)show.defaultChatRoomStyle.v.getType();
+                                        updateData.changeState.v = Data.ChangeState.None;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("updateData null: " + this);
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("defaultChatRoomStyleType null: " + this);
                                 }
                             }
                         }
@@ -1225,6 +1461,56 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                             Debug.LogError("bgDefaultChosenGame null");
                         }
                     }
+                    // defaultChatRoomStyle
+                    {
+                        float bgY = deltaY;
+                        float bgHeight = 0;
+                        // type
+                        {
+                            if (this.data.defaultChatRoomStyleType.v != null)
+                            {
+                                if (lbDefaultChatRoomStyleType != null)
+                                {
+                                    lbDefaultChatRoomStyleType.gameObject.SetActive(true);
+                                    UIRectTransform.SetPosY(lbDefaultChatRoomStyleType.rectTransform, deltaY);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbDefaultChatRoomStyleType null");
+                                }
+                                UIRectTransform.SetPosY(this.data.defaultChatRoomStyleType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                                bgHeight += UIConstants.ItemHeight;
+                                deltaY += UIConstants.ItemHeight;
+                            }
+                            else
+                            {
+                                if (lbDefaultChatRoomStyleType != null)
+                                {
+                                    lbDefaultChatRoomStyleType.gameObject.SetActive(false);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbDefaultChatRoomStyleType null");
+                                }
+                            }
+                        }
+                        // UI
+                        {
+                            float height = UIRectTransform.SetPosY(this.data.defaultChatRoomStyleUIData.v, deltaY);
+                            bgHeight += height;
+                            deltaY += height;
+                        }
+                        // bg
+                        if (bgDefaultChatRoomStyle != null)
+                        {
+                            UIRectTransform.SetPosY(bgDefaultChatRoomStyle.rectTransform, bgY);
+                            UIRectTransform.SetHeight(bgDefaultChatRoomStyle.rectTransform, bgHeight);
+                        }
+                        else
+                        {
+                            Debug.LogError("bgDefaultChatRoomStyle null");
+                        }
+                    }
                     // set
                     UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                 }
@@ -1286,6 +1572,14 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                     {
                         Debug.LogError("lbDefaultChosenGameType null");
                     }
+                    if (lbDefaultChatRoomStyleType != null)
+                    {
+                        lbDefaultChatRoomStyleType.text = txtDefaultChatRoomStyleType.get("Default chat room");
+                    }
+                    else
+                    {
+                        Debug.LogError("lbDefaultChatRoomStyleType null");
+                    }
                 }
             }
             else
@@ -1315,9 +1609,13 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
     private static readonly UIRectTransform viewUrlImageRect = new UIRectTransform(UIConstants.RequestBoolRect);
     private static readonly UIRectTransform maxThinkCountRect = new UIRectTransform(UIConstants.RequestRect);
     private static readonly UIRectTransform defaultChosenGameTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
+    private static readonly UIRectTransform defaultChatRoomStyleTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
     public DefaultChosenGameLastUI defaultChosenGameLastPrefab;
     public DefaultChosenGameAlwaysUI defaultChosenGameAlwaysPrefab;
+
+    public DefaultChatRoomStyleLastUI defaultChatRoomStyleLastPrefab;
+    public DefaultChatRoomStyleAlwaysUI defaultChatRoomStyleAlwaysPrefab;
 
     public override void onAddCallBack<T>(T data)
     {
@@ -1337,8 +1635,16 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                 uiData.viewUrlImage.allAddCallBack(this);
                 uiData.animationSetting.allAddCallBack(this);
                 uiData.maxThinkCount.allAddCallBack(this);
-                uiData.defaultChosenGameType.allAddCallBack(this);
-                uiData.defaultChosenGameUIData.allAddCallBack(this);
+                // defaultChosenGame
+                {
+                    uiData.defaultChosenGameType.allAddCallBack(this);
+                    uiData.defaultChosenGameUIData.allAddCallBack(this);
+                }
+                // defaultChatRoomStyle
+                {
+                    uiData.defaultChatRoomStyleType.allAddCallBack(this);
+                    uiData.defaultChatRoomStyleUIData.allAddCallBack(this);
+                }
             }
             dirty = true;
             return;
@@ -1391,6 +1697,9 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                                 break;
                             case UIData.Property.defaultChosenGameType:
                                 UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, defaultChosenGameTypeRect);
+                                break;
+                            case UIData.Property.defaultChatRoomStyleType:
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, defaultChatRoomStyleTypeRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -1509,6 +1818,38 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                 dirty = true;
                 return;
             }
+            // defaultChatRoomStyleUIData
+            if (data is DefaultChatRoomStyle.UIData)
+            {
+                DefaultChatRoomStyle.UIData defaultChatRoomStyleUIData = data as DefaultChatRoomStyle.UIData;
+                // UI
+                {
+                    switch (defaultChatRoomStyleUIData.getType())
+                    {
+                        case DefaultChatRoomStyle.Type.Last:
+                            {
+                                DefaultChatRoomStyleLastUI.UIData defaultChatRoomStyleLastUIData = defaultChatRoomStyleUIData as DefaultChatRoomStyleLastUI.UIData;
+                                UIUtils.Instantiate(defaultChatRoomStyleLastUIData, defaultChatRoomStyleLastPrefab, this.transform);
+                            }
+                            break;
+                        case DefaultChatRoomStyle.Type.Always:
+                            {
+                                DefaultChatRoomStyleAlwaysUI.UIData defaultChatRoomStyleAlwaysUIData = defaultChatRoomStyleUIData as DefaultChatRoomStyleAlwaysUI.UIData;
+                                UIUtils.Instantiate(defaultChatRoomStyleAlwaysUIData, defaultChatRoomStyleAlwaysPrefab, this.transform);
+                            }
+                            break;
+                        default:
+                            Debug.LogError("unknown type: " + defaultChatRoomStyleUIData.getType());
+                            break;
+                    }
+                }
+                // Child
+                {
+                    TransformData.AddCallBack(defaultChatRoomStyleUIData, this);
+                }
+                dirty = true;
+                return;
+            }
             // Child
             if (data is TransformData)
             {
@@ -1537,8 +1878,16 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                 uiData.viewUrlImage.allRemoveCallBack(this);
                 uiData.animationSetting.allRemoveCallBack(this);
                 uiData.maxThinkCount.allRemoveCallBack(this);
-                uiData.defaultChosenGameType.allRemoveCallBack(this);
-                uiData.defaultChosenGameUIData.allRemoveCallBack(this);
+                // defaultChosenGame
+                {
+                    uiData.defaultChosenGameType.allRemoveCallBack(this);
+                    uiData.defaultChosenGameUIData.allRemoveCallBack(this);
+                }
+                // defaultChatRoomStyle
+                {
+                    uiData.defaultChatRoomStyleType.allRemoveCallBack(this);
+                    uiData.defaultChatRoomStyleUIData.allRemoveCallBack(this);
+                }
             }
             this.setDataNull(uiData);
             return;
@@ -1643,6 +1992,37 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                 }
                 return;
             }
+            // defaultChatRoomStyleUIData
+            if (data is DefaultChatRoomStyle.UIData)
+            {
+                DefaultChatRoomStyle.UIData defaultChatRoomStyleUIData = data as DefaultChatRoomStyle.UIData;
+                // Child
+                {
+                    TransformData.RemoveCallBack(defaultChatRoomStyleUIData, this);
+                }
+                // UI
+                {
+                    switch (defaultChatRoomStyleUIData.getType())
+                    {
+                        case DefaultChatRoomStyle.Type.Last:
+                            {
+                                DefaultChatRoomStyleLastUI.UIData defaultChatRoomStyleLastUIData = defaultChatRoomStyleUIData as DefaultChatRoomStyleLastUI.UIData;
+                                defaultChatRoomStyleLastUIData.removeCallBackAndDestroy(typeof(DefaultChatRoomStyleLastUI));
+                            }
+                            break;
+                        case DefaultChatRoomStyle.Type.Always:
+                            {
+                                DefaultChatRoomStyleAlwaysUI.UIData defaultChatRoomStyleAlwaysUIData = defaultChatRoomStyleUIData as DefaultChatRoomStyleAlwaysUI.UIData;
+                                defaultChatRoomStyleAlwaysUIData.removeCallBackAndDestroy(typeof(DefaultChatRoomStyleAlwaysUI));
+                            }
+                            break;
+                        default:
+                            Debug.LogError("unknown type: " + defaultChatRoomStyleUIData.getType());
+                            break;
+                    }
+                }
+                return;
+            }
             // Child
             if (data is TransformData)
             {
@@ -1719,6 +2099,18 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                         dirty = true;
                     }
                     break;
+                case UIData.Property.defaultChatRoomStyleType:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.defaultChatRoomStyleUIData:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
@@ -1789,6 +2181,9 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                         case Setting.Property.defaultChosenGame:
                             dirty = true;
                             break;
+                        case Setting.Property.defaultChatRoomStyle:
+                            dirty = true;
+                            break;
                         default:
                             Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                             break;
@@ -1818,6 +2213,11 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
             }
             // defaultChosenGameUIData
             if (wrapProperty.p is DefaultChosenGame.UIData)
+            {
+                return;
+            }
+            // defaultChatRoomStyleUIData
+            if (wrapProperty.p is DefaultChatRoomStyle.UIData)
             {
                 return;
             }

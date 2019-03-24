@@ -1157,6 +1157,11 @@
     <Compile Include="Assets\Global\Setting\Animation\AnimationSetting.cs" />
     <Compile Include="Assets\Global\Setting\Animation\AnimationSettingPref.cs" />
     <Compile Include="Assets\Global\Setting\Animation\AnimationSettingUI.cs" />
+    <Compile Include="Assets\Global\Setting\DefaultChatRoomStyle\Always\DefaultChatRoomStyleAlways.cs" />
+    <Compile Include="Assets\Global\Setting\DefaultChatRoomStyle\Always\DefaultChatRoomStyleAlwaysUI.cs" />
+    <Compile Include="Assets\Global\Setting\DefaultChatRoomStyle\DefaultChatRoomStyle.cs" />
+    <Compile Include="Assets\Global\Setting\DefaultChatRoomStyle\Last\DefaultChatRoomStyleLast.cs" />
+    <Compile Include="Assets\Global\Setting\DefaultChatRoomStyle\Last\DefaultChatRoomStyleLastUI.cs" />
     <Compile Include="Assets\Global\Setting\DefaultChosenGame\Always\DefaultChosenGameAlways.cs" />
     <Compile Include="Assets\Global\Setting\DefaultChosenGame\Always\DefaultChosenGameAlwaysUI.cs" />
     <Compile Include="Assets\Global\Setting\DefaultChosenGame\DefaultChosenGame.cs" />

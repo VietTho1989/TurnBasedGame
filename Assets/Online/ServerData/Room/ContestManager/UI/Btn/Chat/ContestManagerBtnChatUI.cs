@@ -18,6 +18,19 @@ public class ContestManagerBtnChatUI : UIBehavior<ContestManagerBtnChatUI.UIData
             Hide
         }
 
+        private static readonly TxtLanguage txtShow = new TxtLanguage();
+        private static readonly TxtLanguage txtHide = new TxtLanguage();
+
+        public static List<string> GetStrVisibility()
+        {
+            List<string> ret = new List<string>();
+            {
+                ret.Add(txtShow.get("Show"));
+                ret.Add(txtHide.get("Hide"));
+            }
+            return ret;
+        }
+
         public VP<Visibility> visibility;
 
         #endregion
@@ -27,11 +40,13 @@ public class ContestManagerBtnChatUI : UIBehavior<ContestManagerBtnChatUI.UIData
         public enum Style
         {
             Overlay,
-            Full
+            Full,
+            Push
         }
 
         private static readonly TxtLanguage txtOverlay = new TxtLanguage();
         private static readonly TxtLanguage txtFull = new TxtLanguage();
+        private static readonly TxtLanguage txtPush = new TxtLanguage();
 
         public static List<string> GetStrStyles()
         {
@@ -39,14 +54,24 @@ public class ContestManagerBtnChatUI : UIBehavior<ContestManagerBtnChatUI.UIData
             {
                 ret.Add(txtOverlay.get("Overlay"));
                 ret.Add(txtFull.get("By Side"));
+                ret.Add(txtPush.get("Push"));
             }
             return ret;
         }
 
         static UIData()
         {
-            txtOverlay.add(Language.Type.vi, "Đặt Lên");
-            txtFull.add(Language.Type.vi, "Ngay Cạnh");
+            // visibility
+            {
+                txtShow.add(Language.Type.vi, "Hiện");
+                txtHide.add(Language.Type.vi, "Ẩn");
+            }
+            // style
+            {
+                txtOverlay.add(Language.Type.vi, "Đặt Lên");
+                txtFull.add(Language.Type.vi, "Ngay Cạnh");
+                txtPush.add(Language.Type.vi, "Đẩy");
+            }
         }
 
         public VP<Style> style;
@@ -63,8 +88,8 @@ public class ContestManagerBtnChatUI : UIBehavior<ContestManagerBtnChatUI.UIData
 
         public UIData() : base()
         {
-            this.visibility = new VP<Visibility>(this, (byte)Property.visibility, Visibility.Hide);
-            this.style = new VP<Style>(this, (byte)Property.style, Style.Overlay);
+            this.visibility = new VP<Visibility>(this, (byte)Property.visibility, Setting.get().defaultChatRoomStyle.v.getVisibility());
+            this.style = new VP<Style>(this, (byte)Property.style, Setting.get().defaultChatRoomStyle.v.getStyle());
         }
 
         #endregion
@@ -146,6 +171,7 @@ public class ContestManagerBtnChatUI : UIBehavior<ContestManagerBtnChatUI.UIData
         if (this.data != null)
         {
             this.data.visibility.v = UIData.Visibility.Show;
+            Setting.get().defaultChatRoomStyle.v.setLastVisibility(UIData.Visibility.Show);
         }
         else
         {

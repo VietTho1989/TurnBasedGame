@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class GameActionsUI : UIBehavior<GameActionsUI.UIData>
 {
+
     #region UIData
 
     public class UIData : Data
@@ -16,7 +17,9 @@ public class GameActionsUI : UIBehavior<GameActionsUI.UIData>
 
         public abstract class Sub : Data
         {
+
             public abstract GameAction.Type getType();
+
         }
 
         public VP<Sub> sub;
@@ -38,6 +41,7 @@ public class GameActionsUI : UIBehavior<GameActionsUI.UIData>
         }
 
         #endregion
+
     }
 
     #endregion
@@ -126,6 +130,7 @@ public class GameActionsUI : UIBehavior<GameActionsUI.UIData>
                         float boardRight = 0;
                         float boardTop = 0;
                         float boardBottom = 0;
+                        GameDataBoardUI.UIData.Screen screen = GameDataBoardUI.UIData.Screen.Portrait;
                         {
                             GameDataUI.UIData gameDataUIData = this.data.findDataInParent<GameDataUI.UIData>();
                             if (gameDataUIData != null)
@@ -151,6 +156,7 @@ public class GameActionsUI : UIBehavior<GameActionsUI.UIData>
                                         boardRight = gameDataBoardUIData.right.v;
                                         boardTop = gameDataBoardUIData.top.v;
                                         boardBottom = gameDataBoardUIData.bottom.v;
+                                        screen = gameDataBoardUIData.screen.v;
                                     }
                                 }
                                 else
@@ -217,7 +223,7 @@ public class GameActionsUI : UIBehavior<GameActionsUI.UIData>
                                     }
                                 }
                                 // portrait view
-                                if (gameDataWidth <= gameDataHeight)
+                                if (screen == GameDataBoardUI.UIData.Screen.Portrait)
                                 {
                                     float x = gameDataWidth / 2 - gameActionsWidth / 2 - GameDataBoardUI.Margin;
                                     gameActionsTransform.anchoredPosition = new Vector2(x, bottom + gameActionsHeight / 2 + GameDataBoardUI.Margin);

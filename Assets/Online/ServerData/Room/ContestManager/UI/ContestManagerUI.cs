@@ -259,7 +259,8 @@ namespace GameManager.Match
                                             // sub
                                             {
                                                 // find
-                                                bool isHaveChatFull = false;
+                                                ContestManagerBtnChatUI.UIData.Visibility visibility = ContestManagerBtnChatUI.UIData.Visibility.Hide;
+                                                ContestManagerBtnChatUI.UIData.Style style = ContestManagerBtnChatUI.UIData.Style.Overlay;
                                                 {
                                                     ContestManagerBtnUI.UIData btns = this.data.btns.v;
                                                     if (btns != null)
@@ -267,11 +268,8 @@ namespace GameManager.Match
                                                         ContestManagerBtnChatUI.UIData btnChat = btns.btnChat.v;
                                                         if (btnChat != null)
                                                         {
-                                                            if (btnChat.visibility.v == ContestManagerBtnChatUI.UIData.Visibility.Show
-                                                                && btnChat.style.v == ContestManagerBtnChatUI.UIData.Style.Full)
-                                                            {
-                                                                isHaveChatFull = true;
-                                                            }
+                                                            visibility = btnChat.visibility.v;
+                                                            style = btnChat.style.v;
                                                         }
                                                         else
                                                         {
@@ -284,23 +282,62 @@ namespace GameManager.Match
                                                     }
                                                 }
                                                 // process
-                                                if (!isHaveChatFull)
                                                 {
-                                                    UIRectTransform fullScreenRect = UIRectTransform.CreateFullRect(0, 0, 0, 0);
-                                                    UIRectTransform.Set(sub, fullScreenRect);
-                                                }
-                                                else
-                                                {
-                                                    // process
-                                                    if (isPortrait)
+                                                    switch (visibility)
                                                     {
-                                                        UIRectTransform subHaveChatRect = UIRectTransform.CreateFullRect(0, 0, 0, PortraitChatHeight);
-                                                        UIRectTransform.Set(sub, subHaveChatRect);
-                                                    }
-                                                    else
-                                                    {
-                                                        UIRectTransform subHaveChatRect = UIRectTransform.CreateFullRect(0, LandscapeChatWidth, 0, 0);
-                                                        UIRectTransform.Set(sub, subHaveChatRect);
+                                                        case ContestManagerBtnChatUI.UIData.Visibility.Hide:
+                                                            {
+                                                                UIRectTransform fullScreenRect = UIRectTransform.CreateFullRect(0, 0, 0, 0);
+                                                                UIRectTransform.Set(sub, fullScreenRect);
+                                                            }
+                                                            break;
+                                                        case ContestManagerBtnChatUI.UIData.Visibility.Show:
+                                                            {
+                                                                switch (style)
+                                                                {
+                                                                    case ContestManagerBtnChatUI.UIData.Style.Overlay:
+                                                                        {
+                                                                            UIRectTransform fullScreenRect = UIRectTransform.CreateFullRect(0, 0, 0, 0);
+                                                                            UIRectTransform.Set(sub, fullScreenRect);
+                                                                        }
+                                                                        break;
+                                                                    case ContestManagerBtnChatUI.UIData.Style.Full:
+                                                                        {
+                                                                            if (isPortrait)
+                                                                            {
+                                                                                UIRectTransform subHaveChatRect = UIRectTransform.CreateFullRect(0, 0, 0, PortraitChatHeight);
+                                                                                UIRectTransform.Set(sub, subHaveChatRect);
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                UIRectTransform subHaveChatRect = UIRectTransform.CreateFullRect(0, LandscapeChatWidth, 0, 0);
+                                                                                UIRectTransform.Set(sub, subHaveChatRect);
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                    case ContestManagerBtnChatUI.UIData.Style.Push:
+                                                                        {
+                                                                            if (isPortrait)
+                                                                            {
+                                                                                UIRectTransform subHaveChatRect = UIRectTransform.CreateFullRect(0, 0, 0, PortraitChatHeight);
+                                                                                UIRectTransform.Set(sub, subHaveChatRect);
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                UIRectTransform subHaveChatRect = UIRectTransform.CreateFullRect(-LandscapeChatWidth, LandscapeChatWidth, 0, 0);
+                                                                                UIRectTransform.Set(sub, subHaveChatRect);
+                                                                            }
+                                                                        }
+                                                                        break;
+                                                                    default:
+                                                                        Debug.LogError("unknown style: " + style);
+                                                                        break;
+                                                                }
+                                                            }
+                                                            break;
+                                                        default:
+                                                            Debug.LogError("unknown visibility: " + visibility);
+                                                            break;
                                                     }
                                                 }
                                             }

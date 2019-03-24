@@ -226,6 +226,7 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                         float boardRight = 0;
                         float boardTop = 0;
                         float boardBottom = 0;
+                        GameDataBoardUI.UIData.Screen screen = GameDataBoardUI.UIData.Screen.Portrait;
                         {
                             GameDataUI.UIData gameDataUIData = this.data.findDataInParent<GameDataUI.UIData>();
                             if (gameDataUIData != null)
@@ -259,6 +260,7 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                                     }
                                     // margin
                                     {
+                                        screen = gameDataBoardUIData.screen.v;
                                         boardLeft = gameDataBoardUIData.left.v;
                                         boardRight = gameDataBoardUIData.right.v;
                                         boardTop = gameDataBoardUIData.top.v;
@@ -330,7 +332,7 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                                     }
                                 }
                                 // portrait view
-                                if (gamePlayerListWidth <= gamePlayerListHeight)
+                                if (screen == GameDataBoardUI.UIData.Screen.Portrait)
                                 {
                                     float x = -gamePlayerListWidth / 2 + gamePlayerWidth / 2 + GameDataBoardUI.Margin;
                                     switch (gamePlayer.playerIndex.v)
@@ -898,6 +900,9 @@ public class GamePlayerUI : UIBehavior<GamePlayerUI.UIData>
                                 dirty = true;
                                 break;
                             case GameDataBoardUI.UIData.Property.bottom:
+                                dirty = true;
+                                break;
+                            case GameDataBoardUI.UIData.Property.screen:
                                 dirty = true;
                                 break;
                             case GameDataBoardUI.UIData.Property.perspective:

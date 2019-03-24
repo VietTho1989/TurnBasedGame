@@ -50,6 +50,18 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
 
     #endregion
 
+    #region defaultChatRoomStyle
+
+    private const string SettingDefaultChatRoomStyleType = "SettingDefaultChatRoomStyleType";
+    private const string SettingDefaultChatRoomStyleVisibility = "SettingDefaultChatRoomStyleVisibility";
+    private const string SettingDefaultChatRoomStyleStyle = "SettingDefaultChatRoomStyleStyle";
+
+    private bool needUpdateDefaultChatRoomStyleType = false;
+    private bool needUpdateDefaultChatRoomStyleVisiblity = false;
+    private bool needUpdateDefaultChatRoomStyleStyle = false;
+
+    #endregion
+
     #region lifeCycle
 
     void Awake()
@@ -113,6 +125,37 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                             break;
                     }
                 }
+                // defaultChatRoomStyle
+                {
+                    ContestManagerBtnChatUI.UIData.Visibility defaultVisibility = (ContestManagerBtnChatUI.UIData.Visibility)PlayerPrefs.GetInt(SettingDefaultChatRoomStyleVisibility, (int)ContestManagerBtnChatUI.UIData.Visibility.Hide);
+                    ContestManagerBtnChatUI.UIData.Style defaultStyle = (ContestManagerBtnChatUI.UIData.Style)PlayerPrefs.GetInt(SettingDefaultChatRoomStyleStyle, (int)ContestManagerBtnChatUI.UIData.Style.Overlay);
+                    switch ((DefaultChatRoomStyle.Type)PlayerPrefs.GetInt(SettingDefaultChatRoomStyleType, (int)DefaultChatRoomStyle.Type.Last))
+                    {
+                        case DefaultChatRoomStyle.Type.Last:
+                            {
+                                DefaultChatRoomStyleLast last = Setting.get().defaultChatRoomStyle.newOrOld<DefaultChatRoomStyleLast>();
+                                {
+                                    last.visibility.v = defaultVisibility;
+                                    last.style.v = defaultStyle;
+                                }
+                                Setting.get().defaultChatRoomStyle.v = last;
+                            }
+                            break;
+                        case DefaultChatRoomStyle.Type.Always:
+                            {
+                                DefaultChatRoomStyleAlways always = Setting.get().defaultChatRoomStyle.newOrOld<DefaultChatRoomStyleAlways>();
+                                {
+                                    always.visibility.v = defaultVisibility;
+                                    always.style.v = defaultStyle;
+                                }
+                                Setting.get().defaultChatRoomStyle.v = always;
+                            }
+                            break;
+                        default:
+                            Debug.LogError("unknown type");
+                            break;
+                    }
+                }
             }
             catch(System.Exception e)
             {
@@ -143,57 +186,84 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                 bool needSave = false;
                 {
                     // settings
-                    foreach (byte updateName in settingUpdateNames)
                     {
-                        switch ((Setting.Property)updateName)
+                        foreach (byte updateName in settingUpdateNames)
                         {
-                            case Setting.Property.language:
-                                {
-                                    PlayerPrefs.SetInt(Setting_Language, (int)Setting.get().language.v);
-                                    needSave = true;
-                                }
-                                break;
-                            case Setting.Property.style:
-                                {
-                                    PlayerPrefs.SetInt(Setting_Style, (int)Setting.get().style.v);
-                                    needSave = true;
-                                }
-                                break;
-                            case Setting.Property.showLastMove:
-                                {
-                                    PlayerPrefs.SetInt(Setting_ShowLastMove, Setting.get().showLastMove.v ? 1 : 0);
-                                    needSave = true;
-                                }
-                                break;
-                            case Setting.Property.viewUrlImage:
-                                {
-                                    PlayerPrefs.SetInt(Setting_ViewUrlImage, Setting.get().viewUrlImage.v ? 1 : 0);
-                                    needSave = true;
-                                }
-                                break;
-                            case Setting.Property.animationSetting:
-                                break;
-                            case Setting.Property.maxThinkCount:
-                                {
-                                    PlayerPrefs.SetInt(Setting_MaxThinkCount, Setting.get().maxThinkCount.v);
-                                    needSave = true;
-                                }
-                                break;
-                            default:
-                                Debug.LogError("Don't process: " + updateName);
-                                break;
+                            switch ((Setting.Property)updateName)
+                            {
+                                case Setting.Property.language:
+                                    {
+                                        PlayerPrefs.SetInt(Setting_Language, (int)Setting.get().language.v);
+                                        needSave = true;
+                                    }
+                                    break;
+                                case Setting.Property.style:
+                                    {
+                                        PlayerPrefs.SetInt(Setting_Style, (int)Setting.get().style.v);
+                                        needSave = true;
+                                    }
+                                    break;
+                                case Setting.Property.showLastMove:
+                                    {
+                                        PlayerPrefs.SetInt(Setting_ShowLastMove, Setting.get().showLastMove.v ? 1 : 0);
+                                        needSave = true;
+                                    }
+                                    break;
+                                case Setting.Property.viewUrlImage:
+                                    {
+                                        PlayerPrefs.SetInt(Setting_ViewUrlImage, Setting.get().viewUrlImage.v ? 1 : 0);
+                                        needSave = true;
+                                    }
+                                    break;
+                                case Setting.Property.animationSetting:
+                                    break;
+                                case Setting.Property.maxThinkCount:
+                                    {
+                                        PlayerPrefs.SetInt(Setting_MaxThinkCount, Setting.get().maxThinkCount.v);
+                                        needSave = true;
+                                    }
+                                    break;
+                                default:
+                                    Debug.LogError("Don't process: " + updateName);
+                                    break;
+                            }
                         }
+                        // clear
+                        settingUpdateNames.Clear();
                     }
                     // defaultChosenGame
                     {
                         if (needUpdateDefaultChosenGameType)
                         {
                             PlayerPrefs.SetInt(SettingDefaultChosenGameType, (int)Setting.get().defaultChosenGame.v.getType());
+                            needUpdateDefaultChosenGameType = false;
                             needSave = true;
                         }
                         if (needUpdateDefaultChosenGame)
                         {
                             PlayerPrefs.SetInt(SettingDefaultChosenGame, (int)Setting.get().defaultChosenGame.v.getGame());
+                            needUpdateDefaultChosenGame = false;
+                            needSave = true;
+                        }
+                    }
+                    // defaultChatRoomStyle
+                    {
+                        if (needUpdateDefaultChatRoomStyleType)
+                        {
+                            PlayerPrefs.SetInt(SettingDefaultChatRoomStyleType, (int)Setting.get().defaultChatRoomStyle.v.getType());
+                            needUpdateDefaultChatRoomStyleType = false;
+                            needSave = true;
+                        }
+                        if (needUpdateDefaultChatRoomStyleVisiblity)
+                        {
+                            PlayerPrefs.SetInt(SettingDefaultChatRoomStyleVisibility, (int)Setting.get().defaultChatRoomStyle.v.getVisibility());
+                            needUpdateDefaultChatRoomStyleVisiblity = false;
+                            needSave = true;
+                        }
+                        if (needUpdateDefaultChatRoomStyleStyle)
+                        {
+                            PlayerPrefs.SetInt(SettingDefaultChatRoomStyleStyle, (int)Setting.get().defaultChatRoomStyle.v.getStyle());
+                            needUpdateDefaultChatRoomStyleStyle = false;
                             needSave = true;
                         }
                     }
@@ -206,8 +276,6 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
             {
                 Debug.LogError(e);
             }
-            // clear
-            settingUpdateNames.Clear();
         }
     }
 
@@ -223,15 +291,23 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
             // Child
             {
                 setting.defaultChosenGame.allAddCallBack(this);
+                setting.defaultChatRoomStyle.allAddCallBack(this);
             }
             dirty = true;
             return;
         }
         // Child
-        if(data is DefaultChosenGame)
         {
-            dirty = true;
-            return;
+            if (data is DefaultChosenGame)
+            {
+                dirty = true;
+                return;
+            }
+            if(data is DefaultChatRoomStyle)
+            {
+                dirty = true;
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -244,13 +320,20 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
             // Child
             {
                 setting.defaultChosenGame.allRemoveCallBack(this);
+                setting.defaultChatRoomStyle.allRemoveCallBack(this);
             }
             return;
         }
         // Child
-        if(data is DefaultChosenGame)
         {
-            return;
+            if (data is DefaultChosenGame)
+            {
+                return;
+            }
+            if(data is DefaultChatRoomStyle)
+            {
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -304,6 +387,13 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                         dirty = true;
                     }
                     break;
+                case Setting.Property.defaultChatRoomStyle:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        needUpdateDefaultChatRoomStyleType = true;
+                        dirty = true;
+                    }
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
@@ -311,48 +401,105 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
             return;
         }
         // Child
-        if(wrapProperty.p is DefaultChosenGame)
         {
-            DefaultChosenGame defaultChosenGame = wrapProperty.p as DefaultChosenGame;
-            switch (defaultChosenGame.getType())
+            if (wrapProperty.p is DefaultChosenGame)
             {
-                case DefaultChosenGame.Type.Last:
-                    {
-                        switch ((DefaultChosenGameLast.Property)wrapProperty.n)
+                DefaultChosenGame defaultChosenGame = wrapProperty.p as DefaultChosenGame;
+                switch (defaultChosenGame.getType())
+                {
+                    case DefaultChosenGame.Type.Last:
                         {
-                            case DefaultChosenGameLast.Property.gameType:
-                                {
-                                    needUpdateDefaultChosenGame = true;
-                                    dirty = true;
-                                }
-                                break;
-                            default:
-                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                                break;
+                            switch ((DefaultChosenGameLast.Property)wrapProperty.n)
+                            {
+                                case DefaultChosenGameLast.Property.gameType:
+                                    {
+                                        needUpdateDefaultChosenGame = true;
+                                        dirty = true;
+                                    }
+                                    break;
+                                default:
+                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                    break;
+                            }
                         }
-                    }
-                    break;
-                case DefaultChosenGame.Type.Always:
-                    {
-                        switch ((DefaultChosenGameAlways.Property)wrapProperty.n)
+                        break;
+                    case DefaultChosenGame.Type.Always:
                         {
-                            case DefaultChosenGameAlways.Property.gameType:
-                                {
-                                    needUpdateDefaultChosenGame = true;
-                                    dirty = true;
-                                }
-                                break;
-                            default:
-                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                                break;
+                            switch ((DefaultChosenGameAlways.Property)wrapProperty.n)
+                            {
+                                case DefaultChosenGameAlways.Property.gameType:
+                                    {
+                                        needUpdateDefaultChosenGame = true;
+                                        dirty = true;
+                                    }
+                                    break;
+                                default:
+                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                    break;
+                            }
                         }
-                    }
-                    break;
-                default:
-                    Debug.LogError("unknown type: " + defaultChosenGame.getType());
-                    break;
+                        break;
+                    default:
+                        Debug.LogError("unknown type: " + defaultChosenGame.getType());
+                        break;
+                }
+                return;
             }
-            return;
+            if (wrapProperty.p is DefaultChatRoomStyle)
+            {
+                DefaultChatRoomStyle defaultChatRoomStyle = wrapProperty.p as DefaultChatRoomStyle;
+                switch (defaultChatRoomStyle.getType())
+                {
+                    case DefaultChatRoomStyle.Type.Last:
+                        {
+                            switch ((DefaultChatRoomStyleLast.Property)wrapProperty.n)
+                            {
+                                case DefaultChatRoomStyleLast.Property.visibility:
+                                    {
+                                        needUpdateDefaultChatRoomStyleVisiblity = true;
+                                        dirty = true;
+                                    }
+                                    break;
+                                case DefaultChatRoomStyleLast.Property.style:
+                                    {
+                                        needUpdateDefaultChatRoomStyleStyle = true;
+                                        dirty = true;
+                                    }
+                                    break;
+                                default:
+                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                    break;
+                            }
+                        }
+                        break;
+                    case DefaultChatRoomStyle.Type.Always:
+                        {
+                            switch ((DefaultChatRoomStyleAlways.Property)wrapProperty.n)
+                            {
+                                case DefaultChatRoomStyleAlways.Property.visibility:
+                                    {
+                                        needUpdateDefaultChatRoomStyleVisiblity = true;
+                                        dirty = true;
+                                    }
+                                    break;
+                                case DefaultChatRoomStyleAlways.Property.style:
+                                    {
+                                        needUpdateDefaultChatRoomStyleStyle = true;
+                                        dirty = true;
+                                    }
+                                    break;
+                                default:
+                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                    break;
+                            }
+                        }
+                        break;
+                    default:
+                        Debug.LogError("unknown type: " + defaultChatRoomStyle.getType());
+                        break;
+                }
+                return;
+            }
         }
         Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
     }

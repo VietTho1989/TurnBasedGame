@@ -78,39 +78,29 @@ public class GameDataBoardTransformUpdate : UpdateBehavior<GameDataUI.UIData>
                                 {
                                     // find width
                                     {
+                                        // find
+                                        float portraitWidth = 0;
+                                        float landscapeWidth = 0;
                                         if (needOtherInformation)
                                         {
-                                            // portrait
-                                            if (gameDataWidth <= gameDataHeight)
-                                            {
-                                                Debug.LogError("portrait");
-                                                boardUIData.screen.v = GameDataBoardUI.UIData.Screen.Portrait;
-                                                width = Mathf.Min(gameDataWidth - (boardLeft + boardRight), (gameDataHeight - (boardTop + boardBottom) - 120 - 32) / heightWidth);
-                                            }
-                                            // landscape
-                                            else
-                                            {
-                                                Debug.LogError("landscape");
-                                                boardUIData.screen.v = GameDataBoardUI.UIData.Screen.LandScape;
-                                                width = Mathf.Min(gameDataWidth - (boardLeft + boardRight) - 320 - 32, (gameDataHeight - (boardTop + boardBottom) - 16) / heightWidth);
-                                            }
+                                            portraitWidth = Mathf.Min(gameDataWidth - (boardLeft + boardRight), (gameDataHeight - (boardTop + boardBottom) - 120 - 32) / heightWidth);
+                                            landscapeWidth = Mathf.Min(gameDataWidth - (boardLeft + boardRight) - 320 - 32, (gameDataHeight - (boardTop + boardBottom) - 16) / heightWidth);
                                         }
                                         else
                                         {
-                                            // portrait
-                                            if (gameDataWidth <= gameDataHeight)
-                                            {
-                                                Debug.LogError("portrait");
-                                                boardUIData.screen.v = GameDataBoardUI.UIData.Screen.Portrait;
-                                                width = Mathf.Min(gameDataWidth - (boardLeft + boardRight), (gameDataHeight - (boardTop + boardBottom) - 16) / heightWidth);
-                                            }
-                                            // landscape
-                                            else
-                                            {
-                                                Debug.LogError("landscape");
-                                                boardUIData.screen.v = GameDataBoardUI.UIData.Screen.LandScape;
-                                                width = Mathf.Min(gameDataWidth - (boardLeft + boardRight) - 16, (gameDataHeight - (boardTop + boardBottom) - 16) / heightWidth);
-                                            }
+                                            portraitWidth = Mathf.Min(gameDataWidth - (boardLeft + boardRight), (gameDataHeight - (boardTop + boardBottom) - 16) / heightWidth);
+                                            landscapeWidth = Mathf.Min(gameDataWidth - (boardLeft + boardRight) - 16, (gameDataHeight - (boardTop + boardBottom) - 16) / heightWidth);
+                                        }
+                                        // set
+                                        if (portraitWidth >= landscapeWidth)
+                                        {
+                                            boardUIData.screen.v = GameDataBoardUI.UIData.Screen.Portrait;
+                                            width = portraitWidth;
+                                        }
+                                        else
+                                        {
+                                            boardUIData.screen.v = GameDataBoardUI.UIData.Screen.LandScape;
+                                            width = landscapeWidth;
                                         }
                                     }
                                     height = width * heightWidth;

@@ -45,6 +45,7 @@ public class RoomChatUI : UIBehavior<RoomChatUI.UIData>
             if (btnChatUIData != null)
             {
                 btnChatUIData.style.v = (ContestManagerBtnChatUI.UIData.Style)newStyle;
+                Setting.get().defaultChatRoomStyle.v.setLastStyle((ContestManagerBtnChatUI.UIData.Style)newStyle);
             }
             else
             {
@@ -764,6 +765,7 @@ public class RoomChatUI : UIBehavior<RoomChatUI.UIData>
                     if (btnChatUIData != null)
                     {
                         btnChatUIData.visibility.v = ContestManagerBtnChatUI.UIData.Visibility.Hide;
+                        Setting.get().defaultChatRoomStyle.v.setLastVisibility(ContestManagerBtnChatUI.UIData.Visibility.Hide);
                     }
                     else
                     {

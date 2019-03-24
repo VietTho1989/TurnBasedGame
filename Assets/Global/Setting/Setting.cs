@@ -102,6 +102,54 @@ public class Setting : Data
 
     #endregion
 
+    #region defaultChatRoomStyle
+
+    public VP<DefaultChatRoomStyle> defaultChatRoomStyle;
+
+    public void changeDefaultChatRoomStyle(DefaultChatRoomStyle.Type newType)
+    {
+        if (this.defaultChatRoomStyle.v.getType() != newType)
+        {
+            ContestManagerBtnChatUI.UIData.Visibility oldVisibility = this.defaultChatRoomStyle.v.getVisibility();
+            ContestManagerBtnChatUI.UIData.Style oldStyle = this.defaultChatRoomStyle.v.getStyle();
+            // make new
+            switch (newType)
+            {
+                case DefaultChatRoomStyle.Type.Last:
+                    {
+                        DefaultChatRoomStyleLast defaultChatRoomStyleLast = new DefaultChatRoomStyleLast();
+                        {
+                            defaultChatRoomStyleLast.uid = this.defaultChatRoomStyle.makeId();
+                            defaultChatRoomStyleLast.visibility.v = oldVisibility;
+                            defaultChatRoomStyleLast.style.v = oldStyle;
+                        }
+                        this.defaultChatRoomStyle.v = defaultChatRoomStyleLast;
+                    }
+                    break;
+                case DefaultChatRoomStyle.Type.Always:
+                    {
+                        DefaultChatRoomStyleAlways defaultChatRoomStyleAlways = new DefaultChatRoomStyleAlways();
+                        {
+                            defaultChatRoomStyleAlways.uid = this.defaultChatRoomStyle.makeId();
+                            defaultChatRoomStyleAlways.visibility.v = oldVisibility;
+                            defaultChatRoomStyleAlways.style.v = oldStyle;
+                        }
+                        this.defaultChatRoomStyle.v = defaultChatRoomStyleAlways;
+                    }
+                    break;
+                default:
+                    Debug.LogError("unknown type: " + newType);
+                    break;
+            }
+        }
+        else
+        {
+            Debug.LogError("the same type: " + newType);
+        }
+    }
+
+    #endregion
+
     #region Constructor
 
     public enum Property
@@ -112,7 +160,8 @@ public class Setting : Data
 		viewUrlImage,
 		animationSetting,
 		maxThinkCount,
-        defaultChosenGame
+        defaultChosenGame,
+        defaultChatRoomStyle
     }
 
 	public Setting() : base()
@@ -124,6 +173,7 @@ public class Setting : Data
 		this.animationSetting = new VP<AnimationSetting> (this, (byte)Property.animationSetting, new AnimationSetting ());
 		this.maxThinkCount = new VP<int> (this, (byte)Property.maxThinkCount, DefaultMaxThinkCount);
         this.defaultChosenGame = new VP<DefaultChosenGame>(this, (byte)Property.defaultChosenGame, new DefaultChosenGameLast());
+        this.defaultChatRoomStyle = new VP<DefaultChatRoomStyle>(this, (byte)Property.defaultChatRoomStyle, new DefaultChatRoomStyleLast());
     }
 
 	#endregion
