@@ -212,6 +212,41 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 
         #endregion
 
+        #region defaultRoomName
+
+        public VP<RequestChangeEnumUI.UIData> defaultRoomNameType;
+
+        public void makeRequestChangeDefaultRoomNameType(RequestChangeUpdate<int>.UpdateData update, int newDefaultRoomNameType)
+        {
+            // Find
+            Setting setting = null;
+            {
+                EditData<Setting> editSetting = this.editSetting.v;
+                if (editSetting != null)
+                {
+                    setting = editSetting.show.v.data;
+                }
+                else
+                {
+                    Debug.LogError("editSetting null: " + this);
+                }
+            }
+            // Process
+            if (setting != null)
+            {
+                DefaultRoomName.Type defaultRoomNameType = (DefaultRoomName.Type)newDefaultRoomNameType;
+                setting.changeDefaultRoomNameType(defaultRoomNameType);
+            }
+            else
+            {
+                Debug.LogError("setting null: " + this);
+            }
+        }
+
+        public VP<DefaultRoomName.UIData> defaultRoomNameUIData;
+
+        #endregion
+
         #region defaultChatRoomStyle
 
         public VP<RequestChangeEnumUI.UIData> defaultChatRoomStyleType;
@@ -239,7 +274,7 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
             }
             else
             {
-                Debug.LogError("gameFactory null: " + this);
+                Debug.LogError("setting null: " + this);
             }
         }
 
@@ -262,6 +297,9 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 
             defaultChosenGameType,
             defaultChosenGameUIData,
+
+            defaultRoomNameType,
+            defaultRoomNameUIData,
 
             defaultChatRoomStyleType,
             defaultChatRoomStyleUIData
@@ -350,6 +388,22 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                 }
                 this.defaultChosenGameUIData = new VP<DefaultChosenGame.UIData>(this, (byte)Property.defaultChosenGameUIData, null);
             }
+            // defaultRoomNameType
+            {
+                // type
+                {
+                    this.defaultRoomNameType = new VP<RequestChangeEnumUI.UIData>(this, (byte)Property.defaultRoomNameType, new RequestChangeEnumUI.UIData());
+                    // event
+                    this.defaultRoomNameType.v.updateData.v.request.v = makeRequestChangeDefaultRoomNameType;
+                    {
+                        foreach (DefaultRoomName.Type type in System.Enum.GetValues(typeof(DefaultRoomName.Type)))
+                        {
+                            this.defaultRoomNameType.v.options.add(type.ToString());
+                        }
+                    }
+                }
+                this.defaultRoomNameUIData = new VP<DefaultRoomName.UIData>(this, (byte)Property.defaultRoomNameUIData, null);
+            }
             // defaultChatRoomStyle
             {
                 // type
@@ -399,6 +453,11 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
     private static readonly TxtLanguage txtDefaultChosenGameLast = new TxtLanguage();
     private static readonly TxtLanguage txtDefaultChosenGameAlways = new TxtLanguage();
 
+    public Text lbDefaultRoomNameType;
+    private static readonly TxtLanguage txtDefaultRoomNameType = new TxtLanguage();
+    private static readonly TxtLanguage txtDefaultRoomNameLast = new TxtLanguage();
+    private static readonly TxtLanguage txtDefaultRoomNameAlways = new TxtLanguage();
+
     public Text lbDefaultChatRoomStyleType;
     private static readonly TxtLanguage txtDefaultChatRoomStyleType = new TxtLanguage();
     private static readonly TxtLanguage txtDefaultChatRoomStyleLast = new TxtLanguage();
@@ -419,6 +478,10 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
             txtDefaultChosenGameLast.add(Language.Type.vi, "Chọn Trước");
             txtDefaultChosenGameAlways.add(Language.Type.vi, "Luôn Chọn");
 
+            txtDefaultRoomNameType.add(Language.Type.vi, "Tên phòng mặc định");
+            txtDefaultRoomNameLast.add(Language.Type.vi, "Chọn Trước");
+            txtDefaultRoomNameAlways.add(Language.Type.vi, "Luôn Chọn");
+
             txtDefaultChatRoomStyleType.add(Language.Type.vi, "Phòng Chat mặc định");
             txtDefaultChatRoomStyleLast.add(Language.Type.vi, "Chọn Trước");
             txtDefaultChatRoomStyleAlways.add(Language.Type.vi, "Luôn Chọn");
@@ -437,6 +500,7 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
 
     public Image bgAnimationSetting;
     public Image bgDefaultChosenGame;
+    public Image bgDefaultRoomName;
     public Image bgDefaultChatRoomStyle;
 
     public override void refresh()
@@ -900,6 +964,155 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                                     }
                                 }
 
+                                // defaultRoomNameType
+                                {
+                                    RequestChangeEnumUI.UIData defaultRoomNameType = this.data.defaultRoomNameType.v;
+                                    if (defaultRoomNameType != null)
+                                    {
+                                        // options
+                                        {
+                                            List<string> options = new List<string>();
+                                            {
+                                                options.Add(txtDefaultRoomNameLast.get("Last Chosen"));
+                                                options.Add(txtDefaultRoomNameAlways.get("Always Choose"));
+                                            }
+                                            defaultRoomNameType.options.copyList(options);
+                                        }
+                                        // update
+                                        RequestChangeUpdate<int>.UpdateData updateData = defaultRoomNameType.updateData.v;
+                                        if (updateData != null)
+                                        {
+                                            updateData.origin.v = (int)show.defaultRoomName.v.getType();
+                                            updateData.canRequestChange.v = editSetting.canEdit.v;
+                                            updateData.serverState.v = serverState;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("updateData null: " + this);
+                                        }
+                                        // compare
+                                        {
+                                            if (compare != null)
+                                            {
+                                                defaultRoomNameType.showDifferent.v = true;
+                                                defaultRoomNameType.compare.v = (int)compare.defaultRoomName.v.getType();
+                                            }
+                                            else
+                                            {
+                                                defaultRoomNameType.showDifferent.v = false;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("useRule null: " + this);
+                                    }
+                                }
+                                // defaultRoomName
+                                {
+                                    DefaultRoomName defaultRoomName = show.defaultRoomName.v;
+                                    if (defaultRoomName != null)
+                                    {
+                                        // find origin 
+                                        DefaultRoomName originDefaultRoomName = null;
+                                        {
+                                            Setting originSetting = editSetting.origin.v.data;
+                                            if (originSetting != null)
+                                            {
+                                                originDefaultRoomName = originSetting.defaultRoomName.v;
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("origin null: " + this);
+                                            }
+                                        }
+                                        // find compare
+                                        DefaultRoomName compareDefaultRoomName = null;
+                                        {
+                                            if (compare != null)
+                                            {
+                                                compareDefaultRoomName = compare.defaultRoomName.v;
+                                            }
+                                            else
+                                            {
+                                                // Debug.LogError ("compare null: " + this);
+                                            }
+                                        }
+                                        switch (defaultRoomName.getType())
+                                        {
+                                            case DefaultRoomName.Type.Last:
+                                                {
+                                                    DefaultRoomNameLast defaultRoomNameLast = defaultRoomName as DefaultRoomNameLast;
+                                                    // UIData
+                                                    DefaultRoomNameLastUI.UIData defaultRoomNameLastUIData = this.data.defaultRoomNameUIData.newOrOld<DefaultRoomNameLastUI.UIData>();
+                                                    {
+                                                        EditData<DefaultRoomNameLast> editDefaultRoomNameLast = defaultRoomNameLastUIData.editDefaultRoomNameLast.v;
+                                                        if (editDefaultRoomNameLast != null)
+                                                        {
+                                                            // origin
+                                                            editDefaultRoomNameLast.origin.v = new ReferenceData<DefaultRoomNameLast>((DefaultRoomNameLast)originDefaultRoomName);
+                                                            // show
+                                                            editDefaultRoomNameLast.show.v = new ReferenceData<DefaultRoomNameLast>(defaultRoomNameLast);
+                                                            // compare
+                                                            editDefaultRoomNameLast.compare.v = new ReferenceData<DefaultRoomNameLast>((DefaultRoomNameLast)compareDefaultRoomName);
+                                                            // compareOtherType
+                                                            editDefaultRoomNameLast.compareOtherType.v = new ReferenceData<Data>(compareDefaultRoomName);
+                                                            // canEdit
+                                                            editDefaultRoomNameLast.canEdit.v = editSetting.canEdit.v;
+                                                            // editType
+                                                            editDefaultRoomNameLast.editType.v = editSetting.editType.v;
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("editDefaultRoomNameLast null: " + this);
+                                                        }
+                                                        defaultRoomNameLastUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                    }
+                                                    this.data.defaultRoomNameUIData.v = defaultRoomNameLastUIData;
+                                                }
+                                                break;
+                                            case DefaultRoomName.Type.Always:
+                                                {
+                                                    DefaultRoomNameAlways defaultRoomNameAlways = defaultRoomName as DefaultRoomNameAlways;
+                                                    // UIData
+                                                    DefaultRoomNameAlwaysUI.UIData defaultRoomNameAlwaysUIData = this.data.defaultRoomNameUIData.newOrOld<DefaultRoomNameAlwaysUI.UIData>();
+                                                    {
+                                                        EditData<DefaultRoomNameAlways> editDefaultRoomNameAlways = defaultRoomNameAlwaysUIData.editDefaultRoomNameAlways.v;
+                                                        if (editDefaultRoomNameAlways != null)
+                                                        {
+                                                            // origin
+                                                            editDefaultRoomNameAlways.origin.v = new ReferenceData<DefaultRoomNameAlways>((DefaultRoomNameAlways)originDefaultRoomName);
+                                                            // show
+                                                            editDefaultRoomNameAlways.show.v = new ReferenceData<DefaultRoomNameAlways>(defaultRoomNameAlways);
+                                                            // compare
+                                                            editDefaultRoomNameAlways.compare.v = new ReferenceData<DefaultRoomNameAlways>((DefaultRoomNameAlways)compareDefaultRoomName);
+                                                            // compareOtherType
+                                                            editDefaultRoomNameAlways.compareOtherType.v = new ReferenceData<Data>(compareDefaultRoomName);
+                                                            // canEdit
+                                                            editDefaultRoomNameAlways.canEdit.v = editSetting.canEdit.v;
+                                                            // editType
+                                                            editDefaultRoomNameAlways.editType.v = editSetting.editType.v;
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("editDefaultRoomNameAlways null: " + this);
+                                                        }
+                                                        defaultRoomNameAlwaysUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                    }
+                                                    this.data.defaultRoomNameUIData.v = defaultRoomNameAlwaysUIData;
+                                                }
+                                                break;
+                                            default:
+                                                Debug.LogError("unknown type: " + defaultRoomName.getType() + "; " + this);
+                                                break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("show null: " + this);
+                                    }
+                                }
+
                                 // defaultChatRoomStyleType
                                 {
                                     RequestChangeEnumUI.UIData defaultChatRoomStyleType = this.data.defaultChatRoomStyleType.v;
@@ -1188,6 +1401,29 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                                 }
                             }
 
+                            // defaultRoomNameType
+                            {
+                                RequestChangeEnumUI.UIData defaultRoomNameType = this.data.defaultRoomNameType.v;
+                                if (defaultRoomNameType != null)
+                                {
+                                    // update
+                                    RequestChangeUpdate<int>.UpdateData updateData = defaultRoomNameType.updateData.v;
+                                    if (updateData != null)
+                                    {
+                                        updateData.current.v = (int)show.defaultRoomName.v.getType();
+                                        updateData.changeState.v = Data.ChangeState.None;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("updateData null: " + this);
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("useRule null: " + this);
+                                }
+                            }
+
                             // defaultChatRoomStyleType
                             {
                                 RequestChangeEnumUI.UIData defaultChatRoomStyleType = this.data.defaultChatRoomStyleType.v;
@@ -1461,6 +1697,56 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                             Debug.LogError("bgDefaultChosenGame null");
                         }
                     }
+                    // defaultRoomName
+                    {
+                        float bgY = deltaY;
+                        float bgHeight = 0;
+                        // type
+                        {
+                            if (this.data.defaultRoomNameType.v != null)
+                            {
+                                if (lbDefaultRoomNameType != null)
+                                {
+                                    lbDefaultRoomNameType.gameObject.SetActive(true);
+                                    UIRectTransform.SetPosY(lbDefaultRoomNameType.rectTransform, deltaY);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbDefaultRoomNameType null");
+                                }
+                                UIRectTransform.SetPosY(this.data.defaultRoomNameType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                                bgHeight += UIConstants.ItemHeight;
+                                deltaY += UIConstants.ItemHeight;
+                            }
+                            else
+                            {
+                                if (lbDefaultRoomNameType != null)
+                                {
+                                    lbDefaultRoomNameType.gameObject.SetActive(false);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbDefaultRoomNameType null");
+                                }
+                            }
+                        }
+                        // UI
+                        {
+                            float height = UIRectTransform.SetPosY(this.data.defaultRoomNameUIData.v, deltaY);
+                            bgHeight += height;
+                            deltaY += height;
+                        }
+                        // bg
+                        if (bgDefaultRoomName != null)
+                        {
+                            UIRectTransform.SetPosY(bgDefaultRoomName.rectTransform, bgY);
+                            UIRectTransform.SetHeight(bgDefaultRoomName.rectTransform, bgHeight);
+                        }
+                        else
+                        {
+                            Debug.LogError("bgDefaultRoomName null");
+                        }
+                    }
                     // defaultChatRoomStyle
                     {
                         float bgY = deltaY;
@@ -1572,6 +1858,14 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                     {
                         Debug.LogError("lbDefaultChosenGameType null");
                     }
+                    if (lbDefaultRoomNameType != null)
+                    {
+                        lbDefaultRoomNameType.text = txtDefaultRoomNameType.get("Default room name");
+                    }
+                    else
+                    {
+                        Debug.LogError("lbDefaultRoomNameType null");
+                    }
                     if (lbDefaultChatRoomStyleType != null)
                     {
                         lbDefaultChatRoomStyleType.text = txtDefaultChatRoomStyleType.get("Default chat room");
@@ -1609,10 +1903,14 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
     private static readonly UIRectTransform viewUrlImageRect = new UIRectTransform(UIConstants.RequestBoolRect);
     private static readonly UIRectTransform maxThinkCountRect = new UIRectTransform(UIConstants.RequestRect);
     private static readonly UIRectTransform defaultChosenGameTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
+    private static readonly UIRectTransform defaultRoomNameTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
     private static readonly UIRectTransform defaultChatRoomStyleTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
     public DefaultChosenGameLastUI defaultChosenGameLastPrefab;
     public DefaultChosenGameAlwaysUI defaultChosenGameAlwaysPrefab;
+
+    public DefaultRoomNameLastUI defaultRoomNameLastPrefab;
+    public DefaultRoomNameAlwaysUI defaultRoomNameAlwaysPrefab;
 
     public DefaultChatRoomStyleLastUI defaultChatRoomStyleLastPrefab;
     public DefaultChatRoomStyleAlwaysUI defaultChatRoomStyleAlwaysPrefab;
@@ -1639,6 +1937,11 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                 {
                     uiData.defaultChosenGameType.allAddCallBack(this);
                     uiData.defaultChosenGameUIData.allAddCallBack(this);
+                }
+                // defaultRoomName
+                {
+                    uiData.defaultRoomNameType.allAddCallBack(this);
+                    uiData.defaultRoomNameUIData.allAddCallBack(this);
                 }
                 // defaultChatRoomStyle
                 {
@@ -1697,6 +2000,9 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                                 break;
                             case UIData.Property.defaultChosenGameType:
                                 UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, defaultChosenGameTypeRect);
+                                break;
+                            case UIData.Property.defaultRoomNameType:
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, defaultRoomNameTypeRect);
                                 break;
                             case UIData.Property.defaultChatRoomStyleType:
                                 UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, defaultChatRoomStyleTypeRect);
@@ -1818,6 +2124,38 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                 dirty = true;
                 return;
             }
+            // defaultRoomNameUIData
+            if (data is DefaultRoomName.UIData)
+            {
+                DefaultRoomName.UIData defaultRoomNameUIData = data as DefaultRoomName.UIData;
+                // UI
+                {
+                    switch (defaultRoomNameUIData.getType())
+                    {
+                        case DefaultRoomName.Type.Last:
+                            {
+                                DefaultRoomNameLastUI.UIData defaultRoomNameLastUIData = defaultRoomNameUIData as DefaultRoomNameLastUI.UIData;
+                                UIUtils.Instantiate(defaultRoomNameLastUIData, defaultRoomNameLastPrefab, this.transform);
+                            }
+                            break;
+                        case DefaultRoomName.Type.Always:
+                            {
+                                DefaultRoomNameAlwaysUI.UIData defaultRoomNameAlwaysUIData = defaultRoomNameUIData as DefaultRoomNameAlwaysUI.UIData;
+                                UIUtils.Instantiate(defaultRoomNameAlwaysUIData, defaultRoomNameAlwaysPrefab, this.transform);
+                            }
+                            break;
+                        default:
+                            Debug.LogError("unknown type: " + defaultRoomNameUIData.getType());
+                            break;
+                    }
+                }
+                // Child
+                {
+                    TransformData.AddCallBack(defaultRoomNameUIData, this);
+                }
+                dirty = true;
+                return;
+            }
             // defaultChatRoomStyleUIData
             if (data is DefaultChatRoomStyle.UIData)
             {
@@ -1882,6 +2220,11 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                 {
                     uiData.defaultChosenGameType.allRemoveCallBack(this);
                     uiData.defaultChosenGameUIData.allRemoveCallBack(this);
+                }
+                // defaultRoomName
+                {
+                    uiData.defaultRoomNameType.allRemoveCallBack(this);
+                    uiData.defaultRoomNameUIData.allRemoveCallBack(this);
                 }
                 // defaultChatRoomStyle
                 {
@@ -1987,6 +2330,37 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                             break;
                         default:
                             Debug.LogError("unknown type: " + defaultChosenGameUIData.getType());
+                            break;
+                    }
+                }
+                return;
+            }
+            // defaultRoomNameUIData
+            if (data is DefaultRoomName.UIData)
+            {
+                DefaultRoomName.UIData defaultRoomNameUIData = data as DefaultRoomName.UIData;
+                // Child
+                {
+                    TransformData.RemoveCallBack(defaultRoomNameUIData, this);
+                }
+                // UI
+                {
+                    switch (defaultRoomNameUIData.getType())
+                    {
+                        case DefaultRoomName.Type.Last:
+                            {
+                                DefaultRoomNameLastUI.UIData defaultRoomNameLastUIData = defaultRoomNameUIData as DefaultRoomNameLastUI.UIData;
+                                defaultRoomNameLastUIData.removeCallBackAndDestroy(typeof(DefaultRoomNameLastUI));
+                            }
+                            break;
+                        case DefaultRoomName.Type.Always:
+                            {
+                                DefaultRoomNameAlwaysUI.UIData defaultRoomNameAlwaysUIData = defaultRoomNameUIData as DefaultRoomNameAlwaysUI.UIData;
+                                defaultRoomNameAlwaysUIData.removeCallBackAndDestroy(typeof(DefaultRoomNameAlwaysUI));
+                            }
+                            break;
+                        default:
+                            Debug.LogError("unknown type: " + defaultRoomNameUIData.getType());
                             break;
                     }
                 }
@@ -2099,6 +2473,18 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                         dirty = true;
                     }
                     break;
+                case UIData.Property.defaultRoomNameType:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.defaultRoomNameUIData:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
                 case UIData.Property.defaultChatRoomStyleType:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
@@ -2181,6 +2567,9 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
                         case Setting.Property.defaultChosenGame:
                             dirty = true;
                             break;
+                        case Setting.Property.defaultRoomName:
+                            dirty = true;
+                            break;
                         case Setting.Property.defaultChatRoomStyle:
                             dirty = true;
                             break;
@@ -2213,6 +2602,11 @@ public class SettingUI : UIBehavior<SettingUI.UIData>
             }
             // defaultChosenGameUIData
             if (wrapProperty.p is DefaultChosenGame.UIData)
+            {
+                return;
+            }
+            // defaultRoomNameUIData
+            if (wrapProperty.p is DefaultRoomName.UIData)
             {
                 return;
             }

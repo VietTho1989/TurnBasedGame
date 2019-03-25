@@ -319,6 +319,8 @@ public class ContestManagerBtnUI : UIBehavior<ContestManagerBtnUI.UIData>
                     break;
                 case ContestManagerUI.UIData.Property.btns:
                     break;
+                case ContestManagerUI.UIData.Property.roomChat:
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;

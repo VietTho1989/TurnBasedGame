@@ -19,18 +19,32 @@ public class RoomUserAdapter : SRIA<RoomUserAdapter.UIData, RoomUserHolder.UIDat
 
 		public LP<RoomUserHolder.UIData> holders;
 
-		#region Constructor
+        #region type
 
-		public enum Property
+        public enum Type
+        {
+            Lobby,
+            Play
+        }
+
+        public VP<Type> type;
+
+        #endregion
+
+        #region Constructor
+
+        public enum Property
 		{
 			room,
-			holders
+			holders,
+            type
 		}
 
 		public UIData() : base()
 		{
 			this.room = new VP<ReferenceData<Room>>(this, (byte)Property.room, new ReferenceData<Room>(null));
 			this.holders = new LP<RoomUserHolder.UIData>(this, (byte)Property.holders);
+            this.type = new VP<Type>(this, (byte)Property.type, Type.Lobby);
 		}
 
 		#endregion

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using GameManager.Match;
 
 public class ContestManagerBtnRoomUserUI : UIBehavior<ContestManagerBtnRoomUserUI.UIData>
 {
@@ -96,5 +97,49 @@ public class ContestManagerBtnRoomUserUI : UIBehavior<ContestManagerBtnRoomUserU
     }
 
     #endregion
+
+    public void onClickBtnRoomUser()
+    {
+        if (this.data != null)
+        {
+            ContestManagerUI.UIData contestManagerUIData = this.data.findDataInParent<ContestManagerUI.UIData>();
+            if (contestManagerUIData != null)
+            {
+                ContestManagerUI.UIData.Sub sub = contestManagerUIData.sub.v;
+                if (sub != null)
+                {
+                    if(sub.getType()== ContestManager.State.Type.Play)
+                    {
+                        ContestManagerStatePlayUI.UIData contestManagerStatePlayUIData = sub as ContestManagerStatePlayUI.UIData;
+                        // make UI
+                        if (contestManagerStatePlayUIData.roomUserListUIData.v == null)
+                        {
+                            RoomUserListUI.UIData roomUserListUIData = new RoomUserListUI.UIData();
+                            {
+                                roomUserListUIData.uid = contestManagerStatePlayUIData.roomUserListUIData.makeId();
+                            }
+                            contestManagerStatePlayUIData.roomUserListUIData.v = roomUserListUIData;
+                        }
+                        else
+                        {
+                            contestManagerStatePlayUIData.roomUserListUIData.v = null;
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogError("sub null");
+                }
+            }
+            else
+            {
+                Debug.LogError("contestManagerUIData null");
+            }
+        }
+        else
+        {
+            Debug.LogError("data null");
+        }
+    }
 
 }

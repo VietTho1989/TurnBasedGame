@@ -20,13 +20,16 @@ namespace GameManager.Match
 
             public VP<Swap.SwapUI.UIData> swapUIData;
 
+            public VP<RoomUserListUI.UIData> roomUserListUIData;
+
             #region Constructor
 
             public enum Property
             {
                 contestManagerStatePlay,
                 contestManagerContentUIData,
-                swapUIData
+                swapUIData,
+                roomUserListUIData
             }
 
             public UIData() : base()
@@ -34,6 +37,7 @@ namespace GameManager.Match
                 this.contestManagerStatePlay = new VP<ReferenceData<ContestManagerStatePlay>>(this, (byte)Property.contestManagerStatePlay, new ReferenceData<ContestManagerStatePlay>(null));
                 this.contestManagerContentUIData = new VP<ContestManagerContent.UIData>(this, (byte)Property.contestManagerContentUIData, null);
                 this.swapUIData = new VP<GameManager.Match.Swap.SwapUI.UIData>(this, (byte)Property.swapUIData, null);
+                this.roomUserListUIData = new VP<RoomUserListUI.UIData>(this, (byte)Property.roomUserListUIData, null);
             }
 
             #endregion
@@ -47,6 +51,19 @@ namespace GameManager.Match
             {
                 bool isProcess = false;
                 {
+                    // roomUserListUI
+                    if (!isProcess)
+                    {
+                        RoomUserListUI.UIData roomUserListUIData = this.roomUserListUIData.v;
+                        if (roomUserListUIData != null)
+                        {
+                            isProcess = roomUserListUIData.processEvent(e);
+                        }
+                        else
+                        {
+                            Debug.LogError("roomUserListUIData null");
+                        }
+                    }
                     // swapUIData
                     if (!isProcess)
                     {
@@ -155,10 +172,23 @@ namespace GameManager.Match
                                 // Debug.LogError ("swapUIData null: " + this);
                             }
                         }
+                        // roomUserListUIData
+                        {
+                            RoomUserListUI.UIData roomUserListUIData = this.data.roomUserListUIData.v;
+                            if (roomUserListUIData != null)
+                            {
+                                roomUserListUIData.play.v = new ReferenceData<ContestManagerStatePlay>(contestManagerStatePlay);
+                            }
+                            else
+                            {
+                                Debug.LogError("roomUserListUIData null");
+                            }
+                        }
                         // siblingIndex
                         {
                             UIRectTransform.SetSiblingIndex(this.data.contestManagerContentUIData.v, 0);
                             UIRectTransform.SetSiblingIndex(this.data.swapUIData.v, 1);
+                            UIRectTransform.SetSiblingIndex(this.data.roomUserListUIData.v, 2);
                         }
                     }
                     else
@@ -188,6 +218,9 @@ namespace GameManager.Match
 
         public Swap.SwapUI swapUIPrefab;
 
+        public RoomUserListUI roomUserListPrefab;
+        private static readonly UIRectTransform roomUserListRect = UIRectTransform.CreateCenterRect(400, 400);
+
         public override void onAddCallBack<T>(T data)
         {
             if (data is UIData)
@@ -198,6 +231,7 @@ namespace GameManager.Match
                     uiData.contestManagerStatePlay.allAddCallBack(this);
                     uiData.contestManagerContentUIData.allAddCallBack(this);
                     uiData.swapUIData.allAddCallBack(this);
+                    uiData.roomUserListUIData.allAddCallBack(this);
                 }
                 dirty = true;
                 return;
@@ -252,6 +286,16 @@ namespace GameManager.Match
                     dirty = true;
                     return;
                 }
+                if(data is RoomUserListUI.UIData)
+                {
+                    RoomUserListUI.UIData roomUserListUIData = data as RoomUserListUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(roomUserListUIData, roomUserListPrefab, this.transform, roomUserListRect);
+                    }
+                    dirty = true;
+                    return;
+                }
             }
             Debug.LogError("Don't process: " + data + "; " + this);
         }
@@ -266,6 +310,7 @@ namespace GameManager.Match
                     uiData.contestManagerStatePlay.allRemoveCallBack(this);
                     uiData.contestManagerContentUIData.allRemoveCallBack(this);
                     uiData.swapUIData.allRemoveCallBack(this);
+                    uiData.roomUserListUIData.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
                 return;
@@ -317,6 +362,15 @@ namespace GameManager.Match
                     }
                     return;
                 }
+                if (data is RoomUserListUI.UIData)
+                {
+                    RoomUserListUI.UIData roomUserListUIData = data as RoomUserListUI.UIData;
+                    // UI
+                    {
+                        roomUserListUIData.removeCallBackAndDestroy(typeof(RoomUserListUI));
+                    }
+                    return;
+                }
             }
             Debug.LogError("Don't process: " + data + "; " + this);
         }
@@ -344,6 +398,12 @@ namespace GameManager.Match
                         }
                         break;
                     case UIData.Property.swapUIData:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.roomUserListUIData:
                         {
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
@@ -382,6 +442,10 @@ namespace GameManager.Match
                     return;
                 }
                 if (wrapProperty.p is Swap.SwapUI.UIData)
+                {
+                    return;
+                }
+                if (wrapProperty.p is RoomUserListUI.UIData)
                 {
                     return;
                 }

@@ -1760,6 +1760,8 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Chess\Default\DefaultChess.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Chess\Default\DefaultChessIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Chess\Default\DefaultChessUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Chess\Information\ChessInformationUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Chess\Information\Fen\ChessFenUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Chess\Move\Animation\ChessMoveAnimation.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Chess\Move\Animation\ChessMoveAnimationIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Chess\Move\ChessMove.cs" />
@@ -1770,7 +1772,6 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Chess\StateInfo\StateInfoIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Chess\TestChess.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Chess\UI\Board\BoardUI.cs" />
-    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Chess\UI\Board\Fen\ChessFenUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Chess\UI\Board\Piece\AnimationSetDirtyUpdate.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Chess\UI\Board\Piece\ChessSpriteContainer.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Chess\UI\Board\Piece\PieceUI.cs" />
@@ -1814,6 +1815,8 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\FairyChess\FairyChess.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\FairyChess\FairyChess960.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\FairyChess\FairyChessIdentity.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\FairyChess\Information\FairyChessInformationUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\FairyChess\Information\Fen\FairyChessFenUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\FairyChess\Move\Animation\FairyChessMoveAnimation.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\FairyChess\Move\Animation\FairyChessMoveAnimationIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\FairyChess\Move\AnimationSetDirtyUpdate.cs" />
@@ -1824,7 +1827,6 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\FairyChess\StateInfo\StateInfoIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\FairyChess\TestFairyChess.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\FairyChess\UI\Board\BoardUI.cs" />
-    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\FairyChess\UI\Board\Fen\FairyChessFenUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\FairyChess\UI\Board\Piece\HandPieceUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\FairyChess\UI\Board\Piece\PieceSprite\SpriteContainer.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\FairyChess\UI\Board\Piece\PieceUI.cs" />
@@ -3208,6 +3210,8 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\GameUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Save\BtnLoadHistoryUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Save\GameHistoryUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Setting\GameInformationUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\UI\Setting\GameType\GameTypeInformationUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\Update\GameCheckEndUpdate.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\Update\GameCheckPlayerCountUpdate.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\Update\GamePreventGamePlayerAINull.cs" />
@@ -3352,6 +3356,7 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Play\ContestManagerStatePlayTeamCheckChange.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Play\ContestManagerStatePlayUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Play\ContestManagerStatePlayUpdate.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Play\RoomUserList\RoomUserListUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Play\State\ContestManagerStatePlaySetStateUpdate.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Play\State\End\ContestManagerStatePlayEnd.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Play\State\End\ContestManagerStatePlayEndIdentity.cs" />

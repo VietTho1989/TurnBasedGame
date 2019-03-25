@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using GameManager.Match;
 
 public class RoomUserInformUI : UIBehavior<RoomUserInformUI.UIData>
 {
@@ -19,6 +20,18 @@ public class RoomUserInformUI : UIBehavior<RoomUserInformUI.UIData>
 
         public VP<RoomUserKickUI.UIData> kickUI;
 
+        #region type
+
+        public enum Type
+        {
+            Lobby,
+            Play
+        }
+
+        public VP<Type> type;
+
+        #endregion
+
         #region Constructor
 
         public enum Property
@@ -26,7 +39,8 @@ public class RoomUserInformUI : UIBehavior<RoomUserInformUI.UIData>
             roomUser,
             humanUI,
             userMakeFriend,
-            kickUI
+            kickUI,
+            type
         }
 
         public UIData() : base()
@@ -40,6 +54,7 @@ public class RoomUserInformUI : UIBehavior<RoomUserInformUI.UIData>
             }
             this.userMakeFriend = new VP<UserMakeFriendUI.UIData>(this, (byte)Property.userMakeFriend, new UserMakeFriendUI.UIData());
             this.kickUI = new VP<RoomUserKickUI.UIData>(this, (byte)Property.kickUI, new RoomUserKickUI.UIData());
+            this.type = new VP<Type>(this, (byte)Property.type, Type.Lobby);
         }
 
         #endregion
@@ -464,14 +479,37 @@ public class RoomUserInformUI : UIBehavior<RoomUserInformUI.UIData>
     {
         if (this.data != null)
         {
-            RoomUI.UIData roomUIData = this.data.findDataInParent<RoomUI.UIData>();
-            if (roomUIData != null)
+            switch (this.data.type.v)
             {
-                roomUIData.roomUserInformUI.v = null;
-            }
-            else
-            {
-                Debug.LogError("roomUIData null: " + this);
+                case UIData.Type.Lobby:
+                    {
+                        RoomUI.UIData roomUIData = this.data.findDataInParent<RoomUI.UIData>();
+                        if (roomUIData != null)
+                        {
+                            roomUIData.roomUserInformUI.v = null;
+                        }
+                        else
+                        {
+                            Debug.LogError("roomUIData null: " + this);
+                        }
+                    }
+                    break;
+                case UIData.Type.Play:
+                    {
+                        RoomUserListUI.UIData roomUserListUIData = this.data.findDataInParent<RoomUserListUI.UIData>();
+                        if (roomUserListUIData != null)
+                        {
+                            roomUserListUIData.userInformUIData.v = null;
+                        }
+                        else
+                        {
+                            Debug.LogError("roomUserListUIData null");
+                        }
+                    }
+                    break;
+                default:
+                    Debug.LogError("unknown type: " + this.data.type.v);
+                    break;
             }
         }
         else

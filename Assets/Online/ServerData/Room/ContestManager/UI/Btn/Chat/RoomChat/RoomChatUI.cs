@@ -642,6 +642,8 @@ public class RoomChatUI : UIBehavior<RoomChatUI.UIData>
                             dirty = true;
                         }
                         break;
+                    case ContestManagerUI.UIData.Property.roomChat:
+                        break;
                     default:
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;

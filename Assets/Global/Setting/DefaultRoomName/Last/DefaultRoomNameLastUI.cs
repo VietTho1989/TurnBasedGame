@@ -277,7 +277,7 @@ public class DefaultRoomNameLastUI : UIHaveTransformDataBehavior<DefaultRoomName
                                 {
                                     Debug.LogError("lbRoomName null");
                                 }
-                                UIRectTransform.SetPosY(this.data.roomName.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                                UIRectTransform.SetPosY(this.data.roomName.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
                                 deltaY += UIConstants.ItemHeight;
                             }
                             else
@@ -337,7 +337,7 @@ public class DefaultRoomNameLastUI : UIHaveTransformDataBehavior<DefaultRoomName
     #region implement callBacks
 
     public RequestChangeStringUI requestStringPrefab;
-    public static readonly UIRectTransform roomNameRect = new UIRectTransform(UIConstants.RequestRect);
+    public static readonly UIRectTransform roomNameRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
     public override void onAddCallBack<T>(T data)
     {

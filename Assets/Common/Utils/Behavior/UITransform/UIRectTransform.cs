@@ -459,4 +459,26 @@ public class UIRectTransform
         OnlyHead
     }
 
+    #region create request rect
+
+    public const float CommonToggleHeight = 40;
+    public const float CommonDropDownHeight = 30;
+
+    public static UIRectTransform createRequestRect(float paddingLeft, float paddingRight, float height)
+    {
+        UIRectTransform rect = new UIRectTransform();
+        {
+            rect.anchoredPosition = new Vector3((paddingLeft - paddingRight) / 2, 0f, 0f);
+            rect.anchorMin = new Vector2(0.0f, 1.0f);
+            rect.anchorMax = new Vector2(1.0f, 1.0f);
+            rect.pivot = new Vector2(0.5f, 1f);
+            rect.offsetMin = new Vector2(paddingLeft, -height);
+            rect.offsetMax = new Vector2(-paddingRight, 0);
+            rect.sizeDelta = new Vector2(-paddingLeft - paddingRight, height);
+        }
+        return rect;
+    }
+
+    #endregion
+
 }

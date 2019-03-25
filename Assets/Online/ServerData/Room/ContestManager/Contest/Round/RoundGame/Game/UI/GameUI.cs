@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using GameState;
 using Record;
 using Hint;
+using GameManager.Match;
 
 public class GameUI : UIBehavior<GameUI.UIData>
 {
@@ -61,11 +62,9 @@ public class GameUI : UIBehavior<GameUI.UIData>
 
         #endregion
 
-        #region save
-
         public VP<SaveUI.UIData> saveUIData;
 
-        #endregion
+        public VP<GameInformationUI.UIData> gameInformationUIData;
 
         #region Constructor
 
@@ -82,7 +81,8 @@ public class GameUI : UIBehavior<GameUI.UIData>
             gameHistoryUIData,
 
             stateUI,
-            saveUIData
+            saveUIData,
+            gameInformationUIData
         }
 
         public UIData() : base()
@@ -108,6 +108,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
 
             this.stateUI = new VP<StateUI.UIData>(this, (byte)Property.stateUI, new StateUI.UIData());
             this.saveUIData = new VP<SaveUI.UIData>(this, (byte)Property.saveUIData, null);
+            this.gameInformationUIData = new VP<GameInformationUI.UIData>(this, (byte)Property.gameInformationUIData, null);
         }
 
         #endregion
@@ -121,6 +122,19 @@ public class GameUI : UIBehavior<GameUI.UIData>
         {
             bool isProcess = false;
             {
+                // gameInformationUIData
+                if (!isProcess)
+                {
+                    GameInformationUI.UIData gameSettingUIData = this.gameInformationUIData.v;
+                    if (gameSettingUIData != null)
+                    {
+                        isProcess = gameSettingUIData.processEvent(e);
+                    }
+                    else
+                    {
+                        Debug.LogError("gameSettingUIData null");
+                    }
+                }
                 // requestDraw
                 if (!isProcess)
                 {
@@ -344,6 +358,54 @@ public class GameUI : UIBehavior<GameUI.UIData>
                             // Debug.LogError("gameHistoryUIData null: " + this);
                         }
                     }
+                    // gameSettingUIData
+                    {
+                        // find isShow
+                        bool isShow = false;
+                        {
+                            ContestManagerUI.UIData contestManagerUIData = this.data.findDataInParent<ContestManagerUI.UIData>();
+                            if (contestManagerUIData != null)
+                            {
+                                ContestManagerBtnUI.UIData btns = contestManagerUIData.btns.v;
+                                if (btns != null)
+                                {
+                                    ContestManagerBtnSettingUI.UIData btnSetting = btns.btnSetting.v;
+                                    if (btnSetting != null)
+                                    {
+                                        if (btnSetting.visibility.v == ContestManagerBtnSettingUI.UIData.Visibility.Show)
+                                        {
+                                            isShow = true;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("btnSetting null");
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("btns null");
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("contestManagerUIData null");
+                            }
+                        }
+                        // process
+                        if (isShow)
+                        {
+                            GameInformationUI.UIData gameSettingUIData = this.data.gameInformationUIData.newOrOld<GameInformationUI.UIData>();
+                            {
+                                gameSettingUIData.game.v = new ReferenceData<Game>(game);
+                            }
+                            this.data.gameInformationUIData.v = gameSettingUIData;
+                        }
+                        else
+                        {
+                            this.data.gameInformationUIData.v = null;
+                        }
+                    }
                     // UI sibling index
                     {
                         UIRectTransform.SetSiblingIndex(this.data.gameBottom.v, 0);
@@ -370,6 +432,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
                         {
                             Debug.LogError("saveRecordContainer null");
                         }
+                        UIRectTransform.SetSiblingIndex(this.data.gameInformationUIData.v, 10);
                     }
                 }
                 else
@@ -418,11 +481,20 @@ public class GameUI : UIBehavior<GameUI.UIData>
     public Transform dialogContainer;
     public Transform saveRecordContainer;
 
+    public GameInformationUI gameSettingPrefab;
+    private static readonly UIRectTransform gameSettingRect = UIRectTransform.CreateCenterRect(400, 400, 0, 30);
+
+    private ContestManagerUI.UIData contestManagerUIData = null;
+
     public override void onAddCallBack<T>(T data)
     {
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Parent
+            {
+                DataUtils.addParentCallBack(uiData, this, ref this.contestManagerUIData);
+            }
             // Child
             {
                 uiData.game.allAddCallBack(this);
@@ -437,9 +509,42 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 uiData.saveUIData.allAddCallBack(this);
                 uiData.gameHistoryUIData.allAddCallBack(this);
                 uiData.gameDataUI.allAddCallBack(this);
+                uiData.gameInformationUIData.allAddCallBack(this);
             }
             dirty = true;
             return;
+        }
+        // Parent
+        {
+            if(data is ContestManagerUI.UIData)
+            {
+                ContestManagerUI.UIData contestManagerUIData = data as ContestManagerUI.UIData;
+                // Child
+                {
+                    contestManagerUIData.btns.allAddCallBack(this);
+                }
+                dirty = true;
+                return;
+            }
+            // Child
+            {
+                if(data is ContestManagerBtnUI.UIData)
+                {
+                    ContestManagerBtnUI.UIData contestManagerBtnUIData = data as ContestManagerBtnUI.UIData;
+                    // Child
+                    {
+                        contestManagerBtnUIData.btnSetting.allAddCallBack(this);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Child
+                if(data is ContestManagerBtnSettingUI.UIData)
+                {
+                    dirty = true;
+                    return;
+                }
+            }
         }
         // Child
         {
@@ -542,6 +647,16 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 dirty = true;
                 return;
             }
+            if(data is GameInformationUI.UIData)
+            {
+                GameInformationUI.UIData gameSettingUIData = data as GameInformationUI.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(gameSettingUIData, gameSettingPrefab, this.transform, gameSettingRect);
+                }
+                dirty = true;
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -551,6 +666,10 @@ public class GameUI : UIBehavior<GameUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Parent
+            {
+                DataUtils.removeParentCallBack(uiData, this, ref this.contestManagerUIData);
+            }
             // Child
             {
                 uiData.game.allRemoveCallBack(this);
@@ -565,9 +684,39 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 uiData.saveUIData.allRemoveCallBack(this);
                 uiData.gameHistoryUIData.allRemoveCallBack(this);
                 uiData.gameDataUI.allRemoveCallBack(this);
+                uiData.gameInformationUIData.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
             return;
+        }
+        // Parent
+        {
+            if (data is ContestManagerUI.UIData)
+            {
+                ContestManagerUI.UIData contestManagerUIData = data as ContestManagerUI.UIData;
+                // Child
+                {
+                    contestManagerUIData.btns.allRemoveCallBack(this);
+                }
+                return;
+            }
+            // Child
+            {
+                if (data is ContestManagerBtnUI.UIData)
+                {
+                    ContestManagerBtnUI.UIData contestManagerBtnUIData = data as ContestManagerBtnUI.UIData;
+                    // Child
+                    {
+                        contestManagerBtnUIData.btnSetting.allRemoveCallBack(this);
+                    }
+                    return;
+                }
+                // Child
+                if (data is ContestManagerBtnSettingUI.UIData)
+                {
+                    return;
+                }
+            }
         }
         // Child
         {
@@ -659,6 +808,15 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 }
                 return;
             }
+            if (data is GameInformationUI.UIData)
+            {
+                GameInformationUI.UIData gameSettingUIData = data as GameInformationUI.UIData;
+                // UI
+                {
+                    gameSettingUIData.removeCallBackAndDestroy(typeof(GameInformationUI));
+                }
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -730,11 +888,79 @@ public class GameUI : UIBehavior<GameUI.UIData>
                         dirty = true;
                     }
                     break;
+                case UIData.Property.gameInformationUIData:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
             return;
+        }
+        // Parent
+        {
+            if (wrapProperty.p is ContestManagerUI.UIData)
+            {
+                switch ((ContestManagerUI.UIData.Property)wrapProperty.n)
+                {
+                    case ContestManagerUI.UIData.Property.contestManager:
+                        break;
+                    case ContestManagerUI.UIData.Property.sub:
+                        break;
+                    case ContestManagerUI.UIData.Property.btns:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case ContestManagerUI.UIData.Property.roomChat:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            {
+                if (wrapProperty.p is ContestManagerBtnUI.UIData)
+                {
+                    switch ((ContestManagerBtnUI.UIData.Property)wrapProperty.n)
+                    {
+                        case ContestManagerBtnUI.UIData.Property.btnChat:
+                            break;
+                        case ContestManagerBtnUI.UIData.Property.btnRoomUser:
+                            break;
+                        case ContestManagerBtnUI.UIData.Property.btnSetting:
+                            {
+                                ValueChangeUtils.replaceCallBack(this, syncs);
+                                dirty = true;
+                            }
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+                // Child
+                if (wrapProperty.p is ContestManagerBtnSettingUI.UIData)
+                {
+                    switch ((ContestManagerBtnSettingUI.UIData.Property)wrapProperty.n)
+                    {
+                        case ContestManagerBtnSettingUI.UIData.Property.visibility:
+                            dirty = true;
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+            }
         }
         // Child
         {
@@ -807,6 +1033,10 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 return;
             }
             if (wrapProperty.p is GameHistoryUI.UIData)
+            {
+                return;
+            }
+            if(wrapProperty.p is GameInformationUI.UIData)
             {
                 return;
             }

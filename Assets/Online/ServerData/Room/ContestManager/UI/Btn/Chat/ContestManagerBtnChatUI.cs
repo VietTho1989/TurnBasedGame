@@ -171,8 +171,19 @@ public class ContestManagerBtnChatUI : UIBehavior<ContestManagerBtnChatUI.UIData
     {
         if (this.data != null)
         {
-            this.data.visibility.v = UIData.Visibility.Show;
-            Setting.get().defaultChatRoomStyle.v.setLastVisibility(UIData.Visibility.Show);
+            switch (this.data.visibility.v)
+            {
+                case UIData.Visibility.Show:
+                    this.data.visibility.v = UIData.Visibility.Hide;
+                    break;
+                case UIData.Visibility.Hide:
+                    this.data.visibility.v = UIData.Visibility.Show;
+                    break;
+                default:
+                    Debug.LogError("unknown visibility: " + this.data.visibility.v);
+                    break;
+            }
+            Setting.get().defaultChatRoomStyle.v.setLastVisibility(this.data.visibility.v);
         }
         else
         {
