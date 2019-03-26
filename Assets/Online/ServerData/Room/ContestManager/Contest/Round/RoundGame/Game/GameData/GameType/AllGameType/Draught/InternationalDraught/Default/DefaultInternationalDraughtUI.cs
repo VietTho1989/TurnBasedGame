@@ -72,7 +72,7 @@ namespace InternationalDraught
                     {
                         this.variant.v.options.add("Normal");
                         this.variant.v.options.add("Killer");
-                        this.variant.v.options.add("BreakThrough");
+                        this.variant.v.options.add("Breakthrough");
                     }
                 }
                 this.miniGameDataUIData = new VP<MiniGameDataUI.UIData>(this, (byte)Property.miniGameDataUIData, new MiniGameDataUI.UIData());

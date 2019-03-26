@@ -172,12 +172,15 @@ namespace CoTuongUp
 
         public Text lbAllowViewCapture;
         public static readonly TxtLanguage txtAllowViewCapture = new TxtLanguage();
+        public const string DefaultTxtAllowViewCapture = "Allow view capture";
 
         public Text lbAllowWatcherViewHidden;
         public static readonly TxtLanguage txtAllowWatcherViewHidden = new TxtLanguage();
+        public const string DefaultTxtAllowWatcherViewHidden = "Allow watcher view hidden";
 
         public Text lbAllowOnlyFlip;
         public static readonly TxtLanguage txtAllowOnlyFlip = new TxtLanguage();
+        public const string DefaultTxtAllowOnlyFlip = "Allow only flip";
 
         static DefaultCoTuongUpUI()
         {
@@ -654,7 +657,7 @@ namespace CoTuongUp
                             }
                             if (lbAllowViewCapture != null)
                             {
-                                lbAllowViewCapture.text = txtAllowViewCapture.get("Allow view capture");
+                                lbAllowViewCapture.text = txtAllowViewCapture.get(DefaultTxtAllowViewCapture);
                             }
                             else
                             {
@@ -662,7 +665,7 @@ namespace CoTuongUp
                             }
                             if (lbAllowWatcherViewHidden != null)
                             {
-                                lbAllowWatcherViewHidden.text = txtAllowWatcherViewHidden.get("Allow watcher view hidden");
+                                lbAllowWatcherViewHidden.text = txtAllowWatcherViewHidden.get(DefaultTxtAllowWatcherViewHidden);
                             }
                             else
                             {
@@ -670,7 +673,7 @@ namespace CoTuongUp
                             }
                             if (lbAllowOnlyFlip != null)
                             {
-                                lbAllowOnlyFlip.text = txtAllowOnlyFlip.get("Allow only flip");
+                                lbAllowOnlyFlip.text = txtAllowOnlyFlip.get(DefaultTxtAllowOnlyFlip);
                             }
                             else
                             {

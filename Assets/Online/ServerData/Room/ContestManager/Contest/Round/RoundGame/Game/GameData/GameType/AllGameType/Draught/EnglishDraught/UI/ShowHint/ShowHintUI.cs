@@ -125,7 +125,7 @@ namespace EnglishDraught
 							this.data.sub.v = null;
 						}
 					} else {
-						Debug.LogError ("cannot show hint: " + this);
+						// Debug.LogError ("cannot show hint: " + this);
 						this.data.sub.v = null;
 					}
 				} else {

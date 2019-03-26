@@ -378,7 +378,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                                                     }
                                                     else
                                                     {
-                                                        Debug.LogError("compareChangeRights null: " + this);
+                                                        // Debug.LogError("compareChangeRights null: " + this);
                                                     }
                                                 }
                                                 editChangeRights.compare.v = new ReferenceData<ChangeRights>(compareChangeRights);
@@ -548,7 +548,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
             }
             else
             {
-                Debug.LogError("data null: " + this);
+                // Debug.LogError("data null: " + this);
             }
         }
     }

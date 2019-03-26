@@ -58,14 +58,12 @@ namespace Chess
         #region txt, rect
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
         public Text tvMessage;
         private static readonly TxtLanguage txtMessage = new TxtLanguage();
 
         static ChessInformationUI()
         {
-            txtTitle.add(Language.Type.vi, "Cờ Vua");
             txtMessage.add(Language.Type.vi, "https://vi.wikipedia.org/wiki/C%E1%BB%9D_vua");
         }
 
@@ -217,7 +215,7 @@ namespace Chess
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Chess");
+                                lbTitle.text = GameType.GetStrGameType(GameType.Type.CHESS);
                             }
                             else
                             {
@@ -435,6 +433,7 @@ namespace Chess
                         case Chess.Property.isCustom:
                             break;
                         default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                             break;
                     }
                     return;

@@ -463,6 +463,7 @@ public class UIRectTransform
 
     public const float CommonToggleHeight = 40;
     public const float CommonDropDownHeight = 30;
+    public const float CommonTextHeight = 30;
 
     public static UIRectTransform createRequestRect(float paddingLeft, float paddingRight, float height)
     {

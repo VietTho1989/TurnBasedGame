@@ -58,7 +58,6 @@ namespace FairyChess
         #region txt, rect
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
         public Text tvMessage;
         private static readonly TxtLanguage txtMessage = new TxtLanguage();
@@ -72,7 +71,6 @@ namespace FairyChess
 
         static FairyChessInformationUI()
         {
-            txtTitle.add(Language.Type.vi, "Biến Thể Cờ Vua");
             txtMessage.add(Language.Type.vi, "https://en.wikipedia.org/wiki/Fairy_chess");
             txtVariant.add(Language.Type.vi, "Biến thể");
         }
@@ -267,7 +265,7 @@ namespace FairyChess
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Fairy Chess");
+                                lbTitle.text = GameType.GetStrGameType(GameType.Type.FairyChess);
                             }
                             else
                             {

@@ -886,6 +886,8 @@ public class GameBottomUI : UIHaveTransformDataBehavior<GameBottomUI.UIData>
                         break;
                     case GameUI.UIData.Property.saveUIData:
                         break;
+                    case GameUI.UIData.Property.gameInformationUIData:
+                        break;
                     default:
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;

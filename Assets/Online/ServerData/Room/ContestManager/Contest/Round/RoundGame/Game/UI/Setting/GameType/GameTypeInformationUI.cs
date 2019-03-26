@@ -91,6 +91,7 @@ public class GameTypeInformationUI : UIHaveTransformDataBehavior<GameTypeInforma
                                     Chess.ChessInformationUI.UIData chessInformationUIData = this.data.sub.newOrOld<Chess.ChessInformationUI.UIData>();
                                     {
                                         chessInformationUIData.chess.v = new ReferenceData<Chess.Chess>(chess);
+                                        chessInformationUIData.showType.v = UIRectTransform.ShowType.Normal;
                                     }
                                     this.data.sub.v = chessInformationUIData;
                                 }
@@ -102,8 +103,156 @@ public class GameTypeInformationUI : UIHaveTransformDataBehavior<GameTypeInforma
                                     FairyChess.FairyChessInformationUI.UIData fairyChessInformationUIData = this.data.sub.newOrOld<FairyChess.FairyChessInformationUI.UIData>();
                                     {
                                         fairyChessInformationUIData.fairyChess.v = new ReferenceData<FairyChess.FairyChess>(fairyChess);
+                                        fairyChessInformationUIData.showType.v = UIRectTransform.ShowType.Normal;
                                     }
                                     this.data.sub.v = fairyChessInformationUIData;
+                                }
+                                break;
+                            case GameType.Type.Makruk:
+                                {
+                                    Makruk.Makruk makruk = gameType as Makruk.Makruk;
+                                    // make UI
+                                    Makruk.MakrukInformationUI.UIData makrukInformationUIData = this.data.sub.newOrOld<Makruk.MakrukInformationUI.UIData>();
+                                    {
+                                        makrukInformationUIData.makruk.v = new ReferenceData<Makruk.Makruk>(makruk);
+                                        makrukInformationUIData.showType.v = UIRectTransform.ShowType.Normal;
+                                    }
+                                    this.data.sub.v = makrukInformationUIData;
+                                }
+                                break;
+                            case GameType.Type.Seirawan:
+                                {
+                                    Seirawan.Seirawan seirawan = gameType as Seirawan.Seirawan;
+                                    // make UI
+                                    Seirawan.SeirawanInformationUI.UIData seirawanInformationUIData = this.data.sub.newOrOld<Seirawan.SeirawanInformationUI.UIData>();
+                                    {
+                                        seirawanInformationUIData.seirawan.v = new ReferenceData<Seirawan.Seirawan>(seirawan);
+                                        seirawanInformationUIData.showType.v = UIRectTransform.ShowType.Normal;
+                                    }
+                                    this.data.sub.v = seirawanInformationUIData;
+                                }
+                                break;
+                            case GameType.Type.Shatranj:
+                                {
+                                    Shatranj.Shatranj shatranj = gameType as Shatranj.Shatranj;
+                                    // make UI
+                                    Shatranj.ShatranjInformationUI.UIData shatranjInformationUIData = this.data.sub.newOrOld<Shatranj.ShatranjInformationUI.UIData>();
+                                    {
+                                        shatranjInformationUIData.shatranj.v = new ReferenceData<Shatranj.Shatranj>(shatranj);
+                                        shatranjInformationUIData.showType.v = UIRectTransform.ShowType.Normal;
+                                    }
+                                    this.data.sub.v = shatranjInformationUIData;
+                                }
+                                break;
+
+                            case GameType.Type.Banqi:
+                                {
+                                    Banqi.Banqi banqi = gameType as Banqi.Banqi;
+                                    // make UI
+                                    Banqi.BanqiInformationUI.UIData banqiInformationUIData = this.data.sub.newOrOld<Banqi.BanqiInformationUI.UIData>();
+                                    {
+                                        banqiInformationUIData.banqi.v = new ReferenceData<Banqi.Banqi>(banqi);
+                                        banqiInformationUIData.showType.v = UIRectTransform.ShowType.Normal;
+                                    }
+                                    this.data.sub.v = banqiInformationUIData;
+                                }
+                                break;
+                            case GameType.Type.CO_TUONG_UP:
+                                {
+                                    CoTuongUp.CoTuongUp coTuongUp = gameType as CoTuongUp.CoTuongUp;
+                                    // make UI
+                                    CoTuongUp.CoTuongUpInformationUI.UIData coTuongUpInformationUIData = this.data.sub.newOrOld<CoTuongUp.CoTuongUpInformationUI.UIData>();
+                                    {
+                                        coTuongUpInformationUIData.coTuongUp.v = new ReferenceData<CoTuongUp.CoTuongUp>(coTuongUp);
+                                        coTuongUpInformationUIData.showType.v = UIRectTransform.ShowType.Normal;
+                                    }
+                                    this.data.sub.v = coTuongUpInformationUIData;
+                                }
+                                break;
+                            case GameType.Type.Janggi:
+                                {
+                                    Janggi.Janggi janggi = gameType as Janggi.Janggi;
+                                    // make UI
+                                    Janggi.JanggiInformationUI.UIData janggiInformationUIData = this.data.sub.newOrOld<Janggi.JanggiInformationUI.UIData>();
+                                    {
+                                        janggiInformationUIData.janggi.v = new ReferenceData<Janggi.Janggi>(janggi);
+                                        janggiInformationUIData.showType.v = UIRectTransform.ShowType.Normal;
+                                    }
+                                    this.data.sub.v = janggiInformationUIData;
+                                }
+                                break;
+                            case GameType.Type.Xiangqi:
+                                {
+                                    Xiangqi.Xiangqi xiangqi = gameType as Xiangqi.Xiangqi;
+                                    // make UI
+                                    Xiangqi.XiangqiInformationUI.UIData xiangqiInformationUIData = this.data.sub.newOrOld<Xiangqi.XiangqiInformationUI.UIData>();
+                                    {
+                                        xiangqiInformationUIData.xiangqi.v = new ReferenceData<Xiangqi.Xiangqi>(xiangqi);
+                                        xiangqiInformationUIData.showType.v = UIRectTransform.ShowType.Normal;
+                                    }
+                                    this.data.sub.v = xiangqiInformationUIData;
+                                }
+                                break;
+
+                            case GameType.Type.ChineseCheckers:
+                                {
+                                    ChineseCheckers.ChineseCheckers chineseCheckers = gameType as ChineseCheckers.ChineseCheckers;
+                                    // make UI
+                                    ChineseCheckers.ChineseCheckersInformationUI.UIData chineseCheckersInformationUIData = this.data.sub.newOrOld<ChineseCheckers.ChineseCheckersInformationUI.UIData>();
+                                    {
+                                        chineseCheckersInformationUIData.chineseCheckers.v = new ReferenceData<ChineseCheckers.ChineseCheckers>(chineseCheckers);
+                                        chineseCheckersInformationUIData.showType.v = UIRectTransform.ShowType.Normal;
+                                    }
+                                    this.data.sub.v = chineseCheckersInformationUIData;
+                                }
+                                break;
+                            case GameType.Type.EnglishDraught:
+                                {
+                                    EnglishDraught.EnglishDraught englishDraught = gameType as EnglishDraught.EnglishDraught;
+                                    // make UI
+                                    EnglishDraught.EnglishDraughtInformationUI.UIData englishDraughtInformationUIData = this.data.sub.newOrOld<EnglishDraught.EnglishDraughtInformationUI.UIData>();
+                                    {
+                                        englishDraughtInformationUIData.englishDraught.v = new ReferenceData<EnglishDraught.EnglishDraught>(englishDraught);
+                                        englishDraughtInformationUIData.showType.v = UIRectTransform.ShowType.Normal;
+                                    }
+                                    this.data.sub.v = englishDraughtInformationUIData;
+                                }
+                                break;
+                            case GameType.Type.InternationalDraught:
+                                {
+                                    InternationalDraught.InternationalDraught internationalDraught = gameType as InternationalDraught.InternationalDraught;
+                                    // make UI
+                                    InternationalDraught.InternationalDraughtInformationUI.UIData internationalDraughtInformationUIData = this.data.sub.newOrOld<InternationalDraught.InternationalDraughtInformationUI.UIData>();
+                                    {
+                                        internationalDraughtInformationUIData.internationalDraught.v = new ReferenceData<InternationalDraught.InternationalDraught>(internationalDraught);
+                                        internationalDraughtInformationUIData.showType.v = UIRectTransform.ShowType.Normal;
+                                    }
+                                    this.data.sub.v = internationalDraughtInformationUIData;
+                                }
+                                break;
+                            case GameType.Type.RussianDraught:
+                                {
+                                    RussianDraught.RussianDraught russianDraught = gameType as RussianDraught.RussianDraught;
+                                    // make UI
+                                    RussianDraught.RussianDraughtInformationUI.UIData russianDraughtInformationUIData = this.data.sub.newOrOld<RussianDraught.RussianDraughtInformationUI.UIData>();
+                                    {
+                                        russianDraughtInformationUIData.russianDraught.v = new ReferenceData<RussianDraught.RussianDraught>(russianDraught);
+                                        russianDraughtInformationUIData.showType.v = UIRectTransform.ShowType.Normal;
+                                    }
+                                    this.data.sub.v = russianDraughtInformationUIData;
+                                }
+                                break;
+
+                            case GameType.Type.Gomoku:
+                                {
+                                    Gomoku.Gomoku gomoku = gameType as Gomoku.Gomoku;
+                                    // make UI
+                                    Gomoku.GomokuInformationUI.UIData gomokuInformationUIData = this.data.sub.newOrOld<Gomoku.GomokuInformationUI.UIData>();
+                                    {
+                                        gomokuInformationUIData.gomoku.v = new ReferenceData<Gomoku.Gomoku>(gomoku);
+                                        gomokuInformationUIData.showType.v = UIRectTransform.ShowType.Normal;
+                                    }
+                                    this.data.sub.v = gomokuInformationUIData;
                                 }
                                 break;
                             default:
@@ -146,6 +295,21 @@ public class GameTypeInformationUI : UIHaveTransformDataBehavior<GameTypeInforma
 
     public Chess.ChessInformationUI chessInformationPrefab;
     public FairyChess.FairyChessInformationUI fairyChessInformationPrefab;
+    public Makruk.MakrukInformationUI makrukInformationPrefab;
+    public Seirawan.SeirawanInformationUI seirawanInformationPrefab;
+    public Shatranj.ShatranjInformationUI shatranjInformationPrefab;
+
+    public Banqi.BanqiInformationUI banqiInformationPrefab;
+    public CoTuongUp.CoTuongUpInformationUI coTuongUpInformationPrefab;
+    public Janggi.JanggiInformationUI janggiInformationPrefab;
+    public Xiangqi.XiangqiInformationUI xiangqiInformationPrefab;
+
+    public ChineseCheckers.ChineseCheckersInformationUI chineseCheckersInformationPrefab;
+    public EnglishDraught.EnglishDraughtInformationUI englishDraughtInformationPrefab;
+    public InternationalDraught.InternationalDraughtInformationUI internationalDraughtInformationPrefab;
+    public RussianDraught.RussianDraughtInformationUI russianDraughtInformationPrefab;
+
+    public Gomoku.GomokuInformationUI gomokuInformationPrefab;
 
     public override void onAddCallBack<T>(T data)
     {
@@ -178,6 +342,81 @@ public class GameTypeInformationUI : UIHaveTransformDataBehavior<GameTypeInforma
                             {
                                 FairyChess.FairyChessInformationUI.UIData fairyChessInformationUIData = sub as FairyChess.FairyChessInformationUI.UIData;
                                 UIUtils.Instantiate(fairyChessInformationUIData, fairyChessInformationPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Makruk:
+                            {
+                                Makruk.MakrukInformationUI.UIData makrukInformationUIData = sub as Makruk.MakrukInformationUI.UIData;
+                                UIUtils.Instantiate(makrukInformationUIData, makrukInformationPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Seirawan:
+                            {
+                                Seirawan.SeirawanInformationUI.UIData seirawanInformationUIData = sub as Seirawan.SeirawanInformationUI.UIData;
+                                UIUtils.Instantiate(seirawanInformationUIData, seirawanInformationPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Shatranj:
+                            {
+                                Shatranj.ShatranjInformationUI.UIData shatranjInformationUIData = sub as Shatranj.ShatranjInformationUI.UIData;
+                                UIUtils.Instantiate(shatranjInformationUIData, shatranjInformationPrefab, this.transform);
+                            }
+                            break;
+
+                        case GameType.Type.Banqi:
+                            {
+                                Banqi.BanqiInformationUI.UIData banqiInformationUIData = sub as Banqi.BanqiInformationUI.UIData;
+                                UIUtils.Instantiate(banqiInformationUIData, banqiInformationPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.CO_TUONG_UP:
+                            {
+                                CoTuongUp.CoTuongUpInformationUI.UIData coTuongUpInformationUIData = sub as CoTuongUp.CoTuongUpInformationUI.UIData;
+                                UIUtils.Instantiate(coTuongUpInformationUIData, coTuongUpInformationPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Janggi:
+                            {
+                                Janggi.JanggiInformationUI.UIData janggiInformationUIData = sub as Janggi.JanggiInformationUI.UIData;
+                                UIUtils.Instantiate(janggiInformationUIData, janggiInformationPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Xiangqi:
+                            {
+                                Xiangqi.XiangqiInformationUI.UIData xiangqiInformationUIData = sub as Xiangqi.XiangqiInformationUI.UIData;
+                                UIUtils.Instantiate(xiangqiInformationUIData, xiangqiInformationPrefab, this.transform);
+                            }
+                            break;
+
+                        case GameType.Type.ChineseCheckers:
+                            {
+                                ChineseCheckers.ChineseCheckersInformationUI.UIData chineseCheckersInformationUIData = sub as ChineseCheckers.ChineseCheckersInformationUI.UIData;
+                                UIUtils.Instantiate(chineseCheckersInformationUIData, chineseCheckersInformationPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.EnglishDraught:
+                            {
+                                EnglishDraught.EnglishDraughtInformationUI.UIData englishDraughtInformationUIData = sub as EnglishDraught.EnglishDraughtInformationUI.UIData;
+                                UIUtils.Instantiate(englishDraughtInformationUIData, englishDraughtInformationPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.InternationalDraught:
+                            {
+                                InternationalDraught.InternationalDraughtInformationUI.UIData internationalDraughtInformationUIData = sub as InternationalDraught.InternationalDraughtInformationUI.UIData;
+                                UIUtils.Instantiate(internationalDraughtInformationUIData, internationalDraughtInformationPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.RussianDraught:
+                            {
+                                RussianDraught.RussianDraughtInformationUI.UIData russianDraughtInformationUIData = sub as RussianDraught.RussianDraughtInformationUI.UIData;
+                                UIUtils.Instantiate(russianDraughtInformationUIData, russianDraughtInformationPrefab, this.transform);
+                            }
+                            break;
+
+                        case GameType.Type.Gomoku:
+                            {
+                                Gomoku.GomokuInformationUI.UIData gomokuInformationUIData = sub as Gomoku.GomokuInformationUI.UIData;
+                                UIUtils.Instantiate(gomokuInformationUIData, gomokuInformationPrefab, this.transform);
                             }
                             break;
                         default:
@@ -237,6 +476,81 @@ public class GameTypeInformationUI : UIHaveTransformDataBehavior<GameTypeInforma
                             {
                                 FairyChess.FairyChessInformationUI.UIData fairyChessInformationUIData = sub as FairyChess.FairyChessInformationUI.UIData;
                                 fairyChessInformationUIData.removeCallBackAndDestroy(typeof(FairyChess.FairyChessInformationUI));
+                            }
+                            break;
+                        case GameType.Type.Makruk:
+                            {
+                                Makruk.MakrukInformationUI.UIData makrukInformationUIData = sub as Makruk.MakrukInformationUI.UIData;
+                                makrukInformationUIData.removeCallBackAndDestroy(typeof(Makruk.MakrukInformationUI));
+                            }
+                            break;
+                        case GameType.Type.Seirawan:
+                            {
+                                Seirawan.SeirawanInformationUI.UIData seirawanInformationUIData = sub as Seirawan.SeirawanInformationUI.UIData;
+                                seirawanInformationUIData.removeCallBackAndDestroy(typeof(Seirawan.SeirawanInformationUI));
+                            }
+                            break;
+                        case GameType.Type.Shatranj:
+                            {
+                                Shatranj.ShatranjInformationUI.UIData shatranjInformationUIData = sub as Shatranj.ShatranjInformationUI.UIData;
+                                shatranjInformationUIData.removeCallBackAndDestroy(typeof(Shatranj.ShatranjInformationUI));
+                            }
+                            break;
+
+                        case GameType.Type.Banqi:
+                            {
+                                Banqi.BanqiInformationUI.UIData banqiInformationUIData = sub as Banqi.BanqiInformationUI.UIData;
+                                banqiInformationUIData.removeCallBackAndDestroy(typeof(Banqi.BanqiInformationUI));
+                            }
+                            break;
+                        case GameType.Type.CO_TUONG_UP:
+                            {
+                                CoTuongUp.CoTuongUpInformationUI.UIData coTuongUpInformationUIData = sub as CoTuongUp.CoTuongUpInformationUI.UIData;
+                                coTuongUpInformationUIData.removeCallBackAndDestroy(typeof(CoTuongUp.CoTuongUpInformationUI));
+                            }
+                            break;
+                        case GameType.Type.Janggi:
+                            {
+                                Janggi.JanggiInformationUI.UIData janggiInformationUIData = sub as Janggi.JanggiInformationUI.UIData;
+                                janggiInformationUIData.removeCallBackAndDestroy(typeof(Janggi.JanggiInformationUI));
+                            }
+                            break;
+                        case GameType.Type.Xiangqi:
+                            {
+                                Xiangqi.XiangqiInformationUI.UIData xiangqiInformationUIData = sub as Xiangqi.XiangqiInformationUI.UIData;
+                                xiangqiInformationUIData.removeCallBackAndDestroy(typeof(Xiangqi.XiangqiInformationUI));
+                            }
+                            break;
+
+                        case GameType.Type.ChineseCheckers:
+                            {
+                                ChineseCheckers.ChineseCheckersInformationUI.UIData chineseCheckersInformationUIData = sub as ChineseCheckers.ChineseCheckersInformationUI.UIData;
+                                chineseCheckersInformationUIData.removeCallBackAndDestroy(typeof(ChineseCheckers.ChineseCheckersInformationUI));
+                            }
+                            break;
+                        case GameType.Type.EnglishDraught:
+                            {
+                                EnglishDraught.EnglishDraughtInformationUI.UIData englishDraughtInformationUIData = sub as EnglishDraught.EnglishDraughtInformationUI.UIData;
+                                englishDraughtInformationUIData.removeCallBackAndDestroy(typeof(EnglishDraught.EnglishDraughtInformationUI));
+                            }
+                            break;
+                        case GameType.Type.InternationalDraught:
+                            {
+                                InternationalDraught.InternationalDraughtInformationUI.UIData internationalDraughtInformationUIData = sub as InternationalDraught.InternationalDraughtInformationUI.UIData;
+                                internationalDraughtInformationUIData.removeCallBackAndDestroy(typeof(InternationalDraught.InternationalDraughtInformationUI));
+                            }
+                            break;
+                        case GameType.Type.RussianDraught:
+                            {
+                                RussianDraught.RussianDraughtInformationUI.UIData russianDraughtInformationUIData = sub as RussianDraught.RussianDraughtInformationUI.UIData;
+                                russianDraughtInformationUIData.removeCallBackAndDestroy(typeof(RussianDraught.RussianDraughtInformationUI));
+                            }
+                            break;
+
+                        case GameType.Type.Gomoku:
+                            {
+                                Gomoku.GomokuInformationUI.UIData gomokuInformationUIData = sub as Gomoku.GomokuInformationUI.UIData;
+                                gomokuInformationUIData.removeCallBackAndDestroy(typeof(Gomoku.GomokuInformationUI));
                             }
                             break;
                         default:

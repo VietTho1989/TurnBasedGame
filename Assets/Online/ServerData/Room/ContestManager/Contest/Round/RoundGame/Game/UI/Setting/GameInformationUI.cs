@@ -466,6 +466,11 @@ public class GameInformationUI : UIBehavior<GameInformationUI.UIData>
                 {
                     return;
                 }
+                // Child
+                if(data is GameData)
+                {
+                    return;
+                }
             }
             // gameTypeInformationUIData
             if (data is GameTypeInformationUI.UIData)
