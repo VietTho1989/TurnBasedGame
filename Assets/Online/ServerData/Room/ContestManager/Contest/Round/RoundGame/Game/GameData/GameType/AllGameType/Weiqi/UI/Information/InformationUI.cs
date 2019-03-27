@@ -97,7 +97,7 @@ namespace Weiqi
                             }
                             else
                             {
-                                Debug.LogError("miniGameDataUIData null");
+                                // Debug.LogError("miniGameDataUIData null");
                             }
                         }
                         // process

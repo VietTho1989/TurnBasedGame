@@ -303,6 +303,66 @@ public class GameTypeInformationUI : UIHaveTransformDataBehavior<GameTypeInforma
                                     this.data.sub.v = nineMenMorrisInformationUIData;
                                 }
                                 break;
+                            case GameType.Type.Reversi:
+                                {
+                                    Reversi.Reversi reversi = gameType as Reversi.Reversi;
+                                    // make UI
+                                    Reversi.ReversiInformationUI.UIData reversiInformationUIData = this.data.sub.newOrOld<Reversi.ReversiInformationUI.UIData>();
+                                    {
+                                        reversiInformationUIData.reversi.v = new ReferenceData<Reversi.Reversi>(reversi);
+                                        reversiInformationUIData.showType.v = UIRectTransform.ShowType.Normal;
+                                    }
+                                    this.data.sub.v = reversiInformationUIData;
+                                }
+                                break;
+                            case GameType.Type.SHOGI:
+                                {
+                                    Shogi.Shogi shogi = gameType as Shogi.Shogi;
+                                    // make UI
+                                    Shogi.ShogiInformationUI.UIData shogiInformationUIData = this.data.sub.newOrOld<Shogi.ShogiInformationUI.UIData>();
+                                    {
+                                        shogiInformationUIData.shogi.v = new ReferenceData<Shogi.Shogi>(shogi);
+                                        shogiInformationUIData.showType.v = UIRectTransform.ShowType.Normal;
+                                    }
+                                    this.data.sub.v = shogiInformationUIData;
+                                }
+                                break;
+                            case GameType.Type.Solitaire:
+                                {
+                                    Solitaire.Solitaire solitaire = gameType as Solitaire.Solitaire;
+                                    // make UI
+                                    Solitaire.SolitaireInformationUI.UIData solitaireInformationUIData = this.data.sub.newOrOld<Solitaire.SolitaireInformationUI.UIData>();
+                                    {
+                                        solitaireInformationUIData.solitaire.v = new ReferenceData<Solitaire.Solitaire>(solitaire);
+                                        solitaireInformationUIData.showType.v = UIRectTransform.ShowType.Normal;
+                                    }
+                                    this.data.sub.v = solitaireInformationUIData;
+                                }
+                                break;
+                            case GameType.Type.Sudoku:
+                                {
+                                    Sudoku.Sudoku sudoku = gameType as Sudoku.Sudoku;
+                                    // make UI
+                                    Sudoku.SudokuInformationUI.UIData sudokuInformationUIData = this.data.sub.newOrOld<Sudoku.SudokuInformationUI.UIData>();
+                                    {
+                                        sudokuInformationUIData.sudoku.v = new ReferenceData<Sudoku.Sudoku>(sudoku);
+                                        sudokuInformationUIData.showType.v = UIRectTransform.ShowType.Normal;
+                                    }
+                                    this.data.sub.v = sudokuInformationUIData;
+                                }
+                                break;
+                            case GameType.Type.Weiqi:
+                                {
+                                    Weiqi.Weiqi weiqi = gameType as Weiqi.Weiqi;
+                                    // make UI
+                                    Weiqi.WeiqiInformationUI.UIData weiqiInformationUIData = this.data.sub.newOrOld<Weiqi.WeiqiInformationUI.UIData>();
+                                    {
+                                        weiqiInformationUIData.weiqi.v = new ReferenceData<Weiqi.Weiqi>(weiqi);
+                                        weiqiInformationUIData.showType.v = UIRectTransform.ShowType.Normal;
+                                    }
+                                    this.data.sub.v = weiqiInformationUIData;
+                                }
+                                break;
                             default:
                                 Debug.LogError("unknown type: " + gameType.getType());
                                 break;
@@ -362,6 +422,11 @@ public class GameTypeInformationUI : UIHaveTransformDataBehavior<GameTypeInforma
     public Khet.KhetInformationUI khetInformationPrefab;
     public MineSweeper.MineSweeperInformationUI mineSweeperInformationPrefab;
     public NineMenMorris.NineMenMorrisInformationUI nineMenMorrisInformationPrefab;
+    public Reversi.ReversiInformationUI reversiInformationPrefab;
+    public Shogi.ShogiInformationUI shogiInformationPrefab;
+    public Solitaire.SolitaireInformationUI solitaireInformationPrefab;
+    public Sudoku.SudokuInformationUI sudokuInformationPrefab;
+    public Weiqi.WeiqiInformationUI weiqiInformationPrefab;
 
     public override void onAddCallBack<T>(T data)
     {
@@ -493,6 +558,36 @@ public class GameTypeInformationUI : UIHaveTransformDataBehavior<GameTypeInforma
                             {
                                 NineMenMorris.NineMenMorrisInformationUI.UIData nineMenMorrisInformationUIData = sub as NineMenMorris.NineMenMorrisInformationUI.UIData;
                                 UIUtils.Instantiate(nineMenMorrisInformationUIData, nineMenMorrisInformationPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Reversi:
+                            {
+                                Reversi.ReversiInformationUI.UIData reversiInformationUIData = sub as Reversi.ReversiInformationUI.UIData;
+                                UIUtils.Instantiate(reversiInformationUIData, reversiInformationPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.SHOGI:
+                            {
+                                Shogi.ShogiInformationUI.UIData shogiInformationUIData = sub as Shogi.ShogiInformationUI.UIData;
+                                UIUtils.Instantiate(shogiInformationUIData, shogiInformationPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Solitaire:
+                            {
+                                Solitaire.SolitaireInformationUI.UIData solitaireInformationUIData = sub as Solitaire.SolitaireInformationUI.UIData;
+                                UIUtils.Instantiate(solitaireInformationUIData, solitaireInformationPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Sudoku:
+                            {
+                                Sudoku.SudokuInformationUI.UIData sudokuInformationUIData = sub as Sudoku.SudokuInformationUI.UIData;
+                                UIUtils.Instantiate(sudokuInformationUIData, sudokuInformationPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Weiqi:
+                            {
+                                Weiqi.WeiqiInformationUI.UIData weiqiInformationUIData = sub as Weiqi.WeiqiInformationUI.UIData;
+                                UIUtils.Instantiate(weiqiInformationUIData, weiqiInformationPrefab, this.transform);
                             }
                             break;
                         default:
@@ -651,6 +746,36 @@ public class GameTypeInformationUI : UIHaveTransformDataBehavior<GameTypeInforma
                             {
                                 NineMenMorris.NineMenMorrisInformationUI.UIData nineMenMorrisInformationUIData = sub as NineMenMorris.NineMenMorrisInformationUI.UIData;
                                 nineMenMorrisInformationUIData.removeCallBackAndDestroy(typeof(NineMenMorris.NineMenMorrisInformationUI));
+                            }
+                            break;
+                        case GameType.Type.Reversi:
+                            {
+                                Reversi.ReversiInformationUI.UIData reversiInformationUIData = sub as Reversi.ReversiInformationUI.UIData;
+                                reversiInformationUIData.removeCallBackAndDestroy(typeof(Reversi.ReversiInformationUI));
+                            }
+                            break;
+                        case GameType.Type.SHOGI:
+                            {
+                                Shogi.ShogiInformationUI.UIData shogiInformationUIData = sub as Shogi.ShogiInformationUI.UIData;
+                                shogiInformationUIData.removeCallBackAndDestroy(typeof(Shogi.ShogiInformationUI));
+                            }
+                            break;
+                        case GameType.Type.Solitaire:
+                            {
+                                Solitaire.SolitaireInformationUI.UIData solitaireInformationUIData = sub as Solitaire.SolitaireInformationUI.UIData;
+                                solitaireInformationUIData.removeCallBackAndDestroy(typeof(Solitaire.SolitaireInformationUI));
+                            }
+                            break;
+                        case GameType.Type.Sudoku:
+                            {
+                                Sudoku.SudokuInformationUI.UIData sudokuInformationUIData = sub as Sudoku.SudokuInformationUI.UIData;
+                                sudokuInformationUIData.removeCallBackAndDestroy(typeof(Sudoku.SudokuInformationUI));
+                            }
+                            break;
+                        case GameType.Type.Weiqi:
+                            {
+                                Weiqi.WeiqiInformationUI.UIData weiqiInformationUIData = sub as Weiqi.WeiqiInformationUI.UIData;
+                                weiqiInformationUIData.removeCallBackAndDestroy(typeof(Weiqi.WeiqiInformationUI));
                             }
                             break;
                         default:

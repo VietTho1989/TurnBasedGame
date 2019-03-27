@@ -48,7 +48,7 @@ namespace Solitaire
 
         #region Refresh
 
-        public const float CardX = 1.5f;// 1.5f;
+        public const float CardX = 4.0f;// 1.5f;
         public const float CardY = 4.0f;// 3.0f;
 
         public Text tvInfo;
@@ -238,7 +238,7 @@ namespace Solitaire
                                                     if (this.data.cardIndex.v >= pileUIData.cards.vs.Count - drawCount)
                                                     {
                                                         x = (this.data.cardIndex.v - (pileUIData.cards.vs.Count - drawCount)) / CardX;
-                                                        Debug.LogError("pile waste: " + x + "; " + this.data.cardIndex.v + ", " + pileUIData.cards.vs.Count + ", " + drawCount);
+                                                        // Debug.LogError("pile waste: " + x + "; " + this.data.cardIndex.v + ", " + pileUIData.cards.vs.Count + ", " + drawCount);
                                                     }
                                                 }
                                                 break;
