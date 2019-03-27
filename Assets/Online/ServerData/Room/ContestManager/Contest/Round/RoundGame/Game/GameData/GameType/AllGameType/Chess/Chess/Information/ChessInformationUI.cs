@@ -72,6 +72,7 @@ namespace Chess
         #region Refresh
 
         public Text lbFen;
+        public Button btnCopyFen;
 
         public Text lbChess960;
         public Toggle tgChess960;
@@ -172,6 +173,15 @@ namespace Chess
                                     {
                                         Debug.LogError("lbFen null");
                                     }
+                                    if (btnCopyFen != null)
+                                    {
+                                        btnCopyFen.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY((RectTransform)btnCopyFen.transform, deltaY + (UIConstants.ItemHeight - 30) / 2);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("btnCopyFen null");
+                                    }
                                     UIRectTransform.SetPosY(this.data.chessFenUIData.v, deltaY);
                                     deltaY += UIConstants.ItemHeight;
                                 }
@@ -184,6 +194,14 @@ namespace Chess
                                     else
                                     {
                                         Debug.LogError("lbFen null");
+                                    }
+                                    if (btnCopyFen != null)
+                                    {
+                                        btnCopyFen.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("btnCopyFen null");
                                     }
                                 }
                             }
@@ -253,7 +271,7 @@ namespace Chess
         #region implement callBacks
 
         public ChessFenUI chessFenPrefab;
-        private static readonly UIRectTransform chessFenRect = UIRectTransform.createRequestRect(90, 10, 60);
+        private static readonly UIRectTransform chessFenRect = UIRectTransform.createRequestRect(90, 50, 60);
 
         public override void onAddCallBack<T>(T data)
         {
@@ -447,6 +465,44 @@ namespace Chess
         }
 
         #endregion
+
+        public void onClickBtnCopyFen()
+        {
+            if (this.data != null)
+            {
+                ChessFenUI.UIData chessFenUIData = this.data.chessFenUIData.v;
+                if (chessFenUIData != null)
+                {
+                    ChessFenUI chessFenUI = chessFenUIData.findCallBack<ChessFenUI>();
+                    if (chessFenUI != null)
+                    {
+                        Text tvFen = chessFenUI.tvFen;
+                        if (tvFen != null)
+                        {
+                            string fen = tvFen.text;
+                            UniClipboard.SetText(fen);
+                            Toast.showMessage("Copy Fen: " + fen);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvFen null");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("chessFenUI null");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("chessFenUIData null");
+                }
+            }
+            else
+            {
+                Debug.LogError("data null");
+            }
+        }
 
     }
 }

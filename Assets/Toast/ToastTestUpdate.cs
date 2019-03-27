@@ -5,6 +5,7 @@ using AdvancedCoroutines;
 
 public class ToastTestUpdate : MonoBehaviour
 {
+
 	private Routine checkToast;
 
 	public IEnumerator TaskCheckToast()
