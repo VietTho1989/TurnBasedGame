@@ -72,7 +72,10 @@ namespace Khet
                     // Options
                     foreach (DefaultKhet.StartPos startPos in System.Enum.GetValues(typeof(DefaultKhet.StartPos)))
                     {
-                        this.startPos.v.options.add(startPos.ToString());
+                        if (startPos != DefaultKhet.StartPos.Unknown)
+                        {
+                            this.startPos.v.options.add(startPos.ToString());
+                        }
                     }
                 }
                 this.miniGameDataUIData = new VP<MiniGameDataUI.UIData>(this, (byte)Property.miniGameDataUIData, new MiniGameDataUI.UIData());

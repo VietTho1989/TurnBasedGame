@@ -78,18 +78,22 @@ public class ContestManagerBtnChatUI : UIBehavior<ContestManagerBtnChatUI.UIData
 
         #endregion
 
+        public VP<ChatRoomNewMessageCountUI.UIData> newMessageCountUIData;
+
         #region Constructor
 
         public enum Property
         {
             visibility,
-            style
+            style,
+            newMessageCountUIData
         }
 
         public UIData() : base()
         {
             this.visibility = new VP<Visibility>(this, (byte)Property.visibility, Setting.get().defaultChatRoomStyle.v.getVisibility());
             this.style = new VP<Style>(this, (byte)Property.style, Setting.get().defaultChatRoomStyle.v.getStyle());
+            this.newMessageCountUIData = new VP<ChatRoomNewMessageCountUI.UIData>(this, (byte)Property.newMessageCountUIData, new ChatRoomNewMessageCountUI.UIData());
             // Debug.LogWarning("btnChat constructor: " + this.visibility.v + ", " + this.style.v);
         }
 
@@ -98,6 +102,25 @@ public class ContestManagerBtnChatUI : UIBehavior<ContestManagerBtnChatUI.UIData
     }
 
     #endregion
+
+    static ContestManagerBtnChatUI()
+    {
+        // rect
+        {
+            // newMessageCountRect
+            {
+                // anchoredPosition: (0.0, 0.0); anchorMin: (1.0, 1.0); anchorMax: (1.0, 1.0); pivot: (1.0, 1.0);
+                // offsetMin: (-15.0, -15.0); offsetMax: (0.0, 0.0); sizeDelta: (15.0, 15.0);
+                newMessageCountRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                newMessageCountRect.anchorMin = new Vector2(1.0f, 1.0f);
+                newMessageCountRect.anchorMax = new Vector2(1.0f, 1.0f);
+                newMessageCountRect.pivot = new Vector2(1.0f, 1.0f);
+                newMessageCountRect.offsetMin = new Vector2(-15.0f, -15.0f);
+                newMessageCountRect.offsetMax = new Vector2(0.0f, 0.0f);
+                newMessageCountRect.sizeDelta = new Vector2(15.0f, 15.0f);
+            }
+        }
+    }
 
     #region Refresh
 
@@ -108,7 +131,40 @@ public class ContestManagerBtnChatUI : UIBehavior<ContestManagerBtnChatUI.UIData
             dirty = false;
             if (this.data != null)
             {
-
+                // newMessageCountUIData
+                {
+                    ChatRoomNewMessageCountUI.UIData newMessageCountUIData = this.data.newMessageCountUIData.v;
+                    if (newMessageCountUIData != null)
+                    {
+                        // find
+                        ChatRoom chatRoom = null;
+                        {
+                            RoomUI.UIData roomUIData = this.data.findDataInParent<RoomUI.UIData>();
+                            if (roomUIData != null)
+                            {
+                                Room room = roomUIData.room.v.data;
+                                if (room != null)
+                                {
+                                    chatRoom = room.chatRoom.v;
+                                }
+                                else
+                                {
+                                    Debug.LogError("room null");
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("roomUIData null");
+                            }
+                        }
+                        // set
+                        newMessageCountUIData.chatRoom.v = new ReferenceData<ChatRoom>(chatRoom);
+                    }
+                    else
+                    {
+                        Debug.LogError("newMessageCountUIData null");
+                    }
+                }
             }
             else
             {
@@ -126,10 +182,54 @@ public class ContestManagerBtnChatUI : UIBehavior<ContestManagerBtnChatUI.UIData
 
     #region implement callBacks
 
+    public ChatRoomNewMessageCountUI newMessageCountPrefab;
+    private static readonly UIRectTransform newMessageCountRect = new UIRectTransform();
+
+    private RoomUI.UIData roomUIData = null;
+
     public override void onAddCallBack<T>(T data)
     {
         if(data is UIData)
         {
+            UIData uiData = data as UIData;
+            // Parent
+            {
+                DataUtils.addParentCallBack(uiData, this, ref this.roomUIData);
+            }
+            // Child
+            {
+                uiData.newMessageCountUIData.allAddCallBack(this);
+            }
+            dirty = true;
+            return;
+        }
+        // Parent
+        {
+            if(data is RoomUI.UIData)
+            {
+                RoomUI.UIData roomUIData = data as RoomUI.UIData;
+                // Child
+                {
+                    roomUIData.room.allAddCallBack(this);
+                }
+                dirty = true;
+                return;
+            }
+            // Child
+            if(data is Room)
+            {
+                dirty = true;
+                return;
+            }
+        }
+        // Child
+        if(data is ChatRoomNewMessageCountUI.UIData)
+        {
+            ChatRoomNewMessageCountUI.UIData newMessageCountUIData = data as ChatRoomNewMessageCountUI.UIData;
+            // UI
+            {
+                UIUtils.Instantiate(newMessageCountUIData, newMessageCountPrefab, this.transform, newMessageCountRect);
+            }
             dirty = true;
             return;
         }
@@ -141,7 +241,42 @@ public class ContestManagerBtnChatUI : UIBehavior<ContestManagerBtnChatUI.UIData
         if(data is UIData)
         {
             UIData uiData = data as UIData;
+            // Parent
+            {
+                DataUtils.removeParentCallBack(uiData, this, ref this.roomUIData);
+            }
+            // Child
+            {
+                uiData.newMessageCountUIData.allRemoveCallBack(this);
+            }
             this.setDataNull(uiData);
+        }
+        // Parent
+        {
+            if (data is RoomUI.UIData)
+            {
+                RoomUI.UIData roomUIData = data as RoomUI.UIData;
+                // Child
+                {
+                    roomUIData.room.allRemoveCallBack(this);
+                }
+                return;
+            }
+            // Child
+            if (data is Room)
+            {
+                return;
+            }
+        }
+        // Child
+        if (data is ChatRoomNewMessageCountUI.UIData)
+        {
+            ChatRoomNewMessageCountUI.UIData newMessageCountUIData = data as ChatRoomNewMessageCountUI.UIData;
+            // UI
+            {
+                newMessageCountUIData.removeCallBackAndDestroy(typeof(ChatRoomNewMessageCountUI));
+            }
+            return;
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -156,10 +291,92 @@ public class ContestManagerBtnChatUI : UIBehavior<ContestManagerBtnChatUI.UIData
         {
             switch ((UIData.Property)wrapProperty.n)
             {
+                case UIData.Property.visibility:
+                    dirty = true;
+                    break;
+                case UIData.Property.style:
+                    dirty = true;
+                    break;
+                case UIData.Property.newMessageCountUIData:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
+            return;
+        }
+        // Parent
+        {
+            if (wrapProperty.p is RoomUI.UIData)
+            {
+                switch ((RoomUI.UIData.Property)wrapProperty.n)
+                {
+                    case RoomUI.UIData.Property.room:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case RoomUI.UIData.Property.roomBtnUIData:
+                        break;
+                    case RoomUI.UIData.Property.contestManagerUIData:
+                        break;
+                    case RoomUI.UIData.Property.requestNewContestManagerUIData:
+                        break;
+                    case RoomUI.UIData.Property.chooseContestManagerUIData:
+                        break;
+                    case RoomUI.UIData.Property.roomUserInformUI:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            if (wrapProperty.p is Room)
+            {
+                switch ((Room.Property)wrapProperty.n)
+                {
+                    case Room.Property.roomInform:
+                        break;
+                    case Room.Property.changeRights:
+                        break;
+                    case Room.Property.name:
+                        break;
+                    case Room.Property.password:
+                        break;
+                    case Room.Property.users:
+                        break;
+                    case Room.Property.state:
+                        break;
+                    case Room.Property.requestNewContestManager:
+                        break;
+                    case Room.Property.contestManagers:
+                        break;
+                    case Room.Property.timeCreated:
+                        break;
+                    case Room.Property.chatRoom:
+                        dirty = true;
+                        break;
+                    case Room.Property.allowHint:
+                        break;
+                    case Room.Property.allowLoadHistory:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+        }
+        // Child
+        if (wrapProperty.p is ChatRoomNewMessageCountUI.UIData)
+        {
             return;
         }
         Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);

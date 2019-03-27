@@ -255,6 +255,54 @@ public class GameTypeInformationUI : UIHaveTransformDataBehavior<GameTypeInforma
                                     this.data.sub.v = gomokuInformationUIData;
                                 }
                                 break;
+                            case GameType.Type.Hex:
+                                {
+                                    HEX.Hex hex = gameType as HEX.Hex;
+                                    // make UI
+                                    HEX.HexInformationUI.UIData hexInformationUIData = this.data.sub.newOrOld<HEX.HexInformationUI.UIData>();
+                                    {
+                                        hexInformationUIData.hex.v = new ReferenceData<HEX.Hex>(hex);
+                                        hexInformationUIData.showType.v = UIRectTransform.ShowType.Normal;
+                                    }
+                                    this.data.sub.v = hexInformationUIData;
+                                }
+                                break;
+                            case GameType.Type.Khet:
+                                {
+                                    Khet.Khet khet = gameType as Khet.Khet;
+                                    // make UI
+                                    Khet.KhetInformationUI.UIData khetInformationUIData = this.data.sub.newOrOld<Khet.KhetInformationUI.UIData>();
+                                    {
+                                        khetInformationUIData.khet.v = new ReferenceData<Khet.Khet>(khet);
+                                        khetInformationUIData.showType.v = UIRectTransform.ShowType.Normal;
+                                    }
+                                    this.data.sub.v = khetInformationUIData;
+                                }
+                                break;
+                            case GameType.Type.MineSweeper:
+                                {
+                                    MineSweeper.MineSweeper mineSweeper = gameType as MineSweeper.MineSweeper;
+                                    // make UI
+                                    MineSweeper.MineSweeperInformationUI.UIData mineSweeperInformationUIData = this.data.sub.newOrOld<MineSweeper.MineSweeperInformationUI.UIData>();
+                                    {
+                                        mineSweeperInformationUIData.mineSweeper.v = new ReferenceData<MineSweeper.MineSweeper>(mineSweeper);
+                                        mineSweeperInformationUIData.showType.v = UIRectTransform.ShowType.Normal;
+                                    }
+                                    this.data.sub.v = mineSweeperInformationUIData;
+                                }
+                                break;
+                            case GameType.Type.NineMenMorris:
+                                {
+                                    NineMenMorris.NineMenMorris nineMenMorris = gameType as NineMenMorris.NineMenMorris;
+                                    // make UI
+                                    NineMenMorris.NineMenMorrisInformationUI.UIData nineMenMorrisInformationUIData = this.data.sub.newOrOld<NineMenMorris.NineMenMorrisInformationUI.UIData>();
+                                    {
+                                        nineMenMorrisInformationUIData.nineMenMorris.v = new ReferenceData<NineMenMorris.NineMenMorris>(nineMenMorris);
+                                        nineMenMorrisInformationUIData.showType.v = UIRectTransform.ShowType.Normal;
+                                    }
+                                    this.data.sub.v = nineMenMorrisInformationUIData;
+                                }
+                                break;
                             default:
                                 Debug.LogError("unknown type: " + gameType.getType());
                                 break;
@@ -310,6 +358,10 @@ public class GameTypeInformationUI : UIHaveTransformDataBehavior<GameTypeInforma
     public RussianDraught.RussianDraughtInformationUI russianDraughtInformationPrefab;
 
     public Gomoku.GomokuInformationUI gomokuInformationPrefab;
+    public HEX.HexInformationUI hexInformationPrefab;
+    public Khet.KhetInformationUI khetInformationPrefab;
+    public MineSweeper.MineSweeperInformationUI mineSweeperInformationPrefab;
+    public NineMenMorris.NineMenMorrisInformationUI nineMenMorrisInformationPrefab;
 
     public override void onAddCallBack<T>(T data)
     {
@@ -417,6 +469,30 @@ public class GameTypeInformationUI : UIHaveTransformDataBehavior<GameTypeInforma
                             {
                                 Gomoku.GomokuInformationUI.UIData gomokuInformationUIData = sub as Gomoku.GomokuInformationUI.UIData;
                                 UIUtils.Instantiate(gomokuInformationUIData, gomokuInformationPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Hex:
+                            {
+                                HEX.HexInformationUI.UIData hexInformationUIData = sub as HEX.HexInformationUI.UIData;
+                                UIUtils.Instantiate(hexInformationUIData, hexInformationPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.Khet:
+                            {
+                                Khet.KhetInformationUI.UIData khetInformationUIData = sub as Khet.KhetInformationUI.UIData;
+                                UIUtils.Instantiate(khetInformationUIData, khetInformationPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.MineSweeper:
+                            {
+                                MineSweeper.MineSweeperInformationUI.UIData mineSweeperInformationUIData = sub as MineSweeper.MineSweeperInformationUI.UIData;
+                                UIUtils.Instantiate(mineSweeperInformationUIData, mineSweeperInformationPrefab, this.transform);
+                            }
+                            break;
+                        case GameType.Type.NineMenMorris:
+                            {
+                                NineMenMorris.NineMenMorrisInformationUI.UIData nineMenMorrisInformationUIData = sub as NineMenMorris.NineMenMorrisInformationUI.UIData;
+                                UIUtils.Instantiate(nineMenMorrisInformationUIData, nineMenMorrisInformationPrefab, this.transform);
                             }
                             break;
                         default:
@@ -551,6 +627,30 @@ public class GameTypeInformationUI : UIHaveTransformDataBehavior<GameTypeInforma
                             {
                                 Gomoku.GomokuInformationUI.UIData gomokuInformationUIData = sub as Gomoku.GomokuInformationUI.UIData;
                                 gomokuInformationUIData.removeCallBackAndDestroy(typeof(Gomoku.GomokuInformationUI));
+                            }
+                            break;
+                        case GameType.Type.Hex:
+                            {
+                                HEX.HexInformationUI.UIData hexInformationUIData = sub as HEX.HexInformationUI.UIData;
+                                hexInformationUIData.removeCallBackAndDestroy(typeof(HEX.HexInformationUI));
+                            }
+                            break;
+                        case GameType.Type.Khet:
+                            {
+                                Khet.KhetInformationUI.UIData khetInformationUIData = sub as Khet.KhetInformationUI.UIData;
+                                khetInformationUIData.removeCallBackAndDestroy(typeof(Khet.KhetInformationUI));
+                            }
+                            break;
+                        case GameType.Type.MineSweeper:
+                            {
+                                MineSweeper.MineSweeperInformationUI.UIData mineSweeperInformationUIData = sub as MineSweeper.MineSweeperInformationUI.UIData;
+                                mineSweeperInformationUIData.removeCallBackAndDestroy(typeof(MineSweeper.MineSweeperInformationUI));
+                            }
+                            break;
+                        case GameType.Type.NineMenMorris:
+                            {
+                                NineMenMorris.NineMenMorrisInformationUI.UIData nineMenMorrisInformationUIData = sub as NineMenMorris.NineMenMorrisInformationUI.UIData;
+                                nineMenMorrisInformationUIData.removeCallBackAndDestroy(typeof(NineMenMorris.NineMenMorrisInformationUI));
                             }
                             break;
                         default:

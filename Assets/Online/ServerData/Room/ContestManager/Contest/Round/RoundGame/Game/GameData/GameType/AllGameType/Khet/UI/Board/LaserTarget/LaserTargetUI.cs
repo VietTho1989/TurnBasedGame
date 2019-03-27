@@ -57,7 +57,7 @@ namespace Khet
 							}
 							// process
 							if (isLoadFull) {
-								Debug.LogError (string.Format ("targetIndex: {0}, targetSquare: {1}, targetPiece: {2}", laser._targetIndex.v, laser._targetSquare.v, laser._targetPiece.v));
+								// Debug.LogError (string.Format ("targetIndex: {0}, targetSquare: {1}, targetPiece: {2}", laser._targetIndex.v, laser._targetSquare.v, laser._targetPiece.v));
 								// tvPiece
 								if (tvPiece != null) {
 									tvPiece.text = "" + laser._targetPiece.v;
