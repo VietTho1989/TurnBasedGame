@@ -18,7 +18,7 @@ public class GlobalInit : MonoBehaviour
 
         // MakeIdentity
         {
-            // DataMakeIdentityUtils.makeIdentity(typeof(GamePlayerStateMessage));
+            // DataMakeIdentityUtils.makeIdentity(typeof(ChatNormalContentEdit));
         }
 
         // Set AssetManager

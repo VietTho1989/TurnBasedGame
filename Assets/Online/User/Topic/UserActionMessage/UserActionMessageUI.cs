@@ -197,12 +197,12 @@ public class UserActionMessageUI : UIBehavior<UserActionMessageUI.UIData>
                 }
                 else
                 {
-                    Debug.LogError("userActionMessage null: " + this);
+                    // Debug.LogError("userActionMessage null: " + this);
                 }
             }
             else
             {
-                Debug.LogError("data null: " + this);
+                // Debug.LogError("data null: " + this);
             }
         }
     }

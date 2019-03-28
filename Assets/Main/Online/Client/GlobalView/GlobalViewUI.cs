@@ -46,7 +46,13 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 
         #endregion
 
+        #region profile
+
         public VP<GlobalProfileUI.UIData> profile;
+
+        public VP<ProfileNewMessageCountUI.UIData> profileNewMessageCountUIData;
+
+        #endregion
 
         #region Constructor
 
@@ -62,7 +68,8 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
             friends,
             friendListNewMessageCountUIData,
 
-            profile
+            profile,
+            profileNewMessageCountUIData
         }
 
         public UIData() : base()
@@ -80,7 +87,11 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                 this.friends = new VP<GlobalFriendsUI.UIData>(this, (byte)Property.friends, null);
                 this.friendListNewMessageCountUIData = new VP<FriendListNewMessageCountUI.UIData>(this, (byte)Property.friendListNewMessageCountUIData, new FriendListNewMessageCountUI.UIData());
             }
-            this.profile = new VP<GlobalProfileUI.UIData>(this, (byte)Property.profile, null);
+            // profile
+            {
+                this.profile = new VP<GlobalProfileUI.UIData>(this, (byte)Property.profile, null);
+                this.profileNewMessageCountUIData = new VP<ProfileNewMessageCountUI.UIData>(this, (byte)Property.profileNewMessageCountUIData, new ProfileNewMessageCountUI.UIData());
+            }
         }
 
         #endregion
@@ -531,6 +542,18 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                             Debug.LogError("friendListNewMessageCountUIData null");
                         }
                     }
+                    // profileNewMesssageCountUIData
+                    {
+                        ProfileNewMessageCountUI.UIData profileNewMessageCountUIData = this.data.profileNewMessageCountUIData.v;
+                        if (profileNewMessageCountUIData != null)
+                        {
+                            profileNewMessageCountUIData.server.v = new ReferenceData<Server>(server);
+                        }
+                        else
+                        {
+                            Debug.LogError("profileNewCountCountUIData null");
+                        }
+                    }
                 }
                 else
                 {
@@ -579,6 +602,16 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                 friendListNewMessageCountRect.offsetMax = new Vector2(150.0f, 0.0f);
                 friendListNewMessageCountRect.sizeDelta = new Vector2(15.0f, 15.0f);
             }
+            // profileNewMessageCountRect
+            {
+                profileNewMessageCountRect.anchoredPosition = new Vector3(165.0f, 0.0f, 0.0f);
+                profileNewMessageCountRect.anchorMin = new Vector2(0.0f, 1.0f);
+                profileNewMessageCountRect.anchorMax = new Vector2(0.0f, 1.0f);
+                profileNewMessageCountRect.pivot = new Vector2(0.0f, 1.0f);
+                profileNewMessageCountRect.offsetMin = new Vector2(165.0f, -15.0f);
+                profileNewMessageCountRect.offsetMax = new Vector2(180.0f, 0.0f);
+                profileNewMessageCountRect.sizeDelta = new Vector2(15.0f, 15.0f);
+            }
         }
     }
 
@@ -597,6 +630,9 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 
     public FriendListNewMessageCountUI friendListNewMessageCountPrefab;
     private static readonly UIRectTransform friendListNewMessageCountRect = new UIRectTransform();
+
+    public ProfileNewMessageCountUI profileNewMessageCountPrefab;
+    private static readonly UIRectTransform profileNewMessageCountRect = new UIRectTransform();
 
     public override void onAddCallBack<T>(T data)
     {
@@ -619,7 +655,11 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                     uiData.friends.allAddCallBack(this);
                     uiData.friendListNewMessageCountUIData.allAddCallBack(this);
                 }
-                uiData.profile.allAddCallBack(this);
+                // profile
+                {
+                    uiData.profile.allAddCallBack(this);
+                    uiData.profileNewMessageCountUIData.allAddCallBack(this);
+                }
             }
             dirty = true;
             return;
@@ -731,15 +771,28 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                     return;
                 }
             }
-            if (data is GlobalProfileUI.UIData)
+            // profile
             {
-                GlobalProfileUI.UIData profile = data as GlobalProfileUI.UIData;
-                // UI
+                if (data is GlobalProfileUI.UIData)
                 {
-                    UIUtils.Instantiate(profile, profilePrefab, this.transform, contentRect);
+                    GlobalProfileUI.UIData profile = data as GlobalProfileUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(profile, profilePrefab, this.transform, contentRect);
+                    }
+                    dirty = true;
+                    return;
                 }
-                dirty = true;
-                return;
+                if(data is ProfileNewMessageCountUI.UIData)
+                {
+                    ProfileNewMessageCountUI.UIData profileNewMessageCountUIData = data as ProfileNewMessageCountUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(profileNewMessageCountUIData, profileNewMessageCountPrefab, this.transform, profileNewMessageCountRect);
+                    }
+                    dirty = true;
+                    return;
+                }
             }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
@@ -766,7 +819,11 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                     uiData.friends.allRemoveCallBack(this);
                     uiData.friendListNewMessageCountUIData.allRemoveCallBack(this);
                 }
-                uiData.profile.allRemoveCallBack(this);
+                // profile
+                {
+                    uiData.profile.allRemoveCallBack(this);
+                    uiData.profileNewMessageCountUIData.allRemoveCallBack(this);
+                }
             }
             this.setDataNull(uiData);
             return;
@@ -858,14 +915,26 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                     return;
                 }
             }
-            if (data is GlobalProfileUI.UIData)
+            // profile
             {
-                GlobalProfileUI.UIData profile = data as GlobalProfileUI.UIData;
-                // UI
+                if (data is GlobalProfileUI.UIData)
                 {
-                    profile.removeCallBackAndDestroy(typeof(GlobalProfileUI));
+                    GlobalProfileUI.UIData profile = data as GlobalProfileUI.UIData;
+                    // UI
+                    {
+                        profile.removeCallBackAndDestroy(typeof(GlobalProfileUI));
+                    }
+                    return;
                 }
-                return;
+                if (data is ProfileNewMessageCountUI.UIData)
+                {
+                    ProfileNewMessageCountUI.UIData profileNewMessageCountUIData = data as ProfileNewMessageCountUI.UIData;
+                    // UI
+                    {
+                        profileNewMessageCountUIData.removeCallBackAndDestroy(typeof(ProfileNewMessageCountUI));
+                    }
+                    return;
+                }
             }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
@@ -921,6 +990,12 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                     }
                     break;
                 case UIData.Property.profile:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.profileNewMessageCountUIData:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
@@ -1099,9 +1174,16 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                     return;
                 }
             }
-            if (wrapProperty.p is GlobalProfileUI.UIData)
+            // profile
             {
-                return;
+                if (wrapProperty.p is GlobalProfileUI.UIData)
+                {
+                    return;
+                }
+                if(wrapProperty.p is ProfileNewMessageCountUI.UIData)
+                {
+                    return;
+                }
             }
         }
         Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);

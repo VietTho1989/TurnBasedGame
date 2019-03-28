@@ -148,17 +148,6 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
                 btnLoadMoreRect.offsetMax = new Vector2(45.0f, -10.0f);
                 btnLoadMoreRect.sizeDelta = new Vector2(90.0f, 20.0f);
             }
-            // chatMessageMenuRect
-            {
-                // anchoredPosition: (0.0, 0.0); anchorMin: (0.0, 0.0); anchorMax: (1.0, 1.0); pivot: (0.5, 0.5); offsetMin: (0.0, 0.0); offsetMax: (0.0, 0.0); sizeDelta: (0.0, 0.0);
-                chatMessageMenuRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
-                chatMessageMenuRect.anchorMin = new Vector2(0.5f, 0.5f);
-                chatMessageMenuRect.anchorMax = new Vector2(0.5f, 0.5f);
-                chatMessageMenuRect.pivot = new Vector2(0.5f, 0.5f);
-                chatMessageMenuRect.offsetMin = new Vector2(0.0f, 0.0f);
-                chatMessageMenuRect.offsetMax = new Vector2(0.0f, 0.0f);
-                chatMessageMenuRect.sizeDelta = new Vector2(300.0f, 150.0f);
-            }
         }
     }
 
@@ -448,7 +437,7 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
     public TypingUI typingUI;
 
     public ChatMessageMenuUI chatMessageMenuPrefab;
-    private static readonly UIRectTransform chatMessageMenuRect = new UIRectTransform();
+    private static readonly UIRectTransform chatMessageMenuRect = UIConstants.FullParent;
 
     public ChatRoomBtnLoadMoreUI btnLoadMorePrefab;
     private static readonly UIRectTransform btnLoadMoreRect = new UIRectTransform();

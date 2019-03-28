@@ -82,6 +82,8 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
 
     public Text tvNameTime;
 
+    public Text tvEditCount;
+
     public override void refresh()
     {
         if (dirty)
@@ -263,6 +265,24 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
                                 Debug.LogError("image null: " + this);
                             }
                         }
+                        // tvEditCount
+                        {
+                            if (tvEditCount != null)
+                            {
+                                if (chatNormalContent.edits.vs.Count == 0)
+                                {
+                                    tvEditCount.text = "";
+                                }
+                                else
+                                {
+                                    tvEditCount.text = "" + chatNormalContent.edits.vs.Count;
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("tvEditCount null");
+                            }
+                        }
                     }
                     else
                     {
@@ -341,6 +361,10 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
                     {
                         DataUtils.addParentCallBack(chatNormalContent, this, ref this.chatMessage);
                     }
+                    // Child
+                    {
+                        chatNormalContent.edits.allAddCallBack(this);
+                    }
                     dirty = true;
                     return;
                 }
@@ -370,6 +394,12 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
                             return;
                         }
                     }
+                }
+                // Child
+                if(data is ChatNormalContentEdit)
+                {
+                    dirty = true;
+                    return;
                 }
             }
             if (data is AccountAvatarUI.UIData)
@@ -417,6 +447,10 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
                     {
                         DataUtils.removeParentCallBack(chatNormalContent, this, ref this.chatMessage);
                     }
+                    // Child
+                    {
+                        chatNormalContent.edits.allRemoveCallBack(this);
+                    }
                     return;
                 }
                 // Parent
@@ -442,6 +476,11 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
                             return;
                         }
                     }
+                }
+                // Child
+                if(data is ChatNormalContentEdit)
+                {
+                    return;
                 }
             }
             if (data is AccountAvatarUI.UIData)
@@ -520,11 +559,14 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
                         case ChatNormalContent.Property.owner:
                             dirty = true;
                             break;
-                        case ChatNormalContent.Property.messages:
+                        case ChatNormalContent.Property.message:
                             dirty = true;
                             break;
-                        case ChatNormalContent.Property.editMax:
-                            dirty = true;
+                        case ChatNormalContent.Property.edits:
+                            {
+                                ValueChangeUtils.replaceCallBack(this, syncs);
+                                dirty = true;
+                            }
                             break;
                         default:
                             Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -597,6 +639,23 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
                         }
                     }
                 }
+                // Child
+                if(wrapProperty.p is ChatNormalContentEdit)
+                {
+                    switch ((ChatNormalContentEdit.Property)wrapProperty.n)
+                    {
+                        case ChatNormalContentEdit.Property.message:
+                            dirty = true;
+                            break;
+                        case ChatNormalContentEdit.Property.time:
+                            dirty = true;
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
             }
             if (wrapProperty.p is AccountAvatarUI.UIData)
             {
@@ -615,33 +674,26 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
             ChatNormalContent chatNormalContent = this.data.chatNormalContent.v.data;
             if (chatNormalContent != null)
             {
-                if (chatNormalContent.isMine())
+                ChatMessage chatMessage = chatNormalContent.findDataInParent<ChatMessage>();
+                if (chatMessage != null)
                 {
-                    ChatMessage chatMessage = chatNormalContent.findDataInParent<ChatMessage>();
-                    if (chatMessage != null)
+                    ChatRoomUI.UIData chatRoomUIData = this.data.findDataInParent<ChatRoomUI.UIData>();
+                    if (chatRoomUIData != null)
                     {
-                        ChatRoomUI.UIData chatRoomUIData = this.data.findDataInParent<ChatRoomUI.UIData>();
-                        if (chatRoomUIData != null)
+                        ChatMessageMenuUI.UIData chatMessageMenuUIData = chatRoomUIData.chatMessageMenu.newOrOld<ChatMessageMenuUI.UIData>();
                         {
-                            ChatMessageMenuUI.UIData chatMessageMenuUIData = chatRoomUIData.chatMessageMenu.newOrOld<ChatMessageMenuUI.UIData>();
-                            {
-                                chatMessageMenuUIData.chatMessage.v = new ReferenceData<ChatMessage>(chatMessage);
-                            }
-                            chatRoomUIData.chatMessageMenu.v = chatMessageMenuUIData;
+                            chatMessageMenuUIData.chatMessage.v = new ReferenceData<ChatMessage>(chatMessage);
                         }
-                        else
-                        {
-                            Debug.LogError("chatRoomUIData null: " + this);
-                        }
+                        chatRoomUIData.chatMessageMenu.v = chatMessageMenuUIData;
                     }
                     else
                     {
-                        Debug.LogError("chatMessage null: " + this);
+                        Debug.LogError("chatRoomUIData null: " + this);
                     }
                 }
                 else
                 {
-                    Debug.LogError("not your message: " + this);
+                    Debug.LogError("chatMessage null: " + this);
                 }
             }
             else

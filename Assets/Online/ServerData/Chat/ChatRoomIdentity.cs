@@ -19,6 +19,26 @@ public class ChatRoomIdentity : DataIdentity
 
     #endregion
 
+    #region editMax
+
+    [SyncVar(hook = "onChangeEditMax")]
+    public uint editMax;
+
+    public void onChangeEditMax(uint newEditMax)
+    {
+        this.editMax = newEditMax;
+        if (this.netData.clientData != null)
+        {
+            this.netData.clientData.editMax.v = newEditMax;
+        }
+        else
+        {
+            // Debug.LogError ("clientData null");
+        }
+    }
+
+    #endregion
+
     #region maxId
 
     [SyncVar(hook = "onChangeMaxId")]
@@ -73,6 +93,7 @@ public class ChatRoomIdentity : DataIdentity
         if (this.netData.clientData != null)
         {
             this.onChangeIsEnable(this.isEnable);
+            this.onChangeEditMax(this.editMax);
             this.onChangeMaxId(this.maxId);
         }
         else
@@ -87,6 +108,7 @@ public class ChatRoomIdentity : DataIdentity
         {
             ret += GetDataSize(this.isEnable);
             ret += GetDataSize(this.messageCount);
+            ret += GetDataSize(this.editMax);
             ret += GetDataSize(this.maxId);
         }
         return ret;
@@ -108,6 +130,7 @@ public class ChatRoomIdentity : DataIdentity
                 this.serialize(this.searchInfor, chatRoom.makeSearchInforms());
                 this.isEnable = chatRoom.isEnable.v;
                 this.messageCount = (uint)chatRoom.messages.vs.Count;
+                this.editMax = chatRoom.editMax.v;
                 this.maxId = chatRoom.maxId.v;
             }
             this.getDataSize();
@@ -185,6 +208,9 @@ public class ChatRoomIdentity : DataIdentity
                         ChatRoom chatRoom = wrapProperty.p as ChatRoom;
                         this.messageCount = (uint)chatRoom.messages.vs.Count;
                     }
+                    break;
+                case ChatRoom.Property.editMax:
+                    this.editMax = (uint)wrapProperty.getValue();
                     break;
                 case ChatRoom.Property.maxId:
                     this.maxId = (uint)wrapProperty.getValue();

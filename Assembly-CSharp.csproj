@@ -1232,6 +1232,7 @@
     <Compile Include="Assets\Main\Online\Client\GlobalView\Friend\GlobalFriendsUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\GlobalViewUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\Profile\GlobalProfileUI.cs" />
+    <Compile Include="Assets\Main\Online\Client\GlobalView\Profile\NewMessageCount\ProfileNewMessageCountUI.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\Profile\UserAdapter\UserAdapter.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\Profile\UserAdapter\UserHolder.cs" />
     <Compile Include="Assets\Main\Online\Client\GlobalView\Profile\UserUI\BtnUpdateUser.cs" />
@@ -1297,6 +1298,9 @@
     <Compile Include="Assets\Online\ServerData\Chat\ChatRoomUI\Menu\ChatMessageMenuUI.cs" />
     <Compile Include="Assets\Online\ServerData\Chat\ChatRoomUI\Menu\Delete\ChatMessageDeleteUI.cs" />
     <Compile Include="Assets\Online\ServerData\Chat\ChatRoomUI\Menu\Edit\ChatMessageEditUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Chat\ChatRoomUI\Menu\ViewHistory\Adapter\ChatMessageHistoryAdapter.cs" />
+    <Compile Include="Assets\Online\ServerData\Chat\ChatRoomUI\Menu\ViewHistory\Adapter\ChatMessageHistoryHolder.cs" />
+    <Compile Include="Assets\Online\ServerData\Chat\ChatRoomUI\Menu\ViewHistory\ChatMessageViewHistoryUI.cs" />
     <Compile Include="Assets\Online\ServerData\Chat\GlobalChat\GlobalChat.cs" />
     <Compile Include="Assets\Online\ServerData\Chat\GlobalChat\GlobalChatIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Chat\GlobalChat\GlobalChatUpdate.cs" />
@@ -1306,6 +1310,8 @@
     <Compile Include="Assets\Online\ServerData\Chat\Message\Content\ChatNormalContent.cs" />
     <Compile Include="Assets\Online\ServerData\Chat\Message\Content\ChatNormalContentIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Chat\Message\Content\ChatNormalContentUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Chat\Message\Content\Edit\ChatNormalContentEdit.cs" />
+    <Compile Include="Assets\Online\ServerData\Chat\Message\Content\Edit\ChatNormalContentEditIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Chat\NewMessageCount\ChatRoomAlreadyViewUpdate.cs" />
     <Compile Include="Assets\Online\ServerData\Chat\NewMessageCount\ChatRoomNewMessageCountUI.cs" />
     <Compile Include="Assets\Online\ServerData\Chat\Topic\Bug\BugTopic.cs" />

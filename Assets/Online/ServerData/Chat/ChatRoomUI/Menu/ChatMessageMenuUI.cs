@@ -17,13 +17,16 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
 
         public VP<ChatMessageEditUI.UIData> edit;
 
+        public VP<ChatMessageViewHistoryUI.UIData> viewHistory;
+
         #region Constructor
 
         public enum Property
         {
             chatMessage,
             btnDelete,
-            edit
+            edit,
+            viewHistory
         }
 
         public UIData() : base()
@@ -31,6 +34,7 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
             this.chatMessage = new VP<ReferenceData<ChatMessage>>(this, (byte)Property.chatMessage, new ReferenceData<ChatMessage>(null));
             this.btnDelete = new VP<ChatMessageDeleteUI.UIData>(this, (byte)Property.btnDelete, new ChatMessageDeleteUI.UIData());
             this.edit = new VP<ChatMessageEditUI.UIData>(this, (byte)Property.edit, null);
+            this.viewHistory = new VP<ChatMessageViewHistoryUI.UIData>(this, (byte)Property.viewHistory, null);
         }
 
         #endregion
@@ -58,6 +62,19 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
                         Debug.LogError("edit null: " + this);
                     }
                 }
+                // viewHistory
+                if (!isProcess)
+                {
+                    ChatMessageViewHistoryUI.UIData viewHistory = this.viewHistory.v;
+                    if (viewHistory != null)
+                    {
+                        isProcess = viewHistory.processEvent(e);
+                    }
+                    else
+                    {
+                        Debug.LogError("viewHistory null");
+                    }
+                }
                 // back
                 if (!isProcess)
                 {
@@ -83,9 +100,10 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
+
+    public Text lbTitle;
+    private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
     public Button btnEdit;
     public Text tvEdit;
@@ -95,12 +113,18 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
     public Text tvCopyToClipboard;
     private static readonly TxtLanguage txtCopyToClipboard = new TxtLanguage();
 
+    public Button btnViewHistory;
+    public Text tvViewHistory;
+    private static readonly TxtLanguage txtViewHistory = new TxtLanguage();
+
     static ChatMessageMenuUI()
     {
         // txt
         {
+            txtTitle.add(Language.Type.vi, "Menu Thông Điệp");
             txtEdit.add(Language.Type.vi, "Chỉnh Sửa");
             txtCopyToClipboard.add(Language.Type.vi, "Chép Vào Clipboard");
+            txtViewHistory.add(Language.Type.vi, "Xem Lịch Sử");
         }
         // rect
         {
@@ -121,6 +145,10 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
 
     #endregion
 
+    #region Refresh
+
+    public RectTransform contentContainer;
+
     public override void refresh()
     {
         if (dirty)
@@ -133,6 +161,7 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
                 {
                     // isYourMessage
                     bool isYourMessage = false;
+                    bool isHaveHistory = false;
                     {
                         // find isYourMessage
                         {
@@ -147,6 +176,7 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
                                             if (chatNormalContent.isMine())
                                             {
                                                 isYourMessage = true;
+                                                isHaveHistory = (chatNormalContent.edits.vs.Count > 0) && (chatMessage.state.v == ChatMessage.State.Normal);
                                             }
                                         }
                                         break;
@@ -185,6 +215,27 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
                             }
                         }
                     }
+                    // btn
+                    {
+                        // btnEdit
+                        if (btnEdit != null)
+                        {
+                            btnEdit.gameObject.SetActive(isYourMessage);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnEdit null");
+                        }
+                        // btnViewHistory
+                        if (btnViewHistory != null)
+                        {
+                            btnViewHistory.gameObject.SetActive(isHaveHistory);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnViewHistory null");
+                        }
+                    }
                     // edit
                     {
                         ChatMessageEditUI.UIData edit = this.data.edit.v;
@@ -194,7 +245,95 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
                         }
                         else
                         {
-                            Debug.LogError("edit null: " + this);
+                            // Debug.LogError("edit null: " + this);
+                        }
+                    }
+                    // viewHistory
+                    {
+                        ChatMessageViewHistoryUI.UIData viewHistory = this.data.viewHistory.v;
+                        if (viewHistory != null)
+                        {
+                            // find
+                            ChatNormalContent chatNormalContent = null;
+                            {
+                                if(chatMessage.content.v is ChatNormalContent)
+                                {
+                                    chatNormalContent = chatMessage.content.v as ChatNormalContent;
+                                }
+                                else
+                                {
+                                    Debug.LogError("why not chatNormalContent: " + chatMessage.content.v);
+                                }
+                            }
+                            // set
+                            viewHistory.chatNormalContent.v = new ReferenceData<ChatNormalContent>(chatNormalContent);
+                        }
+                        else
+                        {
+                            Debug.LogError("viewHistory null");
+                        }
+                    }
+                    // UI
+                    {
+                        float deltaY = 0;
+                        // header
+                        deltaY += 30 + 10;
+                        // btnDelete
+                        {
+                            if (this.data.btnDelete.v != null)
+                            {
+                                UIRectTransform.SetPosY(this.data.btnDelete.v, deltaY);
+                                deltaY += 40;
+                            }
+                            else
+                            {
+                                // Debug.LogError("btnDelete null");
+                            }
+                        }
+                        // btnEdit
+                        {
+                            if (btnEdit != null && btnEdit.gameObject.activeSelf)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnEdit.transform, deltaY);
+                                deltaY += 40;
+                            }
+                            else
+                            {
+                                Debug.LogError("btnEdit null");
+                            }
+                        }
+                        // btnCopyToClipboard
+                        {
+                            if (btnCopyToClipboard != null && btnCopyToClipboard.gameObject.activeSelf)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnCopyToClipboard.transform, deltaY);
+                                deltaY += 40;
+                            }
+                            else
+                            {
+                                Debug.LogError("btnCopyToClipboard null");
+                            }
+                        }
+                        // btnViewHistory
+                        {
+                            if (btnViewHistory != null && btnViewHistory.gameObject.activeSelf)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnViewHistory.transform, deltaY);
+                                deltaY += 40;
+                            }
+                            else
+                            {
+                                Debug.LogError("btnViewHistory null");
+                            }
+                        }
+                        // set
+                        if (contentContainer != null)
+                        {
+                            UIRectTransform.SetHeight(contentContainer, deltaY);
+                        }
+                        else
+                        {
+                            Debug.LogError("contentContainer null");
                         }
                     }
                 }
@@ -203,8 +342,47 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
                     Debug.LogError("chatMessage null: " + this);
                     this.onClickBtnBack();
                 }
+                // contentContainer
+                {
+                    if (contentContainer != null)
+                    {
+                        // find
+                        bool isShow = true;
+                        {
+                            // edit
+                            if (isShow)
+                            {
+                                if (this.data.edit.v != null)
+                                {
+                                    isShow = false;
+                                }
+                            }
+                            // history
+                            if (isShow)
+                            {
+                                if (this.data.viewHistory.v != null)
+                                {
+                                    isShow = false;
+                                }
+                            }
+                        }
+                        contentContainer.gameObject.SetActive(isShow);
+                    }
+                    else
+                    {
+                        Debug.LogError("contentContainer null");
+                    }
+                }
                 // txt
                 {
+                    if (lbTitle != null)
+                    {
+                        lbTitle.text = txtTitle.get("Chat Message Menu");
+                    }
+                    else
+                    {
+                        Debug.LogError("lbTitle null");
+                    }
                     if (tvEdit != null)
                     {
                         tvEdit.text = txtEdit.get("Edit");
@@ -220,6 +398,14 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
                     else
                     {
                         Debug.LogError("tvCopyToClipboard null");
+                    }
+                    if (tvViewHistory != null)
+                    {
+                        tvViewHistory.text = txtViewHistory.get("View History");
+                    }
+                    else
+                    {
+                        Debug.LogError("tvViewHistory null");
                     }
                 }
             }
@@ -243,7 +429,10 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
     private static readonly UIRectTransform btnDeleteRect = new UIRectTransform();
 
     public ChatMessageEditUI editPrefab;
-    private static readonly UIRectTransform editRect = new UIRectTransform(UIConstants.FullParent);
+    private static readonly UIRectTransform editRect = UIRectTransform.CreateCenterRect(300, 120);
+
+    public ChatMessageViewHistoryUI viewHistoryPrefab;
+    private static readonly UIRectTransform viewHistoryRect = UIRectTransform.CreateCenterRect(300, 300);
 
     public override void onAddCallBack<T>(T data)
     {
@@ -257,6 +446,7 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
                 uiData.chatMessage.allAddCallBack(this);
                 uiData.btnDelete.allAddCallBack(this);
                 uiData.edit.allAddCallBack(this);
+                uiData.viewHistory.allAddCallBack(this);
             }
             dirty = true;
             return;
@@ -304,7 +494,7 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
                 ChatMessageDeleteUI.UIData btnDelete = data as ChatMessageDeleteUI.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(btnDelete, btnDeletePrefab, this.transform, btnDeleteRect);
+                    UIUtils.Instantiate(btnDelete, btnDeletePrefab, contentContainer, btnDeleteRect);
                 }
                 dirty = true;
                 return;
@@ -315,6 +505,16 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
                 // UI
                 {
                     UIUtils.Instantiate(edit, editPrefab, this.transform, editRect);
+                }
+                dirty = true;
+                return;
+            }
+            if(data is ChatMessageViewHistoryUI.UIData)
+            {
+                ChatMessageViewHistoryUI.UIData viewHistory = data as ChatMessageViewHistoryUI.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(viewHistory, viewHistoryPrefab, this.transform, viewHistoryRect);
                 }
                 dirty = true;
                 return;
@@ -335,6 +535,7 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
                 uiData.chatMessage.allRemoveCallBack(this);
                 uiData.btnDelete.allRemoveCallBack(this);
                 uiData.edit.allRemoveCallBack(this);
+                uiData.viewHistory.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
             return;
@@ -381,6 +582,15 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
                 }
                 return;
             }
+            if (data is ChatMessageViewHistoryUI.UIData)
+            {
+                ChatMessageViewHistoryUI.UIData viewHistory = data as ChatMessageViewHistoryUI.UIData;
+                // UI
+                {
+                    viewHistory.removeCallBackAndDestroy(typeof(ChatMessageViewHistoryUI));
+                }
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -408,6 +618,12 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
                     }
                     break;
                 case UIData.Property.edit:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.viewHistory:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
@@ -478,9 +694,11 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
                                     case ChatNormalContent.Property.owner:
                                         dirty = true;
                                         break;
-                                    case ChatNormalContent.Property.messages:
+                                    case ChatNormalContent.Property.message:
+                                        dirty = true;
                                         break;
-                                    case ChatNormalContent.Property.editMax:
+                                    case ChatNormalContent.Property.edits:
+                                        dirty = true;
                                         break;
                                     default:
                                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -508,6 +726,10 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
                 return;
             }
             if (wrapProperty.p is ChatMessageEditUI.UIData)
+            {
+                return;
+            }
+            if (wrapProperty.p is ChatMessageViewHistoryUI.UIData)
             {
                 return;
             }
@@ -585,7 +807,7 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
                 if (!string.IsNullOrEmpty(message))
                 {
                     UniClipboard.SetText(message);
-                    Toast.showMessage("Copy Message: " + message);
+                    Toast.showMessage("Copy message to clipboard: " + message);
                 }
                 else
                 {
@@ -595,6 +817,46 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
             else
             {
                 Debug.LogError("chatMessage null");
+            }
+        }
+        else
+        {
+            Debug.LogError("data null");
+        }
+    }
+
+    public void onClickBtnViewHistory()
+    {
+        if (this.data != null)
+        {
+            // find chatNormalContent
+            ChatNormalContent chatNormalContent = null;
+            {
+                ChatMessage chatMessage = this.data.chatMessage.v.data;
+                if (chatMessage != null)
+                {
+                    if(chatMessage.content.v is ChatNormalContent)
+                    {
+                        chatNormalContent = chatMessage.content.v as ChatNormalContent;
+                    }
+                }
+                else
+                {
+                    Debug.LogError("chatMessage null");
+                }
+            }
+            // process
+            if (chatNormalContent != null)
+            {
+                ChatMessageViewHistoryUI.UIData chatMessageViewHistoryUIData = this.data.viewHistory.newOrOld<ChatMessageViewHistoryUI.UIData>();
+                {
+                    chatMessageViewHistoryUIData.chatNormalContent.v = new ReferenceData<ChatNormalContent>(chatNormalContent);
+                }
+                this.data.viewHistory.v = chatMessageViewHistoryUIData;
+            }
+            else
+            {
+                Debug.LogError("chatNormalContent null");
             }
         }
         else

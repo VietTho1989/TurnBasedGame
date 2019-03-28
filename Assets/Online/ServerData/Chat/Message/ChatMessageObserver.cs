@@ -233,6 +233,8 @@ public class ChatMessageObserver : GameObserver.CheckChange
                                 gameObserver.needRefresh = true;
                             }
                             break;
+                        case ChatViewer.Property.alreadyViewMaxId:
+                            break;
                         default:
                             Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                             break;

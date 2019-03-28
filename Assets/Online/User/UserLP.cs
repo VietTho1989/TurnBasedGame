@@ -85,7 +85,7 @@ public class UserLP : LP<User>, ValueChangeCallBack
                 {
                     if (userDict.TryGetValue(user.human.v.playerId.v, out oldUser))
                     {
-                        Debug.LogError("already have oldUser: " + oldUser);
+                        // Debug.LogError("already have oldUser: " + oldUser);
                     }
                 }
                 // process

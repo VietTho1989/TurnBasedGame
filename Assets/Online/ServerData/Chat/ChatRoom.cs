@@ -62,6 +62,8 @@ public class ChatRoom : Data
 
     public LP<ChatMessage> messages;
 
+    public VP<uint> editMax;
+
     public VP<uint> maxId;
 
     #endregion
@@ -193,6 +195,7 @@ public class ChatRoom : Data
         isEnable,
         players,
         messages,
+        editMax,
         maxId,
         chatViewers,
         typing
@@ -204,6 +207,7 @@ public class ChatRoom : Data
         this.isEnable = new VP<bool>(this, (byte)Property.isEnable, true);
         this.players = new HumanLP(this, (byte)Property.players);
         this.messages = new LP<ChatMessage>(this, (byte)Property.messages);
+        this.editMax = new VP<uint>(this, (byte)Property.editMax, ChatNormalContent.MAX_EDIT);
         this.maxId = new VP<uint>(this, (byte)Property.maxId, 0);
         this.chatViewers = new ChatViewerLP(this, (byte)Property.chatViewers);
         this.typing = new VP<Typing>(this, (byte)Property.typing, new Typing());
@@ -269,15 +273,8 @@ public class ChatRoom : Data
                             chatNormalContent.uid = chatMessage.content.makeId();
                             // owner
                             chatNormalContent.owner.v = userId;
-                            // messages
-                            {
-                                ChatNormalContent.Message message = new ChatNormalContent.Message();
-                                {
-                                    message.time = Global.getRealTimeInMiliSeconds();
-                                    message.message = newMessage;
-                                }
-                                chatNormalContent.messages.add(message);
-                            }
+                            // message
+                            chatNormalContent.message.v = newMessage;
                         }
                         chatMessage.content.v = chatNormalContent;
                     }

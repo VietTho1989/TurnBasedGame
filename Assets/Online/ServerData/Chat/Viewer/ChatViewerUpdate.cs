@@ -205,6 +205,8 @@ public class ChatViewerUpdate : UpdateBehavior<ChatViewer>
                 case ChatViewer.Property.isActive:
                     dirty = true;
                     break;
+                case ChatViewer.Property.alreadyViewMaxId:
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;

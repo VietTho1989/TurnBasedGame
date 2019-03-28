@@ -1,6 +1,6 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class ChatNormalContent : ChatMessage.Content
 {
@@ -25,31 +25,26 @@ public class ChatNormalContent : ChatMessage.Content
 
     #region Content
 
-    public struct Message
-    {
-        public long time;
-        public string message;
-    }
+    public VP<string> message;
 
-    public LP<Message> messages;
+    public LP<ChatNormalContentEdit> edits;
 
     public override string getMessage()
     {
-        string ret = "";
+        string ret = this.message.v;
         {
-            if (this.messages.vs.Count > 0)
+            if (this.edits.vs.Count > 0)
             {
-                ChatNormalContent.Message contentMessage = this.messages.vs[this.messages.vs.Count - 1];
-                ret = contentMessage.message;
+                ChatNormalContentEdit chatNormalContentEdit = this.edits.vs[this.edits.vs.Count - 1];
+                ret = chatNormalContentEdit.message.v;
             }
         }
         return ret;
     }
 
-    /**
-	 * // TODO Sau nay chuyen sang chatRoom
-	 * */
-    public VP<int> editMax;
+    #endregion
+
+    #region edit
 
     public bool isCanEdit(uint userId, string newMessage)
     {
@@ -58,23 +53,31 @@ public class ChatNormalContent : ChatMessage.Content
             return false;
         }
         // Can edit anymore
-        if (messages.vs.Count >= editMax.v)
         {
-            return false;
+            // find
+            uint editMax = MAX_EDIT;
+            {
+                ChatRoom chatRoom = this.findDataInParent<ChatRoom>();
+                if (chatRoom != null)
+                {
+                    editMax = chatRoom.editMax.v;
+                }
+                else
+                {
+                    Debug.LogError("chatRoom null");
+                }
+            }
+            // process
+            if (this.edits.vs.Count >= editMax)
+            {
+                return false;
+            }
         }
         // different message
         {
-            if (this.messages.vs.Count > 0)
+            if (this.getMessage() == newMessage)
             {
-                string lastMessage = this.messages.vs[messages.vs.Count - 1].message;
-                if (lastMessage == newMessage)
-                {
-                    Debug.LogError("the same messages");
-                    return false;
-                }
-            }
-            else
-            {
+                Debug.LogError("the same messages");
                 return false;
             }
         }
@@ -131,12 +134,12 @@ public class ChatNormalContent : ChatMessage.Content
     {
         if (isCanEdit(userId, newMessage))
         {
-            Message message = new Message();
+            ChatNormalContentEdit edit = new ChatNormalContentEdit();
             {
-                message.time = Global.getRealTimeInMiliSeconds();
-                message.message = newMessage;
+                edit.time.v = Global.getRealTimeInMiliSeconds();
+                edit.message.v = newMessage;
             }
-            this.messages.add(message);
+            this.edits.add(edit);
         }
         else
         {
@@ -151,15 +154,15 @@ public class ChatNormalContent : ChatMessage.Content
     public enum Property
     {
         owner,
-        messages,
-        editMax
+        message,
+        edits
     }
 
     public ChatNormalContent() : base()
     {
         this.owner = new VP<uint>(this, (byte)Property.owner, 0);
-        this.messages = new LP<Message>(this, (byte)Property.messages);
-        this.editMax = new VP<int>(this, (byte)Property.editMax, 5);
+        this.message = new VP<string>(this, (byte)Property.message, "");
+        this.edits = new LP<ChatNormalContentEdit>(this, (byte)Property.edits);
     }
 
     #endregion

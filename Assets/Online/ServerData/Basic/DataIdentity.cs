@@ -1047,23 +1047,6 @@ public abstract class DataIdentity : NetworkBehaviour, ValueChangeCallBack
 		return ret;
 	}
 
-	public static int GetDataSize(ChatNormalContent.Message str)
-	{
-		return GetDataSize (str.time) + GetDataSize (str.message);
-	}
-
-	public static int GetDataSize(ChatNormalContentIdentity.SyncListContent items)
-	{
-		int ret = 0;
-		{
-			ret += GetDataSize ((ushort)items.Count);
-			foreach (ChatNormalContent.Message str in items) {
-				ret += GetDataSize (str);
-			}
-		}
-		return ret;
-	}
-
 	public static int GetDataSize(SyncListUInt64 items)
 	{
 		return 2 + items.Count * 8;

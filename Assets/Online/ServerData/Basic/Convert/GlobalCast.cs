@@ -22,8 +22,6 @@ public class GlobalCast<T>
 	public static CastingConvert<System.Int32, T> CastingInt32 = new CastingConvert<System.Int32, T>();
 	public static CastingConvert<System.UInt32, T> CastingUInt32 = new CastingConvert<System.UInt32, T>();
 
-	public static CastingConvert<ChatNormalContent.Message, T> CastingChatNormalContentMessage = new CastingConvert<ChatNormalContent.Message, T>();
-
 	public static CastingConvert<Shogi.Common.BitBoard, T> CastingShogi_Common_BitBoard = new CastingConvert<Shogi.Common.BitBoard, T>();
 	public static CastingConvert<Shogi.Common.Piece, T> CastingShogi_Common_Piece = new CastingConvert<Shogi.Common.Piece, T>();
 
