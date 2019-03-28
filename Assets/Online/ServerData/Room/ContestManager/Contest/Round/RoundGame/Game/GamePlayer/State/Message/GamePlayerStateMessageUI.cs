@@ -42,16 +42,16 @@ public class GamePlayerStateMessageUI : UIBehavior<GamePlayerStateMessageUI.UIDa
 
     #region txt, rect
 
-    private static readonly TxtLanguage txtPlayer = new TxtLanguage();
-    private static readonly TxtLanguage txtPlayerLowerCase = new TxtLanguage();
-    private static readonly TxtLanguage txtSurrender = new TxtLanguage();
+    public static readonly TxtLanguage txtPlayer = new TxtLanguage();
+    public static readonly TxtLanguage txtPlayerLowerCase = new TxtLanguage();
+    public static readonly TxtLanguage txtSurrender = new TxtLanguage();
 
-    private static readonly TxtLanguage txtRequest = new TxtLanguage();
-    private static readonly TxtLanguage txtAccept = new TxtLanguage();
-    private static readonly TxtLanguage txtRefuse = new TxtLanguage();
+    public static readonly TxtLanguage txtRequest = new TxtLanguage();
+    public static readonly TxtLanguage txtAccept = new TxtLanguage();
+    public static readonly TxtLanguage txtRefuse = new TxtLanguage();
 
-    private const string DefaultSurrenderCancellation = "cancel surrender";
-    private static readonly TxtLanguage txtSurrenderCancellation = new TxtLanguage();
+    public const string DefaultSurrenderCancellation = "cancel surrender";
+    public static readonly TxtLanguage txtSurrenderCancellation = new TxtLanguage();
 
     static GamePlayerStateMessageUI()
     {
@@ -187,25 +187,8 @@ public class GamePlayerStateMessageUI : UIBehavior<GamePlayerStateMessageUI.UIDa
                                         Debug.LogError("human null: " + this);
                                     }
                                 }
-                                // state
-                                switch (gamePlayerStateMessage.action.v)
-                                {
-                                    case GamePlayerStateMessage.Action.Surrender:
-                                        tvContent.text = "<color=grey>" + userName + "</color>(" + txtPlayer.get("Player") + " " + gamePlayerStateMessage.playerIndex.v + ") " + txtSurrender.get("surrender");
-                                        break;
-                                    case GamePlayerStateMessage.Action.Cancel:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtRequest.get("request") + " " + txtPlayerLowerCase.get("player") + " " + gamePlayerStateMessage.playerIndex.v + " " + txtSurrenderCancellation.get(DefaultSurrenderCancellation);
-                                        break;
-                                    case GamePlayerStateMessage.Action.AcceptCancel:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtAccept.get("accept") + " " + txtPlayerLowerCase.get("player") + " " + gamePlayerStateMessage.playerIndex.v + " " + txtSurrenderCancellation.get(DefaultSurrenderCancellation);
-                                        break;
-                                    case GamePlayerStateMessage.Action.RefuseCancel:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtRefuse.get("refuse") + " " + txtPlayerLowerCase.get("player") + " " + gamePlayerStateMessage.playerIndex.v + " " + txtSurrenderCancellation.get(DefaultSurrenderCancellation);
-                                        break;
-                                    default:
-                                        Debug.LogError("unknown action: " + gamePlayerStateMessage.action.v + "; " + this);
-                                        break;
-                                }
+                                // set
+                                tvContent.text = gamePlayerStateMessage.getMessage(userName);
                             }
                             else
                             {

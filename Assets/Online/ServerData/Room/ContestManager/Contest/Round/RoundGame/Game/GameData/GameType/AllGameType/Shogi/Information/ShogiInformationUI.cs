@@ -62,6 +62,9 @@ namespace Shogi
         public Text tvMessage;
         private static readonly TxtLanguage txtMessage = new TxtLanguage();
 
+        public Text lbFen;
+        public Button btnCopyFen;
+
         static ShogiInformationUI()
         {
             txtMessage.add(Language.Type.vi, "https://vi.wikipedia.org/wiki/Sh%C5%8Dgi");
@@ -70,8 +73,6 @@ namespace Shogi
         #endregion
 
         #region Refresh
-
-        public Text lbFen;
 
         public override void refresh()
         {
@@ -157,6 +158,15 @@ namespace Shogi
                                     {
                                         Debug.LogError("lbFen null");
                                     }
+                                    if (btnCopyFen != null)
+                                    {
+                                        btnCopyFen.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY((RectTransform)btnCopyFen.transform, deltaY + (UIConstants.ItemHeight - 30) / 2);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("btnCopyFen null");
+                                    }
                                     UIRectTransform.SetPosY(this.data.shogiFenUIData.v, deltaY);
                                     deltaY += UIConstants.ItemHeight;
                                 }
@@ -169,6 +179,14 @@ namespace Shogi
                                     else
                                     {
                                         Debug.LogError("lbFen null");
+                                    }
+                                    if (btnCopyFen != null)
+                                    {
+                                        btnCopyFen.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("btnCopyFen null");
                                     }
                                 }
                             }
@@ -217,7 +235,7 @@ namespace Shogi
         #region implement callBacks
 
         public ShogiFenUI shogiFenPrefab;
-        private static readonly UIRectTransform shogiFenRect = UIRectTransform.createRequestRect(90, 10, 60);
+        private static readonly UIRectTransform shogiFenRect = UIRectTransform.createRequestRect(90, 50, 60);
 
         public override void onAddCallBack<T>(T data)
         {
@@ -376,6 +394,44 @@ namespace Shogi
         }
 
         #endregion
+
+        public void onClickBtnCopyFen()
+        {
+            if (this.data != null)
+            {
+                ShogiFenUI.UIData shogiFenUIData = this.data.shogiFenUIData.v;
+                if (shogiFenUIData != null)
+                {
+                    ShogiFenUI shogiFenUI = shogiFenUIData.findCallBack<ShogiFenUI>();
+                    if (shogiFenUI != null)
+                    {
+                        Text tvFen = shogiFenUI.tvFen;
+                        if (tvFen != null)
+                        {
+                            string fen = tvFen.text;
+                            UniClipboard.SetText(fen);
+                            Toast.showMessage("Copy Fen: " + fen);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvFen null");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("fenUI null");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("fenUIData null");
+                }
+            }
+            else
+            {
+                Debug.LogError("data null");
+            }
+        }
 
     }
 }

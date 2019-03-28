@@ -72,6 +72,7 @@ namespace Makruk
         #region Refresh
 
         public Text lbFen;
+        public Button btnCopyFen;
 
         public Text lbChess960;
         public Toggle tgChess960;
@@ -172,6 +173,15 @@ namespace Makruk
                                     {
                                         Debug.LogError("lbFen null");
                                     }
+                                    if (btnCopyFen != null)
+                                    {
+                                        btnCopyFen.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY((RectTransform)btnCopyFen.transform, deltaY + (UIConstants.ItemHeight - 30) / 2);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("btnCopyFen null");
+                                    }
                                     UIRectTransform.SetPosY(this.data.makrukFenUIData.v, deltaY);
                                     deltaY += UIConstants.ItemHeight;
                                 }
@@ -184,6 +194,14 @@ namespace Makruk
                                     else
                                     {
                                         Debug.LogError("lbFen null");
+                                    }
+                                    if (btnCopyFen != null)
+                                    {
+                                        btnCopyFen.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("btnCopyFen null");
                                     }
                                 }
                             }
@@ -253,7 +271,7 @@ namespace Makruk
         #region implement callBacks
 
         public MakrukFenUI makrukFenPrefab;
-        private static readonly UIRectTransform makrukFenRect = UIRectTransform.createRequestRect(90, 10, 60);
+        private static readonly UIRectTransform makrukFenRect = UIRectTransform.createRequestRect(90, 50, 60);
 
         public override void onAddCallBack<T>(T data)
         {
@@ -441,6 +459,44 @@ namespace Makruk
         }
 
         #endregion
+
+        public void onClickBtnCopyFen()
+        {
+            if (this.data != null)
+            {
+                MakrukFenUI.UIData makrukFenUIData = this.data.makrukFenUIData.v;
+                if (makrukFenUIData != null)
+                {
+                    MakrukFenUI makrukFenUI = makrukFenUIData.findCallBack<MakrukFenUI>();
+                    if (makrukFenUI != null)
+                    {
+                        Text tvFen = makrukFenUI.tvFen;
+                        if (tvFen != null)
+                        {
+                            string fen = tvFen.text;
+                            UniClipboard.SetText(fen);
+                            Toast.showMessage("Copy Fen: " + fen);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvFen null");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("makrukFenUI null");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("makrukFenUIData null");
+                }
+            }
+            else
+            {
+                Debug.LogError("data null");
+            }
+        }
 
     }
 }

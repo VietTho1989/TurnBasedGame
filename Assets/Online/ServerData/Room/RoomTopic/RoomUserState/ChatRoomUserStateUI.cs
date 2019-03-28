@@ -42,13 +42,13 @@ public class ChatRoomUserStateUI : UIBehavior<ChatRoomUserStateUI.UIData>
 
     #region txt, rect
 
-    private static readonly TxtLanguage txtCreate = new TxtLanguage();
-    private static readonly TxtLanguage txtJoin = new TxtLanguage();
-    private static readonly TxtLanguage txtLeft = new TxtLanguage();
-    private static readonly TxtLanguage txtDisconnect = new TxtLanguage();
-    private static readonly TxtLanguage txtKick = new TxtLanguage();
-    private static readonly TxtLanguage txtUnKick = new TxtLanguage();
-    private static readonly TxtLanguage txtBan = new TxtLanguage();
+    public static readonly TxtLanguage txtCreate = new TxtLanguage();
+    public static readonly TxtLanguage txtJoin = new TxtLanguage();
+    public static readonly TxtLanguage txtLeft = new TxtLanguage();
+    public static readonly TxtLanguage txtDisconnect = new TxtLanguage();
+    public static readonly TxtLanguage txtKick = new TxtLanguage();
+    public static readonly TxtLanguage txtUnKick = new TxtLanguage();
+    public static readonly TxtLanguage txtBan = new TxtLanguage();
 
     static ChatRoomUserStateUI()
     {
@@ -183,34 +183,8 @@ public class ChatRoomUserStateUI : UIBehavior<ChatRoomUserStateUI.UIData>
                                         Debug.LogError("human null: " + this);
                                     }
                                 }
-                                // state
-                                switch (chatRoomUserStateContent.action.v)
-                                {
-                                    case ChatRoomUserStateContent.Action.Create:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtCreate.get("create room");
-                                        break;
-                                    case ChatRoomUserStateContent.Action.Join:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtJoin.get("join room");
-                                        break;
-                                    case ChatRoomUserStateContent.Action.Left:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtLeft.get("left room");
-                                        break;
-                                    case ChatRoomUserStateContent.Action.Disconnect:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtDisconnect.get("disconnect");
-                                        break;
-                                    case ChatRoomUserStateContent.Action.Kick:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtKick.get("is kicked");
-                                        break;
-                                    case ChatRoomUserStateContent.Action.UnKick:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtUnKick.get("is unkicked");
-                                        break;
-                                    case ChatRoomUserStateContent.Action.Ban:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtBan.get("is banned");
-                                        break;
-                                    default:
-                                        Debug.LogError("unknown action: " + chatRoomUserStateContent.action.v + "; " + this);
-                                        break;
-                                }
+                                // set
+                                tvContent.text = chatRoomUserStateContent.getMessage(userName);
                             }
                             else
                             {

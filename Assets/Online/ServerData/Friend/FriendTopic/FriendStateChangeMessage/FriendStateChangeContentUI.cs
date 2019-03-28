@@ -42,13 +42,13 @@ public class FriendStateChangeContentUI : UIBehavior<FriendStateChangeContentUI.
 
     #region txt, rect
 
-    private static readonly TxtLanguage txtRequest = new TxtLanguage();
-    private static readonly TxtLanguage txtAccept = new TxtLanguage();
-    private static readonly TxtLanguage txtRefuse = new TxtLanguage();
-    private static readonly TxtLanguage txtCancel = new TxtLanguage();
-    private static readonly TxtLanguage txtUnFriend = new TxtLanguage();
-    private static readonly TxtLanguage txtBan = new TxtLanguage();
-    private static readonly TxtLanguage txtUnBan = new TxtLanguage();
+    public static readonly TxtLanguage txtRequest = new TxtLanguage();
+    public static readonly TxtLanguage txtAccept = new TxtLanguage();
+    public static readonly TxtLanguage txtRefuse = new TxtLanguage();
+    public static readonly TxtLanguage txtCancel = new TxtLanguage();
+    public static readonly TxtLanguage txtUnFriend = new TxtLanguage();
+    public static readonly TxtLanguage txtBan = new TxtLanguage();
+    public static readonly TxtLanguage txtUnBan = new TxtLanguage();
 
     static FriendStateChangeContentUI()
     {
@@ -183,34 +183,8 @@ public class FriendStateChangeContentUI : UIBehavior<FriendStateChangeContentUI.
                                         Debug.LogError("human null: " + this);
                                     }
                                 }
-                                // state
-                                switch (friendStateChangeContent.action.v)
-                                {
-                                    case FriendStateChangeContent.Action.Request:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtRequest.get("make friend request");
-                                        break;
-                                    case FriendStateChangeContent.Action.Accept:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtAccept.get("accept friend request");
-                                        break;
-                                    case FriendStateChangeContent.Action.Refuse:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtRefuse.get("refuse friend request");
-                                        break;
-                                    case FriendStateChangeContent.Action.Cancel:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtCancel.get("cancel friend request");
-                                        break;
-                                    case FriendStateChangeContent.Action.UnFriend:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtRequest.get("unfriend you");
-                                        break;
-                                    case FriendStateChangeContent.Action.Ban:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtRequest.get("ban you");
-                                        break;
-                                    case FriendStateChangeContent.Action.UnBan:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtRequest.get("unban you");
-                                        break;
-                                    default:
-                                        Debug.LogError("unknown action: " + friendStateChangeContent.action.v + "; " + this);
-                                        break;
-                                }
+                                // set
+                                tvContent.text = friendStateChangeContent.getMessage(userName);
                             }
                             else
                             {

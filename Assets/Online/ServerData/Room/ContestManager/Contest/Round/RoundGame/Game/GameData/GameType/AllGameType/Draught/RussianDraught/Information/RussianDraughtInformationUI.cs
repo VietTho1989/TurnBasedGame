@@ -59,6 +59,9 @@ namespace RussianDraught
 
         public Text lbTitle;
 
+        public Text lbFen;
+        public Button btnCopyFen;
+
         public Text tvMessage;
         private static readonly TxtLanguage txtMessage = new TxtLanguage();
 
@@ -70,8 +73,6 @@ namespace RussianDraught
         #endregion
 
         #region Refresh
-
-        public Text lbFen;
 
         public override void refresh()
         {
@@ -157,6 +158,15 @@ namespace RussianDraught
                                     {
                                         Debug.LogError("lbFen null");
                                     }
+                                    if (btnCopyFen != null)
+                                    {
+                                        btnCopyFen.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY((RectTransform)btnCopyFen.transform, deltaY + (UIConstants.ItemHeight - 30) / 2);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("btnCopyFen null");
+                                    }
                                     UIRectTransform.SetPosY(this.data.russianDraughtFenUIData.v, deltaY);
                                     deltaY += UIConstants.ItemHeight;
                                 }
@@ -169,6 +179,14 @@ namespace RussianDraught
                                     else
                                     {
                                         Debug.LogError("lbFen null");
+                                    }
+                                    if (btnCopyFen != null)
+                                    {
+                                        btnCopyFen.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("btnCopyFen null");
                                     }
                                 }
                             }
@@ -217,7 +235,7 @@ namespace RussianDraught
         #region implement callBacks
 
         public RussianDraughtFenUI russianDraughtFenPrefab;
-        private static readonly UIRectTransform russianDraughtFenRect = UIRectTransform.createRequestRect(90, 10, 60);
+        private static readonly UIRectTransform russianDraughtFenRect = UIRectTransform.createRequestRect(90, 50, 60);
 
         public override void onAddCallBack<T>(T data)
         {
@@ -376,6 +394,44 @@ namespace RussianDraught
         }
 
         #endregion
+
+        public void onClickBtnCopyFen()
+        {
+            if (this.data != null)
+            {
+                RussianDraughtFenUI.UIData russianDraughtFenUIData = this.data.russianDraughtFenUIData.v;
+                if (russianDraughtFenUIData != null)
+                {
+                    RussianDraughtFenUI russianDraughtFenUI = russianDraughtFenUIData.findCallBack<RussianDraughtFenUI>();
+                    if (russianDraughtFenUI != null)
+                    {
+                        Text tvFen = russianDraughtFenUI.tvFen;
+                        if (tvFen != null)
+                        {
+                            string fen = tvFen.text;
+                            UniClipboard.SetText(fen);
+                            Toast.showMessage("Copy Fen: " + fen);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvFen null");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("russianDraughtFenUI null");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("russianDraughtFenUIData null");
+                }
+            }
+            else
+            {
+                Debug.LogError("data null");
+            }
+        }
 
     }
 }

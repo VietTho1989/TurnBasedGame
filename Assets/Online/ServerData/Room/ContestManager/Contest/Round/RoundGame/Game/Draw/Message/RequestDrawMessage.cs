@@ -103,4 +103,60 @@ public class RequestDrawMessage : ChatMessage.Content
         }
     }
 
+    #region getMessage
+
+    public override string getMessage()
+    {
+        string ret = "";
+        {
+            // find userName
+            string userName = "";
+            {
+                Human human = ChatRoom.findHuman(this, this.userId.v);
+                if (human != null)
+                {
+                    userName = human.getPlayerName();
+                }
+                else
+                {
+                    Debug.LogError("human null");
+                }
+            }
+            // set
+            ret = getMessage(userName);
+        }
+        return ret;
+    }
+
+    public string getMessage(string userName)
+    {
+        string ret = "";
+        {
+            switch (this.action.v)
+            {
+                case RequestDrawMessage.Action.Request:
+                    ret = "<color=grey>" + userName + "</color> " + RequestDrawMessageUI.txtRequest.get("request draw");
+                    break;
+                case RequestDrawMessage.Action.AskAccept:
+                    ret = "<color=grey>" + userName + "</color> " + RequestDrawMessageUI.txtAskAccept.get("accept draw");
+                    break;
+                case RequestDrawMessage.Action.AskRefuse:
+                    ret = "<color=grey>" + userName + "</color> " + RequestDrawMessageUI.txtAskRefuse.get("refuse draw");
+                    break;
+                case RequestDrawMessage.Action.AcceptAccept:
+                    ret = "<color=grey>" + userName + "</color> " + RequestDrawMessageUI.txtAcceptAccept.get("accept cancel draw");
+                    break;
+                case RequestDrawMessage.Action.AcceptRefuse:
+                    ret = "<color=grey>" + userName + "</color> " + RequestDrawMessageUI.txtAcceptRefuse.get("refuse cancel draw");
+                    break;
+                default:
+                    Debug.LogError("unknown action: " + this.action.v + "; " + this);
+                    break;
+            }
+        }
+        return ret;
+    }
+
+    #endregion
+
 }

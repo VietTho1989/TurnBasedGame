@@ -63,6 +63,7 @@ namespace FairyChess
         private static readonly TxtLanguage txtMessage = new TxtLanguage();
 
         public Text lbFen;
+        public Button btnCopyFen;
 
         public Text lbVariant;
         private static readonly TxtLanguage txtVariant = new TxtLanguage();
@@ -201,6 +202,15 @@ namespace FairyChess
                                     {
                                         Debug.LogError("lbFen null");
                                     }
+                                    if (btnCopyFen != null)
+                                    {
+                                        btnCopyFen.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY((RectTransform)btnCopyFen.transform, deltaY + (UIConstants.ItemHeight - 30) / 2);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("btnCopyFen null");
+                                    }
                                     UIRectTransform.SetPosY(this.data.fairyChessFenUIData.v, deltaY);
                                     deltaY += UIConstants.ItemHeight;
                                 }
@@ -213,6 +223,14 @@ namespace FairyChess
                                     else
                                     {
                                         Debug.LogError("lbFen null");
+                                    }
+                                    if (btnCopyFen != null)
+                                    {
+                                        btnCopyFen.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("btnCopyFen null");
                                     }
                                 }
                             }
@@ -311,7 +329,7 @@ namespace FairyChess
         #region implement callBacks
 
         public FairyChessFenUI fairyChessFenPrefab;
-        private static readonly UIRectTransform fairyChessFenRect = UIRectTransform.createRequestRect(90, 10, 60);
+        private static readonly UIRectTransform fairyChessFenRect = UIRectTransform.createRequestRect(90, 50, 60);
 
         public override void onAddCallBack<T>(T data)
         {
@@ -514,6 +532,44 @@ namespace FairyChess
         }
 
         #endregion
+
+        public void onClickBtnCopyFen()
+        {
+            if (this.data != null)
+            {
+                FairyChessFenUI.UIData fairyChessFenUIData = this.data.fairyChessFenUIData.v;
+                if (fairyChessFenUIData != null)
+                {
+                    FairyChessFenUI fairyChessFenUI = fairyChessFenUIData.findCallBack<FairyChessFenUI>();
+                    if (fairyChessFenUI != null)
+                    {
+                        Text tvFen = fairyChessFenUI.tvFen;
+                        if (tvFen != null)
+                        {
+                            string fen = tvFen.text;
+                            UniClipboard.SetText(fen);
+                            Toast.showMessage("Copy Fen: " + fen);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvFen null");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("fairyChessFenUI null");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("fairyChessFenUIData null");
+                }
+            }
+            else
+            {
+                Debug.LogError("data null");
+            }
+        }
 
     }
 }

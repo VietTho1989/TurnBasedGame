@@ -108,4 +108,71 @@ public class UndoRedoRequestMessage : ChatMessage.Content
 
     #endregion
 
+    #region getMessage
+
+    public override string getMessage()
+    {
+        string ret = "";
+        {
+            // find userName
+            string userName = "";
+            {
+                Human human = ChatRoom.findHuman(this, this.userId.v);
+                if (human != null)
+                {
+                    userName = human.getPlayerName();
+                }
+                else
+                {
+                    Debug.LogError("human null");
+                }
+            }
+            // set
+            ret = getMessage(userName);
+        }
+        return ret;
+    }
+
+    public string getMessage(string userName)
+    {
+        string ret = "";
+        {
+            // operation
+            string strOperation = UndoRedoRequestMessageUI.txtUndo.get("undo");
+            {
+                switch (this.operation.v)
+                {
+                    case UndoRedoRequest.Operation.Undo:
+                        strOperation = UndoRedoRequestMessageUI.txtUndo.get("undo");
+                        break;
+                    case UndoRedoRequest.Operation.Redo:
+                        strOperation = UndoRedoRequestMessageUI.txtRedo.get("redo");
+                        break;
+                    default:
+                        Debug.LogError("unknown operation: " + this.operation.v);
+                        break;
+                }
+            }
+            // state
+            switch (this.action.v)
+            {
+                case UndoRedoRequestMessage.Action.Ask:
+                    ret = "<color=grey>" + userName + "</color> " + UndoRedoRequestMessageUI.txtAsk.get("request") + " " + strOperation;
+                    break;
+                case UndoRedoRequestMessage.Action.Accept:
+                    ret = "<color=grey>" + userName + "</color> " + UndoRedoRequestMessageUI.txtAccept.get("accept") + " " + strOperation;
+                    break;
+                case UndoRedoRequestMessage.Action.Refuse:
+                    ret = "<color=grey>" + userName + "</color> " + UndoRedoRequestMessageUI.txtRefuse.get("refuse") + " " + strOperation;
+                    break;
+                default:
+                    Debug.LogError("unknown action: " + this.action.v + "; " + this);
+                    break;
+            }
+        }
+        return ret;
+    }
+
+    #endregion
+
 }

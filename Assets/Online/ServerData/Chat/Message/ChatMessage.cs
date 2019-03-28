@@ -128,6 +128,8 @@ public class ChatMessage : Data
 
         public abstract Type getType();
 
+        public abstract string getMessage();
+
     }
 
     public VP<Content> content;

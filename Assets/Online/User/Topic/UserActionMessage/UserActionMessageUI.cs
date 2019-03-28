@@ -42,12 +42,12 @@ public class UserActionMessageUI : UIBehavior<UserActionMessageUI.UIData>
 
     #region txt, rect
 
-    private static readonly TxtLanguage txtRegister = new TxtLanguage();
-    private static readonly TxtLanguage txtLogin = new TxtLanguage();
-    private static readonly TxtLanguage txtLogout = new TxtLanguage();
-    private static readonly TxtLanguage txtDisconnect = new TxtLanguage();
-    private static readonly TxtLanguage txtBanned = new TxtLanguage();
-    private static readonly TxtLanguage txtUnBanned = new TxtLanguage();
+    public static readonly TxtLanguage txtRegister = new TxtLanguage();
+    public static readonly TxtLanguage txtLogin = new TxtLanguage();
+    public static readonly TxtLanguage txtLogout = new TxtLanguage();
+    public static readonly TxtLanguage txtDisconnect = new TxtLanguage();
+    public static readonly TxtLanguage txtBanned = new TxtLanguage();
+    public static readonly TxtLanguage txtUnBanned = new TxtLanguage();
 
     static UserActionMessageUI()
     {
@@ -181,31 +181,8 @@ public class UserActionMessageUI : UIBehavior<UserActionMessageUI.UIData>
                                         Debug.LogError("human null: " + this);
                                     }
                                 }
-                                // state
-                                switch (userActionMessage.action.v)
-                                {
-                                    case UserActionMessage.Action.Register:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtRegister.get("register");
-                                        break;
-                                    case UserActionMessage.Action.Login:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtLogin.get("login");
-                                        break;
-                                    case UserActionMessage.Action.Logout:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtLogout.get("logout");
-                                        break;
-                                    case UserActionMessage.Action.Disconnect:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtDisconnect.get("disconnect");
-                                        break;
-                                    case UserActionMessage.Action.Banned:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtBanned.get("was banned");
-                                        break;
-                                    case UserActionMessage.Action.UnBanned:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtUnBanned.get("was unbanned");
-                                        break;
-                                    default:
-                                        Debug.LogError("unknown action: " + userActionMessage.action.v + "; " + this);
-                                        break;
-                                }
+                                // set
+                                tvContent.text = userActionMessage.getMessage(userName);
                             }
                             else
                             {

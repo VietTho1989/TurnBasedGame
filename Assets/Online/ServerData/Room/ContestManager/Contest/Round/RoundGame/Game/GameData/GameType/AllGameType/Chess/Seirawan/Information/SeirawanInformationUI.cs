@@ -72,6 +72,7 @@ namespace Seirawan
         #region Refresh
 
         public Text lbFen;
+        public Button btnCopyFen;
 
         public Text lbChess960;
         public Toggle tgChess960;
@@ -172,6 +173,15 @@ namespace Seirawan
                                     {
                                         Debug.LogError("lbFen null");
                                     }
+                                    if (btnCopyFen != null)
+                                    {
+                                        btnCopyFen.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY((RectTransform)btnCopyFen.transform, deltaY + (UIConstants.ItemHeight - 30) / 2);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("btnCopyFen null");
+                                    }
                                     UIRectTransform.SetPosY(this.data.seirawanFenUIData.v, deltaY);
                                     deltaY += UIConstants.ItemHeight;
                                 }
@@ -184,6 +194,14 @@ namespace Seirawan
                                     else
                                     {
                                         Debug.LogError("lbFen null");
+                                    }
+                                    if (btnCopyFen != null)
+                                    {
+                                        btnCopyFen.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("btnCopyFen null");
                                     }
                                 }
                             }
@@ -253,7 +271,7 @@ namespace Seirawan
         #region implement callBacks
 
         public SeirawanFenUI seirawanFenPrefab;
-        private static readonly UIRectTransform seirawanFenRect = UIRectTransform.createRequestRect(90, 10, 60);
+        private static readonly UIRectTransform seirawanFenRect = UIRectTransform.createRequestRect(90, 50, 60);
 
         public override void onAddCallBack<T>(T data)
         {
@@ -451,6 +469,44 @@ namespace Seirawan
         }
 
         #endregion
+
+        public void onClickBtnCopyFen()
+        {
+            if (this.data != null)
+            {
+                SeirawanFenUI.UIData seirawanFenUIData = this.data.seirawanFenUIData.v;
+                if (seirawanFenUIData != null)
+                {
+                    SeirawanFenUI seirawanFenUI = seirawanFenUIData.findCallBack<SeirawanFenUI>();
+                    if (seirawanFenUI != null)
+                    {
+                        Text tvFen = seirawanFenUI.tvFen;
+                        if (tvFen != null)
+                        {
+                            string fen = tvFen.text;
+                            UniClipboard.SetText(fen);
+                            Toast.showMessage("Copy Fen: " + fen);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvFen null");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("seirawanFenUI null");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("seirawanFenUIData null");
+                }
+            }
+            else
+            {
+                Debug.LogError("data null");
+            }
+        }
 
     }
 }

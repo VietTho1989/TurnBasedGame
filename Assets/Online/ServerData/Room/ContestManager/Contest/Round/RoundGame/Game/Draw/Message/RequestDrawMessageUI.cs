@@ -42,13 +42,13 @@ public class RequestDrawMessageUI : UIBehavior<RequestDrawMessageUI.UIData>
 
     #region txt, rect
 
-    private static readonly TxtLanguage txtRequest = new TxtLanguage();
+    public static readonly TxtLanguage txtRequest = new TxtLanguage();
 
-    private static readonly TxtLanguage txtAskAccept = new TxtLanguage();
-    private static readonly TxtLanguage txtAskRefuse = new TxtLanguage();
+    public static readonly TxtLanguage txtAskAccept = new TxtLanguage();
+    public static readonly TxtLanguage txtAskRefuse = new TxtLanguage();
 
-    private static readonly TxtLanguage txtAcceptAccept = new TxtLanguage();
-    private static readonly TxtLanguage txtAcceptRefuse = new TxtLanguage();
+    public static readonly TxtLanguage txtAcceptAccept = new TxtLanguage();
+    public static readonly TxtLanguage txtAcceptRefuse = new TxtLanguage();
 
     static RequestDrawMessageUI()
     {
@@ -181,28 +181,8 @@ public class RequestDrawMessageUI : UIBehavior<RequestDrawMessageUI.UIData>
                                         Debug.LogError("human null: " + this);
                                     }
                                 }
-                                // state
-                                switch (requestDrawMessage.action.v)
-                                {
-                                    case RequestDrawMessage.Action.Request:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtRequest.get("request draw");
-                                        break;
-                                    case RequestDrawMessage.Action.AskAccept:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtAskAccept.get("accept draw");
-                                        break;
-                                    case RequestDrawMessage.Action.AskRefuse:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtAskRefuse.get("refuse draw");
-                                        break;
-                                    case RequestDrawMessage.Action.AcceptAccept:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtAcceptAccept.get("accept cancel draw");
-                                        break;
-                                    case RequestDrawMessage.Action.AcceptRefuse:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtAcceptRefuse.get("refuse cancel draw");
-                                        break;
-                                    default:
-                                        Debug.LogError("unknown action: " + requestDrawMessage.action.v + "; " + this);
-                                        break;
-                                }
+                                // set
+                                tvContent.text = requestDrawMessage.getMessage(userName);
                             }
                             else
                             {

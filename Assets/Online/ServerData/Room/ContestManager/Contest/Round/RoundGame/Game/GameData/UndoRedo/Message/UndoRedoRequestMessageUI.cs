@@ -42,12 +42,12 @@ public class UndoRedoRequestMessageUI : UIBehavior<UndoRedoRequestMessageUI.UIDa
 
     #region txt, rect
 
-    private static readonly TxtLanguage txtAsk = new TxtLanguage();
-    private static readonly TxtLanguage txtAccept = new TxtLanguage();
-    private static readonly TxtLanguage txtRefuse = new TxtLanguage();
+    public static readonly TxtLanguage txtAsk = new TxtLanguage();
+    public static readonly TxtLanguage txtAccept = new TxtLanguage();
+    public static readonly TxtLanguage txtRefuse = new TxtLanguage();
 
-    private static readonly TxtLanguage txtUndo = new TxtLanguage();
-    private static readonly TxtLanguage txtRedo = new TxtLanguage();
+    public static readonly TxtLanguage txtUndo = new TxtLanguage();
+    public static readonly TxtLanguage txtRedo = new TxtLanguage();
 
     static UndoRedoRequestMessageUI()
     {
@@ -181,38 +181,8 @@ public class UndoRedoRequestMessageUI : UIBehavior<UndoRedoRequestMessageUI.UIDa
                                         Debug.LogError("human null: " + this);
                                     }
                                 }
-                                // operation
-                                string strOperation = txtUndo.get("undo");
-                                {
-                                    switch (undoRedoRequestMessage.operation.v)
-                                    {
-                                        case UndoRedoRequest.Operation.Undo:
-                                            strOperation = txtUndo.get("undo");
-                                            break;
-                                        case UndoRedoRequest.Operation.Redo:
-                                            strOperation = txtRedo.get("redo");
-                                            break;
-                                        default:
-                                            Debug.LogError("unknown operation: " + undoRedoRequestMessage.operation.v);
-                                            break;
-                                    }
-                                }
-                                // state
-                                switch (undoRedoRequestMessage.action.v)
-                                {
-                                    case UndoRedoRequestMessage.Action.Ask:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtAsk.get("request") + " " + strOperation;
-                                        break;
-                                    case UndoRedoRequestMessage.Action.Accept:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtAccept.get("accept") + " " + strOperation;
-                                        break;
-                                    case UndoRedoRequestMessage.Action.Refuse:
-                                        tvContent.text = "<color=grey>" + userName + "</color> " + txtRefuse.get("refuse") + " " + strOperation;
-                                        break;
-                                    default:
-                                        Debug.LogError("unknown action: " + undoRedoRequestMessage.action.v + "; " + this);
-                                        break;
-                                }
+                                // set
+                                tvContent.text = undoRedoRequestMessage.getMessage(userName);
                             }
                             else
                             {

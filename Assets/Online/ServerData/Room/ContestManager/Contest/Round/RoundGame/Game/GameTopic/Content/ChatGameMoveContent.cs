@@ -30,4 +30,13 @@ public class ChatGameMoveContent : ChatMessage.Content
 		return Type.GameMove;
 	}
 
+    #region getMessage
+
+    public override string getMessage()
+    {
+        return this.gameMove.v.print();
+    }
+
+    #endregion
+
 }

@@ -105,4 +105,57 @@ public class GamePlayerStateMessage : ChatMessage.Content
         }
     }
 
+    #region getMessage
+
+    public override string getMessage()
+    {
+        string ret = "";
+        {
+            // find userName
+            string userName = "";
+            {
+                Human human = ChatRoom.findHuman(this, this.userId.v);
+                if (human != null)
+                {
+                    userName = human.getPlayerName();
+                }
+                else
+                {
+                    Debug.LogError("human null");
+                }
+            }
+            // set
+            ret = getMessage(userName);
+        }
+        return ret;
+    }
+
+    public string getMessage(string userName)
+    {
+        string ret = "";
+        {
+            switch (this.action.v)
+            {
+                case GamePlayerStateMessage.Action.Surrender:
+                    ret = "<color=grey>" + userName + "</color>(" + GamePlayerStateMessageUI.txtPlayer.get("Player") + " " + this.playerIndex.v + ") " + GamePlayerStateMessageUI.txtSurrender.get("surrender");
+                    break;
+                case GamePlayerStateMessage.Action.Cancel:
+                    ret = "<color=grey>" + userName + "</color> " + GamePlayerStateMessageUI.txtRequest.get("request") + " " + GamePlayerStateMessageUI.txtPlayerLowerCase.get("player") + " " + this.playerIndex.v + " " + GamePlayerStateMessageUI.txtSurrenderCancellation.get(GamePlayerStateMessageUI.DefaultSurrenderCancellation);
+                    break;
+                case GamePlayerStateMessage.Action.AcceptCancel:
+                    ret = "<color=grey>" + userName + "</color> " + GamePlayerStateMessageUI.txtAccept.get("accept") + " " + GamePlayerStateMessageUI.txtPlayerLowerCase.get("player") + " " + this.playerIndex.v + " " + GamePlayerStateMessageUI.txtSurrenderCancellation.get(GamePlayerStateMessageUI.DefaultSurrenderCancellation);
+                    break;
+                case GamePlayerStateMessage.Action.RefuseCancel:
+                    ret = "<color=grey>" + userName + "</color> " + GamePlayerStateMessageUI.txtRefuse.get("refuse") + " " + GamePlayerStateMessageUI.txtPlayerLowerCase.get("player") + " " + this.playerIndex.v + " " + GamePlayerStateMessageUI.txtSurrenderCancellation.get(GamePlayerStateMessageUI.DefaultSurrenderCancellation);
+                    break;
+                default:
+                    Debug.LogError("unknown action: " + this.action.v + "; " + this);
+                    break;
+            }
+        }
+        return ret;
+    }
+
+    #endregion
+
 }

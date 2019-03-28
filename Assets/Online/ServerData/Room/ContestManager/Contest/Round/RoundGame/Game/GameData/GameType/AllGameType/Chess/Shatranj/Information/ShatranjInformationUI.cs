@@ -72,6 +72,7 @@ namespace Shatranj
         #region Refresh
 
         public Text lbFen;
+        public Button btnCopyFen;
 
         public Text lbChess960;
         public Toggle tgChess960;
@@ -172,6 +173,15 @@ namespace Shatranj
                                     {
                                         Debug.LogError("lbFen null");
                                     }
+                                    if (btnCopyFen != null)
+                                    {
+                                        btnCopyFen.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY((RectTransform)btnCopyFen.transform, deltaY + (UIConstants.ItemHeight - 30) / 2);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("btnCopyFen null");
+                                    }
                                     UIRectTransform.SetPosY(this.data.shatranjFenUIData.v, deltaY);
                                     deltaY += UIConstants.ItemHeight;
                                 }
@@ -184,6 +194,14 @@ namespace Shatranj
                                     else
                                     {
                                         Debug.LogError("lbFen null");
+                                    }
+                                    if (btnCopyFen != null)
+                                    {
+                                        btnCopyFen.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("btnCopyFen null");
                                     }
                                 }
                             }
@@ -253,7 +271,7 @@ namespace Shatranj
         #region implement callBacks
 
         public ShatranjFenUI shatranjFenPrefab;
-        private static readonly UIRectTransform shatranjFenRect = UIRectTransform.createRequestRect(90, 10, 60);
+        private static readonly UIRectTransform shatranjFenRect = UIRectTransform.createRequestRect(90, 50, 60);
 
         public override void onAddCallBack<T>(T data)
         {
@@ -441,6 +459,44 @@ namespace Shatranj
         }
 
         #endregion
+
+        public void onClickBtnCopyFen()
+        {
+            if (this.data != null)
+            {
+                ShatranjFenUI.UIData shatranjFenUIData = this.data.shatranjFenUIData.v;
+                if (shatranjFenUIData != null)
+                {
+                    ShatranjFenUI shatranjFenUI = shatranjFenUIData.findCallBack<ShatranjFenUI>();
+                    if (shatranjFenUI != null)
+                    {
+                        Text tvFen = shatranjFenUI.tvFen;
+                        if (tvFen != null)
+                        {
+                            string fen = tvFen.text;
+                            UniClipboard.SetText(fen);
+                            Toast.showMessage("Copy Fen: " + fen);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvFen null");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("shatranjFenUI null");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("shatranjFenUIData null");
+                }
+            }
+            else
+            {
+                Debug.LogError("data null");
+            }
+        }
 
     }
 }

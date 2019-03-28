@@ -63,6 +63,7 @@ namespace Khet
         private static readonly TxtLanguage txtMessage = new TxtLanguage();
 
         public Text lbFen;
+        public Button btnCopyFen;
 
         public Text lbStartPos;
         public Dropdown drStartPos;
@@ -185,6 +186,15 @@ namespace Khet
                                     {
                                         Debug.LogError("lbFen null");
                                     }
+                                    if (btnCopyFen != null)
+                                    {
+                                        btnCopyFen.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY((RectTransform)btnCopyFen.transform, deltaY + (UIConstants.ItemHeight - 30) / 2);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("btnCopyFen null");
+                                    }
                                     UIRectTransform.SetPosY(this.data.fenUIData.v, deltaY);
                                     deltaY += UIConstants.ItemHeight;
                                 }
@@ -197,6 +207,14 @@ namespace Khet
                                     else
                                     {
                                         Debug.LogError("lbFen null");
+                                    }
+                                    if (btnCopyFen != null)
+                                    {
+                                        btnCopyFen.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("btnCopyFen null");
                                     }
                                 }
                             }
@@ -274,7 +292,7 @@ namespace Khet
         #region implement callBacks
 
         public FenUI fenPrefab;
-        private static readonly UIRectTransform fenRect = UIRectTransform.createRequestRect(90, 10, 60);
+        private static readonly UIRectTransform fenRect = UIRectTransform.createRequestRect(90, 50, 60);
 
         public override void onAddCallBack<T>(T data)
         {
@@ -460,6 +478,44 @@ namespace Khet
         }
 
         #endregion
+
+        public void onClickBtnCopyFen()
+        {
+            if (this.data != null)
+            {
+                FenUI.UIData fenUIData = this.data.fenUIData.v;
+                if (fenUIData != null)
+                {
+                    FenUI fenUI = fenUIData.findCallBack<FenUI>();
+                    if (fenUI != null)
+                    {
+                        Text tvFen = fenUI.tvFen;
+                        if (tvFen != null)
+                        {
+                            string fen = tvFen.text;
+                            UniClipboard.SetText(fen);
+                            Toast.showMessage("Copy Fen: " + fen);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvFen null");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("fenUI null");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("fenUIData null");
+                }
+            }
+            else
+            {
+                Debug.LogError("data null");
+            }
+        }
 
     }
 }

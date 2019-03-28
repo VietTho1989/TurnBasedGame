@@ -170,14 +170,7 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
                                 {
                                     case ChatMessage.State.Normal:
                                         {
-                                            string message = "";
-                                            {
-                                                if (chatNormalContent.messages.vs.Count > 0)
-                                                {
-                                                    ChatNormalContent.Message contentMessage = chatNormalContent.messages.vs[chatNormalContent.messages.vs.Count - 1];
-                                                    message = contentMessage.message;
-                                                }
-                                            }
+                                            string message = chatNormalContent.getMessage();
                                             tvMessage.text = message;
                                         }
                                         break;
