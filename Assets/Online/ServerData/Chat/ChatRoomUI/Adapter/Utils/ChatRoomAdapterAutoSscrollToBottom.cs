@@ -172,6 +172,10 @@ public class ChatRoomAdapterAutoSscrollToBottom : UpdateBehavior<ChatRoomAdapter
                         needScrollToBottom = true;
                     }
                     break;
+                case ChatRoom.Property.editMax:
+                    break;
+                case ChatRoom.Property.maxId:
+                    break;
                 case ChatRoom.Property.chatViewers:
                     break;
                 case ChatRoom.Property.typing:

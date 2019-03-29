@@ -357,6 +357,10 @@ public class TypingUI : UIBehavior<TypingUI.UIData>
                         break;
                     case ChatRoom.Property.messages:
                         break;
+                    case ChatRoom.Property.editMax:
+                        break;
+                    case ChatRoom.Property.maxId:
+                        break;
                     case ChatRoom.Property.chatViewers:
                         break;
                     case ChatRoom.Property.typing:

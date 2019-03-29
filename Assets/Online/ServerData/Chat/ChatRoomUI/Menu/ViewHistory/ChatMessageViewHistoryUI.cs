@@ -15,18 +15,22 @@ public class ChatMessageViewHistoryUI : UIBehavior<ChatMessageViewHistoryUI.UIDa
 
         public VP<AccountAvatarUI.UIData> avatar;
 
+        public VP<ChatMessageHistoryAdapter.UIData> historyAdapter;
+
         #region Constructor
 
         public enum Property
         {
             chatNormalContent,
-            avatar
+            avatar,
+            historyAdapter
         }
 
         public UIData() : base()
         {
             this.chatNormalContent = new VP<ReferenceData<ChatNormalContent>>(this, (byte)Property.chatNormalContent, new ReferenceData<ChatNormalContent>(null));
             this.avatar = new VP<AccountAvatarUI.UIData>(this, (byte)Property.avatar, new AccountAvatarUI.UIData());
+            this.historyAdapter = new VP<ChatMessageHistoryAdapter.UIData>(this, (byte)Property.historyAdapter, new ChatMessageHistoryAdapter.UIData());
         }
 
         #endregion
@@ -103,6 +107,18 @@ public class ChatMessageViewHistoryUI : UIBehavior<ChatMessageViewHistoryUI.UIDa
                 ChatNormalContent chatNormalContent = this.data.chatNormalContent.v.data;
                 if (chatNormalContent != null)
                 {
+                    // historyAdapter
+                    {
+                        ChatMessageHistoryAdapter.UIData historyAdapter = this.data.historyAdapter.v;
+                        if (historyAdapter != null)
+                        {
+                            historyAdapter.chatNormalContent.v = new ReferenceData<ChatNormalContent>(chatNormalContent);
+                        }
+                        else
+                        {
+                            Debug.LogError("historyAdapter null");
+                        }
+                    }
                     // find human owner
                     {
                         // check old
@@ -235,6 +251,9 @@ public class ChatMessageViewHistoryUI : UIBehavior<ChatMessageViewHistoryUI.UIDa
     public AccountAvatarUI avatarPrefab;
     private static readonly UIRectTransform avatarRect = new UIRectTransform();
 
+    public ChatMessageHistoryAdapter chatMessageHistoryAdapterPrefab;
+    private static readonly UIRectTransform chatMessageHistoryRect = UIRectTransform.CreateFullRect(0, 0, 70, 0);
+
     public override void onAddCallBack<T>(T data)
     {
         if (data is UIData)
@@ -246,6 +265,7 @@ public class ChatMessageViewHistoryUI : UIBehavior<ChatMessageViewHistoryUI.UIDa
             {
                 uiData.chatNormalContent.allAddCallBack(this);
                 uiData.avatar.allAddCallBack(this);
+                uiData.historyAdapter.allAddCallBack(this);
             }
             dirty = true;
             return;
@@ -295,6 +315,16 @@ public class ChatMessageViewHistoryUI : UIBehavior<ChatMessageViewHistoryUI.UIDa
                 dirty = true;
                 return;
             }
+            if(data is ChatMessageHistoryAdapter.UIData)
+            {
+                ChatMessageHistoryAdapter.UIData chatMessageHistoryAdapterUIData = data as ChatMessageHistoryAdapter.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(chatMessageHistoryAdapterUIData, chatMessageHistoryAdapterPrefab, this.transform, chatMessageHistoryRect);
+                }
+                dirty = true;
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -310,6 +340,7 @@ public class ChatMessageViewHistoryUI : UIBehavior<ChatMessageViewHistoryUI.UIDa
             {
                 uiData.chatNormalContent.allRemoveCallBack(this);
                 uiData.avatar.allRemoveCallBack(this);
+                uiData.historyAdapter.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
             return;
@@ -354,6 +385,15 @@ public class ChatMessageViewHistoryUI : UIBehavior<ChatMessageViewHistoryUI.UIDa
                 }
                 return;
             }
+            if (data is ChatMessageHistoryAdapter.UIData)
+            {
+                ChatMessageHistoryAdapter.UIData chatMessageHistoryAdapterUIData = data as ChatMessageHistoryAdapter.UIData;
+                // UI
+                {
+                    chatMessageHistoryAdapterUIData.removeCallBackAndDestroy(typeof(ChatMessageHistoryAdapter));
+                }
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -375,6 +415,12 @@ public class ChatMessageViewHistoryUI : UIBehavior<ChatMessageViewHistoryUI.UIDa
                     }
                     break;
                 case UIData.Property.avatar:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.historyAdapter:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
@@ -483,6 +529,10 @@ public class ChatMessageViewHistoryUI : UIBehavior<ChatMessageViewHistoryUI.UIDa
                 }
             }
             if (wrapProperty.p is AccountAvatarUI.UIData)
+            {
+                return;
+            }
+            if (wrapProperty.p is ChatMessageHistoryAdapter.UIData)
             {
                 return;
             }

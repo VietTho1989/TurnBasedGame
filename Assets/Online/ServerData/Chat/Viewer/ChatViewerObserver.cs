@@ -93,6 +93,8 @@ public class ChatViewerObserver : GameObserver.CheckChange
                     break;
                 case ChatViewer.Property.isActive:
                     break;
+                case ChatViewer.Property.alreadyViewMaxId:
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;

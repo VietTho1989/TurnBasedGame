@@ -32,11 +32,15 @@ public class ChatRoomUpdate : UpdateBehavior<ChatRoom>
                 {
                     uint maxId = 0;
                     {
-                        int messageCount = this.data.messages.vs.Count;
-                        if (messageCount > 0)
+                        int min = Math.Max(0, this.data.messages.vs.Count - 50);
+                        for (int i = this.data.messages.vs.Count - 1; i >= min; i--)
                         {
-                            ChatMessage lastMessage = this.data.messages.vs[messageCount - 1];
-                            maxId = lastMessage.uid;
+                            ChatMessage lastMessage = this.data.messages.vs[i];
+                            if (lastMessage.content.v.isNeedMakeNew())
+                            {
+                                maxId = lastMessage.uid;
+                                break;
+                            }
                         }
                     }
                     this.data.maxId.v = maxId;

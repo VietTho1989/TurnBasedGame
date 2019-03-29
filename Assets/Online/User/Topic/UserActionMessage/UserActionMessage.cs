@@ -44,6 +44,11 @@ public class UserActionMessage : ChatMessage.Content
 		return Type.UserAction;
 	}
 
+    public override bool isNeedMakeNew()
+    {
+        return false;
+    }
+
     #region getMessage
 
     public override string getMessage()

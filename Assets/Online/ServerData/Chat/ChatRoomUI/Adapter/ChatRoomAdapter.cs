@@ -376,14 +376,22 @@ public class ChatRoomAdapter : SRIA<ChatRoomAdapter.UIData, ChatMessageHolder.UI
         {
             switch ((ChatRoom.Property)wrapProperty.n)
             {
+                case ChatRoom.Property.topic:
+                    break;
+                case ChatRoom.Property.isEnable:
+                    break;
                 case ChatRoom.Property.players:
                     break;
                 case ChatRoom.Property.messages:
                     dirty = true;
                     break;
-                case ChatRoom.Property.typing:
+                case ChatRoom.Property.editMax:
                     break;
-                case ChatRoom.Property.isEnable:
+                case ChatRoom.Property.maxId:
+                    break;
+                case ChatRoom.Property.chatViewers:
+                    break;
+                case ChatRoom.Property.typing:
                     break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

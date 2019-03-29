@@ -225,7 +225,8 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
                                 }
                                 else
                                 {
-                                    btnMenu.interactable = false;
+                                    // btnMenu.interactable = false;
+                                    btnMenu.interactable = true;
                                 }
                             }
                             else

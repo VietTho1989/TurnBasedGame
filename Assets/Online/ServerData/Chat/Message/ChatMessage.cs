@@ -130,6 +130,11 @@ public class ChatMessage : Data
 
         public abstract string getMessage();
 
+        public virtual bool isNeedMakeNew()
+        {
+            return true;
+        }
+
     }
 
     public VP<Content> content;

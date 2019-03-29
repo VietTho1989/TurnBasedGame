@@ -136,6 +136,7 @@ public class ChatNormalContent : ChatMessage.Content
         {
             ChatNormalContentEdit edit = new ChatNormalContentEdit();
             {
+                edit.uid = this.edits.makeId();
                 edit.time.v = Global.getRealTimeInMiliSeconds();
                 edit.message.v = newMessage;
             }
