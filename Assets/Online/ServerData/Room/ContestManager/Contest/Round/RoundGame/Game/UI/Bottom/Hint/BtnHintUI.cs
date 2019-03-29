@@ -70,12 +70,12 @@ public class BtnHintUI : UIBehavior<BtnHintUI.UIData>
                 }
                 else
                 {
-                    Debug.LogError("gameData null");
+                    // Debug.LogError("gameData null");
                 }
             }
             else
             {
-                Debug.LogError("data null");
+                // Debug.LogError("data null");
             }
         }
     }

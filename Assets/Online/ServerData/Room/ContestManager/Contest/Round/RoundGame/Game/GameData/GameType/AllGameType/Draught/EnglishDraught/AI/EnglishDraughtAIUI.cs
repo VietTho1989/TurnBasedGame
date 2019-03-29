@@ -312,7 +312,7 @@ namespace EnglishDraught
                                 }
                                 else
                                 {
-                                    Debug.LogError("server null: " + this);
+                                    // Debug.LogError("server null: " + this);
                                 }
                             }
                             // set origin

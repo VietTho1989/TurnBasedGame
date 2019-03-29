@@ -459,7 +459,7 @@ namespace GameManager.Match
                                         }
                                         else
                                         {
-                                            Debug.LogError("roundFactoryType null: " + this);
+                                            // Debug.LogError("roundFactoryType null: " + this);
                                         }
                                     }
                                     // roundFactoryUI

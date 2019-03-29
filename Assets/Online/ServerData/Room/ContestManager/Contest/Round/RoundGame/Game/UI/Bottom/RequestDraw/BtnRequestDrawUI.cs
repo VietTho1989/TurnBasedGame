@@ -75,21 +75,21 @@ public class BtnRequestDrawUI : UIBehavior<BtnRequestDrawUI.UIData>
                     {
                         Debug.LogError("highlightIndicator null");
                     }
+                    // txt
+                    {
+                        if (lbTitle != null)
+                        {
+                            lbTitle.text = txtTitle.get("Request Draw");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null");
+                        }
+                    }
                 }
                 else
                 {
-                    Debug.LogError("requestDraw null");
-                }
-                // txt
-                {
-                    if (lbTitle != null)
-                    {
-                        lbTitle.text = txtTitle.get("Request Draw");
-                    }
-                    else
-                    {
-                        Debug.LogError("lbTitle null");
-                    }
+                    // Debug.LogError("requestDraw null");
                 }
             }
             else

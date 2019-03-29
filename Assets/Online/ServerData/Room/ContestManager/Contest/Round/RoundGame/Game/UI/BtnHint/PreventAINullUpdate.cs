@@ -26,7 +26,7 @@ namespace Hint
                         }
                         else
                         {
-                            Debug.LogError("gameData null: " + this);
+                            // Debug.LogError("gameData null: " + this);
                         }
                     }
                     if (gameType != null)

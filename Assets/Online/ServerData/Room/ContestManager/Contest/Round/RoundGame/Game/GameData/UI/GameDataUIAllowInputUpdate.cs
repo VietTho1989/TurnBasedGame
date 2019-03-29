@@ -163,7 +163,7 @@ public class GameDataUIAllowInputUpdate : UpdateBehavior<GameDataUI.UIData>
                         }
                         else
                         {
-                            Debug.LogError("gameData null: " + this);
+                            // Debug.LogError("gameData null: " + this);
                         }
                     }
                     else
