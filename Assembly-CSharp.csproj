@@ -1789,6 +1789,10 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Chess\UI\Input\NoneRule\ClickMove\Move\ChessCustomMoveUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Chess\UI\Input\NoneRule\ClickNone\ClickNoneUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Chess\UI\Input\NoneRule\ClickPos\ClickPosUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Chess\UI\Input\NoneRule\CreateByFen\CreateByFenUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Chess\UI\Input\NoneRule\CreateByFen\Move\ChessCustomFen.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Chess\UI\Input\NoneRule\CreateByFen\Move\ChessCustomFenIdentity.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Chess\UI\Input\NoneRule\CreateByFen\Move\ChessCustomFenUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Chess\UI\Input\NoneRule\NoneRuleInputUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Chess\UI\Input\NoneRule\SetPiece\Adapter\ChoosePieceAdapter.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Chess\UI\Input\NoneRule\SetPiece\Adapter\ChoosePieceHolder.cs" />
@@ -1844,6 +1848,10 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\FairyChess\UI\Input\NoneRule\ClickMove\Move\FairyChessCustomMoveUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\FairyChess\UI\Input\NoneRule\ClickNone\ClickNoneUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\FairyChess\UI\Input\NoneRule\ClickPos\ClickPosUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\FairyChess\UI\Input\NoneRule\CreateByFen\CreateByFenUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\FairyChess\UI\Input\NoneRule\CreateByFen\Move\FairyChessCustomFen.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\FairyChess\UI\Input\NoneRule\CreateByFen\Move\FairyChessCustomFenIdentity.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\FairyChess\UI\Input\NoneRule\CreateByFen\Move\FairyChessCustomFenUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\FairyChess\UI\Input\NoneRule\NoneRuleInputUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\FairyChess\UI\Input\NoneRule\SetHand\Adapter\SetHandAdapter.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\FairyChess\UI\Input\NoneRule\SetHand\Adapter\SetHandHolder.cs" />
@@ -1906,6 +1914,10 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Makruk\UI\Input\NoneRule\ClickMove\Move\MakrukCustomMoveUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Makruk\UI\Input\NoneRule\ClickNone\ClickNoneUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Makruk\UI\Input\NoneRule\ClickPos\ClickPosUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Makruk\UI\Input\NoneRule\CreateByFen\CreateByFenUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Makruk\UI\Input\NoneRule\CreateByFen\Move\FairyChessCustomFen.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Makruk\UI\Input\NoneRule\CreateByFen\Move\FairyChessCustomFenIdentity.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Makruk\UI\Input\NoneRule\CreateByFen\Move\FairyChessCustomFenUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Makruk\UI\Input\NoneRule\NoneRuleInputUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Makruk\UI\Input\NoneRule\SetPiece\Adapter\ChoosePieceAdapter.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Chess\Makruk\UI\Input\NoneRule\SetPiece\Adapter\ChoosePieceHolder.cs" />

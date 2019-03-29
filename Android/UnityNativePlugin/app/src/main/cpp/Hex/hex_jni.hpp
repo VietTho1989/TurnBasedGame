@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <cstdint>
+#include "../Platform.h"
 #include "fhcore/hex_board.hpp"
 
 namespace Hex
@@ -18,21 +19,21 @@ namespace Hex
     extern "C"
     {
         
-        int32_t hex_makeDefaultPosition(uint16_t boardSize, uint8_t* &outRet);
+        EXPORTED int32_t hex_makeDefaultPosition(uint16_t boardSize, uint8_t* &outRet);
         
-        int32_t hex_isGameFinish(uint8_t* positionBytes, int32_t length, bool canCorrect);
+        EXPORTED int32_t hex_isGameFinish(uint8_t* positionBytes, int32_t length, bool canCorrect);
         
-        uint16_t hex_letComputerThink(uint8_t* positionBytes, int32_t length, bool canCorrect, int32_t limitTime, bool firstMoveCenter);
+        EXPORTED uint16_t hex_letComputerThink(uint8_t* positionBytes, int32_t length, bool canCorrect, int32_t limitTime, bool firstMoveCenter);
         
-        bool hex_isLegalMove(uint8_t* positionBytes, int32_t length, bool canCorrect, uint16_t move);
+        EXPORTED bool hex_isLegalMove(uint8_t* positionBytes, int32_t length, bool canCorrect, uint16_t move);
         
-        int32_t hex_doMove(uint8_t* positionBytes, int32_t length, bool canCorrect, uint16_t move, uint8_t* &outRet);
+        EXPORTED int32_t hex_doMove(uint8_t* positionBytes, int32_t length, bool canCorrect, uint16_t move, uint8_t* &outRet);
         
         ///////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////// Print ///////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////
         
-        int32_t hex_printPosition(uint8_t* positionBytes, int32_t positionLength, bool canCorrect, uint8_t* &outStrPosition);
+        EXPORTED int32_t hex_printPosition(uint8_t* positionBytes, int32_t positionLength, bool canCorrect, uint8_t* &outStrPosition);
         
     }
 }

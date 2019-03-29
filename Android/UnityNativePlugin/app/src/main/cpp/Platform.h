@@ -13,6 +13,17 @@
 #define Debug
 #endif
 
+// Define EXPORTED for any platform
+#ifdef _WIN32
+# ifdef WIN_EXPORT
+#   define EXPORTED  __declspec( dllexport )
+# else
+#   define EXPORTED  __declspec( dllimport )
+# endif
+#else
+# define EXPORTED
+#endif
+
 #ifdef _MSC_VER
 #define __FLT_EPSILON__ 1.192092896e-07F
 #endif
@@ -27,8 +38,8 @@ uint32_t fast_random(uint32_t max);
 #define strcasecmp _stricmp
 #endif
 
-#ifndef Android1
-#define Android1
+#ifndef Android
+#define Android
 #endif
 
 #ifndef Android

@@ -95,6 +95,20 @@ namespace Chess
                                     this.data.sub.v = chessCustomMoveUIData;
                                 }
                                 break;
+                            case GameMove.Type.ChessCustomFen:
+                                {
+                                    ChessCustomFen chessCustomFen = lastMove as ChessCustomFen;
+                                    // Find
+                                    ChessCustomFenUI.UIData chessCustomFenUIData = this.data.sub.newOrOld<ChessCustomFenUI.UIData>();
+                                    {
+                                        // move
+                                        chessCustomFenUIData.chessCustomFen.v = new ReferenceData<ChessCustomFen>(chessCustomFen);
+                                        // isHint
+                                        chessCustomFenUIData.isHint.v = false;
+                                    }
+                                    this.data.sub.v = chessCustomFenUIData;
+                                }
+                                break;
                             case GameMove.Type.None:
                                 this.data.sub.v = null;
                                 break;
@@ -129,6 +143,7 @@ namespace Chess
         public ChessMoveUI chessMovePrefab;
         public ChessCustomSetUI chessCustomSetPrefab;
         public ChessCustomMoveUI chessCustomMovePrefab;
+        public ChessCustomFenUI chessCustomFenPrefab;
 
         private LastMoveCheckChange<UIData> lastMoveCheckChange = new LastMoveCheckChange<UIData>();
 
@@ -179,6 +194,12 @@ namespace Chess
                             {
                                 ChessCustomMoveUI.UIData chessCustomMoveUIData = lastMoveSub as ChessCustomMoveUI.UIData;
                                 UIUtils.Instantiate(chessCustomMoveUIData, chessCustomMovePrefab, this.transform);
+                            }
+                            break;
+                        case GameMove.Type.ChessCustomFen:
+                            {
+                                ChessCustomFenUI.UIData chessCustomFenUIData = lastMoveSub as ChessCustomFenUI.UIData;
+                                UIUtils.Instantiate(chessCustomFenUIData, chessCustomFenPrefab, this.transform);
                             }
                             break;
                         default:
@@ -238,6 +259,12 @@ namespace Chess
                             {
                                 ChessCustomMoveUI.UIData chessCustomMoveUIData = lastMoveSub as ChessCustomMoveUI.UIData;
                                 chessCustomMoveUIData.removeCallBackAndDestroy(typeof(ChessCustomMoveUI));
+                            }
+                            break;
+                        case GameMove.Type.ChessCustomFen:
+                            {
+                                ChessCustomFenUI.UIData chessCustomFenUIData = lastMoveSub as ChessCustomFenUI.UIData;
+                                chessCustomFenUIData.removeCallBackAndDestroy(typeof(ChessCustomFenUI));
                             }
                             break;
                         default:

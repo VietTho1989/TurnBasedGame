@@ -250,6 +250,8 @@ namespace Chess
                             return true;
                         case GameMove.Type.ChessCustomMove:
                             return true;
+                        case GameMove.Type.ChessCustomFen:
+                            return true;
                         default:
                             Debug.LogError("unknown game type: " + gameMove.getType() + "; " + this);
                             return true;
@@ -302,6 +304,15 @@ namespace Chess
                                     Common.Square destSquare = Common.make_square((Common.File)chessCustomMove.destX.v, (Common.Rank)chessCustomMove.destY.v);
                                     tempChess.setPieceOn(destSquare, tempChess.piece_on(fromSquare));
                                     tempChess.setPieceOn(fromSquare, Common.Piece.NO_PIECE);
+                                }
+                            }
+                            break;
+                        case GameMove.Type.ChessCustomFen:
+                            {
+                                ChessCustomFen chessCustomFen = gameMove as ChessCustomFen;
+                                // Update
+                                {
+                                    tempChess = Core.unityMakePositionByFen(chessCustomFen.fen.v, tempChess.chess960.v);
                                 }
                             }
                             break;
@@ -358,6 +369,7 @@ namespace Chess
                     case GameMove.Type.ChessCustomSet:
                     case GameMove.Type.Clear:
                     case GameMove.Type.ChessCustomMove:
+                    case GameMove.Type.ChessCustomFen:
                         this.processCustomGameMove(gameMove);
                         break;
                     default:

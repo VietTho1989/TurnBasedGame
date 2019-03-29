@@ -19,19 +19,19 @@ namespace NMM
         
         const int32_t DrawTurn = 2000;
         
-        int32_t nmm_makeDefaultPosition(uint8_t* &outRet);
+        EXPORTED int32_t nmm_makeDefaultPosition(uint8_t* &outRet);
         
-        int32_t nmm_isGameFinish(uint8_t* positionBytes, int32_t length, bool canCorrect);
+        EXPORTED int32_t nmm_isGameFinish(uint8_t* positionBytes, int32_t length, bool canCorrect);
         
-        int32_t nmm_letComputerThink(uint8_t* positionBytes, int32_t length, bool canCorrect, int32_t MaxNormal, int32_t MaxPositioning, int32_t MaxBlackAndWhite3, int32_t MaxBlackOrWhite3, int32_t pickBestMove, uint8_t* &outRet);
+        EXPORTED int32_t nmm_letComputerThink(uint8_t* positionBytes, int32_t length, bool canCorrect, int32_t MaxNormal, int32_t MaxPositioning, int32_t MaxBlackAndWhite3, int32_t MaxBlackOrWhite3, int32_t pickBestMove, uint8_t* &outRet);
         
-        bool nmm_isLegalMove(uint8_t* positionBytes, int32_t length, bool canCorrect, uint8_t* moveBytes, int32_t moveLength);
+        EXPORTED bool nmm_isLegalMove(uint8_t* positionBytes, int32_t length, bool canCorrect, uint8_t* moveBytes, int32_t moveLength);
         
-        int32_t nmm_doMove(uint8_t* positionBytes, int32_t length, bool canCorrect, uint8_t* moveBytes, int32_t moveLength, uint8_t* &outRet);
+        EXPORTED int32_t nmm_doMove(uint8_t* positionBytes, int32_t length, bool canCorrect, uint8_t* moveBytes, int32_t moveLength, uint8_t* &outRet);
         
-        int32_t nmm_getLegalMoves(uint8_t* positionBytes, int32_t length, bool canCorrect, uint8_t* &outLegalMoves);
+        EXPORTED int32_t nmm_getLegalMoves(uint8_t* positionBytes, int32_t length, bool canCorrect, uint8_t* &outLegalMoves);
         
-        int32_t nmm_printPosition(uint8_t* positionBytes, int32_t positionLength, bool canCorrect, uint8_t* &outStrPosition);
+        EXPORTED int32_t nmm_printPosition(uint8_t* positionBytes, int32_t positionLength, bool canCorrect, uint8_t* &outStrPosition);
     
     }
 }

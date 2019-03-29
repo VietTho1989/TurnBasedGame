@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.IO;
 using FileSystem;
-using MineSweeper;
+using Chess.NoneRule;
 
 public class GlobalInit : MonoBehaviour
 {
@@ -18,7 +18,7 @@ public class GlobalInit : MonoBehaviour
 
         // MakeIdentity
         {
-            // DataMakeIdentityUtils.makeIdentity(typeof(ChatNormalContentEdit));
+            // DataMakeIdentityUtils.makeIdentity(typeof(ChessCustomFen));
         }
 
         // Set AssetManager

@@ -13,6 +13,7 @@ public abstract class GameMove : Data
 		ChessMove,
 		ChessCustomSet,
 		ChessCustomMove,
+        ChessCustomFen,
 
 		ShatranjMove,
 		ShatranjCustomMove,
@@ -31,6 +32,7 @@ public abstract class GameMove : Data
 		FairyChessCustomMove,
 		FairyChessCustomSet,
 		FairyChessCustomHand,
+        FairyChessCustomFen,
 
 		XiangqiMove,
 		XiangqiCustomSet,

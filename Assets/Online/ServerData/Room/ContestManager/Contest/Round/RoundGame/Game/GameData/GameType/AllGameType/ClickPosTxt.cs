@@ -11,19 +11,22 @@ public class ClickPosTxt
     public const string DefaultClickPosTitle = "Choose Action";
 
     public static readonly TxtLanguage txtClickPosSetPiece = new TxtLanguage();
-    public const string DefaultClickPosSetPiece = "Set piece";
+    public const string DefaultClickPosSetPiece = "Set Piece";
 
     public static readonly TxtLanguage txtClickPosSetHand = new TxtLanguage();
-    public const string DefaultClickPosSetHand = "Set hand";
+    public const string DefaultClickPosSetHand = "Set Hand";
 
     public static readonly TxtLanguage txtClickPosMove = new TxtLanguage();
-    public const string DefaultClickPosMove = "Move piece";
+    public const string DefaultClickPosMove = "Move Piece";
 
     public static readonly TxtLanguage txtClickPosEndTurn = new TxtLanguage();
-    public const string DefaultClickPosEndTurn = "End turn";
+    public const string DefaultClickPosEndTurn = "End Turn";
 
     public static readonly TxtLanguage txtClickPosClear = new TxtLanguage();
     public const string DefaultClickPosClear = "Clear";
+
+    public static readonly TxtLanguage txtClickPosCreateByFen = new TxtLanguage();
+    public const string DefaultClickPosCreateByFen = "Create By Fen";
 
     public static readonly TxtLanguage txtClickPosFlip = new TxtLanguage();
     public const string DefaultClickPosFlip = "Flip";
@@ -88,16 +91,33 @@ public class ClickPosTxt
 
     #endregion
 
+    #region createByFenUI
+
+    public static readonly TxtLanguage txtCreateByFenTitle = new TxtLanguage();
+    public const string DefaultCreateByFenTitle = "Create Board By Fen";
+
+    public static readonly TxtLanguage txtCreateByFenPlaceHolder = new TxtLanguage();
+    public const string DefaultCreateByFenPlaceHolder = "Enter the fen...";
+
+    public static readonly TxtLanguage txtCreateByFenCreate = new TxtLanguage();
+    public const string DefaultCreateByFenCreate = "Create";
+
+    public static readonly TxtLanguage txtCreateByFenMove = new TxtLanguage();
+    public const string DefaultCreateByFenMove = "Create By Fen";
+
+    #endregion
+
     static ClickPosTxt()
     {
         // clickPos
         {
             txtClickPosTitle.add(Language.Type.vi, "Chọn Hành Động");
-            txtClickPosSetPiece.add(Language.Type.vi, "Đặt quân cờ");
-            txtClickPosSetHand.add(Language.Type.vi, "Cầm quân cờ");
+            txtClickPosSetPiece.add(Language.Type.vi, "Đặt Quân Cờ");
+            txtClickPosSetHand.add(Language.Type.vi, "Cầm Quân Cờ");
             txtClickPosMove.add(Language.Type.vi, "Dời quân cờ");
-            txtClickPosEndTurn.add(Language.Type.vi, "Kết thúc lượt");
+            txtClickPosEndTurn.add(Language.Type.vi, "Kết Thúc Lượt");
             txtClickPosClear.add(Language.Type.vi, "Xoá sạch");
+            txtClickPosCreateByFen.add(Language.Type.vi, "Tạo Bàn Cờ Theo Fen");
             txtClickPosFlip.add(Language.Type.vi, "Lật");
         }
         // setPiece
@@ -147,6 +167,13 @@ public class ClickPosTxt
         {
             txtChoose.add(Language.Type.vi, "Chọn");
             txtCancel.add(Language.Type.vi, "Huỷ Bỏ");
+        }
+        // createByFen
+        {
+            txtCreateByFenTitle.add(Language.Type.vi, "Tạo Bàn Cờ Theo Fen");
+            txtCreateByFenPlaceHolder.add(Language.Type.vi, "Điền fen...");
+            txtCreateByFenCreate.add(Language.Type.vi, "Tạo");
+            txtCreateByFenMove.add(Language.Type.vi, "Tạo Theo Fen");
         }
     }
 

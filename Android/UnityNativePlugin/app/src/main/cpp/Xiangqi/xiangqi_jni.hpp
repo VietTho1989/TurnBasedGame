@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
+#include "../Platform.h"
 
 namespace Xiangqi
 {
@@ -21,31 +22,31 @@ namespace Xiangqi
         
         extern char xiangqi_bookPath[1024];
         
-        bool xiangqi_setBookPath(const char* newBookPath);
+        EXPORTED bool xiangqi_setBookPath(const char* newBookPath);
         
-        void xiangqi_initCore();
+        EXPORTED void xiangqi_initCore();
         
         ///////////////////////////////////////////////////////////////////////////////
         ///////////////////// Core ////////////////////
         ///////////////////////////////////////////////////////////////////////////////
 
-        int32_t xiangqi_makePositionByFen(const char* strFen, uint8_t* &outRet);
+        EXPORTED int32_t xiangqi_makePositionByFen(const char* strFen, uint8_t* &outRet);
         
-        void xiangqi_printPosition(uint8_t* positionBytes, int32_t length, bool canCorrect);
+        EXPORTED void xiangqi_printPosition(uint8_t* positionBytes, int32_t length, bool canCorrect);
         
-        void xiangqi_printPositionFen(uint8_t* positionBytes, int32_t length, bool canCorrect);
+        EXPORTED void xiangqi_printPositionFen(uint8_t* positionBytes, int32_t length, bool canCorrect);
 
-        int32_t xiangqi_isGameFinish(uint8_t* positionBytes, int32_t length, bool canCorrect);
+        EXPORTED int32_t xiangqi_isGameFinish(uint8_t* positionBytes, int32_t length, bool canCorrect);
         
-        uint32_t xiangqi_letComputerThink(uint8_t* positionBytes, int32_t length, bool canCorrect, int32_t depth, int32_t lngLimitTime, bool useBook, int32_t pickBestMove);
+        EXPORTED uint32_t xiangqi_letComputerThink(uint8_t* positionBytes, int32_t length, bool canCorrect, int32_t depth, int32_t lngLimitTime, bool useBook, int32_t pickBestMove);
         
-        void xiangqi_printMove(uint32_t move);
+        EXPORTED void xiangqi_printMove(uint32_t move);
         
-        bool xiangqi_isLegalMove(uint8_t* positionBytes, int32_t length, bool canCorrect, uint32_t move);
+        EXPORTED bool xiangqi_isLegalMove(uint8_t* positionBytes, int32_t length, bool canCorrect, uint32_t move);
 
-        int32_t xiangqi_doMove(uint8_t* positionBytes, int32_t length, bool canCorrect, uint32_t move, uint8_t* &outRet);
+        EXPORTED int32_t xiangqi_doMove(uint8_t* positionBytes, int32_t length, bool canCorrect, uint32_t move, uint8_t* &outRet);
 
-        int32_t xiangqi_getLegalMoves(uint8_t* positionBytes, int32_t length, bool canCorrect, uint8_t* &outLegalMoves);
+        EXPORTED int32_t xiangqi_getLegalMoves(uint8_t* positionBytes, int32_t length, bool canCorrect, uint8_t* &outLegalMoves);
         
         ///////////////////////////////////////////////////////////////////////////////
         ///////////////////// Evaluate Position ////////////////////
@@ -60,7 +61,7 @@ namespace Xiangqi
             int32_t knightTrap = 0;
         };
         
-        void evaluatePosition(uint8_t* positionBytes, int32_t length, bool canCorrect, int32_t depth, int32_t lngLimitTime, bool useBook, int32_t chosenType, int32_t differentScore);
+        EXPORTED void evaluatePosition(uint8_t* positionBytes, int32_t length, bool canCorrect, int32_t depth, int32_t lngLimitTime, bool useBook, int32_t chosenType, int32_t differentScore);
     }
 
 }

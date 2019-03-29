@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <mutex>
+#include "../Platform.h"
 #include "weiqi_board.hpp"
 #include "weiqi_engine.hpp"
 
@@ -19,7 +20,7 @@ extern "C"
     namespace weiqi
     {
         
-        void weiqi_initCore();
+        EXPORTED void weiqi_initCore();
         
         extern std::mutex weiqi_prepareMutex;
         extern int32_t weiqi_prepareCount;
@@ -33,7 +34,7 @@ extern "C"
         extern bool weiqi_alreadyInitSpatialDict;
         extern bool weiqi_alreadyInitPatternFile;
         
-        bool weiqi_setFileName(const char* newSpatialDictFileName, const char* newPatternFileName);
+        EXPORTED bool weiqi_setFileName(const char* newSpatialDictFileName, const char* newPatternFileName);
         
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////// set book  /////////////////////
@@ -43,7 +44,7 @@ extern "C"
         
         extern std::mutex initBookMtx;
         
-        bool weiqi_setBookPath(const char* newBookPath);
+        EXPORTED bool weiqi_setBookPath(const char* newBookPath);
         
         struct BookCache
         {
@@ -58,23 +59,24 @@ extern "C"
         ////////////////////////////// normal method /////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        int32_t weiqi_makeDefaultPosition(int32_t size, floating_t komi, go_ruleset rule, int32_t handicap, uint8_t* &outRet);
+        EXPORTED int32_t weiqi_makeDefaultPosition(int32_t size, floating_t komi, go_ruleset rule, int32_t handicap, uint8_t* &outRet);
         
-        int32_t weiqi_makeCustomPosition(int32_t size, floating_t komi, go_ruleset rule, int32_t* board, int32_t captureBlack, int32_t captureWhite, int lastMoveColor, uint8_t* &outRet);
+        EXPORTED int32_t weiqi_makeCustomPosition(int32_t size, floating_t komi, go_ruleset rule, int32_t* board, int32_t captureBlack, int32_t captureWhite, int lastMoveColor, uint8_t* &outRet);
         
-        void weiqi_printPosition(uint8_t* positionBytes, int32_t length, bool canCorrect);
+        EXPORTED void weiqi_printPosition(uint8_t* positionBytes, int32_t length, bool canCorrect);
 
-        int32_t weiqi_isGameFinish(uint8_t* positionBytes, int32_t length, bool canCorrect);
+        EXPORTED int32_t weiqi_isGameFinish(uint8_t* positionBytes, int32_t length, bool canCorrect);
 
-        int32_t weiqi_letComputerThink(uint8_t* positionBytes, int32_t length, bool canCorrect, bool canResign, bool usebook, int64_t time, int32_t games, engine_id engine, uint8_t* &outRet);
+        EXPORTED int32_t weiqi_letComputerThink(uint8_t* positionBytes, int32_t length, bool canCorrect, bool canResign, bool usebook, int64_t time, int32_t games, engine_id engine, uint8_t* &outRet);
         
-        void weiqi_printMove(uint8_t* positionBytes, int32_t length, bool canCorrect, uint8_t* moveBytes, int32_t moveLength);
+        EXPORTED void weiqi_printMove(uint8_t* positionBytes, int32_t length, bool canCorrect, uint8_t* moveBytes, int32_t moveLength);
         
-        bool weiqi_isLegalMove(uint8_t* positionBytes, int32_t length, bool canCorrect, uint8_t* moveBytes, int32_t moveLength);
+        EXPORTED bool weiqi_isLegalMove(uint8_t* positionBytes, int32_t length, bool canCorrect, uint8_t* moveBytes, int32_t moveLength);
 
-        int32_t weiqi_doMove(uint8_t* positionBytes, int32_t length, bool canCorrect, uint8_t* moveBytes, int32_t moveLength, bool needUpdateScore, uint8_t* &outRet);
+        EXPORTED int32_t weiqi_doMove(uint8_t* positionBytes, int32_t length, bool canCorrect, uint8_t* moveBytes, int32_t moveLength, bool needUpdateScore, uint8_t* &outRet);
 
-        int32_t weiqi_updateScore(uint8_t* positionBytes, int32_t length, bool canCorrect, uint8_t* &outRet);
+        EXPORTED int32_t weiqi_updateScore(uint8_t* positionBytes, int32_t length, bool canCorrect, uint8_t* &outRet);
+        
     }
 }
 

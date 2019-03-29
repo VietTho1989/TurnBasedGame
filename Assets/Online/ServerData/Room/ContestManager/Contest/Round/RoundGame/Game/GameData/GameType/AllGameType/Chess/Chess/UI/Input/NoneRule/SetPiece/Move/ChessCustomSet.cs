@@ -29,9 +29,11 @@ namespace Chess.NoneRule
 			this.piece = new VP<Common.Piece> (this, (byte)Property.piece, Common.Piece.NO_PIECE);
 		}
 
-		#endregion
+        #endregion
 
-		public override Type getType ()
+        #region implement base
+
+        public override Type getType ()
 		{
 			return Type.ChessCustomSet;
 		}
@@ -51,5 +53,7 @@ namespace Chess.NoneRule
 
 		}
 
-	}
+        #endregion
+
+    }
 }

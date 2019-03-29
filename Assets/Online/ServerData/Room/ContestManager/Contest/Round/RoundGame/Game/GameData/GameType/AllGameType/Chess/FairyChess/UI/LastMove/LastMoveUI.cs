@@ -109,6 +109,20 @@ namespace FairyChess
                                     this.data.sub.v = fairyChessCustomHandUIData;
                                 }
                                 break;
+                            case GameMove.Type.FairyChessCustomFen:
+                                {
+                                    FairyChessCustomFen fairyChessCustomFen = lastMove as FairyChessCustomFen;
+                                    // Find
+                                    FairyChessCustomFenUI.UIData fairyChessCustomFenUIData = this.data.sub.newOrOld<FairyChessCustomFenUI.UIData>();
+                                    {
+                                        // move
+                                        fairyChessCustomFenUIData.fairyChessCustomFen.v = new ReferenceData<FairyChessCustomFen>(fairyChessCustomFen);
+                                        // isHint
+                                        fairyChessCustomFenUIData.isHint.v = false;
+                                    }
+                                    this.data.sub.v = fairyChessCustomFenUIData;
+                                }
+                                break;
                             case GameMove.Type.None:
                                 this.data.sub.v = null;
                                 break;
@@ -144,6 +158,7 @@ namespace FairyChess
         public FairyChessCustomSetUI fairyChessCustomSetPrefab;
         public FairyChessCustomMoveUI fairyChessCustomMovePrefab;
         public FairyChessCustomHandUI fairyChessCustomHandPrefab;
+        public FairyChessCustomFenUI fairyChessCustomFenPrefab;
 
         private LastMoveCheckChange<UIData> lastMoveCheckChange = new LastMoveCheckChange<UIData>();
 
@@ -200,6 +215,12 @@ namespace FairyChess
                             {
                                 FairyChessCustomHandUI.UIData fairyChessCustomHandUIData = lastMoveSub as FairyChessCustomHandUI.UIData;
                                 UIUtils.Instantiate(fairyChessCustomHandUIData, fairyChessCustomHandPrefab, this.transform);
+                            }
+                            break;
+                        case GameMove.Type.FairyChessCustomFen:
+                            {
+                                FairyChessCustomFenUI.UIData fairyChessCustomFenUIData = lastMoveSub as FairyChessCustomFenUI.UIData;
+                                UIUtils.Instantiate(fairyChessCustomFenUIData, fairyChessCustomFenPrefab, this.transform);
                             }
                             break;
                         default:
@@ -265,6 +286,12 @@ namespace FairyChess
                             {
                                 FairyChessCustomHandUI.UIData fairyChessCustomHandUIData = lastMoveSub as FairyChessCustomHandUI.UIData;
                                 fairyChessCustomHandUIData.removeCallBackAndDestroy(typeof(FairyChessCustomHandUI));
+                            }
+                            break;
+                        case GameMove.Type.FairyChessCustomFen:
+                            {
+                                FairyChessCustomFenUI.UIData fairyChessCustomFenUIData = lastMoveSub as FairyChessCustomFenUI.UIData;
+                                fairyChessCustomFenUIData.removeCallBackAndDestroy(typeof(FairyChessCustomFenUI));
                             }
                             break;
                         default:
