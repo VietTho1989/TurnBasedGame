@@ -95,6 +95,20 @@ namespace Xiangqi
                                     this.data.sub.v = xiangqiCustomMoveUIData;
                                 }
                                 break;
+                            case GameMove.Type.XiangqiCustomFen:
+                                {
+                                    XiangqiCustomFen xiangqiCustomFen = lastMove as XiangqiCustomFen;
+                                    // Find
+                                    XiangqiCustomFenUI.UIData xiangqiCustomFenUIData = this.data.sub.newOrOld<XiangqiCustomFenUI.UIData>();
+                                    {
+                                        // move
+                                        xiangqiCustomFenUIData.xiangqiCustomFen.v = new ReferenceData<XiangqiCustomFen>(xiangqiCustomFen);
+                                        // isHint
+                                        xiangqiCustomFenUIData.isHint.v = false;
+                                    }
+                                    this.data.sub.v = xiangqiCustomFenUIData;
+                                }
+                                break;
                             case GameMove.Type.None:
                                 this.data.sub.v = null;
                                 break;
@@ -129,6 +143,7 @@ namespace Xiangqi
         public XiangqiMoveUI xiangqiMovePrefab;
         public XiangqiCustomSetUI xiangqiCustomSetPrefab;
         public XiangqiCustomMoveUI xiangqiCustomMovePrefab;
+        public XiangqiCustomFenUI xiangqiCustomFenPrefab;
 
         private LastMoveCheckChange<UIData> lastMoveCheckChange = new LastMoveCheckChange<UIData>();
 
@@ -179,6 +194,12 @@ namespace Xiangqi
                             {
                                 XiangqiCustomMoveUI.UIData xiangqiCustomMoveUIData = lastMoveSub as XiangqiCustomMoveUI.UIData;
                                 UIUtils.Instantiate(xiangqiCustomMoveUIData, xiangqiCustomMovePrefab, this.transform);
+                            }
+                            break;
+                        case GameMove.Type.XiangqiCustomFen:
+                            {
+                                XiangqiCustomFenUI.UIData xiangqiCustomFenUIData = lastMoveSub as XiangqiCustomFenUI.UIData;
+                                UIUtils.Instantiate(xiangqiCustomFenUIData, xiangqiCustomFenPrefab, this.transform);
                             }
                             break;
                         default:
@@ -238,6 +259,12 @@ namespace Xiangqi
                             {
                                 XiangqiCustomMoveUI.UIData xiangqiCustomMoveUIData = lastMoveSub as XiangqiCustomMoveUI.UIData;
                                 xiangqiCustomMoveUIData.removeCallBackAndDestroy(typeof(XiangqiCustomMoveUI));
+                            }
+                            break;
+                        case GameMove.Type.XiangqiCustomFen:
+                            {
+                                XiangqiCustomFenUI.UIData xiangqiCustomFenUIData = lastMoveSub as XiangqiCustomFenUI.UIData;
+                                xiangqiCustomFenUIData.removeCallBackAndDestroy(typeof(XiangqiCustomFenUI));
                             }
                             break;
                         default:

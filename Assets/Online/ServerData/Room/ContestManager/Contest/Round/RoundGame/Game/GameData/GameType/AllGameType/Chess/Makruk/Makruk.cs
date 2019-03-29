@@ -219,6 +219,7 @@ namespace Makruk
                         case GameMove.Type.MakrukCustomMove:
                         case GameMove.Type.Clear:
                         case GameMove.Type.EndTurn:
+                        case GameMove.Type.MakrukCustomFen:
                             return true;
                         default:
                             Debug.LogError("unknown game type: " + gameMove.getType() + "; " + this);
@@ -275,6 +276,15 @@ namespace Makruk
                                 }
                             }
                             break;
+                        case GameMove.Type.MakrukCustomFen:
+                            {
+                                MakrukCustomFen makrukCustomFen = gameMove as MakrukCustomFen;
+                                // Update
+                                {
+                                    tempMakruk = Core.unityMakePositionByFen(makrukCustomFen.fen.v, tempMakruk.chess960.v);
+                                }
+                            }
+                            break;
                         default:
                             Debug.LogError("unknown type: " + gameMove.getType() + "; " + this);
                             needUpdate = false;
@@ -327,6 +337,7 @@ namespace Makruk
                 case GameMove.Type.MakrukCustomMove:
                 case GameMove.Type.MakrukCustomSet:
                 case GameMove.Type.Clear:
+                case GameMove.Type.MakrukCustomFen:
                     this.processCustomGameMove(gameMove);
                     break;
                 default:

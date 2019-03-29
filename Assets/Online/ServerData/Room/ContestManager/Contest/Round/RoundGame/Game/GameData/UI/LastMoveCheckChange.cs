@@ -270,6 +270,22 @@ public class LastMoveCheckChange<K> : Data, ValueChangeCallBack where K : Data
                         break;
                     case GameDataUI.UIData.Property.allowInput:
                         break;
+                    case GameDataUI.UIData.Property.requestChangeUseRule:
+                        break;
+                    case GameDataUI.UIData.Property.perspectiveUIData:
+                        break;
+                    case GameDataUI.UIData.Property.gamePlayerList:
+                        break;
+                    case GameDataUI.UIData.Property.informGameMessage:
+                        break;
+                    case GameDataUI.UIData.Property.gameActionsUI:
+                        break;
+                    case GameDataUI.UIData.Property.type:
+                        break;
+                    case GameDataUI.UIData.Property.bottomHeight:
+                        break;
+                    case GameDataUI.UIData.Property.rightWidth:
+                        break;
                     default:
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;

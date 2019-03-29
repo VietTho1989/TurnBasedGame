@@ -209,12 +209,12 @@ public class RequestChangeUseRuleStateNoneUI : UIHaveTransformDataBehavior<Reque
                 }
                 else
                 {
-                    Debug.LogError("requestChangeUseRuleStateNone null: " + this);
+                    // Debug.LogError("requestChangeUseRuleStateNone null: " + this);
                 }
             }
             else
             {
-                Debug.LogError("data null: " + this);
+                // Debug.LogError("data null: " + this);
             }
         }
     }

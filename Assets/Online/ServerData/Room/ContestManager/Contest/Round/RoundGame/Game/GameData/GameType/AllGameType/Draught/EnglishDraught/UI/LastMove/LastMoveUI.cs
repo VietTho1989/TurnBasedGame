@@ -95,6 +95,20 @@ namespace EnglishDraught
                                     this.data.sub.v = englishDraughtCustomMoveUIData;
                                 }
                                 break;
+                            case GameMove.Type.EnglishDraughtCustomFen:
+                                {
+                                    EnglishDraughtCustomFen englishDraughtCustomFen = lastMove as EnglishDraughtCustomFen;
+                                    // Find
+                                    EnglishDraughtCustomFenUI.UIData englishDraughtCustomFenUIData = this.data.sub.newOrOld<EnglishDraughtCustomFenUI.UIData>();
+                                    {
+                                        // move
+                                        englishDraughtCustomFenUIData.englishDraughtCustomFen.v = new ReferenceData<EnglishDraughtCustomFen>(englishDraughtCustomFen);
+                                        // isHint
+                                        englishDraughtCustomFenUIData.isHint.v = false;
+                                    }
+                                    this.data.sub.v = englishDraughtCustomFenUIData;
+                                }
+                                break;
                             case GameMove.Type.None:
                                 this.data.sub.v = null;
                                 break;
@@ -129,6 +143,7 @@ namespace EnglishDraught
         public EnglishDraughtMoveUI englishDraughtMovePrefab;
         public EnglishDraughtCustomSetUI englishDraughtCustomSetPrefab;
         public EnglishDraughtCustomMoveUI englishDraughtCustomMovePrefab;
+        public EnglishDraughtCustomFenUI englishDraughtCustomFenPrefab;
 
         private LastMoveCheckChange<UIData> lastMoveCheckChange = new LastMoveCheckChange<UIData>();
 
@@ -179,6 +194,12 @@ namespace EnglishDraught
                             {
                                 EnglishDraughtCustomMoveUI.UIData englishDraughtCustomMoveUIData = lastMoveSub as EnglishDraughtCustomMoveUI.UIData;
                                 UIUtils.Instantiate(englishDraughtCustomMoveUIData, englishDraughtCustomMovePrefab, this.transform);
+                            }
+                            break;
+                        case GameMove.Type.EnglishDraughtCustomFen:
+                            {
+                                EnglishDraughtCustomFenUI.UIData englishDraughtCustomFenUIData = lastMoveSub as EnglishDraughtCustomFenUI.UIData;
+                                UIUtils.Instantiate(englishDraughtCustomFenUIData, englishDraughtCustomFenPrefab, this.transform);
                             }
                             break;
                         default:
@@ -238,6 +259,12 @@ namespace EnglishDraught
                             {
                                 EnglishDraughtCustomMoveUI.UIData englishDraughtCustomMoveUIData = lastMoveSub as EnglishDraughtCustomMoveUI.UIData;
                                 englishDraughtCustomMoveUIData.removeCallBackAndDestroy(typeof(EnglishDraughtCustomMoveUI));
+                            }
+                            break;
+                        case GameMove.Type.EnglishDraughtCustomFen:
+                            {
+                                EnglishDraughtCustomFenUI.UIData englishDraughtCustomFenUIData = lastMoveSub as EnglishDraughtCustomFenUI.UIData;
+                                englishDraughtCustomFenUIData.removeCallBackAndDestroy(typeof(EnglishDraughtCustomFenUI));
                             }
                             break;
                         default:

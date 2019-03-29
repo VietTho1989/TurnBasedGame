@@ -5,64 +5,67 @@ using System.Collections.Generic;
 
 namespace EnglishDraught
 {
-	public class BoardUI : UIBehavior<BoardUI.UIData>
-	{
+    public class BoardUI : UIBehavior<BoardUI.UIData>
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : Data
-		{
-			
-			public VP<ReferenceData<EnglishDraught>> englishDraught;
+        public class UIData : Data
+        {
 
-			public LP<PieceUI.UIData> pieces;
+            public VP<ReferenceData<EnglishDraught>> englishDraught;
 
-			#region Constructor
+            public LP<PieceUI.UIData> pieces;
 
-			public enum Property
-			{
-				englishDraught,
-				pieces
-			}
+            #region Constructor
 
-			public UIData() : base()
-			{
-				this.englishDraught = new VP<ReferenceData<EnglishDraught>>(this, (byte)Property.englishDraught, new ReferenceData<EnglishDraught>(null));
-				this.pieces = new LP<PieceUI.UIData>(this, (byte)Property.pieces);
-			}
+            public enum Property
+            {
+                englishDraught,
+                pieces
+            }
 
-			#endregion
+            public UIData() : base()
+            {
+                this.englishDraught = new VP<ReferenceData<EnglishDraught>>(this, (byte)Property.englishDraught, new ReferenceData<EnglishDraught>(null));
+                this.pieces = new LP<PieceUI.UIData>(this, (byte)Property.pieces);
+            }
 
-		}
+            #endregion
 
-		#endregion
+        }
 
-		#region Refresh
+        #endregion
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
-					EnglishDraught englishDraught = this.data.englishDraught.v.data;
-					if (englishDraught != null) {
-						// check load full
-						bool isLoadFull = true;
-						{
-							// englishDraught
-							if (isLoadFull) {
-								if (englishDraught.Sqs.vs.Count == 0) {
-									Debug.LogError ("board not load");
-									isLoadFull = false;
-								}
-							}
-							// animation
-							if (isLoadFull) {
-								isLoadFull = AnimationManager.IsLoadFull (this.data);
-							}
-						}
-						// process
-						if (isLoadFull) {
+        #region Refresh
+
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
+                    EnglishDraught englishDraught = this.data.englishDraught.v.data;
+                    if (englishDraught != null)
+                    {
+                        // check load full
+                        bool isLoadFull = true;
+                        {
+                            // englishDraught
+                            if (isLoadFull)
+                            {
+                                isLoadFull = englishDraught.isLoadFull();
+                            }
+                            // animation
+                            if (isLoadFull)
+                            {
+                                isLoadFull = AnimationManager.IsLoadFull(this.data);
+                            }
+                        }
+                        // process
+                        if (isLoadFull)
+                        {
                             // get old
                             List<PieceUI.UIData> oldPieces = new List<PieceUI.UIData>();
                             {
@@ -146,53 +149,60 @@ namespace EnglishDraught
                             {
                                 this.data.pieces.remove(oldPiece);
                             }
-                        } else {
-							Debug.LogError ("not load full");
-							dirty = true;
-						}
-					} else {
-						Debug.LogError ("englishDraught null: " + this);
-					}
-				} else {
-					// Debug.LogError ("data null: " + this);
-				}
-			}
-		}
+                        }
+                        else
+                        {
+                            Debug.LogError("not load full");
+                            dirty = true;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("englishDraught null: " + this);
+                    }
+                }
+                else
+                {
+                    // Debug.LogError ("data null: " + this);
+                }
+            }
+        }
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		#endregion
+        #endregion
 
-		#region implement callBacks
+        #region implement callBacks
 
-		public PieceUI piecePrefab;
-		private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData> ();
+        public PieceUI piecePrefab;
+        private AnimationManagerCheckChange<UIData> animationManagerCheckChange = new AnimationManagerCheckChange<UIData>();
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// CheckChange
-				{
-					animationManagerCheckChange.needTimeChange = false;
-					animationManagerCheckChange.addCallBack (this);
-					animationManagerCheckChange.setData (uiData);
-				}
-				// Update
-				{
-					UpdateUtils.makeUpdate<AnimationSetDirtyUpdate, UIData> (uiData, this.transform);
-				}
-				// Child
-				{
-					uiData.englishDraught.allAddCallBack (this);
-					uiData.pieces.allAddCallBack (this);
-				}
-				dirty = true;
-				return;
-			}
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // CheckChange
+                {
+                    animationManagerCheckChange.needTimeChange = false;
+                    animationManagerCheckChange.addCallBack(this);
+                    animationManagerCheckChange.setData(uiData);
+                }
+                // Update
+                {
+                    UpdateUtils.makeUpdate<AnimationSetDirtyUpdate, UIData>(uiData, this.transform);
+                }
+                // Child
+                {
+                    uiData.englishDraught.allAddCallBack(this);
+                    uiData.pieces.allAddCallBack(this);
+                }
+                dirty = true;
+                return;
+            }
             // checkChange
             if (data is AnimationManagerCheckChange<UIData>)
             {
@@ -201,44 +211,47 @@ namespace EnglishDraught
             }
             // Child
             {
-				if (data is EnglishDraught) {
-					dirty = true;
-					return;
-				}
-				if (data is PieceUI.UIData) {
-					PieceUI.UIData pieceUIData = data as PieceUI.UIData;
-					// UI
-					{
-						UIUtils.Instantiate (pieceUIData, piecePrefab, this.transform);
-					}
-					// dirty = true;
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+                if (data is EnglishDraught)
+                {
+                    dirty = true;
+                    return;
+                }
+                if (data is PieceUI.UIData)
+                {
+                    PieceUI.UIData pieceUIData = data as PieceUI.UIData;
+                    // UI
+                    {
+                        UIUtils.Instantiate(pieceUIData, piecePrefab, this.transform);
+                    }
+                    // dirty = true;
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// CheckChange
-				{
-					animationManagerCheckChange.removeCallBack (this);
-					animationManagerCheckChange.setData (null);
-				}
-				// Update
-				{
-					uiData.removeCallBackAndDestroy (typeof(AnimationSetDirtyUpdate));
-				}
-				// Child
-				{
-					uiData.englishDraught.allRemoveCallBack (this);
-					uiData.pieces.allRemoveCallBack (this);
-				}
-				this.setDataNull (uiData);
-				return;
-			}
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // CheckChange
+                {
+                    animationManagerCheckChange.removeCallBack(this);
+                    animationManagerCheckChange.setData(null);
+                }
+                // Update
+                {
+                    uiData.removeCallBackAndDestroy(typeof(AnimationSetDirtyUpdate));
+                }
+                // Child
+                {
+                    uiData.englishDraught.allRemoveCallBack(this);
+                    uiData.pieces.allRemoveCallBack(this);
+                }
+                this.setDataNull(uiData);
+                return;
+            }
             // checkChange
             if (data is AnimationManagerCheckChange<UIData>)
             {
@@ -246,98 +259,109 @@ namespace EnglishDraught
             }
             // Child
             {
-				if (data is EnglishDraught) {
-					return;
-				}
-				if (data is PieceUI.UIData) {
-					PieceUI.UIData pieceUIData = data as PieceUI.UIData;
-					// UI
-					{
-						pieceUIData.removeCallBackAndDestroy (typeof(PieceUI));
-					}
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+                if (data is EnglishDraught)
+                {
+                    return;
+                }
+                if (data is PieceUI.UIData)
+                {
+                    PieceUI.UIData pieceUIData = data as PieceUI.UIData;
+                    // UI
+                    {
+                        pieceUIData.removeCallBackAndDestroy(typeof(PieceUI));
+                    }
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.englishDraught:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				case UIData.Property.pieces:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						// dirty = true;
-					}
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// Check Change
-			{
-				if (wrapProperty.p is AnimationManagerCheckChange<UIData>) {
-					dirty = true;
-					return;
-				}
-			}
-			// Child
-			{
-				if (wrapProperty.p is EnglishDraught) {
-					switch ((EnglishDraught.Property)wrapProperty.n) {
-					case EnglishDraught.Property.Sqs:
-						dirty = true;
-						break;
-					case EnglishDraught.Property.C:
-						break;
-					case EnglishDraught.Property.nPSq:
-						break;
-					case EnglishDraught.Property.eval:
-						break;
-					case EnglishDraught.Property.nWhite:
-						break;
-					case EnglishDraught.Property.nBlack:
-						break;
-					case EnglishDraught.Property.SideToMove:
-						break;
-					case EnglishDraught.Property.extra:
-						break;
-					case EnglishDraught.Property.HashKey:
-						break;
-					case EnglishDraught.Property.ply:
-						break;
-					case EnglishDraught.Property.RepNum:
-						break;
-					case EnglishDraught.Property.maxPly:
-						break;
-					case EnglishDraught.Property.turn:
-						break;
-					default:
-						Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-						break;
-					}
-					return;
-				}
-				if (wrapProperty.p is PieceUI.UIData) {
-					return;
-				}
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.englishDraught:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.pieces:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            // dirty = true;
+                        }
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Check Change
+            {
+                if (wrapProperty.p is AnimationManagerCheckChange<UIData>)
+                {
+                    dirty = true;
+                    return;
+                }
+            }
+            // Child
+            {
+                if (wrapProperty.p is EnglishDraught)
+                {
+                    switch ((EnglishDraught.Property)wrapProperty.n)
+                    {
+                        case EnglishDraught.Property.Sqs:
+                            dirty = true;
+                            break;
+                        case EnglishDraught.Property.C:
+                            break;
+                        case EnglishDraught.Property.nPSq:
+                            break;
+                        case EnglishDraught.Property.eval:
+                            break;
+                        case EnglishDraught.Property.nWhite:
+                            break;
+                        case EnglishDraught.Property.nBlack:
+                            break;
+                        case EnglishDraught.Property.SideToMove:
+                            break;
+                        case EnglishDraught.Property.extra:
+                            break;
+                        case EnglishDraught.Property.HashKey:
+                            break;
+                        case EnglishDraught.Property.ply:
+                            break;
+                        case EnglishDraught.Property.RepNum:
+                            break;
+                        case EnglishDraught.Property.maxPly:
+                            break;
+                        case EnglishDraught.Property.turn:
+                            break;
+                        case EnglishDraught.Property.isCustom:
+                            break;
+                        default:
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                            break;
+                    }
+                    return;
+                }
+                if (wrapProperty.p is PieceUI.UIData)
+                {
+                    return;
+                }
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
 
-		#endregion
+        #endregion
 
-	}
+    }
 }

@@ -390,7 +390,7 @@ namespace GameManager.Match.Swap
                     }
                     else
                     {
-                        Debug.LogError("lobbyPlayer null: " + this);
+                        // Debug.LogError("lobbyPlayer null: " + this);
                     }
                 }
                 else

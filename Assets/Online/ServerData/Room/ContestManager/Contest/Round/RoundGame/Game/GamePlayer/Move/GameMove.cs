@@ -18,15 +18,18 @@ public abstract class GameMove : Data
 		ShatranjMove,
 		ShatranjCustomMove,
 		ShatranjCustomSet,
+        ShatranjCustomFen,
 
 		MakrukMove,
 		MakrukCustomMove,
 		MakrukCustomSet,
+        MakrukCustomFen,
 
 		SeirawanMove,
 		SeirawanCustomMove,
 		SeirawanCustomSet,
 		SeirawanCustomHand,
+        SeirawanCustomFen,
 
 		FairyChessMove,
 		FairyChessCustomMove,
@@ -37,6 +40,7 @@ public abstract class GameMove : Data
 		XiangqiMove,
 		XiangqiCustomSet,
 		XiangqiCustomMove,
+        XiangqiCustomFen,
 
 		CoTuongUpMove,
 		CoTuongUpCustomMove,
@@ -76,6 +80,7 @@ public abstract class GameMove : Data
 		EnglishDraughtMove,
 		EnglishDraughtCustomMove,
 		EnglishDraughtCustomSet,
+        EnglishDraughtCustomFen,
 
 		RussianDraughtMove,
 		RussianDraughtCustomMove,

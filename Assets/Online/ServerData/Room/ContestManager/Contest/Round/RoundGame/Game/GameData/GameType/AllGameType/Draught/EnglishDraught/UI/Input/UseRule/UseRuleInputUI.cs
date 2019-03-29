@@ -201,7 +201,7 @@ namespace EnglishDraught
 					{
 						// legalMoves
 						{
-							Debug.LogError ("show legalMoves: " + GameUtils.Utils.getListString (legalMoves));
+							// Debug.LogError ("show legalMoves: " + GameUtils.Utils.getListString (legalMoves));
 							showUIData.legalMoves.clear ();
 							if (legalMoves.Count > 0) {
 								for (int i = 0; i < legalMoves.Count; i++) {

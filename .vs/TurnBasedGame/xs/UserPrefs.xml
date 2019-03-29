@@ -1,9 +1,10 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Chess/Makruk/UI/Input/NoneRule/CreateByFen/CreateByFenUI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Draught/EnglishDraught/UI/Input/UseRule/Show/ClickDest/ClickDestClick/ClickDestClickUI.cs">
     <Files>
-      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Chess/Makruk/UI/Input/NoneRule/CreateByFen/CreateByFenUI.cs" Line="270" Column="18" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Draught/EnglishDraught/UI/Input/UseRule/Show/ClickDest/ClickDestClick/ClickDestClickUI.cs" Line="556" Column="26" />
     </Files>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp-Editor PreferredExecutionTarget="Unity.Editor" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />

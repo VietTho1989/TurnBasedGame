@@ -132,7 +132,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
                     }
                     else
                     {
-                        Debug.LogError("gameSettingUIData null");
+                        // Debug.LogError("gameSettingUIData null");
                     }
                 }
                 // requestDraw
@@ -184,7 +184,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
                     }
                     else
                     {
-                        Debug.LogError("gameHistoryUIData: " + this);
+                        // Debug.LogError("gameHistoryUIData null: " + this);
                     }
                 }
                 // saveUIData
@@ -197,7 +197,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
                     }
                     else
                     {
-                        Debug.LogError("saveUIData null: " + this);
+                        // Debug.LogError("saveUIData null: " + this);
                     }
                 }
                 // bottom
@@ -210,7 +210,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
                     }
                     else
                     {
-                        Debug.LogError("gameBottom null");
+                        // Debug.LogError("gameBottom null");
                     }
                 }
                 // gameUIData
@@ -223,7 +223,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
                     }
                     else
                     {
-                        Debug.LogError("gameUIData null: " + this);
+                        // Debug.LogError("gameUIData null: " + this);
                     }
                 }
             }

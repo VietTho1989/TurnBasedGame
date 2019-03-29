@@ -95,6 +95,20 @@ namespace Shatranj
                                     this.data.sub.v = shatranjCustomMoveUIData;
                                 }
                                 break;
+                            case GameMove.Type.ShatranjCustomFen:
+                                {
+                                    ShatranjCustomFen shatranjCustomFen = lastMove as ShatranjCustomFen;
+                                    // Find
+                                    ShatranjCustomFenUI.UIData shatranjCustomFenUIData = this.data.sub.newOrOld<ShatranjCustomFenUI.UIData>();
+                                    {
+                                        // move
+                                        shatranjCustomFenUIData.shatranjCustomFen.v = new ReferenceData<ShatranjCustomFen>(shatranjCustomFen);
+                                        // isHint
+                                        shatranjCustomFenUIData.isHint.v = false;
+                                    }
+                                    this.data.sub.v = shatranjCustomFenUIData;
+                                }
+                                break;
                             case GameMove.Type.None:
                                 this.data.sub.v = null;
                                 break;
@@ -129,6 +143,7 @@ namespace Shatranj
         public ShatranjMoveUI shatranjMovePrefab;
         public ShatranjCustomSetUI shatranjCustomSetPrefab;
         public ShatranjCustomMoveUI shatranjCustomMovePrefab;
+        public ShatranjCustomFenUI shatranjCustomFenPrefab;
 
         private LastMoveCheckChange<UIData> lastMoveCheckChange = new LastMoveCheckChange<UIData>();
 
@@ -179,6 +194,12 @@ namespace Shatranj
                             {
                                 ShatranjCustomMoveUI.UIData shatranjCustomMoveUIData = lastMoveSub as ShatranjCustomMoveUI.UIData;
                                 UIUtils.Instantiate(shatranjCustomMoveUIData, shatranjCustomMovePrefab, this.transform);
+                            }
+                            break;
+                        case GameMove.Type.ShatranjCustomFen:
+                            {
+                                ShatranjCustomFenUI.UIData shatranjCustomFenUIData = lastMoveSub as ShatranjCustomFenUI.UIData;
+                                UIUtils.Instantiate(shatranjCustomFenUIData, shatranjCustomFenPrefab, this.transform);
                             }
                             break;
                         default:
@@ -238,6 +259,12 @@ namespace Shatranj
                             {
                                 ShatranjCustomMoveUI.UIData shatranjCustomMoveUIData = lastMoveSub as ShatranjCustomMoveUI.UIData;
                                 shatranjCustomMoveUIData.removeCallBackAndDestroy(typeof(ShatranjCustomMoveUI));
+                            }
+                            break;
+                        case GameMove.Type.ShatranjCustomFen:
+                            {
+                                ShatranjCustomFenUI.UIData shatranjCustomFenUIData = lastMoveSub as ShatranjCustomFenUI.UIData;
+                                shatranjCustomFenUIData.removeCallBackAndDestroy(typeof(ShatranjCustomFenUI));
                             }
                             break;
                         default:

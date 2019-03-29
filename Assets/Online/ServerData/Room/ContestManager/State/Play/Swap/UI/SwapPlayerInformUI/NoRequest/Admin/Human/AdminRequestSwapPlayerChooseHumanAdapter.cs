@@ -16,6 +16,7 @@ namespace GameManager.Match.Swap
         [Serializable]
         public class UIData : BaseParams
         {
+
             public VP<ReferenceData<TeamPlayer>> teamPlayer;
 
             public LP<AdminRequestSwapPlayerChooseHumanHolder.UIData> holders;
@@ -88,139 +89,142 @@ namespace GameManager.Match.Swap
         {
             if (dirty)
             {
-                dirty = false;
-                if (this.data != null)
+                if (this.Initialized)
                 {
-                    TeamPlayer teamPlayer = this.data.teamPlayer.v.data;
-                    if (teamPlayer != null)
+                    dirty = false;
+                    if (this.data != null)
                     {
-                        // get list of human
-                        List<Human> humans = new List<Human>();
+                        TeamPlayer teamPlayer = this.data.teamPlayer.v.data;
+                        if (teamPlayer != null)
                         {
-                            Room room = teamPlayer.findDataInParent<Room>();
-                            if (room != null)
+                            // get list of human
+                            List<Human> humans = new List<Human>();
                             {
-                                // get currentUserId
-                                uint currentUserId = uint.MaxValue;
+                                Room room = teamPlayer.findDataInParent<Room>();
+                                if (room != null)
                                 {
-                                    if (teamPlayer.inform.v is Human)
+                                    // get currentUserId
+                                    uint currentUserId = uint.MaxValue;
                                     {
-                                        Human human = teamPlayer.inform.v as Human;
-                                        currentUserId = human.playerId.v;
-                                    }
-                                }
-                                // get list of human
-                                foreach (RoomUser roomUser in room.users.vs)
-                                {
-                                    if (roomUser.isInsideRoom())
-                                    {
-                                        Human human = roomUser.inform.v;
-                                        if (human != null)
+                                        if (teamPlayer.inform.v is Human)
                                         {
-                                            if (human.playerId.v != currentUserId)
-                                            {
-                                                humans.Add(human);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("human null: " + this);
+                                            Human human = teamPlayer.inform.v as Human;
+                                            currentUserId = human.playerId.v;
                                         }
                                     }
-                                }
-                            }
-                            else
-                            {
-                                Debug.LogError("room null: " + this);
-                            }
-                        }
-                        // Add to adapter
-                        {
-                            int min = Mathf.Min(humans.Count, _Params.humans.Count);
-                            // Update
-                            {
-                                for (int i = 0; i < min; i++)
-                                {
-                                    if (humans[i] != _Params.humans[i])
+                                    // get list of human
+                                    foreach (RoomUser roomUser in room.users.vs)
                                     {
-                                        // change param
-                                        _Params.humans[i] = humans[i];
-                                        // Update holder
-                                        foreach (AdminRequestSwapPlayerChooseHumanHolder.UIData holder in this.data.holders.vs)
+                                        if (roomUser.isInsideRoom())
                                         {
-                                            if (holder.ItemIndex == i)
+                                            Human human = roomUser.inform.v;
+                                            if (human != null)
                                             {
-                                                holder.human.v = new ReferenceData<Human>(humans[i]);
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            // Add or Remove
-                            {
-                                if (humans.Count > min)
-                                {
-                                    // Add
-                                    int insertCount = humans.Count - min;
-                                    List<Human> addItems = humans.GetRange(min, insertCount);
-                                    _Params.humans.AddRange(addItems);
-                                    InsertItems(min, insertCount, false, false);
-                                }
-                                else
-                                {
-                                    // Remove
-                                    int deleteCount = _Params.humans.Count - min;
-                                    if (deleteCount > 0)
-                                    {
-                                        RemoveItems(min, deleteCount, false, false);
-                                        _Params.humans.RemoveRange(min, deleteCount);
-                                    }
-                                }
-                            }
-                        }
-                        // NoHumans
-                        {
-                            if (noHumans != null)
-                            {
-                                bool haveAny = false;
-                                {
-                                    foreach (AdminRequestSwapPlayerChooseHumanHolder.UIData holder in this.data.holders.vs)
-                                    {
-                                        if (holder.human.v.data != null)
-                                        {
-                                            AdminRequestSwapPlayerChooseHumanHolder holderUI = holder.findCallBack<AdminRequestSwapPlayerChooseHumanHolder>();
-                                            if (holderUI != null)
-                                            {
-                                                if (holderUI.gameObject.activeSelf)
+                                                if (human.playerId.v != currentUserId)
                                                 {
-                                                    haveAny = true;
-                                                    break;
+                                                    humans.Add(human);
                                                 }
                                             }
                                             else
                                             {
-                                                Debug.LogError("holderUI null: " + this);
+                                                Debug.LogError("human null: " + this);
                                             }
                                         }
                                     }
                                 }
-                                noHumans.SetActive(!haveAny);
+                                else
+                                {
+                                    Debug.LogError("room null: " + this);
+                                }
                             }
-                            else
+                            // Add to adapter
                             {
-                                Debug.LogError("noHumans null: " + this);
+                                int min = Mathf.Min(humans.Count, _Params.humans.Count);
+                                // Update
+                                {
+                                    for (int i = 0; i < min; i++)
+                                    {
+                                        if (humans[i] != _Params.humans[i])
+                                        {
+                                            // change param
+                                            _Params.humans[i] = humans[i];
+                                            // Update holder
+                                            foreach (AdminRequestSwapPlayerChooseHumanHolder.UIData holder in this.data.holders.vs)
+                                            {
+                                                if (holder.ItemIndex == i)
+                                                {
+                                                    holder.human.v = new ReferenceData<Human>(humans[i]);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                // Add or Remove
+                                {
+                                    if (humans.Count > min)
+                                    {
+                                        // Add
+                                        int insertCount = humans.Count - min;
+                                        List<Human> addItems = humans.GetRange(min, insertCount);
+                                        _Params.humans.AddRange(addItems);
+                                        InsertItems(min, insertCount, false, false);
+                                    }
+                                    else
+                                    {
+                                        // Remove
+                                        int deleteCount = _Params.humans.Count - min;
+                                        if (deleteCount > 0)
+                                        {
+                                            RemoveItems(min, deleteCount, false, false);
+                                            _Params.humans.RemoveRange(min, deleteCount);
+                                        }
+                                    }
+                                }
                             }
+                            // NoHumans
+                            {
+                                if (noHumans != null)
+                                {
+                                    bool haveAny = false;
+                                    {
+                                        foreach (AdminRequestSwapPlayerChooseHumanHolder.UIData holder in this.data.holders.vs)
+                                        {
+                                            if (holder.human.v.data != null)
+                                            {
+                                                AdminRequestSwapPlayerChooseHumanHolder holderUI = holder.findCallBack<AdminRequestSwapPlayerChooseHumanHolder>();
+                                                if (holderUI != null)
+                                                {
+                                                    if (holderUI.gameObject.activeSelf)
+                                                    {
+                                                        haveAny = true;
+                                                        break;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("holderUI null: " + this);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    noHumans.SetActive(!haveAny);
+                                }
+                                else
+                                {
+                                    Debug.LogError("noHumans null: " + this);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // Debug.LogError("teamPlayer null: " + this);
                         }
                     }
                     else
                     {
-                        Debug.LogError("teamPlayer null: " + this);
+                        // Debug.LogError("data null: " + this);
                     }
-                }
-                else
-                {
-                    Debug.LogError("data null: " + this);
                 }
             }
         }

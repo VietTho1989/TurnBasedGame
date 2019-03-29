@@ -5,156 +5,172 @@ using System.Collections.Generic;
 
 namespace Hint
 {
-	public class ShowUI : UIBehavior<ShowUI.UIData>
-	{
+    public class ShowUI : UIBehavior<ShowUI.UIData>
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : HintUI.UIData.State
-		{
-			
-			public VP<GameMove> hintMove;
+        public class UIData : HintUI.UIData.State
+        {
 
-			#region Constructor
+            public VP<GameMove> hintMove;
 
-			public enum Property
-			{
-				hintMove
-			}
+            #region Constructor
 
-			public UIData() : base()
-			{
-				this.hintMove = new VP<GameMove>(this, (byte)Property.hintMove, null);
-			}
+            public enum Property
+            {
+                hintMove
+            }
 
-			#endregion
+            public UIData() : base()
+            {
+                this.hintMove = new VP<GameMove>(this, (byte)Property.hintMove, null);
+            }
 
-			public override Type getType ()
-			{
-				return Type.Show;
-			}
+            #endregion
 
-		}
+            public override Type getType()
+            {
+                return Type.Show;
+            }
 
-		#endregion
+        }
 
-		#region Refresh
+        #endregion
 
-		#region txt
+        #region txt
 
-		public Text tvMessage;
-		public static readonly TxtLanguage txtMessage = new TxtLanguage();
+        public Text tvMessage;
+        public static readonly TxtLanguage txtMessage = new TxtLanguage();
 
-		static ShowUI()
-		{
-			txtMessage.add (Language.Type.vi, "Không Hiện");
-		}
+        static ShowUI()
+        {
+            txtMessage.add(Language.Type.vi, "Không Hiện");
+        }
 
-		#endregion
+        #endregion
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
-					// txt
-					{
-						if (tvMessage != null) {
-							tvMessage.text = txtMessage.get ("Not Show");
-						} else {
-							Debug.LogError ("tvMessage null: " + this);
-						}
-					}
-				} else {
-					// Debug.LogError ("data null: " + this);
-				}
-			}
-		}
+        #region Refresh
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
+                    // txt
+                    {
+                        if (tvMessage != null)
+                        {
+                            tvMessage.text = txtMessage.get("Not Show");
+                        }
+                        else
+                        {
+                            Debug.LogError("tvMessage null: " + this);
+                        }
+                    }
+                }
+                else
+                {
+                    // Debug.LogError ("data null: " + this);
+                }
+            }
+        }
 
-		#endregion
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		#region implement callBacks
+        #endregion
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				// Setting
-				{
-					Setting.get ().addCallBack (this);
-				}
-				dirty = true;
-				return;
-			}
-			// Setting
-			if (data is Setting) {
-				dirty = true;
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        #region implement callBacks
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Setting
-				Setting.get().removeCallBack(this);
-				// Child
-				{
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                // Setting
+                {
+                    Setting.get().addCallBack(this);
+                }
+                dirty = true;
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
+                dirty = true;
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-				}
-				this.setDataNull (uiData);
-				return;
-			}
-			// Setting
-			if (data is Setting) {
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
+                // Child
+                {
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// Setting
-			if (wrapProperty.p is Setting) {
-				switch ((Setting.Property)wrapProperty.n) {
-				case Setting.Property.language:
-					dirty = true;
-					break;
-				case Setting.Property.showLastMove:
-					break;
-				case Setting.Property.viewUrlImage:
-					break;
-				case Setting.Property.animationSetting:
-					break;
-				case Setting.Property.maxThinkCount:
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+                }
+                this.setDataNull(uiData);
+                return;
+            }
+            // Setting
+            if (data is Setting)
+            {
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		#endregion
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Setting
+            if (wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
 
-	}
+        #endregion
+
+    }
 }

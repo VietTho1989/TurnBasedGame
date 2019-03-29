@@ -219,6 +219,7 @@ namespace Shatranj
                         case GameMove.Type.ShatranjCustomMove:
                         case GameMove.Type.Clear:
                         case GameMove.Type.EndTurn:
+                        case GameMove.Type.ShatranjCustomFen:
                             return true;
                         default:
                             Debug.LogError("unknown game type: " + gameMove.getType() + "; " + this);
@@ -275,6 +276,15 @@ namespace Shatranj
                                 }
                             }
                             break;
+                        case GameMove.Type.ShatranjCustomFen:
+                            {
+                                ShatranjCustomFen shatranjCustomFen = gameMove as ShatranjCustomFen;
+                                // Update
+                                {
+                                    tempShatranj = Core.unityMakePositionByFen(shatranjCustomFen.fen.v, tempShatranj.chess960.v);
+                                }
+                            }
+                            break;
                         default:
                             Debug.LogError("unknown type: " + gameMove.getType() + "; " + this);
                             needUpdate = false;
@@ -327,6 +337,7 @@ namespace Shatranj
                 case GameMove.Type.ShatranjCustomMove:
                 case GameMove.Type.ShatranjCustomSet:
                 case GameMove.Type.Clear:
+                case GameMove.Type.ShatranjCustomFen:
                     this.processCustomGameMove(gameMove);
                     break;
                 default:

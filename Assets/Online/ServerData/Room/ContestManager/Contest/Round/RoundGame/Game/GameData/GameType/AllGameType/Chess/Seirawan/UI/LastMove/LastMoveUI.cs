@@ -109,6 +109,20 @@ namespace Seirawan
                                     this.data.sub.v = seirawanCustomHandUIData;
                                 }
                                 break;
+                            case GameMove.Type.SeirawanCustomFen:
+                                {
+                                    SeirawanCustomFen seirawanCustomFen = lastMove as SeirawanCustomFen;
+                                    // Find
+                                    SeirawanCustomFenUI.UIData seirawanCustomFenUIData = this.data.sub.newOrOld<SeirawanCustomFenUI.UIData>();
+                                    {
+                                        // move
+                                        seirawanCustomFenUIData.seirawanCustomFen.v = new ReferenceData<SeirawanCustomFen>(seirawanCustomFen);
+                                        // isHint
+                                        seirawanCustomFenUIData.isHint.v = false;
+                                    }
+                                    this.data.sub.v = seirawanCustomFenUIData;
+                                }
+                                break;
                             case GameMove.Type.None:
                                 this.data.sub.v = null;
                                 break;
@@ -144,6 +158,7 @@ namespace Seirawan
         public SeirawanCustomSetUI seirawanCustomSetPrefab;
         public SeirawanCustomMoveUI seirawanCustomMovePrefab;
         public SeirawanCustomHandUI seirawanCustomHandPrefab;
+        public SeirawanCustomFenUI seirawanCustomFenPrefab;
 
         private LastMoveCheckChange<UIData> lastMoveCheckChange = new LastMoveCheckChange<UIData>();
 
@@ -200,6 +215,12 @@ namespace Seirawan
                             {
                                 SeirawanCustomHandUI.UIData seirawanCustomHandUIData = lastMoveSub as SeirawanCustomHandUI.UIData;
                                 UIUtils.Instantiate(seirawanCustomHandUIData, seirawanCustomHandPrefab, this.transform);
+                            }
+                            break;
+                        case GameMove.Type.SeirawanCustomFen:
+                            {
+                                SeirawanCustomFenUI.UIData seirawanCustomFenUIData = lastMoveSub as SeirawanCustomFenUI.UIData;
+                                UIUtils.Instantiate(seirawanCustomFenUIData, seirawanCustomFenPrefab, this.transform);
                             }
                             break;
                         default:
@@ -265,6 +286,12 @@ namespace Seirawan
                             {
                                 SeirawanCustomHandUI.UIData seirawanCustomHandUIData = lastMoveSub as SeirawanCustomHandUI.UIData;
                                 seirawanCustomHandUIData.removeCallBackAndDestroy(typeof(SeirawanCustomHandUI));
+                            }
+                            break;
+                        case GameMove.Type.SeirawanCustomFen:
+                            {
+                                SeirawanCustomFenUI.UIData seirawanCustomFenUIData = lastMoveSub as SeirawanCustomFenUI.UIData;
+                                seirawanCustomFenUIData.removeCallBackAndDestroy(typeof(SeirawanCustomFenUI));
                             }
                             break;
                         default:

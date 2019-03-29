@@ -234,7 +234,7 @@ public class ProfileNewMessageCountUI : UIBehavior<ProfileNewMessageCountUI.UIDa
         }
         else
         {
-            Debug.LogError("chatViewer null");
+            // Debug.LogError("chatViewer null");
         }
     }
 

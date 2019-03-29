@@ -465,7 +465,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                                                 }
                                                 else
                                                 {
-                                                    Debug.LogError("compareAccount null: " + this);
+                                                    // Debug.LogError("compareAccount null: " + this);
                                                 }
                                             }
                                             editAccount.compare.v = new ReferenceData<Account>(compareAccount);

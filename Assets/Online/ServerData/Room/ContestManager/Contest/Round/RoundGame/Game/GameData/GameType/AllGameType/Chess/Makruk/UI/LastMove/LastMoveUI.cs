@@ -95,6 +95,20 @@ namespace Makruk
                                     this.data.sub.v = makrukCustomMoveUIData;
                                 }
                                 break;
+                            case GameMove.Type.MakrukCustomFen:
+                                {
+                                    MakrukCustomFen makrukCustomFen = lastMove as MakrukCustomFen;
+                                    // Find
+                                    MakrukCustomFenUI.UIData makrukCustomFenUIData = this.data.sub.newOrOld<MakrukCustomFenUI.UIData>();
+                                    {
+                                        // move
+                                        makrukCustomFenUIData.makrukCustomFen.v = new ReferenceData<MakrukCustomFen>(makrukCustomFen);
+                                        // isHint
+                                        makrukCustomFenUIData.isHint.v = false;
+                                    }
+                                    this.data.sub.v = makrukCustomFenUIData;
+                                }
+                                break;
                             case GameMove.Type.None:
                                 this.data.sub.v = null;
                                 break;
@@ -129,6 +143,7 @@ namespace Makruk
         public MakrukMoveUI makrukMovePrefab;
         public MakrukCustomSetUI makrukCustomSetPrefab;
         public MakrukCustomMoveUI makrukCustomMovePrefab;
+        public MakrukCustomFenUI makrukCustomFenPrefab;
 
         private LastMoveCheckChange<UIData> lastMoveCheckChange = new LastMoveCheckChange<UIData>();
 
@@ -179,6 +194,12 @@ namespace Makruk
                             {
                                 MakrukCustomMoveUI.UIData makrukCustomMoveUIData = lastMoveSub as MakrukCustomMoveUI.UIData;
                                 UIUtils.Instantiate(makrukCustomMoveUIData, makrukCustomMovePrefab, this.transform);
+                            }
+                            break;
+                        case GameMove.Type.MakrukCustomFen:
+                            {
+                                MakrukCustomFenUI.UIData makrukCustomFenUIData = lastMoveSub as MakrukCustomFenUI.UIData;
+                                UIUtils.Instantiate(makrukCustomFenUIData, makrukCustomFenPrefab, this.transform);
                             }
                             break;
                         default:
@@ -238,6 +259,12 @@ namespace Makruk
                             {
                                 MakrukCustomMoveUI.UIData makrukCustomMoveUIData = lastMoveSub as MakrukCustomMoveUI.UIData;
                                 makrukCustomMoveUIData.removeCallBackAndDestroy(typeof(MakrukCustomMoveUI));
+                            }
+                            break;
+                        case GameMove.Type.MakrukCustomFen:
+                            {
+                                MakrukCustomFenUI.UIData makrukCustomFenUIData = lastMoveSub as MakrukCustomFenUI.UIData;
+                                makrukCustomFenUIData.removeCallBackAndDestroy(typeof(MakrukCustomFenUI));
                             }
                             break;
                         default:

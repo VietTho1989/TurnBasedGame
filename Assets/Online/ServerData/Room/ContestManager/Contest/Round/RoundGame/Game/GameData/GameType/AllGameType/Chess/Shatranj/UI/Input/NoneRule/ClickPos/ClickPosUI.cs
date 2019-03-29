@@ -72,10 +72,20 @@ namespace Shatranj.NoneRule
 
         public Text lbTitle;
 
+        public Button btnSetPiece;
         public Text tvSetPiece;
+
+        public Button btnMove;
         public Text tvMove;
+
+        public Button btnEndTurn;
         public Text tvEndTurn;
+
+        public Button btnClear;
         public Text tvClear;
+
+        public Button btnCreateByFen;
+        public Text tvCreateByFen;
 
         #endregion
 
@@ -83,11 +93,6 @@ namespace Shatranj.NoneRule
 
         public GameObject ivSelect;
         public Transform contentContainer;
-
-        public Button btnSetPiece;
-        public Button btnMove;
-        public Button btnEndTurn;
-        public Button btnClear;
 
         public override void refresh()
         {
@@ -202,6 +207,18 @@ namespace Shatranj.NoneRule
                                 Debug.LogError("btnClear null");
                             }
                         }
+                        // btnCreateByFen
+                        {
+                            if (btnCreateByFen != null && btnCreateByFen.gameObject.activeSelf)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnCreateByFen.transform, deltaY);
+                                deltaY += 40;
+                            }
+                            else
+                            {
+                                Debug.LogError("btnCreateByFen null");
+                            }
+                        }
                         // set
                         if (contentContainer != null)
                         {
@@ -253,6 +270,14 @@ namespace Shatranj.NoneRule
                         else
                         {
                             Debug.LogError("tvClear null");
+                        }
+                        if (tvCreateByFen != null)
+                        {
+                            tvCreateByFen.text = ClickPosTxt.txtClickPosCreateByFen.get(ClickPosTxt.DefaultClickPosCreateByFen);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvCreateByFen null");
                         }
                     }
                 }
@@ -610,6 +635,30 @@ namespace Shatranj.NoneRule
             else
             {
                 Debug.LogError("data null: " + this);
+            }
+        }
+
+        public void onClickBtnCreateByFen()
+        {
+            if (this.data != null)
+            {
+                NoneRuleInputUI.UIData noneRuleInputUIData = this.data.findDataInParent<NoneRuleInputUI.UIData>();
+                if (noneRuleInputUIData != null)
+                {
+                    CreateByFenUI.UIData createFenUIData = new CreateByFenUI.UIData();
+                    {
+                        createFenUIData.uid = noneRuleInputUIData.sub.makeId();
+                    }
+                    noneRuleInputUIData.sub.v = createFenUIData;
+                }
+                else
+                {
+                    Debug.LogError("noneRuleInputUIData null: " + this);
+                }
+            }
+            else
+            {
+                Debug.LogError("data null");
             }
         }
 

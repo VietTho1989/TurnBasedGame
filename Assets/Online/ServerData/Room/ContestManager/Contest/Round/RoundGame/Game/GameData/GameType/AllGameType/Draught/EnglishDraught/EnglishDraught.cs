@@ -174,6 +174,468 @@ namespace EnglishDraught
             return Type.EnglishDraught;
         }
 
+        public bool isLoadFull()
+        {
+            bool ret = true;
+            {
+                // board
+                if (ret)
+                {
+                    if (this.Sqs.vs.Count == 0)
+                    {
+                        Debug.LogError("error, Sqs count = 0");
+                        ret = false;
+                    }
+                }
+            }
+            return ret;
+        }
+
+        #endregion
+
+        #region implement gameType
+
+        public override int getTeamCount()
+        {
+            return 2;
+        }
+
+        public override int getPerspectiveCount()
+        {
+            return 2;
+        }
+
+        public override int getPlayerIndex()
+        {
+            if (this.SideToMove.v == Common.BLACK)
+            {
+                return 0;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+
+        public override bool checkLegalMove(InputData inputData)
+        {
+            GameMove gameMove = inputData.gameMove.v;
+            if (gameMove != null)
+            {
+                if (GameData.IsUseRule(this))
+                {
+                    switch (gameMove.getType())
+                    {
+                        case GameMove.Type.EnglishDraughtMove:
+                            {
+                                EnglishDraughtMove move = gameMove as EnglishDraughtMove;
+                                // Debug.LogError ("checkLegalMove: " + move);
+                                return Core.unityIsLegalMove(this, Core.CanCorrect, move);
+                            }
+                        // break;
+                        default:
+                            Debug.LogError("unknown game move type: " + gameMove.getType() + "; " + this);
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (gameMove.getType())
+                    {
+                        case GameMove.Type.EnglishDraughtCustomSet:
+                            return true;
+                        case GameMove.Type.EndTurn:
+                            return true;
+                        case GameMove.Type.Clear:
+                            return true;
+                        case GameMove.Type.EnglishDraughtCustomMove:
+                            return true;
+                        case GameMove.Type.EnglishDraughtCustomFen:
+                            return true;
+                        default:
+                            Debug.LogError("unknown game type: " + gameMove.getType() + "; " + this);
+                            return true;
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("gameMove null: " + this);
+            }
+            return false;
+        }
+
+        #region processGameMove
+
+        private void processCustomGameMove(GameMove gameMove)
+        {
+            if (gameMove != null)
+            {
+                // make tempEnglishDraught
+                EnglishDraught tempEnglishDraught = DataUtils.cloneData(this) as EnglishDraught;
+                bool needUpdate = true;
+                {
+                    switch (gameMove.getType())
+                    {
+                        case GameMove.Type.EnglishDraughtCustomSet:
+                            {
+                                NoneRule.EnglishDraughtCustomSet englishDraughtCustomSet = gameMove as NoneRule.EnglishDraughtCustomSet;
+                                // set piece
+                                {
+                                    tempEnglishDraught.setPieceOn(englishDraughtCustomSet.square.v, englishDraughtCustomSet.piece.v);
+                                }
+                            }
+                            break;
+                        case GameMove.Type.Clear:
+                            {
+                                for (int i = 0; i < tempEnglishDraught.Sqs.vs.Count; i++)
+                                {
+                                    tempEnglishDraught.Sqs.vs[i] = 0;
+                                }
+                            }
+                            break;
+                        case GameMove.Type.EnglishDraughtCustomMove:
+                            {
+                                NoneRule.EnglishDraughtCustomMove englishDraughtCustomMove = gameMove as NoneRule.EnglishDraughtCustomMove;
+                                // update
+                                {
+                                    tempEnglishDraught.setPieceOn(englishDraughtCustomMove.destSquare.v, EnglishDraught.getPiece(tempEnglishDraught.Sqs.vs, englishDraughtCustomMove.fromSquare.v));
+                                    tempEnglishDraught.setPieceOn(englishDraughtCustomMove.fromSquare.v, 0);
+                                }
+                            }
+                            break;
+                        case GameMove.Type.EnglishDraughtCustomFen:
+                            {
+                                EnglishDraughtCustomFen englishDraughtCustomFen = gameMove as EnglishDraughtCustomFen;
+                                // Update
+                                {
+                                    tempEnglishDraught = Core.unityMakeDefaultPosition(englishDraughtCustomFen.fen.v, (int)tempEnglishDraught.maxPly.v);
+                                }
+                            }
+                            break;
+                        default:
+                            Debug.LogError("unknown type: " + gameMove.getType() + "; " + this);
+                            needUpdate = false;
+                            break;
+                    }
+                }
+                // Update
+                if (needUpdate)
+                {
+                    tempEnglishDraught.isCustom.v = true;
+                    DataUtils.copyData(this, tempEnglishDraught, AllowNames);
+                }
+            }
+            else
+            {
+                Debug.LogError("gameMove null: " + this);
+            }
+        }
+
+        public override void processGameMove(GameMove gameMove)
+        {
+            switch (gameMove.getType())
+            {
+                case GameMove.Type.EnglishDraughtMove:
+                    {
+                        // get information
+                        EnglishDraughtMove move = gameMove as EnglishDraughtMove;
+                        EnglishDraught newEnglishDraught = Core.unityDoMove(this, Core.CanCorrect, move);
+                        if (newEnglishDraught != null)
+                        {
+                            DataUtils.copyData(this, newEnglishDraught, AllowNames);
+                        }
+                        else
+                        {
+                            Debug.LogError("newEnglishDraught null: " + this);
+                        }
+                    }
+                    break;
+                case GameMove.Type.EndTurn:
+                    {
+                        if (this.SideToMove.v == Common.BLACK)
+                        {
+                            this.SideToMove.v = Common.WHITE;
+                        }
+                        else
+                        {
+                            this.SideToMove.v = Common.BLACK;
+                        }
+                        this.isCustom.v = true;
+                    }
+                    break;
+                case GameMove.Type.EnglishDraughtCustomSet:
+                case GameMove.Type.Clear:
+                case GameMove.Type.EnglishDraughtCustomMove:
+                case GameMove.Type.EnglishDraughtCustomFen:
+                    this.processCustomGameMove(gameMove);
+                    break;
+                default:
+                    Debug.LogError("unknown gameMove: " + gameMove + "; " + this);
+                    this.processCustomGameMove(gameMove);
+                    break;
+            }
+        }
+
+        #endregion
+
+        #region getAIMove
+
+        public override GameMove getAIMove(Computer.AI computerAI, bool isFindHint)
+        {
+            GameMove ret = new NonMove();
+            {
+                // check is userNormalMove
+                bool useNormalMove = true;
+                {
+                    if (GameData.IsUseRule(this))
+                    {
+                        useNormalMove = true;
+                    }
+                    else
+                    {
+                        useNormalMove = false;
+                        /*GameData gameData = this.findDataInParent<GameData>();
+						if (gameData != null) {
+							Turn turn = gameData.turn.v;
+							if (turn != null) {
+								if (turn.turn.v % 4 == 0 || turn.turn.v % 4 == 2) {
+									useNormalMove = false;
+								}
+							} else {
+								Debug.LogError ("turn null: " + this);
+							}
+						} else {
+							Debug.LogError ("gameData null: " + this);
+						}*/
+                    }
+                }
+                // process
+                if (useNormalMove)
+                {
+                    // sleep until get enough data
+                    {
+                        int count = 0;
+                        while (true)
+                        {
+                            if (isLoadFull())
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                System.Threading.Thread.Sleep(1000);
+                                Debug.LogError("need sleep: " + count);
+                                count++;
+                                if (count >= 360)
+                                {
+                                    Debug.LogError("why don't have data");
+                                    return new NonMove();
+                                }
+                            }
+                        }
+                    }
+                    EnglishDraughtAI ai = (computerAI != null && computerAI is EnglishDraughtAI) ? (EnglishDraughtAI)computerAI : new EnglishDraughtAI();
+                    EnglishDraughtMove move = Core.unityLetComputerThink(this, true, ai.threeMoveRandom.v, ai.fMaxSeconds.v, ai.g_MaxDepth.v, ai.pickBestMove.v);
+                    // Debug.LogError ("find ai move: " + Common.printMove (move) + "; " + this);
+                    // return
+                    ret = move;
+                }
+                else
+                {
+                    GameMove customMove = getCustomMove();
+                    if (customMove != null)
+                    {
+                        ret = customMove;
+                    }
+                    else
+                    {
+                        Debug.LogError("customMove null: " + this);
+                    }
+                }
+            }
+            return ret;
+        }
+
+        public GameMove getCustomMove()
+        {
+            // find moves
+            List<GameMove> moves = new List<GameMove>();
+            {
+                byte[] allPieceTypes = { 0, Common.BPIECE, Common.BKING, Common.WPIECE, Common.WKING };
+                // get custom set
+                {
+                    for (int square = 0; square < 64; square++)
+                    {
+                        if (IsCorrectSquare(square))
+                        {
+                            byte alreadySelectPiece = EnglishDraught.getPiece(this.Sqs.vs, square);
+                            foreach (byte piece in allPieceTypes)
+                            {
+                                if (piece != alreadySelectPiece)
+                                {
+                                    NoneRule.EnglishDraughtCustomSet englishDraughtCustomSet = new NoneRule.EnglishDraughtCustomSet();
+                                    {
+                                        englishDraughtCustomSet.square.v = square;
+                                        englishDraughtCustomSet.piece.v = piece;
+                                    }
+                                    moves.Add(englishDraughtCustomSet);
+                                }
+                            }
+                        }
+                    }
+                }
+                // get custom move
+                {
+                    for (int square = 0; square < 64; square++)
+                    {
+                        if (IsCorrectSquare(square))
+                        {
+                            byte piece = EnglishDraught.getPiece(this.Sqs.vs, square);
+                            if (piece != 0)
+                            {
+                                for (int destSquare = 0; destSquare < 64; destSquare++)
+                                {
+                                    if (IsCorrectSquare(destSquare))
+                                    {
+                                        if (destSquare != square)
+                                        {
+                                            EnglishDraughtCustomMove englishDraughtCustomMove = new EnglishDraughtCustomMove();
+                                            {
+                                                englishDraughtCustomMove.fromSquare.v = square;
+                                                englishDraughtCustomMove.destSquare.v = destSquare;
+                                            }
+                                            moves.Add(englishDraughtCustomMove);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                // get clear
+                {
+                    Clear clear = new Clear();
+                    {
+
+                    }
+                    moves.Add(clear);
+                }
+                // endTurn
+                {
+                    EndTurn endTurn = new EndTurn();
+                    {
+
+                    }
+                    moves.Add(endTurn);
+                }
+            }
+            // choose
+            if (moves.Count > 0)
+            {
+                System.Random random = new System.Random();
+                int index = random.Next(0, moves.Count);
+                if (index >= 0 && index < moves.Count)
+                {
+                    return moves[index];
+                }
+                else
+                {
+                    Debug.LogError("index error: " + index + "; " + this);
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        #endregion
+
+        public override Result isGameFinish()
+        {
+            Result result = Result.makeDefault();
+            // process
+            if (GameData.IsUseRule(this))
+            {
+                int isGameFinish = Core.unityIsGameFinish(this, Core.CanCorrect);
+                switch (isGameFinish)
+                {
+                    case 0:
+                        {
+                            result.isGameFinish = false;
+                        }
+                        break;
+                    case 1:
+                        // black win
+                        {
+                            result.isGameFinish = true;
+                            // score
+                            result.scores.Add(new GameType.Score(0, 1));// black: 0 index
+                            result.scores.Add(new GameType.Score(1, 0));// white: 1 index
+                        }
+                        break;
+                    case 2:
+                        // white win
+                        {
+                            result.isGameFinish = true;
+                            // score
+                            result.scores.Add(new GameType.Score(0, 0));// black: 0 index
+                            result.scores.Add(new GameType.Score(1, 1));// white: 1 index
+                        }
+                        break;
+                    case 3:
+                        // draw
+                        {
+                            result.isGameFinish = true;
+                            // score
+                            result.scores.Add(new GameType.Score(0, 0));// black: 0 index
+                            result.scores.Add(new GameType.Score(1, 0));// white: 1 index
+                        }
+                        break;
+                    default:
+                        Debug.LogError("unknown result: " + this);
+                        break;
+                }
+            }
+            else
+            {
+                bool isTooManyTurn = false;
+                {
+                    GameData gameData = this.findDataInParent<GameData>();
+                    if (gameData != null)
+                    {
+                        Turn turn = gameData.turn.v;
+                        if (turn != null)
+                        {
+                            if (turn.turn.v >= 1000)
+                            {
+                                isTooManyTurn = true;
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("turn null: " + this);
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("gameData null: " + this);
+                    }
+                }
+                if (isTooManyTurn)
+                {
+                    // draw
+                    result.isGameFinish = true;
+                    // score
+                    result.scores.Add(new GameType.Score(0, 0.5f));// white
+                    result.scores.Add(new GameType.Score(1, 0.5f));// black
+                }
+            }
+            return result;
+        }
+
         #endregion
 
         #region Convert
@@ -547,417 +1009,6 @@ namespace EnglishDraught
                 // Debug.Log ("parse node success: " + count + "; " + byteArray.Length + "; " + start);
                 return (count - start);
             }
-        }
-
-        #endregion
-
-        #region implement gameType
-
-        public override int getTeamCount()
-        {
-            return 2;
-        }
-
-        public override int getPerspectiveCount()
-        {
-            return 2;
-        }
-
-        public override int getPlayerIndex()
-        {
-            if (this.SideToMove.v == Common.BLACK)
-            {
-                return 0;
-            }
-            else
-            {
-                return 1;
-            }
-        }
-
-        public override bool checkLegalMove(InputData inputData)
-        {
-            GameMove gameMove = inputData.gameMove.v;
-            if (gameMove != null)
-            {
-                if (GameData.IsUseRule(this))
-                {
-                    switch (gameMove.getType())
-                    {
-                        case GameMove.Type.EnglishDraughtMove:
-                            {
-                                EnglishDraughtMove move = gameMove as EnglishDraughtMove;
-                                // Debug.LogError ("checkLegalMove: " + move);
-                                return Core.unityIsLegalMove(this, Core.CanCorrect, move);
-                            }
-                        // break;
-                        default:
-                            Debug.LogError("unknown game move type: " + gameMove.getType() + "; " + this);
-                            break;
-                    }
-                }
-                else
-                {
-                    switch (gameMove.getType())
-                    {
-                        case GameMove.Type.EnglishDraughtCustomSet:
-                            return true;
-                        case GameMove.Type.EndTurn:
-                            return true;
-                        case GameMove.Type.Clear:
-                            return true;
-                        case GameMove.Type.EnglishDraughtCustomMove:
-                            return true;
-                        default:
-                            Debug.LogError("unknown game type: " + gameMove.getType() + "; " + this);
-                            return true;
-                    }
-                }
-            }
-            else
-            {
-                Debug.LogError("gameMove null: " + this);
-            }
-            return false;
-        }
-
-        #region processGameMove
-
-        private void processCustomGameMove(GameMove gameMove)
-        {
-            if (gameMove != null)
-            {
-                // make tempEnglishDraught
-                EnglishDraught tempEnglishDraught = DataUtils.cloneData(this) as EnglishDraught;
-                bool needUpdate = true;
-                {
-                    switch (gameMove.getType())
-                    {
-                        case GameMove.Type.EnglishDraughtCustomSet:
-                            {
-                                NoneRule.EnglishDraughtCustomSet englishDraughtCustomSet = gameMove as NoneRule.EnglishDraughtCustomSet;
-                                // set piece
-                                {
-                                    tempEnglishDraught.setPieceOn(englishDraughtCustomSet.square.v, englishDraughtCustomSet.piece.v);
-                                }
-                            }
-                            break;
-                        case GameMove.Type.Clear:
-                            {
-                                for (int i = 0; i < tempEnglishDraught.Sqs.vs.Count; i++)
-                                {
-                                    tempEnglishDraught.Sqs.vs[i] = 0;
-                                }
-                            }
-                            break;
-                        case GameMove.Type.EnglishDraughtCustomMove:
-                            {
-                                NoneRule.EnglishDraughtCustomMove englishDraughtCustomMove = gameMove as NoneRule.EnglishDraughtCustomMove;
-                                // update
-                                {
-                                    tempEnglishDraught.setPieceOn(englishDraughtCustomMove.destSquare.v, EnglishDraught.getPiece(tempEnglishDraught.Sqs.vs, englishDraughtCustomMove.fromSquare.v));
-                                    tempEnglishDraught.setPieceOn(englishDraughtCustomMove.fromSquare.v, 0);
-                                }
-                            }
-                            break;
-                        default:
-                            Debug.LogError("unknown type: " + gameMove.getType() + "; " + this);
-                            needUpdate = false;
-                            break;
-                    }
-                }
-                // Update
-                if (needUpdate)
-                {
-                    tempEnglishDraught.isCustom.v = true;
-                    DataUtils.copyData(this, tempEnglishDraught, AllowNames);
-                }
-            }
-            else
-            {
-                Debug.LogError("gameMove null: " + this);
-            }
-        }
-
-        public override void processGameMove(GameMove gameMove)
-        {
-            switch (gameMove.getType())
-            {
-                case GameMove.Type.EnglishDraughtMove:
-                    {
-                        // get information
-                        EnglishDraughtMove move = gameMove as EnglishDraughtMove;
-                        EnglishDraught newEnglishDraught = Core.unityDoMove(this, Core.CanCorrect, move);
-                        if (newEnglishDraught != null)
-                        {
-                            DataUtils.copyData(this, newEnglishDraught, AllowNames);
-                        }
-                        else
-                        {
-                            Debug.LogError("newEnglishDraught null: " + this);
-                        }
-                    }
-                    break;
-                case GameMove.Type.EndTurn:
-                    {
-                        if (this.SideToMove.v == Common.BLACK)
-                        {
-                            this.SideToMove.v = Common.WHITE;
-                        }
-                        else
-                        {
-                            this.SideToMove.v = Common.BLACK;
-                        }
-                        this.isCustom.v = true;
-                    }
-                    break;
-                case GameMove.Type.EnglishDraughtCustomSet:
-                case GameMove.Type.Clear:
-                case GameMove.Type.EnglishDraughtCustomMove:
-                    this.processCustomGameMove(gameMove);
-                    break;
-                default:
-                    Debug.LogError("unknown gameMove: " + gameMove + "; " + this);
-                    this.processCustomGameMove(gameMove);
-                    break;
-            }
-        }
-
-        #endregion
-
-        #region getAIMove
-
-        public override GameMove getAIMove(Computer.AI computerAI, bool isFindHint)
-        {
-            GameMove ret = new NonMove();
-            {
-                // check is userNormalMove
-                bool useNormalMove = true;
-                {
-                    if (GameData.IsUseRule(this))
-                    {
-                        useNormalMove = true;
-                    }
-                    else
-                    {
-                        useNormalMove = false;
-                        /*GameData gameData = this.findDataInParent<GameData>();
-						if (gameData != null) {
-							Turn turn = gameData.turn.v;
-							if (turn != null) {
-								if (turn.turn.v % 4 == 0 || turn.turn.v % 4 == 2) {
-									useNormalMove = false;
-								}
-							} else {
-								Debug.LogError ("turn null: " + this);
-							}
-						} else {
-							Debug.LogError ("gameData null: " + this);
-						}*/
-                    }
-                }
-                // process
-                if (useNormalMove)
-                {
-                    EnglishDraughtAI ai = (computerAI != null && computerAI is EnglishDraughtAI) ? (EnglishDraughtAI)computerAI : new EnglishDraughtAI();
-                    EnglishDraughtMove move = Core.unityLetComputerThink(this, true, ai.threeMoveRandom.v, ai.fMaxSeconds.v, ai.g_MaxDepth.v, ai.pickBestMove.v);
-                    // Debug.LogError ("find ai move: " + Common.printMove (move) + "; " + this);
-                    // return
-                    ret = move;
-                }
-                else
-                {
-                    GameMove customMove = getCustomMove();
-                    if (customMove != null)
-                    {
-                        ret = customMove;
-                    }
-                    else
-                    {
-                        Debug.LogError("customMove null: " + this);
-                    }
-                }
-            }
-            return ret;
-        }
-
-        public GameMove getCustomMove()
-        {
-            // find moves
-            List<GameMove> moves = new List<GameMove>();
-            {
-                byte[] allPieceTypes = { 0, Common.BPIECE, Common.BKING, Common.WPIECE, Common.WKING };
-                // get custom set
-                {
-                    for (int square = 0; square < 64; square++)
-                    {
-                        if (IsCorrectSquare(square))
-                        {
-                            byte alreadySelectPiece = EnglishDraught.getPiece(this.Sqs.vs, square);
-                            foreach (byte piece in allPieceTypes)
-                            {
-                                if (piece != alreadySelectPiece)
-                                {
-                                    NoneRule.EnglishDraughtCustomSet englishDraughtCustomSet = new NoneRule.EnglishDraughtCustomSet();
-                                    {
-                                        englishDraughtCustomSet.square.v = square;
-                                        englishDraughtCustomSet.piece.v = piece;
-                                    }
-                                    moves.Add(englishDraughtCustomSet);
-                                }
-                            }
-                        }
-                    }
-                }
-                // get custom move
-                {
-                    for (int square = 0; square < 64; square++)
-                    {
-                        if (IsCorrectSquare(square))
-                        {
-                            byte piece = EnglishDraught.getPiece(this.Sqs.vs, square);
-                            if (piece != 0)
-                            {
-                                for (int destSquare = 0; destSquare < 64; destSquare++)
-                                {
-                                    if (IsCorrectSquare(destSquare))
-                                    {
-                                        if (destSquare != square)
-                                        {
-                                            EnglishDraughtCustomMove englishDraughtCustomMove = new EnglishDraughtCustomMove();
-                                            {
-                                                englishDraughtCustomMove.fromSquare.v = square;
-                                                englishDraughtCustomMove.destSquare.v = destSquare;
-                                            }
-                                            moves.Add(englishDraughtCustomMove);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                // get clear
-                {
-                    Clear clear = new Clear();
-                    {
-
-                    }
-                    moves.Add(clear);
-                }
-                // endTurn
-                {
-                    EndTurn endTurn = new EndTurn();
-                    {
-
-                    }
-                    moves.Add(endTurn);
-                }
-            }
-            // choose
-            if (moves.Count > 0)
-            {
-                System.Random random = new System.Random();
-                int index = random.Next(0, moves.Count);
-                if (index >= 0 && index < moves.Count)
-                {
-                    return moves[index];
-                }
-                else
-                {
-                    Debug.LogError("index error: " + index + "; " + this);
-                    return null;
-                }
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        #endregion
-
-        public override Result isGameFinish()
-        {
-            Result result = Result.makeDefault();
-            // process
-            if (GameData.IsUseRule(this))
-            {
-                int isGameFinish = Core.unityIsGameFinish(this, Core.CanCorrect);
-                switch (isGameFinish)
-                {
-                    case 0:
-                        {
-                            result.isGameFinish = false;
-                        }
-                        break;
-                    case 1:
-                        // black win
-                        {
-                            result.isGameFinish = true;
-                            // score
-                            result.scores.Add(new GameType.Score(0, 1));// black: 0 index
-                            result.scores.Add(new GameType.Score(1, 0));// white: 1 index
-                        }
-                        break;
-                    case 2:
-                        // white win
-                        {
-                            result.isGameFinish = true;
-                            // score
-                            result.scores.Add(new GameType.Score(0, 0));// black: 0 index
-                            result.scores.Add(new GameType.Score(1, 1));// white: 1 index
-                        }
-                        break;
-                    case 3:
-                        // draw
-                        {
-                            result.isGameFinish = true;
-                            // score
-                            result.scores.Add(new GameType.Score(0, 0));// black: 0 index
-                            result.scores.Add(new GameType.Score(1, 0));// white: 1 index
-                        }
-                        break;
-                    default:
-                        Debug.LogError("unknown result: " + this);
-                        break;
-                }
-            }
-            else
-            {
-                bool isTooManyTurn = false;
-                {
-                    GameData gameData = this.findDataInParent<GameData>();
-                    if (gameData != null)
-                    {
-                        Turn turn = gameData.turn.v;
-                        if (turn != null)
-                        {
-                            if (turn.turn.v >= 1000)
-                            {
-                                isTooManyTurn = true;
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("turn null: " + this);
-                        }
-                    }
-                    else
-                    {
-                        Debug.LogError("gameData null: " + this);
-                    }
-                }
-                if (isTooManyTurn)
-                {
-                    // draw
-                    result.isGameFinish = true;
-                    // score
-                    result.scores.Add(new GameType.Score(0, 0.5f));// white
-                    result.scores.Add(new GameType.Score(1, 0.5f));// black
-                }
-            }
-            return result;
         }
 
         #endregion

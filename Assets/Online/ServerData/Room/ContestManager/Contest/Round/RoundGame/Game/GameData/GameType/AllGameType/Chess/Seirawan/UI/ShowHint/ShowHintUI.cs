@@ -13,6 +13,7 @@ namespace Seirawan
 
         public class UIData : Data
         {
+
             public VP<LastMoveSub> sub;
 
             #region Constructor
@@ -28,6 +29,7 @@ namespace Seirawan
             }
 
             #endregion
+
         }
 
         #endregion
@@ -143,6 +145,20 @@ namespace Seirawan
                                         this.data.sub.v = seirawanCustomHandUIData;
                                     }
                                     break;
+                                case GameMove.Type.SeirawanCustomFen:
+                                    {
+                                        SeirawanCustomFen seirawanCustomFen = hintMove as SeirawanCustomFen;
+                                        // Find
+                                        SeirawanCustomFenUI.UIData seirawanCustomFenUIData = this.data.sub.newOrOld<SeirawanCustomFenUI.UIData>();
+                                        {
+                                            // move
+                                            seirawanCustomFenUIData.seirawanCustomFen.v = new ReferenceData<SeirawanCustomFen>(seirawanCustomFen);
+                                            // isHint
+                                            seirawanCustomFenUIData.isHint.v = true;
+                                        }
+                                        this.data.sub.v = seirawanCustomFenUIData;
+                                    }
+                                    break;
                                 default:
                                     {
                                         Debug.LogError("unknown hintMove: " + hintMove + ";" + this);
@@ -183,6 +199,7 @@ namespace Seirawan
         public SeirawanCustomSetUI seirawanCustomSetPrefab;
         public SeirawanCustomMoveUI seirawanCustomMovePrefab;
         public SeirawanCustomHandUI seirawanCustomHandPrefab;
+        public SeirawanCustomFenUI seirawanCustomFenPrefab;
 
         private SeirawanGameDataUI.UIData seirawanGameDataUIData = null;
         private GameDataUI.UIData gameDataUIData = null;
@@ -305,6 +322,12 @@ namespace Seirawan
                                 {
                                     SeirawanCustomHandUI.UIData seirawanCustomHandUIData = sub as SeirawanCustomHandUI.UIData;
                                     UIUtils.Instantiate(seirawanCustomHandUIData, seirawanCustomHandPrefab, this.transform);
+                                }
+                                break;
+                            case GameMove.Type.SeirawanCustomFen:
+                                {
+                                    SeirawanCustomFenUI.UIData seirawanCustomFenUIData = sub as SeirawanCustomFenUI.UIData;
+                                    UIUtils.Instantiate(seirawanCustomFenUIData, seirawanCustomFenPrefab, this.transform);
                                 }
                                 break;
                             default:
@@ -434,6 +457,12 @@ namespace Seirawan
                                     seirawanCustomHandUIData.removeCallBackAndDestroy(typeof(SeirawanCustomHandUI));
                                 }
                                 break;
+                            case GameMove.Type.SeirawanCustomFen:
+                                {
+                                    SeirawanCustomFenUI.UIData seirawanCustomFenUIData = sub as SeirawanCustomFenUI.UIData;
+                                    seirawanCustomFenUIData.removeCallBackAndDestroy(typeof(SeirawanCustomFenUI));
+                                }
+                                break;
                             default:
                                 Debug.LogError("unknown type: " + sub.getType() + "; " + this);
                                 break;
@@ -462,7 +491,7 @@ namespace Seirawan
                         }
                         break;
                     default:
-                        Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
                 return;
@@ -484,7 +513,7 @@ namespace Seirawan
                         case SeirawanGameDataUI.UIData.Property.lastMove:
                             break;
                         default:
-                            Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                             break;
                     }
                     return;
@@ -510,7 +539,7 @@ namespace Seirawan
                             case GameDataUI.UIData.Property.allowInput:
                                 break;
                             default:
-                                Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                                 break;
                         }
                         return;
@@ -534,7 +563,7 @@ namespace Seirawan
                                 case HintUI.UIData.Property.ai:
                                     break;
                                 default:
-                                    Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                                     break;
                             }
                             return;
@@ -565,7 +594,7 @@ namespace Seirawan
                                                     }
                                                     break;
                                                 default:
-                                                    Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                                                     break;
                                             }
                                         }
