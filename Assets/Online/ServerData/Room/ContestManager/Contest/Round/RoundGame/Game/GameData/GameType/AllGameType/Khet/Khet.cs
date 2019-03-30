@@ -213,6 +213,8 @@ namespace Khet
                             return true;
                         case GameMove.Type.EndTurn:
                             return true;
+                        case GameMove.Type.KhetCustomFen:
+                            return true;
                         default:
                             Debug.LogError("unknown game type: " + gameMove.getType() + "; " + this);
                             return true;
@@ -328,6 +330,15 @@ namespace Khet
                                 }
                             }
                             break;
+                        case GameMove.Type.KhetCustomFen:
+                            {
+                                KhetCustomFen khetCustomFen = gameMove as KhetCustomFen;
+                                // Update
+                                {
+                                    tempKhet = Core.unityMakePositionByFen(khetCustomFen.fen.v);
+                                }
+                            }
+                            break;
                         default:
                             Debug.LogError("unknown type: " + gameMove.getType() + "; " + this);
                             needUpdate = false;
@@ -380,6 +391,10 @@ namespace Khet
                             this.isCustom.v = true;
                         }
                         break;
+                    case GameMove.Type.KhetCusomMove:
+                    case GameMove.Type.KhetCusomSet:
+                    case GameMove.Type.KhetCustomRotate: 
+                    case GameMove.Type.KhetCustomFen:
                     default:
                         Debug.LogError("unknown gameMove: " + gameMove + "; " + this);
                         this.processCustomGameMove(gameMove);

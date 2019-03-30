@@ -109,6 +109,20 @@ namespace Khet
                                     this.data.sub.v = khetCustomRotateUIData;
                                 }
                                 break;
+                            case GameMove.Type.KhetCustomFen:
+                                {
+                                    KhetCustomFen khetCustomFen = lastMove as KhetCustomFen;
+                                    // Find
+                                    KhetCustomFenUI.UIData khetCustomFenUIData = this.data.sub.newOrOld<KhetCustomFenUI.UIData>();
+                                    {
+                                        // move
+                                        khetCustomFenUIData.khetCustomFen.v = new ReferenceData<KhetCustomFen>(khetCustomFen);
+                                        // isHint
+                                        khetCustomFenUIData.isHint.v = false;
+                                    }
+                                    this.data.sub.v = khetCustomFenUIData;
+                                }
+                                break;
                             case GameMove.Type.None:
                                 this.data.sub.v = null;
                                 break;
@@ -144,6 +158,7 @@ namespace Khet
         public KhetCustomMoveUI khetCustomMovePrefab;
         public KhetCustomSetUI khetCustomSetPrefab;
         public KhetCustomRotateUI khetCustomRotatePrefab;
+        public KhetCustomFenUI khetCustomFenPrefab;
 
         private LastMoveCheckChange<UIData> lastMoveCheckChange = new LastMoveCheckChange<UIData>();
 
@@ -200,6 +215,12 @@ namespace Khet
                             {
                                 KhetCustomRotateUI.UIData khetCustomRotateUIData = lastMoveSub as KhetCustomRotateUI.UIData;
                                 UIUtils.Instantiate(khetCustomRotateUIData, khetCustomRotatePrefab, this.transform);
+                            }
+                            break;
+                        case GameMove.Type.KhetCustomFen:
+                            {
+                                KhetCustomFenUI.UIData khetCustomFenUIData = lastMoveSub as KhetCustomFenUI.UIData;
+                                UIUtils.Instantiate(khetCustomFenUIData, khetCustomFenPrefab, this.transform);
                             }
                             break;
                         default:
@@ -265,6 +286,12 @@ namespace Khet
                             {
                                 KhetCustomRotateUI.UIData khetCustomRotateUIData = lastMoveSub as KhetCustomRotateUI.UIData;
                                 khetCustomRotateUIData.removeCallBackAndDestroy(typeof(KhetCustomRotateUI));
+                            }
+                            break;
+                        case GameMove.Type.KhetCustomFen:
+                            {
+                                KhetCustomFenUI.UIData khetCustomFenUIData = lastMoveSub as KhetCustomFenUI.UIData;
+                                khetCustomFenUIData.removeCallBackAndDestroy(typeof(KhetCustomFenUI));
                             }
                             break;
                         default:

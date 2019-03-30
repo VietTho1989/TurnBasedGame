@@ -68,6 +68,7 @@ public abstract class GameMove : Data
 		ShogiCustomMove,
 		ShogiCustomSet,
 		ShogiCustomHand,
+        ShogiCustomFen,
 
 		GomokuMove,
 		GomokuCustomMove,
@@ -76,6 +77,7 @@ public abstract class GameMove : Data
 		InternationalDraughtMove,
 		InternationalDraughtCustomMove,
 		InternationalDraughtCustomSet,
+        InternationalDraughtCustomFen,
 
 		EnglishDraughtMove,
 		EnglishDraughtCustomMove,
@@ -85,6 +87,7 @@ public abstract class GameMove : Data
 		RussianDraughtMove,
 		RussianDraughtCustomMove,
 		RussianDraughtCustomSet,
+        RussianDraughtCustomFen,
 
         ChineseCheckersMove,
 
@@ -109,6 +112,7 @@ public abstract class GameMove : Data
 		KhetCusomMove,
 		KhetCusomSet,
 		KhetCustomRotate,
+        KhetCustomFen,
 
 		NineMenMorrisMove,
         NineMenMorrisCustomMove,

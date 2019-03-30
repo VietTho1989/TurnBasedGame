@@ -378,624 +378,6 @@ namespace Shogi
 
         #endregion
 
-        #region Convert
-
-        public static byte[] convertToBytes(Shogi shogi, bool needCheckCustom = true)
-        {
-            // custom
-            if (shogi.isCustom.v && needCheckCustom)
-            {
-                string strFen = Common.positionToFen(shogi);
-                // Debug.LogError ("shogi custom fen: " + strFen);
-                Shogi newShogi = Core.unityMakePositionByFen(strFen);
-                return convertToBytes(newShogi);
-            }
-            // normal
-            byte[] byteArray;
-            using (MemoryStream memStream = new MemoryStream())
-            {
-                using (BinaryWriter writer = new BinaryWriter(memStream))
-                {
-                    // write value
-                    {
-                        // Bitboard byTypeBB_[PieceTypeNum];
-                        {
-                            if (shogi.byTypeBB.vs.Count != (int)Common.PieceType.PieceTypeNum)
-                            {
-                                Debug.LogError("parse shogi byTypeBB count error");
-                            }
-                            for (int i = 0; i < (int)Common.PieceType.PieceTypeNum; i++)
-                            {
-                                // get value
-                                Common.BitBoard value = new Common.BitBoard();
-                                {
-                                    if (i < shogi.byTypeBB.vs.Count)
-                                    {
-                                        value = shogi.byTypeBB.vs[i];
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("index error:  byTypeBB: " + shogi);
-                                    }
-                                }
-                                // write
-                                writer.Write(value.p0);
-                                writer.Write(value.p1);
-                            }
-                        }
-
-                        // Bitboard byColorBB_[ColorNum];
-                        {
-                            if (shogi.byColorBB.vs.Count != (int)Common.Color.ColorNum)
-                            {
-                                Debug.LogError("parse shogi byColorBB count error");
-                            }
-                            for (int i = 0; i < (int)Common.Color.ColorNum; i++)
-                            {
-                                // get value
-                                Common.BitBoard value = new Common.BitBoard();
-                                {
-                                    if (i < shogi.byColorBB.vs.Count)
-                                    {
-                                        value = shogi.byColorBB.vs[i];
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("index error:  byColorBB: " + shogi);
-                                    }
-                                }
-                                // write
-                                writer.Write(value.p0);
-                                writer.Write(value.p1);
-                            }
-                        }
-                        // Bitboard goldsBB_;
-                        {
-                            writer.Write(shogi.goldsBB.v.p0);
-                            writer.Write(shogi.goldsBB.v.p1);
-                        }
-                        // Piece piece_[SquareNum];
-                        {
-                            if (shogi.piece.vs.Count != (int)Common.Square.SquareNum)
-                            {
-                                Debug.LogError("parse shogi piece count error");
-                            }
-                            for (int i = 0; i < (int)Common.Square.SquareNum; i++)
-                            {
-                                // get value
-                                int value = 0;
-                                {
-                                    if (i < shogi.piece.vs.Count)
-                                    {
-                                        value = shogi.piece.vs[i];
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("index error:  piece: " + shogi);
-                                    }
-                                }
-                                // write
-                                writer.Write(value);
-                            }
-                        }
-                        // Square kingSquare_[ColorNum];
-                        {
-                            if (shogi.kingSquare.vs.Count != (int)Common.Color.ColorNum)
-                            {
-                                Debug.LogError("parse shogi kingSquare count error");
-                            }
-                            for (int i = 0; i < (int)Common.Color.ColorNum; i++)
-                            {
-                                // get value
-                                int value = 0;
-                                {
-                                    if (i < shogi.kingSquare.vs.Count)
-                                    {
-                                        value = shogi.kingSquare.vs[i];
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("index error:  kingSquare: " + shogi);
-                                    }
-                                }
-                                // write
-                                writer.Write(value);
-                            }
-                        }
-
-                        // Hand hand_[ColorNum];
-                        {
-                            if (shogi.hand.vs.Count != (int)Common.Color.ColorNum)
-                            {
-                                Debug.LogError("parse shogi hand count error");
-                            }
-                            for (int i = 0; i < (int)Common.Color.ColorNum; i++)
-                            {
-                                // get value
-                                uint value = 0;
-                                {
-                                    if (i < shogi.hand.vs.Count)
-                                    {
-                                        value = shogi.hand.vs[i];
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("index error:  hand: " + shogi);
-                                    }
-                                }
-                                // write
-                                writer.Write(value);
-                            }
-                        }
-                        // Color turn_;
-                        writer.Write(shogi.turn.v);
-                        // EvalList evalList_;
-                        writer.Write(EvalList.convertToBytes(shogi.evalList.v));
-                        // StateInfo startState_;
-                        {
-                            writer.Write(shogi.startState.vs.Count);// int
-                            for (int i = 0; i < shogi.startState.vs.Count; i++)
-                            {
-                                StateInfo stateInfo = shogi.startState.vs[i];
-                                writer.Write(StateInfo.convertToBytes(stateInfo));
-                            }
-                        }
-                        // StateInfo* st_;
-                        {
-                            writer.Write(shogi.st.vs.Count);
-                            for (int i = 0; i < shogi.st.vs.Count; i++)
-                            {
-                                StateInfo stateInfo = shogi.st.vs[i];
-                                writer.Write(StateInfo.convertToBytes(stateInfo));
-                            }
-                        }
-                        // Ply gamePly_;
-                        writer.Write(shogi.gamePly.v);
-                        // s64 nodes_;
-                        writer.Write(shogi.nodes.v);
-                    }
-                    // write to byteArray
-                    byteArray = memStream.ToArray();
-                }
-            }
-            return byteArray;
-        }
-
-        public static bool parseLog = false;
-
-        public static int parse(Shogi shogi, byte[] byteArray, int start)
-        {
-            // TODO co the LittleEdian va BigEndian khac nhau se co loi
-            int count = start;
-            int index = 0;
-            bool isParseCorrect = true;
-            while (count < byteArray.Length)
-            {
-                bool alreadyPassAll = false;
-                switch (index)
-                {
-                    case 0:
-                        {
-                            if (parseLog)
-                                Debug.LogError("parse shogi: byTypeBB: " + count);
-                            // Bitboard byTypeBB_[PieceTypeNum];
-                            shogi.byTypeBB.clear();
-                            for (int i = 0; i < (int)Common.PieceType.PieceTypeNum; i++)
-                            {
-                                // p0
-                                System.UInt64 p0 = 0;
-                                if (isParseCorrect)
-                                {
-                                    if (count + sizeof(ulong) <= byteArray.Length)
-                                    {
-                                        p0 = BitConverter.ToUInt64(byteArray, count);
-                                        count += sizeof(ulong);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("array not enough length: size: " + count + "; " + byteArray.Length);
-                                        isParseCorrect = false;
-                                    }
-                                }
-                                // p1
-                                System.UInt64 p1 = 0;
-                                if (isParseCorrect)
-                                {
-                                    if (count + sizeof(ulong) <= byteArray.Length)
-                                    {
-                                        p1 = BitConverter.ToUInt64(byteArray, count);
-                                        count += sizeof(ulong);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("array not enough length: size: " + count + "; " + byteArray.Length);
-                                        isParseCorrect = false;
-                                    }
-                                }
-                                // set value
-                                if (isParseCorrect)
-                                {
-                                    shogi.byTypeBB.add(new Common.BitBoard(p0, p1));
-                                }
-                            }
-                        }
-                        break;
-                    case 1:
-                        {
-                            if (parseLog)
-                                Debug.LogError("parse shogi: byColorBB: " + count);
-                            // Bitboard byColorBB_[ColorNum];
-                            shogi.byColorBB.clear();
-                            for (int i = 0; i < (int)Common.Color.ColorNum; i++)
-                            {
-                                // p0
-                                System.UInt64 p0 = 0;
-                                if (isParseCorrect)
-                                {
-                                    if (count + sizeof(ulong) <= byteArray.Length)
-                                    {
-                                        p0 = BitConverter.ToUInt64(byteArray, count);
-                                        count += sizeof(ulong);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("array not enough length: size: " + count + "; " + byteArray.Length);
-                                        isParseCorrect = false;
-                                    }
-                                }
-                                // p1
-                                System.UInt64 p1 = 0;
-                                if (isParseCorrect)
-                                {
-                                    if (count + sizeof(ulong) <= byteArray.Length)
-                                    {
-                                        p1 = BitConverter.ToUInt64(byteArray, count);
-                                        count += sizeof(ulong);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("array not enough length: size: " + count + "; " + byteArray.Length);
-                                        isParseCorrect = false;
-                                    }
-                                }
-                                // set value
-                                if (isParseCorrect)
-                                {
-                                    shogi.byColorBB.add(new Common.BitBoard(p0, p1));
-                                }
-                            }
-                        }
-                        break;
-                    case 2:
-                        {
-                            if (parseLog)
-                                Debug.LogError("parse shogi: goldsBB: " + count);
-                            // Bitboard goldsBB_;
-                            // p0
-                            System.UInt64 p0 = 0;
-                            if (isParseCorrect)
-                            {
-                                if (count + sizeof(ulong) <= byteArray.Length)
-                                {
-                                    p0 = BitConverter.ToUInt64(byteArray, count);
-                                    count += sizeof(ulong);
-                                }
-                                else
-                                {
-                                    Debug.LogError("array not enough length: size: " + count + "; " + byteArray.Length);
-                                    isParseCorrect = false;
-                                }
-                            }
-                            // p1
-                            System.UInt64 p1 = 0;
-                            if (isParseCorrect)
-                            {
-                                if (count + sizeof(ulong) <= byteArray.Length)
-                                {
-                                    p1 = BitConverter.ToUInt64(byteArray, count);
-                                    count += sizeof(ulong);
-                                }
-                                else
-                                {
-                                    Debug.LogError("array not enough length: size: " + count + "; " + byteArray.Length);
-                                    isParseCorrect = false;
-                                }
-                            }
-                            // set value
-                            if (isParseCorrect)
-                            {
-                                shogi.goldsBB.v = new Common.BitBoard(p0, p1);
-                            }
-                        }
-                        break;
-                    case 3:
-                        {
-                            if (parseLog)
-                                Debug.LogError("parse shogi: piece: " + count);
-                            // Piece piece_[SquareNum];
-                            shogi.piece.clear();
-                            for (int i = 0; i < (int)Common.Square.SquareNum; i++)
-                            {
-                                if (count + sizeof(int) <= byteArray.Length)
-                                {
-                                    shogi.piece.add(BitConverter.ToInt32(byteArray, count));
-                                    count += sizeof(int);
-                                }
-                                else
-                                {
-                                    Debug.LogError("array not enough length: piece: " + count + "; " + byteArray.Length);
-                                    isParseCorrect = false;
-                                    break;
-                                }
-                            }
-                        }
-                        break;
-                    case 4:
-                        {
-                            if (parseLog)
-                                Debug.LogError("parse shogi: kingSquare: " + count);
-                            // Square kingSquare_[ColorNum];
-                            shogi.kingSquare.clear();
-                            for (int i = 0; i < (int)Common.Color.ColorNum; i++)
-                            {
-                                if (count + sizeof(int) <= byteArray.Length)
-                                {
-                                    shogi.kingSquare.add(BitConverter.ToInt32(byteArray, count));
-                                    count += sizeof(int);
-                                }
-                                else
-                                {
-                                    Debug.LogError("array not enough length: kingSquare: " + count + "; " + byteArray.Length);
-                                    isParseCorrect = false;
-                                    break;
-                                }
-                            }
-                        }
-                        break;
-                    case 5:
-                        {
-                            if (parseLog)
-                                Debug.LogError("parse shogi: hand: " + count);
-                            // Hand hand_[ColorNum];
-                            shogi.hand.clear();
-                            for (int i = 0; i < (int)Common.Color.ColorNum; i++)
-                            {
-                                if (count + sizeof(uint) <= byteArray.Length)
-                                {
-                                    shogi.hand.add(BitConverter.ToUInt32(byteArray, count));
-                                    count += sizeof(uint);
-                                }
-                                else
-                                {
-                                    Debug.LogError("array not enough length: kingSquare: " + count + "; " + byteArray.Length);
-                                    isParseCorrect = false;
-                                    break;
-                                }
-                            }
-                        }
-                        break;
-                    case 6:
-                        {
-                            if (parseLog)
-                                Debug.LogError("parse shogi: turn: " + count);
-                            // Color turn_;
-                            if (count + sizeof(int) <= byteArray.Length)
-                            {
-                                shogi.turn.v = BitConverter.ToInt32(byteArray, count);
-                                count += sizeof(int);
-                            }
-                            else
-                            {
-                                Debug.LogError("array not enough length: turn: " + count + "; " + byteArray.Length);
-                                isParseCorrect = false;
-                            }
-                        }
-                        break;
-                    case 7:
-                        {
-                            if (parseLog)
-                                Debug.LogError("parse shogi: evalList: " + count);
-                            // EvalList evalList_;
-                            EvalList evalList = new EvalList();
-                            // parse
-                            {
-                                int byteLength = EvalList.parse(evalList, byteArray, count);
-                                if (byteLength > 0)
-                                {
-                                    // increase pointer index
-                                    count += byteLength;
-                                }
-                                else
-                                {
-                                    Debug.LogError("cannot parse");
-                                    isParseCorrect = false;
-                                    break;
-                                }
-                            }
-                            // add to data
-                            if (isParseCorrect)
-                            {
-                                evalList.uid = shogi.evalList.makeId();
-                                shogi.evalList.v = evalList;
-                            }
-                            else
-                            {
-                                Debug.LogError("parse evalList error");
-                            }
-                        }
-                        break;
-                    case 8:
-                        {
-                            if (parseLog)
-                                Debug.LogError("parse shogi: startState: " + count);
-                            // StateInfo startState_;
-                            shogi.startState.clear();
-                            int stateInfoNumber = 0;
-                            {
-                                if (count + sizeof(int) <= byteArray.Length)
-                                {
-                                    stateInfoNumber = BitConverter.ToInt32(byteArray, count);
-                                    count += sizeof(int);
-                                }
-                                else
-                                {
-                                    Debug.LogError("array not enough length: key: " + count + "; " + byteArray.Length);
-                                    isParseCorrect = false;
-                                }
-                            }
-                            // parse
-                            {
-                                // Debug.LogError ("parse position stateInfo: " + stateInfoNumber);
-                                // get list of stateInfo
-                                List<StateInfo> sts = new List<StateInfo>();
-                                for (int i = 0; i < stateInfoNumber; i++)
-                                {
-                                    StateInfo st = new StateInfo();
-                                    int stateInfoByteLength = StateInfo.parse(st, byteArray, count);
-                                    if (stateInfoByteLength > 0)
-                                    {
-                                        // add to chess
-                                        sts.Add(st);
-                                        // increase pointer
-                                        count += stateInfoByteLength;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("cannot parse");
-                                        break;
-                                    }
-                                }
-                                // add to chess data
-                                for (int i = 0; i < sts.Count; i++)
-                                {
-                                    StateInfo st = sts[i];
-                                    st.uid = shogi.startState.makeId();
-                                    shogi.startState.add(st);
-                                }
-                                // Debug.LogError ("shogi startState: " + shogi.startState.vs.Count);
-                            }
-                        }
-                        break;
-                    case 9:
-                        {
-                            if (parseLog)
-                                Debug.LogError("parse shogi: st: " + count);
-                            // StateInfo* st_;
-                            shogi.st.clear();
-                            int stateInfoNumber = 0;
-                            {
-                                if (count + sizeof(int) <= byteArray.Length)
-                                {
-                                    stateInfoNumber = BitConverter.ToInt32(byteArray, count);
-                                    count += sizeof(int);
-                                }
-                                else
-                                {
-                                    Debug.LogError("array not enough length: key: " + count + "; " + byteArray.Length);
-                                    isParseCorrect = false;
-                                }
-                            }
-                            // parse
-                            {
-                                // Debug.LogError ("parse position stateInfo: " + stateInfoNumber);
-                                // get list of stateInfo
-                                List<StateInfo> sts = new List<StateInfo>();
-                                for (int i = 0; i < stateInfoNumber; i++)
-                                {
-                                    StateInfo st = new StateInfo();
-                                    int stateInfoByteLength = StateInfo.parse(st, byteArray, count);
-                                    if (stateInfoByteLength > 0)
-                                    {
-                                        // add to chess
-                                        sts.Add(st);
-                                        // increase pointer
-                                        count += stateInfoByteLength;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("cannot parse");
-                                        break;
-                                    }
-                                }
-                                // add to chess data
-                                for (int i = 0; i < sts.Count; i++)
-                                {
-                                    StateInfo st = sts[i];
-                                    {
-                                        st.uid = shogi.st.makeId();
-                                    }
-                                    shogi.st.add(st);
-                                }
-                                // Debug.LogError ("shogi st: " + shogi.st.vs.Count);
-                            }
-                        }
-                        break;
-                    case 10:
-                        {
-                            if (parseLog)
-                                Debug.LogError("parse shogi: gamePly: " + count);
-                            // Ply gamePly_;
-                            if (count + sizeof(int) <= byteArray.Length)
-                            {
-                                shogi.gamePly.v = BitConverter.ToInt32(byteArray, count);
-                                count += sizeof(int);
-                            }
-                            else
-                            {
-                                Debug.LogError("array not enough length: gamePly: " + count + "; " + byteArray.Length);
-                                isParseCorrect = false;
-                            }
-                        }
-                        break;
-                    case 11:
-                        {
-                            if (parseLog)
-                                Debug.LogError("parse shogi: nodes_: " + count);
-                            // s64 nodes_;
-                            if (count + sizeof(long) <= byteArray.Length)
-                            {
-                                shogi.nodes.v = BitConverter.ToInt64(byteArray, count);
-                                count += sizeof(long);
-                            }
-                            else
-                            {
-                                Debug.LogError("array not enough length: gamePly: " + count + "; " + byteArray.Length);
-                                isParseCorrect = false;
-                            }
-                        }
-                        break;
-                    default:
-                        // Debug.LogError ("unknown index: " + index);
-                        alreadyPassAll = true;
-                        break;
-                }
-                // Debug.LogError ("count: " + count + "; " + index);
-                index++;
-                if (!isParseCorrect)
-                {
-                    Debug.LogError("not parse correct");
-                    break;
-                }
-                if (alreadyPassAll)
-                {
-                    break;
-                }
-            }
-            // return
-            if (!isParseCorrect)
-            {
-                Debug.LogError("parse stateInfo fail: " + count + "; " + byteArray.Length + "; " + start);
-                return -1;
-            }
-            else
-            {
-                // Debug.LogError ("parse stateInfo success: " + count + "; " + byteArray.Length + "; " + start);
-                return (count - start);
-            }
-        }
-
-        #endregion
-
         #endregion
 
         #region implement interface
@@ -1059,6 +441,7 @@ namespace Shogi
                         case GameMove.Type.ShogiCustomHand:
                         case GameMove.Type.Clear:
                         case GameMove.Type.EndTurn:
+                        case GameMove.Type.ShogiCustomFen:
                             return true;
                         default:
                             Debug.LogError("unknown game type: " + gameMove.getType() + "; " + this);
@@ -1122,6 +505,15 @@ namespace Shogi
                                 }
                             }
                             break;
+                        case GameMove.Type.ShogiCustomFen:
+                            {
+                                ShogiCustomFen shogiCustomFen = gameMove as ShogiCustomFen;
+                                // Update
+                                {
+                                    tempShogi = Core.unityMakePositionByFen(shogiCustomFen.fen.v);
+                                }
+                            }
+                            break;
                         default:
                             Debug.LogError("unknown type: " + gameMove.getType() + "; " + this);
                             needUpdate = false;
@@ -1174,6 +566,7 @@ namespace Shogi
                 case GameMove.Type.ShogiCustomSet:
                 case GameMove.Type.ShogiCustomHand:
                 case GameMove.Type.Clear:
+                case GameMove.Type.ShogiCustomFen:
                     this.processCustomGameMove(gameMove);
                     break;
                 default:
@@ -1498,6 +891,598 @@ namespace Shogi
             }
             // return
             return result;
+        }
+
+        #endregion
+
+        #region Convert
+
+        public static byte[] convertToBytes(Shogi shogi, bool needCheckCustom = true)
+        {
+            // custom
+            if (shogi.isCustom.v && needCheckCustom)
+            {
+                string strFen = Common.positionToFen(shogi);
+                // Debug.LogError ("shogi custom fen: " + strFen);
+                Shogi newShogi = Core.unityMakePositionByFen(strFen);
+                return convertToBytes(newShogi);
+            }
+            // normal
+            byte[] byteArray;
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                using (BinaryWriter writer = new BinaryWriter(memStream))
+                {
+                    // write value
+                    {
+                        // Bitboard byTypeBB_[PieceTypeNum];
+                        {
+                            if (shogi.byTypeBB.vs.Count != (int)Common.PieceType.PieceTypeNum)
+                            {
+                                Debug.LogError("parse shogi byTypeBB count error");
+                            }
+                            for (int i = 0; i < (int)Common.PieceType.PieceTypeNum; i++)
+                            {
+                                // get value
+                                Common.BitBoard value = new Common.BitBoard();
+                                {
+                                    if (i < shogi.byTypeBB.vs.Count)
+                                    {
+                                        value = shogi.byTypeBB.vs[i];
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("index error:  byTypeBB: " + shogi);
+                                    }
+                                }
+                                // write
+                                writer.Write(value.p0);
+                                writer.Write(value.p1);
+                            }
+                        }
+
+                        // Bitboard byColorBB_[ColorNum];
+                        {
+                            if (shogi.byColorBB.vs.Count != (int)Common.Color.ColorNum)
+                            {
+                                Debug.LogError("parse shogi byColorBB count error");
+                            }
+                            for (int i = 0; i < (int)Common.Color.ColorNum; i++)
+                            {
+                                // get value
+                                Common.BitBoard value = new Common.BitBoard();
+                                {
+                                    if (i < shogi.byColorBB.vs.Count)
+                                    {
+                                        value = shogi.byColorBB.vs[i];
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("index error:  byColorBB: " + shogi);
+                                    }
+                                }
+                                // write
+                                writer.Write(value.p0);
+                                writer.Write(value.p1);
+                            }
+                        }
+                        // Bitboard goldsBB_;
+                        {
+                            writer.Write(shogi.goldsBB.v.p0);
+                            writer.Write(shogi.goldsBB.v.p1);
+                        }
+                        // Piece piece_[SquareNum];
+                        {
+                            if (shogi.piece.vs.Count != (int)Common.Square.SquareNum)
+                            {
+                                Debug.LogError("parse shogi piece count error");
+                            }
+                            for (int i = 0; i < (int)Common.Square.SquareNum; i++)
+                            {
+                                // get value
+                                int value = 0;
+                                {
+                                    if (i < shogi.piece.vs.Count)
+                                    {
+                                        value = shogi.piece.vs[i];
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("index error:  piece: " + shogi);
+                                    }
+                                }
+                                // write
+                                writer.Write(value);
+                            }
+                        }
+                        // Square kingSquare_[ColorNum];
+                        {
+                            if (shogi.kingSquare.vs.Count != (int)Common.Color.ColorNum)
+                            {
+                                Debug.LogError("parse shogi kingSquare count error");
+                            }
+                            for (int i = 0; i < (int)Common.Color.ColorNum; i++)
+                            {
+                                // get value
+                                int value = 0;
+                                {
+                                    if (i < shogi.kingSquare.vs.Count)
+                                    {
+                                        value = shogi.kingSquare.vs[i];
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("index error:  kingSquare: " + shogi);
+                                    }
+                                }
+                                // write
+                                writer.Write(value);
+                            }
+                        }
+
+                        // Hand hand_[ColorNum];
+                        {
+                            if (shogi.hand.vs.Count != (int)Common.Color.ColorNum)
+                            {
+                                Debug.LogError("parse shogi hand count error");
+                            }
+                            for (int i = 0; i < (int)Common.Color.ColorNum; i++)
+                            {
+                                // get value
+                                uint value = 0;
+                                {
+                                    if (i < shogi.hand.vs.Count)
+                                    {
+                                        value = shogi.hand.vs[i];
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("index error:  hand: " + shogi);
+                                    }
+                                }
+                                // write
+                                writer.Write(value);
+                            }
+                        }
+                        // Color turn_;
+                        writer.Write(shogi.turn.v);
+                        // EvalList evalList_;
+                        writer.Write(EvalList.convertToBytes(shogi.evalList.v));
+                        // StateInfo startState_;
+                        {
+                            writer.Write(shogi.startState.vs.Count);// int
+                            for (int i = 0; i < shogi.startState.vs.Count; i++)
+                            {
+                                StateInfo stateInfo = shogi.startState.vs[i];
+                                writer.Write(StateInfo.convertToBytes(stateInfo));
+                            }
+                        }
+                        // StateInfo* st_;
+                        {
+                            writer.Write(shogi.st.vs.Count);
+                            for (int i = 0; i < shogi.st.vs.Count; i++)
+                            {
+                                StateInfo stateInfo = shogi.st.vs[i];
+                                writer.Write(StateInfo.convertToBytes(stateInfo));
+                            }
+                        }
+                        // Ply gamePly_;
+                        writer.Write(shogi.gamePly.v);
+                        // s64 nodes_;
+                        writer.Write(shogi.nodes.v);
+                    }
+                    // write to byteArray
+                    byteArray = memStream.ToArray();
+                }
+            }
+            return byteArray;
+        }
+
+        public static int parse(Shogi shogi, byte[] byteArray, int start)
+        {
+            // TODO co the LittleEdian va BigEndian khac nhau se co loi
+            int count = start;
+            int index = 0;
+            bool isParseCorrect = true;
+            while (count < byteArray.Length)
+            {
+                bool alreadyPassAll = false;
+                switch (index)
+                {
+                    case 0:
+                        {
+                            // Bitboard byTypeBB_[PieceTypeNum];
+                            shogi.byTypeBB.clear();
+                            for (int i = 0; i < (int)Common.PieceType.PieceTypeNum; i++)
+                            {
+                                // p0
+                                System.UInt64 p0 = 0;
+                                if (isParseCorrect)
+                                {
+                                    if (count + sizeof(ulong) <= byteArray.Length)
+                                    {
+                                        p0 = BitConverter.ToUInt64(byteArray, count);
+                                        count += sizeof(ulong);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("array not enough length: size: " + count + "; " + byteArray.Length);
+                                        isParseCorrect = false;
+                                    }
+                                }
+                                // p1
+                                System.UInt64 p1 = 0;
+                                if (isParseCorrect)
+                                {
+                                    if (count + sizeof(ulong) <= byteArray.Length)
+                                    {
+                                        p1 = BitConverter.ToUInt64(byteArray, count);
+                                        count += sizeof(ulong);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("array not enough length: size: " + count + "; " + byteArray.Length);
+                                        isParseCorrect = false;
+                                    }
+                                }
+                                // set value
+                                if (isParseCorrect)
+                                {
+                                    shogi.byTypeBB.add(new Common.BitBoard(p0, p1));
+                                }
+                            }
+                        }
+                        break;
+                    case 1:
+                        {
+                            // Bitboard byColorBB_[ColorNum];
+                            shogi.byColorBB.clear();
+                            for (int i = 0; i < (int)Common.Color.ColorNum; i++)
+                            {
+                                // p0
+                                System.UInt64 p0 = 0;
+                                if (isParseCorrect)
+                                {
+                                    if (count + sizeof(ulong) <= byteArray.Length)
+                                    {
+                                        p0 = BitConverter.ToUInt64(byteArray, count);
+                                        count += sizeof(ulong);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("array not enough length: size: " + count + "; " + byteArray.Length);
+                                        isParseCorrect = false;
+                                    }
+                                }
+                                // p1
+                                System.UInt64 p1 = 0;
+                                if (isParseCorrect)
+                                {
+                                    if (count + sizeof(ulong) <= byteArray.Length)
+                                    {
+                                        p1 = BitConverter.ToUInt64(byteArray, count);
+                                        count += sizeof(ulong);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("array not enough length: size: " + count + "; " + byteArray.Length);
+                                        isParseCorrect = false;
+                                    }
+                                }
+                                // set value
+                                if (isParseCorrect)
+                                {
+                                    shogi.byColorBB.add(new Common.BitBoard(p0, p1));
+                                }
+                            }
+                        }
+                        break;
+                    case 2:
+                        {
+                            // Bitboard goldsBB_;
+                            // p0
+                            System.UInt64 p0 = 0;
+                            if (isParseCorrect)
+                            {
+                                if (count + sizeof(ulong) <= byteArray.Length)
+                                {
+                                    p0 = BitConverter.ToUInt64(byteArray, count);
+                                    count += sizeof(ulong);
+                                }
+                                else
+                                {
+                                    Debug.LogError("array not enough length: size: " + count + "; " + byteArray.Length);
+                                    isParseCorrect = false;
+                                }
+                            }
+                            // p1
+                            System.UInt64 p1 = 0;
+                            if (isParseCorrect)
+                            {
+                                if (count + sizeof(ulong) <= byteArray.Length)
+                                {
+                                    p1 = BitConverter.ToUInt64(byteArray, count);
+                                    count += sizeof(ulong);
+                                }
+                                else
+                                {
+                                    Debug.LogError("array not enough length: size: " + count + "; " + byteArray.Length);
+                                    isParseCorrect = false;
+                                }
+                            }
+                            // set value
+                            if (isParseCorrect)
+                            {
+                                shogi.goldsBB.v = new Common.BitBoard(p0, p1);
+                            }
+                        }
+                        break;
+                    case 3:
+                        {
+                            // Piece piece_[SquareNum];
+                            shogi.piece.clear();
+                            for (int i = 0; i < (int)Common.Square.SquareNum; i++)
+                            {
+                                if (count + sizeof(int) <= byteArray.Length)
+                                {
+                                    shogi.piece.add(BitConverter.ToInt32(byteArray, count));
+                                    count += sizeof(int);
+                                }
+                                else
+                                {
+                                    Debug.LogError("array not enough length: piece: " + count + "; " + byteArray.Length);
+                                    isParseCorrect = false;
+                                    break;
+                                }
+                            }
+                        }
+                        break;
+                    case 4:
+                        {
+                            // Square kingSquare_[ColorNum];
+                            shogi.kingSquare.clear();
+                            for (int i = 0; i < (int)Common.Color.ColorNum; i++)
+                            {
+                                if (count + sizeof(int) <= byteArray.Length)
+                                {
+                                    shogi.kingSquare.add(BitConverter.ToInt32(byteArray, count));
+                                    count += sizeof(int);
+                                }
+                                else
+                                {
+                                    Debug.LogError("array not enough length: kingSquare: " + count + "; " + byteArray.Length);
+                                    isParseCorrect = false;
+                                    break;
+                                }
+                            }
+                        }
+                        break;
+                    case 5:
+                        {
+                            // Hand hand_[ColorNum];
+                            shogi.hand.clear();
+                            for (int i = 0; i < (int)Common.Color.ColorNum; i++)
+                            {
+                                if (count + sizeof(uint) <= byteArray.Length)
+                                {
+                                    shogi.hand.add(BitConverter.ToUInt32(byteArray, count));
+                                    count += sizeof(uint);
+                                }
+                                else
+                                {
+                                    Debug.LogError("array not enough length: kingSquare: " + count + "; " + byteArray.Length);
+                                    isParseCorrect = false;
+                                    break;
+                                }
+                            }
+                        }
+                        break;
+                    case 6:
+                        {
+                            // Color turn_;
+                            if (count + sizeof(int) <= byteArray.Length)
+                            {
+                                shogi.turn.v = BitConverter.ToInt32(byteArray, count);
+                                count += sizeof(int);
+                            }
+                            else
+                            {
+                                Debug.LogError("array not enough length: turn: " + count + "; " + byteArray.Length);
+                                isParseCorrect = false;
+                            }
+                        }
+                        break;
+                    case 7:
+                        {
+                            // EvalList evalList_;
+                            EvalList evalList = new EvalList();
+                            // parse
+                            {
+                                int byteLength = EvalList.parse(evalList, byteArray, count);
+                                if (byteLength > 0)
+                                {
+                                    // increase pointer index
+                                    count += byteLength;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot parse");
+                                    isParseCorrect = false;
+                                    break;
+                                }
+                            }
+                            // add to data
+                            if (isParseCorrect)
+                            {
+                                evalList.uid = shogi.evalList.makeId();
+                                shogi.evalList.v = evalList;
+                            }
+                            else
+                            {
+                                Debug.LogError("parse evalList error");
+                            }
+                        }
+                        break;
+                    case 8:
+                        {
+                            // StateInfo startState_;
+                            shogi.startState.clear();
+                            int stateInfoNumber = 0;
+                            {
+                                if (count + sizeof(int) <= byteArray.Length)
+                                {
+                                    stateInfoNumber = BitConverter.ToInt32(byteArray, count);
+                                    count += sizeof(int);
+                                }
+                                else
+                                {
+                                    Debug.LogError("array not enough length: key: " + count + "; " + byteArray.Length);
+                                    isParseCorrect = false;
+                                }
+                            }
+                            // parse
+                            {
+                                // Debug.LogError ("parse position stateInfo: " + stateInfoNumber);
+                                // get list of stateInfo
+                                List<StateInfo> sts = new List<StateInfo>();
+                                for (int i = 0; i < stateInfoNumber; i++)
+                                {
+                                    StateInfo st = new StateInfo();
+                                    int stateInfoByteLength = StateInfo.parse(st, byteArray, count);
+                                    if (stateInfoByteLength > 0)
+                                    {
+                                        // add to chess
+                                        sts.Add(st);
+                                        // increase pointer
+                                        count += stateInfoByteLength;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("cannot parse");
+                                        break;
+                                    }
+                                }
+                                // add to chess data
+                                for (int i = 0; i < sts.Count; i++)
+                                {
+                                    StateInfo st = sts[i];
+                                    st.uid = shogi.startState.makeId();
+                                    shogi.startState.add(st);
+                                }
+                                // Debug.LogError ("shogi startState: " + shogi.startState.vs.Count);
+                            }
+                        }
+                        break;
+                    case 9:
+                        {
+                            // StateInfo* st_;
+                            shogi.st.clear();
+                            int stateInfoNumber = 0;
+                            {
+                                if (count + sizeof(int) <= byteArray.Length)
+                                {
+                                    stateInfoNumber = BitConverter.ToInt32(byteArray, count);
+                                    count += sizeof(int);
+                                }
+                                else
+                                {
+                                    Debug.LogError("array not enough length: key: " + count + "; " + byteArray.Length);
+                                    isParseCorrect = false;
+                                }
+                            }
+                            // parse
+                            {
+                                // Debug.LogError ("parse position stateInfo: " + stateInfoNumber);
+                                // get list of stateInfo
+                                List<StateInfo> sts = new List<StateInfo>();
+                                for (int i = 0; i < stateInfoNumber; i++)
+                                {
+                                    StateInfo st = new StateInfo();
+                                    int stateInfoByteLength = StateInfo.parse(st, byteArray, count);
+                                    if (stateInfoByteLength > 0)
+                                    {
+                                        // add to chess
+                                        sts.Add(st);
+                                        // increase pointer
+                                        count += stateInfoByteLength;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("cannot parse");
+                                        break;
+                                    }
+                                }
+                                // add to chess data
+                                for (int i = 0; i < sts.Count; i++)
+                                {
+                                    StateInfo st = sts[i];
+                                    {
+                                        st.uid = shogi.st.makeId();
+                                    }
+                                    shogi.st.add(st);
+                                }
+                                // Debug.LogError ("shogi st: " + shogi.st.vs.Count);
+                            }
+                        }
+                        break;
+                    case 10:
+                        {
+                            // Ply gamePly_;
+                            if (count + sizeof(int) <= byteArray.Length)
+                            {
+                                shogi.gamePly.v = BitConverter.ToInt32(byteArray, count);
+                                count += sizeof(int);
+                            }
+                            else
+                            {
+                                Debug.LogError("array not enough length: gamePly: " + count + "; " + byteArray.Length);
+                                isParseCorrect = false;
+                            }
+                        }
+                        break;
+                    case 11:
+                        {
+                            // s64 nodes_;
+                            if (count + sizeof(long) <= byteArray.Length)
+                            {
+                                shogi.nodes.v = BitConverter.ToInt64(byteArray, count);
+                                count += sizeof(long);
+                            }
+                            else
+                            {
+                                Debug.LogError("array not enough length: gamePly: " + count + "; " + byteArray.Length);
+                                isParseCorrect = false;
+                            }
+                        }
+                        break;
+                    default:
+                        // Debug.LogError ("unknown index: " + index);
+                        alreadyPassAll = true;
+                        break;
+                }
+                // Debug.LogError ("count: " + count + "; " + index);
+                index++;
+                if (!isParseCorrect)
+                {
+                    Debug.LogError("not parse correct");
+                    break;
+                }
+                if (alreadyPassAll)
+                {
+                    break;
+                }
+            }
+            // return
+            if (!isParseCorrect)
+            {
+                Debug.LogError("parse stateInfo fail: " + count + "; " + byteArray.Length + "; " + start);
+                return -1;
+            }
+            else
+            {
+                // Debug.LogError ("parse stateInfo success: " + count + "; " + byteArray.Length + "; " + start);
+                return (count - start);
+            }
         }
 
         #endregion

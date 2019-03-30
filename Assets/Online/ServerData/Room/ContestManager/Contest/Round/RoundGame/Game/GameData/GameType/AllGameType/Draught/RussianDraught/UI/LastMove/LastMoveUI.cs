@@ -95,6 +95,20 @@ namespace RussianDraught
                                     this.data.sub.v = russianDraughtCustomMoveUIData;
                                 }
                                 break;
+                            case GameMove.Type.RussianDraughtCustomFen:
+                                {
+                                    RussianDraughtCustomFen russianDraughtCustomFen = lastMove as RussianDraughtCustomFen;
+                                    // Find
+                                    RussianDraughtCustomFenUI.UIData russianDraughtCustomFenUIData = this.data.sub.newOrOld<RussianDraughtCustomFenUI.UIData>();
+                                    {
+                                        // move
+                                        russianDraughtCustomFenUIData.russianDraughtCustomFen.v = new ReferenceData<RussianDraughtCustomFen>(russianDraughtCustomFen);
+                                        // isHint
+                                        russianDraughtCustomFenUIData.isHint.v = false;
+                                    }
+                                    this.data.sub.v = russianDraughtCustomFenUIData;
+                                }
+                                break;
                             case GameMove.Type.None:
                                 this.data.sub.v = null;
                                 break;
@@ -129,6 +143,7 @@ namespace RussianDraught
         public RussianDraughtMoveUI russianDraughtMovePrefab;
         public RussianDraughtCustomSetUI russianDraughtCustomSetPrefab;
         public RussianDraughtCustomMoveUI russianDraughtCustomMovePrefab;
+        public RussianDraughtCustomFenUI russianDraughtCustomFenPrefab;
 
         private LastMoveCheckChange<UIData> lastMoveCheckChange = new LastMoveCheckChange<UIData>();
 
@@ -179,6 +194,12 @@ namespace RussianDraught
                             {
                                 RussianDraughtCustomMoveUI.UIData russianDraughtCustomMoveUIData = lastMoveSub as RussianDraughtCustomMoveUI.UIData;
                                 UIUtils.Instantiate(russianDraughtCustomMoveUIData, russianDraughtCustomMovePrefab, this.transform);
+                            }
+                            break;
+                        case GameMove.Type.RussianDraughtCustomFen:
+                            {
+                                RussianDraughtCustomFenUI.UIData russianDraughtCustomFenUIData = lastMoveSub as RussianDraughtCustomFenUI.UIData;
+                                UIUtils.Instantiate(russianDraughtCustomFenUIData, russianDraughtCustomFenPrefab, this.transform);
                             }
                             break;
                         default:
@@ -238,6 +259,12 @@ namespace RussianDraught
                             {
                                 RussianDraughtCustomMoveUI.UIData russianDraughtCustomMoveUIData = lastMoveSub as RussianDraughtCustomMoveUI.UIData;
                                 russianDraughtCustomMoveUIData.removeCallBackAndDestroy(typeof(RussianDraughtCustomMoveUI));
+                            }
+                            break;
+                        case GameMove.Type.RussianDraughtCustomFen:
+                            {
+                                RussianDraughtCustomFenUI.UIData russianDraughtCustomFenUIData = lastMoveSub as RussianDraughtCustomFenUI.UIData;
+                                russianDraughtCustomFenUIData.removeCallBackAndDestroy(typeof(RussianDraughtCustomFenUI));
                             }
                             break;
                         default:

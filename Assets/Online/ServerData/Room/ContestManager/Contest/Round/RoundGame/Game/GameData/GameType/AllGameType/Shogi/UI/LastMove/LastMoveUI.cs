@@ -109,6 +109,20 @@ namespace Shogi
                                     this.data.sub.v = shogiCustomHandUIData;
                                 }
                                 break;
+                            case GameMove.Type.ShogiCustomFen:
+                                {
+                                    ShogiCustomFen shogiCustomFen = lastMove as ShogiCustomFen;
+                                    // Find
+                                    ShogiCustomFenUI.UIData shogiCustomFenUIData = this.data.sub.newOrOld<ShogiCustomFenUI.UIData>();
+                                    {
+                                        // move
+                                        shogiCustomFenUIData.shogiCustomFen.v = new ReferenceData<ShogiCustomFen>(shogiCustomFen);
+                                        // isHint
+                                        shogiCustomFenUIData.isHint.v = false;
+                                    }
+                                    this.data.sub.v = shogiCustomFenUIData;
+                                }
+                                break;
                             case GameMove.Type.None:
                                 this.data.sub.v = null;
                                 break;
@@ -144,6 +158,7 @@ namespace Shogi
         public ShogiCustomSetUI shogiCustomSetPrefab;
         public ShogiCustomMoveUI shogiCustomMovePrefab;
         public ShogiCustomHandUI shogiCustomHandPrefab;
+        public ShogiCustomFenUI shogiCustomFenPrefab;
 
         private LastMoveCheckChange<UIData> lastMoveCheckChange = new LastMoveCheckChange<UIData>();
 
@@ -200,6 +215,12 @@ namespace Shogi
                             {
                                 ShogiCustomHandUI.UIData shogiCustomHandUIData = lastMoveSub as ShogiCustomHandUI.UIData;
                                 UIUtils.Instantiate(shogiCustomHandUIData, shogiCustomHandPrefab, this.transform);
+                            }
+                            break;
+                        case GameMove.Type.ShogiCustomFen:
+                            {
+                                ShogiCustomFenUI.UIData shogiCustomFenUIData = lastMoveSub as ShogiCustomFenUI.UIData;
+                                UIUtils.Instantiate(shogiCustomFenUIData, shogiCustomFenPrefab, this.transform);
                             }
                             break;
                         default:
@@ -265,6 +286,12 @@ namespace Shogi
                             {
                                 ShogiCustomHandUI.UIData shogiCustomHandUIData = lastMoveSub as ShogiCustomHandUI.UIData;
                                 shogiCustomHandUIData.removeCallBackAndDestroy(typeof(ShogiCustomHandUI));
+                            }
+                            break;
+                        case GameMove.Type.ShogiCustomFen:
+                            {
+                                ShogiCustomFenUI.UIData shogiCustomFenUIData = lastMoveSub as ShogiCustomFenUI.UIData;
+                                shogiCustomFenUIData.removeCallBackAndDestroy(typeof(ShogiCustomFenUI));
                             }
                             break;
                         default:

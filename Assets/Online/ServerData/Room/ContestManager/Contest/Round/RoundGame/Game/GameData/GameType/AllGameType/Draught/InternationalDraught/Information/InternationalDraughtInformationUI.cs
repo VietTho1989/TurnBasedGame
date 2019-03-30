@@ -231,7 +231,7 @@ namespace InternationalDraught
                                 }
                                 if (drVariant != null)
                                 {
-                                    UIRectTransform.SetPosY((RectTransform)drVariant.transform, deltaY + (UIConstants.ItemHeight - UIRectTransform.CommonToggleHeight) / 2);
+                                    UIRectTransform.SetPosY((RectTransform)drVariant.transform, deltaY + (UIConstants.ItemHeight - UIRectTransform.CommonDropDownHeight) / 2);
                                 }
                                 else
                                 {

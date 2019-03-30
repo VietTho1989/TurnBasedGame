@@ -2389,6 +2389,10 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\InternationalDraught\UI\Input\NoneRule\ClickMove\Move\InternationalDraughtCustomMoveUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\InternationalDraught\UI\Input\NoneRule\ClickNone\ClickNoneUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\InternationalDraught\UI\Input\NoneRule\ClickPos\ClickPosUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\InternationalDraught\UI\Input\NoneRule\CreateByFen\CreateByFenUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\InternationalDraught\UI\Input\NoneRule\CreateByFen\Move\InternationalDraughtCustomFen.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\InternationalDraught\UI\Input\NoneRule\CreateByFen\Move\InternationalDraughtCustomFenIdentity.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\InternationalDraught\UI\Input\NoneRule\CreateByFen\Move\InternationalDraughtCustomFenUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\InternationalDraught\UI\Input\NoneRule\NoneRuleInputUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\InternationalDraught\UI\Input\NoneRule\SetPiece\Adapter\ChoosePieceAdapter.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\InternationalDraught\UI\Input\NoneRule\SetPiece\Adapter\ChoosePieceHolder.cs" />
@@ -2441,6 +2445,10 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\RussianDraught\UI\Input\NoneRule\ClickMove\Move\RussianDraughtCustomMoveUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\RussianDraught\UI\Input\NoneRule\ClickNone\ClickNoneUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\RussianDraught\UI\Input\NoneRule\ClickPos\ClickPosUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\RussianDraught\UI\Input\NoneRule\CreateByFen\CreateByFenUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\RussianDraught\UI\Input\NoneRule\CreateByFen\Move\RussianDraughtCustomFen.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\RussianDraught\UI\Input\NoneRule\CreateByFen\Move\RussianDraughtCustomFenIdentity.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\RussianDraught\UI\Input\NoneRule\CreateByFen\Move\RussianDraughtCustomFenUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\RussianDraught\UI\Input\NoneRule\NoneRuleInputUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\RussianDraught\UI\Input\NoneRule\SetPiece\Adapter\ChoosePieceAdapter.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Draught\RussianDraught\UI\Input\NoneRule\SetPiece\Adapter\ChoosePieceHolder.cs" />
@@ -2586,6 +2594,10 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Khet\UI\Input\NoneRule\ClickPos\Move\KhetCustomRotate.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Khet\UI\Input\NoneRule\ClickPos\Move\KhetCustomRotateIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Khet\UI\Input\NoneRule\ClickPos\Move\KhetCustomRotateUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Khet\UI\Input\NoneRule\CreateByFen\CreateByFenUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Khet\UI\Input\NoneRule\CreateByFen\Move\KhetCustomFen.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Khet\UI\Input\NoneRule\CreateByFen\Move\KhetCustomFenIdentity.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Khet\UI\Input\NoneRule\CreateByFen\Move\KhetCustomFenUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Khet\UI\Input\NoneRule\NoneRuleInputUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Khet\UI\Input\NoneRule\SetPiece\Adapter\ChoosePieceAdapter.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Khet\UI\Input\NoneRule\SetPiece\Adapter\ChoosePieceHolder.cs" />
@@ -2793,6 +2805,10 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Shogi\UI\Input\NoneRule\ClickMove\Move\ShogiCustomMoveUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Shogi\UI\Input\NoneRule\ClickNone\ClickNoneUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Shogi\UI\Input\NoneRule\ClickPos\ClickPosUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Shogi\UI\Input\NoneRule\CreateByFen\CreateByFenUI.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Shogi\UI\Input\NoneRule\CreateByFen\Move\ShogiCustomFen.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Shogi\UI\Input\NoneRule\CreateByFen\Move\ShogiCustomFenIdentity.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Shogi\UI\Input\NoneRule\CreateByFen\Move\ShogiCustomFenUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Shogi\UI\Input\NoneRule\NoneRuleInputUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Shogi\UI\Input\NoneRule\SetHand\Adapter\SetHandAdapter.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\GameType\AllGameType\Shogi\UI\Input\NoneRule\SetHand\Adapter\SetHandHolder.cs" />

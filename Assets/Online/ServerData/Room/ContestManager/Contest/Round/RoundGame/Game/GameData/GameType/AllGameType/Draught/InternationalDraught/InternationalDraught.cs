@@ -189,276 +189,6 @@ namespace InternationalDraught
             return "";
         }
 
-        #region Convert
-
-        public static byte[] convertToBytes(InternationalDraught internationalDraught, bool needCheckCustom = true)
-        {
-            // custom
-            if (internationalDraught.isCustom.v && needCheckCustom)
-            {
-                string strFen = internationalDraught.getFen();
-                Debug.LogError("internationalDraught custom fen: " + strFen);
-                InternationalDraught newInternationalDraught = Core.unityMakeDefaultPosition(internationalDraught.var.v.Variant.v, strFen);
-                return convertToBytes(newInternationalDraught);
-            }
-            // normal
-            byte[] byteArray;
-            using (MemoryStream memStream = new MemoryStream())
-            {
-                using (BinaryWriter writer = new BinaryWriter(memStream))
-                {
-                    // write value
-                    {
-                        /** Node* node = NULL;*/
-                        {
-                            writer.Write(internationalDraught.node.vs.Count);
-                            for (int i = 0; i < internationalDraught.node.vs.Count; i++)
-                            {
-                                Node node = internationalDraught.node.vs[i];
-                                writer.Write(Node.convertToBytes(node));
-                            }
-                        }
-                        /** struct var::Var var;*/
-                        writer.Write(Var.convertToBytes(internationalDraught.var.v));
-                        /** uint64 lastMove = 0;*/
-                        writer.Write(internationalDraught.lastMove.v);
-                        /** int ply = 50;*/
-                        writer.Write(internationalDraught.ply.v);
-
-                        // CaptureSquares
-                        /** int captureSize = 0;*/
-                        writer.Write(internationalDraught.captureSize.v);
-                        /** Square captureSquares[20];*/
-                        {
-                            for (int i = 0; i < 20; i++)
-                            {
-                                // get value
-                                int value = 0;
-                                {
-                                    if (i < internationalDraught.captureSquares.vs.Count)
-                                    {
-                                        value = internationalDraught.captureSquares.vs[i];
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("error, index:  captureSquares: " + internationalDraught);
-                                    }
-                                }
-                                // write
-                                writer.Write(value);
-                            }
-                        }
-                    }
-                    // write to byteArray
-                    byteArray = memStream.ToArray();
-                }
-            }
-            return byteArray;
-        }
-
-        public static int parse(InternationalDraught internationalDraught, byte[] byteArray, int start)
-        {
-            // TODO co the LittleEdian va BigEndian khac nhau se co loi
-            int count = start;
-            int index = 0;
-            bool isParseCorrect = true;
-            while (count < byteArray.Length)
-            {
-                bool alreadyPassAll = false;
-                switch (index)
-                {
-                    case 0:
-                        /** Node* node = NULL;*/
-                        {
-                            // Debug.Log ("parse node: " + count);
-                            // reset
-                            internationalDraught.node.clear();
-                            // find node count
-                            int nodeCount = 0;
-                            {
-                                int size = sizeof(int);
-                                if (count + size <= byteArray.Length)
-                                {
-                                    nodeCount = BitConverter.ToInt32(byteArray, count);
-                                    count += size;
-                                }
-                                else
-                                {
-                                    Debug.LogError("error, array not enough length: nodeCount: " + count + "; " + byteArray.Length);
-                                    isParseCorrect = false;
-                                }
-                            }
-                            if (nodeCount >= 0)
-                            {
-                                List<Node> nodes = new List<Node>();
-                                // get nodes 
-                                for (int i = 0; i < nodeCount; i++)
-                                {
-                                    Node node = new Node();
-                                    int nodeByteLength = Node.parse(node, byteArray, count);
-                                    if (nodeByteLength > 0)
-                                    {
-                                        nodes.Add(node);
-                                        count += nodeByteLength;
-                                        // Debug.Log ("nodeByteLength: " + nodeByteLength);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("cannot parse");
-                                        break;
-                                    }
-                                }
-                                // add to internationalDraught
-                                for (int i = 0; i < nodes.Count; i++)
-                                {
-                                    Node node = nodes[i];
-                                    node.uid = internationalDraught.node.makeId();
-                                    internationalDraught.node.add(node);
-                                }
-                            }
-                            else
-                            {
-                                Debug.LogError("error, why nodeCount < 0: " + nodeCount);
-                            }
-                        }
-                        break;
-                    case 1:
-                        /** struct var::Var var;*/
-                        {
-                            // Debug.Log ("parse var: " + count);
-                            Var var = new Var();
-                            // parse
-                            {
-                                int byteLength = Var.parse(var, byteArray, count);
-                                if (byteLength > 0)
-                                {
-                                    // increase pointer index
-                                    count += byteLength;
-                                }
-                                else
-                                {
-                                    Debug.LogError("cannot parse");
-                                    isParseCorrect = false;
-                                    break;
-                                }
-                            }
-                            // add to data
-                            if (isParseCorrect)
-                            {
-                                var.uid = internationalDraught.var.makeId();
-                                internationalDraught.var.v = var;
-                            }
-                            else
-                            {
-                                Debug.LogError("parse var error");
-                            }
-                        }
-                        break;
-                    case 2:
-                        /** uint64 lastMove = 0;*/
-                        {
-                            // Debug.Log ("parse lastMove: " + count);
-                            int size = sizeof(System.UInt64);
-                            if (count + size <= byteArray.Length)
-                            {
-                                internationalDraught.lastMove.v = BitConverter.ToUInt64(byteArray, count);
-                                count += size;
-                            }
-                            else
-                            {
-                                Debug.LogError("error, array not enough length: lastMove: " + count + "; " + byteArray.Length);
-                                isParseCorrect = false;
-                            }
-                        }
-                        break;
-                    case 3:
-                        /** int ply = 50;*/
-                        {
-                            // Debug.Log ("parse ply: " + count);
-                            int size = sizeof(int);
-                            if (count + size <= byteArray.Length)
-                            {
-                                internationalDraught.ply.v = BitConverter.ToInt32(byteArray, count);
-                                count += size;
-                            }
-                            else
-                            {
-                                Debug.LogError("error, array not enough length: ply: " + count + "; " + byteArray.Length);
-                                isParseCorrect = false;
-                            }
-                        }
-                        break;
-
-                    // CaptureSquares
-                    case 4:
-                        /** int captureSize = 0;*/
-                        {
-                            // Debug.Log ("parse captureSize: " + count);
-                            int size = sizeof(int);
-                            if (count + size <= byteArray.Length)
-                            {
-                                internationalDraught.captureSize.v = BitConverter.ToInt32(byteArray, count);
-                                count += size;
-                            }
-                            else
-                            {
-                                Debug.LogError("error, array not enough length: captureSize: " + count + "; " + byteArray.Length);
-                                isParseCorrect = false;
-                            }
-                        }
-                        break;
-                    case 5:
-                        /** Square captureSquares[20];*/
-                        {
-                            // Debug.Log ("parse captureSquares: " + count);
-                            internationalDraught.captureSquares.clear();
-                            int size = sizeof(int);
-                            for (int i = 0; i < 20; i++)
-                            {
-                                if (count + size <= byteArray.Length)
-                                {
-                                    internationalDraught.captureSquares.add(BitConverter.ToInt32(byteArray, count));
-                                    count += size;
-                                }
-                                else
-                                {
-                                    Debug.LogError("array not enough length: captureSquares: " + count + "; " + byteArray.Length);
-                                    isParseCorrect = false;
-                                    break;
-                                }
-                            }
-                        }
-                        break;
-                    default:
-                        alreadyPassAll = true;
-                        break;
-                }
-                index++;
-                if (!isParseCorrect)
-                {
-                    Debug.LogError("not parse correct");
-                    break;
-                }
-                if (alreadyPassAll)
-                {
-                    break;
-                }
-            }
-            // return
-            if (!isParseCorrect)
-            {
-                Debug.LogError("parse InternationalDraught fail: " + count + "; " + byteArray.Length + "; " + start);
-                return -1;
-            }
-            else
-            {
-                // Debug.Log ("parse InternationalDraught success: " + count + "; " + byteArray.Length + "; " + start);
-                return (count - start);
-            }
-        }
-
-        #endregion
-
         #region implement gameType
 
         public override int getTeamCount()
@@ -526,6 +256,8 @@ namespace InternationalDraught
                         case GameMove.Type.Clear:
                             return true;
                         case GameMove.Type.InternationalDraughtCustomMove:
+                            return true;
+                        case GameMove.Type.InternationalDraughtCustomFen:
                             return true;
                         default:
                             Debug.LogError("unknown game type: " + gameMove.getType() + "; " + this);
@@ -608,6 +340,15 @@ namespace InternationalDraught
                                 }
                             }
                             break;
+                        case GameMove.Type.InternationalDraughtCustomFen:
+                            {
+                                InternationalDraughtCustomFen internationalDraughtCustomFen = gameMove as InternationalDraughtCustomFen;
+                                // Update
+                                {
+                                    tempInternationalDraught = Core.unityMakeDefaultPosition(tempInternationalDraught.var.v.Variant.v, internationalDraughtCustomFen.fen.v);
+                                }
+                            }
+                            break;
                         default:
                             Debug.LogError("unknown type: " + gameMove.getType() + "; " + this);
                             needUpdate = false;
@@ -677,6 +418,7 @@ namespace InternationalDraught
                 case GameMove.Type.InternationalDraughtCustomSet:
                 case GameMove.Type.Clear:
                 case GameMove.Type.InternationalDraughtCustomMove:
+                case GameMove.Type.InternationalDraughtCustomFen:
                     this.processCustomGameMove(gameMove);
                     break;
                 default:
@@ -955,6 +697,276 @@ namespace InternationalDraught
                 }
             }
             return result;
+        }
+
+        #endregion
+
+        #region Convert
+
+        public static byte[] convertToBytes(InternationalDraught internationalDraught, bool needCheckCustom = true)
+        {
+            // custom
+            if (internationalDraught.isCustom.v && needCheckCustom)
+            {
+                string strFen = internationalDraught.getFen();
+                Debug.LogError("internationalDraught custom fen: " + strFen);
+                InternationalDraught newInternationalDraught = Core.unityMakeDefaultPosition(internationalDraught.var.v.Variant.v, strFen);
+                return convertToBytes(newInternationalDraught);
+            }
+            // normal
+            byte[] byteArray;
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                using (BinaryWriter writer = new BinaryWriter(memStream))
+                {
+                    // write value
+                    {
+                        /** Node* node = NULL;*/
+                        {
+                            writer.Write(internationalDraught.node.vs.Count);
+                            for (int i = 0; i < internationalDraught.node.vs.Count; i++)
+                            {
+                                Node node = internationalDraught.node.vs[i];
+                                writer.Write(Node.convertToBytes(node));
+                            }
+                        }
+                        /** struct var::Var var;*/
+                        writer.Write(Var.convertToBytes(internationalDraught.var.v));
+                        /** uint64 lastMove = 0;*/
+                        writer.Write(internationalDraught.lastMove.v);
+                        /** int ply = 50;*/
+                        writer.Write(internationalDraught.ply.v);
+
+                        // CaptureSquares
+                        /** int captureSize = 0;*/
+                        writer.Write(internationalDraught.captureSize.v);
+                        /** Square captureSquares[20];*/
+                        {
+                            for (int i = 0; i < 20; i++)
+                            {
+                                // get value
+                                int value = 0;
+                                {
+                                    if (i < internationalDraught.captureSquares.vs.Count)
+                                    {
+                                        value = internationalDraught.captureSquares.vs[i];
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("error, index:  captureSquares: " + internationalDraught);
+                                    }
+                                }
+                                // write
+                                writer.Write(value);
+                            }
+                        }
+                    }
+                    // write to byteArray
+                    byteArray = memStream.ToArray();
+                }
+            }
+            return byteArray;
+        }
+
+        public static int parse(InternationalDraught internationalDraught, byte[] byteArray, int start)
+        {
+            // TODO co the LittleEdian va BigEndian khac nhau se co loi
+            int count = start;
+            int index = 0;
+            bool isParseCorrect = true;
+            while (count < byteArray.Length)
+            {
+                bool alreadyPassAll = false;
+                switch (index)
+                {
+                    case 0:
+                        /** Node* node = NULL;*/
+                        {
+                            // Debug.Log ("parse node: " + count);
+                            // reset
+                            internationalDraught.node.clear();
+                            // find node count
+                            int nodeCount = 0;
+                            {
+                                int size = sizeof(int);
+                                if (count + size <= byteArray.Length)
+                                {
+                                    nodeCount = BitConverter.ToInt32(byteArray, count);
+                                    count += size;
+                                }
+                                else
+                                {
+                                    Debug.LogError("error, array not enough length: nodeCount: " + count + "; " + byteArray.Length);
+                                    isParseCorrect = false;
+                                }
+                            }
+                            if (nodeCount >= 0)
+                            {
+                                List<Node> nodes = new List<Node>();
+                                // get nodes 
+                                for (int i = 0; i < nodeCount; i++)
+                                {
+                                    Node node = new Node();
+                                    int nodeByteLength = Node.parse(node, byteArray, count);
+                                    if (nodeByteLength > 0)
+                                    {
+                                        nodes.Add(node);
+                                        count += nodeByteLength;
+                                        // Debug.Log ("nodeByteLength: " + nodeByteLength);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("cannot parse");
+                                        break;
+                                    }
+                                }
+                                // add to internationalDraught
+                                for (int i = 0; i < nodes.Count; i++)
+                                {
+                                    Node node = nodes[i];
+                                    node.uid = internationalDraught.node.makeId();
+                                    internationalDraught.node.add(node);
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("error, why nodeCount < 0: " + nodeCount);
+                            }
+                        }
+                        break;
+                    case 1:
+                        /** struct var::Var var;*/
+                        {
+                            // Debug.Log ("parse var: " + count);
+                            Var var = new Var();
+                            // parse
+                            {
+                                int byteLength = Var.parse(var, byteArray, count);
+                                if (byteLength > 0)
+                                {
+                                    // increase pointer index
+                                    count += byteLength;
+                                }
+                                else
+                                {
+                                    Debug.LogError("cannot parse");
+                                    isParseCorrect = false;
+                                    break;
+                                }
+                            }
+                            // add to data
+                            if (isParseCorrect)
+                            {
+                                var.uid = internationalDraught.var.makeId();
+                                internationalDraught.var.v = var;
+                            }
+                            else
+                            {
+                                Debug.LogError("parse var error");
+                            }
+                        }
+                        break;
+                    case 2:
+                        /** uint64 lastMove = 0;*/
+                        {
+                            // Debug.Log ("parse lastMove: " + count);
+                            int size = sizeof(System.UInt64);
+                            if (count + size <= byteArray.Length)
+                            {
+                                internationalDraught.lastMove.v = BitConverter.ToUInt64(byteArray, count);
+                                count += size;
+                            }
+                            else
+                            {
+                                Debug.LogError("error, array not enough length: lastMove: " + count + "; " + byteArray.Length);
+                                isParseCorrect = false;
+                            }
+                        }
+                        break;
+                    case 3:
+                        /** int ply = 50;*/
+                        {
+                            // Debug.Log ("parse ply: " + count);
+                            int size = sizeof(int);
+                            if (count + size <= byteArray.Length)
+                            {
+                                internationalDraught.ply.v = BitConverter.ToInt32(byteArray, count);
+                                count += size;
+                            }
+                            else
+                            {
+                                Debug.LogError("error, array not enough length: ply: " + count + "; " + byteArray.Length);
+                                isParseCorrect = false;
+                            }
+                        }
+                        break;
+
+                    // CaptureSquares
+                    case 4:
+                        /** int captureSize = 0;*/
+                        {
+                            // Debug.Log ("parse captureSize: " + count);
+                            int size = sizeof(int);
+                            if (count + size <= byteArray.Length)
+                            {
+                                internationalDraught.captureSize.v = BitConverter.ToInt32(byteArray, count);
+                                count += size;
+                            }
+                            else
+                            {
+                                Debug.LogError("error, array not enough length: captureSize: " + count + "; " + byteArray.Length);
+                                isParseCorrect = false;
+                            }
+                        }
+                        break;
+                    case 5:
+                        /** Square captureSquares[20];*/
+                        {
+                            // Debug.Log ("parse captureSquares: " + count);
+                            internationalDraught.captureSquares.clear();
+                            int size = sizeof(int);
+                            for (int i = 0; i < 20; i++)
+                            {
+                                if (count + size <= byteArray.Length)
+                                {
+                                    internationalDraught.captureSquares.add(BitConverter.ToInt32(byteArray, count));
+                                    count += size;
+                                }
+                                else
+                                {
+                                    Debug.LogError("array not enough length: captureSquares: " + count + "; " + byteArray.Length);
+                                    isParseCorrect = false;
+                                    break;
+                                }
+                            }
+                        }
+                        break;
+                    default:
+                        alreadyPassAll = true;
+                        break;
+                }
+                index++;
+                if (!isParseCorrect)
+                {
+                    Debug.LogError("not parse correct");
+                    break;
+                }
+                if (alreadyPassAll)
+                {
+                    break;
+                }
+            }
+            // return
+            if (!isParseCorrect)
+            {
+                Debug.LogError("parse InternationalDraught fail: " + count + "; " + byteArray.Length + "; " + start);
+                return -1;
+            }
+            else
+            {
+                // Debug.Log ("parse InternationalDraught success: " + count + "; " + byteArray.Length + "; " + start);
+                return (count - start);
+            }
         }
 
         #endregion

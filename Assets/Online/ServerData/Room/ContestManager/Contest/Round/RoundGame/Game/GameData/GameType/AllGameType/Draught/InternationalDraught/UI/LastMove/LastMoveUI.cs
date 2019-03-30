@@ -95,6 +95,20 @@ namespace InternationalDraught
                                     this.data.sub.v = internationalDraughtCustomMoveUIData;
                                 }
                                 break;
+                            case GameMove.Type.InternationalDraughtCustomFen:
+                                {
+                                    InternationalDraughtCustomFen internationalDraughtCustomFen = lastMove as InternationalDraughtCustomFen;
+                                    // Find
+                                    InternationalDraughtCustomFenUI.UIData internationalDraughtCustomFenUIData = this.data.sub.newOrOld<InternationalDraughtCustomFenUI.UIData>();
+                                    {
+                                        // move
+                                        internationalDraughtCustomFenUIData.internationalDraughtCustomFen.v = new ReferenceData<InternationalDraughtCustomFen>(internationalDraughtCustomFen);
+                                        // isHint
+                                        internationalDraughtCustomFenUIData.isHint.v = false;
+                                    }
+                                    this.data.sub.v = internationalDraughtCustomFenUIData;
+                                }
+                                break;
                             case GameMove.Type.None:
                                 this.data.sub.v = null;
                                 break;
@@ -129,6 +143,7 @@ namespace InternationalDraught
         public InternationalDraughtMoveUI internationalDraughtMovePrefab;
         public InternationalDraughtCustomSetUI internationalDraughtCustomSetPrefab;
         public InternationalDraughtCustomMoveUI internationalDraughtCustomMovePrefab;
+        public InternationalDraughtCustomFenUI internationalDraughtCustomFenPrefab;
 
         private LastMoveCheckChange<UIData> lastMoveCheckChange = new LastMoveCheckChange<UIData>();
 
@@ -179,6 +194,12 @@ namespace InternationalDraught
                             {
                                 InternationalDraughtCustomMoveUI.UIData internationalDraughtCustomMoveUIData = lastMoveSub as InternationalDraughtCustomMoveUI.UIData;
                                 UIUtils.Instantiate(internationalDraughtCustomMoveUIData, internationalDraughtCustomMovePrefab, this.transform);
+                            }
+                            break;
+                        case GameMove.Type.InternationalDraughtCustomFen:
+                            {
+                                InternationalDraughtCustomFenUI.UIData internationalDraughtCustomFenUIData = lastMoveSub as InternationalDraughtCustomFenUI.UIData;
+                                UIUtils.Instantiate(internationalDraughtCustomFenUIData, internationalDraughtCustomFenPrefab, this.transform);
                             }
                             break;
                         default:
@@ -238,6 +259,12 @@ namespace InternationalDraught
                             {
                                 InternationalDraughtCustomMoveUI.UIData internationalDraughtCustomMoveUIData = lastMoveSub as InternationalDraughtCustomMoveUI.UIData;
                                 internationalDraughtCustomMoveUIData.removeCallBackAndDestroy(typeof(InternationalDraughtCustomMoveUI));
+                            }
+                            break;
+                        case GameMove.Type.InternationalDraughtCustomFen:
+                            {
+                                InternationalDraughtCustomFenUI.UIData internationalDraughtCustomFenUIData = lastMoveSub as InternationalDraughtCustomFenUI.UIData;
+                                internationalDraughtCustomFenUIData.removeCallBackAndDestroy(typeof(InternationalDraughtCustomFenUI));
                             }
                             break;
                         default:
