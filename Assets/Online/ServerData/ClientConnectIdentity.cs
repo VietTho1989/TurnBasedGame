@@ -979,6 +979,34 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
+    [Command]
+    public void CmdRoomChangeAllowLoadHistory(uint networkIdentityId, uint userId, bool newAllowLoadHistory)
+    {
+        RoomIdentity roomIdentity = GetDataIdentity<RoomIdentity>(networkIdentityId);
+        if (roomIdentity != null)
+        {
+            roomIdentity.changeAllowLoadHistory(userId, newAllowLoadHistory);
+        }
+        else
+        {
+            Debug.LogError("Identity null");
+        }
+    }
+
+    [Command]
+    public void CmdRoomChangeChatInGame(uint networkIdentityId, uint userId, int newChatInGame)
+    {
+        RoomIdentity roomIdentity = GetDataIdentity<RoomIdentity>(networkIdentityId);
+        if (roomIdentity != null)
+        {
+            roomIdentity.changeChatInGame(userId, newChatInGame);
+        }
+        else
+        {
+            Debug.LogError("Identity null");
+        }
+    }
+
     #endregion
 
     #region roomState

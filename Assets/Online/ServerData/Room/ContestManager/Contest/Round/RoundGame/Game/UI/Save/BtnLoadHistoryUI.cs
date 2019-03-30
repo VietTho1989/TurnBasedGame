@@ -144,7 +144,7 @@ public class BtnLoadHistoryUI : UIBehavior<BtnLoadHistoryUI.UIData>
                         // check already load
                         bool alreadyLoad = false;
                         {
-                            HumanConnection humanConnection = history.findHumanConnection(profileId);
+                            HumanConnection humanConnection = history.humanConnections.getInList(profileId);
                             if (humanConnection != null)
                             {
                                 alreadyLoad = true;

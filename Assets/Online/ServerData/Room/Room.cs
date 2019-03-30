@@ -206,14 +206,21 @@ public class Room : Data
 
     public static RoomUser findAdmin(Data data)
     {
-        Room room = data.findDataInParent<Room>();
-        if (room != null)
+        if (data != null)
         {
-            return room.findAdmin();
+            Room room = data.findDataInParent<Room>();
+            if (room != null)
+            {
+                return room.findAdmin();
+            }
+            else
+            {
+                Debug.LogError("room null");
+            }
         }
         else
         {
-            Debug.LogError("room null");
+            Debug.LogError("data null");
         }
         return null;
     }
@@ -297,13 +304,6 @@ public class Room : Data
     private static readonly TxtLanguage txtAllowHintOnlyWatcher = new TxtLanguage();
     private static readonly TxtLanguage txtAllowHintAllow = new TxtLanguage();
 
-    static Room()
-    {
-        txtAllowHintNo.add(Language.Type.vi, "Không Cho Phép");
-        txtAllowHintOnlyWatcher.add(Language.Type.vi, "Cho Người Xem");
-        txtAllowHintAllow.add(Language.Type.vi, "Được Phép");
-    }
-
     public static List<string> getAllowHintStr()
     {
         List<string> ret = new List<string>();
@@ -373,7 +373,136 @@ public class Room : Data
 
     public VP<bool> allowLoadHistory;
 
-    // TODO Can hoan thien
+    public void requestChangeAllowLoadHistory(uint userId, bool newAllowLoadHistory)
+    {
+        Data.NeedRequest needRequest = this.isNeedRequestServerByNetworkIdentity();
+        if (needRequest.canRequest)
+        {
+            if (!needRequest.needIdentity)
+            {
+                this.changeAllowLoadHistory(userId, newAllowLoadHistory);
+            }
+            else
+            {
+                DataIdentity dataIdentity = null;
+                if (DataIdentity.clientMap.TryGetValue(this, out dataIdentity))
+                {
+                    if (dataIdentity is RoomIdentity)
+                    {
+                        RoomIdentity roomIdentity = dataIdentity as RoomIdentity;
+                        roomIdentity.requestChangeAllowLoadHistory(userId, newAllowLoadHistory);
+                    }
+                    else
+                    {
+                        Debug.LogError("Why isn't correct identity");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("cannot find dataIdentity");
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("You cannot request");
+        }
+    }
+
+    public void changeAllowLoadHistory(uint userId, bool newAllowLoadHistory)
+    {
+        if (Room.IsCanEditSetting(this, userId))
+        {
+            this.allowLoadHistory.v = newAllowLoadHistory;
+        }
+        else
+        {
+            Debug.LogError("cannot change allowLoadHistory: " + userId + "; " + this);
+        }
+    }
+
+    #endregion
+
+    #region ChatInGame
+
+    public enum ChatInGame
+    {
+        All,
+        OnlyWatcher,
+        OnlyPlayer,
+        OnlyAdmin
+    }
+
+    #region txt
+
+    private static readonly TxtLanguage txtChatInGameAll = new TxtLanguage();
+    private static readonly TxtLanguage txtChatInGameOnlyWatcher = new TxtLanguage();
+    private static readonly TxtLanguage txtChatInGameOnlyPlayer = new TxtLanguage();
+    private static readonly TxtLanguage txtChatInGameOnlyAdmin = new TxtLanguage();
+
+    public static List<string> getChatInGameStr()
+    {
+        List<string> ret = new List<string>();
+        {
+            ret.Add(txtChatInGameAll.get("All"));
+            ret.Add(txtChatInGameOnlyWatcher.get("Only Watcher"));
+            ret.Add(txtChatInGameOnlyPlayer.get("Only Player"));
+            ret.Add(txtChatInGameOnlyAdmin.get("OnlyAdmin"));
+        }
+        return ret;
+    }
+
+    #endregion
+
+    public VP<ChatInGame> chatInGame;
+
+    public void requestChangeChatInGame(uint userId, int newChatInGame)
+    {
+        Data.NeedRequest needRequest = this.isNeedRequestServerByNetworkIdentity();
+        if (needRequest.canRequest)
+        {
+            if (!needRequest.needIdentity)
+            {
+                this.changeChatInGame(userId, newChatInGame);
+            }
+            else
+            {
+                DataIdentity dataIdentity = null;
+                if (DataIdentity.clientMap.TryGetValue(this, out dataIdentity))
+                {
+                    if (dataIdentity is RoomIdentity)
+                    {
+                        RoomIdentity roomIdentity = dataIdentity as RoomIdentity;
+                        roomIdentity.requestChangeChatInGame(userId, newChatInGame);
+                    }
+                    else
+                    {
+                        Debug.LogError("Why isn't correct identity");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("cannot find dataIdentity");
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("You cannot request");
+        }
+    }
+
+    public void changeChatInGame(uint userId, int newChatInGame)
+    {
+        if (Room.IsCanEditSetting(this, userId))
+        {
+            this.chatInGame.v = (ChatInGame)newChatInGame;
+        }
+        else
+        {
+            Debug.LogError("cannot change chatInGame: " + userId + "; " + this);
+        }
+    }
 
     #endregion
 
@@ -394,7 +523,8 @@ public class Room : Data
         timeCreated,
         chatRoom,
         allowHint,
-        allowLoadHistory
+        allowLoadHistory,
+        chatInGame
     }
 
     public Room() : base()
@@ -420,6 +550,24 @@ public class Room : Data
         }
         this.allowHint = new VP<AllowHint>(this, (byte)Property.allowHint, AllowHint.Allow);
         this.allowLoadHistory = new VP<bool>(this, (byte)Property.allowLoadHistory, true);
+        this.chatInGame = new VP<ChatInGame>(this, (byte)Property.chatInGame, ChatInGame.All);
+    }
+
+    static Room()
+    {
+        // allowHint
+        {
+            txtAllowHintNo.add(Language.Type.vi, "Không Cho Phép");
+            txtAllowHintOnlyWatcher.add(Language.Type.vi, "Cho Người Xem");
+            txtAllowHintAllow.add(Language.Type.vi, "Được Phép");
+        }
+        // chatInGame
+        {
+            txtChatInGameAll.add(Language.Type.vi, "Tất Cả");
+            txtChatInGameOnlyWatcher.add(Language.Type.vi, "Chỉ Người Xem");
+            txtChatInGameOnlyPlayer.add(Language.Type.vi, "Chỉ Người Chơi");
+            txtChatInGameOnlyAdmin.add(Language.Type.vi, "Chỉ Admin");
+        }
     }
 
     #endregion

@@ -20,12 +20,7 @@ public class History : Data
 
     #region HumanConnection
 
-    public LP<HumanConnection> humanConnections;
-
-    public HumanConnection findHumanConnection(uint userId)
-    {
-        return this.humanConnections.vs.Find(humanConnection => humanConnection.playerId.v == userId);
-    }
+    public HumanConnectionLP humanConnections;
 
     #region add
 
@@ -68,7 +63,7 @@ public class History : Data
     public void addHumanConnection(uint userId)
     {
         // find old
-        HumanConnection humanConnection = this.findHumanConnection(userId);
+        HumanConnection humanConnection = this.humanConnections.getInList(userId);
         if (humanConnection == null)
         {
             bool allowLoadHistory = false;
@@ -147,7 +142,7 @@ public class History : Data
     public void removeHumanConnection(uint userId)
     {
         // find old
-        HumanConnection humanConnection = this.findHumanConnection(userId);
+        HumanConnection humanConnection = this.humanConnections.getInList(userId);
         if (humanConnection != null)
         {
             // remove old
@@ -180,7 +175,7 @@ public class History : Data
         this.changes = new LP<HistoryChange>(this, (byte)Property.changes);
         this.position = new VP<int>(this, (byte)Property.position, -1);
         this.changeCount = new VP<uint>(this, (byte)Property.changeCount, 0);
-        this.humanConnections = new LP<HumanConnection>(this, (byte)Property.humanConnections);
+        this.humanConnections = new HumanConnectionLP(this, (byte)Property.humanConnections);
     }
 
     #endregion

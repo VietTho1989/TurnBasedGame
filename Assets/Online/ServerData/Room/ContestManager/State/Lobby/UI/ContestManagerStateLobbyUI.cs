@@ -918,6 +918,8 @@ namespace GameManager.Match
                                 break;
                             case Room.Property.allowHint:
                                 break;
+                            case Room.Property.allowLoadHistory:
+                                break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                                 break;

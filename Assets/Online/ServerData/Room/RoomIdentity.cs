@@ -103,6 +103,22 @@ public class RoomIdentity : DataIdentity
 
     #endregion
 
+    #region chatInGame
+
+    [SyncVar(hook = "onChangeChatInGame")]
+    public Room.ChatInGame chatInGame;
+
+    private void onChangeChatInGame(Room.ChatInGame newChatInGame)
+    {
+        this.chatInGame = newChatInGame;
+        if (this.netData.clientData != null)
+        {
+            this.netData.clientData.chatInGame.v = newChatInGame;
+        }
+    }
+
+    #endregion
+
     #region NetData
 
     private NetData<Room> netData = new NetData<Room>();
@@ -121,6 +137,7 @@ public class RoomIdentity : DataIdentity
             this.onChangeTimeCreated(this.timeCreated);
             this.onChangeAllowHint(this.allowHint);
             this.onChangeAllowLoadHistory(this.allowLoadHistory);
+            this.onChangeChatInGame(this.chatInGame);
         }
         else
         {
@@ -137,6 +154,7 @@ public class RoomIdentity : DataIdentity
             ret += GetDataSize(this.timeCreated);
             ret += GetDataSize(this.allowHint);
             ret += GetDataSize(this.allowLoadHistory);
+            ret += GetDataSize(this.chatInGame);
         }
         return ret;
     }
@@ -161,6 +179,7 @@ public class RoomIdentity : DataIdentity
                 this.timeCreated = room.timeCreated.v;
                 this.allowHint = room.allowHint.v;
                 this.allowLoadHistory = room.allowLoadHistory.v;
+                this.chatInGame = room.chatInGame.v;
             }
             // Observer
             {
@@ -247,8 +266,11 @@ public class RoomIdentity : DataIdentity
                 case Room.Property.allowLoadHistory:
                     this.allowLoadHistory = (bool)wrapProperty.getValue();
                     break;
+                case Room.Property.chatInGame:
+                    this.chatInGame = (Room.ChatInGame)wrapProperty.getValue();
+                    break;
                 default:
-                    Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
             return;
@@ -365,6 +387,64 @@ public class RoomIdentity : DataIdentity
         if (this.netData.serverData != null)
         {
             this.netData.serverData.changeAllowHint(userId, newAllowHint);
+        }
+        else
+        {
+            Debug.LogError("serverData null: " + this);
+        }
+    }
+
+    #endregion
+
+    #region allowLoadHistory
+
+    public void requestChangeAllowLoadHistory(uint userId, bool newAllowLoadHistory)
+    {
+        ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity(this.netData.clientData);
+        if (clientConnect != null)
+        {
+            clientConnect.CmdRoomChangeAllowLoadHistory(this.netId, userId, newAllowLoadHistory);
+        }
+        else
+        {
+            Debug.LogError("Cannot find clientConnect: " + this);
+        }
+    }
+
+    public void changeAllowLoadHistory(uint userId, bool newAllowLoadHistory)
+    {
+        if (this.netData.serverData != null)
+        {
+            this.netData.serverData.changeAllowLoadHistory(userId, newAllowLoadHistory);
+        }
+        else
+        {
+            Debug.LogError("serverData null: " + this);
+        }
+    }
+
+    #endregion
+
+    #region chatInGame
+
+    public void requestChangeChatInGame(uint userId, int newChatInGame)
+    {
+        ClientConnectIdentity clientConnect = ClientConnectIdentity.findYourClientConnectIdentity(this.netData.clientData);
+        if (clientConnect != null)
+        {
+            clientConnect.CmdRoomChangeChatInGame(this.netId, userId, newChatInGame);
+        }
+        else
+        {
+            Debug.LogError("Cannot find clientConnect: " + this);
+        }
+    }
+
+    public void changeChatInGame(uint userId, int newChatInGame)
+    {
+        if (this.netData.serverData != null)
+        {
+            this.netData.serverData.changeChatInGame(userId, newChatInGame);
         }
         else
         {

@@ -3156,6 +3156,7 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\GamePlayerIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\Human\Connection\HumanConnection.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\Human\Connection\HumanConnectionIdentity.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\Human\Connection\HumanConnectionLP.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\Human\Connection\HumanConnectionObserver.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\Human\Connection\HumanConnectionUpdate.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GamePlayer\Human\Human.cs" />

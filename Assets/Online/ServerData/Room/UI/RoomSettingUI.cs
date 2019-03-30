@@ -80,6 +80,44 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
 
         #endregion
 
+        #region allowLoadHistory
+
+        public VP<RequestChangeBoolUI.UIData> allowLoadHistory;
+
+        public void makeRequestChangeAllowLoadHistory(RequestChangeUpdate<bool>.UpdateData update, bool newAllowLoadHistory)
+        {
+            // Find
+            Room room = null;
+            {
+                EditData<Room> editRoom = this.editRoom.v;
+                if (editRoom != null)
+                {
+                    room = editRoom.show.v.data;
+                }
+                else
+                {
+                    Debug.LogError("editRoom null: " + this);
+                }
+            }
+            // Process
+            if (room != null)
+            {
+                room.requestChangeAllowLoadHistory(Server.getProfileUserId(room), newAllowLoadHistory);
+            }
+            else
+            {
+                Debug.LogError("room null: " + this);
+            }
+        }
+
+        #endregion
+
+        #region chatInGame
+
+        // TODO Can hoan thien
+
+        #endregion
+
         public VP<ChangeRightsUI.UIData> changeRights;
 
         #region Constructor
@@ -90,6 +128,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
             name,
             roomStateUIData,
             allowHint,
+            allowLoadHistory,
             changeRights
         }
 
@@ -100,6 +139,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
             AllowNames.Add((byte)Room.Property.name);
             AllowNames.Add((byte)Room.Property.changeRights);
             AllowNames.Add((byte)Room.Property.allowHint);
+            AllowNames.Add((byte)Room.Property.allowLoadHistory);
         }
 
         public UIData() : base()
@@ -129,6 +169,12 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                         this.allowHint.v.options.add(type.ToString());
                     }
                 }
+            }
+            // allowLoadHistory
+            {
+                this.allowLoadHistory = new VP<RequestChangeBoolUI.UIData>(this, (byte)Property.allowLoadHistory, new RequestChangeBoolUI.UIData());
+                // event
+                this.allowLoadHistory.v.updateData.v.request.v = makeRequestChangeAllowLoadHistory;
             }
             this.changeRights = new VP<ChangeRightsUI.UIData>(this, (byte)Property.changeRights, new ChangeRightsUI.UIData());
         }
@@ -164,6 +210,9 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
     public Text lbAllowHint;
     private static readonly TxtLanguage txtAllowHint = new TxtLanguage();
 
+    public Text lbAllowLoadHistory;
+    private static readonly TxtLanguage txtAllowLoadHistory = new TxtLanguage();
+
     static RoomSettingUI()
     {
         // txt
@@ -171,7 +220,8 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
             txtTitle.add(Language.Type.vi, "Thiết Lập Phòng");
             txtName.add(Language.Type.vi, "Tên");
             txtFreeze.add(Language.Type.vi, "Đóng băng");
-            txtAllowHint.add(Language.Type.vi, "Cho phép gợi ý");
+            txtAllowHint.add(Language.Type.vi, "Gợi ý");
+            txtAllowLoadHistory.add(Language.Type.vi, "Tải lịch sử game");
         }
         // rect
         {
@@ -327,6 +377,41 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                                         Debug.LogError("allowHint null: " + this);
                                     }
                                 }
+                                // allowLoadHistory
+                                {
+                                    RequestChangeBoolUI.UIData allowLoadHistory = this.data.allowLoadHistory.v;
+                                    if (allowLoadHistory != null)
+                                    {
+                                        // update
+                                        RequestChangeUpdate<bool>.UpdateData updateData = allowLoadHistory.updateData.v;
+                                        if (updateData != null)
+                                        {
+                                            updateData.origin.v = show.allowLoadHistory.v;
+                                            updateData.canRequestChange.v = editRoom.canEdit.v;
+                                            updateData.serverState.v = serverState;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("updateData null: " + this);
+                                        }
+                                        // compare
+                                        {
+                                            if (compare != null)
+                                            {
+                                                allowLoadHistory.showDifferent.v = true;
+                                                allowLoadHistory.compare.v = compare.allowLoadHistory.v;
+                                            }
+                                            else
+                                            {
+                                                allowLoadHistory.showDifferent.v = false;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("allowLoadHistory null: " + this);
+                                    }
+                                }
                                 // changeRights
                                 {
                                     ChangeRightsUI.UIData changeRights = this.data.changeRights.v;
@@ -459,6 +544,28 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                                         Debug.LogError("allowHint null: " + this);
                                     }
                                 }
+                                // allowLoadHistory
+                                {
+                                    RequestChangeBoolUI.UIData allowLoadHistory = this.data.allowLoadHistory.v;
+                                    if (allowLoadHistory != null)
+                                    {
+                                        // update
+                                        RequestChangeUpdate<bool>.UpdateData updateData = allowLoadHistory.updateData.v;
+                                        if (updateData != null)
+                                        {
+                                            updateData.current.v = show.allowLoadHistory.v;
+                                            updateData.changeState.v = Data.ChangeState.None;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("updateData null: " + this);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("allowLoadHistory null: " + this);
+                                    }
+                                }
                             }
                         }
                     }
@@ -483,6 +590,10 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                         deltaY += UIConstants.ItemHeight;
                     }
                     // allowHint
+                    {
+                        deltaY += UIConstants.ItemHeight;
+                    }
+                    // allowLoadHistory
                     {
                         deltaY += UIConstants.ItemHeight;
                     }
@@ -538,11 +649,19 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                     }
                     if (lbAllowHint != null)
                     {
-                        lbAllowHint.text = txtAllowHint.get("Allow Hint");
+                        lbAllowHint.text = txtAllowHint.get("Hint");
                     }
                     else
                     {
                         Debug.LogError("lbAllowHint null: " + this);
+                    }
+                    if (lbAllowLoadHistory != null)
+                    {
+                        lbAllowLoadHistory.text = txtAllowLoadHistory.get("Load game history");
+                    }
+                    else
+                    {
+                        Debug.LogError("lbAllowLoadHistory null");
                     }
                 }
             }
@@ -566,6 +685,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
     private static readonly UIRectTransform roomStateRect = new UIRectTransform();
 
     public RequestChangeStringUI requestStringPrefab;
+    public RequestChangeBoolUI requestBoolPrefab;
     public RequestChangeEnumUI requestEnumPrefab;
     public ChangeRightsUI changeRightsPrefab;
 
@@ -575,6 +695,10 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
     private static readonly UIRectTransform allowHintRect = new UIRectTransform(UIConstants.RequestEnumRect,
         UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight +
         (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+
+    private static readonly UIRectTransform allowLoadHistoryRect = new UIRectTransform(UIConstants.RequestBoolRect,
+        UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight +
+        (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
 
     private Server server = null;
 
@@ -591,6 +715,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                 uiData.name.allAddCallBack(this);
                 uiData.roomStateUIData.allAddCallBack(this);
                 uiData.allowHint.allAddCallBack(this);
+                uiData.allowLoadHistory.allAddCallBack(this);
                 uiData.changeRights.allAddCallBack(this);
             }
             dirty = true;
@@ -704,6 +829,33 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                 dirty = true;
                 return;
             }
+            // allowLoadHistory
+            if (data is RequestChangeBoolUI.UIData)
+            {
+                RequestChangeBoolUI.UIData requestChange = data as RequestChangeBoolUI.UIData;
+                // UI
+                {
+                    WrapProperty wrapProperty = requestChange.p;
+                    if (wrapProperty != null)
+                    {
+                        switch ((UIData.Property)wrapProperty.n)
+                        {
+                            case UIData.Property.allowLoadHistory:
+                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, allowLoadHistoryRect);
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("wrapProperty null: " + this);
+                    }
+                }
+                dirty = true;
+                return;
+            }
             // changeRights
             {
                 if (data is ChangeRightsUI.UIData)
@@ -744,6 +896,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                 uiData.name.allRemoveCallBack(this);
                 uiData.roomStateUIData.allRemoveCallBack(this);
                 uiData.allowHint.allRemoveCallBack(this);
+                uiData.allowLoadHistory.allRemoveCallBack(this);
                 uiData.changeRights.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
@@ -817,6 +970,16 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                 }
                 return;
             }
+            // allowLoadHistory
+            if (data is RequestChangeBoolUI.UIData)
+            {
+                RequestChangeBoolUI.UIData requestChange = data as RequestChangeBoolUI.UIData;
+                // UI
+                {
+                    requestChange.removeCallBackAndDestroy(typeof(RequestChangeBoolUI));
+                }
+                return;
+            }
             // changeRights
             {
                 if (data is ChangeRightsUI.UIData)
@@ -871,6 +1034,12 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                     }
                     break;
                 case UIData.Property.allowHint:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.allowLoadHistory:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
@@ -975,6 +1144,9 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                             case Room.Property.allowHint:
                                 dirty = true;
                                 break;
+                            case Room.Property.allowLoadHistory:
+                                dirty = true;
+                                break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                                 break;
@@ -1002,6 +1174,11 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
             }
             // allowHint
             if (wrapProperty.p is RequestChangeEnumUI.UIData)
+            {
+                return;
+            }
+            // allowLoadHistory
+            if (wrapProperty.p is RequestChangeBoolUI.UIData)
             {
                 return;
             }
