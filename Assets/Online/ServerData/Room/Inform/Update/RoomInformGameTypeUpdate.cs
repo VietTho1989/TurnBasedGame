@@ -265,6 +265,8 @@ public class RoomInformGameTypeUpdate : UpdateBehavior<RoomInform>
                         break;
                     case Room.Property.allowLoadHistory:
                         break;
+                    case Room.Property.chatInGame:
+                        break;
                     default:
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;

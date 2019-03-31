@@ -406,10 +406,6 @@ public class RoomChatUI : UIBehavior<RoomChatUI.UIData>
                                                                                         break;
                                                                                     }
                                                                                 }
-                                                                                if (isPlayer)
-                                                                                {
-                                                                                    break;
-                                                                                }
                                                                             }
                                                                             if (isPlayer)
                                                                             {

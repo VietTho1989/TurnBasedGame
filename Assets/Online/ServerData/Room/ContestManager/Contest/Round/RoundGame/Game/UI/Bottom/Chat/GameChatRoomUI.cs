@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using GameManager.Match;
 
 public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
 {
@@ -107,9 +108,14 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
     public Text lbTitle;
     private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
+    public Image bgNotAllowChat;
+    public Text tvNotAllowChat;
+    private static readonly TxtLanguage txtNotAllowChat = new TxtLanguage();
+
     static GameChatRoomUI()
     {
         txtTitle.add(Language.Type.vi, "Thông Báo");
+        txtNotAllowChat.add(Language.Type.vi, "Chỉ người chơi có thể chat");
     }
 
     #endregion
@@ -140,16 +146,81 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
                             Debug.LogError("chatRoomUIData null");
                         }
                     }
+                    // bgNotAllowChat
+                    {
+                        if (bgNotAllowChat != null)
+                        {
+                            if (!Room.isYouAdmin(chatRoom))
+                            {
+                                bool isYouPlayer = false;
+                                {
+                                    ContestManagerStatePlay contestManagerStatePlay = chatRoom.findDataInParent<ContestManagerStatePlay>();
+                                    if (contestManagerStatePlay != null)
+                                    {
+                                        uint profileId = Server.getProfileUserId(chatRoom);
+                                        foreach(MatchTeam matchTeam in contestManagerStatePlay.teams.vs)
+                                        {
+                                            foreach(TeamPlayer teamPlayer in matchTeam.players.vs)
+                                            {
+                                                if (teamPlayer.inform.v is Human)
+                                                {
+                                                    Human human = teamPlayer.inform.v as Human;
+                                                    if (human.playerId.v == profileId)
+                                                    {
+                                                        isYouPlayer = true;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            if (isYouPlayer)
+                                            {
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("contestManagerStatePlay null");
+                                    }
+                                }
+                                bgNotAllowChat.gameObject.SetActive(!isYouPlayer);
+                            }
+                            else
+                            {
+                                bgNotAllowChat.gameObject.SetActive(false);
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("bgNotAllowChat null");
+                        }
+                    }
                     // UI Sibling Index
                     {
-                        UIRectTransform.SetSiblingIndex(this.data.chatRoomUIData.v, 0);
+                        if (lbTitle != null)
+                        {
+                            lbTitle.transform.SetSiblingIndex(0);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null");
+                        }
+                        UIRectTransform.SetSiblingIndex(this.data.chatRoomUIData.v, 1);
                         if (btnBack != null)
                         {
-                            btnBack.transform.SetSiblingIndex(1);
+                            btnBack.transform.SetSiblingIndex(2);
                         }
                         else
                         {
                             Debug.LogError("btnBack null");
+                        }
+                        if (bgNotAllowChat != null)
+                        {
+                            bgNotAllowChat.transform.SetSiblingIndex(3);
+                        }
+                        else
+                        {
+                            Debug.LogError("bgNotAllowChat null");
                         }
                     }
                     // txt
@@ -161,6 +232,14 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
                         else
                         {
                             Debug.LogError("lbTitle null");
+                        }
+                        if (tvNotAllowChat != null)
+                        {
+                            tvNotAllowChat.text = txtNotAllowChat.get("Only player can chat");
+                        }
+                        else
+                        {
+                            Debug.LogError("tvNotAllowChat null");
                         }
                     }
                 }
@@ -190,6 +269,12 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
 
     public ShowAnimationUI showAnimationUI;
 
+    private Room room = null;
+    private RoomCheckChangeAdminChange<Room> roomCheckChangeAdminChange = new RoomCheckChangeAdminChange<Room>();
+
+    private ContestManagerStatePlay contestManagerStatePlay = null;
+    private ContestManagerStatePlayTeamCheckChange<ContestManagerStatePlay> contestManagerStatePlayTeamCheckChange = new ContestManagerStatePlayTeamCheckChange<ContestManagerStatePlay>();
+
     public override void onAddCallBack<T>(T data)
     {
         if(data is UIData)
@@ -214,10 +299,62 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
         }
         // Child
         {
-            if(data is ChatRoom)
+            // chatRoom
             {
-                dirty = true;
-                return;
+                if (data is ChatRoom)
+                {
+                    ChatRoom chatRoom = data as ChatRoom;
+                    // Parent
+                    {
+                        DataUtils.addParentCallBack(chatRoom, this, ref this.room);
+                        DataUtils.addParentCallBack(chatRoom, this, ref this.contestManagerStatePlay);
+                    }
+                    dirty = true;
+                    return;
+                }
+                // Parent
+                {
+                    // room
+                    {
+                        if(data is Room)
+                        {
+                            Room room = data as Room;
+                            // checkChange
+                            {
+                                roomCheckChangeAdminChange.addCallBack(this);
+                                roomCheckChangeAdminChange.setData(room);
+                            }
+                            dirty = true;
+                            return;
+                        }
+                        // checkChange
+                        if(data is RoomCheckChangeAdminChange<Room>)
+                        {
+                            dirty = true;
+                            return;
+                        }
+                    }
+                    // contestManagerStatePlay
+                    {
+                        if(data is ContestManagerStatePlay)
+                        {
+                            ContestManagerStatePlay contestManagerStatePlay = data as ContestManagerStatePlay;
+                            // checkChange
+                            {
+                                contestManagerStatePlayTeamCheckChange.addCallBack(this);
+                                contestManagerStatePlayTeamCheckChange.setData(contestManagerStatePlay);
+                            }
+                            dirty = true;
+                            return;
+                        }
+                        // checkChange
+                        if(data is ContestManagerStatePlayTeamCheckChange<ContestManagerStatePlay>)
+                        {
+                            dirty = true;
+                            return;
+                        }
+                    }
+                }
             }
             if (data is ChatRoomUI.UIData)
             {
@@ -273,9 +410,57 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
         }
         // Child
         {
-            if(data is ChatRoom)
+            // chatRoom
             {
-                return;
+                if (data is ChatRoom)
+                {
+                    ChatRoom chatRoom = data as ChatRoom;
+                    // Parent
+                    {
+                        DataUtils.removeParentCallBack(chatRoom, this, ref this.room);
+                        DataUtils.removeParentCallBack(chatRoom, this, ref this.contestManagerStatePlay);
+                    }
+                    return;
+                }
+                // Parent
+                {
+                    // room
+                    {
+                        if (data is Room)
+                        {
+                            // Room room = data as Room;
+                            // checkChange
+                            {
+                                roomCheckChangeAdminChange.removeCallBack(this);
+                                roomCheckChangeAdminChange.setData(null);
+                            }
+                            return;
+                        }
+                        // checkChange
+                        if (data is RoomCheckChangeAdminChange<Room>)
+                        {
+                            return;
+                        }
+                    }
+                    // contestManagerStatePlay
+                    {
+                        if (data is ContestManagerStatePlay)
+                        {
+                            // ContestManagerStatePlay contestManagerStatePlay = data as ContestManagerStatePlay;
+                            // checkChange
+                            {
+                                contestManagerStatePlayTeamCheckChange.removeCallBack(this);
+                                contestManagerStatePlayTeamCheckChange.setData(null);
+                            }
+                            return;
+                        }
+                        // checkChange
+                        if (data is ContestManagerStatePlayTeamCheckChange<ContestManagerStatePlay>)
+                        {
+                            return;
+                        }
+                    }
+                }
             }
             if (data is ChatRoomUI.UIData)
             {
@@ -366,9 +551,41 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
         }
         // Child
         {
-            if(wrapProperty.p is ChatRoom)
+            // chatRoom
             {
-                return;
+                if (wrapProperty.p is ChatRoom)
+                {
+                    return;
+                }
+                // Parent
+                {
+                    // room
+                    {
+                        if (wrapProperty.p is Room)
+                        {
+                            return;
+                        }
+                        // checkChange
+                        if (wrapProperty.p is RoomCheckChangeAdminChange<Room>)
+                        {
+                            dirty = true;
+                            return;
+                        }
+                    }
+                    // contestManagerStatePlay
+                    {
+                        if (wrapProperty.p is ContestManagerStatePlay)
+                        {
+                            return;
+                        }
+                        // checkChange
+                        if (wrapProperty.p is ContestManagerStatePlayTeamCheckChange<ContestManagerStatePlay>)
+                        {
+                            dirty = true;
+                            return;
+                        }
+                    }
+                }
             }
             if (wrapProperty.p is ChatRoomUI.UIData)
             {

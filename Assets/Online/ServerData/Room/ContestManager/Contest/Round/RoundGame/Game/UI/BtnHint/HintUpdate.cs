@@ -808,6 +808,8 @@ namespace Hint
                             case Room.Property.allowHint:
                                 dirty = true;
                                 break;
+                            case Room.Property.chatInGame:
+                                break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                                 break;
