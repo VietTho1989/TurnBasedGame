@@ -114,7 +114,33 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
 
         #region chatInGame
 
-        // TODO Can hoan thien
+        public VP<RequestChangeEnumUI.UIData> chatInGame;
+
+        public void makeRequestChangeChatInGame(RequestChangeUpdate<int>.UpdateData update, int newChatInGame)
+        {
+            // Find
+            Room room = null;
+            {
+                EditData<Room> editRoom = this.editRoom.v;
+                if (editRoom != null)
+                {
+                    room = editRoom.show.v.data;
+                }
+                else
+                {
+                    Debug.LogError("editRoom null: " + this);
+                }
+            }
+            // Process
+            if (room != null)
+            {
+                room.requestChangeChatInGame(Server.getProfileUserId(room), newChatInGame);
+            }
+            else
+            {
+                Debug.LogError("room null: " + this);
+            }
+        }
 
         #endregion
 
@@ -129,6 +155,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
             roomStateUIData,
             allowHint,
             allowLoadHistory,
+            chatInGame,
             changeRights
         }
 
@@ -140,6 +167,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
             AllowNames.Add((byte)Room.Property.changeRights);
             AllowNames.Add((byte)Room.Property.allowHint);
             AllowNames.Add((byte)Room.Property.allowLoadHistory);
+            AllowNames.Add((byte)Room.Property.chatInGame);
         }
 
         public UIData() : base()
@@ -175,6 +203,18 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                 this.allowLoadHistory = new VP<RequestChangeBoolUI.UIData>(this, (byte)Property.allowLoadHistory, new RequestChangeBoolUI.UIData());
                 // event
                 this.allowLoadHistory.v.updateData.v.request.v = makeRequestChangeAllowLoadHistory;
+            }
+            // chatInGame
+            {
+                this.chatInGame = new VP<RequestChangeEnumUI.UIData>(this, (byte)Property.chatInGame, new RequestChangeEnumUI.UIData());
+                // event
+                this.chatInGame.v.updateData.v.request.v = makeRequestChangeChatInGame;
+                {
+                    foreach (Room.ChatInGame type in System.Enum.GetValues(typeof(Room.ChatInGame)))
+                    {
+                        this.chatInGame.v.options.add(type.ToString());
+                    }
+                }
             }
             this.changeRights = new VP<ChangeRightsUI.UIData>(this, (byte)Property.changeRights, new ChangeRightsUI.UIData());
         }
@@ -213,6 +253,9 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
     public Text lbAllowLoadHistory;
     private static readonly TxtLanguage txtAllowLoadHistory = new TxtLanguage();
 
+    public Text lbChatInGame;
+    private static readonly TxtLanguage txtChatInGame = new TxtLanguage();
+
     static RoomSettingUI()
     {
         // txt
@@ -222,6 +265,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
             txtFreeze.add(Language.Type.vi, "Đóng băng");
             txtAllowHint.add(Language.Type.vi, "Gợi ý");
             txtAllowLoadHistory.add(Language.Type.vi, "Tải lịch sử game");
+            txtChatInGame.add(Language.Type.vi, "Chat trong game");
         }
         // rect
         {
@@ -412,6 +456,43 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                                         Debug.LogError("allowLoadHistory null: " + this);
                                     }
                                 }
+                                // chatInGame
+                                {
+                                    RequestChangeEnumUI.UIData chatInGame = this.data.chatInGame.v;
+                                    if (chatInGame != null)
+                                    {
+                                        // options
+                                        chatInGame.options.copyList(Room.getChatInGameStr());
+                                        // update
+                                        RequestChangeUpdate<int>.UpdateData updateData = chatInGame.updateData.v;
+                                        if (updateData != null)
+                                        {
+                                            updateData.origin.v = (int)show.chatInGame.v;
+                                            updateData.canRequestChange.v = editRoom.canEdit.v;
+                                            updateData.serverState.v = serverState;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("updateData null: " + this);
+                                        }
+                                        // compare
+                                        {
+                                            if (compare != null)
+                                            {
+                                                chatInGame.showDifferent.v = true;
+                                                chatInGame.compare.v = (int)compare.chatInGame.v;
+                                            }
+                                            else
+                                            {
+                                                chatInGame.showDifferent.v = false;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("chatInGame null: " + this);
+                                    }
+                                }
                                 // changeRights
                                 {
                                     ChangeRightsUI.UIData changeRights = this.data.changeRights.v;
@@ -566,6 +647,28 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                                         Debug.LogError("allowLoadHistory null: " + this);
                                     }
                                 }
+                                // chatInGame
+                                {
+                                    RequestChangeEnumUI.UIData chatInGame = this.data.chatInGame.v;
+                                    if (chatInGame != null)
+                                    {
+                                        // update
+                                        RequestChangeUpdate<int>.UpdateData updateData = chatInGame.updateData.v;
+                                        if (updateData != null)
+                                        {
+                                            updateData.current.v = (int)show.chatInGame.v;
+                                            updateData.changeState.v = Data.ChangeState.None;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("updateData null: " + this);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("chatInGame null: " + this);
+                                    }
+                                }
                             }
                         }
                     }
@@ -594,6 +697,10 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                         deltaY += UIConstants.ItemHeight;
                     }
                     // allowLoadHistory
+                    {
+                        deltaY += UIConstants.ItemHeight;
+                    }
+                    // chatInGame
                     {
                         deltaY += UIConstants.ItemHeight;
                     }
@@ -663,6 +770,14 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                     {
                         Debug.LogError("lbAllowLoadHistory null");
                     }
+                    if (lbChatInGame != null)
+                    {
+                        lbChatInGame.text = txtChatInGame.get("Chat in game");
+                    }
+                    else
+                    {
+                        Debug.LogError("lbChatInGame null");
+                    }
                 }
             }
             else
@@ -695,10 +810,12 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
     private static readonly UIRectTransform allowHintRect = new UIRectTransform(UIConstants.RequestEnumRect,
         UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight +
         (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-
     private static readonly UIRectTransform allowLoadHistoryRect = new UIRectTransform(UIConstants.RequestBoolRect,
         UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight +
         (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+    private static readonly UIRectTransform chatInGameRect = new UIRectTransform(UIConstants.RequestEnumRect,
+        UIConstants.HeaderHeight + 4 * UIConstants.ItemHeight +
+        (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
 
     private Server server = null;
 
@@ -716,6 +833,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                 uiData.roomStateUIData.allAddCallBack(this);
                 uiData.allowHint.allAddCallBack(this);
                 uiData.allowLoadHistory.allAddCallBack(this);
+                uiData.chatInGame.allAddCallBack(this);
                 uiData.changeRights.allAddCallBack(this);
             }
             dirty = true;
@@ -802,7 +920,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                 dirty = true;
                 return;
             }
-            // allowHint
+            // allowHint, chatInGame
             if (data is RequestChangeEnumUI.UIData)
             {
                 RequestChangeEnumUI.UIData requestChange = data as RequestChangeEnumUI.UIData;
@@ -815,6 +933,9 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                         {
                             case UIData.Property.allowHint:
                                 UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, allowHintRect);
+                                break;
+                            case UIData.Property.chatInGame:
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, chatInGameRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -897,6 +1018,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                 uiData.roomStateUIData.allRemoveCallBack(this);
                 uiData.allowHint.allRemoveCallBack(this);
                 uiData.allowLoadHistory.allRemoveCallBack(this);
+                uiData.chatInGame.allRemoveCallBack(this);
                 uiData.changeRights.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
@@ -960,7 +1082,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                 }
                 return;
             }
-            // allowHint
+            // allowHint, chatInGame
             if (data is RequestChangeEnumUI.UIData)
             {
                 RequestChangeEnumUI.UIData requestChange = data as RequestChangeEnumUI.UIData;
@@ -1040,6 +1162,12 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                     }
                     break;
                 case UIData.Property.allowLoadHistory:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.chatInGame:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
@@ -1147,6 +1275,9 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                             case Room.Property.allowLoadHistory:
                                 dirty = true;
                                 break;
+                            case Room.Property.chatInGame:
+                                dirty = true;
+                                break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                                 break;
@@ -1172,7 +1303,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
             {
                 return;
             }
-            // allowHint
+            // allowHint, chatInGame
             if (wrapProperty.p is RequestChangeEnumUI.UIData)
             {
                 return;

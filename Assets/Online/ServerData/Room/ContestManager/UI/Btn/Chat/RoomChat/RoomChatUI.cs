@@ -171,11 +171,25 @@ public class RoomChatUI : UIBehavior<RoomChatUI.UIData>
     public Text lbTitle;
     private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
+    public Image bgNotAllowChat;
+    public Text tvNotAllowChat;
+    private static readonly TxtLanguage txtChatInGameAll = new TxtLanguage();
+    private static readonly TxtLanguage txtChatInGameOnlyWatcher = new TxtLanguage();
+    private static readonly TxtLanguage txtChatInGameOnlyPlayer = new TxtLanguage();
+    private static readonly TxtLanguage txtChatInGameOnlyAdmin = new TxtLanguage();
+
     static RoomChatUI()
     {
         // txt
         {
             txtTitle.add(Language.Type.vi, "Phòng Chat");
+            // chatInGame
+            {
+                txtChatInGameAll.add(Language.Type.vi, "Admin cho phép chat");
+                txtChatInGameOnlyWatcher.add(Language.Type.vi, "Admin chỉ cho phép người xem chat");
+                txtChatInGameOnlyPlayer.add(Language.Type.vi, "Admin chỉ cho phép người chơi chat");
+                txtChatInGameOnlyAdmin.add(Language.Type.vi, "Admin không cho phép chat");
+            }
         }
         // rect
         {
@@ -197,6 +211,8 @@ public class RoomChatUI : UIBehavior<RoomChatUI.UIData>
     #region Refresh
 
     private bool needReset = false;
+
+    public Button btnBack;
 
     public override void refresh()
     {
@@ -310,6 +326,205 @@ public class RoomChatUI : UIBehavior<RoomChatUI.UIData>
                         Debug.LogError("chatRoomUIData null");
                     }
                 }
+                // not allow chat
+                {
+                    // find chatRoom
+                    ChatRoom chatRoom = null;
+                    {
+                        ChatRoomUI.UIData chatRoomUIData = this.data.chatRoom.v;
+                        if (chatRoomUIData != null)
+                        {
+                            chatRoom = chatRoomUIData.chatRoom.v.data;
+                        }
+                        else
+                        {
+                            Debug.LogError("chatRoomUIData null");
+                        }
+                    }
+                    // process
+                    if (chatRoom != null)
+                    {
+                        // find chatInGame
+                        Room.ChatInGame chatInGame = Room.ChatInGame.All;
+                        {
+                            Room room = chatRoom.findDataInParent<Room>();
+                            if (room != null)
+                            {
+                                chatInGame = room.chatInGame.v;
+                            }
+                            else
+                            {
+                                Debug.LogError("room null");
+                            }
+                        }
+                        // process
+                        {
+                            // bgNotAllowChat
+                            if (bgNotAllowChat != null)
+                            {
+                                // find isAdmin
+                                bool isAdmin = Room.isYouAdmin(chatRoom);
+                                // process
+                                if (!isAdmin)
+                                {
+                                    // find allowChat
+                                    bool isAllowChat = true;
+                                    {
+                                        switch (chatInGame)
+                                        {
+                                            case Room.ChatInGame.All:
+                                                isAllowChat = true;
+                                                break;
+                                            case Room.ChatInGame.OnlyWatcher:
+                                            case Room.ChatInGame.OnlyPlayer:
+                                                {
+                                                    // find isPlayer
+                                                    bool isPlayer = false;
+                                                    {
+                                                        ContestManagerUI.UIData contestManagerUIData = this.data.findDataInParent<ContestManagerUI.UIData>();
+                                                        if (contestManagerUIData != null)
+                                                        {
+                                                            ContestManager contestManager = contestManagerUIData.contestManager.v.data;
+                                                            if (contestManager != null)
+                                                            {
+                                                                if(contestManager.state.v is ContestManagerStatePlay)
+                                                                {
+                                                                    ContestManagerStatePlay contestManagerStatePlay = contestManager.state.v as ContestManagerStatePlay;
+                                                                    // find in matchTeam
+                                                                    {
+                                                                        uint profileId = Server.getProfileUserId(contestManagerStatePlay);
+                                                                        foreach(MatchTeam matchTeam in contestManagerStatePlay.teams.vs)
+                                                                        {
+                                                                            foreach(TeamPlayer teamPlayer in matchTeam.players.vs)
+                                                                            {
+                                                                                if(teamPlayer.inform.v is Human)
+                                                                                {
+                                                                                    Human human = teamPlayer.inform.v as Human;
+                                                                                    if (human.playerId.v == profileId)
+                                                                                    {
+                                                                                        isPlayer = true;
+                                                                                        break;
+                                                                                    }
+                                                                                }
+                                                                                if (isPlayer)
+                                                                                {
+                                                                                    break;
+                                                                                }
+                                                                            }
+                                                                            if (isPlayer)
+                                                                            {
+                                                                                break;
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    Debug.LogError("not contestManager state: " + contestManager.state.v);
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("contestManager null");
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("contestManagerUIData null");
+                                                        }
+                                                    }
+                                                    // process
+                                                    if (chatInGame == Room.ChatInGame.OnlyWatcher)
+                                                    {
+                                                        isAllowChat = !isPlayer;
+                                                    }
+                                                    else
+                                                    {
+                                                        isAllowChat = isPlayer;
+                                                    }
+                                                }
+                                                break;
+                                            case Room.ChatInGame.OnlyAdmin:
+                                                isAllowChat = false;
+                                                break;
+                                            default:
+                                                Debug.LogError("unknown chatInGame: " + chatInGame);
+                                                break;
+                                        }
+                                    }
+                                    // process
+                                    bgNotAllowChat.gameObject.SetActive(!isAllowChat);
+                                }
+                                else
+                                {
+                                    bgNotAllowChat.gameObject.SetActive(false);
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("bgNotAllowChat null");
+                            }
+                            // tvNotAllowChat
+                            if (tvNotAllowChat != null)
+                            {
+                                switch (chatInGame)
+                                {
+                                    case Room.ChatInGame.All:
+                                        tvNotAllowChat.text = txtChatInGameAll.get("Admin allow all to chat");
+                                        break;
+                                    case Room.ChatInGame.OnlyWatcher:
+                                        tvNotAllowChat.text = txtChatInGameOnlyWatcher.get("Admin allow only watcher to chat");
+                                        break;
+                                    case Room.ChatInGame.OnlyPlayer:
+                                        tvNotAllowChat.text = txtChatInGameOnlyPlayer.get("Admin allow only player to chat");
+                                        break;
+                                    case Room.ChatInGame.OnlyAdmin:
+                                        tvNotAllowChat.text = txtChatInGameOnlyAdmin.get("Admin not allow to chat");
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown chatInGame: " + chatInGame);
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("tvNotAllowChat null");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("chatRoom null");
+                    }
+                }
+                // SiblingIndex
+                {
+                    if (lbTitle != null)
+                    {
+                        lbTitle.transform.SetSiblingIndex(0);
+                    }
+                    else
+                    {
+                        Debug.LogError("lbTitle null");
+                    }
+                    if (btnBack != null)
+                    {
+                        btnBack.transform.SetSiblingIndex(1);
+                    }
+                    else
+                    {
+                        Debug.LogError("btnBack null");
+                    }
+                    UIRectTransform.SetSiblingIndex(this.data.chatRoom.v, 2);
+                    if (bgNotAllowChat != null)
+                    {
+                        bgNotAllowChat.transform.SetSiblingIndex(3);
+                    }
+                    else
+                    {
+                        Debug.LogError("bgNotAllowChat null");
+                    }
+                }
                 // txt
                 {
                     if (lbTitle != null)
@@ -346,6 +561,9 @@ public class RoomChatUI : UIBehavior<RoomChatUI.UIData>
 
     public RequestChangeEnumUI requestEnumPrefab;
     private static readonly UIRectTransform styleRect = new UIRectTransform();
+
+    private RoomCheckChangeAdminChange<Room> roomCheckChangeAdminChange = new RoomCheckChangeAdminChange<Room>();
+    private ContestManagerStatePlayTeamCheckChange<ContestManagerStatePlay> contestManagerStatePlayTeamCheckChange = new ContestManagerStatePlayTeamCheckChange<ContestManagerStatePlay>();
 
     public override void onAddCallBack<T>(T data)
     {
@@ -396,14 +614,68 @@ public class RoomChatUI : UIBehavior<RoomChatUI.UIData>
                         {
                             DataUtils.addParentCallBack(contestManager, this, ref this.room);
                         }
+                        // Child
+                        {
+                            contestManager.state.allAddCallBack(this);
+                        }
                         dirty = true;
                         return;
                     }
                     // Parent
-                    if (data is Room)
                     {
-                        dirty = true;
-                        return;
+                        if (data is Room)
+                        {
+                            Room room = data as Room;
+                            // checkChange
+                            {
+                                roomCheckChangeAdminChange.addCallBack(this);
+                                roomCheckChangeAdminChange.setData(room);
+                            }
+                            dirty = true;
+                            return;
+                        }
+                        // checkChange
+                        if(data is RoomCheckChangeAdminChange<Room>)
+                        {
+                            dirty = true;
+                            return;
+                        }
+                    }
+                    // Child
+                    {
+                        if(data is ContestManager.State)
+                        {
+                            ContestManager.State contestManagerState = data as ContestManager.State;
+                            // CheckChange
+                            {
+                                switch (contestManagerState.getType())
+                                {
+                                    case ContestManager.State.Type.Lobby:
+                                        break;
+                                    case ContestManager.State.Type.Play:
+                                        {
+                                            ContestManagerStatePlay contestManagerStatePlay = contestManagerState as ContestManagerStatePlay;
+                                            // checkChange
+                                            {
+                                                contestManagerStatePlayTeamCheckChange.addCallBack(this);
+                                                contestManagerStatePlayTeamCheckChange.setData(contestManagerStatePlay);
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown type: " + contestManagerState.getType());
+                                        break;
+                                }
+                            }
+                            dirty = true;
+                            return;
+                        }
+                        // checkChange
+                        if(data is ContestManagerStatePlayTeamCheckChange<ContestManagerStatePlay>)
+                        {
+                            dirty = true;
+                            return;
+                        }
                     }
                 }
                 // btns
@@ -517,12 +789,63 @@ public class RoomChatUI : UIBehavior<RoomChatUI.UIData>
                         {
                             DataUtils.removeParentCallBack(contestManager, this, ref this.room);
                         }
+                        // Child
+                        {
+                            contestManager.state.allRemoveCallBack(this);
+                        }
                         return;
                     }
                     // Parent
-                    if (data is Room)
                     {
-                        return;
+                        if (data is Room)
+                        {
+                            Room room = data as Room;
+                            // checkChange
+                            {
+                                roomCheckChangeAdminChange.removeCallBack(this);
+                                roomCheckChangeAdminChange.setData(null);
+                            }
+                            return;
+                        }
+                        // checkChange
+                        if(data is RoomCheckChangeAdminChange<Room>)
+                        {
+                            return;
+                        }
+                    }
+                    // Child
+                    {
+                        if (data is ContestManager.State)
+                        {
+                            ContestManager.State contestManagerState = data as ContestManager.State;
+                            // CheckChange
+                            {
+                                switch (contestManagerState.getType())
+                                {
+                                    case ContestManager.State.Type.Lobby:
+                                        break;
+                                    case ContestManager.State.Type.Play:
+                                        {
+                                            ContestManagerStatePlay contestManagerStatePlay = contestManagerState as ContestManagerStatePlay;
+                                            // checkChange
+                                            {
+                                                contestManagerStatePlayTeamCheckChange.removeCallBack(this);
+                                                contestManagerStatePlayTeamCheckChange.setData(null);
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown type: " + contestManagerState.getType());
+                                        break;
+                                }
+                            }
+                            return;
+                        }
+                        // checkChange
+                        if (data is ContestManagerStatePlayTeamCheckChange<ContestManagerStatePlay>)
+                        {
+                            return;
+                        }
                     }
                 }
                 // btns
@@ -656,43 +979,80 @@ public class RoomChatUI : UIBehavior<RoomChatUI.UIData>
                 {
                     if (wrapProperty.p is ContestManager)
                     {
-                        return;
-                    }
-                    // Parent
-                    if (wrapProperty.p is Room)
-                    {
-                        switch ((Room.Property)wrapProperty.n)
+                        switch ((ContestManager.Property)wrapProperty.n)
                         {
-                            case Room.Property.roomInform:
+                            case ContestManager.Property.index:
                                 break;
-                            case Room.Property.changeRights:
-                                break;
-                            case Room.Property.name:
-                                break;
-                            case Room.Property.password:
-                                break;
-                            case Room.Property.users:
-                                break;
-                            case Room.Property.state:
-                                break;
-                            case Room.Property.requestNewContestManager:
-                                break;
-                            case Room.Property.contestManagers:
-                                break;
-                            case Room.Property.timeCreated:
-                                break;
-                            case Room.Property.chatRoom:
-                                dirty = true;
-                                break;
-                            case Room.Property.allowHint:
-                                break;
-                            case Room.Property.allowLoadHistory:
+                            case ContestManager.Property.state:
+                                {
+                                    ValueChangeUtils.replaceCallBack(this, syncs);
+                                    dirty = true;
+                                }
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                                 break;
                         }
                         return;
+                    }
+                    // Parent
+                    {
+                        if (wrapProperty.p is Room)
+                        {
+                            switch ((Room.Property)wrapProperty.n)
+                            {
+                                case Room.Property.roomInform:
+                                    break;
+                                case Room.Property.changeRights:
+                                    break;
+                                case Room.Property.name:
+                                    break;
+                                case Room.Property.password:
+                                    break;
+                                case Room.Property.users:
+                                    break;
+                                case Room.Property.state:
+                                    break;
+                                case Room.Property.requestNewContestManager:
+                                    break;
+                                case Room.Property.contestManagers:
+                                    break;
+                                case Room.Property.timeCreated:
+                                    break;
+                                case Room.Property.chatRoom:
+                                    dirty = true;
+                                    break;
+                                case Room.Property.allowHint:
+                                    break;
+                                case Room.Property.allowLoadHistory:
+                                    break;
+                                case Room.Property.chatInGame:
+                                    dirty = true;
+                                    break;
+                                default:
+                                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                    break;
+                            }
+                            return;
+                        }
+                        // checkChange
+                        if (wrapProperty.p is RoomCheckChangeAdminChange<Room>)
+                        {
+                            dirty = true;
+                        }
+                    }
+                    // Child
+                    {
+                        if (wrapProperty.p is ContestManager.State)
+                        {
+                            return;
+                        }
+                        // checkChange
+                        if (wrapProperty.p is ContestManagerStatePlayTeamCheckChange<ContestManagerStatePlay>)
+                        {
+                            dirty = true;
+                            return;
+                        }
                     }
                 }
                 // btns

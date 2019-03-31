@@ -152,6 +152,8 @@ public class RoomCheckChangeAdminChange<K> : Data, ValueChangeCallBack where K :
                     break;
                 case Room.Property.allowLoadHistory:
                     break;
+                case Room.Property.chatInGame:
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
