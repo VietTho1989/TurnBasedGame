@@ -61,6 +61,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Ads\admobdemo.cs" />
+    <Compile Include="Assets\Ads\UnityAdsBanner.cs" />
+    <Compile Include="Assets\Ads\UnityAdsShow.cs" />
     <Compile Include="Assets\AdvancedCoroutines\AdvancedCoroutineInitializer.cs" />
     <Compile Include="Assets\AdvancedCoroutines\AdvancedCoroutinesCameraMonoController.cs" />
     <Compile Include="Assets\AdvancedCoroutines\AdvancedCoroutinesMonoContoller.cs" />
@@ -3972,6 +3974,7 @@
     <None Include="Assets\SRIA\Docs\Changelog.txt" />
     <None Include="Assets\Foundation\Resources\Localization\Portuguese\Examples.txt" />
     <None Include="Assets\Foundation\Resources\Localization\Polish\Examples.txt" />
+    <None Include="Assets\UnityAds\link.xml" />
     <None Include="Assets\unity-ui-extensions\Shaders\UIImageCrop.shader" />
     <None Include="Assets\Foundation\Resources\Localization\Italian\Examples.txt" />
     <None Include="Assets\unity-ui-extensions\Shaders\UILinearDodge.shader" />
@@ -4250,6 +4253,12 @@
     </Reference>
     <Reference Include="MySql.Data">
       <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Plugins/MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Advertisements.Editor">
+      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/UnityAds/UnityEngine.Advertisements.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Monetization.Editor">
+      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/UnityAds/UnityEngine.Monetization.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
       <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>

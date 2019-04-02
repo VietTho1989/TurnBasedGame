@@ -299,6 +299,12 @@
     <Reference Include="MySql.Data">
       <HintPath>Assets/Plugins/MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Advertisements.Editor">
+      <HintPath>Assets/UnityAds/UnityEngine.Advertisements.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Monetization.Editor">
+      <HintPath>Assets/UnityAds/UnityEngine.Monetization.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Analytics.Editor">
       <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
@@ -307,15 +313,6 @@
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
-      <HintPath>/Applications/Unity/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Common">
-      <HintPath>/Applications/Unity/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
-      <HintPath>/Applications/Unity/PlaybackEngines/AppleTVSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
@@ -699,6 +696,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Ads\admobdemo.cs" />
+    <Compile Include="Assets\Ads\UnityAdsShow.cs" />
     <Compile Include="Assets\AdvancedCoroutines\AdvancedCoroutineInitializer.cs" />
     <Compile Include="Assets\AdvancedCoroutines\AdvancedCoroutinesCameraMonoController.cs" />
     <Compile Include="Assets\AdvancedCoroutines\AdvancedCoroutinesMonoContoller.cs" />
@@ -4632,6 +4630,7 @@
     <None Include="Assets\Resources\XiangqiPostures.txt" />
     <None Include="Assets\SRIA\Docs\Changelog.txt" />
     <None Include="Assets\SRIA\Docs\If upgrading from 2.x.x-ReadMe.txt" />
+    <None Include="Assets\UnityAds\link.xml" />
     <None Include="Assets\unity-ui-extensions\Scripts\Utilities\Serialization\Surrogates\SurrogatesReadMe.txt" />
     <None Include="Assets\unity-ui-extensions\Shaders\SoftMaskShader.shader" />
     <None Include="Assets\unity-ui-extensions\Shaders\UIAdditive.shader" />

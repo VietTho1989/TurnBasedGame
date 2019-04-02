@@ -343,6 +343,12 @@
     <Reference Include="MySql.Data">
       <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Plugins/MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Advertisements.Editor">
+      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/UnityAds/UnityEngine.Advertisements.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Monetization.Editor">
+      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/UnityAds/UnityEngine.Monetization.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Analytics.Editor">
       <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>

@@ -835,3 +835,5 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Google.VersionHandler.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Google.VersionHandlerImpl_v1.2.102.0.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.iOS.Extensions.Common.dll.mdb
+/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEngine.Advertisements.Editor.dll
+/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEngine.Monetization.Editor.dll
