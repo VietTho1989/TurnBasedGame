@@ -60,7 +60,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Ads\Admob\Admob.cs" />
     <Compile Include="Assets\Ads\admobdemo.cs" />
+    <Compile Include="Assets\Ads\AdsManager.cs" />
+    <Compile Include="Assets\Ads\UnityAds\UnityAds.cs" />
     <Compile Include="Assets\Ads\UnityAdsBanner.cs" />
     <Compile Include="Assets\Ads\UnityAdsShow.cs" />
     <Compile Include="Assets\AdvancedCoroutines\AdvancedCoroutineInitializer.cs" />

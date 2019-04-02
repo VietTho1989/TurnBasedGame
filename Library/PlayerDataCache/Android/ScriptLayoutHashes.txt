@@ -1033,7 +1033,7 @@ b95083603da93045a64060a0985b826a Assembly-CSharp.dll:.BtnHintUI
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:FileSystem.ShowDirectoryObserverUpdate
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:GameManager.Match.Swap.SwapMessage
 496f74ddc390616fd6804160fee5a6df Assembly-CSharp.dll:NineMenMorris.NoneRuleInputUI
-5eb8034ce65d1d5b4dda05c90f4f39a7 Assembly-CSharp.dll:.UnityAdsShow
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.UnityAdsShow
 521acda986385b4806d00a3deb32906f Assembly-CSharp.dll:GameManager.Match.LobbyPlayerIdentity
 740274a0f60efe10c487899b8f22b03a Assembly-CSharp.dll:GameManager.Match.CalculateScoreWinLoseDrawIdentity
 5e81f110490cda080fbc1e7b500c53a2 Assembly-CSharp.dll:.WrapContentVerticalLayoutGroup
@@ -2296,3 +2296,5 @@ aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:TimeControl.Normal.TotalTim
 aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:Sudoku.SudokuSolveIdentity
 d06ddf90227012b27a616415bdb3af92 Assembly-CSharp.dll:.LoadDataUI
 d920b90d441b5d7e83e3942fe182fd5e Assembly-CSharp.dll:GameManager.Match.SingleContestContentUI
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Ads.UnityAds
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Ads.Admob

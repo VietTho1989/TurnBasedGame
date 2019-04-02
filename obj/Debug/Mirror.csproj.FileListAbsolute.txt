@@ -822,3 +822,4 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEditor.iOS.Extensions.Common.dll.mdb
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEngine.Advertisements.Editor.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEngine.Monetization.Editor.dll
+/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Boo.Lang.dll

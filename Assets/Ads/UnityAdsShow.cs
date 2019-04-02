@@ -6,11 +6,13 @@ using System.Collections.Generic;
 public class UnityAdsShow : MonoBehaviour
 {
 
-#if !UNITY_ADS
+/*#if !UNITY_ADS
 
 #if UNITY_IPHONE
     private string gameId = "3100551";
 #elif UNITY_ANDROID
+    private string gameId = "3100550";
+#else
     private string gameId = "3100550";
 #endif
 
@@ -24,7 +26,7 @@ public class UnityAdsShow : MonoBehaviour
         {
             Advertisement.Initialize(gameId, enableTestMode);
         }
-#endif
+#endif*/
 
         /*while (!Advertisement.isInitialized || !Advertisement.IsReady())
         {
@@ -36,9 +38,9 @@ public class UnityAdsShow : MonoBehaviour
 
         // banner
         // StartCoroutine(ShowBannerWhenReady());
-    }
+ //   }
 
-    public string bannerPlacement = "banner";
+    /*public string bannerPlacement = "banner";
 
     IEnumerator ShowBannerWhenReady()
     {
@@ -54,6 +56,6 @@ public class UnityAdsShow : MonoBehaviour
     public void showAd()
     {
         Advertisement.Show();
-    }
+    }*/
 
 }

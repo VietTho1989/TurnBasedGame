@@ -314,6 +314,15 @@
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>/Applications/Unity/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Common">
+      <HintPath>/Applications/Unity/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>/Applications/Unity/PlaybackEngines/AppleTVSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
     <Reference Include="netstandard">
       <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
     </Reference>
@@ -695,7 +704,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Ads\Admob\Admob.cs" />
     <Compile Include="Assets\Ads\admobdemo.cs" />
+    <Compile Include="Assets\Ads\AdsManager.cs" />
+    <Compile Include="Assets\Ads\UnityAds\UnityAds.cs" />
+    <Compile Include="Assets\Ads\UnityAdsBanner.cs" />
     <Compile Include="Assets\Ads\UnityAdsShow.cs" />
     <Compile Include="Assets\AdvancedCoroutines\AdvancedCoroutineInitializer.cs" />
     <Compile Include="Assets\AdvancedCoroutines\AdvancedCoroutinesCameraMonoController.cs" />

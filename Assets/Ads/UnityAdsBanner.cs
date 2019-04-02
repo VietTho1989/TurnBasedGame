@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class UnityAdsBanner : MonoBehaviour
 {
 
-    private string placementId = "banner";
+/*    private string placementId = "banner";
     private bool testMode = true;
 
 #if UNITY_IOS
@@ -33,5 +33,5 @@ public class UnityAdsBanner : MonoBehaviour
         Debug.LogError("show banner when ready");
         Advertisement.Banner.Show(placementId);
     }
-
+    */
 }
