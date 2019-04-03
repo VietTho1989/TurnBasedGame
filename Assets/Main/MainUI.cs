@@ -223,47 +223,54 @@ public class MainUI : UIBehavior<MainUI.UIData>
         {
             bool canProcess = false;
             {
-                // current select allow
-                bool currentSelectAllow = true;
+                if (Application.isFocused)
                 {
-                    GameObject currentSelect = EventSystem.current.currentSelectedGameObject;
-                    if (currentSelect != null)
+                    // current select allow
+                    bool currentSelectAllow = true;
                     {
-                        // Debug.LogError ("currentSelect: " + currentSelect);
-                        if (currentSelect.GetComponent<Button>() == null)
+                        GameObject currentSelect = EventSystem.current.currentSelectedGameObject;
+                        if (currentSelect != null)
                         {
-                            currentSelectAllow = false;
-                        }
-                        else
-                        {
-                            if (InputEvent.isEnter(e))
+                            // Debug.LogError ("currentSelect: " + currentSelect);
+                            if (currentSelect.GetComponent<Button>() == null)
                             {
                                 currentSelectAllow = false;
                             }
-                            else if (InputEvent.isArrow(e))
+                            else
                             {
-                                currentSelectAllow = false;
+                                if (InputEvent.isEnter(e))
+                                {
+                                    currentSelectAllow = false;
+                                }
+                                else if (InputEvent.isArrow(e))
+                                {
+                                    currentSelectAllow = false;
+                                }
+                            }
+                        }
+                    }
+                    // process
+                    if (currentSelectAllow)
+                    {
+                        if (e.isKey)
+                        {
+                            // press
+                            if (e.type == EventType.KeyDown)
+                            {
+                                alreadyPress = true;
+                            }
+                            // release
+                            else if (e.type == EventType.KeyUp && alreadyPress)
+                            {
+                                canProcess = true;
+                                alreadyPress = false;
                             }
                         }
                     }
                 }
-                // process
-                if (currentSelectAllow)
+                else
                 {
-                    if (e.isKey)
-                    {
-                        // press
-                        if (e.type == EventType.KeyDown)
-                        {
-                            alreadyPress = true;
-                        }
-                        // release
-                        else if (e.type == EventType.KeyUp && alreadyPress)
-                        {
-                            canProcess = true;
-                            alreadyPress = false;
-                        }
-                    }
+                    // application not focus, so cannot process event
                 }
             }
             if (canProcess)

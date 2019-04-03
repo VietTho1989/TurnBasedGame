@@ -1635,6 +1635,8 @@ namespace Ads
                                 break;
                             case AdsManager.Property.time:
                                 break;
+                            case AdsManager.Property.realTime:
+                                break;
                             case AdsManager.Property.videoType:
                                 dirty = true;
                                 break;

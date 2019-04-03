@@ -153,6 +153,9 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
 
     public GameObject refreshContainer;
 
+    public ScrollRect settingScrollRect;
+    private bool firstInit = false;
+
     public override void refresh()
     {
         if (dirty)
@@ -160,6 +163,21 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
             dirty = false;
             if (this.data != null)
             {
+                // firstInit
+                {
+                    if (firstInit)
+                    {
+                        firstInit = false;
+                        if (settingScrollRect != null)
+                        {
+                            settingScrollRect.verticalNormalizedPosition = 1;
+                        }
+                        else
+                        {
+                            Debug.LogError("settingScrollRect null");
+                        }
+                    }
+                }
                 // settingUIData
                 {
                     SettingUI.UIData settingUIData = this.data.settingUIData.v;
@@ -441,6 +459,7 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
                 uiData.requestEditType.allAddCallBack(this);
                 uiData.adsManager.allAddCallBack(this);
             }
+            firstInit = true;
             dirty = true;
             return;
         }

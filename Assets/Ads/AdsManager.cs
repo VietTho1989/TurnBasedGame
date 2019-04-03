@@ -46,6 +46,8 @@ namespace Ads
 
         public VP<float> time;
 
+        public VP<long> realTime;
+
         public enum AdsType
         {
             None,
@@ -80,7 +82,7 @@ namespace Ads
 
         public VP<float> lastClickBanner;
 
-        public const float DefaultHideBannerDurationAfterClick = 30 * 60 * 60;// 30 minutes
+        public const float DefaultHideBannerDurationAfterClick = 30 * 60;// 30 minutes
         public VP<float> hideBannerDurationAfterClick;
 
         public VP<bool> hideAdsWhenStartPlay;
@@ -89,7 +91,7 @@ namespace Ads
 
         #region reloadBanner
 
-        public const float DefaultReloadBannerInterval = 15 * 60 * 60;// 15 minutes
+        public const float DefaultReloadBannerInterval = 10 * 60;// 15 minutes
 
         public VP<float> reloadBannerInterval;
 
@@ -153,6 +155,7 @@ namespace Ads
             alreadyBuyAds,
             allowEdit,
             time,
+            realTime,
 
             videoType,
             showBtnViewAds,
@@ -179,6 +182,7 @@ namespace Ads
             this.alreadyBuyAds = new VP<bool>(this, (byte)Property.alreadyBuyAds, false);
             this.allowEdit = new VP<AllowEdit>(this, (byte)Property.allowEdit, DefaultAllowEdit);
             this.time = new VP<float>(this, (byte)Property.time, 0);
+            this.realTime = new VP<long>(this, (byte)Property.realTime, Global.getRealTimeInMiliSeconds());
             this.bannerType = new VP<AdsType>(this, (byte)Property.bannerType, DefaultBannerType);
             // video
             {

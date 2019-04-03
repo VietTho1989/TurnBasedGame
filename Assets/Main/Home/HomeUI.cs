@@ -262,7 +262,13 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
         {
             switch ((AdsManager.Property)wrapProperty.n)
             {
+                case AdsManager.Property.alreadyBuyAds:
+                    break;
+                case AdsManager.Property.allowEdit:
+                    break;
                 case AdsManager.Property.time:
+                    break;
+                case AdsManager.Property.realTime:
                     break;
                 case AdsManager.Property.videoType:
                     dirty = true;

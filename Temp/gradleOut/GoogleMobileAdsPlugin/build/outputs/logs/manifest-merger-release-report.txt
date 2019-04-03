@@ -1,0 +1,41 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml:7:1-20:12
+INJECTED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml:7:1-20:12
+INJECTED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml:7:1-20:12
+INJECTED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml:7:1-20:12
+INJECTED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml:7:1-20:12
+INJECTED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml:7:1-20:12
+INJECTED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml:7:1-20:12
+	package
+		ADDED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml:8:5-35
+		INJECTED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml
+		INJECTED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml
+	android:versionName
+		ADDED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml:9:5-30
+		INJECTED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml
+		INJECTED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml:7:11-69
+	android:versionCode
+		ADDED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml:10:5-28
+		INJECTED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml
+		INJECTED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml
+uses-sdk
+ADDED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml:11:3-12:39
+INJECTED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml:11:3-12:39
+INJECTED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml:11:3-12:39
+	android:targetSdkVersion
+		ADDED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml:12:7-36
+		INJECTED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml
+		INJECTED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml
+	android:minSdkVersion
+		ADDED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml:11:13-39
+application
+ADDED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml:13:3-19:17
+meta-data#com.google.android.gms.ads.APPLICATION_ID
+ADDED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml:16:5-18:61
+	android:value
+		ADDED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml:18:5-59
+	android:name
+		ADDED from /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/GoogleMobileAdsPlugin/AndroidManifest.xml:17:5-61

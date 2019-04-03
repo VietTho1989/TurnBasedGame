@@ -1,7 +1,7 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Ads/UI/AdsManagerUI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/RoomTopic/RoomUserState/ChatRoomUserStateContent.cs">
     <Files>
-      <File FileName="Assets/Ads/UI/AdsManagerUI.cs" Line="352" Column="9" />
+      <File FileName="Assets/Online/ServerData/Room/RoomTopic/RoomUserState/ChatRoomUserStateContent.cs" Line="17" Column="8" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

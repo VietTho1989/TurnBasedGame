@@ -14,7 +14,17 @@ namespace Ads
             AdsManager adsManager = AdsManager.get();
             if (adsManager != null)
             {
-                adsManager.time.v += Time.deltaTime;
+                // time
+                {
+                    // find
+                    long currentRealTime = Global.getRealTimeInMiliSeconds();
+                    float deltaTime = Mathf.Max(Time.deltaTime, (currentRealTime - adsManager.realTime.v) / 1000.0f);
+                    // set
+                    {
+                        adsManager.time.v += deltaTime;
+                        adsManager.realTime.v = currentRealTime;
+                    }
+                }
                 // bannerVisibility
                 {
                     // check visibility after click

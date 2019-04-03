@@ -1,0 +1,60 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-is/values-is.xml",
+            "map": [
+                {
+                    "source": "/Users/viettho/.gradle/caches/transforms-1/files-1.1/com.android.support.appcompat-v7-26.1.0.aar/d220cb687ac2a666a39390cf61854305/res/values-is/values-is.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,155,263,386,483,595,680,781,895,975,1055,1136,1246,1354,1452,1561,1660,1763,1881,1979,2060",
+                        "endColumns": "99,107,122,96,111,84,100,113,79,79,80,109,107,97,108,98,102,117,97,80,100",
+                        "endOffsets": "150,258,381,478,590,675,776,890,970,1050,1131,1241,1349,1447,1556,1655,1758,1876,1974,2055,2156"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,29,30",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,205,313,436,533,645,730,831,945,1025,1105,1186,1296,1404,1502,1611,1710,1813,1931,2803,2884",
+                        "endColumns": "99,107,122,96,111,84,100,113,79,79,80,109,107,97,108,98,102,117,97,80,100",
+                        "endOffsets": "200,308,431,528,640,725,826,940,1020,1100,1181,1291,1399,1497,1606,1705,1808,1926,2024,2879,2980"
+                    }
+                },
+                {
+                    "source": "/Users/viettho/.gradle/caches/transforms-1/files-1.1/com.google.android.gms.play-services-ads-17.2.0.aar/16243b385e5ac74a6ad7c236274bf533/res/values-is/values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10",
+                        "startColumns": "0,0,0,0,0,0,0",
+                        "startOffsets": "199,266,370,437,500,581,683",
+                        "endColumns": "66,103,66,62,80,101,73",
+                        "endOffsets": "265,369,436,499,580,682,756"
+                    },
+                    "to": {
+                        "startLines": "22,23,24,25,26,27,28",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "2217,2288,2396,2467,2534,2619,2725",
+                        "endColumns": "70,107,70,66,84,105,77",
+                        "endOffsets": "2283,2391,2462,2529,2614,2720,2798"
+                    }
+                },
+                {
+                    "source": "/Users/viettho/.gradle/caches/transforms-1/files-1.1/com.google.android.gms.play-services-basement-16.0.1.aar/cde3df7276df398ac5db5e31f7c7e1a2/res/values-is/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "247",
+                        "endColumns": "187",
+                        "endOffsets": "434"
+                    },
+                    "to": {
+                        "startLines": "21",
+                        "startColumns": "4",
+                        "startOffsets": "2029",
+                        "endColumns": "187",
+                        "endOffsets": "2212"
+                    }
+                }
+            ]
+        }
+    ]
+}

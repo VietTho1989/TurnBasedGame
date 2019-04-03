@@ -51,7 +51,7 @@ namespace GameManager.Match
             public UIData() : base()
             {
                 this.contestManagerStateLobby = new VP<ReferenceData<ContestManagerStateLobby>>(this, (byte)Property.contestManagerStateLobby, new ReferenceData<ContestManagerStateLobby>(null));
-                this.roomSetting = new VP<RoomSettingUI.UIData>(this, (byte)Property.roomSetting, new RoomSettingUI.UIData());
+                this.roomSetting = new VP<RoomSettingUI.UIData>(this, (byte)Property.roomSetting, null);
                 // roomUserAdapter
                 {
                     this.roomUserAdapter = new VP<RoomUserAdapter.UIData>(this, (byte)Property.roomUserAdapter, new RoomUserAdapter.UIData());
@@ -62,7 +62,7 @@ namespace GameManager.Match
                     this.chatRoomUIData = new VP<ChatRoomUI.UIData>(this, (byte)Property.chatRoomUIData, new ChatRoomUI.UIData());
                     this.chatRoomUIData.v.needHeader.v = false;
                 }
-                this.contentFactory = new VP<ContestManagerContentFactoryUI.UIData>(this, (byte)Property.contentFactory, new ContestManagerContentFactoryUI.UIData());
+                this.contentFactory = new VP<ContestManagerContentFactoryUI.UIData>(this, (byte)Property.contentFactory, null);
                 this.btnStart = new VP<LobbyBtnStart.UIData>(this, (byte)Property.btnStart, new LobbyBtnStart.UIData());
                 // team
                 {
@@ -202,14 +202,28 @@ namespace GameManager.Match
             }
             // teamAdapterRect
             {
-                // anchoredPosition: (0.0, 0.0); anchorMin: (0.0, 0.5); anchorMax: (0.5, 1.0); pivot: (0.5, 0.5); offsetMin: (0.0, 0.0); offsetMax: (0.0, 0.0); sizeDelta: (0.0, 0.0);
-                teamAdapterRect.anchoredPosition = new Vector3(0f, 0f, 0f);
-                teamAdapterRect.anchorMin = new Vector2(0.0f, 0.5f);
-                teamAdapterRect.anchorMax = new Vector2(0.5f, 1.0f);
-                teamAdapterRect.pivot = new Vector2(0.5f, 0.5f);
-                teamAdapterRect.offsetMin = new Vector2(0.0f, 0.0f);
-                teamAdapterRect.offsetMax = new Vector2(0.0f, 0.0f);
-                teamAdapterRect.sizeDelta = new Vector2(0.0f, 0.0f);
+                // normal
+                {
+                    teamAdapterRect.anchoredPosition = new Vector3(0f, 0f, 0f);
+                    teamAdapterRect.anchorMin = new Vector2(0.0f, 0.5f);
+                    teamAdapterRect.anchorMax = new Vector2(0.5f, 1.0f);
+                    teamAdapterRect.pivot = new Vector2(0.5f, 0.5f);
+                    teamAdapterRect.offsetMin = new Vector2(0.0f, 0.0f);
+                    teamAdapterRect.offsetMax = new Vector2(0.0f, 0.0f);
+                    teamAdapterRect.sizeDelta = new Vector2(0.0f, 0.0f);
+                }
+                // large
+                {
+                    // anchoredPosition: (-15.0, 0.0); anchorMin: (0.0, 0.5); anchorMax: (1.0, 1.0);
+                    // pivot: (0.5, 0.5); offsetMin: (0.0, 0.0); offsetMax: (-30.0, 0.0); sizeDelta: (-30.0, 0.0);
+                    teamAdapterLargeRect.anchoredPosition = new Vector3(-15f, 0f, 0f);
+                    teamAdapterLargeRect.anchorMin = new Vector2(0.0f, 0.5f);
+                    teamAdapterLargeRect.anchorMax = new Vector2(1.0f, 1.0f);
+                    teamAdapterLargeRect.pivot = new Vector2(0.5f, 0.5f);
+                    teamAdapterLargeRect.offsetMin = new Vector2(0.0f, 0.0f);
+                    teamAdapterLargeRect.offsetMax = new Vector2(-30.0f, 0.0f);
+                    teamAdapterLargeRect.sizeDelta = new Vector2(-30.0f, 0.0f);
+                }
             }
         }
 
@@ -409,73 +423,122 @@ namespace GameManager.Match
                     }
                     // setting
                     {
-                        // siblingIndex
+                        if(this.data.contentFactory.v!=null || this.data.roomSetting.v != null)
                         {
-                            if (bgContestManagerContentFactory != null)
+                            // UI Visibility
                             {
-                                bgContestManagerContentFactory.transform.SetSiblingIndex(0);
+                                // settingScrollView
+                                if (settingScrollView != null)
+                                {
+                                    settingScrollView.gameObject.SetActive(true);
+                                }
+                                else
+                                {
+                                    Debug.LogError("settingScrollView null");
+                                }
+                                // btnSetting
+                                if (btnSetting != null)
+                                {
+                                    btnSetting.gameObject.SetActive(false);
+                                }
+                                else
+                                {
+                                    Debug.LogError("btnSetting null");
+                                }
                             }
-                            else
+                            // teamAdapterLobby
+                            UIRectTransform.Set(this.data.teamAdapter.v, teamAdapterRect);
+                            // siblingIndex
                             {
-                                Debug.LogError("bgContestManagerContentFactory null");
+                                if (bgContestManagerContentFactory != null)
+                                {
+                                    bgContestManagerContentFactory.transform.SetSiblingIndex(0);
+                                }
+                                else
+                                {
+                                    Debug.LogError("bgContestManagerContentFactory null");
+                                }
+                                if (bgRoomSetting != null)
+                                {
+                                    bgRoomSetting.transform.SetSiblingIndex(1);
+                                }
+                                else
+                                {
+                                    Debug.LogError("bgRoomSetting null");
+                                }
+                                UIRectTransform.SetSiblingIndex(this.data.contentFactory.v, 2);
+                                UIRectTransform.SetSiblingIndex(this.data.roomSetting.v, 3);
                             }
-                            if (bgRoomSetting != null)
+                            // size
                             {
-                                bgRoomSetting.transform.SetSiblingIndex(1);
+                                float deltaY = 0;
+                                // contestManagerContentFactory
+                                {
+                                    float height = UIRectTransform.SetPosY(this.data.contentFactory.v, deltaY);
+                                    // bg
+                                    {
+                                        if (bgContestManagerContentFactory != null)
+                                        {
+                                            UIRectTransform.SetPosY(bgContestManagerContentFactory.rectTransform, deltaY);
+                                            UIRectTransform.SetHeight(bgContestManagerContentFactory.rectTransform, height);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("bgContestManagerContentFactory null");
+                                        }
+                                    }
+                                    deltaY += height;
+                                }
+                                // roomSetting
+                                {
+                                    float height = UIRectTransform.SetPosY(this.data.roomSetting.v, deltaY);
+                                    // bg
+                                    {
+                                        if (bgRoomSetting != null)
+                                        {
+                                            UIRectTransform.SetPosY(bgRoomSetting.rectTransform, deltaY);
+                                            UIRectTransform.SetHeight(bgRoomSetting.rectTransform, height);
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("bgRoomSetting null");
+                                        }
+                                    }
+                                    deltaY += height;
+                                }
+                                // settingContainer
+                                if (settingContainer != null)
+                                {
+                                    UIRectTransform.SetHeight(settingContainer, deltaY);
+                                }
+                                else
+                                {
+                                    Debug.LogError("settingContainer null");
+                                }
                             }
-                            else
-                            {
-                                Debug.LogError("bgRoomSetting null");
-                            }
-                            UIRectTransform.SetSiblingIndex(this.data.contentFactory.v, 2);
-                            UIRectTransform.SetSiblingIndex(this.data.roomSetting.v, 3);
                         }
-                        // size
+                        else
                         {
-                            float deltaY = 0;
-                            // contestManagerContentFactory
+                            // settingScrollView
+                            if (settingScrollView != null)
                             {
-                                float height = UIRectTransform.SetPosY(this.data.contentFactory.v, deltaY);
-                                // bg
-                                {
-                                    if (bgContestManagerContentFactory != null)
-                                    {
-                                        UIRectTransform.SetPosY(bgContestManagerContentFactory.rectTransform, deltaY);
-                                        UIRectTransform.SetHeight(bgContestManagerContentFactory.rectTransform, height);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("bgContestManagerContentFactory null");
-                                    }
-                                }
-                                deltaY += height;
-                            }
-                            // roomSetting
-                            {
-                                float height = UIRectTransform.SetPosY(this.data.roomSetting.v, deltaY);
-                                // bg
-                                {
-                                    if (bgRoomSetting != null)
-                                    {
-                                        UIRectTransform.SetPosY(bgRoomSetting.rectTransform, deltaY);
-                                        UIRectTransform.SetHeight(bgRoomSetting.rectTransform, height);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("bgRoomSetting null");
-                                    }
-                                }
-                                deltaY += height;
-                            }
-                            // settingContainer
-                            if (settingContainer != null)
-                            {
-                                UIRectTransform.SetHeight(settingContainer, deltaY);
+                                settingScrollView.gameObject.SetActive(false);
                             }
                             else
                             {
-                                Debug.LogError("settingContainer null");
+                                Debug.LogError("settingScrollView null");
                             }
+                            // btnSetting
+                            if (btnSetting != null)
+                            {
+                                btnSetting.gameObject.SetActive(true);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnSetting null");
+                            }
+                            // teamAdapterLobby
+                            UIRectTransform.Set(this.data.teamAdapter.v, teamAdapterLargeRect);
                         }
                     }
                 }
@@ -500,16 +563,17 @@ namespace GameManager.Match
         public RectTransform settingContainer;
 
         public RoomUserAdapter roomUserAdapterPrefab;
-        public static readonly UIRectTransform roomUserAdapterRect = new UIRectTransform();
+        private static readonly UIRectTransform roomUserAdapterRect = new UIRectTransform();
 
         public ChatRoomUI chatRoomPrefab;
-        public static readonly UIRectTransform chatRoomRect = new UIRectTransform();
+        private static readonly UIRectTransform chatRoomRect = new UIRectTransform();
 
         public LobbyBtnStart btnStartPrefab;
-        public static readonly UIRectTransform btnStartRect = new UIRectTransform();
+        private static readonly UIRectTransform btnStartRect = new UIRectTransform();
 
         public LobbyTeamAdapter teamAdapterPrefab;
-        public static readonly UIRectTransform teamAdapterRect = new UIRectTransform();
+        private static readonly UIRectTransform teamAdapterRect = new UIRectTransform();
+        private static readonly UIRectTransform teamAdapterLargeRect = new UIRectTransform();
 
         public EditLobbyPlayerUI editLobbyPlayerPrefab;
         public Transform editLobbyPlayerContainer;
@@ -645,7 +709,7 @@ namespace GameManager.Match
                     LobbyTeamAdapter.UIData teamAdapter = data as LobbyTeamAdapter.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(teamAdapter, teamAdapterPrefab, this.transform, teamAdapterRect);
+                        UIUtils.Instantiate(teamAdapter, teamAdapterPrefab, this.transform, teamAdapterLargeRect);
                     }
                     dirty = true;
                     return;
@@ -991,6 +1055,35 @@ namespace GameManager.Match
         }
 
         #endregion
+
+        public Button btnSetting;
+
+        public void onClickBtnSetting()
+        {
+            if (this.data != null)
+            {
+                // contestManagerFactory
+                {
+                    ContestManagerContentFactoryUI.UIData contestManagerContentFactoryUIData = this.data.contentFactory.newOrOld<ContestManagerContentFactoryUI.UIData>();
+                    {
+                        
+                    }
+                    this.data.contentFactory.v = contestManagerContentFactoryUIData;
+                }
+                // roomSetting
+                {
+                    RoomSettingUI.UIData roomSettingUIData = this.data.roomSetting.newOrOld<RoomSettingUI.UIData>();
+                    {
+
+                    }
+                    this.data.roomSetting.v = roomSettingUIData;
+                }
+            }
+            else
+            {
+                Debug.LogError("data null");
+            }
+        }
 
     }
 }
