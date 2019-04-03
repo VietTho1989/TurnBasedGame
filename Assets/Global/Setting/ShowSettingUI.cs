@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using Ads;
 
 public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
 {
@@ -32,12 +33,15 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
 
         #endregion
 
+        public VP<AdsManagerUI.UIData> adsManager;
+
         #region Constructor
 
         public enum Property
         {
             settingUIData,
-            requestEditType
+            requestEditType,
+            adsManager
         }
 
         public UIData() : base()
@@ -56,13 +60,14 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
                 }
                 this.requestEditType.v.updateData.v.request.v = makeRequestChangeEditType;
             }
+            this.adsManager = new VP<AdsManagerUI.UIData>(this, (byte)Property.adsManager, new AdsManagerUI.UIData());
         }
 
         #endregion
 
         public bool processEvent(Event e)
         {
-            Debug.LogError("processEvent: " + e);
+            // Debug.LogError("processEvent: " + e);
             bool isProcess = false;
             {
                 // child
@@ -145,6 +150,8 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
     public RectTransform settingUIScrollView;
     private static readonly UIRectTransform scrollRectImmediately = UIRectTransform.CreateFullRect(0, 0, UIConstants.HeaderHeight, 0);
     private static readonly UIRectTransform scrollRectLater = UIRectTransform.CreateFullRect(0, 0, UIConstants.HeaderHeight, UIConstants.ItemHeight);
+
+    public GameObject refreshContainer;
 
     public override void refresh()
     {
@@ -320,9 +327,70 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
                         Debug.LogError("editSetting null");
                     }
                 }
+                // adsManager
+                {
+                    // show or not
+                    {
+                        // find
+                        bool isShow = false;
+                        {
+                            switch (AdsManager.get().allowEdit.v)
+                            {
+                                case AdsManager.AllowEdit.None:
+                                    isShow = false;
+                                    break;
+                                case AdsManager.AllowEdit.OnlyBuyer:
+                                    isShow = AdsManager.get().alreadyBuyAds.v;
+                                    break;
+                                case AdsManager.AllowEdit.All:
+                                    isShow = true;
+                                    break;
+                                default:
+                                    Debug.LogError("unknown allowEdit: " + AdsManager.get().allowEdit.v);
+                                    break;
+                            }
+                        }
+                        // process
+                        if (isShow)
+                        {
+                            AdsManagerUI.UIData adsManager = this.data.adsManager.newOrOld<AdsManagerUI.UIData>();
+                            {
+
+                            }
+                            this.data.adsManager.v = adsManager;
+                        }
+                        else
+                        {
+                            this.data.adsManager.v = null;
+                        }
+                    }
+                    // set
+                    {
+                        AdsManagerUI.UIData adsManager = this.data.adsManager.v;
+                        if (adsManager != null)
+                        {
+                            adsManager.editAdsManager.v.origin.v = new ReferenceData<AdsManager>(AdsManager.get());
+                            adsManager.editAdsManager.v.canEdit.v = true;
+                            adsManager.editAdsManager.v.editType.v = Data.EditType.Immediate;
+                        }
+                        else
+                        {
+                            // Debug.LogError("adsManager null");
+                        }
+                    }
+                }
                 // siblingIndex
                 {
                     UIRectTransform.SetSiblingIndex(this.data.settingUIData.v, 0);
+                    UIRectTransform.SetSiblingIndex(this.data.adsManager.v, 1);
+                    if (refreshContainer != null)
+                    {
+                        refreshContainer.transform.SetSiblingIndex(2);
+                    }
+                    else
+                    {
+                        Debug.LogError("refreshContainer null");
+                    }
                 }
                 // txt
                 {
@@ -355,6 +423,8 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
     public SettingUI settingUIPrefab;
     public Transform settingUIContainer;
 
+    public AdsManagerUI adsManagerPrefab;
+
     public RequestChangeEnumUI requestEnumPrefab;
     private static readonly UIRectTransform requestEditTypeRect = new UIRectTransform();
 
@@ -363,16 +433,34 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Ads
+            AdsManager.get().addCallBack(this);
             // Child
             {
                 uiData.settingUIData.allAddCallBack(this);
                 uiData.requestEditType.allAddCallBack(this);
+                uiData.adsManager.allAddCallBack(this);
             }
             dirty = true;
             return;
         }
+        // Ads
+        if(data is AdsManager)
+        {
+            return;
+        }
         // Child
         {
+            if (data is AdsManagerUI.UIData)
+            {
+                AdsManagerUI.UIData adsManagerUIData = data as AdsManagerUI.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(adsManagerUIData, adsManagerPrefab, settingUIContainer);
+                }
+                dirty = true;
+                return;
+            }
             // requestEditType
             if (data is RequestChangeEnumUI.UIData)
             {
@@ -459,16 +547,33 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Ads
+            AdsManager.get().removeCallBack(this);
             // Child
             {
                 uiData.settingUIData.allRemoveCallBack(this);
                 uiData.requestEditType.allRemoveCallBack(this);
+                uiData.adsManager.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
             return;
         }
+        // Ads
+        if(data is AdsManager)
+        {
+            return;
+        }
         // Child
         {
+            if(data is AdsManagerUI.UIData)
+            {
+                AdsManagerUI.UIData adsManagerUIData = data as AdsManagerUI.UIData;
+                // UI
+                {
+                    adsManagerUIData.removeCallBackAndDestroy(typeof(AdsManagerUI));
+                }
+                return;
+            }
             // requestEditType
             if (data is RequestChangeEnumUI.UIData)
             {
@@ -551,6 +656,59 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
                         dirty = true;
                     }
                     break;
+                case UIData.Property.adsManager:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Ads
+        if(wrapProperty.p is AdsManager)
+        {
+            switch ((AdsManager.Property)wrapProperty.n)
+            {
+                case AdsManager.Property.alreadyBuyAds:
+                    dirty = true;
+                    break;
+                case AdsManager.Property.allowEdit:
+                    dirty = true;
+                    break;
+                case AdsManager.Property.time:
+                    break;
+                case AdsManager.Property.videoType:
+                    break;
+                case AdsManager.Property.showBtnViewAds:
+                    break;
+                case AdsManager.Property.bannerType:
+                    break;
+                case AdsManager.Property.bannerVisibility:
+                    break;
+                case AdsManager.Property.lastClickBanner:
+                    break;
+                case AdsManager.Property.hideBannerDurationAfterClick:
+                    break;
+                case AdsManager.Property.hideAdsWhenStartPlay:
+                    break;
+                case AdsManager.Property.showAdsWhenGameEnd:
+                    break;
+                case AdsManager.Property.reloadBannerInterval:
+                    break;
+                case AdsManager.Property.lastReloadBannerTime:
+                    break;
+                case AdsManager.Property.unityAdsBannerPlaceMentIds:
+                    break;
+                case AdsManager.Property.admobAppId:
+                    break;
+                case AdsManager.Property.admobAdUnitId:
+                    break;
+                case AdsManager.Property.admobVideoType:
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
@@ -559,6 +717,10 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
         }
         // Child
         {
+            if(wrapProperty.p is AdsManagerUI.UIData)
+            {
+                return;
+            }
             // requestEditType
             if (wrapProperty.p is RequestChangeEnumUI.UIData)
             {

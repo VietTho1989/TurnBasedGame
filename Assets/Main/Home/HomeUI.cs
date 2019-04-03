@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using Ads;
 
 public class HomeUI : UIBehavior<HomeUI.UIData>
 {
@@ -58,35 +59,49 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
             return isProcess;
         }
 
+        public override MainUI.UIData.AllowShowBanner getAllowShowBanner()
+        {
+            return MainUI.UIData.AllowShowBanner.ForceShow;
+        }
+
+    }
+
+    #endregion
+
+    #region txt
+
+    public Button btnOffline;
+    public Text tvOffline;
+    private static readonly TxtLanguage txtOffline = new TxtLanguage();
+
+    public Button btnLan;
+    public Text tvLan;
+    private static readonly TxtLanguage txtLan = new TxtLanguage();
+
+    public Button btnOnline;
+    public Text tvOnline;
+    private static readonly TxtLanguage txtOnline = new TxtLanguage();
+
+    public Button btnLoad;
+    public Text tvLoad;
+    private static readonly TxtLanguage txtLoad = new TxtLanguage();
+
+    public Button btnViewAds;
+    public Text tvViewAds;
+    private static readonly TxtLanguage txtViewAds = new TxtLanguage();
+
+    static HomeUI()
+    {
+        txtOffline.add(Language.Type.vi, "Chơi Offline");
+        txtLan.add(Language.Type.vi, "Chơi Mạng Lan");
+        txtOnline.add(Language.Type.vi, "Chơi Online");
+        txtLoad.add(Language.Type.vi, "Tải");
+        txtViewAds.add(Language.Type.vi, "Xem Quảng Cáo");
     }
 
     #endregion
 
     #region refresh
-
-    public Text tvOffline;
-    public static readonly TxtLanguage txtOffline = new TxtLanguage();
-
-    public Text tvLan;
-    public static readonly TxtLanguage txtLan = new TxtLanguage();
-
-    public Text tvOnline;
-    public static readonly TxtLanguage txtOnline = new TxtLanguage();
-
-    public Text tvLoad;
-    public static readonly TxtLanguage txtLoad = new TxtLanguage();
-
-    static HomeUI()
-    {
-        // offline
-        txtOffline.add(Language.Type.vi, "Chơi Offline");
-        // lan
-        txtLan.add(Language.Type.vi, "Chơi mạng Lan");
-        // online
-        txtOnline.add(Language.Type.vi, "Chơi Online");
-        // load
-        txtLoad.add(Language.Type.vi, "Tải");
-    }
 
     public override void refresh()
     {
@@ -95,41 +110,60 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
             dirty = false;
             if (this.data != null)
             {
-                // tvOffline
-                if (tvOffline != null)
+                // btnViewAds
                 {
-                    tvOffline.text = txtOffline.get("Play Offline");
+                    if (btnViewAds != null)
+                    {
+                        bool canViewAds = AdsManager.get().showBtnViewAds.v && AdsManager.get().IsSupportFullScreenAds();
+                        btnViewAds.gameObject.SetActive(canViewAds);
+                    }
+                    else
+                    {
+                        Debug.LogError("btnViewAds null");
+                    }
                 }
-                else
+                // txt
                 {
-                    Debug.LogError("tvOffline null: " + this);
-                }
-                // tvLan
-                if (tvLan != null)
-                {
-                    tvLan.text = txtLan.get("Play LAN");
-                }
-                else
-                {
-                    Debug.LogError("tvLan null: " + this);
-                }
-                // tvOnline
-                if (tvOnline != null)
-                {
-                    tvOnline.text = txtOnline.get("Play Online");
-                }
-                else
-                {
-                    Debug.LogError("tvOnline null: " + this);
-                }
-                // tvLoad
-                if (tvLoad != null)
-                {
-                    tvLoad.text = txtLoad.get("Load");
-                }
-                else
-                {
-                    Debug.LogError("tvLoad null: " + this);
+                    if (tvOffline != null)
+                    {
+                        tvOffline.text = txtOffline.get("Play Offline");
+                    }
+                    else
+                    {
+                        Debug.LogError("tvOffline null: " + this);
+                    }
+                    if (tvLan != null)
+                    {
+                        tvLan.text = txtLan.get("Play LAN");
+                    }
+                    else
+                    {
+                        Debug.LogError("tvLan null: " + this);
+                    }
+                    if (tvOnline != null)
+                    {
+                        tvOnline.text = txtOnline.get("Play Online");
+                    }
+                    else
+                    {
+                        Debug.LogError("tvOnline null: " + this);
+                    }
+                    if (tvLoad != null)
+                    {
+                        tvLoad.text = txtLoad.get("Load");
+                    }
+                    else
+                    {
+                        Debug.LogError("tvLoad null: " + this);
+                    }
+                    if (tvViewAds != null)
+                    {
+                        tvViewAds.text = txtViewAds.get("View Ads");
+                    }
+                    else
+                    {
+                        Debug.LogError("tvViewAds null");
+                    }
                 }
             }
             else
@@ -152,10 +186,20 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
     {
         if (data is UIData)
         {
+            // Ads
+            {
+                AdsManager.get().addCallBack(this);
+            }
             // setting
             {
                 Setting.get().addCallBack(this);
             }
+            dirty = true;
+            return;
+        }
+        // Ads
+        if(data is AdsManager)
+        {
             dirty = true;
             return;
         }
@@ -173,15 +217,20 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Ads
+            {
+                AdsManager.get().removeCallBack(this);
+            }
             // setting
             {
                 Setting.get().removeCallBack(this);
             }
-            // Child
-            {
-
-            }
             this.setDataNull(uiData);
+            return;
+        }
+        // Ads
+        if(data is AdsManager)
+        {
             return;
         }
         // Setting
@@ -202,6 +251,49 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
         {
             switch ((UIData.Property)wrapProperty.n)
             {
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Ads
+        if(wrapProperty.p is AdsManager)
+        {
+            switch ((AdsManager.Property)wrapProperty.n)
+            {
+                case AdsManager.Property.time:
+                    break;
+                case AdsManager.Property.videoType:
+                    dirty = true;
+                    break;
+                case AdsManager.Property.showBtnViewAds:
+                    dirty = true;
+                    break;
+                case AdsManager.Property.bannerType:
+                    break;
+                case AdsManager.Property.bannerVisibility:
+                    break;
+                case AdsManager.Property.lastClickBanner:
+                    break;
+                case AdsManager.Property.hideBannerDurationAfterClick:
+                    break;
+                case AdsManager.Property.hideAdsWhenStartPlay:
+                    break;
+                case AdsManager.Property.showAdsWhenGameEnd:
+                    break;
+                case AdsManager.Property.reloadBannerInterval:
+                    break;
+                case AdsManager.Property.lastReloadBannerTime:
+                    break;
+                case AdsManager.Property.unityAdsBannerPlaceMentIds:
+                    break;
+                case AdsManager.Property.admobAppId:
+                    break;
+                case AdsManager.Property.admobAdUnitId:
+                    break;
+                case AdsManager.Property.admobVideoType:
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
@@ -335,6 +427,12 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
         {
             Debug.LogError("data null");
         }
+    }
+
+    public void onClickBtnViewAds()
+    {
+        AdsManager.get().showFullScreenAds();
+        AdsManager.get().lastClickBanner.v = float.MinValue;
     }
 
     #endregion

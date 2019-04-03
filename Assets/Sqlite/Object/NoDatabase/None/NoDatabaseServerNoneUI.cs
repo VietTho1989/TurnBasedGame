@@ -40,6 +40,11 @@ public class NoDatabaseServerNoneUI : UIBehavior<NoDatabaseServerNoneUI.UIData>
             return isProcess;
         }
 
+        public override MainUI.UIData.AllowShowBanner getAllowShowBanner()
+        {
+            return MainUI.UIData.AllowShowBanner.ForceShow;
+        }
+
     }
 
     #endregion

@@ -2,14 +2,16 @@ using System.IO;
 
 using UnityEditor;
 using UnityEditor.Callbacks;
+#if UNITY_IPHONE
 using UnityEditor.iOS.Xcode;
+#endif
 
 public static class PListProcessor
 {
     [PostProcessBuild]
     public static void OnPostProcessBuild(BuildTarget buildTarget, string path)
     {
-        #if UNITY_IPHONE
+#if UNITY_IPHONE
           // Replace with your iOS AdMob app ID. Your AdMob App ID will look
           // similar to this sample ID: ca-app-pub-3940256099942544~1458002511
           string appId = "ADMOB_APPLICATION_ID";
@@ -20,6 +22,6 @@ public static class PListProcessor
           plist.ReadFromFile(plistPath);
           plist.root.SetString("GADApplicationIdentifier", appId);
           File.WriteAllText(plistPath, plist.WriteToString());
-        #endif
+#endif
     }
 }

@@ -27,6 +27,8 @@ public class PlayOnlineUI : UIBehavior<PlayOnlineUI.UIData>
 
             public abstract bool processEvent(Event e);
 
+            public abstract MainUI.UIData.AllowShowBanner getAllowShowBanner();
+
         }
 
         public VP<PlayOnlineUI.UIData.Sub> sub;
@@ -71,6 +73,23 @@ public class PlayOnlineUI : UIBehavior<PlayOnlineUI.UIData>
                 }
             }
             return isProcess;
+        }
+
+        public override MainUI.UIData.AllowShowBanner getAllowShowBanner()
+        {
+            MainUI.UIData.AllowShowBanner ret = MainUI.UIData.AllowShowBanner.ForceShow;
+            {
+                Sub sub = this.sub.v;
+                if (sub != null)
+                {
+                    ret = sub.getAllowShowBanner();
+                }
+                else
+                {
+                    Debug.LogError("sub null");
+                }
+            }
+            return ret;
         }
 
     }

@@ -52,6 +52,23 @@ public class NoDatabaseServerPlayUI : UIBehavior<NoDatabaseServerPlayUI.UIData>
             return isProcess;
         }
 
+        public override MainUI.UIData.AllowShowBanner getAllowShowBanner()
+        {
+            MainUI.UIData.AllowShowBanner ret = MainUI.UIData.AllowShowBanner.ForceShow;
+            {
+                ServerManager.UIData serverManager = this.serverManager.v;
+                if (serverManager != null)
+                {
+                    ret = serverManager.getAllowShowBanner();
+                }
+                else
+                {
+                    Debug.LogError("serverManager null");
+                }
+            }
+            return ret;
+        }
+
     }
 
     #endregion

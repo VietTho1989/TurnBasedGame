@@ -6,58 +6,69 @@ using System.Collections.Generic;
 public class HaveDatabaseServerFailUI : UIBehavior<HaveDatabaseServerFailUI.UIData>
 {
 
-	#region UIData
+    #region UIData
 
-	public class UIData : HaveDatabaseServerUI.UIData.Sub
-	{
+    public class UIData : HaveDatabaseServerUI.UIData.Sub
+    {
 
-		#region Constructor
+        #region Constructor
 
-		public enum Property
-		{
+        public enum Property
+        {
 
-		}
+        }
 
-		public UIData() : base()
-		{
+        public UIData() : base()
+        {
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		public override Type getType ()
-		{
-			return Type.Fail;
-		}
+        public override Type getType()
+        {
+            return Type.Fail;
+        }
 
-		public override bool processEvent (Event e)
-		{
-			bool isProcess = false;
-			{
-				Debug.LogError ("TODO Can hoan thien");
-			}
-			return isProcess;
-		}
+        public override bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+                Debug.LogError("TODO Can hoan thien");
+            }
+            return isProcess;
+        }
 
-		public static void changeToFail(Data data)
-		{
-			if (data != null) {
-				HaveDatabaseServerUI.UIData haveDatabaseServerUIData = data.findDataInParent<HaveDatabaseServerUI.UIData> ();
-				if (haveDatabaseServerUIData != null) {
-					HaveDatabaseServerFailUI.UIData failUIData = haveDatabaseServerUIData.sub.newOrOld<HaveDatabaseServerFailUI.UIData> ();
-					{
+        public static void changeToFail(Data data)
+        {
+            if (data != null)
+            {
+                HaveDatabaseServerUI.UIData haveDatabaseServerUIData = data.findDataInParent<HaveDatabaseServerUI.UIData>();
+                if (haveDatabaseServerUIData != null)
+                {
+                    HaveDatabaseServerFailUI.UIData failUIData = haveDatabaseServerUIData.sub.newOrOld<HaveDatabaseServerFailUI.UIData>();
+                    {
 
-					}
-					haveDatabaseServerUIData.sub.v = failUIData;
-				} else {
-					Debug.LogError ("haveDatabaseServerUIData null: " + data);
-				}
-			} else {
-				Debug.LogError ("data null: " + data);
-			}
-		}
+                    }
+                    haveDatabaseServerUIData.sub.v = failUIData;
+                }
+                else
+                {
+                    Debug.LogError("haveDatabaseServerUIData null: " + data);
+                }
+            }
+            else
+            {
+                Debug.LogError("data null: " + data);
+            }
+        }
 
-	}
+        public override MainUI.UIData.AllowShowBanner getAllowShowBanner()
+        {
+            return MainUI.UIData.AllowShowBanner.ForceShow;
+        }
+
+    }
 
     #endregion
 
@@ -75,11 +86,13 @@ public class HaveDatabaseServerFailUI : UIBehavior<HaveDatabaseServerFailUI.UIDa
 
     #region Refresh
 
-    public override void refresh ()
-	{
-		if (dirty) {
-			dirty = false;
-			if (this.data != null) {
+    public override void refresh()
+    {
+        if (dirty)
+        {
+            dirty = false;
+            if (this.data != null)
+            {
                 // txt
                 {
                     if (lbMessage != null)
@@ -91,24 +104,26 @@ public class HaveDatabaseServerFailUI : UIBehavior<HaveDatabaseServerFailUI.UIDa
                         Debug.LogError("lbMessage null");
                     }
                 }
-            } else {
-				Debug.LogError ("data null: " + this);
-			}
-		}
-	}
+            }
+            else
+            {
+                Debug.LogError("data null: " + this);
+            }
+        }
+    }
 
-	public override bool isShouldDisableUpdate ()
-	{
-		return true;
-	}
+    public override bool isShouldDisableUpdate()
+    {
+        return true;
+    }
 
-	#endregion
+    #endregion
 
-	#region implement callBacks
+    #region implement callBacks
 
-	public override void onAddCallBack<T> (T data)
-	{
-        if(data is UIData)
+    public override void onAddCallBack<T>(T data)
+    {
+        if (data is UIData)
         {
             // Setting
             Setting.get().addCallBack(this);
@@ -116,16 +131,16 @@ public class HaveDatabaseServerFailUI : UIBehavior<HaveDatabaseServerFailUI.UIDa
             return;
         }
         // Setting
-        if(data is Setting)
+        if (data is Setting)
         {
             dirty = true;
             return;
         }
-        Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	public override void onRemoveCallBack<T> (T data, bool isHide)
-	{
+    public override void onRemoveCallBack<T>(T data, bool isHide)
+    {
         if (data is UIData)
         {
             UIData uiData = data as UIData;
@@ -139,14 +154,15 @@ public class HaveDatabaseServerFailUI : UIBehavior<HaveDatabaseServerFailUI.UIDa
         {
             return;
         }
-        Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-	{
-		if (WrapProperty.checkError (wrapProperty)) {
-			return;
-		}
+    public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+    {
+        if (WrapProperty.checkError(wrapProperty))
+        {
+            return;
+        }
         if (wrapProperty.p is UIData)
         {
             switch ((UIData.Property)wrapProperty.n)
@@ -181,9 +197,9 @@ public class HaveDatabaseServerFailUI : UIBehavior<HaveDatabaseServerFailUI.UIDa
             }
             return;
         }
-        Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-	}
+        Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+    }
 
-	#endregion
+    #endregion
 
 }

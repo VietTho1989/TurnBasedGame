@@ -176,6 +176,39 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
             return isProcess;
         }
 
+        public override MainUI.UIData.AllowShowBanner getAllowShowBanner()
+        {
+            MainUI.UIData.AllowShowBanner ret = MainUI.UIData.AllowShowBanner.ForceShow;
+            {
+                switch (this.show.v)
+                {
+                    case Show.rooms:
+                        {
+                            GlobalRoomsUI.UIData rooms = this.rooms.v;
+                            if (rooms != null)
+                            {
+                                ret = rooms.getAllowShowBanner();
+                            }
+                            else
+                            {
+                                Debug.LogError("rooms null");
+                            }
+                        }
+                        break;
+                    case Show.chats:
+                        break;
+                    case Show.friends:
+                        break;
+                    case Show.profile:
+                        break;
+                    default:
+                        Debug.LogError("unknown show: " + this.show.v);
+                        break;
+                }
+            }
+            return ret;
+        }
+
     }
 
     #endregion

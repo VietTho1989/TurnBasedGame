@@ -95,6 +95,23 @@ public class LanClientPlayUI : UIBehavior<LanClientPlayUI.UIData>
             return isProcess;
         }
 
+        public override MainUI.UIData.AllowShowBanner getAllowShowBanner()
+        {
+            MainUI.UIData.AllowShowBanner ret = MainUI.UIData.AllowShowBanner.ForceShow;
+            {
+                ServerManager.UIData serverManagerUIData = this.serverManager.v;
+                if (serverManagerUIData != null)
+                {
+                    ret = serverManagerUIData.getAllowShowBanner();
+                }
+                else
+                {
+                    Debug.LogError("serverManagerUIData null");
+                }
+            }
+            return ret;
+        }
+
     }
 
     #endregion

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Advertisements;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,10 +11,27 @@ namespace Ads
 
         public static UnityAds instance;
 
+        private BannerOptions bannerOptions;// = new BannerOptions();
+
         private void Awake()
         {
             instance = this;
+            // bannerOptions
+            {
+                bannerOptions = new BannerOptions { showCallback = OnShowBanner, hideCallback = OnHideBanner };
+            }
         }
+
+        public void OnShowBanner()
+        {
+            // Debug.LogError("onShowBanner");
+        }
+
+        public void OnHideBanner()
+        {
+            // Debug.LogError("onHideBanner");
+        }
+
 
 #if UNITY_IOS
     public const string gameID = "3100551";
@@ -33,7 +51,7 @@ namespace Ads
                 {
                     case AdsManager.BannerVisibility.Show:
                         {
-                            switch (AdsManager.get().showType.v)
+                            switch (AdsManager.get().bannerType.v)
                             {
                                 case AdsManager.AdsType.Unity:
                                     showBanner();
@@ -58,6 +76,13 @@ namespace Ads
 
         #region banner
 
+        public Button btnUnityAds;
+
+        public void onClickBtnUnityAds()
+        {
+            AdsManager.get().lastClickBanner.v = AdsManager.get().time.v;
+        }
+
         public void hideBanner()
         {
             if (Advertisement.isSupported)
@@ -71,10 +96,20 @@ namespace Ads
             {
                 Debug.LogError("unity ads not supported");
             }
+            // btnUnityAds
+            if (btnUnityAds != null)
+            {
+                btnUnityAds.gameObject.SetActive(false);
+            }
+            else
+            {
+                Debug.LogError("btnUnityAds null");
+            }
         }
 
         public void showBanner()
         {
+            bool isShowBanner = false;
             if (Advertisement.isSupported)
             {
                 // init
@@ -82,9 +117,53 @@ namespace Ads
                 // show
                 if (Advertisement.IsReady(AdsManager.get().unityAdsBannerPlaceMentIds.v))
                 {
-                    Advertisement.Banner.Show(AdsManager.get().unityAdsBannerPlaceMentIds.v);
+                    isShowBanner = true;
+                    Advertisement.Banner.Show(AdsManager.get().unityAdsBannerPlaceMentIds.v, bannerOptions);
                 }
             }
+            // btnUnityAds
+            if (btnUnityAds != null)
+            {
+                btnUnityAds.gameObject.SetActive(isShowBanner);
+            }
+            else
+            {
+                Debug.LogError("btnUnityAds null");
+            }
+        }
+
+        void HandleShowResult(ShowResult result)
+        {
+            if (result == ShowResult.Finished)
+            {
+                // Reward the player
+            }
+            else if (result == ShowResult.Skipped)
+            {
+                Debug.LogWarning("The player skipped the video - DO NOT REWARD!");
+            }
+            else if (result == ShowResult.Failed)
+            {
+                Debug.LogError("Video failed to show");
+            }
+        }
+
+        public void reloadBanner()
+        {
+            BannerLoadOptions options = new BannerLoadOptions();
+
+            options.errorCallback += ((string message) =>
+            {
+                Debug.Log("Error: " + message);
+            });
+
+            options.loadCallback += (() =>
+            {
+                Debug.Log("Ad Loaded");
+            });
+
+            Debug.Log("Loading banner ad");
+            Advertisement.Banner.Load(AdsManager.get().unityAdsBannerPlaceMentIds.v, options);
         }
 
         #endregion

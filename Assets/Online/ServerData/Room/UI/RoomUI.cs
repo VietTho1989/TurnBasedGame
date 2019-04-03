@@ -135,6 +135,42 @@ public class RoomUI : UIBehavior<RoomUI.UIData>
             return isProcess;
         }
 
+        public override MainUI.UIData.AllowShowBanner getAllowShowBanner()
+        {
+            MainUI.UIData.AllowShowBanner ret = MainUI.UIData.AllowShowBanner.ForceShow;
+            {
+                ContestManagerUI.UIData contestManagerUIData = this.contestManagerUIData.v;
+                if (contestManagerUIData != null)
+                {
+                    ContestManagerUI.UIData.Sub sub = contestManagerUIData.sub.v;
+                    if (sub != null)
+                    {
+                        switch (sub.getType())
+                        {
+                            case ContestManager.State.Type.Lobby:
+                                ret = MainUI.UIData.AllowShowBanner.ForceShow;
+                                break;
+                            case ContestManager.State.Type.Play:
+                                ret = MainUI.UIData.AllowShowBanner.StatusQuo;
+                                break;
+                            default:
+                                Debug.LogError("unknown type: " + sub.getType());
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("sub null");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("contestManagerUIData null");
+                }
+            }
+            return ret;
+        }
+
     }
 
     #endregion

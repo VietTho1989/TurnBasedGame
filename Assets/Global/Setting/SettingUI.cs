@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class SettingUI : UIBehavior<SettingUI.UIData>
+public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
 {
 
     #region UIData

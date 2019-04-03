@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using GameManager.Match;
 using GameManager.Match.Elimination;
 using GameManager.Match.RoundRobin;
+using Ads;
 
 public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIData>
 {
@@ -53,6 +54,8 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
     #endregion
 
     #region Refresh
+
+    private bool lastHaveSub = false;
 
     public override void refresh()
     {
@@ -237,6 +240,24 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                 if (!isHaveSub)
                 {
                     this.data.sub.v = null;
+                }
+                // ads
+                {
+                    if (this.data.sub.v != null)
+                    {
+                        if (!lastHaveSub)
+                        {
+                            if (AdsManager.get().showAdsWhenGameEnd.v)
+                            {
+                                AdsManager.get().bannerVisibility.v = AdsManager.BannerVisibility.Show;
+                            }
+                        }
+                    }
+                    else
+                    {
+
+                    }
+                    lastHaveSub = (this.data.sub.v != null);
                 }
             }
             else

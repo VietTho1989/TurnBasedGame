@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using GameManager.Match.RoundRobin;
 using GameManager.Match.Elimination;
+using Ads;
 
 namespace GameManager.Match
 {
@@ -100,6 +101,8 @@ namespace GameManager.Match
 
         #region Refresh
 
+        private bool firstInit = false;
+
         public override void refresh()
         {
             if (dirty)
@@ -110,6 +113,21 @@ namespace GameManager.Match
                     ContestManagerStatePlay contestManagerStatePlay = this.data.contestManagerStatePlay.v.data;
                     if (contestManagerStatePlay != null)
                     {
+                        // firstInit
+                        {
+                            if (firstInit)
+                            {
+                                firstInit = false;
+                                // ads
+                                {
+                                    if (AdsManager.get().hideAdsWhenStartPlay.v)
+                                    {
+                                        Debug.LogError("contestManagerStatePlay hide banner");
+                                        AdsManager.get().bannerVisibility.v = AdsManager.BannerVisibility.Hide;
+                                    }
+                                }
+                            }
+                        }
                         // content
                         {
                             ContestManagerContent content = contestManagerStatePlay.content.v;
@@ -233,6 +251,7 @@ namespace GameManager.Match
                     uiData.swapUIData.allAddCallBack(this);
                     uiData.roomUserListUIData.allAddCallBack(this);
                 }
+                firstInit = true;
                 dirty = true;
                 return;
             }

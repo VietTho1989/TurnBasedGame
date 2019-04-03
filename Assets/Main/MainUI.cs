@@ -29,6 +29,8 @@ public class MainUI : UIBehavior<MainUI.UIData>
 
             public abstract bool processEvent(Event e);
 
+            public abstract AllowShowBanner getAllowShowBanner();
+
         }
 
         public VP<MainUI.UIData.Sub> sub;
@@ -92,6 +94,35 @@ public class MainUI : UIBehavior<MainUI.UIData>
         {
 
         }
+
+        #region allowShowBanner
+
+        public enum AllowShowBanner
+        {
+            ForceShow,
+            ForceHide,
+            StatusQuo
+        }
+
+        public AllowShowBanner getAllowShowBanner()
+        {
+            AllowShowBanner ret = AllowShowBanner.ForceShow;
+            {
+                Sub sub = this.sub.v;
+                if (sub != null)
+                {
+                    ret = sub.getAllowShowBanner();
+                }
+                else
+                {
+                    Debug.LogError("sub null");
+                }
+            }
+            return ret;
+        }
+
+        #endregion
+
     }
 
     #endregion

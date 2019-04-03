@@ -87,11 +87,26 @@ public class ServerOnlineUI : UIBehavior<ServerOnlineUI.UIData>
             return isProcess;
         }
 
+        public override MainUI.UIData.AllowShowBanner getAllowShowBanner()
+        {
+            MainUI.UIData.AllowShowBanner ret = MainUI.UIData.AllowShowBanner.ForceShow;
+            {
+                SqliteServerUI.UIData sqliteServerUIData = this.sqliteServerUIData.v;
+                if (sqliteServerUIData != null)
+                {
+                    ret = sqliteServerUIData.getAllowShowBanner();
+                }
+                else
+                {
+                    Debug.LogError("sqliteServerUIData null");
+                }
+            }
+            return ret;
+        }
+
     }
 
     #endregion
-
-    #region Refresh
 
     #region txt
 
@@ -104,6 +119,8 @@ public class ServerOnlineUI : UIBehavior<ServerOnlineUI.UIData>
     }
 
     #endregion
+
+    #region Refresh
 
     public GameObject contentContainer;
 

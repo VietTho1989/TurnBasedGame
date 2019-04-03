@@ -28,6 +28,8 @@ public class AfterLoginUI : UIBehavior<AfterLoginUI.UIData>
 
             public abstract bool processEvent(Event e);
 
+            public abstract MainUI.UIData.AllowShowBanner getAllowShowBanner();
+
         }
 
         public VP<Sub> sub;
@@ -108,6 +110,23 @@ public class AfterLoginUI : UIBehavior<AfterLoginUI.UIData>
                 }
             }
             return isProcess;
+        }
+
+        public override MainUI.UIData.AllowShowBanner getAllowShowBanner()
+        {
+            MainUI.UIData.AllowShowBanner ret = MainUI.UIData.AllowShowBanner.ForceShow;
+            {
+                Sub sub = this.sub.v;
+                if (sub != null)
+                {
+                    ret = sub.getAllowShowBanner();
+                }
+                else
+                {
+                    Debug.LogError("sub null");
+                }
+            }
+            return ret;
         }
 
     }
