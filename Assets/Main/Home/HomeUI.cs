@@ -12,16 +12,18 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
     public class UIData : MainUI.UIData.Sub
     {
 
+        public VP<ConfirmLeaveAppUI.UIData> confirmLeave;
+
         #region Constructor
 
         public enum Property
         {
-
+            confirmLeave
         }
 
         public UIData() : base()
         {
-
+            this.confirmLeave = new VP<ConfirmLeaveAppUI.UIData>(this, (byte)Property.confirmLeave, null);
         }
 
         #endregion
@@ -36,18 +38,34 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
             Debug.LogError("processEvent: " + e + "; " + this);
             bool isProcess = false;
             {
-                // Child
+                // ConfirmLeavel
+                if (!isProcess)
                 {
-                    // TODO Can hoan thien
+                    ConfirmLeaveAppUI.UIData confirmLeave = this.confirmLeave.v;
+                    if (confirmLeave != null)
+                    {
+                        isProcess = confirmLeave.processEvent(e);
+                    }
+                    else
+                    {
+                        // Debug.LogError("confirmLeave null");
+                    }
                 }
                 // back
                 if (!isProcess)
                 {
                     if (InputEvent.isBackEvent(e))
                     {
-                        Debug.LogError("backEvent: " + this);
-                        Application.Quit();
-                        isProcess = true;
+                        HomeUI homeUI = this.findCallBack<HomeUI>();
+                        if (homeUI != null)
+                        {
+                            homeUI.onClickBtnBack();
+                            isProcess = true;
+                        }
+                        else
+                        {
+                            Debug.LogError("homeUI null");
+                        }
                     }
                 }
                 // short key
@@ -185,10 +203,13 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
 
     #region implement callBacks
 
+    public ConfirmLeaveAppUI confirmLeavePrefab;
+
     public override void onAddCallBack<T>(T data)
     {
         if (data is UIData)
         {
+            UIData uiData = data as UIData;
             // Ads
             {
                 AdsManager.get().addCallBack(this);
@@ -196,6 +217,10 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
             // setting
             {
                 Setting.get().addCallBack(this);
+            }
+            // Child
+            {
+                uiData.confirmLeave.allAddCallBack(this);
             }
             dirty = true;
             return;
@@ -209,6 +234,17 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
         // Setting
         if (data is Setting)
         {
+            dirty = true;
+            return;
+        }
+        // Child
+        if(data is ConfirmLeaveAppUI.UIData)
+        {
+            ConfirmLeaveAppUI.UIData confirmLeave = data as ConfirmLeaveAppUI.UIData;
+            // UI
+            {
+                UIUtils.Instantiate(confirmLeave, confirmLeavePrefab, this.transform);
+            }
             dirty = true;
             return;
         }
@@ -228,6 +264,10 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
             {
                 Setting.get().removeCallBack(this);
             }
+            // Child
+            {
+                uiData.confirmLeave.allRemoveCallBack(this);
+            }
             this.setDataNull(uiData);
             return;
         }
@@ -239,6 +279,16 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
         // Setting
         if (data is Setting)
         {
+            return;
+        }
+        // Child
+        if (data is ConfirmLeaveAppUI.UIData)
+        {
+            ConfirmLeaveAppUI.UIData confirmLeave = data as ConfirmLeaveAppUI.UIData;
+            // UI
+            {
+                confirmLeave.removeCallBackAndDestroy(typeof(ConfirmLeaveAppUI));
+            }
             return;
         }
         Debug.LogError("Don't process: " + data + "; " + this);
@@ -254,6 +304,12 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
         {
             switch ((UIData.Property)wrapProperty.n)
             {
+                case UIData.Property.confirmLeave:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
@@ -329,6 +385,11 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
+            return;
+        }
+        // Child
+        if (wrapProperty.p is ConfirmLeaveAppUI.UIData)
+        {
             return;
         }
         Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
@@ -449,7 +510,25 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
 
     public void onClickBtnBack()
     {
-        Application.Quit();
+        if (this.data != null)
+        {
+            if (Setting.get().confirmQuit.v)
+            {
+                ConfirmLeaveAppUI.UIData confirmLeave = this.data.confirmLeave.newOrOld<ConfirmLeaveAppUI.UIData>();
+                {
+
+                }
+                this.data.confirmLeave.v = confirmLeave;
+            }
+            else
+            {
+                Application.Quit();
+            }
+        }
+        else
+        {
+            Debug.LogError("data null");
+        }
     }
 
 }

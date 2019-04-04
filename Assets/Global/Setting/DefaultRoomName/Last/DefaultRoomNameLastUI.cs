@@ -453,12 +453,12 @@ public class DefaultRoomNameLastUI : UIHaveTransformDataBehavior<DefaultRoomName
                     return;
                 }
             }
-            if (data is RequestChangeEnumUI.UIData)
+            if (data is RequestChangeStringUI.UIData)
             {
-                RequestChangeEnumUI.UIData requestChange = data as RequestChangeEnumUI.UIData;
+                RequestChangeStringUI.UIData requestChange = data as RequestChangeStringUI.UIData;
                 // UI
                 {
-                    requestChange.removeCallBackAndDestroy(typeof(RequestChangeEnumUI));
+                    requestChange.removeCallBackAndDestroy(typeof(RequestChangeStringUI));
                 }
                 return;
             }

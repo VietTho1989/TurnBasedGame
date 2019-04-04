@@ -765,6 +765,8 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
                             break;
                         case SettingUI.UIData.Property.style:
                             break;
+                        case SettingUI.UIData.Property.confirmQuit:
+                            break;
                         case SettingUI.UIData.Property.showLastMove:
                             break;
                         case SettingUI.UIData.Property.viewUrlImage:
@@ -780,6 +782,10 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
                         case SettingUI.UIData.Property.defaultChatRoomStyleType:
                             break;
                         case SettingUI.UIData.Property.defaultChatRoomStyleUIData:
+                            break;
+                        case SettingUI.UIData.Property.defaultRoomNameType:
+                            break;
+                        case SettingUI.UIData.Property.defaultRoomNameUIData:
                             break;
                         default:
                             Debug.LogError("Don't process: " + wrapProperty + "; " + this);

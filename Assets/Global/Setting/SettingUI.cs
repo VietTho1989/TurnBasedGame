@@ -79,6 +79,38 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
 
         #endregion
 
+        #region confirmQuit
+
+        public VP<RequestChangeBoolUI.UIData> confirmQuit;
+
+        public void makeRequestChangeConfirmQuit(RequestChangeUpdate<bool>.UpdateData update, bool newConfirmQuit)
+        {
+            // Find
+            Setting setting = null;
+            {
+                EditData<Setting> editSetting = this.editSetting.v;
+                if (editSetting != null)
+                {
+                    setting = editSetting.show.v.data;
+                }
+                else
+                {
+                    Debug.LogError("editSetting null: " + this);
+                }
+            }
+            // Process
+            if (setting != null)
+            {
+                setting.confirmQuit.v = newConfirmQuit;
+            }
+            else
+            {
+                Debug.LogError("setting null: " + this);
+            }
+        }
+
+        #endregion
+
         #region showLastMove
 
         public VP<RequestChangeBoolUI.UIData> showLastMove;
@@ -290,6 +322,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
             showType,
             language,
             style,
+            confirmQuit,
             showLastMove,
             viewUrlImage,
             animationSetting,
@@ -344,6 +377,11 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         this.style.v.options.add("" + style);
                     }
                 }
+            }
+            // confirmQuit
+            {
+                this.confirmQuit = new VP<RequestChangeBoolUI.UIData>(this, (byte)Property.confirmQuit, new RequestChangeBoolUI.UIData());
+                this.confirmQuit.v.updateData.v.request.v = makeRequestChangeConfirmQuit;
             }
             // showLastMove
             {
@@ -439,6 +477,9 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
     public Text lbStyle;
     private static readonly TxtLanguage txtStyle = new TxtLanguage();
 
+    public Text lbConfirmQuit;
+    private static readonly TxtLanguage txtConfirmQuit = new TxtLanguage();
+
     public Text lbShowLastMove;
     private static readonly TxtLanguage txtShowLastMove = new TxtLanguage();
 
@@ -470,6 +511,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
             txtTitle.add(Language.Type.vi, "Thiết Lập");
             txtLanguage.add(Language.Type.vi, "Ngôn Ngữ");
             txtStyle.add(Language.Type.vi, "Kiểu");
+            txtConfirmQuit.add(Language.Type.vi, "Xác nhận thoát");
             txtShowLastMove.add(Language.Type.vi, "Hiện nước đi ");
             txtViewUrlImage.add(Language.Type.vi, "Xem ảnh url");
             txtMaxThinkCount.add(Language.Type.vi, "Số luồng nghĩ tối đa");
@@ -618,6 +660,41 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                                             else
                                             {
                                                 style.showDifferent.v = false;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("useRule null: " + this);
+                                    }
+                                }
+                                // confirmQuit
+                                {
+                                    RequestChangeBoolUI.UIData confirmQuit = this.data.confirmQuit.v;
+                                    if (confirmQuit != null)
+                                    {
+                                        // update
+                                        RequestChangeUpdate<bool>.UpdateData updateData = confirmQuit.updateData.v;
+                                        if (updateData != null)
+                                        {
+                                            updateData.origin.v = show.confirmQuit.v;
+                                            updateData.canRequestChange.v = editSetting.canEdit.v;
+                                            updateData.serverState.v = serverState;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("updateData null: " + this);
+                                        }
+                                        // compare
+                                        {
+                                            if (compare != null)
+                                            {
+                                                confirmQuit.showDifferent.v = true;
+                                                confirmQuit.compare.v = compare.confirmQuit.v;
+                                            }
+                                            else
+                                            {
+                                                confirmQuit.showDifferent.v = false;
                                             }
                                         }
                                     }
@@ -1311,6 +1388,28 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                                     Debug.LogError("useRule null: " + this);
                                 }
                             }
+                            // confirmQuit
+                            {
+                                RequestChangeBoolUI.UIData confirmQuit = this.data.confirmQuit.v;
+                                if (confirmQuit != null)
+                                {
+                                    // update
+                                    RequestChangeUpdate<bool>.UpdateData updateData = confirmQuit.updateData.v;
+                                    if (updateData != null)
+                                    {
+                                        updateData.current.v = show.confirmQuit.v;
+                                        updateData.changeState.v = Data.ChangeState.None;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("updateData null: " + this);
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("confirmQuit null: " + this);
+                                }
+                            }
                             // showLastMove
                             {
                                 RequestChangeBoolUI.UIData showLastMove = this.data.showLastMove.v;
@@ -1330,7 +1429,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                                 }
                                 else
                                 {
-                                    Debug.LogError("useRule null: " + this);
+                                    Debug.LogError("showLastMove null: " + this);
                                 }
                             }
                             // viewUrlImage
@@ -1352,7 +1451,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                                 }
                                 else
                                 {
-                                    Debug.LogError("useRule null: " + this);
+                                    Debug.LogError("viewUrlImage null: " + this);
                                 }
                             }
                             // maxThinkCount
@@ -1374,7 +1473,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                                 }
                                 else
                                 {
-                                    Debug.LogError("useRule null: " + this);
+                                    Debug.LogError("maxThinkCount null: " + this);
                                 }
                             }
 
@@ -1397,7 +1496,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                                 }
                                 else
                                 {
-                                    Debug.LogError("useRule null: " + this);
+                                    Debug.LogError("defaultChosenGameType null: " + this);
                                 }
                             }
 
@@ -1420,7 +1519,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                                 }
                                 else
                                 {
-                                    Debug.LogError("useRule null: " + this);
+                                    Debug.LogError("defaultRoomNameType null: " + this);
                                 }
                             }
 
@@ -1539,6 +1638,34 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                             else
                             {
                                 Debug.LogError("lbStyle null");
+                            }
+                        }
+                    }
+                    // confirmQuit
+                    {
+                        if (this.data.confirmQuit.v != null)
+                        {
+                            if (lbConfirmQuit != null)
+                            {
+                                lbConfirmQuit.gameObject.SetActive(true);
+                                UIRectTransform.SetPosY(lbConfirmQuit.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbConfirmQuit null");
+                            }
+                            UIRectTransform.SetPosY(this.data.confirmQuit.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                            deltaY += UIConstants.ItemHeight;
+                        }
+                        else
+                        {
+                            if (lbConfirmQuit != null)
+                            {
+                                lbConfirmQuit.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbConfirmQuit null");
                             }
                         }
                     }
@@ -1826,9 +1953,17 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     {
                         Debug.LogError("tvStyle null: " + this);
                     }
+                    if (lbConfirmQuit != null)
+                    {
+                        lbConfirmQuit.text = txtConfirmQuit.get("Confirm quit");
+                    }
+                    else
+                    {
+                        Debug.LogError("lbConfirmQuit null: " + this);
+                    }
                     if (lbShowLastMove != null)
                     {
-                        lbShowLastMove.text = txtShowLastMove.get("Show Last Move");
+                        lbShowLastMove.text = txtShowLastMove.get("Show last move");
                     }
                     else
                     {
@@ -1836,7 +1971,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     }
                     if (lbViewUrlImage != null)
                     {
-                        lbViewUrlImage.text = txtViewUrlImage.get("View Url Image");
+                        lbViewUrlImage.text = txtViewUrlImage.get("View url image");
                     }
                     else
                     {
@@ -1844,7 +1979,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     }
                     if (lbMaxThinkCount != null)
                     {
-                        lbMaxThinkCount.text = txtMaxThinkCount.get("Max Think Count");
+                        lbMaxThinkCount.text = txtMaxThinkCount.get("Max think count");
                     }
                     else
                     {
@@ -1899,6 +2034,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
 
     private static readonly UIRectTransform languageRect = new UIRectTransform(UIConstants.RequestEnumRect);
     private static readonly UIRectTransform styleRect = new UIRectTransform(UIConstants.RequestEnumRect);
+    private static readonly UIRectTransform confirmQuitRect = new UIRectTransform(UIConstants.RequestBoolRect);
     private static readonly UIRectTransform showLastMoveRect = new UIRectTransform(UIConstants.RequestBoolRect);
     private static readonly UIRectTransform viewUrlImageRect = new UIRectTransform(UIConstants.RequestBoolRect);
     private static readonly UIRectTransform maxThinkCountRect = new UIRectTransform(UIConstants.RequestRect);
@@ -1929,6 +2065,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 uiData.editSetting.allAddCallBack(this);
                 uiData.language.allAddCallBack(this);
                 uiData.style.allAddCallBack(this);
+                uiData.confirmQuit.allAddCallBack(this);
                 uiData.showLastMove.allAddCallBack(this);
                 uiData.viewUrlImage.allAddCallBack(this);
                 uiData.animationSetting.allAddCallBack(this);
@@ -2020,7 +2157,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 dirty = true;
                 return;
             }
-            // showLastMove, viewUrlImage
+            // confirmQuit, showLastMove, viewUrlImage
             if (data is RequestChangeBoolUI.UIData)
             {
                 RequestChangeBoolUI.UIData requestChange = data as RequestChangeBoolUI.UIData;
@@ -2031,6 +2168,9 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     {
                         switch ((UIData.Property)wrapProperty.n)
                         {
+                            case UIData.Property.confirmQuit:
+                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, confirmQuitRect);
+                                break;
                             case UIData.Property.showLastMove:
                                 UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, showLastMoveRect);
                                 break;
@@ -2212,6 +2352,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 uiData.editSetting.allRemoveCallBack(this);
                 uiData.language.allRemoveCallBack(this);
                 uiData.style.allRemoveCallBack(this);
+                uiData.confirmQuit.allRemoveCallBack(this);
                 uiData.showLastMove.allRemoveCallBack(this);
                 uiData.viewUrlImage.allRemoveCallBack(this);
                 uiData.animationSetting.allRemoveCallBack(this);
@@ -2270,7 +2411,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 }
                 return;
             }
-            // showLastMove, viewUrlImage
+            // confirmQuit, showLastMove, viewUrlImage
             if (data is RequestChangeBoolUI.UIData)
             {
                 RequestChangeBoolUI.UIData requestChange = data as RequestChangeBoolUI.UIData;
@@ -2437,6 +2578,12 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         dirty = true;
                     }
                     break;
+                case UIData.Property.confirmQuit:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
                 case UIData.Property.showLastMove:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
@@ -2552,6 +2699,9 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         case Setting.Property.style:
                             dirty = true;
                             break;
+                        case Setting.Property.confirmQuit:
+                            dirty = true;
+                            break;
                         case Setting.Property.showLastMove:
                             dirty = true;
                             break;
@@ -2585,7 +2735,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
             {
                 return;
             }
-            // showLastMove, viewUrlImage
+            // confirmQuit, showLastMove, viewUrlImage
             if (wrapProperty.p is RequestChangeBoolUI.UIData)
             {
                 return;

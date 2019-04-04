@@ -1,7 +1,7 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Ads/Admob/Admob.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Global/Setting/SettingPref.cs">
     <Files>
-      <File FileName="Assets/Ads/Admob/Admob.cs" Line="299" Column="9" />
+      <File FileName="Assets/Global/Setting/SettingPref.cs" Line="34" Column="72" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

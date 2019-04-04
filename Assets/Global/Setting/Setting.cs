@@ -36,6 +36,8 @@ public class Setting : Data
 
     #endregion
 
+    public VP<bool> confirmQuit;
+
     public VP<bool> showLastMove;
 
 	public VP<bool> viewUrlImage;
@@ -43,7 +45,6 @@ public class Setting : Data
 	public VP<AnimationSetting> animationSetting;
 
     #endregion
-
 
 #if UNITY_ANDROID
 
@@ -201,6 +202,7 @@ public class Setting : Data
 	{
 		language,
         style,
+        confirmQuit,
         showLastMove,
 		viewUrlImage,
 		animationSetting,
@@ -214,6 +216,7 @@ public class Setting : Data
 	{
 		this.language = new VP<Language.Type> (this, (byte)Property.language, Language.Type.en);
         this.style = new VP<Style>(this, (byte)Property.style, Style.Normal);
+        this.confirmQuit = new VP<bool>(this, (byte)Property.confirmQuit, true);
         this.showLastMove = new VP<bool> (this, (byte)Property.showLastMove, true);
 		this.viewUrlImage = new VP<bool> (this, (byte)Property.viewUrlImage, true);
 		this.animationSetting = new VP<AnimationSetting> (this, (byte)Property.animationSetting, new AnimationSetting ());
