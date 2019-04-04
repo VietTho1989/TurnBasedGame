@@ -34,13 +34,13 @@ namespace Ads
 
 
 #if UNITY_IOS
-    public const string gameID = "3100551";
+    public const string gameID = "3104337";
 #elif UNITY_ANDROID
-    public const string gameID = "3100550";
+    public const string gameID = "3104336";
 #elif UNITY_EDITOR
-        public const string gameID = "3100550";
+        public const string gameID = "3104336";
 #else
-        public const string gameID = "3100550";
+        public const string gameID = "3104336";
 #endif
 
         void Update()

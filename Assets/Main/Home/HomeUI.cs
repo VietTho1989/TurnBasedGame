@@ -90,6 +90,8 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
     public Text tvViewAds;
     private static readonly TxtLanguage txtViewAds = new TxtLanguage();
 
+    private static readonly TxtLanguage txtThankYou = new TxtLanguage();
+
     static HomeUI()
     {
         txtOffline.add(Language.Type.vi, "Chơi Offline");
@@ -97,6 +99,7 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
         txtOnline.add(Language.Type.vi, "Chơi Online");
         txtLoad.add(Language.Type.vi, "Tải");
         txtViewAds.add(Language.Type.vi, "Xem Quảng Cáo");
+        txtThankYou.add(Language.Type.vi, "Cảm ơn bạn rất nhiều");
     }
 
     #endregion
@@ -439,6 +442,7 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
     {
         AdsManager.get().showFullScreenAds();
         AdsManager.get().lastClickBanner.v = float.MinValue;
+        Toast.showMessage(txtThankYou.get("Thank you so much"));
     }
 
     #endregion

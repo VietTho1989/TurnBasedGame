@@ -22,7 +22,7 @@ namespace Ads
             All
         }
 
-        public const AllowEdit DefaultAllowEdit = AllowEdit.All;
+        public const AllowEdit DefaultAllowEdit = AllowEdit.None;
 
         public VP<AllowEdit> allowEdit;
 
@@ -81,7 +81,7 @@ namespace Ads
 
         public VP<float> lastClickBanner;
 
-        public const float DefaultHideBannerDurationAfterClick = 30 * 60;// 30 minutes
+        public const float DefaultHideBannerDurationAfterClick = 20 * 60;// 20 minutes
         public VP<float> hideBannerDurationAfterClick;
 
         public VP<bool> hideAdsWhenStartPlay;
@@ -90,7 +90,7 @@ namespace Ads
 
         #region reloadBanner
 
-        public const float DefaultReloadBannerInterval = 10 * 60;// 15 minutes
+        public const float DefaultReloadBannerInterval = 10 * 60;// 10 minutes
 
         public VP<float> reloadBannerInterval;
 
@@ -110,47 +110,61 @@ namespace Ads
         ///////////////////////// Admob ////////////////////////
         ////////////////////////////////////////////////////////////////
 
-        #region admob
+        #region appId
 
 #if UNITY_ANDROID
-            string DefaultAdmobAppId = "ca-app-pub-4497963493005970~6788422718";
+        public const string DefaultAdmobAppId = "ca-app-pub-4497963493005970~6788422718";
 #elif UNITY_IPHONE
-            string DefaultAdmobAppId = "ca-app-pub-3940256099942544~1458002511";
+            public const string DefaultAdmobAppId = "ca-app-pub-3940256099942544~1458002511";
 #else
-        string DefaultAdmobAppId = "unexpected_platform";
+        public const string DefaultAdmobAppId = "unexpected_platform";
 #endif
 
         public VP<string> admobAppId;
 
+        #endregion
+
+        #region banner
+
 #if UNITY_ANDROID
-        string DefaultAdmobBannerAdUnitId = "ca-app-pub-4497963493005970/1152952654";
+        public const string DefaultAdmobBannerAdUnitId = "ca-app-pub-4497963493005970/1152952654";
 #elif UNITY_IPHONE
-            string DefaultAdmobBannerAdUnitId = "ca-app-pub-3940256099942544/2934735716";
+        public const string DefaultAdmobBannerAdUnitId = "ca-app-pub-3940256099942544/2934735716";
 #else
-        string DefaultAdmobBannerAdUnitId = "unexpected_platform";
+        public const string DefaultAdmobBannerAdUnitId = "unexpected_platform";
 #endif
 
         public VP<string> admobBannerAdUnitId;
 
+        #endregion
+
+        #region interstitial
+
 #if UNITY_ANDROID
-        string DefaultAdmobInterstitialAdUnitId = "ca-app-pub-4497963493005970/6760502553";
+        public const string DefaultAdmobInterstitialAdUnitId = "ca-app-pub-4497963493005970/6760502553";
 #elif UNITY_IPHONE
-            string DefaultAdmobInterstitialAdUnitId = "ca-app-pub-3940256099942544/2934735716";
+        public const string DefaultAdmobInterstitialAdUnitId = "ca-app-pub-3940256099942544/2934735716";
 #else
-        string DefaultAdmobInterstitialAdUnitId = "unexpected_platform";
+        public const string DefaultAdmobInterstitialAdUnitId = "unexpected_platform";
 #endif
 
         public VP<string> admobInterstitialAdUnitId;
 
+        #endregion
+
+        #region videoAdUnitId
+
 #if UNITY_ANDROID
-        string DefaultAdmobVideoAdUnitId = "ca-app-pub-4497963493005970/2294165008";
+        public const string DefaultAdmobVideoAdUnitId = "ca-app-pub-4497963493005970/2294165008";
 #elif UNITY_IPHONE
-            string DefaultAdmobVideoAdUnitId = "ca-app-pub-3940256099942544/2934735716";
+        public const string DefaultAdmobVideoAdUnitId = "ca-app-pub-3940256099942544/2934735716";
 #else
-        string DefaultAdmobVideoAdUnitId = "unexpected_platform";
+        public const string DefaultAdmobVideoAdUnitId = "unexpected_platform";
 #endif
 
         public VP<string> admobVideoAdUnitId;
+
+        #endregion
 
         #region admobVideoType
 
@@ -162,8 +176,6 @@ namespace Ads
         }
 
         public VP<AdMobVideoType> admobVideoType;
-
-        #endregion
 
         #endregion
 

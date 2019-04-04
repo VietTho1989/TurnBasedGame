@@ -416,6 +416,30 @@
     <Reference Include="UnityStore">
       <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Plugins/UnityChannel/UnityStore.dll</HintPath>
     </Reference>
+    <Reference Include="Editor">
+      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Plugins/UnityPurchasing/Bin/Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Purchasing.Common">
+      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Plugins/UnityPurchasing/Bin/Purchasing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Stores">
+      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Plugins/UnityPurchasing/Bin/Stores.dll</HintPath>
+    </Reference>
+    <Reference Include="Apple">
+      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Plugins/UnityPurchasing/Bin/Apple/Apple.dll</HintPath>
+    </Reference>
+    <Reference Include="FacebookStore">
+      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Plugins/UnityPurchasing/Bin/Facebook/FacebookStore.dll</HintPath>
+    </Reference>
+    <Reference Include="Security">
+      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Plugins/UnityPurchasing/Bin/Security/live/Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Tizen">
+      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Plugins/UnityPurchasing/Bin/Tizen/Tizen.dll</HintPath>
+    </Reference>
+    <Reference Include="winrt">
+      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Plugins/UnityPurchasing/winrt/winrt.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.Advertisements.Editor">
       <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/UnityAds/UnityEngine.Advertisements.Editor.dll</HintPath>
     </Reference>
@@ -439,30 +463,6 @@
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
       <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Library/PackageCache/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
-    </Reference>
-    <Reference Include="Security">
-      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Plugins/UnityPurchasing/Bin/Security/live/Security.dll</HintPath>
-    </Reference>
-    <Reference Include="Stores">
-      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Plugins/UnityPurchasing/Bin/Stores.dll</HintPath>
-    </Reference>
-    <Reference Include="Editor">
-      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Plugins/UnityPurchasing/Bin/Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Purchasing.Common">
-      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Plugins/UnityPurchasing/Bin/Purchasing.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="winrt">
-      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Plugins/UnityPurchasing/winrt/winrt.dll</HintPath>
-    </Reference>
-    <Reference Include="FacebookStore">
-      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Plugins/UnityPurchasing/Bin/Facebook/FacebookStore.dll</HintPath>
-    </Reference>
-    <Reference Include="Apple">
-      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Plugins/UnityPurchasing/Bin/Apple/Apple.dll</HintPath>
-    </Reference>
-    <Reference Include="Tizen">
-      <HintPath>/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Plugins/UnityPurchasing/Bin/Tizen/Tizen.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

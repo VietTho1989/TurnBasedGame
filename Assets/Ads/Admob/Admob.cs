@@ -193,7 +193,24 @@ namespace Ads
                 isInitialized = true;
                 lastInitlizedAppId = AdsManager.get().admobAppId.v;
                 MobileAds.Initialize(AdsManager.get().admobAppId.v);
-                this.rewardBasedVideo = RewardBasedVideoAd.Instance;
+                // rewardBasedVideo
+                {
+                    this.rewardBasedVideo = RewardBasedVideoAd.Instance;
+                    if (this.rewardBasedVideo != null)
+                    {
+                        this.rewardBasedVideo.OnAdLoaded += HandleRewardBasedVideoLoaded;
+                        this.rewardBasedVideo.OnAdFailedToLoad += HandleRewardBasedVideoFailedToLoad;
+                        this.rewardBasedVideo.OnAdOpening += HandleRewardBasedVideoOpened;
+                        this.rewardBasedVideo.OnAdStarted += HandleRewardBasedVideoStarted;
+                        this.rewardBasedVideo.OnAdRewarded += HandleRewardBasedVideoRewarded;
+                        this.rewardBasedVideo.OnAdClosed += HandleRewardBasedVideoClosed;
+                        this.rewardBasedVideo.OnAdLeavingApplication += HandleRewardBasedVideoLeftApplication;
+                    }
+                    else
+                    {
+                        Debug.LogError("rewardBasedVideo null");
+                    }
+                }
                 // reset bannerView
                 destroyBannerView();
                 // reset interestialAds
@@ -253,6 +270,7 @@ namespace Ads
 
         private void showVideo()
         {
+            Debug.LogError("showVideoAds");
             intialize();
             // create request
             if (this.rewardBasedVideo != null)
@@ -266,6 +284,55 @@ namespace Ads
             }
         }
 
+        public void HandleRewardBasedVideoLoaded(object sender, EventArgs args)
+        {
+            MonoBehaviour.print("HandleRewardBasedVideoLoaded event received");
+            if (this.rewardBasedVideo != null)
+            {
+                this.rewardBasedVideo.Show();
+            }
+            else
+            {
+                Debug.LogError("rewardBasedVideo null");
+            }
+        }
+
+        public void HandleRewardBasedVideoFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+        {
+            MonoBehaviour.print(
+                "HandleRewardBasedVideoFailedToLoad event received with message: "
+                                 + args.Message);
+        }
+
+        public void HandleRewardBasedVideoOpened(object sender, EventArgs args)
+        {
+            MonoBehaviour.print("HandleRewardBasedVideoOpened event received");
+        }
+
+        public void HandleRewardBasedVideoStarted(object sender, EventArgs args)
+        {
+            MonoBehaviour.print("HandleRewardBasedVideoStarted event received");
+        }
+
+        public void HandleRewardBasedVideoClosed(object sender, EventArgs args)
+        {
+            MonoBehaviour.print("HandleRewardBasedVideoClosed event received");
+        }
+
+        public void HandleRewardBasedVideoRewarded(object sender, Reward args)
+        {
+            string type = args.Type;
+            double amount = args.Amount;
+            MonoBehaviour.print(
+                "HandleRewardBasedVideoRewarded event received for "
+                            + amount.ToString() + " " + type);
+        }
+
+        public void HandleRewardBasedVideoLeftApplication(object sender, EventArgs args)
+        {
+            MonoBehaviour.print("HandleRewardBasedVideoLeftApplication event received");
+        }
+
         #endregion
 
         #region showInterestial
@@ -276,6 +343,7 @@ namespace Ads
 
         private void showInterstialAd()
         {
+            Debug.LogError("showInterstialAd");
             intialize();
             // remove old
             {
@@ -284,6 +352,7 @@ namespace Ads
                     if (interstitialAd != null)
                     {
                         interstitialAd.Destroy();
+                        interstitialAd = null;
                     }
                 }
             }
@@ -292,6 +361,14 @@ namespace Ads
             {
                 lastInterstialAdUnitId = AdsManager.get().admobInterstitialAdUnitId.v;
                 interstitialAd = new InterstitialAd(AdsManager.get().admobInterstitialAdUnitId.v);
+                // event
+                {
+                    interstitialAd.OnAdLoaded += InterstitialHandleOnAdLoaded;
+                    interstitialAd.OnAdFailedToLoad += InterstitialHandleOnAdFailedToLoad;
+                    interstitialAd.OnAdOpening += InterstitialHandleOnAdOpened;
+                    interstitialAd.OnAdClosed += InterstitialHandleOnAdClosed;
+                    interstitialAd.OnAdLeavingApplication += InterstitialHandleOnAdLeavingApplication;
+                }
             }
             // request
             if (this.interstitialAd != null)
@@ -303,6 +380,40 @@ namespace Ads
             {
                 Debug.LogError("interstialAd null");
             }
+        }
+
+        public void InterstitialHandleOnAdLoaded(object sender, EventArgs args)
+        {
+            Debug.LogError("HandleAdLoaded event received");
+            if (this.interstitialAd != null)
+            {
+                this.interstitialAd.Show();
+            }
+            else
+            {
+                Debug.LogError("interstialAd null");
+            }
+        }
+
+        public void InterstitialHandleOnAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+        {
+            Debug.LogError("HandleFailedToReceiveAd event received with message: "
+                                + args.Message);
+        }
+
+        public void InterstitialHandleOnAdOpened(object sender, EventArgs args)
+        {
+            Debug.LogError("HandleAdOpened event received");
+        }
+
+        public void InterstitialHandleOnAdClosed(object sender, EventArgs args)
+        {
+            Debug.LogError("HandleAdClosed event received");
+        }
+
+        public void InterstitialHandleOnAdLeavingApplication(object sender, EventArgs args)
+        {
+            Debug.LogError("HandleAdLeavingApplication event received");
         }
 
         #endregion

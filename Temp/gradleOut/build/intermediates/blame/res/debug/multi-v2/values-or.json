@@ -1,0 +1,43 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/gradleOut/build/intermediates/incremental/mergeDebugResources/merged.dir/values-or/values-or.xml",
+            "map": [
+                {
+                    "source": "/Users/viettho/.gradle/caches/transforms-1/files-1.1/com.google.android.gms.play-services-basement-16.0.1.aar/cde3df7276df398ac5db5e31f7c7e1a2/res/values-or/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "247",
+                        "endColumns": "198",
+                        "endOffsets": "445"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "105",
+                        "endColumns": "198",
+                        "endOffsets": "299"
+                    }
+                },
+                {
+                    "source": "/Users/viettho/.gradle/caches/transforms-1/files-1.1/com.google.android.gms.play-services-ads-17.2.0.aar/16243b385e5ac74a6ad7c236274bf533/res/values-or/values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10",
+                        "startColumns": "0,0,0,0,0,0,0",
+                        "startOffsets": "199,274,408,478,555,645,768",
+                        "endColumns": "74,133,69,76,89,122,77",
+                        "endOffsets": "273,407,477,554,644,767,845"
+                    },
+                    "to": {
+                        "startLines": "3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "304,383,521,595,676,770,897",
+                        "endColumns": "78,137,73,80,93,126,81",
+                        "endOffsets": "378,516,590,671,765,892,974"
+                    }
+                }
+            ]
+        }
+    ]
+}
