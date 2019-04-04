@@ -700,6 +700,8 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
                     break;
                 case AdsManager.Property.time:
                     break;
+                case AdsManager.Property.realTime:
+                    break;
                 case AdsManager.Property.videoType:
                     break;
                 case AdsManager.Property.showBtnViewAds:
@@ -724,7 +726,7 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
                     break;
                 case AdsManager.Property.admobAppId:
                     break;
-                case AdsManager.Property.admobAdUnitId:
+                case AdsManager.Property.admobBannerAdUnitId:
                     break;
                 case AdsManager.Property.admobVideoType:
                     break;

@@ -296,7 +296,7 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
                     break;
                 case AdsManager.Property.admobAppId:
                     break;
-                case AdsManager.Property.admobAdUnitId:
+                case AdsManager.Property.admobBannerAdUnitId:
                     break;
                 case AdsManager.Property.admobVideoType:
                     break;

@@ -20,6 +20,18 @@ namespace Ads
 
         #endregion
 
+        #region builder
+
+        public static readonly AdRequest.Builder builder = new AdRequest.Builder();
+
+        static Admob()
+        {
+            builder.AddTestDevice("1965CBDF93808AD1A4A6D2C32178BAA3");
+            builder.AddTestDevice("5989669AAB5442D4DA67C24ADD14196A");
+        }
+
+        #endregion
+
         #region Update
 
         void Update()
@@ -75,7 +87,7 @@ namespace Ads
             // init
             intialize();
             // compare last adUnitId
-            if (lastBannerAdUnitId != AdsManager.get().admobAdUnitId.v)
+            if (lastBannerAdUnitId != AdsManager.get().admobBannerAdUnitId.v)
             {
                 // Debug.LogError("different lastAdUnitId");
                 destroyBannerView();
@@ -83,10 +95,13 @@ namespace Ads
             // make banner
             if (bannerView == null)
             {
-                bannerView = new BannerView(AdsManager.get().admobAdUnitId.v, AdSize.SmartBanner, AdPosition.Bottom);
+                bannerView = new BannerView(AdsManager.get().admobBannerAdUnitId.v, AdSize.SmartBanner, AdPosition.Bottom);
                 // request
                 {
-                    AdRequest request = new AdRequest.Builder().Build();
+                    AdRequest request = builder.Build();
+                    {
+
+                    }
                     bannerView.LoadAd(request);
                 }
                 // event
@@ -102,7 +117,7 @@ namespace Ads
                     // Called when the ad click caused the user to leave the application.
                     bannerView.OnAdLeavingApplication += HandleOnAdLeavingApplication;
                 }
-                lastBannerAdUnitId = AdsManager.get().admobAdUnitId.v;
+                lastBannerAdUnitId = AdsManager.get().admobBannerAdUnitId.v;
             }
             // show
             if (bannerView != null)
@@ -155,7 +170,7 @@ namespace Ads
         {
             if (bannerView != null)
             {
-                AdRequest request = new AdRequest.Builder().Build();
+                AdRequest request = builder.Build();
                 bannerView.LoadAd(request);
             }
             else
@@ -242,8 +257,8 @@ namespace Ads
             // create request
             if (this.rewardBasedVideo != null)
             {
-                AdRequest request = new AdRequest.Builder().Build();
-                this.rewardBasedVideo.LoadAd(request, AdsManager.get().admobAdUnitId.v);
+                AdRequest request = builder.Build();
+                this.rewardBasedVideo.LoadAd(request, AdsManager.get().admobVideoAdUnitId.v);
             }
             else
             {
@@ -264,7 +279,7 @@ namespace Ads
             intialize();
             // remove old
             {
-                if (AdsManager.get().admobAdUnitId.v != lastInterstialAdUnitId)
+                if (AdsManager.get().admobInterstitialAdUnitId.v != lastInterstialAdUnitId)
                 {
                     if (interstitialAd != null)
                     {
@@ -275,13 +290,13 @@ namespace Ads
             // make new
             if (interstitialAd == null)
             {
-                lastInterstialAdUnitId = AdsManager.get().admobAdUnitId.v;
-                interstitialAd = new InterstitialAd(AdsManager.get().admobAdUnitId.v);
+                lastInterstialAdUnitId = AdsManager.get().admobInterstitialAdUnitId.v;
+                interstitialAd = new InterstitialAd(AdsManager.get().admobInterstitialAdUnitId.v);
             }
             // request
             if (this.interstitialAd != null)
             {
-                AdRequest request = new AdRequest.Builder().Build();
+                AdRequest request = builder.Build();
                 this.interstitialAd.LoadAd(request);
             }
             else

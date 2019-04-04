@@ -52,8 +52,7 @@ namespace Ads
         {
             None,
             Unity,
-            Admob,
-            StartApp
+            Admob
         }
 
         #region video
@@ -114,7 +113,7 @@ namespace Ads
         #region admob
 
 #if UNITY_ANDROID
-            string DefaultAdmobAppId = "ca-app-pub-3940256099942544~3347511713";
+            string DefaultAdmobAppId = "ca-app-pub-4497963493005970~6788422718";
 #elif UNITY_IPHONE
             string DefaultAdmobAppId = "ca-app-pub-3940256099942544~1458002511";
 #else
@@ -124,14 +123,34 @@ namespace Ads
         public VP<string> admobAppId;
 
 #if UNITY_ANDROID
-            string DefaultAdmobAdUnitId = "ca-app-pub-3940256099942544/6300978111";
+        string DefaultAdmobBannerAdUnitId = "ca-app-pub-4497963493005970/1152952654";
 #elif UNITY_IPHONE
-            string DefaultAdmobAdUnitId = "ca-app-pub-3940256099942544/2934735716";
+            string DefaultAdmobBannerAdUnitId = "ca-app-pub-3940256099942544/2934735716";
 #else
-        string DefaultAdmobAdUnitId = "unexpected_platform";
+        string DefaultAdmobBannerAdUnitId = "unexpected_platform";
 #endif
 
-        public VP<string> admobAdUnitId;
+        public VP<string> admobBannerAdUnitId;
+
+#if UNITY_ANDROID
+        string DefaultAdmobInterstitialAdUnitId = "ca-app-pub-4497963493005970/6760502553";
+#elif UNITY_IPHONE
+            string DefaultAdmobInterstitialAdUnitId = "ca-app-pub-3940256099942544/2934735716";
+#else
+        string DefaultAdmobInterstitialAdUnitId = "unexpected_platform";
+#endif
+
+        public VP<string> admobInterstitialAdUnitId;
+
+#if UNITY_ANDROID
+        string DefaultAdmobVideoAdUnitId = "ca-app-pub-4497963493005970/2294165008";
+#elif UNITY_IPHONE
+            string DefaultAdmobVideoAdUnitId = "ca-app-pub-3940256099942544/2934735716";
+#else
+        string DefaultAdmobVideoAdUnitId = "unexpected_platform";
+#endif
+
+        public VP<string> admobVideoAdUnitId;
 
         #region admobVideoType
 
@@ -147,6 +166,10 @@ namespace Ads
         #endregion
 
         #endregion
+
+        ////////////////////////////////////////////////////////////////
+        ///////////////////////// Constructor ////////////////////////
+        ////////////////////////////////////////////////////////////////
 
         #region Constructor
 
@@ -173,7 +196,9 @@ namespace Ads
             unityAdsBannerPlaceMentIds,
 
             admobAppId,
-            admobAdUnitId,
+            admobBannerAdUnitId,
+            admobInterstitialAdUnitId,
+            admobVideoAdUnitId,
             admobVideoType
         }
 
@@ -209,7 +234,9 @@ namespace Ads
             // admob
             {
                 this.admobAppId = new VP<string>(this, (byte)Property.admobAppId, DefaultAdmobAppId);
-                this.admobAdUnitId = new VP<string>(this, (byte)Property.admobAdUnitId, DefaultAdmobAdUnitId);
+                this.admobBannerAdUnitId = new VP<string>(this, (byte)Property.admobBannerAdUnitId, DefaultAdmobBannerAdUnitId);
+                this.admobInterstitialAdUnitId = new VP<string>(this, (byte)Property.admobInterstitialAdUnitId, DefaultAdmobInterstitialAdUnitId);
+                this.admobVideoAdUnitId = new VP<string>(this, (byte)Property.admobVideoAdUnitId, DefaultAdmobVideoAdUnitId);
                 this.admobVideoType = new VP<AdMobVideoType>(this, (byte)Property.admobVideoType, AdMobVideoType.Random);
             }
         }
@@ -228,17 +255,6 @@ namespace Ads
                         ret = Advertisement.isSupported;
                         break;
                     case AdsType.Admob:
-                        {
-#if UNITY_ANDROID
-            ret = true;
-#elif UNITY_IPHONE
-            ret = true;
-#else
-                            ret = false;
-#endif
-                        }
-                        break;
-                    case AdsType.StartApp:
                         {
 #if UNITY_ANDROID
             ret = true;
@@ -285,11 +301,6 @@ namespace Ads
                         {
                             Debug.LogError("admob instance null");
                         }
-                    }
-                    break;
-                case AdsType.StartApp:
-                    {
-                        // TODO Can hoan thien
                     }
                     break;
                 default:

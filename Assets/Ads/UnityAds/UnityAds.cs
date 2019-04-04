@@ -45,6 +45,8 @@ namespace Ads
 
         void Update()
         {
+            bool showBtnUnityAds = false;
+            // banner
             if (Advertisement.isSupported)
             {
                 switch (AdsManager.get().bannerVisibility.v)
@@ -54,6 +56,7 @@ namespace Ads
                             switch (AdsManager.get().bannerType.v)
                             {
                                 case AdsManager.AdsType.Unity:
+                                    showBtnUnityAds = true;
                                     showBanner();
                                     break;
                                 default:
@@ -71,6 +74,15 @@ namespace Ads
                         Debug.LogError("unknown visibility: " + AdsManager.get().bannerVisibility.v);
                         break;
                 }
+            }
+            // btnUnityAds
+            if (btnUnityAds != null)
+            {
+                btnUnityAds.gameObject.SetActive(showBtnUnityAds);
+            }
+            else
+            {
+                Debug.LogError("btnUnityAds null");
             }
         }
 
@@ -96,20 +108,10 @@ namespace Ads
             {
                 Debug.LogError("unity ads not supported");
             }
-            // btnUnityAds
-            if (btnUnityAds != null)
-            {
-                btnUnityAds.gameObject.SetActive(false);
-            }
-            else
-            {
-                Debug.LogError("btnUnityAds null");
-            }
         }
 
         public void showBanner()
         {
-            bool isShowBanner = false;
             if (Advertisement.isSupported)
             {
                 // init
@@ -117,18 +119,8 @@ namespace Ads
                 // show
                 if (Advertisement.IsReady(AdsManager.get().unityAdsBannerPlaceMentIds.v))
                 {
-                    isShowBanner = true;
                     Advertisement.Banner.Show(AdsManager.get().unityAdsBannerPlaceMentIds.v, bannerOptions);
                 }
-            }
-            // btnUnityAds
-            if (btnUnityAds != null)
-            {
-                btnUnityAds.gameObject.SetActive(isShowBanner);
-            }
-            else
-            {
-                Debug.LogError("btnUnityAds null");
             }
         }
 

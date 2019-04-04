@@ -128,11 +128,6 @@ namespace Ads
                                         }
                                     }
                                     break;
-                                case AdsManager.AdsType.StartApp:
-                                    {
-                                        // TODO Can hoan thien
-                                    }
-                                    break;
                                 default:
                                     Debug.LogError("unknown showType: " + adsManager.bannerType.v);
                                     break;
