@@ -88,6 +88,12 @@ namespace Ads
 
         public VP<bool> showAdsWhenGameEnd;
 
+        public VP<bool> hideAdsWhenGameStart;
+
+        public VP<bool> showAdsWhenGamePause;
+
+        public VP<bool> hideAdsWhenGameNotPause;
+
         #region reloadBanner
 
         public const float DefaultReloadBannerInterval = 10 * 60;// 10 minutes
@@ -201,6 +207,9 @@ namespace Ads
             hideBannerDurationAfterClick,
             hideAdsWhenStartPlay,
             showAdsWhenGameEnd,
+            hideAdsWhenGameStart,
+            showAdsWhenGamePause,
+            hideAdsWhenGameNotPause,
 
             reloadBannerInterval,
             lastReloadBannerTime,
@@ -233,6 +242,9 @@ namespace Ads
                 this.hideBannerDurationAfterClick = new VP<float>(this, (byte)Property.hideBannerDurationAfterClick, DefaultHideBannerDurationAfterClick);
                 this.hideAdsWhenStartPlay = new VP<bool>(this, (byte)Property.hideAdsWhenStartPlay, true);
                 this.showAdsWhenGameEnd = new VP<bool>(this, (byte)Property.showAdsWhenGameEnd, true);
+                this.hideAdsWhenGameStart = new VP<bool>(this, (byte)Property.hideAdsWhenGameStart, true);
+                this.showAdsWhenGamePause = new VP<bool>(this, (byte)Property.showAdsWhenGamePause, true);
+                this.hideAdsWhenGameNotPause = new VP<bool>(this, (byte)Property.hideAdsWhenGameNotPause, true);
                 // reloadBanner
                 {
                     this.reloadBannerInterval = new VP<float>(this, (byte)Property.reloadBannerInterval, DefaultReloadBannerInterval);

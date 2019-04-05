@@ -103,7 +103,7 @@ public class RemoteSettingUpdate : MonoBehaviour
             }
             // showBtnViewAds
             {
-                Debug.LogError("showBtnViewAds: hasKey: " + RemoteSettings.HasKey("AdsShowBtnViewAds"));
+                // Debug.LogError("showBtnViewAds: hasKey: " + RemoteSettings.HasKey("AdsShowBtnViewAds"));
                 bool showBtnViewAds = RemoteSettings.GetBool("AdsShowBtnViewAds", true);
                 AdsManager.get().showBtnViewAds.v = showBtnViewAds;
             }
@@ -174,6 +174,21 @@ public class RemoteSettingUpdate : MonoBehaviour
             {
                 bool showAdsWhenGameEnd = RemoteSettings.GetBool("AdsShowAdsWhenGameEnd", true);
                 AdsManager.get().showAdsWhenGameEnd.v = showAdsWhenGameEnd;
+            }
+            // hideAdsWhenGameStart
+            {
+                bool hideAdsWhenGameStart = RemoteSettings.GetBool("AdsHideAdsWhenGameStart", true);
+                AdsManager.get().hideAdsWhenGameStart.v = hideAdsWhenGameStart;
+            }
+            // showAdsWhenGamePause
+            {
+                bool showAdsWhenGamePause = RemoteSettings.GetBool("AdsShowAdsWhenGamePause", true);
+                AdsManager.get().showAdsWhenGamePause.v = showAdsWhenGamePause;
+            }
+            // hideAdsWhenGameNotPause
+            {
+                bool hideAdsWhenGameNotPause = RemoteSettings.GetBool("AdsHideAdsWhenGameNotPause", true);
+                AdsManager.get().hideAdsWhenGameNotPause.v = hideAdsWhenGameNotPause;
             }
             // reloadBannerInterval
             {

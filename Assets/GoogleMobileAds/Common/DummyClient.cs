@@ -97,7 +97,7 @@ namespace GoogleMobileAds.Common
 
         public void LoadAd(AdRequest request)
         {
-            Debug.Log("Dummy " + MethodBase.GetCurrentMethod().Name);
+            // Debug.Log("Dummy " + MethodBase.GetCurrentMethod().Name);
         }
 
         public void ShowBannerView()
@@ -107,7 +107,7 @@ namespace GoogleMobileAds.Common
 
         public void HideBannerView()
         {
-            Debug.Log("Dummy " + MethodBase.GetCurrentMethod().Name);
+            // Debug.Log("Dummy " + MethodBase.GetCurrentMethod().Name);
         }
 
         public void DestroyBannerView()

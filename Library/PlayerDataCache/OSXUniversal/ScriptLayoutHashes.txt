@@ -220,7 +220,7 @@ aa4498063a84291f81340a2682d6be3e Assembly-CSharp.dll:GameManager.Match.RoundStat
 da7314c444826e62ae5d7c004615b68f Assembly-CSharp.dll:HEX.NoneRule.SetPieceUI
 80d1822b3495d495c6c8deb6cd769e7c Assembly-CSharp.dll:GameState.PlayNormalUI
 c002714673a65076a086e69b1de47979 Assembly-CSharp.dll:Hint.NormalUI
-ccaed0731fb4dfdc5c135de4f433ee96 Assembly-CSharp.dll:.SettingUI
+1ef633b230a0b6e2a6370bcb5620c51b Assembly-CSharp.dll:.SettingUI
 feb685f78e0f79d2a5b57abf3337d47b Assembly-CSharp.dll:Foundation.Server.ServerConfig
 27b576fb065d7aaaf420b92b407e2d4a Assembly-CSharp.dll:Janggi.NoneRule.ClickPosUI
 baa4e4829be41b2af53a53d6df9fdb93 Assembly-CSharp.dll:FairyChess.NoneRule.FairyChessCustomSetUI

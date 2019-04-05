@@ -61,6 +61,9 @@ namespace GameState
 
         #region txt, rect
 
+        public Text lbTitle;
+        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+
         private static readonly TxtLanguage txtUnpause = new TxtLanguage();
         private static readonly TxtLanguage txtCancelUnpause = new TxtLanguage();
         private static readonly TxtLanguage txtUnpausing = new TxtLanguage();
@@ -72,6 +75,7 @@ namespace GameState
         {
             // txt
             {
+                txtTitle.add(Language.Type.vi, "Tạm Dừng");
                 txtUnpause.add(Language.Type.vi, "Tiếp Tục Lại");
                 txtCancelUnpause.add(Language.Type.vi, "Huỷ tiếp tục lại?");
                 txtUnpausing.add(Language.Type.vi, "Đang tiếp tục lại...");
@@ -344,6 +348,17 @@ namespace GameState
                                 }
                                 // set
                                 UIRectTransform.CreateCenterRect(300, deltaY, -rightWidth/2, bottomHeight/2).set(contentContainer);
+                            }
+                        }
+                        // txt
+                        {
+                            if (lbTitle != null)
+                            {
+                                lbTitle.text = txtTitle.get("Game Pause");
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTitle null");
                             }
                         }
                     }

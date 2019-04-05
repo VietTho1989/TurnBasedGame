@@ -255,7 +255,13 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                     }
                     else
                     {
-
+                        if (lastHaveSub)
+                        {
+                            if (AdsManager.get().hideAdsWhenGameStart.v)
+                            {
+                                AdsManager.get().bannerVisibility.v = AdsManager.BannerVisibility.Hide;
+                            }
+                        }
                     }
                     lastHaveSub = (this.data.sub.v != null);
                 }

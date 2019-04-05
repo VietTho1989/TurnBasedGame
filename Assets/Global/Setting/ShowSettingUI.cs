@@ -718,6 +718,12 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
                     break;
                 case AdsManager.Property.showAdsWhenGameEnd:
                     break;
+                case AdsManager.Property.hideAdsWhenGameStart:
+                    break;
+                case AdsManager.Property.showAdsWhenGamePause:
+                    break;
+                case AdsManager.Property.hideAdsWhenGameNotPause:
+                    break;
                 case AdsManager.Property.reloadBannerInterval:
                     break;
                 case AdsManager.Property.lastReloadBannerTime:

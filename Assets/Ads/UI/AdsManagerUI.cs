@@ -207,6 +207,102 @@ namespace Ads
 
             #endregion
 
+            #region hideAdsWhenGameStart
+
+            public VP<RequestChangeBoolUI.UIData> hideAdsWhenGameStart;
+
+            public void makeRequestChangeHideAdsWhenGameStart(RequestChangeUpdate<bool>.UpdateData update, bool newHideAdsWhenGameStart)
+            {
+                // Find
+                AdsManager adsManager = null;
+                {
+                    EditData<AdsManager> editAdsManager = this.editAdsManager.v;
+                    if (editAdsManager != null)
+                    {
+                        adsManager = editAdsManager.show.v.data;
+                    }
+                    else
+                    {
+                        Debug.LogError("editAdsManager null: " + this);
+                    }
+                }
+                // Process
+                if (adsManager != null)
+                {
+                    adsManager.hideAdsWhenGameStart.v = newHideAdsWhenGameStart;
+                }
+                else
+                {
+                    Debug.LogError("adsManager null");
+                }
+            }
+
+            #endregion
+
+            #region showAdsWhenGamePause
+
+            public VP<RequestChangeBoolUI.UIData> showAdsWhenGamePause;
+
+            public void makeRequestChangeShowAdsWhenGamePause(RequestChangeUpdate<bool>.UpdateData update, bool newShowAdsWhenGamePause)
+            {
+                // Find
+                AdsManager adsManager = null;
+                {
+                    EditData<AdsManager> editAdsManager = this.editAdsManager.v;
+                    if (editAdsManager != null)
+                    {
+                        adsManager = editAdsManager.show.v.data;
+                    }
+                    else
+                    {
+                        Debug.LogError("editAdsManager null: " + this);
+                    }
+                }
+                // Process
+                if (adsManager != null)
+                {
+                    adsManager.showAdsWhenGamePause.v = newShowAdsWhenGamePause;
+                }
+                else
+                {
+                    Debug.LogError("adsManager null");
+                }
+            }
+
+            #endregion
+
+            #region hideAdsWhenGameNotPause
+
+            public VP<RequestChangeBoolUI.UIData> hideAdsWhenGameNotPause;
+
+            public void makeRequestChangeHideAdsWhenGameNotPause(RequestChangeUpdate<bool>.UpdateData update, bool newHideAdsWhenGameNotPause)
+            {
+                // Find
+                AdsManager adsManager = null;
+                {
+                    EditData<AdsManager> editAdsManager = this.editAdsManager.v;
+                    if (editAdsManager != null)
+                    {
+                        adsManager = editAdsManager.show.v.data;
+                    }
+                    else
+                    {
+                        Debug.LogError("editAdsManager null: " + this);
+                    }
+                }
+                // Process
+                if (adsManager != null)
+                {
+                    adsManager.hideAdsWhenGameNotPause.v = newHideAdsWhenGameNotPause;
+                }
+                else
+                {
+                    Debug.LogError("adsManager null");
+                }
+            }
+
+            #endregion
+
             #region reloadBannerInterval
 
             public VP<RequestChangeFloatUI.UIData> reloadBannerInterval;
@@ -282,6 +378,9 @@ namespace Ads
                 hideBannerDurationAfterClick,
                 hideAdsWhenStartPlay,
                 showAdsWhenGameEnd,
+                hideAdsWhenGameStart,
+                showAdsWhenGamePause,
+                hideAdsWhenGameNotPause,
                 reloadBannerInterval,
                 admobVideoType
 
@@ -328,6 +427,21 @@ namespace Ads
                     this.showAdsWhenGameEnd = new VP<RequestChangeBoolUI.UIData>(this, (byte)Property.showAdsWhenGameEnd, new RequestChangeBoolUI.UIData());
                     this.showAdsWhenGameEnd.v.updateData.v.request.v = makeRequestChangeShowAdsWhenGameEnd;
                 }
+                // hideAdsWhenGameStart
+                {
+                    this.hideAdsWhenGameStart = new VP<RequestChangeBoolUI.UIData>(this, (byte)Property.hideAdsWhenGameStart, new RequestChangeBoolUI.UIData());
+                    this.hideAdsWhenGameStart.v.updateData.v.request.v = makeRequestChangeHideAdsWhenGameStart;
+                }
+                // showAdsWhenGamePause
+                {
+                    this.showAdsWhenGamePause = new VP<RequestChangeBoolUI.UIData>(this, (byte)Property.showAdsWhenGamePause, new RequestChangeBoolUI.UIData());
+                    this.showAdsWhenGamePause.v.updateData.v.request.v = makeRequestChangeShowAdsWhenGamePause;
+                }
+                // hideAdsWhenGameNotPause
+                {
+                    this.hideAdsWhenGameNotPause = new VP<RequestChangeBoolUI.UIData>(this, (byte)Property.hideAdsWhenGameNotPause, new RequestChangeBoolUI.UIData());
+                    this.hideAdsWhenGameNotPause.v.updateData.v.request.v = makeRequestChangeHideAdsWhenGameNotPause;
+                }
                 // reloadBannerInterval
                 {
                     this.reloadBannerInterval = new VP<RequestChangeFloatUI.UIData>(this, (byte)Property.reloadBannerInterval, new RequestChangeFloatUI.UIData());
@@ -373,6 +487,15 @@ namespace Ads
         public Text lbShowAdsWhenGameEnd;
         private static readonly TxtLanguage txtShowAdsWhenGameEnd = new TxtLanguage();
 
+        public Text lbHideAdsWhenGameStart;
+        private static readonly TxtLanguage txtHideAdsWhenGameStart = new TxtLanguage();
+
+        public Text lbShowAdsWhenGamePause;
+        private static readonly TxtLanguage txtShowAdsWhenGamePause = new TxtLanguage();
+
+        public Text lbHideAdsWhenGameNotPause;
+        private static readonly TxtLanguage txtHideAdsWhenGameNotPause = new TxtLanguage();
+
         public Text lbReloadBannerInterval;
         private static readonly TxtLanguage txtReloadBannerInterval = new TxtLanguage();
 
@@ -388,6 +511,9 @@ namespace Ads
             txtHideBannerDurationAfterClick.add(Language.Type.vi, "Giấu banner");
             txtHideAdsWhenStartPlay.add(Language.Type.vi, "Giấu banner khi chơi");
             txtShowAdsWhenGameEnd.add(Language.Type.vi, "Hiện banner khi kết thúc");
+            txtHideAdsWhenGameStart.add(Language.Type.vi, "Giấu banner khi bắt đầu");
+            txtShowAdsWhenGamePause.add(Language.Type.vi, "Hiện banner khi tạm dừng");
+            txtHideAdsWhenGameNotPause.add(Language.Type.vi, "Giấu banner khi huỷ tạm dừng");
             txtReloadBannerInterval.add(Language.Type.vi, "Tải lại banner");
             txtAdmobVideoType.add(Language.Type.vi, "Loại video admob");
         }
@@ -661,6 +787,111 @@ namespace Ads
                                             Debug.LogError("showAdsWhenGameEnd null: " + this);
                                         }
                                     }
+                                    // hideAdsWhenGameStart
+                                    {
+                                        RequestChangeBoolUI.UIData hideAdsWhenGameStart = this.data.hideAdsWhenGameStart.v;
+                                        if (hideAdsWhenGameStart != null)
+                                        {
+                                            // update
+                                            RequestChangeUpdate<bool>.UpdateData updateData = hideAdsWhenGameStart.updateData.v;
+                                            if (updateData != null)
+                                            {
+                                                updateData.origin.v = show.hideAdsWhenGameStart.v;
+                                                updateData.canRequestChange.v = editAdsManager.canEdit.v;
+                                                updateData.serverState.v = serverState;
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("updateData null: " + this);
+                                            }
+                                            // compare
+                                            {
+                                                if (compare != null)
+                                                {
+                                                    hideAdsWhenGameStart.showDifferent.v = true;
+                                                    hideAdsWhenGameStart.compare.v = compare.hideAdsWhenGameStart.v;
+                                                }
+                                                else
+                                                {
+                                                    hideAdsWhenGameStart.showDifferent.v = false;
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("hideAdsWhenGameStart null: " + this);
+                                        }
+                                    }
+                                    // showAdsWhenGamePause
+                                    {
+                                        RequestChangeBoolUI.UIData showAdsWhenGamePause = this.data.showAdsWhenGamePause.v;
+                                        if (showAdsWhenGamePause != null)
+                                        {
+                                            // update
+                                            RequestChangeUpdate<bool>.UpdateData updateData = showAdsWhenGamePause.updateData.v;
+                                            if (updateData != null)
+                                            {
+                                                updateData.origin.v = show.showAdsWhenGamePause.v;
+                                                updateData.canRequestChange.v = editAdsManager.canEdit.v;
+                                                updateData.serverState.v = serverState;
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("updateData null: " + this);
+                                            }
+                                            // compare
+                                            {
+                                                if (compare != null)
+                                                {
+                                                    showAdsWhenGamePause.showDifferent.v = true;
+                                                    showAdsWhenGamePause.compare.v = compare.showAdsWhenGamePause.v;
+                                                }
+                                                else
+                                                {
+                                                    showAdsWhenGamePause.showDifferent.v = false;
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("showAdsWhenGamePause null: " + this);
+                                        }
+                                    }
+                                    // hideAdsWhenGameNotPause
+                                    {
+                                        RequestChangeBoolUI.UIData hideAdsWhenGameNotPause = this.data.hideAdsWhenGameNotPause.v;
+                                        if (hideAdsWhenGameNotPause != null)
+                                        {
+                                            // update
+                                            RequestChangeUpdate<bool>.UpdateData updateData = hideAdsWhenGameNotPause.updateData.v;
+                                            if (updateData != null)
+                                            {
+                                                updateData.origin.v = show.hideAdsWhenGameNotPause.v;
+                                                updateData.canRequestChange.v = editAdsManager.canEdit.v;
+                                                updateData.serverState.v = serverState;
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("updateData null: " + this);
+                                            }
+                                            // compare
+                                            {
+                                                if (compare != null)
+                                                {
+                                                    hideAdsWhenGameNotPause.showDifferent.v = true;
+                                                    hideAdsWhenGameNotPause.compare.v = compare.hideAdsWhenGameNotPause.v;
+                                                }
+                                                else
+                                                {
+                                                    hideAdsWhenGameNotPause.showDifferent.v = false;
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("hideAdsWhenGameNotPause null: " + this);
+                                        }
+                                    }
                                     // reloadBannerInterval
                                     {
                                         RequestChangeFloatUI.UIData reloadBannerInterval = this.data.reloadBannerInterval.v;
@@ -867,6 +1098,72 @@ namespace Ads
                                     else
                                     {
                                         Debug.LogError("showAdsWhenGameEnd null: " + this);
+                                    }
+                                }
+                                // hideAdsWhenGameStart
+                                {
+                                    RequestChangeBoolUI.UIData hideAdsWhenGameStart = this.data.hideAdsWhenGameStart.v;
+                                    if (hideAdsWhenGameStart != null)
+                                    {
+                                        // update
+                                        RequestChangeUpdate<bool>.UpdateData updateData = hideAdsWhenGameStart.updateData.v;
+                                        if (updateData != null)
+                                        {
+                                            updateData.current.v = show.hideAdsWhenGameStart.v;
+                                            updateData.changeState.v = Data.ChangeState.None;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("updateData null: " + this);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("hideAdsWhenGameStart null: " + this);
+                                    }
+                                }
+                                // showAdsWhenGamePause
+                                {
+                                    RequestChangeBoolUI.UIData showAdsWhenGamePause = this.data.showAdsWhenGamePause.v;
+                                    if (showAdsWhenGamePause != null)
+                                    {
+                                        // update
+                                        RequestChangeUpdate<bool>.UpdateData updateData = showAdsWhenGamePause.updateData.v;
+                                        if (updateData != null)
+                                        {
+                                            updateData.current.v = show.showAdsWhenGamePause.v;
+                                            updateData.changeState.v = Data.ChangeState.None;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("updateData null: " + this);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("showAdsWhenGamePause null: " + this);
+                                    }
+                                }
+                                // hideAdsWhenGameNotPause
+                                {
+                                    RequestChangeBoolUI.UIData hideAdsWhenGameNotPause = this.data.hideAdsWhenGameNotPause.v;
+                                    if (hideAdsWhenGameNotPause != null)
+                                    {
+                                        // update
+                                        RequestChangeUpdate<bool>.UpdateData updateData = hideAdsWhenGameNotPause.updateData.v;
+                                        if (updateData != null)
+                                        {
+                                            updateData.current.v = show.hideAdsWhenGameNotPause.v;
+                                            updateData.changeState.v = Data.ChangeState.None;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("updateData null: " + this);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("hideAdsWhenGameNotPause null: " + this);
                                     }
                                 }
                                 // reloadBannerInterval
@@ -1095,6 +1392,90 @@ namespace Ads
                                 }
                             }
                         }
+                        // hideAdsWhenGameStart
+                        {
+                            if (this.data.hideAdsWhenGameStart.v != null)
+                            {
+                                if (lbHideAdsWhenGameStart != null)
+                                {
+                                    lbHideAdsWhenGameStart.gameObject.SetActive(true);
+                                    UIRectTransform.SetPosY(lbHideAdsWhenGameStart.rectTransform, deltaY);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbHideAdsWhenGameStart null");
+                                }
+                                UIRectTransform.SetPosY(this.data.hideAdsWhenGameStart.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2);
+                                deltaY += UIConstants.ItemHeight;
+                            }
+                            else
+                            {
+                                if (lbHideAdsWhenGameStart != null)
+                                {
+                                    lbHideAdsWhenGameStart.gameObject.SetActive(false);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbHideAdsWhenGameStart null");
+                                }
+                            }
+                        }
+                        // showAdsWhenGamePause
+                        {
+                            if (this.data.showAdsWhenGamePause.v != null)
+                            {
+                                if (lbShowAdsWhenGamePause != null)
+                                {
+                                    lbShowAdsWhenGamePause.gameObject.SetActive(true);
+                                    UIRectTransform.SetPosY(lbShowAdsWhenGamePause.rectTransform, deltaY);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbShowAdsWhenGamePause null");
+                                }
+                                UIRectTransform.SetPosY(this.data.showAdsWhenGamePause.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2);
+                                deltaY += UIConstants.ItemHeight;
+                            }
+                            else
+                            {
+                                if (lbShowAdsWhenGamePause != null)
+                                {
+                                    lbShowAdsWhenGamePause.gameObject.SetActive(false);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbShowAdsWhenGamePause null");
+                                }
+                            }
+                        }
+                        // hideAdsWhenGameNotPause
+                        {
+                            if (this.data.hideAdsWhenGameNotPause.v != null)
+                            {
+                                if (lbHideAdsWhenGameNotPause != null)
+                                {
+                                    lbHideAdsWhenGameNotPause.gameObject.SetActive(true);
+                                    UIRectTransform.SetPosY(lbHideAdsWhenGameNotPause.rectTransform, deltaY);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbHideAdsWhenGameNotPause null");
+                                }
+                                UIRectTransform.SetPosY(this.data.hideAdsWhenGameNotPause.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2);
+                                deltaY += UIConstants.ItemHeight;
+                            }
+                            else
+                            {
+                                if (lbHideAdsWhenGameNotPause != null)
+                                {
+                                    lbHideAdsWhenGameNotPause.gameObject.SetActive(false);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbHideAdsWhenGameNotPause null");
+                                }
+                            }
+                        }
                         // reloadBannerInterval
                         {
                             if (this.data.reloadBannerInterval.v != null)
@@ -1212,6 +1593,30 @@ namespace Ads
                         {
                             Debug.LogError("lbShowAdsWhenGameEnd null");
                         }
+                        if (lbHideAdsWhenGameStart != null)
+                        {
+                            lbHideAdsWhenGameStart.text = txtHideAdsWhenGameStart.get("Hide banner when game start");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbHideAdsWhenGameStart null");
+                        }
+                        if (lbShowAdsWhenGamePause != null)
+                        {
+                            lbShowAdsWhenGamePause.text = txtShowAdsWhenGamePause.get("Show banner when game pause");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbShowAdsWhenGamePause null");
+                        }
+                        if(lbHideAdsWhenGameNotPause != null)
+                        {
+                            lbHideAdsWhenGameNotPause.text = txtHideAdsWhenGameNotPause.get("Hide banner when game not pause");
+                        }
+                        else
+                        {
+                            Debug.LogError("lbHideAdsWhenGameNotPause null");
+                        }
                         if (lbReloadBannerInterval != null)
                         {
                             lbReloadBannerInterval.text = txtReloadBannerInterval.get("Reload banner");
@@ -1268,6 +1673,9 @@ namespace Ads
                     uiData.hideBannerDurationAfterClick.allAddCallBack(this);
                     uiData.hideAdsWhenStartPlay.allAddCallBack(this);
                     uiData.showAdsWhenGameEnd.allAddCallBack(this);
+                    uiData.hideAdsWhenGameStart.allAddCallBack(this);
+                    uiData.showAdsWhenGamePause.allAddCallBack(this);
+                    uiData.hideAdsWhenGameNotPause.allAddCallBack(this);
                     uiData.reloadBannerInterval.allAddCallBack(this);
                     uiData.admobVideoType.allAddCallBack(this);
                 }
@@ -1336,7 +1744,7 @@ namespace Ads
                     dirty = true;
                     return;
                 }
-                // showBtnViewAds, hideAdsWhenStartPlay, showAdsWhenGameEnd,
+                // showBtnViewAds, hideAdsWhenStartPlay, showAdsWhenGameEnd, hideAdsWhenGameStart, showAdsWhenGamePause
                 if (data is RequestChangeBoolUI.UIData)
                 {
                     RequestChangeBoolUI.UIData requestChange = data as RequestChangeBoolUI.UIData;
@@ -1354,6 +1762,15 @@ namespace Ads
                                     UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 case UIData.Property.showAdsWhenGameEnd:
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
+                                    break;
+                                case UIData.Property.hideAdsWhenGameStart:
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
+                                    break;
+                                case UIData.Property.showAdsWhenGamePause:
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
+                                    break;
+                                case UIData.Property.hideAdsWhenGameNotPause:
                                     UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
@@ -1421,6 +1838,9 @@ namespace Ads
                     uiData.hideBannerDurationAfterClick.allRemoveCallBack(this);
                     uiData.hideAdsWhenStartPlay.allRemoveCallBack(this);
                     uiData.showAdsWhenGameEnd.allRemoveCallBack(this);
+                    uiData.hideAdsWhenGameStart.allRemoveCallBack(this);
+                    uiData.showAdsWhenGamePause.allRemoveCallBack(this);
+                    uiData.hideAdsWhenGameNotPause.allRemoveCallBack(this);
                     uiData.reloadBannerInterval.allRemoveCallBack(this);
                     uiData.admobVideoType.allRemoveCallBack(this);
                 }
@@ -1462,7 +1882,7 @@ namespace Ads
                     }
                     return;
                 }
-                // showBtnViewAds, hideAdsWhenStartPlay, showAdsWhenGameEnd,
+                // showBtnViewAds, hideAdsWhenStartPlay, showAdsWhenGameEnd, hideAdsWhenGameStart, showAdsWhenGamePause
                 if (data is RequestChangeBoolUI.UIData)
                 {
                     RequestChangeBoolUI.UIData requestChange = data as RequestChangeBoolUI.UIData;
@@ -1533,6 +1953,24 @@ namespace Ads
                         }
                         break;
                     case UIData.Property.showAdsWhenGameEnd:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.hideAdsWhenGameStart:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.showAdsWhenGamePause:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.hideAdsWhenGameNotPause:
                         {
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
@@ -1659,6 +2097,15 @@ namespace Ads
                             case AdsManager.Property.showAdsWhenGameEnd:
                                 dirty = true;
                                 break;
+                            case AdsManager.Property.hideAdsWhenGameStart:
+                                dirty = true;
+                                break;
+                            case AdsManager.Property.showAdsWhenGamePause:
+                                dirty = true;
+                                break;
+                            case AdsManager.Property.hideAdsWhenGameNotPause:
+                                dirty = true;
+                                break;
                             case AdsManager.Property.reloadBannerInterval:
                                 dirty = true;
                                 break;
@@ -1685,7 +2132,7 @@ namespace Ads
                 {
                     return;
                 }
-                // showBtnViewAds, hideAdsWhenStartPlay, showAdsWhenGameEnd,
+                // showBtnViewAds, hideAdsWhenStartPlay, showAdsWhenGameEnd, hideAdsWhenGameStart, showAdsWhenGamePause
                 if (wrapProperty.p is RequestChangeBoolUI.UIData)
                 {
                     return;

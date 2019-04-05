@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Ads;
 
 namespace GameState
 {
@@ -57,6 +58,8 @@ namespace GameState
         #endregion
 
         #region Refresh
+
+        public UIData.Sub lastSub = null;
 
         public override void refresh()
         {
@@ -255,10 +258,97 @@ namespace GameState
                                 Debug.LogError("boardTransform null");
                             }
                         }
+                        // ShowAds
+                        {
+                            if (lastSub == null)
+                            {
+                                if (this.data.sub.v != null)
+                                {
+                                    switch (this.data.sub.v.getType())
+                                    {
+                                        case Play.Sub.Type.Normal:
+                                            {
+                                                if (AdsManager.get().hideAdsWhenGameNotPause.v)
+                                                {
+                                                    AdsManager.get().bannerVisibility.v = AdsManager.BannerVisibility.Hide;
+                                                }
+                                            }
+                                            break;
+                                        case Play.Sub.Type.Pause:
+                                        case Play.Sub.Type.UnPause:
+                                            {
+                                                if (AdsManager.get().showAdsWhenGamePause.v)
+                                                {
+                                                    AdsManager.get().bannerVisibility.v = AdsManager.BannerVisibility.Show;
+                                                }
+                                            }
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown type: " + this.data.sub.v.getType());
+                                            break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (lastSub != this.data.sub.v)
+                                {
+                                    if (lastSub.getType() == Play.Sub.Type.Normal)
+                                    {
+                                        // showAdsWhenGamePause
+                                        if (this.data.sub.v != null)
+                                        {
+                                            switch (this.data.sub.v.getType())
+                                            {
+                                                case Play.Sub.Type.Normal:
+                                                    break;
+                                                case Play.Sub.Type.Pause:
+                                                case Play.Sub.Type.UnPause:
+                                                    {
+                                                        if (AdsManager.get().showAdsWhenGamePause.v)
+                                                        {
+                                                            AdsManager.get().bannerVisibility.v = AdsManager.BannerVisibility.Show;
+                                                        }
+                                                    }
+                                                    break;
+                                                default:
+                                                    Debug.LogError("unknown type: " + this.data.sub.v.getType());
+                                                    break;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // hideAdsWhenGamePlayAgain
+                                        if (this.data.sub.v != null)
+                                        {
+                                            switch (this.data.sub.v.getType())
+                                            {
+                                                case Play.Sub.Type.Normal:
+                                                    {
+                                                        if (AdsManager.get().hideAdsWhenGameNotPause.v)
+                                                        {
+                                                            AdsManager.get().bannerVisibility.v = AdsManager.BannerVisibility.Hide;
+                                                        }
+                                                    }
+                                                    break;
+                                                case Play.Sub.Type.Pause:
+                                                case Play.Sub.Type.UnPause:
+                                                    break;
+                                                default:
+                                                    Debug.LogError("unknown type: " + this.data.sub.v.getType());
+                                                    break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            lastSub = this.data.sub.v;
+                        }
                     }
                     else
                     {
-                        Debug.LogError("play null: " + this);
+                        // Debug.LogError("play null: " + this);
                     }
                 }
                 else
@@ -347,6 +437,7 @@ namespace GameState
             {
                 if (data is Play)
                 {
+                    lastSub = null;
                     dirty = true;
                     return;
                 }
