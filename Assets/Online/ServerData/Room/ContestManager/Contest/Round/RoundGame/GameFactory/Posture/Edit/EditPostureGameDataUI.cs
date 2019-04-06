@@ -458,10 +458,10 @@ namespace Posture
         private static readonly UIRectTransform btnSetRect = new UIRectTransform();
 
         public ChoosePostureUI choosePosturePrefab;
-        private static readonly UIRectTransform choosePostureRect = UIRectTransform.CreateCenterRect(360.0f, 400.0f);// UIConstants.FullParent;
+        private static readonly UIRectTransform choosePostureRect = UIRectTransform.CreateCenterRect(400.0f, 400.0f);// UIConstants.FullParent;
 
         public LoadPostureUI loadPosturePrefab;
-        private static readonly UIRectTransform loadPostureRect = UIRectTransform.CreateCenterRect(360.0f, 400.0f);// UIConstants.FullParent;
+        private static readonly UIRectTransform loadPostureRect = UIRectTransform.CreateCenterRect(400.0f, 400.0f);// UIConstants.FullParent;
 
         public override void onAddCallBack<T>(T data)
         {

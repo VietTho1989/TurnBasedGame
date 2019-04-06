@@ -94,7 +94,7 @@ public class ValueChangeUtils
         }
         else
         {
-            Debug.Log("value null: " + value + "; " + callBack);
+            // Debug.Log("value null: " + value + "; " + callBack);
         }
     }
 

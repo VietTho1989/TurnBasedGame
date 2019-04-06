@@ -835,3 +835,4 @@
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityStore.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/winrt.dll
 /Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/UnityEngine.Purchasing.dll.mdb
+/Users/viettho/Desktop/NewProject/TurnBasedGame/Temp/bin/Debug/Boo.Lang.dll

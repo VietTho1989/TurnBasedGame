@@ -212,7 +212,7 @@ namespace GameManager.Match
                             }
                             else
                             {
-                                Debug.LogError("chooseRoundUIData null: " + this);
+                                // Debug.LogError("chooseRoundUIData null: " + this);
                             }
                         }
                         // SiblingIndex
@@ -250,12 +250,7 @@ namespace GameManager.Match
         private static readonly UIRectTransform requestNewRoundRect = UIConstants.FullParent;
 
         public ChooseRoundUI chooseRoundPrefab;
-        private static readonly UIRectTransform chooseRoundRect = UIRectTransform.CreateCenterRect(400, 400);
-
-        static ContestUI()
-        {
-            // chooseRoundRect.setPosY(-30);
-        }
+        // private static readonly UIRectTransform chooseRoundRect = UIRectTransform.CreateCenterRect(400, 400, 0, 30);
 
         private RoomUI.UIData roomUIData = null;
 
@@ -336,7 +331,7 @@ namespace GameManager.Match
                     ChooseRoundUI.UIData chooseRoundUIData = data as ChooseRoundUI.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(chooseRoundUIData, chooseRoundPrefab, this.transform, chooseRoundRect);
+                        UIUtils.Instantiate(chooseRoundUIData, chooseRoundPrefab, this.transform);
                     }
                     dirty = true;
                     return;

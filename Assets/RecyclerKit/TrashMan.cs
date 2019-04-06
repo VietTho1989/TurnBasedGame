@@ -183,6 +183,8 @@ public class TrashMan : MonoBehaviour
 
         GameObject getGameObject();
 
+        void onDespawn();
+
     }
 
     public static int GetInstanceId(GameObject gameObject)
@@ -228,6 +230,8 @@ public class TrashMan : MonoBehaviour
                 // Debug.LogError ("despawn: " + go);
                 recycleBin.despawn(go);
                 go.transform.SetParent(instance.transform, false);
+                // event
+                despawnInterface.onDespawn();
             }
             else
             {

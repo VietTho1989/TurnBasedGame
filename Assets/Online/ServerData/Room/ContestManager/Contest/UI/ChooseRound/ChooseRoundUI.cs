@@ -160,13 +160,14 @@ namespace GameManager.Match
                             float deltaY = 30;
                             // adapter
                             deltaY += 300;// UIRectTransform.SetPosY(this.data.chooseRoundAdapter.v, deltaY);
-                            // requestNewRound
+                                          // requestNewRound
                             deltaY += UIRectTransform.SetPosY(this.data.requestNewRoundInformUIData.v, deltaY);
+                            Debug.LogError("chooseRoundUI: " + deltaY);
                             // set
                             {
-                                UIRectTransform rect = UIRectTransform.CreateCenterRect(400, deltaY);
+                                UIRectTransform rect = UIRectTransform.CreateCenterRect(400, deltaY, 0, 30);
                                 {
-                                    rect.setPosY(-30);
+                                    // rect.setPosY(-30);
                                 }
                                 rect.set((RectTransform)this.transform);
                             }

@@ -50,6 +50,21 @@ public class TransformData : Data
         this.size = new VP<Vector2>(this, (byte)Property.size, new Vector2());
     }
 
+    public void reset()
+    {
+        this.anchoredPosition.v = Vector3.zero;
+        this.anchorMin.v = new Vector2(0.5f, 0.5f);
+        this.anchorMax.v = new Vector2(0.5f, 0.5f);
+        this.pivot.v = new Vector2(0.5f, 0.5f);
+        this.offsetMin.v = Vector2.zero;
+        this.offsetMax.v = Vector2.zero;
+        this.sizeDelta.v = Vector2.zero;
+        this.rotation.v = new Quaternion();
+        this.scale.v = new Vector3(1.0f, 1.0f, 1.0f);
+
+        this.size.v = new Vector2();
+    }
+
     public override string ToString()
     {
         return ""+ this.size.v;

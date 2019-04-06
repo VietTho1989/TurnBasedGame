@@ -50,6 +50,14 @@ public abstract class UIHaveTransformDataBehavior<K> : UIBehavior<K>, HaveTransf
         }
     }
 
+    public override void onDespawn()
+    {
+        base.onDespawn();
+        // transformData
+        // Debug.LogError("onDespawn");
+        transformDataClear();
+    }
+
     public override void OnDestroy()
     {
         base.OnDestroy();
@@ -63,7 +71,13 @@ public abstract class UIHaveTransformDataBehavior<K> : UIBehavior<K>, HaveTransf
             Debug.LogError("checkChange null");
         }
         // transformData
+        transformDataClear();
+    }
+
+    private void transformDataClear()
+    {
         transformData.callBacks.Clear();
+        // transformData.reset();
     }
 
     #endregion

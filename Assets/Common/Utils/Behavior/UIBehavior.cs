@@ -65,6 +65,11 @@ public abstract class UIBehavior<K> : GameBehavior<K>, TrashMan.DespawnInterface
         refresh();
     }
 
+    private void Start()
+    {
+        refresh();
+    }
+
     public virtual void OnGUI()
     {
         // updateTransformData();
@@ -119,6 +124,11 @@ public abstract class UIBehavior<K> : GameBehavior<K>, TrashMan.DespawnInterface
         {
             return null;
         }
+    }
+
+    public virtual void onDespawn()
+    {
+
     }
 
     #endregion
