@@ -116,23 +116,19 @@ public class LanHostUI : UIBehavior<LanHostUI.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
-
-    public Text tvBack;
-    public static readonly TxtLanguage txtBack = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
     static LanHostUI()
     {
         txtTitle.add(Language.Type.vi, "Máy chủ mạng LAN");
-        txtBack.add(Language.Type.vi, "Quay Lại");
     }
 
     #endregion
+
+    #region Refresh
 
     public GameObject contentContainer;
 
@@ -179,14 +175,6 @@ public class LanHostUI : UIBehavior<LanHostUI.UIData>
                     else
                     {
                         Debug.LogError("lbTitle null: " + this);
-                    }
-                    if (tvBack != null)
-                    {
-                        tvBack.text = txtBack.get("Back");
-                    }
-                    else
-                    {
-                        Debug.LogError("tvBack null: " + this);
                     }
                 }
             }
@@ -405,7 +393,7 @@ public class LanHostUI : UIBehavior<LanHostUI.UIData>
 
     public void onClickBtnBack()
     {
-        Debug.LogError("onClickBtnBack: " + this);
+        // Debug.LogError("onClickBtnBack: " + this);
         if (this.data != null)
         {
             this.data.onClickReturn();
