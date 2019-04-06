@@ -132,9 +132,6 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
     public Text lbTitle;
     private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
-    public Text tvBack;
-    private static readonly TxtLanguage txtBack = new TxtLanguage();
-
     public Text lbAccountType;
     private static readonly TxtLanguage txtAccountType = new TxtLanguage();
 
@@ -143,7 +140,6 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
         // txt
         {
             txtTitle.add(Language.Type.vi, "Đăng Nhập");
-            txtBack.add(Language.Type.vi, "Quay Lại");
             txtAccountType.add(Language.Type.vi, "Loại Tài Khoản");
         }
         // rect
@@ -361,14 +357,6 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
                         else
                         {
                             Debug.LogError("lbTitle null");
-                        }
-                        if (tvBack != null)
-                        {
-                            tvBack.text = txtBack.get("Back");
-                        }
-                        else
-                        {
-                            // Debug.LogError("tvBack null: " + this);
                         }
                         if (lbAccountType != null)
                         {
@@ -926,4 +914,5 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
             Debug.LogError("data null: " + this);
         }
     }
+
 }

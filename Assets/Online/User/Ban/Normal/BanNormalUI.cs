@@ -117,7 +117,7 @@ public class BanNormalUI : UIBehavior<BanNormalUI.UIData>
                             }
                             else
                             {
-                                Debug.LogError("the same: " + this);
+                                // Debug.LogError("the same: " + this);
                             }
                         }
                         // toBanUser
@@ -139,7 +139,7 @@ public class BanNormalUI : UIBehavior<BanNormalUI.UIData>
                             }
                             else
                             {
-                                Debug.LogError("the same: " + this);
+                                // Debug.LogError("the same: " + this);
                             }
                         }
                     }

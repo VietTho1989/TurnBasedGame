@@ -357,17 +357,7 @@ public class ClientConnectIdentity : NetworkBehaviour
         {
             // User login
             // Debug.Log ("onLogin: " + login + ", " + connectionToClient+", "+login.imei);
-            User user = null;
-            // Find already have this user
-            {
-                foreach (User check in serverManager.data.server.v.data.users.vs)
-                {
-                    if (check.human.v.account.v.isEqual(accountMessage))
-                    {
-                        user = check;
-                    }
-                }
-            }
+            User user = serverManager.data.server.v.data.users.findUserByAccount(accountMessage);
             // Make new user
             if (user == null)
             {

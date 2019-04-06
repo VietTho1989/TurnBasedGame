@@ -250,4 +250,21 @@ public class UserLP : LP<User>, ValueChangeCallBack
 
     #endregion
 
+    public User findUserByAccount(AccountMessage accountMessage)
+    {
+        User user = null;
+        {
+            // TODO Can hoan thien
+            foreach (User check in this.vs)
+            {
+                if (check.human.v.account.v.isEqual(accountMessage))
+                {
+                    user = check;
+                    break;
+                }
+            }
+        }
+        return user;
+    }
+
 }
