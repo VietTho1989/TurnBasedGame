@@ -249,7 +249,7 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                         {
                             if (AdsManager.get().showAdsWhenGameEnd.v)
                             {
-                                AdsManager.get().bannerVisibility.v = AdsManager.BannerVisibility.Show;
+                                AdsManager.get().prepareBannerVisibility.v = AdsManager.PrepareBannerVisibility.Show;
                             }
                         }
                     }
@@ -259,7 +259,7 @@ public class BtnRequestNewUI : UIHaveTransformDataBehavior<BtnRequestNewUI.UIDat
                         {
                             if (AdsManager.get().hideAdsWhenGameStart.v)
                             {
-                                AdsManager.get().bannerVisibility.v = AdsManager.BannerVisibility.Hide;
+                                AdsManager.get().prepareBannerVisibility.v = AdsManager.PrepareBannerVisibility.Hide;
                             }
                         }
                     }

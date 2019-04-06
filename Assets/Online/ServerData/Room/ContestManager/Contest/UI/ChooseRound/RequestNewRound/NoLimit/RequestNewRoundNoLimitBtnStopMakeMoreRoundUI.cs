@@ -173,7 +173,7 @@ namespace GameManager.Match
         #region implement callBacks
 
         public RequestChangeBoolUI requestBoolPrefab;
-
+        private static readonly UIRectTransform isStopMakeMoreRoundRect = UIRectTransform.CreateCenterRect(UIConstants.RequestBoolDim, UIConstants.RequestBoolDim);
         public Transform isStopMakeMoreRoundContainer;
 
         private RoomCheckChangeAdminChange<RequestNewRoundNoLimit> roomCheckAdminChange = new RoomCheckChangeAdminChange<RequestNewRoundNoLimit>();
@@ -238,7 +238,7 @@ namespace GameManager.Match
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.isStopMakeMoreRound:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, isStopMakeMoreRoundContainer);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, isStopMakeMoreRoundContainer, isStopMakeMoreRoundRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

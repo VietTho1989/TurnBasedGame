@@ -123,7 +123,7 @@ namespace GameManager.Match
                                     if (AdsManager.get().hideAdsWhenStartPlay.v)
                                     {
                                         Debug.LogError("contestManagerStatePlay hide banner");
-                                        AdsManager.get().bannerVisibility.v = AdsManager.BannerVisibility.Hide;
+                                        AdsManager.get().prepareBannerVisibility.v = AdsManager.PrepareBannerVisibility.Hide;
                                     }
                                 }
                             }

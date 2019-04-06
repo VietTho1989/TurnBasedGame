@@ -270,7 +270,7 @@ namespace GameState
                                             {
                                                 if (AdsManager.get().hideAdsWhenGameNotPause.v)
                                                 {
-                                                    AdsManager.get().bannerVisibility.v = AdsManager.BannerVisibility.Hide;
+                                                    AdsManager.get().prepareBannerVisibility.v = AdsManager.PrepareBannerVisibility.Hide;
                                                 }
                                             }
                                             break;
@@ -279,7 +279,7 @@ namespace GameState
                                             {
                                                 if (AdsManager.get().showAdsWhenGamePause.v)
                                                 {
-                                                    AdsManager.get().bannerVisibility.v = AdsManager.BannerVisibility.Show;
+                                                    AdsManager.get().prepareBannerVisibility.v = AdsManager.PrepareBannerVisibility.Show;
                                                 }
                                             }
                                             break;
@@ -307,7 +307,7 @@ namespace GameState
                                                     {
                                                         if (AdsManager.get().showAdsWhenGamePause.v)
                                                         {
-                                                            AdsManager.get().bannerVisibility.v = AdsManager.BannerVisibility.Show;
+                                                            AdsManager.get().prepareBannerVisibility.v = AdsManager.PrepareBannerVisibility.Show;
                                                         }
                                                     }
                                                     break;

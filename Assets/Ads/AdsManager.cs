@@ -71,6 +71,8 @@ namespace Ads
 
         public VP<AdsType> bannerType;
 
+        #region bannerVisibility
+
         public enum BannerVisibility
         {
             Show,
@@ -78,6 +80,21 @@ namespace Ads
         }
 
         public VP<BannerVisibility> bannerVisibility;
+
+        #endregion
+
+        #region prepareBannerVisibility
+
+        public enum PrepareBannerVisibility
+        {
+            None,
+            Show,
+            Hide
+        }
+
+        public VP<PrepareBannerVisibility> prepareBannerVisibility;
+
+        #endregion
 
         public VP<float> lastClickBanner;
 
@@ -203,6 +220,7 @@ namespace Ads
 
             bannerType,
             bannerVisibility,
+            prepareBannerVisibility,
             lastClickBanner,
             hideBannerDurationAfterClick,
             hideAdsWhenStartPlay,
@@ -238,6 +256,7 @@ namespace Ads
             // banner
             {
                 this.bannerVisibility = new VP<BannerVisibility>(this, (byte)Property.bannerVisibility, BannerVisibility.Show);
+                this.prepareBannerVisibility = new VP<PrepareBannerVisibility>(this, (byte)Property.prepareBannerVisibility, PrepareBannerVisibility.None);
                 this.lastClickBanner = new VP<float>(this, (byte)Property.lastClickBanner, float.MinValue);
                 this.hideBannerDurationAfterClick = new VP<float>(this, (byte)Property.hideBannerDurationAfterClick, DefaultHideBannerDurationAfterClick);
                 this.hideAdsWhenStartPlay = new VP<bool>(this, (byte)Property.hideAdsWhenStartPlay, true);

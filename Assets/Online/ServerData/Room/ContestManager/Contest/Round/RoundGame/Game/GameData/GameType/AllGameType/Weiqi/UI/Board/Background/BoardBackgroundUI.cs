@@ -6,125 +6,180 @@ using System.Collections.Generic;
 
 namespace Weiqi
 {
-	public class BoardBackgroundUI : UIBehavior<BoardBackgroundUI.UIData>
-	{
+    public class BoardBackgroundUI : UIBehavior<BoardBackgroundUI.UIData>
+    {
 
-		#region UIData
+        #region UIData
 
-		public class UIData : Data
-		{
-			
-			public VP<int> size;
+        public class UIData : Data
+        {
 
-			public VP<float> deltaX;
+            public VP<int> size;
 
-			public VP<float> deltaY;
+            public VP<float> deltaX;
 
-			#region Constructor
+            public VP<float> deltaY;
 
-			public enum Property
-			{
-				size,
-				deltaX,
-				deltaY
-			}
+            #region Constructor
 
-			public UIData() : base()
-			{
-				this.size = new VP<int>(this, (byte)Property.size, 0);
-				this.deltaX = new VP<float>(this, (byte)Property.deltaX, 0f);
-				this.deltaY = new VP<float>(this, (byte)Property.deltaY, 0f);
-			}
+            public enum Property
+            {
+                size,
+                deltaX,
+                deltaY
+            }
 
-			#endregion
-		}
+            public UIData() : base()
+            {
+                this.size = new VP<int>(this, (byte)Property.size, 0);
+                this.deltaX = new VP<float>(this, (byte)Property.deltaX, 0f);
+                this.deltaY = new VP<float>(this, (byte)Property.deltaY, 0f);
+            }
 
-		#endregion
+            #endregion
+        }
 
-		#region Refresh
+        #endregion
 
-		public RectTransform image;
+        #region Refresh
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				dirty = false;
-				if (this.data != null) {
-					// image
-					{
-						if (image != null) {
-							if (this.data.size.v >= 1) {
-								image.sizeDelta = new Vector2 (this.data.size.v - 1, this.data.size.v - 1);
-							} else {
-								Debug.LogError ("size < 0: " + this.data.size.v);
-							}
-						} else {
-							Debug.LogError ("image null");
-						}
-					}
-				} else {
-					// Debug.LogError ("data null: " + this);
-				}
-			}
-		}
+        // public UILineRenderer tileRenderer;
+        public Image bgTiles;
+        public RectTransform bgColor;
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                dirty = false;
+                if (this.data != null)
+                {
+                    // tileRenderer
+                    /*if (tileRenderer != null)
+                    {
+                        Vector2[] pointArray;
+                        {
+                            List<Vector2> points = new List<Vector2>();
+                            {
+                                for (int i = 0; i < this.data.size.v; i++)
+                                {
+                                    // vertical
+                                    {
+                                        float x = i - (this.data.size.v - 1) / 2.0f;
+                                        // from
+                                        {
+                                            Vector2 from = new Vector2(x, -(this.data.size.v - 1) / 2.0f);
+                                            points.Add(from);
+                                        }
+                                        // dest
+                                        {
+                                            Vector2 from = new Vector2(x, +(this.data.size.v - 1) / 2.0f);
+                                            points.Add(from);
+                                        }
+                                    }
+                                    // horizontal
+                                    {
+                                        float y = i - (this.data.size.v - 1) / 2.0f;
+                                        // from
+                                        {
+                                            Vector2 from = new Vector2(-(this.data.size.v - 1) / 2.0f, y);
+                                            points.Add(from);
+                                        }
+                                        // dest
+                                        {
+                                            Vector2 from = new Vector2(+(this.data.size.v - 1) / 2.0f, y);
+                                            points.Add(from);
+                                        }
+                                    }
+                                }
+                            }
+                            pointArray = points.ToArray();
+                        }
+                        tileRenderer.Points = pointArray;
+                    }
+                    else
+                    {
+                        Debug.LogError("tileRenderer null");
+                    }*/
+                    // bgTiles
+                    if (bgTiles != null)
+                    {
+                        bgTiles.rectTransform.sizeDelta = new Vector2(this.data.size.v - 1, this.data.size.v - 1);
+                    }
+                    else
+                    {
+                        Debug.LogError("bgTiles null");
+                    }
+                    // bgColor
+                    if (bgColor != null)
+                    {
+                        bgColor.sizeDelta = new Vector2(this.data.size.v, this.data.size.v);
+                    }
+                    else
+                    {
+                        Debug.LogError("bgColor null");
+                    }
+                }
+                else
+                {
+                    // Debug.LogError ("data null: " + this);
+                }
+            }
+        }
 
-		#endregion
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		#region implement callBacks
+        #endregion
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				// UIData uiData = data as UIData;
-				// Child
-				{
+        #region implement callBacks
 
-				}
-				dirty = true;
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                dirty = true;
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Child
-				{
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                this.setDataNull(uiData);
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-				}
-				this.setDataNull (uiData);
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.size:
+                        dirty = true;
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.size:
-					dirty = true;
-					break;
-				default:
-					Debug.LogError ("unknown wrapProperty: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+        #endregion
 
-		#endregion
-
-	}
+    }
 }

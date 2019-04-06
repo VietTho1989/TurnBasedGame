@@ -14,6 +14,24 @@ namespace Ads
             AdsManager adsManager = AdsManager.get();
             if (adsManager != null)
             {
+                // prepareBannerVisibility
+                {
+                    switch (adsManager.prepareBannerVisibility.v)
+                    {
+                        case AdsManager.PrepareBannerVisibility.None:
+                            break;
+                        case AdsManager.PrepareBannerVisibility.Show:
+                            adsManager.bannerVisibility.v = AdsManager.BannerVisibility.Show;
+                            break;
+                        case AdsManager.PrepareBannerVisibility.Hide:
+                            adsManager.bannerVisibility.v = AdsManager.BannerVisibility.Hide;
+                            break;
+                        default:
+                            Debug.LogError("unknown prepareBannerVisibility: " + adsManager.prepareBannerVisibility.v);
+                            break;
+                    }
+                    adsManager.prepareBannerVisibility.v = AdsManager.PrepareBannerVisibility.None;
+                }
                 // time
                 {
                     // find

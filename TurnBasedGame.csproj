@@ -1929,6 +1929,7 @@
     <Compile Include="Assets\ImageLoader\Utils\AsyncTask.cs" />
     <Compile Include="Assets\ImageLoader\Utils\Device.cs" />
     <Compile Include="Assets\Main\DeviceOrientationCheckUI.cs" />
+    <Compile Include="Assets\Main\Home\ConfirmLeave\ConfirmLeaveAppUI.cs" />
     <Compile Include="Assets\Main\Home\HomeUI.cs" />
     <Compile Include="Assets\Main\InputEvent.cs" />
     <Compile Include="Assets\Main\LAN\Client\ClientNetworkDiscovery.cs" />

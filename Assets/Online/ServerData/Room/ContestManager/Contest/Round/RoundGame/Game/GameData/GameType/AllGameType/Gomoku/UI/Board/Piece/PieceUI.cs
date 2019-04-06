@@ -19,8 +19,6 @@ namespace Gomoku
 
             public VP<int> lastMoveIndex;
 
-            public VP<bool> isWinCoord;
-
             #region Constructor
 
             public enum Property
@@ -36,7 +34,6 @@ namespace Gomoku
                 this.coord = new VP<int>(this, (byte)Property.coord, -1);
                 this.type = new VP<Common.Type>(this, (byte)Property.type, Common.Type.None);
                 this.lastMoveIndex = new VP<int>(this, (byte)Property.lastMoveIndex, -1);
-                this.isWinCoord = new VP<bool>(this, (byte)Property.isWinCoord, false);
             }
 
             #endregion
@@ -52,8 +49,6 @@ namespace Gomoku
         private static readonly Color BlackColor = Color.white;
         private static readonly Color WhiteColor = new Color(50 / 255f, 50 / 255f, 50 / 255f);
         public Text tvLastMoveIndex;
-
-        public Image imgWinCoord;
 
         public override void refresh()
         {
@@ -155,24 +150,6 @@ namespace Gomoku
                                 Debug.LogError("tvLastMoveIndex null: " + this);
                             }
                         }
-                        // winCoord
-                        {
-                            if (imgWinCoord != null)
-                            {
-                                if (this.data.isWinCoord.v && moveAnimation == null)
-                                {
-                                    imgWinCoord.enabled = true;
-                                }
-                                else
-                                {
-                                    imgWinCoord.enabled = false;
-                                }
-                            }
-                            else
-                            {
-                                Debug.LogError("imgWinCoord null: " + this);
-                            }
-                        }
                         // Scale
                         {
                             int playerView = GameDataBoardUI.UIData.getPlayerView(this.data);
@@ -255,12 +232,10 @@ namespace Gomoku
                 return;
             }
             // checkChange
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>)
             {
-                if (data is GameDataBoardCheckPerspectiveChange<UIData>)
-                {
-                    dirty = true;
-                    return;
-                }
+                dirty = true;
+                return;
             }
             // Parent
             if (data is BoardUI.UIData)
@@ -292,11 +267,9 @@ namespace Gomoku
                 return;
             }
             // checkChange
+            if (data is GameDataBoardCheckPerspectiveChange<UIData>)
             {
-                if (data is GameDataBoardCheckPerspectiveChange<UIData>)
-                {
-                    return;
-                }
+                return;
             }
             // Parent
             if (data is BoardUI.UIData)
@@ -329,18 +302,16 @@ namespace Gomoku
                         dirty = true;
                         break;
                     default:
-                        Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
                 return;
             }
             // Check Change
+            if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>)
             {
-                if (wrapProperty.p is GameDataBoardCheckPerspectiveChange<UIData>)
-                {
-                    dirty = true;
-                    return;
-                }
+                dirty = true;
+                return;
             }
             // Parent
             if (wrapProperty.p is BoardUI.UIData)
@@ -357,7 +328,7 @@ namespace Gomoku
                     case BoardUI.UIData.Property.pieces:
                         break;
                     default:
-                        Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                         break;
                 }
                 return;
