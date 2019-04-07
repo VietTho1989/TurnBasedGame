@@ -102,13 +102,11 @@ public class RoomBtnBackUI : UIBehavior<RoomBtnBackUI.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
-    public static readonly TxtLanguage txtLeave = new TxtLanguage();
-    public static readonly TxtLanguage txtCancelLeave = new TxtLanguage();
-    public static readonly TxtLanguage txtLeaving = new TxtLanguage();
+    private static readonly TxtLanguage txtLeave = new TxtLanguage("Leave");
+    private static readonly TxtLanguage txtCancelLeave = new TxtLanguage("Cancel Leave?");
+    private static readonly TxtLanguage txtLeaving = new TxtLanguage("Leaving...");
 
     static RoomBtnBackUI()
     {
@@ -118,6 +116,8 @@ public class RoomBtnBackUI : UIBehavior<RoomBtnBackUI.UIData>
     }
 
     #endregion
+
+    #region Refresh
 
     public Button btnBack;
     public Text tvBack;
@@ -195,21 +195,21 @@ public class RoomBtnBackUI : UIBehavior<RoomBtnBackUI.UIData>
                                     {
                                         btnBack.interactable = true;
                                         if (tvBack != null)
-                                            tvBack.text = txtLeave.get("Leave");
+                                            tvBack.text = txtLeave.get();
                                     }
                                     break;
                                 case UIData.State.Request:
                                     {
                                         btnBack.interactable = true;
                                         if (tvBack != null)
-                                            tvBack.text = txtCancelLeave.get("Cancel Leave?");
+                                            tvBack.text = txtCancelLeave.get();
                                     }
                                     break;
                                 case UIData.State.Wait:
                                     {
                                         btnBack.interactable = false;
                                         if (tvBack != null)
-                                            tvBack.text = txtLeaving.get("Leaving...");
+                                            tvBack.text = txtLeaving.get();
                                     }
                                     break;
                                 default:

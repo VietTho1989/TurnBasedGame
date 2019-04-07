@@ -467,40 +467,40 @@ namespace Ads
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Ads Manager");
 
         public Text lbVideoType;
-        private static readonly TxtLanguage txtVideoType = new TxtLanguage();
+        private static readonly TxtLanguage txtVideoType = new TxtLanguage("Video type");
 
         public Text lbShowBtnViewAds;
-        private static readonly TxtLanguage txtShowBtnViewAds = new TxtLanguage();
+        private static readonly TxtLanguage txtShowBtnViewAds = new TxtLanguage("Show btn view ads");
 
         public Text lbBannerType;
-        private static readonly TxtLanguage txtBannerType = new TxtLanguage();
+        private static readonly TxtLanguage txtBannerType = new TxtLanguage("Banner type");
 
         public Text lbHideBannerDurationAfterClick;
-        private static readonly TxtLanguage txtHideBannerDurationAfterClick = new TxtLanguage();
+        private static readonly TxtLanguage txtHideBannerDurationAfterClick = new TxtLanguage("Hide banner");
 
         public Text lbHideAdsWhenStartPlay;
-        private static readonly TxtLanguage txtHideAdsWhenStartPlay = new TxtLanguage();
+        private static readonly TxtLanguage txtHideAdsWhenStartPlay = new TxtLanguage("Hide ads when start play");
 
         public Text lbShowAdsWhenGameEnd;
-        private static readonly TxtLanguage txtShowAdsWhenGameEnd = new TxtLanguage();
+        private static readonly TxtLanguage txtShowAdsWhenGameEnd = new TxtLanguage("Show banner when game end");
 
         public Text lbHideAdsWhenGameStart;
-        private static readonly TxtLanguage txtHideAdsWhenGameStart = new TxtLanguage();
+        private static readonly TxtLanguage txtHideAdsWhenGameStart = new TxtLanguage("Hide banner when game start");
 
         public Text lbShowAdsWhenGamePause;
-        private static readonly TxtLanguage txtShowAdsWhenGamePause = new TxtLanguage();
+        private static readonly TxtLanguage txtShowAdsWhenGamePause = new TxtLanguage("Show banner when game pause");
 
         public Text lbHideAdsWhenGameNotPause;
-        private static readonly TxtLanguage txtHideAdsWhenGameNotPause = new TxtLanguage();
+        private static readonly TxtLanguage txtHideAdsWhenGameNotPause = new TxtLanguage("Hide banner when game not pause");
 
         public Text lbReloadBannerInterval;
-        private static readonly TxtLanguage txtReloadBannerInterval = new TxtLanguage();
+        private static readonly TxtLanguage txtReloadBannerInterval = new TxtLanguage("Reload banner");
 
         public Text lbAdmobVideoType;
-        private static readonly TxtLanguage txtAdmobVideoType = new TxtLanguage();
+        private static readonly TxtLanguage txtAdmobVideoType = new TxtLanguage("Admob video type");
 
         static AdsManagerUI()
         {
@@ -1539,7 +1539,7 @@ namespace Ads
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Ads Manager");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -1547,7 +1547,7 @@ namespace Ads
                         }
                         if (lbVideoType != null)
                         {
-                            lbVideoType.text = txtVideoType.get("Video type");
+                            lbVideoType.text = txtVideoType.get();
                         }
                         else
                         {
@@ -1555,7 +1555,7 @@ namespace Ads
                         }
                         if (lbShowBtnViewAds != null)
                         {
-                            lbShowBtnViewAds.text = txtShowBtnViewAds.get("Show btn view ads");
+                            lbShowBtnViewAds.text = txtShowBtnViewAds.get();
                         }
                         else
                         {
@@ -1563,7 +1563,7 @@ namespace Ads
                         }
                         if (lbBannerType != null)
                         {
-                            lbBannerType.text = txtBannerType.get("Banner type");
+                            lbBannerType.text = txtBannerType.get();
                         }
                         else
                         {
@@ -1571,7 +1571,7 @@ namespace Ads
                         }
                         if (lbHideBannerDurationAfterClick != null)
                         {
-                            lbHideBannerDurationAfterClick.text = txtHideBannerDurationAfterClick.get("Hide banner");
+                            lbHideBannerDurationAfterClick.text = txtHideBannerDurationAfterClick.get();
                         }
                         else
                         {
@@ -1579,7 +1579,7 @@ namespace Ads
                         }
                         if (lbHideAdsWhenStartPlay != null)
                         {
-                            lbHideAdsWhenStartPlay.text = txtHideAdsWhenStartPlay.get("Hide ads when start play");
+                            lbHideAdsWhenStartPlay.text = txtHideAdsWhenStartPlay.get();
                         }
                         else
                         {
@@ -1587,7 +1587,7 @@ namespace Ads
                         }
                         if (lbShowAdsWhenGameEnd != null)
                         {
-                            lbShowAdsWhenGameEnd.text = txtShowAdsWhenGameEnd.get("Show banner when game end");
+                            lbShowAdsWhenGameEnd.text = txtShowAdsWhenGameEnd.get();
                         }
                         else
                         {
@@ -1595,7 +1595,7 @@ namespace Ads
                         }
                         if (lbHideAdsWhenGameStart != null)
                         {
-                            lbHideAdsWhenGameStart.text = txtHideAdsWhenGameStart.get("Hide banner when game start");
+                            lbHideAdsWhenGameStart.text = txtHideAdsWhenGameStart.get();
                         }
                         else
                         {
@@ -1603,7 +1603,7 @@ namespace Ads
                         }
                         if (lbShowAdsWhenGamePause != null)
                         {
-                            lbShowAdsWhenGamePause.text = txtShowAdsWhenGamePause.get("Show banner when game pause");
+                            lbShowAdsWhenGamePause.text = txtShowAdsWhenGamePause.get();
                         }
                         else
                         {
@@ -1611,7 +1611,7 @@ namespace Ads
                         }
                         if(lbHideAdsWhenGameNotPause != null)
                         {
-                            lbHideAdsWhenGameNotPause.text = txtHideAdsWhenGameNotPause.get("Hide banner when game not pause");
+                            lbHideAdsWhenGameNotPause.text = txtHideAdsWhenGameNotPause.get();
                         }
                         else
                         {
@@ -1619,7 +1619,7 @@ namespace Ads
                         }
                         if (lbReloadBannerInterval != null)
                         {
-                            lbReloadBannerInterval.text = txtReloadBannerInterval.get("Reload banner");
+                            lbReloadBannerInterval.text = txtReloadBannerInterval.get();
                         }
                         else
                         {
@@ -1627,7 +1627,7 @@ namespace Ads
                         }
                         if (lbAdmobVideoType != null)
                         {
-                            lbAdmobVideoType.text = txtAdmobVideoType.get("Admob video type");
+                            lbAdmobVideoType.text = txtAdmobVideoType.get();
                         }
                         else
                         {

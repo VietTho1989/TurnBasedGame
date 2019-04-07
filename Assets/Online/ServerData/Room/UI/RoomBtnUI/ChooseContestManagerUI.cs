@@ -69,7 +69,7 @@ namespace GameManager.Match
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Choose Tournament");
 
         static ChooseContestManagerUI()
         {
@@ -176,7 +176,7 @@ namespace GameManager.Match
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Choose Tournament");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {

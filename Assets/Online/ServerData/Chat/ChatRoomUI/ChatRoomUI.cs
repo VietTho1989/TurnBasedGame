@@ -101,10 +101,10 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
     #region txt
 
     public Text tvSend;
-    public static readonly TxtLanguage txtSend = new TxtLanguage();
+    private static readonly TxtLanguage txtSend = new TxtLanguage("Send");
 
     public Text edtMessagePlaceHolder;
-    public static readonly TxtLanguage txtMessagePlaceHolder = new TxtLanguage();
+    private static readonly TxtLanguage txtMessagePlaceHolder = new TxtLanguage("Please type your message");
 
     static ChatRoomUI()
     {
@@ -360,7 +360,7 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
                     {
                         if (tvSend != null)
                         {
-                            tvSend.text = txtSend.get("Send");
+                            tvSend.text = txtSend.get();
                         }
                         else
                         {
@@ -368,7 +368,7 @@ public class ChatRoomUI : UIBehavior<ChatRoomUI.UIData>
                         }
                         if (edtMessagePlaceHolder != null)
                         {
-                            edtMessagePlaceHolder.text = txtMessagePlaceHolder.get("Please type your message");
+                            edtMessagePlaceHolder.text = txtMessagePlaceHolder.get();
                         }
                         else
                         {

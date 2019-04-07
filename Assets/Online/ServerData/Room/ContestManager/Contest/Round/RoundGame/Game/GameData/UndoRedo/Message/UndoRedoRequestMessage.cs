@@ -138,15 +138,15 @@ public class UndoRedoRequestMessage : ChatMessage.Content
         string ret = "";
         {
             // operation
-            string strOperation = UndoRedoRequestMessageUI.txtUndo.get("undo");
+            string strOperation = UndoRedoRequestMessageUI.txtUndo.get();
             {
                 switch (this.operation.v)
                 {
                     case UndoRedoRequest.Operation.Undo:
-                        strOperation = UndoRedoRequestMessageUI.txtUndo.get("undo");
+                        strOperation = UndoRedoRequestMessageUI.txtUndo.get();
                         break;
                     case UndoRedoRequest.Operation.Redo:
-                        strOperation = UndoRedoRequestMessageUI.txtRedo.get("redo");
+                        strOperation = UndoRedoRequestMessageUI.txtRedo.get();
                         break;
                     default:
                         Debug.LogError("unknown operation: " + this.operation.v);
@@ -157,13 +157,13 @@ public class UndoRedoRequestMessage : ChatMessage.Content
             switch (this.action.v)
             {
                 case UndoRedoRequestMessage.Action.Ask:
-                    ret = "<color=grey>" + userName + "</color> " + UndoRedoRequestMessageUI.txtAsk.get("request") + " " + strOperation;
+                    ret = "<color=grey>" + userName + "</color> " + UndoRedoRequestMessageUI.txtAsk.get() + " " + strOperation;
                     break;
                 case UndoRedoRequestMessage.Action.Accept:
-                    ret = "<color=grey>" + userName + "</color> " + UndoRedoRequestMessageUI.txtAccept.get("accept") + " " + strOperation;
+                    ret = "<color=grey>" + userName + "</color> " + UndoRedoRequestMessageUI.txtAccept.get() + " " + strOperation;
                     break;
                 case UndoRedoRequestMessage.Action.Refuse:
-                    ret = "<color=grey>" + userName + "</color> " + UndoRedoRequestMessageUI.txtRefuse.get("refuse") + " " + strOperation;
+                    ret = "<color=grey>" + userName + "</color> " + UndoRedoRequestMessageUI.txtRefuse.get() + " " + strOperation;
                     break;
                 default:
                     Debug.LogError("unknown action: " + this.action.v + "; " + this);

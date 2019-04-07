@@ -58,7 +58,7 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
 
     #region txt, rect
 
-    private static readonly TxtLanguage txtLoadError = new TxtLanguage();
+    private static readonly TxtLanguage txtLoadError = new TxtLanguage("Load game messages error");
 
     static InformGameMessageUI()
     {
@@ -463,7 +463,7 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
         {
             yield return new Wait(Global.WaitSendTime);
             this.data.state.v = UIData.State.None;
-            Toast.showMessage(txtLoadError.get("Load game messages error"));
+            Toast.showMessage(txtLoadError.get());
             Debug.LogError("request error: " + this);
         }
         else

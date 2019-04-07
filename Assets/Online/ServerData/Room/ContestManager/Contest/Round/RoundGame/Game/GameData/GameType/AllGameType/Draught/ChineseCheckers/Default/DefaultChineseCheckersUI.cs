@@ -49,7 +49,7 @@ namespace ChineseCheckers
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Default Chinese Checkers");
 
         static DefaultChineseCheckersUI()
         {
@@ -230,7 +230,7 @@ namespace ChineseCheckers
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Default Chinese Checkers");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {

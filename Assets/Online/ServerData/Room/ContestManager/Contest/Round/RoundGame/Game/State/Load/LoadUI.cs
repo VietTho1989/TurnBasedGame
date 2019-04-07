@@ -42,12 +42,10 @@ namespace GameState
 
         #endregion
 
-        #region Refresh
-
         #region txt, rect
 
         public Text tvMessage;
-        public static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("Loading");
 
         static LoadUI()
         {
@@ -58,6 +56,8 @@ namespace GameState
         }
 
         #endregion
+
+        #region Refresh
 
         public override void refresh()
         {
@@ -79,7 +79,7 @@ namespace GameState
                     {
                         if (tvMessage != null)
                         {
-                            tvMessage.text = txtMessage.get("Loading");
+                            tvMessage.text = txtMessage.get();
                         }
                         else
                         {

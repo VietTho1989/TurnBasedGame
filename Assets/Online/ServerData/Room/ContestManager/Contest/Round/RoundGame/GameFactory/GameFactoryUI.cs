@@ -142,13 +142,13 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Game Factory");
 
     public Text lbGameDataFactoryType;
-    private static readonly TxtLanguage txtGameDataFactoryType = new TxtLanguage();
+    private static readonly TxtLanguage txtGameDataFactoryType = new TxtLanguage("Game factory type");
 
-    private static readonly TxtLanguage txtDefault = new TxtLanguage();
-    private static readonly TxtLanguage txtPosture = new TxtLanguage();
+    private static readonly TxtLanguage txtDefault = new TxtLanguage("Default");
+    private static readonly TxtLanguage txtPosture = new TxtLanguage("Posture");
 
     static GameFactoryUI()
     {
@@ -245,8 +245,8 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                                         {
                                             List<string> options = new List<string>();
                                             {
-                                                options.Add(txtDefault.get("Default"));
-                                                options.Add(txtPosture.get("Posture"));
+                                                options.Add(txtDefault.get());
+                                                options.Add(txtPosture.get());
                                             }
                                             gameDataFactoryType.options.copyList(options);
                                         }
@@ -561,7 +561,7 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Game Factory");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -569,7 +569,7 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                     }
                     if (lbGameDataFactoryType != null)
                     {
-                        lbGameDataFactoryType.text = txtGameDataFactoryType.get("Game factory type");
+                        lbGameDataFactoryType.text = txtGameDataFactoryType.get();
                     }
                     else
                     {

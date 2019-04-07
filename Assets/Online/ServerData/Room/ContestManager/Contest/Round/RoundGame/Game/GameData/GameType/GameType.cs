@@ -54,222 +54,198 @@ public abstract class GameType : Data
         {
             // CHESS
             {
-                TxtLanguage txt = new TxtLanguage();
+                TxtLanguage txt = new TxtLanguage("Chess");
                 {
                     txt.add(Language.Type.vi, "Cờ Vua");
-                    txt.add(Language.Type.en, "Chess");
                 }
                 typeTxtDict.Add(Type.CHESS, txt);
             }
             // Shatranj
             {
-                TxtLanguage txt = new TxtLanguage();
+                TxtLanguage txt = new TxtLanguage("Shatranj");
                 {
                     txt.add(Language.Type.vi, "Cờ Ba Tư (Shatranj)");
-                    txt.add(Language.Type.en, "Shatranj");
                 }
                 typeTxtDict.Add(Type.Shatranj, txt);
             }
             // Makruk
             {
-                TxtLanguage txt = new TxtLanguage();
+                TxtLanguage txt = new TxtLanguage("Makruk");
                 {
                     txt.add(Language.Type.vi, "Cờ Thái (Makruk)");
-                    txt.add(Language.Type.en, "Makruk");
                 }
                 typeTxtDict.Add(Type.Makruk, txt);
             }
             // Seirawan
             {
-                TxtLanguage txt = new TxtLanguage();
+                TxtLanguage txt = new TxtLanguage("Seirawan Chess");
                 {
                     txt.add(Language.Type.vi, "Cờ Vua Seirawan");
-                    txt.add(Language.Type.en, "Seirawan Chess");
                 }
                 typeTxtDict.Add(Type.Seirawan, txt);
             }
             // FairyChess
             {
-                TxtLanguage txt = new TxtLanguage();
+                TxtLanguage txt = new TxtLanguage("Fairy Chess");
                 {
                     txt.add(Language.Type.vi, "Các Biến Thể Cờ Vua");
-                    txt.add(Language.Type.en, "Fairy Chess");
                 }
                 typeTxtDict.Add(Type.FairyChess, txt);
             }
 
             // Weiqi
             {
-                TxtLanguage txt = new TxtLanguage();
+                TxtLanguage txt = new TxtLanguage("Go");
                 {
                     txt.add(Language.Type.vi, "Cờ Vây");
-                    txt.add(Language.Type.en, "Go");
                 }
                 typeTxtDict.Add(Type.Weiqi, txt);
             }
             // SHOGI
             {
-                TxtLanguage txt = new TxtLanguage();
+                TxtLanguage txt = new TxtLanguage("Shogi");
                 {
                     txt.add(Language.Type.vi, "Cờ Tướng Nhật (Shogi)");
-                    txt.add(Language.Type.en, "Shogi");
                 }
                 typeTxtDict.Add(Type.SHOGI, txt);
             }
             // ROCK_SCISSOR_PAPER
             {
-                TxtLanguage txt = new TxtLanguage();
+                TxtLanguage txt = new TxtLanguage("Rock Scissor Paper");
                 {
                     txt.add(Language.Type.vi, "Oẳn Tù Tì");
-                    txt.add(Language.Type.en, "Rock Scissor Paper");
                 }
                 typeTxtDict.Add(Type.ROCK_SCISSOR_PAPER, txt);
             }
             // Reversi
             {
-                TxtLanguage txt = new TxtLanguage();
+                TxtLanguage txt = new TxtLanguage("Reversi");
                 {
                     txt.add(Language.Type.vi, "Cờ Othello");
-                    txt.add(Language.Type.en, "Reversi");
                 }
                 typeTxtDict.Add(Type.Reversi, txt);
             }
 
             // Xiangqi
             {
-                TxtLanguage txt = new TxtLanguage();
+                TxtLanguage txt = new TxtLanguage("Chinese Chess");
                 {
                     txt.add(Language.Type.vi, "Cờ Tướng");
-                    txt.add(Language.Type.en, "Chinese Chess");
                 }
                 typeTxtDict.Add(Type.Xiangqi, txt);
             }
             // CO_TUONG_UP
             {
-                TxtLanguage txt = new TxtLanguage();
+                TxtLanguage txt = new TxtLanguage("Vietnamese Hidden Chess");
                 {
                     txt.add(Language.Type.vi, "Cờ Úp");
-                    txt.add(Language.Type.en, "Vietnamese Hidden Chess");
                 }
                 typeTxtDict.Add(Type.CO_TUONG_UP, txt);
             }
             // Janggi
             {
-                TxtLanguage txt = new TxtLanguage();
+                TxtLanguage txt = new TxtLanguage("Janggi");
                 {
                     txt.add(Language.Type.vi, "Cờ Tướng Triều Tiên (Janggi)");
-                    txt.add(Language.Type.en, "Janggi");
                 }
                 typeTxtDict.Add(Type.Janggi, txt);
             }
             // Banqi
             {
-                TxtLanguage txt = new TxtLanguage();
+                TxtLanguage txt = new TxtLanguage("Banqi");
                 {
                     txt.add(Language.Type.vi, "Banqi");
-                    txt.add(Language.Type.en, "Banqi");
                 }
                 typeTxtDict.Add(Type.Banqi, txt);
             }
             // Gomoku
             {
-                TxtLanguage txt = new TxtLanguage();
+                TxtLanguage txt = new TxtLanguage("Gomoku");
                 {
                     txt.add(Language.Type.vi, "Cờ Caro (Gomoku)");
-                    txt.add(Language.Type.en, "Gomoku");
                 }
                 typeTxtDict.Add(Type.Gomoku, txt);
             }
 
             // InternationalDraught
             {
-                TxtLanguage txt = new TxtLanguage();
+                TxtLanguage txt = new TxtLanguage("International Draught");
                 {
                     txt.add(Language.Type.vi, "Cờ Đam Quốc Tế (International Draught)");
-                    txt.add(Language.Type.en, "International Draught");
                 }
                 typeTxtDict.Add(Type.InternationalDraught, txt);
             }
             // EnglishDraught
             {
-                TxtLanguage txt = new TxtLanguage();
+                TxtLanguage txt = new TxtLanguage("English Draught");
                 {
                     txt.add(Language.Type.vi, "Cờ Đam Anh (English Draught)");
-                    txt.add(Language.Type.en, "English Draught");
                 }
                 typeTxtDict.Add(Type.EnglishDraught, txt);
             }
             // RussianDraught
             {
-                TxtLanguage txt = new TxtLanguage();
+                TxtLanguage txt = new TxtLanguage("Russian Draught");
                 {
                     txt.add(Language.Type.vi, "Cờ Đam Nga (Russian Draught)");
-                    txt.add(Language.Type.en, "Russian Draught");
                 }
                 typeTxtDict.Add(Type.RussianDraught, txt);
             }
             // ChineseCheckers
             {
-                TxtLanguage txt = new TxtLanguage();
+                TxtLanguage txt = new TxtLanguage("Chinese Checkers");
                 {
                     txt.add(Language.Type.vi, "Chinese Checkers");
-                    txt.add(Language.Type.en, "Chinese Checkers");
                 }
                 typeTxtDict.Add(Type.ChineseCheckers, txt);
             }
 
             // MineSweeper
             {
-                TxtLanguage txt = new TxtLanguage();
+                TxtLanguage txt = new TxtLanguage("Minesweeper");
                 {
                     txt.add(Language.Type.vi, "Dò Mìn");
-                    txt.add(Language.Type.en, "Minesweeper");
                 }
                 typeTxtDict.Add(Type.MineSweeper, txt);
             }
             // Hex
             {
-                TxtLanguage txt = new TxtLanguage();
+                TxtLanguage txt = new TxtLanguage("Hex");
                 {
                     txt.add(Language.Type.vi, "Hex");
-                    txt.add(Language.Type.en, "Hex");
                 }
                 typeTxtDict.Add(Type.Hex, txt);
             }
             // Solitaire
             {
-                TxtLanguage txt = new TxtLanguage();
+                TxtLanguage txt = new TxtLanguage("Solitaire");
                 {
                     txt.add(Language.Type.vi, "Solitaire");
-                    txt.add(Language.Type.en, "Solitaire");
                 }
                 typeTxtDict.Add(Type.Solitaire, txt);
             }
 
             // Sudoku
             {
-                TxtLanguage txt = new TxtLanguage();
+                TxtLanguage txt = new TxtLanguage("Sudoku");
                 {
                     txt.add(Language.Type.vi, "Sudoku");
-                    txt.add(Language.Type.en, "Sudoku");
                 }
                 typeTxtDict.Add(Type.Sudoku, txt);
             }
             // Khet
             {
-                TxtLanguage txt = new TxtLanguage();
+                TxtLanguage txt = new TxtLanguage("Khet");
                 {
                     txt.add(Language.Type.vi, "Khet");
-                    txt.add(Language.Type.en, "Khet");
                 }
                 typeTxtDict.Add(Type.Khet, txt);
             }
             // NineMenMorris
             {
-                TxtLanguage txt = new TxtLanguage();
+                TxtLanguage txt = new TxtLanguage("Nine Men's Morris");
                 {
                     txt.add(Language.Type.vi, "Nine Men's Morris");
-                    txt.add(Language.Type.en, "Nine Men's Morris");
                 }
                 typeTxtDict.Add(Type.NineMenMorris, txt);
             }
@@ -287,7 +263,7 @@ public abstract class GameType : Data
                     TxtLanguage txtGameType = null;
                     if (typeTxtDict.TryGetValue(gameType, out txtGameType))
                     {
-                        strGameType = txtGameType.get(gameType.ToString());
+                        strGameType = txtGameType.get();
                     }
                 }
                 ret.Add(strGameType);
@@ -303,7 +279,7 @@ public abstract class GameType : Data
             TxtLanguage txtGameType = null;
             if (typeTxtDict.TryGetValue(gameType, out txtGameType))
             {
-                ret = txtGameType.get(gameType.ToString());
+                ret = txtGameType.get();
             }
         }
         return ret;

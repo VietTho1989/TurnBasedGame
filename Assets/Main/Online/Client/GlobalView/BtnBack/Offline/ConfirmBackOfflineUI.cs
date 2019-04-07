@@ -51,21 +51,19 @@ public class ConfirmBackOfflineUI : UIBehavior<ConfirmBackOfflineUI.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Confirm Back");
 
     public Text tvMessage;
-    private static readonly TxtLanguage txtMessage = new TxtLanguage();
+    private static readonly TxtLanguage txtMessage = new TxtLanguage("Are you sure to back?");
 
     public Text tvConfirm;
-    private static readonly TxtLanguage txtConfirm = new TxtLanguage();
+    private static readonly TxtLanguage txtConfirm = new TxtLanguage("Confirm");
 
     public Text tvCancel;
-    private static TxtLanguage txtCancel = new TxtLanguage();
+    private static TxtLanguage txtCancel = new TxtLanguage("Cancel");
 
     static ConfirmBackOfflineUI()
     {
@@ -77,6 +75,8 @@ public class ConfirmBackOfflineUI : UIBehavior<ConfirmBackOfflineUI.UIData>
 
     #endregion
 
+    #region Refresh
+
     public override void refresh()
     {
         if (dirty)
@@ -86,7 +86,7 @@ public class ConfirmBackOfflineUI : UIBehavior<ConfirmBackOfflineUI.UIData>
             {
                 if (lbTitle != null)
                 {
-                    lbTitle.text = txtTitle.get("Confirm Back");
+                    lbTitle.text = txtTitle.get();
                 }
                 else
                 {
@@ -94,7 +94,7 @@ public class ConfirmBackOfflineUI : UIBehavior<ConfirmBackOfflineUI.UIData>
                 }
                 if (tvMessage != null)
                 {
-                    tvMessage.text = txtMessage.get("Are you sure to back?");
+                    tvMessage.text = txtMessage.get();
                 }
                 else
                 {
@@ -102,7 +102,7 @@ public class ConfirmBackOfflineUI : UIBehavior<ConfirmBackOfflineUI.UIData>
                 }
                 if (tvConfirm != null)
                 {
-                    tvConfirm.text = txtConfirm.get("Confirm");
+                    tvConfirm.text = txtConfirm.get();
                 }
                 else
                 {
@@ -110,7 +110,7 @@ public class ConfirmBackOfflineUI : UIBehavior<ConfirmBackOfflineUI.UIData>
                 }
                 if (tvCancel != null)
                 {
-                    tvCancel.text = txtCancel.get("Cancel");
+                    tvCancel.text = txtCancel.get();
                 }
                 else
                 {

@@ -60,7 +60,7 @@ namespace GameManager.Match.Swap
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Swap Player Request");
 
         static HaveRequestSwapPlayerUI()
         {
@@ -103,7 +103,7 @@ namespace GameManager.Match.Swap
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Swap Player Request");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {

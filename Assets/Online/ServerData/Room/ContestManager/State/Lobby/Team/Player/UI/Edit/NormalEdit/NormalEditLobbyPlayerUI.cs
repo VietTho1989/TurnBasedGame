@@ -58,10 +58,10 @@ namespace GameManager.Match
         #region txt, rect
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Normal Edit Lobby Player");
 
         public Text tvCannotEdit;
-        private static readonly TxtLanguage txtCannotEdit = new TxtLanguage();
+        private static readonly TxtLanguage txtCannotEdit = new TxtLanguage("Don't have rights to edit");
 
         static NormalEditLobbyPlayerUI()
         {
@@ -164,7 +164,7 @@ namespace GameManager.Match
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Normal Edit Lobby Player");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -172,7 +172,7 @@ namespace GameManager.Match
                             }
                             if (tvCannotEdit != null)
                             {
-                                tvCannotEdit.text = txtCannotEdit.get("Don't have rights to edit");
+                                tvCannotEdit.text = txtCannotEdit.get();
                             }
                             else
                             {

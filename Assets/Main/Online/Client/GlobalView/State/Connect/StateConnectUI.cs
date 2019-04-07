@@ -61,12 +61,10 @@ public class StateConnectUI : UIBehavior<StateConnectUI.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text tvOnline;
-    public static readonly TxtLanguage txtOnline = new TxtLanguage();
+    private static readonly TxtLanguage txtOnline = new TxtLanguage("Online");
 
     static StateConnectUI()
     {
@@ -74,6 +72,8 @@ public class StateConnectUI : UIBehavior<StateConnectUI.UIData>
     }
 
     #endregion
+
+    #region Refresh
 
     public override void refresh()
     {
@@ -101,7 +101,7 @@ public class StateConnectUI : UIBehavior<StateConnectUI.UIData>
                     {
                         if (tvOnline != null)
                         {
-                            tvOnline.text = txtOnline.get("Online");
+                            tvOnline.text = txtOnline.get();
                         }
                         else
                         {

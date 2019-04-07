@@ -97,10 +97,10 @@ namespace Solitaire
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Default Solitaire");
 
         public Text lbDrawCount;
-        public static readonly TxtLanguage txtDrawCount = new TxtLanguage();
+        private static readonly TxtLanguage txtDrawCount = new TxtLanguage("Draw count");
 
         static DefaultSolitaireUI()
         {
@@ -371,7 +371,7 @@ namespace Solitaire
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Default Solitaire");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -379,7 +379,7 @@ namespace Solitaire
                             }
                             if (lbDrawCount != null)
                             {
-                                lbDrawCount.text = txtDrawCount.get("Draw count");
+                                lbDrawCount.text = txtDrawCount.get();
                             }
                             else
                             {

@@ -41,10 +41,10 @@ namespace LoginState
         #region txt
 
         public Text tvReason;
-        private static readonly TxtLanguage txtTimeOut = new TxtLanguage();
-        private static readonly TxtLanguage txtConnectFail = new TxtLanguage();
-        private static readonly TxtLanguage txtWrongPassword = new TxtLanguage();
-        private static readonly TxtLanguage txtGetFacebookDataFail = new TxtLanguage();
+        private static readonly TxtLanguage txtTimeOut = new TxtLanguage("Login fail, timeout");
+        private static readonly TxtLanguage txtConnectFail = new TxtLanguage("Login fail, connect fail");
+        private static readonly TxtLanguage txtWrongPassword = new TxtLanguage("Login fail, email or password wrong");
+        private static readonly TxtLanguage txtGetFacebookDataFail = new TxtLanguage("Login fail, get facebook data fail");
 
         static StateFailUI()
         {
@@ -74,16 +74,16 @@ namespace LoginState
                             switch (stateFail.reason.v)
                             {
                                 case StateFail.Reason.TimeOut:
-                                    tvReason.text = txtTimeOut.get("Login fail, timeout");
+                                    tvReason.text = txtTimeOut.get();
                                     break;
                                 case StateFail.Reason.ConnectFail:
-                                    tvReason.text = txtConnectFail.get("Login fail, connect fail");
+                                    tvReason.text = txtConnectFail.get();
                                     break;
                                 case StateFail.Reason.WrongPassword:
-                                    tvReason.text = txtWrongPassword.get("Login fail, email or password wrong");
+                                    tvReason.text = txtWrongPassword.get();
                                     break;
                                 case StateFail.Reason.GetFacebookDataFail:
-                                    tvReason.text = txtGetFacebookDataFail.get("Login fail, get facebook data fail");
+                                    tvReason.text = txtGetFacebookDataFail.get();
                                     break;
                                 default:
                                     Debug.LogError("unknown reason: " + stateFail.reason.v + "; " + this);

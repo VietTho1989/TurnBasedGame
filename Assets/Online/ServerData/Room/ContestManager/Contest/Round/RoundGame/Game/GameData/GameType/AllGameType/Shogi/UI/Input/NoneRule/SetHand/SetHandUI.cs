@@ -88,7 +88,7 @@ namespace Shogi.NoneRule
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = ClickPosTxt.txtSetHandTitle.get(ClickPosTxt.DefaultSetHandTitle);
+                            lbTitle.text = ClickPosTxt.txtSetHandTitle.get();
                         }
                         else
                         {
@@ -96,7 +96,7 @@ namespace Shogi.NoneRule
                         }
                         if (edtPieceCountPlaceHolder != null)
                         {
-                            edtPieceCountPlaceHolder.text = ClickPosTxt.txtEdtPieceCountPlaceHolder.get(ClickPosTxt.DefaultEdtPieceCountPlaceHolder);
+                            edtPieceCountPlaceHolder.text = ClickPosTxt.txtEdtPieceCountPlaceHolder.get();
                         }
                         else
                         {
@@ -104,7 +104,7 @@ namespace Shogi.NoneRule
                         }
                         if (tvSet != null)
                         {
-                            tvSet.text = ClickPosTxt.txtSet.get(ClickPosTxt.DefaultSet);
+                            tvSet.text = ClickPosTxt.txtSet.get();
                         }
                         else
                         {

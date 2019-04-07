@@ -97,10 +97,10 @@ namespace Gomoku
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Default Gomoku");
 
         public Text lbBoardSize;
-        public static readonly TxtLanguage txtBoardSize = new TxtLanguage();
+        private static readonly TxtLanguage txtBoardSize = new TxtLanguage("Board size");
 
         static DefaultGomokuUI()
         {
@@ -371,7 +371,7 @@ namespace Gomoku
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Default Gomoku");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -379,7 +379,7 @@ namespace Gomoku
                             }
                             if (lbBoardSize != null)
                             {
-                                lbBoardSize.text = txtBoardSize.get("Board size");
+                                lbBoardSize.text = txtBoardSize.get();
                             }
                             else
                             {

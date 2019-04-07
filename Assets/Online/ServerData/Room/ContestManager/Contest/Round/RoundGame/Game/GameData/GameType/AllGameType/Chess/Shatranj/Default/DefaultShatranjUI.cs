@@ -87,10 +87,10 @@ namespace Shatranj
         #region txt
 
         public Text lbTitle;
-        public static TxtLanguage txtTitle = new TxtLanguage();
+        private static TxtLanguage txtTitle = new TxtLanguage("Default Shatranj");
 
         public Text lbChess960;
-        public static TxtLanguage txtChess960 = new TxtLanguage();
+        private static TxtLanguage txtChess960 = new TxtLanguage("Chess960");
 
         static DefaultShatranjUI()
         {
@@ -377,7 +377,7 @@ namespace Shatranj
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Default Shatranj");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -385,7 +385,7 @@ namespace Shatranj
                             }
                             if (lbChess960 != null)
                             {
-                                lbChess960.text = txtChess960.get("Chess960");
+                                lbChess960.text = txtChess960.get();
                             }
                             else
                             {

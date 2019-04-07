@@ -65,19 +65,19 @@ namespace UndoRedo
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Last Your Turn");
 
-        private static readonly TxtLanguage txtUndo = new TxtLanguage();
-        private static readonly TxtLanguage txtCancelUndo = new TxtLanguage();
-        private static readonly TxtLanguage txtUndoing = new TxtLanguage();
-        private static readonly TxtLanguage txtCannotUndo = new TxtLanguage();
+        private static readonly TxtLanguage txtUndo = new TxtLanguage("Undo");
+        private static readonly TxtLanguage txtCancelUndo = new TxtLanguage("Cancel undo?");
+        private static readonly TxtLanguage txtUndoing = new TxtLanguage("Requesting undo");
+        private static readonly TxtLanguage txtCannotUndo = new TxtLanguage("Cannot Undo");
 
-        private static readonly TxtLanguage txtRedo = new TxtLanguage();
-        private static readonly TxtLanguage txtCancelRedo = new TxtLanguage();
-        private static readonly TxtLanguage txtRedoing = new TxtLanguage();
-        private static readonly TxtLanguage txtCannotRedo = new TxtLanguage();
+        private static readonly TxtLanguage txtRedo = new TxtLanguage("Redo");
+        private static readonly TxtLanguage txtCancelRedo = new TxtLanguage("Cancel redo?");
+        private static readonly TxtLanguage txtRedoing = new TxtLanguage("Requesting redo");
+        private static readonly TxtLanguage txtCannotRedo = new TxtLanguage("Cannot Redo");
 
-        private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+        private static readonly TxtLanguage txtRequestError = new TxtLanguage("Send request error");
 
         static RequestLastYourTurnUI()
         {
@@ -225,12 +225,12 @@ namespace UndoRedo
                                                         if (undoRedoRequest.canUndo.v)
                                                         {
                                                             btnUndo.interactable = true;
-                                                            tvUndo.text = txtUndo.get("Undo");
+                                                            tvUndo.text = txtUndo.get();
                                                         }
                                                         else
                                                         {
                                                             btnUndo.interactable = false;
-                                                            tvUndo.text = txtCannotUndo.get("Cannot Undo");
+                                                            tvUndo.text = txtCannotUndo.get();
                                                         }
                                                     }
                                                     // redo
@@ -238,12 +238,12 @@ namespace UndoRedo
                                                         if (undoRedoRequest.canRedo.v)
                                                         {
                                                             btnRedo.interactable = true;
-                                                            tvRedo.text = txtRedo.get("Redo");
+                                                            tvRedo.text = txtRedo.get();
                                                         }
                                                         else
                                                         {
                                                             btnRedo.interactable = false;
-                                                            tvRedo.text = txtCannotRedo.get("Cannot Redo");
+                                                            tvRedo.text = txtCannotRedo.get();
                                                         }
                                                     }
                                                 }
@@ -253,12 +253,12 @@ namespace UndoRedo
                                                     // undo
                                                     {
                                                         btnUndo.interactable = true;
-                                                        tvUndo.text = txtCancelUndo.get("Cancel undo?");
+                                                        tvUndo.text = txtCancelUndo.get();
                                                     }
                                                     // redo
                                                     {
                                                         btnRedo.interactable = false;
-                                                        tvRedo.text = txtRedo.get("Redo");
+                                                        tvRedo.text = txtRedo.get();
                                                     }
                                                 }
                                                 break;
@@ -267,12 +267,12 @@ namespace UndoRedo
                                                     // undo
                                                     {
                                                         btnUndo.interactable = false;
-                                                        tvUndo.text = txtUndoing.get("Requesting undo");
+                                                        tvUndo.text = txtUndoing.get();
                                                     }
                                                     // redo
                                                     {
                                                         btnRedo.interactable = false;
-                                                        tvRedo.text = txtRedo.get("Redo");
+                                                        tvRedo.text = txtRedo.get();
                                                     }
                                                 }
                                                 break;
@@ -281,12 +281,12 @@ namespace UndoRedo
                                                     // undo
                                                     {
                                                         btnUndo.interactable = false;
-                                                        tvUndo.text = txtUndo.get("Undo");
+                                                        tvUndo.text = txtUndo.get();
                                                     }
                                                     // redo
                                                     {
                                                         btnRedo.interactable = true;
-                                                        tvRedo.text = txtCannotRedo.get("Cancel redo?");
+                                                        tvRedo.text = txtCancelRedo.get();
                                                     }
                                                 }
                                                 break;
@@ -295,12 +295,12 @@ namespace UndoRedo
                                                     // undo
                                                     {
                                                         btnUndo.interactable = false;
-                                                        tvUndo.text = txtUndo.get("Undo");
+                                                        tvUndo.text = txtUndo.get();
                                                     }
                                                     // redo
                                                     {
                                                         btnRedo.interactable = false;
-                                                        tvRedo.text = txtRedoing.get("Requesting redo");
+                                                        tvRedo.text = txtRedoing.get();
                                                     }
                                                 }
                                                 break;
@@ -333,7 +333,7 @@ namespace UndoRedo
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Last Your Turn");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -365,7 +365,7 @@ namespace UndoRedo
             {
                 yield return new Wait(Global.WaitSendTime);
                 this.data.state.v = UIData.State.None;
-                Toast.showMessage(txtRequestError.get("Send request error"));
+                Toast.showMessage(txtRequestError.get());
             }
             else
             {

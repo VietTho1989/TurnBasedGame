@@ -18,8 +18,8 @@ namespace TimeControl.Normal
 
         #region txt
 
-        private static readonly TxtLanguage txtLimit = new TxtLanguage();
-        private static readonly TxtLanguage txtNoLimit = new TxtLanguage();
+        private static readonly TxtLanguage txtLimit = new TxtLanguage("Have Limit");
+        private static readonly TxtLanguage txtNoLimit = new TxtLanguage("No Limit");
 
         static TimePerTurnInfo()
         {
@@ -31,8 +31,8 @@ namespace TimeControl.Normal
         {
             List<string> ret = new List<string>();
             {
-                ret.Add(txtLimit.get("Have Limit"));
-                ret.Add(txtNoLimit.get("No Limit"));
+                ret.Add(txtLimit.get());
+                ret.Add(txtNoLimit.get());
             }
             return ret;
         }

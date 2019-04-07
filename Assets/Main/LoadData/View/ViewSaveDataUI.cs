@@ -94,19 +94,19 @@ public class ViewSaveDataUI : UIBehavior<ViewSaveDataUI.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("View Saved Game");
 
     static ViewSaveDataUI()
     {
-        txtTitle.add(Language.Type.vi, "Xem Saved Game");
+        txtTitle.add(Language.Type.vi, "Xem Game Lưu Trữ");
     }
 
     #endregion
+
+    #region Refresh
 
     public Button btnBack;
     public Image background;
@@ -226,7 +226,7 @@ public class ViewSaveDataUI : UIBehavior<ViewSaveDataUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("View Saved Game");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {

@@ -39,7 +39,7 @@ public class FriendStateCancelUI : UIBehavior<FriendStateCancelUI.UIData>
     #region txt
 
     public Text tvCancel;
-    private static readonly TxtLanguage txtCancel = new TxtLanguage();
+    private static readonly TxtLanguage txtCancel = new TxtLanguage("Cancel Friend Request");
 
     static FriendStateCancelUI()
     {
@@ -64,7 +64,7 @@ public class FriendStateCancelUI : UIBehavior<FriendStateCancelUI.UIData>
                     {
                         if (tvCancel != null)
                         {
-                            tvCancel.text = txtCancel.get("Cancel Friend Request");
+                            tvCancel.text = txtCancel.get();
                         }
                         else
                         {

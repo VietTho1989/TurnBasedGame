@@ -62,10 +62,10 @@ public class StateConnectDetailUI : UIBehavior<StateConnectDetailUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTilte = new TxtLanguage();
+    private static readonly TxtLanguage txtTilte = new TxtLanguage("Server Connected");
 
-    private static readonly TxtLanguage txtAddress = new TxtLanguage();
-    private static readonly TxtLanguage txtPort = new TxtLanguage();
+    private static readonly TxtLanguage txtAddress = new TxtLanguage("Address");
+    private static readonly TxtLanguage txtPort = new TxtLanguage("Port");
 
     static StateConnectDetailUI()
     {
@@ -96,7 +96,7 @@ public class StateConnectDetailUI : UIBehavior<StateConnectDetailUI.UIData>
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTilte.get("Server Connected");
+                            lbTitle.text = txtTilte.get();
                         }
                         else
                         {
@@ -123,7 +123,7 @@ public class StateConnectDetailUI : UIBehavior<StateConnectDetailUI.UIData>
                         {
                             if (tvAddress != null)
                             {
-                                tvAddress.text = txtAddress.get("Address") + ": " + serverConfig.address.v;
+                                tvAddress.text = txtAddress.get() + ": " + serverConfig.address.v;
                             }
                             else
                             {
@@ -131,7 +131,7 @@ public class StateConnectDetailUI : UIBehavior<StateConnectDetailUI.UIData>
                             }
                             if (tvPort != null)
                             {
-                                tvPort.text = txtPort.get("Port") + ": " + serverConfig.port.v;
+                                tvPort.text = txtPort.get() + ": " + serverConfig.port.v;
                             }
                             else
                             {

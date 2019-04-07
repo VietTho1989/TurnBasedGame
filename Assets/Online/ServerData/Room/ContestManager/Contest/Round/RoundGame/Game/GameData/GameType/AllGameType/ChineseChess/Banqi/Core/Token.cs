@@ -20,25 +20,25 @@ namespace Banqi
 			SOLDIER
 		}
 
-        private static readonly TxtLanguage txtGeneral = new TxtLanguage();
-        private static readonly TxtLanguage txtAdvisor = new TxtLanguage();
-        private static readonly TxtLanguage txtElephant = new TxtLanguage();
-        private static readonly TxtLanguage txtChariot = new TxtLanguage();
-        private static readonly TxtLanguage txtHorse = new TxtLanguage();
-        private static readonly TxtLanguage txtCannon = new TxtLanguage();
-        private static readonly TxtLanguage txtSoldier = new TxtLanguage();
+        private static readonly TxtLanguage txtGeneral = new TxtLanguage("General");
+        private static readonly TxtLanguage txtAdvisor = new TxtLanguage("Advisor");
+        private static readonly TxtLanguage txtElephant = new TxtLanguage("Elephant");
+        private static readonly TxtLanguage txtChariot = new TxtLanguage("Chariot");
+        private static readonly TxtLanguage txtHorse = new TxtLanguage("Horse");
+        private static readonly TxtLanguage txtCannon = new TxtLanguage("Cannon");
+        private static readonly TxtLanguage txtSoldier = new TxtLanguage("Soldier");
 
         public static List<string> GetTxtType()
         {
             List<string> ret = new List<string>();
             {
-                ret.Add(txtGeneral.get("General"));
-                ret.Add(txtAdvisor.get("Advisor"));
-                ret.Add(txtElephant.get("Elephant"));
-                ret.Add(txtChariot.get("Chariot"));
-                ret.Add(txtHorse.get("Horse"));
-                ret.Add(txtCannon.get("Cannon"));
-                ret.Add(txtSoldier.get("Soldier"));
+                ret.Add(txtGeneral.get());
+                ret.Add(txtAdvisor.get());
+                ret.Add(txtElephant.get());
+                ret.Add(txtChariot.get());
+                ret.Add(txtHorse.get());
+                ret.Add(txtCannon.get());
+                ret.Add(txtSoldier.get());
             }
             return ret;
         }
@@ -54,17 +54,17 @@ namespace Banqi
 			None
 		}
 
-        private static readonly TxtLanguage txtRed = new TxtLanguage();
-        private static readonly TxtLanguage txtBlack = new TxtLanguage();
-        private static readonly TxtLanguage txtNone = new TxtLanguage();
+        private static readonly TxtLanguage txtRed = new TxtLanguage("Red");
+        private static readonly TxtLanguage txtBlack = new TxtLanguage("Black");
+        private static readonly TxtLanguage txtNone = new TxtLanguage("None");
 
         public static List<string> GetTxtColor()
         {
             List<string> ret = new List<string>();
             {
-                ret.Add(txtRed.get("Red"));
-                ret.Add(txtBlack.get("Black"));
-                ret.Add(txtNone.get("None"));
+                ret.Add(txtRed.get());
+                ret.Add(txtBlack.get());
+                ret.Add(txtNone.get());
             }
             return ret;
         }

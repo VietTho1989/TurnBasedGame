@@ -39,7 +39,7 @@ public class GameTopicUI : UIBehavior<GameTopicUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Game");
 
     static GameTopicUI()
     {
@@ -64,7 +64,7 @@ public class GameTopicUI : UIBehavior<GameTopicUI.UIData>
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Game");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {

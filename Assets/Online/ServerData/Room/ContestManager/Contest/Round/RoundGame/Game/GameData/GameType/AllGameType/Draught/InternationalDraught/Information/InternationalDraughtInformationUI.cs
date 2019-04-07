@@ -60,10 +60,10 @@ namespace InternationalDraught
         public Text lbTitle;
 
         public Text tvMessage;
-        private static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("https://en.wikipedia.org/wiki/International_draughts");
 
         public Text lbVariant;
-        private static readonly TxtLanguage txtVariant = new TxtLanguage();
+        private static readonly TxtLanguage txtVariant = new TxtLanguage("Variant");
 
         static InternationalDraughtInformationUI()
         {
@@ -254,7 +254,7 @@ namespace InternationalDraught
                             }
                             if (tvMessage != null)
                             {
-                                tvMessage.text = txtMessage.get("https://en.wikipedia.org/wiki/International_draughts");
+                                tvMessage.text = txtMessage.get();
                             }
                             else
                             {
@@ -262,7 +262,7 @@ namespace InternationalDraught
                             }
                             if (lbVariant != null)
                             {
-                                lbVariant.text = txtVariant.get("Variant");
+                                lbVariant.text = txtVariant.get();
                             }
                             else
                             {

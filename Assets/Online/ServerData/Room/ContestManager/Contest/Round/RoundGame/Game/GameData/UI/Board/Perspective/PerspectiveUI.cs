@@ -114,7 +114,7 @@ public class PerspectiveUI : UIBehavior<PerspectiveUI.UIData>
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    public static readonly TxtLanguage txtTitle = new TxtLanguage("Player Perspective");
 
     static PerspectiveUI()
     {
@@ -139,7 +139,7 @@ public class PerspectiveUI : UIBehavior<PerspectiveUI.UIData>
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Player Perspective") + " " + perspective.playerView.v;
+                            lbTitle.text = txtTitle.get() + " " + perspective.playerView.v;
                         }
                         else
                         {

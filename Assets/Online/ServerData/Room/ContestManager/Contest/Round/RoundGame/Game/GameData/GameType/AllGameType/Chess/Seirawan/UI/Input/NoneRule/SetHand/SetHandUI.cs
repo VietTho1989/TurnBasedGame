@@ -84,7 +84,7 @@ namespace Seirawan.NoneRule
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = ClickPosTxt.txtSetHandTitle.get(ClickPosTxt.DefaultSetHandTitle);
+                            lbTitle.text = ClickPosTxt.txtSetHandTitle.get();
                         }
                         else
                         {

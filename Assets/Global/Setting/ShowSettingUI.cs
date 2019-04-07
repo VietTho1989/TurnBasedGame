@@ -103,12 +103,12 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
     #region txt
 
     public Text tvSetting;
-    public static readonly TxtLanguage txtSetting = new TxtLanguage();
+    private static readonly TxtLanguage txtSetting = new TxtLanguage("Setting");
 
-    public static readonly TxtLanguage txtApply = new TxtLanguage();
-    public static readonly TxtLanguage txtCannotApply = new TxtLanguage();
-    public static readonly TxtLanguage txtReset = new TxtLanguage();
-    public static readonly TxtLanguage txtCannotReset = new TxtLanguage();
+    private static readonly TxtLanguage txtApply = new TxtLanguage("Apply");
+    private static readonly TxtLanguage txtCannotApply = new TxtLanguage("Can't apply");
+    private static readonly TxtLanguage txtReset = new TxtLanguage("Reset");
+    private static readonly TxtLanguage txtCannotReset = new TxtLanguage("Don't need reset");
 
     static ShowSettingUI()
     {
@@ -307,12 +307,12 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
                                             // apply
                                             {
                                                 btnApply.interactable = true;
-                                                tvApply.text = txtApply.get("Apply");
+                                                tvApply.text = txtApply.get();
                                             }
                                             // reset
                                             {
                                                 btnReset.interactable = true;
-                                                tvReset.text = txtReset.get("Reset");
+                                                tvReset.text = txtReset.get();
                                             }
                                         }
                                         else
@@ -320,12 +320,12 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
                                             // apply
                                             {
                                                 btnApply.interactable = false;
-                                                tvApply.text = txtCannotApply.get("cannot apply");
+                                                tvApply.text = txtCannotApply.get();
                                             }
                                             // reset
                                             {
                                                 btnReset.interactable = false;
-                                                tvReset.text = txtCannotReset.get("Don't need reset");
+                                                tvReset.text = txtCannotReset.get();
                                             }
                                         }
                                     }
@@ -414,7 +414,7 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
                 {
                     if (tvSetting != null)
                     {
-                        tvSetting.text = txtSetting.get("Setting");
+                        tvSetting.text = txtSetting.get();
                     }
                     else
                     {

@@ -63,12 +63,12 @@ public class FriendStateNoneUI : UIBehavior<FriendStateNoneUI.UIData>
     #region txt
 
     public Text tvMakeFriend;
-    private static readonly TxtLanguage txtMakeFriend = new TxtLanguage();
-    private static readonly TxtLanguage txtMakingFriend = new TxtLanguage();
+    private static readonly TxtLanguage txtMakeFriend = new TxtLanguage("Make Friend");
+    private static readonly TxtLanguage txtMakingFriend = new TxtLanguage("Making Friend");
 
     public Text tvBan;
-    private static readonly TxtLanguage txtBan = new TxtLanguage();
-    private static readonly TxtLanguage txtBanning = new TxtLanguage();
+    private static readonly TxtLanguage txtBan = new TxtLanguage("Ban");
+    private static readonly TxtLanguage txtBanning = new TxtLanguage("Banning");
 
     static FriendStateNoneUI()
     {
@@ -152,32 +152,32 @@ public class FriendStateNoneUI : UIBehavior<FriendStateNoneUI.UIData>
                             {
                                 case UIData.State.None:
                                     {
-                                        tvMakeFriend.text = txtMakeFriend.get("Make Friend");
-                                        tvBan.text = txtBan.get("Ban");
+                                        tvMakeFriend.text = txtMakeFriend.get();
+                                        tvBan.text = txtBan.get();
                                     }
                                     break;
                                 case UIData.State.RequestMakeFriend:
                                     {
-                                        tvMakeFriend.text = txtMakingFriend.get("Making Friend");
-                                        tvBan.text = txtBan.get("Ban");
+                                        tvMakeFriend.text = txtMakingFriend.get();
+                                        tvBan.text = txtBan.get();
                                     }
                                     break;
                                 case UIData.State.WaitMakeFriend:
                                     {
-                                        tvMakeFriend.text = txtMakingFriend.get("Making Friend");
-                                        tvBan.text = txtBan.get("Ban");
+                                        tvMakeFriend.text = txtMakingFriend.get();
+                                        tvBan.text = txtBan.get();
                                     }
                                     break;
                                 case UIData.State.RequestBan:
                                     {
-                                        tvMakeFriend.text = txtMakeFriend.get("Make Friend");
-                                        tvBan.text = txtBanning.get("Banning");
+                                        tvMakeFriend.text = txtMakeFriend.get();
+                                        tvBan.text = txtBanning.get();
                                     }
                                     break;
                                 case UIData.State.WaitMakeBan:
                                     {
-                                        tvMakeFriend.text = txtMakeFriend.get("Make Friend");
-                                        tvBan.text = txtBanning.get("Banning");
+                                        tvMakeFriend.text = txtMakeFriend.get();
+                                        tvBan.text = txtBanning.get();
                                     }
                                     break;
                                 default:

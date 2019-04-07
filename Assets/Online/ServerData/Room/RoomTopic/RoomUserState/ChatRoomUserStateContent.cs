@@ -77,25 +77,25 @@ public class ChatRoomUserStateContent : ChatMessage.Content
             switch (this.action.v)
             {
                 case ChatRoomUserStateContent.Action.Create:
-                    message = "<color=grey>" + userName + "</color> " + ChatRoomUserStateUI.txtCreate.get("create room");
+                    message = "<color=grey>" + userName + "</color> " + ChatRoomUserStateUI.txtCreate.get();
                     break;
                 case ChatRoomUserStateContent.Action.Join:
-                    message = "<color=grey>" + userName + "</color> " + ChatRoomUserStateUI.txtJoin.get("join room");
+                    message = "<color=grey>" + userName + "</color> " + ChatRoomUserStateUI.txtJoin.get();
                     break;
                 case ChatRoomUserStateContent.Action.Left:
-                    message = "<color=grey>" + userName + "</color> " + ChatRoomUserStateUI.txtLeft.get("left room");
+                    message = "<color=grey>" + userName + "</color> " + ChatRoomUserStateUI.txtLeft.get();
                     break;
                 case ChatRoomUserStateContent.Action.Disconnect:
-                    message = "<color=grey>" + userName + "</color> " + ChatRoomUserStateUI.txtDisconnect.get("disconnect");
+                    message = "<color=grey>" + userName + "</color> " + ChatRoomUserStateUI.txtDisconnect.get();
                     break;
                 case ChatRoomUserStateContent.Action.Kick:
-                    message = "<color=grey>" + userName + "</color> " + ChatRoomUserStateUI.txtKick.get("is kicked");
+                    message = "<color=grey>" + userName + "</color> " + ChatRoomUserStateUI.txtKick.get();
                     break;
                 case ChatRoomUserStateContent.Action.UnKick:
-                    message = "<color=grey>" + userName + "</color> " + ChatRoomUserStateUI.txtUnKick.get("is unkicked");
+                    message = "<color=grey>" + userName + "</color> " + ChatRoomUserStateUI.txtUnKick.get();
                     break;
                 case ChatRoomUserStateContent.Action.Ban:
-                    message = "<color=grey>" + userName + "</color> " + ChatRoomUserStateUI.txtBan.get("is banned");
+                    message = "<color=grey>" + userName + "</color> " + ChatRoomUserStateUI.txtBan.get();
                     break;
                 default:
                     Debug.LogError("unknown action: " + this.action.v + "; " + this);

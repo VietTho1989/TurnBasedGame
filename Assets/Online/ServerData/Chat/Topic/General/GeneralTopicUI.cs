@@ -44,7 +44,7 @@ public class GeneralTopicUI : UIBehavior<GeneralTopicUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("General");
 
     static GeneralTopicUI()
     {
@@ -66,7 +66,7 @@ public class GeneralTopicUI : UIBehavior<GeneralTopicUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("General");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {

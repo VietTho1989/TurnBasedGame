@@ -123,7 +123,7 @@ namespace Chess.NoneRule
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = ClickPosTxt.txtCreateByFenTitle.get(ClickPosTxt.DefaultCreateByFenTitle);
+                            lbTitle.text = ClickPosTxt.txtCreateByFenTitle.get();
                         }
                         else
                         {
@@ -131,7 +131,7 @@ namespace Chess.NoneRule
                         }
                         if (tvFenPlaceHolder != null)
                         {
-                            tvFenPlaceHolder.text = ClickPosTxt.txtCreateByFenPlaceHolder.get(ClickPosTxt.DefaultCreateByFenPlaceHolder);
+                            tvFenPlaceHolder.text = ClickPosTxt.txtCreateByFenPlaceHolder.get();
                         }
                         else
                         {
@@ -139,7 +139,7 @@ namespace Chess.NoneRule
                         }
                         if (tvCreate != null)
                         {
-                            tvCreate.text = ClickPosTxt.txtCreateByFenCreate.get(ClickPosTxt.DefaultCreateByFenCreate);
+                            tvCreate.text = ClickPosTxt.txtCreateByFenCreate.get();
                         }
                         else
                         {

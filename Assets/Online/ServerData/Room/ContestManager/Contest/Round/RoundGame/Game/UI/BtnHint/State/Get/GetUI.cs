@@ -39,7 +39,7 @@ namespace Hint
         #region txt
 
         public Text tvMessage;
-        public static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("Get hint, cancel?");
 
         static GetUI()
         {
@@ -61,7 +61,7 @@ namespace Hint
                     {
                         if (tvMessage != null)
                         {
-                            tvMessage.text = txtMessage.get("Get hint, cancel?");
+                            tvMessage.text = txtMessage.get();
                         }
                         else
                         {

@@ -111,7 +111,7 @@ public class ServerOnlineUI : UIBehavior<ServerOnlineUI.UIData>
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Server");
 
     static ServerOnlineUI()
     {
@@ -158,7 +158,7 @@ public class ServerOnlineUI : UIBehavior<ServerOnlineUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Server");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {

@@ -123,7 +123,7 @@ namespace Shogi.NoneRule
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = ClickPosTxt.txtCreateByFenTitle.get(ClickPosTxt.DefaultCreateByFenTitle);
+                            lbTitle.text = ClickPosTxt.txtCreateByFenTitle.get();
                         }
                         else
                         {
@@ -131,7 +131,7 @@ namespace Shogi.NoneRule
                         }
                         if (tvFenPlaceHolder != null)
                         {
-                            tvFenPlaceHolder.text = ClickPosTxt.txtCreateByFenPlaceHolder.get(ClickPosTxt.DefaultCreateByFenPlaceHolder);
+                            tvFenPlaceHolder.text = ClickPosTxt.txtCreateByFenPlaceHolder.get();
                         }
                         else
                         {

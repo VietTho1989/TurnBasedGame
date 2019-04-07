@@ -39,7 +39,7 @@ public class BtnPauseUnPauseUI : UIBehavior<BtnPauseUnPauseUI.UIData>
 
     #region txt
 
-    private static readonly TxtLanguage txtUnPause = new TxtLanguage();
+    private static readonly TxtLanguage txtUnPause = new TxtLanguage("Unpausing");
 
     static BtnPauseUnPauseUI()
     {
@@ -64,7 +64,7 @@ public class BtnPauseUnPauseUI : UIBehavior<BtnPauseUnPauseUI.UIData>
                 {
                     if (tvUnPause != null)
                     {
-                        tvUnPause.text = txtUnPause.get("Unpausing " + Mathf.Min(playUnPause.time.v, playUnPause.duration.v) + "/" + playUnPause.duration.v);
+                        tvUnPause.text = txtUnPause.get() + " " + Mathf.Min(playUnPause.time.v, playUnPause.duration.v) + "/" + playUnPause.duration.v;
                     }
                     else
                     {

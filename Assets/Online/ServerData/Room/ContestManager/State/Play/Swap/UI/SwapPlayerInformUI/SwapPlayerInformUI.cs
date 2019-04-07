@@ -60,8 +60,8 @@ namespace GameManager.Match.Swap
 
         #region txt
 
-        private static readonly TxtLanguage txtTeam = new TxtLanguage();
-        private static readonly TxtLanguage txtPlayer = new TxtLanguage();
+        private static readonly TxtLanguage txtTeam = new TxtLanguage("Team");
+        private static readonly TxtLanguage txtPlayer = new TxtLanguage("Player");
 
         static SwapPlayerInformUI()
         {
@@ -123,7 +123,7 @@ namespace GameManager.Match.Swap
                                         Debug.LogError("matchTeam null: " + this);
                                     }
                                 }
-                                tvTeamIndex.text = txtTeam.get("Team") + " " + teamIndex;
+                                tvTeamIndex.text = txtTeam.get() + " " + teamIndex;
                             }
                             else
                             {
@@ -135,7 +135,7 @@ namespace GameManager.Match.Swap
                         {
                             if (tvPlayerIndex != null)
                             {
-                                tvPlayerIndex.text = txtPlayer.get("Player") + " " + playerIndex;
+                                tvPlayerIndex.text = txtPlayer.get() + " " + playerIndex;
                             }
                             else
                             {

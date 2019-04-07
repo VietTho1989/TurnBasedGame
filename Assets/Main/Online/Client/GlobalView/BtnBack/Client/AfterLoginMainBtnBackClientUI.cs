@@ -114,19 +114,23 @@ public class AfterLoginMainBtnBackClientUI : UIBehavior<AfterLoginMainBtnBackCli
 
     #endregion
 
-    #region Refresh
+    #region txt
 
-    public Button btnLogOut;
-    public Text tvState;
-
-    public static readonly TxtLanguage txtLogOut = new TxtLanguage();
-    public static readonly TxtLanguage txtLoggingOut = new TxtLanguage();
+    private static readonly TxtLanguage txtLogOut = new TxtLanguage("Logout");
+    private static readonly TxtLanguage txtLoggingOut = new TxtLanguage("Logging out");
 
     static AfterLoginMainBtnBackClientUI()
     {
         txtLogOut.add(Language.Type.vi, "Đăng xuất");
         txtLoggingOut.add(Language.Type.vi, "Đang đăng xuất");
     }
+
+    #endregion
+
+    #region Refresh
+
+    public Button btnLogOut;
+    public Text tvState;
 
     public override void refresh()
     {
@@ -163,11 +167,11 @@ public class AfterLoginMainBtnBackClientUI : UIBehavior<AfterLoginMainBtnBackCli
                     switch (this.data.state.v)
                     {
                         case UIData.State.None:
-                            tvState.text = txtLogOut.get("Logout");
+                            tvState.text = txtLogOut.get();
                             break;
                         case UIData.State.LogOut:
                         case UIData.State.Wait:
-                            tvState.text = txtLoggingOut.get("Logging out");
+                            tvState.text = txtLoggingOut.get();
                             break;
                         default:
                             Debug.LogError("unknown type: " + this.data.state.v);

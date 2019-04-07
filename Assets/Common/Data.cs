@@ -767,11 +767,8 @@ public abstract class Data : AddCallBackInterface
         Later
     }
 
-    public static readonly TxtLanguage txtImmediately = new TxtLanguage();
-    public static readonly TxtLanguage txtLater = new TxtLanguage();
-
-    public const string StrImmediately = "Immediately";
-    public const string StrLater = "Later";
+    public static readonly TxtLanguage txtImmediately = new TxtLanguage("Immediately");
+    public static readonly TxtLanguage txtLater = new TxtLanguage("Later");
 
     public static void RefreshStrEditType(RequestChangeEnumUI.UIData requestEditType)
     {
@@ -779,8 +776,8 @@ public abstract class Data : AddCallBackInterface
         {
             List<string> options = new List<string>();
             {
-                options.Add(txtImmediately.get(StrImmediately));
-                options.Add(txtLater.get(StrLater));
+                options.Add(txtImmediately.get());
+                options.Add(txtLater.get());
             }
             requestEditType.options.copyList(options);
         }
@@ -794,7 +791,7 @@ public abstract class Data : AddCallBackInterface
     {
         if (drEditType != null)
         {
-            string[] options = new string[] { Data.txtImmediately.get(Data.StrImmediately), Data.txtLater.get(Data.StrLater) };
+            string[] options = new string[] { Data.txtImmediately.get(), Data.txtLater.get() };
             // remove 
             {
                 if (drEditType.options.Count > options.Length)

@@ -61,7 +61,7 @@ public class RequestChangeUseRuleStateAskUI : UIHaveTransformDataBehavior<Reques
     #region txt, rect
 
     public Text tvCannotAnswer;
-    private static readonly TxtLanguage txtCannotAnswer = new TxtLanguage();
+    private static readonly TxtLanguage txtCannotAnswer = new TxtLanguage("Don't have rights to answer");
 
     static RequestChangeUseRuleStateAskUI()
     {
@@ -164,7 +164,7 @@ public class RequestChangeUseRuleStateAskUI : UIHaveTransformDataBehavior<Reques
                     {
                         if (tvCannotAnswer != null)
                         {
-                            tvCannotAnswer.text = txtCannotAnswer.get("Don't have rights to answer");
+                            tvCannotAnswer.text = txtCannotAnswer.get();
                         }
                         else
                         {

@@ -61,14 +61,14 @@ public class GamePlayerStateSurrenderNoneUI : UIHaveTransformDataBehavior<GamePl
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Do you want to stop surrendering?");
 
-    private static readonly TxtLanguage txtRequest = new TxtLanguage();
-    private static readonly TxtLanguage txtCancelRequest = new TxtLanguage();
-    private static readonly TxtLanguage txtRequesting = new TxtLanguage();
-    private static readonly TxtLanguage txtCannotRequest = new TxtLanguage();
+    private static readonly TxtLanguage txtRequest = new TxtLanguage("Stop");
+    private static readonly TxtLanguage txtCancelRequest = new TxtLanguage("Cancel stop?");
+    private static readonly TxtLanguage txtRequesting = new TxtLanguage("Stopping");
+    private static readonly TxtLanguage txtCannotRequest = new TxtLanguage("Can't stop");
 
-    private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+    private static readonly TxtLanguage txtRequestError = new TxtLanguage("Send request to stop surrendering error");
 
     static GamePlayerStateSurrenderNoneUI()
     {
@@ -102,7 +102,7 @@ public class GamePlayerStateSurrenderNoneUI : UIHaveTransformDataBehavior<GamePl
                     // title
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Do you want to stop surrendering?");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -162,19 +162,19 @@ public class GamePlayerStateSurrenderNoneUI : UIHaveTransformDataBehavior<GamePl
                                     case UIData.State.None:
                                         {
                                             btnRequest.interactable = true;
-                                            tvRequest.text = txtRequest.get("Stop");
+                                            tvRequest.text = txtRequest.get();
                                         }
                                         break;
                                     case UIData.State.Request:
                                         {
                                             btnRequest.interactable = true;
-                                            tvRequest.text = txtCancelRequest.get("Cancel stop?");
+                                            tvRequest.text = txtCancelRequest.get();
                                         }
                                         break;
                                     case UIData.State.Wait:
                                         {
                                             btnRequest.interactable = false;
-                                            tvRequest.text = txtRequesting.get("Stopping");
+                                            tvRequest.text = txtRequesting.get();
                                         }
                                         break;
                                     default:
@@ -200,7 +200,7 @@ public class GamePlayerStateSurrenderNoneUI : UIHaveTransformDataBehavior<GamePl
                             if (btnRequest != null && tvRequest != null)
                             {
                                 btnRequest.interactable = false;
-                                tvRequest.text = txtCannotRequest.get("Can't stop");
+                                tvRequest.text = txtCannotRequest.get();
                             }
                             else
                             {
@@ -238,7 +238,7 @@ public class GamePlayerStateSurrenderNoneUI : UIHaveTransformDataBehavior<GamePl
         {
             yield return new Wait(Global.WaitSendTime);
             this.data.state.v = UIData.State.None;
-            Toast.showMessage(txtRequestError.get("Send request to stop surrendering error"));
+            Toast.showMessage(txtRequestError.get());
             Debug.LogError("request error: " + this);
         }
         else

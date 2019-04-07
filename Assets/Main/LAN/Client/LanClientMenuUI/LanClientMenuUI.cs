@@ -125,20 +125,17 @@ public class LanClientMenuUI : UIBehavior<LanClientMenuUI.UIData>
 
     #endregion
 
-    #region Refresh
-
-    private float time = 0;
-    private bool alreadyInit = false;
+    #region txt
 
     public Text tvState;
-    private static readonly TxtLanguage txtStart = new TxtLanguage();
-    private static readonly TxtLanguage txtScan = new TxtLanguage();
+    private static readonly TxtLanguage txtStart = new TxtLanguage("Starting...");
+    private static readonly TxtLanguage txtScan = new TxtLanguage("Scanning...");
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Choose LAN server");
 
     public Text tvNoLan;
-    private static readonly TxtLanguage txtNoLan = new TxtLanguage();
+    private static readonly TxtLanguage txtNoLan = new TxtLanguage("Don't have any LAN servers");
 
     static LanClientMenuUI()
     {
@@ -146,10 +143,17 @@ public class LanClientMenuUI : UIBehavior<LanClientMenuUI.UIData>
         {
             txtStart.add(Language.Type.vi, "Đang bắt đầu");
             txtScan.add(Language.Type.vi, "Đang quét");
-            txtTitle.add(Language.Type.vi, "Chọn mạng LAN");
+            txtTitle.add(Language.Type.vi, "Chọn Mạng LAN");
             txtNoLan.add(Language.Type.vi, "Không có server LAN nào cả");
         }
     }
+
+    #endregion
+
+    #region Refresh
+
+    private float time = 0;
+    private bool alreadyInit = false;
 
     public override void refresh()
     {
@@ -164,10 +168,10 @@ public class LanClientMenuUI : UIBehavior<LanClientMenuUI.UIData>
                     switch (this.data.state.v)
                     {
                         case UIData.State.Start:
-                            tvState.text = txtStart.get("Starting...");
+                            tvState.text = txtStart.get();
                             break;
                         case UIData.State.Scanning:
-                            tvState.text = txtScan.get("Scanning...");
+                            tvState.text = txtScan.get();
                             break;
                         default:
                             Debug.LogError("unknown state: " + this.data.state.v);
@@ -181,7 +185,7 @@ public class LanClientMenuUI : UIBehavior<LanClientMenuUI.UIData>
                 // lbTitle
                 if (lbTitle != null)
                 {
-                    lbTitle.text = txtTitle.get("Choose LAN server");
+                    lbTitle.text = txtTitle.get();
                 }
                 else
                 {
@@ -190,7 +194,7 @@ public class LanClientMenuUI : UIBehavior<LanClientMenuUI.UIData>
                 // tvNoLan
                 if (tvNoLan != null)
                 {
-                    tvNoLan.text = txtNoLan.get("Don't have any LAN servers");
+                    tvNoLan.text = txtNoLan.get();
                     bool haveAnyLan = false;
                     {
                         DiscoveredServers discoveredServers = this.data.discoveredServers.v;

@@ -59,7 +59,7 @@ namespace GameManager.Match.Swap
 
         #region txt
 
-        private static readonly TxtLanguage txtTeam = new TxtLanguage();
+        private static readonly TxtLanguage txtTeam = new TxtLanguage("Team");
 
         static SwapTeamHolder()
         {
@@ -87,7 +87,7 @@ namespace GameManager.Match.Swap
                         {
                             if (tvTeamIndex != null)
                             {
-                                tvTeamIndex.text = txtTeam.get("Team") + " " + matchTeam.teamIndex.v;
+                                tvTeamIndex.text = txtTeam.get() + " " + matchTeam.teamIndex.v;
                             }
                             else
                             {

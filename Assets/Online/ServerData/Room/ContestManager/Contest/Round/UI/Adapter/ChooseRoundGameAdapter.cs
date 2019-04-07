@@ -83,12 +83,10 @@ namespace GameManager.Match
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text tvNoRoundGames;
-        public static readonly TxtLanguage txtNoRoundGames = new TxtLanguage();
+        private static readonly TxtLanguage txtNoRoundGames = new TxtLanguage("Don't have any games");
 
         static ChooseRoundGameAdapter()
         {
@@ -96,6 +94,8 @@ namespace GameManager.Match
         }
 
         #endregion
+
+        #region Refresh
 
         public GameObject noRoundGames;
 
@@ -237,7 +237,7 @@ namespace GameManager.Match
                         {
                             if (tvNoRoundGames != null)
                             {
-                                tvNoRoundGames.text = txtNoRoundGames.get("Don't have any games");
+                                tvNoRoundGames.text = txtNoRoundGames.get();
                             }
                             else
                             {

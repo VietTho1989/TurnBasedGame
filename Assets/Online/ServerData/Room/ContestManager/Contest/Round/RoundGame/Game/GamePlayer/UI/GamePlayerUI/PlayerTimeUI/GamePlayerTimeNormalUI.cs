@@ -40,7 +40,7 @@ namespace TimeControl.Normal
 
         #region txt
 
-        private static readonly TxtLanguage txtTime = new TxtLanguage();
+        private static readonly TxtLanguage txtTime = new TxtLanguage("Time");
 
         static GamePlayerTimeNormalUI()
         {

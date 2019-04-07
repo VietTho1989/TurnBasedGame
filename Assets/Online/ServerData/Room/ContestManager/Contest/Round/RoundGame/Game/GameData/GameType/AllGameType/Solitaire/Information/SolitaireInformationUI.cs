@@ -56,11 +56,11 @@ namespace Solitaire
         public Text lbTitle;
 
         public Text tvMessage;
-        private static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("https://en.wikipedia.org/wiki/Patience_(game)");
 
         public Text lbDrawCount;
         public Text tvDrawCount;
-        private static readonly TxtLanguage txtDrawCount = new TxtLanguage();
+        private static readonly TxtLanguage txtDrawCount = new TxtLanguage("Draw count");
 
         static SolitaireInformationUI()
         {
@@ -178,7 +178,7 @@ namespace Solitaire
                             }
                             if (tvMessage != null)
                             {
-                                tvMessage.text = txtMessage.get("https://en.wikipedia.org/wiki/Patience_(game)");
+                                tvMessage.text = txtMessage.get();
                             }
                             else
                             {
@@ -186,7 +186,7 @@ namespace Solitaire
                             }
                             if (lbDrawCount != null)
                             {
-                                lbDrawCount.text = txtDrawCount.get("Draw count");
+                                lbDrawCount.text = txtDrawCount.get();
                             }
                             else
                             {

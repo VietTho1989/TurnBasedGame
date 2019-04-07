@@ -92,10 +92,10 @@ namespace GameManager.Match.Swap
         #region txt
 
         public Text tvHuman;
-        private static readonly TxtLanguage txtHuman = new TxtLanguage();
+        private static readonly TxtLanguage txtHuman = new TxtLanguage("Human");
 
         public Text tvComputer;
-        private static readonly TxtLanguage txtComputer = new TxtLanguage();
+        private static readonly TxtLanguage txtComputer = new TxtLanguage("Computer");
 
         static AdminRequestSwapPlayerUI()
         {
@@ -189,7 +189,7 @@ namespace GameManager.Match.Swap
                         {
                             if (tvHuman != null)
                             {
-                                tvHuman.text = txtHuman.get("Human");
+                                tvHuman.text = txtHuman.get();
                             }
                             else
                             {
@@ -197,7 +197,7 @@ namespace GameManager.Match.Swap
                             }
                             if (tvComputer != null)
                             {
-                                tvComputer.text = txtComputer.get("Computer");
+                                tvComputer.text = txtComputer.get();
                             }
                             else
                             {

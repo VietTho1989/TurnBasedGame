@@ -61,7 +61,7 @@ namespace GameManager.Match.Swap
         #region txt
 
         public Text tvChoose;
-        private static readonly TxtLanguage txtChoose = new TxtLanguage();
+        private static readonly TxtLanguage txtChoose = new TxtLanguage("Choose");
 
         static AdminRequestSwapPlayerChooseHumanHolder()
         {
@@ -125,7 +125,7 @@ namespace GameManager.Match.Swap
                     {
                         if (tvChoose != null)
                         {
-                            tvChoose.text = txtChoose.get("Choose");
+                            tvChoose.text = txtChoose.get();
                         }
                         else
                         {

@@ -61,10 +61,10 @@ public class FriendStateBanUI : UIBehavior<FriendStateBanUI.UIData>
     #region txt
 
     public Text tvUnBan;
-    private static readonly TxtLanguage txtUnBan = new TxtLanguage();
-    private static readonly TxtLanguage txtUnBanning = new TxtLanguage();
+    private static readonly TxtLanguage txtUnBan = new TxtLanguage("Unban");
+    private static readonly TxtLanguage txtUnBanning = new TxtLanguage("Unbanning");
 
-    private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+    private static readonly TxtLanguage txtRequestError = new TxtLanguage("Request unban error");
 
     static FriendStateBanUI()
     {
@@ -129,13 +129,13 @@ public class FriendStateBanUI : UIBehavior<FriendStateBanUI.UIData>
                             switch (this.data.state.v)
                             {
                                 case UIData.State.None:
-                                    tvUnBan.text = txtUnBan.get("UnBan");
+                                    tvUnBan.text = txtUnBan.get();
                                     break;
                                 case UIData.State.Request:
-                                    tvUnBan.text = txtUnBanning.get("UnBanning");
+                                    tvUnBan.text = txtUnBanning.get();
                                     break;
                                 case UIData.State.Wait:
-                                    tvUnBan.text = txtUnBanning.get("UnBanning");
+                                    tvUnBan.text = txtUnBanning.get();
                                     break;
                                 default:
                                     Debug.LogError("unknown state: " + this.data.state.v + "; " + this);
@@ -225,7 +225,7 @@ public class FriendStateBanUI : UIBehavior<FriendStateBanUI.UIData>
             {
                 Debug.LogError("data null: " + this);
             }
-            Toast.showMessage(txtRequestError.get("Request unban error"));
+            Toast.showMessage(txtRequestError.get());
             Debug.LogError("request unfriend error: " + this);
         }
         else

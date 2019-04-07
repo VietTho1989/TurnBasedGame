@@ -40,7 +40,7 @@ public class BtnNewRoundUI : UIBehavior<BtnNewRoundUI.UIData>
     #region txt
 
     public Text tvNewRound;
-    private static readonly TxtLanguage txtNewRound = new TxtLanguage();
+    private static readonly TxtLanguage txtNewRound = new TxtLanguage("New Game");
 
     static BtnNewRoundUI()
     {
@@ -68,7 +68,7 @@ public class BtnNewRoundUI : UIBehavior<BtnNewRoundUI.UIData>
                     {
                         if (tvNewRound != null)
                         {
-                            tvNewRound.text = txtNewRound.get("New Game");
+                            tvNewRound.text = txtNewRound.get();
                         }
                         else
                         {

@@ -65,10 +65,10 @@ namespace Khet
             }
         }
 
-        public static readonly TxtLanguage txtAll = new TxtLanguage();
-        public static readonly TxtLanguage txtSilver = new TxtLanguage();
-        public static readonly TxtLanguage txtRed = new TxtLanguage();
-        public static readonly TxtLanguage txtNone = new TxtLanguage();
+        private static readonly TxtLanguage txtAll = new TxtLanguage("All");
+        private static readonly TxtLanguage txtSilver = new TxtLanguage("Silver");
+        private static readonly TxtLanguage txtRed = new TxtLanguage("Red");
+        private static readonly TxtLanguage txtNone = new TxtLanguage("None");
 
         static LaserPathDrShowUI()
         {
@@ -96,10 +96,10 @@ namespace Khet
                             // options
                             {
                                 string[] options = {
-                                        txtAll.get ("All"),
-                                        txtSilver.get ("Silver"),
-                                        txtRed.get ("Red"),
-                                        txtNone.get ("None")
+                                        txtAll.get (),
+                                        txtSilver.get (),
+                                        txtRed.get (),
+                                        txtNone.get ()
                                     };
                                 UIUtils.RefreshDropDownOptions(drShow, options);
                             }

@@ -56,12 +56,10 @@ namespace Posture
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text tvChoose;
-        public static readonly TxtLanguage txtChoose = new TxtLanguage();
+        private static readonly TxtLanguage txtChoose = new TxtLanguage("Choose");
 
         static ChoosePostureHolder()
         {
@@ -85,6 +83,8 @@ namespace Posture
         }
 
         #endregion
+
+        #region Refresh
 
         public Text tvIndex;
         public Text tvName;
@@ -151,7 +151,7 @@ namespace Posture
                     {
                         if (tvChoose != null)
                         {
-                            tvChoose.text = txtChoose.get("Choose");
+                            tvChoose.text = txtChoose.get();
                         }
                         else
                         {

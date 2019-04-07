@@ -64,7 +64,7 @@ namespace Khet.NoneRule
                         {
                             if (tvMessage != null)
                             {
-                                tvMessage.text = ClickPosTxt.txtCreateByFenMove.get(ClickPosTxt.DefaultCreateByFenMove);
+                                tvMessage.text = ClickPosTxt.txtCreateByFenMove.get();
                             }
                             else
                             {

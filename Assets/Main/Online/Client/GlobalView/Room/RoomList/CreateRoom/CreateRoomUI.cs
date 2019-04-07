@@ -200,19 +200,19 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Create Room");
 
     public Text lbGameType;
-    private static readonly TxtLanguage txtGameType = new TxtLanguage();
+    private static readonly TxtLanguage txtGameType = new TxtLanguage("Game");
 
     public Text lbRoomName;
-    private static readonly TxtLanguage txtRoomName = new TxtLanguage();
+    private static readonly TxtLanguage txtRoomName = new TxtLanguage("Room name");
 
     public Text lbPassword;
-    private static readonly TxtLanguage txtPassword = new TxtLanguage();
+    private static readonly TxtLanguage txtPassword = new TxtLanguage("Password");
 
     public Text tvCancel;
-    private static readonly TxtLanguage txtCancel = new TxtLanguage();
+    private static readonly TxtLanguage txtCancel = new TxtLanguage("Cancel");
 
     static CreateRoomUI()
     {
@@ -508,7 +508,7 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Create Room");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -516,7 +516,7 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
                     }
                     if (lbGameType != null)
                     {
-                        lbGameType.text = txtGameType.get("Game Type");
+                        lbGameType.text = txtGameType.get();
                     }
                     else
                     {
@@ -524,7 +524,7 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
                     }
                     if (lbRoomName != null)
                     {
-                        lbRoomName.text = txtRoomName.get("Room Name");
+                        lbRoomName.text = txtRoomName.get();
                     }
                     else
                     {
@@ -532,7 +532,7 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
                     }
                     if (lbPassword != null)
                     {
-                        lbPassword.text = txtPassword.get("Password");
+                        lbPassword.text = txtPassword.get();
                     }
                     else
                     {
@@ -540,7 +540,7 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
                     }
                     if (tvCancel != null)
                     {
-                        tvCancel.text = txtCancel.get("Cancel");
+                        tvCancel.text = txtCancel.get();
                     }
                     else
                     {

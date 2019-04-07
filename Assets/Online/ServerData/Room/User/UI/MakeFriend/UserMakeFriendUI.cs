@@ -54,14 +54,14 @@ public class UserMakeFriendUI : UIBehavior<UserMakeFriendUI.UIData>, FriendHashM
 
     #region txt
 
-    private static readonly TxtLanguage txtMakeFriend = new TxtLanguage();
-    private static readonly TxtLanguage txtCancelMakeFriend = new TxtLanguage();
-    private static readonly TxtLanguage txtMakingFriend = new TxtLanguage();
+    private static readonly TxtLanguage txtMakeFriend = new TxtLanguage("Make Friend");
+    private static readonly TxtLanguage txtCancelMakeFriend = new TxtLanguage("Cancel make friend?");
+    private static readonly TxtLanguage txtMakingFriend = new TxtLanguage("Making friend");
 
     public Text tvYourInform;
-    private static readonly TxtLanguage txtYourInform = new TxtLanguage();
+    private static readonly TxtLanguage txtYourInform = new TxtLanguage("Your Information");
 
-    private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+    private static readonly TxtLanguage txtRequestError = new TxtLanguage("Send request to make friend error");
 
     static UserMakeFriendUI()
     {
@@ -208,19 +208,19 @@ public class UserMakeFriendUI : UIBehavior<UserMakeFriendUI.UIData>, FriendHashM
                                         case UIData.State.None:
                                             {
                                                 btnMakeFriend.interactable = true;
-                                                tvMakeFriend.text = txtMakeFriend.get("Make Friend");
+                                                tvMakeFriend.text = txtMakeFriend.get();
                                             }
                                             break;
                                         case UIData.State.Request:
                                             {
                                                 btnMakeFriend.interactable = true;
-                                                tvMakeFriend.text = txtCancelMakeFriend.get("Cancel make friend?");
+                                                tvMakeFriend.text = txtCancelMakeFriend.get();
                                             }
                                             break;
                                         case UIData.State.Wait:
                                             {
                                                 btnMakeFriend.interactable = false;
-                                                tvMakeFriend.text = txtMakingFriend.get("Making friend");
+                                                tvMakeFriend.text = txtMakingFriend.get();
                                             }
                                             break;
                                         default:
@@ -281,7 +281,7 @@ public class UserMakeFriendUI : UIBehavior<UserMakeFriendUI.UIData>, FriendHashM
                     {
                         if (tvYourInform != null)
                         {
-                            tvYourInform.text = txtYourInform.get("Your Information");
+                            tvYourInform.text = txtYourInform.get();
                         }
                         else
                         {
@@ -328,7 +328,7 @@ public class UserMakeFriendUI : UIBehavior<UserMakeFriendUI.UIData>, FriendHashM
                     Debug.LogError("data null: " + this);
                 }
             }
-            Toast.showMessage(txtRequestError.get("Send request to make friend error"));
+            Toast.showMessage(txtRequestError.get());
             Debug.LogError("request error: " + this);
         }
         else

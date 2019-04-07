@@ -36,12 +36,10 @@ public class WaitAIInputSearchUI : UIBehavior<WaitAIInputSearchUI.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text tvMessage;
-    public static readonly TxtLanguage txtMessage = new TxtLanguage();
+    public static readonly TxtLanguage txtMessage = new TxtLanguage("Wait AI Input: Search");
 
     static WaitAIInputSearchUI()
     {
@@ -49,6 +47,8 @@ public class WaitAIInputSearchUI : UIBehavior<WaitAIInputSearchUI.UIData>
     }
 
     #endregion
+
+    #region Refresh
 
     public override void refresh()
     {
@@ -61,7 +61,7 @@ public class WaitAIInputSearchUI : UIBehavior<WaitAIInputSearchUI.UIData>
                 {
                     if (tvMessage != null)
                     {
-                        tvMessage.text = txtMessage.get("Wait AI Input: Search");
+                        tvMessage.text = txtMessage.get();
                     }
                     else
                     {

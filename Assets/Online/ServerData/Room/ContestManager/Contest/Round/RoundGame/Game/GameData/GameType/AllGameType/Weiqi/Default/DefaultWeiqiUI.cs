@@ -235,19 +235,19 @@ namespace Weiqi
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Default Weiqi");
 
         public Text lbSize;
-        public static readonly TxtLanguage txtSize = new TxtLanguage();
+        private static readonly TxtLanguage txtSize = new TxtLanguage("Size");
 
         public Text lbKomi;
-        public static readonly TxtLanguage txtKomi = new TxtLanguage();
+        private static readonly TxtLanguage txtKomi = new TxtLanguage("Komi");
 
         public Text lbRule;
-        public static readonly TxtLanguage txtRule = new TxtLanguage();
+        private static readonly TxtLanguage txtRule = new TxtLanguage("Rule");
 
         public Text lbHandicap;
-        public static readonly TxtLanguage txtHandicap = new TxtLanguage();
+        private static readonly TxtLanguage txtHandicap = new TxtLanguage("Handicap");
 
         static DefaultWeiqiUI()
         {
@@ -804,7 +804,7 @@ namespace Weiqi
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Default Weiqi");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -812,7 +812,7 @@ namespace Weiqi
                             }
                             if (lbSize != null)
                             {
-                                lbSize.text = txtSize.get("Size");
+                                lbSize.text = txtSize.get();
                             }
                             else
                             {
@@ -820,7 +820,7 @@ namespace Weiqi
                             }
                             if (lbKomi != null)
                             {
-                                lbKomi.text = txtKomi.get("Komi");
+                                lbKomi.text = txtKomi.get();
                             }
                             else
                             {
@@ -828,7 +828,7 @@ namespace Weiqi
                             }
                             if (lbRule != null)
                             {
-                                lbRule.text = txtRule.get("Rule");
+                                lbRule.text = txtRule.get();
                             }
                             else
                             {
@@ -836,7 +836,7 @@ namespace Weiqi
                             }
                             if (lbHandicap != null)
                             {
-                                lbHandicap.text = txtHandicap.get("Handicap");
+                                lbHandicap.text = txtHandicap.get();
                             }
                             else
                             {

@@ -195,8 +195,8 @@ namespace Sudoku
 
 		#region txt
 
-		public static readonly TxtLanguage txtCustom  = new TxtLanguage();
-		public static readonly TxtLanguage txtNormal = new TxtLanguage ();
+		private static readonly TxtLanguage txtCustom  = new TxtLanguage("Custom");
+		private static readonly TxtLanguage txtNormal = new TxtLanguage ("Normal");
 
 		static NoneRuleInputUI()
 		{
@@ -219,7 +219,7 @@ namespace Sudoku
 						if (drMoveType != null) {
 							// options
 							{
-								string[] options = { txtCustom.get ("Custom"), txtNormal.get ("Normal") };
+								string[] options = { txtCustom.get (), txtNormal.get () };
 								UIUtils.RefreshDropDownOptions (drMoveType, options);
 							}
 							// set value

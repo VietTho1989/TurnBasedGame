@@ -54,11 +54,11 @@ namespace LoginState
         #region txt
 
         public Text tvLogin;
-        private static readonly TxtLanguage txtLogin = new TxtLanguage();
-        private static readonly TxtLanguage txtRegister = new TxtLanguage();
+        private static readonly TxtLanguage txtLogin = new TxtLanguage("Login");
+        private static readonly TxtLanguage txtRegister = new TxtLanguage("Register");
 
-        private static readonly TxtLanguage txtEmailNotCorrect = new TxtLanguage();
-        private static readonly TxtLanguage txtRetypePasswordNotCorrect = new TxtLanguage();
+        private static readonly TxtLanguage txtEmailNotCorrect = new TxtLanguage("Email not correct");
+        private static readonly TxtLanguage txtRetypePasswordNotCorrect = new TxtLanguage("Retype password not correct");
 
         static NoneUI()
         {
@@ -190,11 +190,11 @@ namespace LoginState
                             // process
                             if (!isRegister)
                             {
-                                tvLogin.text = txtLogin.get("Login");
+                                tvLogin.text = txtLogin.get();
                             }
                             else
                             {
-                                tvLogin.text = txtRegister.get("Register");
+                                tvLogin.text = txtRegister.get();
                             }
                         }
                         else
@@ -509,7 +509,7 @@ namespace LoginState
                                     {
                                         if (!GameUtils.Utils.validateEmail(accountEmail.email.v))
                                         {
-                                            Toast.showMessage(txtEmailNotCorrect.get("Email not correct"));
+                                            Toast.showMessage(txtEmailNotCorrect.get());
                                             isCorrect = false;
                                         }
                                     }
@@ -554,7 +554,7 @@ namespace LoginState
                                                         Debug.LogError("password: " + password + ", " + retypePassword);
                                                         if (password != retypePassword)
                                                         {
-                                                            Toast.showMessage(txtRetypePasswordNotCorrect.get("Retype password not correct"));
+                                                            Toast.showMessage(txtRetypePasswordNotCorrect.get());
                                                             isCorrect = false;
                                                         }
                                                     }

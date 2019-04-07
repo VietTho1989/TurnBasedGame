@@ -162,24 +162,22 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Change Use Rule Right");
 
     public Text lbCanChange;
-    public static readonly TxtLanguage txtCanChange = new TxtLanguage();
+    private static readonly TxtLanguage txtCanChange = new TxtLanguage("Can change");
 
     public Text lbOnlyAdmin;
-    public static readonly TxtLanguage txtOnlyAdmin = new TxtLanguage();
+    private static readonly TxtLanguage txtOnlyAdmin = new TxtLanguage("Only admin");
 
     public Text lbNeedAdmin;
-    public static readonly TxtLanguage txtNeedAdmin = new TxtLanguage();
+    private static readonly TxtLanguage txtNeedAdmin = new TxtLanguage("Need admin");
 
     public Text lbNeedAccept;
-    public static readonly TxtLanguage txtNeedAccept = new TxtLanguage();
+    private static readonly TxtLanguage txtNeedAccept = new TxtLanguage("Need accept");
 
     static ChangeUseRuleRightUI()
     {
@@ -201,6 +199,8 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
     }
 
     #endregion
+
+    #region Refresh
 
     private bool needReset = true;
 
@@ -504,7 +504,7 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Change Use Rule Right");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -512,7 +512,7 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
                     }
                     if (lbCanChange != null)
                     {
-                        lbCanChange.text = txtCanChange.get("Can change");
+                        lbCanChange.text = txtCanChange.get();
                     }
                     else
                     {
@@ -520,7 +520,7 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
                     }
                     if (lbOnlyAdmin != null)
                     {
-                        lbOnlyAdmin.text = txtOnlyAdmin.get("Only admin");
+                        lbOnlyAdmin.text = txtOnlyAdmin.get();
                     }
                     else
                     {
@@ -528,7 +528,7 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
                     }
                     if (lbNeedAdmin != null)
                     {
-                        lbNeedAdmin.text = txtNeedAdmin.get("Need admin");
+                        lbNeedAdmin.text = txtNeedAdmin.get();
                     }
                     else
                     {
@@ -536,7 +536,7 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
                     }
                     if (lbNeedAccept != null)
                     {
-                        lbNeedAccept.text = txtNeedAccept.get("Need accept");
+                        lbNeedAccept.text = txtNeedAccept.get();
                     }
                     else
                     {

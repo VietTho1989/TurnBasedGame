@@ -87,10 +87,10 @@ namespace Chess
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Default Chess");
 
         public Text lbChess960;
-        public static readonly TxtLanguage txtChess960 = new TxtLanguage();
+        private static readonly TxtLanguage txtChess960 = new TxtLanguage("Chess960");
 
         static DefaultChessUI()
         {
@@ -368,7 +368,7 @@ namespace Chess
                             {
                                 if (lbTitle != null)
                                 {
-                                    lbTitle.text = txtTitle.get("Default Chess");
+                                    lbTitle.text = txtTitle.get();
                                 }
                                 else
                                 {
@@ -376,7 +376,7 @@ namespace Chess
                                 }
                                 if (lbChess960 != null)
                                 {
-                                    lbChess960.text = txtChess960.get("Chess960");
+                                    lbChess960.text = txtChess960.get();
                                 }
                                 else
                                 {

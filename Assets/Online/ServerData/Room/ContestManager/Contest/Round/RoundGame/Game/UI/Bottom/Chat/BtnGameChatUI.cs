@@ -34,7 +34,7 @@ public class BtnGameChatUI : UIBehavior<BtnGameChatUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Messages");
 
     static BtnGameChatUI()
     {
@@ -59,7 +59,7 @@ public class BtnGameChatUI : UIBehavior<BtnGameChatUI.UIData>
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Messages");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {

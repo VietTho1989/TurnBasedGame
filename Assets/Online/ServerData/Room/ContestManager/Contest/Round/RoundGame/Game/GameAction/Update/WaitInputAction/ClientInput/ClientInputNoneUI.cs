@@ -36,12 +36,10 @@ public class ClientInputNoneUI : UIBehavior<ClientInputNoneUI.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text tvMessage;
-    public static readonly TxtLanguage txtMessage = new TxtLanguage();
+    public static readonly TxtLanguage txtMessage = new TxtLanguage("Client Input: None");
 
     static ClientInputNoneUI()
     {
@@ -49,6 +47,8 @@ public class ClientInputNoneUI : UIBehavior<ClientInputNoneUI.UIData>
     }
 
     #endregion
+
+    #region Refresh
 
     public override void refresh()
     {
@@ -61,7 +61,7 @@ public class ClientInputNoneUI : UIBehavior<ClientInputNoneUI.UIData>
                 {
                     if (tvMessage != null)
                     {
-                        tvMessage.text = txtMessage.get("Client Input: None");
+                        tvMessage.text = txtMessage.get();
                     }
                     else
                     {

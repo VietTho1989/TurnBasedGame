@@ -226,19 +226,19 @@ namespace TimeControl.Normal
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Time Information");
 
         public Text lbTimePerTurnType;
-        private static readonly TxtLanguage txtTimePerTurnType = new TxtLanguage();
+        private static readonly TxtLanguage txtTimePerTurnType = new TxtLanguage("Time per turn type");
 
         public Text lbTotalTimeType;
-        private static readonly TxtLanguage txtTotalTimeType = new TxtLanguage();
+        private static readonly TxtLanguage txtTotalTimeType = new TxtLanguage("Total time type");
 
         public Text lbOverTimePerTurnType;
-        private static readonly TxtLanguage txtOverTimePerTurnType = new TxtLanguage();
+        private static readonly TxtLanguage txtOverTimePerTurnType = new TxtLanguage("Over time per turn type");
 
         public Text lbLagCompensation;
-        private static readonly TxtLanguage txtLagCompensation = new TxtLanguage();
+        private static readonly TxtLanguage txtLagCompensation = new TxtLanguage("Lag compensation");
 
         static TimeInfoUI()
         {
@@ -1046,7 +1046,7 @@ namespace TimeControl.Normal
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Time Information");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -1054,7 +1054,7 @@ namespace TimeControl.Normal
                             }
                             if (lbTimePerTurnType != null)
                             {
-                                lbTimePerTurnType.text = txtTimePerTurnType.get("Time per turn type");
+                                lbTimePerTurnType.text = txtTimePerTurnType.get();
                             }
                             else
                             {
@@ -1062,7 +1062,7 @@ namespace TimeControl.Normal
                             }
                             if (lbTotalTimeType != null)
                             {
-                                lbTotalTimeType.text = txtTotalTimeType.get("Total time type");
+                                lbTotalTimeType.text = txtTotalTimeType.get();
                             }
                             else
                             {
@@ -1070,7 +1070,7 @@ namespace TimeControl.Normal
                             }
                             if (lbOverTimePerTurnType != null)
                             {
-                                lbOverTimePerTurnType.text = txtOverTimePerTurnType.get("Over time per turn type");
+                                lbOverTimePerTurnType.text = txtOverTimePerTurnType.get();
                             }
                             else
                             {
@@ -1078,7 +1078,7 @@ namespace TimeControl.Normal
                             }
                             if (lbLagCompensation != null)
                             {
-                                lbLagCompensation.text = txtLagCompensation.get("Lag compensation");
+                                lbLagCompensation.text = txtLagCompensation.get();
                             }
                             else
                             {

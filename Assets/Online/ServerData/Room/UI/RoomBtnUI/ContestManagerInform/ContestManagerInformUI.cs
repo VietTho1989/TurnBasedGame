@@ -51,7 +51,7 @@ namespace GameManager.Match
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Tournament");
 
         static ContestManagerInformUI()
         {
@@ -93,7 +93,7 @@ namespace GameManager.Match
                         // title
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Tournament") + " " + (contestManager.index.v + 1);
+                            lbTitle.text = txtTitle.get() + " " + (contestManager.index.v + 1);
                         }
                         else
                         {

@@ -56,7 +56,7 @@ namespace Janggi
         public Text lbTitle;
 
         public Text tvMessage;
-        private static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("https://en.wikipedia.org/wiki/Janggi");
 
         static JanggiInformationUI()
         {
@@ -141,7 +141,7 @@ namespace Janggi
                             }
                             if (tvMessage != null)
                             {
-                                tvMessage.text = txtMessage.get("https://en.wikipedia.org/wiki/Janggi");
+                                tvMessage.text = txtMessage.get();
                             }
                             else
                             {

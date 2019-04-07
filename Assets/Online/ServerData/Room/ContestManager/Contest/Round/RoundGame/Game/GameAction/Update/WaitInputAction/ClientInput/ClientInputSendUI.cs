@@ -36,15 +36,13 @@ public class ClientInputSendUI : UIBehavior<ClientInputSendUI.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Sending move");
 
     public Text tvCancel;
-    public static readonly TxtLanguage txtCancel = new TxtLanguage();
+    private static readonly TxtLanguage txtCancel = new TxtLanguage("Cancel");
 
     static ClientInputSendUI()
     {
@@ -53,6 +51,8 @@ public class ClientInputSendUI : UIBehavior<ClientInputSendUI.UIData>
     }
 
     #endregion
+
+    #region Refresh
 
     public override void refresh()
     {
@@ -65,7 +65,7 @@ public class ClientInputSendUI : UIBehavior<ClientInputSendUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Sending move");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -73,7 +73,7 @@ public class ClientInputSendUI : UIBehavior<ClientInputSendUI.UIData>
                     }
                     if (tvCancel != null)
                     {
-                        tvCancel.text = txtCancel.get("Cancel");
+                        tvCancel.text = txtCancel.get();
                     }
                     else
                     {

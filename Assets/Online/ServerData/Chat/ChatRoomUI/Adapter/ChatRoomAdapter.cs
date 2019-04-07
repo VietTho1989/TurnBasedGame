@@ -84,7 +84,7 @@ public class ChatRoomAdapter : SRIA<ChatRoomAdapter.UIData, ChatMessageHolder.UI
     #region txt
 
     public Text tvNoMessages;
-    public static readonly TxtLanguage txtNoMessages = new TxtLanguage();
+    public static readonly TxtLanguage txtNoMessages = new TxtLanguage("Don't have any messages");
 
     static ChatRoomAdapter()
     {
@@ -203,7 +203,7 @@ public class ChatRoomAdapter : SRIA<ChatRoomAdapter.UIData, ChatMessageHolder.UI
                     {
                         if (tvNoMessages != null)
                         {
-                            tvNoMessages.text = txtNoMessages.get("Don't have any messages");
+                            tvNoMessages.text = txtNoMessages.get();
                         }
                         else
                         {

@@ -44,7 +44,7 @@ public class BugTopicUI : UIBehavior<BugTopicUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Bug");
 
     static BugTopicUI()
     {
@@ -66,7 +66,7 @@ public class BugTopicUI : UIBehavior<BugTopicUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Bug");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {

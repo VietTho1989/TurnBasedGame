@@ -41,7 +41,7 @@ public class BtnNewContestManagerUI : UIBehavior<BtnNewContestManagerUI.UIData>
     #region txt
 
     public Text tvNewContestManager;
-    private static readonly TxtLanguage txtNewContestManager = new TxtLanguage();
+    private static readonly TxtLanguage txtNewContestManager = new TxtLanguage("New Tournament");
 
     static BtnNewContestManagerUI()
     {
@@ -69,7 +69,7 @@ public class BtnNewContestManagerUI : UIBehavior<BtnNewContestManagerUI.UIData>
                     {
                         if (tvNewContestManager != null)
                         {
-                            tvNewContestManager.text = txtNewContestManager.get("New Tournament");
+                            tvNewContestManager.text = txtNewContestManager.get();
                         }
                         else
                         {

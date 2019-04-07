@@ -61,12 +61,12 @@ public class BtnPauseNormalUI : UIBehavior<BtnPauseNormalUI.UIData>
 
     #region txt
 
-    private static readonly TxtLanguage txtPause = new TxtLanguage();
-    private static readonly TxtLanguage txtCancelPause = new TxtLanguage();
-    private static readonly TxtLanguage txtPausing = new TxtLanguage();
-    private static readonly TxtLanguage txtCannotPause = new TxtLanguage();
+    private static readonly TxtLanguage txtPause = new TxtLanguage("Pause");
+    private static readonly TxtLanguage txtCancelPause = new TxtLanguage("Cancel pause?");
+    private static readonly TxtLanguage txtPausing = new TxtLanguage("Pausing");
+    private static readonly TxtLanguage txtCannotPause = new TxtLanguage("Cannot pause");
 
-    private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+    private static readonly TxtLanguage txtRequestError = new TxtLanguage("Request pause error");
 
     static BtnPauseNormalUI()
     {
@@ -146,19 +146,19 @@ public class BtnPauseNormalUI : UIBehavior<BtnPauseNormalUI.UIData>
                                     case UIData.State.None:
                                         {
                                             btnNormal.interactable = true;
-                                            tvNormal.text = txtPause.get("Pause");
+                                            tvNormal.text = txtPause.get();
                                         }
                                         break;
                                     case UIData.State.Request:
                                         {
                                             btnNormal.interactable = true;
-                                            tvNormal.text = txtCancelPause.get("Cancel pause?");
+                                            tvNormal.text = txtCancelPause.get();
                                         }
                                         break;
                                     case UIData.State.Wait:
                                         {
                                             btnNormal.interactable = false;
-                                            tvNormal.text = txtPausing.get("Pausing");
+                                            tvNormal.text = txtPausing.get();
                                         }
                                         break;
                                     default:
@@ -184,7 +184,7 @@ public class BtnPauseNormalUI : UIBehavior<BtnPauseNormalUI.UIData>
                             if (btnNormal != null && tvNormal != null)
                             {
                                 btnNormal.interactable = false;
-                                tvNormal.text = txtCannotPause.get("Cannot pause");
+                                tvNormal.text = txtCannotPause.get();
                             }
                             else
                             {
@@ -230,7 +230,7 @@ public class BtnPauseNormalUI : UIBehavior<BtnPauseNormalUI.UIData>
                 Debug.LogError("data null: " + this);
             }
             Debug.LogError("error, why cannot request: " + this);
-            Toast.showMessage(txtRequestError.get("Request pause error"));
+            Toast.showMessage(txtRequestError.get());
         }
         else
         {

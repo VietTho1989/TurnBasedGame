@@ -92,10 +92,10 @@ namespace InternationalDraught
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Default International Draughts");
 
         public Text lbVariant;
-        private static readonly TxtLanguage txtVariant = new TxtLanguage();
+        private static readonly TxtLanguage txtVariant = new TxtLanguage("Variant");
 
         static DefaultInternationalDraughtUI()
         {
@@ -365,7 +365,7 @@ namespace InternationalDraught
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Default International Draughts");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -373,7 +373,7 @@ namespace InternationalDraught
                             }
                             if (lbVariant != null)
                             {
-                                lbVariant.text = txtVariant.get("Variant");
+                                lbVariant.text = txtVariant.get();
                             }
                             else
                             {

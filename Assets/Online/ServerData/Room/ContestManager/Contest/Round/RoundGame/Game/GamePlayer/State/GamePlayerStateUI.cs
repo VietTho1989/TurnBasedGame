@@ -93,10 +93,10 @@ public class GamePlayerStateUI : UIBehavior<GamePlayerStateUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Surrender");
 
     public Text tvPlayer;
-    private static readonly TxtLanguage txtPlayer = new TxtLanguage();
+    private static readonly TxtLanguage txtPlayer = new TxtLanguage("Player");
 
     static GamePlayerStateUI()
     {
@@ -141,7 +141,7 @@ public class GamePlayerStateUI : UIBehavior<GamePlayerStateUI.UIData>
                     // lbTitle
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Surrender");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -162,7 +162,7 @@ public class GamePlayerStateUI : UIBehavior<GamePlayerStateUI.UIData>
                                 Debug.LogError("gamePlayer null");
                             }
                         }
-                        tvPlayer.text = txtPlayer.get("Player") + ": " + playerIndex;
+                        tvPlayer.text = txtPlayer.get() + ": " + playerIndex;
                     }
                     else
                     {

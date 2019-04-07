@@ -34,9 +34,9 @@ namespace NineMenMorris
         #region txt
 
         public Text tvPhase;
-        private static readonly TxtLanguage txtPosition = new TxtLanguage();
-        private static readonly TxtLanguage txtPlay = new TxtLanguage();
-        private static readonly TxtLanguage txtFly = new TxtLanguage();
+        private static readonly TxtLanguage txtPosition = new TxtLanguage("Phase Position");
+        private static readonly TxtLanguage txtPlay = new TxtLanguage("Phase Play");
+        private static readonly TxtLanguage txtFly = new TxtLanguage("Phase Fly");
 
         static BoardPhaseUI()
         {
@@ -75,13 +75,13 @@ namespace NineMenMorris
                         switch (phase)
                         {
                             case BoardUI.UIData.Phase.Position:
-                                tvPhase.text = txtPosition.get("Phase Position");
+                                tvPhase.text = txtPosition.get();
                                 break;
                             case BoardUI.UIData.Phase.Play:
-                                tvPhase.text = txtPlay.get("Phase Play");
+                                tvPhase.text = txtPlay.get();
                                 break;
                             case BoardUI.UIData.Phase.Fly:
-                                tvPhase.text = txtFly.get("Phase Fly");
+                                tvPhase.text = txtFly.get();
                                 break;
                             default:
                                 Debug.LogError("unknown phase: " + phase);

@@ -188,19 +188,19 @@ namespace GameManager.Match.Swap
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Change Game Player Rights");
 
         public Text lbCanChange;
-        private static readonly TxtLanguage txtCanChange = new TxtLanguage();
+        private static readonly TxtLanguage txtCanChange = new TxtLanguage("Can change");
 
         public Text lbCanChangePlayerLeft;
-        private static readonly TxtLanguage txtCanChangePlayerLeft = new TxtLanguage();
+        private static readonly TxtLanguage txtCanChangePlayerLeft = new TxtLanguage("Can change player left");
 
         public Text lbNeedAdminAccept;
-        private static readonly TxtLanguage txtNeedAdminAccept = new TxtLanguage();
+        private static readonly TxtLanguage txtNeedAdminAccept = new TxtLanguage("Need admin accepted");
 
         public Text lbOnlyAdminNeed;
-        private static readonly TxtLanguage txtOnlyAdminNeed = new TxtLanguage();
+        private static readonly TxtLanguage txtOnlyAdminNeed = new TxtLanguage("Only admin needed");
 
         static ChangeGamePlayerRightUI()
         {
@@ -527,7 +527,7 @@ namespace GameManager.Match.Swap
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Change Game Player Rights");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -535,7 +535,7 @@ namespace GameManager.Match.Swap
                         }
                         if (lbCanChange != null)
                         {
-                            lbCanChange.text = txtCanChange.get("Can change");
+                            lbCanChange.text = txtCanChange.get();
                         }
                         else
                         {
@@ -543,7 +543,7 @@ namespace GameManager.Match.Swap
                         }
                         if (lbCanChangePlayerLeft != null)
                         {
-                            lbCanChangePlayerLeft.text = txtCanChangePlayerLeft.get("Can change player left");
+                            lbCanChangePlayerLeft.text = txtCanChangePlayerLeft.get();
                         }
                         else
                         {
@@ -551,7 +551,7 @@ namespace GameManager.Match.Swap
                         }
                         if (lbNeedAdminAccept != null)
                         {
-                            lbNeedAdminAccept.text = txtNeedAdminAccept.get("Need admin accepted");
+                            lbNeedAdminAccept.text = txtNeedAdminAccept.get();
                         }
                         else
                         {
@@ -559,7 +559,7 @@ namespace GameManager.Match.Swap
                         }
                         if (lbOnlyAdminNeed != null)
                         {
-                            lbOnlyAdminNeed.text = txtOnlyAdminNeed.get("Only admin needed");
+                            lbOnlyAdminNeed.text = txtOnlyAdminNeed.get();
                         }
                         else
                         {

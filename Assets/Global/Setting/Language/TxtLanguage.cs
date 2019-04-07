@@ -22,9 +22,9 @@ public class TxtLanguage : Data
         locales
     }
 
-    public TxtLanguage() : base()
+    public TxtLanguage(string defaultTxt) : base()
     {
-        this.defaultTxt = new VP<string>(this, (byte)Property.defaultTxt, "");
+        this.defaultTxt = new VP<string>(this, (byte)Property.defaultTxt, defaultTxt);
         this.locales = new LP<Locale>(this, (byte)Property.locales);
     }
 
@@ -50,7 +50,14 @@ public class TxtLanguage : Data
         }
     }
 
-    public string get(string defaultTxt)
+    #region get
+
+    public string get()
+    {
+        return get(Setting.get().language.v, this.defaultTxt.v);
+    }
+
+    private string get(string defaultTxt)
     {
         return get(Setting.get().language.v, defaultTxt);
     }
@@ -76,5 +83,7 @@ public class TxtLanguage : Data
             return defaultTxt;
         }
     }
+
+    #endregion
 
 }

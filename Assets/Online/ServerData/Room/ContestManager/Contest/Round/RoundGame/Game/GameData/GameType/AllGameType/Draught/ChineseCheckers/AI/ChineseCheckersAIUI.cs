@@ -250,22 +250,22 @@ namespace ChineseCheckers
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Chinese Checkers AI");
 
         public Text lbType;
-        public static readonly TxtLanguage txtType = new TxtLanguage();
+        private static readonly TxtLanguage txtType = new TxtLanguage("Type");
 
         public Text lbDepth;
-        public static readonly TxtLanguage txtDepth = new TxtLanguage();
+        private static readonly TxtLanguage txtDepth = new TxtLanguage("Depth");
 
         public Text lbTime;
-        public static readonly TxtLanguage txtTime = new TxtLanguage();
+        private static readonly TxtLanguage txtTime = new TxtLanguage("Time");
 
         public Text lbNode;
-        public static readonly TxtLanguage txtNode = new TxtLanguage();
+        private static readonly TxtLanguage txtNode = new TxtLanguage("Node count");
 
         public Text lbPickBestMove;
-        public static readonly TxtLanguage txtPickBestMove = new TxtLanguage();
+        private static readonly TxtLanguage txtPickBestMove = new TxtLanguage("Pick best move depth");
 
         static ChineseCheckersAIUI()
         {
@@ -838,7 +838,7 @@ namespace ChineseCheckers
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Nine Men's Morriss AI");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -846,7 +846,7 @@ namespace ChineseCheckers
                         }
                         if (lbType != null)
                         {
-                            lbType.text = txtType.get("Type");
+                            lbType.text = txtType.get();
                         }
                         else
                         {
@@ -854,7 +854,7 @@ namespace ChineseCheckers
                         }
                         if (lbDepth != null)
                         {
-                            lbDepth.text = txtDepth.get("Depth");
+                            lbDepth.text = txtDepth.get();
                         }
                         else
                         {
@@ -862,7 +862,7 @@ namespace ChineseCheckers
                         }
                         if (lbTime != null)
                         {
-                            lbTime.text = txtTime.get("Time");
+                            lbTime.text = txtTime.get();
                         }
                         else
                         {
@@ -870,7 +870,7 @@ namespace ChineseCheckers
                         }
                         if (lbNode != null)
                         {
-                            lbNode.text = txtNode.get("Node count");
+                            lbNode.text = txtNode.get();
                         }
                         else
                         {
@@ -878,7 +878,7 @@ namespace ChineseCheckers
                         }
                         if (lbPickBestMove != null)
                         {
-                            lbPickBestMove.text = txtPickBestMove.get("Pick best move depth");
+                            lbPickBestMove.text = txtPickBestMove.get();
                         }
                         else
                         {

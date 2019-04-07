@@ -44,7 +44,7 @@ public class GuildTopicUI : UIBehavior<GuildTopicUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Guild");
 
     static GuildTopicUI()
     {
@@ -66,7 +66,7 @@ public class GuildTopicUI : UIBehavior<GuildTopicUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Guild");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {

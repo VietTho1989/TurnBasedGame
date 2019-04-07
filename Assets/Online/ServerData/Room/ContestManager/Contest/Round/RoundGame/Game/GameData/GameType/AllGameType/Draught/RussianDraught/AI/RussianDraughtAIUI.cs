@@ -143,13 +143,13 @@ namespace RussianDraught
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Russian Draughts AI");
 
         public Text lbTimeLimit;
-        private static readonly TxtLanguage txtTimeLimit = new TxtLanguage();
+        private static readonly TxtLanguage txtTimeLimit = new TxtLanguage("Time limit");
 
         public Text lbPickBestMove;
-        private static readonly TxtLanguage txtPickBestMove = new TxtLanguage();
+        private static readonly TxtLanguage txtPickBestMove = new TxtLanguage("Pick best move");
 
         static RussianDraughtAIUI()
         {
@@ -461,7 +461,7 @@ namespace RussianDraught
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Russian Draughts AI");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -469,7 +469,7 @@ namespace RussianDraught
                         }
                         if (lbTimeLimit != null)
                         {
-                            lbTimeLimit.text = txtTimeLimit.get("Time limit");
+                            lbTimeLimit.text = txtTimeLimit.get();
                         }
                         else
                         {
@@ -477,7 +477,7 @@ namespace RussianDraught
                         }
                         if (lbPickBestMove != null)
                         {
-                            lbPickBestMove.text = txtPickBestMove.get("Pick best move");
+                            lbPickBestMove.text = txtPickBestMove.get();
                         }
                         else
                         {

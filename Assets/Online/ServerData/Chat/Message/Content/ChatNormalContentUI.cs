@@ -46,8 +46,8 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
 
     #region txt, rect
 
-    private static readonly TxtLanguage txtDelete = new TxtLanguage();
-    private static readonly TxtLanguage txtTrueDelete = new TxtLanguage();
+    private static readonly TxtLanguage txtDelete = new TxtLanguage("this message has been deleted");
+    private static readonly TxtLanguage txtTrueDelete = new TxtLanguage("this message has been removed");
 
     static ChatNormalContentUI()
     {
@@ -178,12 +178,12 @@ public class ChatNormalContentUI : UIBehavior<ChatNormalContentUI.UIData>
                                         break;
                                     case ChatMessage.State.Delete:
                                         {
-                                            tvMessage.text = "<color=grey>" + txtDelete.get("this message has been deleted") + "</color>";
+                                            tvMessage.text = "<color=grey>" + txtDelete.get() + "</color>";
                                         }
                                         break;
                                     case ChatMessage.State.TrueDelete:
                                         {
-                                            tvMessage.text = "<color=red>" + txtTrueDelete.get("this message has been removed") + "</color>";
+                                            tvMessage.text = "<color=red>" + txtTrueDelete.get() + "</color>";
                                         }
                                         break;
                                     default:

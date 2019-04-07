@@ -61,10 +61,10 @@ public class BtnPausePauseUI : UIBehavior<BtnPausePauseUI.UIData>
 
     #region txt
 
-    public static readonly TxtLanguage txtUnpause = new TxtLanguage();
-    public static readonly TxtLanguage txtCancelUnpause = new TxtLanguage();
-    public static readonly TxtLanguage txtUnpausing = new TxtLanguage();
-    public static readonly TxtLanguage txtCannotUnpause = new TxtLanguage();
+    private static readonly TxtLanguage txtUnpause = new TxtLanguage("Resume");
+    private static readonly TxtLanguage txtCancelUnpause = new TxtLanguage("Cancel resume?");
+    private static readonly TxtLanguage txtUnpausing = new TxtLanguage("Resuming");
+    private static readonly TxtLanguage txtCannotUnpause = new TxtLanguage("Cannot resume");
 
     static BtnPausePauseUI()
     {
@@ -142,19 +142,19 @@ public class BtnPausePauseUI : UIBehavior<BtnPausePauseUI.UIData>
                                     case UIData.State.None:
                                         {
                                             btnPause.interactable = true;
-                                            tvPause.text = txtUnpause.get("Resume");
+                                            tvPause.text = txtUnpause.get();
                                         }
                                         break;
                                     case UIData.State.Request:
                                         {
                                             btnPause.interactable = true;
-                                            tvPause.text = txtCancelUnpause.get("Cancel resume?");
+                                            tvPause.text = txtCancelUnpause.get();
                                         }
                                         break;
                                     case UIData.State.Wait:
                                         {
                                             btnPause.interactable = false;
-                                            tvPause.text = txtUnpausing.get("Resuming");
+                                            tvPause.text = txtUnpausing.get();
                                         }
                                         break;
                                     default:
@@ -180,7 +180,7 @@ public class BtnPausePauseUI : UIBehavior<BtnPausePauseUI.UIData>
                             if (btnPause != null && tvPause != null)
                             {
                                 btnPause.interactable = false;
-                                tvPause.text = txtCannotUnpause.get("Cannot resume");
+                                tvPause.text = txtCannotUnpause.get();
                             }
                             else
                             {

@@ -114,10 +114,10 @@ public class RequestChangeUseRuleUI : UIBehavior<RequestChangeUseRuleUI.UIData>
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Use Rule");
 
     public Text tvUseRule;
-    public static readonly TxtLanguage txtUseRule = new TxtLanguage();
+    private static readonly TxtLanguage txtUseRule = new TxtLanguage("use rule");
 
     static RequestChangeUseRuleUI()
     {
@@ -247,7 +247,7 @@ public class RequestChangeUseRuleUI : UIBehavior<RequestChangeUseRuleUI.UIData>
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Use Rule");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -255,7 +255,7 @@ public class RequestChangeUseRuleUI : UIBehavior<RequestChangeUseRuleUI.UIData>
                         }
                         if (tvUseRule != null)
                         {
-                            tvUseRule.text = txtUseRule.get("use rule");
+                            tvUseRule.text = txtUseRule.get();
                         }
                         else
                         {

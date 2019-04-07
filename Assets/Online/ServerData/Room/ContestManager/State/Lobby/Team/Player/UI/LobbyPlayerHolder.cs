@@ -47,10 +47,10 @@ namespace GameManager.Match
         #region txt
 
         public Text tvEdit;
-        public static readonly TxtLanguage txtEdit = new TxtLanguage();
+        private static readonly TxtLanguage txtEdit = new TxtLanguage("Edit");
 
-        public static readonly TxtLanguage txtPlayerIndex = new TxtLanguage();
-        public static readonly TxtLanguage txtName = new TxtLanguage();
+        private static readonly TxtLanguage txtPlayerIndex = new TxtLanguage("Player index");
+        private static readonly TxtLanguage txtName = new TxtLanguage("Name");
 
         static LobbyPlayerHolder()
         {
@@ -110,7 +110,7 @@ namespace GameManager.Match
                         {
                             if (tvPlayerIndex != null)
                             {
-                                tvPlayerIndex.text = txtPlayerIndex.get("PlayerIndex") + ": " + lobbyPlayer.playerIndex.v;
+                                tvPlayerIndex.text = txtPlayerIndex.get() + ": " + lobbyPlayer.playerIndex.v;
                             }
                             else
                             {
@@ -173,7 +173,7 @@ namespace GameManager.Match
                     {
                         if (tvEdit != null)
                         {
-                            tvEdit.text = txtEdit.get("Edit");
+                            tvEdit.text = txtEdit.get();
                         }
                         else
                         {

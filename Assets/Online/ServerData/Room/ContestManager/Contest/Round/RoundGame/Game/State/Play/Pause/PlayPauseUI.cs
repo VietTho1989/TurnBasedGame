@@ -62,14 +62,14 @@ namespace GameState
         #region txt, rect
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Game Pause");
 
-        private static readonly TxtLanguage txtUnpause = new TxtLanguage();
-        private static readonly TxtLanguage txtCancelUnpause = new TxtLanguage();
-        private static readonly TxtLanguage txtUnpausing = new TxtLanguage();
-        private static readonly TxtLanguage txtCannotUnpause = new TxtLanguage();
+        private static readonly TxtLanguage txtUnpause = new TxtLanguage("Unpause");
+        private static readonly TxtLanguage txtCancelUnpause = new TxtLanguage("Cancel unpause?");
+        private static readonly TxtLanguage txtUnpausing = new TxtLanguage("Unpausing");
+        private static readonly TxtLanguage txtCannotUnpause = new TxtLanguage("Cannot unpause");
 
-        private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+        private static readonly TxtLanguage txtRequestError = new TxtLanguage("Request resume error");
 
         static PlayPauseUI()
         {
@@ -171,19 +171,19 @@ namespace GameState
                                             case UIData.State.None:
                                                 {
                                                     btnUnPause.interactable = true;
-                                                    tvUnPause.text = txtUnpause.get("Unpause");
+                                                    tvUnPause.text = txtUnpause.get();
                                                 }
                                                 break;
                                             case UIData.State.Request:
                                                 {
                                                     btnUnPause.interactable = true;
-                                                    tvUnPause.text = txtCancelUnpause.get("Cancel unpause?");
+                                                    tvUnPause.text = txtCancelUnpause.get();
                                                 }
                                                 break;
                                             case UIData.State.Wait:
                                                 {
                                                     btnUnPause.interactable = false;
-                                                    tvUnPause.text = txtUnpausing.get("Unpausing");
+                                                    tvUnPause.text = txtUnpausing.get();
                                                 }
                                                 break;
                                             default:
@@ -209,7 +209,7 @@ namespace GameState
                                     if (btnUnPause != null && tvUnPause != null)
                                     {
                                         btnUnPause.interactable = false;
-                                        tvUnPause.text = txtCannotUnpause.get("Cannot unpause");
+                                        tvUnPause.text = txtCannotUnpause.get();
                                     }
                                     else
                                     {
@@ -354,7 +354,7 @@ namespace GameState
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Game Pause");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -398,7 +398,7 @@ namespace GameState
                 {
                     Debug.LogError("data null: " + this);
                 }
-                Toast.showMessage(txtRequestError.get("Request resume error"));
+                Toast.showMessage(txtRequestError.get());
                 Debug.LogError("error, why cannot request: " + this);
             }
             else

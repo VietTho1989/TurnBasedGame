@@ -77,25 +77,25 @@ public class FriendStateChangeContent : ChatMessage.Content
             switch (this.action.v)
             {
                 case FriendStateChangeContent.Action.Request:
-                    ret = "<color=grey>" + userName + "</color> " + FriendStateChangeContentUI.txtRequest.get("make friend request");
+                    ret = "<color=grey>" + userName + "</color> " + FriendStateChangeContentUI.txtRequest.get();
                     break;
                 case FriendStateChangeContent.Action.Accept:
-                    ret = "<color=grey>" + userName + "</color> " + FriendStateChangeContentUI.txtAccept.get("accept friend request");
+                    ret = "<color=grey>" + userName + "</color> " + FriendStateChangeContentUI.txtAccept.get();
                     break;
                 case FriendStateChangeContent.Action.Refuse:
-                    ret = "<color=grey>" + userName + "</color> " + FriendStateChangeContentUI.txtRefuse.get("refuse friend request");
+                    ret = "<color=grey>" + userName + "</color> " + FriendStateChangeContentUI.txtRefuse.get();
                     break;
                 case FriendStateChangeContent.Action.Cancel:
-                    ret = "<color=grey>" + userName + "</color> " + FriendStateChangeContentUI.txtCancel.get("cancel friend request");
+                    ret = "<color=grey>" + userName + "</color> " + FriendStateChangeContentUI.txtCancel.get();
                     break;
                 case FriendStateChangeContent.Action.UnFriend:
-                    ret = "<color=grey>" + userName + "</color> " + FriendStateChangeContentUI.txtRequest.get("unfriend you");
+                    ret = "<color=grey>" + userName + "</color> " + FriendStateChangeContentUI.txtUnFriend.get();
                     break;
                 case FriendStateChangeContent.Action.Ban:
-                    ret = "<color=grey>" + userName + "</color> " + FriendStateChangeContentUI.txtRequest.get("ban you");
+                    ret = "<color=grey>" + userName + "</color> " + FriendStateChangeContentUI.txtBan.get();
                     break;
                 case FriendStateChangeContent.Action.UnBan:
-                    ret = "<color=grey>" + userName + "</color> " + FriendStateChangeContentUI.txtRequest.get("unban you");
+                    ret = "<color=grey>" + userName + "</color> " + FriendStateChangeContentUI.txtUnBan.get();
                     break;
                 default:
                     Debug.LogError("unknown action: " + this.action.v + "; " + this);

@@ -7,36 +7,20 @@ public class ClickPosTxt
 
     #region clickPos
 
-    public static readonly TxtLanguage txtClickPosTitle = new TxtLanguage();
-    public const string DefaultClickPosTitle = "Choose Action";
-
-    public static readonly TxtLanguage txtClickPosSetPiece = new TxtLanguage();
-    public const string DefaultClickPosSetPiece = "Set Piece";
-
-    public static readonly TxtLanguage txtClickPosSetHand = new TxtLanguage();
-    public const string DefaultClickPosSetHand = "Set Hand";
-
-    public static readonly TxtLanguage txtClickPosMove = new TxtLanguage();
-    public const string DefaultClickPosMove = "Move Piece";
-
-    public static readonly TxtLanguage txtClickPosEndTurn = new TxtLanguage();
-    public const string DefaultClickPosEndTurn = "End Turn";
-
-    public static readonly TxtLanguage txtClickPosClear = new TxtLanguage();
-    public const string DefaultClickPosClear = "Clear";
-
-    public static readonly TxtLanguage txtClickPosCreateByFen = new TxtLanguage();
-    public const string DefaultClickPosCreateByFen = "Create By Fen";
-
-    public static readonly TxtLanguage txtClickPosFlip = new TxtLanguage();
-    public const string DefaultClickPosFlip = "Flip";
+    public static readonly TxtLanguage txtClickPosTitle = new TxtLanguage("Choose Action");
+    public static readonly TxtLanguage txtClickPosSetPiece = new TxtLanguage("Set Piece");
+    public static readonly TxtLanguage txtClickPosSetHand = new TxtLanguage("Set Hand");
+    public static readonly TxtLanguage txtClickPosMove = new TxtLanguage("Move Piece");
+    public static readonly TxtLanguage txtClickPosEndTurn = new TxtLanguage("End Turn");
+    public static readonly TxtLanguage txtClickPosClear = new TxtLanguage("Clear");
+    public static readonly TxtLanguage txtClickPosCreateByFen = new TxtLanguage("Create By Fen");
+    public static readonly TxtLanguage txtClickPosFlip = new TxtLanguage("Flip");
 
     #endregion
 
     #region setPiece
 
-    public static readonly TxtLanguage txtSetPieceTitle = new TxtLanguage();
-    public const string DefaultSetPieceTitle = "Choose Piece To Set";
+    public static readonly TxtLanguage txtSetPieceTitle = new TxtLanguage("Choose Piece To Set");
 
     public static readonly UIRectTransform setPieceChoosePieceAdapterRect = new UIRectTransform();
 
@@ -44,14 +28,9 @@ public class ClickPosTxt
 
     #region setHand
 
-    public static readonly TxtLanguage txtSetHandTitle = new TxtLanguage();
-    public const string DefaultSetHandTitle = "Place Pieces In Hand";
-
-    public static readonly TxtLanguage txtEdtPieceCountPlaceHolder = new TxtLanguage();
-    public const string DefaultEdtPieceCountPlaceHolder = "Enter new piece count...";
-
-    public static readonly TxtLanguage txtSet = new TxtLanguage();
-    public const string DefaultSet = "Set";
+    public static readonly TxtLanguage txtSetHandTitle = new TxtLanguage("Place Pieces In Hand");
+    public static readonly TxtLanguage txtEdtPieceCountPlaceHolder = new TxtLanguage("Enter new piece count...");
+    public static readonly TxtLanguage txtSet = new TxtLanguage("Set");
 
     public static readonly UIRectTransform setHandChoosePieceAdapterRect = new UIRectTransform();
 
@@ -59,51 +38,36 @@ public class ClickPosTxt
 
     #region moveOrChoose
 
-    public static readonly TxtLanguage txtMoveOrChooseTitle = new TxtLanguage();
-    public const string DefaultMoveOrChooseTitle = "Move Or Choose";
-
-    public static readonly TxtLanguage txtMove = new TxtLanguage();
-    public const string DefaultMove = "Move";
+    public static readonly TxtLanguage txtMoveOrChooseTitle = new TxtLanguage("Move Or Choose");
+    public static readonly TxtLanguage txtMove = new TxtLanguage("Move");
 
     #endregion
 
     #region clickDestChoose
 
-    public static readonly TxtLanguage txtClickDestChooseTitle = new TxtLanguage();
-    public const string DefaultClickDestChooseTitle = "Choose Move";
+    public static readonly TxtLanguage txtClickDestChooseTitle = new TxtLanguage("Choose Move");
 
     #endregion
 
     #region dropPieceUI
 
-    public static readonly TxtLanguage txtDropPieceTitle = new TxtLanguage();
-    public const string DefaultDropPieceTitle = "Choose Piece To Drop";
+    public static readonly TxtLanguage txtDropPieceTitle = new TxtLanguage("Choose Piece To Drop");
 
     #endregion
 
     #region Common
 
-    public static readonly TxtLanguage txtChoose = new TxtLanguage();
-    public const string DefaultChoose = "Choose";
-
-    public static readonly TxtLanguage txtCancel = new TxtLanguage();
-    public const string DefaultCancel = "Cancel";
+    public static readonly TxtLanguage txtChoose = new TxtLanguage("Choose");
+    public static readonly TxtLanguage txtCancel = new TxtLanguage("Cancel");
 
     #endregion
 
     #region createByFenUI
 
-    public static readonly TxtLanguage txtCreateByFenTitle = new TxtLanguage();
-    public const string DefaultCreateByFenTitle = "Create Board By Fen";
-
-    public static readonly TxtLanguage txtCreateByFenPlaceHolder = new TxtLanguage();
-    public const string DefaultCreateByFenPlaceHolder = "Enter the fen...";
-
-    public static readonly TxtLanguage txtCreateByFenCreate = new TxtLanguage();
-    public const string DefaultCreateByFenCreate = "Create";
-
-    public static readonly TxtLanguage txtCreateByFenMove = new TxtLanguage();
-    public const string DefaultCreateByFenMove = "Create By Fen";
+    public static readonly TxtLanguage txtCreateByFenTitle = new TxtLanguage("Create Board By Fen");
+    public static readonly TxtLanguage txtCreateByFenPlaceHolder = new TxtLanguage("Enter the fen...");
+    public static readonly TxtLanguage txtCreateByFenCreate = new TxtLanguage("Create");
+    public static readonly TxtLanguage txtCreateByFenMove = new TxtLanguage("Create By Fen");
 
     #endregion
 

@@ -77,21 +77,19 @@ namespace FileSystem
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Rename File");
 
         public Text lbName;
-        public static readonly TxtLanguage txtName = new TxtLanguage();
+        private static readonly TxtLanguage txtName = new TxtLanguage("New name");
 
         public Text tvOK;
-        public static readonly TxtLanguage txtOK = new TxtLanguage();
+        private static readonly TxtLanguage txtOK = new TxtLanguage("OK");
 
         public Text tvCancel;
-        public static readonly TxtLanguage txtCancel = new TxtLanguage();
+        private static readonly TxtLanguage txtCancel = new TxtLanguage("Cancel");
 
         static RenameFileUI()
         {
@@ -120,6 +118,8 @@ namespace FileSystem
         }
 
         #endregion
+
+        #region Refresh
 
         private bool needReset = true;
 
@@ -201,7 +201,7 @@ namespace FileSystem
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Rename File");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -209,7 +209,7 @@ namespace FileSystem
                         }
                         if (lbName != null)
                         {
-                            lbName.text = txtName.get("New name");
+                            lbName.text = txtName.get();
                         }
                         else
                         {
@@ -217,7 +217,7 @@ namespace FileSystem
                         }
                         if (tvOK != null)
                         {
-                            tvOK.text = txtOK.get("OK");
+                            tvOK.text = txtOK.get();
                         }
                         else
                         {
@@ -225,7 +225,7 @@ namespace FileSystem
                         }
                         if (tvCancel != null)
                         {
-                            tvCancel.text = txtCancel.get("Cancel");
+                            tvCancel.text = txtCancel.get();
                         }
                         else
                         {

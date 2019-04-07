@@ -18,15 +18,15 @@ public class ContestManagerBtnChatUI : UIBehavior<ContestManagerBtnChatUI.UIData
             Hide
         }
 
-        private static readonly TxtLanguage txtShow = new TxtLanguage();
-        private static readonly TxtLanguage txtHide = new TxtLanguage();
+        private static readonly TxtLanguage txtShow = new TxtLanguage("Show");
+        private static readonly TxtLanguage txtHide = new TxtLanguage("Hide");
 
         public static List<string> GetStrVisibility()
         {
             List<string> ret = new List<string>();
             {
-                ret.Add(txtShow.get("Show"));
-                ret.Add(txtHide.get("Hide"));
+                ret.Add(txtShow.get());
+                ret.Add(txtHide.get());
             }
             return ret;
         }
@@ -44,17 +44,17 @@ public class ContestManagerBtnChatUI : UIBehavior<ContestManagerBtnChatUI.UIData
             Push
         }
 
-        private static readonly TxtLanguage txtOverlay = new TxtLanguage();
-        private static readonly TxtLanguage txtFull = new TxtLanguage();
-        private static readonly TxtLanguage txtPush = new TxtLanguage();
+        private static readonly TxtLanguage txtOverlay = new TxtLanguage("Overlay");
+        private static readonly TxtLanguage txtFull = new TxtLanguage("By Side");
+        private static readonly TxtLanguage txtPush = new TxtLanguage("Push");
 
         public static List<string> GetStrStyles()
         {
             List<string> ret = new List<string>();
             {
-                ret.Add(txtOverlay.get("Overlay"));
-                ret.Add(txtFull.get("By Side"));
-                ret.Add(txtPush.get("Push"));
+                ret.Add(txtOverlay.get());
+                ret.Add(txtFull.get());
+                ret.Add(txtPush.get());
             }
             return ret;
         }

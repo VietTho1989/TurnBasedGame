@@ -84,10 +84,10 @@ namespace Janggi
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Janggi AI");
 
         public Text lbMaxVisitCount;
-        public static readonly TxtLanguage txtMaxVisitCount = new TxtLanguage();
+        private static readonly TxtLanguage txtMaxVisitCount = new TxtLanguage("Max node visit count");
 
         static JanggiAIUI()
         {
@@ -312,7 +312,7 @@ namespace Janggi
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Janggi AI");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -320,7 +320,7 @@ namespace Janggi
                         }
                         if (lbMaxVisitCount != null)
                         {
-                            lbMaxVisitCount.text = txtMaxVisitCount.get("Max node visit count");
+                            lbMaxVisitCount.text = txtMaxVisitCount.get();
                         }
                         else
                         {

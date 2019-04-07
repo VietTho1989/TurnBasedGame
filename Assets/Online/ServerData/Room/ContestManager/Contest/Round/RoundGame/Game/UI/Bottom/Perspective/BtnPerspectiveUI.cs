@@ -34,7 +34,7 @@ public class BtnPerspectiveUI : UIBehavior<BtnPerspectiveUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Perspective");
 
     static BtnPerspectiveUI()
     {
@@ -59,7 +59,7 @@ public class BtnPerspectiveUI : UIBehavior<BtnPerspectiveUI.UIData>
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Perspective") + " " + perspective.playerView.v;
+                            lbTitle.text = txtTitle.get() + " " + perspective.playerView.v;
                         }
                         else
                         {

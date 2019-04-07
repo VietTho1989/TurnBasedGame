@@ -82,10 +82,10 @@ public class DefaultRoomNameAlwaysUI : UIHaveTransformDataBehavior<DefaultRoomNa
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Room Name Always");
 
     public Text lbRoomName;
-    private static readonly TxtLanguage txtRoomName = new TxtLanguage();
+    private static readonly TxtLanguage txtRoomName = new TxtLanguage("Room name");
 
     static DefaultRoomNameAlwaysUI()
     {
@@ -299,7 +299,7 @@ public class DefaultRoomNameAlwaysUI : UIHaveTransformDataBehavior<DefaultRoomNa
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Room Name Always");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -307,7 +307,7 @@ public class DefaultRoomNameAlwaysUI : UIHaveTransformDataBehavior<DefaultRoomNa
                         }
                         if (lbRoomName != null)
                         {
-                            lbRoomName.text = txtRoomName.get("Room name");
+                            lbRoomName.text = txtRoomName.get();
                         }
                         else
                         {

@@ -260,7 +260,7 @@ namespace CoTuongUp.NoneRule
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = ClickPosTxt.txtClickPosTitle.get(ClickPosTxt.DefaultClickPosTitle);
+                            lbTitle.text = ClickPosTxt.txtClickPosTitle.get();
                         }
                         else
                         {
@@ -268,7 +268,7 @@ namespace CoTuongUp.NoneRule
                         }
                         if (tvSetPiece != null)
                         {
-                            tvSetPiece.text = ClickPosTxt.txtClickPosSetPiece.get(ClickPosTxt.DefaultClickPosSetPiece);
+                            tvSetPiece.text = ClickPosTxt.txtClickPosSetPiece.get();
                         }
                         else
                         {
@@ -276,7 +276,7 @@ namespace CoTuongUp.NoneRule
                         }
                         if (tvFlip != null)
                         {
-                            tvFlip.text = ClickPosTxt.txtClickPosFlip.get(ClickPosTxt.DefaultClickPosFlip);
+                            tvFlip.text = ClickPosTxt.txtClickPosFlip.get();
                         }
                         else
                         {
@@ -284,7 +284,7 @@ namespace CoTuongUp.NoneRule
                         }
                         if (tvMove != null)
                         {
-                            tvMove.text = ClickPosTxt.txtClickPosMove.get(ClickPosTxt.DefaultClickPosMove);
+                            tvMove.text = ClickPosTxt.txtClickPosMove.get();
                         }
                         else
                         {
@@ -292,7 +292,7 @@ namespace CoTuongUp.NoneRule
                         }
                         if (tvEndTurn != null)
                         {
-                            tvEndTurn.text = ClickPosTxt.txtClickPosEndTurn.get(ClickPosTxt.DefaultClickPosEndTurn);
+                            tvEndTurn.text = ClickPosTxt.txtClickPosEndTurn.get();
                         }
                         else
                         {
@@ -300,7 +300,7 @@ namespace CoTuongUp.NoneRule
                         }
                         if (tvClear != null)
                         {
-                            tvClear.text = ClickPosTxt.txtClickPosClear.get(ClickPosTxt.DefaultClickPosClear);
+                            tvClear.text = ClickPosTxt.txtClickPosClear.get();
                         }
                         else
                         {

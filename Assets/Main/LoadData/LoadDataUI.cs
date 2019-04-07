@@ -141,24 +141,22 @@ public class LoadDataUI : UIBehavior<LoadDataUI.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Load Data");
 
-    public static readonly TxtLanguage txtLoad = new TxtLanguage();
-    public static readonly TxtLanguage txtCannotLoad = new TxtLanguage();
-    public static readonly TxtLanguage txtLoading = new TxtLanguage();
-    public static readonly TxtLanguage txtLoadSuccess = new TxtLanguage();
-    public static readonly TxtLanguage txtLoadFail = new TxtLanguage();
+    private static readonly TxtLanguage txtLoad = new TxtLanguage("Load Game");
+    private static readonly TxtLanguage txtCannotLoad = new TxtLanguage("Load Game");
+    private static readonly TxtLanguage txtLoading = new TxtLanguage("Loading");
+    private static readonly TxtLanguage txtLoadSuccess = new TxtLanguage("Load success");
+    private static readonly TxtLanguage txtLoadFail = new TxtLanguage("Load fail");
 
-    public static readonly TxtLanguage txtLoadRecord = new TxtLanguage();
-    public static readonly TxtLanguage txtCannotLoadRecord = new TxtLanguage();
-    public static readonly TxtLanguage txtLoadingRecord = new TxtLanguage();
-    public static readonly TxtLanguage txtLoadRecordSuccess = new TxtLanguage();
-    public static readonly TxtLanguage txtLoadRecordFail = new TxtLanguage();
+    private static readonly TxtLanguage txtLoadRecord = new TxtLanguage("Load Record");
+    private static readonly TxtLanguage txtCannotLoadRecord = new TxtLanguage("Load Record");
+    private static readonly TxtLanguage txtLoadingRecord = new TxtLanguage("Loading");
+    private static readonly TxtLanguage txtLoadRecordSuccess = new TxtLanguage("Load record success");
+    private static readonly TxtLanguage txtLoadRecordFail = new TxtLanguage("Load fail");
 
     static LoadDataUI()
     {
@@ -178,6 +176,8 @@ public class LoadDataUI : UIBehavior<LoadDataUI.UIData>
     }
 
     #endregion
+
+    #region Refresh
 
     public Button btnBack;
 
@@ -256,12 +256,12 @@ public class LoadDataUI : UIBehavior<LoadDataUI.UIData>
                                                 if (haveCorrectSelectFile)
                                                 {
                                                     btnLoad.interactable = true;
-                                                    tvLoad.text = txtLoad.get("Load Game");
+                                                    tvLoad.text = txtLoad.get();
                                                 }
                                                 else
                                                 {
                                                     btnLoad.interactable = false;
-                                                    tvLoad.text = txtCannotLoad.get("Load Game");
+                                                    tvLoad.text = txtCannotLoad.get();
                                                 }
                                             }
                                         }
@@ -269,19 +269,19 @@ public class LoadDataUI : UIBehavior<LoadDataUI.UIData>
                                     case LoadDataTask.TaskData.State.Load:
                                         {
                                             btnLoad.interactable = false;
-                                            tvLoad.text = txtLoading.get("Loading");
+                                            tvLoad.text = txtLoading.get();
                                         }
                                         break;
                                     case LoadDataTask.TaskData.State.Success:
                                         {
                                             btnLoad.interactable = false;
-                                            tvLoad.text = txtLoadSuccess.get("Load success");
+                                            tvLoad.text = txtLoadSuccess.get();
                                         }
                                         break;
                                     case LoadDataTask.TaskData.State.Fail:
                                         {
                                             btnLoad.interactable = false;
-                                            tvLoad.text = txtLoadFail.get("Load fail");
+                                            tvLoad.text = txtLoadFail.get();
                                         }
                                         break;
                                     default:
@@ -411,12 +411,12 @@ public class LoadDataUI : UIBehavior<LoadDataUI.UIData>
                                                 if (haveCorrectSelectFile)
                                                 {
                                                     btnRecord.interactable = true;
-                                                    tvRecord.text = txtLoadRecord.get("Load Record");
+                                                    tvRecord.text = txtLoadRecord.get();
                                                 }
                                                 else
                                                 {
                                                     btnRecord.interactable = false;
-                                                    tvRecord.text = txtCannotLoadRecord.get("Load Record");
+                                                    tvRecord.text = txtCannotLoadRecord.get();
                                                 }
                                             }
                                         }
@@ -424,19 +424,19 @@ public class LoadDataUI : UIBehavior<LoadDataUI.UIData>
                                     case LoadRecordTask.TaskData.State.Load:
                                         {
                                             btnRecord.interactable = false;
-                                            tvRecord.text = txtLoadingRecord.get("Loading");
+                                            tvRecord.text = txtLoadingRecord.get();
                                         }
                                         break;
                                     case LoadRecordTask.TaskData.State.Success:
                                         {
                                             btnRecord.interactable = false;
-                                            tvRecord.text = txtLoadRecordSuccess.get("Load success");
+                                            tvRecord.text = txtLoadRecordSuccess.get();
                                         }
                                         break;
                                     case LoadRecordTask.TaskData.State.Fail:
                                         {
                                             btnRecord.interactable = false;
-                                            tvRecord.text = txtLoadRecordFail.get("Load  fail");
+                                            tvRecord.text = txtLoadRecordFail.get();
                                         }
                                         break;
                                     default:
@@ -485,7 +485,7 @@ public class LoadDataUI : UIBehavior<LoadDataUI.UIData>
                                                 Debug.LogError("viewRecordUIData null: " + this);
                                             }
                                         }
-                                        Toast.showMessage(txtLoadRecordSuccess.get("Load record success"));
+                                        Toast.showMessage(txtLoadRecordSuccess.get());
                                         loadRecordTask.state.v = LoadRecordTask.TaskData.State.None;
                                     }
                                     break;
@@ -547,7 +547,7 @@ public class LoadDataUI : UIBehavior<LoadDataUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Load Data");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {

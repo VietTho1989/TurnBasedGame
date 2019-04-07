@@ -98,10 +98,10 @@ namespace HEX
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Default Hex");
 
         public Text lbBoardSize;
-        public static readonly TxtLanguage txtBoardSize = new TxtLanguage();
+        private static readonly TxtLanguage txtBoardSize = new TxtLanguage("Board size");
 
         static DefaultHexUI()
         {
@@ -371,7 +371,7 @@ namespace HEX
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Default Hex");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -379,7 +379,7 @@ namespace HEX
                             }
                             if (lbBoardSize != null)
                             {
-                                lbBoardSize.text = txtBoardSize.get("Board size");
+                                lbBoardSize.text = txtBoardSize.get();
                             }
                             else
                             {

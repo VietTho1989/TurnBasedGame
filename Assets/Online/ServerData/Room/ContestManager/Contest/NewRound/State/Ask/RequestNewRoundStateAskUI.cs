@@ -101,10 +101,10 @@ namespace GameManager.Match
         #region txt, rect
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Request New Game");
 
         public Text tvCannotRequest;
-        private static readonly TxtLanguage txtCannotRequest = new TxtLanguage();
+        private static readonly TxtLanguage txtCannotRequest = new TxtLanguage("Can't request");
 
         static RequestNewRoundStateAskUI()
         {
@@ -231,7 +231,7 @@ namespace GameManager.Match
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Request New Game");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -239,7 +239,7 @@ namespace GameManager.Match
                             }
                             if (tvCannotRequest != null)
                             {
-                                tvCannotRequest.text = txtCannotRequest.get("Can't request");
+                                tvCannotRequest.text = txtCannotRequest.get();
                             }
                             else
                             {

@@ -50,17 +50,17 @@ public class BtnLoadHistoryUI : UIBehavior<BtnLoadHistoryUI.UIData>
 
     #region txt
 
-    private static readonly TxtLanguage txtLoad = new TxtLanguage();
-    private static readonly TxtLanguage txtCancelLoad = new TxtLanguage();
-    private static readonly TxtLanguage txtLoading = new TxtLanguage();
+    private static readonly TxtLanguage txtLoad = new TxtLanguage("Load");
+    private static readonly TxtLanguage txtCancelLoad = new TxtLanguage("Cancel load?");
+    private static readonly TxtLanguage txtLoading = new TxtLanguage("Loading");
 
-    private static readonly TxtLanguage txtUnload = new TxtLanguage();
-    private static readonly TxtLanguage txtCancelUnload = new TxtLanguage();
-    private static readonly TxtLanguage txtUnloading = new TxtLanguage();
+    private static readonly TxtLanguage txtUnload = new TxtLanguage("Unload");
+    private static readonly TxtLanguage txtCancelUnload = new TxtLanguage("Cancel Unload?");
+    private static readonly TxtLanguage txtUnloading = new TxtLanguage("Unloading");
 
-    private static readonly TxtLanguage txtCannotLoad = new TxtLanguage();
+    private static readonly TxtLanguage txtCannotLoad = new TxtLanguage("Can't Load");
 
-    private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+    private static readonly TxtLanguage txtRequestError = new TxtLanguage("Load history error");
 
     static BtnLoadHistoryUI()
     {
@@ -213,12 +213,12 @@ public class BtnLoadHistoryUI : UIBehavior<BtnLoadHistoryUI.UIData>
                                             if (!alreadyLoad)
                                             {
                                                 btnLoad.interactable = true;
-                                                tvLoad.text = txtLoad.get("Load");
+                                                tvLoad.text = txtLoad.get();
                                             }
                                             else
                                             {
                                                 btnLoad.interactable = true;
-                                                tvLoad.text = txtUnload.get("Unload");
+                                                tvLoad.text = txtUnload.get();
                                             }
                                         }
                                         break;
@@ -227,12 +227,12 @@ public class BtnLoadHistoryUI : UIBehavior<BtnLoadHistoryUI.UIData>
                                             if (!alreadyLoad)
                                             {
                                                 btnLoad.interactable = true;
-                                                tvLoad.text = txtCancelLoad.get("Cancel load?");
+                                                tvLoad.text = txtCancelLoad.get();
                                             }
                                             else
                                             {
                                                 btnLoad.interactable = true;
-                                                tvLoad.text = txtCancelUnload.get("Cancel Unload?");
+                                                tvLoad.text = txtCancelUnload.get();
                                             }
                                         }
                                         break;
@@ -241,12 +241,12 @@ public class BtnLoadHistoryUI : UIBehavior<BtnLoadHistoryUI.UIData>
                                             if (!alreadyLoad)
                                             {
                                                 btnLoad.interactable = false;
-                                                tvLoad.text = txtLoading.get("Loading");
+                                                tvLoad.text = txtLoading.get();
                                             }
                                             else
                                             {
                                                 btnLoad.interactable = false;
-                                                tvLoad.text = txtUnloading.get("Unloading");
+                                                tvLoad.text = txtUnloading.get();
                                             }
                                         }
                                         break;
@@ -273,7 +273,7 @@ public class BtnLoadHistoryUI : UIBehavior<BtnLoadHistoryUI.UIData>
                             if (btnLoad != null && tvLoad != null)
                             {
                                 btnLoad.interactable = false;
-                                tvLoad.text = txtCannotLoad.get("Can't Load");
+                                tvLoad.text = txtCannotLoad.get();
                             }
                             else
                             {
@@ -311,7 +311,7 @@ public class BtnLoadHistoryUI : UIBehavior<BtnLoadHistoryUI.UIData>
         {
             yield return new Wait(Global.WaitSendTime);
             this.data.state.v = UIData.State.None;
-            Toast.showMessage(txtRequestError.get("Load history error"));
+            Toast.showMessage(txtRequestError.get());
             Debug.LogError("request error: " + this);
         }
         else

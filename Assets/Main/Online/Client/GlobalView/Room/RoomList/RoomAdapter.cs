@@ -97,12 +97,10 @@ public class RoomAdapter : SRIA<RoomAdapter.UIData, RoomHolder.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text tvNoRooms;
-    public static readonly TxtLanguage txtNoRooms = new TxtLanguage();
+    private static readonly TxtLanguage txtNoRooms = new TxtLanguage("Don't have any rooms");
 
     static RoomAdapter()
     {
@@ -126,6 +124,8 @@ public class RoomAdapter : SRIA<RoomAdapter.UIData, RoomHolder.UIData>
     }
 
     #endregion
+
+    #region Refresh
 
     public GameObject noRooms;
 
@@ -331,7 +331,7 @@ public class RoomAdapter : SRIA<RoomAdapter.UIData, RoomHolder.UIData>
                     {
                         if (tvNoRooms != null)
                         {
-                            tvNoRooms.text = txtNoRooms.get("Don't have any rooms");
+                            tvNoRooms.text = txtNoRooms.get();
                         }
                         else
                         {

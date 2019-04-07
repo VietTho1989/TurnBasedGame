@@ -185,16 +185,16 @@ namespace Gomoku
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Gomoku AI");
 
         public Text lbSearchDepth;
-        public static readonly TxtLanguage txtSearchDepth = new TxtLanguage();
+        private static readonly TxtLanguage txtSearchDepth = new TxtLanguage("Search depth");
 
         public Text lbTimeLimit;
-        public static readonly TxtLanguage txtTimeLimit = new TxtLanguage();
+        private static readonly TxtLanguage txtTimeLimit = new TxtLanguage("Time limit");
 
         public Text lbLevel;
-        public static readonly TxtLanguage txtLevel = new TxtLanguage();
+        private static readonly TxtLanguage txtLevel = new TxtLanguage("Level");
 
         static GomokuAIUI()
         {
@@ -590,7 +590,7 @@ namespace Gomoku
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Gomoku AI");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -598,7 +598,7 @@ namespace Gomoku
                         }
                         if (lbSearchDepth != null)
                         {
-                            lbSearchDepth.text = txtSearchDepth.get("Search depth");
+                            lbSearchDepth.text = txtSearchDepth.get();
                         }
                         else
                         {
@@ -606,7 +606,7 @@ namespace Gomoku
                         }
                         if (lbTimeLimit != null)
                         {
-                            lbTimeLimit.text = txtTimeLimit.get("Time limit");
+                            lbTimeLimit.text = txtTimeLimit.get();
                         }
                         else
                         {
@@ -614,7 +614,7 @@ namespace Gomoku
                         }
                         if (lbLevel != null)
                         {
-                            lbLevel.text = txtLevel.get("Level");
+                            lbLevel.text = txtLevel.get();
                         }
                         else
                         {

@@ -49,7 +49,7 @@ namespace Xiangqi
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Default Xiangqi");
 
         static DefaultXiangqiUI()
         {
@@ -231,7 +231,7 @@ namespace Xiangqi
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Default Xiangqi");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {

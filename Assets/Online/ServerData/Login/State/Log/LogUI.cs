@@ -42,16 +42,16 @@ namespace LoginState
         #region txt
 
         public Text tvCancel;
-        private static readonly TxtLanguage txtCancel = new TxtLanguage();
+        private static readonly TxtLanguage txtCancel = new TxtLanguage("Cancel");
 
-        private static readonly TxtLanguage txtTime = new TxtLanguage();
+        private static readonly TxtLanguage txtTime = new TxtLanguage("Time");
 
-        private static readonly TxtLanguage txtConnect = new TxtLanguage();
-        private static readonly TxtLanguage txtGetDevice = new TxtLanguage();
-        private static readonly TxtLanguage txtGetEmail = new TxtLanguage();
-        private static readonly TxtLanguage txtGetFacebook = new TxtLanguage();
-        private static readonly TxtLanguage txtLogin = new TxtLanguage();
-        private static readonly TxtLanguage txtLoggingIn = new TxtLanguage();
+        private static readonly TxtLanguage txtConnect = new TxtLanguage("Connecting to server...");
+        private static readonly TxtLanguage txtGetDevice = new TxtLanguage("Getting device information...");
+        private static readonly TxtLanguage txtGetEmail = new TxtLanguage("Getting email information...");
+        private static readonly TxtLanguage txtGetFacebook = new TxtLanguage("Getting facebook information...");
+        private static readonly TxtLanguage txtLogin = new TxtLanguage("Login server...");
+        private static readonly TxtLanguage txtLoggingIn = new TxtLanguage("Logging in server...");
 
         static LogUI()
         {
@@ -85,7 +85,7 @@ namespace LoginState
                         // tvCancel
                         if (tvCancel != null)
                         {
-                            tvCancel.text = txtCancel.get("Cancel");
+                            tvCancel.text = txtCancel.get();
                         }
                         else
                         {
@@ -94,7 +94,7 @@ namespace LoginState
                         // tvTime
                         if (tvTime != null)
                         {
-                            tvTime.text = txtTime.get("Time") + ": " + log.time.v + "/" + log.timeOut.v;
+                            tvTime.text = txtTime.get() + ": " + log.time.v + "/" + log.timeOut.v;
                         }
                         else
                         {
@@ -109,7 +109,7 @@ namespace LoginState
                                 switch (step.getType())
                                 {
                                     case Log.Step.Type.Start:
-                                        tvProgress.text = txtConnect.get("Connecting to server...");
+                                        tvProgress.text = txtConnect.get();
                                         break;
                                     case Log.Step.Type.GetData:
                                         {
@@ -120,13 +120,13 @@ namespace LoginState
                                                 switch (sub.getType())
                                                 {
                                                     case Account.Type.DEVICE:
-                                                        tvProgress.text = txtGetDevice.get("Getting device information...");
+                                                        tvProgress.text = txtGetDevice.get();
                                                         break;
                                                     case Account.Type.EMAIL:
-                                                        tvProgress.text = txtGetEmail.get("Getting email information...");
+                                                        tvProgress.text = txtGetEmail.get();
                                                         break;
                                                     case Account.Type.FACEBOOK:
-                                                        tvProgress.text = txtGetFacebook.get("Getting facebook information...");
+                                                        tvProgress.text = txtGetFacebook.get();
                                                         break;
                                                     default:
                                                         Debug.LogError("unknown type: " + sub.getType() + "; " + this);
@@ -145,13 +145,13 @@ namespace LoginState
                                             switch (stepLogin.state.v)
                                             {
                                                 case StepLogin.State.Not:
-                                                    tvProgress.text = txtConnect.get("Connecting to server...");
+                                                    tvProgress.text = txtConnect.get();
                                                     break;
                                                 case StepLogin.State.Log:
-                                                    tvProgress.text = txtLogin.get("Login server...");
+                                                    tvProgress.text = txtLogin.get();
                                                     break;
                                                 case StepLogin.State.Wait:
-                                                    tvProgress.text = txtLoggingIn.get("Logging in server...");
+                                                    tvProgress.text = txtLoggingIn.get();
                                                     break;
                                                 default:
                                                     Debug.LogError("unknown state: " + stepLogin.state.v + "; " + this);

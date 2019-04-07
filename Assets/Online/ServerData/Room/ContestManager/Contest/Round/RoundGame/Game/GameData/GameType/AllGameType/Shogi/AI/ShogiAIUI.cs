@@ -261,22 +261,22 @@ namespace Shogi
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Shogi AI");
 
         public Text lbDepth;
-        private static readonly TxtLanguage txtDepth = new TxtLanguage();
+        private static readonly TxtLanguage txtDepth = new TxtLanguage("Depth");
 
         public Text lbSkillLevel;
-        private static readonly TxtLanguage txtSkillLevel = new TxtLanguage();
+        private static readonly TxtLanguage txtSkillLevel = new TxtLanguage("Skill level");
 
         public Text lbMr;
-        private static readonly TxtLanguage txtMr = new TxtLanguage();
+        private static readonly TxtLanguage txtMr = new TxtLanguage("mr");
 
         public Text lbDuration;
-        private static readonly TxtLanguage txtDuration = new TxtLanguage();
+        private static readonly TxtLanguage txtDuration = new TxtLanguage("Duration");
 
         public Text lbUseBook;
-        private static readonly TxtLanguage txtUseBook = new TxtLanguage();
+        private static readonly TxtLanguage txtUseBook = new TxtLanguage("Use book");
 
         static ShogiAIUI()
         {
@@ -844,7 +844,7 @@ namespace Shogi
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Shogi AI");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -852,7 +852,7 @@ namespace Shogi
                         }
                         if (lbDepth != null)
                         {
-                            lbDepth.text = txtDepth.get("Depth");
+                            lbDepth.text = txtDepth.get();
                         }
                         else
                         {
@@ -860,7 +860,7 @@ namespace Shogi
                         }
                         if (lbSkillLevel != null)
                         {
-                            lbSkillLevel.text = txtSkillLevel.get("Skill level");
+                            lbSkillLevel.text = txtSkillLevel.get();
                         }
                         else
                         {
@@ -868,7 +868,7 @@ namespace Shogi
                         }
                         if (lbMr != null)
                         {
-                            lbMr.text = txtMr.get("mr");
+                            lbMr.text = txtMr.get();
                         }
                         else
                         {
@@ -876,7 +876,7 @@ namespace Shogi
                         }
                         if (lbDuration != null)
                         {
-                            lbDuration.text = txtDuration.get("Duration");
+                            lbDuration.text = txtDuration.get();
                         }
                         else
                         {
@@ -884,7 +884,7 @@ namespace Shogi
                         }
                         if (lbUseBook != null)
                         {
-                            lbUseBook.text = txtUseBook.get("Use book");
+                            lbUseBook.text = txtUseBook.get();
                         }
                         else
                         {

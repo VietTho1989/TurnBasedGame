@@ -56,7 +56,7 @@ namespace ChineseCheckers
         public Text lbTitle;
 
         public Text tvMessage;
-        private static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("https://en.wikipedia.org/wiki/Chinese_checkers");
 
         static ChineseCheckersInformationUI()
         {
@@ -141,7 +141,7 @@ namespace ChineseCheckers
                             }
                             if (tvMessage != null)
                             {
-                                tvMessage.text = txtMessage.get("https://en.wikipedia.org/wiki/Chinese_checkers");
+                                tvMessage.text = txtMessage.get();
                             }
                             else
                             {

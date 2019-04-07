@@ -58,11 +58,11 @@ public class GlobalBanUI : UIBehavior<GlobalBanUI.UIData>
     #region txt
 
     public Text tvBan;
-    public static readonly TxtLanguage txtBan = new TxtLanguage();
+    private static readonly TxtLanguage txtBan = new TxtLanguage("You have been banned");
 
     static GlobalBanUI()
     {
-        txtBan.add(Language.Type.vi, "Bạn đã bị ban nick");
+        txtBan.add(Language.Type.vi, "Bạn đã bị cấm");
     }
 
     #endregion
@@ -77,7 +77,7 @@ public class GlobalBanUI : UIBehavior<GlobalBanUI.UIData>
 				Server server = this.data.server.v.data;
 				if (server != null) {
 					if (tvBan != null) {
-						tvBan.text = txtBan.get ("You have been banned");
+						tvBan.text = txtBan.get ();
 					} else {
 						Debug.LogError ("tvBan null: " + this);
 					}

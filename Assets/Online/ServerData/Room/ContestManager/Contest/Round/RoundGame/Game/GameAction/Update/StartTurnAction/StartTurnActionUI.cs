@@ -36,13 +36,11 @@ public class StartTurnActionUI : UIBehavior<StartTurnActionUI.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
-    public static TxtLanguage txtNewTurn = new TxtLanguage();
-    public static TxtLanguage txtPlayer = new TxtLanguage();
-    public static TxtLanguage txtTurn = new TxtLanguage();
+    private static TxtLanguage txtNewTurn = new TxtLanguage("New Turn");
+    private static TxtLanguage txtPlayer = new TxtLanguage("Player");
+    private static TxtLanguage txtTurn = new TxtLanguage("turn");
 
     static StartTurnActionUI()
     {
@@ -52,6 +50,8 @@ public class StartTurnActionUI : UIBehavior<StartTurnActionUI.UIData>
     }
 
     #endregion
+
+    #region Refresh
 
     public Text tvTurn;
 
@@ -95,7 +95,7 @@ public class StartTurnActionUI : UIBehavior<StartTurnActionUI.UIData>
                                 // Debug.LogError("game null");
                             }
                         }
-                        tvTurn.text = txtNewTurn.get("New Turn") + ": " + turnIndex;
+                        tvTurn.text = txtNewTurn.get() + ": " + turnIndex;
                         /*switch (startTurnAction.state.v)
                         {
                             case StartTurnAction.State.Start:

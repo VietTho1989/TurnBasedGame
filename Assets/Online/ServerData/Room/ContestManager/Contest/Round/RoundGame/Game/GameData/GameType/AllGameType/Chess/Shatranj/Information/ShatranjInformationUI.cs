@@ -60,7 +60,7 @@ namespace Shatranj
         public Text lbTitle;
 
         public Text tvMessage;
-        private static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("https://en.wikipedia.org/wiki/Shatranj");
 
         static ShatranjInformationUI()
         {
@@ -241,7 +241,7 @@ namespace Shatranj
                             }
                             if (tvMessage != null)
                             {
-                                tvMessage.text = txtMessage.get("https://en.wikipedia.org/wiki/Shatranj");
+                                tvMessage.text = txtMessage.get();
                             }
                             else
                             {

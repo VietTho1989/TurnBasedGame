@@ -84,7 +84,7 @@ namespace Seirawan.UseRule
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = ClickPosTxt.txtMoveOrChooseTitle.get(ClickPosTxt.DefaultMoveOrChooseTitle);
+                            lbTitle.text = ClickPosTxt.txtMoveOrChooseTitle.get();
                         }
                         else
                         {
@@ -92,7 +92,7 @@ namespace Seirawan.UseRule
                         }
                         if (tvMove != null)
                         {
-                            tvMove.text = ClickPosTxt.txtMove.get(ClickPosTxt.DefaultMove);
+                            tvMove.text = ClickPosTxt.txtMove.get();
                         }
                         else
                         {
@@ -100,7 +100,7 @@ namespace Seirawan.UseRule
                         }
                         if (tvChoose != null)
                         {
-                            tvChoose.text = ClickPosTxt.txtChoose.get(ClickPosTxt.DefaultChoose);
+                            tvChoose.text = ClickPosTxt.txtChoose.get();
                         }
                         else
                         {
@@ -108,7 +108,7 @@ namespace Seirawan.UseRule
                         }
                         if (tvCancel != null)
                         {
-                            tvCancel.text = ClickPosTxt.txtCancel.get(ClickPosTxt.DefaultCancel);
+                            tvCancel.text = ClickPosTxt.txtCancel.get();
                         }
                         else
                         {

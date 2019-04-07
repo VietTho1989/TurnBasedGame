@@ -54,21 +54,19 @@ public class RoomBtnBackConfirmUI : UIBehavior<RoomBtnBackConfirmUI.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Confirm Back");
 
     public Text lbMessage;
-    public static readonly TxtLanguage txtMessage = new TxtLanguage();
+    private static readonly TxtLanguage txtMessage = new TxtLanguage("Are you sure to leave the room?");
 
     public Text tvOK;
-    public static readonly TxtLanguage txtOK = new TxtLanguage();
+    private static readonly TxtLanguage txtOK = new TxtLanguage("OK");
 
     public Text tvCancel;
-    public static readonly TxtLanguage txtCancel = new TxtLanguage();
+    private static readonly TxtLanguage txtCancel = new TxtLanguage("Cancel");
 
     static RoomBtnBackConfirmUI()
     {
@@ -79,6 +77,8 @@ public class RoomBtnBackConfirmUI : UIBehavior<RoomBtnBackConfirmUI.UIData>
     }
 
     #endregion
+
+    #region Refresh
 
     public override void refresh()
     {
@@ -91,7 +91,7 @@ public class RoomBtnBackConfirmUI : UIBehavior<RoomBtnBackConfirmUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Confirm Back");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -99,7 +99,7 @@ public class RoomBtnBackConfirmUI : UIBehavior<RoomBtnBackConfirmUI.UIData>
                     }
                     if (lbMessage != null)
                     {
-                        lbMessage.text = txtMessage.get("Are you sure to leave the room?");
+                        lbMessage.text = txtMessage.get();
                     }
                     else
                     {
@@ -107,7 +107,7 @@ public class RoomBtnBackConfirmUI : UIBehavior<RoomBtnBackConfirmUI.UIData>
                     }
                     if (tvOK != null)
                     {
-                        tvOK.text = txtOK.get("OK");
+                        tvOK.text = txtOK.get();
                     }
                     else
                     {
@@ -115,7 +115,7 @@ public class RoomBtnBackConfirmUI : UIBehavior<RoomBtnBackConfirmUI.UIData>
                     }
                     if (tvCancel != null)
                     {
-                        tvCancel.text = txtCancel.get("Cancel");
+                        tvCancel.text = txtCancel.get();
                     }
                     else
                     {

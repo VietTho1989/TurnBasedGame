@@ -206,7 +206,7 @@ namespace EnglishDraught.UseRule
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = ClickPosTxt.txtClickDestChooseTitle.get(ClickPosTxt.DefaultClickDestChooseTitle);
+                            lbTitle.text = ClickPosTxt.txtClickDestChooseTitle.get();
                         }
                         else
                         {
@@ -214,7 +214,7 @@ namespace EnglishDraught.UseRule
                         }
                         if (tvCancel != null)
                         {
-                            tvCancel.text = ClickPosTxt.txtCancel.get(ClickPosTxt.DefaultCancel);
+                            tvCancel.text = ClickPosTxt.txtCancel.get();
                         }
                         else
                         {

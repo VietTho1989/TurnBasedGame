@@ -49,7 +49,7 @@ namespace Sudoku
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Default Sudoku");
 
         static DefaultSudokuUI()
         {
@@ -228,7 +228,7 @@ namespace Sudoku
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Default Sudoku");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {

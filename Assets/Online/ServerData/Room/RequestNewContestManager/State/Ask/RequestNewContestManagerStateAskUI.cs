@@ -99,15 +99,13 @@ namespace GameManager.ContestManager
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Request New Tournament");
 
         public Text tvCannotRequest;
-        private static readonly TxtLanguage txtCannotRequest = new TxtLanguage();
+        private static readonly TxtLanguage txtCannotRequest = new TxtLanguage("Can't request");
 
         static RequestNewContestManagerStateAskUI()
         {
@@ -146,6 +144,8 @@ namespace GameManager.ContestManager
         }
 
         #endregion
+
+        #region Refresh
 
         public Transform contentContainer;
 
@@ -236,7 +236,7 @@ namespace GameManager.ContestManager
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Request New Tournament");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -244,7 +244,7 @@ namespace GameManager.ContestManager
                             }
                             if (tvCannotRequest != null)
                             {
-                                tvCannotRequest.text = txtCannotRequest.get("Can't request");
+                                tvCannotRequest.text = txtCannotRequest.get();
                             }
                             else
                             {

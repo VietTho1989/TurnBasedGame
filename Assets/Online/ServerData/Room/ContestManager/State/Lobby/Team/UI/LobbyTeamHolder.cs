@@ -60,7 +60,7 @@ namespace GameManager.Match
 
         #region txt
 
-        private static readonly TxtLanguage txtTeam = new TxtLanguage();
+        private static readonly TxtLanguage txtTeam = new TxtLanguage("Team");
 
         static LobbyTeamHolder()
         {
@@ -88,7 +88,7 @@ namespace GameManager.Match
                         {
                             if (tvTeamIndex != null)
                             {
-                                tvTeamIndex.text = txtTeam.get("Team") + ": " + lobbyTeam.teamIndex.v;
+                                tvTeamIndex.text = txtTeam.get() + ": " + lobbyTeam.teamIndex.v;
                             }
                             else
                             {

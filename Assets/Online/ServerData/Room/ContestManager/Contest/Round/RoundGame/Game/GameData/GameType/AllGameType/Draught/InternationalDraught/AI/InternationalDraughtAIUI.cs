@@ -341,28 +341,28 @@ namespace InternationalDraught
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("International Draughts AI");
 
         public Text lbBMove;
-        public static readonly TxtLanguage txtBMove = new TxtLanguage();
+        private static readonly TxtLanguage txtBMove = new TxtLanguage("BMove");
 
         public Text lbBook;
-        public static readonly TxtLanguage txtBook = new TxtLanguage();
+        private static readonly TxtLanguage txtBook = new TxtLanguage("Book");
 
         public Text lbDepth;
-        public static readonly TxtLanguage txtDepth = new TxtLanguage();
+        private static readonly TxtLanguage txtDepth = new TxtLanguage("Depth");
 
         public Text lbTime;
-        public static readonly TxtLanguage txtTime = new TxtLanguage();
+        private static readonly TxtLanguage txtTime = new TxtLanguage("Time");
 
         public Text lbInput;
-        public static readonly TxtLanguage txtInput = new TxtLanguage();
+        private static readonly TxtLanguage txtInput = new TxtLanguage("Input");
 
         public Text lbUseEndGameDatabase;
-        public static readonly TxtLanguage txtUseEndGameDatabase = new TxtLanguage();
+        private static readonly TxtLanguage txtUseEndGameDatabase = new TxtLanguage("Use end game database");
 
         public Text lbPickBestMove;
-        public static readonly TxtLanguage txtPickBestMove = new TxtLanguage();
+        private static readonly TxtLanguage txtPickBestMove = new TxtLanguage("Pick best move");
 
         static InternationalDraughtAIUI()
         {
@@ -1102,7 +1102,7 @@ namespace InternationalDraught
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("International Draughts AI");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -1110,7 +1110,7 @@ namespace InternationalDraught
                         }
                         if (lbBMove != null)
                         {
-                            lbBMove.text = txtBMove.get("BMove");
+                            lbBMove.text = txtBMove.get();
                         }
                         else
                         {
@@ -1118,7 +1118,7 @@ namespace InternationalDraught
                         }
                         if (lbBook != null)
                         {
-                            lbBook.text = txtBook.get("Book");
+                            lbBook.text = txtBook.get();
                         }
                         else
                         {
@@ -1126,7 +1126,7 @@ namespace InternationalDraught
                         }
                         if (lbDepth != null)
                         {
-                            lbDepth.text = txtDepth.get("Depth");
+                            lbDepth.text = txtDepth.get();
                         }
                         else
                         {
@@ -1134,7 +1134,7 @@ namespace InternationalDraught
                         }
                         if (lbTime != null)
                         {
-                            lbTime.text = txtTime.get("Time");
+                            lbTime.text = txtTime.get();
                         }
                         else
                         {
@@ -1142,7 +1142,7 @@ namespace InternationalDraught
                         }
                         if (lbInput != null)
                         {
-                            lbInput.text = txtInput.get("Input");
+                            lbInput.text = txtInput.get();
                         }
                         else
                         {
@@ -1150,7 +1150,7 @@ namespace InternationalDraught
                         }
                         if (lbUseEndGameDatabase != null)
                         {
-                            lbUseEndGameDatabase.text = txtUseEndGameDatabase.get("Use end game database");
+                            lbUseEndGameDatabase.text = txtUseEndGameDatabase.get();
                         }
                         else
                         {
@@ -1158,7 +1158,7 @@ namespace InternationalDraught
                         }
                         if (lbPickBestMove != null)
                         {
-                            lbPickBestMove.text = txtPickBestMove.get("Pick best move");
+                            lbPickBestMove.text = txtPickBestMove.get();
                         }
                         else
                         {

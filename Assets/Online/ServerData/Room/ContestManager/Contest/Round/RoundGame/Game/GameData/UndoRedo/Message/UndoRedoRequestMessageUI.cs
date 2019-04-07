@@ -42,12 +42,12 @@ public class UndoRedoRequestMessageUI : UIBehavior<UndoRedoRequestMessageUI.UIDa
 
     #region txt, rect
 
-    public static readonly TxtLanguage txtAsk = new TxtLanguage();
-    public static readonly TxtLanguage txtAccept = new TxtLanguage();
-    public static readonly TxtLanguage txtRefuse = new TxtLanguage();
+    public static readonly TxtLanguage txtAsk = new TxtLanguage("request");
+    public static readonly TxtLanguage txtAccept = new TxtLanguage("accept");
+    public static readonly TxtLanguage txtRefuse = new TxtLanguage("refuse");
 
-    public static readonly TxtLanguage txtUndo = new TxtLanguage();
-    public static readonly TxtLanguage txtRedo = new TxtLanguage();
+    public static readonly TxtLanguage txtUndo = new TxtLanguage("undo");
+    public static readonly TxtLanguage txtRedo = new TxtLanguage("redo");
 
     static UndoRedoRequestMessageUI()
     {

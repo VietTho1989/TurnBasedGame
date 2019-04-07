@@ -135,13 +135,13 @@ namespace EnglishDraught
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Default English Draughts");
 
         public Text lbThreeMoveRandom;
-        public static readonly TxtLanguage txtThreeMoveRandom = new TxtLanguage();
+        private static readonly TxtLanguage txtThreeMoveRandom = new TxtLanguage("Three moves random");
 
         public Text lbMaxPly;
-        public static readonly TxtLanguage txtMaxPly = new TxtLanguage();
+        private static readonly TxtLanguage txtMaxPly = new TxtLanguage("Max ply");
 
         static DefaultEnglishDraughtUI()
         {
@@ -505,7 +505,7 @@ namespace EnglishDraught
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Default English Draughts");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -513,7 +513,7 @@ namespace EnglishDraught
                             }
                             if (lbThreeMoveRandom != null)
                             {
-                                lbThreeMoveRandom.text = txtThreeMoveRandom.get("Three moves random");
+                                lbThreeMoveRandom.text = txtThreeMoveRandom.get();
                             }
                             else
                             {
@@ -521,7 +521,7 @@ namespace EnglishDraught
                             }
                             if (lbMaxPly != null)
                             {
-                                lbMaxPly.text = txtMaxPly.get("Max ply");
+                                lbMaxPly.text = txtMaxPly.get();
                             }
                             else
                             {

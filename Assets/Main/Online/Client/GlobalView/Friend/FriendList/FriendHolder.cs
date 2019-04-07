@@ -73,9 +73,10 @@ public class FriendHolder : SriaHolderBehavior<FriendHolder.UIData>
     public Text tvId;
 
     public Text tvStatus;
-    private static readonly TxtLanguage txtStatus = new TxtLanguage();
+    private static readonly TxtLanguage txtStatus = new TxtLanguage("Status");
+
     public Text tvStatusPlaceHolder;
-    private static readonly TxtLanguage txtNoStatus = new TxtLanguage();
+    private static readonly TxtLanguage txtNoStatus = new TxtLanguage("No status");
 
     public Text tvSex;
 
@@ -85,8 +86,8 @@ public class FriendHolder : SriaHolderBehavior<FriendHolder.UIData>
         {
             // status
             {
-                txtStatus.add(Language.Type.vi, "Status:");
-                txtNoStatus.add(Language.Type.vi, "Không status");
+                txtStatus.add(Language.Type.vi, "Tình trạng");
+                txtNoStatus.add(Language.Type.vi, "Không tình trạng");
             }
         }
         // rect
@@ -210,7 +211,7 @@ public class FriendHolder : SriaHolderBehavior<FriendHolder.UIData>
                             {
                                 if (!string.IsNullOrEmpty(human.status.v))
                                 {
-                                    tvStatus.text = txtStatus.get("Status: ") + human.status.v;
+                                    tvStatus.text = txtStatus.get()+": " + human.status.v;
                                 }
                                 else
                                 {
@@ -224,7 +225,7 @@ public class FriendHolder : SriaHolderBehavior<FriendHolder.UIData>
                             // status place holder
                             if (tvStatusPlaceHolder != null)
                             {
-                                tvStatusPlaceHolder.text = txtNoStatus.get("No status");
+                                tvStatusPlaceHolder.text = txtNoStatus.get();
                             }
                             else
                             {

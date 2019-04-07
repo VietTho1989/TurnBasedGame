@@ -42,15 +42,13 @@ namespace GameState
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Unpause");
 
-        public static readonly TxtLanguage txtName = new TxtLanguage();
-        public static readonly TxtLanguage txtTime = new TxtLanguage();
+        private static readonly TxtLanguage txtName = new TxtLanguage("Name");
+        private static readonly TxtLanguage txtTime = new TxtLanguage("Time");
 
         static PlayUnPauseUI()
         {
@@ -78,6 +76,8 @@ namespace GameState
         }
 
         #endregion
+
+        #region Refresh
 
         public Text tvName;
         public Text tvTime;
@@ -147,7 +147,7 @@ namespace GameState
                         // tvTime
                         if (tvTime != null)
                         {
-                            tvTime.text = txtTime.get("Time") + ": " + Mathf.Min(playUnPause.time.v, playUnPause.duration.v) + "/" + playUnPause.duration.v;
+                            tvTime.text = txtTime.get() + ": " + Mathf.Min(playUnPause.time.v, playUnPause.duration.v) + "/" + playUnPause.duration.v;
                         }
                         else
                         {
@@ -184,7 +184,7 @@ namespace GameState
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Unpause");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {

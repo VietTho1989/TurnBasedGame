@@ -182,16 +182,16 @@ namespace FairyChess
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Fairy Chess AI");
 
         public Text lbDepth;
-        public static readonly TxtLanguage txtDepth = new TxtLanguage();
+        private static readonly TxtLanguage txtDepth = new TxtLanguage("Depth");
 
         public Text lbSkillLevel;
-        public static readonly TxtLanguage txtSkillLevel = new TxtLanguage();
+        private static readonly TxtLanguage txtSkillLevel = new TxtLanguage("Skill level");
 
         public Text lbDuration;
-        public static readonly TxtLanguage txtDuration = new TxtLanguage();
+        private static readonly TxtLanguage txtDuration = new TxtLanguage("Duration");
 
         static FairyChessAIUI()
         {
@@ -578,7 +578,7 @@ namespace FairyChess
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Fairy Chess AI");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -586,7 +586,7 @@ namespace FairyChess
                         }
                         if (lbDepth != null)
                         {
-                            lbDepth.text = txtDepth.get("Depth");
+                            lbDepth.text = txtDepth.get();
                         }
                         else
                         {
@@ -594,7 +594,7 @@ namespace FairyChess
                         }
                         if (lbSkillLevel != null)
                         {
-                            lbSkillLevel.text = txtSkillLevel.get("Skill level");
+                            lbSkillLevel.text = txtSkillLevel.get();
                         }
                         else
                         {
@@ -602,7 +602,7 @@ namespace FairyChess
                         }
                         if (lbDuration != null)
                         {
-                            lbDuration.text = txtDuration.get("Duration");
+                            lbDuration.text = txtDuration.get();
                         }
                         else
                         {

@@ -1,7 +1,7 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Global/Setting/Language/TxtLanguage.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/State/Lobby/Team/Player/UI/Edit/AdminEdit/Human/AdminEditLobbyPlayerChooseHumanAdapter.cs">
     <Files>
-      <File FileName="Assets/Global/Setting/Language/TxtLanguage.cs" Line="49" Column="20" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/State/Lobby/Team/Player/UI/Edit/AdminEdit/Human/AdminEditLobbyPlayerChooseHumanAdapter.cs" Line="86" Column="56" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

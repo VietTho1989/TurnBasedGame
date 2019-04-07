@@ -44,14 +44,12 @@ public class BtnUpdateUser : UIBehavior<BtnUpdateUser.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
-    private static readonly TxtLanguage txtApply = new TxtLanguage();
-    private static readonly TxtLanguage txtCannotApply = new TxtLanguage();
-    private static readonly TxtLanguage txtCancelApply = new TxtLanguage();
-    private static readonly TxtLanguage txtApplying = new TxtLanguage();
+    private static readonly TxtLanguage txtApply = new TxtLanguage("Apply");
+    private static readonly TxtLanguage txtCannotApply = new TxtLanguage("Can't Apply");
+    private static readonly TxtLanguage txtCancelApply = new TxtLanguage("Cancel Apply");
+    private static readonly TxtLanguage txtApplying = new TxtLanguage("Applying...");
 
     static BtnUpdateUser()
     {
@@ -62,6 +60,8 @@ public class BtnUpdateUser : UIBehavior<BtnUpdateUser.UIData>
     }
 
     #endregion
+
+    #region Refresh
 
     public Button btnApply;
     public Text tvApply;
@@ -146,24 +146,24 @@ public class BtnUpdateUser : UIBehavior<BtnUpdateUser.UIData>
                                                     if (isDifferent)
                                                     {
                                                         btnApply.interactable = true;
-                                                        tvApply.text = txtApply.get("Apply");
+                                                        tvApply.text = txtApply.get();
                                                     }
                                                     else
                                                     {
                                                         btnApply.interactable = false;
-                                                        tvApply.text = txtCannotApply.get("Apply");
+                                                        tvApply.text = txtCannotApply.get();
                                                     }
                                                 }
                                                 break;
                                             case UIData.State.Request:
                                                 {
                                                     btnApply.interactable = true;
-                                                    tvApply.text = txtCancelApply.get("Cancel Apply");
+                                                    tvApply.text = txtCancelApply.get();
                                                 }
                                                 break;
                                             case UIData.State.Wait:
                                                 btnApply.interactable = false;
-                                                tvApply.text = txtApplying.get("Applying...");
+                                                tvApply.text = txtApplying.get();
                                                 break;
                                             default:
                                                 Debug.LogError("unknown state: " + this.data.state.v + "; " + this);
@@ -197,7 +197,7 @@ public class BtnUpdateUser : UIBehavior<BtnUpdateUser.UIData>
                             // txtApply
                             if (tvApply != null)
                             {
-                                tvApply.text = txtApply.get("Apply");
+                                tvApply.text = txtApply.get();
                             }
                             else
                             {

@@ -46,11 +46,11 @@ public class BtnCreateRoomUI : UIBehavior<BtnCreateRoomUI.UIData>
 
     #region txt
 
-    private static readonly TxtLanguage txtCreate = new TxtLanguage();
-    private static readonly TxtLanguage txtCancel = new TxtLanguage();
-    private static readonly TxtLanguage txtCreating = new TxtLanguage();
+    private static readonly TxtLanguage txtCreate = new TxtLanguage("Create");
+    private static readonly TxtLanguage txtCancel = new TxtLanguage("Cancel Create");
+    private static readonly TxtLanguage txtCreating = new TxtLanguage("Creating...");
 
-    private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+    private static readonly TxtLanguage txtRequestError = new TxtLanguage("Send request to create room error");
 
     static BtnCreateRoomUI()
     {
@@ -161,19 +161,19 @@ public class BtnCreateRoomUI : UIBehavior<BtnCreateRoomUI.UIData>
                             case UIData.State.None:
                                 {
                                     btnCreate.interactable = true;
-                                    tvCreate.text = txtCreate.get("Create");
+                                    tvCreate.text = txtCreate.get();
                                 }
                                 break;
                             case UIData.State.Request:
                                 {
                                     btnCreate.interactable = true;
-                                    tvCreate.text = txtCancel.get("Cancel Create");
+                                    tvCreate.text = txtCancel.get();
                                 }
                                 break;
                             case UIData.State.Wait:
                                 {
                                     btnCreate.interactable = false;
-                                    tvCreate.text = txtCreating.get("Creating...");
+                                    tvCreate.text = txtCreating.get();
                                 }
                                 break;
                             default:
@@ -211,7 +211,7 @@ public class BtnCreateRoomUI : UIBehavior<BtnCreateRoomUI.UIData>
         {
             yield return new Wait(Global.WaitSendTime);
             this.data.state.v = UIData.State.None;
-            Toast.showMessage(txtRequestError.get("Send request to create room error"));
+            Toast.showMessage(txtRequestError.get());
             Debug.LogError("request error: " + this);
         }
         else

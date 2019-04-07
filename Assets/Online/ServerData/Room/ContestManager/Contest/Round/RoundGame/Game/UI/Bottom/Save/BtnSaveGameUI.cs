@@ -34,7 +34,7 @@ public class BtnSaveGameUI : UIBehavior<BtnSaveGameUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Save");
 
     static BtnSaveGameUI()
     {
@@ -59,7 +59,7 @@ public class BtnSaveGameUI : UIBehavior<BtnSaveGameUI.UIData>
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Save");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {

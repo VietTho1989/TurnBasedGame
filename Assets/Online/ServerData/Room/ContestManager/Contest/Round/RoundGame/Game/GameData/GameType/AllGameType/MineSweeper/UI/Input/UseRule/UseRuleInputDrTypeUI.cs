@@ -66,8 +66,8 @@ namespace MineSweeper
             }
         }
 
-        public static readonly TxtLanguage txtNormal = new TxtLanguage();
-        public static readonly TxtLanguage txtFlag = new TxtLanguage();
+        private static readonly TxtLanguage txtNormal = new TxtLanguage("Normal");
+        private static readonly TxtLanguage txtFlag = new TxtLanguage("Flag");
 
         static UseRuleInputDrTypeUI()
         {
@@ -93,8 +93,8 @@ namespace MineSweeper
                             // options
                             {
                                 string[] options = {
-                                        txtNormal.get ("Normal"),
-                                        txtFlag.get ("Flag"),
+                                        txtNormal.get (),
+                                        txtFlag.get (),
                                     };
                                 UIUtils.RefreshDropDownOptions(drType, options);
                             }

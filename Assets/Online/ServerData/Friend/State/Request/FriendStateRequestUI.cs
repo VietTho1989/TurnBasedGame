@@ -65,18 +65,18 @@ public class FriendStateRequestUI : UIBehavior<FriendStateRequestUI.UIData>
     #region txt
 
     public Text tvAccept;
-    private static readonly TxtLanguage txtAccept = new TxtLanguage();
-    private static readonly TxtLanguage txtAccepting = new TxtLanguage();
+    private static readonly TxtLanguage txtAccept = new TxtLanguage("Accept");
+    private static readonly TxtLanguage txtAccepting = new TxtLanguage("Accepting");
 
     public Text tvRefuse;
-    private static readonly TxtLanguage txtRefuse = new TxtLanguage();
-    private static readonly TxtLanguage txtRefusing = new TxtLanguage();
+    private static readonly TxtLanguage txtRefuse = new TxtLanguage("Refuse");
+    private static readonly TxtLanguage txtRefusing = new TxtLanguage("Refusing");
 
     public Text tvCancel;
-    private static readonly TxtLanguage txtCancel = new TxtLanguage();
-    private static readonly TxtLanguage txtCancelling = new TxtLanguage();
+    private static readonly TxtLanguage txtCancel = new TxtLanguage("Cancel");
+    private static readonly TxtLanguage txtCancelling = new TxtLanguage("Cancelling");
 
-    private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+    private static readonly TxtLanguage txtRequestError = new TxtLanguage("Request error");
 
     static FriendStateRequestUI()
     {
@@ -214,33 +214,33 @@ public class FriendStateRequestUI : UIBehavior<FriendStateRequestUI.UIData>
                             {
                                 case UIData.State.None:
                                     {
-                                        tvAccept.text = txtAccept.get("Accept");
-                                        tvRefuse.text = txtRefuse.get("Refuse");
-                                        tvCancel.text = txtCancel.get("Cancel");
+                                        tvAccept.text = txtAccept.get();
+                                        tvRefuse.text = txtRefuse.get();
+                                        tvCancel.text = txtCancel.get();
                                     }
                                     break;
                                 case UIData.State.RequestAccept:
                                 case UIData.State.WaitAccept:
                                     {
-                                        tvAccept.text = txtAccepting.get("Accepting");
-                                        tvRefuse.text = txtRefuse.get("Refuse");
-                                        tvCancel.text = txtCancel.get("Cancel");
+                                        tvAccept.text = txtAccepting.get();
+                                        tvRefuse.text = txtRefuse.get();
+                                        tvCancel.text = txtCancel.get();
                                     }
                                     break;
                                 case UIData.State.RequestRefuse:
                                 case UIData.State.WaitRefuse:
                                     {
-                                        tvAccept.text = txtAccept.get("Accept");
-                                        tvRefuse.text = txtRefusing.get("Refusing");
-                                        tvCancel.text = txtCancel.get("Cancel");
+                                        tvAccept.text = txtAccept.get();
+                                        tvRefuse.text = txtRefusing.get();
+                                        tvCancel.text = txtCancel.get();
                                     }
                                     break;
                                 case UIData.State.RequestCancel:
                                 case UIData.State.WaitCancel:
                                     {
-                                        tvAccept.text = txtAccept.get("Accept");
-                                        tvRefuse.text = txtRefuse.get("Refuse");
-                                        tvCancel.text = txtCancelling.get("Cancelling");
+                                        tvAccept.text = txtAccept.get();
+                                        tvRefuse.text = txtRefuse.get();
+                                        tvCancel.text = txtCancelling.get();
                                     }
                                     break;
                                 default:
@@ -363,7 +363,7 @@ public class FriendStateRequestUI : UIBehavior<FriendStateRequestUI.UIData>
             {
                 Debug.LogError("data null: " + this);
             }
-            Toast.showMessage(txtRequestError.get("Request error"));
+            Toast.showMessage(txtRequestError.get());
             Debug.LogError("request error: " + this);
         }
         else

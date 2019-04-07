@@ -67,33 +67,33 @@ public class OnlineClientMenuUI : UIBehavior<OnlineClientMenuUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Client");
 
     #region ipAddress
 
     public Text lbIpAddress;
-    private static readonly TxtLanguage txtIpAddress = new TxtLanguage();
+    private static readonly TxtLanguage txtIpAddress = new TxtLanguage("IP address");
 
     public Text tvIpAddressPlaceHolder;
-    private static readonly TxtLanguage txtIpAddressPlaceHolder = new TxtLanguage();
+    private static readonly TxtLanguage txtIpAddressPlaceHolder = new TxtLanguage("Enter ip address of server...");
 
     #endregion
 
     #region port
 
     public Text lbPort;
-    private static readonly TxtLanguage txtPort = new TxtLanguage();
+    private static readonly TxtLanguage txtPort = new TxtLanguage("Port");
 
     public Text tvPortPlaceHolder;
-    private static readonly TxtLanguage txtPortPlaceHolder = new TxtLanguage();
+    private static readonly TxtLanguage txtPortPlaceHolder = new TxtLanguage("Enter port of server...");
 
     #endregion
 
     public Text tvMessage;
-    private static readonly TxtLanguage txtMessage = new TxtLanguage();
+    private static readonly TxtLanguage txtMessage = new TxtLanguage("Server not very stable, so we will sometime have to clear server completely");
 
     public Text tvStart;
-    private static readonly TxtLanguage txtStart = new TxtLanguage();
+    private static readonly TxtLanguage txtStart = new TxtLanguage("Start");
 
     static OnlineClientMenuUI()
     {
@@ -157,7 +157,7 @@ public class OnlineClientMenuUI : UIBehavior<OnlineClientMenuUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Client");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -167,7 +167,7 @@ public class OnlineClientMenuUI : UIBehavior<OnlineClientMenuUI.UIData>
                     {
                         if (lbIpAddress != null)
                         {
-                            lbIpAddress.text = txtIpAddress.get("IP Address");
+                            lbIpAddress.text = txtIpAddress.get();
                         }
                         else
                         {
@@ -175,7 +175,7 @@ public class OnlineClientMenuUI : UIBehavior<OnlineClientMenuUI.UIData>
                         }
                         if (tvIpAddressPlaceHolder != null)
                         {
-                            tvIpAddressPlaceHolder.text = txtIpAddressPlaceHolder.get("Enter ip address of server...");
+                            tvIpAddressPlaceHolder.text = txtIpAddressPlaceHolder.get();
                         }
                         else
                         {
@@ -186,7 +186,7 @@ public class OnlineClientMenuUI : UIBehavior<OnlineClientMenuUI.UIData>
                     {
                         if (lbPort != null)
                         {
-                            lbPort.text = txtPort.get("Port");
+                            lbPort.text = txtPort.get();
                         }
                         else
                         {
@@ -194,7 +194,7 @@ public class OnlineClientMenuUI : UIBehavior<OnlineClientMenuUI.UIData>
                         }
                         if (tvPortPlaceHolder != null)
                         {
-                            tvPortPlaceHolder.text = txtPortPlaceHolder.get("Enter port of server...");
+                            tvPortPlaceHolder.text = txtPortPlaceHolder.get();
                         }
                         else
                         {
@@ -203,7 +203,7 @@ public class OnlineClientMenuUI : UIBehavior<OnlineClientMenuUI.UIData>
                     }
                     if (tvMessage != null)
                     {
-                        tvMessage.text = txtMessage.get("Server not very stable, so we will sometime have to clear server completely");
+                        tvMessage.text = txtMessage.get();
                     }
                     else
                     {
@@ -211,7 +211,7 @@ public class OnlineClientMenuUI : UIBehavior<OnlineClientMenuUI.UIData>
                     }
                     if (tvStart != null)
                     {
-                        tvStart.text = txtStart.get("Start");
+                        tvStart.text = txtStart.get();
                     }
                     else
                     {

@@ -63,7 +63,7 @@ public class UserChatUI : UIBehavior<UserChatUI.UIData>
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    public static readonly TxtLanguage txtTitle = new TxtLanguage("Chat");
 
     static UserChatUI()
     {
@@ -100,7 +100,7 @@ public class UserChatUI : UIBehavior<UserChatUI.UIData>
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Chat");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {

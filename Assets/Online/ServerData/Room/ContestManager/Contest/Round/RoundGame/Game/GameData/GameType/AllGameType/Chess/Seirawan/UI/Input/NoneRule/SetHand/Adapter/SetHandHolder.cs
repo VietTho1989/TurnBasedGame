@@ -56,8 +56,8 @@ namespace Seirawan.NoneRule
         #region txt
 
         public Text tvSet;
-        private static readonly TxtLanguage txtSet = new TxtLanguage();
-        private static readonly TxtLanguage txtUnSet = new TxtLanguage();
+        private static readonly TxtLanguage txtSet = new TxtLanguage("Set");
+        private static readonly TxtLanguage txtUnSet = new TxtLanguage("Unset");
 
         static SetHandHolder()
         {
@@ -114,7 +114,7 @@ namespace Seirawan.NoneRule
                                     Debug.LogError("noneRuleInputUIData null: " + this);
                                 }
                             }
-                            tvSet.text = isInHand ? txtUnSet.get("Unset") : txtSet.get("Set");
+                            tvSet.text = isInHand ? txtUnSet.get() : txtSet.get();
                         }
                         else
                         {

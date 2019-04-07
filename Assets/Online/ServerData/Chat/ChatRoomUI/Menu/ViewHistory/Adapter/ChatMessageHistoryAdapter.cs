@@ -84,7 +84,7 @@ public class ChatMessageHistoryAdapter : SRIA<ChatMessageHistoryAdapter.UIData, 
     #region txt
 
     public Text tvNoEdits;
-    public static readonly TxtLanguage txtNoEdits = new TxtLanguage();
+    private static readonly TxtLanguage txtNoEdits = new TxtLanguage("Don't have any edits");
 
     static ChatMessageHistoryAdapter()
     {
@@ -226,7 +226,7 @@ public class ChatMessageHistoryAdapter : SRIA<ChatMessageHistoryAdapter.UIData, 
                     {
                         if (tvNoEdits != null)
                         {
-                            tvNoEdits.text = txtNoEdits.get("Don't have any edits");
+                            tvNoEdits.text = txtNoEdits.get();
                         }
                         else
                         {

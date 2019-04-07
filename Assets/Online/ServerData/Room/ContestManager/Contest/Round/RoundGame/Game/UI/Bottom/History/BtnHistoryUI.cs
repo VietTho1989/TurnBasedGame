@@ -34,10 +34,10 @@ public class BtnHistoryUI : UIBehavior<BtnHistoryUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("History");
 
     public Text tvTurn;
-    private static readonly TxtLanguage txtTurn = new TxtLanguage();
+    private static readonly TxtLanguage txtTurn = new TxtLanguage("turn");
 
     static BtnHistoryUI()
     {
@@ -62,7 +62,7 @@ public class BtnHistoryUI : UIBehavior<BtnHistoryUI.UIData>
                     // title
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("History");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -99,7 +99,7 @@ public class BtnHistoryUI : UIBehavior<BtnHistoryUI.UIData>
                                 Debug.LogError("game null");
                             }
                         }
-                        tvTurn.text = txtTurn.get("turn") + " " + turnNumber;
+                        tvTurn.text = txtTurn.get() + " " + turnNumber;
                     }
                     else
                     {

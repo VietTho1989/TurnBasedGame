@@ -56,11 +56,11 @@ namespace HEX
         public Text lbTitle;
 
         public Text tvMessage;
-        private static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("https://en.wikipedia.org/wiki/Hex_(board_game)");
 
-        private static readonly TxtLanguage txtBoardSize = new TxtLanguage();
+        private static readonly TxtLanguage txtBoardSize = new TxtLanguage("Board size");
 
-        private static readonly TxtLanguage txtIsSwitch = new TxtLanguage();
+        private static readonly TxtLanguage txtIsSwitch = new TxtLanguage("Switch side");
 
         static HexInformationUI()
         {
@@ -218,7 +218,7 @@ namespace HEX
                             }
                             if (tvMessage != null)
                             {
-                                tvMessage.text = txtMessage.get("https://en.wikipedia.org/wiki/Hex_(board_game)");
+                                tvMessage.text = txtMessage.get();
                             }
                             else
                             {
@@ -226,7 +226,7 @@ namespace HEX
                             }
                             if (lbBoardSize != null)
                             {
-                                lbBoardSize.text = txtBoardSize.get("Board size");
+                                lbBoardSize.text = txtBoardSize.get();
                             }
                             else
                             {
@@ -234,7 +234,7 @@ namespace HEX
                             }
                             if (lbIsSwitch != null)
                             {
-                                lbIsSwitch.text = txtIsSwitch.get("Switch side");
+                                lbIsSwitch.text = txtIsSwitch.get();
                             }
                             else
                             {

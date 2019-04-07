@@ -179,31 +179,29 @@ public class UserUI : UIBehavior<UserUI.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("User Information");
 
     public Text lbRole;
-    private static readonly TxtLanguage txtRole = new TxtLanguage();
+    private static readonly TxtLanguage txtRole = new TxtLanguage("Role");
 
     public Text lbIpAddress;
-    private static readonly TxtLanguage txtIpAddress = new TxtLanguage();
+    private static readonly TxtLanguage txtIpAddress = new TxtLanguage("Ip address");
 
     public Text lbRegisterTime;
-    private static readonly TxtLanguage txtRegisterTime = new TxtLanguage();
+    private static readonly TxtLanguage txtRegisterTime = new TxtLanguage("Register time");
 
     public Text tvReset;
-    private static readonly TxtLanguage txtReset = new TxtLanguage();
-    private static readonly TxtLanguage txtCannotReset = new TxtLanguage();
+    private static readonly TxtLanguage txtReset = new TxtLanguage("Reset");
+    private static readonly TxtLanguage txtCannotReset = new TxtLanguage("Reset");
 
     static UserUI()
     {
         // txt
         {
-            txtTitle.add(Language.Type.vi, "Thông tin người dùng");
+            txtTitle.add(Language.Type.vi, "Thông Tin Người Dùng");
             txtRole.add(Language.Type.vi, "Vai trò");
             txtIpAddress.add(Language.Type.vi, "Địa chỉ ip");
             txtRegisterTime.add(Language.Type.vi, "Thời điểm đăng ký");
@@ -243,6 +241,8 @@ public class UserUI : UIBehavior<UserUI.UIData>
     }
 
     #endregion
+
+    #region Refresh
 
     private bool needReset = true;
 
@@ -898,12 +898,12 @@ public class UserUI : UIBehavior<UserUI.UIData>
                             if (isDifferent)
                             {
                                 btnReset.interactable = true;
-                                tvReset.text = txtReset.get("Reset");
+                                tvReset.text = txtReset.get();
                             }
                             else
                             {
                                 btnReset.interactable = false;
-                                tvReset.text = txtCannotReset.get("Reset");
+                                tvReset.text = txtCannotReset.get();
                             }
                         }
                         else
@@ -915,7 +915,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("User Information");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -923,7 +923,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
                         }
                         if (lbRole != null)
                         {
-                            lbRole.text = txtRole.get("Role");
+                            lbRole.text = txtRole.get();
                         }
                         else
                         {
@@ -931,7 +931,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
                         }
                         if (lbIpAddress != null)
                         {
-                            lbIpAddress.text = txtIpAddress.get("Ip Address");
+                            lbIpAddress.text = txtIpAddress.get();
                         }
                         else
                         {
@@ -939,7 +939,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
                         }
                         if (lbRegisterTime != null)
                         {
-                            lbRegisterTime.text = txtRegisterTime.get("Register Time");
+                            lbRegisterTime.text = txtRegisterTime.get();
                         }
                         else
                         {

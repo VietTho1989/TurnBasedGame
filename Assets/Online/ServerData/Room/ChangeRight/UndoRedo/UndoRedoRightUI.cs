@@ -158,16 +158,16 @@ namespace Rights
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Undo/Redo Right");
 
         public Text lbNeedAccept;
-        public static readonly TxtLanguage txtNeedAccept = new TxtLanguage();
+        private static readonly TxtLanguage txtNeedAccept = new TxtLanguage("Need accept");
 
         public Text lbNeedAdmin;
-        public static readonly TxtLanguage txtNeedAdmin = new TxtLanguage();
+        private static readonly TxtLanguage txtNeedAdmin = new TxtLanguage("Need admin");
 
         public Text lbLimitType;
-        public static readonly TxtLanguage txtLimitType = new TxtLanguage();
+        private static readonly TxtLanguage txtLimitType = new TxtLanguage("Limit type");
 
         static UndoRedoRightUI()
         {
@@ -592,7 +592,7 @@ namespace Rights
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Undo/Redo Right");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -600,7 +600,7 @@ namespace Rights
                         }
                         if (lbNeedAccept != null)
                         {
-                            lbNeedAccept.text = txtNeedAccept.get("Need accept");
+                            lbNeedAccept.text = txtNeedAccept.get();
                         }
                         else
                         {
@@ -608,7 +608,7 @@ namespace Rights
                         }
                         if (lbNeedAdmin != null)
                         {
-                            lbNeedAdmin.text = txtNeedAdmin.get("Need admin");
+                            lbNeedAdmin.text = txtNeedAdmin.get();
                         }
                         else
                         {
@@ -616,7 +616,7 @@ namespace Rights
                         }
                         if (lbLimitType != null)
                         {
-                            lbLimitType.text = txtLimitType.get("Limit type");
+                            lbLimitType.text = txtLimitType.get();
                         }
                         else
                         {

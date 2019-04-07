@@ -163,16 +163,16 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Posture Game Data Factory");
 
     public Text lbGameType;
-    public static readonly TxtLanguage txtGameType = new TxtLanguage();
+    private static readonly TxtLanguage txtGameType = new TxtLanguage("Game type");
 
     public Text tvEdit;
-    public static readonly TxtLanguage txtEdit = new TxtLanguage();
+    private static readonly TxtLanguage txtEdit = new TxtLanguage("Edit");
 
     public Text lbUseRule;
-    public static readonly TxtLanguage txtUseRule = new TxtLanguage();
+    private static readonly TxtLanguage txtUseRule = new TxtLanguage("Use rule");
 
     static PostureGameDataFactoryUI()
     {
@@ -442,7 +442,7 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Posture Game Data Factory");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -450,7 +450,7 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                     }
                     if (lbGameType != null)
                     {
-                        lbGameType.text = txtGameType.get("Game type");
+                        lbGameType.text = txtGameType.get();
                     }
                     else
                     {
@@ -458,7 +458,7 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                     }
                     if (tvEdit != null)
                     {
-                        tvEdit.text = txtEdit.get("Edit");
+                        tvEdit.text = txtEdit.get();
                     }
                     else
                     {
@@ -466,7 +466,7 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                     }
                     if (lbUseRule != null)
                     {
-                        lbUseRule.text = txtUseRule.get("Use rule");
+                        lbUseRule.text = txtUseRule.get();
                     }
                     else
                     {

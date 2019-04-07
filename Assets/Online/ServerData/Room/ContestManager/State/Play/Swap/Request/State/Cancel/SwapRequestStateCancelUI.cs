@@ -45,7 +45,7 @@ namespace GameManager.Match.Swap
         #region txt, rect
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Cancel Request Swap");
 
         static SwapRequestStateCancelUI()
         {
@@ -131,7 +131,7 @@ namespace GameManager.Match.Swap
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Cancel Request Swap");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {

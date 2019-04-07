@@ -42,13 +42,13 @@ public class FriendStateChangeContentUI : UIBehavior<FriendStateChangeContentUI.
 
     #region txt, rect
 
-    public static readonly TxtLanguage txtRequest = new TxtLanguage();
-    public static readonly TxtLanguage txtAccept = new TxtLanguage();
-    public static readonly TxtLanguage txtRefuse = new TxtLanguage();
-    public static readonly TxtLanguage txtCancel = new TxtLanguage();
-    public static readonly TxtLanguage txtUnFriend = new TxtLanguage();
-    public static readonly TxtLanguage txtBan = new TxtLanguage();
-    public static readonly TxtLanguage txtUnBan = new TxtLanguage();
+    public static readonly TxtLanguage txtRequest = new TxtLanguage("make friend request");
+    public static readonly TxtLanguage txtAccept = new TxtLanguage("accept friend request");
+    public static readonly TxtLanguage txtRefuse = new TxtLanguage("refuse friend request");
+    public static readonly TxtLanguage txtCancel = new TxtLanguage("cancel friend request");
+    public static readonly TxtLanguage txtUnFriend = new TxtLanguage("unfriend you");
+    public static readonly TxtLanguage txtBan = new TxtLanguage("ban you");
+    public static readonly TxtLanguage txtUnBan = new TxtLanguage("unban you");
 
     static FriendStateChangeContentUI()
     {

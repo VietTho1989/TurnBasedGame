@@ -45,7 +45,7 @@ namespace GameManager.Match
 
         #region txt
 
-        private static readonly TxtLanguage txtEnd = new TxtLanguage();
+        private static readonly TxtLanguage txtEnd = new TxtLanguage("End");
 
         static RoundStateEndUI()
         {
@@ -71,7 +71,7 @@ namespace GameManager.Match
                         // tvEnd
                         if (tvEnd != null)
                         {
-                            tvEnd.text = txtEnd.get("End");
+                            tvEnd.text = txtEnd.get();
                         }
                         else
                         {

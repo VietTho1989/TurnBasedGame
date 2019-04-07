@@ -68,19 +68,19 @@ public class GamePlayerStateSurrenderAskUI : UIHaveTransformDataBehavior<GamePla
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Answer request to stop surrendering");
 
-    private static readonly TxtLanguage txtAccept = new TxtLanguage();
-    private static readonly TxtLanguage txtCancelAccept = new TxtLanguage();
-    private static readonly TxtLanguage txtAccepting = new TxtLanguage();
-    private static readonly TxtLanguage txtCannotAccept = new TxtLanguage();
+    private static readonly TxtLanguage txtAccept = new TxtLanguage("Accept");
+    private static readonly TxtLanguage txtCancelAccept = new TxtLanguage("Cancel accept?");
+    private static readonly TxtLanguage txtAccepting = new TxtLanguage("Accepting...");
+    private static readonly TxtLanguage txtCannotAccept = new TxtLanguage("Can't accept");
 
-    private static readonly TxtLanguage txtRefuse = new TxtLanguage();
-    private static readonly TxtLanguage txtCancelRefuse = new TxtLanguage();
-    private static readonly TxtLanguage txtRefusing = new TxtLanguage();
-    private static readonly TxtLanguage txtCannotRefuse = new TxtLanguage();
+    private static readonly TxtLanguage txtRefuse = new TxtLanguage("Refuse");
+    private static readonly TxtLanguage txtCancelRefuse = new TxtLanguage("Cancel refuse?");
+    private static readonly TxtLanguage txtRefusing = new TxtLanguage("Refusing...");
+    private static readonly TxtLanguage txtCannotRefuse = new TxtLanguage("Can't refuse");
 
-    private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+    private static readonly TxtLanguage txtRequestError = new TxtLanguage("Send answer error");
 
     static GamePlayerStateSurrenderAskUI()
     {
@@ -163,7 +163,7 @@ public class GamePlayerStateSurrenderAskUI : UIHaveTransformDataBehavior<GamePla
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Answer request to stop surrendering");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -283,31 +283,31 @@ public class GamePlayerStateSurrenderAskUI : UIHaveTransformDataBehavior<GamePla
                                         case UIData.State.None:
                                             {
                                                 btnAccept.interactable = true;
-                                                tvAccept.text = txtAccept.get("Accept");
+                                                tvAccept.text = txtAccept.get();
                                             }
                                             break;
                                         case UIData.State.RequestAccept:
                                             {
                                                 btnAccept.interactable = true;
-                                                tvAccept.text = txtCancelAccept.get("Cancel accept?");
+                                                tvAccept.text = txtCancelAccept.get();
                                             }
                                             break;
                                         case UIData.State.WaitAccept:
                                             {
                                                 btnAccept.interactable = false;
-                                                tvAccept.text = txtAccepting.get("Accepting...");
+                                                tvAccept.text = txtAccepting.get();
                                             }
                                             break;
                                         case UIData.State.RequestRefuse:
                                             {
                                                 btnAccept.interactable = false;
-                                                tvAccept.text = txtAccept.get("Accept");
+                                                tvAccept.text = txtAccept.get();
                                             }
                                             break;
                                         case UIData.State.WaitRefuse:
                                             {
                                                 btnAccept.interactable = false;
-                                                tvAccept.text = txtAccept.get("Accept");
+                                                tvAccept.text = txtAccept.get();
                                             }
                                             break;
                                         default:
@@ -318,7 +318,7 @@ public class GamePlayerStateSurrenderAskUI : UIHaveTransformDataBehavior<GamePla
                                 else
                                 {
                                     btnAccept.interactable = false;
-                                    tvAccept.text = txtCannotAccept.get("Can't accept");
+                                    tvAccept.text = txtCannotAccept.get();
                                 }
                             }
                             else
@@ -338,31 +338,31 @@ public class GamePlayerStateSurrenderAskUI : UIHaveTransformDataBehavior<GamePla
                                         case UIData.State.None:
                                             {
                                                 btnRefuse.interactable = true;
-                                                tvRefuse.text = txtRefuse.get("Refuse");
+                                                tvRefuse.text = txtRefuse.get();
                                             }
                                             break;
                                         case UIData.State.RequestAccept:
                                             {
                                                 btnRefuse.interactable = false;
-                                                tvRefuse.text = txtRefuse.get("Refuse");
+                                                tvRefuse.text = txtRefuse.get();
                                             }
                                             break;
                                         case UIData.State.WaitAccept:
                                             {
                                                 btnRefuse.interactable = false;
-                                                tvRefuse.text = txtRefuse.get("Refuse");
+                                                tvRefuse.text = txtRefuse.get();
                                             }
                                             break;
                                         case UIData.State.RequestRefuse:
                                             {
                                                 btnRefuse.interactable = true;
-                                                tvRefuse.text = txtCancelRefuse.get("Cancel refuse?");
+                                                tvRefuse.text = txtCancelRefuse.get();
                                             }
                                             break;
                                         case UIData.State.WaitRefuse:
                                             {
                                                 btnRefuse.interactable = false;
-                                                tvRefuse.text = txtRefusing.get("Refusing...");
+                                                tvRefuse.text = txtRefusing.get();
                                             }
                                             break;
                                         default:
@@ -373,7 +373,7 @@ public class GamePlayerStateSurrenderAskUI : UIHaveTransformDataBehavior<GamePla
                                 else
                                 {
                                     btnRefuse.interactable = false;
-                                    tvRefuse.text = txtCannotRefuse.get("Can't refuse");
+                                    tvRefuse.text = txtCannotRefuse.get();
                                 }
                             }
                             else
@@ -412,7 +412,7 @@ public class GamePlayerStateSurrenderAskUI : UIHaveTransformDataBehavior<GamePla
         {
             yield return new Wait(Global.WaitSendTime);
             this.data.state.v = UIData.State.None;
-            Toast.showMessage(txtRequestError.get("Send answer error"));
+            Toast.showMessage(txtRequestError.get());
             Debug.LogError("request error: " + this);
         }
         else

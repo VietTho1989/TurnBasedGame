@@ -469,40 +469,40 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Setting");
 
     public Text lbLanguage;
-    private static readonly TxtLanguage txtLanguage = new TxtLanguage();
+    private static readonly TxtLanguage txtLanguage = new TxtLanguage("Language");
 
     public Text lbStyle;
-    private static readonly TxtLanguage txtStyle = new TxtLanguage();
+    private static readonly TxtLanguage txtStyle = new TxtLanguage("Style");
 
     public Text lbConfirmQuit;
-    private static readonly TxtLanguage txtConfirmQuit = new TxtLanguage();
+    private static readonly TxtLanguage txtConfirmQuit = new TxtLanguage("Confirm quit");
 
     public Text lbShowLastMove;
-    private static readonly TxtLanguage txtShowLastMove = new TxtLanguage();
+    private static readonly TxtLanguage txtShowLastMove = new TxtLanguage("Show last move");
 
     public Text lbViewUrlImage;
-    private static readonly TxtLanguage txtViewUrlImage = new TxtLanguage();
+    private static readonly TxtLanguage txtViewUrlImage = new TxtLanguage("View url image");
 
     public Text lbMaxThinkCount;
-    private static readonly TxtLanguage txtMaxThinkCount = new TxtLanguage();
+    private static readonly TxtLanguage txtMaxThinkCount = new TxtLanguage("Max think count");
 
     public Text lbDefaultChosenGameType;
-    private static readonly TxtLanguage txtDefaultChosenGameType = new TxtLanguage();
-    private static readonly TxtLanguage txtDefaultChosenGameLast = new TxtLanguage();
-    private static readonly TxtLanguage txtDefaultChosenGameAlways = new TxtLanguage();
+    private static readonly TxtLanguage txtDefaultChosenGameType = new TxtLanguage("Default game");
+    private static readonly TxtLanguage txtDefaultChosenGameLast = new TxtLanguage("Last Chosen");
+    private static readonly TxtLanguage txtDefaultChosenGameAlways = new TxtLanguage("Always Choose");
 
     public Text lbDefaultRoomNameType;
-    private static readonly TxtLanguage txtDefaultRoomNameType = new TxtLanguage();
-    private static readonly TxtLanguage txtDefaultRoomNameLast = new TxtLanguage();
-    private static readonly TxtLanguage txtDefaultRoomNameAlways = new TxtLanguage();
+    private static readonly TxtLanguage txtDefaultRoomNameType = new TxtLanguage("Default room name");
+    private static readonly TxtLanguage txtDefaultRoomNameLast = new TxtLanguage("Last Chosen");
+    private static readonly TxtLanguage txtDefaultRoomNameAlways = new TxtLanguage("Always Choose");
 
     public Text lbDefaultChatRoomStyleType;
-    private static readonly TxtLanguage txtDefaultChatRoomStyleType = new TxtLanguage();
-    private static readonly TxtLanguage txtDefaultChatRoomStyleLast = new TxtLanguage();
-    private static readonly TxtLanguage txtDefaultChatRoomStyleAlways = new TxtLanguage();
+    private static readonly TxtLanguage txtDefaultChatRoomStyleType = new TxtLanguage("Default chat room");
+    private static readonly TxtLanguage txtDefaultChatRoomStyleLast = new TxtLanguage("Last Chosen");
+    private static readonly TxtLanguage txtDefaultChatRoomStyleAlways = new TxtLanguage("Always Choose");
 
     static SettingUI()
     {
@@ -901,8 +901,8 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                                         {
                                             List<string> options = new List<string>();
                                             {
-                                                options.Add(txtDefaultChosenGameLast.get("Last Chosen"));
-                                                options.Add(txtDefaultChosenGameAlways.get("Always Choose"));
+                                                options.Add(txtDefaultChosenGameLast.get());
+                                                options.Add(txtDefaultChosenGameAlways.get());
                                             }
                                             defaultChosenGameType.options.copyList(options);
                                         }
@@ -1050,8 +1050,8 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                                         {
                                             List<string> options = new List<string>();
                                             {
-                                                options.Add(txtDefaultRoomNameLast.get("Last Chosen"));
-                                                options.Add(txtDefaultRoomNameAlways.get("Always Choose"));
+                                                options.Add(txtDefaultRoomNameLast.get());
+                                                options.Add(txtDefaultRoomNameAlways.get());
                                             }
                                             defaultRoomNameType.options.copyList(options);
                                         }
@@ -1199,8 +1199,8 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                                         {
                                             List<string> options = new List<string>();
                                             {
-                                                options.Add(txtDefaultChatRoomStyleLast.get("Last Chosen"));
-                                                options.Add(txtDefaultChatRoomStyleAlways.get("Always Choose"));
+                                                options.Add(txtDefaultChatRoomStyleLast.get());
+                                                options.Add(txtDefaultChatRoomStyleAlways.get());
                                             }
                                             defaultChatRoomStyleType.options.copyList(options);
                                         }
@@ -1931,7 +1931,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Setting");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -1939,7 +1939,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     }
                     if (lbLanguage != null)
                     {
-                        lbLanguage.text = txtLanguage.get("Language");
+                        lbLanguage.text = txtLanguage.get();
                     }
                     else
                     {
@@ -1947,7 +1947,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     }
                     if (lbStyle != null)
                     {
-                        lbStyle.text = txtStyle.get("Style");
+                        lbStyle.text = txtStyle.get();
                     }
                     else
                     {
@@ -1955,7 +1955,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     }
                     if (lbConfirmQuit != null)
                     {
-                        lbConfirmQuit.text = txtConfirmQuit.get("Confirm quit");
+                        lbConfirmQuit.text = txtConfirmQuit.get();
                     }
                     else
                     {
@@ -1963,7 +1963,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     }
                     if (lbShowLastMove != null)
                     {
-                        lbShowLastMove.text = txtShowLastMove.get("Show last move");
+                        lbShowLastMove.text = txtShowLastMove.get();
                     }
                     else
                     {
@@ -1971,7 +1971,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     }
                     if (lbViewUrlImage != null)
                     {
-                        lbViewUrlImage.text = txtViewUrlImage.get("View url image");
+                        lbViewUrlImage.text = txtViewUrlImage.get();
                     }
                     else
                     {
@@ -1979,7 +1979,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     }
                     if (lbMaxThinkCount != null)
                     {
-                        lbMaxThinkCount.text = txtMaxThinkCount.get("Max think count");
+                        lbMaxThinkCount.text = txtMaxThinkCount.get();
                     }
                     else
                     {
@@ -1987,7 +1987,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     }
                     if (lbDefaultChosenGameType != null)
                     {
-                        lbDefaultChosenGameType.text = txtDefaultChosenGameType.get("Default game");
+                        lbDefaultChosenGameType.text = txtDefaultChosenGameType.get();
                     }
                     else
                     {
@@ -1995,7 +1995,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     }
                     if (lbDefaultRoomNameType != null)
                     {
-                        lbDefaultRoomNameType.text = txtDefaultRoomNameType.get("Default room name");
+                        lbDefaultRoomNameType.text = txtDefaultRoomNameType.get();
                     }
                     else
                     {
@@ -2003,7 +2003,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     }
                     if (lbDefaultChatRoomStyleType != null)
                     {
-                        lbDefaultChatRoomStyleType.text = txtDefaultChatRoomStyleType.get("Default chat room");
+                        lbDefaultChatRoomStyleType.text = txtDefaultChatRoomStyleType.get();
                     }
                     else
                     {

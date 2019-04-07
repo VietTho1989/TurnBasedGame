@@ -34,7 +34,7 @@ namespace Solitaire
         #region txt
 
         public Text tvBack;
-        private static readonly TxtLanguage txtBack = new TxtLanguage();
+        private static readonly TxtLanguage txtBack = new TxtLanguage("Back");
 
         static UseRuleInputCardBtnUI()
         {
@@ -56,7 +56,7 @@ namespace Solitaire
                     {
                         if (tvBack != null)
                         {
-                            tvBack.text = txtBack.get("Back");
+                            tvBack.text = txtBack.get();
                         }
                         else
                         {

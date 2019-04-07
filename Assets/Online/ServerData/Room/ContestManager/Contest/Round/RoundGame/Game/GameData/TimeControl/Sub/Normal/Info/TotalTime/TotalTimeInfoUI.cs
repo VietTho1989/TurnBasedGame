@@ -55,7 +55,7 @@ namespace TimeControl.Normal
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Total Time");
 
         static TotalTimeInfoUI()
         {
@@ -259,7 +259,7 @@ namespace TimeControl.Normal
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Total Time");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {

@@ -104,37 +104,37 @@ public class RoomAdminBtnDeleteUI : UIBehavior<RoomAdminBtnDeleteUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Confirm End Room");
 
     #region txt Info
 
     public Text tvCanJoinRoom;
-    private static readonly TxtLanguage txtCannotJoinRoom = new TxtLanguage();
-    private static readonly TxtLanguage txtCanJoinRoom = new TxtLanguage();
+    private static readonly TxtLanguage txtCannotJoinRoom = new TxtLanguage("Cannot Join");
+    private static readonly TxtLanguage txtCanJoinRoom = new TxtLanguage("Can Join");
 
-    private static readonly TxtLanguage txtId = new TxtLanguage();
-    private static readonly TxtLanguage txtName = new TxtLanguage();
-    private static readonly TxtLanguage txtAdmin = new TxtLanguage();
-    private static readonly TxtLanguage txtUserCount = new TxtLanguage();
+    private static readonly TxtLanguage txtId = new TxtLanguage("Id");
+    private static readonly TxtLanguage txtName = new TxtLanguage("Name");
+    private static readonly TxtLanguage txtAdmin = new TxtLanguage("Admin");
+    private static readonly TxtLanguage txtUserCount = new TxtLanguage("user count");
 
-    private static readonly TxtLanguage txtStateNormal = new TxtLanguage();
-    private static readonly TxtLanguage txtStateFreeze = new TxtLanguage();
-    private static readonly TxtLanguage txtStateEnd = new TxtLanguage();
+    private static readonly TxtLanguage txtStateNormal = new TxtLanguage("Normal");
+    private static readonly TxtLanguage txtStateFreeze = new TxtLanguage("Freeze");
+    private static readonly TxtLanguage txtStateEnd = new TxtLanguage("End");
 
-    private static readonly TxtLanguage txtCreated = new TxtLanguage();
-    private static readonly TxtLanguage txtGameType = new TxtLanguage();
+    private static readonly TxtLanguage txtCreated = new TxtLanguage("created");
+    private static readonly TxtLanguage txtGameType = new TxtLanguage("Game");
 
-    private static readonly TxtLanguage txtState = new TxtLanguage();
+    private static readonly TxtLanguage txtState = new TxtLanguage("State");
 
     #endregion
 
     public Text tvCancel;
-    public static readonly TxtLanguage txtCancel = new TxtLanguage();
+    public static readonly TxtLanguage txtCancel = new TxtLanguage("Cancel");
 
-    public static readonly TxtLanguage txtDeleteRoom = new TxtLanguage();
-    public static readonly TxtLanguage txtCancelDelete = new TxtLanguage();
-    public static readonly TxtLanguage txtDeletingRoom = new TxtLanguage();
-    public static readonly TxtLanguage txtCannotDelete = new TxtLanguage();
+    public static readonly TxtLanguage txtDeleteRoom = new TxtLanguage("End Room");
+    public static readonly TxtLanguage txtCancelDelete = new TxtLanguage("Cancel?");
+    public static readonly TxtLanguage txtDeletingRoom = new TxtLanguage("Ending room");
+    public static readonly TxtLanguage txtCannotDelete = new TxtLanguage("Cannot End");
 
     static RoomAdminBtnDeleteUI()
     {
@@ -242,19 +242,19 @@ public class RoomAdminBtnDeleteUI : UIBehavior<RoomAdminBtnDeleteUI.UIData>
                                         case UIData.State.None:
                                             {
                                                 btnDelete.interactable = true;
-                                                tvDelete.text = txtDeleteRoom.get("End Room");
+                                                tvDelete.text = txtDeleteRoom.get();
                                             }
                                             break;
                                         case UIData.State.Request:
                                             {
                                                 btnDelete.interactable = true;
-                                                tvDelete.text = txtCancelDelete.get("Cancel?");
+                                                tvDelete.text = txtCancelDelete.get();
                                             }
                                             break;
                                         case UIData.State.Wait:
                                             {
                                                 btnDelete.interactable = false;
-                                                tvDelete.text = txtDeletingRoom.get("Ending room");
+                                                tvDelete.text = txtDeletingRoom.get();
                                             }
                                             break;
                                         default:
@@ -280,7 +280,7 @@ public class RoomAdminBtnDeleteUI : UIBehavior<RoomAdminBtnDeleteUI.UIData>
                                 if (btnDelete != null && tvDelete != null)
                                 {
                                     btnDelete.interactable = false;
-                                    tvDelete.text = txtCannotDelete.get("Cannot End");
+                                    tvDelete.text = txtCannotDelete.get();
                                 }
                                 else
                                 {
@@ -309,12 +309,12 @@ public class RoomAdminBtnDeleteUI : UIBehavior<RoomAdminBtnDeleteUI.UIData>
                             {
                                 if (room.isCanJoinRoom(Server.getProfileUserId(room)) != Room.JoinRoomState.Can)
                                 {
-                                    tvCanJoinRoom.text = txtCannotJoinRoom.get("Cannot Join");
+                                    tvCanJoinRoom.text = txtCannotJoinRoom.get();
                                     tvCanJoinRoom.color = RoomHolder.CannotJoinColor;
                                 }
                                 else
                                 {
-                                    tvCanJoinRoom.text = txtCanJoinRoom.get("Can Join");
+                                    tvCanJoinRoom.text = txtCanJoinRoom.get();
                                     tvCanJoinRoom.color = RoomHolder.CanJoinColor;
                                 }
                             }
@@ -327,7 +327,7 @@ public class RoomAdminBtnDeleteUI : UIBehavior<RoomAdminBtnDeleteUI.UIData>
                         {
                             if (tvId != null)
                             {
-                                tvId.text = txtId.get("Id") + ": " + room.uid;
+                                tvId.text = txtId.get() + ": " + room.uid;
                             }
                             else
                             {
@@ -383,8 +383,8 @@ public class RoomAdminBtnDeleteUI : UIBehavior<RoomAdminBtnDeleteUI.UIData>
                                         Debug.LogError("roomInform null: " + this);
                                     }
                                 }
-                                tvPlayers.text = txtAdmin.get("Admin") + ": " + strCreator
-                                + "; " + txtUserCount.get("user count") + ": " + userCount;
+                                tvPlayers.text = txtAdmin.get() + ": " + strCreator
+                                + "; " + txtUserCount.get() + ": " + userCount;
                             }
                             else
                             {
@@ -411,10 +411,10 @@ public class RoomAdminBtnDeleteUI : UIBehavior<RoomAdminBtnDeleteUI.UIData>
                                                         switch (normalState.getType())
                                                         {
                                                             case RoomStateNormal.State.Type.Normal:
-                                                                tvState.text = txtStateNormal.get("Normal");
+                                                                tvState.text = txtStateNormal.get();
                                                                 break;
                                                             case RoomStateNormal.State.Type.Freeze:
-                                                                tvState.text = txtStateFreeze.get("Freeze");
+                                                                tvState.text = txtStateFreeze.get();
                                                                 break;
                                                             default:
                                                                 Debug.LogError("unkown type: " + normalState.getType() + "; " + this);
@@ -430,7 +430,7 @@ public class RoomAdminBtnDeleteUI : UIBehavior<RoomAdminBtnDeleteUI.UIData>
                                             break;
                                         case Room.State.Type.End:
                                             {
-                                                tvState.text = txtStateEnd.get("End");
+                                                tvState.text = txtStateEnd.get();
                                             }
                                             break;
                                         default:
@@ -452,7 +452,7 @@ public class RoomAdminBtnDeleteUI : UIBehavior<RoomAdminBtnDeleteUI.UIData>
                         {
                             if (tvTime != null)
                             {
-                                tvTime.text = txtCreated.get("created") + ": " + Global.getStrTime(room.timeCreated.v);
+                                tvTime.text = txtCreated.get() + ": " + Global.getStrTime(room.timeCreated.v);
                             }
                             else
                             {
@@ -487,7 +487,7 @@ public class RoomAdminBtnDeleteUI : UIBehavior<RoomAdminBtnDeleteUI.UIData>
                                         Debug.LogError("roomInform null: " + this);
                                     }
                                 }
-                                tvContestManagerState.text = txtState.get("State") + ": " + contestManagerState;
+                                tvContestManagerState.text = txtState.get() + ": " + contestManagerState;
                             }
                             else
                             {
@@ -522,7 +522,7 @@ public class RoomAdminBtnDeleteUI : UIBehavior<RoomAdminBtnDeleteUI.UIData>
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Confirm End Room");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -530,7 +530,7 @@ public class RoomAdminBtnDeleteUI : UIBehavior<RoomAdminBtnDeleteUI.UIData>
                         }
                         if (tvCancel != null)
                         {
-                            tvCancel.text = txtCancel.get("Cancel");
+                            tvCancel.text = txtCancel.get();
                         }
                         else
                         {

@@ -64,16 +64,16 @@ public class LanMenuUI : UIBehavior<LanMenuUI.UIData>
 
     #endregion
 
-    #region updateTxt
+    #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("LAN");
 
     public Text tvHost;
-    public static readonly TxtLanguage txtHost = new TxtLanguage();
+    private static readonly TxtLanguage txtHost = new TxtLanguage("Host");
 
     public Text tvClient;
-    public static readonly TxtLanguage txtClient = new TxtLanguage();
+    private static readonly TxtLanguage txtClient = new TxtLanguage("Client");
 
     static LanMenuUI()
     {
@@ -97,7 +97,7 @@ public class LanMenuUI : UIBehavior<LanMenuUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("LAN");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -105,7 +105,7 @@ public class LanMenuUI : UIBehavior<LanMenuUI.UIData>
                     }
                     if (tvHost != null)
                     {
-                        tvHost.text = txtHost.get("Host");
+                        tvHost.text = txtHost.get();
                     }
                     else
                     {
@@ -113,7 +113,7 @@ public class LanMenuUI : UIBehavior<LanMenuUI.UIData>
                     }
                     if (tvClient != null)
                     {
-                        tvClient.text = txtClient.get("Client");
+                        tvClient.text = txtClient.get();
                     }
                     else
                     {

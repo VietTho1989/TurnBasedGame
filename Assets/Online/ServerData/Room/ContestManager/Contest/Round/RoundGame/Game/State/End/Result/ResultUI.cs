@@ -35,15 +35,15 @@ namespace GameState
 
         #region txt
 
-        private static readonly TxtLanguage txtNone = new TxtLanguage();
-        private static readonly TxtLanguage txtRequestDraw = new TxtLanguage();
-        private static readonly TxtLanguage txtGameDraw = new TxtLanguage();
-        private static readonly TxtLanguage txtCheckMate = new TxtLanguage();
-        private static readonly TxtLanguage txtCheckMated = new TxtLanguage();
-        private static readonly TxtLanguage txtTimeOut = new TxtLanguage();
-        private static readonly TxtLanguage txtEnemyTimeOut = new TxtLanguage();
-        private static readonly TxtLanguage txtSurrender = new TxtLanguage();
-        private static readonly TxtLanguage txtEnemySurrender = new TxtLanguage();
+        private static readonly TxtLanguage txtNone = new TxtLanguage("Result: game not end");
+        private static readonly TxtLanguage txtRequestDraw = new TxtLanguage("Draw: players request");
+        private static readonly TxtLanguage txtGameDraw = new TxtLanguage("Draw: game draw");
+        private static readonly TxtLanguage txtCheckMate = new TxtLanguage("Win: checkmate");
+        private static readonly TxtLanguage txtCheckMated = new TxtLanguage("Lose: checkmated");
+        private static readonly TxtLanguage txtTimeOut = new TxtLanguage("Lose: timeout");
+        private static readonly TxtLanguage txtEnemyTimeOut = new TxtLanguage("Win: enemy timeout");
+        private static readonly TxtLanguage txtSurrender = new TxtLanguage("Lose: surrender");
+        private static readonly TxtLanguage txtEnemySurrender = new TxtLanguage("Win: enemy surrender");
 
         static ResultUI()
         {
@@ -85,31 +85,31 @@ namespace GameState
                             switch (result.reason.v)
                             {
                                 case Result.Reason.None:
-                                    tvResult.text = txtNone.get("Result: game not end");
+                                    tvResult.text = txtNone.get();
                                     break;
                                 case Result.Reason.RequestDraw:
-                                    tvResult.text = txtRequestDraw.get("Draw: players request");
+                                    tvResult.text = txtRequestDraw.get();
                                     break;
                                 case Result.Reason.GameDraw:
-                                    tvResult.text = txtGameDraw.get("Draw: game draw");
+                                    tvResult.text = txtGameDraw.get();
                                     break;
                                 case Result.Reason.CheckMate:
-                                    tvResult.text = txtCheckMate.get("Win: checkmate");
+                                    tvResult.text = txtCheckMate.get();
                                     break;
                                 case Result.Reason.CheckMated:
-                                    tvResult.text = txtCheckMated.get("Lose: checkmated");
+                                    tvResult.text = txtCheckMated.get();
                                     break;
                                 case Result.Reason.TimeOut:
-                                    tvResult.text = txtTimeOut.get("Lose: timeout");
+                                    tvResult.text = txtTimeOut.get();
                                     break;
                                 case Result.Reason.EnemyTimeOut:
-                                    tvResult.text = txtEnemyTimeOut.get("Win: enemy timeout");
+                                    tvResult.text = txtEnemyTimeOut.get();
                                     break;
                                 case Result.Reason.Surrender:
-                                    tvResult.text = txtSurrender.get("Lose: surrender");
+                                    tvResult.text = txtSurrender.get();
                                     break;
                                 case Result.Reason.EnemySurrender:
-                                    tvResult.text = txtEnemySurrender.get("Win: enemy surrender");
+                                    tvResult.text = txtEnemySurrender.get();
                                     break;
                                 default:
                                     Debug.LogError("unknown reason: " + result.reason.v);
@@ -130,7 +130,7 @@ namespace GameState
                         // tvResult
                         if (tvResult != null)
                         {
-                            tvResult.text = txtNone.get("Result: game not end");
+                            tvResult.text = txtNone.get();
                             tvResult.color = normalColor;
                         }
                         else

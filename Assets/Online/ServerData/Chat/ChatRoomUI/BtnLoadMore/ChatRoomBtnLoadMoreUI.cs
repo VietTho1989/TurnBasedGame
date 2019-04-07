@@ -55,11 +55,11 @@ public class ChatRoomBtnLoadMoreUI : UIBehavior<ChatRoomBtnLoadMoreUI.UIData>
 
     #region txt
 
-    private static readonly TxtLanguage txtLoadMore = new TxtLanguage();
-    private static readonly TxtLanguage txtCancelLoadMore = new TxtLanguage();
-    private static readonly TxtLanguage txtLoadingMore = new TxtLanguage();
+    private static readonly TxtLanguage txtLoadMore = new TxtLanguage("Load More");
+    private static readonly TxtLanguage txtCancelLoadMore = new TxtLanguage("Cancel Load More");
+    private static readonly TxtLanguage txtLoadingMore = new TxtLanguage("Loading More...");
 
-    private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+    private static readonly TxtLanguage txtRequestError = new TxtLanguage("Load more error");
 
     static ChatRoomBtnLoadMoreUI()
     {
@@ -184,19 +184,19 @@ public class ChatRoomBtnLoadMoreUI : UIBehavior<ChatRoomBtnLoadMoreUI.UIData>
                                     case UIData.State.None:
                                         {
                                             btnLoadMore.interactable = true;
-                                            tvLoadMore.text = txtLoadMore.get("Load More");
+                                            tvLoadMore.text = txtLoadMore.get();
                                         }
                                         break;
                                     case UIData.State.Request:
                                         {
                                             btnLoadMore.interactable = true;
-                                            tvLoadMore.text = txtCancelLoadMore.get("Cancel Load More");
+                                            tvLoadMore.text = txtCancelLoadMore.get();
                                         }
                                         break;
                                     case UIData.State.Wait:
                                         {
                                             btnLoadMore.interactable = false;
-                                            tvLoadMore.text = txtLoadingMore.get("Loading More...");
+                                            tvLoadMore.text = txtLoadingMore.get();
                                         }
                                         break;
                                     default:
@@ -259,7 +259,7 @@ public class ChatRoomBtnLoadMoreUI : UIBehavior<ChatRoomBtnLoadMoreUI.UIData>
         {
             yield return new Wait(Global.WaitSendTime);
             this.data.state.v = UIData.State.None;
-            Toast.showMessage(txtRequestError.get("Load more error"));
+            Toast.showMessage(txtRequestError.get());
             Debug.LogError("request error: " + this);
         }
         else

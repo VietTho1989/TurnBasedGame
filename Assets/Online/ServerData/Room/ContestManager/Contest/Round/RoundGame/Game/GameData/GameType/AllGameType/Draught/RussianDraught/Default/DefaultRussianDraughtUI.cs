@@ -49,7 +49,7 @@ namespace RussianDraught
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Default Russian Draughts");
 
         static DefaultRussianDraughtUI()
         {
@@ -230,7 +230,7 @@ namespace RussianDraught
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Default Russian Draughts");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {

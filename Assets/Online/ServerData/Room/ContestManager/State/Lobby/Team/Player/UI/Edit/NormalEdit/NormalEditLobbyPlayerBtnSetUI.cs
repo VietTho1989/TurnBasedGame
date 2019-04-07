@@ -61,9 +61,9 @@ namespace GameManager.Match
 
         #region txt
 
-        public static readonly TxtLanguage txtSet = new TxtLanguage();
-        public static readonly TxtLanguage txtCancelSet = new TxtLanguage();
-        public static readonly TxtLanguage txtSetting = new TxtLanguage();
+        private static readonly TxtLanguage txtSet = new TxtLanguage("Set");
+        private static readonly TxtLanguage txtCancelSet = new TxtLanguage("Cancel Set?");
+        private static readonly TxtLanguage txtSetting = new TxtLanguage("Setting");
 
         static NormalEditLobbyPlayerBtnSetUI()
         {
@@ -153,19 +153,19 @@ namespace GameManager.Match
                                         case UIData.State.None:
                                             {
                                                 btnSet.interactable = true;
-                                                tvSet.text = txtSet.get("Set");
+                                                tvSet.text = txtSet.get();
                                             }
                                             break;
                                         case UIData.State.Request:
                                             {
                                                 btnSet.interactable = true;
-                                                tvSet.text = txtCancelSet.get("Cancel Set?");
+                                                tvSet.text = txtCancelSet.get();
                                             }
                                             break;
                                         case UIData.State.Wait:
                                             {
                                                 btnSet.interactable = false;
-                                                tvSet.text = txtSetting.get("Setting");
+                                                tvSet.text = txtSetting.get();
                                             }
                                             break;
                                         default:

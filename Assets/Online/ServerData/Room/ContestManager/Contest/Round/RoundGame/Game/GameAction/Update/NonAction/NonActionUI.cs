@@ -36,12 +36,10 @@ public class NonActionUI : UIBehavior<NonActionUI.UIData>
 
     #endregion
 
-    #region Update
-
     #region txt
 
     public Text tvMessage;
-    public static readonly TxtLanguage txtMessage = new TxtLanguage();
+    public static readonly TxtLanguage txtMessage = new TxtLanguage("Don't have action");
 
     static NonActionUI()
     {
@@ -49,6 +47,8 @@ public class NonActionUI : UIBehavior<NonActionUI.UIData>
     }
 
     #endregion
+
+    #region Refresh
 
     public override void refresh()
     {
@@ -61,7 +61,7 @@ public class NonActionUI : UIBehavior<NonActionUI.UIData>
                 {
                     if (tvMessage != null)
                     {
-                        tvMessage.text = txtMessage.get("Don't have action");
+                        tvMessage.text = txtMessage.get();
                     }
                     else
                     {

@@ -49,7 +49,7 @@ namespace Shogi
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Default Shogi");
 
         static DefaultShogiUI()
         {
@@ -230,7 +230,7 @@ namespace Shogi
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Default Shogi");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {

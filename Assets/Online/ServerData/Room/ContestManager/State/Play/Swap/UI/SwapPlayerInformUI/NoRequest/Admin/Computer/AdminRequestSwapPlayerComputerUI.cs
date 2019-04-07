@@ -72,16 +72,16 @@ namespace GameManager.Match.Swap
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Choose Computer");
 
-        private static readonly TxtLanguage txtRequest = new TxtLanguage();
-        private static readonly TxtLanguage txtRequesting = new TxtLanguage();
-        private static readonly TxtLanguage txtCancelRequest = new TxtLanguage();
+        private static readonly TxtLanguage txtRequest = new TxtLanguage("Request");
+        private static readonly TxtLanguage txtRequesting = new TxtLanguage("Requesting");
+        private static readonly TxtLanguage txtCancelRequest = new TxtLanguage("Cancel");
 
         public Text tvReset;
-        private static readonly TxtLanguage txtReset = new TxtLanguage();
+        private static readonly TxtLanguage txtReset = new TxtLanguage("Reset");
 
-        private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+        private static readonly TxtLanguage txtRequestError = new TxtLanguage("Request error");
 
         static AdminRequestSwapPlayerComputerUI()
         {
@@ -341,25 +341,25 @@ namespace GameManager.Match.Swap
                                             if (isDiffrent)
                                             {
                                                 btnRequest.interactable = true;
-                                                tvRequest.text = txtRequest.get("Request");
+                                                tvRequest.text = txtRequest.get();
                                             }
                                             else
                                             {
                                                 btnRequest.interactable = false;
-                                                tvRequest.text = txtRequest.get("Request");// "Not Different, Cannot Request";
+                                                tvRequest.text = txtRequest.get();// "Not Different, Cannot Request";
                                             }
                                         }
                                         break;
                                     case UIData.State.Request:
                                         {
                                             btnRequest.interactable = true;
-                                            tvRequest.text = txtCancelRequest.get("Cancel");// "Cancel Request?";
+                                            tvRequest.text = txtCancelRequest.get();// "Cancel Request?";
                                         }
                                         break;
                                     case UIData.State.Wait:
                                         {
                                             btnRequest.interactable = false;
-                                            tvRequest.text = txtRequesting.get("Requesting");// "Requesting...";
+                                            tvRequest.text = txtRequesting.get();// "Requesting...";
                                         }
                                         break;
                                     default:
@@ -376,7 +376,7 @@ namespace GameManager.Match.Swap
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Choose Computer");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -384,7 +384,7 @@ namespace GameManager.Match.Swap
                             }
                             if (tvReset != null)
                             {
-                                tvReset.text = txtReset.get("Reset");
+                                tvReset.text = txtReset.get();
                             }
                             else
                             {
@@ -431,7 +431,7 @@ namespace GameManager.Match.Swap
                         Debug.LogError("data null: " + this);
                     }
                 }
-                Toast.showMessage(txtRequestError.get("Request error"));
+                Toast.showMessage(txtRequestError.get());
                 Debug.LogError("request error: " + this);
             }
             else

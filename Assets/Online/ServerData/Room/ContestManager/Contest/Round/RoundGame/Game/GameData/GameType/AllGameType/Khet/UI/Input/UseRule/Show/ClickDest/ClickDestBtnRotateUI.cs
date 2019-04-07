@@ -34,10 +34,10 @@ namespace Khet.UseRule
         #region txt
 
         public Text tvRotateAdd;
-        private static readonly TxtLanguage txtRotateAdd = new TxtLanguage();
+        private static readonly TxtLanguage txtRotateAdd = new TxtLanguage("Rotate Add");
 
         public Text tvRotateSub;
-        private static readonly TxtLanguage txtRotateSub = new TxtLanguage();
+        private static readonly TxtLanguage txtRotateSub = new TxtLanguage("Rotate Sub");
 
         static ClickDestBtnRotateUI()
         {
@@ -81,7 +81,7 @@ namespace Khet.UseRule
                     {
                         if (tvRotateAdd != null)
                         {
-                            tvRotateAdd.text = txtRotateAdd.get("Rotate Add");
+                            tvRotateAdd.text = txtRotateAdd.get();
                         }
                         else
                         {
@@ -89,7 +89,7 @@ namespace Khet.UseRule
                         }
                         if (tvRotateSub != null)
                         {
-                            tvRotateSub.text = txtRotateSub.get("Rotate Sub");
+                            tvRotateSub.text = txtRotateSub.get();
                         }
                         else
                         {

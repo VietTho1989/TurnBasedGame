@@ -106,11 +106,11 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Game Messages");
 
     public Image bgNotAllowChat;
     public Text tvNotAllowChat;
-    private static readonly TxtLanguage txtNotAllowChat = new TxtLanguage();
+    private static readonly TxtLanguage txtNotAllowChat = new TxtLanguage("Only player can chat");
 
     static GameChatRoomUI()
     {
@@ -227,7 +227,7 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Game Messages");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -235,7 +235,7 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
                         }
                         if (tvNotAllowChat != null)
                         {
-                            tvNotAllowChat.text = txtNotAllowChat.get("Only player can chat");
+                            tvNotAllowChat.text = txtNotAllowChat.get();
                         }
                         else
                         {

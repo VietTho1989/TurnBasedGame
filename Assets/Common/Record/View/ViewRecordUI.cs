@@ -94,7 +94,7 @@ namespace Record
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("View Replay");
 
         static ViewRecordUI()
         {
@@ -231,7 +231,7 @@ namespace Record
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("View Replay");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {

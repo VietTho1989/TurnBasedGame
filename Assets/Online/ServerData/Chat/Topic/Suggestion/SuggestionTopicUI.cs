@@ -44,7 +44,7 @@ public class SuggestionTopicUI : UIBehavior<SuggestionTopicUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Suggestion");
 
     static SuggestionTopicUI()
     {
@@ -64,7 +64,7 @@ public class SuggestionTopicUI : UIBehavior<SuggestionTopicUI.UIData>
             {
                 if (lbTitle != null)
                 {
-                    lbTitle.text = txtTitle.get("Suggestion");
+                    lbTitle.text = txtTitle.get();
                 }
                 else
                 {

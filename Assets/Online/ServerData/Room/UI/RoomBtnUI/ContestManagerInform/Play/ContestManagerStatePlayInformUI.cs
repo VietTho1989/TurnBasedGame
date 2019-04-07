@@ -45,7 +45,7 @@ namespace GameManager.Match
         #region txt
 
         public Text lbForceEnd;
-        public static readonly TxtLanguage txtForceEnd = new TxtLanguage();
+        public static readonly TxtLanguage txtForceEnd = new TxtLanguage("Force end");
 
         static ContestManagerStatePlayInformUI()
         {
@@ -98,7 +98,7 @@ namespace GameManager.Match
                         {
                             if (lbForceEnd != null)
                             {
-                                lbForceEnd.text = txtForceEnd.get("Force end");
+                                lbForceEnd.text = txtForceEnd.get();
                             }
                             else
                             {

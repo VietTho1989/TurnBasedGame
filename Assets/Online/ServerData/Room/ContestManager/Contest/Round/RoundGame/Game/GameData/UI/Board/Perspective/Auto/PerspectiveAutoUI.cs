@@ -48,10 +48,10 @@ public class PerspectiveAutoUI : UIHaveTransformDataBehavior<PerspectiveAutoUI.U
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Auto set player perspective");
 
     public Text tvChange;
-    private static readonly TxtLanguage txtChange = new TxtLanguage();
+    private static readonly TxtLanguage txtChange = new TxtLanguage("Change to force");
 
     static PerspectiveAutoUI()
     {
@@ -74,7 +74,7 @@ public class PerspectiveAutoUI : UIHaveTransformDataBehavior<PerspectiveAutoUI.U
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Auto set player perspective");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -82,7 +82,7 @@ public class PerspectiveAutoUI : UIHaveTransformDataBehavior<PerspectiveAutoUI.U
                     }
                     if (tvChange != null)
                     {
-                        tvChange.text = txtChange.get("Change to force");
+                        tvChange.text = txtChange.get();
                     }
                     else
                     {

@@ -38,12 +38,10 @@ namespace GameManager.Match
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text lbTitle;
-        public static TxtLanguage txtTitle = new TxtLanguage();
+        private static TxtLanguage txtTitle = new TxtLanguage("Tournament state lobby");
 
         static ContestManagerStateLobbyInformUI()
         {
@@ -51,6 +49,8 @@ namespace GameManager.Match
         }
 
         #endregion
+
+        #region Refresh
 
         public override void refresh()
         {
@@ -66,7 +66,7 @@ namespace GameManager.Match
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Tournament state lobby");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {

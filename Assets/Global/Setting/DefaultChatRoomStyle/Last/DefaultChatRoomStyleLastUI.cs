@@ -121,19 +121,19 @@ public class DefaultChatRoomStyleLastUI : UIHaveTransformDataBehavior<DefaultCha
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Chat Room Last");
 
     public Text lbVisibility;
-    private static readonly TxtLanguage txtVisibility = new TxtLanguage();
+    private static readonly TxtLanguage txtVisibility = new TxtLanguage("Visibility");
 
     public Text lbStyle;
-    private static readonly TxtLanguage txttStyle = new TxtLanguage();
+    private static readonly TxtLanguage txtStyle = new TxtLanguage("Style");
 
     static DefaultChatRoomStyleLastUI()
     {
         txtTitle.add(Language.Type.vi, "Phòng Chat Chọn Trước");
         txtVisibility.add(Language.Type.vi, "Ẩn/Hiện");
-        txttStyle.add(Language.Type.vi, "Kiểu");
+        txtStyle.add(Language.Type.vi, "Kiểu");
     }
 
     #endregion
@@ -435,7 +435,7 @@ public class DefaultChatRoomStyleLastUI : UIHaveTransformDataBehavior<DefaultCha
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Chat Room Last");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -443,7 +443,7 @@ public class DefaultChatRoomStyleLastUI : UIHaveTransformDataBehavior<DefaultCha
                         }
                         if (lbVisibility != null)
                         {
-                            lbVisibility.text = txtVisibility.get("Visibility");
+                            lbVisibility.text = txtVisibility.get();
                         }
                         else
                         {
@@ -451,7 +451,7 @@ public class DefaultChatRoomStyleLastUI : UIHaveTransformDataBehavior<DefaultCha
                         }
                         if (lbStyle != null)
                         {
-                            lbStyle.text = txttStyle.get("Style");
+                            lbStyle.text = txtStyle.get();
                         }
                         else
                         {

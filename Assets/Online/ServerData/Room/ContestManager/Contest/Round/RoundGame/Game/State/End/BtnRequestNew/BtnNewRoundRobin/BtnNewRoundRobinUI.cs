@@ -42,7 +42,7 @@ public class BtnNewRoundRobinUI : UIBehavior<BtnNewRoundRobinUI.UIData>
     #region txt
 
     public Text tvNewRoundRobin;
-    private static readonly TxtLanguage txtNewRoundRobin = new TxtLanguage();
+    private static readonly TxtLanguage txtNewRoundRobin = new TxtLanguage("New Round-robin Round");
 
     static BtnNewRoundRobinUI()
     {
@@ -70,7 +70,7 @@ public class BtnNewRoundRobinUI : UIBehavior<BtnNewRoundRobinUI.UIData>
                     {
                         if (tvNewRoundRobin != null)
                         {
-                            tvNewRoundRobin.text = txtNewRoundRobin.get("New Round-robin Round");
+                            tvNewRoundRobin.text = txtNewRoundRobin.get();
                         }
                         else
                         {

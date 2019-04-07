@@ -60,7 +60,7 @@ namespace EnglishDraught
         public Text lbTitle;
 
         public Text tvMessage;
-        private static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("https://en.wikipedia.org/wiki/English_draughts");
 
         static EnglishDraughtInformationUI()
         {
@@ -205,7 +205,7 @@ namespace EnglishDraught
                             }
                             if (tvMessage != null)
                             {
-                                tvMessage.text = txtMessage.get("https://en.wikipedia.org/wiki/English_draughts");
+                                tvMessage.text = txtMessage.get();
                             }
                             else
                             {

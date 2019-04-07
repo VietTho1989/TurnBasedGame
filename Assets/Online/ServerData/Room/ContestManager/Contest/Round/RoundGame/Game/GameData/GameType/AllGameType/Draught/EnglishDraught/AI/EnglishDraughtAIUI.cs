@@ -221,19 +221,19 @@ namespace EnglishDraught
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("English Draughts AI");
 
         public Text lbThreeMoveRandom;
-        public static readonly TxtLanguage txtThreeMoveRandom = new TxtLanguage();
+        private static readonly TxtLanguage txtThreeMoveRandom = new TxtLanguage("Three moves random");
 
         public Text lbMaxSeconds;
-        public static readonly TxtLanguage txtMaxSeconds = new TxtLanguage();
+        private static readonly TxtLanguage txtMaxSeconds = new TxtLanguage("Max seconds");
 
         public Text lbMaxDepth;
-        public static readonly TxtLanguage txtMaxDepth = new TxtLanguage();
+        private static readonly TxtLanguage txtMaxDepth = new TxtLanguage("Max depth");
 
         public Text lbPickBestMove;
-        public static readonly TxtLanguage txtPickBestMove = new TxtLanguage();
+        private static readonly TxtLanguage txtPickBestMove = new TxtLanguage("Pick best move");
 
         static EnglishDraughtAIUI()
         {
@@ -719,7 +719,7 @@ namespace EnglishDraught
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("English Draughts AI");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -727,7 +727,7 @@ namespace EnglishDraught
                         }
                         if (lbThreeMoveRandom != null)
                         {
-                            lbThreeMoveRandom.text = txtThreeMoveRandom.get("Three moves random");
+                            lbThreeMoveRandom.text = txtThreeMoveRandom.get();
                         }
                         else
                         {
@@ -735,7 +735,7 @@ namespace EnglishDraught
                         }
                         if (lbMaxSeconds != null)
                         {
-                            lbMaxSeconds.text = txtMaxSeconds.get("Max seconds");
+                            lbMaxSeconds.text = txtMaxSeconds.get();
                         }
                         else
                         {
@@ -743,7 +743,7 @@ namespace EnglishDraught
                         }
                         if (lbMaxDepth != null)
                         {
-                            lbMaxDepth.text = txtMaxDepth.get("Max depth");
+                            lbMaxDepth.text = txtMaxDepth.get();
                         }
                         else
                         {
@@ -751,7 +751,7 @@ namespace EnglishDraught
                         }
                         if (lbPickBestMove != null)
                         {
-                            lbPickBestMove.text = txtPickBestMove.get("Pick best move");
+                            lbPickBestMove.text = txtPickBestMove.get();
                         }
                         else
                         {

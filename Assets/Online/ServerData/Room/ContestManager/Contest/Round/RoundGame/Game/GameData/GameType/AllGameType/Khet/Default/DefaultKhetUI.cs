@@ -95,10 +95,10 @@ namespace Khet
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Default Khet");
 
         public Text lbStartPos;
-        public static readonly TxtLanguage txtStartPos = new TxtLanguage();
+        private static readonly TxtLanguage txtStartPos = new TxtLanguage("Start pos");
 
         static DefaultKhetUI()
         {
@@ -363,7 +363,7 @@ namespace Khet
                             {
                                 if (lbTitle != null)
                                 {
-                                    lbTitle.text = txtTitle.get("Default Khet");
+                                    lbTitle.text = txtTitle.get();
                                 }
                                 else
                                 {
@@ -371,7 +371,7 @@ namespace Khet
                                 }
                                 if (lbStartPos != null)
                                 {
-                                    lbStartPos.text = txtStartPos.get("Start pos");
+                                    lbStartPos.text = txtStartPos.get();
                                 }
                                 else
                                 {

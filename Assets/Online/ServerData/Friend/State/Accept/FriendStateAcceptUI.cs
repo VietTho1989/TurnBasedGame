@@ -61,8 +61,8 @@ public class FriendStateAcceptUI : UIBehavior<FriendStateAcceptUI.UIData>
     #region txt
 
     public Text tvUnFriend;
-    private static readonly TxtLanguage txtUnFriend = new TxtLanguage();
-    private static readonly TxtLanguage txtUnFriending = new TxtLanguage();
+    private static readonly TxtLanguage txtUnFriend = new TxtLanguage("Unfriend");
+    private static readonly TxtLanguage txtUnFriending = new TxtLanguage("Unfriending");
 
     static FriendStateAcceptUI()
     {
@@ -95,19 +95,19 @@ public class FriendStateAcceptUI : UIBehavior<FriendStateAcceptUI.UIData>
                                 case UIData.State.None:
                                     {
                                         btnUnFriend.interactable = true;
-                                        tvUnFriend.text = txtUnFriend.get("UnFriend");
+                                        tvUnFriend.text = txtUnFriend.get();
                                     }
                                     break;
                                 case UIData.State.Request:
                                     {
                                         btnUnFriend.interactable = true;
-                                        tvUnFriend.text = txtUnFriending.get("UnFriending");
+                                        tvUnFriend.text = txtUnFriending.get();
                                     }
                                     break;
                                 case UIData.State.Wait:
                                     {
                                         btnUnFriend.interactable = false;
-                                        tvUnFriend.text = txtUnFriending.get("UnFriending");
+                                        tvUnFriend.text = txtUnFriending.get();
                                     }
                                     break;
                                 default:

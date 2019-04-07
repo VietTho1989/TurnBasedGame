@@ -56,7 +56,7 @@ namespace Banqi
         public Text lbTitle;
 
         public Text tvMessage;
-        private static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("https://en.wikipedia.org/wiki/Banqi");
 
         static BanqiInformationUI()
         {
@@ -141,7 +141,7 @@ namespace Banqi
                             }
                             if (tvMessage != null)
                             {
-                                tvMessage.text = txtMessage.get("https://en.wikipedia.org/wiki/Banqi");
+                                tvMessage.text = txtMessage.get();
                             }
                             else
                             {

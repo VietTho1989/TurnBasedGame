@@ -64,10 +64,10 @@ public class StateDisconnectDetailUI : UIBehavior<StateDisconnectDetailUI.UIData
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Server Disconnected");
 
     public Text tvMessage;
-    public static readonly TxtLanguage txtMessage = new TxtLanguage();
+    public static readonly TxtLanguage txtMessage = new TxtLanguage("Server has disconnected in");
 
     static StateDisconnectDetailUI()
     {
@@ -96,7 +96,7 @@ public class StateDisconnectDetailUI : UIBehavior<StateDisconnectDetailUI.UIData
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Server Disconnected");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -107,7 +107,7 @@ public class StateDisconnectDetailUI : UIBehavior<StateDisconnectDetailUI.UIData
                     {
                         if (tvMessage != null)
                         {
-                            tvMessage.text = txtMessage.get("Server has disconnected in") + " " + disconnect.time.v;
+                            tvMessage.text = txtMessage.get() + " " + disconnect.time.v;
                         }
                         else
                         {

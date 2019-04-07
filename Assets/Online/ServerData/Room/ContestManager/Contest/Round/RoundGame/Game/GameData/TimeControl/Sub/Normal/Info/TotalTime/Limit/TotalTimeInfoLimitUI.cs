@@ -81,15 +81,13 @@ namespace TimeControl.Normal
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Total Time Limit");
 
         public Text lbTotalTime;
-        public static readonly TxtLanguage txtTotalTime = new TxtLanguage();
+        private static readonly TxtLanguage txtTotalTime = new TxtLanguage("Total time");
 
         static TotalTimeInfoLimitUI()
         {
@@ -105,6 +103,8 @@ namespace TimeControl.Normal
         }
 
         #endregion
+
+        #region Refresh
 
         private bool needReset = true;
 
@@ -308,7 +308,7 @@ namespace TimeControl.Normal
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Total Time Limit");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -316,7 +316,7 @@ namespace TimeControl.Normal
                             }
                             if (lbTotalTime != null)
                             {
-                                lbTotalTime.text = txtTotalTime.get("Total time");
+                                lbTotalTime.text = txtTotalTime.get();
                             }
                             else
                             {

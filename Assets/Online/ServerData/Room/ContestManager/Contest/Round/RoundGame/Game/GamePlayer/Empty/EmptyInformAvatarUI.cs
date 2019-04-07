@@ -39,7 +39,7 @@ public class EmptyInformAvatarUI : UIBehavior<EmptyInformAvatarUI.UIData>
     #region txt
 
     public Text tvEmpty;
-    private static readonly TxtLanguage txtEmpty = new TxtLanguage();
+    private static readonly TxtLanguage txtEmpty = new TxtLanguage("Empty");
 
     static EmptyInformAvatarUI()
     {
@@ -61,7 +61,7 @@ public class EmptyInformAvatarUI : UIBehavior<EmptyInformAvatarUI.UIData>
                     {
                         if (tvEmpty != null)
                         {
-                            tvEmpty.text = txtEmpty.get("Empty");
+                            tvEmpty.text = txtEmpty.get();
                         }
                         else
                         {

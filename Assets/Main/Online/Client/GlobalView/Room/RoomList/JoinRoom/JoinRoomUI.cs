@@ -99,40 +99,40 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Join Room");
 
     #region txt Info
 
     public Text tvCanJoinRoom;
-    private static readonly TxtLanguage txtCannotJoinRoom = new TxtLanguage();
-    private static readonly TxtLanguage txtCanJoinRoom = new TxtLanguage();
+    private static readonly TxtLanguage txtCannotJoinRoom = new TxtLanguage("Cannot Join");
+    private static readonly TxtLanguage txtCanJoinRoom = new TxtLanguage("Can Join");
 
-    private static readonly TxtLanguage txtId = new TxtLanguage();
-    private static readonly TxtLanguage txtName = new TxtLanguage();
-    private static readonly TxtLanguage txtAdmin = new TxtLanguage();
-    private static readonly TxtLanguage txtUserCount = new TxtLanguage();
+    private static readonly TxtLanguage txtId = new TxtLanguage("Id");
+    private static readonly TxtLanguage txtName = new TxtLanguage("Name");
+    private static readonly TxtLanguage txtAdmin = new TxtLanguage("Admin");
+    private static readonly TxtLanguage txtUserCount = new TxtLanguage("user count");
 
-    private static readonly TxtLanguage txtStateNormal = new TxtLanguage();
-    private static readonly TxtLanguage txtStateFreeze = new TxtLanguage();
-    private static readonly TxtLanguage txtStateEnd = new TxtLanguage();
+    private static readonly TxtLanguage txtStateNormal = new TxtLanguage("Normal");
+    private static readonly TxtLanguage txtStateFreeze = new TxtLanguage("Freeze");
+    private static readonly TxtLanguage txtStateEnd = new TxtLanguage("End");
 
-    private static readonly TxtLanguage txtCreated = new TxtLanguage();
-    private static readonly TxtLanguage txtGameType = new TxtLanguage();
+    private static readonly TxtLanguage txtCreated = new TxtLanguage("created");
+    private static readonly TxtLanguage txtGameType = new TxtLanguage("Game");
 
-    private static readonly TxtLanguage txtState = new TxtLanguage();
+    private static readonly TxtLanguage txtState = new TxtLanguage("State");
 
     #endregion
 
     public Text tvPasswordPlaceHolder;
-    private static readonly TxtLanguage txtPasswordPlaceHolder = new TxtLanguage();
+    private static readonly TxtLanguage txtPasswordPlaceHolder = new TxtLanguage("Enter password...");
 
     public Text tvCancel;
-    public static readonly TxtLanguage txtCancel = new TxtLanguage();
+    public static readonly TxtLanguage txtCancel = new TxtLanguage("Cancel");
 
-    public static readonly TxtLanguage txtJoinRoom = new TxtLanguage();
-    public static readonly TxtLanguage txtCancelJoin = new TxtLanguage();
-    public static readonly TxtLanguage txtJoiningRoom = new TxtLanguage();
-    public static readonly TxtLanguage txtCannotJoin = new TxtLanguage();
+    public static readonly TxtLanguage txtJoinRoom = new TxtLanguage("Join Room");
+    public static readonly TxtLanguage txtCancelJoin = new TxtLanguage("Cancel Join");
+    public static readonly TxtLanguage txtJoiningRoom = new TxtLanguage("Joining room...");
+    public static readonly TxtLanguage txtCannotJoin = new TxtLanguage("Cannot Join");
 
     static JoinRoomUI()
     {
@@ -261,19 +261,19 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
                                         case UIData.State.None:
                                             {
                                                 btnJoin.interactable = true;
-                                                tvJoin.text = txtJoinRoom.get("Join Room");
+                                                tvJoin.text = txtJoinRoom.get();
                                             }
                                             break;
                                         case UIData.State.Request:
                                             {
                                                 btnJoin.interactable = true;
-                                                tvJoin.text = txtCancelJoin.get("Cancel Join");
+                                                tvJoin.text = txtCancelJoin.get();
                                             }
                                             break;
                                         case UIData.State.Wait:
                                             {
                                                 btnJoin.interactable = false;
-                                                tvJoin.text = txtJoiningRoom.get("Joining room...");
+                                                tvJoin.text = txtJoiningRoom.get();
                                             }
                                             break;
                                         default:
@@ -299,7 +299,7 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
                                 if (btnJoin != null && tvJoin != null)
                                 {
                                     btnJoin.interactable = false;
-                                    tvJoin.text = txtCannotJoin.get("Cannot Join");
+                                    tvJoin.text = txtCannotJoin.get();
                                 }
                                 else
                                 {
@@ -328,12 +328,12 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
                             {
                                 if (room.isCanJoinRoom(Server.getProfileUserId(room)) != Room.JoinRoomState.Can)
                                 {
-                                    tvCanJoinRoom.text = txtCannotJoinRoom.get("Cannot Join");
+                                    tvCanJoinRoom.text = txtCannotJoinRoom.get();
                                     tvCanJoinRoom.color = RoomHolder.CannotJoinColor;
                                 }
                                 else
                                 {
-                                    tvCanJoinRoom.text = txtCanJoinRoom.get("Can Join");
+                                    tvCanJoinRoom.text = txtCanJoinRoom.get();
                                     tvCanJoinRoom.color = RoomHolder.CanJoinColor;
                                 }
                             }
@@ -346,7 +346,7 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
                         {
                             if (tvId != null)
                             {
-                                tvId.text = txtId.get("Id") + ": " + room.uid;
+                                tvId.text = txtId.get() + ": " + room.uid;
                             }
                             else
                             {
@@ -402,8 +402,8 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
                                         Debug.LogError("roomInform null: " + this);
                                     }
                                 }
-                                tvPlayers.text = txtAdmin.get("Admin") + ": " + strCreator
-                                + "; " + txtUserCount.get("user count") + ": " + userCount;
+                                tvPlayers.text = txtAdmin.get() + ": " + strCreator
+                                + "; " + txtUserCount.get() + ": " + userCount;
                             }
                             else
                             {
@@ -430,10 +430,10 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
                                                         switch (normalState.getType())
                                                         {
                                                             case RoomStateNormal.State.Type.Normal:
-                                                                tvState.text = txtStateNormal.get("Normal");
+                                                                tvState.text = txtStateNormal.get();
                                                                 break;
                                                             case RoomStateNormal.State.Type.Freeze:
-                                                                tvState.text = txtStateFreeze.get("Freeze");
+                                                                tvState.text = txtStateFreeze.get();
                                                                 break;
                                                             default:
                                                                 Debug.LogError("unkown type: " + normalState.getType() + "; " + this);
@@ -449,7 +449,7 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
                                             break;
                                         case Room.State.Type.End:
                                             {
-                                                tvState.text = txtStateEnd.get("End");
+                                                tvState.text = txtStateEnd.get();
                                             }
                                             break;
                                         default:
@@ -471,7 +471,7 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
                         {
                             if (tvTime != null)
                             {
-                                tvTime.text = txtCreated.get("created") + ": " + Global.getStrTime(room.timeCreated.v);
+                                tvTime.text = txtCreated.get() + ": " + Global.getStrTime(room.timeCreated.v);
                             }
                             else
                             {
@@ -506,7 +506,7 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
                                         Debug.LogError("roomInform null: " + this);
                                     }
                                 }
-                                tvContestManagerState.text = txtState.get("State") + ": " + contestManagerState;
+                                tvContestManagerState.text = txtState.get() + ": " + contestManagerState;
                             }
                             else
                             {
@@ -541,7 +541,7 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Join Room");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -549,7 +549,7 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
                         }
                         if (tvPasswordPlaceHolder != null)
                         {
-                            tvPasswordPlaceHolder.text = txtPasswordPlaceHolder.get("Enter password...");
+                            tvPasswordPlaceHolder.text = txtPasswordPlaceHolder.get();
                         }
                         else
                         {
@@ -557,7 +557,7 @@ public class JoinRoomUI : UIBehavior<JoinRoomUI.UIData>
                         }
                         if (tvCancel != null)
                         {
-                            tvCancel.text = txtCancel.get("Cancel");
+                            tvCancel.text = txtCancel.get();
                         }
                         else
                         {

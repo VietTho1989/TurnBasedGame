@@ -48,7 +48,7 @@ public class RequestDrawStateCancelUI : UIHaveTransformDataBehavior<RequestDrawS
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    public static readonly TxtLanguage txtTitle = new TxtLanguage("Request draw is cancelled");
 
     static RequestDrawStateCancelUI()
     {
@@ -70,7 +70,7 @@ public class RequestDrawStateCancelUI : UIHaveTransformDataBehavior<RequestDrawS
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Request draw is cancelled");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {

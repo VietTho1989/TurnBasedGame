@@ -69,12 +69,12 @@ public class RequestChangeUseRuleStateNoneUI : UIHaveTransformDataBehavior<Reque
 
     #region txt
 
-    private static readonly TxtLanguage txtRequest = new TxtLanguage();
-    private static readonly TxtLanguage txtCancelRequest = new TxtLanguage();
-    private static readonly TxtLanguage txtRequesting = new TxtLanguage();
-    private static readonly TxtLanguage txtCannotRequest = new TxtLanguage();
+    private static readonly TxtLanguage txtRequest = new TxtLanguage("Request");
+    private static readonly TxtLanguage txtCancelRequest = new TxtLanguage("Cancel Request?");
+    private static readonly TxtLanguage txtRequesting = new TxtLanguage("Requesting...");
+    private static readonly TxtLanguage txtCannotRequest = new TxtLanguage("Cannot Request");
 
-    private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+    private static readonly TxtLanguage txtRequestError = new TxtLanguage("send request to change rule error");
 
     static RequestChangeUseRuleStateNoneUI()
     {
@@ -160,19 +160,19 @@ public class RequestChangeUseRuleStateNoneUI : UIHaveTransformDataBehavior<Reque
                                     case UIData.State.None:
                                         {
                                             btnRequest.interactable = true;
-                                            tvRequest.text = txtRequest.get("Request");
+                                            tvRequest.text = txtRequest.get();
                                         }
                                         break;
                                     case UIData.State.Request:
                                         {
                                             btnRequest.interactable = true;
-                                            tvRequest.text = txtCancelRequest.get("Cancel Request?");
+                                            tvRequest.text = txtCancelRequest.get();
                                         }
                                         break;
                                     case UIData.State.Wait:
                                         {
                                             btnRequest.interactable = false;
-                                            tvRequest.text = txtRequesting.get("Requesting...");
+                                            tvRequest.text = txtRequesting.get();
                                         }
                                         break;
                                     default:
@@ -198,7 +198,7 @@ public class RequestChangeUseRuleStateNoneUI : UIHaveTransformDataBehavior<Reque
                             if (btnRequest != null && tvRequest != null)
                             {
                                 btnRequest.interactable = false;
-                                tvRequest.text = txtCannotRequest.get("Cannot Request");
+                                tvRequest.text = txtCannotRequest.get();
                             }
                             else
                             {
@@ -236,7 +236,7 @@ public class RequestChangeUseRuleStateNoneUI : UIHaveTransformDataBehavior<Reque
         {
             yield return new Wait(Global.WaitSendTime);
             this.data.state.v = UIData.State.None;
-            Toast.showMessage(txtRequestError.get("send request to change rule error"));
+            Toast.showMessage(txtRequestError.get());
             Debug.LogError("request error: " + this);
         }
         else

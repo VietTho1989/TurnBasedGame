@@ -193,7 +193,7 @@ namespace FairyChess.UseRule
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = ClickPosTxt.txtDropPieceTitle.get(ClickPosTxt.DefaultDropPieceTitle);
+                            lbTitle.text = ClickPosTxt.txtDropPieceTitle.get();
                         }
                         else
                         {
@@ -201,7 +201,7 @@ namespace FairyChess.UseRule
                         }
                         if (tvCancel != null)
                         {
-                            tvCancel.text = ClickPosTxt.txtCancel.get(ClickPosTxt.DefaultCancel);
+                            tvCancel.text = ClickPosTxt.txtCancel.get();
                         }
                         else
                         {

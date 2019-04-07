@@ -160,20 +160,20 @@ namespace GameManager.Match.Swap
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Answer Swap Request");
 
         public Text tvCannotAnswer;
-        private static readonly TxtLanguage txtCannotAnswer = new TxtLanguage();
+        private static readonly TxtLanguage txtCannotAnswer = new TxtLanguage("Don't have rights to answer");
 
-        private static readonly TxtLanguage txtAccept = new TxtLanguage();
-        private static readonly TxtLanguage txtCancelAccept = new TxtLanguage();
-        private static readonly TxtLanguage txtAccepting = new TxtLanguage();
+        private static readonly TxtLanguage txtAccept = new TxtLanguage("Accept");
+        private static readonly TxtLanguage txtCancelAccept = new TxtLanguage("Cancel");
+        private static readonly TxtLanguage txtAccepting = new TxtLanguage("Accepting");
 
-        private static readonly TxtLanguage txtRefuse = new TxtLanguage();
-        private static readonly TxtLanguage txtCancelRefuse = new TxtLanguage();
-        private static readonly TxtLanguage txtRefusing = new TxtLanguage();
+        private static readonly TxtLanguage txtRefuse = new TxtLanguage("Refuse");
+        private static readonly TxtLanguage txtCancelRefuse = new TxtLanguage("Cancel");
+        private static readonly TxtLanguage txtRefusing = new TxtLanguage("Refusing");
 
-        private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+        private static readonly TxtLanguage txtRequestError = new TxtLanguage("Send answer error");
 
         static SwapRequestStateAskUI()
         {
@@ -428,12 +428,12 @@ namespace GameManager.Match.Swap
                                                             // btnAccept
                                                             {
                                                                 btnAccept.interactable = !swapRequestStateAsk.accepts.vs.Contains(profileId);
-                                                                tvAccept.text = txtAccept.get("Accept");
+                                                                tvAccept.text = txtAccept.get();
                                                             }
                                                             // btnRefuse
                                                             {
                                                                 btnRefuse.interactable = true;
-                                                                tvRefuse.text = txtRefuse.get("Refuse");
+                                                                tvRefuse.text = txtRefuse.get();
                                                             }
                                                         }
                                                         break;
@@ -447,12 +447,12 @@ namespace GameManager.Match.Swap
                                                                         // btnAccept
                                                                         {
                                                                             btnAccept.interactable = true;
-                                                                            tvAccept.text = txtCancelAccept.get("Cancel");// "Cancel Accept?";
+                                                                            tvAccept.text = txtCancelAccept.get();// "Cancel Accept?";
                                                                         }
                                                                         // btnRefuse
                                                                         {
                                                                             btnRefuse.interactable = false;
-                                                                            tvRefuse.text = txtRefuse.get("Refuse");
+                                                                            tvRefuse.text = txtRefuse.get();
                                                                         }
                                                                     }
                                                                     break;
@@ -461,12 +461,12 @@ namespace GameManager.Match.Swap
                                                                         // btnAccept
                                                                         {
                                                                             btnAccept.interactable = false;
-                                                                            tvAccept.text = txtAccept.get("Accept");
+                                                                            tvAccept.text = txtAccept.get();
                                                                         }
                                                                         // btnRefuse
                                                                         {
                                                                             btnRefuse.interactable = true;
-                                                                            tvRefuse.text = txtCancelRefuse.get("Cancel");// "Cancel Refuse?";
+                                                                            tvRefuse.text = txtCancelRefuse.get();// "Cancel Refuse?";
                                                                         }
                                                                     }
                                                                     break;
@@ -486,12 +486,12 @@ namespace GameManager.Match.Swap
                                                                         // btnAccept
                                                                         {
                                                                             btnAccept.interactable = false;
-                                                                            tvAccept.text = txtAccepting.get("Accepting");
+                                                                            tvAccept.text = txtAccepting.get();
                                                                         }
                                                                         // btnRefuse
                                                                         {
                                                                             btnRefuse.interactable = false;
-                                                                            tvRefuse.text = txtRefuse.get("Refuse");
+                                                                            tvRefuse.text = txtRefuse.get();
                                                                         }
                                                                     }
                                                                     break;
@@ -500,12 +500,12 @@ namespace GameManager.Match.Swap
                                                                         // btnAccept
                                                                         {
                                                                             btnAccept.interactable = false;
-                                                                            tvAccept.text = txtAccept.get("Accept");
+                                                                            tvAccept.text = txtAccept.get();
                                                                         }
                                                                         // btnRefuse
                                                                         { 
                                                                             btnRefuse.interactable = false;
-                                                                            tvRefuse.text = txtRefusing.get("Refusing");
+                                                                            tvRefuse.text = txtRefusing.get();
                                                                         }
                                                                     }
                                                                     break;
@@ -578,7 +578,7 @@ namespace GameManager.Match.Swap
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Answer Swap Request");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -586,7 +586,7 @@ namespace GameManager.Match.Swap
                             }
                             if (tvCannotAnswer != null)
                             {
-                                tvCannotAnswer.text = txtCannotAnswer.get("Don't have rights to answer");
+                                tvCannotAnswer.text = txtCannotAnswer.get();
                             }
                             else
                             {
@@ -637,7 +637,7 @@ namespace GameManager.Match.Swap
                         Debug.LogError("data null: " + this);
                     }
                 }
-                Toast.showMessage(txtRequestError.get("Send answer error"));
+                Toast.showMessage(txtRequestError.get());
                 Debug.LogError("request error: " + this);
             }
             else

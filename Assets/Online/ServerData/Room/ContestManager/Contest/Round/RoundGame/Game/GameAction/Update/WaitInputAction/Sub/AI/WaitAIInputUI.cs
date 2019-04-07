@@ -51,12 +51,10 @@ public class WaitAIInputUI : UIBehavior<WaitAIInputUI.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
-    public static readonly TxtLanguage txtYourAI = new TxtLanguage();
-    public static readonly TxtLanguage txtOtherAI = new TxtLanguage();
+    private static readonly TxtLanguage txtYourAI = new TxtLanguage("Your AI is thinking");
+    private static readonly TxtLanguage txtOtherAI = new TxtLanguage("Other AI is thinking");
 
     static WaitAIInputUI()
     {
@@ -65,6 +63,8 @@ public class WaitAIInputUI : UIBehavior<WaitAIInputUI.UIData>
     }
 
     #endregion
+
+    #region Refresh
 
     public Text tvUserThink;
 
@@ -83,11 +83,11 @@ public class WaitAIInputUI : UIBehavior<WaitAIInputUI.UIData>
                     {
                         if (Server.getProfileUserId(waitAIInput) == waitAIInput.userThink.v)
                         {
-                            tvUserThink.text = txtYourAI.get("Your AI is thinking");
+                            tvUserThink.text = txtYourAI.get();
                         }
                         else
                         {
-                            tvUserThink.text = txtOtherAI.get("Other AI is thinking");
+                            tvUserThink.text = txtOtherAI.get();
                         }
                     }
                     else

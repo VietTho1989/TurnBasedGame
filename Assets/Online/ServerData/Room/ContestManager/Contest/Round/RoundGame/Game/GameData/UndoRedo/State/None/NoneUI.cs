@@ -108,13 +108,13 @@ namespace UndoRedo
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public static readonly TxtLanguage txtTitle = new TxtLanguage("Make Undo/Redo Request");
 
         public Text lbRequestType;
-        public static readonly TxtLanguage txtRequestType = new TxtLanguage();
+        public static readonly TxtLanguage txtRequestType = new TxtLanguage("Request type");
 
         public Text tvCannotRequest;
-        public static readonly TxtLanguage txtCannotRequest = new TxtLanguage();
+        public static readonly TxtLanguage txtCannotRequest = new TxtLanguage("Cannot request");
 
         static NoneUI()
         {
@@ -258,7 +258,7 @@ namespace UndoRedo
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Make Undo/Redo Request");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -266,7 +266,7 @@ namespace UndoRedo
                         }
                         if (lbRequestType != null)
                         {
-                            lbRequestType.text = txtRequestType.get("Request type");
+                            lbRequestType.text = txtRequestType.get();
                         }
                         else
                         {
@@ -274,7 +274,7 @@ namespace UndoRedo
                         }
                         if (tvCannotRequest != null)
                         {
-                            tvCannotRequest.text = txtCannotRequest.get("Cannot request");
+                            tvCannotRequest.text = txtCannotRequest.get();
                         }
                         else
                         {

@@ -42,13 +42,13 @@ public class RequestDrawMessageUI : UIBehavior<RequestDrawMessageUI.UIData>
 
     #region txt, rect
 
-    public static readonly TxtLanguage txtRequest = new TxtLanguage();
+    public static readonly TxtLanguage txtRequest = new TxtLanguage("request draw");
 
-    public static readonly TxtLanguage txtAskAccept = new TxtLanguage();
-    public static readonly TxtLanguage txtAskRefuse = new TxtLanguage();
+    public static readonly TxtLanguage txtAskAccept = new TxtLanguage("accept draw");
+    public static readonly TxtLanguage txtAskRefuse = new TxtLanguage("refuse draw");
 
-    public static readonly TxtLanguage txtAcceptAccept = new TxtLanguage();
-    public static readonly TxtLanguage txtAcceptRefuse = new TxtLanguage();
+    public static readonly TxtLanguage txtAcceptAccept = new TxtLanguage("accept cancel draw");
+    public static readonly TxtLanguage txtAcceptRefuse = new TxtLanguage("refuse cancel draw");
 
     static RequestDrawMessageUI()
     {

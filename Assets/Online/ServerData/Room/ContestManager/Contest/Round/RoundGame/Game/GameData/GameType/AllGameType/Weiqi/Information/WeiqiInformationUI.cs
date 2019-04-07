@@ -56,23 +56,23 @@ namespace Weiqi
         public Text lbTitle;
 
         public Text tvMessage;
-        private static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("https://en.wikipedia.org/wiki/Go_(game)");
 
         public Text lbSize;
         public Text tvSize;
-        private static readonly TxtLanguage txtSize = new TxtLanguage();
+        private static readonly TxtLanguage txtSize = new TxtLanguage("Size");
 
         public Text lbKomi;
         public Text tvKomi;
-        private static readonly TxtLanguage txtKomi = new TxtLanguage();
+        private static readonly TxtLanguage txtKomi = new TxtLanguage("Komi");
 
         public Text lbRule;
         public Dropdown drRule;
-        private static readonly TxtLanguage txtRule = new TxtLanguage();
+        private static readonly TxtLanguage txtRule = new TxtLanguage("Rule");
 
         public Text lbHandicap;
         public Text tvHandicap;
-        private static readonly TxtLanguage txtHandicap = new TxtLanguage();
+        private static readonly TxtLanguage txtHandicap = new TxtLanguage("Handicap");
 
         static WeiqiInformationUI()
         {
@@ -311,7 +311,7 @@ namespace Weiqi
                             }
                             if (tvMessage != null)
                             {
-                                tvMessage.text = txtMessage.get("https://en.wikipedia.org/wiki/Go_(game)");
+                                tvMessage.text = txtMessage.get();
                             }
                             else
                             {
@@ -319,7 +319,7 @@ namespace Weiqi
                             }
                             if (lbSize != null)
                             {
-                                lbSize.text = txtSize.get("Size");
+                                lbSize.text = txtSize.get();
                             }
                             else
                             {
@@ -327,7 +327,7 @@ namespace Weiqi
                             }
                             if (lbKomi != null)
                             {
-                                lbKomi.text = txtKomi.get("Komi");
+                                lbKomi.text = txtKomi.get();
                             }
                             else
                             {
@@ -335,7 +335,7 @@ namespace Weiqi
                             }
                             if (lbRule != null)
                             {
-                                lbRule.text = txtRule.get("Rule");
+                                lbRule.text = txtRule.get();
                             }
                             else
                             {
@@ -343,7 +343,7 @@ namespace Weiqi
                             }
                             if (lbHandicap != null)
                             {
-                                lbHandicap.text = txtHandicap.get("Handicap");
+                                lbHandicap.text = txtHandicap.get();
                             }
                             else
                             {

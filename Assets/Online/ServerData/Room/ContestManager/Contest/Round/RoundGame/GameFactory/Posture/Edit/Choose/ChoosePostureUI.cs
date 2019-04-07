@@ -88,14 +88,14 @@ namespace Posture
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Choose Posture");
 
         public Text tvRefresh;
-        public static readonly TxtLanguage txtRefresh = new TxtLanguage();
+        private static readonly TxtLanguage txtRefresh = new TxtLanguage("Refresh");
 
-        public static readonly TxtLanguage txtNone = new TxtLanguage();
-        public static readonly TxtLanguage txtLoading = new TxtLanguage();
-        public static readonly TxtLanguage txtShow = new TxtLanguage();
+        private static readonly TxtLanguage txtNone = new TxtLanguage("None");
+        private static readonly TxtLanguage txtLoading = new TxtLanguage("Loading");
+        private static readonly TxtLanguage txtShow = new TxtLanguage("Show");
 
         static ChoosePostureUI()
         {
@@ -132,25 +132,25 @@ namespace Posture
                             {
                                 case UIData.State.None:
                                     {
-                                        tvState.text = txtNone.get("None");
+                                        tvState.text = txtNone.get();
                                         bgState.gameObject.SetActive(false);
                                     }
                                     break;
                                 case UIData.State.Load:
                                     {
-                                        tvState.text = txtLoading.get("Loading");
+                                        tvState.text = txtLoading.get();
                                         bgState.gameObject.SetActive(true);
                                     }
                                     break;
                                 case UIData.State.Loading:
                                     {
-                                        tvState.text = txtLoading.get("Loading");
+                                        tvState.text = txtLoading.get();
                                         bgState.gameObject.SetActive(true);
                                     }
                                     break;
                                 case UIData.State.Show:
                                     {
-                                        tvState.text = txtShow.get("Show");
+                                        tvState.text = txtShow.get();
                                         bgState.gameObject.SetActive(false);
                                     }
                                     break;
@@ -215,7 +215,7 @@ namespace Posture
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Choose Posture");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -223,7 +223,7 @@ namespace Posture
                         }
                         if (tvRefresh != null)
                         {
-                            tvRefresh.text = txtRefresh.get("Refresh");
+                            tvRefresh.text = txtRefresh.get();
                         }
                         else
                         {

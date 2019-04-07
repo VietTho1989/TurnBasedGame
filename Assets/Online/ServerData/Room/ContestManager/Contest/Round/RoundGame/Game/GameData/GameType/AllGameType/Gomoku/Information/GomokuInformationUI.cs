@@ -56,9 +56,9 @@ namespace Gomoku
         public Text lbTitle;
 
         public Text tvMessage;
-        private static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("https://en.wikipedia.org/wiki/Gomoku");
 
-        private static readonly TxtLanguage txtBoardSize = new TxtLanguage();
+        private static readonly TxtLanguage txtBoardSize = new TxtLanguage("Board size");
 
         static GomokuInformationUI()
         {
@@ -179,7 +179,7 @@ namespace Gomoku
                             }
                             if (tvMessage != null)
                             {
-                                tvMessage.text = txtMessage.get("https://en.wikipedia.org/wiki/Gomoku");
+                                tvMessage.text = txtMessage.get();
                             }
                             else
                             {
@@ -187,7 +187,7 @@ namespace Gomoku
                             }
                             if (lbBoardSize != null)
                             {
-                                lbBoardSize.text = txtBoardSize.get("Board size");
+                                lbBoardSize.text = txtBoardSize.get();
                             }
                             else
                             {

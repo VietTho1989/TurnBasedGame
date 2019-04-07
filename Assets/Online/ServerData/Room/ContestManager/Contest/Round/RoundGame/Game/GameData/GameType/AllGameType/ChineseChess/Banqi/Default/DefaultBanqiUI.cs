@@ -46,12 +46,10 @@ namespace Banqi
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Default Banqi");
 
         static DefaultBanqiUI()
         {
@@ -66,6 +64,8 @@ namespace Banqi
         }
 
         #endregion
+
+        #region Refresh
 
         private bool needReset = true;
         private bool miniGameDataDirty = true;
@@ -238,7 +238,7 @@ namespace Banqi
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Default Banqi");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {

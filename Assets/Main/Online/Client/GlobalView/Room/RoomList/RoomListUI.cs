@@ -94,12 +94,10 @@ public class RoomListUI : UIBehavior<RoomListUI.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text tvCreateRoom;
-    public static readonly TxtLanguage txtCreateRoom = new TxtLanguage();
+    private static readonly TxtLanguage txtCreateRoom = new TxtLanguage("Create Room");
 
     static RoomListUI()
     {
@@ -136,6 +134,8 @@ public class RoomListUI : UIBehavior<RoomListUI.UIData>
 
     #endregion
 
+    #region Refresh
+
     public override void refresh()
     {
         if (dirty)
@@ -159,7 +159,7 @@ public class RoomListUI : UIBehavior<RoomListUI.UIData>
                 {
                     if (tvCreateRoom != null)
                     {
-                        tvCreateRoom.text = txtCreateRoom.get("Create Room"); ;
+                        tvCreateRoom.text = txtCreateRoom.get(); ;
                     }
                     else
                     {

@@ -55,7 +55,7 @@ namespace TimeControl.Normal
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Time Per Turn");
 
         static TimePerTurnInfoUI()
         {
@@ -263,7 +263,7 @@ namespace TimeControl.Normal
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Time Per Turn");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {

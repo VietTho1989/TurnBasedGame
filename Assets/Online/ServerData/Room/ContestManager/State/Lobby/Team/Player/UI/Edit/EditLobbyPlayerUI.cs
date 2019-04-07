@@ -97,21 +97,19 @@ namespace GameManager.Match
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Edit Lobby Player");
 
         public Text tvTeamIndex;
-        private static readonly TxtLanguage txtTeamIndex = new TxtLanguage();
+        private static readonly TxtLanguage txtTeamIndex = new TxtLanguage("Team index");
 
         public Text tvPlayerIndex;
-        private static readonly TxtLanguage txtPlayerIndex = new TxtLanguage();
+        private static readonly TxtLanguage txtPlayerIndex = new TxtLanguage("Player index");
 
         public Text tvCannotEdit;
-        private static readonly TxtLanguage txtCannotEdit = new TxtLanguage();
+        private static readonly TxtLanguage txtCannotEdit = new TxtLanguage("Cannot Edit");
 
         static EditLobbyPlayerUI()
         {
@@ -153,6 +151,8 @@ namespace GameManager.Match
 
         #endregion
 
+        #region Refresh
+
         public Text tvPlayerName;
 
         public override void refresh()
@@ -183,7 +183,7 @@ namespace GameManager.Match
                                             Debug.LogError("lobbyTeam null: " + this);
                                         }
                                     }
-                                    tvTeamIndex.text = txtTeamIndex.get("Team Index") + ": " + teamIndex;
+                                    tvTeamIndex.text = txtTeamIndex.get() + ": " + teamIndex;
                                 }
                                 else
                                 {
@@ -194,7 +194,7 @@ namespace GameManager.Match
                             {
                                 if (tvPlayerIndex != null)
                                 {
-                                    tvPlayerIndex.text = txtPlayerIndex.get("Player Index") + ": " + lobbyPlayer.playerIndex.v;
+                                    tvPlayerIndex.text = txtPlayerIndex.get() + ": " + lobbyPlayer.playerIndex.v;
                                 }
                                 else
                                 {
@@ -318,7 +318,7 @@ namespace GameManager.Match
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Edit Lobby Player");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -326,7 +326,7 @@ namespace GameManager.Match
                         }
                         if (tvCannotEdit != null)
                         {
-                            tvCannotEdit.text = txtCannotEdit.get("Cannot Edit");
+                            tvCannotEdit.text = txtCannotEdit.get();
                         }
                         else
                         {

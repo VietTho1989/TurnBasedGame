@@ -35,7 +35,7 @@ public class BtnHintUI : UIBehavior<BtnHintUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Hint");
 
     static BtnHintUI()
     {
@@ -60,7 +60,7 @@ public class BtnHintUI : UIBehavior<BtnHintUI.UIData>
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Hint");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {

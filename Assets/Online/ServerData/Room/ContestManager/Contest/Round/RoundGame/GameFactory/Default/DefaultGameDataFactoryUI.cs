@@ -144,13 +144,13 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Default Game Data Factory");
 
     public Text lbGameType;
-    public static readonly TxtLanguage txtGameType = new TxtLanguage();
+    private static readonly TxtLanguage txtGameType = new TxtLanguage("Game type");
 
     public Text lbUseRule;
-    public static readonly TxtLanguage txtUseRule = new TxtLanguage();
+    private static readonly TxtLanguage txtUseRule = new TxtLanguage("Use rule");
 
     static DefaultGameDataFactoryUI()
     {
@@ -1129,7 +1129,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Default Game Data Factory");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -1137,7 +1137,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                     }
                     if (lbGameType != null)
                     {
-                        lbGameType.text = txtGameType.get("Game type");
+                        lbGameType.text = txtGameType.get();
                     }
                     else
                     {
@@ -1145,7 +1145,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                     }
                     if (lbUseRule != null)
                     {
-                        lbUseRule.text = txtUseRule.get("Use rule");
+                        lbUseRule.text = txtUseRule.get();
                     }
                     else
                     {

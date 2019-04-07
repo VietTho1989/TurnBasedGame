@@ -55,17 +55,15 @@ namespace GameManager.Match
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
-        public static readonly TxtLanguage txtReady = new TxtLanguage();
-        public static readonly TxtLanguage txtCancelNotReady = new TxtLanguage();
-        public static readonly TxtLanguage txtNotReadying = new TxtLanguage();
+        private static readonly TxtLanguage txtReady = new TxtLanguage("Ready");
+        private static readonly TxtLanguage txtCancelNotReady = new TxtLanguage("Cancel Not Readying?");
+        private static readonly TxtLanguage txtNotReadying = new TxtLanguage("Not Readying");
 
-        public static readonly TxtLanguage txtNoReady = new TxtLanguage();
-        public static readonly TxtLanguage txtCancelReady = new TxtLanguage();
-        public static readonly TxtLanguage txtReadying = new TxtLanguage();
+        private static readonly TxtLanguage txtNoReady = new TxtLanguage("Not Ready");
+        private static readonly TxtLanguage txtCancelReady = new TxtLanguage("Cancel Readying?");
+        private static readonly TxtLanguage txtReadying = new TxtLanguage("Readying");
 
         static LobbyPlayerBtnSetReady()
         {
@@ -79,6 +77,8 @@ namespace GameManager.Match
         }
 
         #endregion
+
+        #region Refresh
 
         public GameObject contentContainer;
         public GameObject clickDisable;
@@ -226,19 +226,19 @@ namespace GameManager.Match
                                         case UIData.State.None:
                                             {
                                                 btnReady.interactable = true;
-                                                tvReady.text = lobbyPlayer.isReady.v ? txtReady.get("Ready") : txtNoReady.get("Not Ready");
+                                                tvReady.text = lobbyPlayer.isReady.v ? txtReady.get() : txtNoReady.get();
                                             }
                                             break;
                                         case UIData.State.Request:
                                             {
                                                 btnReady.interactable = true;
-                                                tvReady.text = lobbyPlayer.isReady.v ? txtCancelNotReady.get("Cancel Not Readying?") : txtCancelReady.get("Cancel Readying?");
+                                                tvReady.text = lobbyPlayer.isReady.v ? txtCancelNotReady.get() : txtCancelReady.get();
                                             }
                                             break;
                                         case UIData.State.Wait:
                                             {
                                                 btnReady.interactable = false;
-                                                tvReady.text = lobbyPlayer.isReady.v ? txtNotReadying.get("NotReadying") : txtReadying.get("Readying");
+                                                tvReady.text = lobbyPlayer.isReady.v ? txtNotReadying.get() : txtReadying.get();
                                             }
                                             break;
                                         default:

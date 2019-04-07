@@ -103,15 +103,15 @@ public class ChatMessageEditUI : UIBehavior<ChatMessageEditUI.UIData>
     #region txt
 
     public Text lbTitle;
-    public static TxtLanguage txtTitle = new TxtLanguage();
+    private static TxtLanguage txtTitle = new TxtLanguage("Edit Message");
 
     public Text tvMessagePlaceHolder;
-    public static TxtLanguage txtMessagePlaceHolder = new TxtLanguage();
+    private static TxtLanguage txtMessagePlaceHolder = new TxtLanguage("Please enter your new message");
 
-    public static readonly TxtLanguage txtEdit = new TxtLanguage();
-    public static readonly TxtLanguage txtCancelEdit = new TxtLanguage();
-    public static readonly TxtLanguage txtEditing = new TxtLanguage();
-    public static readonly TxtLanguage txtCannotEdit = new TxtLanguage();
+    private static readonly TxtLanguage txtEdit = new TxtLanguage("Edit");
+    private static readonly TxtLanguage txtCancelEdit = new TxtLanguage("Cancel Edit?");
+    private static readonly TxtLanguage txtEditing = new TxtLanguage("Editting");
+    private static readonly TxtLanguage txtCannotEdit = new TxtLanguage("Cannot Edit");
 
     static ChatMessageEditUI()
     {
@@ -210,19 +210,19 @@ public class ChatMessageEditUI : UIBehavior<ChatMessageEditUI.UIData>
                                             case UIData.State.None:
                                                 {
                                                     btnEdit.interactable = true;
-                                                    tvEdit.text = txtEdit.get("Edit");
+                                                    tvEdit.text = txtEdit.get();
                                                 }
                                                 break;
                                             case UIData.State.Request:
                                                 {
                                                     btnEdit.interactable = true;
-                                                    tvEdit.text = txtCancelEdit.get("Cancel Edit?");
+                                                    tvEdit.text = txtCancelEdit.get();
                                                 }
                                                 break;
                                             case UIData.State.Wait:
                                                 {
                                                     btnEdit.interactable = false;
-                                                    tvEdit.text = txtEditing.get("Editting");
+                                                    tvEdit.text = txtEditing.get();
                                                 }
                                                 break;
                                             default:
@@ -248,7 +248,7 @@ public class ChatMessageEditUI : UIBehavior<ChatMessageEditUI.UIData>
                                     if (btnEdit != null && tvEdit != null)
                                     {
                                         btnEdit.interactable = false;
-                                        tvEdit.text = txtCannotEdit.get("Cannot Edit");
+                                        tvEdit.text = txtCannotEdit.get();
                                     }
                                     else
                                     {
@@ -275,7 +275,7 @@ public class ChatMessageEditUI : UIBehavior<ChatMessageEditUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Edit Message");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -283,7 +283,7 @@ public class ChatMessageEditUI : UIBehavior<ChatMessageEditUI.UIData>
                     }
                     if (tvMessagePlaceHolder != null)
                     {
-                        tvMessagePlaceHolder.text = txtMessagePlaceHolder.get("Please enter your new message");
+                        tvMessagePlaceHolder.text = txtMessagePlaceHolder.get();
                     }
                     else
                     {

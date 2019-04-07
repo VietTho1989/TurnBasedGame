@@ -34,7 +34,7 @@ namespace Solitaire
         #region txt
 
         public Text tvReset;
-        private static readonly TxtLanguage txtReset = new TxtLanguage();
+        private static readonly TxtLanguage txtReset = new TxtLanguage("Reset");
 
         static UseRuleInputNoneBtnResetUI()
         {
@@ -56,7 +56,7 @@ namespace Solitaire
                     {
                         if (tvReset != null)
                         {
-                            tvReset.text = txtReset.get("Reset");
+                            tvReset.text = txtReset.get();
                         }
                         else
                         {

@@ -110,7 +110,7 @@ namespace FairyChess.NoneRule
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = ClickPosTxt.txtSetPieceTitle.get(ClickPosTxt.DefaultSetPieceTitle);
+                            lbTitle.text = ClickPosTxt.txtSetPieceTitle.get();
                         }
                         else
                         {

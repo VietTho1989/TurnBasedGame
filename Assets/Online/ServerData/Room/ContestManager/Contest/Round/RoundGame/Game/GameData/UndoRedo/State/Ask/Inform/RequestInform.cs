@@ -15,8 +15,8 @@ namespace UndoRedo
 
         #region txt
 
-        private static readonly TxtLanguage txtLastYourTurn = new TxtLanguage();
-        private static readonly TxtLanguage txtLastTurn = new TxtLanguage();
+        private static readonly TxtLanguage txtLastYourTurn = new TxtLanguage("Last Your Turn");
+        private static readonly TxtLanguage txtLastTurn = new TxtLanguage("Last Turn");
 
         static RequestInform()
         {
@@ -28,8 +28,8 @@ namespace UndoRedo
         {
             List<string> ret = new List<string>();
             {
-                ret.Add(txtLastYourTurn.get("Last Your Turn"));
-                ret.Add(txtLastTurn.get("Last Turn"));
+                ret.Add(txtLastYourTurn.get());
+                ret.Add(txtLastTurn.get());
             }
             return ret;
         }

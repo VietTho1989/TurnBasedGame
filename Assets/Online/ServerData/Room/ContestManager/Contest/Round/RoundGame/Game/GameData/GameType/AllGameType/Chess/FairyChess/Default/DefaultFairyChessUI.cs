@@ -141,13 +141,13 @@ namespace FairyChess
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Default Fairy Chess");
 
         public Text lbVariantType;
-        public static readonly TxtLanguage txtVariantType = new TxtLanguage();
+        private static readonly TxtLanguage txtVariantType = new TxtLanguage("Variant type");
 
         public Text lbChess960;
-        public static readonly TxtLanguage txtChess960 = new TxtLanguage();
+        private static readonly TxtLanguage txtChess960 = new TxtLanguage("Chess960");
 
         static DefaultFairyChessUI()
         {
@@ -511,7 +511,7 @@ namespace FairyChess
                             {
                                 if (lbTitle != null)
                                 {
-                                    lbTitle.text = txtTitle.get("Default Fairy Chess");
+                                    lbTitle.text = txtTitle.get();
                                 }
                                 else
                                 {
@@ -519,7 +519,7 @@ namespace FairyChess
                                 }
                                 if (lbVariantType != null)
                                 {
-                                    lbVariantType.text = txtVariantType.get("Variant type");
+                                    lbVariantType.text = txtVariantType.get();
                                 }
                                 else
                                 {
@@ -527,7 +527,7 @@ namespace FairyChess
                                 }
                                 if (lbChess960 != null)
                                 {
-                                    lbChess960.text = txtChess960.get("Chess960");
+                                    lbChess960.text = txtChess960.get();
                                 }
                                 else
                                 {

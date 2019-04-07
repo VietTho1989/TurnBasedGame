@@ -6,40 +6,40 @@ using System.Collections.Generic;
 public class LoadingUI : UIBehavior<LoadingUI.UIData>
 {
 
-	#region UIData
+    #region UIData
 
-	public class UIData : ManagerUI.UIData.Sub
-	{
-		
-		public VP<ReferenceData<Server>> server;
+    public class UIData : ManagerUI.UIData.Sub
+    {
 
-		#region Constructor
+        public VP<ReferenceData<Server>> server;
 
-		public enum Property
-		{
-			server
-		}
+        #region Constructor
 
-		public UIData() : base()
-		{
-			this.server = new VP<ReferenceData<Server>>(this, (byte)Property.server, new ReferenceData<Server>(null));
-		}
+        public enum Property
+        {
+            server
+        }
 
-		#endregion
+        public UIData() : base()
+        {
+            this.server = new VP<ReferenceData<Server>>(this, (byte)Property.server, new ReferenceData<Server>(null));
+        }
 
-		public override Type getType ()
-		{
-			return Type.Load;
-		}
+        #endregion
 
-		public override bool processEvent (Event e)
-		{
-			bool isProcess = false;
-			{
+        public override Type getType()
+        {
+            return Type.Load;
+        }
 
-			}
-			return isProcess;
-		}
+        public override bool processEvent(Event e)
+        {
+            bool isProcess = false;
+            {
+
+            }
+            return isProcess;
+        }
 
         public override MainUI.UIData.AllowShowBanner getAllowShowBanner()
         {
@@ -48,140 +48,163 @@ public class LoadingUI : UIBehavior<LoadingUI.UIData>
 
     }
 
-	#endregion
+    #endregion
 
-	#region Refresh
+    #region txt
 
-	public Text tvLoading;
-	public static readonly TxtLanguage txtLoading = new TxtLanguage ();
+    public Text tvLoading;
+    private static readonly TxtLanguage txtLoading = new TxtLanguage("Loading");
 
-	static LoadingUI()
-	{
-		txtLoading.add (Language.Type.vi, "Đang Tải");
-	}
+    static LoadingUI()
+    {
+        txtLoading.add(Language.Type.vi, "Đang Tải");
+    }
 
-	public override void refresh ()
-	{
-		if (dirty) {
-			dirty = false;
-			if (this.data != null) {
-				// tvLoading
-				if (tvLoading != null) {
-					tvLoading.text = txtLoading.get ("Loading");
-				} else {
-					Debug.LogError ("tvLoading null: " + this);
-				}
-			} else {
-				Debug.LogError ("data null: " + this);
-			}
-		}
-	}
+    #endregion
 
-	public override bool isShouldDisableUpdate ()
-	{
-		return true;
-	}
+    #region Refresh
 
-	#endregion
+    public override void refresh()
+    {
+        if (dirty)
+        {
+            dirty = false;
+            if (this.data != null)
+            {
+                // tvLoading
+                if (tvLoading != null)
+                {
+                    tvLoading.text = txtLoading.get();
+                }
+                else
+                {
+                    Debug.LogError("tvLoading null: " + this);
+                }
+            }
+            else
+            {
+                Debug.LogError("data null: " + this);
+            }
+        }
+    }
 
-	#region implement callBacks
+    public override bool isShouldDisableUpdate()
+    {
+        return true;
+    }
 
-	public override void onAddCallBack<T> (T data)
-	{
-		if (data is UIData) {
-			UIData uiData = data as UIData;
-			// Setting
-			Setting.get().addCallBack(this);
-			// Child
-			{
-				uiData.server.allAddCallBack (this);
-			}
-			dirty = true;
-			return;
-		}
-		// Setting
-		if (data is Setting) {
-			dirty = true;
-			return;
-		}
-		// Child
-		if (data is Server) {
-			dirty = true;
-			return;
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+    #endregion
 
-	public override void onRemoveCallBack<T> (T data, bool isHide)
-	{
-		if (data is UIData) {
-			UIData uiData = data as UIData;
-			// Setting
-			Setting.get().removeCallBack(this);
-			// Child
-			{
-				uiData.server.allRemoveCallBack (this);
-			}
-			this.setDataNull (uiData);
-			return;
-		}
-		// Setting
-		if (data is Setting) {
-			return;
-		}
-		// Child
-		if (data is Server) {
-			return;
-		}
-		Debug.LogError ("Don't process: " + data + "; " + this);
-	}
+    #region implement callBacks
 
-	public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-	{
-		if (WrapProperty.checkError (wrapProperty)) {
-			return;
-		}
-		if (wrapProperty.p is UIData) {
-			switch ((UIData.Property)wrapProperty.n) {
-			case UIData.Property.server:
-				{
-					ValueChangeUtils.replaceCallBack (this, syncs);
-					dirty = true;
-				}
-				break;
-			default:
-				Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-				break;
-			}
-			return;
-		}
-		// Setting
-		if (wrapProperty.p is Setting) {
-			switch ((Setting.Property)wrapProperty.n) {
-			case Setting.Property.language:
-				dirty = true;
-				break;
-			case Setting.Property.showLastMove:
-				break;
-			case Setting.Property.viewUrlImage:
-				break;
-			case Setting.Property.animationSetting:
-				break;
-			case Setting.Property.maxThinkCount:
-				break;
-			default:
-				Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-				break;
-			}
-			return;
-		}
-		// Child
-		if (wrapProperty.p is Server) {
-			return;
-		}
-		Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-	}
+    public override void onAddCallBack<T>(T data)
+    {
+        if (data is UIData)
+        {
+            UIData uiData = data as UIData;
+            // Setting
+            Setting.get().addCallBack(this);
+            // Child
+            {
+                uiData.server.allAddCallBack(this);
+            }
+            dirty = true;
+            return;
+        }
+        // Setting
+        if (data is Setting)
+        {
+            dirty = true;
+            return;
+        }
+        // Child
+        if (data is Server)
+        {
+            dirty = true;
+            return;
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
 
-	#endregion
+    public override void onRemoveCallBack<T>(T data, bool isHide)
+    {
+        if (data is UIData)
+        {
+            UIData uiData = data as UIData;
+            // Setting
+            Setting.get().removeCallBack(this);
+            // Child
+            {
+                uiData.server.allRemoveCallBack(this);
+            }
+            this.setDataNull(uiData);
+            return;
+        }
+        // Setting
+        if (data is Setting)
+        {
+            return;
+        }
+        // Child
+        if (data is Server)
+        {
+            return;
+        }
+        Debug.LogError("Don't process: " + data + "; " + this);
+    }
+
+    public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+    {
+        if (WrapProperty.checkError(wrapProperty))
+        {
+            return;
+        }
+        if (wrapProperty.p is UIData)
+        {
+            switch ((UIData.Property)wrapProperty.n)
+            {
+                case UIData.Property.server:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Setting
+        if (wrapProperty.p is Setting)
+        {
+            switch ((Setting.Property)wrapProperty.n)
+            {
+                case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.showLastMove:
+                    break;
+                case Setting.Property.viewUrlImage:
+                    break;
+                case Setting.Property.animationSetting:
+                    break;
+                case Setting.Property.maxThinkCount:
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Child
+        if (wrapProperty.p is Server)
+        {
+            return;
+        }
+        Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+    }
+
+    #endregion
 
 }

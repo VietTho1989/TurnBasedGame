@@ -45,7 +45,7 @@ namespace CoTuongUp
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Hidden Chinese Chess AI");
 
         static CoTuongUpAIUI()
         {
@@ -182,7 +182,7 @@ namespace CoTuongUp
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Hidden Chinese Chess AI");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {

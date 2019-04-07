@@ -58,16 +58,14 @@ public class RoomStateNormalNormalUI : UIBehavior<RoomStateNormalNormalUI.UIData
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
-    private static readonly TxtLanguage txtFreezeRoom = new TxtLanguage();
-    private static readonly TxtLanguage txtCancelFreezeRoom = new TxtLanguage();
-    private static readonly TxtLanguage txtFreezingRoom = new TxtLanguage();
-    private static readonly TxtLanguage txtRoomStateNormal = new TxtLanguage();
+    private static readonly TxtLanguage txtFreezeRoom = new TxtLanguage("Freeze Room?");
+    private static readonly TxtLanguage txtCancelFreezeRoom = new TxtLanguage("Cancel Freeze Room?");
+    private static readonly TxtLanguage txtFreezingRoom = new TxtLanguage("Freezing Room");
+    private static readonly TxtLanguage txtRoomStateNormal = new TxtLanguage("Room State Normal");
 
-    private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+    private static readonly TxtLanguage txtRequestError = new TxtLanguage("Send request freeze room error");
 
     static RoomStateNormalNormalUI()
     {
@@ -79,6 +77,8 @@ public class RoomStateNormalNormalUI : UIBehavior<RoomStateNormalNormalUI.UIData
     }
 
     #endregion
+
+    #region Refresh
 
     public Button btnNormal;
     public Text tvNormal;
@@ -149,19 +149,19 @@ public class RoomStateNormalNormalUI : UIBehavior<RoomStateNormalNormalUI.UIData
                                     case UIData.State.None:
                                         {
                                             btnNormal.interactable = true;
-                                            tvNormal.text = txtFreezeRoom.get("Freeze Room?");
+                                            tvNormal.text = txtFreezeRoom.get();
                                         }
                                         break;
                                     case UIData.State.Request:
                                         {
                                             btnNormal.interactable = true;
-                                            tvNormal.text = txtCancelFreezeRoom.get("Cancel Freeze Room?");
+                                            tvNormal.text = txtCancelFreezeRoom.get();
                                         }
                                         break;
                                     case UIData.State.Wait:
                                         {
                                             btnNormal.interactable = false;
-                                            tvNormal.text = txtFreezingRoom.get("Freezing Room");
+                                            tvNormal.text = txtFreezingRoom.get();
                                         }
                                         break;
                                     default:
@@ -187,7 +187,7 @@ public class RoomStateNormalNormalUI : UIBehavior<RoomStateNormalNormalUI.UIData
                             if (btnNormal != null && tvNormal != null)
                             {
                                 btnNormal.interactable = false;
-                                tvNormal.text = txtRoomStateNormal.get("Room State Normal");
+                                tvNormal.text = txtRoomStateNormal.get();
                             }
                             else
                             {
@@ -225,7 +225,7 @@ public class RoomStateNormalNormalUI : UIBehavior<RoomStateNormalNormalUI.UIData
         {
             yield return new Wait(Global.WaitSendTime);
             this.data.state.v = UIData.State.None;
-            Toast.showMessage(txtRequestError.get("Send request freeze room error"));
+            Toast.showMessage(txtRequestError.get());
             Debug.LogError("request error: " + this);
         }
         else

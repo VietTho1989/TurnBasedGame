@@ -173,24 +173,24 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    public static readonly TxtLanguage txtTitle = new TxtLanguage("Animation Setting");
 
     public Text lbScale;
-    public static readonly TxtLanguage txtScale = new TxtLanguage();
+    public static readonly TxtLanguage txtScale = new TxtLanguage("Scale");
 
     public Text lbFastForward;
-    public static readonly TxtLanguage txtFastForward = new TxtLanguage();
+    public static readonly TxtLanguage txtFastForward = new TxtLanguage("Fast forward");
 
     public Text lbMaxWaitAnimationCount;
-    public static readonly TxtLanguage txtMaxWaitAnimationCount = new TxtLanguage();
+    public static readonly TxtLanguage txtMaxWaitAnimationCount = new TxtLanguage("Max wait animation count");
 
     static AnimationSettingUI()
     {
         // txt
         {
             txtTitle.add(Language.Type.vi, "Thiết Lập Animation");
-            txtScale.add(Language.Type.vi, "Tỷ Lệ");
-            txtFastForward.add(Language.Type.vi, "Tua Nhanh");
+            txtScale.add(Language.Type.vi, "Tỷ lệ");
+            txtFastForward.add(Language.Type.vi, "Tua nhanh");
             txtMaxWaitAnimationCount.add(Language.Type.vi, "Số animation chờ tối đa");
         }
     }
@@ -446,7 +446,7 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Animation Setting");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -454,7 +454,7 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
                     }
                     if (lbScale != null)
                     {
-                        lbScale.text = txtScale.get("Scale");
+                        lbScale.text = txtScale.get();
                     }
                     else
                     {
@@ -462,7 +462,7 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
                     }
                     if (lbFastForward != null)
                     {
-                        lbFastForward.text = txtFastForward.get("Fast Forward");
+                        lbFastForward.text = txtFastForward.get();
                     }
                     else
                     {
@@ -470,7 +470,7 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
                     }
                     if (lbMaxWaitAnimationCount != null)
                     {
-                        lbMaxWaitAnimationCount.text = txtMaxWaitAnimationCount.get("Max Wait Animation Count");
+                        lbMaxWaitAnimationCount.text = txtMaxWaitAnimationCount.get();
                     }
                     else
                     {

@@ -328,28 +328,28 @@ namespace Reversi
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Reversi AI");
 
         public Text lbSort;
-        public static readonly TxtLanguage txtSort = new TxtLanguage();
+        private static readonly TxtLanguage txtSort = new TxtLanguage("Sort");
 
         public Text lbMin;
-        public static readonly TxtLanguage txtMin = new TxtLanguage();
+        private static readonly TxtLanguage txtMin = new TxtLanguage("Min");
 
         public Text lbMax;
-        public static readonly TxtLanguage txtMax = new TxtLanguage();
+        private static readonly TxtLanguage txtMax = new TxtLanguage("Max");
 
         public Text lbEnd;
-        public static readonly TxtLanguage txtEnd = new TxtLanguage();
+        private static readonly TxtLanguage txtEnd = new TxtLanguage("End");
 
         public Text lbMsLeft;
-        public static readonly TxtLanguage txtMsLeft = new TxtLanguage();
+        private static readonly TxtLanguage txtMsLeft = new TxtLanguage("ms left");
 
         public Text lbUseBook;
-        public static readonly TxtLanguage txtUseBook = new TxtLanguage();
+        private static readonly TxtLanguage txtUseBook = new TxtLanguage("Use book");
 
         public Text lbPercent;
-        public static readonly TxtLanguage txtPercent = new TxtLanguage();
+        private static readonly TxtLanguage txtPercent = new TxtLanguage("Percent");
 
         static ReversiAIUI()
         {
@@ -1089,7 +1089,7 @@ namespace Reversi
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Reversi AI");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -1097,7 +1097,7 @@ namespace Reversi
                         }
                         if (lbSort != null)
                         {
-                            lbSort.text = txtSort.get("Sort");
+                            lbSort.text = txtSort.get();
                         }
                         else
                         {
@@ -1105,7 +1105,7 @@ namespace Reversi
                         }
                         if (lbMin != null)
                         {
-                            lbMin.text = txtMin.get("Min");
+                            lbMin.text = txtMin.get();
                         }
                         else
                         {
@@ -1113,7 +1113,7 @@ namespace Reversi
                         }
                         if (lbMax != null)
                         {
-                            lbMax.text = txtMax.get("Max");
+                            lbMax.text = txtMax.get();
                         }
                         else
                         {
@@ -1121,7 +1121,7 @@ namespace Reversi
                         }
                         if (lbEnd != null)
                         {
-                            lbEnd.text = txtEnd.get("End");
+                            lbEnd.text = txtEnd.get();
                         }
                         else
                         {
@@ -1129,7 +1129,7 @@ namespace Reversi
                         }
                         if (lbMsLeft != null)
                         {
-                            lbMsLeft.text = txtMsLeft.get("ms left");
+                            lbMsLeft.text = txtMsLeft.get();
                         }
                         else
                         {
@@ -1137,7 +1137,7 @@ namespace Reversi
                         }
                         if (lbUseBook != null)
                         {
-                            lbUseBook.text = txtUseBook.get("Use book");
+                            lbUseBook.text = txtUseBook.get();
                         }
                         else
                         {
@@ -1145,7 +1145,7 @@ namespace Reversi
                         }
                         if (lbPercent != null)
                         {
-                            lbPercent.text = txtPercent.get("Percent");
+                            lbPercent.text = txtPercent.get();
                         }
                         else
                         {

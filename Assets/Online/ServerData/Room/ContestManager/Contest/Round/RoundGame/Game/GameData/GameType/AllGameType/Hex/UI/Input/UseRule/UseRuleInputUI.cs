@@ -213,7 +213,7 @@ namespace HEX
 
         #region txt
 
-        private static readonly TxtLanguage txtSwitchSide = new TxtLanguage();
+        private static readonly TxtLanguage txtSwitchSide = new TxtLanguage("Switch Side");
 
         static UseRuleInputUI()
         {
@@ -332,7 +332,7 @@ namespace HEX
                         {
                             if (tvSwitchSide != null)
                             {
-                                tvSwitchSide.text = txtSwitchSide.get("Switch Side");
+                                tvSwitchSide.text = txtSwitchSide.get();
                             }
                             else
                             {

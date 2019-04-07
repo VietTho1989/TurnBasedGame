@@ -107,7 +107,7 @@ namespace FileSystem
         #region txt
 
         public Text tvNoFiles;
-        public static readonly TxtLanguage txtNoFiles = new TxtLanguage();
+        private static readonly TxtLanguage txtNoFiles = new TxtLanguage("Don't have any files");
 
         static FileAdapter()
         {
@@ -342,7 +342,7 @@ namespace FileSystem
                         {
                             if (tvNoFiles != null)
                             {
-                                tvNoFiles.text = txtNoFiles.get("Don't have any files");
+                                tvNoFiles.text = txtNoFiles.get();
                             }
                             else
                             {

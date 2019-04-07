@@ -135,19 +135,19 @@ public class RequestDrawMessage : ChatMessage.Content
             switch (this.action.v)
             {
                 case RequestDrawMessage.Action.Request:
-                    ret = "<color=grey>" + userName + "</color> " + RequestDrawMessageUI.txtRequest.get("request draw");
+                    ret = "<color=grey>" + userName + "</color> " + RequestDrawMessageUI.txtRequest.get();
                     break;
                 case RequestDrawMessage.Action.AskAccept:
-                    ret = "<color=grey>" + userName + "</color> " + RequestDrawMessageUI.txtAskAccept.get("accept draw");
+                    ret = "<color=grey>" + userName + "</color> " + RequestDrawMessageUI.txtAskAccept.get();
                     break;
                 case RequestDrawMessage.Action.AskRefuse:
-                    ret = "<color=grey>" + userName + "</color> " + RequestDrawMessageUI.txtAskRefuse.get("refuse draw");
+                    ret = "<color=grey>" + userName + "</color> " + RequestDrawMessageUI.txtAskRefuse.get();
                     break;
                 case RequestDrawMessage.Action.AcceptAccept:
-                    ret = "<color=grey>" + userName + "</color> " + RequestDrawMessageUI.txtAcceptAccept.get("accept cancel draw");
+                    ret = "<color=grey>" + userName + "</color> " + RequestDrawMessageUI.txtAcceptAccept.get();
                     break;
                 case RequestDrawMessage.Action.AcceptRefuse:
-                    ret = "<color=grey>" + userName + "</color> " + RequestDrawMessageUI.txtAcceptRefuse.get("refuse cancel draw");
+                    ret = "<color=grey>" + userName + "</color> " + RequestDrawMessageUI.txtAcceptRefuse.get();
                     break;
                 default:
                     Debug.LogError("unknown action: " + this.action.v + "; " + this);

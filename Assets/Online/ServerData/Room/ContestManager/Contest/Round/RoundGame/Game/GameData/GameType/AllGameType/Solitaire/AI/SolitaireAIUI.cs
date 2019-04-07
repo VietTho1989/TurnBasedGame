@@ -172,16 +172,16 @@ namespace Solitaire
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Solitaire AI");
 
         public Text lbMultiThreaded;
-        private static readonly TxtLanguage txtMultiThreaded = new TxtLanguage();
+        private static readonly TxtLanguage txtMultiThreaded = new TxtLanguage("MultiThreaded");
 
         public Text lbMaxClosedCount;
-        private static readonly TxtLanguage txtMaxClosedCount = new TxtLanguage();
+        private static readonly TxtLanguage txtMaxClosedCount = new TxtLanguage("Max closed count");
 
         public Text lbFastMode;
-        private static readonly TxtLanguage txtFastMode = new TxtLanguage();
+        private static readonly TxtLanguage txtFastMode = new TxtLanguage("Fast mode");
 
         static SolitaireAIUI()
         {
@@ -580,7 +580,7 @@ namespace Solitaire
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Solitaire AI");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -588,7 +588,7 @@ namespace Solitaire
                         }
                         if (lbMultiThreaded != null)
                         {
-                            lbMultiThreaded.text = txtMultiThreaded.get("MultiThreaded");
+                            lbMultiThreaded.text = txtMultiThreaded.get();
                         }
                         else
                         {
@@ -596,7 +596,7 @@ namespace Solitaire
                         }
                         if (lbMaxClosedCount != null)
                         {
-                            lbMaxClosedCount.text = txtMaxClosedCount.get("Max closed count");
+                            lbMaxClosedCount.text = txtMaxClosedCount.get();
                         }
                         else
                         {
@@ -604,7 +604,7 @@ namespace Solitaire
                         }
                         if (lbFastMode != null)
                         {
-                            lbFastMode.text = txtFastMode.get("Fast mode");
+                            lbFastMode.text = txtFastMode.get();
                         }
                         else
                         {

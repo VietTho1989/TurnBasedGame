@@ -56,9 +56,9 @@ namespace GameManager.Match.Swap
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Make Request Swap");
 
-        private static readonly TxtLanguage txtNotAllowSwap = new TxtLanguage();
+        private static readonly TxtLanguage txtNotAllowSwap = new TxtLanguage("Cannot make swap player request");
 
         static NoRequestSwapPlayerUI()
         {
@@ -160,7 +160,7 @@ namespace GameManager.Match.Swap
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Make Request Swap");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -168,7 +168,7 @@ namespace GameManager.Match.Swap
                             }
                             if (tvNotAllowSwap != null)
                             {
-                                tvNotAllowSwap.text = txtNotAllowSwap.get("Cannot make swap player request");
+                                tvNotAllowSwap.text = txtNotAllowSwap.get();
                             }
                             else
                             {

@@ -45,8 +45,8 @@ namespace GameManager.Match
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtPlaying = new TxtLanguage();
-        private static readonly TxtLanguage txtEnd = new TxtLanguage();
+        private static readonly TxtLanguage txtPlaying = new TxtLanguage("Playing");
+        private static readonly TxtLanguage txtEnd = new TxtLanguage("End");
 
         static ChooseContestManagerStatePlayUI()
         {
@@ -75,10 +75,10 @@ namespace GameManager.Match
                                 switch (contestManagerStatePlay.state.v.getType())
                                 {
                                     case ContestManagerStatePlay.State.Type.Normal:
-                                        lbTitle.text = txtPlaying.get("Playing");
+                                        lbTitle.text = txtPlaying.get();
                                         break;
                                     case ContestManagerStatePlay.State.Type.End:
-                                        lbTitle.text = txtEnd.get("End");
+                                        lbTitle.text = txtEnd.get();
                                         break;
                                     default:
                                         Debug.LogError("unknown type: " + contestManagerStatePlay.state.v.getType());

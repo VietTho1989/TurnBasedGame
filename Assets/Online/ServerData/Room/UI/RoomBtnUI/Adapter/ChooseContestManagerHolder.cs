@@ -71,7 +71,7 @@ namespace GameManager.Match
         #region txt
 
         public Text tvShow;
-        public static readonly TxtLanguage txtShow = new TxtLanguage();
+        private static readonly TxtLanguage txtShow = new TxtLanguage("Show");
 
         static ChooseContestManagerHolder()
         {
@@ -208,7 +208,7 @@ namespace GameManager.Match
                         {
                             if (tvShow != null)
                             {
-                                tvShow.text = txtShow.get("Show");
+                                tvShow.text = txtShow.get();
                             }
                             else
                             {

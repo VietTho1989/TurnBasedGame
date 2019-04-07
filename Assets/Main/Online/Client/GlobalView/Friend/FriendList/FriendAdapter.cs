@@ -101,12 +101,10 @@ public class FriendAdapter : SRIA<FriendAdapter.UIData, FriendHolder.UIData>, Fr
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text tvNoFriends;
-    public static readonly TxtLanguage txtNoFriends = new TxtLanguage();
+    private static readonly TxtLanguage txtNoFriends = new TxtLanguage("Don't have any friends");
 
     static FriendAdapter()
     {
@@ -130,6 +128,8 @@ public class FriendAdapter : SRIA<FriendAdapter.UIData, FriendHolder.UIData>, Fr
     }
 
     #endregion
+
+    #region Refresh
 
     public GameObject noFriends;
 
@@ -350,7 +350,7 @@ public class FriendAdapter : SRIA<FriendAdapter.UIData, FriendHolder.UIData>, Fr
                     {
                         if (tvNoFriends != null)
                         {
-                            tvNoFriends.text = txtNoFriends.get("Don't have any friends");
+                            tvNoFriends.text = txtNoFriends.get();
                         }
                         else
                         {

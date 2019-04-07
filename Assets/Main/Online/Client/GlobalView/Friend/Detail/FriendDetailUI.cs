@@ -90,7 +90,7 @@ public class FriendDetailUI : UIBehavior<FriendDetailUI.UIData>
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Friend Detail");
 
     static FriendDetailUI()
     {

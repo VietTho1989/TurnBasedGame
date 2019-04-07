@@ -19,43 +19,27 @@ public class SortData : Data
 
 	public VP<SortType> sortType;
 
-    private static readonly TxtLanguage txtNone = new TxtLanguage();
-    private static readonly TxtLanguage txtName = new TxtLanguage();
-    private static readonly TxtLanguage txtKind = new TxtLanguage();
-    private static readonly TxtLanguage txtDate = new TxtLanguage();
+    private static readonly TxtLanguage txtNone = new TxtLanguage("None");
+    private static readonly TxtLanguage txtName = new TxtLanguage("Name");
+    private static readonly TxtLanguage txtKind = new TxtLanguage("Kind");
+    private static readonly TxtLanguage txtDate = new TxtLanguage("Time");
 
     static SortData()
     {
-        // none
-        {
-            txtNone.add(Language.Type.vi, "Không");
-            txtNone.add(Language.Type.en, "None");
-        }
-        // name
-        {
-            txtName.add(Language.Type.vi, "Tên");
-            txtName.add(Language.Type.en, "Name");
-        }
-        // kind
-        {
-            txtKind.add(Language.Type.vi, "Loại");
-            txtKind.add(Language.Type.en, "Kind");
-        }
-        // date
-        {
-            txtDate.add(Language.Type.vi, "Giờ");
-            txtDate.add(Language.Type.en, "Time");
-        }
+        txtNone.add(Language.Type.vi, "Không");
+        txtName.add(Language.Type.vi, "Tên");
+        txtKind.add(Language.Type.vi, "Loại");
+        txtDate.add(Language.Type.vi, "Giờ");
     }
 
     public static List<string> getSortTypeList()
     {
         List<string> ret = new List<string>();
         {
-            ret.Add(txtNone.get("None"));
-            ret.Add(txtName.get("Name"));
-            ret.Add(txtKind.get("Kind"));
-            ret.Add(txtDate.get("Time"));
+            ret.Add(txtNone.get());
+            ret.Add(txtName.get());
+            ret.Add(txtKind.get());
+            ret.Add(txtDate.get());
         }
         return ret;
     }

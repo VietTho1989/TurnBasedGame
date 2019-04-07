@@ -133,13 +133,13 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Computer");
 
     public Text lbName;
-    public static readonly TxtLanguage txtName = new TxtLanguage();
+    private static readonly TxtLanguage txtName = new TxtLanguage("Name");
 
     public Text lbAvatarUrl;
-    public static readonly TxtLanguage txtAvatarUrl = new TxtLanguage();
+    private static readonly TxtLanguage txtAvatarUrl = new TxtLanguage("Avatar url");
 
     static ComputerUI()
     {
@@ -590,7 +590,7 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Computer");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -598,7 +598,7 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
                         }
                         if (lbName != null)
                         {
-                            lbName.text = txtName.get("Name");
+                            lbName.text = txtName.get();
                         }
                         else
                         {
@@ -606,7 +606,7 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
                         }
                         if (lbAvatarUrl != null)
                         {
-                            lbAvatarUrl.text = txtAvatarUrl.get("Avatar url");
+                            lbAvatarUrl.text = txtAvatarUrl.get();
                         }
                         else
                         {

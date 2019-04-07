@@ -86,7 +86,7 @@ namespace Khet.NoneRule
                     {
                         if (tvChoose != null)
                         {
-                            tvChoose.text = ClickPosTxt.txtChoose.get(ClickPosTxt.DefaultChoose);
+                            tvChoose.text = ClickPosTxt.txtChoose.get();
                         }
                         else
                         {

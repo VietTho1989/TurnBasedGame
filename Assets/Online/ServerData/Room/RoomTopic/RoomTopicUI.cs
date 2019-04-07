@@ -44,7 +44,7 @@ public class RoomTopicUI : UIBehavior<RoomTopicUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Room");
 
     static RoomTopicUI()
     {
@@ -66,7 +66,7 @@ public class RoomTopicUI : UIBehavior<RoomTopicUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Room");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {

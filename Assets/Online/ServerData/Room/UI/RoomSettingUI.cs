@@ -234,27 +234,25 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Room Setting");
 
     public Text lbName;
-    private static readonly TxtLanguage txtName = new TxtLanguage();
+    private static readonly TxtLanguage txtName = new TxtLanguage("Name");
 
     public Text lbFreeze;
-    private static readonly TxtLanguage txtFreeze = new TxtLanguage();
+    private static readonly TxtLanguage txtFreeze = new TxtLanguage("Freeze");
 
     public Text lbAllowHint;
-    private static readonly TxtLanguage txtAllowHint = new TxtLanguage();
+    private static readonly TxtLanguage txtAllowHint = new TxtLanguage("Hint");
 
     public Text lbAllowLoadHistory;
-    private static readonly TxtLanguage txtAllowLoadHistory = new TxtLanguage();
+    private static readonly TxtLanguage txtAllowLoadHistory = new TxtLanguage("Load game history");
 
     public Text lbChatInGame;
-    private static readonly TxtLanguage txtChatInGame = new TxtLanguage();
+    private static readonly TxtLanguage txtChatInGame = new TxtLanguage("Chat in game");
 
     static RoomSettingUI()
     {
@@ -285,6 +283,8 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
     }
 
     #endregion
+
+    #region Refresh
 
     private bool needReset = true;
 
@@ -732,7 +732,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Room Setting");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -740,7 +740,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                     }
                     if (lbName != null)
                     {
-                        lbName.text = txtName.get("Name");
+                        lbName.text = txtName.get();
                     }
                     else
                     {
@@ -748,7 +748,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                     }
                     if (lbFreeze != null)
                     {
-                        lbFreeze.text = txtFreeze.get("Freeze");
+                        lbFreeze.text = txtFreeze.get();
                     }
                     else
                     {
@@ -756,7 +756,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                     }
                     if (lbAllowHint != null)
                     {
-                        lbAllowHint.text = txtAllowHint.get("Hint");
+                        lbAllowHint.text = txtAllowHint.get();
                     }
                     else
                     {
@@ -764,7 +764,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                     }
                     if (lbAllowLoadHistory != null)
                     {
-                        lbAllowLoadHistory.text = txtAllowLoadHistory.get("Load game history");
+                        lbAllowLoadHistory.text = txtAllowLoadHistory.get();
                     }
                     else
                     {
@@ -772,7 +772,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                     }
                     if (lbChatInGame != null)
                     {
-                        lbChatInGame.text = txtChatInGame.get("Chat in game");
+                        lbChatInGame.text = txtChatInGame.get();
                     }
                     else
                     {

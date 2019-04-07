@@ -44,7 +44,7 @@ public class FriendTopicUI : UIBehavior<FriendTopicUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Friend");
 
     static FriendTopicUI()
     {
@@ -66,7 +66,7 @@ public class FriendTopicUI : UIBehavior<FriendTopicUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Friend");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {

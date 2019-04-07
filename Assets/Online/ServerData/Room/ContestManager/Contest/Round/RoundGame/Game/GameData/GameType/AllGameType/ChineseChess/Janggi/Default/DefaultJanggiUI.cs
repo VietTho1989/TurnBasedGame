@@ -49,7 +49,7 @@ namespace Janggi
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public static readonly TxtLanguage txtTitle = new TxtLanguage("Default Janggi");
 
         static DefaultJanggiUI()
         {
@@ -232,7 +232,7 @@ namespace Janggi
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Default Janggi");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {

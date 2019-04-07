@@ -53,24 +53,24 @@ namespace FileSystem
 
 		}
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region txt
 
-		#region txt
+        private static readonly TxtLanguage txtRename = new TxtLanguage("Rename");
+        private static readonly TxtLanguage txtCannotRename = new TxtLanguage("Rename");
 
-		public static readonly TxtLanguage txtRename = new TxtLanguage();
-		public static readonly TxtLanguage txtCannotRename = new TxtLanguage();
+        static BtnRenameFileUI()
+        {
+            txtRename.add(Language.Type.vi, "Đổi Tên");
+            txtCannotRename.add(Language.Type.vi, "Đổi Tên");
+        }
 
-		static BtnRenameFileUI()
-		{
-			txtRename.add (Language.Type.vi, "Đổi Tên");
-			txtCannotRename.add (Language.Type.vi, "Đổi Tên");
-		}
+        #endregion
 
-		#endregion
+        #region Refresh
 
-		public Button btnRename;
+        public Button btnRename;
 		public Text tvRename;
 
 		public override void refresh ()
@@ -104,10 +104,10 @@ namespace FileSystem
 							// process
 							if (canRename) {
 								btnRename.interactable = true;
-								tvRename.text = txtRename.get ("Rename");
+								tvRename.text = txtRename.get ();
 							} else {
 								btnRename.interactable = false;
-								tvRename.text = txtCannotRename.get ("Rename");
+								tvRename.text = txtCannotRename.get ();
 							}
 						} else {
 							Debug.LogError ("btnRename, tvRename null: " + this);

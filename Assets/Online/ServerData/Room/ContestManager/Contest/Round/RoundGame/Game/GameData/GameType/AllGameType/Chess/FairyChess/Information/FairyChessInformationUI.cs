@@ -60,13 +60,13 @@ namespace FairyChess
         public Text lbTitle;
 
         public Text tvMessage;
-        private static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("https://en.wikipedia.org/wiki/Fairy_chess");
 
         public Text lbFen;
         public Button btnCopyFen;
 
         public Text lbVariant;
-        private static readonly TxtLanguage txtVariant = new TxtLanguage();
+        private static readonly TxtLanguage txtVariant = new TxtLanguage("Variant");
 
         public Text lbChess960;
 
@@ -291,7 +291,7 @@ namespace FairyChess
                             }
                             if (tvMessage != null)
                             {
-                                tvMessage.text = txtMessage.get("https://en.wikipedia.org/wiki/Fairy_chess");
+                                tvMessage.text = txtMessage.get();
                             }
                             else
                             {
@@ -299,7 +299,7 @@ namespace FairyChess
                             }
                             if (lbVariant != null)
                             {
-                                lbVariant.text = txtVariant.get("Variant");
+                                lbVariant.text = txtVariant.get();
                             }
                             else
                             {

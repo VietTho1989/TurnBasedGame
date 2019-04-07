@@ -56,7 +56,7 @@ namespace CoTuongUp
         public Text lbTitle;
 
         public Text tvMessage;
-        private static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("https://vi.wikipedia.org/wiki/C%E1%BB%9D_%C3%BAp");
 
         static CoTuongUpInformationUI()
         {
@@ -249,7 +249,7 @@ namespace CoTuongUp
                             }
                             if (tvMessage != null)
                             {
-                                tvMessage.text = txtMessage.get("https://vi.wikipedia.org/wiki/C%E1%BB%9D_%C3%BAp");
+                                tvMessage.text = txtMessage.get();
                             }
                             else
                             {
@@ -257,7 +257,7 @@ namespace CoTuongUp
                             }
                             if (lbAllowViewCapture != null)
                             {
-                                lbAllowViewCapture.text = DefaultCoTuongUpUI.txtAllowViewCapture.get(DefaultCoTuongUpUI.DefaultTxtAllowViewCapture);
+                                lbAllowViewCapture.text = DefaultCoTuongUpUI.txtAllowViewCapture.get();
                             }
                             else
                             {
@@ -265,7 +265,7 @@ namespace CoTuongUp
                             }
                             if (lbAllowWatcherViewHidden != null)
                             {
-                                lbAllowWatcherViewHidden.text = DefaultCoTuongUpUI.txtAllowWatcherViewHidden.get(DefaultCoTuongUpUI.DefaultTxtAllowWatcherViewHidden);
+                                lbAllowWatcherViewHidden.text = DefaultCoTuongUpUI.txtAllowWatcherViewHidden.get();
                             }
                             else
                             {
@@ -273,7 +273,7 @@ namespace CoTuongUp
                             }
                             if (lbAllowOnlyFlip != null)
                             {
-                                lbAllowOnlyFlip.text = DefaultCoTuongUpUI.txtAllowOnlyFlip.get(DefaultCoTuongUpUI.DefaultTxtAllowOnlyFlip);
+                                lbAllowOnlyFlip.text = DefaultCoTuongUpUI.txtAllowOnlyFlip.get();
                             }
                             else
                             {

@@ -119,11 +119,11 @@ public class LanHostUI : UIBehavior<LanHostUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Lan Host");
 
     static LanHostUI()
     {
-        txtTitle.add(Language.Type.vi, "Máy chủ mạng LAN");
+        txtTitle.add(Language.Type.vi, "Máy Chủ Mạng LAN");
     }
 
     #endregion
@@ -170,7 +170,7 @@ public class LanHostUI : UIBehavior<LanHostUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Lan Host");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {

@@ -59,13 +59,11 @@ namespace GameManager.Match
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
-        public static readonly TxtLanguage txtEmpty = new TxtLanguage();
-        public static readonly TxtLanguage txtCancelEmpty = new TxtLanguage();
-        public static readonly TxtLanguage txtEmptying = new TxtLanguage();
+        private static readonly TxtLanguage txtEmpty = new TxtLanguage("Empty");
+        private static readonly TxtLanguage txtCancelEmpty = new TxtLanguage("Cancel Empty?");
+        private static readonly TxtLanguage txtEmptying = new TxtLanguage("Emptying");
 
         static NormalEditLobbyPlayerBtnEmptyUI()
         {
@@ -75,6 +73,8 @@ namespace GameManager.Match
         }
 
         #endregion
+
+        #region Refresh
 
         public GameObject contentContainer;
 
@@ -153,19 +153,19 @@ namespace GameManager.Match
                                         case UIData.State.None:
                                             {
                                                 btnEmpty.interactable = true;
-                                                tvEmpty.text = txtEmpty.get("Empty");
+                                                tvEmpty.text = txtEmpty.get();
                                             }
                                             break;
                                         case UIData.State.Request:
                                             {
                                                 btnEmpty.interactable = true;
-                                                tvEmpty.text = txtEmptying.get("Cancel Empty?");
+                                                tvEmpty.text = txtCancelEmpty.get();
                                             }
                                             break;
                                         case UIData.State.Wait:
                                             {
                                                 btnEmpty.interactable = false;
-                                                tvEmpty.text = txtEmptying.get("Emptying");
+                                                tvEmpty.text = txtEmptying.get();
                                             }
                                             break;
                                         default:

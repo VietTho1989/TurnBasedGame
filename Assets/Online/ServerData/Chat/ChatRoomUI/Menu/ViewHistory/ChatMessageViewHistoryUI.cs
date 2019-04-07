@@ -64,7 +64,7 @@ public class ChatMessageViewHistoryUI : UIBehavior<ChatMessageViewHistoryUI.UIDa
     #region txt, rect
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("View Chat Message History");
 
     static ChatMessageViewHistoryUI()
     {
@@ -205,7 +205,7 @@ public class ChatMessageViewHistoryUI : UIBehavior<ChatMessageViewHistoryUI.UIDa
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("View Chat Message History");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {

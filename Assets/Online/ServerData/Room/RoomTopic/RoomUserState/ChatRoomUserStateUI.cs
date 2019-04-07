@@ -42,13 +42,13 @@ public class ChatRoomUserStateUI : UIBehavior<ChatRoomUserStateUI.UIData>
 
     #region txt, rect
 
-    public static readonly TxtLanguage txtCreate = new TxtLanguage();
-    public static readonly TxtLanguage txtJoin = new TxtLanguage();
-    public static readonly TxtLanguage txtLeft = new TxtLanguage();
-    public static readonly TxtLanguage txtDisconnect = new TxtLanguage();
-    public static readonly TxtLanguage txtKick = new TxtLanguage();
-    public static readonly TxtLanguage txtUnKick = new TxtLanguage();
-    public static readonly TxtLanguage txtBan = new TxtLanguage();
+    public static readonly TxtLanguage txtCreate = new TxtLanguage("create room");
+    public static readonly TxtLanguage txtJoin = new TxtLanguage("join room");
+    public static readonly TxtLanguage txtLeft = new TxtLanguage("left room");
+    public static readonly TxtLanguage txtDisconnect = new TxtLanguage("disconnect");
+    public static readonly TxtLanguage txtKick = new TxtLanguage("is kicked");
+    public static readonly TxtLanguage txtUnKick = new TxtLanguage("is unkicked");
+    public static readonly TxtLanguage txtBan = new TxtLanguage("is banned");
 
     static ChatRoomUserStateUI()
     {

@@ -42,7 +42,7 @@ public class BtnNewEliminationRoundUI : UIBehavior<BtnNewEliminationRoundUI.UIDa
     #region txt
 
     public Text tvNewEliminationRound;
-    private static readonly TxtLanguage txtNewEliminationRound = new TxtLanguage();
+    private static readonly TxtLanguage txtNewEliminationRound = new TxtLanguage("New Elimination Round");
 
     static BtnNewEliminationRoundUI()
     {
@@ -70,7 +70,7 @@ public class BtnNewEliminationRoundUI : UIBehavior<BtnNewEliminationRoundUI.UIDa
                     {
                         if (tvNewEliminationRound != null)
                         {
-                            tvNewEliminationRound.text = txtNewEliminationRound.get("New Elimination Round");
+                            tvNewEliminationRound.text = txtNewEliminationRound.get();
                         }
                         else
                         {

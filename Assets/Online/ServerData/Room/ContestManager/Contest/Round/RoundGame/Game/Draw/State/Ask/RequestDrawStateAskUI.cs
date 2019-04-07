@@ -77,22 +77,22 @@ public class RequestDrawStateAskUI : UIHaveTransformDataBehavior<RequestDrawStat
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Answer Request Draw");
 
     public Text tvAccept;
-    private static readonly TxtLanguage txtAccept = new TxtLanguage();
-    private static readonly TxtLanguage txtAccepting = new TxtLanguage();
-    private static readonly TxtLanguage txtAlreadyAccept = new TxtLanguage();
+    private static readonly TxtLanguage txtAccept = new TxtLanguage("Accept");
+    private static readonly TxtLanguage txtAccepting = new TxtLanguage("Accepting");
+    private static readonly TxtLanguage txtAlreadyAccept = new TxtLanguage("Already Accept");
 
     public Text tvRefuse;
-    private static readonly TxtLanguage txtRefuse = new TxtLanguage();
-    private static readonly TxtLanguage txtRefusing = new TxtLanguage();
-    private static readonly TxtLanguage txtAlreadyRefuse = new TxtLanguage();
+    private static readonly TxtLanguage txtRefuse = new TxtLanguage("Refuse");
+    private static readonly TxtLanguage txtRefusing = new TxtLanguage("Refusing");
+    private static readonly TxtLanguage txtAlreadyRefuse = new TxtLanguage("Already Refuse");
 
     public Text tvCannotAnswer;
-    private static readonly TxtLanguage txtCannotAnswer = new TxtLanguage();
+    private static readonly TxtLanguage txtCannotAnswer = new TxtLanguage("Cannot answer request draw");
 
-    private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+    private static readonly TxtLanguage txtRequestError = new TxtLanguage("Answer request draw error");
 
     static RequestDrawStateAskUI()
     {
@@ -319,26 +319,26 @@ public class RequestDrawStateAskUI : UIHaveTransformDataBehavior<RequestDrawStat
                                                 case UIData.State.None:
                                                     {
                                                         btnAccept.interactable = true;
-                                                        tvAccept.text = txtAccept.get("Accept");
+                                                        tvAccept.text = txtAccept.get();
                                                     }
                                                     break;
                                                 case UIData.State.RequestAccept:
                                                     {
                                                         btnAccept.interactable = true;
-                                                        tvAccept.text = txtAccepting.get("Accepting");
+                                                        tvAccept.text = txtAccepting.get();
                                                     }
                                                     break;
                                                 case UIData.State.WaitAccept:
                                                     {
                                                         btnAccept.interactable = false;
-                                                        tvAccept.text = txtAccepting.get("Accepting");
+                                                        tvAccept.text = txtAccepting.get();
                                                     }
                                                     break;
                                                 case UIData.State.RequestRefuse:
                                                 case UIData.State.WaitRefuse:
                                                     {
                                                         btnAccept.interactable = false;
-                                                        tvAccept.text = txtAccept.get("Accept");
+                                                        tvAccept.text = txtAccept.get();
                                                     }
                                                     break;
                                                 default:
@@ -349,7 +349,7 @@ public class RequestDrawStateAskUI : UIHaveTransformDataBehavior<RequestDrawStat
                                         else
                                         {
                                             btnAccept.interactable = false;
-                                            tvAccept.text = txtAlreadyAccept.get("Already Accept");
+                                            tvAccept.text = txtAlreadyAccept.get();
                                         }
                                     }
                                     else
@@ -368,26 +368,26 @@ public class RequestDrawStateAskUI : UIHaveTransformDataBehavior<RequestDrawStat
                                                 case UIData.State.None:
                                                     {
                                                         btnRefuse.interactable = true;
-                                                        tvRefuse.text = txtRefuse.get("Refuse");
+                                                        tvRefuse.text = txtRefuse.get();
                                                     }
                                                     break;
                                                 case UIData.State.RequestAccept:
                                                 case UIData.State.WaitAccept:
                                                     {
                                                         btnRefuse.interactable = false;
-                                                        tvRefuse.text = txtRefuse.get("Refuse");
+                                                        tvRefuse.text = txtRefuse.get();
                                                     }
                                                     break;
                                                 case UIData.State.RequestRefuse:
                                                     {
                                                         btnRefuse.interactable = true;
-                                                        tvRefuse.text = txtRefusing.get("Refusing");
+                                                        tvRefuse.text = txtRefusing.get();
                                                     }
                                                     break;
                                                 case UIData.State.WaitRefuse:
                                                     {
                                                         btnRefuse.interactable = false;
-                                                        tvRefuse.text = txtRefusing.get("Refusing");
+                                                        tvRefuse.text = txtRefusing.get();
                                                     }
                                                     break;
                                                 default:
@@ -398,7 +398,7 @@ public class RequestDrawStateAskUI : UIHaveTransformDataBehavior<RequestDrawStat
                                         else
                                         {
                                             btnRefuse.interactable = false;
-                                            tvRefuse.text = txtAlreadyRefuse.get("Already Refuse");
+                                            tvRefuse.text = txtAlreadyRefuse.get();
                                         }
                                     }
                                     else
@@ -453,7 +453,7 @@ public class RequestDrawStateAskUI : UIHaveTransformDataBehavior<RequestDrawStat
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Answer Request Draw");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -461,7 +461,7 @@ public class RequestDrawStateAskUI : UIHaveTransformDataBehavior<RequestDrawStat
                     }
                     if (tvCannotAnswer != null)
                     {
-                        tvCannotAnswer.text = txtCannotAnswer.get("Cannot answer request draw");
+                        tvCannotAnswer.text = txtCannotAnswer.get();
                     }
                     else
                     {
@@ -493,7 +493,7 @@ public class RequestDrawStateAskUI : UIHaveTransformDataBehavior<RequestDrawStat
         {
             yield return new Wait(Global.WaitSendTime);
             this.data.state.v = UIData.State.None;
-            Toast.showMessage(txtRequestError.get("Answer request draw error"));
+            Toast.showMessage(txtRequestError.get());
         }
         else
         {

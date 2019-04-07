@@ -34,7 +34,7 @@ public class BtnUndoRedoUI : UIBehavior<BtnUndoRedoUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Undo/Redo");
 
     static BtnUndoRedoUI()
     {
@@ -81,7 +81,7 @@ public class BtnUndoRedoUI : UIBehavior<BtnUndoRedoUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Undo/Redo");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {

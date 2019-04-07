@@ -103,19 +103,19 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Chat Message Menu");
 
     public Button btnEdit;
     public Text tvEdit;
-    private static readonly TxtLanguage txtEdit = new TxtLanguage();
+    private static readonly TxtLanguage txtEdit = new TxtLanguage("Edit");
 
     public Button btnCopyToClipboard;
     public Text tvCopyToClipboard;
-    private static readonly TxtLanguage txtCopyToClipboard = new TxtLanguage();
+    private static readonly TxtLanguage txtCopyToClipboard = new TxtLanguage("Copy To Clipboard");
 
     public Button btnViewHistory;
     public Text tvViewHistory;
-    private static readonly TxtLanguage txtViewHistory = new TxtLanguage();
+    private static readonly TxtLanguage txtViewHistory = new TxtLanguage("View History");
 
     static ChatMessageMenuUI()
     {
@@ -377,7 +377,7 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Chat Message Menu");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -385,7 +385,7 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
                     }
                     if (tvEdit != null)
                     {
-                        tvEdit.text = txtEdit.get("Edit");
+                        tvEdit.text = txtEdit.get();
                     }
                     else
                     {
@@ -393,7 +393,7 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
                     }
                     if (tvCopyToClipboard != null)
                     {
-                        tvCopyToClipboard.text = txtCopyToClipboard.get("Copy To Clipboard");
+                        tvCopyToClipboard.text = txtCopyToClipboard.get();
                     }
                     else
                     {
@@ -401,7 +401,7 @@ public class ChatMessageMenuUI : UIBehavior<ChatMessageMenuUI.UIData>
                     }
                     if (tvViewHistory != null)
                     {
-                        tvViewHistory.text = txtViewHistory.get("View History");
+                        tvViewHistory.text = txtViewHistory.get();
                     }
                     else
                     {

@@ -60,7 +60,7 @@ namespace Seirawan
         public Text lbTitle;
 
         public Text tvMessage;
-        private static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("https://en.wikipedia.org/wiki/Seirawan_chess");
 
         static SeirawanInformationUI()
         {
@@ -241,7 +241,7 @@ namespace Seirawan
                             }
                             if (tvMessage != null)
                             {
-                                tvMessage.text = txtMessage.get("https://en.wikipedia.org/wiki/Seirawan_chess");
+                                tvMessage.text = txtMessage.get();
                             }
                             else
                             {

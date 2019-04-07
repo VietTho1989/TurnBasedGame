@@ -96,10 +96,10 @@ public class DefaultChosenGameAlwaysUI : UIHaveTransformDataBehavior<DefaultChos
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Game Always Chosen");
 
     public Text lbGameType;
-    private static readonly TxtLanguage txtGameType = new TxtLanguage();
+    private static readonly TxtLanguage txtGameType = new TxtLanguage("Game");
 
     static DefaultChosenGameAlwaysUI()
     {
@@ -317,7 +317,7 @@ public class DefaultChosenGameAlwaysUI : UIHaveTransformDataBehavior<DefaultChos
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Game Always Chosen");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -325,7 +325,7 @@ public class DefaultChosenGameAlwaysUI : UIHaveTransformDataBehavior<DefaultChos
                         }
                         if (lbGameType != null)
                         {
-                            lbGameType.text = txtGameType.get("Game");
+                            lbGameType.text = txtGameType.get();
                         }
                         else
                         {

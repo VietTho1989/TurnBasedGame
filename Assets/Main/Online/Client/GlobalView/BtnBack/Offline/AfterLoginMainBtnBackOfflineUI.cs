@@ -99,12 +99,10 @@ public class AfterLoginMainBtnBackOfflineUI : UIBehavior<AfterLoginMainBtnBackOf
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text tvBack;
-    public static readonly TxtLanguage txtBack = new TxtLanguage();
+    public static readonly TxtLanguage txtBack = new TxtLanguage("Back");
 
     static AfterLoginMainBtnBackOfflineUI()
     {
@@ -112,6 +110,8 @@ public class AfterLoginMainBtnBackOfflineUI : UIBehavior<AfterLoginMainBtnBackOf
     }
 
     #endregion
+
+    #region Refresh
 
     public override void refresh()
     {
@@ -131,7 +131,7 @@ public class AfterLoginMainBtnBackOfflineUI : UIBehavior<AfterLoginMainBtnBackOf
                 {
                     if (tvBack != null)
                     {
-                        tvBack.text = txtBack.get("Back");
+                        tvBack.text = txtBack.get();
                     }
                     else
                     {

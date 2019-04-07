@@ -49,7 +49,7 @@ namespace Rights
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public static readonly TxtLanguage txtTitle = new TxtLanguage("Change Rights");
 
         static ChangeRightsUI()
         {
@@ -464,7 +464,7 @@ namespace Rights
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Change Rights");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {

@@ -72,7 +72,7 @@ namespace CoTuongUp.NoneRule
         public Text lbTitle;
 
         public Text tvHide;
-        private static readonly TxtLanguage txtHide = new TxtLanguage();
+        private static readonly TxtLanguage txtHide = new TxtLanguage("Hide");
 
         static SetPieceUI()
         {
@@ -116,7 +116,7 @@ namespace CoTuongUp.NoneRule
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = ClickPosTxt.txtSetPieceTitle.get(ClickPosTxt.DefaultSetPieceTitle);
+                            lbTitle.text = ClickPosTxt.txtSetPieceTitle.get();
                         }
                         else
                         {
@@ -124,7 +124,7 @@ namespace CoTuongUp.NoneRule
                         }
                         if (tvHide != null)
                         {
-                            tvHide.text = txtHide.get("Hide");
+                            tvHide.text = txtHide.get();
                         }
                         else
                         {

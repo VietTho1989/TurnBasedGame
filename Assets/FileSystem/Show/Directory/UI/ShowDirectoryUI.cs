@@ -102,21 +102,19 @@ namespace FileSystem
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text tvShowExplorer;
-        public static readonly TxtLanguage txtShowExplorer = new TxtLanguage();
+        private static readonly TxtLanguage txtShowExplorer = new TxtLanguage("Show Explorer");
 
         public Text tvRefresh;
-        public static readonly TxtLanguage txtRefresh = new TxtLanguage();
+        private static readonly TxtLanguage txtRefresh = new TxtLanguage("Refresh");
 
         public Text tvNewFolder;
-        public static readonly TxtLanguage txtNewFolder = new TxtLanguage();
+        private static readonly TxtLanguage txtNewFolder = new TxtLanguage("New Folder");
 
         public Text tvFail;
-        public static readonly TxtLanguage txtFail = new TxtLanguage();
+        private static readonly TxtLanguage txtFail = new TxtLanguage("The directory cannot be accessed");
 
         static ShowDirectoryUI()
         {
@@ -169,6 +167,8 @@ namespace FileSystem
         }
 
         #endregion
+
+        #region Refresh
 
         public Transform headerScrollView;
 
@@ -304,7 +304,7 @@ namespace FileSystem
                         {
                             if (tvShowExplorer != null)
                             {
-                                tvShowExplorer.text = txtShowExplorer.get("Show Explorer");
+                                tvShowExplorer.text = txtShowExplorer.get();
                             }
                             else
                             {
@@ -312,7 +312,7 @@ namespace FileSystem
                             }
                             if (tvRefresh != null)
                             {
-                                tvRefresh.text = txtRefresh.get("Refresh");
+                                tvRefresh.text = txtRefresh.get();
                             }
                             else
                             {
@@ -320,7 +320,7 @@ namespace FileSystem
                             }
                             if (tvNewFolder != null)
                             {
-                                tvNewFolder.text = txtNewFolder.get("New Folder");
+                                tvNewFolder.text = txtNewFolder.get();
                             }
                             else
                             {
@@ -328,7 +328,7 @@ namespace FileSystem
                             }
                             if (tvFail != null)
                             {
-                                tvFail.text = txtFail.get("The directory cannot be accessed");
+                                tvFail.text = txtFail.get();
                             }
                             else
                             {

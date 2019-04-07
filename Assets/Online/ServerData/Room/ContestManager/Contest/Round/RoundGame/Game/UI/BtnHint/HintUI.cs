@@ -142,13 +142,13 @@ namespace Hint
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Hint");
 
         public Text tvAuto;
-        private static readonly TxtLanguage txtAuto = new TxtLanguage();
+        private static readonly TxtLanguage txtAuto = new TxtLanguage("Auto");
 
         public Text tvEditAI;
-        private static readonly TxtLanguage txtEditAI = new TxtLanguage();
+        private static readonly TxtLanguage txtEditAI = new TxtLanguage("Edit AI");
 
         static HintUI()
         {
@@ -251,7 +251,7 @@ namespace Hint
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Hint");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -259,7 +259,7 @@ namespace Hint
                         }
                         if (tvAuto != null)
                         {
-                            tvAuto.text = txtAuto.get("Auto");
+                            tvAuto.text = txtAuto.get();
                         }
                         else
                         {
@@ -267,7 +267,7 @@ namespace Hint
                         }
                         if (tvEditAI != null)
                         {
-                            tvEditAI.text = txtEditAI.get("Edit AI");
+                            tvEditAI.text = txtEditAI.get();
                         }
                         else
                         {

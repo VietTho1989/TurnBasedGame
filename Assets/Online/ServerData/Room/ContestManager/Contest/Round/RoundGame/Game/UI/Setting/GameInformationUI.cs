@@ -94,7 +94,7 @@ public class GameInformationUI : UIBehavior<GameInformationUI.UIData>
     #region txt, rect
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Game Information");
 
     static GameInformationUI()
     {
@@ -268,7 +268,7 @@ public class GameInformationUI : UIBehavior<GameInformationUI.UIData>
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Game Information");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {

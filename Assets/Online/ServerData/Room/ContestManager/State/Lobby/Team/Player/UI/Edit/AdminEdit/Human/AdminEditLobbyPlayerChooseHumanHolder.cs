@@ -60,10 +60,10 @@ namespace GameManager.Match
 
         #region txt, rect
 
-        public static readonly TxtLanguage txtName = new TxtLanguage();
+        private static readonly TxtLanguage txtName = new TxtLanguage("Name");
 
         public Text tvChoose;
-        public static readonly TxtLanguage txtChoose = new TxtLanguage();
+        private static readonly TxtLanguage txtChoose = new TxtLanguage("Choose");
 
         static AdminEditLobbyPlayerChooseHumanHolder()
         {
@@ -107,7 +107,7 @@ namespace GameManager.Match
                     {
                         if (tvName != null)
                         {
-                            tvName.text = txtName.get("Name") + ": " + human.getPlayerName();
+                            tvName.text = txtName.get() + ": " + human.getPlayerName();
                         }
                         else
                         {
@@ -135,7 +135,7 @@ namespace GameManager.Match
                 {
                     if (tvChoose != null)
                     {
-                        tvChoose.text = txtChoose.get("Choose");
+                        tvChoose.text = txtChoose.get();
                     }
                     else
                     {

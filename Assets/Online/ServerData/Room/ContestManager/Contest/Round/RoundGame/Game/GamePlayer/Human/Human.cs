@@ -183,13 +183,13 @@ public class Human : GamePlayer.Inform
 
     public VP<long> birthday;
 
-    private static readonly TxtLanguage txtUnKnownBirthday = new TxtLanguage();
+    private static readonly TxtLanguage txtUnKnownBirthday = new TxtLanguage("Unknown");
 
     public static string GetStrBirthday(long miliseconds)
     {
         if (miliseconds == Constants.UNKNOWN_TIME)
         {
-            return txtUnKnownBirthday.get("Unknown");
+            return txtUnKnownBirthday.get();
         }
         else
         {

@@ -70,16 +70,16 @@ public class RequestDrawStateNoneUI : UIHaveTransformDataBehavior<RequestDrawSta
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Make Request Draw");
 
     public Text tvRequest;
-    private static readonly TxtLanguage txtRequestNone = new TxtLanguage();
-    private static readonly TxtLanguage txtRequestRequest = new TxtLanguage();
+    private static readonly TxtLanguage txtRequestNone = new TxtLanguage("Request Draw");
+    private static readonly TxtLanguage txtRequestRequest = new TxtLanguage("Requesting draw");
 
     public Text tvCannotRequest;
-    private static readonly TxtLanguage txtCannotRequest = new TxtLanguage();
+    private static readonly TxtLanguage txtCannotRequest = new TxtLanguage("Cannot make request draw");
 
-    private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+    private static readonly TxtLanguage txtRequestError = new TxtLanguage("Send request draw error");
 
     static RequestDrawStateNoneUI()
     {
@@ -216,7 +216,7 @@ public class RequestDrawStateNoneUI : UIHaveTransformDataBehavior<RequestDrawSta
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Make Request Draw");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -227,11 +227,11 @@ public class RequestDrawStateNoneUI : UIHaveTransformDataBehavior<RequestDrawSta
                         switch (this.data.state.v)
                         {
                             case UIData.State.None:
-                                tvRequest.text = txtRequestNone.get("Request Draw");
+                                tvRequest.text = txtRequestNone.get();
                                 break;
                             case UIData.State.Request:
                             case UIData.State.Wait:
-                                tvRequest.text = txtRequestRequest.get("Requesting draw");
+                                tvRequest.text = txtRequestRequest.get();
                                 break;
                             default:
                                 Debug.LogError("unknown state: " + this.data.state.v);
@@ -244,7 +244,7 @@ public class RequestDrawStateNoneUI : UIHaveTransformDataBehavior<RequestDrawSta
                     }
                     if (tvCannotRequest != null)
                     {
-                        tvCannotRequest.text = txtCannotRequest.get("Cannot make request draw");
+                        tvCannotRequest.text = txtCannotRequest.get();
                     }
                     else
                     {
@@ -276,7 +276,7 @@ public class RequestDrawStateNoneUI : UIHaveTransformDataBehavior<RequestDrawSta
         {
             yield return new Wait(Global.WaitSendTime);
             this.data.state.v = UIData.State.None;
-            Toast.showMessage(txtRequestError.get("Send request draw error"));
+            Toast.showMessage(txtRequestError.get());
         }
         else
         {

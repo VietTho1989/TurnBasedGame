@@ -44,7 +44,7 @@ public class OffTopicUI : UIBehavior<OffTopicUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Off Topic");
 
     static OffTopicUI()
     {
@@ -66,7 +66,7 @@ public class OffTopicUI : UIBehavior<OffTopicUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Off Topic");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {

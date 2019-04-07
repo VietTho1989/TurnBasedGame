@@ -248,7 +248,7 @@ namespace FairyChess.NoneRule
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = ClickPosTxt.txtClickPosTitle.get(ClickPosTxt.DefaultClickPosTitle);
+                            lbTitle.text = ClickPosTxt.txtClickPosTitle.get();
                         }
                         else
                         {
@@ -256,7 +256,7 @@ namespace FairyChess.NoneRule
                         }
                         if (tvSetPiece != null)
                         {
-                            tvSetPiece.text = ClickPosTxt.txtClickPosSetPiece.get(ClickPosTxt.DefaultClickPosSetPiece);
+                            tvSetPiece.text = ClickPosTxt.txtClickPosSetPiece.get();
                         }
                         else
                         {
@@ -264,7 +264,7 @@ namespace FairyChess.NoneRule
                         }
                         if (tvSetHand != null)
                         {
-                            tvSetHand.text = ClickPosTxt.txtClickPosSetHand.get(ClickPosTxt.DefaultClickPosSetHand);
+                            tvSetHand.text = ClickPosTxt.txtClickPosSetHand.get();
                         }
                         else
                         {
@@ -272,7 +272,7 @@ namespace FairyChess.NoneRule
                         }
                         if (tvMove != null)
                         {
-                            tvMove.text = ClickPosTxt.txtClickPosMove.get(ClickPosTxt.DefaultClickPosMove);
+                            tvMove.text = ClickPosTxt.txtClickPosMove.get();
                         }
                         else
                         {
@@ -280,7 +280,7 @@ namespace FairyChess.NoneRule
                         }
                         if (tvEndTurn != null)
                         {
-                            tvEndTurn.text = ClickPosTxt.txtClickPosEndTurn.get(ClickPosTxt.DefaultClickPosEndTurn);
+                            tvEndTurn.text = ClickPosTxt.txtClickPosEndTurn.get();
                         }
                         else
                         {
@@ -288,7 +288,7 @@ namespace FairyChess.NoneRule
                         }
                         if (tvClear != null)
                         {
-                            tvClear.text = ClickPosTxt.txtClickPosClear.get(ClickPosTxt.DefaultClickPosClear);
+                            tvClear.text = ClickPosTxt.txtClickPosClear.get();
                         }
                         else
                         {
@@ -296,7 +296,7 @@ namespace FairyChess.NoneRule
                         }
                         if (tvCreateByFen != null)
                         {
-                            tvCreateByFen.text = ClickPosTxt.txtClickPosCreateByFen.get(ClickPosTxt.DefaultClickPosCreateByFen);
+                            tvCreateByFen.text = ClickPosTxt.txtClickPosCreateByFen.get();
                         }
                         else
                         {

@@ -48,12 +48,10 @@ namespace GameManager.ContestManager
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text tvMessage;
-        public static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("Request New Tournament Accepted");
 
         static RequestNewContestManagerStateAcceptUI()
         {
@@ -61,6 +59,8 @@ namespace GameManager.ContestManager
         }
 
         #endregion
+
+        #region Refresh
 
         public override void refresh()
         {
@@ -82,7 +82,7 @@ namespace GameManager.ContestManager
                     {
                         if (tvMessage != null)
                         {
-                            tvMessage.text = txtMessage.get("Request New Tournament Accepted");
+                            tvMessage.text = txtMessage.get();
                         }
                         else
                         {

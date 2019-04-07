@@ -34,7 +34,7 @@ public class BtnUseRuleUI : UIBehavior<BtnUseRuleUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Use Rule");
 
     static BtnUseRuleUI()
     {
@@ -72,7 +72,7 @@ public class BtnUseRuleUI : UIBehavior<BtnUseRuleUI.UIData>
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Use Rule");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {

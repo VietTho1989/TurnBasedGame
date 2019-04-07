@@ -83,12 +83,10 @@ namespace RequestUseRule
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text tvNoHumans;
-        public static readonly TxtLanguage txtNoHumans = new TxtLanguage();
+        private static readonly TxtLanguage txtNoHumans = new TxtLanguage("Don't have any askers");
 
         static WhoAskAdapter()
         {
@@ -96,6 +94,8 @@ namespace RequestUseRule
         }
 
         #endregion
+
+        #region Refresh
 
         public GameObject noHumans;
 
@@ -211,7 +211,7 @@ namespace RequestUseRule
                         {
                             if (tvNoHumans != null)
                             {
-                                tvNoHumans.text = txtNoHumans.get("Don't have any askers");
+                                tvNoHumans.text = txtNoHumans.get();
                             }
                             else
                             {

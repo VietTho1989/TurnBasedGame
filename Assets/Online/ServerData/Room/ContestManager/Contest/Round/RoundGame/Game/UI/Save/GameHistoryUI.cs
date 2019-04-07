@@ -132,8 +132,8 @@ public class GameHistoryUI : UIBehavior<GameHistoryUI.UIData>
 
     #region txt
 
-    public static readonly TxtLanguage txtView = new TxtLanguage();
-    public static readonly TxtLanguage txtCannotView = new TxtLanguage();
+    private static readonly TxtLanguage txtView = new TxtLanguage("View History");
+    private static readonly TxtLanguage txtCannotView = new TxtLanguage("Not Load History");
 
     static GameHistoryUI()
     {
@@ -195,12 +195,12 @@ public class GameHistoryUI : UIBehavior<GameHistoryUI.UIData>
                             if (history.changes.vs.Count == history.changeCount.v)
                             {
                                 btnView.interactable = true;
-                                tvView.text = txtView.get("View History");
+                                tvView.text = txtView.get();
                             }
                             else
                             {
                                 btnView.interactable = false;
-                                tvView.text = txtCannotView.get("Not Load History");
+                                tvView.text = txtCannotView.get();
                             }
                         }
                         else

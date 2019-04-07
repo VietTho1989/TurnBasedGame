@@ -49,7 +49,7 @@ namespace Reversi
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Default Reversi");
 
         static DefaultReversiUI()
         {
@@ -230,7 +230,7 @@ namespace Reversi
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Default Reversi");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {

@@ -33,7 +33,7 @@ namespace Hint
         #region txt
 
         public Text tvMessage;
-        public static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("Cannot hint");
 
         static NotUI()
         {
@@ -55,7 +55,7 @@ namespace Hint
                     {
                         if (tvMessage != null)
                         {
-                            tvMessage.text = txtMessage.get("Cannot hint");
+                            tvMessage.text = txtMessage.get();
                         }
                         else
                         {

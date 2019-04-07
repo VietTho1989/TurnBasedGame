@@ -42,16 +42,15 @@ public class GamePlayerStateMessageUI : UIBehavior<GamePlayerStateMessageUI.UIDa
 
     #region txt, rect
 
-    public static readonly TxtLanguage txtPlayer = new TxtLanguage();
-    public static readonly TxtLanguage txtPlayerLowerCase = new TxtLanguage();
-    public static readonly TxtLanguage txtSurrender = new TxtLanguage();
+    public static readonly TxtLanguage txtPlayer = new TxtLanguage("Player");
+    public static readonly TxtLanguage txtPlayerLowerCase = new TxtLanguage("player");
+    public static readonly TxtLanguage txtSurrender = new TxtLanguage("surrender");
 
-    public static readonly TxtLanguage txtRequest = new TxtLanguage();
-    public static readonly TxtLanguage txtAccept = new TxtLanguage();
-    public static readonly TxtLanguage txtRefuse = new TxtLanguage();
+    public static readonly TxtLanguage txtRequest = new TxtLanguage("request");
+    public static readonly TxtLanguage txtAccept = new TxtLanguage("accept");
+    public static readonly TxtLanguage txtRefuse = new TxtLanguage("refuse");
 
-    public const string DefaultSurrenderCancellation = "cancel surrender";
-    public static readonly TxtLanguage txtSurrenderCancellation = new TxtLanguage();
+    public static readonly TxtLanguage txtSurrenderCancellation = new TxtLanguage("cancel surrender");
 
     static GamePlayerStateMessageUI()
     {

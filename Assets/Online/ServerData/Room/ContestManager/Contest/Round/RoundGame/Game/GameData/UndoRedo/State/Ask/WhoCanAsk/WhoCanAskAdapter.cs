@@ -83,12 +83,10 @@ namespace UndoRedo
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text tvNoHumans;
-        public static readonly TxtLanguage txtNoHumans = new TxtLanguage();
+        public static readonly TxtLanguage txtNoHumans = new TxtLanguage("Don't have any answerers");
 
         static WhoCanAskAdapter()
         {
@@ -96,6 +94,8 @@ namespace UndoRedo
         }
 
         #endregion
+
+        #region Refresh
 
         public GameObject noHumans;
 
@@ -203,7 +203,7 @@ namespace UndoRedo
                         {
                             if (tvNoHumans != null)
                             {
-                                tvNoHumans.text = txtNoHumans.get("Don't have any answerers");
+                                tvNoHumans.text = txtNoHumans.get();
                             }
                             else
                             {

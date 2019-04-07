@@ -300,17 +300,17 @@ public class Room : Data
 
     #region txt
 
-    private static readonly TxtLanguage txtAllowHintNo = new TxtLanguage();
-    private static readonly TxtLanguage txtAllowHintOnlyWatcher = new TxtLanguage();
-    private static readonly TxtLanguage txtAllowHintAllow = new TxtLanguage();
+    private static readonly TxtLanguage txtAllowHintNo = new TxtLanguage("Not Allow");
+    private static readonly TxtLanguage txtAllowHintOnlyWatcher = new TxtLanguage("Only Watcher");
+    private static readonly TxtLanguage txtAllowHintAllow = new TxtLanguage("Allow");
 
     public static List<string> getAllowHintStr()
     {
         List<string> ret = new List<string>();
         {
-            ret.Add(txtAllowHintNo.get("Not Allow"));
-            ret.Add(txtAllowHintOnlyWatcher.get("Only Watcher"));
-            ret.Add(txtAllowHintAllow.get("Allow"));
+            ret.Add(txtAllowHintNo.get());
+            ret.Add(txtAllowHintOnlyWatcher.get());
+            ret.Add(txtAllowHintAllow.get());
         }
         return ret;
     }
@@ -435,19 +435,19 @@ public class Room : Data
 
     #region txt
 
-    private static readonly TxtLanguage txtChatInGameAll = new TxtLanguage();
-    private static readonly TxtLanguage txtChatInGameOnlyWatcher = new TxtLanguage();
-    private static readonly TxtLanguage txtChatInGameOnlyPlayer = new TxtLanguage();
-    private static readonly TxtLanguage txtChatInGameOnlyAdmin = new TxtLanguage();
+    private static readonly TxtLanguage txtChatInGameAll = new TxtLanguage("All");
+    private static readonly TxtLanguage txtChatInGameOnlyWatcher = new TxtLanguage("Only Watcher");
+    private static readonly TxtLanguage txtChatInGameOnlyPlayer = new TxtLanguage("Only Player");
+    private static readonly TxtLanguage txtChatInGameOnlyAdmin = new TxtLanguage("Only Admin");
 
     public static List<string> getChatInGameStr()
     {
         List<string> ret = new List<string>();
         {
-            ret.Add(txtChatInGameAll.get("All"));
-            ret.Add(txtChatInGameOnlyWatcher.get("Only Watcher"));
-            ret.Add(txtChatInGameOnlyPlayer.get("Only Player"));
-            ret.Add(txtChatInGameOnlyAdmin.get("OnlyAdmin"));
+            ret.Add(txtChatInGameAll.get());
+            ret.Add(txtChatInGameOnlyWatcher.get());
+            ret.Add(txtChatInGameOnlyPlayer.get());
+            ret.Add(txtChatInGameOnlyAdmin.get());
         }
         return ret;
     }

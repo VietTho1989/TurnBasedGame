@@ -45,7 +45,7 @@ namespace Sudoku
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Sudoku AI");
 
         static SudokuAIUI()
         {
@@ -178,7 +178,7 @@ namespace Sudoku
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Sudoku AI");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {

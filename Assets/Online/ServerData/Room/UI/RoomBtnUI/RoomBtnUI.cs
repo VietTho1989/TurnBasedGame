@@ -86,7 +86,7 @@ namespace GameManager.Match
 
         #region txt
 
-        public static readonly TxtLanguage txtContestManager = new TxtLanguage();
+        public static readonly TxtLanguage txtContestManager = new TxtLanguage("Tournament");
 
         static RoomBtnUI()
         {
@@ -150,7 +150,7 @@ namespace GameManager.Match
                                     }
                                     int contestManagerCount = room.contestManagers.vs.Count;
                                     // Set
-                                    tvContestManager.text = txtContestManager.get("Tournament") + ": " + (contestManagerIndex + 1) + "/" + contestManagerCount;
+                                    tvContestManager.text = txtContestManager.get() + ": " + (contestManagerIndex + 1) + "/" + contestManagerCount;
                                 }
                                 else
                                 {

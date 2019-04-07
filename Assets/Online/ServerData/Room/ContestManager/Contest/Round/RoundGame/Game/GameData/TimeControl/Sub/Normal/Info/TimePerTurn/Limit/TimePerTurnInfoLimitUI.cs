@@ -81,15 +81,13 @@ namespace TimeControl.Normal
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Time Per Turn Limit");
 
         public Text lbPerTurn;
-        public static readonly TxtLanguage txtPerTurn = new TxtLanguage();
+        private static readonly TxtLanguage txtPerTurn = new TxtLanguage("Per turn");
 
         static TimePerTurnInfoLimitUI()
         {
@@ -106,6 +104,8 @@ namespace TimeControl.Normal
         }
 
         #endregion
+
+        #region Refresh
 
         private bool needReset = true;
 
@@ -309,7 +309,7 @@ namespace TimeControl.Normal
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Time Per Turn Limit");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -317,7 +317,7 @@ namespace TimeControl.Normal
                             }
                             if (lbPerTurn != null)
                             {
-                                lbPerTurn.text = txtPerTurn.get("Per turn");
+                                lbPerTurn.text = txtPerTurn.get();
                             }
                             else
                             {

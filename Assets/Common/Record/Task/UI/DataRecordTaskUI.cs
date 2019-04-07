@@ -66,14 +66,12 @@ namespace Record
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
-        public static readonly TxtLanguage txtNone = new TxtLanguage();
-        public static readonly TxtLanguage txtStart = new TxtLanguage();
-        public static readonly TxtLanguage txtRecord = new TxtLanguage();
-        public static readonly TxtLanguage txtFinish = new TxtLanguage();
+        private static readonly TxtLanguage txtNone = new TxtLanguage("Record");
+        private static readonly TxtLanguage txtStart = new TxtLanguage("Starting...");
+        private static readonly TxtLanguage txtRecord = new TxtLanguage("Recording, stop?");
+        private static readonly TxtLanguage txtFinish = new TxtLanguage("Finish, save?");
 
         static DataRecordTaskUI()
         {
@@ -84,6 +82,8 @@ namespace Record
         }
 
         #endregion
+
+        #region Refresh
 
         public Button btnRecord;
         public Text tvRecord;
@@ -107,25 +107,25 @@ namespace Record
                                     case DataRecordTask.State.None:
                                         {
                                             btnRecord.interactable = true;
-                                            tvRecord.text = txtNone.get("Record");
+                                            tvRecord.text = txtNone.get();
                                         }
                                         break;
                                     case DataRecordTask.State.Start:
                                         {
                                             btnRecord.interactable = true;
-                                            tvRecord.text = txtStart.get("Starting...");
+                                            tvRecord.text = txtStart.get();
                                         }
                                         break;
                                     case DataRecordTask.State.Record:
                                         {
                                             btnRecord.interactable = true;
-                                            tvRecord.text = txtRecord.get("Recording, stop?");
+                                            tvRecord.text = txtRecord.get();
                                         }
                                         break;
                                     case DataRecordTask.State.Finish:
                                         {
                                             btnRecord.interactable = true;
-                                            tvRecord.text = txtFinish.get("Finish, save?");
+                                            tvRecord.text = txtFinish.get();
                                         }
                                         break;
                                     default:

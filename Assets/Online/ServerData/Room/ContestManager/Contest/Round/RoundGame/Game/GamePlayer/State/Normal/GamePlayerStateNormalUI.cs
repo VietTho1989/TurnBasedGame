@@ -70,14 +70,14 @@ public class GamePlayerStateNormalUI : UIHaveTransformDataBehavior<GamePlayerSta
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Do you want to surrender?");
 
-    private static readonly TxtLanguage txtSurrender = new TxtLanguage();
-    private static readonly TxtLanguage txtCancelSurrender = new TxtLanguage();
-    private static readonly TxtLanguage txtSurrenderring = new TxtLanguage();
-    private static readonly TxtLanguage txtCannotSurrender = new TxtLanguage();
+    private static readonly TxtLanguage txtSurrender = new TxtLanguage("Surrender");
+    private static readonly TxtLanguage txtCancelSurrender = new TxtLanguage("Cancel surrender?");
+    private static readonly TxtLanguage txtSurrenderring = new TxtLanguage("Surrendering");
+    private static readonly TxtLanguage txtCannotSurrender = new TxtLanguage("Cannot surrender");
 
-    private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+    private static readonly TxtLanguage txtRequestError = new TxtLanguage("send request to surrender error");
 
     static GamePlayerStateNormalUI()
     {
@@ -161,19 +161,19 @@ public class GamePlayerStateNormalUI : UIHaveTransformDataBehavior<GamePlayerSta
                                     case UIData.State.None:
                                         {
                                             btnSurrender.interactable = true;
-                                            tvSurrender.text = txtSurrender.get("Surrender");
+                                            tvSurrender.text = txtSurrender.get();
                                         }
                                         break;
                                     case UIData.State.Request:
                                         {
                                             btnSurrender.interactable = true;
-                                            tvSurrender.text = txtCancelSurrender.get("Cancel surrender?");
+                                            tvSurrender.text = txtCancelSurrender.get();
                                         }
                                         break;
                                     case UIData.State.Wait:
                                         {
                                             btnSurrender.interactable = false;
-                                            tvSurrender.text = txtSurrenderring.get("Surrendering");
+                                            tvSurrender.text = txtSurrenderring.get();
                                         }
                                         break;
                                     default:
@@ -198,7 +198,7 @@ public class GamePlayerStateNormalUI : UIHaveTransformDataBehavior<GamePlayerSta
                         {
                             if (btnSurrender != null && tvSurrender != null)
                             {
-                                tvSurrender.text = txtCannotSurrender.get("Cannot surrender");
+                                tvSurrender.text = txtCannotSurrender.get();
                             }
                             else
                             {
@@ -215,7 +215,7 @@ public class GamePlayerStateNormalUI : UIHaveTransformDataBehavior<GamePlayerSta
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Do you want to surrender?");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -254,7 +254,7 @@ public class GamePlayerStateNormalUI : UIHaveTransformDataBehavior<GamePlayerSta
             {
                 Debug.LogError("data null: " + this);
             }
-            Toast.showMessage(txtRequestError.get("send request to surrender error"));
+            Toast.showMessage(txtRequestError.get());
             Debug.LogError("request error: " + this);
         }
         else

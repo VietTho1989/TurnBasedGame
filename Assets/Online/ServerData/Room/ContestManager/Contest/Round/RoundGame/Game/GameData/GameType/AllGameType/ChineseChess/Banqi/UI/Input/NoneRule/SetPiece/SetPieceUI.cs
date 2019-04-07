@@ -71,13 +71,13 @@ namespace Banqi.NoneRule
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Select Piece To Set");
 
         public Text tvFaceUp;
-        private static readonly TxtLanguage txtFaceUp = new TxtLanguage();
+        private static readonly TxtLanguage txtFaceUp = new TxtLanguage("Face Up");
 
         public Text tvChoose;
-        private static readonly TxtLanguage txtChoose = new TxtLanguage();
+        private static readonly TxtLanguage txtChoose = new TxtLanguage("Choose");
 
         static SetPieceUI()
         {
@@ -216,7 +216,7 @@ namespace Banqi.NoneRule
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Select Piece To Set");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -224,7 +224,7 @@ namespace Banqi.NoneRule
                         }
                         if (tvFaceUp != null)
                         {
-                            tvFaceUp.text = txtFaceUp.get("Face Up");
+                            tvFaceUp.text = txtFaceUp.get();
                         }
                         else
                         {
@@ -232,7 +232,7 @@ namespace Banqi.NoneRule
                         }
                         if (tvChoose != null)
                         {
-                            tvChoose.text = txtChoose.get("Choose");
+                            tvChoose.text = txtChoose.get();
                         }
                         else
                         {

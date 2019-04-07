@@ -221,19 +221,19 @@ namespace Xiangqi
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Xiangqi AI");
 
         public Text lbDepth;
-        public static readonly TxtLanguage txtDepth = new TxtLanguage();
+        private static readonly TxtLanguage txtDepth = new TxtLanguage("Depth");
 
         public Text lbThinkTime;
-        public static readonly TxtLanguage txtThinkTime = new TxtLanguage();
+        private static readonly TxtLanguage txtThinkTime = new TxtLanguage("Think time");
 
         public Text lbUseBook;
-        public static readonly TxtLanguage txtUseBook = new TxtLanguage();
+        private static readonly TxtLanguage txtUseBook = new TxtLanguage("Use book");
 
         public Text lbPickBestMove;
-        public static readonly TxtLanguage txtPickBestMove = new TxtLanguage();
+        private static readonly TxtLanguage txtPickBestMove = new TxtLanguage("Pick best move");
 
         static XiangqiAIUI()
         {
@@ -716,7 +716,7 @@ namespace Xiangqi
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Xiangqi AI");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -724,7 +724,7 @@ namespace Xiangqi
                         }
                         if (lbDepth != null)
                         {
-                            lbDepth.text = txtDepth.get("Depth");
+                            lbDepth.text = txtDepth.get();
                         }
                         else
                         {
@@ -732,7 +732,7 @@ namespace Xiangqi
                         }
                         if (lbThinkTime != null)
                         {
-                            lbThinkTime.text = txtThinkTime.get("Think time");
+                            lbThinkTime.text = txtThinkTime.get();
                         }
                         else
                         {
@@ -740,7 +740,7 @@ namespace Xiangqi
                         }
                         if (lbUseBook != null)
                         {
-                            lbUseBook.text = txtUseBook.get("Use book");
+                            lbUseBook.text = txtUseBook.get();
                         }
                         else
                         {
@@ -748,7 +748,7 @@ namespace Xiangqi
                         }
                         if (lbPickBestMove != null)
                         {
-                            lbPickBestMove.text = txtPickBestMove.get("Pick best move");
+                            lbPickBestMove.text = txtPickBestMove.get();
                         }
                         else
                         {

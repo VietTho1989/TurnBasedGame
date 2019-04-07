@@ -244,23 +244,23 @@ namespace TimeControl
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Time Control");
 
         public Text lbIsEnable;
-        private static readonly TxtLanguage txtIsEnable = new TxtLanguage();
+        private static readonly TxtLanguage txtIsEnable = new TxtLanguage("Enable");
 
         public Text lbAICanTimeOut;
-        private static readonly TxtLanguage txtAICanTimeOut = new TxtLanguage();
+        private static readonly TxtLanguage txtAICanTimeOut = new TxtLanguage("AI can timeout");
 
         public Text lbUse;
-        private static readonly TxtLanguage txtUse = new TxtLanguage();
-        private static readonly TxtLanguage txtServer = new TxtLanguage();
-        private static readonly TxtLanguage txtClient = new TxtLanguage();
+        private static readonly TxtLanguage txtUse = new TxtLanguage("Use");
+        private static readonly TxtLanguage txtServer = new TxtLanguage("Server");
+        private static readonly TxtLanguage txtClient = new TxtLanguage("Client");
 
         public Text lbSubType;
-        private static readonly TxtLanguage txtSubType = new TxtLanguage();
-        private static readonly TxtLanguage txtNormal = new TxtLanguage();
-        private static readonly TxtLanguage txtHourglass = new TxtLanguage();
+        private static readonly TxtLanguage txtSubType = new TxtLanguage("Type");
+        private static readonly TxtLanguage txtNormal = new TxtLanguage("Normal");
+        private static readonly TxtLanguage txtHourglass = new TxtLanguage("Hourglass");
 
         static TimeControlUI()
         {
@@ -438,8 +438,8 @@ namespace TimeControl
                                             {
                                                 List<string> options = new List<string>();
                                                 {
-                                                    options.Add(txtServer.get("Server"));
-                                                    options.Add(txtClient.get("Client"));
+                                                    options.Add(txtServer.get());
+                                                    options.Add(txtClient.get());
                                                 }
                                                 use.options.copyList(options);
                                             }
@@ -482,8 +482,8 @@ namespace TimeControl
                                             {
                                                 List<string> options = new List<string>();
                                                 {
-                                                    options.Add(txtNormal.get("Normal"));
-                                                    options.Add(txtHourglass.get("Hourglass"));
+                                                    options.Add(txtNormal.get());
+                                                    options.Add(txtHourglass.get());
                                                 }
                                                 subType.options.copyList(options);
                                             }
@@ -898,7 +898,7 @@ namespace TimeControl
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Time Control");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -906,7 +906,7 @@ namespace TimeControl
                             }
                             if (lbIsEnable != null)
                             {
-                                lbIsEnable.text = txtIsEnable.get("Enable");
+                                lbIsEnable.text = txtIsEnable.get();
                             }
                             else
                             {
@@ -914,7 +914,7 @@ namespace TimeControl
                             }
                             if (lbAICanTimeOut != null)
                             {
-                                lbAICanTimeOut.text = txtAICanTimeOut.get("AI can timeout");
+                                lbAICanTimeOut.text = txtAICanTimeOut.get();
                             }
                             else
                             {
@@ -922,7 +922,7 @@ namespace TimeControl
                             }
                             if (lbUse != null)
                             {
-                                lbUse.text = txtUse.get("Use");
+                                lbUse.text = txtUse.get();
                             }
                             else
                             {
@@ -930,7 +930,7 @@ namespace TimeControl
                             }
                             if (lbSubType != null)
                             {
-                                lbSubType.text = txtSubType.get("Type");
+                                lbSubType.text = txtSubType.get();
                             }
                             else
                             {

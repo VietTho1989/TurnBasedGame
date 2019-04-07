@@ -66,12 +66,10 @@ namespace TimeControl.Normal
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Time Control Normal");
 
         static TimeControlNormalUI()
         {
@@ -79,6 +77,8 @@ namespace TimeControl.Normal
         }
 
         #endregion
+
+        #region Refresh
 
         private bool needReset = true;
 
@@ -290,7 +290,7 @@ namespace TimeControl.Normal
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Time Control Normal");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {

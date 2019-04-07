@@ -60,7 +60,7 @@ namespace Shogi
         public Text lbTitle;
 
         public Text tvMessage;
-        private static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("https://en.wikipedia.org/wiki/Shogi");
 
         public Text lbFen;
         public Button btnCopyFen;
@@ -205,7 +205,7 @@ namespace Shogi
                             }
                             if (tvMessage != null)
                             {
-                                tvMessage.text = txtMessage.get("https://en.wikipedia.org/wiki/Shogi");
+                                tvMessage.text = txtMessage.get();
                             }
                             else
                             {

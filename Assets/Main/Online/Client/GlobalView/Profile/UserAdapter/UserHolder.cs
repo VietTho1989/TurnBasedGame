@@ -60,15 +60,13 @@ public class UserHolder : SriaHolderBehavior<UserHolder.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text tvView;
-    public static readonly TxtLanguage txtView = new TxtLanguage();
+    private static readonly TxtLanguage txtView = new TxtLanguage("View");
 
-    private static readonly TxtLanguage txtName = new TxtLanguage();
-    private static readonly TxtLanguage txtIpAddress = new TxtLanguage();
+    private static readonly TxtLanguage txtName = new TxtLanguage("Name");
+    private static readonly TxtLanguage txtIpAddress = new TxtLanguage("IP address");
 
     static UserHolder()
     {
@@ -108,6 +106,8 @@ public class UserHolder : SriaHolderBehavior<UserHolder.UIData>
     }
 
     #endregion
+
+    #region Refresh
 
     public Text tvId;
     public Text tvName;
@@ -165,7 +165,7 @@ public class UserHolder : SriaHolderBehavior<UserHolder.UIData>
                     {
                         if (tvName != null)
                         {
-                            tvName.text = txtName.get("Name") + ": " + user.human.v.getPlayerName();
+                            tvName.text = txtName.get() + ": " + user.human.v.getPlayerName();
                         }
                         else
                         {
@@ -176,7 +176,7 @@ public class UserHolder : SriaHolderBehavior<UserHolder.UIData>
                     {
                         if (tvIpAddress != null)
                         {
-                            tvIpAddress.text = txtIpAddress.get("IP Address") + ": " + user.ipAddress.v;
+                            tvIpAddress.text = txtIpAddress.get() + ": " + user.ipAddress.v;
                         }
                         else
                         {
@@ -213,7 +213,7 @@ public class UserHolder : SriaHolderBehavior<UserHolder.UIData>
                     {
                         if (tvView != null)
                         {
-                            tvView.text = txtView.get("View");
+                            tvView.text = txtView.get();
                         }
                         else
                         {

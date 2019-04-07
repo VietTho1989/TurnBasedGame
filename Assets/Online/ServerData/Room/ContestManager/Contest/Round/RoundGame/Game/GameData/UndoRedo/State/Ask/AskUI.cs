@@ -77,27 +77,27 @@ namespace UndoRedo
 
         #region txt
 
-        private static readonly TxtLanguage txtLastTurn = new TxtLanguage();
-        private static readonly TxtLanguage txtLastYourTurn = new TxtLanguage();
+        private static readonly TxtLanguage txtLastTurn = new TxtLanguage("Last Turn");
+        private static readonly TxtLanguage txtLastYourTurn = new TxtLanguage("Last Your Turn");
 
-        private static readonly TxtLanguage txtAlreadyAccept = new TxtLanguage();
-        private static readonly TxtLanguage txtAccept = new TxtLanguage();
-        private static readonly TxtLanguage txtAlreadyCancel = new TxtLanguage();
-        private static readonly TxtLanguage txtCancel = new TxtLanguage();
+        private static readonly TxtLanguage txtAlreadyAccept = new TxtLanguage("Already Accept");
+        private static readonly TxtLanguage txtAccept = new TxtLanguage("Accept");
+        private static readonly TxtLanguage txtAlreadyCancel = new TxtLanguage("Already Cancel");
+        private static readonly TxtLanguage txtCancel = new TxtLanguage("Cancel");
 
-        private static readonly TxtLanguage txtCannotAccept = new TxtLanguage();
-        private static readonly TxtLanguage txtCannotCancel = new TxtLanguage();
+        private static readonly TxtLanguage txtCannotAccept = new TxtLanguage("Cannot accept");
+        private static readonly TxtLanguage txtCannotCancel = new TxtLanguage("Cannot cancel");
 
-        private static readonly TxtLanguage txtCancelAccept = new TxtLanguage();
-        private static readonly TxtLanguage txtCancelCancel = new TxtLanguage();
+        private static readonly TxtLanguage txtCancelAccept = new TxtLanguage("Cancel request accept?");
+        private static readonly TxtLanguage txtCancelCancel = new TxtLanguage("Cancel request cancel?");
 
-        private static readonly TxtLanguage txtAccepting = new TxtLanguage();
-        private static readonly TxtLanguage txtCancelling = new TxtLanguage();
+        private static readonly TxtLanguage txtAccepting = new TxtLanguage("Requesting accept");
+        private static readonly TxtLanguage txtCancelling = new TxtLanguage("Requesting cancel");
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Answer Undo/Redo Request");
 
-        private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+        private static readonly TxtLanguage txtRequestError = new TxtLanguage("Send request error");
 
         static AskUI()
         {
@@ -176,13 +176,13 @@ namespace UndoRedo
                                         case RequestInform.Type.LastTurn:
                                             {
                                                 RequestLastTurn requestLastTurn = requestInform as RequestLastTurn;
-                                                tvRequestInform.text = txtLastTurn.get("Last Turn") + " " + requestLastTurn.operation.v;
+                                                tvRequestInform.text = txtLastTurn.get() + " " + requestLastTurn.operation.v;
                                             }
                                             break;
                                         case RequestInform.Type.LastYourTurn:
                                             {
                                                 RequestLastYourTurn requestLastYourTurn = requestInform as RequestLastYourTurn;
-                                                tvRequestInform.text = txtLastYourTurn.get("Last Your Turn") + ": " + requestLastYourTurn.operation.v;
+                                                tvRequestInform.text = txtLastYourTurn.get() + ": " + requestLastYourTurn.operation.v;
                                             }
                                             break;
                                         default:
@@ -311,12 +311,12 @@ namespace UndoRedo
                                                         if (ask.accepts.vs.Contains(profileId))
                                                         {
                                                             btnAccept.interactable = false;
-                                                            tvAccept.text = txtAlreadyAccept.get("Already Accept");
+                                                            tvAccept.text = txtAlreadyAccept.get();
                                                         }
                                                         else
                                                         {
                                                             btnAccept.interactable = true;
-                                                            tvAccept.text = txtAccept.get("Accept");
+                                                            tvAccept.text = txtAccept.get();
                                                         }
                                                     }
                                                     // btnCancel
@@ -324,12 +324,12 @@ namespace UndoRedo
                                                         if (ask.cancels.vs.Contains(profileId))
                                                         {
                                                             btnCancel.interactable = false;
-                                                            tvCancel.text = txtAlreadyCancel.get("Already Cancel");
+                                                            tvCancel.text = txtAlreadyCancel.get();
                                                         }
                                                         else
                                                         {
                                                             btnCancel.interactable = true;
-                                                            tvCancel.text = txtCancel.get("Cancel");
+                                                            tvCancel.text = txtCancel.get();
                                                         }
                                                     }
                                                 }
@@ -339,12 +339,12 @@ namespace UndoRedo
                                                     // btnAccept
                                                     {
                                                         btnAccept.interactable = true;
-                                                        tvAccept.text = txtCancelAccept.get("Cancel request accept?");
+                                                        tvAccept.text = txtCancelAccept.get();
                                                     }
                                                     // btnCancel
                                                     {
                                                         btnCancel.interactable = false;
-                                                        tvCancel.text = txtCannotCancel.get("Cannot cancel");
+                                                        tvCancel.text = txtCannotCancel.get();
                                                     }
                                                 }
                                                 break;
@@ -353,12 +353,12 @@ namespace UndoRedo
                                                     // btnAccept
                                                     {
                                                         btnAccept.interactable = false;
-                                                        tvAccept.text = txtAccepting.get("Requesting accept");
+                                                        tvAccept.text = txtAccepting.get();
                                                     }
                                                     // btnCancel
                                                     {
                                                         btnCancel.interactable = false;
-                                                        tvCancel.text = txtCannotCancel.get("Cannot cancel");
+                                                        tvCancel.text = txtCannotCancel.get();
                                                     }
                                                 }
                                                 break;
@@ -367,12 +367,12 @@ namespace UndoRedo
                                                     // btnAccept
                                                     {
                                                         btnAccept.interactable = false;
-                                                        tvAccept.text = txtCannotAccept.get("Cannot accept");
+                                                        tvAccept.text = txtCannotAccept.get();
                                                     }
                                                     // btnCancel
                                                     {
                                                         btnCancel.interactable = true;
-                                                        tvCancel.text = txtCancelCancel.get("Cancel request cancel?");
+                                                        tvCancel.text = txtCancelCancel.get();
                                                     }
                                                 }
                                                 break;
@@ -381,12 +381,12 @@ namespace UndoRedo
                                                     // btnAccept
                                                     {
                                                         btnAccept.interactable = false;
-                                                        tvAccept.text = txtCannotAccept.get("Cannot accept");
+                                                        tvAccept.text = txtCannotAccept.get();
                                                     }
                                                     // btnCancel
                                                     {
                                                         btnCancel.interactable = false;
-                                                        tvCancel.text = txtCancelling.get("Requesting cancel");
+                                                        tvCancel.text = txtCancelling.get();
                                                     }
                                                 }
                                                 break;
@@ -429,7 +429,7 @@ namespace UndoRedo
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Answer Undo/Redo Request");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -461,7 +461,7 @@ namespace UndoRedo
             {
                 yield return new Wait(Global.WaitSendTime);
                 this.data.state.v = UIData.State.None;
-                Toast.showMessage(txtRequestError.get("Send request error"));
+                Toast.showMessage(txtRequestError.get());
             }
             else
             {

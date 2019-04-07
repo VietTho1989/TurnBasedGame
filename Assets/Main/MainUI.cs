@@ -145,17 +145,21 @@ public class MainUI : UIBehavior<MainUI.UIData>
         // Debug.LogError ("OnApplicationPause: " + pauseStatus);
     }
 
-    #region Refresh
+    #region txt
 
     public Text tvSetting;
-    public static readonly TxtLanguage txtSetting = new TxtLanguage();
-    public static readonly TxtLanguage txtHideSetting = new TxtLanguage();
+    private static readonly TxtLanguage txtSetting = new TxtLanguage("Setting");
+    private static readonly TxtLanguage txtHideSetting = new TxtLanguage("Hide Setting");
 
     static MainUI()
     {
         txtSetting.add(Language.Type.vi, "Thiết Lập");
         txtHideSetting.add(Language.Type.vi, "Giấu Thiết Lập");
     }
+
+    #endregion
+
+    #region Refresh
 
     public override void refresh()
     {

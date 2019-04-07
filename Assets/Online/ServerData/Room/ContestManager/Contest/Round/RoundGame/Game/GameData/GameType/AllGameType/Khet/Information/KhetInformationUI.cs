@@ -60,14 +60,14 @@ namespace Khet
         public Text lbTitle;
 
         public Text tvMessage;
-        private static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("https://en.wikipedia.org/wiki/Khet_(game)");
 
         public Text lbFen;
         public Button btnCopyFen;
 
         public Text lbStartPos;
         public Dropdown drStartPos;
-        private static readonly TxtLanguage txtStartPos = new TxtLanguage();
+        private static readonly TxtLanguage txtStartPos = new TxtLanguage("Start pos");
 
         static KhetInformationUI()
         {
@@ -254,7 +254,7 @@ namespace Khet
                             }
                             if (tvMessage != null)
                             {
-                                tvMessage.text = txtMessage.get("https://en.wikipedia.org/wiki/Khet_(game)");
+                                tvMessage.text = txtMessage.get();
                             }
                             else
                             {
@@ -262,7 +262,7 @@ namespace Khet
                             }
                             if (lbStartPos != null)
                             {
-                                lbStartPos.text = txtStartPos.get("Start Pos");
+                                lbStartPos.text = txtStartPos.get();
                             }
                             else
                             {

@@ -169,14 +169,14 @@ public class RoomChatUI : UIBehavior<RoomChatUI.UIData>
     #region txt, rect
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Chat Room");
 
     public Image bgNotAllowChat;
     public Text tvNotAllowChat;
-    private static readonly TxtLanguage txtChatInGameAll = new TxtLanguage();
-    private static readonly TxtLanguage txtChatInGameOnlyWatcher = new TxtLanguage();
-    private static readonly TxtLanguage txtChatInGameOnlyPlayer = new TxtLanguage();
-    private static readonly TxtLanguage txtChatInGameOnlyAdmin = new TxtLanguage();
+    private static readonly TxtLanguage txtChatInGameAll = new TxtLanguage("Admin allow all to chat");
+    private static readonly TxtLanguage txtChatInGameOnlyWatcher = new TxtLanguage("Admin allow only watcher to chat");
+    private static readonly TxtLanguage txtChatInGameOnlyPlayer = new TxtLanguage("Admin allow only player to chat");
+    private static readonly TxtLanguage txtChatInGameOnlyAdmin = new TxtLanguage("Admin not allow to chat");
 
     static RoomChatUI()
     {
@@ -466,16 +466,16 @@ public class RoomChatUI : UIBehavior<RoomChatUI.UIData>
                                 switch (chatInGame)
                                 {
                                     case Room.ChatInGame.All:
-                                        tvNotAllowChat.text = txtChatInGameAll.get("Admin allow all to chat");
+                                        tvNotAllowChat.text = txtChatInGameAll.get();
                                         break;
                                     case Room.ChatInGame.OnlyWatcher:
-                                        tvNotAllowChat.text = txtChatInGameOnlyWatcher.get("Admin allow only watcher to chat");
+                                        tvNotAllowChat.text = txtChatInGameOnlyWatcher.get();
                                         break;
                                     case Room.ChatInGame.OnlyPlayer:
-                                        tvNotAllowChat.text = txtChatInGameOnlyPlayer.get("Admin allow only player to chat");
+                                        tvNotAllowChat.text = txtChatInGameOnlyPlayer.get();
                                         break;
                                     case Room.ChatInGame.OnlyAdmin:
-                                        tvNotAllowChat.text = txtChatInGameOnlyAdmin.get("Admin not allow to chat");
+                                        tvNotAllowChat.text = txtChatInGameOnlyAdmin.get();
                                         break;
                                     default:
                                         Debug.LogError("unknown chatInGame: " + chatInGame);
@@ -525,7 +525,7 @@ public class RoomChatUI : UIBehavior<RoomChatUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Chat Room");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {

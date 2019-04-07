@@ -63,7 +63,7 @@ namespace RussianDraught
         public Button btnCopyFen;
 
         public Text tvMessage;
-        private static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("https://en.wikipedia.org/wiki/Russian_draughts");
 
         static RussianDraughtInformationUI()
         {
@@ -205,7 +205,7 @@ namespace RussianDraught
                             }
                             if (tvMessage != null)
                             {
-                                tvMessage.text = txtMessage.get("https://en.wikipedia.org/wiki/Russian_draughts");
+                                tvMessage.text = txtMessage.get();
                             }
                             else
                             {

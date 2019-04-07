@@ -130,17 +130,17 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
     #region txt, rect
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Login");
 
     public Text lbAccountType;
-    private static readonly TxtLanguage txtAccountType = new TxtLanguage();
+    private static readonly TxtLanguage txtAccountType = new TxtLanguage("Account type");
 
     static LoginUI()
     {
         // txt
         {
             txtTitle.add(Language.Type.vi, "Đăng Nhập");
-            txtAccountType.add(Language.Type.vi, "Loại Tài Khoản");
+            txtAccountType.add(Language.Type.vi, "Loại tài khoản");
         }
         // rect
         {
@@ -352,7 +352,7 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Login");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -360,7 +360,7 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
                         }
                         if (lbAccountType != null)
                         {
-                            lbAccountType.text = txtAccountType.get("Account Type");
+                            lbAccountType.text = txtAccountType.get();
                         }
                         else
                         {

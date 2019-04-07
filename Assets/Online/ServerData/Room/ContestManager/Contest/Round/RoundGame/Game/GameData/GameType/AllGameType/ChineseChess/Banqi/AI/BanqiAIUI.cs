@@ -84,10 +84,10 @@ namespace Banqi
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Banqi AI");
 
         public Text lbDepth;
-        public static readonly TxtLanguage txtDepth = new TxtLanguage();
+        private static readonly TxtLanguage txtDepth = new TxtLanguage("Depth");
 
         static BanqiAIUI()
         {
@@ -312,7 +312,7 @@ namespace Banqi
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Banqi AI");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -320,7 +320,7 @@ namespace Banqi
                         }
                         if (lbDepth != null)
                         {
-                            lbDepth.text = txtDepth.get("Depth");
+                            lbDepth.text = txtDepth.get();
                         }
                         else
                         {

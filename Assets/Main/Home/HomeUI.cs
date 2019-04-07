@@ -90,25 +90,25 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
 
     public Button btnOffline;
     public Text tvOffline;
-    private static readonly TxtLanguage txtOffline = new TxtLanguage();
+    private static readonly TxtLanguage txtOffline = new TxtLanguage("Play Offline");
 
     public Button btnLan;
     public Text tvLan;
-    private static readonly TxtLanguage txtLan = new TxtLanguage();
+    private static readonly TxtLanguage txtLan = new TxtLanguage("Play LAN");
 
     public Button btnOnline;
     public Text tvOnline;
-    private static readonly TxtLanguage txtOnline = new TxtLanguage();
+    private static readonly TxtLanguage txtOnline = new TxtLanguage("Play Online");
 
     public Button btnLoad;
     public Text tvLoad;
-    private static readonly TxtLanguage txtLoad = new TxtLanguage();
+    private static readonly TxtLanguage txtLoad = new TxtLanguage("Load");
 
     public Button btnViewAds;
     public Text tvViewAds;
-    private static readonly TxtLanguage txtViewAds = new TxtLanguage();
+    private static readonly TxtLanguage txtViewAds = new TxtLanguage("View Ads");
 
-    private static readonly TxtLanguage txtThankYou = new TxtLanguage();
+    private static readonly TxtLanguage txtThankYou = new TxtLanguage("Thank you so much");
 
     static HomeUI()
     {
@@ -147,7 +147,7 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
                 {
                     if (tvOffline != null)
                     {
-                        tvOffline.text = txtOffline.get("Play Offline");
+                        tvOffline.text = txtOffline.get();
                     }
                     else
                     {
@@ -155,7 +155,7 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
                     }
                     if (tvLan != null)
                     {
-                        tvLan.text = txtLan.get("Play LAN");
+                        tvLan.text = txtLan.get();
                     }
                     else
                     {
@@ -163,7 +163,7 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
                     }
                     if (tvOnline != null)
                     {
-                        tvOnline.text = txtOnline.get("Play Online");
+                        tvOnline.text = txtOnline.get();
                     }
                     else
                     {
@@ -171,7 +171,7 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
                     }
                     if (tvLoad != null)
                     {
-                        tvLoad.text = txtLoad.get("Load");
+                        tvLoad.text = txtLoad.get();
                     }
                     else
                     {
@@ -179,7 +179,7 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
                     }
                     if (tvViewAds != null)
                     {
-                        tvViewAds.text = txtViewAds.get("View Ads");
+                        tvViewAds.text = txtViewAds.get();
                     }
                     else
                     {
@@ -509,7 +509,7 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
     {
         AdsManager.get().showFullScreenAds();
         AdsManager.get().lastClickBanner.v = float.MinValue;
-        Toast.showMessage(txtThankYou.get("Thank you so much"));
+        Toast.showMessage(txtThankYou.get());
     }
 
     #endregion

@@ -42,12 +42,10 @@ namespace TimeControl.Normal
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Total Time No Limit");
 
         static TotalTimeInfoNoLimitUI()
         {
@@ -55,6 +53,8 @@ namespace TimeControl.Normal
         }
 
         #endregion
+
+        #region Refresh
 
         private bool needReset = true;
 
@@ -171,7 +171,7 @@ namespace TimeControl.Normal
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Total Time No Limit");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {

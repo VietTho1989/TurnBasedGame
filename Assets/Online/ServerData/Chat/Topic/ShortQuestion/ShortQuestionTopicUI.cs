@@ -44,7 +44,7 @@ public class ShortQuestionTopicUI : UIBehavior<ShortQuestionTopicUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Short Question");
 
     static ShortQuestionTopicUI()
     {
@@ -66,7 +66,7 @@ public class ShortQuestionTopicUI : UIBehavior<ShortQuestionTopicUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Short Question");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {

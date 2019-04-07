@@ -41,7 +41,7 @@ namespace LoginState
         #region txt
 
         public Text tvSuccess;
-        public static readonly TxtLanguage txtSuccess = new TxtLanguage();
+        private static readonly TxtLanguage txtSuccess = new TxtLanguage("Login success");
 
         static StateSuccessUI()
         {
@@ -64,7 +64,7 @@ namespace LoginState
                     {
                         if (tvSuccess != null)
                         {
-                            tvSuccess.text = txtSuccess.get("Login success");
+                            tvSuccess.text = txtSuccess.get();
                         }
                         else
                         {

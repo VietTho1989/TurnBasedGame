@@ -272,35 +272,35 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Human");
 
     public Text lbPlayerId;
-    public static readonly TxtLanguage txtPlayerId = new TxtLanguage();
+    private static readonly TxtLanguage txtPlayerId = new TxtLanguage("Id");
 
     public Text lbEmail;
-    public static readonly TxtLanguage txtEmail = new TxtLanguage();
+    private static readonly TxtLanguage txtEmail = new TxtLanguage("Email");
 
     public Text lbPhoneNumber;
-    public static readonly TxtLanguage txtPhoneNumber = new TxtLanguage();
+    private static readonly TxtLanguage txtPhoneNumber = new TxtLanguage("Phone number");
 
     public Text lbStatus;
-    public static readonly TxtLanguage txtStatus = new TxtLanguage();
+    private static readonly TxtLanguage txtStatus = new TxtLanguage("Status");
 
     public Text lbBirthday;
-    public static readonly TxtLanguage txtBirthday = new TxtLanguage();
+    private static readonly TxtLanguage txtBirthday = new TxtLanguage("Birthday");
 
     public Text lbSex;
-    public static readonly TxtLanguage txtSex = new TxtLanguage();
+    private static readonly TxtLanguage txtSex = new TxtLanguage("Sex");
 
     public Text lbBan;
-    public static readonly TxtLanguage txtBan = new TxtLanguage();
+    private static readonly TxtLanguage txtBan = new TxtLanguage("Ban");
 
     static HumanUI()
     {
         // txt
         {
             txtTitle.add(Language.Type.vi, "Con người");
-            txtPlayerId.add(Language.Type.vi, "Id người chơi");
+            txtPlayerId.add(Language.Type.vi, "Id");
             txtEmail.add(Language.Type.vi, "Email");
             txtPhoneNumber.add(Language.Type.vi, "Số điện thoại");
             txtStatus.add(Language.Type.vi, "Status");
@@ -1107,7 +1107,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Human");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -1115,7 +1115,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                     }
                     if (lbPlayerId != null)
                     {
-                        lbPlayerId.text = txtPlayerId.get("PlayerId");
+                        lbPlayerId.text = txtPlayerId.get();
                     }
                     else
                     {
@@ -1123,7 +1123,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                     }
                     if (lbEmail != null)
                     {
-                        lbEmail.text = txtEmail.get("Email");
+                        lbEmail.text = txtEmail.get();
                     }
                     else
                     {
@@ -1131,7 +1131,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                     }
                     if (lbPhoneNumber != null)
                     {
-                        lbPhoneNumber.text = txtPhoneNumber.get("Phone Number");
+                        lbPhoneNumber.text = txtPhoneNumber.get();
                     }
                     else
                     {
@@ -1139,7 +1139,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                     }
                     if (lbStatus != null)
                     {
-                        lbStatus.text = txtStatus.get("Status");
+                        lbStatus.text = txtStatus.get();
                     }
                     else
                     {
@@ -1147,7 +1147,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                     }
                     if (lbBirthday != null)
                     {
-                        lbBirthday.text = txtBirthday.get("Birthday");
+                        lbBirthday.text = txtBirthday.get();
                     }
                     else
                     {
@@ -1155,7 +1155,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                     }
                     if (lbSex != null)
                     {
-                        lbSex.text = txtSex.get("Sex");
+                        lbSex.text = txtSex.get();
                     }
                     else
                     {
@@ -1163,7 +1163,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                     }
                     if (lbBan != null)
                     {
-                        lbBan.text = txtBan.get("Ban");
+                        lbBan.text = txtBan.get();
                     }
                     else
                     {

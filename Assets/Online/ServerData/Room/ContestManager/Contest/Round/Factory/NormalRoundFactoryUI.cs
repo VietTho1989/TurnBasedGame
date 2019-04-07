@@ -235,19 +235,19 @@ namespace GameManager.Match
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Set Factory");
 
         public Text lbIsChangeSideBetweenRound;
-        private static readonly TxtLanguage txtIsChangeSideBetweenRound = new TxtLanguage();
+        private static readonly TxtLanguage txtIsChangeSideBetweenRound = new TxtLanguage("Change side between round");
 
         public Text lbIsSwitchPlayer;
-        private static readonly TxtLanguage txtIsSwitchPlayer = new TxtLanguage();
+        private static readonly TxtLanguage txtIsSwitchPlayer = new TxtLanguage("Switch player");
 
         public Text lbIsDifferentInTeam;
-        private static readonly TxtLanguage txtIsDifferentInTeam = new TxtLanguage();
+        private static readonly TxtLanguage txtIsDifferentInTeam = new TxtLanguage("Different in team");
 
         public Text lbCalculateScoreType;
-        private static readonly TxtLanguage txtCalculateScoreType = new TxtLanguage();
+        private static readonly TxtLanguage txtCalculateScoreType = new TxtLanguage("Calculate score type");
 
         static NormalRoundFactoryUI()
         {
@@ -887,7 +887,7 @@ namespace GameManager.Match
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Set Factory");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -895,7 +895,7 @@ namespace GameManager.Match
                         }
                         if (lbIsChangeSideBetweenRound != null)
                         {
-                            lbIsChangeSideBetweenRound.text = txtIsChangeSideBetweenRound.get("Change side between round");
+                            lbIsChangeSideBetweenRound.text = txtIsChangeSideBetweenRound.get();
                         }
                         else
                         {
@@ -903,7 +903,7 @@ namespace GameManager.Match
                         }
                         if (lbIsSwitchPlayer != null)
                         {
-                            lbIsSwitchPlayer.text = txtIsSwitchPlayer.get("Switch player");
+                            lbIsSwitchPlayer.text = txtIsSwitchPlayer.get();
                         }
                         else
                         {
@@ -911,7 +911,7 @@ namespace GameManager.Match
                         }
                         if (lbIsDifferentInTeam != null)
                         {
-                            lbIsDifferentInTeam.text = txtIsDifferentInTeam.get("Different in team");
+                            lbIsDifferentInTeam.text = txtIsDifferentInTeam.get();
                         }
                         else
                         {
@@ -919,7 +919,7 @@ namespace GameManager.Match
                         }
                         if (lbCalculateScoreType != null)
                         {
-                            lbCalculateScoreType.text = txtCalculateScoreType.get("Calculate score type");
+                            lbCalculateScoreType.text = txtCalculateScoreType.get();
                         }
                         else
                         {

@@ -52,42 +52,25 @@ public class RoomHolder : SriaHolderBehavior<RoomHolder.UIData>
 
     #endregion
 
-    #region Refresh
-
-    public Text tvId;
-
-    public Text tvName;
-
-    public Text tvPlayers;
-
-    public Text tvState;
-
-    public Text tvTime;
-
-    public Text tvGameType;
-    public Text tvContestManagerState;
-
-    public Image imgPassword;
-
     #region txt
 
     public Text tvCanJoinRoom;
-    private static readonly TxtLanguage txtCannotJoinRoom = new TxtLanguage();
-    private static readonly TxtLanguage txtCanJoinRoom = new TxtLanguage();
+    private static readonly TxtLanguage txtCannotJoinRoom = new TxtLanguage("Cannot Join");
+    private static readonly TxtLanguage txtCanJoinRoom = new TxtLanguage("Can Join");
 
-    private static readonly TxtLanguage txtId = new TxtLanguage();
-    private static readonly TxtLanguage txtName = new TxtLanguage();
-    private static readonly TxtLanguage txtAdmin = new TxtLanguage();
-    private static readonly TxtLanguage txtUserCount = new TxtLanguage();
+    private static readonly TxtLanguage txtId = new TxtLanguage("Id");
+    private static readonly TxtLanguage txtName = new TxtLanguage("Name");
+    private static readonly TxtLanguage txtAdmin = new TxtLanguage("Admin");
+    private static readonly TxtLanguage txtUserCount = new TxtLanguage("user count");
 
-    private static readonly TxtLanguage txtStateNormal = new TxtLanguage();
-    private static readonly TxtLanguage txtStateFreeze = new TxtLanguage();
-    private static readonly TxtLanguage txtStateEnd = new TxtLanguage();
+    private static readonly TxtLanguage txtStateNormal = new TxtLanguage("Normal");
+    private static readonly TxtLanguage txtStateFreeze = new TxtLanguage("Freeze");
+    private static readonly TxtLanguage txtStateEnd = new TxtLanguage("End");
 
-    private static readonly TxtLanguage txtCreated = new TxtLanguage();
-    private static readonly TxtLanguage txtGameType = new TxtLanguage();
+    private static readonly TxtLanguage txtCreated = new TxtLanguage("created");
+    private static readonly TxtLanguage txtGameType = new TxtLanguage("Game");
 
-    private static readonly TxtLanguage txtState = new TxtLanguage();
+    private static readonly TxtLanguage txtState = new TxtLanguage("State");
 
     static RoomHolder()
     {
@@ -107,6 +90,23 @@ public class RoomHolder : SriaHolderBehavior<RoomHolder.UIData>
     }
 
     #endregion
+
+    #region Refresh
+
+    public Text tvId;
+
+    public Text tvName;
+
+    public Text tvPlayers;
+
+    public Text tvState;
+
+    public Text tvTime;
+
+    public Text tvGameType;
+    public Text tvContestManagerState;
+
+    public Image imgPassword;
 
     public static readonly Color CanJoinColor = new Color(50 / 255f, 50 / 255f, 50 / 255f);
     public static readonly Color CannotJoinColor = Color.red;
@@ -142,12 +142,12 @@ public class RoomHolder : SriaHolderBehavior<RoomHolder.UIData>
                         {
                             if (room.isCanJoinRoom(Server.getProfileUserId(room)) != Room.JoinRoomState.Can)
                             {
-                                tvCanJoinRoom.text = txtCannotJoinRoom.get("Cannot Join");
+                                tvCanJoinRoom.text = txtCannotJoinRoom.get();
                                 tvCanJoinRoom.color = CannotJoinColor;
                             }
                             else
                             {
-                                tvCanJoinRoom.text = txtCanJoinRoom.get("Can Join");
+                                tvCanJoinRoom.text = txtCanJoinRoom.get();
                                 tvCanJoinRoom.color = CanJoinColor;
                             }
                         }
@@ -160,7 +160,7 @@ public class RoomHolder : SriaHolderBehavior<RoomHolder.UIData>
                     {
                         if (tvId != null)
                         {
-                            tvId.text = txtId.get("Id") + ": " + room.uid;
+                            tvId.text = txtId.get() + ": " + room.uid;
                         }
                         else
                         {
@@ -216,8 +216,8 @@ public class RoomHolder : SriaHolderBehavior<RoomHolder.UIData>
                                     Debug.LogError("roomInform null: " + this);
                                 }
                             }
-                            tvPlayers.text = txtAdmin.get("Admin") + ": " + strCreator
-                            + "; " + txtUserCount.get("user count") + ": " + userCount;
+                            tvPlayers.text = txtAdmin.get() + ": " + strCreator
+                            + "; " + txtUserCount.get() + ": " + userCount;
                         }
                         else
                         {
@@ -244,10 +244,10 @@ public class RoomHolder : SriaHolderBehavior<RoomHolder.UIData>
                                                     switch (normalState.getType())
                                                     {
                                                         case RoomStateNormal.State.Type.Normal:
-                                                            tvState.text = txtStateNormal.get("Normal");
+                                                            tvState.text = txtStateNormal.get();
                                                             break;
                                                         case RoomStateNormal.State.Type.Freeze:
-                                                            tvState.text = txtStateFreeze.get("Freeze");
+                                                            tvState.text = txtStateFreeze.get();
                                                             break;
                                                         default:
                                                             Debug.LogError("unkown type: " + normalState.getType() + "; " + this);
@@ -263,7 +263,7 @@ public class RoomHolder : SriaHolderBehavior<RoomHolder.UIData>
                                         break;
                                     case Room.State.Type.End:
                                         {
-                                            tvState.text = txtStateEnd.get("End");
+                                            tvState.text = txtStateEnd.get();
                                         }
                                         break;
                                     default:
@@ -285,7 +285,7 @@ public class RoomHolder : SriaHolderBehavior<RoomHolder.UIData>
                     {
                         if (tvTime != null)
                         {
-                            tvTime.text = txtCreated.get("created") + ": " + Global.getStrTime(room.timeCreated.v);
+                            tvTime.text = txtCreated.get() + ": " + Global.getStrTime(room.timeCreated.v);
                         }
                         else
                         {
@@ -320,7 +320,7 @@ public class RoomHolder : SriaHolderBehavior<RoomHolder.UIData>
                                     Debug.LogError("roomInform null: " + this);
                                 }
                             }
-                            tvContestManagerState.text = txtState.get("State") + ": " + contestManagerState;
+                            tvContestManagerState.text = txtState.get() + ": " + contestManagerState;
                         }
                         else
                         {

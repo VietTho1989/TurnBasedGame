@@ -85,18 +85,16 @@ namespace Posture
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Load Posture");
 
-        public static readonly TxtLanguage txtLoad = new TxtLanguage();
-        public static readonly TxtLanguage txtNotSelectFile = new TxtLanguage();
-        public static readonly TxtLanguage txtLoading = new TxtLanguage();
-        public static readonly TxtLanguage txtLoadSuccess = new TxtLanguage();
-        public static readonly TxtLanguage txtLoadFail = new TxtLanguage();
+        private static readonly TxtLanguage txtLoad = new TxtLanguage("Load");
+        private static readonly TxtLanguage txtNotSelectFile = new TxtLanguage("Cannot Load, Not select file");
+        private static readonly TxtLanguage txtLoading = new TxtLanguage("Loading");
+        private static readonly TxtLanguage txtLoadSuccess = new TxtLanguage("Load Success");
+        private static readonly TxtLanguage txtLoadFail = new TxtLanguage("Load fail");
 
         static LoadPostureUI()
         {
@@ -110,6 +108,8 @@ namespace Posture
         }
 
         #endregion
+
+        #region Refresh
 
         public Button btnLoad;
         public Text tvLoad;
@@ -185,12 +185,12 @@ namespace Posture
                                                     if (haveCorrectSelectFile)
                                                     {
                                                         btnLoad.interactable = true;
-                                                        tvLoad.text = txtLoad.get("Load");
+                                                        tvLoad.text = txtLoad.get();
                                                     }
                                                     else
                                                     {
                                                         btnLoad.interactable = false;
-                                                        tvLoad.text = txtNotSelectFile.get("Cannot Load, Not select file");
+                                                        tvLoad.text = txtNotSelectFile.get();
                                                     }
                                                 }
                                             }
@@ -198,19 +198,19 @@ namespace Posture
                                         case LoadDataTask.TaskData.State.Load:
                                             {
                                                 btnLoad.interactable = false;
-                                                tvLoad.text = txtLoading.get("Loading");
+                                                tvLoad.text = txtLoading.get();
                                             }
                                             break;
                                         case LoadDataTask.TaskData.State.Success:
                                             {
                                                 btnLoad.interactable = false;
-                                                tvLoad.text = txtLoadSuccess.get("Load Success");
+                                                tvLoad.text = txtLoadSuccess.get();
                                             }
                                             break;
                                         case LoadDataTask.TaskData.State.Fail:
                                             {
                                                 btnLoad.interactable = false;
-                                                tvLoad.text = txtLoadFail.get("Load Fail");
+                                                tvLoad.text = txtLoadFail.get();
                                             }
                                             break;
                                         default:
@@ -378,7 +378,7 @@ namespace Posture
                                                 else
                                                 {
                                                     Debug.LogError("gameData null: " + this);
-                                                    Toast.showMessage(txtLoadFail.get("load fail"));
+                                                    Toast.showMessage(txtLoadFail.get());
                                                 }
                                             }
                                             loadDataTask.state.v = LoadDataTask.TaskData.State.None;
@@ -432,7 +432,7 @@ namespace Posture
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Load Posture");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {

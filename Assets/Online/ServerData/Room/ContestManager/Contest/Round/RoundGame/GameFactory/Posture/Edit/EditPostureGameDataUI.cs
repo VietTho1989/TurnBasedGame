@@ -256,13 +256,13 @@ namespace Posture
         #region txt, rect
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Edit Posture Game Data");
 
         public Text tvPosture;
-        public static readonly TxtLanguage txtPosture = new TxtLanguage();
+        private static readonly TxtLanguage txtPosture = new TxtLanguage("Posture");
 
         public Text tvLoad;
-        public static readonly TxtLanguage txtLoad = new TxtLanguage();
+        private static readonly TxtLanguage txtLoad = new TxtLanguage("Load");
 
         static EditPostureGameDataUI()
         {
@@ -411,7 +411,7 @@ namespace Posture
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Edit Posture Game Data");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -419,7 +419,7 @@ namespace Posture
                         }
                         if (tvPosture != null)
                         {
-                            tvPosture.text = txtPosture.get("Posture");
+                            tvPosture.text = txtPosture.get();
                         }
                         else
                         {
@@ -427,7 +427,7 @@ namespace Posture
                         }
                         if (tvLoad != null)
                         {
-                            tvLoad.text = txtLoad.get("Load");
+                            tvLoad.text = txtLoad.get();
                         }
                         else
                         {

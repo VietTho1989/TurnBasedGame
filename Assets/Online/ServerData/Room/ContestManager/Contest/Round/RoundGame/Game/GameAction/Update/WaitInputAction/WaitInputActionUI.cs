@@ -53,17 +53,15 @@ public class WaitInputActionUI : UIBehavior<WaitInputActionUI.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Waiting move");
 
-    public static readonly TxtLanguage txtServerTime = new TxtLanguage();
-    public static readonly TxtLanguage txtClientTime = new TxtLanguage();
-    public static readonly TxtLanguage txtCheckingLegalMove = new TxtLanguage();
-    public static readonly TxtLanguage txtNotReceiveMove = new TxtLanguage();
+    private static readonly TxtLanguage txtServerTime = new TxtLanguage("Server Time");
+    private static readonly TxtLanguage txtClientTime = new TxtLanguage("Client Time");
+    private static readonly TxtLanguage txtCheckingLegalMove = new TxtLanguage("Checking legal move");
+    private static readonly TxtLanguage txtNotReceiveMove = new TxtLanguage("not receive any move");
 
     static WaitInputActionUI()
     {
@@ -75,6 +73,8 @@ public class WaitInputActionUI : UIBehavior<WaitInputActionUI.UIData>
     }
 
     #endregion
+
+    #region Refresh
 
     public Text tvServerTime;
     public Text tvClientTime;
@@ -93,7 +93,7 @@ public class WaitInputActionUI : UIBehavior<WaitInputActionUI.UIData>
                     // tvServerTime
                     if (tvServerTime != null)
                     {
-                        tvServerTime.text = txtServerTime.get("Server Time") + ": " + waitInputAction.serverTime.v;
+                        tvServerTime.text = txtServerTime.get() + ": " + waitInputAction.serverTime.v;
                     }
                     else
                     {
@@ -102,7 +102,7 @@ public class WaitInputActionUI : UIBehavior<WaitInputActionUI.UIData>
                     // tvClientTime
                     if (tvClientTime != null)
                     {
-                        tvClientTime.text = txtClientTime.get("Client Time") + ": " + waitInputAction.clientTime.v;
+                        tvClientTime.text = txtClientTime.get() + ": " + waitInputAction.clientTime.v;
                     }
                     else
                     {
@@ -113,11 +113,11 @@ public class WaitInputActionUI : UIBehavior<WaitInputActionUI.UIData>
                     {
                         if (waitInputAction.inputs.vs.Count > 0)
                         {
-                            tvCheckLegalMove.text = txtCheckingLegalMove.get("Checking legal move");
+                            tvCheckLegalMove.text = txtCheckingLegalMove.get();
                         }
                         else
                         {
-                            tvCheckLegalMove.text = txtNotReceiveMove.get("not receive any move");
+                            tvCheckLegalMove.text = txtNotReceiveMove.get();
                         }
                     }
                     else
@@ -211,7 +211,7 @@ public class WaitInputActionUI : UIBehavior<WaitInputActionUI.UIData>
                                     Debug.LogError("game null");
                                 }
                             }
-                            lbTitle.text = txtTitle.get("Waiting move") + " " + turnIndex;
+                            lbTitle.text = txtTitle.get() + " " + turnIndex;
                         }
                         else
                         {

@@ -35,11 +35,9 @@ public class ProcessMoveActionUI : UIBehavior<ProcessMoveActionUI.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
-    public static readonly TxtLanguage txtProcessMove = new TxtLanguage();
+    public static readonly TxtLanguage txtProcessMove = new TxtLanguage("Processing move");
 
     static ProcessMoveActionUI()
     {
@@ -47,6 +45,8 @@ public class ProcessMoveActionUI : UIBehavior<ProcessMoveActionUI.UIData>
     }
 
     #endregion
+
+    #region Refresh
 
     public Text tvContent;
 
@@ -62,7 +62,7 @@ public class ProcessMoveActionUI : UIBehavior<ProcessMoveActionUI.UIData>
                 {
                     if (tvContent != null)
                     {
-                        tvContent.text = txtProcessMove.get("Processing move");
+                        tvContent.text = txtProcessMove.get();
                     }
                     else
                     {

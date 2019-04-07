@@ -132,13 +132,13 @@ namespace HEX
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Hex AI");
 
         public Text lbLimitTime;
-        public static readonly TxtLanguage txtLimitTime = new TxtLanguage();
+        private static readonly TxtLanguage txtLimitTime = new TxtLanguage("Limit time");
 
         public Text lbFirstMoveCenter;
-        public static readonly TxtLanguage txtFirstMoveCenter = new TxtLanguage();
+        private static readonly TxtLanguage txtFirstMoveCenter = new TxtLanguage("First move center");
 
         static HexAIUI()
         {
@@ -443,7 +443,7 @@ namespace HEX
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Hex AI");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -451,7 +451,7 @@ namespace HEX
                         }
                         if (lbLimitTime != null)
                         {
-                            lbLimitTime.text = txtLimitTime.get("Limit time");
+                            lbLimitTime.text = txtLimitTime.get();
                         }
                         else
                         {
@@ -459,7 +459,7 @@ namespace HEX
                         }
                         if (lbFirstMoveCenter != null)
                         {
-                            lbFirstMoveCenter.text = txtFirstMoveCenter.get("First move center");
+                            lbFirstMoveCenter.text = txtFirstMoveCenter.get();
                         }
                         else
                         {

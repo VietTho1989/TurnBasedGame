@@ -45,7 +45,7 @@ namespace Rights
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public static readonly TxtLanguage txtTitle = new TxtLanguage("No Limit");
 
         static NoLimitUI()
         {
@@ -174,7 +174,7 @@ namespace Rights
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("No Limit");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {

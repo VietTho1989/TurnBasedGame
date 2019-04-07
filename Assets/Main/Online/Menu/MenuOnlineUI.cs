@@ -65,18 +65,16 @@ public class MenuOnlineUI : UIBehavior<MenuOnlineUI.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    public static readonly TxtLanguage txtTitle = new TxtLanguage("Play Online");
 
     public Text tvServer;
-    public static readonly TxtLanguage txtServer = new TxtLanguage();
+    public static readonly TxtLanguage txtServer = new TxtLanguage("Server");
 
     public Text tvClient;
-    public static readonly TxtLanguage txtClient = new TxtLanguage();
+    public static readonly TxtLanguage txtClient = new TxtLanguage("Client");
 
     static MenuOnlineUI()
     {
@@ -86,6 +84,8 @@ public class MenuOnlineUI : UIBehavior<MenuOnlineUI.UIData>
     }
 
     #endregion
+
+    #region Refresh
 
     public override void refresh()
     {
@@ -98,7 +98,7 @@ public class MenuOnlineUI : UIBehavior<MenuOnlineUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Play Online");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -106,7 +106,7 @@ public class MenuOnlineUI : UIBehavior<MenuOnlineUI.UIData>
                     }
                     if (tvServer != null)
                     {
-                        tvServer.text = txtServer.get("Server");
+                        tvServer.text = txtServer.get();
                     }
                     else
                     {
@@ -114,7 +114,7 @@ public class MenuOnlineUI : UIBehavior<MenuOnlineUI.UIData>
                     }
                     if (tvClient != null)
                     {
-                        tvClient.text = txtClient.get("Client");
+                        tvClient.text = txtClient.get();
                     }
                     else
                     {

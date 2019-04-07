@@ -34,7 +34,7 @@ public class BtnRequestDrawUI : UIBehavior<BtnRequestDrawUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Request Draw");
 
     static BtnRequestDrawUI()
     {
@@ -79,7 +79,7 @@ public class BtnRequestDrawUI : UIBehavior<BtnRequestDrawUI.UIData>
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Request Draw");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {

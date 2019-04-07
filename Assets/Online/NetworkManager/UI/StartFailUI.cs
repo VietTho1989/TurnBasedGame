@@ -69,10 +69,10 @@ public class StartFailUI : UIBehavior<StartFailUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Start Server Fail");
 
     public Text tvReturn;
-    private static readonly TxtLanguage txtReturn = new TxtLanguage();
+    private static readonly TxtLanguage txtReturn = new TxtLanguage("Return");
 
     static StartFailUI()
     {
@@ -94,7 +94,7 @@ public class StartFailUI : UIBehavior<StartFailUI.UIData>
                 // lbTitle
                 if (lbTitle != null)
                 {
-                    lbTitle.text = txtTitle.get("Start Server Fail");
+                    lbTitle.text = txtTitle.get();
                 }
                 else
                 {
@@ -103,7 +103,7 @@ public class StartFailUI : UIBehavior<StartFailUI.UIData>
                 // tvReturn
                 if (tvReturn != null)
                 {
-                    tvReturn.text = txtReturn.get("Return");
+                    tvReturn.text = txtReturn.get();
                 }
                 else
                 {

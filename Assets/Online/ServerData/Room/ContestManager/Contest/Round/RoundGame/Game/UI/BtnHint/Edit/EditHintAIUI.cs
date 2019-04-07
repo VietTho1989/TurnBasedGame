@@ -103,15 +103,15 @@ namespace Hint
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Edit Hint AI");
 
         public Text tvApply;
-        public static readonly TxtLanguage txtApply = new TxtLanguage();
-        public static readonly TxtLanguage txtNotDifferentApply = new TxtLanguage();
+        private static readonly TxtLanguage txtApply = new TxtLanguage("Apply");
+        private static readonly TxtLanguage txtNotDifferentApply = new TxtLanguage("Not different, cannot apply");
 
         public Text tvReset;
-        public static readonly TxtLanguage txtReset = new TxtLanguage();
-        public static readonly TxtLanguage txtNotDifferentReset = new TxtLanguage();
+        private static readonly TxtLanguage txtReset = new TxtLanguage("Reset");
+        private static readonly TxtLanguage txtNotDifferentReset = new TxtLanguage("Not diffrent, cannot reset");
 
         static EditHintAIUI()
         {
@@ -246,12 +246,12 @@ namespace Hint
                                 // apply
                                 {
                                     btnApply.interactable = true;
-                                    tvApply.text = txtApply.get("Apply");
+                                    tvApply.text = txtApply.get();
                                 }
                                 // reset
                                 {
                                     btnReset.interactable = true;
-                                    tvReset.text = txtReset.get("Reset");
+                                    tvReset.text = txtReset.get();
                                 }
                             }
                             else
@@ -259,12 +259,12 @@ namespace Hint
                                 // apply
                                 {
                                     btnApply.interactable = false;
-                                    tvApply.text = txtApply.get("Not different, cannot apply");
+                                    tvApply.text = txtNotDifferentApply.get();
                                 }
                                 // reset
                                 {
                                     btnReset.interactable = false;
-                                    tvReset.text = txtReset.get("Not diffrent, cannot reset");
+                                    tvReset.text = txtNotDifferentReset.get();
                                 }
                             }
                         }
@@ -307,7 +307,7 @@ namespace Hint
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Edit Hint AI");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {

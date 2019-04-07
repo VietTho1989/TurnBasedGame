@@ -168,19 +168,16 @@ namespace CoTuongUp
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public static readonly TxtLanguage txtTitle = new TxtLanguage("Default Hidden Chinese Chess");
 
         public Text lbAllowViewCapture;
-        public static readonly TxtLanguage txtAllowViewCapture = new TxtLanguage();
-        public const string DefaultTxtAllowViewCapture = "Allow view capture";
+        public static readonly TxtLanguage txtAllowViewCapture = new TxtLanguage("Allow view capture");
 
         public Text lbAllowWatcherViewHidden;
-        public static readonly TxtLanguage txtAllowWatcherViewHidden = new TxtLanguage();
-        public const string DefaultTxtAllowWatcherViewHidden = "Allow watcher view hidden";
+        public static readonly TxtLanguage txtAllowWatcherViewHidden = new TxtLanguage("Allow watcher view hidden");
 
         public Text lbAllowOnlyFlip;
-        public static readonly TxtLanguage txtAllowOnlyFlip = new TxtLanguage();
-        public const string DefaultTxtAllowOnlyFlip = "Allow only flip";
+        public static readonly TxtLanguage txtAllowOnlyFlip = new TxtLanguage("Allow only flip");
 
         static DefaultCoTuongUpUI()
         {
@@ -649,7 +646,7 @@ namespace CoTuongUp
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Default Hidden Chinese Chess");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -657,7 +654,7 @@ namespace CoTuongUp
                             }
                             if (lbAllowViewCapture != null)
                             {
-                                lbAllowViewCapture.text = txtAllowViewCapture.get(DefaultTxtAllowViewCapture);
+                                lbAllowViewCapture.text = txtAllowViewCapture.get();
                             }
                             else
                             {
@@ -665,7 +662,7 @@ namespace CoTuongUp
                             }
                             if (lbAllowWatcherViewHidden != null)
                             {
-                                lbAllowWatcherViewHidden.text = txtAllowWatcherViewHidden.get(DefaultTxtAllowWatcherViewHidden);
+                                lbAllowWatcherViewHidden.text = txtAllowWatcherViewHidden.get();
                             }
                             else
                             {
@@ -673,7 +670,7 @@ namespace CoTuongUp
                             }
                             if (lbAllowOnlyFlip != null)
                             {
-                                lbAllowOnlyFlip.text = txtAllowOnlyFlip.get(DefaultTxtAllowOnlyFlip);
+                                lbAllowOnlyFlip.text = txtAllowOnlyFlip.get();
                             }
                             else
                             {

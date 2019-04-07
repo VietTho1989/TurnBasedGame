@@ -86,8 +86,8 @@ namespace Khet.NoneRule
         public Button btnClear;
         public Text tvClear;
 
-        private static readonly TxtLanguage txtRotateAdd = new TxtLanguage();
-        private static readonly TxtLanguage txtRotateSub = new TxtLanguage();
+        private static readonly TxtLanguage txtRotateAdd = new TxtLanguage("Rotate add");
+        private static readonly TxtLanguage txtRotateSub = new TxtLanguage("Rotate sub");
 
         public Button btnCreateByFen;
         public Text tvCreateByFen;
@@ -270,7 +270,7 @@ namespace Khet.NoneRule
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = ClickPosTxt.txtClickPosTitle.get(ClickPosTxt.DefaultClickPosTitle);
+                            lbTitle.text = ClickPosTxt.txtClickPosTitle.get();
                         }
                         else
                         {
@@ -278,7 +278,7 @@ namespace Khet.NoneRule
                         }
                         if (tvSetPiece != null)
                         {
-                            tvSetPiece.text = ClickPosTxt.txtClickPosSetPiece.get(ClickPosTxt.DefaultClickPosSetPiece);
+                            tvSetPiece.text = ClickPosTxt.txtClickPosSetPiece.get();
                         }
                         else
                         {
@@ -286,7 +286,7 @@ namespace Khet.NoneRule
                         }
                         if (tvMove != null)
                         {
-                            tvMove.text = ClickPosTxt.txtClickPosMove.get(ClickPosTxt.DefaultClickPosMove);
+                            tvMove.text = ClickPosTxt.txtClickPosMove.get();
                         }
                         else
                         {
@@ -294,7 +294,7 @@ namespace Khet.NoneRule
                         }
                         if (tvRotateAdd != null)
                         {
-                            tvRotateAdd.text = txtRotateAdd.get("Rotate add");
+                            tvRotateAdd.text = txtRotateAdd.get();
                         }
                         else
                         {
@@ -302,7 +302,7 @@ namespace Khet.NoneRule
                         }
                         if (tvRotateSub != null)
                         {
-                            tvRotateSub.text = txtRotateSub.get("Rotate sub");
+                            tvRotateSub.text = txtRotateSub.get();
                         }
                         else
                         {
@@ -310,7 +310,7 @@ namespace Khet.NoneRule
                         }
                         if (tvEndTurn != null)
                         {
-                            tvEndTurn.text = ClickPosTxt.txtClickPosEndTurn.get(ClickPosTxt.DefaultClickPosEndTurn);
+                            tvEndTurn.text = ClickPosTxt.txtClickPosEndTurn.get();
                         }
                         else
                         {
@@ -318,7 +318,7 @@ namespace Khet.NoneRule
                         }
                         if (tvClear != null)
                         {
-                            tvClear.text = ClickPosTxt.txtClickPosClear.get(ClickPosTxt.DefaultClickPosClear);
+                            tvClear.text = ClickPosTxt.txtClickPosClear.get();
                         }
                         else
                         {
@@ -326,7 +326,7 @@ namespace Khet.NoneRule
                         }
                         if (tvCreateByFen != null)
                         {
-                            tvCreateByFen.text = ClickPosTxt.txtClickPosCreateByFen.get(ClickPosTxt.DefaultClickPosCreateByFen);
+                            tvCreateByFen.text = ClickPosTxt.txtClickPosCreateByFen.get();
                         }
                         else
                         {

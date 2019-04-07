@@ -221,19 +221,19 @@ namespace Khet
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Khet AI");
 
         public Text lbInfinite;
-        public static readonly TxtLanguage txtInfinite = new TxtLanguage();
+        private static readonly TxtLanguage txtInfinite = new TxtLanguage("Infinite");
 
         public Text lbMoveTime;
-        public static readonly TxtLanguage txtMoveTime = new TxtLanguage();
+        private static readonly TxtLanguage txtMoveTime = new TxtLanguage("Move time");
 
         public Text lbDepth;
-        public static readonly TxtLanguage txtDepth = new TxtLanguage();
+        private static readonly TxtLanguage txtDepth = new TxtLanguage("Depth");
 
         public Text lbPickBestMove;
-        public static readonly TxtLanguage txtPickBestMove = new TxtLanguage();
+        private static readonly TxtLanguage txtPickBestMove = new TxtLanguage("Pick best move");
 
         static KhetAIUI()
         {
@@ -719,7 +719,7 @@ namespace Khet
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Khet AI");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -727,7 +727,7 @@ namespace Khet
                         }
                         if (lbInfinite != null)
                         {
-                            lbInfinite.text = txtInfinite.get("Infinite");
+                            lbInfinite.text = txtInfinite.get();
                         }
                         else
                         {
@@ -735,7 +735,7 @@ namespace Khet
                         }
                         if (lbMoveTime != null)
                         {
-                            lbMoveTime.text = txtMoveTime.get("Move time");
+                            lbMoveTime.text = txtMoveTime.get();
                         }
                         else
                         {
@@ -743,7 +743,7 @@ namespace Khet
                         }
                         if (lbDepth != null)
                         {
-                            lbDepth.text = txtDepth.get("Depth");
+                            lbDepth.text = txtDepth.get();
                         }
                         else
                         {
@@ -751,7 +751,7 @@ namespace Khet
                         }
                         if (lbPickBestMove != null)
                         {
-                            lbPickBestMove.text = txtPickBestMove.get("PickBestMove");
+                            lbPickBestMove.text = txtPickBestMove.get();
                         }
                         else
                         {

@@ -35,8 +35,8 @@ namespace GameManager.Match
 
         #region txt
 
-        private static readonly TxtLanguage txtIndex = new TxtLanguage();
-        private static readonly TxtLanguage txtScore = new TxtLanguage();
+        private static readonly TxtLanguage txtIndex = new TxtLanguage("Team");
+        private static readonly TxtLanguage txtScore = new TxtLanguage("Score");
 
         static ChooseContestManagerTeamUI()
         {
@@ -86,8 +86,8 @@ namespace GameManager.Match
                                     }
                                 }
                                 // set
-                                tvTeam.text = txtIndex.get("Team") + ": " + matchTeam.teamIndex.v
-                                                + "\t\t\t" + txtScore.get("Score") + ": " + score;
+                                tvTeam.text = txtIndex.get() + ": " + matchTeam.teamIndex.v
+                                                + "\t\t\t" + txtScore.get() + ": " + score;
                             }
                             else
                             {

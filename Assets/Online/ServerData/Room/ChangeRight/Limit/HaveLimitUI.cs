@@ -94,10 +94,10 @@ namespace Rights
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        public static readonly TxtLanguage txtTitle = new TxtLanguage("Have Limit");
 
         public Text lbLimit;
-        public static readonly TxtLanguage txtLimit = new TxtLanguage();
+        public static readonly TxtLanguage txtLimit = new TxtLanguage("Limit");
 
         static HaveLimitUI()
         {
@@ -318,7 +318,7 @@ namespace Rights
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Have Limit");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -326,7 +326,7 @@ namespace Rights
                             }
                             if (lbLimit != null)
                             {
-                                lbLimit.text = txtLimit.get("Limit");
+                                lbLimit.text = txtLimit.get();
                             }
                             else
                             {

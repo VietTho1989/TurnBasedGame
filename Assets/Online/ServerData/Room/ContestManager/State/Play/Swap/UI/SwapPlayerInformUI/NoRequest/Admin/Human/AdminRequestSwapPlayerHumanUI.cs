@@ -150,13 +150,13 @@ namespace GameManager.Match.Swap
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Choose Human");
 
         public Text tvRequesting;
-        private static readonly TxtLanguage txtRequesting = new TxtLanguage();
+        private static readonly TxtLanguage txtRequesting = new TxtLanguage("Requesting...");
 
         public Text tvCancel;
-        private static readonly TxtLanguage txtCancel = new TxtLanguage();
+        private static readonly TxtLanguage txtCancel = new TxtLanguage("Cancel");
 
         static AdminRequestSwapPlayerHumanUI()
         {
@@ -364,7 +364,7 @@ namespace GameManager.Match.Swap
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Choose Human");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -372,7 +372,7 @@ namespace GameManager.Match.Swap
                             }
                             if (tvRequesting != null)
                             {
-                                tvRequesting.text = txtRequesting.get("Requesting...");
+                                tvRequesting.text = txtRequesting.get();
                             }
                             else
                             {
@@ -380,7 +380,7 @@ namespace GameManager.Match.Swap
                             }
                             if (tvCancel != null)
                             {
-                                tvCancel.text = txtCancel.get("Cancel");
+                                tvCancel.text = txtCancel.get();
                             }
                             else
                             {
