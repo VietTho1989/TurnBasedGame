@@ -89,10 +89,10 @@ namespace MineSweeper
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Mine Sweeper AI");
 
         public Text lbFirstMoveType;
-        public static readonly TxtLanguage txtFirstMoveType = new TxtLanguage();
+        private static readonly TxtLanguage txtFirstMoveType = new TxtLanguage("First move type");
 
         static MineSweeperAIUI()
         {
@@ -317,7 +317,7 @@ namespace MineSweeper
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Mine Sweeper AI");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -325,7 +325,7 @@ namespace MineSweeper
                         }
                         if (lbFirstMoveType != null)
                         {
-                            lbFirstMoveType.text = txtFirstMoveType.get("First move type");
+                            lbFirstMoveType.text = txtFirstMoveType.get();
                         }
                         else
                         {

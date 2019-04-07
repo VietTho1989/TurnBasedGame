@@ -119,13 +119,13 @@ public class AccountAdminUI : UIHaveTransformDataBehavior<AccountAdminUI.UIData>
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Account Admin");
 
     public Text lbCustomName;
-    public static readonly TxtLanguage txtCustomName = new TxtLanguage();
+    private static readonly TxtLanguage txtCustomName = new TxtLanguage("Custom name");
 
     public Text lbAvatarUrl;
-    public static readonly TxtLanguage txtAvatarUrl = new TxtLanguage();
+    private static readonly TxtLanguage txtAvatarUrl = new TxtLanguage("Avatar url");
 
     static AccountAdminUI()
     {
@@ -429,7 +429,7 @@ public class AccountAdminUI : UIHaveTransformDataBehavior<AccountAdminUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Account Admin");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -437,7 +437,7 @@ public class AccountAdminUI : UIHaveTransformDataBehavior<AccountAdminUI.UIData>
                     }
                     if (lbCustomName != null)
                     {
-                        lbCustomName.text = txtCustomName.get("Custom Name");
+                        lbCustomName.text = txtCustomName.get();
                     }
                     else
                     {
@@ -445,7 +445,7 @@ public class AccountAdminUI : UIHaveTransformDataBehavior<AccountAdminUI.UIData>
                     }
                     if (lbAvatarUrl != null)
                     {
-                        lbAvatarUrl.text = txtAvatarUrl.get("Avatar Url");
+                        lbAvatarUrl.text = txtAvatarUrl.get();
                     }
                     else
                     {

@@ -91,10 +91,10 @@ public class RoomUserInformUI : UIBehavior<RoomUserInformUI.UIData>
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Room User Information");
 
     public Text tvCannotBeKicked;
-    public static readonly TxtLanguage txtCannotBeKicked = new TxtLanguage();
+    private static readonly TxtLanguage txtCannotBeKicked = new TxtLanguage("Cannot be kicked");
 
     static RoomUserInformUI()
     {
@@ -218,7 +218,7 @@ public class RoomUserInformUI : UIBehavior<RoomUserInformUI.UIData>
                     }
                     if (tvCannotBeKicked != null)
                     {
-                        tvCannotBeKicked.text = txtCannotBeKicked.get("Cannot be kicked");
+                        tvCannotBeKicked.text = txtCannotBeKicked.get();
                     }
                     else
                     {

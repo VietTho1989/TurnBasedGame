@@ -75,7 +75,7 @@ public class HaveDatabaseServerFailUI : UIBehavior<HaveDatabaseServerFailUI.UIDa
     #region txt
 
     public Text lbMessage;
-    private static readonly TxtLanguage txtMessage = new TxtLanguage();
+    private static readonly TxtLanguage txtMessage = new TxtLanguage("Load database fail");
 
     static HaveDatabaseServerFailUI()
     {
@@ -97,7 +97,7 @@ public class HaveDatabaseServerFailUI : UIBehavior<HaveDatabaseServerFailUI.UIDa
                 {
                     if (lbMessage != null)
                     {
-                        lbMessage.text = txtMessage.get("Load database fail");
+                        lbMessage.text = txtMessage.get();
                     }
                     else
                     {

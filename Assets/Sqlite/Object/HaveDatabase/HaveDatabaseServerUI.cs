@@ -101,10 +101,10 @@ public class HaveDatabaseServerUI : UIBehavior<HaveDatabaseServerUI.UIData>
     #region txt
 
     public Text lbPort;
-    private static readonly TxtLanguage txtPort = new TxtLanguage();
+    private static readonly TxtLanguage txtPort = new TxtLanguage("Port");
 
     public Text lbMaxClientUserCount;
-    private static readonly TxtLanguage txtMaxClientUserCount = new TxtLanguage();
+    private static readonly TxtLanguage txtMaxClientUserCount = new TxtLanguage("Max user count");
 
     static HaveDatabaseServerUI()
     {
@@ -375,7 +375,7 @@ public class HaveDatabaseServerUI : UIBehavior<HaveDatabaseServerUI.UIData>
                 {
                     if (lbPort != null)
                     {
-                        lbPort.text = txtPort.get("Port");
+                        lbPort.text = txtPort.get();
                     }
                     else
                     {
@@ -383,7 +383,7 @@ public class HaveDatabaseServerUI : UIBehavior<HaveDatabaseServerUI.UIData>
                     }
                     if (lbMaxClientUserCount != null)
                     {
-                        lbMaxClientUserCount.text = txtMaxClientUserCount.get("Max user count");
+                        lbMaxClientUserCount.text = txtMaxClientUserCount.get();
                     }
                     else
                     {

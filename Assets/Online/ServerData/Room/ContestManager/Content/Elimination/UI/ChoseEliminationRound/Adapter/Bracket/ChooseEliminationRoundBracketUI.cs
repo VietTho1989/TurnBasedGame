@@ -36,10 +36,10 @@ namespace GameManager.Match.Elimination
 
         #region txt
 
-        public static readonly TxtLanguage txtBracket = new TxtLanguage();
-        public static readonly TxtLanguage txtTeam = new TxtLanguage();
-        public static readonly TxtLanguage txtWinner = new TxtLanguage();
-        public static readonly TxtLanguage txtLoser = new TxtLanguage();
+        private static readonly TxtLanguage txtBracket = new TxtLanguage("Bracket");
+        private static readonly TxtLanguage txtTeam = new TxtLanguage("Team");
+        private static readonly TxtLanguage txtWinner = new TxtLanguage("Winner");
+        private static readonly TxtLanguage txtLoser = new TxtLanguage("Loser");
 
         static ChooseEliminationRoundBracketUI()
         {
@@ -70,7 +70,7 @@ namespace GameManager.Match.Elimination
                         {
                             if (tvIndex != null)
                             {
-                                tvIndex.text = txtBracket.get("Bracket") + ": " + (bracket.index.v + 1);
+                                tvIndex.text = txtBracket.get() + ": " + (bracket.index.v + 1);
                             }
                             else
                             {
@@ -116,7 +116,7 @@ namespace GameManager.Match.Elimination
                                             }
                                         }
                                     }
-                                    tvBracket.text = txtTeam.get("Team") + ": " + builder.ToString();
+                                    tvBracket.text = txtTeam.get() + ": " + builder.ToString();
                                 }
                                 else
                                 {
@@ -126,7 +126,7 @@ namespace GameManager.Match.Elimination
                                         // get winners
                                         StringBuilder winners = new StringBuilder();
                                         {
-                                            winners.Append(txtWinner.get("Winner") + ": ");
+                                            winners.Append(txtWinner.get() + ": ");
                                             for (int i = 0; i < bracketStateEnd.winTeamIndexs.vs.Count; i++)
                                             {
                                                 int winner = bracketStateEnd.winTeamIndexs.vs[i];
@@ -140,7 +140,7 @@ namespace GameManager.Match.Elimination
                                         // get losers
                                         StringBuilder losers = new StringBuilder();
                                         {
-                                            losers.Append(txtLoser.get("Loser") + ": ");
+                                            losers.Append(txtLoser.get() + ": ");
                                             for (int i = 0; i < bracketStateEnd.loseTeamIndexs.vs.Count; i++)
                                             {
                                                 int loser = bracketStateEnd.loseTeamIndexs.vs[i];

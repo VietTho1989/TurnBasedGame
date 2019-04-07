@@ -293,19 +293,19 @@ namespace GameManager.Match
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Match Factory");
 
         public Text lbPlayerPerTeam;
-        private static readonly TxtLanguage txtPlayerPerTeam = new TxtLanguage();
+        private static readonly TxtLanguage txtPlayerPerTeam = new TxtLanguage("Player per team");
 
         public Text lbRoundFactoryType;
-        private static readonly TxtLanguage txtRoundFactoryType = new TxtLanguage();
+        private static readonly TxtLanguage txtRoundFactoryType = new TxtLanguage("Round factory type");
 
         public Text lbNewRoundLimitType;
-        private static readonly TxtLanguage txtNewRoundLimitType = new TxtLanguage();
+        private static readonly TxtLanguage txtNewRoundLimitType = new TxtLanguage("New round limit type");
 
         public Text lbCalculateScoreType;
-        private static readonly TxtLanguage txtCalculateScoreType = new TxtLanguage();
+        private static readonly TxtLanguage txtCalculateScoreType = new TxtLanguage("Calculate score type");
 
         static SingleContestFactoryUI()
         {
@@ -1094,7 +1094,7 @@ namespace GameManager.Match
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Match Factory");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -1102,7 +1102,7 @@ namespace GameManager.Match
                         }
                         if (lbPlayerPerTeam != null)
                         {
-                            lbPlayerPerTeam.text = txtPlayerPerTeam.get("Player per team");
+                            lbPlayerPerTeam.text = txtPlayerPerTeam.get();
                         }
                         else
                         {
@@ -1110,7 +1110,7 @@ namespace GameManager.Match
                         }
                         if (lbRoundFactoryType != null)
                         {
-                            lbRoundFactoryType.text = txtRoundFactoryType.get("Round factory type");
+                            lbRoundFactoryType.text = txtRoundFactoryType.get();
                         }
                         else
                         {
@@ -1118,7 +1118,7 @@ namespace GameManager.Match
                         }
                         if (lbNewRoundLimitType != null)
                         {
-                            lbNewRoundLimitType.text = txtNewRoundLimitType.get("New round limit type");
+                            lbNewRoundLimitType.text = txtNewRoundLimitType.get();
                         }
                         else
                         {
@@ -1126,7 +1126,7 @@ namespace GameManager.Match
                         }
                         if (lbCalculateScoreType != null)
                         {
-                            lbCalculateScoreType.text = txtCalculateScoreType.get("Calculate score type");
+                            lbCalculateScoreType.text = txtCalculateScoreType.get();
                         }
                         else
                         {

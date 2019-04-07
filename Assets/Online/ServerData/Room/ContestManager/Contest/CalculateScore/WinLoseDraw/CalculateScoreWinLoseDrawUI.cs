@@ -159,16 +159,16 @@ namespace GameManager.Match
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Calculate score by win, lose, draw score");
 
         public Text lbWinScore;
-        public static readonly TxtLanguage txtWinScore = new TxtLanguage();
+        private static readonly TxtLanguage txtWinScore = new TxtLanguage("Win score");
 
         public Text lbLoseScore;
-        public static readonly TxtLanguage txtLoseScore = new TxtLanguage();
+        private static readonly TxtLanguage txtLoseScore = new TxtLanguage("Lose score");
 
         public Text lbDrawScore;
-        public static readonly TxtLanguage txtDrawScore = new TxtLanguage();
+        private static readonly TxtLanguage txtDrawScore = new TxtLanguage("Draw score");
 
         static CalculateScoreWinLoseDrawUI()
         {
@@ -563,7 +563,7 @@ namespace GameManager.Match
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Calculate score by win, lose, draw score");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -571,7 +571,7 @@ namespace GameManager.Match
                             }
                             if (lbWinScore != null)
                             {
-                                lbWinScore.text = txtWinScore.get("Win score");
+                                lbWinScore.text = txtWinScore.get();
                             }
                             else
                             {
@@ -579,7 +579,7 @@ namespace GameManager.Match
                             }
                             if (lbLoseScore != null)
                             {
-                                lbLoseScore.text = txtLoseScore.get("Lose score");
+                                lbLoseScore.text = txtLoseScore.get();
                             }
                             else
                             {
@@ -587,7 +587,7 @@ namespace GameManager.Match
                             }
                             if (lbDrawScore != null)
                             {
-                                lbDrawScore.text = txtDrawScore.get("Draw score");
+                                lbDrawScore.text = txtDrawScore.get();
                             }
                             else
                             {

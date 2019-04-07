@@ -134,8 +134,8 @@ public class SqliteServerUI : UIBehavior<SqliteServerUI.UIData>
 
     #region txt
 
-    private static readonly TxtLanguage txtNoDatabase = new TxtLanguage();
-    private static readonly TxtLanguage txtHaveDatabase = new TxtLanguage();
+    private static readonly TxtLanguage txtNoDatabase = new TxtLanguage("No AutoSave");
+    private static readonly TxtLanguage txtHaveDatabase = new TxtLanguage("Have AutoSave");
 
     static SqliteServerUI()
     {
@@ -228,8 +228,8 @@ public class SqliteServerUI : UIBehavior<SqliteServerUI.UIData>
                         // get
                         List<string> options = new List<string>();
                         {
-                            options.Add(txtNoDatabase.get("No AutoSave"));
-                            options.Add(txtHaveDatabase.get("Have AutoSave"));
+                            options.Add(txtNoDatabase.get());
+                            options.Add(txtHaveDatabase.get());
                         }
                         // update
                         bool needRefresh = false;

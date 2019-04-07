@@ -283,22 +283,22 @@ namespace MineSweeper
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Default Mine Sweeper");
 
         public Text lbN;
-        public static readonly TxtLanguage txtN = new TxtLanguage();
+        private static readonly TxtLanguage txtN = new TxtLanguage("N");
 
         public Text lbM;
-        public static readonly TxtLanguage txtM = new TxtLanguage();
+        private static readonly TxtLanguage txtM = new TxtLanguage("M");
 
         public Text lbMinK;
-        public static readonly TxtLanguage txtMinK = new TxtLanguage();
+        private static readonly TxtLanguage txtMinK = new TxtLanguage("MinK");
 
         public Text lbMaxK;
-        public static readonly TxtLanguage txtMaxK = new TxtLanguage();
+        private static readonly TxtLanguage txtMaxK = new TxtLanguage("MaxK");
 
         public Text lbAllowWatchBomb;
-        public static readonly TxtLanguage txtAllowWatchBomb = new TxtLanguage();
+        private static readonly TxtLanguage txtAllowWatchBomb = new TxtLanguage("Allow watch bomb");
 
         static DefaultMineSweeperUI()
         {
@@ -916,7 +916,7 @@ namespace MineSweeper
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Default Mine Sweeper");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -924,7 +924,7 @@ namespace MineSweeper
                             }
                             if (lbN != null)
                             {
-                                lbN.text = txtN.get("N");
+                                lbN.text = txtN.get();
                             }
                             else
                             {
@@ -932,7 +932,7 @@ namespace MineSweeper
                             }
                             if (lbM != null)
                             {
-                                lbM.text = txtM.get("M");
+                                lbM.text = txtM.get();
                             }
                             else
                             {
@@ -940,7 +940,7 @@ namespace MineSweeper
                             }
                             if (lbMinK != null)
                             {
-                                lbMinK.text = txtMinK.get("MinK");
+                                lbMinK.text = txtMinK.get();
                             }
                             else
                             {
@@ -948,7 +948,7 @@ namespace MineSweeper
                             }
                             if (lbMaxK != null)
                             {
-                                lbMaxK.text = txtMaxK.get("MaxK");
+                                lbMaxK.text = txtMaxK.get();
                             }
                             else
                             {
@@ -956,7 +956,7 @@ namespace MineSweeper
                             }
                             if (lbAllowWatchBomb != null)
                             {
-                                lbAllowWatchBomb.text = txtAllowWatchBomb.get("Allow watch bomb");
+                                lbAllowWatchBomb.text = txtAllowWatchBomb.get();
                             }
                             else
                             {

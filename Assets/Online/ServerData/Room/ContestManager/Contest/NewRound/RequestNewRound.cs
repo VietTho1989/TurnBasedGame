@@ -106,8 +106,8 @@ namespace GameManager.Match
 
             #region txt
 
-            private static readonly TxtLanguage txtNoLimit = new TxtLanguage();
-            private static readonly TxtLanguage txtHaveLimit = new TxtLanguage();
+            private static readonly TxtLanguage txtNoLimit = new TxtLanguage("No Limit");
+            private static readonly TxtLanguage txtHaveLimit = new TxtLanguage("Have Limit");
 
             static Limit()
             {
@@ -119,8 +119,8 @@ namespace GameManager.Match
             {
                 List<string> ret = new List<string>();
                 {
-                    ret.Add(txtNoLimit.get("No Limit"));
-                    ret.Add(txtHaveLimit.get("Have Limit"));
+                    ret.Add(txtNoLimit.get());
+                    ret.Add(txtHaveLimit.get());
                 }
                 return ret;
             }

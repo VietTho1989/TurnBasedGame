@@ -157,13 +157,13 @@ namespace GameManager.Match.RoundRobin
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Round-robin Factory");
 
         public Text lbTeamCount;
-        private static readonly TxtLanguage txtTeamCount = new TxtLanguage();
+        private static readonly TxtLanguage txtTeamCount = new TxtLanguage("Team count");
 
         public Text lbNeedReturnRound;
-        private static readonly TxtLanguage txtNeedReturnRound = new TxtLanguage();
+        private static readonly TxtLanguage txtNeedReturnRound = new TxtLanguage("Need return round");
 
         static RoundRobinFactoryUI()
         {
@@ -496,7 +496,7 @@ namespace GameManager.Match.RoundRobin
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("RoundRobin Factory");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -504,7 +504,7 @@ namespace GameManager.Match.RoundRobin
                         }
                         if (lbTeamCount != null)
                         {
-                            lbTeamCount.text = txtTeamCount.get("Team count");
+                            lbTeamCount.text = txtTeamCount.get();
                         }
                         else
                         {
@@ -512,7 +512,7 @@ namespace GameManager.Match.RoundRobin
                         }
                         if (lbNeedReturnRound != null)
                         {
-                            lbNeedReturnRound.text = txtNeedReturnRound.get("Need return round");
+                            lbNeedReturnRound.text = txtNeedReturnRound.get();
                         }
                         else
                         {

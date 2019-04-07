@@ -61,12 +61,12 @@ public class BanNormalUI : UIBehavior<BanNormalUI.UIData>
     #region txt
 
     public Text tvBan;
-    private static readonly TxtLanguage txtBan = new TxtLanguage();
-    private static readonly TxtLanguage txtCannotBan = new TxtLanguage();
-    private static readonly TxtLanguage txtCancelBan = new TxtLanguage();
-    private static readonly TxtLanguage txtBanning = new TxtLanguage();
+    private static readonly TxtLanguage txtBan = new TxtLanguage("Ban");
+    private static readonly TxtLanguage txtCannotBan = new TxtLanguage("Cannot Ban");
+    private static readonly TxtLanguage txtCancelBan = new TxtLanguage("Cancel");
+    private static readonly TxtLanguage txtBanning = new TxtLanguage("Banning");
 
-    private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+    private static readonly TxtLanguage txtRequestError = new TxtLanguage("Send request ban error");
 
     static BanNormalUI()
     {
@@ -206,19 +206,19 @@ public class BanNormalUI : UIBehavior<BanNormalUI.UIData>
                                         case UIData.State.None:
                                             {
                                                 btnBan.interactable = true;
-                                                tvBan.text = txtBan.get("Ban");
+                                                tvBan.text = txtBan.get();
                                             }
                                             break;
                                         case UIData.State.Request:
                                             {
                                                 btnBan.interactable = true;
-                                                tvBan.text = txtCancelBan.get("Cancel");
+                                                tvBan.text = txtCancelBan.get();
                                             }
                                             break;
                                         case UIData.State.Wait:
                                             {
                                                 btnBan.interactable = false;
-                                                tvBan.text = txtBanning.get("Banning");
+                                                tvBan.text = txtBanning.get();
                                             }
                                             break;
                                         default:
@@ -244,7 +244,7 @@ public class BanNormalUI : UIBehavior<BanNormalUI.UIData>
                                 if (btnBan != null && tvBan != null)
                                 {
                                     btnBan.interactable = false;
-                                    tvBan.text = txtCannotBan.get("Cannot Ban");
+                                    tvBan.text = txtCannotBan.get();
                                 }
                                 else
                                 {
@@ -306,7 +306,7 @@ public class BanNormalUI : UIBehavior<BanNormalUI.UIData>
         {
             yield return new Wait(Global.WaitSendTime);
             this.data.state.v = UIData.State.None;
-            Toast.showMessage(txtRequestError.get("Send request ban error"));
+            Toast.showMessage(txtRequestError.get());
             Debug.LogError("request unfriend error: " + this);
         }
         else

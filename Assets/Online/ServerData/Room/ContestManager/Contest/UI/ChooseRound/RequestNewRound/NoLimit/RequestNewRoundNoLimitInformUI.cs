@@ -45,7 +45,7 @@ namespace GameManager.Match
         #region txt
 
         public Text tvMessage;
-        private static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("No limit, Stop?");
 
         static RequestNewRoundNoLimitInformUI()
         {
@@ -97,7 +97,7 @@ namespace GameManager.Match
                         {
                             if (tvMessage != null)
                             {
-                                tvMessage.text = txtMessage.get("No limit, Stop?");
+                                tvMessage.text = txtMessage.get();
                             }
                             else
                             {

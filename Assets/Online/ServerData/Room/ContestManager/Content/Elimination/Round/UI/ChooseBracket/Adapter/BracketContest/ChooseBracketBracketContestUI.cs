@@ -36,11 +36,11 @@ namespace GameManager.Match.Elimination
 
         #region txt
 
-        public static readonly TxtLanguage txtContest = new TxtLanguage();
+        private static readonly TxtLanguage txtContest = new TxtLanguage("Match");
 
-        public static readonly TxtLanguage txtTeam = new TxtLanguage();
-        public static readonly TxtLanguage txtScore = new TxtLanguage();
-        public static readonly TxtLanguage txtNotEnd = new TxtLanguage();
+        private static readonly TxtLanguage txtTeam = new TxtLanguage("Team");
+        private static readonly TxtLanguage txtScore = new TxtLanguage("Score");
+        private static readonly TxtLanguage txtNotEnd = new TxtLanguage("not end");
 
         static ChooseBracketBracketContestUI()
         {
@@ -72,7 +72,7 @@ namespace GameManager.Match.Elimination
                         {
                             if (tvIndex != null)
                             {
-                                tvIndex.text = txtContest.get("Match") + (bracketContest.index.v + 1);
+                                tvIndex.text = txtContest.get() + (bracketContest.index.v + 1);
                             }
                             else
                             {
@@ -89,11 +89,11 @@ namespace GameManager.Match.Elimination
                                     {
                                         if (bracketContest.contest.v.state.v.getType() == ContestState.Type.End)
                                         {
-                                            builder.AppendLine(txtTeam.get("Team") + ": " + teamIndex + ", " + txtScore.get("Score") + ": " + bracketContest.getResult(teamIndex));
+                                            builder.AppendLine(txtTeam.get() + ": " + teamIndex + ", " + txtScore.get() + ": " + bracketContest.getResult(teamIndex));
                                         }
                                         else
                                         {
-                                            builder.AppendLine(txtTeam.get("Team") + ": " + teamIndex + ", " + txtScore.get("Score") + ": " + txtNotEnd.get("not end"));
+                                            builder.AppendLine(txtTeam.get() + ": " + teamIndex + ", " + txtScore.get() + ": " + txtNotEnd.get());
                                         }
                                     }
                                 }

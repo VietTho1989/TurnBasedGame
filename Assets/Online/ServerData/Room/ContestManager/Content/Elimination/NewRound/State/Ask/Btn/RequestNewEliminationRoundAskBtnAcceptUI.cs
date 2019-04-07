@@ -58,11 +58,11 @@ namespace GameManager.Match.Elimination
 
         #region txt
 
-        private static readonly TxtLanguage txtAccept = new TxtLanguage();
-        private static readonly TxtLanguage txtCancelAccept = new TxtLanguage();
-        private static readonly TxtLanguage txtAccepting = new TxtLanguage();
+        private static readonly TxtLanguage txtAccept = new TxtLanguage("Accept");
+        private static readonly TxtLanguage txtCancelAccept = new TxtLanguage("Cancel accept?");
+        private static readonly TxtLanguage txtAccepting = new TxtLanguage("Accepting");
 
-        private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+        private static readonly TxtLanguage txtRequestError = new TxtLanguage("Send request to accept error");
 
         static RequestNewEliminationRoundAskBtnAcceptUI()
         {
@@ -172,19 +172,19 @@ namespace GameManager.Match.Elimination
                                 case UIData.State.None:
                                     {
                                         btnAccept.interactable = true;
-                                        tvAccept.text = txtAccept.get("Accept");
+                                        tvAccept.text = txtAccept.get();
                                     }
                                     break;
                                 case UIData.State.Request:
                                     {
                                         btnAccept.interactable = true;
-                                        tvAccept.text = txtCancelAccept.get("Cancel accept?");
+                                        tvAccept.text = txtCancelAccept.get();
                                     }
                                     break;
                                 case UIData.State.Wait:
                                     {
                                         btnAccept.interactable = false;
-                                        tvAccept.text = txtAccepting.get("Accepting");
+                                        tvAccept.text = txtAccepting.get();
                                     }
                                     break;
                                 default:
@@ -229,7 +229,7 @@ namespace GameManager.Match.Elimination
                 {
                     Debug.LogError("data null: " + this);
                 }
-                Toast.showMessage(txtRequestError.get("Send request to accept error"));
+                Toast.showMessage(txtRequestError.get());
                 Debug.LogError("request error: " + this);
             }
             else

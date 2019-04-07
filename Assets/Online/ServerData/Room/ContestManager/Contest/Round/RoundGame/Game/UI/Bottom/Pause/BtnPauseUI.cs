@@ -50,7 +50,7 @@ public class BtnPauseUI : UIBehavior<BtnPauseUI.UIData>
     #region txt
 
     public Text tvNotPlaying;
-    private static readonly TxtLanguage txtNotPlaying = new TxtLanguage();
+    private static readonly TxtLanguage txtNotPlaying = new TxtLanguage("Not Playing");
 
     static BtnPauseUI()
     {
@@ -150,7 +150,7 @@ public class BtnPauseUI : UIBehavior<BtnPauseUI.UIData>
                 {
                     if (tvNotPlaying != null)
                     {
-                        tvNotPlaying.text = txtNotPlaying.get("Not Playing");
+                        tvNotPlaying.text = txtNotPlaying.get();
                     }
                     else
                     {

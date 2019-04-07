@@ -40,7 +40,7 @@ namespace GameManager.Match
 
         #region txt
 
-        public static readonly TxtLanguage txtContest = new TxtLanguage();
+        private static readonly TxtLanguage txtContest = new TxtLanguage("Set");
 
         static BtnContestUI()
         {
@@ -103,7 +103,7 @@ namespace GameManager.Match
                                         }
                                     }
                                 }
-                                tvContest.text = txtContest.get("Set") + " " + (roundIndex + 1) + "/" + roundCount;
+                                tvContest.text = txtContest.get() + " " + (roundIndex + 1) + "/" + roundCount;
                             }
                             else
                             {

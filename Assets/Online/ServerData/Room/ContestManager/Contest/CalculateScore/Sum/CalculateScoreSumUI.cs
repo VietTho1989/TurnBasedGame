@@ -45,7 +45,7 @@ namespace GameManager.Match
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Calculate score by sum");
 
         static CalculateScoreSumUI()
         {
@@ -174,7 +174,7 @@ namespace GameManager.Match
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Calculate score by sum");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {

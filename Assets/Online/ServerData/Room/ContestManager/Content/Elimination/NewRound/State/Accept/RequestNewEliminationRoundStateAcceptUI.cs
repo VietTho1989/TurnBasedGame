@@ -47,12 +47,10 @@ namespace GameManager.Match.Elimination
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text tvMessage;
-        public static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("Request New Elimination Round Accepted");
 
         static RequestNewEliminationRoundStateAcceptUI()
         {
@@ -60,6 +58,8 @@ namespace GameManager.Match.Elimination
         }
 
         #endregion
+
+        #region Refresh
 
         public override void refresh()
         {
@@ -81,7 +81,7 @@ namespace GameManager.Match.Elimination
                     {
                         if (tvMessage != null)
                         {
-                            tvMessage.text = txtMessage.get("Request New Elimination Round Accepted");
+                            tvMessage.text = txtMessage.get();
                         }
                         else
                         {

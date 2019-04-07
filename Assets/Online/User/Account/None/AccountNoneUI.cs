@@ -43,11 +43,11 @@ public class AccountNoneUI : UIHaveTransformDataBehavior<AccountNoneUI.UIData>
     #region txt
 
     public Text lbTitle;
-    public static TxtLanguage txtTitle = new TxtLanguage();
+    private static TxtLanguage txtTitle = new TxtLanguage("Unknown Account");
 
     static AccountNoneUI()
     {
-        txtTitle.add(Language.Type.vi, "Tài khoản ẩn danh");
+        txtTitle.add(Language.Type.vi, "Tài Khoản Ẩn Danh");
     }
 
     #endregion
@@ -180,7 +180,7 @@ public class AccountNoneUI : UIHaveTransformDataBehavior<AccountNoneUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Unknown Account");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {

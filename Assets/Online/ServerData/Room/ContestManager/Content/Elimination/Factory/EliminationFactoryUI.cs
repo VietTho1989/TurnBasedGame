@@ -171,13 +171,13 @@ namespace GameManager.Match.Elimination
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Elimination Factory");
 
         public Text lbInitTeamCountLength;
-        public static readonly TxtLanguage txtInitTeamCountLength = new TxtLanguage();
+        private static readonly TxtLanguage txtInitTeamCountLength = new TxtLanguage("Bracket count");
 
         public Text lbInitTeamCounts;
-        public static readonly TxtLanguage txtInitTeamCounts = new TxtLanguage();
+        private static readonly TxtLanguage txtInitTeamCounts = new TxtLanguage("Team counts");
 
         static EliminationFactoryUI()
         {
@@ -590,7 +590,7 @@ namespace GameManager.Match.Elimination
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Elimination Factory");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -598,7 +598,7 @@ namespace GameManager.Match.Elimination
                         }
                         if (lbInitTeamCountLength != null)
                         {
-                            lbInitTeamCountLength.text = txtInitTeamCountLength.get("Bracket count");
+                            lbInitTeamCountLength.text = txtInitTeamCountLength.get();
                         }
                         else
                         {
@@ -606,7 +606,7 @@ namespace GameManager.Match.Elimination
                         }
                         if (lbInitTeamCounts != null)
                         {
-                            lbInitTeamCounts.text = txtInitTeamCounts.get("Team counts");
+                            lbInitTeamCounts.text = txtInitTeamCounts.get();
                         }
                         else
                         {

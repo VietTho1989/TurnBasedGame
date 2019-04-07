@@ -290,22 +290,22 @@ namespace NineMenMorris
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Nine Men's Morriss AI");
 
         public Text lbMaxNormal;
-        private static readonly TxtLanguage txtMaxNormal = new TxtLanguage();
+        private static readonly TxtLanguage txtMaxNormal = new TxtLanguage("Max normal depth");
 
         public Text lbMaxPositioning;
-        private static readonly TxtLanguage txtMaxPositioning = new TxtLanguage();
+        private static readonly TxtLanguage txtMaxPositioning = new TxtLanguage("Max positioning depth");
 
         public Text lbMaxBlackAndWhite3;
-        private static readonly TxtLanguage txtMaxBlackAndWhite3 = new TxtLanguage();
+        private static readonly TxtLanguage txtMaxBlackAndWhite3 = new TxtLanguage("Max black and white 3 depth");
 
         public Text lbMaxBlackOrWhite3;
-        private static readonly TxtLanguage txtMaxBlackOrWhite3 = new TxtLanguage();
+        private static readonly TxtLanguage txtMaxBlackOrWhite3 = new TxtLanguage("Max black or white 3 depth");
 
         public Text lbPickBestMove;
-        private static readonly TxtLanguage txtPickBestMove = new TxtLanguage();
+        private static readonly TxtLanguage txtPickBestMove = new TxtLanguage("Pick best move depth");
 
         static NineMenMorrisAIUI()
         {
@@ -878,7 +878,7 @@ namespace NineMenMorris
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Nine Men's Morriss AI");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -886,7 +886,7 @@ namespace NineMenMorris
                         }
                         if (lbMaxNormal != null)
                         {
-                            lbMaxNormal.text = txtMaxNormal.get("Max normal depth");
+                            lbMaxNormal.text = txtMaxNormal.get();
                         }
                         else
                         {
@@ -894,7 +894,7 @@ namespace NineMenMorris
                         }
                         if (lbMaxPositioning != null)
                         {
-                            lbMaxPositioning.text = txtMaxPositioning.get("Max positioning depth");
+                            lbMaxPositioning.text = txtMaxPositioning.get();
                         }
                         else
                         {
@@ -902,7 +902,7 @@ namespace NineMenMorris
                         }
                         if (lbMaxBlackAndWhite3 != null)
                         {
-                            lbMaxBlackAndWhite3.text = txtMaxBlackAndWhite3.get("Max black and white 3 depth");
+                            lbMaxBlackAndWhite3.text = txtMaxBlackAndWhite3.get();
                         }
                         else
                         {
@@ -910,7 +910,7 @@ namespace NineMenMorris
                         }
                         if (lbMaxBlackOrWhite3 != null)
                         {
-                            lbMaxBlackOrWhite3.text = txtMaxBlackOrWhite3.get("Max black or white 3 depth");
+                            lbMaxBlackOrWhite3.text = txtMaxBlackOrWhite3.get();
                         }
                         else
                         {
@@ -918,7 +918,7 @@ namespace NineMenMorris
                         }
                         if (lbPickBestMove != null)
                         {
-                            lbPickBestMove.text = txtPickBestMove.get("Pick best move depth");
+                            lbPickBestMove.text = txtPickBestMove.get();
                         }
                         else
                         {

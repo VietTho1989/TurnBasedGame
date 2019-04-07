@@ -165,22 +165,22 @@ public class AccountDeviceUI : UIHaveTransformDataBehavior<AccountDeviceUI.UIDat
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Account Device");
 
     public Text lbImei;
-    public static readonly TxtLanguage txtImei = new TxtLanguage();
+    private static readonly TxtLanguage txtImei = new TxtLanguage("Imei");
 
     public Text lbDeviceName;
-    public static readonly TxtLanguage txtDeviceName = new TxtLanguage();
+    private static readonly TxtLanguage txtDeviceName = new TxtLanguage("Device Name");
 
     public Text lbDeviceType;
-    public static readonly TxtLanguage txtDeviceType = new TxtLanguage();
+    private static readonly TxtLanguage txtDeviceType = new TxtLanguage("Device type");
 
     public Text lbCustomName;
-    public static readonly TxtLanguage txtCustomName = new TxtLanguage();
+    private static readonly TxtLanguage txtCustomName = new TxtLanguage("Custom name");
 
     public Text lbAvatarUrl;
-    public static readonly TxtLanguage txtAvatarUrl = new TxtLanguage();
+    private static readonly TxtLanguage txtAvatarUrl = new TxtLanguage("Avatar url");
 
     static AccountDeviceUI()
     {
@@ -750,7 +750,7 @@ public class AccountDeviceUI : UIHaveTransformDataBehavior<AccountDeviceUI.UIDat
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Account Device");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -758,7 +758,7 @@ public class AccountDeviceUI : UIHaveTransformDataBehavior<AccountDeviceUI.UIDat
                     }
                     if (lbImei != null)
                     {
-                        lbImei.text = txtImei.get("Imei");
+                        lbImei.text = txtImei.get();
                     }
                     else
                     {
@@ -766,7 +766,7 @@ public class AccountDeviceUI : UIHaveTransformDataBehavior<AccountDeviceUI.UIDat
                     }
                     if (lbDeviceName != null)
                     {
-                        lbDeviceName.text = txtDeviceName.get("Device Name");
+                        lbDeviceName.text = txtDeviceName.get();
                     }
                     else
                     {
@@ -774,7 +774,7 @@ public class AccountDeviceUI : UIHaveTransformDataBehavior<AccountDeviceUI.UIDat
                     }
                     if (lbDeviceType != null)
                     {
-                        lbDeviceType.text = txtDeviceType.get("Device Type");
+                        lbDeviceType.text = txtDeviceType.get();
                     }
                     else
                     {
@@ -782,7 +782,7 @@ public class AccountDeviceUI : UIHaveTransformDataBehavior<AccountDeviceUI.UIDat
                     }
                     if (lbCustomName != null)
                     {
-                        lbCustomName.text = txtCustomName.get("Custom Name");
+                        lbCustomName.text = txtCustomName.get();
                     }
                     else
                     {
@@ -790,7 +790,7 @@ public class AccountDeviceUI : UIHaveTransformDataBehavior<AccountDeviceUI.UIDat
                     }
                     if (lbAvatarUrl != null)
                     {
-                        lbAvatarUrl.text = txtAvatarUrl.get("Avatar Url");
+                        lbAvatarUrl.text = txtAvatarUrl.get();
                     }
                     else
                     {

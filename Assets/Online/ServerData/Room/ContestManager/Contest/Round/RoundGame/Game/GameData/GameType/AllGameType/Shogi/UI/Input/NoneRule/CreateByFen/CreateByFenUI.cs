@@ -139,7 +139,7 @@ namespace Shogi.NoneRule
                         }
                         if (tvCreate != null)
                         {
-                            tvCreate.text = ClickPosTxt.txtCreateByFenCreate.get(ClickPosTxt.DefaultCreateByFenCreate);
+                            tvCreate.text = ClickPosTxt.txtCreateByFenCreate.get();
                         }
                         else
                         {

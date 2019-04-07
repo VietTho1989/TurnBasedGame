@@ -160,13 +160,13 @@ namespace GameManager.Match
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Tournament Factory");
 
         public Text lbRandomTeamIndex;
-        public static readonly TxtLanguage txtRandomTeamIndex = new TxtLanguage();
+        private static readonly TxtLanguage txtRandomTeamIndex = new TxtLanguage("Random team index");
 
         public Text lbContentType;
-        public static readonly TxtLanguage txtContentType = new TxtLanguage();
+        private static readonly TxtLanguage txtContentType = new TxtLanguage("Tournament type");
 
         static ContestManagerContentFactoryUI()
         {
@@ -557,7 +557,7 @@ namespace GameManager.Match
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Tournament Factory");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -565,7 +565,7 @@ namespace GameManager.Match
                         }
                         if (lbRandomTeamIndex != null)
                         {
-                            lbRandomTeamIndex.text = txtRandomTeamIndex.get("Random Team Index");
+                            lbRandomTeamIndex.text = txtRandomTeamIndex.get();
                         }
                         else
                         {
@@ -573,7 +573,7 @@ namespace GameManager.Match
                         }
                         if (lbContentType != null)
                         {
-                            lbContentType.text = txtContentType.get("Tournament Type");
+                            lbContentType.text = txtContentType.get();
                         }
                         else
                         {

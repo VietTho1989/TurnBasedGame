@@ -95,7 +95,7 @@ public abstract class GameType : Data
 
             // Weiqi
             {
-                TxtLanguage txt = new TxtLanguage("Go");
+                TxtLanguage txt = new TxtLanguage("Weiqi");
                 {
                     txt.add(Language.Type.vi, "Cờ Vây");
                 }

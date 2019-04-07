@@ -49,21 +49,19 @@ public class NoDatabaseServerNoneUI : UIBehavior<NoDatabaseServerNoneUI.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text tvStart;
-    private static readonly TxtLanguage txtStart = new TxtLanguage();
+    private static readonly TxtLanguage txtStart = new TxtLanguage("Start");
 
     public Text tvPlaceHolder;
-    private static readonly TxtLanguage txtPlaceHolder = new TxtLanguage();
+    private static readonly TxtLanguage txtPlaceHolder = new TxtLanguage("Enter port...");
 
     public Text lbPort;
-    private static readonly TxtLanguage txtPort = new TxtLanguage();
+    private static readonly TxtLanguage txtPort = new TxtLanguage("Port");
 
     public Text lbMaxClientUserCount;
-    private static readonly TxtLanguage txtMaxClientUserCount = new TxtLanguage();
+    private static readonly TxtLanguage txtMaxClientUserCount = new TxtLanguage("Max user count");
 
     static NoDatabaseServerNoneUI()
     {
@@ -74,6 +72,8 @@ public class NoDatabaseServerNoneUI : UIBehavior<NoDatabaseServerNoneUI.UIData>
     }
 
     #endregion
+
+    #region Refresh
 
     public GameObject portContainer;
     public InputField edtPort;
@@ -246,7 +246,7 @@ public class NoDatabaseServerNoneUI : UIBehavior<NoDatabaseServerNoneUI.UIData>
                 {
                     if (tvStart != null)
                     {
-                        tvStart.text = txtStart.get("Start");
+                        tvStart.text = txtStart.get();
                     }
                     else
                     {
@@ -254,7 +254,7 @@ public class NoDatabaseServerNoneUI : UIBehavior<NoDatabaseServerNoneUI.UIData>
                     }
                     if (tvPlaceHolder != null)
                     {
-                        tvPlaceHolder.text = txtPlaceHolder.get("Enter port...");
+                        tvPlaceHolder.text = txtPlaceHolder.get();
                     }
                     else
                     {
@@ -262,7 +262,7 @@ public class NoDatabaseServerNoneUI : UIBehavior<NoDatabaseServerNoneUI.UIData>
                     }
                     if (lbPort != null)
                     {
-                        lbPort.text = txtPort.get("Port");
+                        lbPort.text = txtPort.get();
                     }
                     else
                     {
@@ -270,7 +270,7 @@ public class NoDatabaseServerNoneUI : UIBehavior<NoDatabaseServerNoneUI.UIData>
                     }
                     if (lbMaxClientUserCount != null)
                     {
-                        lbMaxClientUserCount.text = txtMaxClientUserCount.get("Max user count");
+                        lbMaxClientUserCount.text = txtMaxClientUserCount.get();
                     }
                     else
                     {

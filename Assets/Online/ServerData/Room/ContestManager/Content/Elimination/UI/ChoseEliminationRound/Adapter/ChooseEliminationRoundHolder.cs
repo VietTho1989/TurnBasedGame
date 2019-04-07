@@ -61,14 +61,14 @@ namespace GameManager.Match.Elimination
         #region txt
 
         public Text tvShow;
-        private static readonly TxtLanguage txtShow = new TxtLanguage();
+        private static readonly TxtLanguage txtShow = new TxtLanguage("Show");
 
         #region state
 
-        private static readonly TxtLanguage txtLoad = new TxtLanguage();
-        private static readonly TxtLanguage txtStart = new TxtLanguage();
-        private static readonly TxtLanguage txtPlay = new TxtLanguage();
-        private static readonly TxtLanguage txtEnd = new TxtLanguage();
+        private static readonly TxtLanguage txtLoad = new TxtLanguage("Loading");
+        private static readonly TxtLanguage txtStart = new TxtLanguage("Starting");
+        private static readonly TxtLanguage txtPlay = new TxtLanguage("Playing");
+        private static readonly TxtLanguage txtEnd = new TxtLanguage("End");
 
         #endregion
 
@@ -205,16 +205,16 @@ namespace GameManager.Match.Elimination
                                 switch (eliminationRound.state.v.getType())
                                 {
                                     case EliminationRound.State.Type.Load:
-                                        tvState.text = txtLoad.get("Loading");
+                                        tvState.text = txtLoad.get();
                                         break;
                                     case EliminationRound.State.Type.Start:
-                                        tvState.text = txtStart.get("Starting");
+                                        tvState.text = txtStart.get();
                                         break;
                                     case EliminationRound.State.Type.Play:
-                                        tvState.text = txtPlay.get("Playing");
+                                        tvState.text = txtPlay.get();
                                         break;
                                     case EliminationRound.State.Type.End:
-                                        tvState.text = txtEnd.get("End");
+                                        tvState.text = txtEnd.get();
                                         break;
                                     default:
                                         Debug.LogError("unknown type: " + eliminationRound.state.v.getType());
@@ -264,7 +264,7 @@ namespace GameManager.Match.Elimination
                         {
                             if (tvShow != null)
                             {
-                                tvShow.text = txtShow.get("Show");
+                                tvShow.text = txtShow.get();
                             }
                             else
                             {

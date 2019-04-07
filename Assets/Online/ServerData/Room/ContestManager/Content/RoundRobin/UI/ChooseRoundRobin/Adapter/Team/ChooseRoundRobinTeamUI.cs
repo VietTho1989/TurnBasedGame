@@ -39,8 +39,8 @@ namespace GameManager.Match.RoundRobin
 
         #region txt
 
-        private static readonly TxtLanguage txtTeam = new TxtLanguage();
-        private static readonly TxtLanguage txtScore = new TxtLanguage();
+        private static readonly TxtLanguage txtTeam = new TxtLanguage("Team");
+        private static readonly TxtLanguage txtScore = new TxtLanguage("Score");
 
         static ChooseRoundRobinTeamUI()
         {
@@ -63,8 +63,8 @@ namespace GameManager.Match.RoundRobin
                 {
                     if (tvTeam != null)
                     {
-                        tvTeam.text = txtTeam.get("Team") + ": " + this.data.teamIndex.v
-                            + "\t\t\t" + txtScore.get("Score") + ": " + this.data.score.v;
+                        tvTeam.text = txtTeam.get() + ": " + this.data.teamIndex.v
+                            + "\t\t\t" + txtScore.get() + ": " + this.data.score.v;
                     }
                     else
                     {

@@ -80,12 +80,10 @@ namespace GameManager.Match.Elimination
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text tvNoBracketContest;
-        public static readonly TxtLanguage txtNoBracketContest = new TxtLanguage();
+        private static readonly TxtLanguage txtNoBracketContest = new TxtLanguage("Don't have any bracket matchs");
 
         static BracketUI()
         {
@@ -97,6 +95,8 @@ namespace GameManager.Match.Elimination
         }
 
         #endregion
+
+        #region Refresh
 
         public GameObject noBracketContest;
 
@@ -293,7 +293,7 @@ namespace GameManager.Match.Elimination
                         {
                             if (tvNoBracketContest != null)
                             {
-                                tvNoBracketContest.text = txtNoBracketContest.get("Don't have any bracket matchs");
+                                tvNoBracketContest.text = txtNoBracketContest.get();
                             }
                             else
                             {

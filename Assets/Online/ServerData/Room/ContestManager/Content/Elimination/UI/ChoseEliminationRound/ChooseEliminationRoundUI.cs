@@ -65,7 +65,7 @@ namespace GameManager.Match.Elimination
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Choose Elimination Round");
 
         static ChooseEliminationRoundUI()
         {
@@ -107,7 +107,7 @@ namespace GameManager.Match.Elimination
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Choose Elimination Round");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {

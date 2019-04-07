@@ -86,7 +86,7 @@ namespace GameManager.Match.Elimination
         #region txt
 
         public Text tvNoEliminationRounds;
-        public static readonly TxtLanguage txtNoEmliminationRounds = new TxtLanguage();
+        private static readonly TxtLanguage txtNoEmliminationRounds = new TxtLanguage("Don't have any elimination rounds");
 
         static ChooseEliminationRoundAdapter()
         {
@@ -243,7 +243,7 @@ namespace GameManager.Match.Elimination
                         {
                             if (tvNoEliminationRounds != null)
                             {
-                                tvNoEliminationRounds.text = txtNoEmliminationRounds.get("Don't have any elimination rounds");
+                                tvNoEliminationRounds.text = txtNoEmliminationRounds.get();
                             }
                             else
                             {

@@ -56,15 +56,15 @@ namespace NineMenMorris
         public Text lbTitle;
 
         public Text tvMessage;
-        private static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("https://en.wikipedia.org/wiki/Nine_men%27s_morris");
 
         public Text lbWhiteCount;
         public Text tvWhiteCount;
-        private static readonly TxtLanguage txtWhiteCount = new TxtLanguage();
+        private static readonly TxtLanguage txtWhiteCount = new TxtLanguage("White count");
 
         public Text lbBlackCount;
         public Text tvBlackCount;
-        private static readonly TxtLanguage txtBlackCount = new TxtLanguage();
+        private static readonly TxtLanguage txtBlackCount = new TxtLanguage("Black count");
 
         static NineMenMorrisInformationUI()
         {
@@ -236,7 +236,7 @@ namespace NineMenMorris
                             }
                             if (tvMessage != null)
                             {
-                                tvMessage.text = txtMessage.get("https://en.wikipedia.org/wiki/Nine_men%27s_morris");
+                                tvMessage.text = txtMessage.get();
                             }
                             else
                             {
@@ -244,7 +244,7 @@ namespace NineMenMorris
                             }
                             if (lbWhiteCount != null)
                             {
-                                lbWhiteCount.text = txtWhiteCount.get("White count");
+                                lbWhiteCount.text = txtWhiteCount.get();
                             }
                             else
                             {
@@ -252,7 +252,7 @@ namespace NineMenMorris
                             }
                             if (lbBlackCount != null)
                             {
-                                lbBlackCount.text = txtBlackCount.get("Black count");
+                                lbBlackCount.text = txtBlackCount.get();
                             }
                             else
                             {

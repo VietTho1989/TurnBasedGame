@@ -306,43 +306,43 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Account Email");
 
     public Text lbChangeType;
-    private static readonly TxtLanguage txtChangeType = new TxtLanguage();
-    private static readonly TxtLanguage txtLogin = new TxtLanguage();
-    private static readonly TxtLanguage txtRegister = new TxtLanguage();
+    private static readonly TxtLanguage txtChangeType = new TxtLanguage("Change type");
+    private static readonly TxtLanguage txtLogin = new TxtLanguage("Login");
+    private static readonly TxtLanguage txtRegister = new TxtLanguage("Register");
 
     public Text lbEmail;
-    private static readonly TxtLanguage txtEmail = new TxtLanguage();
+    private static readonly TxtLanguage txtEmail = new TxtLanguage("Email");
 
     public Text lbPassword;
-    private static readonly TxtLanguage txtPassword = new TxtLanguage();
+    private static readonly TxtLanguage txtPassword = new TxtLanguage("Password");
 
     public Text lbRetypePassword;
-    private static readonly TxtLanguage txtRetypePassword = new TxtLanguage();
+    private static readonly TxtLanguage txtRetypePassword = new TxtLanguage("Retype password");
 
     public Text tvChangePassword;
-    private static readonly TxtLanguage txtChangePassword = new TxtLanguage();
+    private static readonly TxtLanguage txtChangePassword = new TxtLanguage("Change password");
 
     public Text lbCustomName;
-    private static readonly TxtLanguage txtCustomName = new TxtLanguage();
+    private static readonly TxtLanguage txtCustomName = new TxtLanguage("Custom name");
 
     public Text lbAvatarUrl;
-    private static readonly TxtLanguage txtAvatarUrl = new TxtLanguage();
+    private static readonly TxtLanguage txtAvatarUrl = new TxtLanguage("Avatar url");
 
     static AccountEmailUI()
     {
         // txt
         {
-            txtTitle.add(Language.Type.vi, "Tài khoản email");
+            txtTitle.add(Language.Type.vi, "Tài Khoản Email");
 
-            txtChangeType.add(Language.Type.vi, "Đổi Loại");
+            txtChangeType.add(Language.Type.vi, "Đổi loại");
             txtLogin.add(Language.Type.vi, "Đăng Nhập");
             txtRegister.add(Language.Type.vi, "Đăng Ký");
 
             txtEmail.add(Language.Type.vi, "Email");
-            txtPassword.add(Language.Type.vi, "Mật Khẩu");
+            txtPassword.add(Language.Type.vi, "Mật khẩu");
             txtRetypePassword.add(Language.Type.vi, "Gõ lại mật khẩu");
             txtChangePassword.add(Language.Type.vi, "Đổi mật khẩu");
             txtCustomName.add(Language.Type.vi, "Tên");
@@ -413,8 +413,8 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                                         {
                                             List<string> options = new List<string>();
                                             {
-                                                options.Add(txtLogin.get("Login"));
-                                                options.Add(txtRegister.get("Register"));
+                                                options.Add(txtLogin.get());
+                                                options.Add(txtRegister.get());
                                             }
                                             changeType.options.copyList(options);
                                         }
@@ -1181,7 +1181,7 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Account Email");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -1189,7 +1189,7 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                     }
                     if (lbChangeType != null)
                     {
-                        lbChangeType.text = txtChangeType.get("Change Type");
+                        lbChangeType.text = txtChangeType.get();
                     }
                     else
                     {
@@ -1197,7 +1197,7 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                     }
                     if (lbEmail != null)
                     {
-                        lbEmail.text = txtEmail.get("Email");
+                        lbEmail.text = txtEmail.get();
                     }
                     else
                     {
@@ -1205,7 +1205,7 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                     }
                     if (lbPassword != null)
                     {
-                        lbPassword.text = txtPassword.get("Password");
+                        lbPassword.text = txtPassword.get();
                     }
                     else
                     {
@@ -1213,7 +1213,7 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                     }
                     if (lbRetypePassword != null)
                     {
-                        lbRetypePassword.text = txtRetypePassword.get("Retype Password");
+                        lbRetypePassword.text = txtRetypePassword.get();
                     }
                     else
                     {
@@ -1221,7 +1221,7 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                     }
                     if (tvChangePassword != null)
                     {
-                        tvChangePassword.text = txtChangePassword.get("Change Password");
+                        tvChangePassword.text = txtChangePassword.get();
                     }
                     else
                     {
@@ -1229,7 +1229,7 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                     }
                     if (lbCustomName != null)
                     {
-                        lbCustomName.text = txtCustomName.get("Custom Name");
+                        lbCustomName.text = txtCustomName.get();
                     }
                     else
                     {
@@ -1237,7 +1237,7 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                     }
                     if (lbAvatarUrl != null)
                     {
-                        lbAvatarUrl.text = txtAvatarUrl.get("Avatar Url");
+                        lbAvatarUrl.text = txtAvatarUrl.get();
                     }
                     else
                     {

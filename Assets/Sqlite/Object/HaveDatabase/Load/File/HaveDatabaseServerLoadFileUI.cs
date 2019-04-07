@@ -41,7 +41,7 @@ public class HaveDatabaseServerLoadFileUI : UIBehavior<HaveDatabaseServerLoadFil
     #region txt
 
     public Text lbMessage;
-    private static readonly TxtLanguage txtMessage = new TxtLanguage();
+    private static readonly TxtLanguage txtMessage = new TxtLanguage("Loading File...");
 
     static HaveDatabaseServerLoadFileUI()
     {
@@ -107,7 +107,7 @@ public class HaveDatabaseServerLoadFileUI : UIBehavior<HaveDatabaseServerLoadFil
                 {
                     if (lbMessage != null)
                     {
-                        lbMessage.text = txtMessage.get("Loading File...");
+                        lbMessage.text = txtMessage.get();
                     }
                     else
                     {

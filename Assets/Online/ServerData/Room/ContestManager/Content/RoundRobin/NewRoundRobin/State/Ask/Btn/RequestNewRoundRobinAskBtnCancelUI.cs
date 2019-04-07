@@ -58,11 +58,11 @@ namespace GameManager.Match.RoundRobin
 
         #region txt
 
-        private static readonly TxtLanguage txtCancel = new TxtLanguage();
-        private static readonly TxtLanguage txtCancelCancel = new TxtLanguage();
-        private static readonly TxtLanguage txtCancelling = new TxtLanguage();
+        private static readonly TxtLanguage txtCancel = new TxtLanguage("Cancel");
+        private static readonly TxtLanguage txtCancelCancel = new TxtLanguage("Cancel cancel?");
+        private static readonly TxtLanguage txtCancelling = new TxtLanguage("Cancelling");
 
-        private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+        private static readonly TxtLanguage txtRequestError = new TxtLanguage("Send request to cancel error");
 
         static RequestNewRoundRobinAskBtnCancelUI()
         {
@@ -172,19 +172,19 @@ namespace GameManager.Match.RoundRobin
                                 case UIData.State.None:
                                     {
                                         btnCancel.interactable = true;
-                                        tvCancel.text = txtCancel.get("Cancel");
+                                        tvCancel.text = txtCancel.get();
                                     }
                                     break;
                                 case UIData.State.Request:
                                     {
                                         btnCancel.interactable = true;
-                                        tvCancel.text = txtCancelCancel.get("Cancel cancel?");
+                                        tvCancel.text = txtCancelCancel.get();
                                     }
                                     break;
                                 case UIData.State.Wait:
                                     {
                                         btnCancel.interactable = false;
-                                        tvCancel.text = txtCancelling.get("Cancelling");
+                                        tvCancel.text = txtCancelling.get();
                                     }
                                     break;
                                 default:
@@ -229,7 +229,7 @@ namespace GameManager.Match.RoundRobin
                 {
                     Debug.LogError("data null: " + this);
                 }
-                Toast.showMessage(txtRequestError.get("Send request to cancel error"));
+                Toast.showMessage(txtRequestError.get());
                 Debug.LogError("request error: " + this);
             }
             else

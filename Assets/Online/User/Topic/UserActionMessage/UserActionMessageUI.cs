@@ -42,12 +42,12 @@ public class UserActionMessageUI : UIBehavior<UserActionMessageUI.UIData>
 
     #region txt, rect
 
-    public static readonly TxtLanguage txtRegister = new TxtLanguage();
-    public static readonly TxtLanguage txtLogin = new TxtLanguage();
-    public static readonly TxtLanguage txtLogout = new TxtLanguage();
-    public static readonly TxtLanguage txtDisconnect = new TxtLanguage();
-    public static readonly TxtLanguage txtBanned = new TxtLanguage();
-    public static readonly TxtLanguage txtUnBanned = new TxtLanguage();
+    public static readonly TxtLanguage txtRegister = new TxtLanguage("register");
+    public static readonly TxtLanguage txtLogin = new TxtLanguage("login");
+    public static readonly TxtLanguage txtLogout = new TxtLanguage("logout");
+    public static readonly TxtLanguage txtDisconnect = new TxtLanguage("disconnect");
+    public static readonly TxtLanguage txtBanned = new TxtLanguage("was banned");
+    public static readonly TxtLanguage txtUnBanned = new TxtLanguage("was unbanned");
 
     static UserActionMessageUI()
     {

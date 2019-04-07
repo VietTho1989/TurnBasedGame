@@ -43,10 +43,10 @@ namespace GameManager.Match
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Request New Set: Have Limit");
 
-        public static readonly TxtLanguage txtMaxRound = new TxtLanguage();
-        public static readonly TxtLanguage txtEnoughScoreStop = new TxtLanguage();
+        private static readonly TxtLanguage txtMaxRound = new TxtLanguage("Max round");
+        private static readonly TxtLanguage txtEnoughScoreStop = new TxtLanguage("enough score stop");
 
         static RequestNewRoundHaveLimitInformUI()
         {
@@ -73,7 +73,7 @@ namespace GameManager.Match
                         {
                             if (tvInform != null)
                             {
-                                tvInform.text = txtMaxRound.get("Max round") + ": " + haveLimit.maxRound.v + "; " + txtEnoughScoreStop.get("enough score stop") + ": " + haveLimit.enoughScoreStop.v;
+                                tvInform.text = txtMaxRound.get() + ": " + haveLimit.maxRound.v + "; " + txtEnoughScoreStop.get() + ": " + haveLimit.enoughScoreStop.v;
                             }
                             else
                             {
@@ -89,7 +89,7 @@ namespace GameManager.Match
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Request New Set: Have Limit");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {

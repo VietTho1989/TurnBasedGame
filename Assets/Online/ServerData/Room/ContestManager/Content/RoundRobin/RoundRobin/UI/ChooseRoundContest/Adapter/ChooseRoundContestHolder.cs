@@ -60,14 +60,14 @@ namespace GameManager.Match.RoundRobin
         #region txt
 
         public Text tvShow;
-        private static readonly TxtLanguage txtShow = new TxtLanguage();
+        private static readonly TxtLanguage txtShow = new TxtLanguage("Show");
 
         #region state
 
-        private static readonly TxtLanguage txtLoad = new TxtLanguage();
-        private static readonly TxtLanguage txtStart = new TxtLanguage();
-        private static readonly TxtLanguage txtPlay = new TxtLanguage();
-        private static readonly TxtLanguage txtEnd = new TxtLanguage();
+        private static readonly TxtLanguage txtLoad = new TxtLanguage("Loading");
+        private static readonly TxtLanguage txtStart = new TxtLanguage("Starting");
+        private static readonly TxtLanguage txtPlay = new TxtLanguage("Playing");
+        private static readonly TxtLanguage txtEnd = new TxtLanguage("End");
 
         #endregion
 
@@ -185,16 +185,16 @@ namespace GameManager.Match.RoundRobin
                                 switch (roundContest.contest.v.state.v.getType())
                                 {
                                     case ContestState.Type.Load:
-                                        tvState.text = txtLoad.get("Loading");
+                                        tvState.text = txtLoad.get();
                                         break;
                                     case ContestState.Type.Start:
-                                        tvState.text = txtStart.get("Starting");
+                                        tvState.text = txtStart.get();
                                         break;
                                     case ContestState.Type.Play:
-                                        tvState.text = txtPlay.get("Playing");
+                                        tvState.text = txtPlay.get();
                                         break;
                                     case ContestState.Type.End:
-                                        tvState.text = txtEnd.get("End");
+                                        tvState.text = txtEnd.get();
                                         break;
                                     default:
                                         Debug.LogError("unknown type: " + roundContest.contest.v.state.v.getType());
@@ -257,7 +257,7 @@ namespace GameManager.Match.RoundRobin
                         {
                             if (tvShow != null)
                             {
-                                tvShow.text = txtShow.get("Show");
+                                tvShow.text = txtShow.get();
                             }
                             else
                             {

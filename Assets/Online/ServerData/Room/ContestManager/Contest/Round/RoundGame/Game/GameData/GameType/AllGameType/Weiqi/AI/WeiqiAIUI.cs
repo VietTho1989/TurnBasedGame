@@ -264,22 +264,22 @@ namespace Weiqi
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Weiqi AI");
 
         public Text lbCanResign;
-        public static readonly TxtLanguage txtCanResign = new TxtLanguage();
+        private static readonly TxtLanguage txtCanResign = new TxtLanguage("Can resign");
 
         public Text lbUseBook;
-        public static readonly TxtLanguage txtUseBook = new TxtLanguage();
+        private static readonly TxtLanguage txtUseBook = new TxtLanguage("Use book");
 
         public Text lbTime;
-        public static readonly TxtLanguage txtTime = new TxtLanguage();
+        private static readonly TxtLanguage txtTime = new TxtLanguage("Time");
 
         public Text lbGames;
-        public static readonly TxtLanguage txtGames = new TxtLanguage();
+        private static readonly TxtLanguage txtGames = new TxtLanguage("Games");
 
         public Text lbEngine;
-        public static readonly TxtLanguage txtEngine = new TxtLanguage();
+        private static readonly TxtLanguage txtEngine = new TxtLanguage("Engine");
 
         static WeiqiAIUI()
         {
@@ -929,7 +929,7 @@ namespace Weiqi
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Weiqi AI");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -937,7 +937,7 @@ namespace Weiqi
                         }
                         if (lbCanResign != null)
                         {
-                            lbCanResign.text = txtCanResign.get("Can resign");
+                            lbCanResign.text = txtCanResign.get();
                         }
                         else
                         {
@@ -945,7 +945,7 @@ namespace Weiqi
                         }
                         if (lbUseBook != null)
                         {
-                            lbUseBook.text = txtUseBook.get("Use book");
+                            lbUseBook.text = txtUseBook.get();
                         }
                         else
                         {
@@ -953,7 +953,7 @@ namespace Weiqi
                         }
                         if (lbTime != null)
                         {
-                            lbTime.text = txtTime.get("Time");
+                            lbTime.text = txtTime.get();
                         }
                         else
                         {
@@ -961,7 +961,7 @@ namespace Weiqi
                         }
                         if (lbGames != null)
                         {
-                            lbGames.text = txtGames.get("Games");
+                            lbGames.text = txtGames.get();
                         }
                         else
                         {
@@ -969,7 +969,7 @@ namespace Weiqi
                         }
                         if (lbEngine != null)
                         {
-                            lbEngine.text = txtEngine.get("Engine");
+                            lbEngine.text = txtEngine.get();
                         }
                         else
                         {

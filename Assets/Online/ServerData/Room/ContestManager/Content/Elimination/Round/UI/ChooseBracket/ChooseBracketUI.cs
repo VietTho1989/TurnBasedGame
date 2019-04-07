@@ -65,7 +65,7 @@ namespace GameManager.Match.Elimination
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Choose Bracket");
 
         static ChooseBracketUI()
         {
@@ -107,7 +107,7 @@ namespace GameManager.Match.Elimination
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Choose Bracket");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {

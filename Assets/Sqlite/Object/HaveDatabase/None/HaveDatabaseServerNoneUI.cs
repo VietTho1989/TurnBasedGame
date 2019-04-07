@@ -67,10 +67,10 @@ public class HaveDatabaseServerNoneUI : UIBehavior<HaveDatabaseServerNoneUI.UIDa
     #region txt
 
     public Text tvChooseFile;
-    private static readonly TxtLanguage txtChooseFile = new TxtLanguage();
+    private static readonly TxtLanguage txtChooseFile = new TxtLanguage("Choose");
 
     public Text tvLoad;
-    private static readonly TxtLanguage txtLoad = new TxtLanguage();
+    private static readonly TxtLanguage txtLoad = new TxtLanguage("Load");
 
     static HaveDatabaseServerNoneUI()
     {
@@ -151,7 +151,7 @@ public class HaveDatabaseServerNoneUI : UIBehavior<HaveDatabaseServerNoneUI.UIDa
                 {
                     if (tvChooseFile != null)
                     {
-                        tvChooseFile.text = txtChooseFile.get("Choose");
+                        tvChooseFile.text = txtChooseFile.get();
                     }
                     else
                     {
@@ -159,7 +159,7 @@ public class HaveDatabaseServerNoneUI : UIBehavior<HaveDatabaseServerNoneUI.UIDa
                     }
                     if (tvLoad != null)
                     {
-                        tvLoad.text = txtLoad.get("Load");
+                        tvLoad.text = txtLoad.get();
                     }
                     else
                     {

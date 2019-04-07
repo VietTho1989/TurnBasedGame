@@ -65,7 +65,7 @@ namespace GameManager.Match.RoundRobin
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Choose Round-robin Match");
 
         static ChooseRoundContestUI()
         {
@@ -107,7 +107,7 @@ namespace GameManager.Match.RoundRobin
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Choose RoundRobin Match");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {

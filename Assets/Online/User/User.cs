@@ -116,20 +116,20 @@ public class User : Data
         FEMALE
     }
 
-    private static readonly TxtLanguage txtSexUnknown = new TxtLanguage();
-    private static readonly TxtLanguage txtSexMale = new TxtLanguage();
-    private static readonly TxtLanguage txtSexFemale = new TxtLanguage();
+    private static readonly TxtLanguage txtSexUnknown = new TxtLanguage("Unknown");
+    private static readonly TxtLanguage txtSexMale = new TxtLanguage("Male");
+    private static readonly TxtLanguage txtSexFemale = new TxtLanguage("Female");
 
     public static string getStrSex(SEX sex)
     {
         switch (sex)
         {
             case SEX.UNKNOWN:
-                return txtSexUnknown.get("Unknown");
+                return txtSexUnknown.get();
             case SEX.MALE:
-                return txtSexMale.get("Male");
+                return txtSexMale.get();
             case SEX.FEMALE:
-                return txtSexFemale.get("Female");
+                return txtSexFemale.get();
             default:
                 Debug.LogError("unknown sex: " + sex);
                 return sex.ToString();

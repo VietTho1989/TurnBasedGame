@@ -129,18 +129,16 @@ namespace TimeControl.HourGlass
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Time Control Hourglass");
 
         public Text lbInitTime;
-        public static readonly TxtLanguage txtInitTime = new TxtLanguage();
+        private static readonly TxtLanguage txtInitTime = new TxtLanguage("Init time");
 
         public Text lbLagCompensation;
-        public static readonly TxtLanguage txtLagCompensation = new TxtLanguage();
+        private static readonly TxtLanguage txtLagCompensation = new TxtLanguage("Lag compensation");
 
         static TimeControlHourGlassUI()
         {
@@ -158,6 +156,8 @@ namespace TimeControl.HourGlass
         }
 
         #endregion
+
+        #region Refresh
 
         private bool needReset = true;
 
@@ -442,7 +442,7 @@ namespace TimeControl.HourGlass
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Time Control Hourglass");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -450,7 +450,7 @@ namespace TimeControl.HourGlass
                             }
                             if (lbInitTime != null)
                             {
-                                lbInitTime.text = txtInitTime.get("Init time");
+                                lbInitTime.text = txtInitTime.get();
                             }
                             else
                             {
@@ -458,7 +458,7 @@ namespace TimeControl.HourGlass
                             }
                             if (lbLagCompensation != null)
                             {
-                                lbLagCompensation.text = txtLagCompensation.get("Lag compensation");
+                                lbLagCompensation.text = txtLagCompensation.get();
                             }
                             else
                             {

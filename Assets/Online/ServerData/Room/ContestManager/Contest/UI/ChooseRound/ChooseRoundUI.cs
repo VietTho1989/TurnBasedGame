@@ -82,7 +82,7 @@ namespace GameManager.Match
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Choose Set In Match");
 
         static ChooseRoundUI()
         {
@@ -176,7 +176,7 @@ namespace GameManager.Match
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Choose Set In Match");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {

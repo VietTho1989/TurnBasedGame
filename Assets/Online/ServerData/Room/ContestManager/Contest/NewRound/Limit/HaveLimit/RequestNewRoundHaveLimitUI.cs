@@ -141,13 +141,13 @@ namespace GameManager.Match
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Have limit rounds");
 
         public Text lbMaxRound;
-        private static readonly TxtLanguage txtMaxRound = new TxtLanguage();
+        private static readonly TxtLanguage txtMaxRound = new TxtLanguage("Max round count");
 
         public Text lbEnoughScoreStop;
-        private static readonly TxtLanguage txtEnoughScoreStop = new TxtLanguage();
+        private static readonly TxtLanguage txtEnoughScoreStop = new TxtLanguage("Enough score stop");
 
         static RequestNewRoundHaveLimitUI()
         {
@@ -455,7 +455,7 @@ namespace GameManager.Match
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Have limit rounds");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -463,7 +463,7 @@ namespace GameManager.Match
                             }
                             if (lbMaxRound != null)
                             {
-                                lbMaxRound.text = txtMaxRound.get("Max round count");
+                                lbMaxRound.text = txtMaxRound.get();
                             }
                             else
                             {
@@ -471,7 +471,7 @@ namespace GameManager.Match
                             }
                             if (lbEnoughScoreStop != null)
                             {
-                                lbEnoughScoreStop.text = txtEnoughScoreStop.get("Enough score stop");
+                                lbEnoughScoreStop.text = txtEnoughScoreStop.get();
                             }
                             else
                             {

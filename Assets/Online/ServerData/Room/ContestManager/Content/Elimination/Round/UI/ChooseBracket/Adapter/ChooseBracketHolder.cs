@@ -60,14 +60,14 @@ namespace GameManager.Match.Elimination
 
         #region txt
 
-        private static readonly TxtLanguage txtByes = new TxtLanguage();
+        private static readonly TxtLanguage txtByes = new TxtLanguage("Byes");
 
-        private static readonly TxtLanguage txtPlaying = new TxtLanguage();
-        private static readonly TxtLanguage txtWinner = new TxtLanguage();
-        private static readonly TxtLanguage txtLoser = new TxtLanguage();
+        private static readonly TxtLanguage txtPlaying = new TxtLanguage("Playing");
+        private static readonly TxtLanguage txtWinner = new TxtLanguage("Winner");
+        private static readonly TxtLanguage txtLoser = new TxtLanguage("Loser");
 
         public Text tvShow;
-        public static readonly TxtLanguage txtShow = new TxtLanguage();
+        private static readonly TxtLanguage txtShow = new TxtLanguage("Show");
 
         static ChooseBracketHolder()
         {
@@ -140,7 +140,7 @@ namespace GameManager.Match.Elimination
                                     switch (state.getType())
                                     {
                                         case Bracket.State.Type.Play:
-                                            tvState.text = txtPlaying.get("Playing");
+                                            tvState.text = txtPlaying.get();
                                             break;
                                         case Bracket.State.Type.End:
                                             {
@@ -148,7 +148,7 @@ namespace GameManager.Match.Elimination
                                                 // winner
                                                 StringBuilder winnerBuilder = new StringBuilder();
                                                 {
-                                                    winnerBuilder.Append(txtWinner.get("Winner") + ": ");
+                                                    winnerBuilder.Append(txtWinner.get() + ": ");
                                                     foreach (int winner in bracketStateEnd.winTeamIndexs.vs)
                                                     {
                                                         winnerBuilder.Append(winner + ", ");
@@ -157,7 +157,7 @@ namespace GameManager.Match.Elimination
                                                 // loser
                                                 StringBuilder loserBuilder = new StringBuilder();
                                                 {
-                                                    loserBuilder.Append(txtLoser.get("Loser") + ": ");
+                                                    loserBuilder.Append(txtLoser.get() + ": ");
                                                     foreach (int loser in bracketStateEnd.loseTeamIndexs.vs)
                                                     {
                                                         loserBuilder.Append(loser + ", ");
@@ -256,7 +256,7 @@ namespace GameManager.Match.Elimination
                                             }
                                         }
                                     }
-                                    tvByes.text = txtByes.get("Byes") + ": " + builder.ToString();
+                                    tvByes.text = txtByes.get() + ": " + builder.ToString();
                                 }
                                 else
                                 {
@@ -338,7 +338,7 @@ namespace GameManager.Match.Elimination
                         {
                             if (tvShow != null)
                             {
-                                tvShow.text = txtShow.get("Show");
+                                tvShow.text = txtShow.get();
                             }
                             else
                             {
@@ -394,7 +394,7 @@ namespace GameManager.Match.Elimination
             }
             // Parent
             {
-                if(data is EliminationRoundUI.UIData)
+                if (data is EliminationRoundUI.UIData)
                 {
                     EliminationRoundUI.UIData eliminationRoundUIData = data as EliminationRoundUI.UIData;
                     // Child
@@ -405,7 +405,7 @@ namespace GameManager.Match.Elimination
                     return;
                 }
                 // Child
-                if(data is BracketUI.UIData)
+                if (data is BracketUI.UIData)
                 {
                     dirty = true;
                     return;
@@ -449,7 +449,7 @@ namespace GameManager.Match.Elimination
                         return;
                     }
                     // Child
-                    if(data is TransformData)
+                    if (data is TransformData)
                     {
                         dirty = true;
                         return;
@@ -535,7 +535,7 @@ namespace GameManager.Match.Elimination
                         return;
                     }
                     // Child
-                    if(data is TransformData)
+                    if (data is TransformData)
                     {
                         return;
                     }
@@ -693,7 +693,7 @@ namespace GameManager.Match.Elimination
                         return;
                     }
                     // Child
-                    if(wrapProperty.p is TransformData)
+                    if (wrapProperty.p is TransformData)
                     {
                         switch ((TransformData.Property)wrapProperty.n)
                         {

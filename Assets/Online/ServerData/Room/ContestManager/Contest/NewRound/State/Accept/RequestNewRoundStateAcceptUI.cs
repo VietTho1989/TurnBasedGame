@@ -50,7 +50,7 @@ namespace GameManager.Match
         #region txt
 
         public Text tvMessage;
-        private static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("Request New Game Accepted");
 
         static RequestNewRoundStateAcceptUI()
         {
@@ -78,7 +78,7 @@ namespace GameManager.Match
                         {
                             if (tvMessage != null)
                             {
-                                tvMessage.text = txtMessage.get("Request New Game Accepted");
+                                tvMessage.text = txtMessage.get();
                             }
                             else
                             {

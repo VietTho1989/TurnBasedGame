@@ -40,7 +40,7 @@ namespace GameManager.Match.RoundRobin
 
         #region txt
 
-        public static readonly TxtLanguage txtRoundRobinContent = new TxtLanguage();
+        private static readonly TxtLanguage txtRoundRobinContent = new TxtLanguage("Round-robin");
 
         static BtnRoundRobinContentUI()
         {
@@ -103,7 +103,7 @@ namespace GameManager.Match.RoundRobin
                                         }
                                     }
                                 }
-                                tvRoundRobinContent.text = txtRoundRobinContent.get("RoundRobin") + " " + (roundRobinIndex + 1) + "/" + roundRobinCount;
+                                tvRoundRobinContent.text = txtRoundRobinContent.get() + " " + (roundRobinIndex + 1) + "/" + roundRobinCount;
                             }
                             else
                             {

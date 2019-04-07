@@ -101,10 +101,10 @@ namespace GameManager.Match.RoundRobin
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Request New Round-robin");
 
         public Text tvCannotRequest;
-        private static readonly TxtLanguage txtCannotRequest = new TxtLanguage();
+        private static readonly TxtLanguage txtCannotRequest = new TxtLanguage("Can't request");
 
         static RequestNewRoundRobinStateAskUI()
         {
@@ -235,7 +235,7 @@ namespace GameManager.Match.RoundRobin
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Request New Roundrobin");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -243,7 +243,7 @@ namespace GameManager.Match.RoundRobin
                             }
                             if (tvCannotRequest != null)
                             {
-                                tvCannotRequest.text = txtCannotRequest.get("Can't request");
+                                tvCannotRequest.text = txtCannotRequest.get();
                             }
                             else
                             {

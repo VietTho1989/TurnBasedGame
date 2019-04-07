@@ -85,7 +85,7 @@ public class RoomUserListUI : UIBehavior<RoomUserListUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Room User List");
 
     static RoomUserListUI()
     {
@@ -148,7 +148,7 @@ public class RoomUserListUI : UIBehavior<RoomUserListUI.UIData>
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Room User List");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {

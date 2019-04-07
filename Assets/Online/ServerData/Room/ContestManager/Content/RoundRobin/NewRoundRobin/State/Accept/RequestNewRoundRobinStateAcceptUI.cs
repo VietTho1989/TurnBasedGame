@@ -47,12 +47,10 @@ namespace GameManager.Match.RoundRobin
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text tvMessage;
-        public static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("Request New Round Robin State Accepted");
 
         static RequestNewRoundRobinStateAcceptUI()
         {
@@ -60,6 +58,8 @@ namespace GameManager.Match.RoundRobin
         }
 
         #endregion
+
+        #region Refresh
 
         public override void refresh()
         {
@@ -81,7 +81,7 @@ namespace GameManager.Match.RoundRobin
                     {
                         if (tvMessage != null)
                         {
-                            tvMessage.text = txtMessage.get("Request New Round Robin State Accepted");
+                            tvMessage.text = txtMessage.get();
                         }
                         else
                         {

@@ -54,7 +54,7 @@ namespace GameManager.Match
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("No limit rounds");
 
         static RequestNewRoundNoLimitUI()
         {
@@ -183,7 +183,7 @@ namespace GameManager.Match
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("No limit rounds");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {

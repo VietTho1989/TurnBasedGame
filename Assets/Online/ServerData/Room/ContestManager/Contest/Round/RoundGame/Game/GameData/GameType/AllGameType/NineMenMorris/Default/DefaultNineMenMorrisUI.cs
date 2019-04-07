@@ -49,7 +49,7 @@ namespace NineMenMorris
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Default Nine men's morris");
 
         static DefaultNineMenMorrisUI()
         {
@@ -230,7 +230,7 @@ namespace NineMenMorris
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Default Nine men's morris");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {

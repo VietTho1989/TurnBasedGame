@@ -1,7 +1,8 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/State/Lobby/Team/Player/UI/Edit/AdminEdit/Human/AdminEditLobbyPlayerChooseHumanAdapter.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Content/Elimination/Round/Bracket/UI/ChooseBracketContest/ChooseBracketContestUI.cs">
     <Files>
-      <File FileName="Assets/Online/ServerData/Room/ContestManager/State/Lobby/Team/Player/UI/Edit/AdminEdit/Human/AdminEditLobbyPlayerChooseHumanAdapter.cs" Line="86" Column="56" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Content/Elimination/Round/Bracket/UI/BtnBracketUI.cs" Line="43" Column="88" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Content/Elimination/Round/Bracket/UI/ChooseBracketContest/ChooseBracketContestUI.cs" Line="68" Column="94" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
@@ -10,8 +11,6 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GamePlayer/UI/GamePlayerUI/GamePlayerUI.cs" relfile="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GamePlayer/UI/GamePlayerUI/GamePlayerUI.cs" line="900" column="1" />
-      <Breakpoint file="/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Online/ServerData/Room/ContestManager/Contest/UI/ChooseRound/ChooseRoundUI.cs" relfile="Assets/Online/ServerData/Room/ContestManager/Contest/UI/ChooseRound/ChooseRoundUI.cs" line="130" column="1" />
-      <Breakpoint file="/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Online/ServerData/Room/ContestManager/Contest/UI/ChooseRound/ChooseRoundUI.cs" relfile="Assets/Online/ServerData/Room/ContestManager/Contest/UI/ChooseRound/ChooseRoundUI.cs" line="126" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />

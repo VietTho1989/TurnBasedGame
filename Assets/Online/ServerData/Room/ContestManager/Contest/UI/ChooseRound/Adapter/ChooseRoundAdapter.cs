@@ -86,7 +86,7 @@ namespace GameManager.Match
         #region txt
 
         public Text tvNoRounds;
-        public static readonly TxtLanguage txtNoRounds = new TxtLanguage();
+        private static readonly TxtLanguage txtNoRounds = new TxtLanguage("Don't have any sets in match");
 
         static ChooseRoundAdapter()
         {
@@ -239,7 +239,7 @@ namespace GameManager.Match
                         {
                             if (tvNoRounds != null)
                             {
-                                tvNoRounds.text = txtNoRounds.get("Don't have any sets in match");
+                                tvNoRounds.text = txtNoRounds.get();
                             }
                             else
                             {

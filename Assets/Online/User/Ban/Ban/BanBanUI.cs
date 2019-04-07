@@ -61,15 +61,15 @@ public class BanBanUI : UIBehavior<BanBanUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Already Banned");
 
     public Text tvUnban;
-    private static readonly TxtLanguage txtUnban = new TxtLanguage();
-    private static readonly TxtLanguage txtCancelUnban = new TxtLanguage();
-    private static readonly TxtLanguage txtUnbanning = new TxtLanguage();
-    private static readonly TxtLanguage txtCannotUnban = new TxtLanguage();
+    private static readonly TxtLanguage txtUnban = new TxtLanguage("Unban");
+    private static readonly TxtLanguage txtCancelUnban = new TxtLanguage("Cancel");
+    private static readonly TxtLanguage txtUnbanning = new TxtLanguage("Unbanning");
+    private static readonly TxtLanguage txtCannotUnban = new TxtLanguage("Cannot Unban");
 
-    private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+    private static readonly TxtLanguage txtRequestError = new TxtLanguage("Send request unban error");
 
     static BanBanUI()
     {
@@ -199,19 +199,19 @@ public class BanBanUI : UIBehavior<BanBanUI.UIData>
                                         case UIData.State.None:
                                             {
                                                 btnUnban.interactable = true;
-                                                tvUnban.text = txtUnban.get("Unban");
+                                                tvUnban.text = txtUnban.get();
                                             }
                                             break;
                                         case UIData.State.Request:
                                             {
                                                 btnUnban.interactable = true;
-                                                tvUnban.text = txtCancelUnban.get("Cancel");
+                                                tvUnban.text = txtCancelUnban.get();
                                             }
                                             break;
                                         case UIData.State.Wait:
                                             {
                                                 btnUnban.interactable = false;
-                                                tvUnban.text = txtUnbanning.get("Unbanning");
+                                                tvUnban.text = txtUnbanning.get();
                                             }
                                             break;
                                         default:
@@ -235,7 +235,7 @@ public class BanBanUI : UIBehavior<BanBanUI.UIData>
                                 if(btnUnban!=null && tvUnban != null)
                                 {
                                     btnUnban.interactable = false;
-                                    tvUnban.text = txtCannotUnban.get("Cannot Unban");
+                                    tvUnban.text = txtCannotUnban.get();
                                 }
                                 else
                                 {
@@ -248,7 +248,7 @@ public class BanBanUI : UIBehavior<BanBanUI.UIData>
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Already Banned");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -297,7 +297,7 @@ public class BanBanUI : UIBehavior<BanBanUI.UIData>
 		if (this.data != null) {
 			yield return new Wait (Global.WaitSendTime);
 			this.data.state.v = UIData.State.None;
-			Toast.showMessage (txtRequestError.get("Send request unban error"));
+			Toast.showMessage (txtRequestError.get());
 			Debug.LogError ("request unfriend error: " + this);
 		} else {
 			Debug.LogError ("data null: " + this);

@@ -16,9 +16,9 @@ namespace GameManager.Match
 
         #region txt
 
-        private static readonly TxtLanguage txtSingle = new TxtLanguage();
-        private static readonly TxtLanguage txtRoundRobin = new TxtLanguage();
-        private static readonly TxtLanguage txtElimination = new TxtLanguage();
+        private static readonly TxtLanguage txtSingle = new TxtLanguage("Single");
+        private static readonly TxtLanguage txtRoundRobin = new TxtLanguage("Round-robin");
+        private static readonly TxtLanguage txtElimination = new TxtLanguage("Elimination");
 
         static ContestManagerContent()
         {
@@ -31,9 +31,9 @@ namespace GameManager.Match
         {
             List<string> ret = new List<string>();
             {
-                ret.Add(txtSingle.get("Single"));
-                ret.Add(txtRoundRobin.get("Round-robin"));
-                ret.Add(txtElimination.get("Elimination"));
+                ret.Add(txtSingle.get());
+                ret.Add(txtRoundRobin.get());
+                ret.Add(txtElimination.get());
             }
             return ret;
         }

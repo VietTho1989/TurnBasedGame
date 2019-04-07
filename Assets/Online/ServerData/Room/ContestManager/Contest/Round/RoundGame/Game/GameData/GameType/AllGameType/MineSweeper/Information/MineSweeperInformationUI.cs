@@ -56,27 +56,27 @@ namespace MineSweeper
         public Text lbTitle;
 
         public Text tvMessage;
-        private static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("https://en.wikipedia.org/wiki/Minesweeper_(video_game)");
 
         public Text lbWidth;
         public Text tvWidth;
-        private static readonly TxtLanguage txtWidth = new TxtLanguage();
+        private static readonly TxtLanguage txtWidth = new TxtLanguage("Width");
 
         public Text lbHeight;
         public Text tvHeight;
-        private static readonly TxtLanguage txtHeight = new TxtLanguage();
+        private static readonly TxtLanguage txtHeight = new TxtLanguage("Height");
 
         public Text lbBomb;
         public Text tvBomb;
-        private static readonly TxtLanguage txtBomb = new TxtLanguage();
+        private static readonly TxtLanguage txtBomb = new TxtLanguage("Bomb");
 
         public Text lbBombFound;
         public Text tvBombFound;
-        private static readonly TxtLanguage txtBombFound = new TxtLanguage();
+        private static readonly TxtLanguage txtBombFound = new TxtLanguage("Bomb found");
 
         public Text lbAllowWatchBomb;
         public Toggle tgAllowWatchBomb;
-        private static readonly TxtLanguage txtAllowWatchBomb = new TxtLanguage();
+        private static readonly TxtLanguage txtAllowWatchBomb = new TxtLanguage("Allow watch bomb");
 
         static MineSweeperInformationUI()
         {
@@ -327,7 +327,7 @@ namespace MineSweeper
                             }
                             if (tvMessage != null)
                             {
-                                tvMessage.text = txtMessage.get("https://en.wikipedia.org/wiki/Minesweeper_(video_game)");
+                                tvMessage.text = txtMessage.get();
                             }
                             else
                             {
@@ -335,7 +335,7 @@ namespace MineSweeper
                             }
                             if (lbWidth != null)
                             {
-                                lbWidth.text = txtWidth.get("Width");
+                                lbWidth.text = txtWidth.get();
                             }
                             else
                             {
@@ -343,7 +343,7 @@ namespace MineSweeper
                             }
                             if (lbHeight != null)
                             {
-                                lbHeight.text = txtHeight.get("Height");
+                                lbHeight.text = txtHeight.get();
                             }
                             else
                             {
@@ -351,7 +351,7 @@ namespace MineSweeper
                             }
                             if (lbBomb != null)
                             {
-                                lbBomb.text = txtBomb.get("Bomb");
+                                lbBomb.text = txtBomb.get();
                             }
                             else
                             {
@@ -359,7 +359,7 @@ namespace MineSweeper
                             }
                             if (lbBombFound != null)
                             {
-                                lbBombFound.text = txtBombFound.get("Bomb found");
+                                lbBombFound.text = txtBombFound.get();
                             }
                             else
                             {
@@ -367,7 +367,7 @@ namespace MineSweeper
                             }
                             if (lbAllowWatchBomb != null)
                             {
-                                lbAllowWatchBomb.text = txtAllowWatchBomb.get("Allow watch bomb");
+                                lbAllowWatchBomb.text = txtAllowWatchBomb.get();
                             }
                             else
                             {

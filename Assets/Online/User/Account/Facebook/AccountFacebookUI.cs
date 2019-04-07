@@ -55,16 +55,16 @@ public class AccountFacebookUI : UIHaveTransformDataBehavior<AccountFacebookUI.U
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Account Facebook");
 
     public Text lbUserId;
-    public static readonly TxtLanguage txtUserId = new TxtLanguage();
+    private static readonly TxtLanguage txtUserId = new TxtLanguage("User ID");
 
     public Text lbFirstName;
-    public static readonly TxtLanguage txtFirstName = new TxtLanguage();
+    private static readonly TxtLanguage txtFirstName = new TxtLanguage("First name");
 
     public Text lbLastName;
-    public static readonly TxtLanguage txtLastName = new TxtLanguage();
+    private static readonly TxtLanguage txtLastName = new TxtLanguage("Last name");
 
     static AccountFacebookUI()
     {
@@ -452,7 +452,7 @@ public class AccountFacebookUI : UIHaveTransformDataBehavior<AccountFacebookUI.U
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("Account Facebook");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {
@@ -460,7 +460,7 @@ public class AccountFacebookUI : UIHaveTransformDataBehavior<AccountFacebookUI.U
                     }
                     if (lbUserId != null)
                     {
-                        lbUserId.text = txtUserId.get("UserId");
+                        lbUserId.text = txtUserId.get();
                     }
                     else
                     {
@@ -468,7 +468,7 @@ public class AccountFacebookUI : UIHaveTransformDataBehavior<AccountFacebookUI.U
                     }
                     if (lbFirstName != null)
                     {
-                        lbFirstName.text = txtFirstName.get("First Name");
+                        lbFirstName.text = txtFirstName.get();
                     }
                     else
                     {
@@ -476,7 +476,7 @@ public class AccountFacebookUI : UIHaveTransformDataBehavior<AccountFacebookUI.U
                     }
                     if (lbLastName != null)
                     {
-                        lbLastName.text = txtLastName.get("Last Name");
+                        lbLastName.text = txtLastName.get();
                     }
                     else
                     {

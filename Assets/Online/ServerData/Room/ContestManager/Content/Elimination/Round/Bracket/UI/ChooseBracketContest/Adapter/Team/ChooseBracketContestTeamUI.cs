@@ -39,8 +39,8 @@ namespace GameManager.Match.Elimination
 
         #region txt
 
-        public static readonly TxtLanguage txtTeamIndex = new TxtLanguage();
-        public static readonly TxtLanguage txtTeamScore = new TxtLanguage();
+        private static readonly TxtLanguage txtTeamIndex = new TxtLanguage("Team");
+        private static readonly TxtLanguage txtTeamScore = new TxtLanguage("Score");
 
         public Text tvTeam;
 
@@ -69,7 +69,7 @@ namespace GameManager.Match.Elimination
                             if (tvTeam != null)
                             {
                                 float score = bracketContest.getResult(this.data.teamIndex.v);
-                                tvTeam.text = txtTeamIndex.get("Team") + ": " + this.data.teamIndex.v + "\t\t\t" + txtTeamScore.get("Score") + ": " + score;
+                                tvTeam.text = txtTeamIndex.get() + ": " + this.data.teamIndex.v + "\t\t\t" + txtTeamScore.get() + ": " + score;
                             }
                             else
                             {

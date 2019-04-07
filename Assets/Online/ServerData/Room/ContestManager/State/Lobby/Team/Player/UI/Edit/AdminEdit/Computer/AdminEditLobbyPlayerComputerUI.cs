@@ -69,22 +69,20 @@ namespace GameManager.Match
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Request Computer");
 
         public Text tvReset;
-        private static readonly TxtLanguage txtReset = new TxtLanguage();
+        private static readonly TxtLanguage txtReset = new TxtLanguage("Reset");
 
-        private static readonly TxtLanguage txtRequest = new TxtLanguage();
-        private static readonly TxtLanguage txtCancelRequest = new TxtLanguage();
-        private static readonly TxtLanguage txtRequesting = new TxtLanguage();
-        private static readonly TxtLanguage txtCannotRequest = new TxtLanguage();
+        private static readonly TxtLanguage txtRequest = new TxtLanguage("Request");
+        private static readonly TxtLanguage txtCancelRequest = new TxtLanguage("Cancel Request?");
+        private static readonly TxtLanguage txtRequesting = new TxtLanguage("Requesting...");
+        private static readonly TxtLanguage txtCannotRequest = new TxtLanguage("Not Different, Cannot Request");
 
-        private static readonly TxtLanguage txtRequestError = new TxtLanguage();
+        private static readonly TxtLanguage txtRequestError = new TxtLanguage("Request error");
 
         static AdminEditLobbyPlayerComputerUI()
         {
@@ -100,6 +98,8 @@ namespace GameManager.Match
         }
 
         #endregion
+
+        #region Refresh
 
         public Button btnRequest;
         public Text tvRequest;
@@ -308,25 +308,25 @@ namespace GameManager.Match
                                             if (isDiffrent)
                                             {
                                                 btnRequest.interactable = true;
-                                                tvRequest.text = txtRequest.get("Request");
+                                                tvRequest.text = txtRequest.get();
                                             }
                                             else
                                             {
                                                 btnRequest.interactable = false;
-                                                tvRequest.text = txtCannotRequest.get("Not Different, Cannot Request");
+                                                tvRequest.text = txtCannotRequest.get();
                                             }
                                         }
                                         break;
                                     case UIData.State.Request:
                                         {
                                             btnRequest.interactable = true;
-                                            tvRequest.text = txtCancelRequest.get("Cancel Request?");
+                                            tvRequest.text = txtCancelRequest.get();
                                         }
                                         break;
                                     case UIData.State.Wait:
                                         {
                                             btnRequest.interactable = false;
-                                            tvRequest.text = txtRequesting.get("Requesting...");
+                                            tvRequest.text = txtRequesting.get();
                                         }
                                         break;
                                     default:
@@ -343,7 +343,7 @@ namespace GameManager.Match
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Request Computer");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {
@@ -351,7 +351,7 @@ namespace GameManager.Match
                             }
                             if (tvReset != null)
                             {
-                                tvReset.text = txtReset.get("Reset");
+                                tvReset.text = txtReset.get();
                             }
                             else
                             {
@@ -398,7 +398,7 @@ namespace GameManager.Match
                         Debug.LogError("data null: " + this);
                     }
                 }
-                Toast.showMessage(txtRequestError.get("Request error"));
+                Toast.showMessage(txtRequestError.get());
                 Debug.LogError("request error: " + this);
             }
             else

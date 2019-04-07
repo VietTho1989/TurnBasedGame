@@ -39,7 +39,12 @@ public class UserTopicUI : UIBehavior<UserTopicUI.UIData>
     #region txt
 
     public Text lbTitle;
-    private static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("User");
+
+    static UserTopicUI()
+    {
+        txtTitle.add(Language.Type.vi, "Người Dùng");
+    }
 
     #endregion
 
@@ -56,7 +61,7 @@ public class UserTopicUI : UIBehavior<UserTopicUI.UIData>
                 {
                     if (lbTitle != null)
                     {
-                        lbTitle.text = txtTitle.get("User");
+                        lbTitle.text = txtTitle.get();
                     }
                     else
                     {

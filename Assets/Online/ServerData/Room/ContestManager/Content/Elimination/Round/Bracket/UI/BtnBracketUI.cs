@@ -40,7 +40,7 @@ namespace GameManager.Match.Elimination
 
         #region txt
 
-        public static readonly TxtLanguage txtBracket = new TxtLanguage();
+        private static readonly TxtLanguage txtBracket = new TxtLanguage("Bracket match");
 
         static BtnBracketUI()
         {
@@ -109,7 +109,7 @@ namespace GameManager.Match.Elimination
                                         }
                                     }
                                 }
-                                tvBracket.text = txtBracket.get("Bracket Contest") + " " + (bracketContestIndex + 1) + "/" + bracketContestCount;
+                                tvBracket.text = txtBracket.get() + " " + (bracketContestIndex + 1) + "/" + bracketContestCount;
                             }
                             else
                             {

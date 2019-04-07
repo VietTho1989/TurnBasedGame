@@ -55,17 +55,15 @@ namespace GameManager.Match
 
         #endregion
 
-        #region Refresh
-
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Make empty inform");
 
-        public static readonly TxtLanguage txtRequest = new TxtLanguage();
-        public static readonly TxtLanguage txtCancelRequest = new TxtLanguage();
-        public static readonly TxtLanguage txtRequesting = new TxtLanguage();
-        public static readonly TxtLanguage txtAlreadyEmpty = new TxtLanguage();
+        private static readonly TxtLanguage txtRequest = new TxtLanguage("Request Empty");
+        private static readonly TxtLanguage txtCancelRequest = new TxtLanguage("Cancel Request Empty?");
+        private static readonly TxtLanguage txtRequesting = new TxtLanguage("Requesting Empty...");
+        private static readonly TxtLanguage txtAlreadyEmpty = new TxtLanguage("Already Empty");
 
         static AdminEditLobbyPlayerEmptyUI()
         {
@@ -78,6 +76,8 @@ namespace GameManager.Match
         }
 
         #endregion
+
+        #region Refresh
 
         public Button btnRequest;
         public Text tvRequest;
@@ -154,19 +154,19 @@ namespace GameManager.Match
                                         case UIData.State.None:
                                             {
                                                 btnRequest.interactable = true;
-                                                tvRequest.text = txtRequest.get("Request Empty");
+                                                tvRequest.text = txtRequest.get();
                                             }
                                             break;
                                         case UIData.State.Request:
                                             {
                                                 btnRequest.interactable = true;
-                                                tvRequest.text = txtCancelRequest.get("Cancel Request Empty?");
+                                                tvRequest.text = txtCancelRequest.get();
                                             }
                                             break;
                                         case UIData.State.Wait:
                                             {
                                                 btnRequest.interactable = false;
-                                                tvRequest.text = txtRequesting.get("Requesting Empty...");
+                                                tvRequest.text = txtRequesting.get();
                                             }
                                             break;
                                         default:
@@ -193,7 +193,7 @@ namespace GameManager.Match
                                 if (btnRequest != null && tvRequest != null)
                                 {
                                     btnRequest.interactable = false;
-                                    tvRequest.text = txtAlreadyEmpty.get("Already Empty");
+                                    tvRequest.text = txtAlreadyEmpty.get();
                                 }
                                 else
                                 {
@@ -205,7 +205,7 @@ namespace GameManager.Match
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Make empty inform");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {

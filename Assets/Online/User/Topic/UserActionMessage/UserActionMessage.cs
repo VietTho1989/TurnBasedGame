@@ -81,22 +81,22 @@ public class UserActionMessage : ChatMessage.Content
             switch (this.action.v)
             {
                 case UserActionMessage.Action.Register:
-                    ret = "<color=grey>" + userName + "</color> " + UserActionMessageUI.txtRegister.get("register");
+                    ret = "<color=grey>" + userName + "</color> " + UserActionMessageUI.txtRegister.get();
                     break;
                 case UserActionMessage.Action.Login:
-                    ret = "<color=grey>" + userName + "</color> " + UserActionMessageUI.txtLogin.get("login");
+                    ret = "<color=grey>" + userName + "</color> " + UserActionMessageUI.txtLogin.get();
                     break;
                 case UserActionMessage.Action.Logout:
-                    ret = "<color=grey>" + userName + "</color> " + UserActionMessageUI.txtLogout.get("logout");
+                    ret = "<color=grey>" + userName + "</color> " + UserActionMessageUI.txtLogout.get();
                     break;
                 case UserActionMessage.Action.Disconnect:
-                    ret = "<color=grey>" + userName + "</color> " + UserActionMessageUI.txtDisconnect.get("disconnect");
+                    ret = "<color=grey>" + userName + "</color> " + UserActionMessageUI.txtDisconnect.get();
                     break;
                 case UserActionMessage.Action.Banned:
-                    ret = "<color=grey>" + userName + "</color> " + UserActionMessageUI.txtBanned.get("was banned");
+                    ret = "<color=grey>" + userName + "</color> " + UserActionMessageUI.txtBanned.get();
                     break;
                 case UserActionMessage.Action.UnBanned:
-                    ret = "<color=grey>" + userName + "</color> " + UserActionMessageUI.txtUnBanned.get("was unbanned");
+                    ret = "<color=grey>" + userName + "</color> " + UserActionMessageUI.txtUnBanned.get();
                     break;
                 default:
                     Debug.LogError("unknown action: " + this.action.v + "; " + this);

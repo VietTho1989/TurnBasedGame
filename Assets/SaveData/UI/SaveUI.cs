@@ -85,10 +85,10 @@ public class SaveUI : UIBehavior<SaveUI.UIData>
     #region txt, rect
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Save Data");
 
     public Text tvPlaceHolder;
-    public static readonly TxtLanguage txtPlaceHolder = new TxtLanguage();
+    private static readonly TxtLanguage txtPlaceHolder = new TxtLanguage("Enter file name");
 
     static SaveUI()
     {
@@ -145,7 +145,7 @@ public class SaveUI : UIBehavior<SaveUI.UIData>
                     {
                         if (lbTitle != null)
                         {
-                            lbTitle.text = txtTitle.get("Save Data");
+                            lbTitle.text = txtTitle.get();
                         }
                         else
                         {
@@ -153,7 +153,7 @@ public class SaveUI : UIBehavior<SaveUI.UIData>
                         }
                         if (tvPlaceHolder != null)
                         {
-                            tvPlaceHolder.text = txtPlaceHolder.get("Enter file name");
+                            tvPlaceHolder.text = txtPlaceHolder.get();
                         }
                         else
                         {

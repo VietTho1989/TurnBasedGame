@@ -60,7 +60,7 @@ namespace GameManager.Match
         #region txt
 
         public Text lbTitle;
-        public static readonly TxtLanguage txtTitle = new TxtLanguage();
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Set Limit Count");
 
         static RequestNewRoundInformUI()
         {
@@ -132,7 +132,7 @@ namespace GameManager.Match
                         {
                             if (lbTitle != null)
                             {
-                                lbTitle.text = txtTitle.get("Set Limit Count");
+                                lbTitle.text = txtTitle.get();
                             }
                             else
                             {

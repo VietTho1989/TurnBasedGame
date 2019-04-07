@@ -45,7 +45,7 @@ namespace GameState
         #region txt
 
         public Text tvMessage;
-        public static readonly TxtLanguage txtMessage = new TxtLanguage();
+        private static readonly TxtLanguage txtMessage = new TxtLanguage("Game End");
 
         static EndUI()
         {
@@ -178,7 +178,7 @@ namespace GameState
                         {
                             if (tvMessage != null)
                             {
-                                tvMessage.text = txtMessage.get("Game End");
+                                tvMessage.text = txtMessage.get();
                             }
                             else
                             {
