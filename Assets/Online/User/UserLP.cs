@@ -105,22 +105,73 @@ public class UserLP : LP<User>, ValueChangeCallBack
             return;
         }
         // Child
-        if (data is Human)
         {
-            Human human = data as Human;
-            // add
+            if (data is Human)
             {
-                User user = human.findDataInParent<User>();
-                if (user != null)
+                Human human = data as Human;
+                // add
                 {
-                    notCorrectUsers.Add(user);
+                    User user = human.findDataInParent<User>();
+                    if (user != null)
+                    {
+                        notCorrectUsers.Add(user);
+                    }
+                    else
+                    {
+                        Debug.LogError("user null");
+                    }
                 }
-                else
+                // Child
                 {
-                    Debug.LogError("user null");
+                    human.account.allAddCallBack(this);
                 }
+                return;
             }
-            return;
+            // Child
+            if(data is Account)
+            {
+                Account account = data as Account;
+                // add to dict
+                {
+                    User user = account.findDataInParent<User>();
+                    if (user != null)
+                    {
+                        switch (account.getType())
+                        {
+                            case Account.Type.NONE:
+                                break;
+                            case Account.Type.Admin:
+                                break;
+                            case Account.Type.DEVICE:
+                                {
+                                    AccountDevice accountDevice = account as AccountDevice;
+                                    deviceDict[accountDevice.imei.v] = user;
+                                }
+                                break;
+                            case Account.Type.EMAIL:
+                                {
+                                    AccountEmail accountEmail = account as AccountEmail;
+                                    emailDict[accountEmail.email.v] = user;
+                                }
+                                break;
+                            case Account.Type.FACEBOOK:
+                                {
+                                    AccountFacebook accountFacebook = account as AccountFacebook;
+                                    facebookDict[accountFacebook.userId.v] = user;
+                                }
+                                break;
+                            default:
+                                Debug.LogError("unknown type: " + account.getType());
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("user null");
+                    }
+                }
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -159,9 +210,53 @@ public class UserLP : LP<User>, ValueChangeCallBack
             return;
         }
         // Child
-        if (data is Human)
         {
-            return;
+            if (data is Human)
+            {
+                Human human = data as Human;
+                // Child
+                {
+                    human.account.allRemoveCallBack(this);
+                }
+                return;
+            }
+            // Child
+            if(data is Account)
+            {
+                Account account = data as Account;
+                // add to dict
+                {
+                    switch (account.getType())
+                    {
+                        case Account.Type.NONE:
+                            break;
+                        case Account.Type.Admin:
+                            break;
+                        case Account.Type.DEVICE:
+                            {
+                                AccountDevice accountDevice = account as AccountDevice;
+                                deviceDict.Remove(accountDevice.imei.v);
+                            }
+                            break;
+                        case Account.Type.EMAIL:
+                            {
+                                AccountEmail accountEmail = account as AccountEmail;
+                                emailDict.Remove(accountEmail.email.v);
+                            }
+                            break;
+                        case Account.Type.FACEBOOK:
+                            {
+                                AccountFacebook accountFacebook = account as AccountFacebook;
+                                facebookDict.Remove(accountFacebook.userId.v);
+                            }
+                            break;
+                        default:
+                            Debug.LogError("unknown type: " + account.getType());
+                            break;
+                    }
+                }
+                return;
+            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -204,64 +299,118 @@ public class UserLP : LP<User>, ValueChangeCallBack
             return;
         }
         // Child
-        if (wrapProperty.p is Human)
         {
-            switch ((Human.Property)wrapProperty.n)
+            if (wrapProperty.p is Human)
             {
-                case Human.Property.playerId:
-                    {
-                        User user = wrapProperty.p.findDataInParent<User>();
-                        if (user != null)
+                switch ((Human.Property)wrapProperty.n)
+                {
+                    case Human.Property.playerId:
                         {
-                            notCorrectUsers.Add(user);
+                            User user = wrapProperty.p.findDataInParent<User>();
+                            if (user != null)
+                            {
+                                notCorrectUsers.Add(user);
+                            }
+                            else
+                            {
+                                Debug.LogError("user null");
+                            }
                         }
-                        else
+                        break;
+                    case Human.Property.account:
                         {
-                            Debug.LogError("user null");
+                            ValueChangeUtils.replaceCallBack(this, syncs);
                         }
-                    }
-                    break;
-                case Human.Property.account:
-                    break;
-                case Human.Property.state:
-                    break;
-                case Human.Property.email:
-                    break;
-                case Human.Property.phoneNumber:
-                    break;
-                case Human.Property.status:
-                    break;
-                case Human.Property.birthday:
-                    break;
-                case Human.Property.sex:
-                    break;
-                case Human.Property.connection:
-                    break;
-                case Human.Property.ban:
-                    break;
-                default:
-                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                    break;
+                        break;
+                    case Human.Property.state:
+                        break;
+                    case Human.Property.email:
+                        break;
+                    case Human.Property.phoneNumber:
+                        break;
+                    case Human.Property.status:
+                        break;
+                    case Human.Property.birthday:
+                        break;
+                    case Human.Property.sex:
+                        break;
+                    case Human.Property.connection:
+                        break;
+                    case Human.Property.ban:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
             }
-            return;
+            // Child
+            if(wrapProperty.p is Account)
+            {
+                return;
+            }
         }
         Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
     }
 
     #endregion
 
+    private Dictionary<string, User> deviceDict = new Dictionary<string, User>();
+    private Dictionary<string, User> emailDict = new Dictionary<string, User>();
+    private Dictionary<string, User> facebookDict = new Dictionary<string, User>();
+
+    /**
+     * Chi dung o server, not in client
+     * */
     public User findUserByAccount(AccountMessage accountMessage)
     {
         User user = null;
         {
-            // TODO Can hoan thien
-            foreach (User check in this.vs)
+            /*foreach (User check in this.vs)
             {
                 if (check.human.v.account.v.isEqual(accountMessage))
                 {
                     user = check;
                     break;
                 }
+            }*/
+            switch(accountMessage.getType())
+            {
+                case Account.Type.NONE:
+                    break;
+                case Account.Type.Admin:
+                    break;
+                case Account.Type.DEVICE:
+                    {
+                        AccountDeviceMessage accountDeviceMessage = accountMessage as AccountDeviceMessage;
+                        if (deviceDict.TryGetValue(accountDeviceMessage.imei, out user))
+                        {
+                            // already find
+                        }
+                    }
+                    break;
+                case Account.Type.EMAIL:
+                    {
+                        AccountEmailMessage accountEmailMessage = accountMessage as AccountEmailMessage;
+                        if (emailDict.TryGetValue(accountEmailMessage.email, out user))
+                        {
+                            // already find
+                        }
+                        Debug.LogError("accountEmailMessage: " + accountEmailMessage.email + ", " + user);
+                    }
+                    break;
+                case Account.Type.FACEBOOK:
+                    {
+                        AccountFacebookMessage accountFacebookMessage = accountMessage as AccountFacebookMessage;
+                        if (facebookDict.TryGetValue(accountFacebookMessage.userId, out user))
+                        {
+                            // already find
+                        }
+                    }
+                    break;
+                default:
+                    Debug.LogError("unknown type: " + accountMessage.getType());
+                    break;
             }
         }
         return user;

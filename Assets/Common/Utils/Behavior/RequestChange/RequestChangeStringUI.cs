@@ -23,6 +23,8 @@ public class RequestChangeStringUI : UIBehavior<RequestChangeStringUI.UIData>
 
         public VP<string> placeHolder;
 
+        public VP<InputField.ContentType> contentType;
+
         #region Constructor
 
         public enum Property
@@ -30,7 +32,8 @@ public class RequestChangeStringUI : UIBehavior<RequestChangeStringUI.UIData>
             updateData,
             showDifferent,
             compare,
-            placeHolder
+            placeHolder,
+            contentType
         }
 
         public UIData() : base()
@@ -39,6 +42,7 @@ public class RequestChangeStringUI : UIBehavior<RequestChangeStringUI.UIData>
             this.showDifferent = new VP<bool>(this, (byte)Property.showDifferent, false);
             this.compare = new VP<string>(this, (byte)Property.compare, "");
             this.placeHolder = new VP<string>(this, (byte)Property.placeHolder, "");
+            this.contentType = new VP<InputField.ContentType>(this, (byte)Property.contentType, InputField.ContentType.Standard);
         }
 
         #endregion
@@ -100,10 +104,11 @@ public class RequestChangeStringUI : UIBehavior<RequestChangeStringUI.UIData>
             {
                 // Update UI
                 {
-                    // interactable
+                    // interactable, contentType
                     if (edtValue != null)
                     {
                         edtValue.interactable = this.data.updateData.v.canRequestChange.v;
+                        edtValue.contentType = this.data.contentType.v;
                     }
                     else
                     {
@@ -293,6 +298,9 @@ public class RequestChangeStringUI : UIBehavior<RequestChangeStringUI.UIData>
                     dirty = true;
                     break;
                 case UIData.Property.placeHolder:
+                    dirty = true;
+                    break;
+                case UIData.Property.contentType:
                     dirty = true;
                     break;
                 default:

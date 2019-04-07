@@ -524,7 +524,7 @@ public class LoginUI : UIBehavior<LoginUI.UIData>
                 }
                 // Child
                 {
-                    TransformData.RemoveCallBack(loginStateUIData, this);
+                    TransformData.AddCallBack(loginStateUIData, this);
                 }
                 dirty = true;
                 return;

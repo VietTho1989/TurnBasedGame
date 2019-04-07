@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class AccountFacebookUI : UIBehavior<AccountFacebookUI.UIData>
+public class AccountFacebookUI : UIHaveTransformDataBehavior<AccountFacebookUI.UIData>
 {
 
     #region UIData

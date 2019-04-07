@@ -6,44 +6,54 @@ using System.Collections.Generic;
 public class AccountEmailMessage : MessageBase, AccountMessage
 {
 
-	public string email = "";
+    public string email = "";
 
-	public string password =  "";
+    public string password = "";
 
-	public override void Deserialize(NetworkReader reader)
-	{
-		email = reader.ReadString ();
-		password = reader.ReadString ();
-	}
+    public string customName = "";
 
-	public override void Serialize(NetworkWriter writer)
-	{
-		writer.Write (email);
-		writer.Write (password);
-	}
+    public bool isRegister = false;
 
-	#region implement base
+    public override void Deserialize(NetworkReader reader)
+    {
+        email = reader.ReadString();
+        password = reader.ReadString();
+        customName = reader.ReadString();
+        isRegister = reader.ReadBoolean();
+    }
 
-	public Account.Type getType()
-	{
-		return Account.Type.EMAIL;
-	}
+    public override void Serialize(NetworkWriter writer)
+    {
+        writer.Write(email);
+        writer.Write(password);
+        writer.Write(customName);
+        writer.Write(isRegister);
+    }
 
-	public Account makeAccount()
-	{
-		AccountEmail accountEmail = new AccountEmail ();
-		{
-			accountEmail.email.v = this.email;
-			accountEmail.password.v = this.password;
-		}
-		return accountEmail;
-	}
+    #region implement base
 
-	#endregion
+    public Account.Type getType()
+    {
+        return Account.Type.EMAIL;
+    }
 
-	public override string ToString ()
-	{
-		return string.Format ("[AccountEmailMessage: {0}, {1}]", email, password);
-	}
+    public Account makeAccount()
+    {
+        AccountEmail accountEmail = new AccountEmail();
+        {
+            accountEmail.email.v = this.email;
+            accountEmail.password.v = this.password;
+            accountEmail.customName.v = this.customName;
+            Debug.LogError("makeAccount: " + this.email + ", " + this.password + ", " + this.customName);
+        }
+        return accountEmail;
+    }
+
+    #endregion
+
+    public override string ToString()
+    {
+        return string.Format("[AccountEmailMessage: {0}, {1}]", email, password);
+    }
 
 }

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
+public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
 {
 
     #region UIData
@@ -32,6 +32,45 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
             if (newType == Type.Login || newType == Type.Register)
             {
                 this.type.v = newType;
+                // isRegister
+                {
+                    // Find
+                    AccountEmail accountEmail = null;
+                    {
+                        EditData<AccountEmail> editAccountEmail = this.editAccountEmail.v;
+                        if (editAccountEmail != null)
+                        {
+                            accountEmail = editAccountEmail.show.v.data;
+                        }
+                        else
+                        {
+                            Debug.LogError("editAccountEmail null: " + this);
+                        }
+                    }
+                    // Process
+                    if (accountEmail != null)
+                    {
+                        switch (newType)
+                        {
+                            case Type.Login:
+                                accountEmail.isRegister = false;
+                                break;
+                            case Type.Register:
+                                accountEmail.isRegister = true;
+                                break;
+                            case Type.Show:
+                                Debug.LogError("impossible");
+                                break;
+                            default:
+                                Debug.LogError("unknown newType: " + newType);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("accountEmail null: " + this);
+                    }
+                }
             }
             else
             {
@@ -139,7 +178,14 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
             // Process
             if (accountEmail != null)
             {
-                accountEmail.requestChangeCustomName(accountEmail.getRequestAccountUserId(), newCustomName);
+                if (this.type.v == Type.Login || this.type.v == Type.Register)
+                {
+                    accountEmail.customName.v = newCustomName;
+                }
+                else
+                {
+                    accountEmail.requestChangeCustomName(accountEmail.getRequestAccountUserId(), newCustomName);
+                }
             }
             else
             {
@@ -207,7 +253,6 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
                 // changeType
                 {
                     this.changeType = new VP<RequestChangeEnumUI.UIData>(this, (byte)Property.changeType, new RequestChangeEnumUI.UIData());
-                    // event
                     this.changeType.v.updateData.v.request.v = makeRequestChangeType;
                     // options
                     {
@@ -219,23 +264,23 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
             // email
             {
                 this.email = new VP<RequestChangeStringUI.UIData>(this, (byte)Property.email, new RequestChangeStringUI.UIData());
-                // event
                 this.email.v.updateData.v.request.v = makeRequestChangeEmail;
+                this.email.v.contentType.v = InputField.ContentType.EmailAddress;
             }
             // password
             {
                 this.password = new VP<RequestChangeStringUI.UIData>(this, (byte)Property.password, new RequestChangeStringUI.UIData());
-                // event
                 this.password.v.updateData.v.request.v = makeRequestChangePassword;
+                this.password.v.contentType.v = InputField.ContentType.Password;
             }
             // retypePassword
             {
                 this.retypePassword = new VP<RequestChangeStringUI.UIData>(this, (byte)Property.retypePassword, new RequestChangeStringUI.UIData());
+                this.retypePassword.v.contentType.v = InputField.ContentType.Password;
             }
             // customName
             {
                 this.customName = new VP<RequestChangeStringUI.UIData>(this, (byte)Property.customName, new RequestChangeStringUI.UIData());
-                // event
                 this.customName.v.updateData.v.request.v = makeRequestChangeCustomName;
             }
             // avatarUrl
@@ -258,35 +303,33 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
 
     #endregion
 
-    #region Refresh
-
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage();
+    private static readonly TxtLanguage txtTitle = new TxtLanguage();
 
     public Text lbChangeType;
-    public static readonly TxtLanguage txtChangeType = new TxtLanguage();
-    public static readonly TxtLanguage txtLogin = new TxtLanguage();
-    public static readonly TxtLanguage txtRegister = new TxtLanguage();
+    private static readonly TxtLanguage txtChangeType = new TxtLanguage();
+    private static readonly TxtLanguage txtLogin = new TxtLanguage();
+    private static readonly TxtLanguage txtRegister = new TxtLanguage();
 
     public Text lbEmail;
-    public static readonly TxtLanguage txtEmail = new TxtLanguage();
+    private static readonly TxtLanguage txtEmail = new TxtLanguage();
 
     public Text lbPassword;
-    public static readonly TxtLanguage txtPassword = new TxtLanguage();
+    private static readonly TxtLanguage txtPassword = new TxtLanguage();
 
     public Text lbRetypePassword;
-    public static readonly TxtLanguage txtRetypePassword = new TxtLanguage();
+    private static readonly TxtLanguage txtRetypePassword = new TxtLanguage();
 
     public Text tvChangePassword;
-    public static readonly TxtLanguage txtChangePassword = new TxtLanguage();
+    private static readonly TxtLanguage txtChangePassword = new TxtLanguage();
 
     public Text lbCustomName;
-    public static readonly TxtLanguage txtCustomName = new TxtLanguage();
+    private static readonly TxtLanguage txtCustomName = new TxtLanguage();
 
     public Text lbAvatarUrl;
-    public static readonly TxtLanguage txtAvatarUrl = new TxtLanguage();
+    private static readonly TxtLanguage txtAvatarUrl = new TxtLanguage();
 
     static AccountEmailUI()
     {
@@ -312,6 +355,8 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
     }
 
     #endregion
+
+    #region Refresh
 
     private bool needReset = true;
 
@@ -366,17 +411,12 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
                                         changeType.updateData.v.request.v = this.data.makeRequestChangeType;
                                         // options
                                         {
-                                            if (changeType.options.vs.Count == 2)
+                                            List<string> options = new List<string>();
                                             {
-                                                changeType.options.set(0, txtLogin.get("Login"));
-                                                changeType.options.set(1, txtRegister.get("Register"));
+                                                options.Add(txtLogin.get("Login"));
+                                                options.Add(txtRegister.get("Register"));
                                             }
-                                            else
-                                            {
-                                                changeType.options.clear();
-                                                changeType.options.add(txtLogin.get("Login"));
-                                                changeType.options.add(txtRegister.get("Register"));
-                                            }
+                                            changeType.options.copyList(options);
                                         }
                                     }
                                     this.data.changeType.v = changeType;
@@ -423,8 +463,8 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
                                         RequestChangeStringUI.UIData password = new RequestChangeStringUI.UIData();
                                         {
                                             password.uid = this.data.password.makeId();
-                                            // event
                                             password.updateData.v.request.v = this.data.makeRequestChangePassword;
+                                            password.contentType.v = InputField.ContentType.Password;
                                         }
                                         this.data.password.v = password;
                                     }
@@ -474,6 +514,7 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
                                         RequestChangeStringUI.UIData retypePassword = new RequestChangeStringUI.UIData();
                                         {
                                             retypePassword.uid = this.data.retypePassword.makeId();
+                                            retypePassword.contentType.v = InputField.ContentType.Password;
                                         }
                                         this.data.retypePassword.v = retypePassword;
                                     }
@@ -503,6 +544,7 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
                                         RequestChangeStringUI.UIData customName = new RequestChangeStringUI.UIData();
                                         {
                                             customName.uid = this.data.customName.makeId();
+                                            customName.updateData.v.request.v = this.data.makeRequestChangeCustomName;
                                         }
                                         this.data.customName.v = customName;
                                     }
@@ -528,6 +570,7 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
                                         RequestChangeStringUI.UIData avatarUrl = new RequestChangeStringUI.UIData();
                                         {
                                             avatarUrl.uid = this.data.avatarUrl.makeId();
+                                            avatarUrl.updateData.v.request.v = this.data.makeRequestChangeAvatarUrl;
                                         }
                                         this.data.avatarUrl.v = avatarUrl;
                                     }
@@ -646,7 +689,7 @@ public class AccountEmailUI : UIBehavior<AccountEmailUI.UIData>
                                         RequestChangeUpdate<string>.UpdateData updateData = password.updateData.v;
                                         if (updateData != null)
                                         {
-                                            updateData.origin.v = "";
+                                            updateData.origin.v = show.password.v;
                                             updateData.canRequestChange.v = editAccountEmail.canEdit.v;
                                             updateData.serverState.v = serverState;
                                         }

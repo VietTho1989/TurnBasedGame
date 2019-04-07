@@ -574,17 +574,8 @@ public class ClientConnectIdentity : NetworkBehaviour
         {
             // User login
             // Debug.Log ("onLogin: " + login + ", " + connectionToClient+", "+login.imei);
-            User user = null;
             // Find already have this user
-            {
-                foreach (User check in serverManager.data.server.v.data.users.vs)
-                {
-                    if (check.human.v.account.v.isEqual(accountEmailMessage))
-                    {
-                        user = check;
-                    }
-                }
-            }
+            User user = serverManager.data.server.v.data.users.findUserByAccount(accountEmailMessage);
             // Make new user
             if (user == null)
             {
@@ -594,6 +585,7 @@ public class ClientConnectIdentity : NetworkBehaviour
                     {
                         // UniqueId
                         user.uid = serverManager.data.server.v.data.users.makeId();
+                        user.ipAddress.v = connectionToClient.address;
                         user.human.v.playerId.v = user.uid;
                         // account
                         {

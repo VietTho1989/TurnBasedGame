@@ -54,11 +54,19 @@ namespace LoginState
         #region txt
 
         public Text tvLogin;
-        public static readonly TxtLanguage txtLogin = new TxtLanguage();
+        private static readonly TxtLanguage txtLogin = new TxtLanguage();
+        private static readonly TxtLanguage txtRegister = new TxtLanguage();
+
+        private static readonly TxtLanguage txtEmailNotCorrect = new TxtLanguage();
+        private static readonly TxtLanguage txtRetypePasswordNotCorrect = new TxtLanguage();
 
         static NoneUI()
         {
             txtLogin.add(Language.Type.vi, "Đăng Nhập");
+            txtRegister.add(Language.Type.vi, "Đăng Ký");
+
+            txtEmailNotCorrect.add(Language.Type.vi, "Email không đúng");
+            txtRetypePasswordNotCorrect.add(Language.Type.vi, "Mật khẩu viết lại không đúng");
         }
 
         #endregion
@@ -143,7 +151,51 @@ namespace LoginState
                     {
                         if (tvLogin != null)
                         {
-                            tvLogin.text = txtLogin.get("Login");
+                            // find
+                            bool isRegister = false;
+                            {
+                                LoginUI.UIData loginUIData = this.data.findDataInParent<LoginUI.UIData>();
+                                if (loginUIData != null)
+                                {
+                                    AccountUI.UIData accountUIData = loginUIData.accountUIData.v;
+                                    if (accountUIData != null)
+                                    {
+                                        AccountUI.UIData.Sub sub = accountUIData.sub.v;
+                                        if (sub != null)
+                                        {
+                                            if(sub is AccountEmailUI.UIData)
+                                            {
+                                                AccountEmailUI.UIData accountEmailUIData = sub as AccountEmailUI.UIData;
+                                                if(accountEmailUIData.type.v == AccountEmailUI.UIData.Type.Register)
+                                                {
+                                                    isRegister = true;
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("sub null");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("accountUIData null");
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("loginUIData null");
+                                }
+                            }
+                            // process
+                            if (!isRegister)
+                            {
+                                tvLogin.text = txtLogin.get("Login");
+                            }
+                            else
+                            {
+                                tvLogin.text = txtRegister.get("Register");
+                            }
                         }
                         else
                         {
@@ -444,12 +496,104 @@ namespace LoginState
                     Login login = none.findDataInParent<Login>();
                     if (login != null)
                     {
-                        // Chuyen sang log state
-                        LoginState.Log log = new LoginState.Log();
+                        // find correct or not
+                        bool isCorrect = true;
                         {
-                            log.uid = login.state.makeId();
+                            if (login.account.v.getType() == Account.Type.EMAIL)
+                            {
+                                AccountEmail accountEmail = login.account.v as AccountEmail;
+                                if (accountEmail.isRegister)
+                                {
+                                    // validate email
+                                    if (isCorrect)
+                                    {
+                                        if (!GameUtils.Utils.validateEmail(accountEmail.email.v))
+                                        {
+                                            Toast.showMessage(txtEmailNotCorrect.get("Email not correct"));
+                                            isCorrect = false;
+                                        }
+                                    }
+                                    // retype password as password
+                                    if (isCorrect)
+                                    {
+                                        LoginUI.UIData loginUIData = this.data.findDataInParent<LoginUI.UIData>();
+                                        if (loginUIData != null)
+                                        {
+                                            AccountUI.UIData accountUIData = loginUIData.accountUIData.v;
+                                            if (accountUIData != null)
+                                            {
+                                                AccountUI.UIData.Sub sub = accountUIData.sub.v;
+                                                if (sub != null)
+                                                {
+                                                    if (sub.getType() == Account.Type.EMAIL)
+                                                    {
+                                                        AccountEmailUI.UIData accountEmailUIData = sub as AccountEmailUI.UIData;
+                                                        // find
+                                                        string password = accountEmail.password.v;
+                                                        string retypePassword = "";
+                                                        {
+                                                            RequestChangeStringUI.UIData requestRetypePassword = accountEmailUIData.retypePassword.v;
+                                                            if (requestRetypePassword != null)
+                                                            {
+                                                                RequestChangeUpdate<string>.UpdateData updateData = requestRetypePassword.updateData.v;
+                                                                if (updateData != null)
+                                                                {
+                                                                    retypePassword = updateData.current.v;
+                                                                }
+                                                                else
+                                                                {
+                                                                    Debug.LogError("updateData null");
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("requestRetypePassword null");
+                                                            }
+                                                        }
+                                                        // compare
+                                                        Debug.LogError("password: " + password + ", " + retypePassword);
+                                                        if (password != retypePassword)
+                                                        {
+                                                            Toast.showMessage(txtRetypePasswordNotCorrect.get("Retype password not correct"));
+                                                            isCorrect = false;
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("sub null");
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("sub null");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("accountUIData null");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("loginUIData null");
+                                        }
+                                    }
+                                }
+                            }
                         }
-                        login.state.v = log;
+                        // Chuyen sang log state
+                        if (isCorrect)
+                        {
+                            LoginState.Log log = new LoginState.Log();
+                            {
+                                log.uid = login.state.makeId();
+                            }
+                            login.state.v = log;
+                        }
+                        else
+                        {
+                            Debug.LogError("account not correct");
+                        }
                     }
                     else
                     {
