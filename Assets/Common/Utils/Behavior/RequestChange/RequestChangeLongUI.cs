@@ -8,7 +8,7 @@ public class RequestChangeLongUI : UIBehavior<RequestChangeLongUI.UIData>
 
     #region UIData
 
-    public class UIData : Data
+    public class UIData : RequestChange.UIData<long>
     {
 
         public VP<RequestChangeLongUpdate.UpdateData> updateData;
@@ -43,6 +43,25 @@ public class RequestChangeLongUI : UIBehavior<RequestChangeLongUI.UIData>
                 this.showDifferent = new VP<bool>(this, (byte)Property.showDifferent, false);
                 this.compare = new VP<long>(this, (byte)Property.compare, 0);
             }
+        }
+
+        #endregion
+
+        #region implement base
+
+        public override RequestChangeUpdate<long>.UpdateData getUpdate()
+        {
+            return this.updateData.v;
+        }
+
+        public override void setShowDifferent(bool showDifferent)
+        {
+            this.showDifferent.v = showDifferent;
+        }
+
+        public override void setCompare(long compare)
+        {
+            this.compare.v = compare;
         }
 
         #endregion

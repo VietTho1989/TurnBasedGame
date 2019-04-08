@@ -677,1123 +677,486 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 if (editSetting != null)
                 {
                     editSetting.update();
-                    // get show
-                    Setting show = editSetting.show.v.data;
-                    Setting compare = editSetting.compare.v.data;
-                    if (show != null)
+                    // different
+                    RequestChange.ShowDifferentTitle(lbTitle, editSetting);
+                    // get server state
+                    Server.State.Type serverState = Server.State.Type.Connect;
+                    // request
                     {
-                        // different
-                        if (lbTitle != null)
+                        RequestChange.RefreshUI(this.data.language.v, editSetting, serverState, needReset, setting => Language.GetSupportIndex(setting.language.v));
+                        RequestChange.RefreshUI(this.data.style.v, editSetting, serverState, needReset, setting => (int)setting.style.v);
+                        RequestChange.RefreshUI(this.data.confirmQuit.v, editSetting, serverState, needReset, setting => setting.confirmQuit.v);
+                        RequestChange.RefreshUI(this.data.showLastMove.v, editSetting, serverState, needReset, setting => setting.showLastMove.v);
+                        RequestChange.RefreshUI(this.data.viewUrlImage.v, editSetting, serverState, needReset, setting => setting.viewUrlImage.v);
+                        // animationSetting
                         {
-                            bool isDifferent = false;
+                            AnimationSettingUI.UIData animationSetting = this.data.animationSetting.v;
+                            if (animationSetting != null)
                             {
-                                if (editSetting.compareOtherType.v.data != null)
+                                EditData<AnimationSetting> editAnimationSetting = animationSetting.editAnimationSetting.v;
+                                if (editAnimationSetting != null)
                                 {
-                                    if (editSetting.compareOtherType.v.data.GetType() != show.GetType())
+                                    // origin
                                     {
-                                        isDifferent = true;
-                                    }
-                                }
-                            }
-                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                        }
-                        else
-                        {
-                            Debug.LogError("lbSetting null: " + this);
-                        }
-                        // request
-                        {
-                            // get server state
-                            Server.State.Type serverState = Server.State.Type.Connect;
-                            /*{
-								Server server = show.findDataInParent<Server> ();
-								if (server != null) {
-									if (server.state.v != null) {
-										serverState = server.state.v.getType ();
-									} else {
-										Debug.LogError ("server state null: " + this);
-									}
-								} else {
-									Debug.LogError ("server null: " + this);
-								}
-							}*/
-                            // set origin
-                            {
-                                // language
-                                {
-                                    RequestChangeEnumUI.UIData language = this.data.language.v;
-                                    if (language != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = language.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = Language.GetSupportIndex(show.language.v);
-                                            updateData.canRequestChange.v = editSetting.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                language.showDifferent.v = true;
-                                                language.compare.v = Language.GetSupportIndex(compare.language.v);
-                                            }
-                                            else
-                                            {
-                                                language.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("useRule null: " + this);
-                                    }
-                                }
-                                // style
-                                {
-                                    RequestChangeEnumUI.UIData style = this.data.style.v;
-                                    if (style != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = style.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = (int)show.style.v;
-                                            updateData.canRequestChange.v = editSetting.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                style.showDifferent.v = true;
-                                                style.compare.v = (int)(compare.style.v);
-                                            }
-                                            else
-                                            {
-                                                style.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("useRule null: " + this);
-                                    }
-                                }
-                                // confirmQuit
-                                {
-                                    RequestChangeBoolUI.UIData confirmQuit = this.data.confirmQuit.v;
-                                    if (confirmQuit != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<bool>.UpdateData updateData = confirmQuit.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.confirmQuit.v;
-                                            updateData.canRequestChange.v = editSetting.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                confirmQuit.showDifferent.v = true;
-                                                confirmQuit.compare.v = compare.confirmQuit.v;
-                                            }
-                                            else
-                                            {
-                                                confirmQuit.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("useRule null: " + this);
-                                    }
-                                }
-                                // showLastMove
-                                {
-                                    RequestChangeBoolUI.UIData showLastMove = this.data.showLastMove.v;
-                                    if (showLastMove != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<bool>.UpdateData updateData = showLastMove.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.showLastMove.v;
-                                            updateData.canRequestChange.v = editSetting.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                showLastMove.showDifferent.v = true;
-                                                showLastMove.compare.v = compare.showLastMove.v;
-                                            }
-                                            else
-                                            {
-                                                showLastMove.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("useRule null: " + this);
-                                    }
-                                }
-                                // viewUrlImage
-                                {
-                                    RequestChangeBoolUI.UIData viewUrlImage = this.data.viewUrlImage.v;
-                                    if (viewUrlImage != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<bool>.UpdateData updateData = viewUrlImage.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.viewUrlImage.v;
-                                            updateData.canRequestChange.v = editSetting.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                viewUrlImage.showDifferent.v = true;
-                                                viewUrlImage.compare.v = compare.viewUrlImage.v;
-                                            }
-                                            else
-                                            {
-                                                viewUrlImage.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("useRule null: " + this);
-                                    }
-                                }
-                                // animationSetting
-                                {
-                                    AnimationSettingUI.UIData animationSetting = this.data.animationSetting.v;
-                                    if (animationSetting != null)
-                                    {
-                                        EditData<AnimationSetting> editAnimationSetting = animationSetting.editAnimationSetting.v;
-                                        if (editAnimationSetting != null)
-                                        {
-                                            // origin
-                                            {
-                                                AnimationSetting originAnimationSetting = null;
-                                                {
-                                                    Setting originSetting = editSetting.origin.v.data;
-                                                    if (originSetting != null)
-                                                    {
-                                                        originAnimationSetting = originSetting.animationSetting.v;
-                                                    }
-                                                    else
-                                                    {
-                                                        Debug.LogError("originSetting null: " + this);
-                                                    }
-                                                }
-                                                editAnimationSetting.origin.v = new ReferenceData<AnimationSetting>(originAnimationSetting);
-                                            }
-                                            // show
-                                            {
-                                                AnimationSetting showAnimationSetting = null;
-                                                {
-                                                    Setting showSetting = editSetting.show.v.data;
-                                                    if (showSetting != null)
-                                                    {
-                                                        showAnimationSetting = showSetting.animationSetting.v;
-                                                    }
-                                                    else
-                                                    {
-                                                        Debug.LogError("showSetting null: " + this);
-                                                    }
-                                                }
-                                                editAnimationSetting.show.v = new ReferenceData<AnimationSetting>(showAnimationSetting);
-                                            }
-                                            // compare
-                                            {
-                                                AnimationSetting compareAnimationSetting = null;
-                                                {
-                                                    Setting compareSetting = editSetting.compare.v.data;
-                                                    if (compareSetting != null)
-                                                    {
-                                                        compareAnimationSetting = compareSetting.animationSetting.v;
-                                                    }
-                                                    else
-                                                    {
-                                                        // Debug.LogError("compareSetting null: " + this);
-                                                    }
-                                                }
-                                                editAnimationSetting.compare.v = new ReferenceData<AnimationSetting>(compareAnimationSetting);
-                                            }
-                                            // compare other type
-                                            {
-                                                AnimationSetting compareOtherTypeAnimationSetting = null;
-                                                {
-                                                    Setting compareOtherTypeSetting = (Setting)editSetting.compareOtherType.v.data;
-                                                    if (compareOtherTypeSetting != null)
-                                                    {
-                                                        compareOtherTypeAnimationSetting = compareOtherTypeSetting.animationSetting.v;
-                                                    }
-                                                }
-                                                editAnimationSetting.compareOtherType.v = new ReferenceData<Data>(compareOtherTypeAnimationSetting);
-                                            }
-                                            // canEdit
-                                            editAnimationSetting.canEdit.v = editSetting.canEdit.v;
-                                            // editType
-                                            editAnimationSetting.editType.v = editSetting.editType.v;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("editAnimationSetting null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("animationSetting null: " + this);
-                                    }
-                                }
-                                // maxThinkCount
-                                {
-                                    RequestChangeIntUI.UIData maxThinkCount = this.data.maxThinkCount.v;
-                                    if (maxThinkCount != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = maxThinkCount.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.maxThinkCount.v;
-                                            updateData.canRequestChange.v = editSetting.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                maxThinkCount.showDifferent.v = true;
-                                                maxThinkCount.compare.v = compare.maxThinkCount.v;
-                                            }
-                                            else
-                                            {
-                                                maxThinkCount.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("useRule null: " + this);
-                                    }
-                                }
-
-                                // defaultChosenGameType
-                                {
-                                    RequestChangeEnumUI.UIData defaultChosenGameType = this.data.defaultChosenGameType.v;
-                                    if (defaultChosenGameType != null)
-                                    {
-                                        // options
-                                        {
-                                            List<string> options = new List<string>();
-                                            {
-                                                options.Add(txtDefaultChosenGameLast.get());
-                                                options.Add(txtDefaultChosenGameAlways.get());
-                                            }
-                                            defaultChosenGameType.options.copyList(options);
-                                        }
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = defaultChosenGameType.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = (int)show.defaultChosenGame.v.getType();
-                                            updateData.canRequestChange.v = editSetting.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                defaultChosenGameType.showDifferent.v = true;
-                                                defaultChosenGameType.compare.v = (int)compare.defaultChosenGame.v.getType();
-                                            }
-                                            else
-                                            {
-                                                defaultChosenGameType.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("useRule null: " + this);
-                                    }
-                                }
-                                // defaultChosenGame
-                                {
-                                    DefaultChosenGame defaultChosenGame = show.defaultChosenGame.v;
-                                    if (defaultChosenGame != null)
-                                    {
-                                        // find origin 
-                                        DefaultChosenGame originDefaultChosenGame = null;
+                                        AnimationSetting originAnimationSetting = null;
                                         {
                                             Setting originSetting = editSetting.origin.v.data;
                                             if (originSetting != null)
                                             {
-                                                originDefaultChosenGame = originSetting.defaultChosenGame.v;
+                                                originAnimationSetting = originSetting.animationSetting.v;
                                             }
                                             else
                                             {
-                                                Debug.LogError("origin null: " + this);
+                                                Debug.LogError("originSetting null: " + this);
                                             }
                                         }
-                                        // find compare
-                                        DefaultChosenGame compareDefaultChosenGame = null;
-                                        {
-                                            if (compare != null)
-                                            {
-                                                compareDefaultChosenGame = compare.defaultChosenGame.v;
-                                            }
-                                            else
-                                            {
-                                                // Debug.LogError ("compare null: " + this);
-                                            }
-                                        }
-                                        switch (defaultChosenGame.getType())
-                                        {
-                                            case DefaultChosenGame.Type.Last:
-                                                {
-                                                    DefaultChosenGameLast defaultChosenGameLast = defaultChosenGame as DefaultChosenGameLast;
-                                                    // UIData
-                                                    DefaultChosenGameLastUI.UIData defaultChosenGameLastUIData = this.data.defaultChosenGameUIData.newOrOld<DefaultChosenGameLastUI.UIData>();
-                                                    {
-                                                        EditData<DefaultChosenGameLast> editDefaultChosenGameLast = defaultChosenGameLastUIData.editDefaultChosenGameLast.v;
-                                                        if (editDefaultChosenGameLast != null)
-                                                        {
-                                                            // origin
-                                                            editDefaultChosenGameLast.origin.v = new ReferenceData<DefaultChosenGameLast>((DefaultChosenGameLast)originDefaultChosenGame);
-                                                            // show
-                                                            editDefaultChosenGameLast.show.v = new ReferenceData<DefaultChosenGameLast>(defaultChosenGameLast);
-                                                            // compare
-                                                            editDefaultChosenGameLast.compare.v = new ReferenceData<DefaultChosenGameLast>((DefaultChosenGameLast)compareDefaultChosenGame);
-                                                            // compareOtherType
-                                                            editDefaultChosenGameLast.compareOtherType.v = new ReferenceData<Data>(compareDefaultChosenGame);
-                                                            // canEdit
-                                                            editDefaultChosenGameLast.canEdit.v = editSetting.canEdit.v;
-                                                            // editType
-                                                            editDefaultChosenGameLast.editType.v = editSetting.editType.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultChosenGameLast null: " + this);
-                                                        }
-                                                        defaultChosenGameLastUIData.showType.v = UIRectTransform.ShowType.HeadLess;
-                                                    }
-                                                    this.data.defaultChosenGameUIData.v = defaultChosenGameLastUIData;
-                                                }
-                                                break;
-                                            case DefaultChosenGame.Type.Always:
-                                                {
-                                                    DefaultChosenGameAlways defaultChosenGameAlways = defaultChosenGame as DefaultChosenGameAlways;
-                                                    // UIData
-                                                    DefaultChosenGameAlwaysUI.UIData defaultChosenGameAlwaysUIData = this.data.defaultChosenGameUIData.newOrOld<DefaultChosenGameAlwaysUI.UIData>();
-                                                    {
-                                                        EditData<DefaultChosenGameAlways> editDefaultChosenGameAlways = defaultChosenGameAlwaysUIData.editDefaultChosenGameAlways.v;
-                                                        if (editDefaultChosenGameAlways != null)
-                                                        {
-                                                            // origin
-                                                            editDefaultChosenGameAlways.origin.v = new ReferenceData<DefaultChosenGameAlways>((DefaultChosenGameAlways)originDefaultChosenGame);
-                                                            // show
-                                                            editDefaultChosenGameAlways.show.v = new ReferenceData<DefaultChosenGameAlways>(defaultChosenGameAlways);
-                                                            // compare
-                                                            editDefaultChosenGameAlways.compare.v = new ReferenceData<DefaultChosenGameAlways>((DefaultChosenGameAlways)compareDefaultChosenGame);
-                                                            // compareOtherType
-                                                            editDefaultChosenGameAlways.compareOtherType.v = new ReferenceData<Data>(compareDefaultChosenGame);
-                                                            // canEdit
-                                                            editDefaultChosenGameAlways.canEdit.v = editSetting.canEdit.v;
-                                                            // editType
-                                                            editDefaultChosenGameAlways.editType.v = editSetting.editType.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultChosenGameAlways null: " + this);
-                                                        }
-                                                        defaultChosenGameAlwaysUIData.showType.v = UIRectTransform.ShowType.HeadLess;
-                                                    }
-                                                    this.data.defaultChosenGameUIData.v = defaultChosenGameAlwaysUIData;
-                                                }
-                                                break;
-                                            default:
-                                                Debug.LogError("unknown type: " + defaultChosenGame.getType() + "; " + this);
-                                                break;
-                                        }
+                                        editAnimationSetting.origin.v = new ReferenceData<AnimationSetting>(originAnimationSetting);
                                     }
-                                    else
+                                    // show
                                     {
-                                        Debug.LogError("show null: " + this);
+                                        AnimationSetting showAnimationSetting = null;
+                                        {
+                                            Setting showSetting = editSetting.show.v.data;
+                                            if (showSetting != null)
+                                            {
+                                                showAnimationSetting = showSetting.animationSetting.v;
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("showSetting null: " + this);
+                                            }
+                                        }
+                                        editAnimationSetting.show.v = new ReferenceData<AnimationSetting>(showAnimationSetting);
                                     }
+                                    // compare
+                                    {
+                                        AnimationSetting compareAnimationSetting = null;
+                                        {
+                                            Setting compareSetting = editSetting.compare.v.data;
+                                            if (compareSetting != null)
+                                            {
+                                                compareAnimationSetting = compareSetting.animationSetting.v;
+                                            }
+                                            else
+                                            {
+                                                // Debug.LogError("compareSetting null: " + this);
+                                            }
+                                        }
+                                        editAnimationSetting.compare.v = new ReferenceData<AnimationSetting>(compareAnimationSetting);
+                                    }
+                                    // compare other type
+                                    {
+                                        AnimationSetting compareOtherTypeAnimationSetting = null;
+                                        {
+                                            Setting compareOtherTypeSetting = (Setting)editSetting.compareOtherType.v.data;
+                                            if (compareOtherTypeSetting != null)
+                                            {
+                                                compareOtherTypeAnimationSetting = compareOtherTypeSetting.animationSetting.v;
+                                            }
+                                        }
+                                        editAnimationSetting.compareOtherType.v = new ReferenceData<Data>(compareOtherTypeAnimationSetting);
+                                    }
+                                    // canEdit
+                                    editAnimationSetting.canEdit.v = editSetting.canEdit.v;
+                                    // editType
+                                    editAnimationSetting.editType.v = editSetting.editType.v;
                                 }
-
-                                // defaultRoomNameType
+                                else
                                 {
-                                    RequestChangeEnumUI.UIData defaultRoomNameType = this.data.defaultRoomNameType.v;
-                                    if (defaultRoomNameType != null)
-                                    {
-                                        // options
-                                        {
-                                            List<string> options = new List<string>();
-                                            {
-                                                options.Add(txtDefaultRoomNameLast.get());
-                                                options.Add(txtDefaultRoomNameAlways.get());
-                                            }
-                                            defaultRoomNameType.options.copyList(options);
-                                        }
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = defaultRoomNameType.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = (int)show.defaultRoomName.v.getType();
-                                            updateData.canRequestChange.v = editSetting.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                defaultRoomNameType.showDifferent.v = true;
-                                                defaultRoomNameType.compare.v = (int)compare.defaultRoomName.v.getType();
-                                            }
-                                            else
-                                            {
-                                                defaultRoomNameType.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("useRule null: " + this);
-                                    }
+                                    Debug.LogError("editAnimationSetting null: " + this);
                                 }
-                                // defaultRoomName
-                                {
-                                    DefaultRoomName defaultRoomName = show.defaultRoomName.v;
-                                    if (defaultRoomName != null)
-                                    {
-                                        // find origin 
-                                        DefaultRoomName originDefaultRoomName = null;
-                                        {
-                                            Setting originSetting = editSetting.origin.v.data;
-                                            if (originSetting != null)
-                                            {
-                                                originDefaultRoomName = originSetting.defaultRoomName.v;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("origin null: " + this);
-                                            }
-                                        }
-                                        // find compare
-                                        DefaultRoomName compareDefaultRoomName = null;
-                                        {
-                                            if (compare != null)
-                                            {
-                                                compareDefaultRoomName = compare.defaultRoomName.v;
-                                            }
-                                            else
-                                            {
-                                                // Debug.LogError ("compare null: " + this);
-                                            }
-                                        }
-                                        switch (defaultRoomName.getType())
-                                        {
-                                            case DefaultRoomName.Type.Last:
-                                                {
-                                                    DefaultRoomNameLast defaultRoomNameLast = defaultRoomName as DefaultRoomNameLast;
-                                                    // UIData
-                                                    DefaultRoomNameLastUI.UIData defaultRoomNameLastUIData = this.data.defaultRoomNameUIData.newOrOld<DefaultRoomNameLastUI.UIData>();
-                                                    {
-                                                        EditData<DefaultRoomNameLast> editDefaultRoomNameLast = defaultRoomNameLastUIData.editDefaultRoomNameLast.v;
-                                                        if (editDefaultRoomNameLast != null)
-                                                        {
-                                                            // origin
-                                                            editDefaultRoomNameLast.origin.v = new ReferenceData<DefaultRoomNameLast>((DefaultRoomNameLast)originDefaultRoomName);
-                                                            // show
-                                                            editDefaultRoomNameLast.show.v = new ReferenceData<DefaultRoomNameLast>(defaultRoomNameLast);
-                                                            // compare
-                                                            editDefaultRoomNameLast.compare.v = new ReferenceData<DefaultRoomNameLast>((DefaultRoomNameLast)compareDefaultRoomName);
-                                                            // compareOtherType
-                                                            editDefaultRoomNameLast.compareOtherType.v = new ReferenceData<Data>(compareDefaultRoomName);
-                                                            // canEdit
-                                                            editDefaultRoomNameLast.canEdit.v = editSetting.canEdit.v;
-                                                            // editType
-                                                            editDefaultRoomNameLast.editType.v = editSetting.editType.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultRoomNameLast null: " + this);
-                                                        }
-                                                        defaultRoomNameLastUIData.showType.v = UIRectTransform.ShowType.HeadLess;
-                                                    }
-                                                    this.data.defaultRoomNameUIData.v = defaultRoomNameLastUIData;
-                                                }
-                                                break;
-                                            case DefaultRoomName.Type.Always:
-                                                {
-                                                    DefaultRoomNameAlways defaultRoomNameAlways = defaultRoomName as DefaultRoomNameAlways;
-                                                    // UIData
-                                                    DefaultRoomNameAlwaysUI.UIData defaultRoomNameAlwaysUIData = this.data.defaultRoomNameUIData.newOrOld<DefaultRoomNameAlwaysUI.UIData>();
-                                                    {
-                                                        EditData<DefaultRoomNameAlways> editDefaultRoomNameAlways = defaultRoomNameAlwaysUIData.editDefaultRoomNameAlways.v;
-                                                        if (editDefaultRoomNameAlways != null)
-                                                        {
-                                                            // origin
-                                                            editDefaultRoomNameAlways.origin.v = new ReferenceData<DefaultRoomNameAlways>((DefaultRoomNameAlways)originDefaultRoomName);
-                                                            // show
-                                                            editDefaultRoomNameAlways.show.v = new ReferenceData<DefaultRoomNameAlways>(defaultRoomNameAlways);
-                                                            // compare
-                                                            editDefaultRoomNameAlways.compare.v = new ReferenceData<DefaultRoomNameAlways>((DefaultRoomNameAlways)compareDefaultRoomName);
-                                                            // compareOtherType
-                                                            editDefaultRoomNameAlways.compareOtherType.v = new ReferenceData<Data>(compareDefaultRoomName);
-                                                            // canEdit
-                                                            editDefaultRoomNameAlways.canEdit.v = editSetting.canEdit.v;
-                                                            // editType
-                                                            editDefaultRoomNameAlways.editType.v = editSetting.editType.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultRoomNameAlways null: " + this);
-                                                        }
-                                                        defaultRoomNameAlwaysUIData.showType.v = UIRectTransform.ShowType.HeadLess;
-                                                    }
-                                                    this.data.defaultRoomNameUIData.v = defaultRoomNameAlwaysUIData;
-                                                }
-                                                break;
-                                            default:
-                                                Debug.LogError("unknown type: " + defaultRoomName.getType() + "; " + this);
-                                                break;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("show null: " + this);
-                                    }
-                                }
-
-                                // defaultChatRoomStyleType
-                                {
-                                    RequestChangeEnumUI.UIData defaultChatRoomStyleType = this.data.defaultChatRoomStyleType.v;
-                                    if (defaultChatRoomStyleType != null)
-                                    {
-                                        // options
-                                        {
-                                            List<string> options = new List<string>();
-                                            {
-                                                options.Add(txtDefaultChatRoomStyleLast.get());
-                                                options.Add(txtDefaultChatRoomStyleAlways.get());
-                                            }
-                                            defaultChatRoomStyleType.options.copyList(options);
-                                        }
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = defaultChatRoomStyleType.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = (int)show.defaultChatRoomStyle.v.getType();
-                                            updateData.canRequestChange.v = editSetting.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                defaultChatRoomStyleType.showDifferent.v = true;
-                                                defaultChatRoomStyleType.compare.v = (int)compare.defaultChatRoomStyle.v.getType();
-                                            }
-                                            else
-                                            {
-                                                defaultChatRoomStyleType.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("useRule null: " + this);
-                                    }
-                                }
-                                // defaultChatRoomStyle
-                                {
-                                    DefaultChatRoomStyle defaultChatRoomStyle = show.defaultChatRoomStyle.v;
-                                    if (defaultChatRoomStyle != null)
-                                    {
-                                        // find origin 
-                                        DefaultChatRoomStyle originDefaultChatRoomStyle = null;
-                                        {
-                                            Setting originSetting = editSetting.origin.v.data;
-                                            if (originSetting != null)
-                                            {
-                                                originDefaultChatRoomStyle = originSetting.defaultChatRoomStyle.v;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("origin null: " + this);
-                                            }
-                                        }
-                                        // find compare
-                                        DefaultChatRoomStyle compareDefaultChatRoomStyle = null;
-                                        {
-                                            if (compare != null)
-                                            {
-                                                compareDefaultChatRoomStyle = compare.defaultChatRoomStyle.v;
-                                            }
-                                            else
-                                            {
-                                                // Debug.LogError ("compare null: " + this);
-                                            }
-                                        }
-                                        switch (defaultChatRoomStyle.getType())
-                                        {
-                                            case DefaultChatRoomStyle.Type.Last:
-                                                {
-                                                    DefaultChatRoomStyleLast defaultChatRoomStyleLast = defaultChatRoomStyle as DefaultChatRoomStyleLast;
-                                                    // UIData
-                                                    DefaultChatRoomStyleLastUI.UIData defaultChatRoomStyleLastUIData = this.data.defaultChatRoomStyleUIData.newOrOld<DefaultChatRoomStyleLastUI.UIData>();
-                                                    {
-                                                        EditData<DefaultChatRoomStyleLast> editDefaultChatRoomStyleLast = defaultChatRoomStyleLastUIData.editDefaultChatRoomStyleLast.v;
-                                                        if (editDefaultChatRoomStyleLast != null)
-                                                        {
-                                                            // origin
-                                                            editDefaultChatRoomStyleLast.origin.v = new ReferenceData<DefaultChatRoomStyleLast>((DefaultChatRoomStyleLast)originDefaultChatRoomStyle);
-                                                            // show
-                                                            editDefaultChatRoomStyleLast.show.v = new ReferenceData<DefaultChatRoomStyleLast>(defaultChatRoomStyleLast);
-                                                            // compare
-                                                            editDefaultChatRoomStyleLast.compare.v = new ReferenceData<DefaultChatRoomStyleLast>((DefaultChatRoomStyleLast)compareDefaultChatRoomStyle);
-                                                            // compareOtherType
-                                                            editDefaultChatRoomStyleLast.compareOtherType.v = new ReferenceData<Data>(compareDefaultChatRoomStyle);
-                                                            // canEdit
-                                                            editDefaultChatRoomStyleLast.canEdit.v = editSetting.canEdit.v;
-                                                            // editType
-                                                            editDefaultChatRoomStyleLast.editType.v = editSetting.editType.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultChatRoomStyleLast null: " + this);
-                                                        }
-                                                        defaultChatRoomStyleLastUIData.showType.v = UIRectTransform.ShowType.HeadLess;
-                                                    }
-                                                    this.data.defaultChatRoomStyleUIData.v = defaultChatRoomStyleLastUIData;
-                                                }
-                                                break;
-                                            case DefaultChatRoomStyle.Type.Always:
-                                                {
-                                                    DefaultChatRoomStyleAlways defaultChatRoomStyleAlways = defaultChatRoomStyle as DefaultChatRoomStyleAlways;
-                                                    // UIData
-                                                    DefaultChatRoomStyleAlwaysUI.UIData defaultChatRoomStyleAlwaysUIData = this.data.defaultChatRoomStyleUIData.newOrOld<DefaultChatRoomStyleAlwaysUI.UIData>();
-                                                    {
-                                                        EditData<DefaultChatRoomStyleAlways> editDefaultChatRoomStyleAlways = defaultChatRoomStyleAlwaysUIData.editDefaultChatRoomStyleAlways.v;
-                                                        if (editDefaultChatRoomStyleAlways != null)
-                                                        {
-                                                            // origin
-                                                            editDefaultChatRoomStyleAlways.origin.v = new ReferenceData<DefaultChatRoomStyleAlways>((DefaultChatRoomStyleAlways)originDefaultChatRoomStyle);
-                                                            // show
-                                                            editDefaultChatRoomStyleAlways.show.v = new ReferenceData<DefaultChatRoomStyleAlways>(defaultChatRoomStyleAlways);
-                                                            // compare
-                                                            editDefaultChatRoomStyleAlways.compare.v = new ReferenceData<DefaultChatRoomStyleAlways>((DefaultChatRoomStyleAlways)compareDefaultChatRoomStyle);
-                                                            // compareOtherType
-                                                            editDefaultChatRoomStyleAlways.compareOtherType.v = new ReferenceData<Data>(compareDefaultChatRoomStyle);
-                                                            // canEdit
-                                                            editDefaultChatRoomStyleAlways.canEdit.v = editSetting.canEdit.v;
-                                                            // editType
-                                                            editDefaultChatRoomStyleAlways.editType.v = editSetting.editType.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultChatRoomStyleAlways null: " + this);
-                                                        }
-                                                        defaultChatRoomStyleAlwaysUIData.showType.v = UIRectTransform.ShowType.HeadLess;
-                                                    }
-                                                    this.data.defaultChatRoomStyleUIData.v = defaultChatRoomStyleAlwaysUIData;
-                                                }
-                                                break;
-                                            default:
-                                                Debug.LogError("unknown type: " + defaultChatRoomStyle.getType() + "; " + this);
-                                                break;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("show null: " + this);
-                                    }
-                                }
-
-                                // textSize
-                                {
-                                    // contentTextSize
-                                    {
-                                        RequestChangeIntUI.UIData contentTextSize = this.data.contentTextSize.v;
-                                        if (contentTextSize != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = contentTextSize.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.contentTextSize.v;
-                                                updateData.canRequestChange.v = editSetting.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    contentTextSize.showDifferent.v = true;
-                                                    contentTextSize.compare.v = compare.contentTextSize.v;
-                                                }
-                                                else
-                                                {
-                                                    contentTextSize.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("useRule null: " + this);
-                                        }
-                                    }
-                                    // titleTextSize
-                                    {
-                                        RequestChangeIntUI.UIData titleTextSize = this.data.titleTextSize.v;
-                                        if (titleTextSize != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = titleTextSize.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.titleTextSize.v;
-                                                updateData.canRequestChange.v = editSetting.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    titleTextSize.showDifferent.v = true;
-                                                    titleTextSize.compare.v = compare.titleTextSize.v;
-                                                }
-                                                else
-                                                {
-                                                    titleTextSize.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("useRule null: " + this);
-                                        }
-                                    }
-                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("animationSetting null: " + this);
                             }
                         }
-                        // reset
-                        if (needReset)
+                        RequestChange.RefreshUI(this.data.maxThinkCount.v, editSetting, serverState, needReset, setting => setting.maxThinkCount.v);
+
+                        // defaultChosenGameType
                         {
-                            needReset = false;
-                            // language
+                            // options
                             {
-                                RequestChangeEnumUI.UIData language = this.data.language.v;
-                                if (language != null)
+                                List<string> options = new List<string>();
                                 {
-                                    // update
-                                    RequestChangeUpdate<int>.UpdateData updateData = language.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = Language.GetSupportIndex(show.language.v);
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
+                                    options.Add(txtDefaultChosenGameLast.get());
+                                    options.Add(txtDefaultChosenGameAlways.get());
                                 }
-                                else
-                                {
-                                    Debug.LogError("useRule null: " + this);
-                                }
+                                RequestChangeEnumUI.RefreshOptions(this.data.defaultChosenGameType.v, options);
                             }
-                            // style
+                            RequestChange.RefreshUI(this.data.defaultChosenGameType.v, editSetting, serverState, needReset, setting => (int)setting.defaultChosenGame.v.getType());
+                        }
+                        // defaultChosenGame
+                        {
+                            Setting show = editSetting.show.v.data;
+                            Setting compare = editSetting.compare.v.data;
+                            if (show != null)
                             {
-                                RequestChangeEnumUI.UIData style = this.data.style.v;
-                                if (style != null)
+                                DefaultChosenGame defaultChosenGame = show.defaultChosenGame.v;
+                                if (defaultChosenGame != null)
                                 {
-                                    // update
-                                    RequestChangeUpdate<int>.UpdateData updateData = style.updateData.v;
-                                    if (updateData != null)
+                                    // find origin 
+                                    DefaultChosenGame originDefaultChosenGame = null;
                                     {
-                                        updateData.current.v = (int)show.style.v;
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("useRule null: " + this);
-                                }
-                            }
-                            // confirmQuit
-                            {
-                                RequestChangeBoolUI.UIData confirmQuit = this.data.confirmQuit.v;
-                                if (confirmQuit != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<bool>.UpdateData updateData = confirmQuit.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = show.confirmQuit.v;
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("confirmQuit null: " + this);
-                                }
-                            }
-                            // showLastMove
-                            {
-                                RequestChangeBoolUI.UIData showLastMove = this.data.showLastMove.v;
-                                if (showLastMove != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<bool>.UpdateData updateData = showLastMove.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = show.showLastMove.v;
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("showLastMove null: " + this);
-                                }
-                            }
-                            // viewUrlImage
-                            {
-                                RequestChangeBoolUI.UIData viewUrlImage = this.data.viewUrlImage.v;
-                                if (viewUrlImage != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<bool>.UpdateData updateData = viewUrlImage.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = show.viewUrlImage.v;
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("viewUrlImage null: " + this);
-                                }
-                            }
-                            // maxThinkCount
-                            {
-                                RequestChangeIntUI.UIData maxThinkCount = this.data.maxThinkCount.v;
-                                if (maxThinkCount != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<int>.UpdateData updateData = maxThinkCount.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = show.maxThinkCount.v;
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("maxThinkCount null: " + this);
-                                }
-                            }
-
-                            // defaultChosenGameType
-                            {
-                                RequestChangeEnumUI.UIData defaultChosenGameType = this.data.defaultChosenGameType.v;
-                                if (defaultChosenGameType != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<int>.UpdateData updateData = defaultChosenGameType.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = (int)show.defaultChosenGame.v.getType();
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("defaultChosenGameType null: " + this);
-                                }
-                            }
-
-                            // defaultRoomNameType
-                            {
-                                RequestChangeEnumUI.UIData defaultRoomNameType = this.data.defaultRoomNameType.v;
-                                if (defaultRoomNameType != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<int>.UpdateData updateData = defaultRoomNameType.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = (int)show.defaultRoomName.v.getType();
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("defaultRoomNameType null: " + this);
-                                }
-                            }
-
-                            // defaultChatRoomStyleType
-                            {
-                                RequestChangeEnumUI.UIData defaultChatRoomStyleType = this.data.defaultChatRoomStyleType.v;
-                                if (defaultChatRoomStyleType != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<int>.UpdateData updateData = defaultChatRoomStyleType.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = (int)show.defaultChatRoomStyle.v.getType();
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("defaultChatRoomStyleType null: " + this);
-                                }
-                            }
-
-                            // textSize
-                            {
-                                // contentTextSize
-                                {
-                                    RequestChangeIntUI.UIData contentTextSize = this.data.contentTextSize.v;
-                                    if (contentTextSize != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = contentTextSize.updateData.v;
-                                        if (updateData != null)
+                                        Setting originSetting = editSetting.origin.v.data;
+                                        if (originSetting != null)
                                         {
-                                            updateData.current.v = show.contentTextSize.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
+                                            originDefaultChosenGame = originSetting.defaultChosenGame.v;
                                         }
                                         else
                                         {
-                                            Debug.LogError("updateData null: " + this);
+                                            Debug.LogError("origin null: " + this);
                                         }
                                     }
-                                    else
+                                    // find compare
+                                    DefaultChosenGame compareDefaultChosenGame = null;
                                     {
-                                        Debug.LogError("contentTextSize null: " + this);
-                                    }
-                                }
-                                // titleTextSize
-                                {
-                                    RequestChangeIntUI.UIData titleTextSize = this.data.titleTextSize.v;
-                                    if (titleTextSize != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = titleTextSize.updateData.v;
-                                        if (updateData != null)
+                                        if (compare != null)
                                         {
-                                            updateData.current.v = show.titleTextSize.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
+                                            compareDefaultChosenGame = compare.defaultChosenGame.v;
                                         }
                                         else
                                         {
-                                            Debug.LogError("updateData null: " + this);
+                                            // Debug.LogError ("compare null: " + this);
                                         }
                                     }
-                                    else
+                                    switch (defaultChosenGame.getType())
                                     {
-                                        Debug.LogError("titleTextSize null: " + this);
+                                        case DefaultChosenGame.Type.Last:
+                                            {
+                                                DefaultChosenGameLast defaultChosenGameLast = defaultChosenGame as DefaultChosenGameLast;
+                                                // UIData
+                                                DefaultChosenGameLastUI.UIData defaultChosenGameLastUIData = this.data.defaultChosenGameUIData.newOrOld<DefaultChosenGameLastUI.UIData>();
+                                                {
+                                                    EditData<DefaultChosenGameLast> editDefaultChosenGameLast = defaultChosenGameLastUIData.editDefaultChosenGameLast.v;
+                                                    if (editDefaultChosenGameLast != null)
+                                                    {
+                                                        // origin
+                                                        editDefaultChosenGameLast.origin.v = new ReferenceData<DefaultChosenGameLast>((DefaultChosenGameLast)originDefaultChosenGame);
+                                                        // show
+                                                        editDefaultChosenGameLast.show.v = new ReferenceData<DefaultChosenGameLast>(defaultChosenGameLast);
+                                                        // compare
+                                                        editDefaultChosenGameLast.compare.v = new ReferenceData<DefaultChosenGameLast>((DefaultChosenGameLast)compareDefaultChosenGame);
+                                                        // compareOtherType
+                                                        editDefaultChosenGameLast.compareOtherType.v = new ReferenceData<Data>(compareDefaultChosenGame);
+                                                        // canEdit
+                                                        editDefaultChosenGameLast.canEdit.v = editSetting.canEdit.v;
+                                                        // editType
+                                                        editDefaultChosenGameLast.editType.v = editSetting.editType.v;
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("editDefaultChosenGameLast null: " + this);
+                                                    }
+                                                    defaultChosenGameLastUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                }
+                                                this.data.defaultChosenGameUIData.v = defaultChosenGameLastUIData;
+                                            }
+                                            break;
+                                        case DefaultChosenGame.Type.Always:
+                                            {
+                                                DefaultChosenGameAlways defaultChosenGameAlways = defaultChosenGame as DefaultChosenGameAlways;
+                                                // UIData
+                                                DefaultChosenGameAlwaysUI.UIData defaultChosenGameAlwaysUIData = this.data.defaultChosenGameUIData.newOrOld<DefaultChosenGameAlwaysUI.UIData>();
+                                                {
+                                                    EditData<DefaultChosenGameAlways> editDefaultChosenGameAlways = defaultChosenGameAlwaysUIData.editDefaultChosenGameAlways.v;
+                                                    if (editDefaultChosenGameAlways != null)
+                                                    {
+                                                        // origin
+                                                        editDefaultChosenGameAlways.origin.v = new ReferenceData<DefaultChosenGameAlways>((DefaultChosenGameAlways)originDefaultChosenGame);
+                                                        // show
+                                                        editDefaultChosenGameAlways.show.v = new ReferenceData<DefaultChosenGameAlways>(defaultChosenGameAlways);
+                                                        // compare
+                                                        editDefaultChosenGameAlways.compare.v = new ReferenceData<DefaultChosenGameAlways>((DefaultChosenGameAlways)compareDefaultChosenGame);
+                                                        // compareOtherType
+                                                        editDefaultChosenGameAlways.compareOtherType.v = new ReferenceData<Data>(compareDefaultChosenGame);
+                                                        // canEdit
+                                                        editDefaultChosenGameAlways.canEdit.v = editSetting.canEdit.v;
+                                                        // editType
+                                                        editDefaultChosenGameAlways.editType.v = editSetting.editType.v;
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("editDefaultChosenGameAlways null: " + this);
+                                                    }
+                                                    defaultChosenGameAlwaysUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                }
+                                                this.data.defaultChosenGameUIData.v = defaultChosenGameAlwaysUIData;
+                                            }
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown type: " + defaultChosenGame.getType() + "; " + this);
+                                            break;
                                     }
                                 }
                             }
+                            else
+                            {
+                                Debug.LogError("show null");
+                            }
+                        }
+
+                        // defaultRoomNameType
+                        {
+                            // options
+                            {
+                                List<string> options = new List<string>();
+                                {
+                                    options.Add(txtDefaultRoomNameLast.get());
+                                    options.Add(txtDefaultRoomNameAlways.get());
+                                }
+                                RequestChangeEnumUI.RefreshOptions(this.data.defaultRoomNameType.v, options);
+                            }
+                            RequestChange.RefreshUI(this.data.defaultRoomNameType.v, editSetting, serverState, needReset, setting => (int)setting.defaultRoomName.v.getType());
+                        }
+                        // defaultRoomName
+                        {
+                            Setting show = editSetting.show.v.data;
+                            Setting compare = editSetting.compare.v.data;
+                            if (show != null)
+                            {
+                                DefaultRoomName defaultRoomName = show.defaultRoomName.v;
+                                if (defaultRoomName != null)
+                                {
+                                    // find origin 
+                                    DefaultRoomName originDefaultRoomName = null;
+                                    {
+                                        Setting originSetting = editSetting.origin.v.data;
+                                        if (originSetting != null)
+                                        {
+                                            originDefaultRoomName = originSetting.defaultRoomName.v;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("origin null: " + this);
+                                        }
+                                    }
+                                    // find compare
+                                    DefaultRoomName compareDefaultRoomName = null;
+                                    {
+                                        if (compare != null)
+                                        {
+                                            compareDefaultRoomName = compare.defaultRoomName.v;
+                                        }
+                                        else
+                                        {
+                                            // Debug.LogError ("compare null: " + this);
+                                        }
+                                    }
+                                    switch (defaultRoomName.getType())
+                                    {
+                                        case DefaultRoomName.Type.Last:
+                                            {
+                                                DefaultRoomNameLast defaultRoomNameLast = defaultRoomName as DefaultRoomNameLast;
+                                                // UIData
+                                                DefaultRoomNameLastUI.UIData defaultRoomNameLastUIData = this.data.defaultRoomNameUIData.newOrOld<DefaultRoomNameLastUI.UIData>();
+                                                {
+                                                    EditData<DefaultRoomNameLast> editDefaultRoomNameLast = defaultRoomNameLastUIData.editDefaultRoomNameLast.v;
+                                                    if (editDefaultRoomNameLast != null)
+                                                    {
+                                                        // origin
+                                                        editDefaultRoomNameLast.origin.v = new ReferenceData<DefaultRoomNameLast>((DefaultRoomNameLast)originDefaultRoomName);
+                                                        // show
+                                                        editDefaultRoomNameLast.show.v = new ReferenceData<DefaultRoomNameLast>(defaultRoomNameLast);
+                                                        // compare
+                                                        editDefaultRoomNameLast.compare.v = new ReferenceData<DefaultRoomNameLast>((DefaultRoomNameLast)compareDefaultRoomName);
+                                                        // compareOtherType
+                                                        editDefaultRoomNameLast.compareOtherType.v = new ReferenceData<Data>(compareDefaultRoomName);
+                                                        // canEdit
+                                                        editDefaultRoomNameLast.canEdit.v = editSetting.canEdit.v;
+                                                        // editType
+                                                        editDefaultRoomNameLast.editType.v = editSetting.editType.v;
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("editDefaultRoomNameLast null: " + this);
+                                                    }
+                                                    defaultRoomNameLastUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                }
+                                                this.data.defaultRoomNameUIData.v = defaultRoomNameLastUIData;
+                                            }
+                                            break;
+                                        case DefaultRoomName.Type.Always:
+                                            {
+                                                DefaultRoomNameAlways defaultRoomNameAlways = defaultRoomName as DefaultRoomNameAlways;
+                                                // UIData
+                                                DefaultRoomNameAlwaysUI.UIData defaultRoomNameAlwaysUIData = this.data.defaultRoomNameUIData.newOrOld<DefaultRoomNameAlwaysUI.UIData>();
+                                                {
+                                                    EditData<DefaultRoomNameAlways> editDefaultRoomNameAlways = defaultRoomNameAlwaysUIData.editDefaultRoomNameAlways.v;
+                                                    if (editDefaultRoomNameAlways != null)
+                                                    {
+                                                        // origin
+                                                        editDefaultRoomNameAlways.origin.v = new ReferenceData<DefaultRoomNameAlways>((DefaultRoomNameAlways)originDefaultRoomName);
+                                                        // show
+                                                        editDefaultRoomNameAlways.show.v = new ReferenceData<DefaultRoomNameAlways>(defaultRoomNameAlways);
+                                                        // compare
+                                                        editDefaultRoomNameAlways.compare.v = new ReferenceData<DefaultRoomNameAlways>((DefaultRoomNameAlways)compareDefaultRoomName);
+                                                        // compareOtherType
+                                                        editDefaultRoomNameAlways.compareOtherType.v = new ReferenceData<Data>(compareDefaultRoomName);
+                                                        // canEdit
+                                                        editDefaultRoomNameAlways.canEdit.v = editSetting.canEdit.v;
+                                                        // editType
+                                                        editDefaultRoomNameAlways.editType.v = editSetting.editType.v;
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("editDefaultRoomNameAlways null: " + this);
+                                                    }
+                                                    defaultRoomNameAlwaysUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                }
+                                                this.data.defaultRoomNameUIData.v = defaultRoomNameAlwaysUIData;
+                                            }
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown type: " + defaultRoomName.getType() + "; " + this);
+                                            break;
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("show null: " + this);
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("show null");
+                            }
+                        }
+
+                        // defaultChatRoomStyleType
+                        {
+                            // options
+                            {
+                                List<string> options = new List<string>();
+                                {
+                                    options.Add(txtDefaultChatRoomStyleLast.get());
+                                    options.Add(txtDefaultChatRoomStyleAlways.get());
+                                }
+                                RequestChangeEnumUI.RefreshOptions(this.data.defaultChatRoomStyleType.v, options);
+                            }
+                            RequestChange.RefreshUI(this.data.defaultChatRoomStyleType.v, editSetting, serverState, needReset, setting => (int)setting.defaultChatRoomStyle.v.getType());
+                        }
+                        // defaultChatRoomStyle
+                        {
+                            Setting show = editSetting.show.v.data;
+                            Setting compare = editSetting.compare.v.data;
+                            if (show != null)
+                            {
+                                DefaultChatRoomStyle defaultChatRoomStyle = show.defaultChatRoomStyle.v;
+                                if (defaultChatRoomStyle != null)
+                                {
+                                    // find origin 
+                                    DefaultChatRoomStyle originDefaultChatRoomStyle = null;
+                                    {
+                                        Setting originSetting = editSetting.origin.v.data;
+                                        if (originSetting != null)
+                                        {
+                                            originDefaultChatRoomStyle = originSetting.defaultChatRoomStyle.v;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("origin null: " + this);
+                                        }
+                                    }
+                                    // find compare
+                                    DefaultChatRoomStyle compareDefaultChatRoomStyle = null;
+                                    {
+                                        if (compare != null)
+                                        {
+                                            compareDefaultChatRoomStyle = compare.defaultChatRoomStyle.v;
+                                        }
+                                        else
+                                        {
+                                            // Debug.LogError ("compare null: " + this);
+                                        }
+                                    }
+                                    switch (defaultChatRoomStyle.getType())
+                                    {
+                                        case DefaultChatRoomStyle.Type.Last:
+                                            {
+                                                DefaultChatRoomStyleLast defaultChatRoomStyleLast = defaultChatRoomStyle as DefaultChatRoomStyleLast;
+                                                // UIData
+                                                DefaultChatRoomStyleLastUI.UIData defaultChatRoomStyleLastUIData = this.data.defaultChatRoomStyleUIData.newOrOld<DefaultChatRoomStyleLastUI.UIData>();
+                                                {
+                                                    EditData<DefaultChatRoomStyleLast> editDefaultChatRoomStyleLast = defaultChatRoomStyleLastUIData.editDefaultChatRoomStyleLast.v;
+                                                    if (editDefaultChatRoomStyleLast != null)
+                                                    {
+                                                        // origin
+                                                        editDefaultChatRoomStyleLast.origin.v = new ReferenceData<DefaultChatRoomStyleLast>((DefaultChatRoomStyleLast)originDefaultChatRoomStyle);
+                                                        // show
+                                                        editDefaultChatRoomStyleLast.show.v = new ReferenceData<DefaultChatRoomStyleLast>(defaultChatRoomStyleLast);
+                                                        // compare
+                                                        editDefaultChatRoomStyleLast.compare.v = new ReferenceData<DefaultChatRoomStyleLast>((DefaultChatRoomStyleLast)compareDefaultChatRoomStyle);
+                                                        // compareOtherType
+                                                        editDefaultChatRoomStyleLast.compareOtherType.v = new ReferenceData<Data>(compareDefaultChatRoomStyle);
+                                                        // canEdit
+                                                        editDefaultChatRoomStyleLast.canEdit.v = editSetting.canEdit.v;
+                                                        // editType
+                                                        editDefaultChatRoomStyleLast.editType.v = editSetting.editType.v;
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("editDefaultChatRoomStyleLast null: " + this);
+                                                    }
+                                                    defaultChatRoomStyleLastUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                }
+                                                this.data.defaultChatRoomStyleUIData.v = defaultChatRoomStyleLastUIData;
+                                            }
+                                            break;
+                                        case DefaultChatRoomStyle.Type.Always:
+                                            {
+                                                DefaultChatRoomStyleAlways defaultChatRoomStyleAlways = defaultChatRoomStyle as DefaultChatRoomStyleAlways;
+                                                // UIData
+                                                DefaultChatRoomStyleAlwaysUI.UIData defaultChatRoomStyleAlwaysUIData = this.data.defaultChatRoomStyleUIData.newOrOld<DefaultChatRoomStyleAlwaysUI.UIData>();
+                                                {
+                                                    EditData<DefaultChatRoomStyleAlways> editDefaultChatRoomStyleAlways = defaultChatRoomStyleAlwaysUIData.editDefaultChatRoomStyleAlways.v;
+                                                    if (editDefaultChatRoomStyleAlways != null)
+                                                    {
+                                                        // origin
+                                                        editDefaultChatRoomStyleAlways.origin.v = new ReferenceData<DefaultChatRoomStyleAlways>((DefaultChatRoomStyleAlways)originDefaultChatRoomStyle);
+                                                        // show
+                                                        editDefaultChatRoomStyleAlways.show.v = new ReferenceData<DefaultChatRoomStyleAlways>(defaultChatRoomStyleAlways);
+                                                        // compare
+                                                        editDefaultChatRoomStyleAlways.compare.v = new ReferenceData<DefaultChatRoomStyleAlways>((DefaultChatRoomStyleAlways)compareDefaultChatRoomStyle);
+                                                        // compareOtherType
+                                                        editDefaultChatRoomStyleAlways.compareOtherType.v = new ReferenceData<Data>(compareDefaultChatRoomStyle);
+                                                        // canEdit
+                                                        editDefaultChatRoomStyleAlways.canEdit.v = editSetting.canEdit.v;
+                                                        // editType
+                                                        editDefaultChatRoomStyleAlways.editType.v = editSetting.editType.v;
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("editDefaultChatRoomStyleAlways null: " + this);
+                                                    }
+                                                    defaultChatRoomStyleAlwaysUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                }
+                                                this.data.defaultChatRoomStyleUIData.v = defaultChatRoomStyleAlwaysUIData;
+                                            }
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown type: " + defaultChatRoomStyle.getType() + "; " + this);
+                                            break;
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("show null: " + this);
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("show null");
+                            }
+                        }
+
+                        // textSize
+                        {
+                            RequestChange.RefreshUI(this.data.contentTextSize.v, editSetting, serverState, needReset, setting => setting.contentTextSize.v);
+                            RequestChange.RefreshUI(this.data.titleTextSize.v, editSetting, serverState, needReset, setting => setting.titleTextSize.v);
                         }
                     }
-                    else
-                    {
-                        // Debug.LogError("show null: " + this);
-                    }
+                    needReset = false;
                 }
                 else
                 {
@@ -2365,6 +1728,15 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         else
                         {
                             Debug.LogError("lbContentTextSize null");
+                        }
+                        if (lbTitleTextSize != null)
+                        {
+                            lbTitleTextSize.text = txtTitleTextSize.get();
+                            Setting.get().setLabelTextSize(lbTitleTextSize);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitleTextSize null");
                         }
                     }
                 }

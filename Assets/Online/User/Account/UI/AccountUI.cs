@@ -53,7 +53,7 @@ public class AccountUI : UIHaveTransformDataBehavior<AccountUI.UIData>
         public UIData() : base()
         {
             this.editAccount = new VP<EditData<Account>>(this, (byte)Property.editAccount, new EditData<Account>());
-            this.isLogin = new VP<bool>(this, (byte)Property.isLogin, true);
+            this.isLogin = new VP<bool>(this, (byte)Property.isLogin, false);
             this.accountAvatar = new VP<AccountAvatarUI.UIData>(this, (byte)Property.accountAvatar, new AccountAvatarUI.UIData());
             this.sub = new VP<Sub>(this, (byte)Property.sub, null);
             this.subNeedHeader = new VP<bool>(this, (byte)Property.subNeedHeader, true);
@@ -73,12 +73,12 @@ public class AccountUI : UIHaveTransformDataBehavior<AccountUI.UIData>
         {
             // anchoredPosition: (0.0, 0.0); anchorMin: (0.5, 1.0); anchorMax: (0.5, 1.0); pivot: (0.5, 1.0);
             // offsetMin: (-25.0, -50.0); offsetMax: (25.0, 0.0); sizeDelta: (50.0, 50.0);
-            accountAvatarRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0f);
+            accountAvatarRect.anchoredPosition = new Vector3(0.0f, -5.0f, 0f);
             accountAvatarRect.anchorMin = new Vector2(0.5f, 1.0f);
             accountAvatarRect.anchorMax = new Vector2(0.5f, 1.0f);
             accountAvatarRect.pivot = new Vector2(0.5f, 1.0f);
-            accountAvatarRect.offsetMin = new Vector2(-25.0f, -50.0f);
-            accountAvatarRect.offsetMax = new Vector2(25.0f, 0.0f);
+            accountAvatarRect.offsetMin = new Vector2(-25.0f, -55.0f);
+            accountAvatarRect.offsetMax = new Vector2(25.0f, -5.0f);
             accountAvatarRect.sizeDelta = new Vector2(50.0f, 50.0f);
         }
     }

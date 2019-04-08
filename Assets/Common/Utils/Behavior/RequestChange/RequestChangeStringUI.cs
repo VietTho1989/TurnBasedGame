@@ -8,7 +8,7 @@ public class RequestChangeStringUI : UIBehavior<RequestChangeStringUI.UIData>
 
     #region UIData
 
-    public class UIData : Data
+    public class UIData : RequestChange.UIData<string>
     {
 
         public VP<RequestChangeStringUpdate.UpdateData> updateData;
@@ -43,6 +43,25 @@ public class RequestChangeStringUI : UIBehavior<RequestChangeStringUI.UIData>
             this.compare = new VP<string>(this, (byte)Property.compare, "");
             this.placeHolder = new VP<string>(this, (byte)Property.placeHolder, "");
             this.contentType = new VP<InputField.ContentType>(this, (byte)Property.contentType, InputField.ContentType.Standard);
+        }
+
+        #endregion
+
+        #region implement base
+
+        public override RequestChangeUpdate<string>.UpdateData getUpdate()
+        {
+            return this.updateData.v;
+        }
+
+        public override void setShowDifferent(bool showDifferent)
+        {
+            this.showDifferent.v = showDifferent;
+        }
+
+        public override void setCompare(string compare)
+        {
+            this.compare.v = compare;
         }
 
         #endregion

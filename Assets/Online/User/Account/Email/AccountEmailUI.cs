@@ -249,7 +249,7 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
             this.editAccountEmail = new VP<EditData<AccountEmail>>(this, (byte)Property.editAccountEmail, new EditData<AccountEmail>());
             // type
             {
-                this.type = new VP<Type>(this, (byte)Property.type, Type.Login);
+                this.type = new VP<Type>(this, (byte)Property.type, Type.Show);
                 // changeType
                 {
                     this.changeType = new VP<RequestChangeEnumUI.UIData>(this, (byte)Property.changeType, new RequestChangeEnumUI.UIData());
@@ -371,30 +371,10 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                 if (editAccountEmail != null)
                 {
                     editAccountEmail.update();
-                    // get show
-                    AccountEmail show = editAccountEmail.show.v.data;
-                    AccountEmail compare = editAccountEmail.compare.v.data;
-                    if (show != null)
+                    // set component
                     {
-                        // different
-                        if (lbTitle != null)
-                        {
-                            bool isDifferent = false;
-                            {
-                                if (editAccountEmail.compareOtherType.v.data != null)
-                                {
-                                    if (editAccountEmail.compareOtherType.v.data.GetType() != show.GetType())
-                                    {
-                                        isDifferent = true;
-                                    }
-                                }
-                            }
-                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTitle null: " + this);
-                        }
+                        AccountEmail show = editAccountEmail.show.v.data;
+                        // AccountEmail compare = editAccountEmail.compare.v.data;
                         // set component
                         {
                             // changeType
@@ -581,6 +561,11 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                                 }
                             }
                         }
+                    }
+                    // UI
+                    {
+                        // different
+                        RequestChange.ShowDifferentTitle(lbTitle, editAccountEmail);
                         // request
                         {
                             // get server state
@@ -592,361 +577,30 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                                 }
                                 else
                                 {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
+                                    serverState = RequestChange.GetServerState(editAccountEmail);
                                 }
                             }
                             // set origin
                             {
-                                // changeType
-                                {
-                                    RequestChangeEnumUI.UIData changeType = this.data.changeType.v;
-                                    if (changeType != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = changeType.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = (int)this.data.type.v;
-                                            updateData.canRequestChange.v = editAccountEmail.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("changeType null: " + this);
-                                    }
-                                }
+                                RequestChange.RefreshUI(this.data.changeType.v, editAccountEmail, serverState, needReset, editData => (int)this.data.type.v);
                                 // email
                                 {
-                                    RequestChangeStringUI.UIData email = this.data.email.v;
-                                    if (email != null)
+                                    bool canChange = false;
                                     {
-                                        // update
-                                        RequestChangeUpdate<string>.UpdateData updateData = email.updateData.v;
-                                        if (updateData != null)
+                                        if (this.data.type.v == UIData.Type.Login || this.data.type.v == UIData.Type.Register)
                                         {
-                                            updateData.origin.v = show.email.v;
-                                            // requestChange?
-                                            {
-                                                bool canChange = false;
-                                                {
-                                                    if (this.data.type.v == UIData.Type.Login || this.data.type.v == UIData.Type.Register)
-                                                    {
-                                                        canChange = true;
-                                                    }
-                                                }
-                                                updateData.canRequestChange.v = canChange;
-                                            }
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                email.showDifferent.v = true;
-                                                email.compare.v = compare.email.v;
-                                            }
-                                            else
-                                            {
-                                                email.showDifferent.v = false;
-                                            }
+                                            canChange = true;
                                         }
                                     }
-                                    else
-                                    {
-                                        Debug.LogError("email null: " + this);
-                                    }
+                                    RequestChange.RefreshUI(this.data.email.v, editAccountEmail, serverState, needReset, editData => editData.email.v, canChange);
                                 }
-                                // password
-                                {
-                                    RequestChangeStringUI.UIData password = this.data.password.v;
-                                    if (password != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<string>.UpdateData updateData = password.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.password.v;
-                                            updateData.canRequestChange.v = editAccountEmail.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            password.showDifferent.v = false;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("password null: " + this);
-                                    }
-                                }
-                                // retypePassword
-                                {
-                                    RequestChangeStringUI.UIData retypePassword = this.data.retypePassword.v;
-                                    if (retypePassword != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<string>.UpdateData updateData = retypePassword.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = "";
-                                            updateData.canRequestChange.v = editAccountEmail.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            retypePassword.showDifferent.v = false;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("retypePassword null: " + this);
-                                    }
-                                }
-                                // customName
-                                {
-                                    RequestChangeStringUI.UIData customName = this.data.customName.v;
-                                    if (customName != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<string>.UpdateData updateData = customName.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.customName.v;
-                                            updateData.canRequestChange.v = editAccountEmail.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                customName.showDifferent.v = true;
-                                                customName.compare.v = compare.customName.v;
-                                            }
-                                            else
-                                            {
-                                                customName.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("customName null: " + this);
-                                    }
-                                }
-                                // avatarUrl
-                                {
-                                    RequestChangeStringUI.UIData avatarUrl = this.data.avatarUrl.v;
-                                    if (avatarUrl != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<string>.UpdateData updateData = avatarUrl.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.avatarUrl.v;
-                                            updateData.canRequestChange.v = editAccountEmail.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                avatarUrl.showDifferent.v = true;
-                                                avatarUrl.compare.v = compare.avatarUrl.v;
-                                            }
-                                            else
-                                            {
-                                                avatarUrl.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("avatarUrl null: " + this);
-                                    }
-                                }
+                                RequestChange.RefreshUINotDifferent(this.data.password.v, editAccountEmail, serverState, needReset, editData => editData.password.v, "");
+                                RequestChange.RefreshUINotDifferent(this.data.retypePassword.v, editAccountEmail, serverState, needReset, null, "");
+                                RequestChange.RefreshUI(this.data.customName.v, editAccountEmail, serverState, needReset, editData => editData.customName.v);
+                                RequestChange.RefreshUI(this.data.avatarUrl.v, editAccountEmail, serverState, needReset, editData => editData.avatarUrl.v);
                             }
-                        }
-                        // reset?
-                        if (needReset)
-                        {
                             needReset = false;
-                            // changeType
-                            {
-                                RequestChangeEnumUI.UIData changeType = this.data.changeType.v;
-                                if (changeType != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<int>.UpdateData updateData = changeType.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = (int)this.data.type.v;
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("changeType null: " + this);
-                                }
-                            }
-                            // email
-                            {
-                                RequestChangeStringUI.UIData email = this.data.email.v;
-                                if (email != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<string>.UpdateData updateData = email.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = show.email.v;
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("email null: " + this);
-                                }
-                            }
-                            // password
-                            {
-                                RequestChangeStringUI.UIData password = this.data.password.v;
-                                if (password != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<string>.UpdateData updateData = password.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = "";
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("password null: " + this);
-                                }
-                            }
-                            // retypePassword
-                            {
-                                RequestChangeStringUI.UIData retypePassword = this.data.retypePassword.v;
-                                if (retypePassword != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<string>.UpdateData updateData = retypePassword.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = "";
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("retypePassword null: " + this);
-                                }
-                            }
-                            // customName
-                            {
-                                RequestChangeStringUI.UIData customName = this.data.customName.v;
-                                if (customName != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<string>.UpdateData updateData = customName.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = show.customName.v;
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("customName null: " + this);
-                                }
-                            }
-                            // avatarUrl
-                            {
-                                RequestChangeStringUI.UIData avatarUrl = this.data.avatarUrl.v;
-                                if (avatarUrl != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<string>.UpdateData updateData = avatarUrl.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = show.avatarUrl.v;
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("avatarUrl null: " + this);
-                                }
-                            }
                         }
-                    }
-                    else
-                    {
-                        Debug.LogError("show null: " + this);
                     }
                 }
                 else

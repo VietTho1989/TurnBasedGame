@@ -555,10 +555,18 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
+    private static readonly TxtLanguage txtLoginEmailError = new TxtLanguage("Login by email error");
+
+    static ClientConnectIdentity()
+    {
+        txtLoginEmailError.add(Language.Type.vi, "Đăng nhập bằng email lỗi");
+    }
+
     [TargetRpc]
     public void TargetLoginEmailError(NetworkConnection target)
     {
         Debug.LogError("login email error: " + this);
+        Toast.showMessage(txtLoginEmailError.get());
     }
 
     [TargetRpc]

@@ -8,7 +8,7 @@ public class RequestChangeFloatUI : UIBehavior<RequestChangeFloatUI.UIData>
 
     #region UIData
 
-    public class UIData : Data
+    public class UIData : RequestChange.UIData<float>
     {
 
         public VP<RequestChangeFloatUpdate.UpdateData> updateData;
@@ -43,6 +43,25 @@ public class RequestChangeFloatUI : UIBehavior<RequestChangeFloatUI.UIData>
                 this.showDifferent = new VP<bool>(this, (byte)Property.showDifferent, false);
                 this.compare = new VP<float>(this, (byte)Property.compare, 0);
             }
+        }
+
+        #endregion
+
+        #region implement base
+
+        public override RequestChangeUpdate<float>.UpdateData getUpdate()
+        {
+            return this.updateData.v;
+        }
+
+        public override void setShowDifferent(bool showDifferent)
+        {
+            this.showDifferent.v = showDifferent;
+        }
+
+        public override void setCompare(float compare)
+        {
+            this.compare.v = compare;
         }
 
         #endregion

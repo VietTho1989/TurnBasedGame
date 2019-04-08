@@ -8,7 +8,7 @@ public class RequestChangeEnumUI : UIBehavior<RequestChangeEnumUI.UIData>
 
     #region UIData
 
-    public class UIData : Data
+    public class UIData : RequestChange.UIData<int>
     {
 
         public VP<RequestChangeIntUpdate.UpdateData> updateData;
@@ -47,6 +47,37 @@ public class RequestChangeEnumUI : UIBehavior<RequestChangeEnumUI.UIData>
 
         #endregion
 
+        #region implement base
+
+        public override RequestChangeUpdate<int>.UpdateData getUpdate()
+        {
+            return this.updateData.v;
+        }
+
+        public override void setShowDifferent(bool showDifferent)
+        {
+            this.showDifferent.v = showDifferent;
+        }
+
+        public override void setCompare(int compare)
+        {
+            this.compare.v = compare;
+        }
+
+        #endregion
+
+    }
+
+    public static void RefreshOptions(RequestChangeEnumUI.UIData requestChangeEnumUIData, List<string> options)
+    {
+        if (requestChangeEnumUIData != null)
+        {
+            requestChangeEnumUIData.options.copyList(options);
+        }
+        else
+        {
+            Debug.LogError("requestChangeEnumUIData null");
+        }
     }
 
     #endregion
