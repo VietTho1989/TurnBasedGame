@@ -248,6 +248,33 @@ namespace GameManager.Match
                                     Debug.LogError("state null: " + this);
                                 }
                             }
+                            // tvStartColor
+                            {
+                                if (tvStart != null)
+                                {
+                                    // find
+                                    bool isCanStart = false;
+                                    {
+                                        if (btnStart != null)
+                                        {
+                                            if (btnStart.interactable)
+                                            {
+                                                isCanStart = true;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("btnStart null");
+                                        }
+                                    }
+                                    // process
+                                    tvStart.color = isCanStart ? Color.blue : Global.DefaultTextColor;
+                                }
+                                else
+                                {
+                                    Debug.LogError("tvStart null");
+                                }
+                            }
                         }
                         else
                         {

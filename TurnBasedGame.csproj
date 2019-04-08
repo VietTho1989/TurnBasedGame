@@ -4357,6 +4357,9 @@
     <Compile Include="Assets\Online\User\Account\None\AccountNoneUI.cs" />
     <Compile Include="Assets\Online\User\Account\UI\AccountUI.cs" />
     <Compile Include="Assets\Online\User\Account\UI\Avatar\AccountAvatarUI.cs" />
+    <Compile Include="Assets\Online\User\AhoCorasick\AhoCorasick.cs" />
+    <Compile Include="Assets\Online\User\AhoCorasick\TestAhoCorasick.cs" />
+    <Compile Include="Assets\Online\User\AhoCorasick\Trie.cs" />
     <Compile Include="Assets\Online\User\Ban\Ban.cs" />
     <Compile Include="Assets\Online\User\Ban\Ban\BanBan.cs" />
     <Compile Include="Assets\Online\User\Ban\Ban\BanBanIdentity.cs" />

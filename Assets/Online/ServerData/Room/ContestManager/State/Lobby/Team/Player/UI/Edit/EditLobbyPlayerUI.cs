@@ -184,6 +184,7 @@ namespace GameManager.Match
                                         }
                                     }
                                     tvTeamIndex.text = txtTeamIndex.get() + ": " + teamIndex;
+                                    Setting.get().setContentTextSize(tvTeamIndex);
                                 }
                                 else
                                 {
@@ -195,6 +196,7 @@ namespace GameManager.Match
                                 if (tvPlayerIndex != null)
                                 {
                                     tvPlayerIndex.text = txtPlayerIndex.get() + ": " + lobbyPlayer.playerIndex.v;
+                                    Setting.get().setContentTextSize(tvPlayerIndex);
                                 }
                                 else
                                 {
@@ -230,6 +232,7 @@ namespace GameManager.Match
                                         }
                                     }
                                     tvPlayerName.text = string.IsNullOrEmpty(strName) ? "?" : strName;
+                                    Setting.get().setContentTextSize(tvPlayerName);
                                 }
                                 else
                                 {
@@ -319,6 +322,7 @@ namespace GameManager.Match
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -707,6 +711,15 @@ namespace GameManager.Match
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

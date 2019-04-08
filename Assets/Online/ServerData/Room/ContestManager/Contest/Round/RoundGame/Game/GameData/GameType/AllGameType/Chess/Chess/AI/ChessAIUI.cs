@@ -202,12 +202,6 @@ namespace Chess
                 txtSkillLevel.add(Language.Type.vi, "Mức kỹ năng");
                 txtDuration.add(Language.Type.vi, "Thời gian");
             }
-            // rect
-            {
-                depthRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                skillLevelRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                durationRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -588,6 +582,7 @@ namespace Chess
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -596,6 +591,7 @@ namespace Chess
                         if (lbDepth != null)
                         {
                             lbDepth.text = txtDepth.get();
+                            Setting.get().setLabelTextSize(lbDepth);
                         }
                         else
                         {
@@ -604,6 +600,7 @@ namespace Chess
                         if (lbSkillLevel != null)
                         {
                             lbSkillLevel.text = txtSkillLevel.get();
+                            Setting.get().setLabelTextSize(lbSkillLevel);
                         }
                         else
                         {
@@ -612,6 +609,7 @@ namespace Chess
                         if (lbDuration != null)
                         {
                             lbDuration.text = txtDuration.get();
+                            Setting.get().setLabelTextSize(lbDuration);
                         }
                         else
                         {
@@ -634,10 +632,6 @@ namespace Chess
         #endregion
 
         #region implement callBacks
-
-        public static readonly UIRectTransform depthRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform skillLevelRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform durationRect = new UIRectTransform(UIConstants.RequestRect);
 
         public RequestChangeIntUI requestIntPrefab;
         public RequestChangeLongUI requestLongPrefab;
@@ -716,10 +710,10 @@ namespace Chess
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.depth:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, depthRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.skillLevel:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, skillLevelRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -745,7 +739,7 @@ namespace Chess
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.duration:
-                                    UIUtils.Instantiate(requestChange, requestLongPrefab, this.transform, durationRect);
+                                    UIUtils.Instantiate(requestChange, requestLongPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -888,6 +882,15 @@ namespace Chess
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

@@ -1108,6 +1108,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                     if (lbTitle != null)
                     {
                         lbTitle.text = txtTitle.get();
+                        Setting.get().setTitleTextSize(lbTitle);
                     }
                     else
                     {
@@ -1116,6 +1117,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                     if (lbPlayerId != null)
                     {
                         lbPlayerId.text = txtPlayerId.get();
+                        Setting.get().setLabelTextSize(lbPlayerId);
                     }
                     else
                     {
@@ -1124,6 +1126,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                     if (lbEmail != null)
                     {
                         lbEmail.text = txtEmail.get();
+                        Setting.get().setLabelTextSize(lbEmail);
                     }
                     else
                     {
@@ -1132,6 +1135,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                     if (lbPhoneNumber != null)
                     {
                         lbPhoneNumber.text = txtPhoneNumber.get();
+                        Setting.get().setLabelTextSize(lbPhoneNumber);
                     }
                     else
                     {
@@ -1140,6 +1144,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                     if (lbStatus != null)
                     {
                         lbStatus.text = txtStatus.get();
+                        Setting.get().setLabelTextSize(lbStatus);
                     }
                     else
                     {
@@ -1148,6 +1153,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                     if (lbBirthday != null)
                     {
                         lbBirthday.text = txtBirthday.get();
+                        Setting.get().setLabelTextSize(lbBirthday);
                     }
                     else
                     {
@@ -1156,6 +1162,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                     if (lbSex != null)
                     {
                         lbSex.text = txtSex.get();
+                        Setting.get().setLabelTextSize(lbSex);
                     }
                     else
                     {
@@ -1164,6 +1171,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                     if (lbBan != null)
                     {
                         lbBan.text = txtBan.get();
+                        Setting.get().setLabelTextSize(lbBan);
                     }
                     else
                     {
@@ -1606,6 +1614,15 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
             switch ((Setting.Property)wrapProperty.n)
             {
                 case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
                     dirty = true;
                     break;
                 case Setting.Property.showLastMove:

@@ -234,6 +234,7 @@ namespace Gomoku.NoneRule
                         if (lbTitle != null)
                         {
                             lbTitle.text = ClickPosTxt.txtClickPosTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -419,6 +420,15 @@ namespace Gomoku.NoneRule
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.style:

@@ -211,6 +211,7 @@ namespace HEX
                             if (lbTitle != null)
                             {
                                 lbTitle.text = GameType.GetStrGameType(GameType.Type.Hex);
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -219,6 +220,7 @@ namespace HEX
                             if (tvMessage != null)
                             {
                                 tvMessage.text = txtMessage.get();
+                                Setting.get().setContentTextSize(tvMessage);
                             }
                             else
                             {
@@ -227,6 +229,7 @@ namespace HEX
                             if (lbBoardSize != null)
                             {
                                 lbBoardSize.text = txtBoardSize.get();
+                                Setting.get().setLabelTextSize(lbBoardSize);
                             }
                             else
                             {
@@ -235,6 +238,7 @@ namespace HEX
                             if (lbIsSwitch != null)
                             {
                                 lbIsSwitch.text = txtIsSwitch.get();
+                                Setting.get().setLabelTextSize(lbIsSwitch);
                             }
                             else
                             {
@@ -353,6 +357,15 @@ namespace HEX
                         dirty = true;
                         break;
                     case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
                         break;
                     case Setting.Property.showLastMove:
                         break;

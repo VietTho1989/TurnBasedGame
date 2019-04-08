@@ -247,6 +247,7 @@ namespace InternationalDraught
                             if (lbTitle != null)
                             {
                                 lbTitle.text = GameType.GetStrGameType(GameType.Type.InternationalDraught);
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -255,6 +256,7 @@ namespace InternationalDraught
                             if (tvMessage != null)
                             {
                                 tvMessage.text = txtMessage.get();
+                                Setting.get().setContentTextSize(tvMessage);
                             }
                             else
                             {
@@ -263,6 +265,7 @@ namespace InternationalDraught
                             if (lbVariant != null)
                             {
                                 lbVariant.text = txtVariant.get();
+                                Setting.get().setLabelTextSize(lbVariant);
                             }
                             else
                             {
@@ -442,6 +445,15 @@ namespace InternationalDraught
                         dirty = true;
                         break;
                     case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
                         break;
                     case Setting.Property.showLastMove:
                         break;

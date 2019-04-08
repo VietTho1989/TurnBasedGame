@@ -1540,6 +1540,7 @@ namespace Ads
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -1548,6 +1549,7 @@ namespace Ads
                         if (lbVideoType != null)
                         {
                             lbVideoType.text = txtVideoType.get();
+                            Setting.get().setLabelTextSize(lbVideoType);
                         }
                         else
                         {
@@ -1556,6 +1558,7 @@ namespace Ads
                         if (lbShowBtnViewAds != null)
                         {
                             lbShowBtnViewAds.text = txtShowBtnViewAds.get();
+                            Setting.get().setLabelTextSize(lbShowBtnViewAds);
                         }
                         else
                         {
@@ -1564,6 +1567,7 @@ namespace Ads
                         if (lbBannerType != null)
                         {
                             lbBannerType.text = txtBannerType.get();
+                            Setting.get().setLabelTextSize(lbBannerType);
                         }
                         else
                         {
@@ -1572,6 +1576,7 @@ namespace Ads
                         if (lbHideBannerDurationAfterClick != null)
                         {
                             lbHideBannerDurationAfterClick.text = txtHideBannerDurationAfterClick.get();
+                            Setting.get().setLabelTextSize(lbHideBannerDurationAfterClick);
                         }
                         else
                         {
@@ -1580,6 +1585,7 @@ namespace Ads
                         if (lbHideAdsWhenStartPlay != null)
                         {
                             lbHideAdsWhenStartPlay.text = txtHideAdsWhenStartPlay.get();
+                            Setting.get().setLabelTextSize(lbHideAdsWhenStartPlay);
                         }
                         else
                         {
@@ -1588,6 +1594,7 @@ namespace Ads
                         if (lbShowAdsWhenGameEnd != null)
                         {
                             lbShowAdsWhenGameEnd.text = txtShowAdsWhenGameEnd.get();
+                            Setting.get().setLabelTextSize(lbShowAdsWhenGameEnd);
                         }
                         else
                         {
@@ -1596,6 +1603,7 @@ namespace Ads
                         if (lbHideAdsWhenGameStart != null)
                         {
                             lbHideAdsWhenGameStart.text = txtHideAdsWhenGameStart.get();
+                            Setting.get().setLabelTextSize(lbHideAdsWhenGameStart);
                         }
                         else
                         {
@@ -1604,6 +1612,7 @@ namespace Ads
                         if (lbShowAdsWhenGamePause != null)
                         {
                             lbShowAdsWhenGamePause.text = txtShowAdsWhenGamePause.get();
+                            Setting.get().setLabelTextSize(lbShowAdsWhenGamePause);
                         }
                         else
                         {
@@ -1612,6 +1621,7 @@ namespace Ads
                         if(lbHideAdsWhenGameNotPause != null)
                         {
                             lbHideAdsWhenGameNotPause.text = txtHideAdsWhenGameNotPause.get();
+                            Setting.get().setLabelTextSize(lbHideAdsWhenGameNotPause);
                         }
                         else
                         {
@@ -1620,6 +1630,7 @@ namespace Ads
                         if (lbReloadBannerInterval != null)
                         {
                             lbReloadBannerInterval.text = txtReloadBannerInterval.get();
+                            Setting.get().setLabelTextSize(lbReloadBannerInterval);
                         }
                         else
                         {
@@ -1628,6 +1639,7 @@ namespace Ads
                         if (lbAdmobVideoType != null)
                         {
                             lbAdmobVideoType.text = txtAdmobVideoType.get();
+                            Setting.get().setLabelTextSize(lbAdmobVideoType);
                         }
                         else
                         {
@@ -2000,6 +2012,15 @@ namespace Ads
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.style:

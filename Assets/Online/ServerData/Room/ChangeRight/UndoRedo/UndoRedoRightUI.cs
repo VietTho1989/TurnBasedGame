@@ -593,6 +593,7 @@ namespace Rights
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -601,6 +602,7 @@ namespace Rights
                         if (lbNeedAccept != null)
                         {
                             lbNeedAccept.text = txtNeedAccept.get();
+                            Setting.get().setLabelTextSize(lbNeedAccept);
                         }
                         else
                         {
@@ -609,6 +611,7 @@ namespace Rights
                         if (lbNeedAdmin != null)
                         {
                             lbNeedAdmin.text = txtNeedAdmin.get();
+                            Setting.get().setLabelTextSize(lbNeedAdmin);
                         }
                         else
                         {
@@ -617,6 +620,7 @@ namespace Rights
                         if (lbLimitType != null)
                         {
                             lbLimitType.text = txtLimitType.get();
+                            Setting.get().setLabelTextSize(lbLimitType);
                         }
                         else
                         {
@@ -963,6 +967,15 @@ namespace Rights
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

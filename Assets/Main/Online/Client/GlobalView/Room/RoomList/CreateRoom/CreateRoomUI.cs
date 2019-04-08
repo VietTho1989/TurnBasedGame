@@ -509,6 +509,7 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
                     if (lbTitle != null)
                     {
                         lbTitle.text = txtTitle.get();
+                        Setting.get().setTitleTextSize(lbTitle);
                     }
                     else
                     {
@@ -517,6 +518,7 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
                     if (lbGameType != null)
                     {
                         lbGameType.text = txtGameType.get();
+                        Setting.get().setLabelTextSize(lbGameType);
                     }
                     else
                     {
@@ -525,6 +527,7 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
                     if (lbRoomName != null)
                     {
                         lbRoomName.text = txtRoomName.get();
+                        Setting.get().setLabelTextSize(lbRoomName);
                     }
                     else
                     {
@@ -533,6 +536,7 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
                     if (lbPassword != null)
                     {
                         lbPassword.text = txtPassword.get();
+                        Setting.get().setLabelTextSize(lbPassword);
                     }
                     else
                     {
@@ -847,6 +851,15 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
             switch ((Setting.Property)wrapProperty.n)
             {
                 case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
                     dirty = true;
                     break;
                 case Setting.Property.showLastMove:

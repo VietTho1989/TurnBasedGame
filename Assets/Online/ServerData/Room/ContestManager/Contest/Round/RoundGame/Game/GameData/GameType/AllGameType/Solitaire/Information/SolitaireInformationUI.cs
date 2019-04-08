@@ -87,6 +87,7 @@ namespace Solitaire
                             if (tvDrawCount != null)
                             {
                                 tvDrawCount.text = "" + solitaire.drawCount.v;
+                                Setting.get().setContentTextSize(tvDrawCount);
                             }
                             else
                             {
@@ -171,6 +172,7 @@ namespace Solitaire
                             if (lbTitle != null)
                             {
                                 lbTitle.text = GameType.GetStrGameType(GameType.Type.Solitaire);
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -179,6 +181,7 @@ namespace Solitaire
                             if (tvMessage != null)
                             {
                                 tvMessage.text = txtMessage.get();
+                                Setting.get().setContentTextSize(tvMessage);
                             }
                             else
                             {
@@ -187,6 +190,7 @@ namespace Solitaire
                             if (lbDrawCount != null)
                             {
                                 lbDrawCount.text = txtDrawCount.get();
+                                Setting.get().setLabelTextSize(lbDrawCount);
                             }
                             else
                             {
@@ -305,6 +309,15 @@ namespace Solitaire
                         dirty = true;
                         break;
                     case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
                         break;
                     case Setting.Property.showLastMove:
                         break;

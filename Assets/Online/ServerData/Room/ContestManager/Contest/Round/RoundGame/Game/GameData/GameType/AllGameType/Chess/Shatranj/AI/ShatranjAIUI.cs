@@ -588,6 +588,7 @@ namespace Shatranj
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -596,6 +597,7 @@ namespace Shatranj
                         if (lbDepth != null)
                         {
                             lbDepth.text = txtDepth.get();
+                            Setting.get().setLabelTextSize(lbDepth);
                         }
                         else
                         {
@@ -604,6 +606,7 @@ namespace Shatranj
                         if (lbSkillLevel != null)
                         {
                             lbSkillLevel.text = txtSkillLevel.get();
+                            Setting.get().setLabelTextSize(lbSkillLevel);
                         }
                         else
                         {
@@ -612,6 +615,7 @@ namespace Shatranj
                         if (lbDuration != null)
                         {
                             lbDuration.text = txtDuration.get();
+                            Setting.get().setLabelTextSize(lbDuration);
                         }
                         else
                         {
@@ -894,6 +898,15 @@ namespace Shatranj
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

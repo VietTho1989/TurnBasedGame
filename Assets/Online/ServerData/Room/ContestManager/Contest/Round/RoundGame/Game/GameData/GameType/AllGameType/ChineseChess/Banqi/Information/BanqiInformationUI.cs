@@ -134,6 +134,7 @@ namespace Banqi
                             if (lbTitle != null)
                             {
                                 lbTitle.text = GameType.GetStrGameType(GameType.Type.Banqi);
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -142,6 +143,7 @@ namespace Banqi
                             if (tvMessage != null)
                             {
                                 tvMessage.text = txtMessage.get();
+                                Setting.get().setContentTextSize(tvMessage);
                             }
                             else
                             {

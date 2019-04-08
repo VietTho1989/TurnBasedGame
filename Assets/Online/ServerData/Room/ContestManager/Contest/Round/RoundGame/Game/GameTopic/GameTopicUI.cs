@@ -65,6 +65,7 @@ public class GameTopicUI : UIBehavior<GameTopicUI.UIData>
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -180,6 +181,15 @@ public class GameTopicUI : UIBehavior<GameTopicUI.UIData>
                     dirty = true;
                     break;
                 case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
                     break;
                 case Setting.Property.confirmQuit:
                     break;

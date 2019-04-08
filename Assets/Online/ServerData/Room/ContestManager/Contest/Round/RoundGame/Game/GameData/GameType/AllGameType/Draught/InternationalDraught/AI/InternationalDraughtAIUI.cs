@@ -1103,6 +1103,7 @@ namespace InternationalDraught
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -1111,6 +1112,7 @@ namespace InternationalDraught
                         if (lbBMove != null)
                         {
                             lbBMove.text = txtBMove.get();
+                            Setting.get().setLabelTextSize(lbBMove);
                         }
                         else
                         {
@@ -1119,6 +1121,7 @@ namespace InternationalDraught
                         if (lbBook != null)
                         {
                             lbBook.text = txtBook.get();
+                            Setting.get().setLabelTextSize(lbBook);
                         }
                         else
                         {
@@ -1127,6 +1130,7 @@ namespace InternationalDraught
                         if (lbDepth != null)
                         {
                             lbDepth.text = txtDepth.get();
+                            Setting.get().setLabelTextSize(lbDepth);
                         }
                         else
                         {
@@ -1135,6 +1139,7 @@ namespace InternationalDraught
                         if (lbTime != null)
                         {
                             lbTime.text = txtTime.get();
+                            Setting.get().setLabelTextSize(lbTime);
                         }
                         else
                         {
@@ -1143,6 +1148,7 @@ namespace InternationalDraught
                         if (lbInput != null)
                         {
                             lbInput.text = txtInput.get();
+                            Setting.get().setLabelTextSize(lbInput);
                         }
                         else
                         {
@@ -1151,6 +1157,7 @@ namespace InternationalDraught
                         if (lbUseEndGameDatabase != null)
                         {
                             lbUseEndGameDatabase.text = txtUseEndGameDatabase.get();
+                            Setting.get().setLabelTextSize(lbUseEndGameDatabase);
                         }
                         else
                         {
@@ -1159,6 +1166,7 @@ namespace InternationalDraught
                         if (lbPickBestMove != null)
                         {
                             lbPickBestMove.text = txtPickBestMove.get();
+                            Setting.get().setLabelTextSize(lbPickBestMove);
                         }
                         else
                         {
@@ -1519,6 +1527,15 @@ namespace InternationalDraught
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

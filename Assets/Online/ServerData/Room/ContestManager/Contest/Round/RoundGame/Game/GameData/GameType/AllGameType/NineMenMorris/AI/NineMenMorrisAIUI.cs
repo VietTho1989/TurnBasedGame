@@ -879,6 +879,7 @@ namespace NineMenMorris
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -887,6 +888,7 @@ namespace NineMenMorris
                         if (lbMaxNormal != null)
                         {
                             lbMaxNormal.text = txtMaxNormal.get();
+                            Setting.get().setLabelTextSize(lbMaxNormal);
                         }
                         else
                         {
@@ -895,6 +897,7 @@ namespace NineMenMorris
                         if (lbMaxPositioning != null)
                         {
                             lbMaxPositioning.text = txtMaxPositioning.get();
+                            Setting.get().setLabelTextSize(lbMaxPositioning);
                         }
                         else
                         {
@@ -903,6 +906,7 @@ namespace NineMenMorris
                         if (lbMaxBlackAndWhite3 != null)
                         {
                             lbMaxBlackAndWhite3.text = txtMaxBlackAndWhite3.get();
+                            Setting.get().setLabelTextSize(lbMaxBlackAndWhite3);
                         }
                         else
                         {
@@ -911,6 +915,7 @@ namespace NineMenMorris
                         if (lbMaxBlackOrWhite3 != null)
                         {
                             lbMaxBlackOrWhite3.text = txtMaxBlackOrWhite3.get();
+                            Setting.get().setLabelTextSize(lbMaxBlackOrWhite3);
                         }
                         else
                         {
@@ -919,6 +924,7 @@ namespace NineMenMorris
                         if (lbPickBestMove != null)
                         {
                             lbPickBestMove.text = txtPickBestMove.get();
+                            Setting.get().setLabelTextSize(lbPickBestMove);
                         }
                         else
                         {
@@ -1186,6 +1192,15 @@ namespace NineMenMorris
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

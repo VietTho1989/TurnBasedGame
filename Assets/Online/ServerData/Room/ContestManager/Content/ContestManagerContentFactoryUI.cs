@@ -176,11 +176,6 @@ namespace GameManager.Match
                 txtRandomTeamIndex.add(Language.Type.vi, "Ngẫu nhiên chỉ số team");
                 txtContentType.add(Language.Type.vi, "Loại giải đấu");
             }
-            // rect
-            {
-                randomTeamIndexRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                contentFactoryTypeRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -522,16 +517,64 @@ namespace GameManager.Match
                         float deltaY = UIConstants.HeaderHeight;
                         // randomTeamIndex
                         {
-                            deltaY += UIConstants.ItemHeight;
+                            if (this.data.randomTeamIndex.v != null)
+                            {
+                                if (lbRandomTeamIndex != null)
+                                {
+                                    lbRandomTeamIndex.gameObject.SetActive(true);
+                                    UIRectTransform.SetPosY(lbRandomTeamIndex.rectTransform, deltaY);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbRandomTeamIndex null");
+                                }
+                                UIRectTransform.SetPosY(this.data.randomTeamIndex.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+                                deltaY += UIConstants.ItemHeight;
+                            }
+                            else
+                            {
+                                if (lbRandomTeamIndex != null)
+                                {
+                                    lbRandomTeamIndex.gameObject.SetActive(false);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbRandomTeamIndex null");
+                                }
+                            }
                         }
                         // sub
                         {
                             float bgY = deltaY;
                             float bgHeight = 0;
-                            // drSubType
+                            // contentType
                             {
-                                deltaY += UIConstants.ItemHeight;
-                                bgHeight += UIConstants.ItemHeight;
+                                if (this.data.contentType.v != null)
+                                {
+                                    if (lbContentType != null)
+                                    {
+                                        lbContentType.gameObject.SetActive(true);
+                                        UIRectTransform.SetPosY(lbContentType.rectTransform, deltaY);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbContentType null");
+                                    }
+                                    UIRectTransform.SetPosY(this.data.contentType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+                                    deltaY += UIConstants.ItemHeight;
+                                    bgHeight += UIConstants.ItemHeight;
+                                }
+                                else
+                                {
+                                    if (lbContentType != null)
+                                    {
+                                        lbContentType.gameObject.SetActive(false);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("lbContentType null");
+                                    }
+                                }
                             }
                             // sub
                             {
@@ -558,6 +601,7 @@ namespace GameManager.Match
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -566,6 +610,7 @@ namespace GameManager.Match
                         if (lbRandomTeamIndex != null)
                         {
                             lbRandomTeamIndex.text = txtRandomTeamIndex.get();
+                            Setting.get().setLabelTextSize(lbRandomTeamIndex);
                         }
                         else
                         {
@@ -574,6 +619,7 @@ namespace GameManager.Match
                         if (lbContentType != null)
                         {
                             lbContentType.text = txtContentType.get();
+                            Setting.get().setLabelTextSize(lbContentType);
                         }
                         else
                         {
@@ -599,9 +645,6 @@ namespace GameManager.Match
 
         public RequestChangeBoolUI requestBoolPrefab;
         public RequestChangeEnumUI requestEnumPrefab;
-
-        private static readonly UIRectTransform randomTeamIndexRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        private static readonly UIRectTransform contentFactoryTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
         public SingleContestFactoryUI singleContestFactoryPrefab;
         public RoundRobinFactoryUI roundRobinFactoryPrefab;
@@ -682,7 +725,7 @@ namespace GameManager.Match
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.randomTeamIndex:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, randomTeamIndexRect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -709,7 +752,7 @@ namespace GameManager.Match
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.contentType:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, contentFactoryTypeRect);
+                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -945,6 +988,15 @@ namespace GameManager.Match
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
                     case Setting.Property.showLastMove:
                         break;
                     case Setting.Property.viewUrlImage:
@@ -1088,3 +1140,4 @@ namespace GameManager.Match
 
     }
 }
+// 21b7 306

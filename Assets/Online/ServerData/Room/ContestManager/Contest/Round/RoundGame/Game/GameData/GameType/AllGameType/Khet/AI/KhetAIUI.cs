@@ -720,6 +720,7 @@ namespace Khet
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -728,6 +729,7 @@ namespace Khet
                         if (lbInfinite != null)
                         {
                             lbInfinite.text = txtInfinite.get();
+                            Setting.get().setLabelTextSize(lbInfinite);
                         }
                         else
                         {
@@ -736,6 +738,7 @@ namespace Khet
                         if (lbMoveTime != null)
                         {
                             lbMoveTime.text = txtMoveTime.get();
+                            Setting.get().setLabelTextSize(lbMoveTime);
                         }
                         else
                         {
@@ -744,6 +747,7 @@ namespace Khet
                         if (lbDepth != null)
                         {
                             lbDepth.text = txtDepth.get();
+                            Setting.get().setLabelTextSize(lbDepth);
                         }
                         else
                         {
@@ -752,6 +756,7 @@ namespace Khet
                         if (lbPickBestMove != null)
                         {
                             lbPickBestMove.text = txtPickBestMove.get();
+                            Setting.get().setLabelTextSize(lbPickBestMove);
                         }
                         else
                         {
@@ -1040,6 +1045,15 @@ namespace Khet
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

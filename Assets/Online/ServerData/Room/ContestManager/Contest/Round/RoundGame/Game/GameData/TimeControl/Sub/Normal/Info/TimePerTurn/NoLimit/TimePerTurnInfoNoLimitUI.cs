@@ -176,6 +176,7 @@ namespace TimeControl.Normal
                             if (lbTitle != null)
                             {
                                 lbTitle.text = txtTitle.get();
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -356,6 +357,15 @@ namespace TimeControl.Normal
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

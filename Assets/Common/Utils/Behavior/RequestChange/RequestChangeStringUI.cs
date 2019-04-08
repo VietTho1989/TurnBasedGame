@@ -127,6 +127,7 @@ public class RequestChangeStringUI : UIBehavior<RequestChangeStringUI.UIData>
                     if (tvPlaceHolder != null)
                     {
                         tvPlaceHolder.text = this.data.placeHolder.v;
+                        tvPlaceHolder.fontSize = Mathf.Clamp(Setting.get().contentTextSize.v, Setting.MinContentTextSize, Setting.MaxContentTextSize);
                     }
                     else
                     {
@@ -146,54 +147,61 @@ public class RequestChangeStringUI : UIBehavior<RequestChangeStringUI.UIData>
                         // tvValue
                         if (tvValue != null)
                         {
-                            if (this.data.updateData.v.request.v != null)
+                            // color
                             {
-                                switch (this.data.updateData.v.changeState.v)
+                                if (this.data.updateData.v.request.v != null)
                                 {
-                                    case Data.ChangeState.None:
-                                        {
-                                            // check different
-                                            bool isDifferent = false;
+                                    switch (this.data.updateData.v.changeState.v)
+                                    {
+                                        case Data.ChangeState.None:
                                             {
-                                                if (this.data.showDifferent.v)
+                                                // check different
+                                                bool isDifferent = false;
                                                 {
-                                                    RequestChangeStringUpdate.UpdateData updateData = this.data.updateData.v;
-                                                    if (updateData != null)
+                                                    if (this.data.showDifferent.v)
                                                     {
-                                                        if (updateData.current.v != this.data.compare.v)
+                                                        RequestChangeStringUpdate.UpdateData updateData = this.data.updateData.v;
+                                                        if (updateData != null)
                                                         {
-                                                            isDifferent = true;
+                                                            if (updateData.current.v != this.data.compare.v)
+                                                            {
+                                                                isDifferent = true;
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("updateData null: " + this);
                                                         }
                                                     }
-                                                    else
-                                                    {
-                                                        Debug.LogError("updateData null: " + this);
-                                                    }
+                                                }
+                                                // Process
+                                                if (isDifferent)
+                                                {
+                                                    tvValue.color = DifferentColor;
+                                                }
+                                                else
+                                                {
+                                                    tvValue.color = NormalColor;
                                                 }
                                             }
-                                            // Process
-                                            if (isDifferent)
-                                            {
-                                                tvValue.color = DifferentColor;
-                                            }
-                                            else
-                                            {
-                                                tvValue.color = NormalColor;
-                                            }
-                                        }
-                                        break;
-                                    case Data.ChangeState.Request:
-                                    case Data.ChangeState.Requesting:
-                                        tvValue.color = RequestColor;
-                                        break;
-                                    default:
-                                        Debug.LogError("unknown state: " + this.data.updateData.v.changeState.v + "; " + this);
-                                        break;
+                                            break;
+                                        case Data.ChangeState.Request:
+                                        case Data.ChangeState.Requesting:
+                                            tvValue.color = RequestColor;
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown state: " + this.data.updateData.v.changeState.v + "; " + this);
+                                            break;
+                                    }
+                                }
+                                else
+                                {
+                                    tvValue.color = NormalColor;
                                 }
                             }
-                            else
+                            // textSize
                             {
-                                tvValue.color = NormalColor;
+                                tvValue.fontSize = Mathf.Clamp(Setting.get().contentTextSize.v, Setting.MinContentTextSize, Setting.MaxContentTextSize);
                             }
                         }
                         else
@@ -225,10 +233,18 @@ public class RequestChangeStringUI : UIBehavior<RequestChangeStringUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Setting
+            Setting.get().addCallBack(this);
             // Child
             {
                 uiData.updateData.allAddCallBack(this);
             }
+            dirty = true;
+            return;
+        }
+        // Setting
+        if (data is Setting)
+        {
             dirty = true;
             return;
         }
@@ -253,11 +269,18 @@ public class RequestChangeStringUI : UIBehavior<RequestChangeStringUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Setting
+            Setting.get().removeCallBack(this);
             // Child
             {
                 uiData.updateData.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
+            return;
+        }
+        // Setting
+        if (data is Setting)
+        {
             return;
         }
         // Child
@@ -302,6 +325,46 @@ public class RequestChangeStringUI : UIBehavior<RequestChangeStringUI.UIData>
                     break;
                 case UIData.Property.contentType:
                     dirty = true;
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Setting
+        if (wrapProperty.p is Setting)
+        {
+            switch ((Setting.Property)wrapProperty.n)
+            {
+                case Setting.Property.language:
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.confirmQuit:
+                    break;
+                case Setting.Property.showLastMove:
+                    break;
+                case Setting.Property.viewUrlImage:
+                    break;
+                case Setting.Property.animationSetting:
+                    break;
+                case Setting.Property.maxThinkCount:
+                    break;
+                case Setting.Property.defaultChosenGame:
+                    break;
+                case Setting.Property.defaultRoomName:
+                    break;
+                case Setting.Property.defaultChatRoomStyle:
                     break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

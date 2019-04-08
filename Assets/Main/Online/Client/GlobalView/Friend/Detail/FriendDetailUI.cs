@@ -155,6 +155,7 @@ public class FriendDetailUI : UIBehavior<FriendDetailUI.UIData>
                         {
                             string friendName = friend.getName(Server.getProfileUserId(friend));
                             lbTitle.text = friendName;
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -389,6 +390,15 @@ public class FriendDetailUI : UIBehavior<FriendDetailUI.UIData>
             switch ((Setting.Property)wrapProperty.n)
             {
                 case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
                     dirty = true;
                     break;
                 case Setting.Property.showLastMove:

@@ -96,10 +96,6 @@ namespace Banqi
                 txtTitle.add(Language.Type.vi, "Banqi AI");
                 txtDepth.add(Language.Type.vi, "Độ sâu");
             }
-            // rect
-            {
-                depthRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -313,6 +309,7 @@ namespace Banqi
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -321,6 +318,7 @@ namespace Banqi
                         if (lbDepth != null)
                         {
                             lbDepth.text = txtDepth.get();
+                            Setting.get().setLabelTextSize(lbDepth);
                         }
                         else
                         {
@@ -343,8 +341,6 @@ namespace Banqi
         #endregion
 
         #region implement callBacks
-
-        private static readonly UIRectTransform depthRect = new UIRectTransform(UIConstants.RequestRect);
 
         public RequestChangeIntUI requestIntPrefab;
 
@@ -419,7 +415,7 @@ namespace Banqi
                             {
                                 case UIData.Property.depth:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, depthRect);
+                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 default:
@@ -541,6 +537,15 @@ namespace Banqi
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

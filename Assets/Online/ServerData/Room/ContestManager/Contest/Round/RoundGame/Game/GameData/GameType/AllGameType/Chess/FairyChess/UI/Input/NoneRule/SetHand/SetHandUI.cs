@@ -89,6 +89,7 @@ namespace FairyChess.NoneRule
                         if (lbTitle != null)
                         {
                             lbTitle.text = ClickPosTxt.txtSetHandTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -97,10 +98,26 @@ namespace FairyChess.NoneRule
                         if (edtPieceCountPlaceHolder != null)
                         {
                             edtPieceCountPlaceHolder.text = ClickPosTxt.txtEdtPieceCountPlaceHolder.get();
+                            Setting.get().setContentTextSize(edtPieceCountPlaceHolder);
                         }
                         else
                         {
                             Debug.LogError("edtPieceCountPlaceHolder null");
+                        }
+                        if (edtPieceCount != null)
+                        {
+                            if (edtPieceCount.textComponent != null)
+                            {
+                                Setting.get().setContentTextSize(edtPieceCount.textComponent);
+                            }
+                            else
+                            {
+                                Debug.LogError("edtPieceCount null");
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("edtPieceCount null");
                         }
                         if (tvSet != null)
                         {
@@ -250,6 +267,15 @@ namespace FairyChess.NoneRule
                         dirty = true;
                         break;
                     case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
                         break;
                     case Setting.Property.showLastMove:
                         break;

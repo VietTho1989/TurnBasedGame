@@ -61,6 +61,7 @@ public class BtnHintUI : UIBehavior<BtnHintUI.UIData>
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {

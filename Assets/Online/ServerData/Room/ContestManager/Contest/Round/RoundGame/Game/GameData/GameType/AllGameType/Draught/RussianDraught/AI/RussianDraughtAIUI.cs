@@ -462,6 +462,7 @@ namespace RussianDraught
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -470,6 +471,7 @@ namespace RussianDraught
                         if (lbTimeLimit != null)
                         {
                             lbTimeLimit.text = txtTimeLimit.get();
+                            Setting.get().setLabelTextSize(lbTimeLimit);
                         }
                         else
                         {
@@ -478,6 +480,7 @@ namespace RussianDraught
                         if (lbPickBestMove != null)
                         {
                             lbPickBestMove.text = txtPickBestMove.get();
+                            Setting.get().setLabelTextSize(lbPickBestMove);
                         }
                         else
                         {
@@ -716,6 +719,15 @@ namespace RussianDraught
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

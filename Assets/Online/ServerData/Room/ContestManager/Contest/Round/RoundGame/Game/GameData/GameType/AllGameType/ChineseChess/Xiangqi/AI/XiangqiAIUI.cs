@@ -717,6 +717,7 @@ namespace Xiangqi
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -725,6 +726,7 @@ namespace Xiangqi
                         if (lbDepth != null)
                         {
                             lbDepth.text = txtDepth.get();
+                            Setting.get().setLabelTextSize(lbDepth);
                         }
                         else
                         {
@@ -733,6 +735,7 @@ namespace Xiangqi
                         if (lbThinkTime != null)
                         {
                             lbThinkTime.text = txtThinkTime.get();
+                            Setting.get().setLabelTextSize(lbThinkTime);
                         }
                         else
                         {
@@ -741,6 +744,7 @@ namespace Xiangqi
                         if (lbUseBook != null)
                         {
                             lbUseBook.text = txtUseBook.get();
+                            Setting.get().setLabelTextSize(lbUseBook);
                         }
                         else
                         {
@@ -749,6 +753,7 @@ namespace Xiangqi
                         if (lbPickBestMove != null)
                         {
                             lbPickBestMove.text = txtPickBestMove.get();
+                            Setting.get().setLabelTextSize(lbPickBestMove);
                         }
                         else
                         {
@@ -1046,6 +1051,15 @@ namespace Xiangqi
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

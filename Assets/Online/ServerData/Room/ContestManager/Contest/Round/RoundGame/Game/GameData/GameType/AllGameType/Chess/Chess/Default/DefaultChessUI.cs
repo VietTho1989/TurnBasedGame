@@ -369,6 +369,7 @@ namespace Chess
                                 if (lbTitle != null)
                                 {
                                     lbTitle.text = txtTitle.get();
+                                    Setting.get().setTitleTextSize(lbTitle);
                                 }
                                 else
                                 {
@@ -377,6 +378,7 @@ namespace Chess
                                 if (lbChess960 != null)
                                 {
                                     lbChess960.text = txtChess960.get();
+                                    Setting.get().setLabelTextSize(lbChess960);
                                 }
                                 else
                                 {
@@ -685,6 +687,15 @@ namespace Chess
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

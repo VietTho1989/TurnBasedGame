@@ -443,6 +443,7 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                     if (lbTitle != null)
                     {
                         lbTitle.text = txtTitle.get();
+                        Setting.get().setTitleTextSize(lbTitle);
                     }
                     else
                     {
@@ -451,6 +452,7 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                     if (lbGameType != null)
                     {
                         lbGameType.text = txtGameType.get();
+                        Setting.get().setLabelTextSize(lbGameType);
                     }
                     else
                     {
@@ -467,6 +469,7 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                     if (lbUseRule != null)
                     {
                         lbUseRule.text = txtUseRule.get();
+                        Setting.get().setLabelTextSize(lbUseRule);
                     }
                     else
                     {
@@ -839,6 +842,15 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
             switch ((Setting.Property)wrapProperty.n)
             {
                 case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
                     dirty = true;
                     break;
                 case Setting.Property.showLastMove:

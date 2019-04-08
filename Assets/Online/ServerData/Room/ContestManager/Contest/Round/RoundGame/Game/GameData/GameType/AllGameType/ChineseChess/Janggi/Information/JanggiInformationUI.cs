@@ -134,6 +134,7 @@ namespace Janggi
                             if (lbTitle != null)
                             {
                                 lbTitle.text = GameType.GetStrGameType(GameType.Type.Janggi);
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -142,6 +143,7 @@ namespace Janggi
                             if (tvMessage != null)
                             {
                                 tvMessage.text = txtMessage.get();
+                                Setting.get().setContentTextSize(tvMessage);
                             }
                             else
                             {
@@ -260,6 +262,15 @@ namespace Janggi
                         dirty = true;
                         break;
                     case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
                         break;
                     case Setting.Property.showLastMove:
                         break;

@@ -194,6 +194,7 @@ namespace Shogi.UseRule
                         if (lbTitle != null)
                         {
                             lbTitle.text = ClickPosTxt.txtDropPieceTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -389,6 +390,15 @@ namespace Shogi.UseRule
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.style:

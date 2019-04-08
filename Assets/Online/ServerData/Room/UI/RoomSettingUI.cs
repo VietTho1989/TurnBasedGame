@@ -733,6 +733,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                     if (lbTitle != null)
                     {
                         lbTitle.text = txtTitle.get();
+                        Setting.get().setTitleTextSize(lbTitle);
                     }
                     else
                     {
@@ -741,6 +742,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                     if (lbName != null)
                     {
                         lbName.text = txtName.get();
+                        Setting.get().setLabelTextSize(lbName);
                     }
                     else
                     {
@@ -749,6 +751,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                     if (lbFreeze != null)
                     {
                         lbFreeze.text = txtFreeze.get();
+                        Setting.get().setLabelTextSize(lbFreeze);
                     }
                     else
                     {
@@ -757,6 +760,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                     if (lbAllowHint != null)
                     {
                         lbAllowHint.text = txtAllowHint.get();
+                        Setting.get().setLabelTextSize(lbAllowHint);
                     }
                     else
                     {
@@ -765,6 +769,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                     if (lbAllowLoadHistory != null)
                     {
                         lbAllowLoadHistory.text = txtAllowLoadHistory.get();
+                        Setting.get().setLabelTextSize(lbAllowLoadHistory);
                     }
                     else
                     {
@@ -773,6 +778,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                     if (lbChatInGame != null)
                     {
                         lbChatInGame.text = txtChatInGame.get();
+                        Setting.get().setLabelTextSize(lbChatInGame);
                     }
                     else
                     {
@@ -1191,6 +1197,15 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
             switch ((Setting.Property)wrapProperty.n)
             {
                 case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
                     dirty = true;
                     break;
                 case Setting.Property.showLastMove:

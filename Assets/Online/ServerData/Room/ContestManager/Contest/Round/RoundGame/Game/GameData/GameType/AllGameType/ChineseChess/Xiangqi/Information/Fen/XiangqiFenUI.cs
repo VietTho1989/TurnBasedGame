@@ -51,6 +51,7 @@ namespace Xiangqi
                         if (tvFen != null)
                         {
                             tvFen.text = Common.printPositionFen(xiangqi);
+                            Setting.get().setContentTextSize(tvFen);
                         }
                         else
                         {
@@ -83,10 +84,18 @@ namespace Xiangqi
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
                 // Child
                 {
                     uiData.xiangqi.allAddCallBack(this);
                 }
+                dirty = true;
+                return;
+            }
+            // Setting
+            if(data is Setting)
+            {
                 dirty = true;
                 return;
             }
@@ -104,11 +113,18 @@ namespace Xiangqi
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
                 // Child
                 {
                     uiData.xiangqi.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
+                return;
+            }
+            // Setting
+            if(data is Setting)
+            {
                 return;
             }
             // Child
@@ -134,6 +150,46 @@ namespace Xiangqi
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
                         }
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.confirmQuit:
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    case Setting.Property.defaultChosenGame:
+                        break;
+                    case Setting.Property.defaultRoomName:
+                        break;
+                    case Setting.Property.defaultChatRoomStyle:
                         break;
                     default:
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);

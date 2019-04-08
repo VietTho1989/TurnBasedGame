@@ -591,6 +591,7 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -599,6 +600,7 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
                         if (lbName != null)
                         {
                             lbName.text = txtName.get();
+                            Setting.get().setLabelTextSize(lbName);
                         }
                         else
                         {
@@ -607,6 +609,7 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
                         if (lbAvatarUrl != null)
                         {
                             lbAvatarUrl.text = txtAvatarUrl.get();
+                            Setting.get().setLabelTextSize(lbAvatarUrl);
                         }
                         else
                         {
@@ -941,6 +944,15 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
             switch ((Setting.Property)wrapProperty.n)
             {
                 case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
                     dirty = true;
                     break;
                 case Setting.Property.showLastMove:

@@ -284,6 +284,7 @@ namespace FairyChess
                             if (lbTitle != null)
                             {
                                 lbTitle.text = GameType.GetStrGameType(GameType.Type.FairyChess);
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -292,18 +293,36 @@ namespace FairyChess
                             if (tvMessage != null)
                             {
                                 tvMessage.text = txtMessage.get();
+                                Setting.get().setContentTextSize(tvMessage);
                             }
                             else
                             {
                                 Debug.LogError("tvMessage null");
                             }
+                            if (lbFen != null)
+                            {
+                                Setting.get().setLabelTextSize(lbFen);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbFen null");
+                            }
                             if (lbVariant != null)
                             {
                                 lbVariant.text = txtVariant.get();
+                                Setting.get().setLabelTextSize(lbVariant);
                             }
                             else
                             {
                                 Debug.LogError("lbVariant null");
+                            }
+                            if (lbChess960 != null)
+                            {
+                                Setting.get().setLabelTextSize(lbChess960);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbChess960 null");
                             }
                         }
                     }
@@ -452,6 +471,15 @@ namespace FairyChess
                         dirty = true;
                         break;
                     case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
                         break;
                     case Setting.Property.showLastMove:
                         break;

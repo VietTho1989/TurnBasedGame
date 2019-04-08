@@ -447,6 +447,7 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
                     if (lbTitle != null)
                     {
                         lbTitle.text = txtTitle.get();
+                        Setting.get().setTitleTextSize(lbTitle);
                     }
                     else
                     {
@@ -455,6 +456,7 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
                     if (lbScale != null)
                     {
                         lbScale.text = txtScale.get();
+                        Setting.get().setLabelTextSize(lbScale);
                     }
                     else
                     {
@@ -463,6 +465,7 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
                     if (lbFastForward != null)
                     {
                         lbFastForward.text = txtFastForward.get();
+                        Setting.get().setLabelTextSize(lbFastForward);
                     }
                     else
                     {
@@ -471,6 +474,7 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
                     if (lbMaxWaitAnimationCount != null)
                     {
                         lbMaxWaitAnimationCount.text = txtMaxWaitAnimationCount.get();
+                        Setting.get().setLabelTextSize(lbMaxWaitAnimationCount);
                     }
                     else
                     {
@@ -784,6 +788,15 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
             switch ((Setting.Property)wrapProperty.n)
             {
                 case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
                     dirty = true;
                     break;
                 case Setting.Property.style:

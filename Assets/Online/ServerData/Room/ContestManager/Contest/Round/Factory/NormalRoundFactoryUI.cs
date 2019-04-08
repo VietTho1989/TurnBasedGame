@@ -888,6 +888,7 @@ namespace GameManager.Match
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -896,6 +897,7 @@ namespace GameManager.Match
                         if (lbIsChangeSideBetweenRound != null)
                         {
                             lbIsChangeSideBetweenRound.text = txtIsChangeSideBetweenRound.get();
+                            Setting.get().setLabelTextSize(lbIsChangeSideBetweenRound);
                         }
                         else
                         {
@@ -904,6 +906,7 @@ namespace GameManager.Match
                         if (lbIsSwitchPlayer != null)
                         {
                             lbIsSwitchPlayer.text = txtIsSwitchPlayer.get();
+                            Setting.get().setLabelTextSize(lbIsSwitchPlayer);
                         }
                         else
                         {
@@ -912,6 +915,7 @@ namespace GameManager.Match
                         if (lbIsDifferentInTeam != null)
                         {
                             lbIsDifferentInTeam.text = txtIsDifferentInTeam.get();
+                            Setting.get().setLabelTextSize(lbIsDifferentInTeam);
                         }
                         else
                         {
@@ -920,6 +924,7 @@ namespace GameManager.Match
                         if (lbCalculateScoreType != null)
                         {
                             lbCalculateScoreType.text = txtCalculateScoreType.get();
+                            Setting.get().setLabelTextSize(lbCalculateScoreType);
                         }
                         else
                         {
@@ -1341,6 +1346,15 @@ namespace GameManager.Match
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

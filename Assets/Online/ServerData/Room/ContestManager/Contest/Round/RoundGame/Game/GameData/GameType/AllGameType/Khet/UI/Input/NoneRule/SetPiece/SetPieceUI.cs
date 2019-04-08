@@ -107,6 +107,7 @@ namespace Khet.NoneRule
                         if (lbTitle != null)
                         {
                             lbTitle.text = ClickPosTxt.txtSetPieceTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -255,6 +256,15 @@ namespace Khet.NoneRule
                         dirty = true;
                         break;
                     case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
                         break;
                     case Setting.Property.showLastMove:
                         break;

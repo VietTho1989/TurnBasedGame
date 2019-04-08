@@ -105,6 +105,7 @@ namespace Weiqi
                                 if (tvSize != null)
                                 {
                                     tvSize.text = "" + (board.size.v - 2);
+                                    Setting.get().setContentTextSize(tvSize);
                                 }
                                 else
                                 {
@@ -116,6 +117,7 @@ namespace Weiqi
                                 if (tvKomi != null)
                                 {
                                     tvKomi.text = "" + board.komi.v;
+                                    Setting.get().setContentTextSize(tvKomi);
                                 }
                                 else
                                 {
@@ -152,6 +154,7 @@ namespace Weiqi
                                 if (tvHandicap != null)
                                 {
                                     tvHandicap.text = "" + board.handicap.v;
+                                    Setting.get().setContentTextSize(tvHandicap);
                                 }
                                 else
                                 {
@@ -304,6 +307,7 @@ namespace Weiqi
                             if (lbTitle != null)
                             {
                                 lbTitle.text = GameType.GetStrGameType(GameType.Type.Weiqi);
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -312,6 +316,7 @@ namespace Weiqi
                             if (tvMessage != null)
                             {
                                 tvMessage.text = txtMessage.get();
+                                Setting.get().setContentTextSize(tvMessage);
                             }
                             else
                             {
@@ -320,6 +325,7 @@ namespace Weiqi
                             if (lbSize != null)
                             {
                                 lbSize.text = txtSize.get();
+                                Setting.get().setLabelTextSize(lbSize);
                             }
                             else
                             {
@@ -328,6 +334,7 @@ namespace Weiqi
                             if (lbKomi != null)
                             {
                                 lbKomi.text = txtKomi.get();
+                                Setting.get().setLabelTextSize(lbKomi);
                             }
                             else
                             {
@@ -336,6 +343,7 @@ namespace Weiqi
                             if (lbRule != null)
                             {
                                 lbRule.text = txtRule.get();
+                                Setting.get().setLabelTextSize(lbRule);
                             }
                             else
                             {
@@ -344,6 +352,7 @@ namespace Weiqi
                             if (lbHandicap != null)
                             {
                                 lbHandicap.text = txtHandicap.get();
+                                Setting.get().setLabelTextSize(lbHandicap);
                             }
                             else
                             {
@@ -487,6 +496,15 @@ namespace Weiqi
                         dirty = true;
                         break;
                     case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
                         break;
                     case Setting.Property.showLastMove:
                         break;

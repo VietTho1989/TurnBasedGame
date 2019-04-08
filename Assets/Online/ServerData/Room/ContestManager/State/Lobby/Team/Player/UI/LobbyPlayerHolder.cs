@@ -164,21 +164,42 @@ namespace GameManager.Match
                                 Debug.LogError("btnReady null: " + this);
                             }
                         }
+                        // txt
+                        {
+                            if (tvEdit != null)
+                            {
+                                tvEdit.text = txtEdit.get();
+                                // color
+                                {
+                                    // find
+                                    bool isOccupied = false;
+                                    {
+                                        GamePlayer.Inform inform = lobbyPlayer.inform.v;
+                                        if (inform != null)
+                                        {
+                                            if (inform.getType() != GamePlayer.Inform.Type.None)
+                                            {
+                                                isOccupied = true;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("inform null");
+                                        }
+                                    }
+                                    // process
+                                    tvEdit.color = isOccupied ? Global.DefaultTextColor : Color.blue;
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("tvEdit null: " + this);
+                            }
+                        }
                     }
                     else
                     {
                         // Debug.LogError ("lobbyPlayer null: " + this);
-                    }
-                    // txt
-                    {
-                        if (tvEdit != null)
-                        {
-                            tvEdit.text = txtEdit.get();
-                        }
-                        else
-                        {
-                            Debug.LogError("tvEdit null: " + this);
-                        }
                     }
                 }
                 else

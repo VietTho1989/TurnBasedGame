@@ -113,6 +113,7 @@ namespace NineMenMorris
                             if (tvWhiteCount != null)
                             {
                                 tvWhiteCount.text = "" + whiteCount;
+                                Setting.get().setContentTextSize(tvWhiteCount);
                             }
                             else
                             {
@@ -124,6 +125,7 @@ namespace NineMenMorris
                             if (tvBlackCount != null)
                             {
                                 tvBlackCount.text = "" + blackCount;
+                                Setting.get().setContentTextSize(tvBlackCount);
                             }
                             else
                             {
@@ -229,6 +231,7 @@ namespace NineMenMorris
                             if (lbTitle != null)
                             {
                                 lbTitle.text = GameType.GetStrGameType(GameType.Type.NineMenMorris);
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -237,6 +240,7 @@ namespace NineMenMorris
                             if (tvMessage != null)
                             {
                                 tvMessage.text = txtMessage.get();
+                                Setting.get().setContentTextSize(tvMessage);
                             }
                             else
                             {
@@ -245,6 +249,7 @@ namespace NineMenMorris
                             if (lbWhiteCount != null)
                             {
                                 lbWhiteCount.text = txtWhiteCount.get();
+                                Setting.get().setLabelTextSize(lbWhiteCount);
                             }
                             else
                             {
@@ -253,6 +258,7 @@ namespace NineMenMorris
                             if (lbBlackCount != null)
                             {
                                 lbBlackCount.text = txtBlackCount.get();
+                                Setting.get().setLabelTextSize(lbBlackCount);
                             }
                             else
                             {
@@ -371,6 +377,15 @@ namespace NineMenMorris
                         dirty = true;
                         break;
                     case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
                         break;
                     case Setting.Property.showLastMove:
                         break;

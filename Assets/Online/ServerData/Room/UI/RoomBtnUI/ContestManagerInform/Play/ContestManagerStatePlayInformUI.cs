@@ -99,6 +99,7 @@ namespace GameManager.Match
                             if (lbForceEnd != null)
                             {
                                 lbForceEnd.text = txtForceEnd.get();
+                                Setting.get().setLabelTextSize(lbForceEnd);
                             }
                             else
                             {
@@ -245,6 +246,15 @@ namespace GameManager.Match
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

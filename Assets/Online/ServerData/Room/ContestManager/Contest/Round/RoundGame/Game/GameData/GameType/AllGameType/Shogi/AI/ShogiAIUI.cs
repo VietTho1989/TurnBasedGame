@@ -845,6 +845,7 @@ namespace Shogi
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -853,6 +854,7 @@ namespace Shogi
                         if (lbDepth != null)
                         {
                             lbDepth.text = txtDepth.get();
+                            Setting.get().setLabelTextSize(lbDepth);
                         }
                         else
                         {
@@ -861,6 +863,7 @@ namespace Shogi
                         if (lbSkillLevel != null)
                         {
                             lbSkillLevel.text = txtSkillLevel.get();
+                            Setting.get().setLabelTextSize(lbSkillLevel);
                         }
                         else
                         {
@@ -869,6 +872,7 @@ namespace Shogi
                         if (lbMr != null)
                         {
                             lbMr.text = txtMr.get();
+                            Setting.get().setLabelTextSize(lbMr);
                         }
                         else
                         {
@@ -877,6 +881,7 @@ namespace Shogi
                         if (lbDuration != null)
                         {
                             lbDuration.text = txtDuration.get();
+                            Setting.get().setLabelTextSize(lbDuration);
                         }
                         else
                         {
@@ -885,6 +890,7 @@ namespace Shogi
                         if (lbUseBook != null)
                         {
                             lbUseBook.text = txtUseBook.get();
+                            Setting.get().setLabelTextSize(lbUseBook);
                         }
                         else
                         {
@@ -1189,6 +1195,17 @@ namespace Shogi
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

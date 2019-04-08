@@ -916,6 +916,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -924,6 +925,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
                         if (lbRole != null)
                         {
                             lbRole.text = txtRole.get();
+                            Setting.get().setLabelTextSize(lbRole);
                         }
                         else
                         {
@@ -932,6 +934,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
                         if (lbIpAddress != null)
                         {
                             lbIpAddress.text = txtIpAddress.get();
+                            Setting.get().setLabelTextSize(lbIpAddress);
                         }
                         else
                         {
@@ -940,6 +943,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
                         if (lbRegisterTime != null)
                         {
                             lbRegisterTime.text = txtRegisterTime.get();
+                            Setting.get().setLabelTextSize(lbRegisterTime);
                         }
                         else
                         {
@@ -1379,6 +1383,15 @@ public class UserUI : UIBehavior<UserUI.UIData>
                     dirty = true;
                     break;
                 case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
                     break;
                 case Setting.Property.showLastMove:
                     break;

@@ -1047,6 +1047,7 @@ namespace TimeControl.Normal
                             if (lbTitle != null)
                             {
                                 lbTitle.text = txtTitle.get();
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -1055,6 +1056,7 @@ namespace TimeControl.Normal
                             if (lbTimePerTurnType != null)
                             {
                                 lbTimePerTurnType.text = txtTimePerTurnType.get();
+                                Setting.get().setLabelTextSize(lbTimePerTurnType);
                             }
                             else
                             {
@@ -1063,6 +1065,7 @@ namespace TimeControl.Normal
                             if (lbTotalTimeType != null)
                             {
                                 lbTotalTimeType.text = txtTotalTimeType.get();
+                                Setting.get().setLabelTextSize(lbTotalTimeType);
                             }
                             else
                             {
@@ -1071,6 +1074,7 @@ namespace TimeControl.Normal
                             if (lbOverTimePerTurnType != null)
                             {
                                 lbOverTimePerTurnType.text = txtOverTimePerTurnType.get();
+                                Setting.get().setLabelTextSize(lbOverTimePerTurnType);
                             }
                             else
                             {
@@ -1079,6 +1083,7 @@ namespace TimeControl.Normal
                             if (lbLagCompensation != null)
                             {
                                 lbLagCompensation.text = txtLagCompensation.get();
+                                Setting.get().setLabelTextSize(lbLagCompensation);
                             }
                             else
                             {
@@ -1488,6 +1493,15 @@ namespace TimeControl.Normal
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

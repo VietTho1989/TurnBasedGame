@@ -917,6 +917,7 @@ namespace MineSweeper
                             if (lbTitle != null)
                             {
                                 lbTitle.text = txtTitle.get();
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -925,6 +926,7 @@ namespace MineSweeper
                             if (lbN != null)
                             {
                                 lbN.text = txtN.get();
+                                Setting.get().setLabelTextSize(lbN);
                             }
                             else
                             {
@@ -933,6 +935,7 @@ namespace MineSweeper
                             if (lbM != null)
                             {
                                 lbM.text = txtM.get();
+                                Setting.get().setLabelTextSize(lbM);
                             }
                             else
                             {
@@ -941,6 +944,7 @@ namespace MineSweeper
                             if (lbMinK != null)
                             {
                                 lbMinK.text = txtMinK.get();
+                                Setting.get().setLabelTextSize(lbMinK);
                             }
                             else
                             {
@@ -949,6 +953,7 @@ namespace MineSweeper
                             if (lbMaxK != null)
                             {
                                 lbMaxK.text = txtMaxK.get();
+                                Setting.get().setLabelTextSize(lbMaxK);
                             }
                             else
                             {
@@ -957,6 +962,7 @@ namespace MineSweeper
                             if (lbAllowWatchBomb != null)
                             {
                                 lbAllowWatchBomb.text = txtAllowWatchBomb.get();
+                                Setting.get().setLabelTextSize(lbAllowWatchBomb);
                             }
                             else
                             {
@@ -1385,6 +1391,15 @@ namespace MineSweeper
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

@@ -65,6 +65,7 @@ public class SuggestionTopicUI : UIBehavior<SuggestionTopicUI.UIData>
                 if (lbTitle != null)
                 {
                     lbTitle.text = txtTitle.get();
+                    Setting.get().setTitleTextSize(lbTitle);
                 }
                 else
                 {
@@ -185,6 +186,15 @@ public class SuggestionTopicUI : UIBehavior<SuggestionTopicUI.UIData>
                     dirty = true;
                     break;
                 case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
                     break;
                 case Setting.Property.confirmQuit:
                     break;

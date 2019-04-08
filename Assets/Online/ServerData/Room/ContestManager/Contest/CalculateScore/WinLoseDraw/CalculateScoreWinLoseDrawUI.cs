@@ -179,12 +179,6 @@ namespace GameManager.Match
                 txtLoseScore.add(Language.Type.vi, "Điểm thua");
                 txtDrawScore.add(Language.Type.vi, "Điểm hoà");
             }
-            // rect
-            {
-                winScoreRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                loseScoreRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                drawScoreRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -564,6 +558,7 @@ namespace GameManager.Match
                             if (lbTitle != null)
                             {
                                 lbTitle.text = txtTitle.get();
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -572,6 +567,7 @@ namespace GameManager.Match
                             if (lbWinScore != null)
                             {
                                 lbWinScore.text = txtWinScore.get();
+                                Setting.get().setLabelTextSize(lbWinScore);
                             }
                             else
                             {
@@ -580,6 +576,7 @@ namespace GameManager.Match
                             if (lbLoseScore != null)
                             {
                                 lbLoseScore.text = txtLoseScore.get();
+                                Setting.get().setLabelTextSize(lbLoseScore);
                             }
                             else
                             {
@@ -588,6 +585,7 @@ namespace GameManager.Match
                             if (lbDrawScore != null)
                             {
                                 lbDrawScore.text = txtDrawScore.get();
+                                Setting.get().setLabelTextSize(lbDrawScore);
                             }
                             else
                             {
@@ -617,10 +615,6 @@ namespace GameManager.Match
         #region implement callBacks
 
         public RequestChangeFloatUI requestFloatPrefab;
-
-        private static readonly UIRectTransform winScoreRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform loseScoreRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform drawScoreRect = new UIRectTransform(UIConstants.RequestRect);
 
         private Server server = null;
 
@@ -697,13 +691,13 @@ namespace GameManager.Match
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.winScore:
-                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, winScoreRect);
+                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.loseScore:
-                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, loseScoreRect);
+                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.drawScore:
-                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, drawScoreRect);
+                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -841,6 +835,15 @@ namespace GameManager.Match
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.style:

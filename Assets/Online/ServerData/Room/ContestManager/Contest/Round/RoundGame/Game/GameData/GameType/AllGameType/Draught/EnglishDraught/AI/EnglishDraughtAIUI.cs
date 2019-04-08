@@ -720,6 +720,7 @@ namespace EnglishDraught
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -728,6 +729,7 @@ namespace EnglishDraught
                         if (lbThreeMoveRandom != null)
                         {
                             lbThreeMoveRandom.text = txtThreeMoveRandom.get();
+                            Setting.get().setLabelTextSize(lbThreeMoveRandom);
                         }
                         else
                         {
@@ -736,6 +738,7 @@ namespace EnglishDraught
                         if (lbMaxSeconds != null)
                         {
                             lbMaxSeconds.text = txtMaxSeconds.get();
+                            Setting.get().setLabelTextSize(lbMaxSeconds);
                         }
                         else
                         {
@@ -744,6 +747,7 @@ namespace EnglishDraught
                         if (lbMaxDepth != null)
                         {
                             lbMaxDepth.text = txtMaxDepth.get();
+                            Setting.get().setLabelTextSize(lbMaxDepth);
                         }
                         else
                         {
@@ -752,6 +756,7 @@ namespace EnglishDraught
                         if (lbPickBestMove != null)
                         {
                             lbPickBestMove.text = txtPickBestMove.get();
+                            Setting.get().setLabelTextSize(lbPickBestMove);
                         }
                         else
                         {
@@ -1084,6 +1089,15 @@ namespace EnglishDraught
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

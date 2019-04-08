@@ -751,6 +751,7 @@ public class AccountDeviceUI : UIHaveTransformDataBehavior<AccountDeviceUI.UIDat
                     if (lbTitle != null)
                     {
                         lbTitle.text = txtTitle.get();
+                        Setting.get().setTitleTextSize(lbTitle);
                     }
                     else
                     {
@@ -759,6 +760,7 @@ public class AccountDeviceUI : UIHaveTransformDataBehavior<AccountDeviceUI.UIDat
                     if (lbImei != null)
                     {
                         lbImei.text = txtImei.get();
+                        Setting.get().setLabelTextSize(lbImei);
                     }
                     else
                     {
@@ -767,6 +769,7 @@ public class AccountDeviceUI : UIHaveTransformDataBehavior<AccountDeviceUI.UIDat
                     if (lbDeviceName != null)
                     {
                         lbDeviceName.text = txtDeviceName.get();
+                        Setting.get().setLabelTextSize(lbDeviceName);
                     }
                     else
                     {
@@ -775,6 +778,7 @@ public class AccountDeviceUI : UIHaveTransformDataBehavior<AccountDeviceUI.UIDat
                     if (lbDeviceType != null)
                     {
                         lbDeviceType.text = txtDeviceType.get();
+                        Setting.get().setLabelTextSize(lbDeviceType);
                     }
                     else
                     {
@@ -783,6 +787,7 @@ public class AccountDeviceUI : UIHaveTransformDataBehavior<AccountDeviceUI.UIDat
                     if (lbCustomName != null)
                     {
                         lbCustomName.text = txtCustomName.get();
+                        Setting.get().setLabelTextSize(lbCustomName);
                     }
                     else
                     {
@@ -791,6 +796,7 @@ public class AccountDeviceUI : UIHaveTransformDataBehavior<AccountDeviceUI.UIDat
                     if (lbAvatarUrl != null)
                     {
                         lbAvatarUrl.text = txtAvatarUrl.get();
+                        Setting.get().setLabelTextSize(lbAvatarUrl);
                     }
                     else
                     {
@@ -816,12 +822,6 @@ public class AccountDeviceUI : UIHaveTransformDataBehavior<AccountDeviceUI.UIDat
 
     public RequestChangeStringUI requestStringPrefab;
     public RequestChangeEnumUI requestEnumPrefab;
-
-    private static readonly UIRectTransform imeiRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform deviceNameRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform deviceTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform customNameRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform avatarUrlRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
     private Server server = null;
 
@@ -899,16 +899,16 @@ public class AccountDeviceUI : UIHaveTransformDataBehavior<AccountDeviceUI.UIDat
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.imei:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, imeiRect);
+                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.deviceName:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, deviceNameRect);
+                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.customName:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, customNameRect);
+                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.avatarUrl:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, avatarUrlRect);
+                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -934,7 +934,7 @@ public class AccountDeviceUI : UIHaveTransformDataBehavior<AccountDeviceUI.UIDat
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.deviceType:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, deviceTypeRect);
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -1094,6 +1094,15 @@ public class AccountDeviceUI : UIHaveTransformDataBehavior<AccountDeviceUI.UIDat
             switch ((Setting.Property)wrapProperty.n)
             {
                 case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
                     dirty = true;
                     break;
                 case Setting.Property.showLastMove:

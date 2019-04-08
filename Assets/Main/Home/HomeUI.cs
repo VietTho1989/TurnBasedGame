@@ -379,6 +379,14 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
                 case Setting.Property.language:
                     dirty = true;
                     break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    break;
+                case Setting.Property.titleTextSize:
+                    break;
+                case Setting.Property.labelTextSize:
+                    break;
                 case Setting.Property.showLastMove:
                     break;
                 case Setting.Property.viewUrlImage:

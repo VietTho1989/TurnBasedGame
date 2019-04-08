@@ -505,6 +505,7 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
                     if (lbTitle != null)
                     {
                         lbTitle.text = txtTitle.get();
+                        Setting.get().setTitleTextSize(lbTitle);
                     }
                     else
                     {
@@ -513,6 +514,7 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
                     if (lbCanChange != null)
                     {
                         lbCanChange.text = txtCanChange.get();
+                        Setting.get().setLabelTextSize(lbCanChange);
                     }
                     else
                     {
@@ -521,6 +523,7 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
                     if (lbOnlyAdmin != null)
                     {
                         lbOnlyAdmin.text = txtOnlyAdmin.get();
+                        Setting.get().setLabelTextSize(lbOnlyAdmin);
                     }
                     else
                     {
@@ -529,6 +532,7 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
                     if (lbNeedAdmin != null)
                     {
                         lbNeedAdmin.text = txtNeedAdmin.get();
+                        Setting.get().setLabelTextSize(lbNeedAdmin);
                     }
                     else
                     {
@@ -537,6 +541,7 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
                     if (lbNeedAccept != null)
                     {
                         lbNeedAccept.text = txtNeedAccept.get();
+                        Setting.get().setLabelTextSize(lbNeedAccept);
                     }
                     else
                     {
@@ -794,6 +799,15 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
             switch ((Setting.Property)wrapProperty.n)
             {
                 case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
                     dirty = true;
                     break;
                 case Setting.Property.showLastMove:

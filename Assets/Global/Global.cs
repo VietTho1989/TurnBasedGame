@@ -92,9 +92,11 @@ public class Global : Data
         this.screenHeight = new VP<int>(this, (byte)Property.screenHeight, 640);
     }
 
-	#endregion
+    #endregion
 
-	public static readonly Color NormalColor = new Color (16/256f, 78/256f, 163/256f, 256/256f);
+    public static readonly Color DefaultTextColor = new Color(50 / 255.0f, 50 / 255.0f, 50 / 255.0f);
+
+    public static readonly Color NormalColor = new Color (16/256f, 78/256f, 163/256f, 256/256f);
 	public static readonly Color HintColor = Color.green;// new Color (0 / 256f, 1, 0, 256 / 256f);
 	public static readonly Color TransparentColor = new Color(1f, 1f, 1f, 0f);
 

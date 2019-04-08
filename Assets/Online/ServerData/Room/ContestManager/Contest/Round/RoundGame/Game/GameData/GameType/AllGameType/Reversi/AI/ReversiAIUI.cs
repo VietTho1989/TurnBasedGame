@@ -1090,6 +1090,7 @@ namespace Reversi
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -1098,6 +1099,7 @@ namespace Reversi
                         if (lbSort != null)
                         {
                             lbSort.text = txtSort.get();
+                            Setting.get().setLabelTextSize(lbSort);
                         }
                         else
                         {
@@ -1106,6 +1108,7 @@ namespace Reversi
                         if (lbMin != null)
                         {
                             lbMin.text = txtMin.get();
+                            Setting.get().setLabelTextSize(lbMin);
                         }
                         else
                         {
@@ -1114,6 +1117,7 @@ namespace Reversi
                         if (lbMax != null)
                         {
                             lbMax.text = txtMax.get();
+                            Setting.get().setLabelTextSize(lbMax);
                         }
                         else
                         {
@@ -1122,6 +1126,7 @@ namespace Reversi
                         if (lbEnd != null)
                         {
                             lbEnd.text = txtEnd.get();
+                            Setting.get().setLabelTextSize(lbEnd);
                         }
                         else
                         {
@@ -1130,6 +1135,7 @@ namespace Reversi
                         if (lbMsLeft != null)
                         {
                             lbMsLeft.text = txtMsLeft.get();
+                            Setting.get().setLabelTextSize(lbMsLeft);
                         }
                         else
                         {
@@ -1138,6 +1144,7 @@ namespace Reversi
                         if (lbUseBook != null)
                         {
                             lbUseBook.text = txtUseBook.get();
+                            Setting.get().setLabelTextSize(lbUseBook);
                         }
                         else
                         {
@@ -1146,6 +1153,7 @@ namespace Reversi
                         if (lbPercent != null)
                         {
                             lbPercent.text = txtPercent.get();
+                            Setting.get().setLabelTextSize(lbPercent);
                         }
                         else
                         {
@@ -1473,6 +1481,15 @@ namespace Reversi
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

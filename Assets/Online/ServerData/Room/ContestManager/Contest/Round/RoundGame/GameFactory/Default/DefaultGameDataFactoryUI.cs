@@ -1130,6 +1130,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                     if (lbTitle != null)
                     {
                         lbTitle.text = txtTitle.get();
+                        Setting.get().setTitleTextSize(lbTitle);
                     }
                     else
                     {
@@ -1138,6 +1139,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                     if (lbGameType != null)
                     {
                         lbGameType.text = txtGameType.get();
+                        Setting.get().setLabelTextSize(lbGameType);
                     }
                     else
                     {
@@ -1146,6 +1148,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                     if (lbUseRule != null)
                     {
                         lbUseRule.text = txtUseRule.get();
+                        Setting.get().setLabelTextSize(lbUseRule);
                     }
                     else
                     {
@@ -1785,6 +1788,15 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
             switch ((Setting.Property)wrapProperty.n)
             {
                 case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
                     dirty = true;
                     break;
                 case Setting.Property.showLastMove:

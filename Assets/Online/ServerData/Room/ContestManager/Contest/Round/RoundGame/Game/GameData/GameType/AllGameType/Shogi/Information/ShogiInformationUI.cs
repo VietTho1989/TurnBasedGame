@@ -198,6 +198,7 @@ namespace Shogi
                             if (lbTitle != null)
                             {
                                 lbTitle.text = GameType.GetStrGameType(GameType.Type.SHOGI);
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -206,10 +207,19 @@ namespace Shogi
                             if (tvMessage != null)
                             {
                                 tvMessage.text = txtMessage.get();
+                                Setting.get().setContentTextSize(tvMessage);
                             }
                             else
                             {
                                 Debug.LogError("tvMessage null");
+                            }
+                            if (lbFen != null)
+                            {
+                                Setting.get().setLabelTextSize(lbFen);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbFen null");
                             }
                         }
                     }
@@ -358,6 +368,15 @@ namespace Shogi
                         dirty = true;
                         break;
                     case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
                         break;
                     case Setting.Property.showLastMove:
                         break;

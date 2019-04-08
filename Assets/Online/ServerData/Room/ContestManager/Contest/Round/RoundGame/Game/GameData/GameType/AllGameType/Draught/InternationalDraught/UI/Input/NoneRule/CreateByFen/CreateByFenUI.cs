@@ -124,6 +124,7 @@ namespace InternationalDraught.NoneRule
                         if (lbTitle != null)
                         {
                             lbTitle.text = ClickPosTxt.txtCreateByFenTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -132,10 +133,26 @@ namespace InternationalDraught.NoneRule
                         if (tvFenPlaceHolder != null)
                         {
                             tvFenPlaceHolder.text = ClickPosTxt.txtCreateByFenPlaceHolder.get();
+                            Setting.get().setContentTextSize(tvFenPlaceHolder);
                         }
                         else
                         {
                             Debug.LogError("tvFenPlaceHolder null");
+                        }
+                        if (edtFen != null)
+                        {
+                            if (edtFen.textComponent != null)
+                            {
+                                Setting.get().setContentTextSize(edtFen.textComponent);
+                            }
+                            else
+                            {
+                                Debug.LogError("textComponent null");
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("edtFen null");
                         }
                         if (tvCreate != null)
                         {
@@ -222,6 +239,15 @@ namespace InternationalDraught.NoneRule
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.style:

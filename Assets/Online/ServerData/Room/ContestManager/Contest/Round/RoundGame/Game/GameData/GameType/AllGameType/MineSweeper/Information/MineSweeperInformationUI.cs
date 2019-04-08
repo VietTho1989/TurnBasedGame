@@ -107,6 +107,7 @@ namespace MineSweeper
                             if (tvWidth != null)
                             {
                                 tvWidth.text = "" + mineSweeper.X.v;
+                                Setting.get().setContentTextSize(tvWidth);
                             }
                             else
                             {
@@ -118,6 +119,7 @@ namespace MineSweeper
                             if (tvHeight != null)
                             {
                                 tvHeight.text = "" + mineSweeper.Y.v;
+                                Setting.get().setContentTextSize(tvHeight);
                             }
                             else
                             {
@@ -129,6 +131,7 @@ namespace MineSweeper
                             if (tvBomb != null)
                             {
                                 tvBomb.text = "" + mineSweeper.K.v;
+                                Setting.get().setContentTextSize(tvBomb);
                             }
                             else
                             {
@@ -140,6 +143,7 @@ namespace MineSweeper
                             if (tvBombFound != null)
                             {
                                 tvBombFound.text = ""+mineSweeper.minesFound.v;
+                                Setting.get().setContentTextSize(tvBombFound);
                             }
                             else
                             {
@@ -320,6 +324,7 @@ namespace MineSweeper
                             if (lbTitle != null)
                             {
                                 lbTitle.text = GameType.GetStrGameType(GameType.Type.MineSweeper);
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -328,6 +333,7 @@ namespace MineSweeper
                             if (tvMessage != null)
                             {
                                 tvMessage.text = txtMessage.get();
+                                Setting.get().setContentTextSize(tvMessage);
                             }
                             else
                             {
@@ -336,6 +342,7 @@ namespace MineSweeper
                             if (lbWidth != null)
                             {
                                 lbWidth.text = txtWidth.get();
+                                Setting.get().setLabelTextSize(lbWidth);
                             }
                             else
                             {
@@ -344,6 +351,7 @@ namespace MineSweeper
                             if (lbHeight != null)
                             {
                                 lbHeight.text = txtHeight.get();
+                                Setting.get().setLabelTextSize(lbHeight);
                             }
                             else
                             {
@@ -352,6 +360,7 @@ namespace MineSweeper
                             if (lbBomb != null)
                             {
                                 lbBomb.text = txtBomb.get();
+                                Setting.get().setLabelTextSize(lbBomb);
                             }
                             else
                             {
@@ -360,6 +369,7 @@ namespace MineSweeper
                             if (lbBombFound != null)
                             {
                                 lbBombFound.text = txtBombFound.get();
+                                Setting.get().setLabelTextSize(lbBombFound);
                             }
                             else
                             {
@@ -368,6 +378,7 @@ namespace MineSweeper
                             if (lbAllowWatchBomb != null)
                             {
                                 lbAllowWatchBomb.text = txtAllowWatchBomb.get();
+                                Setting.get().setLabelTextSize(lbAllowWatchBomb);
                             }
                             else
                             {

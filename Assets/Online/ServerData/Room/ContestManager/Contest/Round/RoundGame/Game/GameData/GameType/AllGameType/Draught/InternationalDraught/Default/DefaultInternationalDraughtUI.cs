@@ -366,6 +366,7 @@ namespace InternationalDraught
                             if (lbTitle != null)
                             {
                                 lbTitle.text = txtTitle.get();
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -374,6 +375,7 @@ namespace InternationalDraught
                             if (lbVariant != null)
                             {
                                 lbVariant.text = txtVariant.get();
+                                Setting.get().setLabelTextSize(lbVariant);
                             }
                             else
                             {
@@ -681,6 +683,15 @@ namespace InternationalDraught
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

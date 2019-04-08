@@ -182,6 +182,12 @@ namespace Chess.NoneRule
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.contentTextSize:
+                        break;
+                    case Setting.Property.titleTextSize:
+                        break;
+                    case Setting.Property.labelTextSize:
+                        break;
                     case Setting.Property.style:
                         break;
                     case Setting.Property.showLastMove:

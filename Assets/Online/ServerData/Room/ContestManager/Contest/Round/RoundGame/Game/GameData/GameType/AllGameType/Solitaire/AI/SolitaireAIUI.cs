@@ -581,6 +581,7 @@ namespace Solitaire
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -589,6 +590,7 @@ namespace Solitaire
                         if (lbMultiThreaded != null)
                         {
                             lbMultiThreaded.text = txtMultiThreaded.get();
+                            Setting.get().setLabelTextSize(lbMultiThreaded);
                         }
                         else
                         {
@@ -597,6 +599,7 @@ namespace Solitaire
                         if (lbMaxClosedCount != null)
                         {
                             lbMaxClosedCount.text = txtMaxClosedCount.get();
+                            Setting.get().setLabelTextSize(lbMaxClosedCount);
                         }
                         else
                         {
@@ -605,6 +608,7 @@ namespace Solitaire
                         if (lbFastMode != null)
                         {
                             lbFastMode.text = txtFastMode.get();
+                            Setting.get().setLabelTextSize(lbFastMode);
                         }
                         else
                         {
@@ -881,6 +885,15 @@ namespace Solitaire
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

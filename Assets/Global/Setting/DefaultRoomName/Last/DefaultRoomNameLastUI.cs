@@ -300,6 +300,7 @@ public class DefaultRoomNameLastUI : UIHaveTransformDataBehavior<DefaultRoomName
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -308,6 +309,7 @@ public class DefaultRoomNameLastUI : UIHaveTransformDataBehavior<DefaultRoomName
                         if (lbRoomName != null)
                         {
                             lbRoomName.text = txtRoomName.get();
+                            Setting.get().setLabelTextSize(lbRoomName);
                         }
                         else
                         {
@@ -337,7 +339,6 @@ public class DefaultRoomNameLastUI : UIHaveTransformDataBehavior<DefaultRoomName
     #region implement callBacks
 
     public RequestChangeStringUI requestStringPrefab;
-    public static readonly UIRectTransform roomNameRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
     public override void onAddCallBack<T>(T data)
     {
@@ -394,7 +395,7 @@ public class DefaultRoomNameLastUI : UIHaveTransformDataBehavior<DefaultRoomName
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.roomName:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, roomNameRect);
+                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -503,6 +504,15 @@ public class DefaultRoomNameLastUI : UIHaveTransformDataBehavior<DefaultRoomName
             switch ((Setting.Property)wrapProperty.n)
             {
                 case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
                     dirty = true;
                     break;
                 case Setting.Property.style:

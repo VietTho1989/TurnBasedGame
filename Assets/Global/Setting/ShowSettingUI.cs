@@ -130,9 +130,9 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
                 requestEditTypeRect.anchorMin = new Vector2(1.0f, 1.0f);
                 requestEditTypeRect.anchorMax = new Vector2(1.0f, 1.0f);
                 requestEditTypeRect.pivot = new Vector2(1.0f, 1.0f);
-                requestEditTypeRect.offsetMin = new Vector2(-80.0f, 0.0f);
+                requestEditTypeRect.offsetMin = new Vector2(-120.0f, 0.0f);
                 requestEditTypeRect.offsetMax = new Vector2(0.0f, 0.0f);
-                requestEditTypeRect.sizeDelta = new Vector2(80.0f, 30.0f);
+                requestEditTypeRect.sizeDelta = new Vector2(120.0f, 30.0f);
             }
         }
     }
@@ -415,6 +415,7 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
                     if (tvSetting != null)
                     {
                         tvSetting.text = txtSetting.get();
+                        Setting.get().setTitleTextSize(tvSetting);
                     }
                     else
                     {

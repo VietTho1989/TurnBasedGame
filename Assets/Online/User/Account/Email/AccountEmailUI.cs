@@ -1182,6 +1182,7 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                     if (lbTitle != null)
                     {
                         lbTitle.text = txtTitle.get();
+                        Setting.get().setTitleTextSize(lbTitle);
                     }
                     else
                     {
@@ -1190,6 +1191,7 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                     if (lbChangeType != null)
                     {
                         lbChangeType.text = txtChangeType.get();
+                        Setting.get().setLabelTextSize(lbChangeType);
                     }
                     else
                     {
@@ -1198,6 +1200,7 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                     if (lbEmail != null)
                     {
                         lbEmail.text = txtEmail.get();
+                        Setting.get().setLabelTextSize(lbEmail);
                     }
                     else
                     {
@@ -1206,6 +1209,7 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                     if (lbPassword != null)
                     {
                         lbPassword.text = txtPassword.get();
+                        Setting.get().setLabelTextSize(lbPassword);
                     }
                     else
                     {
@@ -1214,6 +1218,7 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                     if (lbRetypePassword != null)
                     {
                         lbRetypePassword.text = txtRetypePassword.get();
+                        Setting.get().setLabelTextSize(lbRetypePassword);
                     }
                     else
                     {
@@ -1230,6 +1235,7 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                     if (lbCustomName != null)
                     {
                         lbCustomName.text = txtCustomName.get();
+                        Setting.get().setLabelTextSize(lbCustomName);
                     }
                     else
                     {
@@ -1238,6 +1244,7 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                     if (lbAvatarUrl != null)
                     {
                         lbAvatarUrl.text = txtAvatarUrl.get();
+                        Setting.get().setLabelTextSize(lbAvatarUrl);
                     }
                     else
                     {
@@ -1294,13 +1301,6 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
 
     public RequestChangeEnumUI requestEnumPrefab;
     public RequestChangeStringUI requestStringPrefab;
-
-    private static readonly UIRectTransform changeTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform emailRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform passwordRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform retypePasswordRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform customNameRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform avatarUrlRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
     private Server server = null;
     private Human human = null;
@@ -1387,19 +1387,19 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.email:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, emailRect);
+                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.password:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, passwordRect);
+                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.retypePassword:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, retypePasswordRect);
+                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.customName:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, customNameRect);
+                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.avatarUrl:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, avatarUrlRect);
+                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -1425,7 +1425,7 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.changeType:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, changeTypeRect);
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -1601,6 +1601,15 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
             switch ((Setting.Property)wrapProperty.n)
             {
                 case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
                     dirty = true;
                     break;
                 case Setting.Property.showLastMove:

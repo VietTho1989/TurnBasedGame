@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Setting : Data
@@ -33,6 +34,76 @@ public class Setting : Data
     }
 
     public VP<Style> style;
+
+    #endregion
+
+    #region text size
+
+    #region contentTextSize
+
+    public const int DefaultContentTextSize = 14;
+    public const int MaxContentTextSize = 25;
+    public const int MinContentTextSize = 6;
+
+    public VP<int> contentTextSize;
+
+    public void setContentTextSize(Text content)
+    {
+        if (content != null)
+        {
+            content.fontSize = Mathf.Clamp(this.contentTextSize.v, MinContentTextSize, MaxContentTextSize);
+        }
+        else
+        {
+            Debug.LogError("content null");
+        }
+    }
+
+    #endregion
+
+    #region titleTextSize
+
+    public const int DefaultTitleTextSize = 16;
+    public const int MaxTitleTextSize = 28;
+    public const int MinTitleTextSize = 6;
+
+    public VP<int> titleTextSize;
+
+    public void setTitleTextSize(Text title)
+    {
+        if (title != null)
+        {
+            title.fontSize = Mathf.Clamp(this.titleTextSize.v, MinTitleTextSize, MaxTitleTextSize);
+        }
+        else
+        {
+            Debug.LogError("title null");
+        }
+    }
+
+    #endregion
+
+    #region labelTextSize
+
+    public const int DefaultLabelTextSize = 14;
+    public const int MaxLabelTextSize = 25;
+    public const int MinLabelTextSize = 6;
+
+    public VP<int> labelTextSize;
+
+    public void setLabelTextSize(Text label)
+    {
+        if (label != null)
+        {
+            label.fontSize = Mathf.Clamp(this.labelTextSize.v, MinLabelTextSize, MaxLabelTextSize);
+        }
+        else
+        {
+            Debug.LogError("label null");
+        }
+    }
+
+    #endregion
 
     #endregion
 
@@ -202,6 +273,11 @@ public class Setting : Data
 	{
 		language,
         style,
+
+        contentTextSize,
+        titleTextSize,
+        labelTextSize,
+
         confirmQuit,
         showLastMove,
 		viewUrlImage,
@@ -216,6 +292,12 @@ public class Setting : Data
 	{
 		this.language = new VP<Language.Type> (this, (byte)Property.language, Language.Type.en);
         this.style = new VP<Style>(this, (byte)Property.style, Style.Normal);
+        // textSize
+        {
+            this.contentTextSize = new VP<int>(this, (byte)Property.contentTextSize, DefaultContentTextSize);
+            this.titleTextSize = new VP<int>(this, (byte)Property.titleTextSize, DefaultTitleTextSize);
+            this.labelTextSize = new VP<int>(this, (byte)Property.labelTextSize, DefaultLabelTextSize);
+        }
         this.confirmQuit = new VP<bool>(this, (byte)Property.confirmQuit, true);
         this.showLastMove = new VP<bool> (this, (byte)Property.showLastMove, true);
 		this.viewUrlImage = new VP<bool> (this, (byte)Property.viewUrlImage, true);

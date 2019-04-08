@@ -102,6 +102,7 @@ namespace FileSystem
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -110,6 +111,7 @@ namespace FileSystem
                         if (lbName != null)
                         {
                             lbName.text = txtName.get();
+                            Setting.get().setLabelTextSize(lbName);
                         }
                         else
                         {
@@ -118,10 +120,26 @@ namespace FileSystem
                         if (tvPlaceHolder != null)
                         {
                             tvPlaceHolder.text = txtPlaceHolder.get();
+                            Setting.get().setContentTextSize(tvPlaceHolder);
                         }
                         else
                         {
                             Debug.LogError("tvPlaceHolder null: " + this);
+                        }
+                        if (edtName != null)
+                        {
+                            if (edtName.textComponent != null)
+                            {
+                                Setting.get().setContentTextSize(edtName.textComponent);
+                            }
+                            else
+                            {
+                                Debug.LogError("textComponent null");
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("edtName null");
                         }
                         if (tvOK != null)
                         {
@@ -221,6 +239,15 @@ namespace FileSystem
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

@@ -98,6 +98,7 @@ namespace Reversi
                             if (tvBlackCount != null)
                             {
                                 tvBlackCount.text = "" + blackCount;
+                                Setting.get().setContentTextSize(tvBlackCount);
                             }
                             else
                             {
@@ -109,6 +110,7 @@ namespace Reversi
                             if (tvWhiteCount != null)
                             {
                                 tvWhiteCount.text = "" + whiteCount;
+                                Setting.get().setContentTextSize(tvWhiteCount);
                             }
                             else
                             {
@@ -214,6 +216,7 @@ namespace Reversi
                             if (lbTitle != null)
                             {
                                 lbTitle.text = GameType.GetStrGameType(GameType.Type.Reversi);
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -222,6 +225,7 @@ namespace Reversi
                             if (tvMessage != null)
                             {
                                 tvMessage.text = txtMessage.get();
+                                Setting.get().setContentTextSize(tvMessage);
                             }
                             else
                             {
@@ -230,6 +234,7 @@ namespace Reversi
                             if (lbBlackCount != null)
                             {
                                 lbBlackCount.text = txtBlackCount.get();
+                                Setting.get().setLabelTextSize(lbBlackCount);
                             }
                             else
                             {
@@ -238,6 +243,7 @@ namespace Reversi
                             if (lbWhiteCount != null)
                             {
                                 lbWhiteCount.text = txtWhiteCount.get();
+                                Setting.get().setLabelTextSize(lbWhiteCount);
                             }
                             else
                             {
@@ -356,6 +362,15 @@ namespace Reversi
                         dirty = true;
                         break;
                     case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
                         break;
                     case Setting.Property.showLastMove:
                         break;

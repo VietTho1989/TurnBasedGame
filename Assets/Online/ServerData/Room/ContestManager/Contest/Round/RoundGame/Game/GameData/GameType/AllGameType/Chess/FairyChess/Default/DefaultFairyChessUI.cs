@@ -512,6 +512,7 @@ namespace FairyChess
                                 if (lbTitle != null)
                                 {
                                     lbTitle.text = txtTitle.get();
+                                    Setting.get().setTitleTextSize(lbTitle);
                                 }
                                 else
                                 {
@@ -520,6 +521,7 @@ namespace FairyChess
                                 if (lbVariantType != null)
                                 {
                                     lbVariantType.text = txtVariantType.get();
+                                    Setting.get().setLabelTextSize(lbVariantType);
                                 }
                                 else
                                 {
@@ -528,6 +530,7 @@ namespace FairyChess
                                 if (lbChess960 != null)
                                 {
                                     lbChess960.text = txtChess960.get();
+                                    Setting.get().setLabelTextSize(lbChess960);
                                 }
                                 else
                                 {
@@ -884,6 +887,15 @@ namespace FairyChess
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

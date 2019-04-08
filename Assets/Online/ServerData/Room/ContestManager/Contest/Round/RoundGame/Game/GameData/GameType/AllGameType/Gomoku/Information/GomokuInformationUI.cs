@@ -172,6 +172,7 @@ namespace Gomoku
                             if (lbTitle != null)
                             {
                                 lbTitle.text = GameType.GetStrGameType(GameType.Type.Gomoku);
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -180,6 +181,7 @@ namespace Gomoku
                             if (tvMessage != null)
                             {
                                 tvMessage.text = txtMessage.get();
+                                Setting.get().setContentTextSize(tvMessage);
                             }
                             else
                             {
@@ -188,6 +190,7 @@ namespace Gomoku
                             if (lbBoardSize != null)
                             {
                                 lbBoardSize.text = txtBoardSize.get();
+                                Setting.get().setLabelTextSize(lbBoardSize);
                             }
                             else
                             {
@@ -306,6 +309,15 @@ namespace Gomoku
                         dirty = true;
                         break;
                     case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
                         break;
                     case Setting.Property.showLastMove:
                         break;

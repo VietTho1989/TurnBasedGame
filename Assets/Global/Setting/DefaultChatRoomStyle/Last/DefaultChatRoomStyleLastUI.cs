@@ -436,6 +436,7 @@ public class DefaultChatRoomStyleLastUI : UIHaveTransformDataBehavior<DefaultCha
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -444,6 +445,7 @@ public class DefaultChatRoomStyleLastUI : UIHaveTransformDataBehavior<DefaultCha
                         if (lbVisibility != null)
                         {
                             lbVisibility.text = txtVisibility.get();
+                            Setting.get().setLabelTextSize(lbVisibility);
                         }
                         else
                         {
@@ -452,6 +454,7 @@ public class DefaultChatRoomStyleLastUI : UIHaveTransformDataBehavior<DefaultCha
                         if (lbStyle != null)
                         {
                             lbStyle.text = txtStyle.get();
+                            Setting.get().setLabelTextSize(lbStyle);
                         }
                         else
                         {
@@ -659,6 +662,15 @@ public class DefaultChatRoomStyleLastUI : UIHaveTransformDataBehavior<DefaultCha
             switch ((Setting.Property)wrapProperty.n)
             {
                 case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
                     dirty = true;
                     break;
                 case Setting.Property.style:

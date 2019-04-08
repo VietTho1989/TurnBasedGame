@@ -497,6 +497,7 @@ namespace GameManager.Match.RoundRobin
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -505,6 +506,7 @@ namespace GameManager.Match.RoundRobin
                         if (lbTeamCount != null)
                         {
                             lbTeamCount.text = txtTeamCount.get();
+                            Setting.get().setLabelTextSize(lbTeamCount);
                         }
                         else
                         {
@@ -513,6 +515,7 @@ namespace GameManager.Match.RoundRobin
                         if (lbNeedReturnRound != null)
                         {
                             lbNeedReturnRound.text = txtNeedReturnRound.get();
+                            Setting.get().setLabelTextSize(lbNeedReturnRound);
                         }
                         else
                         {
@@ -834,6 +837,15 @@ namespace GameManager.Match.RoundRobin
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

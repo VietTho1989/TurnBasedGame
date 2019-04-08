@@ -591,6 +591,7 @@ namespace GameManager.Match.Elimination
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -599,6 +600,7 @@ namespace GameManager.Match.Elimination
                         if (lbInitTeamCountLength != null)
                         {
                             lbInitTeamCountLength.text = txtInitTeamCountLength.get();
+                            Setting.get().setLabelTextSize(lbInitTeamCountLength);
                         }
                         else
                         {
@@ -607,6 +609,7 @@ namespace GameManager.Match.Elimination
                         if (lbInitTeamCounts != null)
                         {
                             lbInitTeamCounts.text = txtInitTeamCounts.get();
+                            Setting.get().setLabelTextSize(lbInitTeamCounts);
                         }
                         else
                         {
@@ -893,6 +896,15 @@ namespace GameManager.Match.Elimination
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

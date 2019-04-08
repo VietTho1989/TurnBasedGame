@@ -67,6 +67,7 @@ public class GeneralTopicUI : UIBehavior<GeneralTopicUI.UIData>
                     if (lbTitle != null)
                     {
                         lbTitle.text = txtTitle.get();
+                        Setting.get().setTitleTextSize(lbTitle);
                     }
                     else
                     {
@@ -188,6 +189,15 @@ public class GeneralTopicUI : UIBehavior<GeneralTopicUI.UIData>
                     dirty = true;
                     break;
                 case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
                     break;
                 case Setting.Property.confirmQuit:
                     break;

@@ -562,6 +562,7 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                     if (lbTitle != null)
                     {
                         lbTitle.text = txtTitle.get();
+                        Setting.get().setTitleTextSize(lbTitle);
                     }
                     else
                     {
@@ -570,6 +571,7 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                     if (lbGameDataFactoryType != null)
                     {
                         lbGameDataFactoryType.text = txtGameDataFactoryType.get();
+                        Setting.get().setLabelTextSize(lbGameDataFactoryType);
                     }
                     else
                     {
@@ -938,6 +940,15 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
             switch ((Setting.Property)wrapProperty.n)
             {
                 case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
                     dirty = true;
                     break;
                 case Setting.Property.showLastMove:

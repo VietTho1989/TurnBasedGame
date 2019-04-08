@@ -528,6 +528,7 @@ namespace GameManager.Match.Swap
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -536,6 +537,7 @@ namespace GameManager.Match.Swap
                         if (lbCanChange != null)
                         {
                             lbCanChange.text = txtCanChange.get();
+                            Setting.get().setLabelTextSize(lbCanChange);
                         }
                         else
                         {
@@ -544,6 +546,7 @@ namespace GameManager.Match.Swap
                         if (lbCanChangePlayerLeft != null)
                         {
                             lbCanChangePlayerLeft.text = txtCanChangePlayerLeft.get();
+                            Setting.get().setLabelTextSize(lbCanChangePlayerLeft);
                         }
                         else
                         {
@@ -552,6 +555,7 @@ namespace GameManager.Match.Swap
                         if (lbNeedAdminAccept != null)
                         {
                             lbNeedAdminAccept.text = txtNeedAdminAccept.get();
+                            Setting.get().setLabelTextSize(lbNeedAdminAccept);
                         }
                         else
                         {
@@ -560,6 +564,7 @@ namespace GameManager.Match.Swap
                         if (lbOnlyAdminNeed != null)
                         {
                             lbOnlyAdminNeed.text = txtOnlyAdminNeed.get();
+                            Setting.get().setLabelTextSize(lbOnlyAdminNeed);
                         }
                         else
                         {
@@ -597,6 +602,8 @@ namespace GameManager.Match.Swap
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
                 // Child
                 {
                     uiData.editChangeGamePlayerRight.allAddCallBack(this);
@@ -605,6 +612,12 @@ namespace GameManager.Match.Swap
                     uiData.needAdminAccept.allAddCallBack(this);
                     uiData.onlyAdminNeed.allAddCallBack(this);
                 }
+                dirty = true;
+                return;
+            }
+            // Setting
+            if(data is Setting)
+            {
                 dirty = true;
                 return;
             }
@@ -691,6 +704,8 @@ namespace GameManager.Match.Swap
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
                 // Child
                 {
                     uiData.editChangeGamePlayerRight.allRemoveCallBack(this);
@@ -700,6 +715,11 @@ namespace GameManager.Match.Swap
                     uiData.onlyAdminNeed.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
+                return;
+            }
+            // Setting
+            if(data is Setting)
+            {
                 return;
             }
             // Child
@@ -789,6 +809,47 @@ namespace GameManager.Match.Swap
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
                         }
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.confirmQuit:
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    case Setting.Property.defaultChosenGame:
+                        break;
+                    case Setting.Property.defaultRoomName:
+                        break;
+                    case Setting.Property.defaultChatRoomStyle:
                         break;
                     default:
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);

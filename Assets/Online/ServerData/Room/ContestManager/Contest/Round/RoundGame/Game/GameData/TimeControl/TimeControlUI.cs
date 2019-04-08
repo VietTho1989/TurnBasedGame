@@ -899,6 +899,7 @@ namespace TimeControl
                             if (lbTitle != null)
                             {
                                 lbTitle.text = txtTitle.get();
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -907,6 +908,7 @@ namespace TimeControl
                             if (lbIsEnable != null)
                             {
                                 lbIsEnable.text = txtIsEnable.get();
+                                Setting.get().setLabelTextSize(lbIsEnable);
                             }
                             else
                             {
@@ -915,6 +917,7 @@ namespace TimeControl
                             if (lbAICanTimeOut != null)
                             {
                                 lbAICanTimeOut.text = txtAICanTimeOut.get();
+                                Setting.get().setLabelTextSize(lbAICanTimeOut);
                             }
                             else
                             {
@@ -923,6 +926,7 @@ namespace TimeControl
                             if (lbUse != null)
                             {
                                 lbUse.text = txtUse.get();
+                                Setting.get().setLabelTextSize(lbUse);
                             }
                             else
                             {
@@ -931,6 +935,7 @@ namespace TimeControl
                             if (lbSubType != null)
                             {
                                 lbSubType.text = txtSubType.get();
+                                Setting.get().setLabelTextSize(lbSubType);
                             }
                             else
                             {
@@ -1350,6 +1355,15 @@ namespace TimeControl
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

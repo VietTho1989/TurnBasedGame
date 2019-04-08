@@ -588,6 +588,7 @@ namespace Makruk
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -596,6 +597,7 @@ namespace Makruk
                         if (lbDepth != null)
                         {
                             lbDepth.text = txtDepth.get();
+                            Setting.get().setLabelTextSize(lbDepth);
                         }
                         else
                         {
@@ -604,6 +606,7 @@ namespace Makruk
                         if (lbSkillLevel != null)
                         {
                             lbSkillLevel.text = txtSkillLevel.get();
+                            Setting.get().setLabelTextSize(lbSkillLevel);
                         }
                         else
                         {
@@ -612,6 +615,7 @@ namespace Makruk
                         if (lbDuration != null)
                         {
                             lbDuration.text = txtDuration.get();
+                            Setting.get().setLabelTextSize(lbDuration);
                         }
                         else
                         {
@@ -894,6 +898,15 @@ namespace Makruk
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

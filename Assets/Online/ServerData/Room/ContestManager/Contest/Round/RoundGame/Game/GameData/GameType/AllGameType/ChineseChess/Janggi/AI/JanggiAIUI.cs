@@ -313,6 +313,7 @@ namespace Janggi
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -321,6 +322,7 @@ namespace Janggi
                         if (lbMaxVisitCount != null)
                         {
                             lbMaxVisitCount.text = txtMaxVisitCount.get();
+                            Setting.get().setLabelTextSize(lbMaxVisitCount);
                         }
                         else
                         {
@@ -541,6 +543,15 @@ namespace Janggi
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

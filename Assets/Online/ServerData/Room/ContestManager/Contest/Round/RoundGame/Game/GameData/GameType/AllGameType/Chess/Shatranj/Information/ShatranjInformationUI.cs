@@ -234,6 +234,7 @@ namespace Shatranj
                             if (lbTitle != null)
                             {
                                 lbTitle.text = GameType.GetStrGameType(GameType.Type.Shatranj);
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -242,10 +243,27 @@ namespace Shatranj
                             if (tvMessage != null)
                             {
                                 tvMessage.text = txtMessage.get();
+                                Setting.get().setContentTextSize(tvMessage);
                             }
                             else
                             {
                                 Debug.LogError("tvMessage null");
+                            }
+                            if (lbFen != null)
+                            {
+                                Setting.get().setLabelTextSize(lbFen);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbFen null");
+                            }
+                            if (lbChess960 != null)
+                            {
+                                Setting.get().setLabelTextSize(lbChess960);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbChess960 null");
                             }
                         }
                     }

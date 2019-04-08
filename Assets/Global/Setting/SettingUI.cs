@@ -314,6 +314,74 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
 
         #endregion
 
+        ///////////////////////////////////////////////////////
+        /////////////////// TextSize //////////////////
+        ///////////////////////////////////////////////////////
+
+        #region contentTextSize
+
+        public VP<RequestChangeIntUI.UIData> contentTextSize;
+
+        public void makeRequestChangeContentTextSize(RequestChangeUpdate<int>.UpdateData update, int newContentTextSize)
+        {
+            // Find
+            Setting setting = null;
+            {
+                EditData<Setting> editSetting = this.editSetting.v;
+                if (editSetting != null)
+                {
+                    setting = editSetting.show.v.data;
+                }
+                else
+                {
+                    Debug.LogError("editSetting null: " + this);
+                }
+            }
+            // Process
+            if (setting != null)
+            {
+                setting.contentTextSize.v = Mathf.Clamp(newContentTextSize, Setting.MinContentTextSize, Setting.MaxContentTextSize);
+            }
+            else
+            {
+                Debug.LogError("setting null: " + this);
+            }
+        }
+
+        #endregion
+
+        #region titleTextSize
+
+        public VP<RequestChangeIntUI.UIData> titleTextSize;
+
+        public void makeRequestChangeTitleTextSize(RequestChangeUpdate<int>.UpdateData update, int newTitleTextSize)
+        {
+            // Find
+            Setting setting = null;
+            {
+                EditData<Setting> editSetting = this.editSetting.v;
+                if (editSetting != null)
+                {
+                    setting = editSetting.show.v.data;
+                }
+                else
+                {
+                    Debug.LogError("editSetting null: " + this);
+                }
+            }
+            // Process
+            if (setting != null)
+            {
+                setting.titleTextSize.v = Mathf.Clamp(newTitleTextSize, Setting.MinTitleTextSize, Setting.MaxTitleTextSize);
+            }
+            else
+            {
+                Debug.LogError("setting null: " + this);
+            }
+        }
+
+        #endregion
+
         #region Constructor
 
         public enum Property
@@ -335,7 +403,10 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
             defaultRoomNameUIData,
 
             defaultChatRoomStyleType,
-            defaultChatRoomStyleUIData
+            defaultChatRoomStyleUIData,
+
+            contentTextSize,
+            titleTextSize
         }
 
         public UIData() : base()
@@ -458,6 +529,39 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 }
                 this.defaultChatRoomStyleUIData = new VP<DefaultChatRoomStyle.UIData>(this, (byte)Property.defaultChatRoomStyleUIData, null);
             }
+            // textSize
+            {
+                // contentTextSize
+                {
+                    this.contentTextSize = new VP<RequestChangeIntUI.UIData>(this, (byte)Property.contentTextSize, new RequestChangeIntUI.UIData());
+                    // have limit
+                    {
+                        IntLimit.Have have = new IntLimit.Have();
+                        {
+                            have.uid = this.contentTextSize.v.limit.makeId();
+                            have.min.v = Setting.MinContentTextSize;
+                            have.max.v = Setting.MaxContentTextSize;
+                        }
+                        this.contentTextSize.v.limit.v = have;
+                    }
+                    this.contentTextSize.v.updateData.v.request.v = makeRequestChangeContentTextSize;
+                }
+                // titleTextSize
+                {
+                    this.titleTextSize = new VP<RequestChangeIntUI.UIData>(this, (byte)Property.titleTextSize, new RequestChangeIntUI.UIData());
+                    // have limit
+                    {
+                        IntLimit.Have have = new IntLimit.Have();
+                        {
+                            have.uid = this.titleTextSize.v.limit.makeId();
+                            have.min.v = Setting.MinTitleTextSize;
+                            have.max.v = Setting.MaxTitleTextSize;
+                        }
+                        this.titleTextSize.v.limit.v = have;
+                    }
+                    this.titleTextSize.v.updateData.v.request.v = makeRequestChangeTitleTextSize;
+                }
+            }
         }
 
         #endregion
@@ -504,6 +608,15 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
     private static readonly TxtLanguage txtDefaultChatRoomStyleLast = new TxtLanguage("Last Chosen");
     private static readonly TxtLanguage txtDefaultChatRoomStyleAlways = new TxtLanguage("Always Choose");
 
+    public Text lbTextSizeTitle;
+    private static readonly TxtLanguage txtTextSizeTitle = new TxtLanguage("Text Size");
+
+    public Text lbContentTextSize;
+    private static readonly TxtLanguage txtContentTextSize = new TxtLanguage("Content text size");
+
+    public Text lbTitleTextSize;
+    private static readonly TxtLanguage txtTitleTextSize = new TxtLanguage("Title text size");
+
     static SettingUI()
     {
         // txt
@@ -527,6 +640,13 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
             txtDefaultChatRoomStyleType.add(Language.Type.vi, "Phòng Chat mặc định");
             txtDefaultChatRoomStyleLast.add(Language.Type.vi, "Chọn Trước");
             txtDefaultChatRoomStyleAlways.add(Language.Type.vi, "Luôn Chọn");
+
+            // txt
+            {
+                txtTextSizeTitle.add(Language.Type.vi, "Kích Thước Chữ");
+                txtContentTextSize.add(Language.Type.vi, "Kích thước chữ nội dung");
+                txtTitleTextSize.add(Language.Type.vi, "Kích thước chữ tiêu đề");
+            }
         }
         // rect
         {
@@ -544,6 +664,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
     public Image bgDefaultChosenGame;
     public Image bgDefaultRoomName;
     public Image bgDefaultChatRoomStyle;
+    public Image bgTextSize;
 
     public override void refresh()
     {
@@ -1338,6 +1459,80 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                                         Debug.LogError("show null: " + this);
                                     }
                                 }
+
+                                // textSize
+                                {
+                                    // contentTextSize
+                                    {
+                                        RequestChangeIntUI.UIData contentTextSize = this.data.contentTextSize.v;
+                                        if (contentTextSize != null)
+                                        {
+                                            // update
+                                            RequestChangeUpdate<int>.UpdateData updateData = contentTextSize.updateData.v;
+                                            if (updateData != null)
+                                            {
+                                                updateData.origin.v = show.contentTextSize.v;
+                                                updateData.canRequestChange.v = editSetting.canEdit.v;
+                                                updateData.serverState.v = serverState;
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("updateData null: " + this);
+                                            }
+                                            // compare
+                                            {
+                                                if (compare != null)
+                                                {
+                                                    contentTextSize.showDifferent.v = true;
+                                                    contentTextSize.compare.v = compare.contentTextSize.v;
+                                                }
+                                                else
+                                                {
+                                                    contentTextSize.showDifferent.v = false;
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("useRule null: " + this);
+                                        }
+                                    }
+                                    // titleTextSize
+                                    {
+                                        RequestChangeIntUI.UIData titleTextSize = this.data.titleTextSize.v;
+                                        if (titleTextSize != null)
+                                        {
+                                            // update
+                                            RequestChangeUpdate<int>.UpdateData updateData = titleTextSize.updateData.v;
+                                            if (updateData != null)
+                                            {
+                                                updateData.origin.v = show.titleTextSize.v;
+                                                updateData.canRequestChange.v = editSetting.canEdit.v;
+                                                updateData.serverState.v = serverState;
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("updateData null: " + this);
+                                            }
+                                            // compare
+                                            {
+                                                if (compare != null)
+                                                {
+                                                    titleTextSize.showDifferent.v = true;
+                                                    titleTextSize.compare.v = compare.titleTextSize.v;
+                                                }
+                                                else
+                                                {
+                                                    titleTextSize.showDifferent.v = false;
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("useRule null: " + this);
+                                        }
+                                    }
+                                }
                             }
                         }
                         // reset
@@ -1543,6 +1738,54 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                                 else
                                 {
                                     Debug.LogError("defaultChatRoomStyleType null: " + this);
+                                }
+                            }
+
+                            // textSize
+                            {
+                                // contentTextSize
+                                {
+                                    RequestChangeIntUI.UIData contentTextSize = this.data.contentTextSize.v;
+                                    if (contentTextSize != null)
+                                    {
+                                        // update
+                                        RequestChangeUpdate<int>.UpdateData updateData = contentTextSize.updateData.v;
+                                        if (updateData != null)
+                                        {
+                                            updateData.current.v = show.contentTextSize.v;
+                                            updateData.changeState.v = Data.ChangeState.None;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("updateData null: " + this);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("contentTextSize null: " + this);
+                                    }
+                                }
+                                // titleTextSize
+                                {
+                                    RequestChangeIntUI.UIData titleTextSize = this.data.titleTextSize.v;
+                                    if (titleTextSize != null)
+                                    {
+                                        // update
+                                        RequestChangeUpdate<int>.UpdateData updateData = titleTextSize.updateData.v;
+                                        if (updateData != null)
+                                        {
+                                            updateData.current.v = show.titleTextSize.v;
+                                            updateData.changeState.v = Data.ChangeState.None;
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("updateData null: " + this);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("titleTextSize null: " + this);
+                                    }
                                 }
                             }
                         }
@@ -1924,6 +2167,90 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                             Debug.LogError("bgDefaultChatRoomStyle null");
                         }
                     }
+                    // textSize
+                    {
+                        float bgY = deltaY;
+                        float bgHeight = 0;
+                        // title
+                        {
+                            if (lbTextSizeTitle != null)
+                            {
+                                UIRectTransform.SetPosY(lbTextSizeTitle.rectTransform, deltaY);
+                                bgHeight += UIConstants.HeaderHeight;
+                                deltaY += UIConstants.HeaderHeight;
+                            }
+                            else
+                            {
+                                Debug.LogError("lbTextSizeTitle null");
+                            }
+                        }
+                        // contentTextSize
+                        {
+                            if (this.data.contentTextSize.v != null)
+                            {
+                                if (lbContentTextSize != null)
+                                {
+                                    lbContentTextSize.gameObject.SetActive(true);
+                                    UIRectTransform.SetPosY(lbContentTextSize.rectTransform, deltaY);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbContentTextSize null");
+                                }
+                                UIRectTransform.SetPosY(this.data.contentTextSize.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                                deltaY += UIConstants.ItemHeight;
+                            }
+                            else
+                            {
+                                if (lbContentTextSize != null)
+                                {
+                                    lbContentTextSize.gameObject.SetActive(false);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbContentTextSize null");
+                                }
+                            }
+                        }
+                        // titleTextSize
+                        {
+                            if (this.data.titleTextSize.v != null)
+                            {
+                                if (lbTitleTextSize != null)
+                                {
+                                    lbTitleTextSize.gameObject.SetActive(true);
+                                    UIRectTransform.SetPosY(lbTitleTextSize.rectTransform, deltaY);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbTitleTextSize null");
+                                }
+                                UIRectTransform.SetPosY(this.data.titleTextSize.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+                                deltaY += UIConstants.ItemHeight;
+                            }
+                            else
+                            {
+                                if (lbTitleTextSize != null)
+                                {
+                                    lbTitleTextSize.gameObject.SetActive(false);
+                                }
+                                else
+                                {
+                                    Debug.LogError("lbTitleTextSize null");
+                                }
+                            }
+                        }
+                        // bg
+                        if (bgTextSize != null)
+                        {
+                            UIRectTransform.SetPosY(bgTextSize.rectTransform, bgY);
+                            UIRectTransform.SetHeight(bgTextSize.rectTransform, bgHeight);
+                        }
+                        else
+                        {
+                            Debug.LogError("bgTextSize null");
+                        }
+                    }
                     // set
                     UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                 }
@@ -1932,6 +2259,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     if (lbTitle != null)
                     {
                         lbTitle.text = txtTitle.get();
+                        Setting.get().setTitleTextSize(lbTitle);
                     }
                     else
                     {
@@ -1940,6 +2268,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     if (lbLanguage != null)
                     {
                         lbLanguage.text = txtLanguage.get();
+                        Setting.get().setLabelTextSize(lbLanguage);
                     }
                     else
                     {
@@ -1948,6 +2277,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     if (lbStyle != null)
                     {
                         lbStyle.text = txtStyle.get();
+                        Setting.get().setLabelTextSize(lbStyle);
                     }
                     else
                     {
@@ -1956,6 +2286,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     if (lbConfirmQuit != null)
                     {
                         lbConfirmQuit.text = txtConfirmQuit.get();
+                        Setting.get().setLabelTextSize(lbConfirmQuit);
                     }
                     else
                     {
@@ -1964,6 +2295,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     if (lbShowLastMove != null)
                     {
                         lbShowLastMove.text = txtShowLastMove.get();
+                        Setting.get().setLabelTextSize(lbShowLastMove);
                     }
                     else
                     {
@@ -1972,6 +2304,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     if (lbViewUrlImage != null)
                     {
                         lbViewUrlImage.text = txtViewUrlImage.get();
+                        Setting.get().setLabelTextSize(lbViewUrlImage);
                     }
                     else
                     {
@@ -1980,6 +2313,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     if (lbMaxThinkCount != null)
                     {
                         lbMaxThinkCount.text = txtMaxThinkCount.get();
+                        Setting.get().setLabelTextSize(lbMaxThinkCount);
                     }
                     else
                     {
@@ -1988,6 +2322,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     if (lbDefaultChosenGameType != null)
                     {
                         lbDefaultChosenGameType.text = txtDefaultChosenGameType.get();
+                        Setting.get().setLabelTextSize(lbDefaultChosenGameType);
                     }
                     else
                     {
@@ -1996,6 +2331,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     if (lbDefaultRoomNameType != null)
                     {
                         lbDefaultRoomNameType.text = txtDefaultRoomNameType.get();
+                        Setting.get().setLabelTextSize(lbDefaultRoomNameType);
                     }
                     else
                     {
@@ -2004,10 +2340,32 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     if (lbDefaultChatRoomStyleType != null)
                     {
                         lbDefaultChatRoomStyleType.text = txtDefaultChatRoomStyleType.get();
+                        Setting.get().setLabelTextSize(lbDefaultChatRoomStyleType);
                     }
                     else
                     {
                         Debug.LogError("lbDefaultChatRoomStyleType null");
+                    }
+                    // txtSize
+                    {
+                        if (lbTextSizeTitle != null)
+                        {
+                            lbTextSizeTitle.text = txtTextSizeTitle.get();
+                            Setting.get().setTitleTextSize(lbTextSizeTitle);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTextSizeTitle null");
+                        }
+                        if (lbContentTextSize != null)
+                        {
+                            lbContentTextSize.text = txtContentTextSize.get();
+                            Setting.get().setLabelTextSize(lbContentTextSize);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbContentTextSize null");
+                        }
                     }
                 }
             }
@@ -2031,16 +2389,6 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
     public RequestChangeBoolUI requestBoolPrefab;
     public AnimationSettingUI animationSettingPrefab;
     public RequestChangeIntUI requestIntPrefab;
-
-    private static readonly UIRectTransform languageRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform styleRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform confirmQuitRect = new UIRectTransform(UIConstants.RequestBoolRect);
-    private static readonly UIRectTransform showLastMoveRect = new UIRectTransform(UIConstants.RequestBoolRect);
-    private static readonly UIRectTransform viewUrlImageRect = new UIRectTransform(UIConstants.RequestBoolRect);
-    private static readonly UIRectTransform maxThinkCountRect = new UIRectTransform(UIConstants.RequestRect);
-    private static readonly UIRectTransform defaultChosenGameTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform defaultRoomNameTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform defaultChatRoomStyleTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
     public DefaultChosenGameLastUI defaultChosenGameLastPrefab;
     public DefaultChosenGameAlwaysUI defaultChosenGameAlwaysPrefab;
@@ -2085,6 +2433,8 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     uiData.defaultChatRoomStyleType.allAddCallBack(this);
                     uiData.defaultChatRoomStyleUIData.allAddCallBack(this);
                 }
+                uiData.contentTextSize.allAddCallBack(this);
+                uiData.titleTextSize.allAddCallBack(this);
             }
             dirty = true;
             return;
@@ -2130,19 +2480,19 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.language:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, languageRect);
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.style:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, styleRect);
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.defaultChosenGameType:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, defaultChosenGameTypeRect);
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.defaultRoomNameType:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, defaultRoomNameTypeRect);
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.defaultChatRoomStyleType:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, defaultChatRoomStyleTypeRect);
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -2169,13 +2519,13 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.confirmQuit:
-                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, confirmQuitRect);
+                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                 break;
                             case UIData.Property.showLastMove:
-                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, showLastMoveRect);
+                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                 break;
                             case UIData.Property.viewUrlImage:
-                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, viewUrlImageRect);
+                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -2205,7 +2555,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 dirty = true;
                 return;
             }
-            // maxThinkCount
+            // maxThinkCount, contentTextSize, titleTextSize
             if (data is RequestChangeIntUI.UIData)
             {
                 RequestChangeIntUI.UIData requestChange = data as RequestChangeIntUI.UIData;
@@ -2217,7 +2567,13 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.maxThinkCount:
-                                UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, maxThinkCountRect);
+                                UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                break;
+                            case UIData.Property.contentTextSize:
+                                UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                break;
+                            case UIData.Property.titleTextSize:
+                                UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -2372,6 +2728,8 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     uiData.defaultChatRoomStyleType.allRemoveCallBack(this);
                     uiData.defaultChatRoomStyleUIData.allRemoveCallBack(this);
                 }
+                uiData.contentTextSize.allRemoveCallBack(this);
+                uiData.titleTextSize.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
             return;
@@ -2435,7 +2793,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 }
                 return;
             }
-            // maxThinkCount
+            // maxThinkCount, contentTextSize, titleTextSize
             if (data is RequestChangeIntUI.UIData)
             {
                 RequestChangeIntUI.UIData requestChange = data as RequestChangeIntUI.UIData;
@@ -2644,6 +3002,18 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         dirty = true;
                     }
                     break;
+                case UIData.Property.contentTextSize:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.titleTextSize:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
@@ -2699,6 +3069,15 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         case Setting.Property.style:
                             dirty = true;
                             break;
+                        case Setting.Property.contentTextSize:
+                            dirty = true;
+                            break;
+                        case Setting.Property.titleTextSize:
+                            dirty = true;
+                            break;
+                        case Setting.Property.labelTextSize:
+                            dirty = true;
+                            break;
                         case Setting.Property.confirmQuit:
                             dirty = true;
                             break;
@@ -2745,7 +3124,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
             {
                 return;
             }
-            // maxThinkCount
+            // maxThinkCount, contentTextSize, titleTextSize
             if (wrapProperty.p is RequestChangeIntUI.UIData)
             {
                 return;

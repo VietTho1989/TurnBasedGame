@@ -278,14 +278,6 @@ namespace ChineseCheckers
                 txtNode.add(Language.Type.vi, "Số node");
                 txtPickBestMove.add(Language.Type.vi, "Tỷ lệ chọn nước đi tốt nhất");
             }
-            // rect
-            {
-                typeRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                depthRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                timeRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                nodeRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                pickBestMoveRect.setPosY(UIConstants.HeaderHeight + 4 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -839,6 +831,7 @@ namespace ChineseCheckers
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -847,6 +840,7 @@ namespace ChineseCheckers
                         if (lbType != null)
                         {
                             lbType.text = txtType.get();
+                            Setting.get().setLabelTextSize(lbType);
                         }
                         else
                         {
@@ -855,6 +849,7 @@ namespace ChineseCheckers
                         if (lbDepth != null)
                         {
                             lbDepth.text = txtDepth.get();
+                            Setting.get().setLabelTextSize(lbDepth);
                         }
                         else
                         {
@@ -863,6 +858,7 @@ namespace ChineseCheckers
                         if (lbTime != null)
                         {
                             lbTime.text = txtTime.get();
+                            Setting.get().setLabelTextSize(lbTime);
                         }
                         else
                         {
@@ -871,6 +867,7 @@ namespace ChineseCheckers
                         if (lbNode != null)
                         {
                             lbNode.text = txtNode.get();
+                            Setting.get().setLabelTextSize(lbNode);
                         }
                         else
                         {
@@ -879,6 +876,7 @@ namespace ChineseCheckers
                         if (lbPickBestMove != null)
                         {
                             lbPickBestMove.text = txtPickBestMove.get();
+                            Setting.get().setLabelTextSize(lbPickBestMove);
                         }
                         else
                         {
@@ -901,12 +899,6 @@ namespace ChineseCheckers
         #endregion
 
         #region implement callBacks
-
-        public static readonly UIRectTransform typeRect = new UIRectTransform(UIConstants.RequestEnumRect);
-        public static readonly UIRectTransform depthRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform timeRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform nodeRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform pickBestMoveRect = new UIRectTransform(UIConstants.RequestRect);
 
         public RequestChangeEnumUI requestEnumPrefab;
         public RequestChangeIntUI requestIntPrefab;
@@ -987,7 +979,7 @@ namespace ChineseCheckers
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.type:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, typeRect);
+                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -1013,16 +1005,16 @@ namespace ChineseCheckers
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.depth:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, depthRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.time:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, timeRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.node:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, nodeRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.pickBestMove:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, pickBestMoveRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

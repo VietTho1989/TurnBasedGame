@@ -242,6 +242,7 @@ namespace CoTuongUp
                             if (lbTitle != null)
                             {
                                 lbTitle.text = GameType.GetStrGameType(GameType.Type.CO_TUONG_UP);
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -250,6 +251,7 @@ namespace CoTuongUp
                             if (tvMessage != null)
                             {
                                 tvMessage.text = txtMessage.get();
+                                Setting.get().setContentTextSize(tvMessage);
                             }
                             else
                             {
@@ -258,6 +260,7 @@ namespace CoTuongUp
                             if (lbAllowViewCapture != null)
                             {
                                 lbAllowViewCapture.text = DefaultCoTuongUpUI.txtAllowViewCapture.get();
+                                Setting.get().setLabelTextSize(lbAllowViewCapture);
                             }
                             else
                             {
@@ -266,6 +269,7 @@ namespace CoTuongUp
                             if (lbAllowWatcherViewHidden != null)
                             {
                                 lbAllowWatcherViewHidden.text = DefaultCoTuongUpUI.txtAllowWatcherViewHidden.get();
+                                Setting.get().setLabelTextSize(lbAllowWatcherViewHidden);
                             }
                             else
                             {
@@ -274,6 +278,7 @@ namespace CoTuongUp
                             if (lbAllowOnlyFlip != null)
                             {
                                 lbAllowOnlyFlip.text = DefaultCoTuongUpUI.txtAllowOnlyFlip.get();
+                                Setting.get().setLabelTextSize(lbAllowOnlyFlip);
                             }
                             else
                             {
@@ -389,6 +394,15 @@ namespace CoTuongUp
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.style:

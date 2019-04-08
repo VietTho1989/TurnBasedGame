@@ -453,6 +453,7 @@ public class AccountFacebookUI : UIHaveTransformDataBehavior<AccountFacebookUI.U
                     if (lbTitle != null)
                     {
                         lbTitle.text = txtTitle.get();
+                        Setting.get().setTitleTextSize(lbTitle);
                     }
                     else
                     {
@@ -461,6 +462,7 @@ public class AccountFacebookUI : UIHaveTransformDataBehavior<AccountFacebookUI.U
                     if (lbUserId != null)
                     {
                         lbUserId.text = txtUserId.get();
+                        Setting.get().setLabelTextSize(lbUserId);
                     }
                     else
                     {
@@ -469,6 +471,7 @@ public class AccountFacebookUI : UIHaveTransformDataBehavior<AccountFacebookUI.U
                     if (lbFirstName != null)
                     {
                         lbFirstName.text = txtFirstName.get();
+                        Setting.get().setLabelTextSize(lbFirstName);
                     }
                     else
                     {
@@ -477,6 +480,7 @@ public class AccountFacebookUI : UIHaveTransformDataBehavior<AccountFacebookUI.U
                     if (lbLastName != null)
                     {
                         lbLastName.text = txtLastName.get();
+                        Setting.get().setLabelTextSize(lbLastName);
                     }
                     else
                     {
@@ -501,10 +505,6 @@ public class AccountFacebookUI : UIHaveTransformDataBehavior<AccountFacebookUI.U
     #region implement callBacks
 
     public RequestChangeStringUI requestStringPrefab;
-
-    private static readonly UIRectTransform userIdRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform firstNameRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform lastNameRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
     private Server server = null;
 
@@ -580,13 +580,13 @@ public class AccountFacebookUI : UIHaveTransformDataBehavior<AccountFacebookUI.U
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.userId:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, userIdRect);
+                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.firstName:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, firstNameRect);
+                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.lastName:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, lastNameRect);
+                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);

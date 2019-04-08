@@ -506,6 +506,7 @@ namespace EnglishDraught
                             if (lbTitle != null)
                             {
                                 lbTitle.text = txtTitle.get();
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -514,6 +515,7 @@ namespace EnglishDraught
                             if (lbThreeMoveRandom != null)
                             {
                                 lbThreeMoveRandom.text = txtThreeMoveRandom.get();
+                                Setting.get().setLabelTextSize(lbThreeMoveRandom);
                             }
                             else
                             {
@@ -522,6 +524,7 @@ namespace EnglishDraught
                             if (lbMaxPly != null)
                             {
                                 lbMaxPly.text = txtMaxPly.get();
+                                Setting.get().setLabelTextSize(lbMaxPly);
                             }
                             else
                             {
@@ -877,6 +880,15 @@ namespace EnglishDraught
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

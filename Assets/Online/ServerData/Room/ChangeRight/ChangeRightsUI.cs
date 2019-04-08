@@ -53,7 +53,7 @@ namespace Rights
 
         static ChangeRightsUI()
         {
-            txtTitle.add(Language.Type.vi, "Quyền thay đổi");
+            txtTitle.add(Language.Type.vi, "Quyền Thay Đổi");
         }
 
         #endregion
@@ -465,6 +465,7 @@ namespace Rights
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -757,6 +758,15 @@ namespace Rights
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

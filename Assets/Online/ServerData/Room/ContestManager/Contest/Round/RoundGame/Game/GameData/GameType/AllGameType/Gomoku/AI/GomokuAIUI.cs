@@ -591,6 +591,7 @@ namespace Gomoku
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -599,6 +600,7 @@ namespace Gomoku
                         if (lbSearchDepth != null)
                         {
                             lbSearchDepth.text = txtSearchDepth.get();
+                            Setting.get().setLabelTextSize(lbSearchDepth);
                         }
                         else
                         {
@@ -607,6 +609,7 @@ namespace Gomoku
                         if (lbTimeLimit != null)
                         {
                             lbTimeLimit.text = txtTimeLimit.get();
+                            Setting.get().setLabelTextSize(lbTimeLimit);
                         }
                         else
                         {
@@ -615,6 +618,7 @@ namespace Gomoku
                         if (lbLevel != null)
                         {
                             lbLevel.text = txtLevel.get();
+                            Setting.get().setLabelTextSize(lbLevel);
                         }
                         else
                         {
@@ -864,6 +868,15 @@ namespace Gomoku
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

@@ -588,6 +588,7 @@ namespace Seirawan
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -596,6 +597,7 @@ namespace Seirawan
                         if (lbDepth != null)
                         {
                             lbDepth.text = txtDepth.get();
+                            Setting.get().setLabelTextSize(lbDepth);
                         }
                         else
                         {
@@ -604,6 +606,7 @@ namespace Seirawan
                         if (lbSkillLevel != null)
                         {
                             lbSkillLevel.text = txtSkillLevel.get();
+                            Setting.get().setLabelTextSize(lbSkillLevel);
                         }
                         else
                         {
@@ -612,6 +615,7 @@ namespace Seirawan
                         if (lbDuration != null)
                         {
                             lbDuration.text = txtDuration.get();
+                            Setting.get().setLabelTextSize(lbDuration);
                         }
                         else
                         {
@@ -649,8 +653,6 @@ namespace Seirawan
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().addCallBack(this);
                 // Setting
                 Setting.get().addCallBack(this);
                 // Child
@@ -660,12 +662,6 @@ namespace Seirawan
                     uiData.skillLevel.allAddCallBack(this);
                     uiData.duration.allAddCallBack(this);
                 }
-                dirty = true;
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 dirty = true;
                 return;
             }
@@ -783,8 +779,6 @@ namespace Seirawan
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
-                // Global
-                Global.get().removeCallBack(this);
                 // Setting
                 Setting.get().removeCallBack(this);
                 // Child
@@ -795,11 +789,6 @@ namespace Seirawan
                     uiData.duration.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
-                return;
-            }
-            // Global
-            if (data is Global)
-            {
                 return;
             }
             // Setting
@@ -903,18 +892,21 @@ namespace Seirawan
                 }
                 return;
             }
-            // Global
-            if (wrapProperty.p is Global)
-            {
-                Global.OnValueTransformChange(wrapProperty, this);
-                return;
-            }
             // Setting
             if (wrapProperty.p is Setting)
             {
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

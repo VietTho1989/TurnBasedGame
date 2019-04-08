@@ -318,6 +318,7 @@ public class DefaultChosenGameAlwaysUI : UIHaveTransformDataBehavior<DefaultChos
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -326,6 +327,7 @@ public class DefaultChosenGameAlwaysUI : UIHaveTransformDataBehavior<DefaultChos
                         if (lbGameType != null)
                         {
                             lbGameType.text = txtGameType.get();
+                            Setting.get().setLabelTextSize(lbGameType);
                         }
                         else
                         {
@@ -521,6 +523,15 @@ public class DefaultChosenGameAlwaysUI : UIHaveTransformDataBehavior<DefaultChos
             switch ((Setting.Property)wrapProperty.n)
             {
                 case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
                     dirty = true;
                     break;
                 case Setting.Property.style:

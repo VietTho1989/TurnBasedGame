@@ -443,6 +443,7 @@ namespace TimeControl.HourGlass
                             if (lbTitle != null)
                             {
                                 lbTitle.text = txtTitle.get();
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -451,6 +452,7 @@ namespace TimeControl.HourGlass
                             if (lbInitTime != null)
                             {
                                 lbInitTime.text = txtInitTime.get();
+                                Setting.get().setLabelTextSize(lbInitTime);
                             }
                             else
                             {
@@ -459,6 +461,7 @@ namespace TimeControl.HourGlass
                             if (lbLagCompensation != null)
                             {
                                 lbLagCompensation.text = txtLagCompensation.get();
+                                Setting.get().setLabelTextSize(lbLagCompensation);
                             }
                             else
                             {
@@ -702,6 +705,15 @@ namespace TimeControl.HourGlass
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

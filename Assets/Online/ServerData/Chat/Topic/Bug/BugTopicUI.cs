@@ -187,6 +187,15 @@ public class BugTopicUI : UIBehavior<BugTopicUI.UIData>
                 case Setting.Property.language:
                     dirty = true;
                     break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
                 case Setting.Property.style:
                     break;
                 case Setting.Property.confirmQuit:

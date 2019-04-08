@@ -444,6 +444,7 @@ namespace HEX
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -452,6 +453,7 @@ namespace HEX
                         if (lbLimitTime != null)
                         {
                             lbLimitTime.text = txtLimitTime.get();
+                            Setting.get().setLabelTextSize(lbLimitTime);
                         }
                         else
                         {
@@ -460,6 +462,7 @@ namespace HEX
                         if (lbFirstMoveCenter != null)
                         {
                             lbFirstMoveCenter.text = txtFirstMoveCenter.get();
+                            Setting.get().setLabelTextSize(lbFirstMoveCenter);
                         }
                         else
                         {
@@ -731,6 +734,15 @@ namespace HEX
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

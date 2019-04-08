@@ -318,6 +318,7 @@ public class DefaultChosenGameLastUI : UIHaveTransformDataBehavior<DefaultChosen
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -326,6 +327,7 @@ public class DefaultChosenGameLastUI : UIHaveTransformDataBehavior<DefaultChosen
                         if (lbGameType != null)
                         {
                             lbGameType.text = txtGameType.get();
+                            Setting.get().setLabelTextSize(lbGameType);
                         }
                         else
                         {
@@ -355,7 +357,6 @@ public class DefaultChosenGameLastUI : UIHaveTransformDataBehavior<DefaultChosen
     #region implement callBacks
 
     public RequestChangeEnumUI requestEnumPrefab;
-    public static readonly UIRectTransform gameTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
     public override void onAddCallBack<T>(T data)
     {
@@ -412,7 +413,7 @@ public class DefaultChosenGameLastUI : UIHaveTransformDataBehavior<DefaultChosen
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.gameType:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, gameTypeRect);
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -521,6 +522,15 @@ public class DefaultChosenGameLastUI : UIHaveTransformDataBehavior<DefaultChosen
             switch ((Setting.Property)wrapProperty.n)
             {
                 case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
                     dirty = true;
                     break;
                 case Setting.Property.style:

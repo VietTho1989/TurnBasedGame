@@ -430,6 +430,7 @@ public class AccountAdminUI : UIHaveTransformDataBehavior<AccountAdminUI.UIData>
                     if (lbTitle != null)
                     {
                         lbTitle.text = txtTitle.get();
+                        Setting.get().setTitleTextSize(lbTitle);
                     }
                     else
                     {
@@ -438,6 +439,7 @@ public class AccountAdminUI : UIHaveTransformDataBehavior<AccountAdminUI.UIData>
                     if (lbCustomName != null)
                     {
                         lbCustomName.text = txtCustomName.get();
+                        Setting.get().setLabelTextSize(lbCustomName);
                     }
                     else
                     {
@@ -446,6 +448,7 @@ public class AccountAdminUI : UIHaveTransformDataBehavior<AccountAdminUI.UIData>
                     if (lbAvatarUrl != null)
                     {
                         lbAvatarUrl.text = txtAvatarUrl.get();
+                        Setting.get().setLabelTextSize(lbAvatarUrl);
                     }
                     else
                     {
@@ -470,9 +473,6 @@ public class AccountAdminUI : UIHaveTransformDataBehavior<AccountAdminUI.UIData>
     #region implement callBacks
 
     public RequestChangeStringUI requestStringPrefab;
-
-    private static readonly UIRectTransform customNameRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform avatarUrlRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
     private Server server = null;
 
@@ -547,10 +547,10 @@ public class AccountAdminUI : UIHaveTransformDataBehavior<AccountAdminUI.UIData>
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.customName:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, customNameRect);
+                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.avatarUrl:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, avatarUrlRect);
+                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -680,6 +680,15 @@ public class AccountAdminUI : UIHaveTransformDataBehavior<AccountAdminUI.UIData>
             switch ((Setting.Property)wrapProperty.n)
             {
                 case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
                     dirty = true;
                     break;
                 case Setting.Property.showLastMove:
