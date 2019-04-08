@@ -8,7 +8,7 @@ public class RequestChangeBoolUI : UIBehavior<RequestChangeBoolUI.UIData>
 
 	#region UIData
 
-	public class UIData : Data
+	public class UIData : RequestChange.UIData<bool>
 	{
 
 		public VP<RequestChangeBoolUpdate.UpdateData> updateData;
@@ -41,9 +41,28 @@ public class RequestChangeBoolUI : UIBehavior<RequestChangeBoolUI.UIData>
 			}
 		}
 
-		#endregion
+        #endregion
 
-	}
+        #region implement base
+
+        public override RequestChangeUpdate<bool>.UpdateData getUpdate()
+        {
+            return this.updateData.v;
+        }
+
+        public override void setShowDifferent(bool showDifferent)
+        {
+            this.showDifferent.v = showDifferent;
+        }
+
+        public override void setCompare(bool compare)
+        {
+            this.compare.v = compare;
+        }
+
+        #endregion
+
+    }
 
     #endregion
 

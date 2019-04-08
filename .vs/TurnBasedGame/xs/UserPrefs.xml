@@ -1,10 +1,9 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Common/Utils/Behavior/RequestChange/RequestChangeUpdate.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Chess/Chess/AI/ChessAIUI.cs">
     <Files>
-      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Chess/Chess/AI/ChessAIUI.cs" Line="86" Column="38" />
-      <File FileName="Assets/Common/Utils/Behavior/UITransform/UIRectTransform.cs" Line="221" Column="25" />
-      <File FileName="Assets/Common/Utils/Behavior/RequestChange/RequestChangeLongUI.cs" Line="14" Column="49" />
-      <File FileName="Assets/Common/Utils/Behavior/RequestChange/RequestChangeUpdate.cs" Line="12" Column="15" />
+      <File FileName="Assets/Common/Utils/Behavior/RequestChange/RequestChange.cs" Line="11" Column="36" />
+      <File FileName="Assets/Common/Utils/Behavior/RequestChange/RequestChangeBoolUI.cs" Line="60" Column="38" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Chess/Chess/AI/ChessAIUI.cs" Line="251" Column="51" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
