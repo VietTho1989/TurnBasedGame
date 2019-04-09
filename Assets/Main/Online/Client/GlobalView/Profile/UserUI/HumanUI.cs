@@ -466,41 +466,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                 {
                     float deltaY = 0;
                     // header
-                    {
-                        switch (this.data.showType.v)
-                        {
-                            case UIRectTransform.ShowType.Normal:
-                                {
-                                    if (lbTitle != null)
-                                    {
-                                        lbTitle.gameObject.SetActive(true);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbTitle null");
-                                    }
-                                    deltaY += UIConstants.HeaderHeight;
-                                }
-                                break;
-                            case UIRectTransform.ShowType.HeadLess:
-                                {
-                                    if (lbTitle != null)
-                                    {
-                                        lbTitle.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbTitle null");
-                                    }
-                                }
-                                break;
-                            case UIRectTransform.ShowType.OnlyHead:
-                                break;
-                            default:
-                                Debug.LogError("unknown type: " + this.data.showType.v);
-                                break;
-                        }
-                    }
+                    UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                     // playerId
                     {
                         if (this.data.playerId.v != null)

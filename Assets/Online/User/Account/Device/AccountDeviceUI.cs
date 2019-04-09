@@ -240,39 +240,7 @@ public class AccountDeviceUI : UIHaveTransformDataBehavior<AccountDeviceUI.UIDat
                 {
                     float deltaY = 0;
                     // header
-                    {
-                        switch (this.data.showType.v)
-                        {
-                            case UIRectTransform.ShowType.Normal:
-                                {
-                                    if (lbTitle != null)
-                                    {
-                                        lbTitle.gameObject.SetActive(true);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbTitle null");
-                                    }
-                                    deltaY += UIConstants.HeaderHeight;
-                                }
-                                break;
-                            case UIRectTransform.ShowType.HeadLess:
-                                {
-                                    if (lbTitle != null)
-                                    {
-                                        lbTitle.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbTitle null");
-                                    }
-                                }
-                                break;
-                            default:
-                                Debug.LogError("unknown type: " + this.data.showType.v);
-                                break;
-                        }
-                    }
+                    UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                     // imei
                     {
                         if (this.data.imei.v != null)

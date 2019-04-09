@@ -89,46 +89,11 @@ public class AccountNoneUI : UIHaveTransformDataBehavior<AccountNoneUI.UIData>
                 }
                 // UI
                 {
-                    switch (this.data.showType.v)
-                    {
-                        case UIRectTransform.ShowType.Normal:
-                            {
-                                // header
-                                {
-                                    if (lbTitle != null)
-                                    {
-                                        lbTitle.gameObject.SetActive(true);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbTitle null");
-                                    }
-                                }
-                                // size
-                                UIRectTransform.SetHeight((RectTransform)this.transform, UIConstants.HeaderHeight);
-                            }
-                            break;
-                        case UIRectTransform.ShowType.HeadLess:
-                            {
-                                // header
-                                {
-                                    if (lbTitle != null)
-                                    {
-                                        lbTitle.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbTitle null");
-                                    }
-                                }
-                                // size
-                                UIRectTransform.SetHeight((RectTransform)this.transform, 0);
-                            }
-                            break;
-                        default:
-                            Debug.LogError("unknown showType: " + this.data.showType.v);
-                            break;
-                    }
+                    float deltaY = 0;
+                    // header
+                    UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
+                    // set
+                    UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                 }
                 // txt
                 {

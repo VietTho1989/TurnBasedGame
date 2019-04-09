@@ -148,39 +148,7 @@ namespace Sudoku
                         {
                             float deltaY = 0;
                             // header
-                            {
-                                switch (this.data.showType.v)
-                                {
-                                    case UIRectTransform.ShowType.Normal:
-                                        {
-                                            if (lbTitle != null)
-                                            {
-                                                lbTitle.gameObject.SetActive(true);
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("lbTitle null");
-                                            }
-                                            deltaY += UIConstants.HeaderHeight;
-                                        }
-                                        break;
-                                    case UIRectTransform.ShowType.HeadLess:
-                                        {
-                                            if (lbTitle != null)
-                                            {
-                                                lbTitle.gameObject.SetActive(false);
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("lbTitle null");
-                                            }
-                                        }
-                                        break;
-                                    default:
-                                        Debug.LogError("unknown showType: " + this.data.showType.v);
-                                        break;
-                                }
-                            }
+                            UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                             // miniGameDataUI
                             {
                                 UIRectTransform.SetPosY(this.data.miniGameDataUIData.v, deltaY + UIConstants.DefaultMiniGameDataUIPadding);
