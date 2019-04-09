@@ -289,14 +289,6 @@ namespace Shogi
                 txtDuration.add(Language.Type.vi, "Thời gian");
                 txtUseBook.add(Language.Type.vi, "Dùng sách");
             }
-            // rect
-            {
-                depthRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                skillLevelRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                mrRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                durationRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                useBookRect.setPosY(UIConstants.HeaderHeight + 4 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-            }
         }
 
         #endregion
@@ -316,342 +308,21 @@ namespace Shogi
                     if (editShogiAI != null)
                     {
                         editShogiAI.update();
-                        // get show
-                        ShogiAI show = editShogiAI.show.v.data;
-                        ShogiAI compare = editShogiAI.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editShogiAI.compareOtherType.v.data != null)
-                                    {
-                                        if (editShogiAI.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editShogiAI);
                             // get server state
-                            Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("server null: " + this);
-                                }
-                            }
+                            Server.State.Type serverState = RequestChange.GetServerState(editShogiAI);
                             // set origin
                             {
-                                // depth
-                                {
-                                    RequestChangeIntUI.UIData depth = this.data.depth.v;
-                                    if (depth != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = depth.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.depth.v;
-                                            updateData.canRequestChange.v = editShogiAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                depth.showDifferent.v = true;
-                                                depth.compare.v = compare.depth.v;
-                                            }
-                                            else
-                                            {
-                                                depth.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                                // skillLevel
-                                {
-                                    RequestChangeIntUI.UIData skillLevel = this.data.skillLevel.v;
-                                    if (skillLevel != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = skillLevel.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.skillLevel.v;
-                                            updateData.canRequestChange.v = editShogiAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                skillLevel.showDifferent.v = true;
-                                                skillLevel.compare.v = compare.skillLevel.v;
-                                            }
-                                            else
-                                            {
-                                                skillLevel.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("skillLevel null: " + this);
-                                    }
-                                }
-                                // mr
-                                {
-                                    RequestChangeIntUI.UIData mr = this.data.mr.v;
-                                    if (mr != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = mr.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.mr.v;
-                                            updateData.canRequestChange.v = editShogiAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                mr.showDifferent.v = true;
-                                                mr.compare.v = compare.mr.v;
-                                            }
-                                            else
-                                            {
-                                                mr.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("mr null: " + this);
-                                    }
-                                }
-                                // duration
-                                {
-                                    RequestChangeIntUI.UIData duration = this.data.duration.v;
-                                    if (duration != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = duration.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.duration.v;
-                                            updateData.canRequestChange.v = editShogiAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                duration.showDifferent.v = true;
-                                                duration.compare.v = compare.duration.v;
-                                            }
-                                            else
-                                            {
-                                                duration.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("duration null: " + this);
-                                    }
-                                }
-                                // useBook
-                                {
-                                    RequestChangeBoolUI.UIData useBook = this.data.useBook.v;
-                                    if (useBook != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<bool>.UpdateData updateData = useBook.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.useBook.v;
-                                            updateData.canRequestChange.v = editShogiAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                useBook.showDifferent.v = true;
-                                                useBook.compare.v = compare.useBook.v;
-                                            }
-                                            else
-                                            {
-                                                useBook.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("useBook null: " + this);
-                                    }
-                                }
+                                RequestChange.RefreshUI(this.data.depth.v, editShogiAI, serverState, needReset, editData => editData.depth.v);
+                                RequestChange.RefreshUI(this.data.skillLevel.v, editShogiAI, serverState, needReset, editData => editData.skillLevel.v);
+                                RequestChange.RefreshUI(this.data.mr.v, editShogiAI, serverState, needReset, editData => editData.mr.v);
+                                RequestChange.RefreshUI(this.data.duration.v, editShogiAI, serverState, needReset, editData => editData.duration.v);
+                                RequestChange.RefreshUI(this.data.useBook.v, editShogiAI, serverState, needReset, editData => editData.useBook.v);
                             }
-                            // reset?
-                            if (needReset)
-                            {
-                                needReset = false;
-                                // depth
-                                {
-                                    RequestChangeIntUI.UIData depth = this.data.depth.v;
-                                    if (depth != null)
-                                    {
-                                        RequestChangeUpdate<int>.UpdateData updateData = depth.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.depth.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                                // skillLevel
-                                {
-                                    RequestChangeIntUI.UIData skillLevel = this.data.skillLevel.v;
-                                    if (skillLevel != null)
-                                    {
-                                        RequestChangeUpdate<int>.UpdateData updateData = skillLevel.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.skillLevel.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("skillLevel null: " + this);
-                                    }
-                                }
-                                // mr
-                                {
-                                    RequestChangeIntUI.UIData mr = this.data.mr.v;
-                                    if (mr != null)
-                                    {
-                                        RequestChangeUpdate<int>.UpdateData updateData = mr.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.mr.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("mr null: " + this);
-                                    }
-                                }
-                                // duration
-                                {
-                                    RequestChangeIntUI.UIData duration = this.data.duration.v;
-                                    if (duration != null)
-                                    {
-                                        RequestChangeUpdate<int>.UpdateData updateData = duration.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.duration.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("duration null: " + this);
-                                    }
-                                }
-                                // useBook
-                                {
-                                    RequestChangeBoolUI.UIData useBook = this.data.useBook.v;
-                                    if (useBook != null)
-                                    {
-                                        RequestChangeUpdate<bool>.UpdateData updateData = useBook.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.useBook.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("useBook null: " + this);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("shatranjAI null: " + this);
+                            needReset = false;
                         }
                     }
                     else
@@ -914,12 +585,6 @@ namespace Shogi
 
         #region implement callBacks
 
-        private static readonly UIRectTransform depthRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform skillLevelRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform mrRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform durationRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform useBookRect = new UIRectTransform(UIConstants.RequestBoolRect);
-
         public RequestChangeIntUI requestIntPrefab;
         public RequestChangeBoolUI requestBoolPrefab;
 
@@ -999,16 +664,16 @@ namespace Shogi
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.depth:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, depthRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.skillLevel:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, skillLevelRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.mr:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, mrRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.duration:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, durationRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -1034,7 +699,7 @@ namespace Shogi
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.useBook:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, useBookRect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

@@ -181,179 +181,21 @@ namespace GameManager.Match
                     if (editHaveLimit != null)
                     {
                         editHaveLimit.update();
-                        // get show
-                        RequestNewRoundHaveLimit show = editHaveLimit.show.v.data;
-                        RequestNewRoundHaveLimit compare = editHaveLimit.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editHaveLimit.compareOtherType.v.data != null)
-                                    {
-                                        if (editHaveLimit.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editHaveLimit);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editHaveLimit);
                                 // set origin
                                 {
-                                    // maxRound
-                                    {
-                                        RequestChangeIntUI.UIData maxRound = this.data.maxRound.v;
-                                        if (maxRound != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = maxRound.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.maxRound.v;
-                                                updateData.canRequestChange.v = editHaveLimit.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    maxRound.showDifferent.v = true;
-                                                    maxRound.compare.v = compare.maxRound.v;
-                                                }
-                                                else
-                                                {
-                                                    maxRound.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("maxRound null: " + this);
-                                        }
-                                    }
-                                    // enoughScoreStop
-                                    {
-                                        RequestChangeBoolUI.UIData enoughScoreStop = this.data.enoughScoreStop.v;
-                                        if (enoughScoreStop != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = enoughScoreStop.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.enoughScoreStop.v;
-                                                updateData.canRequestChange.v = editHaveLimit.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    enoughScoreStop.showDifferent.v = true;
-                                                    enoughScoreStop.compare.v = compare.enoughScoreStop.v;
-                                                }
-                                                else
-                                                {
-                                                    enoughScoreStop.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("enoughScoreStop null: " + this);
-                                        }
-                                    }
+                                    RequestChange.RefreshUI(this.data.maxRound.v, editHaveLimit, serverState, needReset, editData => editData.maxRound.v);
+                                    RequestChange.RefreshUI(this.data.enoughScoreStop.v, editHaveLimit, serverState, needReset, editData => editData.enoughScoreStop.v);
                                 }
-                                // reset
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                    // maxRound
-                                    {
-                                        RequestChangeIntUI.UIData maxRound = this.data.maxRound.v;
-                                        if (maxRound != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = maxRound.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.maxRound.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("maxRound null: " + this);
-                                        }
-                                    }
-                                    // enoughScoreStop
-                                    {
-                                        RequestChangeBoolUI.UIData enoughScoreStop = this.data.enoughScoreStop.v;
-                                        if (enoughScoreStop != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = enoughScoreStop.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.enoughScoreStop.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("enoughScoreStop null: " + this);
-                                        }
-                                    }
-                                }
+                                needReset = false;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
                         }
                         // UI
                         {

@@ -148,11 +148,6 @@ namespace HEX
                 txtLimitTime.add(Language.Type.vi, "Thời gian giới hạn");
                 txtFirstMoveCenter.add(Language.Type.vi, "Nước đầu tiên vào trung tâm");
             }
-            // rect
-            {
-                limitTimeRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                firstMoveCenterRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-            }
         }
 
         #endregion
@@ -173,172 +168,18 @@ namespace HEX
                     {
                         // update
                         editHexAI.update();
-                        // get show
-                        HexAI show = editHexAI.show.v.data;
-                        HexAI compare = editHexAI.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editHexAI.compareOtherType.v.data != null)
-                                    {
-                                        if (editHexAI.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editHexAI);
                             // get server state
-                            Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    // Debug.LogError ("server null: " + this);
-                                }
-                            }
+                            Server.State.Type serverState = RequestChange.GetServerState(editHexAI);
                             // set origin
                             {
-                                // limitTime
-                                {
-                                    RequestChangeIntUI.UIData limitTime = this.data.limitTime.v;
-                                    if (limitTime != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = limitTime.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.limitTime.v;
-                                            updateData.canRequestChange.v = editHexAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                limitTime.showDifferent.v = true;
-                                                limitTime.compare.v = compare.limitTime.v;
-                                            }
-                                            else
-                                            {
-                                                limitTime.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("limitTime null: " + this);
-                                    }
-                                }
-                                // firstMoveCenter
-                                {
-                                    RequestChangeBoolUI.UIData firstMoveCenter = this.data.firstMoveCenter.v;
-                                    if (firstMoveCenter != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<bool>.UpdateData updateData = firstMoveCenter.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.firstMoveCenter.v;
-                                            updateData.canRequestChange.v = editHexAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                firstMoveCenter.showDifferent.v = true;
-                                                firstMoveCenter.compare.v = compare.firstMoveCenter.v;
-                                            }
-                                            else
-                                            {
-                                                firstMoveCenter.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("firstMoveCenter null: " + this);
-                                    }
-                                }
+                                RequestChange.RefreshUI(this.data.limitTime.v, editHexAI, serverState, needReset, editData => editData.limitTime.v);
+                                RequestChange.RefreshUI(this.data.firstMoveCenter.v, editHexAI, serverState, needReset, editData => editData.firstMoveCenter.v);
                             }
-                            // reset?
-                            if (needReset)
-                            {
-                                needReset = false;
-                                // limitTime
-                                {
-                                    RequestChangeIntUI.UIData limitTime = this.data.limitTime.v;
-                                    if (limitTime != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = limitTime.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.limitTime.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("limitTime null: " + this);
-                                    }
-                                }
-                                // firstMoveCenter
-                                {
-                                    RequestChangeBoolUI.UIData firstMoveCenter = this.data.firstMoveCenter.v;
-                                    if (firstMoveCenter != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<bool>.UpdateData updateData = firstMoveCenter.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.firstMoveCenter.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("firstMoveCenter null: " + this);
-                                    }
-                                }
-                            }
+                            needReset = false;
                         }
                     }
                     // UI
@@ -486,9 +327,6 @@ namespace HEX
 
         #region implement callBacks
 
-        public static readonly UIRectTransform limitTimeRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform firstMoveCenterRect = new UIRectTransform(UIConstants.RequestBoolRect);
-
         public RequestChangeIntUI requestIntPrefab;
         public RequestChangeBoolUI requestBoolPrefab;
 
@@ -566,7 +404,7 @@ namespace HEX
                             {
                                 case UIData.Property.limitTime:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, limitTimeRect);
+                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 default:
@@ -594,7 +432,7 @@ namespace HEX
                             {
                                 case UIData.Property.firstMoveCenter:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, firstMoveCenterRect);
+                                        UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     }
                                     break;
                                 default:

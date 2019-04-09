@@ -56,7 +56,7 @@ namespace Rights
 
         #region Refresh
 
-        private bool needReset = true;
+        protected bool needReset = true;
 
         public override void refresh()
         {
@@ -69,66 +69,20 @@ namespace Rights
                     if (editNoLimit != null)
                     {
                         editNoLimit.update();
-                        // get show
-                        NoLimit show = editNoLimit.show.v.data;
-                        NoLimit compare = editNoLimit.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editNoLimit.compareOtherType.v.data != null)
-                                    {
-                                        if (editNoLimit.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editNoLimit);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this + "; " + serverState + "; " + compare);
-                                    }
-                                }
+                                // Server.State.Type serverState = RequestChange.GetServerState(editNoLimit);
                                 // set origin
                                 {
 
                                 }
-                                // reset
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                }
+                                needReset = false;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
                         }
                         // UI
                         {

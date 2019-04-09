@@ -159,11 +159,6 @@ namespace RussianDraught
                 txtTimeLimit.add(Language.Type.vi, "Giới hạn thời gian");
                 txtPickBestMove.add(Language.Type.vi, "Chọn nước đi tốt nhất");
             }
-            // rect
-            {
-                timeLimitRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                pickBestMoveRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -183,176 +178,18 @@ namespace RussianDraught
                     if (editRussianDraughtAI != null)
                     {
                         editRussianDraughtAI.update();
-                        // get show
-                        RussianDraughtAI show = editRussianDraughtAI.show.v.data;
-                        RussianDraughtAI compare = editRussianDraughtAI.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editRussianDraughtAI.compareOtherType.v.data != null)
-                                    {
-                                        if (editRussianDraughtAI.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editRussianDraughtAI);
                             // get server state
-                            Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("server null: " + this);
-                                }
-                            }
+                            Server.State.Type serverState = RequestChange.GetServerState(editRussianDraughtAI);
                             // set origin
                             {
-                                // timeLimit
-                                {
-                                    RequestChangeIntUI.UIData timeLimit = this.data.timeLimit.v;
-                                    if (timeLimit != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = timeLimit.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.timeLimit.v;
-                                            updateData.canRequestChange.v = editRussianDraughtAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                timeLimit.showDifferent.v = true;
-                                                timeLimit.compare.v = compare.timeLimit.v;
-                                            }
-                                            else
-                                            {
-                                                timeLimit.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("timeLimit null: " + this);
-                                    }
-                                }
-                                // pickBestMove
-                                {
-                                    RequestChangeIntUI.UIData pickBestMove = this.data.pickBestMove.v;
-                                    if (pickBestMove != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = pickBestMove.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.pickBestMove.v;
-                                            updateData.canRequestChange.v = editRussianDraughtAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                pickBestMove.showDifferent.v = true;
-                                                pickBestMove.compare.v = compare.pickBestMove.v;
-                                            }
-                                            else
-                                            {
-                                                pickBestMove.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("pickBestMove null: " + this);
-                                    }
-                                }
+                                RequestChange.RefreshUI(this.data.timeLimit.v, editRussianDraughtAI, serverState, needReset, editData => editData.timeLimit.v);
+                                RequestChange.RefreshUI(this.data.pickBestMove.v, editRussianDraughtAI, serverState, needReset, editData => editData.pickBestMove.v);
                             }
-                            // reset?
-                            if (needReset)
-                            {
-                                needReset = false;
-                                // timeLimit
-                                {
-                                    RequestChangeIntUI.UIData timeLimit = this.data.timeLimit.v;
-                                    if (timeLimit != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = timeLimit.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.timeLimit.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("timeLimit null: " + this);
-                                    }
-                                }
-                                // pickBestMove
-                                {
-                                    RequestChangeIntUI.UIData pickBestMove = this.data.pickBestMove.v;
-                                    if (pickBestMove != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = pickBestMove.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.pickBestMove.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("pickBestMove null: " + this);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
+                            needReset = false;
                         }
                     }
                     else
@@ -504,9 +341,6 @@ namespace RussianDraught
 
         #region implement callBacks
 
-        private static readonly UIRectTransform timeLimitRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform pickBestMoveRect = new UIRectTransform(UIConstants.RequestRect);
-
         public RequestChangeIntUI requestIntPrefab;
 
         private Server server = null;
@@ -583,12 +417,12 @@ namespace RussianDraught
                             {
                                 case UIData.Property.timeLimit:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, timeLimitRect);
+                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 case UIData.Property.pickBestMove:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, pickBestMoveRect);
+                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 default:

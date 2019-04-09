@@ -79,136 +79,99 @@ namespace TimeControl.Normal
                     if (editTimePerTurnInfo != null)
                     {
                         editTimePerTurnInfo.update();
-                        // get show
-                        TimePerTurnInfo show = editTimePerTurnInfo.show.v.data;
-                        TimePerTurnInfo compare = editTimePerTurnInfo.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editTimePerTurnInfo.compareOtherType.v.data != null)
-                                    {
-                                        if (editTimePerTurnInfo.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editTimePerTurnInfo);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + serverState + "; " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editTimePerTurnInfo);
                                 // set origin
                                 {
                                     // sub
                                     {
-                                        switch (show.getType())
+                                        TimePerTurnInfo show = editTimePerTurnInfo.show.v.data;
+                                        TimePerTurnInfo compare = editTimePerTurnInfo.compare.v.data;
+                                        if (show != null)
                                         {
-                                            case TimePerTurnInfo.Type.Limit:
-                                                {
-                                                    TimePerTurnInfo.Limit haveLimit = show as TimePerTurnInfo.Limit;
-                                                    // UIData
-                                                    TimePerTurnInfoLimitUI.UIData haveLimitUIData = this.data.sub.newOrOld<TimePerTurnInfoLimitUI.UIData>();
+                                            switch (show.getType())
+                                            {
+                                                case TimePerTurnInfo.Type.Limit:
                                                     {
-                                                        EditData<TimePerTurnInfo.Limit> editHaveLimit = haveLimitUIData.editLimit.v;
-                                                        if (editHaveLimit != null)
+                                                        TimePerTurnInfo.Limit haveLimit = show as TimePerTurnInfo.Limit;
+                                                        // UIData
+                                                        TimePerTurnInfoLimitUI.UIData haveLimitUIData = this.data.sub.newOrOld<TimePerTurnInfoLimitUI.UIData>();
                                                         {
-                                                            // origin
-                                                            editHaveLimit.origin.v = new ReferenceData<TimePerTurnInfo.Limit>((TimePerTurnInfo.Limit)editTimePerTurnInfo.origin.v.data);
-                                                            // show
-                                                            editHaveLimit.show.v = new ReferenceData<TimePerTurnInfo.Limit>(haveLimit);
-                                                            // compare
-                                                            editHaveLimit.compare.v = new ReferenceData<TimePerTurnInfo.Limit>((TimePerTurnInfo.Limit)compare);
-                                                            // compareOtherType
-                                                            editHaveLimit.compareOtherType.v = new ReferenceData<Data>(editTimePerTurnInfo.compareOtherType.v.data);
-                                                            // canEdit
-                                                            editHaveLimit.canEdit.v = editTimePerTurnInfo.canEdit.v;
-                                                            // editType
-                                                            editHaveLimit.editType.v = editTimePerTurnInfo.editType.v;
+                                                            EditData<TimePerTurnInfo.Limit> editHaveLimit = haveLimitUIData.editLimit.v;
+                                                            if (editHaveLimit != null)
+                                                            {
+                                                                // origin
+                                                                editHaveLimit.origin.v = new ReferenceData<TimePerTurnInfo.Limit>((TimePerTurnInfo.Limit)editTimePerTurnInfo.origin.v.data);
+                                                                // show
+                                                                editHaveLimit.show.v = new ReferenceData<TimePerTurnInfo.Limit>(haveLimit);
+                                                                // compare
+                                                                editHaveLimit.compare.v = new ReferenceData<TimePerTurnInfo.Limit>((TimePerTurnInfo.Limit)compare);
+                                                                // compareOtherType
+                                                                editHaveLimit.compareOtherType.v = new ReferenceData<Data>(editTimePerTurnInfo.compareOtherType.v.data);
+                                                                // canEdit
+                                                                editHaveLimit.canEdit.v = editTimePerTurnInfo.canEdit.v;
+                                                                // editType
+                                                                editHaveLimit.editType.v = editTimePerTurnInfo.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editHaveLimit null: " + this);
+                                                            }
+                                                            haveLimitUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editHaveLimit null: " + this);
-                                                        }
-                                                        haveLimitUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        this.data.sub.v = haveLimitUIData;
                                                     }
-                                                    this.data.sub.v = haveLimitUIData;
-                                                }
-                                                break;
-                                            case TimePerTurnInfo.Type.NoLimit:
-                                                {
-                                                    TimePerTurnInfo.NoLimit noLimit = show as TimePerTurnInfo.NoLimit;
-                                                    // UIData
-                                                    TimePerTurnInfoNoLimitUI.UIData noLimitUIData = this.data.sub.newOrOld<TimePerTurnInfoNoLimitUI.UIData>();
+                                                    break;
+                                                case TimePerTurnInfo.Type.NoLimit:
                                                     {
-                                                        EditData<TimePerTurnInfo.NoLimit> editNoLimit = noLimitUIData.editNoLimit.v;
-                                                        if (editNoLimit != null)
+                                                        TimePerTurnInfo.NoLimit noLimit = show as TimePerTurnInfo.NoLimit;
+                                                        // UIData
+                                                        TimePerTurnInfoNoLimitUI.UIData noLimitUIData = this.data.sub.newOrOld<TimePerTurnInfoNoLimitUI.UIData>();
                                                         {
-                                                            // origin
-                                                            editNoLimit.origin.v = new ReferenceData<TimePerTurnInfo.NoLimit>((TimePerTurnInfo.NoLimit)editTimePerTurnInfo.origin.v.data);
-                                                            // show
-                                                            editNoLimit.show.v = new ReferenceData<TimePerTurnInfo.NoLimit>(noLimit);
-                                                            // compare
-                                                            editNoLimit.compare.v = new ReferenceData<TimePerTurnInfo.NoLimit>((TimePerTurnInfo.NoLimit)compare);
-                                                            // compareOtherType
-                                                            editNoLimit.compareOtherType.v = new ReferenceData<Data>(editTimePerTurnInfo.compareOtherType.v.data);
-                                                            // canEdit
-                                                            editNoLimit.canEdit.v = editTimePerTurnInfo.canEdit.v;
-                                                            // editType
-                                                            editNoLimit.editType.v = editTimePerTurnInfo.editType.v;
+                                                            EditData<TimePerTurnInfo.NoLimit> editNoLimit = noLimitUIData.editNoLimit.v;
+                                                            if (editNoLimit != null)
+                                                            {
+                                                                // origin
+                                                                editNoLimit.origin.v = new ReferenceData<TimePerTurnInfo.NoLimit>((TimePerTurnInfo.NoLimit)editTimePerTurnInfo.origin.v.data);
+                                                                // show
+                                                                editNoLimit.show.v = new ReferenceData<TimePerTurnInfo.NoLimit>(noLimit);
+                                                                // compare
+                                                                editNoLimit.compare.v = new ReferenceData<TimePerTurnInfo.NoLimit>((TimePerTurnInfo.NoLimit)compare);
+                                                                // compareOtherType
+                                                                editNoLimit.compareOtherType.v = new ReferenceData<Data>(editTimePerTurnInfo.compareOtherType.v.data);
+                                                                // canEdit
+                                                                editNoLimit.canEdit.v = editTimePerTurnInfo.canEdit.v;
+                                                                // editType
+                                                                editNoLimit.editType.v = editTimePerTurnInfo.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editNoLimit null: " + this);
+                                                            }
+                                                            noLimitUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editNoLimit null: " + this);
-                                                        }
-                                                        noLimitUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        this.data.sub.v = noLimitUIData;
                                                     }
-                                                    this.data.sub.v = noLimitUIData;
-                                                }
-                                                break;
-                                            default:
-                                                Debug.LogError("unknown type: " + show.getType() + "; " + this);
-                                                break;
+                                                    break;
+                                                default:
+                                                    Debug.LogError("unknown type: " + show.getType() + "; " + this);
+                                                    break;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Debug.LogError("show null");
                                         }
                                     }
                                 }
-                                // reset?
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                }
+                                needReset = false;
                             }
-                        }
-                        else
-                        {
-                            // Debug.LogError ("show null: " + this);
                         }
                     }
                     else

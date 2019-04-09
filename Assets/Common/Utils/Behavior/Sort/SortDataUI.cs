@@ -151,7 +151,6 @@ public class SortDataUI : UIBehavior<SortDataUI.UIData>
     #region Refresh
 
     private bool needReset = true;
-    public GameObject differentIndicator;
 
     public override void refresh()
     {
@@ -164,180 +163,20 @@ public class SortDataUI : UIBehavior<SortDataUI.UIData>
                 if (editSortData != null)
                 {
                     editSortData.update();
-                    // get show
-                    SortData show = editSortData.show.v.data;
-                    SortData compare = editSortData.compare.v.data;
-                    if (show != null)
+                    // UI
                     {
-                        // differentIndicator
-                        if (differentIndicator != null)
-                        {
-                            bool isDifferent = false;
-                            {
-                                if (editSortData.compareOtherType.v.data != null)
-                                {
-                                    if (editSortData.compareOtherType.v.data.GetType() != show.GetType())
-                                    {
-                                        isDifferent = true;
-                                    }
-                                }
-                            }
-                            differentIndicator.SetActive(isDifferent);
-                        }
-                        else
-                        {
-                            // Debug.LogError ("differentIndicator null: " + this);
-                        }
                         // get server state
-                        Server.State.Type serverState = Server.State.Type.Connect;
-                        {
-                            Server server = show.findDataInParent<Server>();
-                            if (server != null)
-                            {
-                                if (server.state.v != null)
-                                {
-                                    serverState = server.state.v.getType();
-                                }
-                                else
-                                {
-                                    Debug.LogError("server state null: " + this);
-                                }
-                            }
-                            else
-                            {
-                                Debug.LogError("server null: " + this);
-                            }
-                        }
+                        Server.State.Type serverState = RequestChange.GetServerState(editSortData);
                         // set origin
                         {
-                            // filter
-                            {
-                                RequestChangeStringUI.UIData filter = this.data.filter.v;
-                                if (filter != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<string>.UpdateData updateData = filter.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.origin.v = show.filter.v;
-                                        updateData.canRequestChange.v = editSortData.canEdit.v;
-                                        updateData.serverState.v = serverState;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                    // compare
-                                    {
-                                        if (compare != null)
-                                        {
-                                            filter.showDifferent.v = true;
-                                            filter.compare.v = compare.filter.v;
-                                        }
-                                        else
-                                        {
-                                            filter.showDifferent.v = false;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("filter null: " + this);
-                                }
-                            }
+                            RequestChange.RefreshUI(this.data.filter.v, editSortData, serverState, needReset, editData => editData.filter.v);
                             // sortType
                             {
-                                RequestChangeEnumUI.UIData sortType = this.data.sortType.v;
-                                if (sortType != null)
-                                {
-                                    // options
-                                    {
-                                        sortType.options.copyList(SortData.getSortTypeList());
-                                    }
-                                    // update
-                                    RequestChangeUpdate<int>.UpdateData updateData = sortType.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.origin.v = (int)show.sortType.v;
-                                        updateData.canRequestChange.v = editSortData.canEdit.v;
-                                        updateData.serverState.v = serverState;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                    // compare
-                                    {
-                                        if (compare != null)
-                                        {
-                                            sortType.showDifferent.v = true;
-                                            sortType.compare.v = (int)compare.sortType.v;
-                                        }
-                                        else
-                                        {
-                                            sortType.showDifferent.v = false;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("sortType null: " + this);
-                                }
+                                RequestChangeEnumUI.RefreshOptions(this.data.sortType.v, SortData.getSortTypeList());
+                                RequestChange.RefreshUI(this.data.sortType.v, editSortData, serverState, needReset, editData => (int)editData.sortType.v);
                             }
                         }
-                        // reset?
-                        if (needReset)
-                        {
-                            needReset = false;
-                            // filter
-                            {
-                                RequestChangeStringUI.UIData filter = this.data.filter.v;
-                                if (filter != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<string>.UpdateData updateData = filter.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = show.filter.v;
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("filter null: " + this);
-                                }
-                            }
-                            // sortType
-                            {
-                                RequestChangeEnumUI.UIData sortType = this.data.sortType.v;
-                                if (sortType != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<int>.UpdateData updateData = sortType.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = (int)show.sortType.v;
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("sortType null: " + this);
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Debug.LogError("show null: " + this);
+                        needReset = false;
                     }
                 }
                 else

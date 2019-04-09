@@ -101,10 +101,6 @@ namespace MineSweeper
                 txtTitle.add(Language.Type.vi, "Dò Mìn AI");
                 txtFirstMoveType.add(Language.Type.vi, "Loại nước đi đầu tiên");
             }
-            // rect
-            {
-                firstMoveTypeRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -124,119 +120,17 @@ namespace MineSweeper
                     if (editMineSweeperAI != null)
                     {
                         editMineSweeperAI.update();
-                        // get show
-                        MineSweeperAI show = editMineSweeperAI.show.v.data;
-                        MineSweeperAI compare = editMineSweeperAI.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editMineSweeperAI.compareOtherType.v.data != null)
-                                    {
-                                        if (editMineSweeperAI.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editMineSweeperAI);
                             // get server state
-                            Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("server null: " + this);
-                                }
-                            }
+                            Server.State.Type serverState = RequestChange.GetServerState(editMineSweeperAI);
                             // set origin
                             {
-                                // firstMoveType
-                                {
-                                    RequestChangeEnumUI.UIData firstMoveType = this.data.firstMoveType.v;
-                                    if (firstMoveType != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = firstMoveType.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = (int)show.firstMoveType.v;
-                                            updateData.canRequestChange.v = editMineSweeperAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                firstMoveType.showDifferent.v = true;
-                                                firstMoveType.compare.v = (int)compare.firstMoveType.v;
-                                            }
-                                            else
-                                            {
-                                                firstMoveType.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("firstMoveType null: " + this);
-                                    }
-                                }
+                                RequestChange.RefreshUI(this.data.firstMoveType.v, editMineSweeperAI, serverState, needReset, editData => (int)editData.firstMoveType.v);
                             }
-                            // reset?
-                            if (needReset)
-                            {
-                                needReset = false;
-                                // firstMoveType
-                                {
-                                    RequestChangeEnumUI.UIData firstMoveType = this.data.firstMoveType.v;
-                                    if (firstMoveType != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = firstMoveType.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = (int)show.firstMoveType.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("firstMoveType null: " + this);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
+                            needReset = false;
                         }
                     }
                     else
@@ -353,8 +247,6 @@ namespace MineSweeper
 
         public RequestChangeEnumUI requestEnumPrefab;
 
-        public static readonly UIRectTransform firstMoveTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
-
         private Server server = null;
 
         public override void onAddCallBack<T>(T data)
@@ -428,7 +320,7 @@ namespace MineSweeper
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.firstMoveType:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, firstMoveTypeRect);
+                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

@@ -188,199 +188,140 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                 if (editGameFactory != null)
                 {
                     editGameFactory.update();
-                    // get show
-                    GameFactory show = editGameFactory.show.v.data;
-                    GameFactory compare = editGameFactory.compare.v.data;
-                    if (show != null)
+                    // UI
                     {
                         // different
-                        if (lbTitle != null)
-                        {
-                            bool isDifferent = false;
-                            {
-                                if (editGameFactory.compareOtherType.v.data != null)
-                                {
-                                    if (editGameFactory.compareOtherType.v.data.GetType() != show.GetType())
-                                    {
-                                        isDifferent = true;
-                                    }
-                                }
-                            }
-                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                        }
-                        else
-                        {
-                            Debug.LogError("differentIndicator null: " + this);
-                        }
+                        RequestChange.ShowDifferentTitle(lbTitle, editGameFactory);
                         // request
                         {
                             // get server state
-                            Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("server null: " + this);
-                                }
-                            }
+                            Server.State.Type serverState = RequestChange.GetServerState(editGameFactory);
                             // set origin
                             {
                                 // gameDataFactoryType
                                 {
-                                    RequestChangeEnumUI.UIData gameDataFactoryType = this.data.gameDataFactoryType.v;
-                                    if (gameDataFactoryType != null)
+                                    // options
                                     {
-                                        // options
+                                        List<string> options = new List<string>();
                                         {
-                                            List<string> options = new List<string>();
-                                            {
-                                                options.Add(txtDefault.get());
-                                                options.Add(txtPosture.get());
-                                            }
-                                            gameDataFactoryType.options.copyList(options);
+                                            options.Add(txtDefault.get());
+                                            options.Add(txtPosture.get());
                                         }
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = gameDataFactoryType.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = (int)show.getGameDataFactoryType();
-                                            updateData.canRequestChange.v = editGameFactory.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                gameDataFactoryType.showDifferent.v = true;
-                                                gameDataFactoryType.compare.v = (int)compare.getGameDataFactoryType();
-                                            }
-                                            else
-                                            {
-                                                gameDataFactoryType.showDifferent.v = false;
-                                            }
-                                        }
+                                        RequestChangeEnumUI.RefreshOptions(this.data.gameDataFactoryType.v, options);
                                     }
-                                    else
-                                    {
-                                        Debug.LogError("useRule null: " + this);
-                                    }
+                                    RequestChange.RefreshUI(this.data.gameDataFactoryType.v, editGameFactory, serverState, needReset, editData => (int)editData.getGameDataFactoryType());
                                 }
                                 // gameDataFactoryUIData
                                 {
-                                    GameDataFactory gameDataFactory = show.gameDataFactory.v;
-                                    if (gameDataFactory != null)
+                                    GameFactory show = editGameFactory.show.v.data;
+                                    GameFactory compare = editGameFactory.compare.v.data;
+                                    if (show != null)
                                     {
-                                        // find origin 
-                                        GameDataFactory originGameDataFactory = null;
+                                        GameDataFactory gameDataFactory = show.gameDataFactory.v;
+                                        if (gameDataFactory != null)
                                         {
-                                            GameFactory originGameFactory = editGameFactory.origin.v.data;
-                                            if (originGameFactory != null)
+                                            // find origin 
+                                            GameDataFactory originGameDataFactory = null;
                                             {
-                                                originGameDataFactory = originGameFactory.gameDataFactory.v;
+                                                GameFactory originGameFactory = editGameFactory.origin.v.data;
+                                                if (originGameFactory != null)
+                                                {
+                                                    originGameDataFactory = originGameFactory.gameDataFactory.v;
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("origin null: " + this);
+                                                }
                                             }
-                                            else
+                                            // find compare
+                                            GameDataFactory compareGameDataFactory = null;
                                             {
-                                                Debug.LogError("origin null: " + this);
+                                                if (compare != null)
+                                                {
+                                                    compareGameDataFactory = compare.gameDataFactory.v;
+                                                }
+                                                else
+                                                {
+                                                    // Debug.LogError ("compare null: " + this);
+                                                }
+                                            }
+                                            switch (gameDataFactory.getType())
+                                            {
+                                                case GameDataFactory.Type.Default:
+                                                    {
+                                                        DefaultGameDataFactory defaultGameDataFactory = gameDataFactory as DefaultGameDataFactory;
+                                                        // UIData
+                                                        DefaultGameDataFactoryUI.UIData defaultGameDataFactoryUIData = this.data.gameDataFactoryUIData.newOrOld<DefaultGameDataFactoryUI.UIData>();
+                                                        {
+                                                            EditData<DefaultGameDataFactory> editDefaultGameDataFactory = defaultGameDataFactoryUIData.editDefaultGameDataFactory.v;
+                                                            if (editDefaultGameDataFactory != null)
+                                                            {
+                                                                // origin
+                                                                editDefaultGameDataFactory.origin.v = new ReferenceData<DefaultGameDataFactory>((DefaultGameDataFactory)originGameDataFactory);
+                                                                // show
+                                                                editDefaultGameDataFactory.show.v = new ReferenceData<DefaultGameDataFactory>(defaultGameDataFactory);
+                                                                // compare
+                                                                editDefaultGameDataFactory.compare.v = new ReferenceData<DefaultGameDataFactory>((DefaultGameDataFactory)compareGameDataFactory);
+                                                                // compareOtherType
+                                                                editDefaultGameDataFactory.compareOtherType.v = new ReferenceData<Data>(compareGameDataFactory);
+                                                                // canEdit
+                                                                editDefaultGameDataFactory.canEdit.v = editGameFactory.canEdit.v;
+                                                                // editType
+                                                                editDefaultGameDataFactory.editType.v = editGameFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editDefaultGameDataFactory null: " + this);
+                                                            }
+                                                        }
+                                                        this.data.gameDataFactoryUIData.v = defaultGameDataFactoryUIData;
+                                                    }
+                                                    break;
+                                                case GameDataFactory.Type.Posture:
+                                                    {
+                                                        PostureGameDataFactory postureGameDataFactory = gameDataFactory as PostureGameDataFactory;
+                                                        // UIData
+                                                        PostureGameDataFactoryUI.UIData postureGameDataFactoryUIData = this.data.gameDataFactoryUIData.newOrOld<PostureGameDataFactoryUI.UIData>();
+                                                        {
+                                                            EditData<PostureGameDataFactory> editPostureGameDataFactory = postureGameDataFactoryUIData.editPostureGameDataFactory.v;
+                                                            if (editPostureGameDataFactory != null)
+                                                            {
+                                                                // origin
+                                                                editPostureGameDataFactory.origin.v = new ReferenceData<PostureGameDataFactory>((PostureGameDataFactory)originGameDataFactory);
+                                                                // show
+                                                                editPostureGameDataFactory.show.v = new ReferenceData<PostureGameDataFactory>(postureGameDataFactory);
+                                                                // compare
+                                                                editPostureGameDataFactory.compare.v = new ReferenceData<PostureGameDataFactory>((PostureGameDataFactory)compareGameDataFactory);
+                                                                // compareOtherType
+                                                                editPostureGameDataFactory.compareOtherType.v = new ReferenceData<Data>(compareGameDataFactory);
+                                                                // canEdit
+                                                                editPostureGameDataFactory.canEdit.v = editGameFactory.canEdit.v;
+                                                                // editType
+                                                                editPostureGameDataFactory.editType.v = editGameFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editPostureGameDataFactory null: " + this);
+                                                            }
+                                                        }
+                                                        this.data.gameDataFactoryUIData.v = postureGameDataFactoryUIData;
+                                                    }
+                                                    break;
+                                                default:
+                                                    Debug.LogError("unknown type: " + gameDataFactory.getType() + "; " + this);
+                                                    break;
                                             }
                                         }
-                                        // find compare
-                                        GameDataFactory compareGameDataFactory = null;
+                                        else
                                         {
-                                            if (compare != null)
-                                            {
-                                                compareGameDataFactory = compare.gameDataFactory.v;
-                                            }
-                                            else
-                                            {
-                                                // Debug.LogError ("compare null: " + this);
-                                            }
-                                        }
-                                        switch (gameDataFactory.getType())
-                                        {
-                                            case GameDataFactory.Type.Default:
-                                                {
-                                                    DefaultGameDataFactory defaultGameDataFactory = gameDataFactory as DefaultGameDataFactory;
-                                                    // UIData
-                                                    DefaultGameDataFactoryUI.UIData defaultGameDataFactoryUIData = this.data.gameDataFactoryUIData.newOrOld<DefaultGameDataFactoryUI.UIData>();
-                                                    {
-                                                        EditData<DefaultGameDataFactory> editDefaultGameDataFactory = defaultGameDataFactoryUIData.editDefaultGameDataFactory.v;
-                                                        if (editDefaultGameDataFactory != null)
-                                                        {
-                                                            // origin
-                                                            editDefaultGameDataFactory.origin.v = new ReferenceData<DefaultGameDataFactory>((DefaultGameDataFactory)originGameDataFactory);
-                                                            // show
-                                                            editDefaultGameDataFactory.show.v = new ReferenceData<DefaultGameDataFactory>(defaultGameDataFactory);
-                                                            // compare
-                                                            editDefaultGameDataFactory.compare.v = new ReferenceData<DefaultGameDataFactory>((DefaultGameDataFactory)compareGameDataFactory);
-                                                            // compareOtherType
-                                                            editDefaultGameDataFactory.compareOtherType.v = new ReferenceData<Data>(compareGameDataFactory);
-                                                            // canEdit
-                                                            editDefaultGameDataFactory.canEdit.v = editGameFactory.canEdit.v;
-                                                            // editType
-                                                            editDefaultGameDataFactory.editType.v = editGameFactory.editType.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultGameDataFactory null: " + this);
-                                                        }
-                                                    }
-                                                    this.data.gameDataFactoryUIData.v = defaultGameDataFactoryUIData;
-                                                }
-                                                break;
-                                            case GameDataFactory.Type.Posture:
-                                                {
-                                                    PostureGameDataFactory postureGameDataFactory = gameDataFactory as PostureGameDataFactory;
-                                                    // UIData
-                                                    PostureGameDataFactoryUI.UIData postureGameDataFactoryUIData = this.data.gameDataFactoryUIData.newOrOld<PostureGameDataFactoryUI.UIData>();
-                                                    {
-                                                        EditData<PostureGameDataFactory> editPostureGameDataFactory = postureGameDataFactoryUIData.editPostureGameDataFactory.v;
-                                                        if (editPostureGameDataFactory != null)
-                                                        {
-                                                            // origin
-                                                            editPostureGameDataFactory.origin.v = new ReferenceData<PostureGameDataFactory>((PostureGameDataFactory)originGameDataFactory);
-                                                            // show
-                                                            editPostureGameDataFactory.show.v = new ReferenceData<PostureGameDataFactory>(postureGameDataFactory);
-                                                            // compare
-                                                            editPostureGameDataFactory.compare.v = new ReferenceData<PostureGameDataFactory>((PostureGameDataFactory)compareGameDataFactory);
-                                                            // compareOtherType
-                                                            editPostureGameDataFactory.compareOtherType.v = new ReferenceData<Data>(compareGameDataFactory);
-                                                            // canEdit
-                                                            editPostureGameDataFactory.canEdit.v = editGameFactory.canEdit.v;
-                                                            // editType
-                                                            editPostureGameDataFactory.editType.v = editGameFactory.editType.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editPostureGameDataFactory null: " + this);
-                                                        }
-                                                    }
-                                                    this.data.gameDataFactoryUIData.v = postureGameDataFactoryUIData;
-                                                }
-                                                break;
-                                            default:
-                                                Debug.LogError("unknown type: " + gameDataFactory.getType() + "; " + this);
-                                                break;
+                                            Debug.LogError("show null: " + this);
                                         }
                                     }
                                     else
                                     {
-                                        Debug.LogError("show null: " + this);
+                                        Debug.LogError("show null");
                                     }
+
                                 }
                                 // timeControl
                                 {
@@ -466,38 +407,8 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                                     }
                                 }
                             }
-                            // reset
-                            if (needReset)
-                            {
-                                needReset = false;
-                                // gameDataFactoryType
-                                {
-                                    RequestChangeEnumUI.UIData gameDataFactoryType = this.data.gameDataFactoryType.v;
-                                    if (gameDataFactoryType != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = gameDataFactoryType.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = (int)show.getGameDataFactoryType();
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("gameDataFactoryType null: " + this);
-                                    }
-                                }
-                            }
+                            needReset = false;
                         }
-                    }
-                    else
-                    {
-                        Debug.LogError("show null: " + this);
                     }
                 }
                 else

@@ -245,13 +245,6 @@ namespace Xiangqi
                 txtUseBook.add(Language.Type.vi, "Dùng sách");
                 txtPickBestMove.add(Language.Type.vi, "Chọn nước tốt nhất");
             }
-            // rect
-            {
-                depthRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                thinkTimeRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                useBookRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                pickBestMoveRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -272,286 +265,20 @@ namespace Xiangqi
                     {
                         // update
                         editXiangqiAI.update();
-                        // get show
-                        XiangqiAI show = editXiangqiAI.show.v.data;
-                        XiangqiAI compare = editXiangqiAI.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editXiangqiAI.compareOtherType.v.data != null)
-                                    {
-                                        if (editXiangqiAI.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("differentIndicator null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editXiangqiAI);
                             // get server state
-                            Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    // Debug.LogError ("server null: " + this);
-                                }
-                            }
+                            Server.State.Type serverState = RequestChange.GetServerState(editXiangqiAI);
                             // set origin
                             {
-                                // depth
-                                {
-                                    RequestChangeIntUI.UIData depth = this.data.depth.v;
-                                    if (depth != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = depth.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.depth.v;
-                                            updateData.canRequestChange.v = editXiangqiAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                depth.showDifferent.v = true;
-                                                depth.compare.v = compare.depth.v;
-                                            }
-                                            else
-                                            {
-                                                depth.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                                // thinkTime
-                                {
-                                    RequestChangeIntUI.UIData thinkTime = this.data.thinkTime.v;
-                                    if (thinkTime != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = thinkTime.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.thinkTime.v;
-                                            updateData.canRequestChange.v = editXiangqiAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                thinkTime.showDifferent.v = true;
-                                                thinkTime.compare.v = compare.thinkTime.v;
-                                            }
-                                            else
-                                            {
-                                                thinkTime.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lngLimitTime null: " + this);
-                                    }
-                                }
-                                // useBook
-                                {
-                                    RequestChangeBoolUI.UIData useBook = this.data.useBook.v;
-                                    if (useBook != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<bool>.UpdateData updateData = useBook.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.useBook.v;
-                                            updateData.canRequestChange.v = editXiangqiAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                useBook.showDifferent.v = true;
-                                                useBook.compare.v = compare.useBook.v;
-                                            }
-                                            else
-                                            {
-                                                useBook.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("useBook null: " + this);
-                                    }
-                                }
-                                // pickBestMove
-                                {
-                                    RequestChangeIntUI.UIData pickBestMove = this.data.pickBestMove.v;
-                                    if (pickBestMove != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = pickBestMove.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.pickBestMove.v;
-                                            updateData.canRequestChange.v = editXiangqiAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                pickBestMove.showDifferent.v = true;
-                                                pickBestMove.compare.v = compare.pickBestMove.v;
-                                            }
-                                            else
-                                            {
-                                                pickBestMove.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("pickBestMove null: " + this);
-                                    }
-                                }
+                                RequestChange.RefreshUI(this.data.depth.v, editXiangqiAI, serverState, needReset, editData => editData.depth.v);
+                                RequestChange.RefreshUI(this.data.thinkTime.v, editXiangqiAI, serverState, needReset, editData => editData.thinkTime.v);
+                                RequestChange.RefreshUI(this.data.useBook.v, editXiangqiAI, serverState, needReset, editData => editData.useBook.v);
+                                RequestChange.RefreshUI(this.data.pickBestMove.v, editXiangqiAI, serverState, needReset, editData => editData.pickBestMove.v);
                             }
-                            // reset?
-                            if (needReset)
-                            {
-                                needReset = false;
-                                // depth
-                                {
-                                    RequestChangeIntUI.UIData depth = this.data.depth.v;
-                                    if (depth != null)
-                                    {
-                                        RequestChangeUpdate<int>.UpdateData updateData = depth.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.depth.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                                // thinkTime
-                                {
-                                    RequestChangeIntUI.UIData thinkTime = this.data.thinkTime.v;
-                                    if (thinkTime != null)
-                                    {
-                                        RequestChangeUpdate<int>.UpdateData updateData = thinkTime.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.thinkTime.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lngLimitTime null: " + this);
-                                    }
-                                }
-                                // useBook
-                                {
-                                    RequestChangeBoolUI.UIData useBook = this.data.useBook.v;
-                                    if (useBook != null)
-                                    {
-                                        RequestChangeUpdate<bool>.UpdateData updateData = useBook.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.useBook.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("useBook null: " + this);
-                                    }
-                                }
-                                // pickBestMove
-                                {
-                                    RequestChangeIntUI.UIData pickBestMove = this.data.pickBestMove.v;
-                                    if (pickBestMove != null)
-                                    {
-                                        RequestChangeUpdate<int>.UpdateData updateData = pickBestMove.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.pickBestMove.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("pickBestMove null: " + this);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("xiangqiAI null: " + this);
+                            needReset = false;
                         }
                     }
                     else
@@ -777,11 +504,6 @@ namespace Xiangqi
 
         #region implement callBacks
 
-        private static readonly UIRectTransform depthRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform thinkTimeRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform useBookRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        private static readonly UIRectTransform pickBestMoveRect = new UIRectTransform(UIConstants.RequestRect);
-
         public RequestChangeIntUI requestIntPrefab;
         public RequestChangeBoolUI requestBoolPrefab;
 
@@ -861,17 +583,17 @@ namespace Xiangqi
                             {
                                 case UIData.Property.depth:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, depthRect);
+                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 case UIData.Property.thinkTime:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, thinkTimeRect);
+                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 case UIData.Property.pickBestMove:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, pickBestMoveRect);
+                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 default:
@@ -899,7 +621,7 @@ namespace Xiangqi
                             {
                                 case UIData.Property.useBook:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, useBookRect);
+                                        UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     }
                                     break;
                                 default:

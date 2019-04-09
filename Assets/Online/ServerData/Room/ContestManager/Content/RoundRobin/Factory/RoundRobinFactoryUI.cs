@@ -196,52 +196,14 @@ namespace GameManager.Match.RoundRobin
                     if (editRoundRobinFactory != null)
                     {
                         editRoundRobinFactory.update();
-                        // get show
-                        RoundRobinFactory show = editRoundRobinFactory.show.v.data;
-                        RoundRobinFactory compare = editRoundRobinFactory.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editRoundRobinFactory.compareOtherType.v.data != null)
-                                    {
-                                        if (editRoundRobinFactory.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editRoundRobinFactory);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editRoundRobinFactory);
                                 // set origin
                                 {
                                     // singleContestFactory
@@ -327,131 +289,11 @@ namespace GameManager.Match.RoundRobin
                                             Debug.LogError("singleContestFactory null: " + this);
                                         }
                                     }
-                                    // teamCount
-                                    {
-                                        RequestChangeIntUI.UIData teamCount = this.data.teamCount.v;
-                                        if (teamCount != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = teamCount.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.teamCount.v;
-                                                updateData.canRequestChange.v = editRoundRobinFactory.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    teamCount.showDifferent.v = true;
-                                                    teamCount.compare.v = compare.teamCount.v;
-                                                }
-                                                else
-                                                {
-                                                    teamCount.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("teamCount null: " + this);
-                                        }
-                                    }
-                                    // needReturnRound
-                                    {
-                                        RequestChangeBoolUI.UIData needReturnRound = this.data.needReturnRound.v;
-                                        if (needReturnRound != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = needReturnRound.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.needReturnRound.v;
-                                                updateData.canRequestChange.v = editRoundRobinFactory.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    needReturnRound.showDifferent.v = true;
-                                                    needReturnRound.compare.v = compare.needReturnRound.v;
-                                                }
-                                                else
-                                                {
-                                                    needReturnRound.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("needReturnRound null: " + this);
-                                        }
-                                    }
+                                    RequestChange.RefreshUI(this.data.teamCount.v, editRoundRobinFactory, serverState, needReset, editData => editData.teamCount.v);
+                                    RequestChange.RefreshUI(this.data.needReturnRound.v, editRoundRobinFactory, serverState, needReset, editData => editData.needReturnRound.v);
                                 }
-                                // reset
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                    // teamCount
-                                    {
-                                        RequestChangeIntUI.UIData teamCount = this.data.teamCount.v;
-                                        if (teamCount != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = teamCount.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.teamCount.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("teamCount null: " + this);
-                                        }
-                                    }
-                                    // needReturnRound
-                                    {
-                                        RequestChangeBoolUI.UIData needReturnRound = this.data.needReturnRound.v;
-                                        if (needReturnRound != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = needReturnRound.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.needReturnRound.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("needReturnRound null: " + this);
-                                        }
-                                    }
-                                }
+                                needReset = false;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
                         }
                     }
                     else

@@ -96,10 +96,6 @@ namespace Janggi
                 txtTitle.add(Language.Type.vi, "Cờ Tướng Triều Tiên AI");
                 txtMaxVisitCount.add(Language.Type.vi, "Số nốt thăm tối đa");
             }
-            // rect
-            {
-                maxVisitCountRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -120,118 +116,17 @@ namespace Janggi
                     {
                         // update
                         editJanggiAI.update();
-                        // get show
-                        JanggiAI show = editJanggiAI.show.v.data;
-                        JanggiAI compare = editJanggiAI.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editJanggiAI.compareOtherType.v.data != null)
-                                    {
-                                        if (editJanggiAI.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("different null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editJanggiAI);
                             // get server state
-                            Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    // Debug.LogError ("server null: " + this);
-                                }
-                            }
+                            Server.State.Type serverState = RequestChange.GetServerState(editJanggiAI);
                             // set origin
                             {
-                                // maxVisitCount
-                                {
-                                    RequestChangeIntUI.UIData maxVisitCount = this.data.maxVisitCount.v;
-                                    if (maxVisitCount != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = maxVisitCount.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.maxVisitCount.v;
-                                            updateData.canRequestChange.v = editJanggiAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                maxVisitCount.showDifferent.v = true;
-                                                maxVisitCount.compare.v = compare.maxVisitCount.v;
-                                            }
-                                            else
-                                            {
-                                                maxVisitCount.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
+                                RequestChange.RefreshUI(this.data.maxVisitCount.v, editJanggiAI, serverState, needReset, editData => editData.maxVisitCount.v);
                             }
-                            // reset?
-                            if (needReset)
-                            {
-                                needReset = false;
-                                // maxVisitCount
-                                {
-                                    RequestChangeIntUI.UIData maxVisitCount = this.data.maxVisitCount.v;
-                                    if (maxVisitCount != null)
-                                    {
-                                        RequestChangeUpdate<int>.UpdateData updateData = maxVisitCount.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.maxVisitCount.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("janggiAI null: " + this);
+                            needReset = false;
                         }
                     }
                     else
@@ -346,8 +241,6 @@ namespace Janggi
 
         #region implement callBacks
 
-        private static readonly UIRectTransform maxVisitCountRect = new UIRectTransform(UIConstants.RequestRect);
-
         public RequestChangeIntUI requestIntPrefab;
 
         private Server server = null;
@@ -421,7 +314,7 @@ namespace Janggi
                             {
                                 case UIData.Property.maxVisitCount:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, maxVisitCountRect);
+                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 default:

@@ -120,122 +120,20 @@ namespace TimeControl.Normal
                     if (editLimit != null)
                     {
                         editLimit.update();
-                        // get show
-                        TimePerTurnInfo.Limit show = editLimit.show.v.data;
-                        TimePerTurnInfo.Limit compare = editLimit.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editLimit.compareOtherType.v.data != null)
-                                    {
-                                        if (editLimit.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editLimit);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editLimit);
                                 // set origin
                                 {
-                                    // perTurn
-                                    {
-                                        RequestChangeFloatUI.UIData perTurn = this.data.perTurn.v;
-                                        if (perTurn != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<float>.UpdateData updateData = perTurn.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.perTurn.v;
-                                                updateData.canRequestChange.v = editLimit.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    perTurn.showDifferent.v = true;
-                                                    perTurn.compare.v = compare.perTurn.v;
-                                                }
-                                                else
-                                                {
-                                                    perTurn.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("perTurn null: " + this);
-                                        }
-                                    }
+                                    RequestChange.RefreshUI(this.data.perTurn.v, editLimit, serverState, needReset, editData => editData.perTurn.v);
                                 }
-                                // reset
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                    // perTurn
-                                    {
-                                        RequestChangeFloatUI.UIData perTurn = this.data.perTurn.v;
-                                        if (perTurn != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<float>.UpdateData updateData = perTurn.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.perTurn.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("perTurn null: " + this);
-                                        }
-                                    }
-                                }
+                                needReset = false;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
                         }
                         // UI
                         {

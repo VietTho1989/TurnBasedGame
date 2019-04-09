@@ -205,343 +205,140 @@ namespace Rights
                     if (editUndoRedoRight != null)
                     {
                         editUndoRedoRight.update();
-                        // get show
-                        UndoRedoRight show = editUndoRedoRight.show.v.data;
-                        UndoRedoRight compare = editUndoRedoRight.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editUndoRedoRight.compareOtherType.v.data != null)
-                                    {
-                                        if (editUndoRedoRight.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editUndoRedoRight);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editUndoRedoRight);
                                 // set origin
                                 {
-                                    // needAccept
-                                    {
-                                        RequestChangeBoolUI.UIData needAccept = this.data.needAccept.v;
-                                        if (needAccept != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = needAccept.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.needAccept.v;
-                                                updateData.canRequestChange.v = editUndoRedoRight.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    needAccept.showDifferent.v = true;
-                                                    needAccept.compare.v = compare.needAccept.v;
-                                                }
-                                                else
-                                                {
-                                                    needAccept.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("needAccept null: " + this);
-                                        }
-                                    }
-                                    // needAdmin
-                                    {
-                                        RequestChangeBoolUI.UIData needAdmin = this.data.needAdmin.v;
-                                        if (needAdmin != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = needAdmin.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.needAdmin.v;
-                                                updateData.canRequestChange.v = editUndoRedoRight.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    needAdmin.showDifferent.v = true;
-                                                    needAdmin.compare.v = compare.needAdmin.v;
-                                                }
-                                                else
-                                                {
-                                                    needAdmin.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("needAdmin null: " + this);
-                                        }
-                                    }
+                                    RequestChange.RefreshUI(this.data.needAccept.v, editUndoRedoRight, serverState, needReset, editData => editData.needAccept.v);
+                                    RequestChange.RefreshUI(this.data.needAdmin.v, editUndoRedoRight, serverState, needReset, editData => editData.needAdmin.v);
                                     // limitType
                                     {
-                                        RequestChangeEnumUI.UIData limitType = this.data.limitType.v;
-                                        if (limitType != null)
-                                        {
-                                            // options
-                                            limitType.options.copyList(Limit.getStrTypes());
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = limitType.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = (int)show.getLimitType();
-                                                updateData.canRequestChange.v = editUndoRedoRight.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    limitType.showDifferent.v = true;
-                                                    limitType.compare.v = (int)compare.getLimitType();
-                                                }
-                                                else
-                                                {
-                                                    limitType.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("limitType null: " + this);
-                                        }
+                                        RequestChangeEnumUI.RefreshOptions(this.data.limitType.v, Limit.getStrTypes());
+                                        RequestChange.RefreshUI(this.data.limitType.v, editUndoRedoRight, serverState, needReset, editData => (int)editData.getLimitType());
                                     }
                                     // limitUIData
                                     {
-                                        Limit limit = show.limit.v;
-                                        if (limit != null)
+                                        UndoRedoRight show = editUndoRedoRight.show.v.data;
+                                        UndoRedoRight compare = editUndoRedoRight.compare.v.data;
+                                        if (show != null)
                                         {
-                                            // find origin 
-                                            Limit originLimit = null;
+                                            Limit limit = show.limit.v;
+                                            if (limit != null)
                                             {
-                                                UndoRedoRight originUndoRedoRight = editUndoRedoRight.origin.v.data;
-                                                if (originUndoRedoRight != null)
+                                                // find origin 
+                                                Limit originLimit = null;
                                                 {
-                                                    originLimit = originUndoRedoRight.limit.v;
+                                                    UndoRedoRight originUndoRedoRight = editUndoRedoRight.origin.v.data;
+                                                    if (originUndoRedoRight != null)
+                                                    {
+                                                        originLimit = originUndoRedoRight.limit.v;
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("origin null: " + this);
+                                                    }
                                                 }
-                                                else
+                                                // find compare
+                                                Limit compareLimit = null;
                                                 {
-                                                    Debug.LogError("origin null: " + this);
+                                                    if (compare != null)
+                                                    {
+                                                        compareLimit = compare.limit.v;
+                                                    }
+                                                    else
+                                                    {
+                                                        // Debug.LogError ("compare null: " + this);
+                                                    }
+                                                }
+                                                switch (limit.getType())
+                                                {
+                                                    case Limit.Type.NoLimit:
+                                                        {
+                                                            NoLimit noLimit = limit as NoLimit;
+                                                            // Find
+                                                            NoLimitUI.UIData noLimitUIData = this.data.limitUIData.newOrOld<NoLimitUI.UIData>();
+                                                            // Update
+                                                            {
+                                                                EditData<NoLimit> editNoLimit = noLimitUIData.editNoLimit.v;
+                                                                if (editNoLimit != null)
+                                                                {
+                                                                    // origin
+                                                                    editNoLimit.origin.v = new ReferenceData<NoLimit>((NoLimit)originLimit);
+                                                                    // show
+                                                                    editNoLimit.show.v = new ReferenceData<NoLimit>(noLimit);
+                                                                    // compare
+                                                                    editNoLimit.compare.v = new ReferenceData<NoLimit>((NoLimit)compareLimit);
+                                                                    // compareOtherType
+                                                                    editNoLimit.compareOtherType.v = new ReferenceData<Data>(compareLimit);
+                                                                    // canEdit
+                                                                    editNoLimit.canEdit.v = editUndoRedoRight.canEdit.v;
+                                                                    // editType
+                                                                    editNoLimit.editType.v = editUndoRedoRight.editType.v;
+                                                                }
+                                                                else
+                                                                {
+                                                                    Debug.LogError("editNoLimit null: " + this);
+                                                                }
+                                                                noLimitUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                            }
+                                                            this.data.limitUIData.v = noLimitUIData;
+                                                        }
+                                                        break;
+                                                    case Limit.Type.HaveLimit:
+                                                        {
+                                                            HaveLimit haveLimit = limit as HaveLimit;
+                                                            // UIData
+                                                            HaveLimitUI.UIData haveLimitUIData = this.data.limitUIData.newOrOld<HaveLimitUI.UIData>();
+                                                            {
+                                                                EditData<HaveLimit> editHaveLimit = haveLimitUIData.editHaveLimit.v;
+                                                                if (editHaveLimit != null)
+                                                                {
+                                                                    // origin
+                                                                    editHaveLimit.origin.v = new ReferenceData<HaveLimit>((HaveLimit)originLimit);
+                                                                    // show
+                                                                    editHaveLimit.show.v = new ReferenceData<HaveLimit>(haveLimit);
+                                                                    // compare
+                                                                    editHaveLimit.compare.v = new ReferenceData<HaveLimit>((HaveLimit)compareLimit);
+                                                                    // compareOtherType
+                                                                    editHaveLimit.compareOtherType.v = new ReferenceData<Data>(compareLimit);
+                                                                    // canEdit
+                                                                    editHaveLimit.canEdit.v = editUndoRedoRight.canEdit.v;
+                                                                    // editType
+                                                                    editHaveLimit.editType.v = editUndoRedoRight.editType.v;
+                                                                }
+                                                                else
+                                                                {
+                                                                    Debug.LogError("editHaveLimit null: " + this);
+                                                                }
+                                                                haveLimitUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                            }
+                                                            this.data.limitUIData.v = haveLimitUIData;
+                                                        }
+                                                        break;
+                                                    default:
+                                                        Debug.LogError("unknown type: " + limit.getType() + "; " + this);
+                                                        break;
                                                 }
                                             }
-                                            // find compare
-                                            Limit compareLimit = null;
+                                            else
                                             {
-                                                if (compare != null)
-                                                {
-                                                    compareLimit = compare.limit.v;
-                                                }
-                                                else
-                                                {
-                                                    // Debug.LogError ("compare null: " + this);
-                                                }
-                                            }
-                                            switch (limit.getType())
-                                            {
-                                                case Limit.Type.NoLimit:
-                                                    {
-                                                        NoLimit noLimit = limit as NoLimit;
-                                                        // Find
-                                                        NoLimitUI.UIData noLimitUIData = this.data.limitUIData.newOrOld<NoLimitUI.UIData>();
-                                                        // Update
-                                                        {
-                                                            EditData<NoLimit> editNoLimit = noLimitUIData.editNoLimit.v;
-                                                            if (editNoLimit != null)
-                                                            {
-                                                                // origin
-                                                                editNoLimit.origin.v = new ReferenceData<NoLimit>((NoLimit)originLimit);
-                                                                // show
-                                                                editNoLimit.show.v = new ReferenceData<NoLimit>(noLimit);
-                                                                // compare
-                                                                editNoLimit.compare.v = new ReferenceData<NoLimit>((NoLimit)compareLimit);
-                                                                // compareOtherType
-                                                                editNoLimit.compareOtherType.v = new ReferenceData<Data>(compareLimit);
-                                                                // canEdit
-                                                                editNoLimit.canEdit.v = editUndoRedoRight.canEdit.v;
-                                                                // editType
-                                                                editNoLimit.editType.v = editUndoRedoRight.editType.v;
-                                                            }
-                                                            else
-                                                            {
-                                                                Debug.LogError("editNoLimit null: " + this);
-                                                            }
-                                                            noLimitUIData.showType.v = UIRectTransform.ShowType.HeadLess;
-                                                        }
-                                                        this.data.limitUIData.v = noLimitUIData;
-                                                    }
-                                                    break;
-                                                case Limit.Type.HaveLimit:
-                                                    {
-                                                        HaveLimit haveLimit = limit as HaveLimit;
-                                                        // UIData
-                                                        HaveLimitUI.UIData haveLimitUIData = this.data.limitUIData.newOrOld<HaveLimitUI.UIData>();
-                                                        {
-                                                            EditData<HaveLimit> editHaveLimit = haveLimitUIData.editHaveLimit.v;
-                                                            if (editHaveLimit != null)
-                                                            {
-                                                                // origin
-                                                                editHaveLimit.origin.v = new ReferenceData<HaveLimit>((HaveLimit)originLimit);
-                                                                // show
-                                                                editHaveLimit.show.v = new ReferenceData<HaveLimit>(haveLimit);
-                                                                // compare
-                                                                editHaveLimit.compare.v = new ReferenceData<HaveLimit>((HaveLimit)compareLimit);
-                                                                // compareOtherType
-                                                                editHaveLimit.compareOtherType.v = new ReferenceData<Data>(compareLimit);
-                                                                // canEdit
-                                                                editHaveLimit.canEdit.v = editUndoRedoRight.canEdit.v;
-                                                                // editType
-                                                                editHaveLimit.editType.v = editUndoRedoRight.editType.v;
-                                                            }
-                                                            else
-                                                            {
-                                                                Debug.LogError("editHaveLimit null: " + this);
-                                                            }
-                                                            haveLimitUIData.showType.v = UIRectTransform.ShowType.HeadLess;
-                                                        }
-                                                        this.data.limitUIData.v = haveLimitUIData;
-                                                    }
-                                                    break;
-                                                default:
-                                                    Debug.LogError("unknown type: " + limit.getType() + "; " + this);
-                                                    break;
+                                                Debug.LogError("show null: " + this);
                                             }
                                         }
                                         else
                                         {
-                                            Debug.LogError("show null: " + this);
+                                            Debug.LogError("show null");
                                         }
                                     }
                                 }
                             }
-                            // reset
-                            if (needReset)
-                            {
-                                needReset = false;
-                                // needAccept
-                                {
-                                    RequestChangeBoolUI.UIData needAccept = this.data.needAccept.v;
-                                    if (needAccept != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<bool>.UpdateData updateData = needAccept.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.needAccept.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("needAccept null: " + this);
-                                    }
-                                }
-                                // needAdmin
-                                {
-                                    RequestChangeBoolUI.UIData needAdmin = this.data.needAdmin.v;
-                                    if (needAdmin != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<bool>.UpdateData updateData = needAdmin.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.needAdmin.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("needAdmin null: " + this);
-                                    }
-                                }
-                                // limitType
-                                {
-                                    RequestChangeEnumUI.UIData limitType = this.data.limitType.v;
-                                    if (limitType != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = limitType.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = (int)show.getLimitType();
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("limitType null: " + this);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
+                            needReset = false;
                         }
                     }
                     else

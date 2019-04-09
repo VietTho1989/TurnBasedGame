@@ -56,7 +56,7 @@ namespace Sudoku
 
         #region Refresh
 
-        private bool needReset = true;
+        protected bool needReset = true;
 
         public override void refresh()
         {
@@ -69,63 +69,17 @@ namespace Sudoku
                     if (editSudokuAI != null)
                     {
                         editSudokuAI.update();
-                        // get show
-                        SudokuAI show = editSudokuAI.show.v.data;
-                        SudokuAI compare = editSudokuAI.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editSudokuAI.compareOtherType.v.data != null)
-                                    {
-                                        if (editSudokuAI.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editSudokuAI);
                             // get server state
-                            Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this + ", " + compare + ", " + serverState);
-                                    }
-                                }
-                                else
-                                {
-                                    // Debug.LogError ("server null: " + this);
-                                }
-                            }
+                            Server.State.Type serverState = RequestChange.GetServerState(editSudokuAI);
                             // set origin
                             {
 
                             }
-                            // reset?
-                            if (needReset)
-                            {
-                                needReset = false;
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("sudokuAI null: " + this);
+                            needReset = false;
                         }
                     }
                     else

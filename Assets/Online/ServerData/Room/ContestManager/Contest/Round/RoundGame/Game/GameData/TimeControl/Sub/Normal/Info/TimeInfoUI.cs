@@ -278,90 +278,20 @@ namespace TimeControl.Normal
                     {
                         // update
                         editTimeInfo.update();
-                        // get show
-                        TimeInfo show = editTimeInfo.show.v.data;
-                        TimeInfo compare = editTimeInfo.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editTimeInfo.compareOtherType.v.data != null)
-                                    {
-                                        if (editTimeInfo.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editTimeInfo);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        // Debug.LogError ("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editTimeInfo);
                                 // set origin
                                 {
                                     // timePerTurnType
                                     {
-                                        RequestChangeEnumUI.UIData timePerTurnType = this.data.timePerTurnType.v;
-                                        if (timePerTurnType != null)
-                                        {
-                                            // options
-                                            timePerTurnType.options.copyList(TimePerTurnInfo.getStrTypes());
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = timePerTurnType.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = (int)show.getTimePerTurnType();
-                                                updateData.canRequestChange.v = editTimeInfo.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    timePerTurnType.showDifferent.v = true;
-                                                    timePerTurnType.compare.v = (int)compare.getTimePerTurnType();
-                                                }
-                                                else
-                                                {
-                                                    timePerTurnType.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("timePerTurnType null: " + this);
-                                        }
+                                        RequestChangeEnumUI.RefreshOptions(this.data.timePerTurnType.v, TimePerTurnInfo.getStrTypes());
+                                        RequestChange.RefreshUI(this.data.timePerTurnType.v, editTimeInfo, serverState, needReset, editData => (int)editData.getTimePerTurnType());
                                     }
                                     // timePerTurn
                                     {
@@ -449,40 +379,8 @@ namespace TimeControl.Normal
                                     }
                                     // totalTimeType
                                     {
-                                        RequestChangeEnumUI.UIData totalTimeType = this.data.totalTimeType.v;
-                                        if (totalTimeType != null)
-                                        {
-                                            // options
-                                            totalTimeType.options.copyList(TotalTimeInfo.getStrTypes());
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = totalTimeType.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = (int)show.getTotalTimeType();
-                                                updateData.canRequestChange.v = editTimeInfo.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    totalTimeType.showDifferent.v = true;
-                                                    totalTimeType.compare.v = (int)compare.getTotalTimeType();
-                                                }
-                                                else
-                                                {
-                                                    totalTimeType.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("totalTimeType null: " + this);
-                                        }
+                                        RequestChangeEnumUI.RefreshOptions(this.data.totalTimeType.v, TotalTimeInfo.getStrTypes());
+                                        RequestChange.RefreshUI(this.data.totalTimeType.v, editTimeInfo, serverState, needReset, editData => (int)editData.getTotalTimeType());
                                     }
                                     // totalTime
                                     {
@@ -570,40 +468,8 @@ namespace TimeControl.Normal
                                     }
                                     // overTimePerTurnType
                                     {
-                                        RequestChangeEnumUI.UIData overTimePerTurnType = this.data.overTimePerTurnType.v;
-                                        if (overTimePerTurnType != null)
-                                        {
-                                            // options
-                                            overTimePerTurnType.options.copyList(TimePerTurnInfo.getStrTypes());
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = overTimePerTurnType.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = (int)show.getOverTimePerTurnType();
-                                                updateData.canRequestChange.v = editTimeInfo.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    overTimePerTurnType.showDifferent.v = true;
-                                                    overTimePerTurnType.compare.v = (int)compare.getOverTimePerTurnType();
-                                                }
-                                                else
-                                                {
-                                                    overTimePerTurnType.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("overTimePerTurnType null: " + this);
-                                        }
+                                        RequestChangeEnumUI.RefreshOptions(this.data.overTimePerTurnType.v, TimePerTurnInfo.getStrTypes());
+                                        RequestChange.RefreshUI(this.data.overTimePerTurnType.v, editTimeInfo, serverState, needReset, editData => (int)editData.getOverTimePerTurnType());
                                     }
                                     // overTimePerTurn
                                     {
@@ -689,140 +555,10 @@ namespace TimeControl.Normal
                                             Debug.LogError("timePerTurn null: " + this);
                                         }
                                     }
-                                    // lagCompensation
-                                    {
-                                        RequestChangeFloatUI.UIData lagCompensation = this.data.lagCompensation.v;
-                                        if (lagCompensation != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<float>.UpdateData updateData = lagCompensation.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.lagCompensation.v;
-                                                updateData.canRequestChange.v = editTimeInfo.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    lagCompensation.showDifferent.v = true;
-                                                    lagCompensation.compare.v = compare.lagCompensation.v;
-                                                }
-                                                else
-                                                {
-                                                    lagCompensation.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("lagCompensation null: " + this);
-                                        }
-                                    }
+                                    RequestChange.RefreshUI(this.data.lagCompensation.v, editTimeInfo, serverState, needReset, editData => editData.lagCompensation.v);
                                 }
-                                // reset?
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                    // timePerTurnType
-                                    {
-                                        RequestChangeEnumUI.UIData timePerTurnType = this.data.timePerTurnType.v;
-                                        if (timePerTurnType != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = timePerTurnType.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = (int)show.getTimePerTurnType();
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("timePerTurnType null: " + this);
-                                        }
-                                    }
-                                    // totalTimeType
-                                    {
-                                        RequestChangeEnumUI.UIData totalTimeType = this.data.totalTimeType.v;
-                                        if (totalTimeType != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = totalTimeType.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = (int)show.getTotalTimeType();
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("totalTimeType null: " + this);
-                                        }
-                                    }
-                                    // overTimePerTurnType
-                                    {
-                                        RequestChangeEnumUI.UIData overTimePerTurnType = this.data.overTimePerTurnType.v;
-                                        if (overTimePerTurnType != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = overTimePerTurnType.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = (int)show.getOverTimePerTurnType();
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("overTimePerTurnType null: " + this);
-                                        }
-                                    }
-                                    // lagCompensation
-                                    {
-                                        RequestChangeFloatUI.UIData lagCompensation = this.data.lagCompensation.v;
-                                        if (lagCompensation != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<float>.UpdateData updateData = lagCompensation.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.lagCompensation.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("lagCompensation null: " + this);
-                                        }
-                                    }
-                                }
+                                needReset = false;
                             }
-                        }
-                        else
-                        {
-                            // Debug.LogError ("show null: " + this);
                         }
                         // UI Position
                         {

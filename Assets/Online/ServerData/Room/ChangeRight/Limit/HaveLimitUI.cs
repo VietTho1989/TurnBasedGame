@@ -129,122 +129,20 @@ namespace Rights
                     if (editHaveLimit != null)
                     {
                         editHaveLimit.update();
-                        // get show
-                        HaveLimit show = editHaveLimit.show.v.data;
-                        HaveLimit compare = editHaveLimit.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editHaveLimit.compareOtherType.v.data != null)
-                                    {
-                                        if (editHaveLimit.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editHaveLimit);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editHaveLimit);
                                 // set origin
                                 {
-                                    // limit
-                                    {
-                                        RequestChangeIntUI.UIData limit = this.data.limit.v;
-                                        if (limit != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = limit.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.limit.v;
-                                                updateData.canRequestChange.v = editHaveLimit.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    limit.showDifferent.v = true;
-                                                    limit.compare.v = compare.limit.v;
-                                                }
-                                                else
-                                                {
-                                                    limit.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("limit null: " + this);
-                                        }
-                                    }
+                                    RequestChange.RefreshUI(this.data.limit.v, editHaveLimit, serverState, needReset, editData => editData.limit.v);
                                 }
-                                // reset
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                    // limit
-                                    {
-                                        RequestChangeIntUI.UIData limit = this.data.limit.v;
-                                        if (limit != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = limit.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.limit.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("limit null: " + this);
-                                        }
-                                    }
-                                }
+                                needReset = false;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
                         }
                         // UI
                         {

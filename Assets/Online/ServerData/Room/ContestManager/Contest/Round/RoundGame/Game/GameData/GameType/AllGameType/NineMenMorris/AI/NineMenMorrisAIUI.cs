@@ -318,14 +318,6 @@ namespace NineMenMorris
                 txtMaxBlackOrWhite3.add(Language.Type.vi, "Độ sâu khi 1 trong 2 bên còn 3 quân");
                 txtPickBestMove.add(Language.Type.vi, "Tỷ lệ chọn nước đi tốt nhất");
             }
-            // rect
-            {
-                maxNormalRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                maxPositioningRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                maxBlackAndWhite3Rect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                maxBlackOrWhite3Rect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                pickBestMoveRect.setPosY(UIConstants.HeaderHeight + 4 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -345,347 +337,21 @@ namespace NineMenMorris
                     if (editNineMenMorrisAI != null)
                     {
                         editNineMenMorrisAI.update();
-                        // get show
-                        NineMenMorrisAI show = editNineMenMorrisAI.show.v.data;
-                        NineMenMorrisAI compare = editNineMenMorrisAI.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editNineMenMorrisAI.compareOtherType.v.data != null)
-                                    {
-                                        if (editNineMenMorrisAI.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editNineMenMorrisAI);
                             // get server state
-                            Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    // Debug.LogError ("server null: " + this);
-                                }
-                            }
+                            Server.State.Type serverState = RequestChange.GetServerState(editNineMenMorrisAI);
                             // set origin
                             {
-                                // MaxNormal
-                                {
-                                    RequestChangeIntUI.UIData maxNormal = this.data.MaxNormal.v;
-                                    if (maxNormal != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = maxNormal.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.MaxNormal.v;
-                                            updateData.canRequestChange.v = editNineMenMorrisAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                maxNormal.showDifferent.v = true;
-                                                maxNormal.compare.v = compare.MaxNormal.v;
-                                            }
-                                            else
-                                            {
-                                                maxNormal.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("MaxNormal null: " + this);
-                                    }
-                                }
-                                // MaxPositioning
-                                {
-                                    RequestChangeIntUI.UIData maxPositioning = this.data.MaxPositioning.v;
-                                    if (maxPositioning != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = maxPositioning.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.MaxPositioning.v;
-                                            updateData.canRequestChange.v = editNineMenMorrisAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                maxPositioning.showDifferent.v = true;
-                                                maxPositioning.compare.v = compare.MaxPositioning.v;
-                                            }
-                                            else
-                                            {
-                                                maxPositioning.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("MaxPositioning null: " + this);
-                                    }
-                                }
-                                // MaxBlackAndWhite3
-                                {
-                                    RequestChangeIntUI.UIData maxBlackAndWhite3 = this.data.MaxBlackAndWhite3.v;
-                                    if (maxBlackAndWhite3 != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = maxBlackAndWhite3.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.MaxBlackAndWhite3.v;
-                                            updateData.canRequestChange.v = editNineMenMorrisAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                maxBlackAndWhite3.showDifferent.v = true;
-                                                maxBlackAndWhite3.compare.v = compare.MaxBlackAndWhite3.v;
-                                            }
-                                            else
-                                            {
-                                                maxBlackAndWhite3.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("MaxBlackAndWhite3 null: " + this);
-                                    }
-                                }
-                                // MaxBlackOrWhite3
-                                {
-                                    RequestChangeIntUI.UIData maxBlackOrWhite3 = this.data.MaxBlackOrWhite3.v;
-                                    if (maxBlackOrWhite3 != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = maxBlackOrWhite3.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.MaxBlackOrWhite3.v;
-                                            updateData.canRequestChange.v = editNineMenMorrisAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                maxBlackOrWhite3.showDifferent.v = true;
-                                                maxBlackOrWhite3.compare.v = compare.MaxBlackOrWhite3.v;
-                                            }
-                                            else
-                                            {
-                                                maxBlackOrWhite3.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("MaxBlackOrWhite3 null: " + this);
-                                    }
-                                }
-                                // pickBestMove
-                                {
-                                    RequestChangeIntUI.UIData pickBestMove = this.data.pickBestMove.v;
-                                    if (pickBestMove != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = pickBestMove.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.pickBestMove.v;
-                                            updateData.canRequestChange.v = editNineMenMorrisAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                pickBestMove.showDifferent.v = true;
-                                                pickBestMove.compare.v = compare.pickBestMove.v;
-                                            }
-                                            else
-                                            {
-                                                pickBestMove.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("pickBestMove null: " + this);
-                                    }
-                                }
+                                RequestChange.RefreshUI(this.data.MaxNormal.v, editNineMenMorrisAI, serverState, needReset, editData => editData.MaxNormal.v);
+                                RequestChange.RefreshUI(this.data.MaxPositioning.v, editNineMenMorrisAI, serverState, needReset, editData => editData.MaxPositioning.v);
+                                RequestChange.RefreshUI(this.data.MaxBlackAndWhite3.v, editNineMenMorrisAI, serverState, needReset, editData => editData.MaxBlackAndWhite3.v);
+                                RequestChange.RefreshUI(this.data.MaxBlackOrWhite3.v, editNineMenMorrisAI, serverState, needReset, editData => editData.MaxBlackOrWhite3.v);
+                                RequestChange.RefreshUI(this.data.pickBestMove.v, editNineMenMorrisAI, serverState, needReset, editData => editData.pickBestMove.v);
                             }
-                            // reset?
-                            if (needReset)
-                            {
-                                needReset = false;
-                                // MaxNormal
-                                {
-                                    RequestChangeIntUI.UIData maxNormal = this.data.MaxNormal.v;
-                                    if (maxNormal != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = maxNormal.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.MaxNormal.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("MaxNormal null: " + this);
-                                    }
-                                }
-                                // MaxPositioning
-                                {
-                                    RequestChangeIntUI.UIData maxPositioning = this.data.MaxPositioning.v;
-                                    if (maxPositioning != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = maxPositioning.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.MaxPositioning.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("MaxPositioning null: " + this);
-                                    }
-                                }
-                                // MaxBlackAndWhite3
-                                {
-                                    RequestChangeIntUI.UIData maxBlackAndWhite3 = this.data.MaxBlackAndWhite3.v;
-                                    if (maxBlackAndWhite3 != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = maxBlackAndWhite3.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.MaxBlackAndWhite3.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("MaxBlackAndWhite3 null: " + this);
-                                    }
-                                }
-                                // MaxBlackOrWhite3
-                                {
-                                    RequestChangeIntUI.UIData maxBlackOrWhite3 = this.data.MaxBlackOrWhite3.v;
-                                    if (maxBlackOrWhite3 != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = maxBlackOrWhite3.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.MaxBlackOrWhite3.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("MaxBlackOrWhite3 null: " + this);
-                                    }
-                                }
-                                // pickBestMove
-                                {
-                                    RequestChangeIntUI.UIData pickBestMove = this.data.pickBestMove.v;
-                                    if (pickBestMove != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = pickBestMove.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.pickBestMove.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("pickBestMove null: " + this);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("chessAI null: " + this);
+                            needReset = false;
                         }
                     }
                     else
@@ -948,12 +614,6 @@ namespace NineMenMorris
 
         #region implement callBacks
 
-        private static readonly UIRectTransform maxNormalRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform maxPositioningRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform maxBlackAndWhite3Rect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform maxBlackOrWhite3Rect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform pickBestMoveRect = new UIRectTransform(UIConstants.RequestRect);
-
         public RequestChangeIntUI requestIntPrefab;
 
         private Server server = null;
@@ -1032,19 +692,19 @@ namespace NineMenMorris
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.MaxNormal:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, maxNormalRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.MaxPositioning:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, maxPositioningRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.MaxBlackAndWhite3:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, maxBlackAndWhite3Rect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.MaxBlackOrWhite3:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, maxBlackOrWhite3Rect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.pickBestMove:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, pickBestMoveRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

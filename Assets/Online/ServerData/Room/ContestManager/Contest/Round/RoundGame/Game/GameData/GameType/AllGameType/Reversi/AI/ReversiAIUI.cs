@@ -364,16 +364,6 @@ namespace Reversi
                 txtUseBook.add(Language.Type.vi, "Dùng sách");
                 txtPercent.add(Language.Type.vi, "Phần trăm");
             }
-            // rect
-            {
-                sortRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                minRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                maxRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                endRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                msLeftRect.setPosY(UIConstants.HeaderHeight + 4 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                useBookRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                percentRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -393,454 +383,23 @@ namespace Reversi
                     if (editReversiAI != null)
                     {
                         editReversiAI.update();
-                        // get show
-                        ReversiAI show = editReversiAI.show.v.data;
-                        ReversiAI compare = editReversiAI.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // lbTitle
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editReversiAI.compareOtherType.v.data != null)
-                                    {
-                                        if (editReversiAI.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editReversiAI);
                             // get server state
-                            Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("server null: " + this);
-                                }
-                            }
+                            Server.State.Type serverState = RequestChange.GetServerState(editReversiAI);
                             // set origin
                             {
-                                // sort
-                                {
-                                    RequestChangeIntUI.UIData sort = this.data.sort.v;
-                                    if (sort != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = sort.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.sort.v;
-                                            updateData.canRequestChange.v = editReversiAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                sort.showDifferent.v = true;
-                                                sort.compare.v = compare.sort.v;
-                                            }
-                                            else
-                                            {
-                                                sort.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("sort null: " + this);
-                                    }
-                                }
-                                // min
-                                {
-                                    RequestChangeIntUI.UIData min = this.data.min.v;
-                                    if (min != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = min.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.min.v;
-                                            updateData.canRequestChange.v = editReversiAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                min.showDifferent.v = true;
-                                                min.compare.v = compare.min.v;
-                                            }
-                                            else
-                                            {
-                                                min.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("min null: " + this);
-                                    }
-                                }
-                                // max
-                                {
-                                    RequestChangeIntUI.UIData max = this.data.max.v;
-                                    if (max != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = max.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.max.v;
-                                            updateData.canRequestChange.v = editReversiAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                max.showDifferent.v = true;
-                                                max.compare.v = compare.max.v;
-                                            }
-                                            else
-                                            {
-                                                max.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("max null: " + this);
-                                    }
-                                }
-                                // end
-                                {
-                                    RequestChangeIntUI.UIData end = this.data.end.v;
-                                    if (end != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = end.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.end.v;
-                                            updateData.canRequestChange.v = editReversiAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                end.showDifferent.v = true;
-                                                end.compare.v = compare.end.v;
-                                            }
-                                            else
-                                            {
-                                                end.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("end null: " + this);
-                                    }
-                                }
-                                // msLeft
-                                {
-                                    RequestChangeIntUI.UIData msLeft = this.data.msLeft.v;
-                                    if (msLeft != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = msLeft.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.msLeft.v;
-                                            updateData.canRequestChange.v = editReversiAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                msLeft.showDifferent.v = true;
-                                                msLeft.compare.v = compare.msLeft.v;
-                                            }
-                                            else
-                                            {
-                                                msLeft.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("msLeft null: " + this);
-                                    }
-                                }
-                                // useBook
-                                {
-                                    RequestChangeBoolUI.UIData useBook = this.data.useBook.v;
-                                    if (useBook != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<bool>.UpdateData updateData = useBook.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.useBook.v;
-                                            updateData.canRequestChange.v = editReversiAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                useBook.showDifferent.v = true;
-                                                useBook.compare.v = compare.useBook.v;
-                                            }
-                                            else
-                                            {
-                                                useBook.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("useBook null: " + this);
-                                    }
-                                }
-                                // percent
-                                {
-                                    RequestChangeIntUI.UIData percent = this.data.percent.v;
-                                    if (percent != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = percent.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.percent.v;
-                                            updateData.canRequestChange.v = editReversiAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                percent.showDifferent.v = true;
-                                                percent.compare.v = compare.percent.v;
-                                            }
-                                            else
-                                            {
-                                                percent.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("percent null: " + this);
-                                    }
-                                }
+                                RequestChange.RefreshUI(this.data.sort.v, editReversiAI, serverState, needReset, editData => editData.sort.v);
+                                RequestChange.RefreshUI(this.data.min.v, editReversiAI, serverState, needReset, editData => editData.min.v);
+                                RequestChange.RefreshUI(this.data.max.v, editReversiAI, serverState, needReset, editData => editData.max.v);
+                                RequestChange.RefreshUI(this.data.end.v, editReversiAI, serverState, needReset, editData => editData.end.v);
+                                RequestChange.RefreshUI(this.data.msLeft.v, editReversiAI, serverState, needReset, editData => editData.msLeft.v);
+                                RequestChange.RefreshUI(this.data.useBook.v, editReversiAI, serverState, needReset, editData => editData.useBook.v);
+                                RequestChange.RefreshUI(this.data.percent.v, editReversiAI, serverState, needReset, editData => editData.percent.v);
                             }
-                            // reset?
-                            if (needReset)
-                            {
-                                needReset = false;
-                                // sort
-                                {
-                                    RequestChangeIntUI.UIData sort = this.data.sort.v;
-                                    if (sort != null)
-                                    {
-                                        RequestChangeUpdate<int>.UpdateData updateData = sort.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.sort.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("sort null: " + this);
-                                    }
-                                }
-                                // min
-                                {
-                                    RequestChangeIntUI.UIData min = this.data.min.v;
-                                    if (min != null)
-                                    {
-                                        RequestChangeUpdate<int>.UpdateData updateData = min.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.min.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("min null: " + this);
-                                    }
-                                }
-                                // max
-                                {
-                                    RequestChangeIntUI.UIData max = this.data.max.v;
-                                    if (max != null)
-                                    {
-                                        RequestChangeUpdate<int>.UpdateData updateData = max.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.max.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("max null: " + this);
-                                    }
-                                }
-                                // end
-                                {
-                                    RequestChangeIntUI.UIData end = this.data.end.v;
-                                    if (end != null)
-                                    {
-                                        RequestChangeUpdate<int>.UpdateData updateData = end.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.end.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("end null: " + this);
-                                    }
-                                }
-                                // msLeft
-                                {
-                                    RequestChangeIntUI.UIData msLeft = this.data.msLeft.v;
-                                    if (msLeft != null)
-                                    {
-                                        RequestChangeUpdate<int>.UpdateData updateData = msLeft.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.msLeft.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("msLeft null: " + this);
-                                    }
-                                }
-                                // useBook
-                                {
-                                    RequestChangeBoolUI.UIData useBook = this.data.useBook.v;
-                                    if (useBook != null)
-                                    {
-                                        RequestChangeUpdate<bool>.UpdateData updateData = useBook.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.useBook.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("useBook null: " + this);
-                                    }
-                                }
-                                // percent
-                                {
-                                    RequestChangeIntUI.UIData percent = this.data.percent.v;
-                                    if (percent != null)
-                                    {
-                                        RequestChangeUpdate<int>.UpdateData updateData = percent.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.percent.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("percent null: " + this);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("reversiAI null: " + this);
+                            needReset = false;
                         }
                     }
                     else
@@ -1177,14 +736,6 @@ namespace Reversi
 
         #region implement callBacks
 
-        private static readonly UIRectTransform sortRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform minRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform maxRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform endRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform msLeftRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform useBookRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        private static readonly UIRectTransform percentRect = new UIRectTransform(UIConstants.RequestRect);
-
         public RequestChangeIntUI requestIntPrefab;
         public RequestChangeBoolUI requestBoolPrefab;
 
@@ -1266,22 +817,22 @@ namespace Reversi
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.sort:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, sortRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.min:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, minRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.max:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, maxRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.end:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, endRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.msLeft:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, msLeftRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.percent:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, percentRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -1307,7 +858,7 @@ namespace Reversi
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.useBook:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, useBookRect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

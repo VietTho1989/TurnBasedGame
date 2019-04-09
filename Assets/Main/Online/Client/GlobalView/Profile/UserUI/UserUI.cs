@@ -399,50 +399,12 @@ public class UserUI : UIBehavior<UserUI.UIData>
                         }
                     }
                     editUser.update();
-                    // get show
-                    User show = editUser.show.v.data;
-                    User compare = editUser.compare.v.data;
-                    if (show != null)
+                    // UI
                     {
                         // different
-                        if (lbTitle != null)
-                        {
-                            bool isDifferent = false;
-                            {
-                                if (editUser.compareOtherType.v.data != null)
-                                {
-                                    if (editUser.compareOtherType.v.data.GetType() != show.GetType())
-                                    {
-                                        isDifferent = true;
-                                    }
-                                }
-                            }
-                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTitle null: " + this);
-                        }
+                        RequestChange.ShowDifferentTitle(lbTitle, editUser);
                         // get server state
-                        Server.State.Type serverState = Server.State.Type.Connect;
-                        {
-                            Server server = show.findDataInParent<Server>();
-                            if (server != null)
-                            {
-                                if (server.state.v != null)
-                                {
-                                    serverState = server.state.v.getType();
-                                }
-                                else
-                                {
-                                    Debug.LogError("server state null: " + this);
-                                }
-                            }
-                            else
-                            {
-                                Debug.LogError("server null: " + this);
-                            }
-                        }
+                        Server.State.Type serverState = RequestChange.GetServerState(editUser);
                         // set origin
                         {
                             // human
@@ -530,185 +492,24 @@ public class UserUI : UIBehavior<UserUI.UIData>
                             }
                             // role
                             {
-                                RequestChangeEnumUI.UIData role = this.data.role.v;
-                                if (role != null)
+                                bool canRequestChange = false;
                                 {
-                                    // update
-                                    RequestChangeUpdate<int>.UpdateData updateData = role.updateData.v;
-                                    if (updateData != null)
+                                    User show = editUser.show.v.data;
+                                    if (show != null)
                                     {
-                                        updateData.origin.v = (int)show.role.v;
-                                        updateData.canRequestChange.v = show.isCanChangeRole(Server.getProfileUserId(editUser.origin.v.data));
-                                        updateData.serverState.v = serverState;
+                                        canRequestChange = show.isCanChangeRole(Server.getProfileUserId(editUser.origin.v.data));
                                     }
                                     else
                                     {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                    // compare
-                                    {
-                                        if (compare != null)
-                                        {
-                                            role.showDifferent.v = true;
-                                            role.compare.v = (int)compare.role.v;
-                                        }
-                                        else
-                                        {
-                                            role.showDifferent.v = false;
-                                        }
+                                        Debug.LogError("show null");
                                     }
                                 }
-                                else
-                                {
-                                    Debug.LogError("role null: " + this);
-                                }
+                                RequestChange.RefreshUIWithCanEdit(this.data.role.v, editUser, serverState, needReset, editData => (int)editData.role.v, canRequestChange);
                             }
-                            // ipAddress
-                            {
-                                RequestChangeStringUI.UIData ipAddress = this.data.ipAddress.v;
-                                if (ipAddress != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<string>.UpdateData updateData = ipAddress.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.origin.v = show.ipAddress.v;
-                                        updateData.canRequestChange.v = false;// editUser.canEdit.v;
-                                        updateData.serverState.v = serverState;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                    // compare
-                                    {
-                                        if (compare != null)
-                                        {
-                                            ipAddress.showDifferent.v = true;
-                                            ipAddress.compare.v = compare.ipAddress.v;
-                                        }
-                                        else
-                                        {
-                                            ipAddress.showDifferent.v = false;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("ipAddress null: " + this);
-                                }
-                            }
-                            // registerTime
-                            {
-                                RequestChangeStringUI.UIData registerTime = this.data.registerTime.v;
-                                if (registerTime != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<string>.UpdateData updateData = registerTime.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.origin.v = Human.GetStrBirthday(show.registerTime.v);
-                                        updateData.canRequestChange.v = false; // editUser.canEdit.v;
-                                        updateData.serverState.v = serverState;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                    // compare
-                                    {
-                                        if (compare != null)
-                                        {
-                                            registerTime.showDifferent.v = true;
-                                            registerTime.compare.v = Human.GetStrBirthday(compare.registerTime.v);
-                                        }
-                                        else
-                                        {
-                                            registerTime.showDifferent.v = false;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("registerTime null: " + this);
-                                }
-                            }
+                            RequestChange.RefreshUIWithCanEdit(this.data.ipAddress.v, editUser, serverState, needReset, editData => editData.ipAddress.v, false);
+                            RequestChange.RefreshUIWithCanEdit(this.data.registerTime.v, editUser, serverState, needReset, editData => Human.GetStrBirthday(editData.registerTime.v), false);
                         }
-                        // reset
-                        if (needReset)
-                        {
-                            needReset = false;
-                            // role
-                            {
-                                RequestChangeEnumUI.UIData role = this.data.role.v;
-                                if (role != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<int>.UpdateData updateData = role.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = (int)show.role.v;
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("role null: " + this);
-                                }
-                            }
-                            // ipAddress
-                            {
-                                RequestChangeStringUI.UIData ipAddress = this.data.ipAddress.v;
-                                if (ipAddress != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<string>.UpdateData updateData = ipAddress.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = show.ipAddress.v;
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("ipAddress null: " + this);
-                                }
-                            }
-                            // registerTime
-                            {
-                                RequestChangeStringUI.UIData registerTime = this.data.registerTime.v;
-                                if (registerTime != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<string>.UpdateData updateData = registerTime.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = Human.GetStrBirthday(show.registerTime.v);
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("registerTime null: " + this);
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Debug.LogError("show null: " + this);
+                        needReset = false;
                     }
                     // userChat
                     {

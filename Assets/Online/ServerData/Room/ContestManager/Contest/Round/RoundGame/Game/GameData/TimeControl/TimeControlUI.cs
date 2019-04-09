@@ -310,416 +310,160 @@ namespace TimeControl
                     if (editTimeControl != null)
                     {
                         editTimeControl.update();
-                        // get show
-                        TimeControl show = editTimeControl.show.v.data;
-                        TimeControl compare = editTimeControl.compare.v.data;
-                        // show
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editTimeControl.compareOtherType.v.data != null)
-                                    {
-                                        if (editTimeControl.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editTimeControl);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editTimeControl);
                                 // set origin
                                 {
-                                    // isEnable
-                                    {
-                                        RequestChangeBoolUI.UIData isEnable = this.data.isEnable.v;
-                                        if (isEnable != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = isEnable.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.isEnable.v;
-                                                updateData.canRequestChange.v = editTimeControl.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    isEnable.showDifferent.v = true;
-                                                    isEnable.compare.v = compare.isEnable.v;
-                                                }
-                                                else
-                                                {
-                                                    isEnable.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("isEnable null: " + this);
-                                        }
-                                    }
-                                    // aiCanTimeOut
-                                    {
-                                        RequestChangeBoolUI.UIData aiCanTimeOut = this.data.aiCanTimeOut.v;
-                                        if (aiCanTimeOut != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = aiCanTimeOut.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.aiCanTimeOut.v;
-                                                updateData.canRequestChange.v = editTimeControl.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    aiCanTimeOut.showDifferent.v = true;
-                                                    aiCanTimeOut.compare.v = compare.aiCanTimeOut.v;
-                                                }
-                                                else
-                                                {
-                                                    aiCanTimeOut.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("aiCanTimeOut null: " + this);
-                                        }
-                                    }
+                                    RequestChange.RefreshUI(this.data.isEnable.v, editTimeControl, serverState, needReset, editData => editData.isEnable.v);
+                                    RequestChange.RefreshUI(this.data.aiCanTimeOut.v, editTimeControl, serverState, needReset, editData => editData.aiCanTimeOut.v);
                                     // use
                                     {
-                                        RequestChangeEnumUI.UIData use = this.data.use.v;
-                                        if (use != null)
+                                        // options
                                         {
-                                            // options
+                                            List<string> options = new List<string>();
                                             {
-                                                List<string> options = new List<string>();
-                                                {
-                                                    options.Add(txtServer.get());
-                                                    options.Add(txtClient.get());
-                                                }
-                                                use.options.copyList(options);
+                                                options.Add(txtServer.get());
+                                                options.Add(txtClient.get());
                                             }
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = use.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = (int)show.use.v;
-                                                updateData.canRequestChange.v = editTimeControl.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    use.showDifferent.v = true;
-                                                    use.compare.v = (int)compare.use.v;
-                                                }
-                                                else
-                                                {
-                                                    use.showDifferent.v = false;
-                                                }
-                                            }
+                                            RequestChangeEnumUI.RefreshOptions(this.data.use.v, options);
                                         }
-                                        else
-                                        {
-                                            Debug.LogError("use null: " + this);
-                                        }
+                                        RequestChange.RefreshUI(this.data.use.v, editTimeControl, serverState, needReset, editData => (int)editData.use.v);
                                     }
                                     // subType
                                     {
-                                        RequestChangeEnumUI.UIData subType = this.data.subType.v;
-                                        if (subType != null)
+                                        // options
                                         {
-                                            // options
+                                            List<string> options = new List<string>();
                                             {
-                                                List<string> options = new List<string>();
-                                                {
-                                                    options.Add(txtNormal.get());
-                                                    options.Add(txtHourglass.get());
-                                                }
-                                                subType.options.copyList(options);
+                                                options.Add(txtNormal.get());
+                                                options.Add(txtHourglass.get());
                                             }
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = subType.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = (int)show.getSubType();
-                                                updateData.canRequestChange.v = editTimeControl.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    subType.showDifferent.v = true;
-                                                    subType.compare.v = (int)compare.getSubType();
-                                                }
-                                                else
-                                                {
-                                                    subType.showDifferent.v = false;
-                                                }
-                                            }
+                                            RequestChangeEnumUI.RefreshOptions(this.data.subType.v, options);
                                         }
-                                        else
-                                        {
-                                            Debug.LogError("subType null: " + this);
-                                        }
+                                        RequestChange.RefreshUI(this.data.subType.v, editTimeControl, serverState, needReset, editData => (int)editData.getSubType());
                                     }
                                     // sub
                                     {
-                                        TimeControl.Sub sub = show.sub.v;
-                                        if (sub != null)
+                                        TimeControl show = editTimeControl.show.v.data;
+                                        TimeControl compare = editTimeControl.compare.v.data;
+                                        if (show != null)
                                         {
-                                            // find origin 
-                                            TimeControl.Sub originSub = null;
+                                            TimeControl.Sub sub = show.sub.v;
+                                            if (sub != null)
                                             {
-                                                TimeControl originTimeControl = editTimeControl.origin.v.data;
-                                                if (originTimeControl != null)
+                                                // find origin 
+                                                TimeControl.Sub originSub = null;
                                                 {
-                                                    originSub = originTimeControl.sub.v;
+                                                    TimeControl originTimeControl = editTimeControl.origin.v.data;
+                                                    if (originTimeControl != null)
+                                                    {
+                                                        originSub = originTimeControl.sub.v;
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("origin null: " + this);
+                                                    }
                                                 }
-                                                else
+                                                // find compare
+                                                TimeControl.Sub compareSub = null;
                                                 {
-                                                    Debug.LogError("origin null: " + this);
+                                                    if (compare != null)
+                                                    {
+                                                        compareSub = compare.sub.v;
+                                                    }
+                                                    else
+                                                    {
+                                                        // Debug.LogError ("compare null: " + this);
+                                                    }
+                                                }
+                                                switch (sub.getType())
+                                                {
+                                                    case TimeControl.Sub.Type.Normal:
+                                                        {
+                                                            TimeControlNormal timeControlNormal = sub as TimeControlNormal;
+                                                            // UIData
+                                                            TimeControlNormalUI.UIData timeControlNormalUIData = this.data.sub.newOrOld<TimeControlNormalUI.UIData>();
+                                                            {
+                                                                EditData<TimeControlNormal> editTimeControlNormal = timeControlNormalUIData.editTimeControlNormal.v;
+                                                                if (editTimeControlNormal != null)
+                                                                {
+                                                                    // origin
+                                                                    editTimeControlNormal.origin.v = new ReferenceData<TimeControlNormal>((TimeControlNormal)originSub);
+                                                                    // show
+                                                                    editTimeControlNormal.show.v = new ReferenceData<TimeControlNormal>(timeControlNormal);
+                                                                    // compare
+                                                                    editTimeControlNormal.compare.v = new ReferenceData<TimeControlNormal>((TimeControlNormal)compareSub);
+                                                                    // compareOtherType
+                                                                    editTimeControlNormal.compareOtherType.v = new ReferenceData<Data>(compareSub);
+                                                                    // canEdit
+                                                                    editTimeControlNormal.canEdit.v = editTimeControl.canEdit.v;
+                                                                    // editType
+                                                                    editTimeControlNormal.editType.v = editTimeControl.editType.v;
+                                                                }
+                                                                else
+                                                                {
+                                                                    Debug.LogError("editTimeControlNormal null: " + this);
+                                                                }
+                                                                timeControlNormalUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                            }
+                                                            this.data.sub.v = timeControlNormalUIData;
+                                                        }
+                                                        break;
+                                                    case TimeControl.Sub.Type.HourGlass:
+                                                        {
+                                                            TimeControlHourGlass timeControlHourGlass = sub as TimeControlHourGlass;
+                                                            // UIData
+                                                            TimeControlHourGlassUI.UIData timeControlHourGlassUIData = this.data.sub.newOrOld<TimeControlHourGlassUI.UIData>();
+                                                            {
+                                                                EditData<TimeControlHourGlass> editTimeControlHourGlass = timeControlHourGlassUIData.editTimeControlHourGlass.v;
+                                                                if (editTimeControlHourGlass != null)
+                                                                {
+                                                                    // origin
+                                                                    editTimeControlHourGlass.origin.v = new ReferenceData<TimeControlHourGlass>((TimeControlHourGlass)originSub);
+                                                                    // show
+                                                                    editTimeControlHourGlass.show.v = new ReferenceData<TimeControlHourGlass>(timeControlHourGlass);
+                                                                    // compare
+                                                                    editTimeControlHourGlass.compare.v = new ReferenceData<TimeControlHourGlass>((TimeControlHourGlass)compareSub);
+                                                                    // compareOtherType
+                                                                    editTimeControlHourGlass.compareOtherType.v = new ReferenceData<Data>(compareSub);
+                                                                    // canEdit
+                                                                    editTimeControlHourGlass.canEdit.v = editTimeControl.canEdit.v;
+                                                                    // editType
+                                                                    editTimeControlHourGlass.editType.v = editTimeControl.editType.v;
+                                                                }
+                                                                else
+                                                                {
+                                                                    Debug.LogError("editTimeControlHourGlass null: " + this);
+                                                                }
+                                                                timeControlHourGlassUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                            }
+                                                            this.data.sub.v = timeControlHourGlassUIData;
+                                                        }
+                                                        break;
+                                                    default:
+                                                        Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                                                        break;
                                                 }
                                             }
-                                            // find compare
-                                            TimeControl.Sub compareSub = null;
+                                            else
                                             {
-                                                if (compare != null)
-                                                {
-                                                    compareSub = compare.sub.v;
-                                                }
-                                                else
-                                                {
-                                                    // Debug.LogError ("compare null: " + this);
-                                                }
-                                            }
-                                            switch (sub.getType())
-                                            {
-                                                case TimeControl.Sub.Type.Normal:
-                                                    {
-                                                        TimeControlNormal timeControlNormal = sub as TimeControlNormal;
-                                                        // UIData
-                                                        TimeControlNormalUI.UIData timeControlNormalUIData = this.data.sub.newOrOld<TimeControlNormalUI.UIData>();
-                                                        {
-                                                            EditData<TimeControlNormal> editTimeControlNormal = timeControlNormalUIData.editTimeControlNormal.v;
-                                                            if (editTimeControlNormal != null)
-                                                            {
-                                                                // origin
-                                                                editTimeControlNormal.origin.v = new ReferenceData<TimeControlNormal>((TimeControlNormal)originSub);
-                                                                // show
-                                                                editTimeControlNormal.show.v = new ReferenceData<TimeControlNormal>(timeControlNormal);
-                                                                // compare
-                                                                editTimeControlNormal.compare.v = new ReferenceData<TimeControlNormal>((TimeControlNormal)compareSub);
-                                                                // compareOtherType
-                                                                editTimeControlNormal.compareOtherType.v = new ReferenceData<Data>(compareSub);
-                                                                // canEdit
-                                                                editTimeControlNormal.canEdit.v = editTimeControl.canEdit.v;
-                                                                // editType
-                                                                editTimeControlNormal.editType.v = editTimeControl.editType.v;
-                                                            }
-                                                            else
-                                                            {
-                                                                Debug.LogError("editTimeControlNormal null: " + this);
-                                                            }
-                                                            timeControlNormalUIData.showType.v = UIRectTransform.ShowType.HeadLess;
-                                                        }
-                                                        this.data.sub.v = timeControlNormalUIData;
-                                                    }
-                                                    break;
-                                                case TimeControl.Sub.Type.HourGlass:
-                                                    {
-                                                        TimeControlHourGlass timeControlHourGlass = sub as TimeControlHourGlass;
-                                                        // UIData
-                                                        TimeControlHourGlassUI.UIData timeControlHourGlassUIData = this.data.sub.newOrOld<TimeControlHourGlassUI.UIData>();
-                                                        {
-                                                            EditData<TimeControlHourGlass> editTimeControlHourGlass = timeControlHourGlassUIData.editTimeControlHourGlass.v;
-                                                            if (editTimeControlHourGlass != null)
-                                                            {
-                                                                // origin
-                                                                editTimeControlHourGlass.origin.v = new ReferenceData<TimeControlHourGlass>((TimeControlHourGlass)originSub);
-                                                                // show
-                                                                editTimeControlHourGlass.show.v = new ReferenceData<TimeControlHourGlass>(timeControlHourGlass);
-                                                                // compare
-                                                                editTimeControlHourGlass.compare.v = new ReferenceData<TimeControlHourGlass>((TimeControlHourGlass)compareSub);
-                                                                // compareOtherType
-                                                                editTimeControlHourGlass.compareOtherType.v = new ReferenceData<Data>(compareSub);
-                                                                // canEdit
-                                                                editTimeControlHourGlass.canEdit.v = editTimeControl.canEdit.v;
-                                                                // editType
-                                                                editTimeControlHourGlass.editType.v = editTimeControl.editType.v;
-                                                            }
-                                                            else
-                                                            {
-                                                                Debug.LogError("editTimeControlHourGlass null: " + this);
-                                                            }
-                                                            timeControlHourGlassUIData.showType.v = UIRectTransform.ShowType.HeadLess;
-                                                        }
-                                                        this.data.sub.v = timeControlHourGlassUIData;
-                                                    }
-                                                    break;
-                                                default:
-                                                    Debug.LogError("unknown type: " + sub.getType() + "; " + this);
-                                                    break;
+                                                Debug.LogError("sub null: " + this);
                                             }
                                         }
                                         else
                                         {
-                                            Debug.LogError("sub null: " + this);
+                                            Debug.LogError("show null");
                                         }
                                     }
                                 }
-                                // reset?
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                    // isEnable
-                                    {
-                                        RequestChangeBoolUI.UIData isEnable = this.data.isEnable.v;
-                                        if (isEnable != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = isEnable.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.isEnable.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("isEnable null: " + this);
-                                        }
-                                    }
-                                    // aiCanTimeOut
-                                    {
-                                        RequestChangeBoolUI.UIData aiCanTimeOut = this.data.aiCanTimeOut.v;
-                                        if (aiCanTimeOut != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = aiCanTimeOut.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.aiCanTimeOut.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("aiCanTimeOut null: " + this);
-                                        }
-                                    }
-                                    // use
-                                    {
-                                        RequestChangeEnumUI.UIData use = this.data.use.v;
-                                        if (use != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = use.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = (int)show.use.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("use null: " + this);
-                                        }
-                                    }
-                                    // subType
-                                    {
-                                        RequestChangeEnumUI.UIData subType = this.data.subType.v;
-                                        if (subType != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = subType.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = (int)show.getSubType();
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("subType null: " + this);
-                                        }
-                                    }
-                                }
+                                needReset = false;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
                         }
                         // UI
                         {

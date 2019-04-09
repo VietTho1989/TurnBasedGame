@@ -188,12 +188,6 @@ namespace CoTuongUp
                 txtAllowWatcherViewHidden.add(Language.Type.vi, "Cho phép người xem xem quân úp");
                 txtAllowOnlyFlip.add(Language.Type.vi, "Cho phép chỉ lập");
             }
-            // rect
-            {
-                allowViewCaptureRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                allowWatcherViewHiddenRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                allowOnlyFlipRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-            }
         }
 
         #endregion
@@ -506,10 +500,6 @@ namespace CoTuongUp
 
         public RequestChangeBoolUI requestBoolPrefab;
 
-        public static readonly UIRectTransform allowViewCaptureRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        public static readonly UIRectTransform allowWatcherViewHiddenRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        public static readonly UIRectTransform allowOnlyFlipRect = new UIRectTransform(UIConstants.RequestBoolRect);
-
         private Server server = null;
 
         public override void onAddCallBack<T>(T data)
@@ -586,13 +576,13 @@ namespace CoTuongUp
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.allowViewCapture:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, allowViewCaptureRect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 case UIData.Property.allowWatcherViewHidden:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, allowWatcherViewHiddenRect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 case UIData.Property.allowOnlyFlip:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, allowOnlyFlipRect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

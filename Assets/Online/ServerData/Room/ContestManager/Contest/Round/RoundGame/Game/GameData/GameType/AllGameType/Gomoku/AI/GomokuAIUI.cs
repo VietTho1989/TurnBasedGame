@@ -205,12 +205,6 @@ namespace Gomoku
                 txtTimeLimit.add(Language.Type.vi, "Thời gian giới hạn");
                 txtLevel.add(Language.Type.vi, "Cấp độ");
             }
-            // rect
-            {
-                searchDepthRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                timeLimitRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                levelRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -230,230 +224,19 @@ namespace Gomoku
                     if (editGomokuAI != null)
                     {
                         editGomokuAI.update();
-                        // get show
-                        GomokuAI show = editGomokuAI.show.v.data;
-                        GomokuAI compare = editGomokuAI.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editGomokuAI.compareOtherType.v.data != null)
-                                    {
-                                        if (editGomokuAI.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editGomokuAI);
                             // get server state
-                            Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("server null: " + this);
-                                }
-                            }
+                            Server.State.Type serverState = RequestChange.GetServerState(editGomokuAI);
                             // set origin
                             {
-                                // searchDepth
-                                {
-                                    RequestChangeIntUI.UIData searchDepth = this.data.searchDepth.v;
-                                    if (searchDepth != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = searchDepth.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.searchDepth.v;
-                                            updateData.canRequestChange.v = editGomokuAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                searchDepth.showDifferent.v = true;
-                                                searchDepth.compare.v = compare.searchDepth.v;
-                                            }
-                                            else
-                                            {
-                                                searchDepth.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                                // timeLimit
-                                {
-                                    RequestChangeIntUI.UIData timeLimit = this.data.timeLimit.v;
-                                    if (timeLimit != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = timeLimit.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.timeLimit.v;
-                                            updateData.canRequestChange.v = editGomokuAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                timeLimit.showDifferent.v = true;
-                                                timeLimit.compare.v = compare.timeLimit.v;
-                                            }
-                                            else
-                                            {
-                                                timeLimit.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                                // level
-                                {
-                                    RequestChangeIntUI.UIData level = this.data.level.v;
-                                    if (level != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = level.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.level.v;
-                                            updateData.canRequestChange.v = editGomokuAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                level.showDifferent.v = true;
-                                                level.compare.v = compare.level.v;
-                                            }
-                                            else
-                                            {
-                                                level.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
+                                RequestChange.RefreshUI(this.data.searchDepth.v, editGomokuAI, serverState, needReset, editData => editData.searchDepth.v);
+                                RequestChange.RefreshUI(this.data.timeLimit.v, editGomokuAI, serverState, needReset, editData => editData.timeLimit.v);
+                                RequestChange.RefreshUI(this.data.level.v, editGomokuAI, serverState, needReset, editData => editData.level.v);
                             }
-                            // reset?
-                            if (needReset)
-                            {
-                                needReset = false;
-                                // searchDepth
-                                {
-                                    RequestChangeIntUI.UIData searchDepth = this.data.searchDepth.v;
-                                    if (searchDepth != null)
-                                    {
-                                        RequestChangeUpdate<int>.UpdateData updateData = searchDepth.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.searchDepth.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                                // timeLimit
-                                {
-                                    RequestChangeIntUI.UIData timeLimit = this.data.timeLimit.v;
-                                    if (timeLimit != null)
-                                    {
-                                        RequestChangeUpdate<int>.UpdateData updateData = timeLimit.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.timeLimit.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                                // level
-                                {
-                                    RequestChangeIntUI.UIData level = this.data.level.v;
-                                    if (level != null)
-                                    {
-                                        RequestChangeUpdate<int>.UpdateData updateData = level.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.level.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("chessAI null: " + this);
+                            needReset = false;
                         }
                     }
                     else
@@ -642,10 +425,6 @@ namespace Gomoku
 
         #region implement callBacks
 
-        public static readonly UIRectTransform searchDepthRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform timeLimitRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform levelRect = new UIRectTransform(UIConstants.RequestRect);
-
         public RequestChangeIntUI requestIntPrefab;
 
         private Server server = null;
@@ -723,17 +502,17 @@ namespace Gomoku
                             {
                                 case UIData.Property.searchDepth:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, searchDepthRect);
+                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 case UIData.Property.timeLimit:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, timeLimitRect);
+                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 case UIData.Property.level:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, levelRect);
+                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 default:

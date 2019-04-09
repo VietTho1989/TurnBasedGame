@@ -172,176 +172,18 @@ namespace TimeControl.HourGlass
                     if (editTimeControlHourGlass != null)
                     {
                         editTimeControlHourGlass.update();
-                        // get show
-                        TimeControlHourGlass show = editTimeControlHourGlass.show.v.data;
-                        TimeControlHourGlass compare = editTimeControlHourGlass.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editTimeControlHourGlass.compareOtherType.v.data != null)
-                                    {
-                                        if (editTimeControlHourGlass.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editTimeControlHourGlass);
                             // get server state
-                            Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("server null: " + this);
-                                }
-                            }
+                            Server.State.Type serverState = RequestChange.GetServerState(editTimeControlHourGlass);
                             // set origin
                             {
-                                // initTime
-                                {
-                                    RequestChangeFloatUI.UIData initTime = this.data.initTime.v;
-                                    if (initTime != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<float>.UpdateData updateData = initTime.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.initTime.v;
-                                            updateData.canRequestChange.v = editTimeControlHourGlass.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                initTime.showDifferent.v = true;
-                                                initTime.compare.v = compare.initTime.v;
-                                            }
-                                            else
-                                            {
-                                                initTime.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("initTime null: " + this);
-                                    }
-                                }
-                                // lagCompensation
-                                {
-                                    RequestChangeFloatUI.UIData lagCompensation = this.data.lagCompensation.v;
-                                    if (lagCompensation != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<float>.UpdateData updateData = lagCompensation.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.lagCompensation.v;
-                                            updateData.canRequestChange.v = editTimeControlHourGlass.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                lagCompensation.showDifferent.v = true;
-                                                lagCompensation.compare.v = compare.lagCompensation.v;
-                                            }
-                                            else
-                                            {
-                                                lagCompensation.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lagCompensation null: " + this);
-                                    }
-                                }
+                                RequestChange.RefreshUI(this.data.initTime.v, editTimeControlHourGlass, serverState, needReset, editData => editData.initTime.v);
+                                RequestChange.RefreshUI(this.data.lagCompensation.v, editTimeControlHourGlass, serverState, needReset, editData => editData.lagCompensation.v);
                             }
-                            // reset?
-                            if (needReset)
-                            {
-                                needReset = false;
-                                // initTime
-                                {
-                                    RequestChangeFloatUI.UIData initTime = this.data.initTime.v;
-                                    if (initTime != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<float>.UpdateData updateData = initTime.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.initTime.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("initTime null: " + this);
-                                    }
-                                }
-                                // lagCompensation
-                                {
-                                    RequestChangeFloatUI.UIData lagCompensation = this.data.lagCompensation.v;
-                                    if (lagCompensation != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<float>.UpdateData updateData = lagCompensation.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.lagCompensation.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lagCompensation null: " + this);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
+                            needReset = false;
                         }
                         // UI
                         {

@@ -301,197 +301,27 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                 if (editRoom != null)
                 {
                     editRoom.update();
-                    // get show
-                    Room show = editRoom.show.v.data;
-                    Room compare = editRoom.compare.v.data;
-                    if (show != null)
+                    // UI
                     {
                         // different
-                        if (lbTitle != null)
-                        {
-                            bool isDifferent = false;
-                            {
-                                if (editRoom.compareOtherType.v.data != null)
-                                {
-                                    if (editRoom.compareOtherType.v.data.GetType() != show.GetType())
-                                    {
-                                        isDifferent = true;
-                                    }
-                                }
-                            }
-                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTitle null: " + this);
-                        }
+                        RequestChange.ShowDifferentTitle(lbTitle, editRoom);
                         // request
                         {
                             // get server state
-                            Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("server null: " + this);
-                                }
-                            }
+                            Server.State.Type serverState = RequestChange.GetServerState(editRoom);
                             // set origin
                             {
-                                // name
-                                {
-                                    RequestChangeStringUI.UIData name = this.data.name.v;
-                                    if (name != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<string>.UpdateData updateData = name.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.name.v;
-                                            updateData.canRequestChange.v = editRoom.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                name.showDifferent.v = true;
-                                                name.compare.v = compare.name.v;
-                                            }
-                                            else
-                                            {
-                                                name.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("name null: " + this);
-                                    }
-                                }
+                                RequestChange.RefreshUI(this.data.name.v, editRoom, serverState, needReset, editData => editData.name.v);
                                 // allowHint
                                 {
-                                    RequestChangeEnumUI.UIData allowHint = this.data.allowHint.v;
-                                    if (allowHint != null)
-                                    {
-                                        // options
-                                        allowHint.options.copyList(Room.getAllowHintStr());
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = allowHint.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = (int)show.allowHint.v;
-                                            updateData.canRequestChange.v = editRoom.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                allowHint.showDifferent.v = true;
-                                                allowHint.compare.v = (int)compare.allowHint.v;
-                                            }
-                                            else
-                                            {
-                                                allowHint.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("allowHint null: " + this);
-                                    }
+                                    RequestChangeEnumUI.RefreshOptions(this.data.allowHint.v, Room.getAllowHintStr());
+                                    RequestChange.RefreshUI(this.data.allowHint.v, editRoom, serverState, needReset, editData => (int)editData.allowHint.v);
                                 }
-                                // allowLoadHistory
-                                {
-                                    RequestChangeBoolUI.UIData allowLoadHistory = this.data.allowLoadHistory.v;
-                                    if (allowLoadHistory != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<bool>.UpdateData updateData = allowLoadHistory.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.allowLoadHistory.v;
-                                            updateData.canRequestChange.v = editRoom.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                allowLoadHistory.showDifferent.v = true;
-                                                allowLoadHistory.compare.v = compare.allowLoadHistory.v;
-                                            }
-                                            else
-                                            {
-                                                allowLoadHistory.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("allowLoadHistory null: " + this);
-                                    }
-                                }
+                                RequestChange.RefreshUI(this.data.allowLoadHistory.v, editRoom, serverState, needReset, editData => editData.allowLoadHistory.v);
                                 // chatInGame
                                 {
-                                    RequestChangeEnumUI.UIData chatInGame = this.data.chatInGame.v;
-                                    if (chatInGame != null)
-                                    {
-                                        // options
-                                        chatInGame.options.copyList(Room.getChatInGameStr());
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = chatInGame.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = (int)show.chatInGame.v;
-                                            updateData.canRequestChange.v = editRoom.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                chatInGame.showDifferent.v = true;
-                                                chatInGame.compare.v = (int)compare.chatInGame.v;
-                                            }
-                                            else
-                                            {
-                                                chatInGame.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("chatInGame null: " + this);
-                                    }
+                                    RequestChangeEnumUI.RefreshOptions(this.data.chatInGame.v, Room.getChatInGameStr());
+                                    RequestChange.RefreshUI(this.data.chatInGame.v, editRoom, serverState, needReset, editData => (int)editData.chatInGame.v);
                                 }
                                 // changeRights
                                 {
@@ -577,104 +407,8 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                                     }
                                 }
                             }
-                            // reset
-                            if (needReset)
-                            {
-                                needReset = false;
-                                // name
-                                {
-                                    RequestChangeStringUI.UIData name = this.data.name.v;
-                                    if (name != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<string>.UpdateData updateData = name.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.name.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("name null: " + this);
-                                    }
-                                }
-                                // allowHint
-                                {
-                                    RequestChangeEnumUI.UIData allowHint = this.data.allowHint.v;
-                                    if (allowHint != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = allowHint.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = (int)show.allowHint.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("allowHint null: " + this);
-                                    }
-                                }
-                                // allowLoadHistory
-                                {
-                                    RequestChangeBoolUI.UIData allowLoadHistory = this.data.allowLoadHistory.v;
-                                    if (allowLoadHistory != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<bool>.UpdateData updateData = allowLoadHistory.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.allowLoadHistory.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("allowLoadHistory null: " + this);
-                                    }
-                                }
-                                // chatInGame
-                                {
-                                    RequestChangeEnumUI.UIData chatInGame = this.data.chatInGame.v;
-                                    if (chatInGame != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = chatInGame.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = (int)show.chatInGame.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("chatInGame null: " + this);
-                                    }
-                                }
-                            }
+                            needReset = false;
                         }
-                    }
-                    else
-                    {
-                        Debug.LogError("show null: " + this);
                     }
                 }
                 else

@@ -377,16 +377,6 @@ namespace InternationalDraught
                 txtUseEndGameDatabase.add(Language.Type.vi, "Dùng cơ sở dữ liệu cuối game");
                 txtPickBestMove.add(Language.Type.vi, "Chọn nước đi tốt nhất");
             }
-            // rect
-            {
-                bMoveRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                bookRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                depthRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                timeRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                inputRect.setPosY(UIConstants.HeaderHeight + 4 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                useEndGameDatabaseRect.setPosY(UIConstants.HeaderHeight + 5 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                pickBestMoveRect.setPosY(UIConstants.HeaderHeight + 6 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -406,454 +396,23 @@ namespace InternationalDraught
                     if (editInternationalDraughtAI != null)
                     {
                         editInternationalDraughtAI.update();
-                        // get show
-                        InternationalDraughtAI show = editInternationalDraughtAI.show.v.data;
-                        InternationalDraughtAI compare = editInternationalDraughtAI.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editInternationalDraughtAI.compareOtherType.v.data != null)
-                                    {
-                                        if (editInternationalDraughtAI.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("differentIndicator null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editInternationalDraughtAI);
                             // get server state
-                            Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("server null: " + this);
-                                }
-                            }
+                            Server.State.Type serverState = RequestChange.GetServerState(editInternationalDraughtAI);
                             // set origin
                             {
-                                // bMove
-                                {
-                                    RequestChangeBoolUI.UIData bMove = this.data.bMove.v;
-                                    if (bMove != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<bool>.UpdateData updateData = bMove.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.bMove.v;
-                                            updateData.canRequestChange.v = editInternationalDraughtAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                bMove.showDifferent.v = true;
-                                                bMove.compare.v = compare.bMove.v;
-                                            }
-                                            else
-                                            {
-                                                bMove.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                                // book
-                                {
-                                    RequestChangeBoolUI.UIData book = this.data.book.v;
-                                    if (book != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<bool>.UpdateData updateData = book.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.book.v;
-                                            updateData.canRequestChange.v = editInternationalDraughtAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                book.showDifferent.v = true;
-                                                book.compare.v = compare.book.v;
-                                            }
-                                            else
-                                            {
-                                                book.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                                // depth
-                                {
-                                    RequestChangeIntUI.UIData depth = this.data.depth.v;
-                                    if (depth != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = depth.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.depth.v;
-                                            updateData.canRequestChange.v = editInternationalDraughtAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                depth.showDifferent.v = true;
-                                                depth.compare.v = compare.depth.v;
-                                            }
-                                            else
-                                            {
-                                                depth.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                                // time
-                                {
-                                    RequestChangeFloatUI.UIData time = this.data.time.v;
-                                    if (time != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<float>.UpdateData updateData = time.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.time.v;
-                                            updateData.canRequestChange.v = editInternationalDraughtAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                time.showDifferent.v = true;
-                                                time.compare.v = compare.time.v;
-                                            }
-                                            else
-                                            {
-                                                time.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                                // input
-                                {
-                                    RequestChangeBoolUI.UIData input = this.data.input.v;
-                                    if (input != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<bool>.UpdateData updateData = input.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.input.v;
-                                            updateData.canRequestChange.v = editInternationalDraughtAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                input.showDifferent.v = true;
-                                                input.compare.v = compare.input.v;
-                                            }
-                                            else
-                                            {
-                                                input.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                                // useEndGameDatabase
-                                {
-                                    RequestChangeBoolUI.UIData useEndGameDatabase = this.data.useEndGameDatabase.v;
-                                    if (useEndGameDatabase != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<bool>.UpdateData updateData = useEndGameDatabase.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.useEndGameDatabase.v;
-                                            updateData.canRequestChange.v = editInternationalDraughtAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                useEndGameDatabase.showDifferent.v = true;
-                                                useEndGameDatabase.compare.v = compare.useEndGameDatabase.v;
-                                            }
-                                            else
-                                            {
-                                                useEndGameDatabase.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                                // pickBestMove
-                                {
-                                    RequestChangeIntUI.UIData pickBestMove = this.data.pickBestMove.v;
-                                    if (pickBestMove != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = pickBestMove.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.pickBestMove.v;
-                                            updateData.canRequestChange.v = editInternationalDraughtAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                pickBestMove.showDifferent.v = true;
-                                                pickBestMove.compare.v = compare.pickBestMove.v;
-                                            }
-                                            else
-                                            {
-                                                pickBestMove.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
+                                RequestChange.RefreshUI(this.data.bMove.v, editInternationalDraughtAI, serverState, needReset, editData => editData.bMove.v);
+                                RequestChange.RefreshUI(this.data.book.v, editInternationalDraughtAI, serverState, needReset, editData => editData.book.v);
+                                RequestChange.RefreshUI(this.data.depth.v, editInternationalDraughtAI, serverState, needReset, editData => editData.depth.v);
+                                RequestChange.RefreshUI(this.data.time.v, editInternationalDraughtAI, serverState, needReset, editData => editData.time.v);
+                                RequestChange.RefreshUI(this.data.input.v, editInternationalDraughtAI, serverState, needReset, editData => editData.input.v);
+                                RequestChange.RefreshUI(this.data.useEndGameDatabase.v, editInternationalDraughtAI, serverState, needReset, editData => editData.useEndGameDatabase.v);
+                                RequestChange.RefreshUI(this.data.pickBestMove.v, editInternationalDraughtAI, serverState, needReset, editData => editData.pickBestMove.v);
                             }
-                            // reset?
-                            if (needReset)
-                            {
-                                needReset = false;
-                                // bMove
-                                {
-                                    RequestChangeBoolUI.UIData bMove = this.data.bMove.v;
-                                    if (bMove != null)
-                                    {
-                                        RequestChangeUpdate<bool>.UpdateData updateData = bMove.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.bMove.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                                // book
-                                {
-                                    RequestChangeBoolUI.UIData book = this.data.book.v;
-                                    if (book != null)
-                                    {
-                                        RequestChangeUpdate<bool>.UpdateData updateData = book.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.book.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                                // depth
-                                {
-                                    RequestChangeIntUI.UIData depth = this.data.depth.v;
-                                    if (depth != null)
-                                    {
-                                        RequestChangeUpdate<int>.UpdateData updateData = depth.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.depth.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                                // time
-                                {
-                                    RequestChangeFloatUI.UIData time = this.data.time.v;
-                                    if (time != null)
-                                    {
-                                        RequestChangeUpdate<float>.UpdateData updateData = time.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.time.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                                // input
-                                {
-                                    RequestChangeBoolUI.UIData input = this.data.input.v;
-                                    if (input != null)
-                                    {
-                                        RequestChangeUpdate<bool>.UpdateData updateData = input.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.input.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                                // useEndGameDatabase
-                                {
-                                    RequestChangeBoolUI.UIData useEndGameDatabase = this.data.useEndGameDatabase.v;
-                                    if (useEndGameDatabase != null)
-                                    {
-                                        RequestChangeUpdate<bool>.UpdateData updateData = useEndGameDatabase.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.useEndGameDatabase.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                                // pickBestMove
-                                {
-                                    RequestChangeIntUI.UIData pickBestMove = this.data.pickBestMove.v;
-                                    if (pickBestMove != null)
-                                    {
-                                        RequestChangeUpdate<int>.UpdateData updateData = pickBestMove.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.pickBestMove.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("chessAI null: " + this);
+                            needReset = false;
                         }
                     }
                     else
@@ -1190,14 +749,6 @@ namespace InternationalDraught
 
         #region implement callBacks
 
-        private static readonly UIRectTransform bMoveRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        private static readonly UIRectTransform bookRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        private static readonly UIRectTransform depthRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform timeRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform inputRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        private static readonly UIRectTransform useEndGameDatabaseRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        private static readonly UIRectTransform pickBestMoveRect = new UIRectTransform(UIConstants.RequestRect);
-
         public RequestChangeIntUI requestIntPrefab;
         public RequestChangeFloatUI requestFloatPrefab;
         public RequestChangeBoolUI requestBoolPrefab;
@@ -1280,10 +831,10 @@ namespace InternationalDraught
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.depth:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, depthRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.pickBestMove:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, pickBestMoveRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -1309,16 +860,16 @@ namespace InternationalDraught
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.bMove:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, bMoveRect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 case UIData.Property.book:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, bookRect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 case UIData.Property.input:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, inputRect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 case UIData.Property.useEndGameDatabase:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, useEndGameDatabaseRect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -1344,7 +895,7 @@ namespace InternationalDraught
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.time:
-                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, timeRect);
+                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

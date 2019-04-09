@@ -210,52 +210,14 @@ namespace GameManager.Match.Elimination
                     if (editEliminationFactory != null)
                     {
                         editEliminationFactory.update();
-                        // get show
-                        EliminationFactory show = editEliminationFactory.show.v.data;
-                        EliminationFactory compare = editEliminationFactory.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editEliminationFactory.compareOtherType.v.data != null)
-                                    {
-                                        if (editEliminationFactory.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editEliminationFactory);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editEliminationFactory);
                                 // set origin
                                 {
                                     // singleContestFactory
@@ -341,208 +303,133 @@ namespace GameManager.Match.Elimination
                                             Debug.LogError("singleContestFactory null: " + this);
                                         }
                                     }
-                                    // initTeamCountLength
-                                    {
-                                        RequestChangeIntUI.UIData initTeamCountLength = this.data.initTeamCountLength.v;
-                                        if (initTeamCountLength != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = initTeamCountLength.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.initTeamCounts.vs.Count;
-                                                updateData.canRequestChange.v = editEliminationFactory.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    initTeamCountLength.showDifferent.v = true;
-                                                    initTeamCountLength.compare.v = compare.initTeamCounts.vs.Count;
-                                                }
-                                                else
-                                                {
-                                                    initTeamCountLength.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("initTeamCountLength null: " + this);
-                                        }
-                                    }
+                                    RequestChange.RefreshUI(this.data.initTeamCountLength.v, editEliminationFactory, serverState, needReset, editData => editData.initTeamCounts.vs.Count);
                                     // initTeamCounts
                                     {
-                                        // find old
-                                        List<RequestChangeIntUI.UIData> oldInitTeamCounts = new List<RequestChangeIntUI.UIData>();
+                                        EliminationFactory show = editEliminationFactory.show.v.data;
+                                        EliminationFactory compare = editEliminationFactory.compare.v.data;
+                                        if (show != null)
                                         {
-                                            oldInitTeamCounts.AddRange(this.data.initTeamCounts.vs);
-                                        }
-                                        // Update
-                                        {
-                                            for (int i = 0; i < show.initTeamCounts.vs.Count; i++)
+                                            // find old
+                                            List<RequestChangeIntUI.UIData> oldInitTeamCounts = new List<RequestChangeIntUI.UIData>();
                                             {
-                                                // find
-                                                RequestChangeIntUI.UIData initTeamCount = null;
+                                                oldInitTeamCounts.AddRange(this.data.initTeamCounts.vs);
+                                            }
+                                            // Update
+                                            {
+                                                for (int i = 0; i < show.initTeamCounts.vs.Count; i++)
                                                 {
-                                                    // find old
-                                                    if (oldInitTeamCounts.Count > 0)
+                                                    // find
+                                                    RequestChangeIntUI.UIData initTeamCount = null;
                                                     {
-                                                        initTeamCount = oldInitTeamCounts[0];
-                                                    }
-                                                    // make new
-                                                    if (initTeamCount == null)
-                                                    {
-                                                        initTeamCount = new RequestChangeIntUI.UIData();
+                                                        // find old
+                                                        if (oldInitTeamCounts.Count > 0)
                                                         {
-                                                            initTeamCount.uid = this.data.initTeamCounts.makeId();
-                                                            // have limit
-                                                            {
-                                                                IntLimit.Have have = new IntLimit.Have();
-                                                                {
-                                                                    have.uid = initTeamCount.limit.makeId();
-                                                                    have.min.v = i == 0 ? 4 : 0;
-                                                                    have.max.v = EliminationContent.MAX_TEAM_PER_BRACKET;
-                                                                }
-                                                                initTeamCount.limit.v = have;
-                                                            }
-                                                            // event
-                                                            initTeamCount.updateData.v.request.v = this.data.makeRequestChangeInitTeamCount;
+                                                            initTeamCount = oldInitTeamCounts[0];
                                                         }
-                                                        this.data.initTeamCounts.add(initTeamCount);
-                                                    }
-                                                    else
-                                                    {
-                                                        oldInitTeamCounts.Remove(initTeamCount);
-                                                    }
-                                                }
-                                                // Process
-                                                if (initTeamCount != null)
-                                                {
-                                                    // update
-                                                    RequestChangeUpdate<int>.UpdateData updateData = initTeamCount.updateData.v;
-                                                    if (updateData != null)
-                                                    {
-                                                        updateData.origin.v = (int)show.initTeamCounts.vs[i];
-                                                        updateData.canRequestChange.v = editEliminationFactory.canEdit.v;
-                                                        updateData.serverState.v = serverState;
-                                                    }
-                                                    else
-                                                    {
-                                                        Debug.LogError("updateData null: " + this);
-                                                    }
-                                                    // compare
-                                                    {
-                                                        if (compare != null)
+                                                        // make new
+                                                        if (initTeamCount == null)
                                                         {
-                                                            initTeamCount.showDifferent.v = true;
+                                                            initTeamCount = new RequestChangeIntUI.UIData();
                                                             {
-                                                                int compareInitTeamCount = int.MinValue;
+                                                                initTeamCount.uid = this.data.initTeamCounts.makeId();
+                                                                // have limit
                                                                 {
-                                                                    if (i >= 0 && i < compare.initTeamCounts.vs.Count)
+                                                                    IntLimit.Have have = new IntLimit.Have();
                                                                     {
-                                                                        compareInitTeamCount = (int)compare.initTeamCounts.vs[i];
+                                                                        have.uid = initTeamCount.limit.makeId();
+                                                                        have.min.v = i == 0 ? 4 : 0;
+                                                                        have.max.v = EliminationContent.MAX_TEAM_PER_BRACKET;
                                                                     }
+                                                                    initTeamCount.limit.v = have;
                                                                 }
-                                                                initTeamCount.compare.v = compareInitTeamCount;
+                                                                // event
+                                                                initTeamCount.updateData.v.request.v = this.data.makeRequestChangeInitTeamCount;
                                                             }
+                                                            this.data.initTeamCounts.add(initTeamCount);
                                                         }
                                                         else
                                                         {
-                                                            initTeamCount.showDifferent.v = false;
+                                                            oldInitTeamCounts.Remove(initTeamCount);
                                                         }
                                                     }
-                                                }
-                                                else
-                                                {
-                                                    Debug.LogError("initTeamCount null: " + this);
+                                                    // Process
+                                                    if (initTeamCount != null)
+                                                    {
+                                                        // update
+                                                        RequestChangeUpdate<int>.UpdateData updateData = initTeamCount.updateData.v;
+                                                        if (updateData != null)
+                                                        {
+                                                            updateData.origin.v = (int)show.initTeamCounts.vs[i];
+                                                            updateData.canRequestChange.v = editEliminationFactory.canEdit.v;
+                                                            updateData.serverState.v = serverState;
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("updateData null: " + this);
+                                                        }
+                                                        // compare
+                                                        {
+                                                            if (compare != null)
+                                                            {
+                                                                initTeamCount.showDifferent.v = true;
+                                                                {
+                                                                    int compareInitTeamCount = int.MinValue;
+                                                                    {
+                                                                        if (i >= 0 && i < compare.initTeamCounts.vs.Count)
+                                                                        {
+                                                                            compareInitTeamCount = (int)compare.initTeamCounts.vs[i];
+                                                                        }
+                                                                    }
+                                                                    initTeamCount.compare.v = compareInitTeamCount;
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                initTeamCount.showDifferent.v = false;
+                                                            }
+                                                        }
+                                                        // reset
+                                                        if (needReset)
+                                                        {
+                                                            // current
+                                                            {
+                                                                int current = 0;
+                                                                {
+                                                                    if (i >= 0 && i < show.initTeamCounts.vs.Count)
+                                                                    {
+                                                                        current = (int)show.initTeamCounts.vs[i];
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        Debug.LogError("index error: " + i + "; " + show.initTeamCounts.vs.Count);
+                                                                    }
+                                                                }
+                                                                updateData.current.v = current;
+                                                            }
+                                                            updateData.changeState.v = Data.ChangeState.None;
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("initTeamCount null: " + this);
+                                                    }
                                                 }
                                             }
-                                        }
-                                        // Remove old
-                                        foreach (RequestChangeIntUI.UIData oldInitTeamCount in oldInitTeamCounts)
-                                        {
-                                            this.data.initTeamCounts.remove(oldInitTeamCount);
-                                        }
-                                    }
-                                }
-                                // reset
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                    // initTeamCountLength
-                                    {
-                                        RequestChangeIntUI.UIData initTeamCountLength = this.data.initTeamCountLength.v;
-                                        if (initTeamCountLength != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = initTeamCountLength.updateData.v;
-                                            if (updateData != null)
+                                            // Remove old
+                                            foreach (RequestChangeIntUI.UIData oldInitTeamCount in oldInitTeamCounts)
                                             {
-                                                updateData.current.v = show.initTeamCounts.vs.Count;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
+                                                this.data.initTeamCounts.remove(oldInitTeamCount);
                                             }
                                         }
                                         else
                                         {
-                                            Debug.LogError("initTeamCountLength null: " + this);
-                                        }
-                                    }
-                                    // initTeamCounts
-                                    {
-                                        for (int i = 0; i < this.data.initTeamCounts.vs.Count; i++)
-                                        {
-                                            // find
-                                            RequestChangeIntUI.UIData initTeamCount = this.data.initTeamCounts.vs[i];
-                                            // Process
-                                            if (initTeamCount != null)
-                                            {
-                                                // update
-                                                RequestChangeUpdate<int>.UpdateData updateData = initTeamCount.updateData.v;
-                                                if (updateData != null)
-                                                {
-                                                    {
-                                                        int current = 0;
-                                                        {
-                                                            if (i >= 0 && i < show.initTeamCounts.vs.Count)
-                                                            {
-                                                                current = (int)show.initTeamCounts.vs[i];
-                                                            }
-                                                            else
-                                                            {
-                                                                Debug.LogError("index error: " + i + "; " + show.initTeamCounts.vs.Count);
-                                                            }
-                                                        }
-                                                        updateData.current.v = current;
-                                                    }
-                                                    updateData.changeState.v = Data.ChangeState.None;
-                                                }
-                                                else
-                                                {
-                                                    Debug.LogError("updateData null: " + this);
-                                                }
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("initTeamCount null: " + this);
-                                            }
+                                            Debug.LogError("show null");
                                         }
                                     }
                                 }
+                                needReset = false;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
                         }
                     }
                     else

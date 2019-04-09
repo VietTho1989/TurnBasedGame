@@ -202,12 +202,6 @@ namespace Seirawan
                 txtSkillLevel.add(Language.Type.vi, "Mức kỹ năng");
                 txtDuration.add(Language.Type.vi, "Thời gian");
             }
-            // rect
-            {
-                depthRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                skillLevelRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                durationRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -227,230 +221,19 @@ namespace Seirawan
                     if (editSeirawanAI != null)
                     {
                         editSeirawanAI.update();
-                        // get show
-                        SeirawanAI show = editSeirawanAI.show.v.data;
-                        SeirawanAI compare = editSeirawanAI.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editSeirawanAI.compareOtherType.v.data != null)
-                                    {
-                                        if (editSeirawanAI.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("differentIndicator null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editSeirawanAI);
                             // get server state
-                            Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("server null: " + this);
-                                }
-                            }
+                            Server.State.Type serverState = RequestChange.GetServerState(editSeirawanAI);
                             // set origin
                             {
-                                // depth
-                                {
-                                    RequestChangeIntUI.UIData depth = this.data.depth.v;
-                                    if (depth != null)
-                                    {
-                                        // depth
-                                        RequestChangeUpdate<int>.UpdateData updateData = depth.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.depth.v;
-                                            updateData.canRequestChange.v = editSeirawanAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                depth.showDifferent.v = true;
-                                                depth.compare.v = compare.depth.v;
-                                            }
-                                            else
-                                            {
-                                                depth.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                                // skillLevel
-                                {
-                                    RequestChangeIntUI.UIData skillLevel = this.data.skillLevel.v;
-                                    if (skillLevel != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = skillLevel.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.skillLevel.v;
-                                            updateData.canRequestChange.v = editSeirawanAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                skillLevel.showDifferent.v = true;
-                                                skillLevel.compare.v = compare.skillLevel.v;
-                                            }
-                                            else
-                                            {
-                                                skillLevel.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("skillLevel null: " + this);
-                                    }
-                                }
-                                // duration
-                                {
-                                    RequestChangeLongUI.UIData duration = this.data.duration.v;
-                                    if (duration != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<long>.UpdateData updateData = duration.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.duration.v;
-                                            updateData.canRequestChange.v = editSeirawanAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                duration.showDifferent.v = true;
-                                                duration.compare.v = compare.duration.v;
-                                            }
-                                            else
-                                            {
-                                                duration.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("duration null: " + this);
-                                    }
-                                }
+                                RequestChange.RefreshUI(this.data.depth.v, editSeirawanAI, serverState, needReset, editData => editData.depth.v);
+                                RequestChange.RefreshUI(this.data.skillLevel.v, editSeirawanAI, serverState, needReset, editData => editData.skillLevel.v);
+                                RequestChange.RefreshUI(this.data.duration.v, editSeirawanAI, serverState, needReset, editData => editData.duration.v);
                             }
-                            // reset?
-                            if (needReset)
-                            {
-                                needReset = false;
-                                // depth
-                                {
-                                    RequestChangeIntUI.UIData depth = this.data.depth.v;
-                                    if (depth != null)
-                                    {
-                                        RequestChangeUpdate<int>.UpdateData updateData = depth.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.depth.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                                // skillLevel
-                                {
-                                    RequestChangeIntUI.UIData skillLevel = this.data.skillLevel.v;
-                                    if (skillLevel != null)
-                                    {
-                                        RequestChangeUpdate<int>.UpdateData updateData = skillLevel.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.skillLevel.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("skillLevel null: " + this);
-                                    }
-                                }
-                                // duration
-                                {
-                                    RequestChangeLongUI.UIData duration = this.data.duration.v;
-                                    if (duration != null)
-                                    {
-                                        RequestChangeUpdate<long>.UpdateData updateData = duration.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.duration.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("duration null: " + this);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("seirawanAI null: " + this);
+                            needReset = false;
                         }
                     }
                     else
@@ -639,10 +422,6 @@ namespace Seirawan
 
         #region implement callBacks
 
-        private static readonly UIRectTransform depthRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform skillLevelRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform durationRect = new UIRectTransform(UIConstants.RequestRect);
-
         public RequestChangeIntUI requestIntPrefab;
         public RequestChangeLongUI requestLongPrefab;
 
@@ -721,12 +500,12 @@ namespace Seirawan
                             {
                                 case UIData.Property.depth:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, depthRect);
+                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 case UIData.Property.skillLevel:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, skillLevelRect);
+                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 default:
@@ -754,7 +533,7 @@ namespace Seirawan
                             {
                                 case UIData.Property.duration:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestLongPrefab, this.transform, durationRect);
+                                        UIUtils.Instantiate(requestChange, requestLongPrefab, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 default:

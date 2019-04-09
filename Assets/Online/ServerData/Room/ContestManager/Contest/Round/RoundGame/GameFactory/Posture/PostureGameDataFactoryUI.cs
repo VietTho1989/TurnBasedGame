@@ -209,185 +209,39 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                 if (editPostureGameDataFactory != null)
                 {
                     editPostureGameDataFactory.update();
-                    // get show
-                    PostureGameDataFactory show = editPostureGameDataFactory.show.v.data;
-                    PostureGameDataFactory compare = editPostureGameDataFactory.compare.v.data;
-                    if (show != null)
+                    // UI
                     {
                         // different
-                        if (lbTitle != null)
-                        {
-                            bool isDifferent = false;
-                            {
-                                if (editPostureGameDataFactory.compareOtherType.v.data != null)
-                                {
-                                    if (editPostureGameDataFactory.compareOtherType.v.data.GetType() != show.GetType())
-                                    {
-                                        isDifferent = true;
-                                    }
-                                }
-                            }
-                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTitle null: " + this);
-                        }
+                        RequestChange.ShowDifferentTitle(lbTitle, editPostureGameDataFactory);
                         // requests
                         {
                             // get server state
-                            Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("server null: " + this);
-                                }
-                            }
+                            Server.State.Type serverState = RequestChange.GetServerState(editPostureGameDataFactory);
                             // set origin
                             {
                                 // gameType
                                 {
-                                    RequestChangeEnumUI.UIData gameType = this.data.gameType.v;
-                                    if (gameType != null)
-                                    {
-                                        // options
-                                        {
-                                            gameType.options.copyList(GameType.GetEnableTypeString());
-                                        }
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = gameType.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = GameType.getEnableIndex(show.getGameTypeType());
-                                            updateData.canRequestChange.v = editPostureGameDataFactory.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                gameType.showDifferent.v = true;
-                                                gameType.compare.v = GameType.getEnableIndex(compare.getGameTypeType());
-                                            }
-                                            else
-                                            {
-                                                gameType.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("useRule null: " + this);
-                                    }
+                                    RequestChangeEnumUI.RefreshOptions(this.data.gameType.v, GameType.GetEnableTypeString());
+                                    RequestChange.RefreshUI(this.data.gameType.v, editPostureGameDataFactory, serverState, needReset, editData => GameType.getEnableIndex(editData.getGameTypeType()));
                                 }
-                                // useRule
-                                {
-                                    RequestChangeBoolUI.UIData useRule = this.data.useRule.v;
-                                    if (useRule != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<bool>.UpdateData updateData = useRule.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.useRule.v;
-                                            updateData.canRequestChange.v = editPostureGameDataFactory.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                useRule.showDifferent.v = true;
-                                                useRule.compare.v = compare.useRule.v;
-                                            }
-                                            else
-                                            {
-                                                useRule.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("useRule null: " + this);
-                                    }
-                                }
+                                RequestChange.RefreshUI(this.data.useRule.v, editPostureGameDataFactory, serverState, needReset, editData => editData.useRule.v);
                             }
-                            // reset?
-                            if (needReset)
-                            {
-                                needReset = false;
-                                // gameType
-                                {
-                                    RequestChangeEnumUI.UIData gameType = this.data.gameType.v;
-                                    if (gameType != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = gameType.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = GameType.getEnableIndex(show.getGameTypeType());
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("useRule null: " + this);
-                                    }
-                                }
-                                // useRule
-                                {
-                                    RequestChangeBoolUI.UIData useRule = this.data.useRule.v;
-                                    if (useRule != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<bool>.UpdateData updateData = useRule.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.useRule.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("useRule null: " + this);
-                                    }
-                                }
-                            }
+                            needReset = false;
                         }
                         // miniGameDatas
                         {
                             MiniGameDataUI.UIData miniGameDataUIData = this.data.miniGameDataUI.v;
                             if (miniGameDataUIData != null)
                             {
-                                miniGameDataUIData.gameData.v = new ReferenceData<GameData>(show.gameData.v);
+                                PostureGameDataFactory show = editPostureGameDataFactory.show.v.data;
+                                if (show != null)
+                                {
+                                    miniGameDataUIData.gameData.v = new ReferenceData<GameData>(show.gameData.v);
+                                }
+                                else
+                                {
+                                    Debug.LogError("show null");
+                                }
                             }
                             else
                             {
@@ -410,17 +264,13 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                             EditPostureGameDataUI.UIData editPostureGameDataUIData = this.data.editPostureGameData.v;
                             if (editPostureGameDataUIData != null)
                             {
-                                editPostureGameDataUIData.postureGameDataFactory.v = new ReferenceData<PostureGameDataFactory>(show);
+                                editPostureGameDataUIData.postureGameDataFactory.v = new ReferenceData<PostureGameDataFactory>(editPostureGameDataFactory.show.v.data);
                             }
                             else
                             {
                                 Debug.LogError("editPostureGameDataUIData null: " + this);
                             }
                         }
-                    }
-                    else
-                    {
-                        Debug.LogError("show null: " + this);
                     }
                 }
                 else

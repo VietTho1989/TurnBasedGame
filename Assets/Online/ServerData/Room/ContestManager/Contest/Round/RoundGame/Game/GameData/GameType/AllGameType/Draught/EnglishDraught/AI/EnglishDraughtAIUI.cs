@@ -245,13 +245,6 @@ namespace EnglishDraught
                 txtMaxDepth.add(Language.Type.vi, "Độ sâu tối đa");
                 txtPickBestMove.add(Language.Type.vi, "Chọn nước đi tốt nhất");
             }
-            // rect
-            {
-                threeMoveRandomRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                fMaxSecondsRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                g_MaxDepthRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                pickBestMoveRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -271,290 +264,20 @@ namespace EnglishDraught
                     if (editEnglishDraughtAI != null)
                     {
                         editEnglishDraughtAI.update();
-                        // get show
-                        EnglishDraughtAI show = editEnglishDraughtAI.show.v.data;
-                        EnglishDraughtAI compare = editEnglishDraughtAI.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editEnglishDraughtAI.compareOtherType.v.data != null)
-                                    {
-                                        if (editEnglishDraughtAI.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("differentIndicator null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editEnglishDraughtAI);
                             // get server state
-                            Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    // Debug.LogError("server null: " + this);
-                                }
-                            }
+                            Server.State.Type serverState = RequestChange.GetServerState(editEnglishDraughtAI);
                             // set origin
                             {
-                                // threeMoveRandom
-                                {
-                                    RequestChangeBoolUI.UIData threeMoveRandom = this.data.threeMoveRandom.v;
-                                    if (threeMoveRandom != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<bool>.UpdateData updateData = threeMoveRandom.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.threeMoveRandom.v;
-                                            updateData.canRequestChange.v = editEnglishDraughtAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                threeMoveRandom.showDifferent.v = true;
-                                                threeMoveRandom.compare.v = compare.threeMoveRandom.v;
-                                            }
-                                            else
-                                            {
-                                                threeMoveRandom.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("threeMoveRandom null: " + this);
-                                    }
-                                }
-                                // fMaxSeconds
-                                {
-                                    RequestChangeFloatUI.UIData fMaxSeconds = this.data.fMaxSeconds.v;
-                                    if (fMaxSeconds != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<float>.UpdateData updateData = fMaxSeconds.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.fMaxSeconds.v;
-                                            updateData.canRequestChange.v = editEnglishDraughtAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                fMaxSeconds.showDifferent.v = true;
-                                                fMaxSeconds.compare.v = compare.fMaxSeconds.v;
-                                            }
-                                            else
-                                            {
-                                                fMaxSeconds.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("fMaxSeconds null: " + this);
-                                    }
-                                }
-                                // g_MaxDepth
-                                {
-                                    RequestChangeIntUI.UIData g_MaxDepth = this.data.g_MaxDepth.v;
-                                    if (g_MaxDepth != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = g_MaxDepth.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.g_MaxDepth.v;
-                                            updateData.canRequestChange.v = editEnglishDraughtAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                g_MaxDepth.showDifferent.v = true;
-                                                g_MaxDepth.compare.v = compare.g_MaxDepth.v;
-                                            }
-                                            else
-                                            {
-                                                g_MaxDepth.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("g_MaxDepth null: " + this);
-                                    }
-                                }
-                                // pickBestMove
-                                {
-                                    RequestChangeIntUI.UIData pickBestMove = this.data.pickBestMove.v;
-                                    if (pickBestMove != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = pickBestMove.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.pickBestMove.v;
-                                            updateData.canRequestChange.v = editEnglishDraughtAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                pickBestMove.showDifferent.v = true;
-                                                pickBestMove.compare.v = compare.pickBestMove.v;
-                                            }
-                                            else
-                                            {
-                                                pickBestMove.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("pickBestMove null: " + this);
-                                    }
-                                }
+                                RequestChange.RefreshUI(this.data.threeMoveRandom.v, editEnglishDraughtAI, serverState, needReset, editData => editData.threeMoveRandom.v);
+                                RequestChange.RefreshUI(this.data.fMaxSeconds.v, editEnglishDraughtAI, serverState, needReset, editData => editData.fMaxSeconds.v);
+                                RequestChange.RefreshUI(this.data.g_MaxDepth.v, editEnglishDraughtAI, serverState, needReset, editData => editData.g_MaxDepth.v);
+                                RequestChange.RefreshUI(this.data.pickBestMove.v, editEnglishDraughtAI, serverState, needReset, editData => editData.pickBestMove.v);
                             }
-                            // reset?
-                            if (needReset)
-                            {
-                                needReset = false;
-                                // threeMoveRandom
-                                {
-                                    RequestChangeBoolUI.UIData threeMoveRandom = this.data.threeMoveRandom.v;
-                                    if (threeMoveRandom != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<bool>.UpdateData updateData = threeMoveRandom.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.threeMoveRandom.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("threeMoveRandom null: " + this);
-                                    }
-                                }
-                                // fMaxSeconds
-                                {
-                                    RequestChangeFloatUI.UIData fMaxSeconds = this.data.fMaxSeconds.v;
-                                    if (fMaxSeconds != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<float>.UpdateData updateData = fMaxSeconds.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.fMaxSeconds.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("fMaxSeconds null: " + this);
-                                    }
-                                }
-                                // g_MaxDepth
-                                {
-                                    RequestChangeIntUI.UIData g_MaxDepth = this.data.g_MaxDepth.v;
-                                    if (g_MaxDepth != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = g_MaxDepth.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.g_MaxDepth.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("g_MaxDepth null: " + this);
-                                    }
-                                }
-                                // pickBestMove
-                                {
-                                    RequestChangeIntUI.UIData pickBestMove = this.data.pickBestMove.v;
-                                    if (pickBestMove != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = pickBestMove.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.pickBestMove.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("pickBestMove null: " + this);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("chessAI null: " + this);
+                            needReset = false;
                         }
                     }
                     else
@@ -780,11 +503,6 @@ namespace EnglishDraught
 
         #region implement callBacks
 
-        private static readonly UIRectTransform threeMoveRandomRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        private static readonly UIRectTransform fMaxSecondsRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform g_MaxDepthRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform pickBestMoveRect = new UIRectTransform(UIConstants.RequestRect);
-
         public RequestChangeIntUI requestIntPrefab;
         public RequestChangeBoolUI requestBoolPrefab;
         public RequestChangeFloatUI requestFloatPrefab;
@@ -865,7 +583,7 @@ namespace EnglishDraught
                             {
                                 case UIData.Property.threeMoveRandom:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, threeMoveRandomRect);
+                                        UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     }
                                     break;
                                 default:
@@ -893,7 +611,7 @@ namespace EnglishDraught
                             {
                                 case UIData.Property.fMaxSeconds:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, fMaxSecondsRect);
+                                        UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 default:
@@ -921,12 +639,12 @@ namespace EnglishDraught
                             {
                                 case UIData.Property.g_MaxDepth:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, g_MaxDepthRect);
+                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 case UIData.Property.pickBestMove:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, pickBestMoveRect);
+                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 default:

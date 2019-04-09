@@ -80,7 +80,7 @@ namespace TimeControl.Normal
 
         #region Refresh
 
-        private bool needReset = true;
+        protected bool needReset = true;
 
         public override void refresh()
         {
@@ -94,56 +94,14 @@ namespace TimeControl.Normal
                     {
                         // update
                         editTimeControlNormal.update();
-                        // get show
-                        TimeControlNormal show = editTimeControlNormal.show.v.data;
-                        TimeControlNormal compare = editTimeControlNormal.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editTimeControlNormal.compareOtherType.v.data != null)
-                                    {
-                                        if (editTimeControlNormal.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editTimeControlNormal);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        // Debug.LogError ("server null: " + this);
-                                    }
-                                    if (serverState == Server.State.Type.Offline)
-                                    {
-                                        Debug.LogError("serverState: " + serverState + "; " + compare + "; " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editTimeControlNormal);
                                 // set origin
                                 {
                                     // generalInfo
@@ -231,16 +189,8 @@ namespace TimeControl.Normal
                                         }
                                     }
                                 }
-                                // reset?
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                }
+                                needReset = false;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
                         }
                         // UI
                         {

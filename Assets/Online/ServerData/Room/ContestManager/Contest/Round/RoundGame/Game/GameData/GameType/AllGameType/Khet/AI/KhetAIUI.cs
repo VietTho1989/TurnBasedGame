@@ -245,13 +245,6 @@ namespace Khet
                 txtDepth.add(Language.Type.vi, "Dộ sâu");
                 txtPickBestMove.add(Language.Type.vi, "Chọn nước đi tốt nhất");
             }
-            // rect
-            {
-                infiniteRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                moveTimeRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                depthRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                pickBestMoveRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -271,290 +264,20 @@ namespace Khet
                     if (editKhetAI != null)
                     {
                         editKhetAI.update();
-                        // get show
-                        KhetAI show = editKhetAI.show.v.data;
-                        KhetAI compare = editKhetAI.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editKhetAI.compareOtherType.v.data != null)
-                                    {
-                                        if (editKhetAI.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editKhetAI);
                             // get server state
-                            Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    // Debug.LogError ("server null: " + this);
-                                }
-                            }
+                            Server.State.Type serverState = RequestChange.GetServerState(editKhetAI);
                             // set origin
                             {
-                                // infinite
-                                {
-                                    RequestChangeBoolUI.UIData infinite = this.data.infinite.v;
-                                    if (infinite != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<bool>.UpdateData updateData = infinite.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.infinite.v;
-                                            updateData.canRequestChange.v = editKhetAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                infinite.showDifferent.v = true;
-                                                infinite.compare.v = compare.infinite.v;
-                                            }
-                                            else
-                                            {
-                                                infinite.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("infinite null: " + this);
-                                    }
-                                }
-                                // moveTime
-                                {
-                                    RequestChangeIntUI.UIData moveTime = this.data.moveTime.v;
-                                    if (moveTime != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = moveTime.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.moveTime.v;
-                                            updateData.canRequestChange.v = editKhetAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                moveTime.showDifferent.v = true;
-                                                moveTime.compare.v = compare.moveTime.v;
-                                            }
-                                            else
-                                            {
-                                                moveTime.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("moveTime null: " + this);
-                                    }
-                                }
-                                // depth
-                                {
-                                    RequestChangeIntUI.UIData depth = this.data.depth.v;
-                                    if (depth != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = depth.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.depth.v;
-                                            updateData.canRequestChange.v = editKhetAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                depth.showDifferent.v = true;
-                                                depth.compare.v = compare.depth.v;
-                                            }
-                                            else
-                                            {
-                                                depth.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                                // pickBestMove
-                                {
-                                    RequestChangeIntUI.UIData pickBestMove = this.data.pickBestMove.v;
-                                    if (pickBestMove != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = pickBestMove.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.pickBestMove.v;
-                                            updateData.canRequestChange.v = editKhetAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                pickBestMove.showDifferent.v = true;
-                                                pickBestMove.compare.v = compare.pickBestMove.v;
-                                            }
-                                            else
-                                            {
-                                                pickBestMove.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("pickBestMove null: " + this);
-                                    }
-                                }
+                                RequestChange.RefreshUI(this.data.infinite.v, editKhetAI, serverState, needReset, editData => editData.infinite.v);
+                                RequestChange.RefreshUI(this.data.moveTime.v, editKhetAI, serverState, needReset, editData => editData.moveTime.v);
+                                RequestChange.RefreshUI(this.data.depth.v, editKhetAI, serverState, needReset, editData => editData.depth.v);
+                                RequestChange.RefreshUI(this.data.pickBestMove.v, editKhetAI, serverState, needReset, editData => editData.pickBestMove.v);
                             }
-                            // reset?
-                            if (needReset)
-                            {
-                                needReset = false;
-                                // infinite
-                                {
-                                    RequestChangeBoolUI.UIData infinite = this.data.infinite.v;
-                                    if (infinite != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<bool>.UpdateData updateData = infinite.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.infinite.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("infinite null: " + this);
-                                    }
-                                }
-                                // moveTime
-                                {
-                                    RequestChangeIntUI.UIData moveTime = this.data.moveTime.v;
-                                    if (moveTime != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = moveTime.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.moveTime.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("moveTime null: " + this);
-                                    }
-                                }
-                                // depth
-                                {
-                                    RequestChangeIntUI.UIData depth = this.data.depth.v;
-                                    if (depth != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = depth.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.depth.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                                // pickBestMove
-                                {
-                                    RequestChangeIntUI.UIData pickBestMove = this.data.pickBestMove.v;
-                                    if (pickBestMove != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = pickBestMove.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.pickBestMove.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("pickBestMove null: " + this);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("chessAI null: " + this);
+                            needReset = false;
                         }
                     }
                     else
@@ -780,11 +503,6 @@ namespace Khet
 
         #region implement callBacks
 
-        public static readonly UIRectTransform infiniteRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        public static readonly UIRectTransform moveTimeRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform depthRect = new UIRectTransform(UIConstants.RequestRect);
-        public static readonly UIRectTransform pickBestMoveRect = new UIRectTransform(UIConstants.RequestRect);
-
         public RequestChangeBoolUI requestBoolPrefab;
         public RequestChangeIntUI requestIntPrefab;
 
@@ -863,7 +581,7 @@ namespace Khet
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.infinite:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, infiniteRect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -889,13 +607,13 @@ namespace Khet
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.moveTime:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, moveTimeRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.depth:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, depthRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.pickBestMove:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, pickBestMoveRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

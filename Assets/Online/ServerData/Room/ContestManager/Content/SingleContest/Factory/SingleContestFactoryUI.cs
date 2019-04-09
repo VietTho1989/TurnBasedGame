@@ -344,577 +344,338 @@ namespace GameManager.Match
                     if (editSingleContestFactory != null)
                     {
                         editSingleContestFactory.update();
-                        // get show
-                        SingleContestFactory show = editSingleContestFactory.show.v.data;
-                        SingleContestFactory compare = editSingleContestFactory.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editSingleContestFactory.compareOtherType.v.data != null)
-                                    {
-                                        if (editSingleContestFactory.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("differentIndicator null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editSingleContestFactory);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editSingleContestFactory);
                                 // set origin
                                 {
-                                    // playerPerTeam
-                                    {
-                                        RequestChangeIntUI.UIData playerPerTeam = this.data.playerPerTeam.v;
-                                        if (playerPerTeam != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = playerPerTeam.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.playerPerTeam.v;
-                                                updateData.canRequestChange.v = editSingleContestFactory.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    playerPerTeam.showDifferent.v = true;
-                                                    playerPerTeam.compare.v = compare.playerPerTeam.v;
-                                                }
-                                                else
-                                                {
-                                                    playerPerTeam.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("useRule null: " + this);
-                                        }
-                                    }
-                                    // roundFactoryType
-                                    {
-                                        RequestChangeEnumUI.UIData roundFactoryType = this.data.roundFactoryType.v;
-                                        if (roundFactoryType != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = roundFactoryType.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = (int)show.getRoundFactoryType();
-                                                updateData.canRequestChange.v = editSingleContestFactory.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    roundFactoryType.showDifferent.v = true;
-                                                    roundFactoryType.compare.v = (int)compare.getRoundFactoryType();
-                                                }
-                                                else
-                                                {
-                                                    roundFactoryType.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            // Debug.LogError("roundFactoryType null: " + this);
-                                        }
-                                    }
+                                    RequestChange.RefreshUI(this.data.playerPerTeam.v, editSingleContestFactory, serverState, needReset, editData => editData.playerPerTeam.v);
+                                    RequestChange.RefreshUI(this.data.roundFactoryType.v, editSingleContestFactory, serverState, needReset, editData => (int)editData.getRoundFactoryType());
                                     // roundFactoryUI
                                     {
-                                        RoundFactory roundFactory = show.roundFactory.v;
-                                        if (roundFactory != null)
+                                        SingleContestFactory show = editSingleContestFactory.show.v.data;
+                                        SingleContestFactory compare = editSingleContestFactory.compare.v.data;
+                                        if (show != null)
                                         {
-                                            // find origin 
-                                            RoundFactory originRoundFactory = null;
+                                            RoundFactory roundFactory = show.roundFactory.v;
+                                            if (roundFactory != null)
                                             {
-                                                SingleContestFactory originSingleContestFactory = editSingleContestFactory.origin.v.data;
-                                                if (originSingleContestFactory != null)
+                                                // find origin 
+                                                RoundFactory originRoundFactory = null;
                                                 {
-                                                    originRoundFactory = originSingleContestFactory.roundFactory.v;
-                                                }
-                                                else
-                                                {
-                                                    Debug.LogError("origin null: " + this);
-                                                }
-                                            }
-                                            // find compare
-                                            RoundFactory compareRoundFactory = null;
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    compareRoundFactory = compare.roundFactory.v;
-                                                }
-                                                else
-                                                {
-                                                    // Debug.LogError ("compare null: " + this);
-                                                }
-                                            }
-                                            switch (roundFactory.getType())
-                                            {
-                                                case RoundFactory.Type.Normal:
+                                                    SingleContestFactory originSingleContestFactory = editSingleContestFactory.origin.v.data;
+                                                    if (originSingleContestFactory != null)
                                                     {
-                                                        NormalRoundFactory normalRoundFactory = roundFactory as NormalRoundFactory;
-                                                        // UIData
-                                                        NormalRoundFactoryUI.UIData normalRoundFactoryUIData = this.data.roundFactoryUI.newOrOld<NormalRoundFactoryUI.UIData>();
-                                                        {
-                                                            EditData<NormalRoundFactory> editNormalRoundFactory = normalRoundFactoryUIData.editNormalRoundFactory.v;
-                                                            if (editNormalRoundFactory != null)
-                                                            {
-                                                                // origin
-                                                                editNormalRoundFactory.origin.v = new ReferenceData<NormalRoundFactory>((NormalRoundFactory)originRoundFactory);
-                                                                // show
-                                                                editNormalRoundFactory.show.v = new ReferenceData<NormalRoundFactory>(normalRoundFactory);
-                                                                // compare
-                                                                editNormalRoundFactory.compare.v = new ReferenceData<NormalRoundFactory>((NormalRoundFactory)compareRoundFactory);
-                                                                // compareOtherType
-                                                                editNormalRoundFactory.compareOtherType.v = new ReferenceData<Data>(compareRoundFactory);
-                                                                // canEdit
-                                                                editNormalRoundFactory.canEdit.v = editSingleContestFactory.canEdit.v;
-                                                                // editType
-                                                                editNormalRoundFactory.editType.v = editSingleContestFactory.editType.v;
-                                                            }
-                                                            else
-                                                            {
-                                                                Debug.LogError("editNormalRoundFactory null: " + this);
-                                                            }
-                                                        }
-                                                        this.data.roundFactoryUI.v = normalRoundFactoryUIData;
+                                                        originRoundFactory = originSingleContestFactory.roundFactory.v;
                                                     }
-                                                    break;
-                                                default:
-                                                    Debug.LogError("unknown type: " + roundFactory.getType() + "; " + this);
-                                                    break;
+                                                    else
+                                                    {
+                                                        Debug.LogError("origin null: " + this);
+                                                    }
+                                                }
+                                                // find compare
+                                                RoundFactory compareRoundFactory = null;
+                                                {
+                                                    if (compare != null)
+                                                    {
+                                                        compareRoundFactory = compare.roundFactory.v;
+                                                    }
+                                                    else
+                                                    {
+                                                        // Debug.LogError ("compare null: " + this);
+                                                    }
+                                                }
+                                                switch (roundFactory.getType())
+                                                {
+                                                    case RoundFactory.Type.Normal:
+                                                        {
+                                                            NormalRoundFactory normalRoundFactory = roundFactory as NormalRoundFactory;
+                                                            // UIData
+                                                            NormalRoundFactoryUI.UIData normalRoundFactoryUIData = this.data.roundFactoryUI.newOrOld<NormalRoundFactoryUI.UIData>();
+                                                            {
+                                                                EditData<NormalRoundFactory> editNormalRoundFactory = normalRoundFactoryUIData.editNormalRoundFactory.v;
+                                                                if (editNormalRoundFactory != null)
+                                                                {
+                                                                    // origin
+                                                                    editNormalRoundFactory.origin.v = new ReferenceData<NormalRoundFactory>((NormalRoundFactory)originRoundFactory);
+                                                                    // show
+                                                                    editNormalRoundFactory.show.v = new ReferenceData<NormalRoundFactory>(normalRoundFactory);
+                                                                    // compare
+                                                                    editNormalRoundFactory.compare.v = new ReferenceData<NormalRoundFactory>((NormalRoundFactory)compareRoundFactory);
+                                                                    // compareOtherType
+                                                                    editNormalRoundFactory.compareOtherType.v = new ReferenceData<Data>(compareRoundFactory);
+                                                                    // canEdit
+                                                                    editNormalRoundFactory.canEdit.v = editSingleContestFactory.canEdit.v;
+                                                                    // editType
+                                                                    editNormalRoundFactory.editType.v = editSingleContestFactory.editType.v;
+                                                                }
+                                                                else
+                                                                {
+                                                                    Debug.LogError("editNormalRoundFactory null: " + this);
+                                                                }
+                                                            }
+                                                            this.data.roundFactoryUI.v = normalRoundFactoryUIData;
+                                                        }
+                                                        break;
+                                                    default:
+                                                        Debug.LogError("unknown type: " + roundFactory.getType() + "; " + this);
+                                                        break;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Debug.LogError("show null: " + this);
                                             }
                                         }
                                         else
                                         {
-                                            Debug.LogError("show null: " + this);
+                                            Debug.LogError("show null");
                                         }
                                     }
                                     // newRoundLimitType
                                     {
-                                        RequestChangeEnumUI.UIData newRoundLimitType = this.data.newRoundLimitType.v;
-                                        if (newRoundLimitType != null)
-                                        {
-                                            // options
-                                            newRoundLimitType.options.copyList(RequestNewRound.Limit.getStrTypes());
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = newRoundLimitType.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = (int)show.getNewRoundLimitType();
-                                                updateData.canRequestChange.v = editSingleContestFactory.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    newRoundLimitType.showDifferent.v = true;
-                                                    newRoundLimitType.compare.v = (int)compare.getNewRoundLimitType();
-                                                }
-                                                else
-                                                {
-                                                    newRoundLimitType.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("newRoundLimitType null: " + this);
-                                        }
+                                        RequestChangeEnumUI.RefreshOptions(this.data.newRoundLimitType.v, RequestNewRound.Limit.getStrTypes());
+                                        RequestChange.RefreshUI(this.data.newRoundLimitType.v, editSingleContestFactory, serverState, needReset, editData => (int)editData.getNewRoundLimitType());
                                     }
                                     // newRoundLimitUI
                                     {
-                                        RequestNewRound.Limit newRoundLimit = show.newRoundLimit.v;
-                                        if (newRoundLimit != null)
+                                        SingleContestFactory show = editSingleContestFactory.show.v.data;
+                                        SingleContestFactory compare = editSingleContestFactory.compare.v.data;
+                                        if (show != null)
                                         {
-                                            // find origin 
-                                            RequestNewRound.Limit originNewRoundLimit = null;
+                                            RequestNewRound.Limit newRoundLimit = show.newRoundLimit.v;
+                                            if (newRoundLimit != null)
                                             {
-                                                SingleContestFactory originSingleContestFactory = editSingleContestFactory.origin.v.data;
-                                                if (originSingleContestFactory != null)
+                                                // find origin 
+                                                RequestNewRound.Limit originNewRoundLimit = null;
                                                 {
-                                                    originNewRoundLimit = originSingleContestFactory.newRoundLimit.v;
+                                                    SingleContestFactory originSingleContestFactory = editSingleContestFactory.origin.v.data;
+                                                    if (originSingleContestFactory != null)
+                                                    {
+                                                        originNewRoundLimit = originSingleContestFactory.newRoundLimit.v;
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("origin null: " + this);
+                                                    }
                                                 }
-                                                else
+                                                // find compare
+                                                RequestNewRound.Limit compareNewRoundLimit = null;
                                                 {
-                                                    Debug.LogError("origin null: " + this);
+                                                    if (compare != null)
+                                                    {
+                                                        compareNewRoundLimit = compare.newRoundLimit.v;
+                                                    }
+                                                    else
+                                                    {
+                                                        // Debug.LogError ("compare null: " + this);
+                                                    }
+                                                }
+                                                switch (newRoundLimit.getType())
+                                                {
+                                                    case RequestNewRound.Limit.Type.NoLimit:
+                                                        {
+                                                            RequestNewRoundNoLimit newRoundNoLimit = newRoundLimit as RequestNewRoundNoLimit;
+                                                            // UIData
+                                                            RequestNewRoundNoLimitUI.UIData newRoundNoLimitUIData = this.data.newRoundLimitUI.newOrOld<RequestNewRoundNoLimitUI.UIData>();
+                                                            {
+                                                                EditData<RequestNewRoundNoLimit> editNoLimit = newRoundNoLimitUIData.editNoLimit.v;
+                                                                if (editNoLimit != null)
+                                                                {
+                                                                    // origin
+                                                                    editNoLimit.origin.v = new ReferenceData<RequestNewRoundNoLimit>((RequestNewRoundNoLimit)originNewRoundLimit);
+                                                                    // show
+                                                                    editNoLimit.show.v = new ReferenceData<RequestNewRoundNoLimit>(newRoundNoLimit);
+                                                                    // compare
+                                                                    editNoLimit.compare.v = new ReferenceData<RequestNewRoundNoLimit>((RequestNewRoundNoLimit)compareNewRoundLimit);
+                                                                    // compareOtherType
+                                                                    editNoLimit.compareOtherType.v = new ReferenceData<Data>(compareNewRoundLimit);
+                                                                    // canEdit
+                                                                    editNoLimit.canEdit.v = editSingleContestFactory.canEdit.v;
+                                                                    // editType
+                                                                    editNoLimit.editType.v = editSingleContestFactory.editType.v;
+                                                                }
+                                                                else
+                                                                {
+                                                                    Debug.LogError("editNoLimit null: " + this);
+                                                                }
+                                                                newRoundNoLimitUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                            }
+                                                            this.data.newRoundLimitUI.v = newRoundNoLimitUIData;
+                                                        }
+                                                        break;
+                                                    case RequestNewRound.Limit.Type.HaveLimit:
+                                                        {
+                                                            RequestNewRoundHaveLimit newRoundHaveLimit = newRoundLimit as RequestNewRoundHaveLimit;
+                                                            // UIData
+                                                            RequestNewRoundHaveLimitUI.UIData newRoundHaveLimitUIData = this.data.newRoundLimitUI.newOrOld<RequestNewRoundHaveLimitUI.UIData>();
+                                                            {
+                                                                EditData<RequestNewRoundHaveLimit> editHaveLimit = newRoundHaveLimitUIData.editHaveLimit.v;
+                                                                if (editHaveLimit != null)
+                                                                {
+                                                                    // origin
+                                                                    editHaveLimit.origin.v = new ReferenceData<RequestNewRoundHaveLimit>((RequestNewRoundHaveLimit)originNewRoundLimit);
+                                                                    // show
+                                                                    editHaveLimit.show.v = new ReferenceData<RequestNewRoundHaveLimit>(newRoundHaveLimit);
+                                                                    // compare
+                                                                    editHaveLimit.compare.v = new ReferenceData<RequestNewRoundHaveLimit>((RequestNewRoundHaveLimit)compareNewRoundLimit);
+                                                                    // compareOtherType
+                                                                    editHaveLimit.compareOtherType.v = new ReferenceData<Data>(compareNewRoundLimit);
+                                                                    // canEdit
+                                                                    editHaveLimit.canEdit.v = editSingleContestFactory.canEdit.v;
+                                                                    // editType
+                                                                    editHaveLimit.editType.v = editSingleContestFactory.editType.v;
+                                                                }
+                                                                else
+                                                                {
+                                                                    Debug.LogError("editHaveLimit null: " + this);
+                                                                }
+                                                                newRoundHaveLimitUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                            }
+                                                            this.data.newRoundLimitUI.v = newRoundHaveLimitUIData;
+                                                        }
+                                                        break;
+                                                    default:
+                                                        Debug.LogError("unknown type: " + newRoundLimit.getType() + "; " + this);
+                                                        break;
                                                 }
                                             }
-                                            // find compare
-                                            RequestNewRound.Limit compareNewRoundLimit = null;
+                                            else
                                             {
-                                                if (compare != null)
-                                                {
-                                                    compareNewRoundLimit = compare.newRoundLimit.v;
-                                                }
-                                                else
-                                                {
-                                                    // Debug.LogError ("compare null: " + this);
-                                                }
-                                            }
-                                            switch (newRoundLimit.getType())
-                                            {
-                                                case RequestNewRound.Limit.Type.NoLimit:
-                                                    {
-                                                        RequestNewRoundNoLimit newRoundNoLimit = newRoundLimit as RequestNewRoundNoLimit;
-                                                        // UIData
-                                                        RequestNewRoundNoLimitUI.UIData newRoundNoLimitUIData = this.data.newRoundLimitUI.newOrOld<RequestNewRoundNoLimitUI.UIData>();
-                                                        {
-                                                            EditData<RequestNewRoundNoLimit> editNoLimit = newRoundNoLimitUIData.editNoLimit.v;
-                                                            if (editNoLimit != null)
-                                                            {
-                                                                // origin
-                                                                editNoLimit.origin.v = new ReferenceData<RequestNewRoundNoLimit>((RequestNewRoundNoLimit)originNewRoundLimit);
-                                                                // show
-                                                                editNoLimit.show.v = new ReferenceData<RequestNewRoundNoLimit>(newRoundNoLimit);
-                                                                // compare
-                                                                editNoLimit.compare.v = new ReferenceData<RequestNewRoundNoLimit>((RequestNewRoundNoLimit)compareNewRoundLimit);
-                                                                // compareOtherType
-                                                                editNoLimit.compareOtherType.v = new ReferenceData<Data>(compareNewRoundLimit);
-                                                                // canEdit
-                                                                editNoLimit.canEdit.v = editSingleContestFactory.canEdit.v;
-                                                                // editType
-                                                                editNoLimit.editType.v = editSingleContestFactory.editType.v;
-                                                            }
-                                                            else
-                                                            {
-                                                                Debug.LogError("editNoLimit null: " + this);
-                                                            }
-                                                            newRoundNoLimitUIData.showType.v = UIRectTransform.ShowType.HeadLess;
-                                                        }
-                                                        this.data.newRoundLimitUI.v = newRoundNoLimitUIData;
-                                                    }
-                                                    break;
-                                                case RequestNewRound.Limit.Type.HaveLimit:
-                                                    {
-                                                        RequestNewRoundHaveLimit newRoundHaveLimit = newRoundLimit as RequestNewRoundHaveLimit;
-                                                        // UIData
-                                                        RequestNewRoundHaveLimitUI.UIData newRoundHaveLimitUIData = this.data.newRoundLimitUI.newOrOld<RequestNewRoundHaveLimitUI.UIData>();
-                                                        {
-                                                            EditData<RequestNewRoundHaveLimit> editHaveLimit = newRoundHaveLimitUIData.editHaveLimit.v;
-                                                            if (editHaveLimit != null)
-                                                            {
-                                                                // origin
-                                                                editHaveLimit.origin.v = new ReferenceData<RequestNewRoundHaveLimit>((RequestNewRoundHaveLimit)originNewRoundLimit);
-                                                                // show
-                                                                editHaveLimit.show.v = new ReferenceData<RequestNewRoundHaveLimit>(newRoundHaveLimit);
-                                                                // compare
-                                                                editHaveLimit.compare.v = new ReferenceData<RequestNewRoundHaveLimit>((RequestNewRoundHaveLimit)compareNewRoundLimit);
-                                                                // compareOtherType
-                                                                editHaveLimit.compareOtherType.v = new ReferenceData<Data>(compareNewRoundLimit);
-                                                                // canEdit
-                                                                editHaveLimit.canEdit.v = editSingleContestFactory.canEdit.v;
-                                                                // editType
-                                                                editHaveLimit.editType.v = editSingleContestFactory.editType.v;
-                                                            }
-                                                            else
-                                                            {
-                                                                Debug.LogError("editHaveLimit null: " + this);
-                                                            }
-                                                            newRoundHaveLimitUIData.showType.v = UIRectTransform.ShowType.HeadLess;
-                                                        }
-                                                        this.data.newRoundLimitUI.v = newRoundHaveLimitUIData;
-                                                    }
-                                                    break;
-                                                default:
-                                                    Debug.LogError("unknown type: " + newRoundLimit.getType() + "; " + this);
-                                                    break;
+                                                Debug.LogError("show null: " + this);
                                             }
                                         }
                                         else
                                         {
-                                            Debug.LogError("show null: " + this);
+                                            Debug.LogError("show null");
                                         }
                                     }
                                     // calculateScoreType
                                     {
-                                        RequestChangeEnumUI.UIData calculateScoreType = this.data.calculateScoreType.v;
-                                        if (calculateScoreType != null)
-                                        {
-                                            // options
-                                            calculateScoreType.options.copyList(CalculateScore.getStrTypes());
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = calculateScoreType.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = (int)show.getCalculateScoreType();
-                                                updateData.canRequestChange.v = editSingleContestFactory.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    calculateScoreType.showDifferent.v = true;
-                                                    calculateScoreType.compare.v = (int)compare.getCalculateScoreType();
-                                                }
-                                                else
-                                                {
-                                                    calculateScoreType.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("calculateScoreType null: " + this);
-                                        }
+                                        RequestChangeEnumUI.RefreshOptions(this.data.calculateScoreType.v, CalculateScore.getStrTypes());
+                                        RequestChange.RefreshUI(this.data.calculateScoreType.v, editSingleContestFactory, serverState, needReset, editData => (int)editData.getCalculateScoreType());
                                     }
                                     // calculateScoreUI
                                     {
-                                        CalculateScore calculateScore = show.calculateScore.v;
-                                        if (calculateScore != null)
+                                        SingleContestFactory show = editSingleContestFactory.show.v.data;
+                                        SingleContestFactory compare = editSingleContestFactory.compare.v.data;
+                                        if (show != null)
                                         {
-                                            // find origin 
-                                            CalculateScore originCalculateScore = null;
+                                            CalculateScore calculateScore = show.calculateScore.v;
+                                            if (calculateScore != null)
                                             {
-                                                SingleContestFactory originSingleContestFactory = editSingleContestFactory.origin.v.data;
-                                                if (originSingleContestFactory != null)
+                                                // find origin 
+                                                CalculateScore originCalculateScore = null;
                                                 {
-                                                    originCalculateScore = originSingleContestFactory.calculateScore.v;
+                                                    SingleContestFactory originSingleContestFactory = editSingleContestFactory.origin.v.data;
+                                                    if (originSingleContestFactory != null)
+                                                    {
+                                                        originCalculateScore = originSingleContestFactory.calculateScore.v;
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.LogError("origin null: " + this);
+                                                    }
                                                 }
-                                                else
+                                                // find compare
+                                                CalculateScore compareCalculateScore = null;
                                                 {
-                                                    Debug.LogError("origin null: " + this);
+                                                    if (compare != null)
+                                                    {
+                                                        compareCalculateScore = compare.calculateScore.v;
+                                                    }
+                                                    else
+                                                    {
+                                                        // Debug.LogError ("compare null: " + this);
+                                                    }
+                                                }
+                                                switch (calculateScore.getType())
+                                                {
+                                                    case CalculateScore.Type.Sum:
+                                                        {
+                                                            CalculateScoreSum calculateScoreSum = calculateScore as CalculateScoreSum;
+                                                            // UIData
+                                                            CalculateScoreSumUI.UIData calculateScoreSumUIData = this.data.calculateScoreUI.newOrOld<CalculateScoreSumUI.UIData>();
+                                                            {
+                                                                EditData<CalculateScoreSum> editCalculateScoreSum = calculateScoreSumUIData.editCalculateScoreSum.v;
+                                                                if (editCalculateScoreSum != null)
+                                                                {
+                                                                    // origin
+                                                                    editCalculateScoreSum.origin.v = new ReferenceData<CalculateScoreSum>((CalculateScoreSum)originCalculateScore);
+                                                                    // show
+                                                                    editCalculateScoreSum.show.v = new ReferenceData<CalculateScoreSum>(calculateScoreSum);
+                                                                    // compare
+                                                                    editCalculateScoreSum.compare.v = new ReferenceData<CalculateScoreSum>((CalculateScoreSum)compareCalculateScore);
+                                                                    // compareOtherType
+                                                                    editCalculateScoreSum.compareOtherType.v = new ReferenceData<Data>(compareCalculateScore);
+                                                                    // canEdit
+                                                                    editCalculateScoreSum.canEdit.v = editSingleContestFactory.canEdit.v;
+                                                                    // editType
+                                                                    editCalculateScoreSum.editType.v = editSingleContestFactory.editType.v;
+                                                                }
+                                                                else
+                                                                {
+                                                                    Debug.LogError("editCalculateScoreSum null: " + this);
+                                                                }
+                                                                calculateScoreSumUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                            }
+                                                            this.data.calculateScoreUI.v = calculateScoreSumUIData;
+                                                        }
+                                                        break;
+                                                    case CalculateScore.Type.WinLoseDraw:
+                                                        {
+                                                            CalculateScoreWinLoseDraw calculateScoreWinLoseDraw = calculateScore as CalculateScoreWinLoseDraw;
+                                                            // UIData
+                                                            CalculateScoreWinLoseDrawUI.UIData calculateScoreWinLoseDrawUIData = this.data.calculateScoreUI.newOrOld<CalculateScoreWinLoseDrawUI.UIData>();
+                                                            {
+                                                                EditData<CalculateScoreWinLoseDraw> editCalculateScoreWinLoseDraw = calculateScoreWinLoseDrawUIData.editCalculateScoreWinLoseDraw.v;
+                                                                if (editCalculateScoreWinLoseDraw != null)
+                                                                {
+                                                                    // origin
+                                                                    editCalculateScoreWinLoseDraw.origin.v = new ReferenceData<CalculateScoreWinLoseDraw>((CalculateScoreWinLoseDraw)originCalculateScore);
+                                                                    // show
+                                                                    editCalculateScoreWinLoseDraw.show.v = new ReferenceData<CalculateScoreWinLoseDraw>(calculateScoreWinLoseDraw);
+                                                                    // compare
+                                                                    editCalculateScoreWinLoseDraw.compare.v = new ReferenceData<CalculateScoreWinLoseDraw>((CalculateScoreWinLoseDraw)compareCalculateScore);
+                                                                    // compareOtherType
+                                                                    editCalculateScoreWinLoseDraw.compareOtherType.v = new ReferenceData<Data>(compareCalculateScore);
+                                                                    // canEdit
+                                                                    editCalculateScoreWinLoseDraw.canEdit.v = editSingleContestFactory.canEdit.v;
+                                                                    // editType
+                                                                    editCalculateScoreWinLoseDraw.editType.v = editSingleContestFactory.editType.v;
+                                                                }
+                                                                else
+                                                                {
+                                                                    Debug.LogError("editCalculateScoreWinLoseDraw null: " + this);
+                                                                }
+                                                                calculateScoreWinLoseDrawUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                            }
+                                                            this.data.calculateScoreUI.v = calculateScoreWinLoseDrawUIData;
+                                                        }
+                                                        break;
+                                                    default:
+                                                        Debug.LogError("unknown type: " + calculateScore.getType() + "; " + this);
+                                                        break;
                                                 }
                                             }
-                                            // find compare
-                                            CalculateScore compareCalculateScore = null;
+                                            else
                                             {
-                                                if (compare != null)
-                                                {
-                                                    compareCalculateScore = compare.calculateScore.v;
-                                                }
-                                                else
-                                                {
-                                                    // Debug.LogError ("compare null: " + this);
-                                                }
-                                            }
-                                            switch (calculateScore.getType())
-                                            {
-                                                case CalculateScore.Type.Sum:
-                                                    {
-                                                        CalculateScoreSum calculateScoreSum = calculateScore as CalculateScoreSum;
-                                                        // UIData
-                                                        CalculateScoreSumUI.UIData calculateScoreSumUIData = this.data.calculateScoreUI.newOrOld<CalculateScoreSumUI.UIData>();
-                                                        {
-                                                            EditData<CalculateScoreSum> editCalculateScoreSum = calculateScoreSumUIData.editCalculateScoreSum.v;
-                                                            if (editCalculateScoreSum != null)
-                                                            {
-                                                                // origin
-                                                                editCalculateScoreSum.origin.v = new ReferenceData<CalculateScoreSum>((CalculateScoreSum)originCalculateScore);
-                                                                // show
-                                                                editCalculateScoreSum.show.v = new ReferenceData<CalculateScoreSum>(calculateScoreSum);
-                                                                // compare
-                                                                editCalculateScoreSum.compare.v = new ReferenceData<CalculateScoreSum>((CalculateScoreSum)compareCalculateScore);
-                                                                // compareOtherType
-                                                                editCalculateScoreSum.compareOtherType.v = new ReferenceData<Data>(compareCalculateScore);
-                                                                // canEdit
-                                                                editCalculateScoreSum.canEdit.v = editSingleContestFactory.canEdit.v;
-                                                                // editType
-                                                                editCalculateScoreSum.editType.v = editSingleContestFactory.editType.v;
-                                                            }
-                                                            else
-                                                            {
-                                                                Debug.LogError("editCalculateScoreSum null: " + this);
-                                                            }
-                                                            calculateScoreSumUIData.showType.v = UIRectTransform.ShowType.HeadLess;
-                                                        }
-                                                        this.data.calculateScoreUI.v = calculateScoreSumUIData;
-                                                    }
-                                                    break;
-                                                case CalculateScore.Type.WinLoseDraw:
-                                                    {
-                                                        CalculateScoreWinLoseDraw calculateScoreWinLoseDraw = calculateScore as CalculateScoreWinLoseDraw;
-                                                        // UIData
-                                                        CalculateScoreWinLoseDrawUI.UIData calculateScoreWinLoseDrawUIData = this.data.calculateScoreUI.newOrOld<CalculateScoreWinLoseDrawUI.UIData>();
-                                                        {
-                                                            EditData<CalculateScoreWinLoseDraw> editCalculateScoreWinLoseDraw = calculateScoreWinLoseDrawUIData.editCalculateScoreWinLoseDraw.v;
-                                                            if (editCalculateScoreWinLoseDraw != null)
-                                                            {
-                                                                // origin
-                                                                editCalculateScoreWinLoseDraw.origin.v = new ReferenceData<CalculateScoreWinLoseDraw>((CalculateScoreWinLoseDraw)originCalculateScore);
-                                                                // show
-                                                                editCalculateScoreWinLoseDraw.show.v = new ReferenceData<CalculateScoreWinLoseDraw>(calculateScoreWinLoseDraw);
-                                                                // compare
-                                                                editCalculateScoreWinLoseDraw.compare.v = new ReferenceData<CalculateScoreWinLoseDraw>((CalculateScoreWinLoseDraw)compareCalculateScore);
-                                                                // compareOtherType
-                                                                editCalculateScoreWinLoseDraw.compareOtherType.v = new ReferenceData<Data>(compareCalculateScore);
-                                                                // canEdit
-                                                                editCalculateScoreWinLoseDraw.canEdit.v = editSingleContestFactory.canEdit.v;
-                                                                // editType
-                                                                editCalculateScoreWinLoseDraw.editType.v = editSingleContestFactory.editType.v;
-                                                            }
-                                                            else
-                                                            {
-                                                                Debug.LogError("editCalculateScoreWinLoseDraw null: " + this);
-                                                            }
-                                                            calculateScoreWinLoseDrawUIData.showType.v = UIRectTransform.ShowType.HeadLess;
-                                                        }
-                                                        this.data.calculateScoreUI.v = calculateScoreWinLoseDrawUIData;
-                                                    }
-                                                    break;
-                                                default:
-                                                    Debug.LogError("unknown type: " + calculateScore.getType() + "; " + this);
-                                                    break;
+                                                Debug.LogError("show null: " + this);
                                             }
                                         }
                                         else
                                         {
-                                            Debug.LogError("show null: " + this);
+                                            Debug.LogError("show null");
                                         }
                                     }
                                 }
                             }
-                            // reset
-                            if (needReset)
-                            {
-                                needReset = false;
-                                // playerPerTeam
-                                {
-                                    RequestChangeIntUI.UIData playerPerTeam = this.data.playerPerTeam.v;
-                                    if (playerPerTeam != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = playerPerTeam.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.playerPerTeam.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("useRule null: " + this);
-                                    }
-                                }
-                                // roundFactoryType
-                                {
-                                    RequestChangeEnumUI.UIData roundFactoryType = this.data.roundFactoryType.v;
-                                    if (roundFactoryType != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = roundFactoryType.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = (int)show.getRoundFactoryType();
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("useRule null: " + this);
-                                    }
-                                }
-                                // newRoundLimitType
-                                {
-                                    RequestChangeEnumUI.UIData newRoundLimitType = this.data.newRoundLimitType.v;
-                                    if (newRoundLimitType != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = newRoundLimitType.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = (int)show.getNewRoundLimitType();
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("newRoundLimitType null: " + this);
-                                    }
-                                }
-                                // calculateScoreType
-                                {
-                                    RequestChangeEnumUI.UIData calculateScoreType = this.data.calculateScoreType.v;
-                                    if (calculateScoreType != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = calculateScoreType.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = (int)show.getCalculateScoreType();
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("calculateScoreType null: " + this);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
+                            needReset = false;
                         }
                     }
                     else

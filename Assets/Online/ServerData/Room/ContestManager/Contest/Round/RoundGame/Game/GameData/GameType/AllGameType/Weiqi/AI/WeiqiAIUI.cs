@@ -173,16 +173,11 @@ namespace Weiqi
                             newEngine = (int)Common.engine_id.E_RANDOM;
                             break;
                         case 1:
-                            newEngine = (int)Common.engine_id.E_PATTERNPLAY;
-                            break;
-                        case 2:
-                            newEngine = (int)Common.engine_id.E_MONTECARLO;
-                            break;
-                        case 3:
                             newEngine = (int)Common.engine_id.E_UCT;
                             break;
                         default:
                             Debug.LogError("unknown engine: " + newEngine + "; " + this);
+                            newEngine = (int)Common.engine_id.E_UCT;
                             break;
                     }
                     weiqiAI.requestChangeEngine(Server.getProfileUserId(weiqiAI), newEngine);
@@ -243,8 +238,6 @@ namespace Weiqi
                     this.engine.v.updateData.v.request.v = makeRequestChangeEngine;
                     {
                         this.engine.v.options.add("RANDOM");
-                        this.engine.v.options.add("PATTERNPLAY");
-                        this.engine.v.options.add("MONTECARLO");
                         this.engine.v.options.add("UCT");
                     }
                 }
@@ -292,14 +285,6 @@ namespace Weiqi
                 txtGames.add(Language.Type.vi, "Games");
                 txtEngine.add(Language.Type.vi, "Engine");
             }
-            // rect
-            {
-                canResignRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                useBookRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                timeRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                gamesRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                engineRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -319,424 +304,21 @@ namespace Weiqi
                     if (editWeiqiAI != null)
                     {
                         editWeiqiAI.update();
-                        // get show
-                        WeiqiAI show = editWeiqiAI.show.v.data;
-                        WeiqiAI compare = editWeiqiAI.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editWeiqiAI.compareOtherType.v.data != null)
-                                    {
-                                        if (editWeiqiAI.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editWeiqiAI);
                             // get server state
-                            Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("server null: " + this);
-                                }
-                            }
+                            Server.State.Type serverState = RequestChange.GetServerState(editWeiqiAI);
                             // set origin
                             {
-                                // canResign
-                                {
-                                    RequestChangeBoolUI.UIData canResign = this.data.canResign.v;
-                                    if (canResign != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<bool>.UpdateData updateData = canResign.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.canResign.v;
-                                            updateData.canRequestChange.v = editWeiqiAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                canResign.showDifferent.v = true;
-                                                canResign.compare.v = compare.canResign.v;
-                                            }
-                                            else
-                                            {
-                                                canResign.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("canResign null: " + this);
-                                    }
-                                }
-                                // useBook
-                                {
-                                    RequestChangeBoolUI.UIData useBook = this.data.useBook.v;
-                                    if (useBook != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<bool>.UpdateData updateData = useBook.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.useBook.v;
-                                            updateData.canRequestChange.v = editWeiqiAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                useBook.showDifferent.v = true;
-                                                useBook.compare.v = compare.useBook.v;
-                                            }
-                                            else
-                                            {
-                                                useBook.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("useBook null: " + this);
-                                    }
-                                }
-                                // time
-                                {
-                                    RequestChangeIntUI.UIData time = this.data.time.v;
-                                    if (time != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = time.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.time.v;
-                                            updateData.canRequestChange.v = editWeiqiAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                time.showDifferent.v = true;
-                                                time.compare.v = compare.time.v;
-                                            }
-                                            else
-                                            {
-                                                time.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("time null: " + this);
-                                    }
-                                }
-                                // games
-                                {
-                                    RequestChangeIntUI.UIData games = this.data.games.v;
-                                    if (games != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = games.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.games.v;
-                                            updateData.canRequestChange.v = editWeiqiAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                games.showDifferent.v = true;
-                                                games.compare.v = compare.games.v;
-                                            }
-                                            else
-                                            {
-                                                games.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("games null: " + this);
-                                    }
-                                }
-                                // engine
-                                {
-                                    RequestChangeEnumUI.UIData engine = this.data.engine.v;
-                                    if (engine != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = engine.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            {
-                                                int engineId = 0;
-                                                {
-                                                    switch ((Common.engine_id)show.engine.v)
-                                                    {
-                                                        case Common.engine_id.E_RANDOM:
-                                                            engineId = 0;
-                                                            break;
-                                                        case Common.engine_id.E_REPLAY:
-                                                            engineId = 1;
-                                                            break;
-                                                        case Common.engine_id.E_PATTERNSCAN:
-                                                            engineId = 3;
-                                                            break;
-                                                        case Common.engine_id.E_PATTERNPLAY:
-                                                            engineId = 3;
-                                                            break;
-                                                        case Common.engine_id.E_MONTECARLO:
-                                                            engineId = 2;
-                                                            break;
-                                                        case Common.engine_id.E_UCT:
-                                                            engineId = 3;
-                                                            break;
-                                                        case Common.engine_id.E_DISTRIBUTED:
-                                                            engineId = 3;
-                                                            break;
-                                                        case Common.engine_id.E_JOSEKI:
-                                                            engineId = 3;
-                                                            break;
-                                                        case Common.engine_id.E_DCNN:
-                                                            engineId = 3;
-                                                            break;
-                                                        case Common.engine_id.E_MAX:
-                                                            engineId = 3;
-                                                            break;
-                                                        default:
-                                                            Debug.LogError("unknown engine_id: " + show.engine.v);
-                                                            break;
-                                                    }
-                                                }
-                                                updateData.origin.v = engineId;
-                                            }
-                                            updateData.canRequestChange.v = editWeiqiAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                engine.showDifferent.v = true;
-                                                engine.compare.v = compare.engine.v;
-                                            }
-                                            else
-                                            {
-                                                engine.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("engine null: " + this);
-                                    }
-                                }
+                                RequestChange.RefreshUI(this.data.canResign.v, editWeiqiAI, serverState, needReset, editData => editData.canResign.v);
+                                RequestChange.RefreshUI(this.data.useBook.v, editWeiqiAI, serverState, needReset, editData => editData.useBook.v);
+                                RequestChange.RefreshUI(this.data.time.v, editWeiqiAI, serverState, needReset, editData => editData.time.v);
+                                RequestChange.RefreshUI(this.data.games.v, editWeiqiAI, serverState, needReset, editData => editData.games.v);
+                                RequestChange.RefreshUI(this.data.engine.v, editWeiqiAI, serverState, needReset, editData => editData.getEngineId());
                             }
-                            // reset?
-                            if (needReset)
-                            {
-                                needReset = false;
-                                // canResign
-                                {
-                                    RequestChangeBoolUI.UIData canResign = this.data.canResign.v;
-                                    if (canResign != null)
-                                    {
-                                        RequestChangeUpdate<bool>.UpdateData updateData = canResign.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.canResign.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("canResign null: " + this);
-                                    }
-                                }
-                                // useBook
-                                {
-                                    RequestChangeBoolUI.UIData useBook = this.data.useBook.v;
-                                    if (useBook != null)
-                                    {
-                                        RequestChangeUpdate<bool>.UpdateData updateData = useBook.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.useBook.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("useBook null: " + this);
-                                    }
-                                }
-                                // time
-                                {
-                                    RequestChangeIntUI.UIData time = this.data.time.v;
-                                    if (time != null)
-                                    {
-                                        RequestChangeUpdate<int>.UpdateData updateData = time.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.time.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("time null: " + this);
-                                    }
-                                }
-                                // games
-                                {
-                                    RequestChangeIntUI.UIData games = this.data.games.v;
-                                    if (games != null)
-                                    {
-                                        RequestChangeUpdate<int>.UpdateData updateData = games.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.games.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("games null: " + this);
-                                    }
-                                }
-                                // engine
-                                {
-                                    RequestChangeEnumUI.UIData engine = this.data.engine.v;
-                                    if (engine != null)
-                                    {
-                                        RequestChangeUpdate<int>.UpdateData updateData = engine.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            {
-                                                int engineId = 0;
-                                                {
-                                                    switch ((Common.engine_id)show.engine.v)
-                                                    {
-                                                        case Common.engine_id.E_RANDOM:
-                                                            engineId = 0;
-                                                            break;
-                                                        case Common.engine_id.E_REPLAY:
-                                                            engineId = 1;
-                                                            break;
-                                                        case Common.engine_id.E_PATTERNSCAN:
-                                                            engineId = 3;
-                                                            break;
-                                                        case Common.engine_id.E_PATTERNPLAY:
-                                                            engineId = 3;
-                                                            break;
-                                                        case Common.engine_id.E_MONTECARLO:
-                                                            engineId = 2;
-                                                            break;
-                                                        case Common.engine_id.E_UCT:
-                                                            engineId = 3;
-                                                            break;
-                                                        case Common.engine_id.E_DISTRIBUTED:
-                                                            engineId = 3;
-                                                            break;
-                                                        case Common.engine_id.E_JOSEKI:
-                                                            engineId = 3;
-                                                            break;
-                                                        case Common.engine_id.E_DCNN:
-                                                            engineId = 3;
-                                                            break;
-                                                        case Common.engine_id.E_MAX:
-                                                            engineId = 3;
-                                                            break;
-                                                        default:
-                                                            Debug.LogError("unknown engine_id: " + show.engine.v);
-                                                            break;
-                                                    }
-                                                }
-                                                updateData.current.v = engineId;
-                                            }
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("engine null: " + this);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("shatranjAI null: " + this);
+                            needReset = false;
                         }
                     }
                     else
@@ -999,12 +581,6 @@ namespace Weiqi
 
         #region implement callBacks
 
-        private static readonly UIRectTransform canResignRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        private static readonly UIRectTransform useBookRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        private static readonly UIRectTransform timeRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform gamesRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform engineRect = new UIRectTransform(UIConstants.RequestEnumRect);
-
         public RequestChangeIntUI requestIntPrefab;
         public RequestChangeBoolUI requestBoolPrefab;
         public RequestChangeEnumUI requestEnumPrefab;
@@ -1085,10 +661,10 @@ namespace Weiqi
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.time:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, timeRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.games:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, gamesRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -1114,10 +690,10 @@ namespace Weiqi
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.canResign:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, canResignRect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 case UIData.Property.useBook:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, useBookRect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -1143,7 +719,7 @@ namespace Weiqi
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.engine:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, engineRect);
+                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
