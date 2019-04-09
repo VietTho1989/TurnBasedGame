@@ -339,345 +339,23 @@ namespace MineSweeper
                     if (editDefaultMineSweeper != null)
                     {
                         editDefaultMineSweeper.update();
-                        // get show
-                        DefaultMineSweeper show = editDefaultMineSweeper.show.v.data;
-                        DefaultMineSweeper compare = editDefaultMineSweeper.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editDefaultMineSweeper.compareOtherType.v.data != null)
-                                    {
-                                        if (editDefaultMineSweeper.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editDefaultMineSweeper);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editDefaultMineSweeper);
                                 // set origin
                                 {
-                                    // N
-                                    {
-                                        RequestChangeIntUI.UIData N = this.data.N.v;
-                                        if (N != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = N.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.N.v;
-                                                updateData.canRequestChange.v = editDefaultMineSweeper.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    N.showDifferent.v = true;
-                                                    N.compare.v = compare.N.v;
-                                                }
-                                                else
-                                                {
-                                                    N.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("N null: " + this);
-                                        }
-                                    }
-                                    // M
-                                    {
-                                        RequestChangeIntUI.UIData M = this.data.M.v;
-                                        if (M != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = M.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.M.v;
-                                                updateData.canRequestChange.v = editDefaultMineSweeper.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    M.showDifferent.v = true;
-                                                    M.compare.v = compare.M.v;
-                                                }
-                                                else
-                                                {
-                                                    M.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("M null: " + this);
-                                        }
-                                    }
-                                    // minK
-                                    {
-                                        RequestChangeFloatUI.UIData minK = this.data.minK.v;
-                                        if (minK != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<float>.UpdateData updateData = minK.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.minK.v;
-                                                updateData.canRequestChange.v = editDefaultMineSweeper.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    minK.showDifferent.v = true;
-                                                    minK.compare.v = compare.minK.v;
-                                                }
-                                                else
-                                                {
-                                                    minK.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("minK null: " + this);
-                                        }
-                                    }
-                                    // maxK
-                                    {
-                                        RequestChangeFloatUI.UIData maxK = this.data.maxK.v;
-                                        if (maxK != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<float>.UpdateData updateData = maxK.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.maxK.v;
-                                                updateData.canRequestChange.v = editDefaultMineSweeper.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    maxK.showDifferent.v = true;
-                                                    maxK.compare.v = compare.maxK.v;
-                                                }
-                                                else
-                                                {
-                                                    maxK.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("maxK null: " + this);
-                                        }
-                                    }
-                                    // allowWatchBomb
-                                    {
-                                        RequestChangeBoolUI.UIData allowWatchBomb = this.data.allowWatchBomb.v;
-                                        if (allowWatchBomb != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = allowWatchBomb.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.allowWatchBomb.v;
-                                                updateData.canRequestChange.v = editDefaultMineSweeper.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    allowWatchBomb.showDifferent.v = true;
-                                                    allowWatchBomb.compare.v = compare.allowWatchBomb.v;
-                                                }
-                                                else
-                                                {
-                                                    allowWatchBomb.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("allowWatchBomb null: " + this);
-                                        }
-                                    }
+                                    RequestChange.RefreshUI(this.data.N.v, editDefaultMineSweeper, serverState, needReset, editData => editData.N.v);
+                                    RequestChange.RefreshUI(this.data.M.v, editDefaultMineSweeper, serverState, needReset, editData => editData.M.v);
+                                    RequestChange.RefreshUI(this.data.minK.v, editDefaultMineSweeper, serverState, needReset, editData => editData.minK.v);
+                                    RequestChange.RefreshUI(this.data.maxK.v, editDefaultMineSweeper, serverState, needReset, editData => editData.maxK.v);
+                                    RequestChange.RefreshUI(this.data.allowWatchBomb.v, editDefaultMineSweeper, serverState, needReset, editData => editData.allowWatchBomb.v);
                                 }
-                                // reset?
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                    // N
-                                    {
-                                        RequestChangeIntUI.UIData N = this.data.N.v;
-                                        if (N != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = N.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.N.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("N null: " + this);
-                                        }
-                                    }
-                                    // M
-                                    {
-                                        RequestChangeIntUI.UIData M = this.data.M.v;
-                                        if (M != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = M.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.M.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("M null: " + this);
-                                        }
-                                    }
-                                    // minK
-                                    {
-                                        RequestChangeFloatUI.UIData minK = this.data.minK.v;
-                                        if (minK != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<float>.UpdateData updateData = minK.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.minK.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("minK null: " + this);
-                                        }
-                                    }
-                                    // maxK
-                                    {
-                                        RequestChangeFloatUI.UIData maxK = this.data.maxK.v;
-                                        if (maxK != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<float>.UpdateData updateData = maxK.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.maxK.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("maxK null: " + this);
-                                        }
-                                    }
-                                    // allowWatchBomb
-                                    {
-                                        RequestChangeBoolUI.UIData allowWatchBomb = this.data.allowWatchBomb.v;
-                                        if (allowWatchBomb != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = allowWatchBomb.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.allowWatchBomb.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("allowWatchBomb null: " + this);
-                                        }
-                                    }
-                                }
+                                needReset = false;
                             }
                             // miniGameDataUIData
                             if (miniGameDataDirty)
@@ -711,7 +389,18 @@ namespace MineSweeper
                                                 MineSweeper mineSweeper = gameData.gameType.newOrOld<MineSweeper>();
                                                 {
                                                     // Make new mineSweeper
-                                                    MineSweeper newMineSweeper = show.makeDefaultGameType() as MineSweeper;
+                                                    MineSweeper newMineSweeper = null;
+                                                    {
+                                                        DefaultMineSweeper show = editDefaultMineSweeper.show.v.data;
+                                                        if (show != null)
+                                                        {
+                                                            newMineSweeper = show.makeDefaultGameType() as MineSweeper;
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("show null");
+                                                        }
+                                                    }
                                                     // Copy
                                                     DataUtils.copyData(mineSweeper, newMineSweeper);
                                                 }
@@ -722,10 +411,6 @@ namespace MineSweeper
                                 }
                                 this.data.miniGameDataUIData.v = miniGameDataUIData;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
                         }
                         // UI
                         {

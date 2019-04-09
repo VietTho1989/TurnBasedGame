@@ -60,7 +60,7 @@ namespace ChineseCheckers
 
         #region Refresh
 
-        private bool needReset = true;
+        protected bool needReset = true;
         private bool miniGameDataDirty = true;
 
         public override void refresh()
@@ -74,64 +74,19 @@ namespace ChineseCheckers
                     if (editDefaultChineseCheckers != null)
                     {
                         editDefaultChineseCheckers.update();
-                        // get show
-                        DefaultChineseCheckers show = editDefaultChineseCheckers.show.v.data;
-                        DefaultChineseCheckers compare = editDefaultChineseCheckers.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editDefaultChineseCheckers.compareOtherType.v.data != null)
-                                    {
-                                        if (editDefaultChineseCheckers.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editDefaultChineseCheckers);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editDefaultChineseCheckers);
                                 // set origin
                                 {
-                                    if (compare != null)
-                                    {
-                                        Debug.LogError("serverState: " + serverState + "; " + this);
-                                    }
+
                                 }
-                                // reset?
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                }
+                                needReset = false;
                             }
                             // miniGameDataUIData
                             if (miniGameDataDirty)
@@ -165,7 +120,18 @@ namespace ChineseCheckers
                                                 ChineseCheckers chineseCheckers = gameData.gameType.newOrOld<ChineseCheckers>();
                                                 {
                                                     // Make new chineseCheckers to update
-                                                    ChineseCheckers newChineseCheckers = show.makeDefaultGameType() as ChineseCheckers;
+                                                    ChineseCheckers newChineseCheckers = null;
+                                                    {
+                                                        DefaultChineseCheckers show = editDefaultChineseCheckers.show.v.data;
+                                                        if (show != null)
+                                                        {
+                                                            newChineseCheckers = show.makeDefaultGameType() as ChineseCheckers;
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("show null");
+                                                        }
+                                                    }
                                                     // Copy
                                                     DataUtils.copyData(chineseCheckers, newChineseCheckers);
                                                 }
@@ -176,10 +142,6 @@ namespace ChineseCheckers
                                 }
                                 this.data.miniGameDataUIData.v = miniGameDataUIData;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
                         }
                         // UI
                         {

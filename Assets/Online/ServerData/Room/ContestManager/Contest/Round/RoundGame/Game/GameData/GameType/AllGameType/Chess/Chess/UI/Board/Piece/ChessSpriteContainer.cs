@@ -66,7 +66,7 @@ namespace Chess
 			case Common.Piece.B_KING:
 				return BKing;
 			default:
-				Debug.LogError ("unknown piece type: " + piece + ", " + this);
+				// Debug.LogError ("unknown piece type: " + piece + ", " + this);
 				return Unknown;
 			}
 		}

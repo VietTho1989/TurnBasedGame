@@ -133,117 +133,19 @@ namespace Gomoku
                     if (editDefaultGomoku != null)
                     {
                         editDefaultGomoku.update();
-                        // get show
-                        DefaultGomoku show = editDefaultGomoku.show.v.data;
-                        DefaultGomoku compare = editDefaultGomoku.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editDefaultGomoku.compareOtherType.v.data != null)
-                                    {
-                                        if (editDefaultGomoku.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editDefaultGomoku);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editDefaultGomoku);
                                 // set origin
                                 {
-                                    // boardSize
-                                    {
-                                        RequestChangeIntUI.UIData boardSize = this.data.boardSize.v;
-                                        if (boardSize != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = boardSize.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.boardSize.v;
-                                                updateData.canRequestChange.v = editDefaultGomoku.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    boardSize.showDifferent.v = true;
-                                                    boardSize.compare.v = compare.boardSize.v;
-                                                }
-                                                else
-                                                {
-                                                    boardSize.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("boardSize null: " + this);
-                                        }
-                                    }
+                                    RequestChange.RefreshUI(this.data.boardSize.v, editDefaultGomoku, serverState, needReset, editData => editData.boardSize.v);
                                 }
-                                // reset?
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                    // boardSize
-                                    {
-                                        RequestChangeIntUI.UIData boardSize = this.data.boardSize.v;
-                                        if (boardSize != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = boardSize.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.boardSize.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("boardSize null: " + this);
-                                        }
-                                    }
-                                }
+                                needReset = false;
                             }
                             // miniGameDataUIData
                             if (miniGameDataDirty)
@@ -278,7 +180,18 @@ namespace Gomoku
                                                 Gomoku gomoku = gameData.gameType.newOrOld<Gomoku>();
                                                 {
                                                     // find newGomoku
-                                                    Gomoku newGomoku = show.makeDefaultGameType() as Gomoku;
+                                                    Gomoku newGomoku = null;
+                                                    {
+                                                        DefaultGomoku show = editDefaultGomoku.show.v.data;
+                                                        if (show != null)
+                                                        {
+                                                            newGomoku = show.makeDefaultGameType() as Gomoku;
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("show null");
+                                                        }
+                                                    }
                                                     // Copy
                                                     DataUtils.copyData(gomoku, newGomoku);
                                                 }
@@ -289,10 +202,6 @@ namespace Gomoku
                                 }
                                 this.data.miniGameDataUIData.v = miniGameDataUIData;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
                         }
                         // UI
                         {

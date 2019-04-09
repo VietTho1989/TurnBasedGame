@@ -19,7 +19,28 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
 
         public void makeRequestChangeCanChange(RequestChangeUpdate<bool>.UpdateData update, bool newCanChange)
         {
-
+            // Find
+            ChangeUseRuleRight changeUseRuleRight = null;
+            {
+                EditData<ChangeUseRuleRight> editChangeUseRuleRight = this.editChangeUseRuleRight.v;
+                if (editChangeUseRuleRight != null)
+                {
+                    changeUseRuleRight = editChangeUseRuleRight.show.v.data;
+                }
+                else
+                {
+                    Debug.LogError("editChangeUseRuleRight null: " + this);
+                }
+            }
+            // Process
+            if (changeUseRuleRight != null)
+            {
+                changeUseRuleRight.requestChangeCanChange(Server.getProfileUserId(changeUseRuleRight), newCanChange);
+            }
+            else
+            {
+                Debug.LogError("changeUseRuleRight null: " + this);
+            }
         }
 
         #endregion
@@ -215,289 +236,23 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
                 if (editChangeUseRuleRight != null)
                 {
                     editChangeUseRuleRight.update();
-                    // get show
-                    ChangeUseRuleRight show = editChangeUseRuleRight.show.v.data;
-                    ChangeUseRuleRight compare = editChangeUseRuleRight.compare.v.data;
-                    if (show != null)
+                    // UI
                     {
                         // different
-                        if (lbTitle != null)
-                        {
-                            bool isDifferent = false;
-                            {
-                                if (editChangeUseRuleRight.compareOtherType.v.data != null)
-                                {
-                                    if (editChangeUseRuleRight.compareOtherType.v.data.GetType() != show.GetType())
-                                    {
-                                        isDifferent = true;
-                                    }
-                                }
-                            }
-                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTitle null: " + this);
-                        }
+                        RequestChange.ShowDifferentTitle(lbTitle, editChangeUseRuleRight);
                         // request
                         {
                             // get server state
-                            Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("server null: " + this);
-                                }
-                            }
+                            Server.State.Type serverState = RequestChange.GetServerState(editChangeUseRuleRight);
                             // set origin
                             {
-                                // canChange
-                                {
-                                    RequestChangeBoolUI.UIData canChange = this.data.canChange.v;
-                                    if (canChange != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<bool>.UpdateData updateData = canChange.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.canChange.v;
-                                            updateData.canRequestChange.v = false;// editChangeUseRuleRight.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                canChange.showDifferent.v = true;
-                                                canChange.compare.v = compare.canChange.v;
-                                            }
-                                            else
-                                            {
-                                                canChange.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("canChange null: " + this);
-                                    }
-                                }
-                                // onlyAdmin
-                                {
-                                    RequestChangeBoolUI.UIData onlyAdmin = this.data.onlyAdmin.v;
-                                    if (onlyAdmin != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<bool>.UpdateData updateData = onlyAdmin.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.onlyAdmin.v;
-                                            updateData.canRequestChange.v = editChangeUseRuleRight.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                onlyAdmin.showDifferent.v = true;
-                                                onlyAdmin.compare.v = compare.onlyAdmin.v;
-                                            }
-                                            else
-                                            {
-                                                onlyAdmin.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("onlyAdmin null: " + this);
-                                    }
-                                }
-                                // needAdmin
-                                {
-                                    RequestChangeBoolUI.UIData needAdmin = this.data.needAdmin.v;
-                                    if (needAdmin != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<bool>.UpdateData updateData = needAdmin.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.needAdmin.v;
-                                            updateData.canRequestChange.v = editChangeUseRuleRight.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                needAdmin.showDifferent.v = true;
-                                                needAdmin.compare.v = compare.needAdmin.v;
-                                            }
-                                            else
-                                            {
-                                                needAdmin.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("needAdmin null: " + this);
-                                    }
-                                }
-                                // needAccept
-                                {
-                                    RequestChangeBoolUI.UIData needAccept = this.data.needAccept.v;
-                                    if (needAccept != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<bool>.UpdateData updateData = needAccept.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.needAccept.v;
-                                            updateData.canRequestChange.v = editChangeUseRuleRight.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                needAccept.showDifferent.v = true;
-                                                needAccept.compare.v = compare.needAccept.v;
-                                            }
-                                            else
-                                            {
-                                                needAccept.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("needAccept null: " + this);
-                                    }
-                                }
+                                RequestChange.RefreshUI(this.data.canChange.v, editChangeUseRuleRight, serverState, needReset, editData => editData.canChange.v);
+                                RequestChange.RefreshUI(this.data.onlyAdmin.v, editChangeUseRuleRight, serverState, needReset, editData => editData.onlyAdmin.v);
+                                RequestChange.RefreshUI(this.data.needAdmin.v, editChangeUseRuleRight, serverState, needReset, editData => editData.needAdmin.v);
+                                RequestChange.RefreshUI(this.data.needAccept.v, editChangeUseRuleRight, serverState, needReset, editData => editData.needAccept.v);
                             }
                         }
-                        // reset
-                        if (needReset)
-                        {
-                            needReset = false;
-                            // canChange
-                            {
-                                RequestChangeBoolUI.UIData canChange = this.data.canChange.v;
-                                if (canChange != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<bool>.UpdateData updateData = canChange.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = show.canChange.v;
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("canChange null: " + this);
-                                }
-                            }
-                            // onlyAdmin
-                            {
-                                RequestChangeBoolUI.UIData onlyAdmin = this.data.onlyAdmin.v;
-                                if (onlyAdmin != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<bool>.UpdateData updateData = onlyAdmin.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = show.onlyAdmin.v;
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("onlyAdmin null: " + this);
-                                }
-                            }
-                            // needAdmin
-                            {
-                                RequestChangeBoolUI.UIData needAdmin = this.data.needAdmin.v;
-                                if (needAdmin != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<bool>.UpdateData updateData = needAdmin.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = show.needAdmin.v;
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("needAdmin null: " + this);
-                                }
-                            }
-                            // needAccept
-                            {
-                                RequestChangeBoolUI.UIData needAccept = this.data.needAccept.v;
-                                if (needAccept != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<bool>.UpdateData updateData = needAccept.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = show.needAccept.v;
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("needAccept null: " + this);
-                                }
-                            }
-                        }
+                        needReset = false;
                     }
                 }
                 // txt

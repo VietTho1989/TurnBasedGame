@@ -200,122 +200,16 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
                 {
                     // update
                     editComputer.update();
-                    // get show
-                    Computer show = editComputer.show.v.data;
-                    Computer compare = editComputer.compare.v.data;
-                    if (show != null)
+                    // UI
                     {
                         // different
-                        if (lbTitle != null)
-                        {
-                            bool isDifferent = false;
-                            {
-                                if (editComputer.compareOtherType.v.data != null)
-                                {
-                                    if (editComputer.compareOtherType.v.data.GetType() != show.GetType())
-                                    {
-                                        isDifferent = true;
-                                    }
-                                }
-                            }
-                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTitle null: " + this);
-                        }
+                        RequestChange.ShowDifferentTitle(lbTitle, editComputer);
                         // get server state
-                        Server.State.Type serverState = Server.State.Type.Connect;
-                        {
-                            Server server = show.findDataInParent<Server>();
-                            if (server != null)
-                            {
-                                if (server.state.v != null)
-                                {
-                                    serverState = server.state.v.getType();
-                                }
-                                else
-                                {
-                                    Debug.LogError("server state null: " + this);
-                                }
-                            }
-                            else
-                            {
-                                // Debug.LogError ("server null: " + this);
-                            }
-                        }
+                        Server.State.Type serverState = RequestChange.GetServerState(editComputer);
                         // set origin
                         {
-                            // name
-                            {
-                                RequestChangeStringUI.UIData name = this.data.name.v;
-                                if (name != null)
-                                {
-                                    // updateData
-                                    RequestChangeUpdate<string>.UpdateData updateData = name.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.origin.v = show.computerName.v;
-                                        updateData.canRequestChange.v = editComputer.canEdit.v;
-                                        updateData.serverState.v = serverState;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                    // compare
-                                    {
-                                        if (compare != null)
-                                        {
-                                            name.showDifferent.v = true;
-                                            name.compare.v = compare.computerName.v;
-                                        }
-                                        else
-                                        {
-                                            name.showDifferent.v = false;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("name null: " + this);
-                                }
-                            }
-                            // avatarUrl
-                            {
-                                RequestChangeStringUI.UIData avatarUrl = this.data.avatarUrl.v;
-                                if (avatarUrl != null)
-                                {
-                                    // updateData
-                                    RequestChangeUpdate<string>.UpdateData updateData = avatarUrl.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.origin.v = show.avatarUrl.v;
-                                        updateData.canRequestChange.v = editComputer.canEdit.v;
-                                        updateData.serverState.v = serverState;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                    // compare
-                                    {
-                                        if (compare != null)
-                                        {
-                                            avatarUrl.showDifferent.v = true;
-                                            avatarUrl.compare.v = compare.avatarUrl.v;
-                                        }
-                                        else
-                                        {
-                                            avatarUrl.showDifferent.v = false;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("avatarUrl null: " + this);
-                                }
-                            }
+                            RequestChange.RefreshUI(this.data.name.v, editComputer, serverState, needReset, editData => editData.computerName.v);
+                            RequestChange.RefreshUI(this.data.avatarUrl.v, editComputer, serverState, needReset, editData => editData.avatarUrl.v);
                             // AIUIData
                             {
                                 AIUI.UIData ai = this.data.aiUIData.v;
@@ -406,7 +300,7 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
                                 ComputerAvatarUI.UIData avatar = this.data.avatar.v;
                                 if (avatar != null)
                                 {
-                                    avatar.computer.v = new ReferenceData<Computer>(show);
+                                    avatar.computer.v = new ReferenceData<Computer>(editComputer.show.v.data);
                                 }
                                 else
                                 {
@@ -414,59 +308,7 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
                                 }
                             }
                         }
-                        // reset?
-                        if (needReset)
-                        {
-                            needReset = false;
-                            // name
-                            {
-                                RequestChangeStringUI.UIData name = this.data.name.v;
-                                if (name != null)
-                                {
-                                    // updateData
-                                    RequestChangeUpdate<string>.UpdateData updateData = name.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = show.computerName.v;
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("name null: " + this);
-                                }
-                            }
-                            // avatarUrl
-                            {
-                                RequestChangeStringUI.UIData avatarUrl = this.data.avatarUrl.v;
-                                if (avatarUrl != null)
-                                {
-                                    // updateData
-                                    RequestChangeUpdate<string>.UpdateData updateData = avatarUrl.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = show.avatarUrl.v;
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("avatarUrl null: " + this);
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Debug.LogError("computer null: " + this);
+                        needReset = false;
                     }
                     // UI Size
                     {

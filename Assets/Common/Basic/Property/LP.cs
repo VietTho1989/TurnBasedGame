@@ -804,7 +804,7 @@ public class LP<T> : WrapProperty
                                         }
                                         else
                                         {
-                                            Debug.LogError("why the same: " + oldValue + "; " + changeSet.values[i]);
+                                            // Debug.LogError("why the same: " + oldValue + "; " + changeSet.values[i]);
                                         }
                                     }
                                 }
@@ -914,7 +914,7 @@ public class LP<T> : WrapProperty
             }
             else
             {
-                Debug.LogError("why don't have syncCount: " + this);
+                // Debug.LogError("why don't have syncCount: " + this);
             }
         }
         else

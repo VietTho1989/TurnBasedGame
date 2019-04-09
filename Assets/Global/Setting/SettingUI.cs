@@ -683,11 +683,11 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     Server.State.Type serverState = Server.State.Type.Connect;
                     // request
                     {
-                        RequestChange.RefreshUI(this.data.language.v, editSetting, serverState, needReset, setting => Language.GetSupportIndex(setting.language.v));
-                        RequestChange.RefreshUI(this.data.style.v, editSetting, serverState, needReset, setting => (int)setting.style.v);
-                        RequestChange.RefreshUI(this.data.confirmQuit.v, editSetting, serverState, needReset, setting => setting.confirmQuit.v);
-                        RequestChange.RefreshUI(this.data.showLastMove.v, editSetting, serverState, needReset, setting => setting.showLastMove.v);
-                        RequestChange.RefreshUI(this.data.viewUrlImage.v, editSetting, serverState, needReset, setting => setting.viewUrlImage.v);
+                        RequestChange.RefreshUI(this.data.language.v, editSetting, serverState, needReset, editData => Language.GetSupportIndex(editData.language.v));
+                        RequestChange.RefreshUI(this.data.style.v, editSetting, serverState, needReset, editData => (int)editData.style.v);
+                        RequestChange.RefreshUI(this.data.confirmQuit.v, editSetting, serverState, needReset, editData => editData.confirmQuit.v);
+                        RequestChange.RefreshUI(this.data.showLastMove.v, editSetting, serverState, needReset, editData => editData.showLastMove.v);
+                        RequestChange.RefreshUI(this.data.viewUrlImage.v, editSetting, serverState, needReset, editData => editData.viewUrlImage.v);
                         // animationSetting
                         {
                             AnimationSettingUI.UIData animationSetting = this.data.animationSetting.v;
@@ -784,7 +784,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                                 }
                                 RequestChangeEnumUI.RefreshOptions(this.data.defaultChosenGameType.v, options);
                             }
-                            RequestChange.RefreshUI(this.data.defaultChosenGameType.v, editSetting, serverState, needReset, setting => (int)setting.defaultChosenGame.v.getType());
+                            RequestChange.RefreshUI(this.data.defaultChosenGameType.v, editSetting, serverState, needReset, editData => (int)editData.defaultChosenGame.v.getType());
                         }
                         // defaultChosenGame
                         {
@@ -907,7 +907,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                                 }
                                 RequestChangeEnumUI.RefreshOptions(this.data.defaultRoomNameType.v, options);
                             }
-                            RequestChange.RefreshUI(this.data.defaultRoomNameType.v, editSetting, serverState, needReset, setting => (int)setting.defaultRoomName.v.getType());
+                            RequestChange.RefreshUI(this.data.defaultRoomNameType.v, editSetting, serverState, needReset, editData => (int)editData.defaultRoomName.v.getType());
                         }
                         // defaultRoomName
                         {
@@ -1034,7 +1034,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                                 }
                                 RequestChangeEnumUI.RefreshOptions(this.data.defaultChatRoomStyleType.v, options);
                             }
-                            RequestChange.RefreshUI(this.data.defaultChatRoomStyleType.v, editSetting, serverState, needReset, setting => (int)setting.defaultChatRoomStyle.v.getType());
+                            RequestChange.RefreshUI(this.data.defaultChatRoomStyleType.v, editSetting, serverState, needReset, editData => (int)editData.defaultChatRoomStyle.v.getType());
                         }
                         // defaultChatRoomStyle
                         {
@@ -1152,8 +1152,8 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
 
                         // textSize
                         {
-                            RequestChange.RefreshUI(this.data.contentTextSize.v, editSetting, serverState, needReset, setting => setting.contentTextSize.v);
-                            RequestChange.RefreshUI(this.data.titleTextSize.v, editSetting, serverState, needReset, setting => setting.titleTextSize.v);
+                            RequestChange.RefreshUI(this.data.contentTextSize.v, editSetting, serverState, needReset, editData => editData.contentTextSize.v);
+                            RequestChange.RefreshUI(this.data.titleTextSize.v, editSetting, serverState, needReset, editData => editData.titleTextSize.v);
                         }
                     }
                     needReset = false;

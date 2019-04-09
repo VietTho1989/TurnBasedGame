@@ -197,315 +197,166 @@ namespace GameManager.Match
                     if (editContestManagerStateLobby != null)
                     {
                         editContestManagerStateLobby.update();
-                        // get show
-                        ContestManagerStateLobby show = editContestManagerStateLobby.show.v.data;
-                        ContestManagerStateLobby compare = editContestManagerStateLobby.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editContestManagerStateLobby.compareOtherType.v.data != null)
-                                    {
-                                        if (editContestManagerStateLobby.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editContestManagerStateLobby);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editContestManagerStateLobby);
                                 // set origin
                                 {
-                                    // randomTeamIndex
-                                    {
-                                        RequestChangeBoolUI.UIData randomTeamIndex = this.data.randomTeamIndex.v;
-                                        if (randomTeamIndex != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = randomTeamIndex.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.randomTeamIndex.v;
-                                                updateData.canRequestChange.v = editContestManagerStateLobby.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    randomTeamIndex.showDifferent.v = true;
-                                                    randomTeamIndex.compare.v = compare.randomTeamIndex.v;
-                                                }
-                                                else
-                                                {
-                                                    randomTeamIndex.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("randomTeamIndex null: " + this);
-                                        }
-                                    }
+                                    RequestChange.RefreshUI(this.data.randomTeamIndex.v, editContestManagerStateLobby, serverState, needReset, editData => editData.randomTeamIndex.v);
                                     // contentType
                                     {
-                                        RequestChangeEnumUI.UIData contentType = this.data.contentType.v;
-                                        if (contentType != null)
-                                        {
-                                            // options
-                                            {
-                                                contentType.options.copyList(ContestManagerContent.getStrTypes());
-                                            }
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = contentType.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = (int)show.getContentFactoryType();
-                                                updateData.canRequestChange.v = editContestManagerStateLobby.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    contentType.showDifferent.v = true;
-                                                    contentType.compare.v = (int)compare.getContentFactoryType();
-                                                }
-                                                else
-                                                {
-                                                    contentType.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("contentType null: " + this);
-                                        }
+                                        RequestChangeEnumUI.RefreshOptions(this.data.contentType.v, ContestManagerContent.getStrTypes());
+                                        RequestChange.RefreshUI(this.data.contentType.v, editContestManagerStateLobby, serverState, needReset, editData => (int)editData.getContentFactoryType());
                                     }
                                     // sub
                                     {
-                                        ContestManagerContentFactory contestManagerContentFactory = show.contentFactory.v;
-                                        if (contestManagerContentFactory != null)
+                                        ContestManagerStateLobby show = editContestManagerStateLobby.show.v.data;
+                                        ContestManagerStateLobby compare = editContestManagerStateLobby.compare.v.data;
+                                        if (show != null)
                                         {
-                                            // find origin 
-                                            ContestManagerContentFactory originContestManagerContentFactory = null;
+                                            ContestManagerContentFactory contestManagerContentFactory = show.contentFactory.v;
+                                            if (contestManagerContentFactory != null)
                                             {
-                                                ContestManagerStateLobby originContestManagerStateLobby = editContestManagerStateLobby.origin.v.data;
-                                                if (originContestManagerStateLobby != null)
+                                                // find origin 
+                                                ContestManagerContentFactory originContestManagerContentFactory = null;
                                                 {
-                                                    originContestManagerContentFactory = originContestManagerStateLobby.contentFactory.v;
-                                                }
-                                                else
-                                                {
-                                                    Debug.LogError("origin null: " + this);
-                                                }
-                                            }
-                                            // find compare
-                                            ContestManagerContentFactory compareContestManagerContentFactory = null;
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    compareContestManagerContentFactory = compare.contentFactory.v;
-                                                }
-                                                else
-                                                {
-                                                    // Debug.LogError ("compare null: " + this);
-                                                }
-                                            }
-                                            switch (contestManagerContentFactory.getType())
-                                            {
-                                                case ContestManagerContent.Type.Single:
+                                                    ContestManagerStateLobby originContestManagerStateLobby = editContestManagerStateLobby.origin.v.data;
+                                                    if (originContestManagerStateLobby != null)
                                                     {
-                                                        SingleContestFactory singleContestFactory = contestManagerContentFactory as SingleContestFactory;
-                                                        // UIData
-                                                        SingleContestFactoryUI.UIData singleContestFactoryUIData = this.data.sub.newOrOld<SingleContestFactoryUI.UIData>();
-                                                        {
-                                                            EditData<SingleContestFactory> editSingleContestContentFactory = singleContestFactoryUIData.editSingleContestFactory.v;
-                                                            if (editSingleContestContentFactory != null)
-                                                            {
-                                                                // origin
-                                                                editSingleContestContentFactory.origin.v = new ReferenceData<SingleContestFactory>((SingleContestFactory)originContestManagerContentFactory);
-                                                                // show
-                                                                editSingleContestContentFactory.show.v = new ReferenceData<SingleContestFactory>(singleContestFactory);
-                                                                // compare
-                                                                editSingleContestContentFactory.compare.v = new ReferenceData<SingleContestFactory>((SingleContestFactory)compareContestManagerContentFactory);
-                                                                // compareOtherType
-                                                                editSingleContestContentFactory.compareOtherType.v = new ReferenceData<Data>(compareContestManagerContentFactory);
-                                                                // canEdit
-                                                                editSingleContestContentFactory.canEdit.v = editContestManagerStateLobby.canEdit.v;
-                                                                // editType
-                                                                editSingleContestContentFactory.editType.v = editContestManagerStateLobby.editType.v;
-                                                            }
-                                                            else
-                                                            {
-                                                                Debug.LogError("editSingleContestContentFactory null: " + this);
-                                                            }
-                                                        }
-                                                        this.data.sub.v = singleContestFactoryUIData;
+                                                        originContestManagerContentFactory = originContestManagerStateLobby.contentFactory.v;
                                                     }
-                                                    break;
-                                                case ContestManagerContent.Type.RoundRobin:
+                                                    else
                                                     {
-                                                        RoundRobinFactory roundRobinFactory = contestManagerContentFactory as RoundRobinFactory;
-                                                        // UIData
-                                                        RoundRobinFactoryUI.UIData roundRobinFactoryUIData = this.data.sub.newOrOld<RoundRobinFactoryUI.UIData>();
-                                                        {
-                                                            EditData<RoundRobinFactory> editRoundRobinFactory = roundRobinFactoryUIData.editRoundRobinFactory.v;
-                                                            if (editRoundRobinFactory != null)
-                                                            {
-                                                                // origin
-                                                                editRoundRobinFactory.origin.v = new ReferenceData<RoundRobinFactory>((RoundRobinFactory)originContestManagerContentFactory);
-                                                                // show
-                                                                editRoundRobinFactory.show.v = new ReferenceData<RoundRobinFactory>(roundRobinFactory);
-                                                                // compare
-                                                                editRoundRobinFactory.compare.v = new ReferenceData<RoundRobinFactory>((RoundRobinFactory)compareContestManagerContentFactory);
-                                                                // compareOtherType
-                                                                editRoundRobinFactory.compareOtherType.v = new ReferenceData<Data>(compareContestManagerContentFactory);
-                                                                // canEdit
-                                                                editRoundRobinFactory.canEdit.v = editContestManagerStateLobby.canEdit.v;
-                                                                // editType
-                                                                editRoundRobinFactory.editType.v = editContestManagerStateLobby.editType.v;
-                                                            }
-                                                            else
-                                                            {
-                                                                Debug.LogError("editRoundRobinFactory null: " + this);
-                                                            }
-                                                        }
-                                                        this.data.sub.v = roundRobinFactoryUIData;
+                                                        Debug.LogError("origin null: " + this);
                                                     }
-                                                    break;
-                                                case ContestManagerContent.Type.Elimination:
+                                                }
+                                                // find compare
+                                                ContestManagerContentFactory compareContestManagerContentFactory = null;
+                                                {
+                                                    if (compare != null)
                                                     {
-                                                        EliminationFactory eliminationFactory = contestManagerContentFactory as EliminationFactory;
-                                                        // UIData
-                                                        EliminationFactoryUI.UIData eliminationFactoryUIData = this.data.sub.newOrOld<EliminationFactoryUI.UIData>();
-                                                        {
-                                                            EditData<EliminationFactory> editEliminationFactory = eliminationFactoryUIData.editEliminationFactory.v;
-                                                            if (editEliminationFactory != null)
-                                                            {
-                                                                // origin
-                                                                editEliminationFactory.origin.v = new ReferenceData<EliminationFactory>((EliminationFactory)originContestManagerContentFactory);
-                                                                // show
-                                                                editEliminationFactory.show.v = new ReferenceData<EliminationFactory>(eliminationFactory);
-                                                                // compare
-                                                                editEliminationFactory.compare.v = new ReferenceData<EliminationFactory>((EliminationFactory)compareContestManagerContentFactory);
-                                                                // compareOtherType
-                                                                editEliminationFactory.compareOtherType.v = new ReferenceData<Data>(compareContestManagerContentFactory);
-                                                                // canEdit
-                                                                editEliminationFactory.canEdit.v = editContestManagerStateLobby.canEdit.v;
-                                                                // editType
-                                                                editEliminationFactory.editType.v = editContestManagerStateLobby.editType.v;
-                                                            }
-                                                            else
-                                                            {
-                                                                Debug.LogError("editEliminationFactory null: " + this);
-                                                            }
-                                                        }
-                                                        this.data.sub.v = eliminationFactoryUIData;
+                                                        compareContestManagerContentFactory = compare.contentFactory.v;
                                                     }
-                                                    break;
-                                                default:
-                                                    Debug.LogError("unknown type: " + contestManagerContentFactory.getType() + "; " + this);
-                                                    break;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("show null: " + this);
-                                        }
-                                    }
-                                }
-                                // reset
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                    // randomTeamIndex
-                                    {
-                                        RequestChangeBoolUI.UIData randomTeamIndex = this.data.randomTeamIndex.v;
-                                        if (randomTeamIndex != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = randomTeamIndex.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.randomTeamIndex.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
+                                                    else
+                                                    {
+                                                        // Debug.LogError ("compare null: " + this);
+                                                    }
+                                                }
+                                                switch (contestManagerContentFactory.getType())
+                                                {
+                                                    case ContestManagerContent.Type.Single:
+                                                        {
+                                                            SingleContestFactory singleContestFactory = contestManagerContentFactory as SingleContestFactory;
+                                                            // UIData
+                                                            SingleContestFactoryUI.UIData singleContestFactoryUIData = this.data.sub.newOrOld<SingleContestFactoryUI.UIData>();
+                                                            {
+                                                                EditData<SingleContestFactory> editSingleContestContentFactory = singleContestFactoryUIData.editSingleContestFactory.v;
+                                                                if (editSingleContestContentFactory != null)
+                                                                {
+                                                                    // origin
+                                                                    editSingleContestContentFactory.origin.v = new ReferenceData<SingleContestFactory>((SingleContestFactory)originContestManagerContentFactory);
+                                                                    // show
+                                                                    editSingleContestContentFactory.show.v = new ReferenceData<SingleContestFactory>(singleContestFactory);
+                                                                    // compare
+                                                                    editSingleContestContentFactory.compare.v = new ReferenceData<SingleContestFactory>((SingleContestFactory)compareContestManagerContentFactory);
+                                                                    // compareOtherType
+                                                                    editSingleContestContentFactory.compareOtherType.v = new ReferenceData<Data>(compareContestManagerContentFactory);
+                                                                    // canEdit
+                                                                    editSingleContestContentFactory.canEdit.v = editContestManagerStateLobby.canEdit.v;
+                                                                    // editType
+                                                                    editSingleContestContentFactory.editType.v = editContestManagerStateLobby.editType.v;
+                                                                }
+                                                                else
+                                                                {
+                                                                    Debug.LogError("editSingleContestContentFactory null: " + this);
+                                                                }
+                                                            }
+                                                            this.data.sub.v = singleContestFactoryUIData;
+                                                        }
+                                                        break;
+                                                    case ContestManagerContent.Type.RoundRobin:
+                                                        {
+                                                            RoundRobinFactory roundRobinFactory = contestManagerContentFactory as RoundRobinFactory;
+                                                            // UIData
+                                                            RoundRobinFactoryUI.UIData roundRobinFactoryUIData = this.data.sub.newOrOld<RoundRobinFactoryUI.UIData>();
+                                                            {
+                                                                EditData<RoundRobinFactory> editRoundRobinFactory = roundRobinFactoryUIData.editRoundRobinFactory.v;
+                                                                if (editRoundRobinFactory != null)
+                                                                {
+                                                                    // origin
+                                                                    editRoundRobinFactory.origin.v = new ReferenceData<RoundRobinFactory>((RoundRobinFactory)originContestManagerContentFactory);
+                                                                    // show
+                                                                    editRoundRobinFactory.show.v = new ReferenceData<RoundRobinFactory>(roundRobinFactory);
+                                                                    // compare
+                                                                    editRoundRobinFactory.compare.v = new ReferenceData<RoundRobinFactory>((RoundRobinFactory)compareContestManagerContentFactory);
+                                                                    // compareOtherType
+                                                                    editRoundRobinFactory.compareOtherType.v = new ReferenceData<Data>(compareContestManagerContentFactory);
+                                                                    // canEdit
+                                                                    editRoundRobinFactory.canEdit.v = editContestManagerStateLobby.canEdit.v;
+                                                                    // editType
+                                                                    editRoundRobinFactory.editType.v = editContestManagerStateLobby.editType.v;
+                                                                }
+                                                                else
+                                                                {
+                                                                    Debug.LogError("editRoundRobinFactory null: " + this);
+                                                                }
+                                                            }
+                                                            this.data.sub.v = roundRobinFactoryUIData;
+                                                        }
+                                                        break;
+                                                    case ContestManagerContent.Type.Elimination:
+                                                        {
+                                                            EliminationFactory eliminationFactory = contestManagerContentFactory as EliminationFactory;
+                                                            // UIData
+                                                            EliminationFactoryUI.UIData eliminationFactoryUIData = this.data.sub.newOrOld<EliminationFactoryUI.UIData>();
+                                                            {
+                                                                EditData<EliminationFactory> editEliminationFactory = eliminationFactoryUIData.editEliminationFactory.v;
+                                                                if (editEliminationFactory != null)
+                                                                {
+                                                                    // origin
+                                                                    editEliminationFactory.origin.v = new ReferenceData<EliminationFactory>((EliminationFactory)originContestManagerContentFactory);
+                                                                    // show
+                                                                    editEliminationFactory.show.v = new ReferenceData<EliminationFactory>(eliminationFactory);
+                                                                    // compare
+                                                                    editEliminationFactory.compare.v = new ReferenceData<EliminationFactory>((EliminationFactory)compareContestManagerContentFactory);
+                                                                    // compareOtherType
+                                                                    editEliminationFactory.compareOtherType.v = new ReferenceData<Data>(compareContestManagerContentFactory);
+                                                                    // canEdit
+                                                                    editEliminationFactory.canEdit.v = editContestManagerStateLobby.canEdit.v;
+                                                                    // editType
+                                                                    editEliminationFactory.editType.v = editContestManagerStateLobby.editType.v;
+                                                                }
+                                                                else
+                                                                {
+                                                                    Debug.LogError("editEliminationFactory null: " + this);
+                                                                }
+                                                            }
+                                                            this.data.sub.v = eliminationFactoryUIData;
+                                                        }
+                                                        break;
+                                                    default:
+                                                        Debug.LogError("unknown type: " + contestManagerContentFactory.getType() + "; " + this);
+                                                        break;
+                                                }
                                             }
                                             else
                                             {
-                                                Debug.LogError("updateData null: " + this);
+                                                Debug.LogError("show null: " + this);
                                             }
                                         }
                                         else
                                         {
-                                            Debug.LogError("randomTeamIndex null: " + this);
-                                        }
-                                    }
-                                    // contentType
-                                    {
-                                        RequestChangeEnumUI.UIData contentType = this.data.contentType.v;
-                                        if (contentType != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = contentType.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = (int)show.getContentFactoryType();
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("useRule null: " + this);
+                                            Debug.LogError("show null");
                                         }
                                     }
                                 }
+                                needReset = false;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
                         }
                     }
                     else

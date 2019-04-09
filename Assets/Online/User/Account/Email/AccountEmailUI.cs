@@ -592,7 +592,7 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                                             canChange = true;
                                         }
                                     }
-                                    RequestChange.RefreshUI(this.data.email.v, editAccountEmail, serverState, needReset, editData => editData.email.v, canChange);
+                                    RequestChange.RefreshUIWithCanEdit(this.data.email.v, editAccountEmail, serverState, needReset, editData => editData.email.v, canChange);
                                 }
                                 RequestChange.RefreshUINotDifferent(this.data.password.v, editAccountEmail, serverState, needReset, editData => editData.password.v, "");
                                 RequestChange.RefreshUINotDifferent(this.data.retypePassword.v, editAccountEmail, serverState, needReset, null, "");

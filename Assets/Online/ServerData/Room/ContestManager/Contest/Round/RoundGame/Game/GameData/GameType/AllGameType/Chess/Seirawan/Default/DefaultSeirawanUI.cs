@@ -123,117 +123,19 @@ namespace Seirawan
                     if (editDefaultSeirawan != null)
                     {
                         editDefaultSeirawan.update();
-                        // get show
-                        DefaultSeirawan show = editDefaultSeirawan.show.v.data;
-                        DefaultSeirawan compare = editDefaultSeirawan.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editDefaultSeirawan.compareOtherType.v.data != null)
-                                    {
-                                        if (editDefaultSeirawan.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("differentIndicator null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editDefaultSeirawan);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editDefaultSeirawan);
                                 // set origin
                                 {
-                                    // chess960
-                                    {
-                                        RequestChangeBoolUI.UIData chess960 = this.data.chess960.v;
-                                        if (chess960 != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = chess960.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.chess960.v;
-                                                updateData.canRequestChange.v = editDefaultSeirawan.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    chess960.showDifferent.v = true;
-                                                    chess960.compare.v = compare.chess960.v;
-                                                }
-                                                else
-                                                {
-                                                    chess960.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("chess960 null: " + this);
-                                        }
-                                    }
+                                    RequestChange.RefreshUI(this.data.chess960.v, editDefaultSeirawan, serverState, needReset, editData => editData.chess960.v);
                                 }
-                                // reset?
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                    // chess960
-                                    {
-                                        RequestChangeBoolUI.UIData chess960 = this.data.chess960.v;
-                                        if (chess960 != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = chess960.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.chess960.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("chess960 null: " + this);
-                                        }
-                                    }
-                                }
+                                needReset = false;
                             }
                             // miniGameDataUIData
                             if (miniGameDataDirty)
@@ -267,22 +169,31 @@ namespace Seirawan
                                                 Seirawan seirawan = gameData.gameType.newOrOld<Seirawan>();
                                                 {
                                                     // Make new seirawan
-                                                    Seirawan newSeirawan = (Seirawan)show.makeDefaultGameType();
+                                                    Seirawan newSeirawan = null;
                                                     {
-                                                        if (newSeirawan.chess960.v)
+                                                        DefaultSeirawan show = editDefaultSeirawan.show.v.data;
+                                                        if (show != null)
                                                         {
-                                                            for (Common.Rank y = Common.Rank.RANK_8; y >= Common.Rank.RANK_1; --y)
+                                                            newSeirawan = show.makeDefaultGameType() as Seirawan;
+                                                            if (newSeirawan.chess960.v)
                                                             {
-                                                                for (Common.File x = Common.File.FILE_A; x <= Common.File.FILE_H; ++x)
+                                                                for (Common.Rank y = Common.Rank.RANK_8; y >= Common.Rank.RANK_1; --y)
                                                                 {
-                                                                    Common.Square square = Common.make_square(x, y);
-                                                                    Common.Piece piece = newSeirawan.piece_on(square);
-                                                                    if (piece != Common.Piece.NO_PIECE && piece != Common.Piece.W_PAWN && piece != Common.Piece.B_PAWN)
+                                                                    for (Common.File x = Common.File.FILE_A; x <= Common.File.FILE_H; ++x)
                                                                     {
-                                                                        newSeirawan.setPieceOn(square, Common.Piece.PIECE_NB);
+                                                                        Common.Square square = Common.make_square(x, y);
+                                                                        Common.Piece piece = newSeirawan.piece_on(square);
+                                                                        if (piece != Common.Piece.NO_PIECE && piece != Common.Piece.W_PAWN && piece != Common.Piece.B_PAWN)
+                                                                        {
+                                                                            newSeirawan.setPieceOn(square, Common.Piece.PIECE_NB);
+                                                                        }
                                                                     }
                                                                 }
                                                             }
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("show null");
                                                         }
                                                     }
                                                     // Copy
@@ -295,10 +206,6 @@ namespace Seirawan
                                 }
                                 this.data.miniGameDataUIData.v = miniGameDataUIData;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
                         }
                         // UI
                         {

@@ -60,7 +60,7 @@ namespace Sudoku
 
         #region Refresh
 
-        private bool needReset = true;
+        protected bool needReset = true;
         private bool miniGameDataDirty = true;
 
         public override void refresh()
@@ -74,61 +74,19 @@ namespace Sudoku
                     if (editDefaultSudoku != null)
                     {
                         editDefaultSudoku.update();
-                        // get show
-                        DefaultSudoku show = editDefaultSudoku.show.v.data;
-                        DefaultSudoku compare = editDefaultSudoku.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editDefaultSudoku.compareOtherType.v.data != null)
-                                    {
-                                        if (editDefaultSudoku.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editDefaultSudoku);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this + ", " + compare + ", " + serverState);
-                                    }
-                                }
+                                // Server.State.Type serverState = RequestChange.GetServerState(editDefaultSudoku);
                                 // set origin
                                 {
 
                                 }
-                                // reset?
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                }
+                                needReset = false;
                             }
                             // miniGameDataUIData
                             if (miniGameDataDirty)
@@ -163,7 +121,18 @@ namespace Sudoku
                                                 Sudoku sudoku = gameData.gameType.newOrOld<Sudoku>();
                                                 {
                                                     // find newSudoku
-                                                    Sudoku newSudoku = show.makeDefaultGameType() as Sudoku;
+                                                    Sudoku newSudoku = null;
+                                                    {
+                                                        DefaultSudoku show = editDefaultSudoku.show.v.data;
+                                                        if (show != null)
+                                                        {
+                                                            newSudoku = show.makeDefaultGameType() as Sudoku;
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("show null");
+                                                        }
+                                                    }
                                                     // Copy
                                                     DataUtils.copyData(sudoku, newSudoku);
                                                 }
@@ -174,10 +143,6 @@ namespace Sudoku
                                 }
                                 this.data.miniGameDataUIData.v = miniGameDataUIData;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
                         }
                         // UI
                         {

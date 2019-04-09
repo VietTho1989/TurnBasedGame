@@ -153,187 +153,29 @@ public class DefaultChatRoomStyleLastUI : UIHaveTransformDataBehavior<DefaultCha
                 if (editDefaultChatRoomStyleLast != null)
                 {
                     editDefaultChatRoomStyleLast.update();
-                    // get show
-                    DefaultChatRoomStyleLast show = editDefaultChatRoomStyleLast.show.v.data;
-                    DefaultChatRoomStyleLast compare = editDefaultChatRoomStyleLast.compare.v.data;
-                    if (show != null)
+                    // UI
                     {
                         // different
-                        if (lbTitle != null)
-                        {
-                            bool isDifferent = false;
-                            {
-                                if (editDefaultChatRoomStyleLast.compareOtherType.v.data != null)
-                                {
-                                    if (editDefaultChatRoomStyleLast.compareOtherType.v.data.GetType() != show.GetType())
-                                    {
-                                        isDifferent = true;
-                                    }
-                                }
-                            }
-                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                        }
-                        else
-                        {
-                            Debug.LogError("different null: " + this);
-                        }
+                        RequestChange.ShowDifferentTitle(lbTitle, editDefaultChatRoomStyleLast);
                         // request
                         {
                             // get server state
                             Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                /*Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("server null: " + this);
-                                }*/
-                            }
                             // set origin
                             {
                                 // visibility
                                 {
-                                    RequestChangeEnumUI.UIData visibility = this.data.visibility.v;
-                                    if (visibility != null)
-                                    {
-                                        // options
-                                        {
-                                            visibility.options.copyList(ContestManagerBtnChatUI.UIData.GetStrVisibility());
-                                        }
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = visibility.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = (int)show.visibility.v;
-                                            updateData.canRequestChange.v = editDefaultChatRoomStyleLast.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                visibility.showDifferent.v = true;
-                                                visibility.compare.v = (int)compare.visibility.v;
-                                            }
-                                            else
-                                            {
-                                                visibility.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("visibility null: " + this);
-                                    }
+                                    RequestChangeEnumUI.RefreshOptions(this.data.visibility.v, ContestManagerBtnChatUI.UIData.GetStrVisibility());
+                                    RequestChange.RefreshUI(this.data.visibility.v, editDefaultChatRoomStyleLast, serverState, needReset, editData => (int)editData.visibility.v);
                                 }
                                 // style
                                 {
-                                    RequestChangeEnumUI.UIData style = this.data.style.v;
-                                    if (style != null)
-                                    {
-                                        // options
-                                        {
-                                            style.options.copyList(ContestManagerBtnChatUI.UIData.GetStrStyles());
-                                        }
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = style.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = (int)show.style.v;
-                                            updateData.canRequestChange.v = editDefaultChatRoomStyleLast.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                style.showDifferent.v = true;
-                                                style.compare.v = (int)compare.style.v;
-                                            }
-                                            else
-                                            {
-                                                style.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("style null: " + this);
-                                    }
+                                    RequestChangeEnumUI.RefreshOptions(this.data.style.v, ContestManagerBtnChatUI.UIData.GetStrStyles());
+                                    RequestChange.RefreshUI(this.data.style.v, editDefaultChatRoomStyleLast, serverState, needReset, editData => (int)editData.style.v);
                                 }
                             }
-                            // reset?
-                            if (needReset)
-                            {
-                                needReset = false;
-                                // visibility
-                                {
-                                    RequestChangeEnumUI.UIData visibility = this.data.visibility.v;
-                                    if (visibility != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = visibility.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = (int)show.visibility.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("visibility null: " + this);
-                                    }
-                                }
-                                // style
-                                {
-                                    RequestChangeEnumUI.UIData style = this.data.style.v;
-                                    if (style != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = style.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = (int)show.style.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("style null: " + this);
-                                    }
-                                }
-                            }
+                            needReset = false;
                         }
-                    }
-                    else
-                    {
-                        Debug.LogError("show null: " + this);
                     }
                     // UI
                     {

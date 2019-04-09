@@ -131,117 +131,19 @@ namespace Khet
                     if (editDefaultKhet != null)
                     {
                         editDefaultKhet.update();
-                        // get show
-                        DefaultKhet show = editDefaultKhet.show.v.data;
-                        DefaultKhet compare = editDefaultKhet.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editDefaultKhet.compareOtherType.v.data != null)
-                                    {
-                                        if (editDefaultKhet.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editDefaultKhet);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editDefaultKhet);
                                 // set origin
                                 {
-                                    // startPos
-                                    {
-                                        RequestChangeEnumUI.UIData startPos = this.data.startPos.v;
-                                        if (startPos != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = startPos.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = (int)show.startPos.v;
-                                                updateData.canRequestChange.v = editDefaultKhet.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    startPos.showDifferent.v = true;
-                                                    startPos.compare.v = (int)compare.startPos.v;
-                                                }
-                                                else
-                                                {
-                                                    startPos.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("startPos null: " + this);
-                                        }
-                                    }
+                                    RequestChange.RefreshUI(this.data.startPos.v, editDefaultKhet, serverState, needReset, editData => (int)editData.startPos.v);
                                 }
-                                // reset?
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                    // startPos
-                                    {
-                                        RequestChangeEnumUI.UIData startPos = this.data.startPos.v;
-                                        if (startPos != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = startPos.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = (int)show.startPos.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("startPos null: " + this);
-                                        }
-                                    }
-                                }
+                                needReset = false;
                             }
                             // miniGameDataUIData
                             if (miniGameDataDirty)
@@ -274,7 +176,18 @@ namespace Khet
                                                 Khet khet = gameData.gameType.newOrOld<Khet>();
                                                 {
                                                     // Make new khet
-                                                    Khet newKhet = (Khet)show.makeDefaultGameType(); ;
+                                                    Khet newKhet = null;
+                                                    {
+                                                        DefaultKhet show = editDefaultKhet.show.v.data;
+                                                        if (show != null)
+                                                        {
+                                                            newKhet = show.makeDefaultGameType() as Khet;
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("show null");
+                                                        }
+                                                    }
                                                     // Copy
                                                     DataUtils.copyData(khet, newKhet);
                                                 }
@@ -378,10 +291,6 @@ namespace Khet
                                     Debug.LogError("lbStartPos null: " + this);
                                 }
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("defaultKhet null: " + this);
                         }
                     }
                 }

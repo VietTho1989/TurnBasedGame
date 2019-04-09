@@ -4354,6 +4354,20 @@ public class ClientConnectIdentity : NetworkBehaviour
     #region changeUseRuleRight
 
     [Command]
+    public void CmdChangeUseRuleRightChangeCanChange(uint networkIdentityId, uint userId, bool newCanChange)
+    {
+        ChangeUseRuleRightIdentity changeUseRuleRightIdentity = GetDataIdentity<ChangeUseRuleRightIdentity>(networkIdentityId);
+        if (changeUseRuleRightIdentity != null)
+        {
+            changeUseRuleRightIdentity.changeCanChange(userId, newCanChange);
+        }
+        else
+        {
+            Debug.LogError("Identity null");
+        }
+    }
+
+    [Command]
     public void CmdChangeUseRuleRightChangeOnlyAdmin(uint networkIdentityId, uint userId, bool newOnlyAdmin)
     {
         ChangeUseRuleRightIdentity changeUseRuleRightIdentity = GetDataIdentity<ChangeUseRuleRightIdentity>(networkIdentityId);

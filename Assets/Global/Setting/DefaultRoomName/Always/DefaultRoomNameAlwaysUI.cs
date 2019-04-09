@@ -110,122 +110,20 @@ public class DefaultRoomNameAlwaysUI : UIHaveTransformDataBehavior<DefaultRoomNa
                 if (editDefaultRoomNameAlways != null)
                 {
                     editDefaultRoomNameAlways.update();
-                    // get show
-                    DefaultRoomNameAlways show = editDefaultRoomNameAlways.show.v.data;
-                    DefaultRoomNameAlways compare = editDefaultRoomNameAlways.compare.v.data;
-                    if (show != null)
+                    // UI
                     {
                         // different
-                        if (lbTitle != null)
-                        {
-                            bool isDifferent = false;
-                            {
-                                if (editDefaultRoomNameAlways.compareOtherType.v.data != null)
-                                {
-                                    if (editDefaultRoomNameAlways.compareOtherType.v.data.GetType() != show.GetType())
-                                    {
-                                        isDifferent = true;
-                                    }
-                                }
-                            }
-                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                        }
-                        else
-                        {
-                            Debug.LogError("different null: " + this);
-                        }
+                        RequestChange.ShowDifferentTitle(lbTitle, editDefaultRoomNameAlways);
                         // request
                         {
                             // get server state
                             Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                /*Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("server null: " + this);
-                                }*/
-                            }
                             // set origin
                             {
-                                // roomName
-                                {
-                                    RequestChangeStringUI.UIData roomName = this.data.roomName.v;
-                                    if (roomName != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<string>.UpdateData updateData = roomName.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.roomName.v;
-                                            updateData.canRequestChange.v = editDefaultRoomNameAlways.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                roomName.showDifferent.v = true;
-                                                roomName.compare.v = compare.roomName.v;
-                                            }
-                                            else
-                                            {
-                                                roomName.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("roomName null: " + this);
-                                    }
-                                }
+                                RequestChange.RefreshUI(this.data.roomName.v, editDefaultRoomNameAlways, serverState, needReset, editData => editData.roomName.v);
                             }
-                            // reset?
-                            if (needReset)
-                            {
-                                needReset = false;
-                                // variant
-                                {
-                                    RequestChangeStringUI.UIData roomName = this.data.roomName.v;
-                                    if (roomName != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<string>.UpdateData updateData = roomName.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.roomName.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("roomName null: " + this);
-                                    }
-                                }
-                            }
+                            needReset = false;
                         }
-                    }
-                    else
-                    {
-                        Debug.LogError("show null: " + this);
                     }
                     // UI
                     {

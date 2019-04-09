@@ -286,288 +286,22 @@ namespace Weiqi
                     if (editDefaultWeiqi != null)
                     {
                         editDefaultWeiqi.update();
-                        // get show
-                        DefaultWeiqi show = editDefaultWeiqi.show.v.data;
-                        DefaultWeiqi compare = editDefaultWeiqi.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editDefaultWeiqi.compareOtherType.v.data != null)
-                                    {
-                                        if (editDefaultWeiqi.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editDefaultWeiqi);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editDefaultWeiqi);
                                 // set origin
                                 {
-                                    // size
-                                    {
-                                        RequestChangeIntUI.UIData size = this.data.size.v;
-                                        if (size != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = size.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.size.v;
-                                                updateData.canRequestChange.v = editDefaultWeiqi.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    size.showDifferent.v = true;
-                                                    size.compare.v = compare.size.v;
-                                                }
-                                                else
-                                                {
-                                                    size.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("size null: " + this);
-                                        }
-                                    }
-                                    // komi
-                                    {
-                                        RequestChangeFloatUI.UIData komi = this.data.komi.v;
-                                        if (komi != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<float>.UpdateData updateData = komi.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.komi.v;
-                                                updateData.canRequestChange.v = editDefaultWeiqi.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    komi.showDifferent.v = true;
-                                                    komi.compare.v = compare.komi.v;
-                                                }
-                                                else
-                                                {
-                                                    komi.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("komi null: " + this);
-                                        }
-                                    }
-                                    // rule
-                                    {
-                                        RequestChangeEnumUI.UIData rule = this.data.rule.v;
-                                        if (rule != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = rule.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.rule.v;
-                                                updateData.canRequestChange.v = editDefaultWeiqi.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    rule.showDifferent.v = true;
-                                                    rule.compare.v = compare.rule.v;
-                                                }
-                                                else
-                                                {
-                                                    rule.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("rule null: " + this);
-                                        }
-                                    }
-                                    // handicap
-                                    {
-                                        RequestChangeIntUI.UIData handicap = this.data.handicap.v;
-                                        if (handicap != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = handicap.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.handicap.v;
-                                                updateData.canRequestChange.v = editDefaultWeiqi.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    handicap.showDifferent.v = true;
-                                                    handicap.compare.v = compare.handicap.v;
-                                                }
-                                                else
-                                                {
-                                                    handicap.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("handicap null: " + this);
-                                        }
-                                    }
+                                    RequestChange.RefreshUI(this.data.size.v, editDefaultWeiqi, serverState, needReset, editData => editData.size.v);
+                                    RequestChange.RefreshUI(this.data.komi.v, editDefaultWeiqi, serverState, needReset, editData => editData.komi.v);
+                                    RequestChange.RefreshUI(this.data.rule.v, editDefaultWeiqi, serverState, needReset, editData => editData.rule.v);
+                                    RequestChange.RefreshUI(this.data.handicap.v, editDefaultWeiqi, serverState, needReset, editData => editData.handicap.v);
                                 }
-                                // reset?
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                    // size
-                                    {
-                                        RequestChangeIntUI.UIData size = this.data.size.v;
-                                        if (size != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = size.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.size.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("size null: " + this);
-                                        }
-                                    }
-                                    // komi
-                                    {
-                                        RequestChangeFloatUI.UIData komi = this.data.komi.v;
-                                        if (komi != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<float>.UpdateData updateData = komi.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.komi.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("komi null: " + this);
-                                        }
-                                    }
-                                    // rule
-                                    {
-                                        RequestChangeEnumUI.UIData rule = this.data.rule.v;
-                                        if (rule != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = rule.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.rule.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("rule null: " + this);
-                                        }
-                                    }
-                                    // handicap
-                                    {
-                                        RequestChangeIntUI.UIData handicap = this.data.handicap.v;
-                                        if (handicap != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = handicap.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.handicap.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("handicap null: " + this);
-                                        }
-                                    }
-                                }
+                                needReset = false;
                             }
                             // miniGameDataUIData
                             if (miniGameDataDirty)
@@ -597,51 +331,55 @@ namespace Weiqi
                                         {
                                             // GameType
                                             {
-                                                // Find Weiqi
-                                                Weiqi weiqi = gameData.gameType.newOrOld<Weiqi>();
+                                                DefaultWeiqi show = editDefaultWeiqi.show.v.data;
+                                                if (show != null)
                                                 {
-                                                    // Check need update
-                                                    bool needUpdate = false;
+                                                    // Find Weiqi
+                                                    Weiqi weiqi = gameData.gameType.newOrOld<Weiqi>();
                                                     {
-                                                        Board board = weiqi.b.v;
-                                                        if (board != null)
+                                                        // Check need update
+                                                        bool needUpdate = false;
                                                         {
-                                                            if (board.size.v != show.size.v + 2 || board.komi.v != show.komi.v
-                                                               || board.rules.v != show.rule.v || board.handicap.v != show.handicap.v)
+                                                            Board board = weiqi.b.v;
+                                                            if (board != null)
                                                             {
+                                                                if (board.size.v != show.size.v + 2 || board.komi.v != show.komi.v
+                                                                   || board.rules.v != show.rule.v || board.handicap.v != show.handicap.v)
+                                                                {
+                                                                    needUpdate = true;
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("board null: " + this);
                                                                 needUpdate = true;
                                                             }
                                                         }
+                                                        // Update Property
+                                                        if (needUpdate)
+                                                        {
+                                                            // Make new weiqi to update
+                                                            Weiqi newWeiqi = (Weiqi)show.makeDefaultGameType();
+                                                            // Copy
+                                                            DataUtils.copyData(weiqi, newWeiqi);
+                                                        }
                                                         else
                                                         {
-                                                            Debug.LogError("board null: " + this);
-                                                            needUpdate = true;
+                                                            Debug.LogError("Don't need update: " + this);
                                                         }
                                                     }
-                                                    // Update Property
-                                                    if (needUpdate)
-                                                    {
-                                                        // Make new weiqi to update
-                                                        Weiqi newWeiqi = (Weiqi)show.makeDefaultGameType();
-                                                        // Copy
-                                                        DataUtils.copyData(weiqi, newWeiqi);
-                                                    }
-                                                    else
-                                                    {
-                                                        Debug.LogError("Don't need update: " + this);
-                                                    }
+                                                    gameData.gameType.v = weiqi;
                                                 }
-                                                gameData.gameType.v = weiqi;
+                                                else
+                                                {
+                                                    Debug.LogError("show null");
+                                                }
                                             }
                                         }
                                     }
                                 }
                                 this.data.miniGameDataUIData.v = miniGameDataUIData;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
                         }
                         // UI
                         {

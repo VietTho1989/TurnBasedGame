@@ -60,7 +60,7 @@ namespace Shogi
 
         #region Refresh
 
-        private bool needReset = true;
+        protected bool needReset = true;
         private bool miniGameDataDirty = true;
 
         public override void refresh()
@@ -74,64 +74,19 @@ namespace Shogi
                     if (editDefaultShogi != null)
                     {
                         editDefaultShogi.update();
-                        // get show
-                        DefaultShogi show = editDefaultShogi.show.v.data;
-                        DefaultShogi compare = editDefaultShogi.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editDefaultShogi.compareOtherType.v.data != null)
-                                    {
-                                        if (editDefaultShogi.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editDefaultShogi);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editDefaultShogi);
                                 // set origin
                                 {
-                                    if (compare != null)
-                                    {
-                                        Debug.LogError("serverState: " + serverState + "; " + this);
-                                    }
+
                                 }
-                                // reset?
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                }
+                                needReset = false;
                             }
                             // miniGameDataUIData
                             if (miniGameDataDirty)
@@ -165,7 +120,18 @@ namespace Shogi
                                                 Shogi shogi = gameData.gameType.newOrOld<Shogi>();
                                                 {
                                                     // Make new shogi to update
-                                                    Shogi newShogi = (Shogi)show.makeDefaultGameType();
+                                                    Shogi newShogi = null;
+                                                    {
+                                                        DefaultShogi show = editDefaultShogi.show.v.data;
+                                                        if (show != null)
+                                                        {
+                                                            newShogi = show.makeDefaultGameType() as Shogi;
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("show null");
+                                                        }
+                                                    }
                                                     // Copy
                                                     DataUtils.copyData(shogi, newShogi);
                                                 }
@@ -176,10 +142,6 @@ namespace Shogi
                                 }
                                 this.data.miniGameDataUIData.v = miniGameDataUIData;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
                         }
                         // UI
                         {

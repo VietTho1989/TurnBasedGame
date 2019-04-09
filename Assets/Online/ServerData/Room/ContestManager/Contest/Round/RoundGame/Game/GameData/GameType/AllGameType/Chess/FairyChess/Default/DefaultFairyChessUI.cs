@@ -177,174 +177,20 @@ namespace FairyChess
                     if (editDefaultFairyChess != null)
                     {
                         editDefaultFairyChess.update();
-                        // get show
-                        DefaultFairyChess show = editDefaultFairyChess.show.v.data;
-                        DefaultFairyChess compare = editDefaultFairyChess.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // differentIndicator
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editDefaultFairyChess.compareOtherType.v.data != null)
-                                    {
-                                        if (editDefaultFairyChess.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editDefaultFairyChess);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editDefaultFairyChess);
                                 // set origin
                                 {
-                                    // variantType
-                                    {
-                                        RequestChangeEnumUI.UIData variantType = this.data.variantType.v;
-                                        if (variantType != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = variantType.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = VariantMap.getEnableVariantIndex(show.variantType.v);
-                                                updateData.canRequestChange.v = editDefaultFairyChess.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    variantType.showDifferent.v = true;
-                                                    variantType.compare.v = VariantMap.getEnableVariantIndex(compare.variantType.v);
-                                                }
-                                                else
-                                                {
-                                                    variantType.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("variantType null: " + this);
-                                        }
-                                    }
-                                    // chess960
-                                    {
-                                        RequestChangeBoolUI.UIData chess960 = this.data.chess960.v;
-                                        if (chess960 != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = chess960.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.chess960.v;
-                                                updateData.canRequestChange.v = editDefaultFairyChess.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    chess960.showDifferent.v = true;
-                                                    chess960.compare.v = compare.chess960.v;
-                                                }
-                                                else
-                                                {
-                                                    chess960.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("chess960 null: " + this);
-                                        }
-                                    }
+                                    RequestChange.RefreshUI(this.data.variantType.v, editDefaultFairyChess, serverState, needReset, editData => VariantMap.getEnableVariantIndex(editData.variantType.v));
+                                    RequestChange.RefreshUI(this.data.chess960.v, editDefaultFairyChess, serverState, needReset, editData => editData.chess960.v);
                                 }
-                                // reset?
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                    // variantType
-                                    {
-                                        RequestChangeEnumUI.UIData variantType = this.data.variantType.v;
-                                        if (variantType != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = variantType.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = VariantMap.getEnableVariantIndex(show.variantType.v);
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("variantType null: " + this);
-                                        }
-                                    }
-                                    // chess960
-                                    {
-                                        RequestChangeBoolUI.UIData chess960 = this.data.chess960.v;
-                                        if (chess960 != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = chess960.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.chess960.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("chess960 null: " + this);
-                                        }
-                                    }
-                                }
+                                needReset = false;
                             }
                             // miniGameDataUIData
                             if (miniGameDataDirty)
@@ -378,22 +224,31 @@ namespace FairyChess
                                                 FairyChess fairyChess = gameData.gameType.newOrOld<FairyChess>();
                                                 {
                                                     // Make new fairyChess
-                                                    FairyChess newFairyChess = (FairyChess)show.makeDefaultGameType(); ;
+                                                    FairyChess newFairyChess = null;
                                                     {
-                                                        if (newFairyChess.chess960.v)
+                                                        DefaultFairyChess show = editDefaultFairyChess.show.v.data;
+                                                        if (show != null)
                                                         {
-                                                            for (Common.Rank y = Common.Rank.RANK_8; y >= Common.Rank.RANK_1; --y)
+                                                            newFairyChess = (FairyChess)show.makeDefaultGameType();
+                                                            if (newFairyChess.chess960.v)
                                                             {
-                                                                for (Common.File x = Common.File.FILE_A; x <= Common.File.FILE_H; ++x)
+                                                                for (Common.Rank y = Common.Rank.RANK_8; y >= Common.Rank.RANK_1; --y)
                                                                 {
-                                                                    // Common.Square square = Common.make_square (x, y);
-                                                                    // Common.Piece piece = newFairyChess.piece_on (square);
-                                                                    // TODO Can hoan thien
-                                                                    /*if (piece != Common.Piece.NO_PIECE && piece != Common.Piece.W_PAWN && piece != Common.Piece.B_PAWN) {
-																		newFairyChess.setPieceOn (square, Common.Piece.PIECE_NB);
-																	}*/
+                                                                    for (Common.File x = Common.File.FILE_A; x <= Common.File.FILE_H; ++x)
+                                                                    {
+                                                                        // Common.Square square = Common.make_square (x, y);
+                                                                        // Common.Piece piece = newFairyChess.piece_on (square);
+                                                                        // TODO Can hoan thien
+                                                                        /*if (piece != Common.Piece.NO_PIECE && piece != Common.Piece.W_PAWN && piece != Common.Piece.B_PAWN) {
+                                                                            newFairyChess.setPieceOn (square, Common.Piece.PIECE_NB);
+                                                                        }*/
+                                                                    }
                                                                 }
                                                             }
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("show null");
                                                         }
                                                     }
                                                     // Copy
@@ -537,10 +392,6 @@ namespace FairyChess
                                     Debug.LogError("lbChess960 null: " + this);
                                 }
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("defaultFairyChess null: " + this);
                         }
                     }
                 }

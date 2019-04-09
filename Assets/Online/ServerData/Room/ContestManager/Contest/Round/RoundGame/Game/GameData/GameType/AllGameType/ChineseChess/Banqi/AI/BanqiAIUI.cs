@@ -116,118 +116,17 @@ namespace Banqi
                     {
                         // update
                         editBanqiAI.update();
-                        // get show
-                        BanqiAI show = editBanqiAI.show.v.data;
-                        BanqiAI compare = editBanqiAI.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editBanqiAI.compareOtherType.v.data != null)
-                                    {
-                                        if (editBanqiAI.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("different null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editBanqiAI);
                             // get server state
-                            Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    // Debug.LogError ("server null: " + this);
-                                }
-                            }
+                            Server.State.Type serverState = RequestChange.GetServerState(editBanqiAI);
                             // set origin
                             {
-                                // depth
-                                {
-                                    RequestChangeIntUI.UIData depth = this.data.depth.v;
-                                    if (depth != null)
-                                    {
-                                        // updateData
-                                        RequestChangeUpdate<int>.UpdateData updateData = depth.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.depth.v;
-                                            updateData.canRequestChange.v = editBanqiAI.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                depth.showDifferent.v = true;
-                                                depth.compare.v = compare.depth.v;
-                                            }
-                                            else
-                                            {
-                                                depth.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
+                                RequestChange.RefreshUI(this.data.depth.v, editBanqiAI, serverState, needReset, editData => editData.depth.v);
                             }
-                            // reset?
-                            if (needReset)
-                            {
-                                needReset = false;
-                                // depth
-                                {
-                                    RequestChangeIntUI.UIData depth = this.data.depth.v;
-                                    if (depth != null)
-                                    {
-                                        RequestChangeUpdate<int>.UpdateData updateData = depth.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.depth.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("depth null: " + this);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("banqiAI null: " + this);
+                            needReset = false;
                         }
                     }
                     else

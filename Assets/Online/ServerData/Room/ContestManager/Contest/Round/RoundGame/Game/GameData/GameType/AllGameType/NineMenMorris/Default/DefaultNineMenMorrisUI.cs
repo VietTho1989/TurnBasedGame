@@ -60,7 +60,7 @@ namespace NineMenMorris
 
         #region Refresh
 
-        private bool needReset = true;
+        protected bool needReset = true;
         private bool miniGameDataDirty = true;
 
         public override void refresh()
@@ -74,64 +74,19 @@ namespace NineMenMorris
                     if (editDefaultNineMenMorris != null)
                     {
                         editDefaultNineMenMorris.update();
-                        // get show
-                        DefaultNineMenMorris show = editDefaultNineMenMorris.show.v.data;
-                        DefaultNineMenMorris compare = editDefaultNineMenMorris.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editDefaultNineMenMorris.compareOtherType.v.data != null)
-                                    {
-                                        if (editDefaultNineMenMorris.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editDefaultNineMenMorris);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                // Server.State.Type serverState = RequestChange.GetServerState(editDefaultNineMenMorris);
                                 // set origin
                                 {
-                                    if (compare != null)
-                                    {
-                                        Debug.LogError("serverState: " + serverState + "; " + this);
-                                    }
+
                                 }
-                                // reset?
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                }
+                                needReset = false;
                             }
                             // miniGameDataUIData
                             if (miniGameDataDirty)
@@ -165,7 +120,18 @@ namespace NineMenMorris
                                                 NineMenMorris nineMenMorris = gameData.gameType.newOrOld<NineMenMorris>();
                                                 {
                                                     // Make new nineMenMorris to update
-                                                    NineMenMorris newNineMenMorris = show.makeDefaultGameType() as NineMenMorris;
+                                                    NineMenMorris newNineMenMorris = null;
+                                                    {
+                                                        DefaultNineMenMorris show = editDefaultNineMenMorris.show.v.data;
+                                                        if (show != null)
+                                                        {
+                                                            newNineMenMorris = show.makeDefaultGameType() as NineMenMorris;
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("show null");
+                                                        }
+                                                    }
                                                     // Copy
                                                     DataUtils.copyData(nineMenMorris, newNineMenMorris);
                                                 }
@@ -176,10 +142,6 @@ namespace NineMenMorris
                                 }
                                 this.data.miniGameDataUIData.v = miniGameDataUIData;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
                         }
                         // UI
                         {

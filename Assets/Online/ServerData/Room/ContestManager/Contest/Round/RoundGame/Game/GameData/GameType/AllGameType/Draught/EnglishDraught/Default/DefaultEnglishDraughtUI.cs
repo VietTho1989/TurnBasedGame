@@ -176,174 +176,20 @@ namespace EnglishDraught
                     if (editDefaultEnglishDraught != null)
                     {
                         editDefaultEnglishDraught.update();
-                        // get show
-                        DefaultEnglishDraught show = editDefaultEnglishDraught.show.v.data;
-                        DefaultEnglishDraught compare = editDefaultEnglishDraught.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editDefaultEnglishDraught.compareOtherType.v.data != null)
-                                    {
-                                        if (editDefaultEnglishDraught.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editDefaultEnglishDraught);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editDefaultEnglishDraught);
                                 // set origin
                                 {
-                                    // threeMoveRandom
-                                    {
-                                        RequestChangeBoolUI.UIData threeMoveRandom = this.data.threeMoveRandom.v;
-                                        if (threeMoveRandom != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = threeMoveRandom.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.threeMoveRandom.v;
-                                                updateData.canRequestChange.v = editDefaultEnglishDraught.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    threeMoveRandom.showDifferent.v = true;
-                                                    threeMoveRandom.compare.v = compare.threeMoveRandom.v;
-                                                }
-                                                else
-                                                {
-                                                    threeMoveRandom.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("threeMoveRandom null: " + this);
-                                        }
-                                    }
-                                    // maxPly
-                                    {
-                                        RequestChangeIntUI.UIData maxPly = this.data.maxPly.v;
-                                        if (maxPly != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = maxPly.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.maxPly.v;
-                                                updateData.canRequestChange.v = editDefaultEnglishDraught.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    maxPly.showDifferent.v = true;
-                                                    maxPly.compare.v = compare.maxPly.v;
-                                                }
-                                                else
-                                                {
-                                                    maxPly.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("maxPly null: " + this);
-                                        }
-                                    }
+                                    RequestChange.RefreshUI(this.data.threeMoveRandom.v, editDefaultEnglishDraught, serverState, needReset, editData => editData.threeMoveRandom.v);
+                                    RequestChange.RefreshUI(this.data.maxPly.v, editDefaultEnglishDraught, serverState, needReset, editData => editData.maxPly.v);
                                 }
-                                // reset?
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                    // threeMoveRandom
-                                    {
-                                        RequestChangeBoolUI.UIData threeMoveRandom = this.data.threeMoveRandom.v;
-                                        if (threeMoveRandom != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = threeMoveRandom.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.threeMoveRandom.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("show null: " + this);
-                                        }
-                                    }
-                                    // maxPly
-                                    {
-                                        RequestChangeIntUI.UIData maxPly = this.data.maxPly.v;
-                                        if (maxPly != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = maxPly.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.maxPly.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("maxPly null: " + this);
-                                        }
-                                    }
-                                }
+                                needReset = false;
                             }
                             // miniGameDataUIData
                             if (miniGameDataDirty)
@@ -377,13 +223,21 @@ namespace EnglishDraught
                                                 EnglishDraught englishDraught = gameData.gameType.newOrOld<EnglishDraught>();
                                                 {
                                                     // Make new englishDraught to update
-                                                    EnglishDraught newEnglishDraught = new EnglishDraught();
+                                                    EnglishDraught newEnglishDraught = null;
                                                     {
-                                                        DefaultEnglishDraught defaultEnglishDraught = (DefaultEnglishDraught)DataUtils.cloneData(show);
+                                                        DefaultEnglishDraught show = editDefaultEnglishDraught.show.v.data;
+                                                        if (show != null)
                                                         {
-                                                            defaultEnglishDraught.threeMoveRandom.v = false;
+                                                            DefaultEnglishDraught defaultEnglishDraught = (DefaultEnglishDraught)DataUtils.cloneData(show);
+                                                            {
+                                                                defaultEnglishDraught.threeMoveRandom.v = false;
+                                                            }
+                                                            newEnglishDraught = (EnglishDraught)defaultEnglishDraught.makeDefaultGameType();
                                                         }
-                                                        newEnglishDraught = (EnglishDraught)defaultEnglishDraught.makeDefaultGameType();
+                                                        else
+                                                        {
+                                                            Debug.LogError("show null");
+                                                        }
                                                     }
                                                     // Copy
                                                     DataUtils.copyData(englishDraught, newEnglishDraught);
@@ -395,10 +249,6 @@ namespace EnglishDraught
                                 }
                                 this.data.miniGameDataUIData.v = miniGameDataUIData;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
                         }
                         // UI
                         {

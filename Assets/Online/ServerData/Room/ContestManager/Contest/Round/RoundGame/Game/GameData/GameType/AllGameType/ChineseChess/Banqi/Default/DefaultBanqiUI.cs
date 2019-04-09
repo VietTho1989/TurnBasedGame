@@ -67,7 +67,7 @@ namespace Banqi
 
         #region Refresh
 
-        private bool needReset = true;
+        protected bool needReset = true;
         private bool miniGameDataDirty = true;
 
         public override void refresh()
@@ -81,64 +81,19 @@ namespace Banqi
                     if (editDefaultBanqi != null)
                     {
                         editDefaultBanqi.update();
-                        // get show
-                        DefaultBanqi show = editDefaultBanqi.show.v.data;
-                        DefaultBanqi compare = editDefaultBanqi.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editDefaultBanqi.compareOtherType.v.data != null)
-                                    {
-                                        if (editDefaultBanqi.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editDefaultBanqi);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editDefaultBanqi);
                                 // set origin
                                 {
-                                    if (compare != null)
-                                    {
-                                        Debug.LogError("serverState: " + serverState + "; " + this);
-                                    }
+
                                 }
-                                // reset?
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                }
+                                needReset = false;
                             }
                             // miniGameDataUIData
                             if (miniGameDataDirty)
@@ -173,7 +128,18 @@ namespace Banqi
                                                 Banqi banqi = gameData.gameType.newOrOld<Banqi>();
                                                 {
                                                     // Make new banqi to update
-                                                    Banqi newBanqi = (Banqi)show.makeDefaultGameType();
+                                                    Banqi newBanqi = null;
+                                                    {
+                                                        DefaultBanqi show = editDefaultBanqi.show.v.data;
+                                                        if (show != null)
+                                                        {
+                                                            newBanqi = (Banqi)show.makeDefaultGameType();
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("show null");
+                                                        }
+                                                    }
                                                     // Copy
                                                     DataUtils.copyData(banqi, newBanqi);
                                                 }
@@ -184,10 +150,6 @@ namespace Banqi
                                 }
                                 this.data.miniGameDataUIData.v = miniGameDataUIData;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
                         }
                         // UI
                         {

@@ -264,240 +264,26 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
                 if (editCreateRoom != null)
                 {
                     editCreateRoom.update();
-                    // get show
-                    CreateRoom show = editCreateRoom.show.v.data;
-                    CreateRoom compare = editCreateRoom.compare.v.data;
-                    if (show != null)
+                    // UI
                     {
                         // different
-                        if (lbTitle != null)
-                        {
-                            bool isDifferent = false;
-                            {
-                                if (editCreateRoom.compareOtherType.v.data != null)
-                                {
-                                    if (editCreateRoom.compareOtherType.v.data.GetType() != show.GetType())
-                                    {
-                                        isDifferent = true;
-                                    }
-                                }
-                            }
-                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTitle null: " + this);
-                        }
+                        RequestChange.ShowDifferentTitle(lbTitle, editCreateRoom);
                         // request
                         {
                             // get server state
-                            Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.Log("server null: " + this);
-                                }
-                            }
+                            Server.State.Type serverState = RequestChange.GetServerState(editCreateRoom);
                             // set origin
                             {
                                 // gameType
                                 {
-                                    RequestChangeEnumUI.UIData gameType = this.data.gameType.v;
-                                    if (gameType != null)
-                                    {
-                                        // options
-                                        {
-                                            gameType.options.copyList(GameType.GetEnableTypeString());
-                                        }
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = gameType.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = GameType.getEnableIndex(show.gameType.v);
-                                            updateData.canRequestChange.v = editCreateRoom.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                gameType.showDifferent.v = true;
-                                                gameType.compare.v = GameType.getEnableIndex(compare.gameType.v);
-                                            }
-                                            else
-                                            {
-                                                gameType.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("gameType null: " + this);
-                                    }
+                                    RequestChangeEnumUI.RefreshOptions(this.data.gameType.v, GameType.GetEnableTypeString());
+                                    RequestChange.RefreshUI(this.data.gameType.v, editCreateRoom, serverState, needReset, editData => GameType.getEnableIndex(editData.gameType.v));
                                 }
-                                // roomName
-                                {
-                                    RequestChangeStringUI.UIData roomName = this.data.roomName.v;
-                                    if (roomName != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<string>.UpdateData updateData = roomName.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.roomName.v;
-                                            updateData.canRequestChange.v = editCreateRoom.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                roomName.showDifferent.v = true;
-                                                roomName.compare.v = compare.roomName.v;
-                                            }
-                                            else
-                                            {
-                                                roomName.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("roomName null: " + this);
-                                    }
-                                }
-                                // password
-                                {
-                                    RequestChangeStringUI.UIData password = this.data.password.v;
-                                    if (password != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<string>.UpdateData updateData = password.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.password.v;
-                                            updateData.canRequestChange.v = editCreateRoom.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                password.showDifferent.v = true;
-                                                password.compare.v = compare.password.v;
-                                            }
-                                            else
-                                            {
-                                                password.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("password null: " + this);
-                                    }
-                                }
+                                RequestChange.RefreshUI(this.data.roomName.v, editCreateRoom, serverState, needReset, editData => editData.roomName.v);
+                                RequestChange.RefreshUI(this.data.password.v, editCreateRoom, serverState, needReset, editData => editData.password.v);
                             }
                         }
-                        // reset?
-                        if (needReset)
-                        {
-                            needReset = false;
-                            // gameType
-                            {
-                                RequestChangeEnumUI.UIData gameType = this.data.gameType.v;
-                                if (gameType != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<int>.UpdateData updateData = gameType.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = GameType.getEnableIndex(show.gameType.v);
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("gameType null: " + this);
-                                }
-                            }
-                            // roomName
-                            {
-                                RequestChangeStringUI.UIData roomName = this.data.roomName.v;
-                                if (roomName != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<string>.UpdateData updateData = roomName.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = show.roomName.v;
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("roomName null: " + this);
-                                }
-                            }
-                            // password
-                            {
-                                RequestChangeStringUI.UIData password = this.data.password.v;
-                                if (password != null)
-                                {
-                                    // update
-                                    RequestChangeUpdate<string>.UpdateData updateData = password.updateData.v;
-                                    if (updateData != null)
-                                    {
-                                        updateData.current.v = show.password.v;
-                                        updateData.changeState.v = Data.ChangeState.None;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("updateData null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("password null: " + this);
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Debug.LogError("show null: " + this);
+                        needReset = false;
                     }
                 }
                 else

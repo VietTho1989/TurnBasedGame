@@ -119,117 +119,19 @@ namespace Chess
                     if (editDefaultChess != null)
                     {
                         editDefaultChess.update();
-                        // get show
-                        DefaultChess show = editDefaultChess.show.v.data;
-                        DefaultChess compare = editDefaultChess.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // differentIndicator
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editDefaultChess.compareOtherType.v.data != null)
-                                    {
-                                        if (editDefaultChess.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("differentIndicator null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editDefaultChess);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editDefaultChess);
                                 // set origin
                                 {
-                                    // chess960
-                                    {
-                                        RequestChangeBoolUI.UIData chess960 = this.data.chess960.v;
-                                        if (chess960 != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = chess960.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.chess960.v;
-                                                updateData.canRequestChange.v = editDefaultChess.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    chess960.showDifferent.v = true;
-                                                    chess960.compare.v = compare.chess960.v;
-                                                }
-                                                else
-                                                {
-                                                    chess960.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("chess960 null: " + this);
-                                        }
-                                    }
+                                    RequestChange.RefreshUI(this.data.chess960.v, editDefaultChess, serverState, needReset, editData => editData.chess960.v);
                                 }
-                                // reset?
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                    // chess960
-                                    {
-                                        RequestChangeBoolUI.UIData chess960 = this.data.chess960.v;
-                                        if (chess960 != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = chess960.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.chess960.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("chess960 null: " + this);
-                                        }
-                                    }
-                                }
+                                needReset = false;
                             }
                             // miniGameDataUIData
                             if (miniGameDataDirty)
@@ -262,22 +164,31 @@ namespace Chess
                                                 Chess chess = gameData.gameType.newOrOld<Chess>();
                                                 {
                                                     // Make new chess
-                                                    Chess newChess = (Chess)show.makeDefaultGameType(); ;
+                                                    Chess newChess = null;
                                                     {
-                                                        if (newChess.chess960.v)
+                                                        DefaultChess show = editDefaultChess.show.v.data;
+                                                        if (show != null)
                                                         {
-                                                            for (Common.Rank y = Common.Rank.RANK_8; y >= Common.Rank.RANK_1; --y)
+                                                            newChess = show.makeDefaultGameType() as Chess;
+                                                            if (newChess.chess960.v)
                                                             {
-                                                                for (Common.File x = Common.File.FILE_A; x <= Common.File.FILE_H; ++x)
+                                                                for (Common.Rank y = Common.Rank.RANK_8; y >= Common.Rank.RANK_1; --y)
                                                                 {
-                                                                    Common.Square square = Common.make_square(x, y);
-                                                                    Common.Piece piece = newChess.piece_on(square);
-                                                                    if (piece != Common.Piece.NO_PIECE && piece != Common.Piece.W_PAWN && piece != Common.Piece.B_PAWN)
+                                                                    for (Common.File x = Common.File.FILE_A; x <= Common.File.FILE_H; ++x)
                                                                     {
-                                                                        newChess.setPieceOn(square, Common.Piece.PIECE_NB);
+                                                                        Common.Square square = Common.make_square(x, y);
+                                                                        Common.Piece piece = newChess.piece_on(square);
+                                                                        if (piece != Common.Piece.NO_PIECE && piece != Common.Piece.W_PAWN && piece != Common.Piece.B_PAWN)
+                                                                        {
+                                                                            newChess.setPieceOn(square, Common.Piece.PIECE_NB);
+                                                                        }
                                                                     }
                                                                 }
                                                             }
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("show null");
                                                         }
                                                     }
                                                     // Copy
@@ -385,10 +296,6 @@ namespace Chess
                                     Debug.LogError("lbChess960 null: " + this);
                                 }
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("defaultChess null: " + this);
                         }
                     }
                 }

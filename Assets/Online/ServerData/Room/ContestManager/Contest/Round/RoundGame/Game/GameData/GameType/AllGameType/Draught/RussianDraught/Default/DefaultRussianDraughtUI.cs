@@ -60,7 +60,7 @@ namespace RussianDraught
 
         #region Refresh
 
-        private bool needReset = true;
+        protected bool needReset = true;
         private bool miniGameDataDirty = true;
 
         public override void refresh()
@@ -74,64 +74,19 @@ namespace RussianDraught
                     if (editDefaultRussianDraught != null)
                     {
                         editDefaultRussianDraught.update();
-                        // get show
-                        DefaultRussianDraught show = editDefaultRussianDraught.show.v.data;
-                        DefaultRussianDraught compare = editDefaultRussianDraught.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editDefaultRussianDraught.compareOtherType.v.data != null)
-                                    {
-                                        if (editDefaultRussianDraught.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editDefaultRussianDraught);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                // Server.State.Type serverState = RequestChange.GetServerState(editDefaultRussianDraught);
                                 // set origin
                                 {
-                                    if (compare != null)
-                                    {
-                                        Debug.LogError("serverState: " + serverState + "; " + this);
-                                    }
+
                                 }
-                                // reset?
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                }
+                                needReset = false;
                             }
                             // miniGameDataUIData
                             if (miniGameDataDirty)
@@ -165,7 +120,18 @@ namespace RussianDraught
                                                 RussianDraught russianDraught = gameData.gameType.newOrOld<RussianDraught>();
                                                 {
                                                     // Make new russianDraught to update
-                                                    RussianDraught newRussianDraught = show.makeDefaultGameType() as RussianDraught;
+                                                    RussianDraught newRussianDraught = null;
+                                                    {
+                                                        DefaultRussianDraught show = editDefaultRussianDraught.show.v.data;
+                                                        if (show != null)
+                                                        {
+                                                            newRussianDraught = show.makeDefaultGameType() as RussianDraught;
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("show null");
+                                                        }
+                                                    }
                                                     // Copy
                                                     DataUtils.copyData(russianDraught, newRussianDraught);
                                                 }
@@ -176,10 +142,6 @@ namespace RussianDraught
                                 }
                                 this.data.miniGameDataUIData.v = miniGameDataUIData;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
                         }
                         // UI
                         {

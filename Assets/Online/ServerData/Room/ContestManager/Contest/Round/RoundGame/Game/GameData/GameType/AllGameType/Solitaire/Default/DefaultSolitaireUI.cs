@@ -133,117 +133,19 @@ namespace Solitaire
                     if (editDefaultSolitaire != null)
                     {
                         editDefaultSolitaire.update();
-                        // get show
-                        DefaultSolitaire show = editDefaultSolitaire.show.v.data;
-                        DefaultSolitaire compare = editDefaultSolitaire.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editDefaultSolitaire.compareOtherType.v.data != null)
-                                    {
-                                        if (editDefaultSolitaire.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editDefaultSolitaire);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editDefaultSolitaire);
                                 // set origin
                                 {
-                                    // drawCount
-                                    {
-                                        RequestChangeIntUI.UIData drawCount = this.data.drawCount.v;
-                                        if (drawCount != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = drawCount.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.drawCount.v;
-                                                updateData.canRequestChange.v = editDefaultSolitaire.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    drawCount.showDifferent.v = true;
-                                                    drawCount.compare.v = compare.drawCount.v;
-                                                }
-                                                else
-                                                {
-                                                    drawCount.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("drawCount null: " + this);
-                                        }
-                                    }
+                                    RequestChange.RefreshUI(this.data.drawCount.v, editDefaultSolitaire, serverState, needReset, editData => editData.drawCount.v);
                                 }
-                                // reset?
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                    // drawCount
-                                    {
-                                        RequestChangeIntUI.UIData drawCount = this.data.drawCount.v;
-                                        if (drawCount != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = drawCount.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.drawCount.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("drawCount null: " + this);
-                                        }
-                                    }
-                                }
+                                needReset = false;
                             }
                             // miniGameDataUIData
                             if (miniGameDataDirty)
@@ -278,7 +180,18 @@ namespace Solitaire
                                                 Solitaire solitaire = gameData.gameType.newOrOld<Solitaire>();
                                                 {
                                                     // find newSolitaire
-                                                    Solitaire newSolitaire = show.makeDefaultGameType() as Solitaire;
+                                                    Solitaire newSolitaire = null;
+                                                    {
+                                                        DefaultSolitaire show = editDefaultSolitaire.show.v.data;
+                                                        if (show != null)
+                                                        {
+                                                            newSolitaire = show.makeDefaultGameType() as Solitaire;
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("show null");
+                                                        }
+                                                    }
                                                     // Copy
                                                     DataUtils.copyData(solitaire, newSolitaire);
                                                 }
@@ -289,10 +202,6 @@ namespace Solitaire
                                 }
                                 this.data.miniGameDataUIData.v = miniGameDataUIData;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
                         }
                         // UI
                         {

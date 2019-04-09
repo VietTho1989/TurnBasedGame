@@ -61,7 +61,7 @@ namespace Janggi
 
         #region Refresh
 
-        private bool needReset = true;
+        protected bool needReset = true;
         private bool miniGameDataDirty = true;
 
         public override void refresh()
@@ -75,64 +75,19 @@ namespace Janggi
                     if (editDefaultJanggi != null)
                     {
                         editDefaultJanggi.update();
-                        // get show
-                        DefaultJanggi show = editDefaultJanggi.show.v.data;
-                        DefaultJanggi compare = editDefaultJanggi.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editDefaultJanggi.compareOtherType.v.data != null)
-                                    {
-                                        if (editDefaultJanggi.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("differentIndicator null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editDefaultJanggi);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editDefaultJanggi);
                                 // set origin
                                 {
-                                    if (compare != null)
-                                    {
-                                        Debug.LogError("serverState: " + serverState + "; " + this);
-                                    }
+
                                 }
-                                // reset?
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                }
+                                needReset = false;
                             }
                             // miniGameDataUIData
                             if (miniGameDataDirty)
@@ -167,7 +122,18 @@ namespace Janggi
                                                 Janggi janggi = gameData.gameType.newOrOld<Janggi>();
                                                 {
                                                     // Make new janggi to update
-                                                    Janggi newJanggi = (Janggi)show.makeDefaultGameType();
+                                                    Janggi newJanggi = null;
+                                                    {
+                                                        DefaultJanggi show = editDefaultJanggi.show.v.data;
+                                                        if (show != null)
+                                                        {
+                                                            newJanggi = show.makeDefaultGameType() as Janggi;
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("show null");
+                                                        }
+                                                    }
                                                     // Copy
                                                     DataUtils.copyData(janggi, newJanggi);
                                                 }
@@ -178,10 +144,6 @@ namespace Janggi
                                 }
                                 this.data.miniGameDataUIData.v = miniGameDataUIData;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
                         }
                         // UI
                         {

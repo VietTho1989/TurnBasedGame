@@ -54,7 +54,7 @@ public class AccountNoneUI : UIHaveTransformDataBehavior<AccountNoneUI.UIData>
 
     #region Refresh
 
-    private bool needReset = true;
+    protected bool needReset = true;
 
     public override void refresh()
     {
@@ -67,66 +67,20 @@ public class AccountNoneUI : UIHaveTransformDataBehavior<AccountNoneUI.UIData>
                 if (editAccountNone != null)
                 {
                     editAccountNone.update();
-                    // get show
-                    AccountNone show = editAccountNone.show.v.data;
-                    AccountNone compare = editAccountNone.compare.v.data;
-                    if (show != null)
+                    // UI
                     {
                         // different
-                        if (lbTitle != null)
-                        {
-                            bool isDifferent = false;
-                            {
-                                if (editAccountNone.compareOtherType.v.data != null)
-                                {
-                                    if (editAccountNone.compareOtherType.v.data.GetType() != show.GetType())
-                                    {
-                                        isDifferent = true;
-                                    }
-                                }
-                            }
-                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                        }
-                        else
-                        {
-                            Debug.LogError("differentIndicator null: " + this);
-                        }
+                        RequestChange.ShowDifferentTitle(lbTitle, editAccountNone);
                         // request
                         {
                             // get server state
-                            Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("server null: " + compare + "; " + serverState + "; " + this);
-                                }
-                            }
+                            // Server.State.Type serverState = RequestChange.GetServerState(editAccountNone);
                             // set origin
                             {
 
                             }
-                            // reset?
-                            if (needReset)
-                            {
-                                needReset = false;
-                            }
+                            needReset = false;
                         }
-                    }
-                    else
-                    {
-                        Debug.LogError("show null: " + this);
                     }
                 }
                 else

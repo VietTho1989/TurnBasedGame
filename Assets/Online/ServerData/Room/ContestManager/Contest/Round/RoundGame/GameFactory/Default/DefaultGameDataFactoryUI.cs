@@ -185,895 +185,746 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                 if (editDefaultGameDataFactory != null)
                 {
                     editDefaultGameDataFactory.update();
-                    // get show
-                    DefaultGameDataFactory show = editDefaultGameDataFactory.show.v.data;
-                    DefaultGameDataFactory compare = editDefaultGameDataFactory.compare.v.data;
-                    if (show != null)
+                    // UI
                     {
                         // different
-                        if (lbTitle != null)
-                        {
-                            bool isDifferent = false;
-                            {
-                                if (editDefaultGameDataFactory.compareOtherType.v.data != null)
-                                {
-                                    if (editDefaultGameDataFactory.compareOtherType.v.data.GetType() != show.GetType())
-                                    {
-                                        isDifferent = true;
-                                    }
-                                }
-                            }
-                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                        }
-                        else
-                        {
-                            Debug.LogError("lbTitle null: " + this);
-                        }
+                        RequestChange.ShowDifferentTitle(lbTitle, editDefaultGameDataFactory);
                         // request
                         {
                             // get server state
-                            Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("server null: " + this);
-                                }
-                            }
+                            Server.State.Type serverState = RequestChange.GetServerState(editDefaultGameDataFactory);
                             // set origin
                             {
                                 // gameType
                                 {
-                                    RequestChangeEnumUI.UIData gameType = this.data.gameType.v;
-                                    if (gameType != null)
-                                    {
-                                        // options
-                                        {
-                                            gameType.options.copyList(GameType.GetEnableTypeString());
-                                        }
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = gameType.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = GameType.getEnableIndex(show.getGameTypeType());
-                                            updateData.canRequestChange.v = editDefaultGameDataFactory.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                gameType.showDifferent.v = true;
-                                                gameType.compare.v = GameType.getEnableIndex(compare.getGameTypeType());
-                                            }
-                                            else
-                                            {
-                                                gameType.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("gameType null: " + this);
-                                    }
+                                    RequestChangeEnumUI.RefreshOptions(this.data.gameType.v, GameType.GetEnableTypeString());
+                                    RequestChange.RefreshUI(this.data.gameType.v, editDefaultGameDataFactory, serverState, needReset, editData => GameType.getEnableIndex(editData.getGameTypeType()));
                                 }
                                 // defaultGameTypeUI
                                 {
-                                    DefaultGameType defaultGameType = show.defaultGameType.v;
-                                    if (defaultGameType != null)
+                                    DefaultGameDataFactory show = editDefaultGameDataFactory.show.v.data;
+                                    DefaultGameDataFactory compare = editDefaultGameDataFactory.compare.v.data;
+                                    if (show != null)
                                     {
-                                        // find origin 
-                                        DefaultGameType originDefaultGameType = null;
+                                        DefaultGameType defaultGameType = show.defaultGameType.v;
+                                        if (defaultGameType != null)
                                         {
-                                            if (editDefaultGameDataFactory.origin.v.data != null)
+                                            // find origin 
+                                            DefaultGameType originDefaultGameType = null;
                                             {
-                                                originDefaultGameType = editDefaultGameDataFactory.origin.v.data.defaultGameType.v;
+                                                if (editDefaultGameDataFactory.origin.v.data != null)
+                                                {
+                                                    originDefaultGameType = editDefaultGameDataFactory.origin.v.data.defaultGameType.v;
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("origin null: " + this);
+                                                }
                                             }
-                                            else
+                                            // find compare
+                                            DefaultGameType compareDefaultGameType = null;
                                             {
-                                                Debug.LogError("origin null: " + this);
+                                                if (compare != null)
+                                                {
+                                                    compareDefaultGameType = compare.defaultGameType.v;
+                                                }
+                                                else
+                                                {
+                                                    // Debug.LogError("compare null: " + this);
+                                                }
                                             }
-                                        }
-                                        // find compare
-                                        DefaultGameType compareDefaultGameType = null;
-                                        {
-                                            if (compare != null)
+                                            // process
+                                            switch (defaultGameType.getType())
                                             {
-                                                compareDefaultGameType = compare.defaultGameType.v;
-                                            }
-                                            else
-                                            {
-                                                // Debug.LogError("compare null: " + this);
-                                            }
-                                        }
-                                        // process
-                                        switch (defaultGameType.getType())
-                                        {
-                                            case GameType.Type.CHESS:
-                                                {
-                                                    Chess.DefaultChess defaultChess = defaultGameType as Chess.DefaultChess;
-                                                    // UIData
-                                                    Chess.DefaultChessUI.UIData defaultChessUIData = this.data.defaultGameTypeUI.newOrOld<Chess.DefaultChessUI.UIData>();
+                                                case GameType.Type.CHESS:
                                                     {
-                                                        EditData<Chess.DefaultChess> editDefaultChess = defaultChessUIData.editDefaultChess.v;
-                                                        if (editDefaultChess != null)
+                                                        Chess.DefaultChess defaultChess = defaultGameType as Chess.DefaultChess;
+                                                        // UIData
+                                                        Chess.DefaultChessUI.UIData defaultChessUIData = this.data.defaultGameTypeUI.newOrOld<Chess.DefaultChessUI.UIData>();
                                                         {
-                                                            // origin
-                                                            editDefaultChess.origin.v = new ReferenceData<Chess.DefaultChess>((Chess.DefaultChess)originDefaultGameType);
-                                                            // show
-                                                            editDefaultChess.show.v = new ReferenceData<Chess.DefaultChess>(defaultChess);
-                                                            // compare
-                                                            editDefaultChess.compare.v = new ReferenceData<Chess.DefaultChess>((Chess.DefaultChess)compareDefaultGameType);
-                                                            // canEdit
-                                                            editDefaultChess.canEdit.v = editDefaultGameDataFactory.canEdit.v;
-                                                            // editType
-                                                            editDefaultChess.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            EditData<Chess.DefaultChess> editDefaultChess = defaultChessUIData.editDefaultChess.v;
+                                                            if (editDefaultChess != null)
+                                                            {
+                                                                // origin
+                                                                editDefaultChess.origin.v = new ReferenceData<Chess.DefaultChess>((Chess.DefaultChess)originDefaultGameType);
+                                                                // show
+                                                                editDefaultChess.show.v = new ReferenceData<Chess.DefaultChess>(defaultChess);
+                                                                // compare
+                                                                editDefaultChess.compare.v = new ReferenceData<Chess.DefaultChess>((Chess.DefaultChess)compareDefaultGameType);
+                                                                // canEdit
+                                                                editDefaultChess.canEdit.v = editDefaultGameDataFactory.canEdit.v;
+                                                                // editType
+                                                                editDefaultChess.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editDefaultChess null: " + this);
+                                                            }
+                                                            defaultChessUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultChess null: " + this);
-                                                        }
-                                                        defaultChessUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        this.data.defaultGameTypeUI.v = defaultChessUIData;
                                                     }
-                                                    this.data.defaultGameTypeUI.v = defaultChessUIData;
-                                                }
-                                                break;
-                                            case GameType.Type.Shatranj:
-                                                {
-                                                    Shatranj.DefaultShatranj defaultShatranj = defaultGameType as Shatranj.DefaultShatranj;
-                                                    // UIData
-                                                    Shatranj.DefaultShatranjUI.UIData defaultShatranjUIData = this.data.defaultGameTypeUI.newOrOld<Shatranj.DefaultShatranjUI.UIData>();
+                                                    break;
+                                                case GameType.Type.Shatranj:
                                                     {
-                                                        EditData<Shatranj.DefaultShatranj> editDefaultShatranj = defaultShatranjUIData.editDefaultShatranj.v;
-                                                        if (editDefaultShatranj != null)
+                                                        Shatranj.DefaultShatranj defaultShatranj = defaultGameType as Shatranj.DefaultShatranj;
+                                                        // UIData
+                                                        Shatranj.DefaultShatranjUI.UIData defaultShatranjUIData = this.data.defaultGameTypeUI.newOrOld<Shatranj.DefaultShatranjUI.UIData>();
                                                         {
-                                                            // origin
-                                                            editDefaultShatranj.origin.v = new ReferenceData<Shatranj.DefaultShatranj>((Shatranj.DefaultShatranj)originDefaultGameType);
-                                                            // show
-                                                            editDefaultShatranj.show.v = new ReferenceData<Shatranj.DefaultShatranj>(defaultShatranj);
-                                                            // compare
-                                                            editDefaultShatranj.compare.v = new ReferenceData<Shatranj.DefaultShatranj>((Shatranj.DefaultShatranj)compareDefaultGameType);
-                                                            // canEdit
-                                                            editDefaultShatranj.canEdit.v = editDefaultGameDataFactory.canEdit.v;
-                                                            // editType
-                                                            editDefaultShatranj.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            EditData<Shatranj.DefaultShatranj> editDefaultShatranj = defaultShatranjUIData.editDefaultShatranj.v;
+                                                            if (editDefaultShatranj != null)
+                                                            {
+                                                                // origin
+                                                                editDefaultShatranj.origin.v = new ReferenceData<Shatranj.DefaultShatranj>((Shatranj.DefaultShatranj)originDefaultGameType);
+                                                                // show
+                                                                editDefaultShatranj.show.v = new ReferenceData<Shatranj.DefaultShatranj>(defaultShatranj);
+                                                                // compare
+                                                                editDefaultShatranj.compare.v = new ReferenceData<Shatranj.DefaultShatranj>((Shatranj.DefaultShatranj)compareDefaultGameType);
+                                                                // canEdit
+                                                                editDefaultShatranj.canEdit.v = editDefaultGameDataFactory.canEdit.v;
+                                                                // editType
+                                                                editDefaultShatranj.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editDefaultShatranj null: " + this);
+                                                            }
+                                                            defaultShatranjUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultShatranj null: " + this);
-                                                        }
-                                                        defaultShatranjUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        this.data.defaultGameTypeUI.v = defaultShatranjUIData;
                                                     }
-                                                    this.data.defaultGameTypeUI.v = defaultShatranjUIData;
-                                                }
-                                                break;
-                                            case GameType.Type.Makruk:
-                                                {
-                                                    Makruk.DefaultMakruk defaultMakruk = defaultGameType as Makruk.DefaultMakruk;
-                                                    // UIData
-                                                    Makruk.DefaultMakrukUI.UIData defaultMakrukUIData = this.data.defaultGameTypeUI.newOrOld<Makruk.DefaultMakrukUI.UIData>();
+                                                    break;
+                                                case GameType.Type.Makruk:
                                                     {
-                                                        EditData<Makruk.DefaultMakruk> editDefaultMakruk = defaultMakrukUIData.editDefaultMakruk.v;
-                                                        if (editDefaultMakruk != null)
+                                                        Makruk.DefaultMakruk defaultMakruk = defaultGameType as Makruk.DefaultMakruk;
+                                                        // UIData
+                                                        Makruk.DefaultMakrukUI.UIData defaultMakrukUIData = this.data.defaultGameTypeUI.newOrOld<Makruk.DefaultMakrukUI.UIData>();
                                                         {
-                                                            // origin
-                                                            editDefaultMakruk.origin.v = new ReferenceData<Makruk.DefaultMakruk>((Makruk.DefaultMakruk)originDefaultGameType);
-                                                            // show
-                                                            editDefaultMakruk.show.v = new ReferenceData<Makruk.DefaultMakruk>(defaultMakruk);
-                                                            // compare
-                                                            editDefaultMakruk.compare.v = new ReferenceData<Makruk.DefaultMakruk>((Makruk.DefaultMakruk)compareDefaultGameType);
-                                                            // canEdit
-                                                            editDefaultMakruk.canEdit.v = editDefaultGameDataFactory.canEdit.v;
-                                                            // editType
-                                                            editDefaultMakruk.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            EditData<Makruk.DefaultMakruk> editDefaultMakruk = defaultMakrukUIData.editDefaultMakruk.v;
+                                                            if (editDefaultMakruk != null)
+                                                            {
+                                                                // origin
+                                                                editDefaultMakruk.origin.v = new ReferenceData<Makruk.DefaultMakruk>((Makruk.DefaultMakruk)originDefaultGameType);
+                                                                // show
+                                                                editDefaultMakruk.show.v = new ReferenceData<Makruk.DefaultMakruk>(defaultMakruk);
+                                                                // compare
+                                                                editDefaultMakruk.compare.v = new ReferenceData<Makruk.DefaultMakruk>((Makruk.DefaultMakruk)compareDefaultGameType);
+                                                                // canEdit
+                                                                editDefaultMakruk.canEdit.v = editDefaultGameDataFactory.canEdit.v;
+                                                                // editType
+                                                                editDefaultMakruk.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editDefaultMakruk null: " + this);
+                                                            }
+                                                            defaultMakrukUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultMakruk null: " + this);
-                                                        }
-                                                        defaultMakrukUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        this.data.defaultGameTypeUI.v = defaultMakrukUIData;
                                                     }
-                                                    this.data.defaultGameTypeUI.v = defaultMakrukUIData;
-                                                }
-                                                break;
-                                            case GameType.Type.Seirawan:
-                                                {
-                                                    Seirawan.DefaultSeirawan defaultSeirawan = defaultGameType as Seirawan.DefaultSeirawan;
-                                                    // UIData
-                                                    Seirawan.DefaultSeirawanUI.UIData defaultSeirawanUIData = this.data.defaultGameTypeUI.newOrOld<Seirawan.DefaultSeirawanUI.UIData>();
+                                                    break;
+                                                case GameType.Type.Seirawan:
                                                     {
-                                                        EditData<Seirawan.DefaultSeirawan> editDefaultSeirawan = defaultSeirawanUIData.editDefaultSeirawan.v;
-                                                        if (editDefaultSeirawan != null)
+                                                        Seirawan.DefaultSeirawan defaultSeirawan = defaultGameType as Seirawan.DefaultSeirawan;
+                                                        // UIData
+                                                        Seirawan.DefaultSeirawanUI.UIData defaultSeirawanUIData = this.data.defaultGameTypeUI.newOrOld<Seirawan.DefaultSeirawanUI.UIData>();
                                                         {
-                                                            // origin
-                                                            editDefaultSeirawan.origin.v = new ReferenceData<Seirawan.DefaultSeirawan>((Seirawan.DefaultSeirawan)originDefaultGameType);
-                                                            // show
-                                                            editDefaultSeirawan.show.v = new ReferenceData<Seirawan.DefaultSeirawan>(defaultSeirawan);
-                                                            // compare
-                                                            editDefaultSeirawan.compare.v = new ReferenceData<Seirawan.DefaultSeirawan>((Seirawan.DefaultSeirawan)compareDefaultGameType);
-                                                            // canEdit
-                                                            editDefaultSeirawan.canEdit.v = editDefaultGameDataFactory.canEdit.v;
-                                                            // editType
-                                                            editDefaultSeirawan.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            EditData<Seirawan.DefaultSeirawan> editDefaultSeirawan = defaultSeirawanUIData.editDefaultSeirawan.v;
+                                                            if (editDefaultSeirawan != null)
+                                                            {
+                                                                // origin
+                                                                editDefaultSeirawan.origin.v = new ReferenceData<Seirawan.DefaultSeirawan>((Seirawan.DefaultSeirawan)originDefaultGameType);
+                                                                // show
+                                                                editDefaultSeirawan.show.v = new ReferenceData<Seirawan.DefaultSeirawan>(defaultSeirawan);
+                                                                // compare
+                                                                editDefaultSeirawan.compare.v = new ReferenceData<Seirawan.DefaultSeirawan>((Seirawan.DefaultSeirawan)compareDefaultGameType);
+                                                                // canEdit
+                                                                editDefaultSeirawan.canEdit.v = editDefaultGameDataFactory.canEdit.v;
+                                                                // editType
+                                                                editDefaultSeirawan.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editDefaultSeirawan null: " + this);
+                                                            }
+                                                            defaultSeirawanUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultSeirawan null: " + this);
-                                                        }
-                                                        defaultSeirawanUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        this.data.defaultGameTypeUI.v = defaultSeirawanUIData;
                                                     }
-                                                    this.data.defaultGameTypeUI.v = defaultSeirawanUIData;
-                                                }
-                                                break;
-                                            case GameType.Type.FairyChess:
-                                                {
-                                                    FairyChess.DefaultFairyChess defaultFairyChess = defaultGameType as FairyChess.DefaultFairyChess;
-                                                    // UIData
-                                                    FairyChess.DefaultFairyChessUI.UIData defaultFairyChessUIData = this.data.defaultGameTypeUI.newOrOld<FairyChess.DefaultFairyChessUI.UIData>();
+                                                    break;
+                                                case GameType.Type.FairyChess:
                                                     {
-                                                        EditData<FairyChess.DefaultFairyChess> editDefaultFairyChess = defaultFairyChessUIData.editDefaultFairyChess.v;
-                                                        if (editDefaultFairyChess != null)
+                                                        FairyChess.DefaultFairyChess defaultFairyChess = defaultGameType as FairyChess.DefaultFairyChess;
+                                                        // UIData
+                                                        FairyChess.DefaultFairyChessUI.UIData defaultFairyChessUIData = this.data.defaultGameTypeUI.newOrOld<FairyChess.DefaultFairyChessUI.UIData>();
                                                         {
-                                                            // origin
-                                                            editDefaultFairyChess.origin.v = new ReferenceData<FairyChess.DefaultFairyChess>((FairyChess.DefaultFairyChess)originDefaultGameType);
-                                                            // show
-                                                            editDefaultFairyChess.show.v = new ReferenceData<FairyChess.DefaultFairyChess>(defaultFairyChess);
-                                                            // compare
-                                                            editDefaultFairyChess.compare.v = new ReferenceData<FairyChess.DefaultFairyChess>((FairyChess.DefaultFairyChess)compareDefaultGameType);
-                                                            // canEdit
-                                                            editDefaultFairyChess.canEdit.v = editDefaultGameDataFactory.canEdit.v;
-                                                            // editType
-                                                            editDefaultFairyChess.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            EditData<FairyChess.DefaultFairyChess> editDefaultFairyChess = defaultFairyChessUIData.editDefaultFairyChess.v;
+                                                            if (editDefaultFairyChess != null)
+                                                            {
+                                                                // origin
+                                                                editDefaultFairyChess.origin.v = new ReferenceData<FairyChess.DefaultFairyChess>((FairyChess.DefaultFairyChess)originDefaultGameType);
+                                                                // show
+                                                                editDefaultFairyChess.show.v = new ReferenceData<FairyChess.DefaultFairyChess>(defaultFairyChess);
+                                                                // compare
+                                                                editDefaultFairyChess.compare.v = new ReferenceData<FairyChess.DefaultFairyChess>((FairyChess.DefaultFairyChess)compareDefaultGameType);
+                                                                // canEdit
+                                                                editDefaultFairyChess.canEdit.v = editDefaultGameDataFactory.canEdit.v;
+                                                                // editType
+                                                                editDefaultFairyChess.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editDefaultFairyChess null: " + this);
+                                                            }
+                                                            defaultFairyChessUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultFairyChess null: " + this);
-                                                        }
-                                                        defaultFairyChessUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        this.data.defaultGameTypeUI.v = defaultFairyChessUIData;
                                                     }
-                                                    this.data.defaultGameTypeUI.v = defaultFairyChessUIData;
-                                                }
-                                                break;
+                                                    break;
 
-                                            case GameType.Type.Xiangqi:
-                                                {
-                                                    Xiangqi.DefaultXiangqi defaultXiangqi = defaultGameType as Xiangqi.DefaultXiangqi;
-                                                    // UIData
-                                                    Xiangqi.DefaultXiangqiUI.UIData defaultXiangqiUIData = this.data.defaultGameTypeUI.newOrOld<Xiangqi.DefaultXiangqiUI.UIData>();
+                                                case GameType.Type.Xiangqi:
                                                     {
-                                                        EditData<Xiangqi.DefaultXiangqi> editDefaultXiangqi = defaultXiangqiUIData.editDefaultXiangqi.v;
-                                                        if (editDefaultXiangqi != null)
+                                                        Xiangqi.DefaultXiangqi defaultXiangqi = defaultGameType as Xiangqi.DefaultXiangqi;
+                                                        // UIData
+                                                        Xiangqi.DefaultXiangqiUI.UIData defaultXiangqiUIData = this.data.defaultGameTypeUI.newOrOld<Xiangqi.DefaultXiangqiUI.UIData>();
                                                         {
-                                                            // origin
-                                                            editDefaultXiangqi.origin.v = new ReferenceData<Xiangqi.DefaultXiangqi>((Xiangqi.DefaultXiangqi)originDefaultGameType);
-                                                            // show
-                                                            editDefaultXiangqi.show.v = new ReferenceData<Xiangqi.DefaultXiangqi>(defaultXiangqi);
-                                                            // compare
-                                                            editDefaultXiangqi.compare.v = new ReferenceData<Xiangqi.DefaultXiangqi>((Xiangqi.DefaultXiangqi)compareDefaultGameType);
-                                                            // canEdit
-                                                            editDefaultXiangqi.canEdit.v = editDefaultGameDataFactory.canEdit.v;
-                                                            // editType
-                                                            editDefaultXiangqi.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            EditData<Xiangqi.DefaultXiangqi> editDefaultXiangqi = defaultXiangqiUIData.editDefaultXiangqi.v;
+                                                            if (editDefaultXiangqi != null)
+                                                            {
+                                                                // origin
+                                                                editDefaultXiangqi.origin.v = new ReferenceData<Xiangqi.DefaultXiangqi>((Xiangqi.DefaultXiangqi)originDefaultGameType);
+                                                                // show
+                                                                editDefaultXiangqi.show.v = new ReferenceData<Xiangqi.DefaultXiangqi>(defaultXiangqi);
+                                                                // compare
+                                                                editDefaultXiangqi.compare.v = new ReferenceData<Xiangqi.DefaultXiangqi>((Xiangqi.DefaultXiangqi)compareDefaultGameType);
+                                                                // canEdit
+                                                                editDefaultXiangqi.canEdit.v = editDefaultGameDataFactory.canEdit.v;
+                                                                // editType
+                                                                editDefaultXiangqi.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editDefaultXiangqi null: " + this);
+                                                            }
+                                                            defaultXiangqiUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultXiangqi null: " + this);
-                                                        }
-                                                        defaultXiangqiUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        this.data.defaultGameTypeUI.v = defaultXiangqiUIData;
                                                     }
-                                                    this.data.defaultGameTypeUI.v = defaultXiangqiUIData;
-                                                }
-                                                break;
-                                            case GameType.Type.CO_TUONG_UP:
-                                                {
-                                                    CoTuongUp.DefaultCoTuongUp defaultCoTuongUp = defaultGameType as CoTuongUp.DefaultCoTuongUp;
-                                                    // UIData
-                                                    CoTuongUp.DefaultCoTuongUpUI.UIData defaultCoTuongUpUIData = this.data.defaultGameTypeUI.newOrOld<CoTuongUp.DefaultCoTuongUpUI.UIData>();
+                                                    break;
+                                                case GameType.Type.CO_TUONG_UP:
                                                     {
-                                                        EditData<CoTuongUp.DefaultCoTuongUp> editDefaultCoTuongUp = defaultCoTuongUpUIData.editDefaultCoTuongUp.v;
-                                                        if (editDefaultCoTuongUp != null)
+                                                        CoTuongUp.DefaultCoTuongUp defaultCoTuongUp = defaultGameType as CoTuongUp.DefaultCoTuongUp;
+                                                        // UIData
+                                                        CoTuongUp.DefaultCoTuongUpUI.UIData defaultCoTuongUpUIData = this.data.defaultGameTypeUI.newOrOld<CoTuongUp.DefaultCoTuongUpUI.UIData>();
                                                         {
-                                                            // origin
-                                                            editDefaultCoTuongUp.origin.v = new ReferenceData<CoTuongUp.DefaultCoTuongUp>((CoTuongUp.DefaultCoTuongUp)originDefaultGameType);
-                                                            // show
-                                                            editDefaultCoTuongUp.show.v = new ReferenceData<CoTuongUp.DefaultCoTuongUp>(defaultCoTuongUp);
-                                                            // compare
-                                                            editDefaultCoTuongUp.compare.v = new ReferenceData<CoTuongUp.DefaultCoTuongUp>((CoTuongUp.DefaultCoTuongUp)compareDefaultGameType);
-                                                            // canEdit
-                                                            editDefaultCoTuongUp.canEdit.v = editDefaultGameDataFactory.canEdit.v;
-                                                            // editType
-                                                            editDefaultCoTuongUp.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            EditData<CoTuongUp.DefaultCoTuongUp> editDefaultCoTuongUp = defaultCoTuongUpUIData.editDefaultCoTuongUp.v;
+                                                            if (editDefaultCoTuongUp != null)
+                                                            {
+                                                                // origin
+                                                                editDefaultCoTuongUp.origin.v = new ReferenceData<CoTuongUp.DefaultCoTuongUp>((CoTuongUp.DefaultCoTuongUp)originDefaultGameType);
+                                                                // show
+                                                                editDefaultCoTuongUp.show.v = new ReferenceData<CoTuongUp.DefaultCoTuongUp>(defaultCoTuongUp);
+                                                                // compare
+                                                                editDefaultCoTuongUp.compare.v = new ReferenceData<CoTuongUp.DefaultCoTuongUp>((CoTuongUp.DefaultCoTuongUp)compareDefaultGameType);
+                                                                // canEdit
+                                                                editDefaultCoTuongUp.canEdit.v = editDefaultGameDataFactory.canEdit.v;
+                                                                // editType
+                                                                editDefaultCoTuongUp.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editDefaultCoTuongUp null: " + this);
+                                                            }
+                                                            defaultCoTuongUpUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultCoTuongUp null: " + this);
-                                                        }
-                                                        defaultCoTuongUpUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        this.data.defaultGameTypeUI.v = defaultCoTuongUpUIData;
                                                     }
-                                                    this.data.defaultGameTypeUI.v = defaultCoTuongUpUIData;
-                                                }
-                                                break;
-                                            case GameType.Type.Janggi:
-                                                {
-                                                    Janggi.DefaultJanggi defaultJanggi = defaultGameType as Janggi.DefaultJanggi;
-                                                    // UIData
-                                                    Janggi.DefaultJanggiUI.UIData defaultJanggiUIData = this.data.defaultGameTypeUI.newOrOld<Janggi.DefaultJanggiUI.UIData>();
+                                                    break;
+                                                case GameType.Type.Janggi:
                                                     {
-                                                        EditData<Janggi.DefaultJanggi> editDefaultJanggi = defaultJanggiUIData.editDefaultJanggi.v;
-                                                        if (editDefaultJanggi != null)
+                                                        Janggi.DefaultJanggi defaultJanggi = defaultGameType as Janggi.DefaultJanggi;
+                                                        // UIData
+                                                        Janggi.DefaultJanggiUI.UIData defaultJanggiUIData = this.data.defaultGameTypeUI.newOrOld<Janggi.DefaultJanggiUI.UIData>();
                                                         {
-                                                            // origin
-                                                            editDefaultJanggi.origin.v = new ReferenceData<Janggi.DefaultJanggi>((Janggi.DefaultJanggi)originDefaultGameType);
-                                                            // show
-                                                            editDefaultJanggi.show.v = new ReferenceData<Janggi.DefaultJanggi>(defaultJanggi);
-                                                            // compare
-                                                            editDefaultJanggi.compare.v = new ReferenceData<Janggi.DefaultJanggi>((Janggi.DefaultJanggi)compareDefaultGameType);
-                                                            // canEdit
-                                                            editDefaultJanggi.canEdit.v = editDefaultGameDataFactory.canEdit.v;
-                                                            // editType
-                                                            editDefaultJanggi.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            EditData<Janggi.DefaultJanggi> editDefaultJanggi = defaultJanggiUIData.editDefaultJanggi.v;
+                                                            if (editDefaultJanggi != null)
+                                                            {
+                                                                // origin
+                                                                editDefaultJanggi.origin.v = new ReferenceData<Janggi.DefaultJanggi>((Janggi.DefaultJanggi)originDefaultGameType);
+                                                                // show
+                                                                editDefaultJanggi.show.v = new ReferenceData<Janggi.DefaultJanggi>(defaultJanggi);
+                                                                // compare
+                                                                editDefaultJanggi.compare.v = new ReferenceData<Janggi.DefaultJanggi>((Janggi.DefaultJanggi)compareDefaultGameType);
+                                                                // canEdit
+                                                                editDefaultJanggi.canEdit.v = editDefaultGameDataFactory.canEdit.v;
+                                                                // editType
+                                                                editDefaultJanggi.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editDefaultJanggi null: " + this);
+                                                            }
+                                                            defaultJanggiUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultJanggi null: " + this);
-                                                        }
-                                                        defaultJanggiUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        this.data.defaultGameTypeUI.v = defaultJanggiUIData;
                                                     }
-                                                    this.data.defaultGameTypeUI.v = defaultJanggiUIData;
-                                                }
-                                                break;
-                                            case GameType.Type.Banqi:
-                                                {
-                                                    Banqi.DefaultBanqi defaultBanqi = defaultGameType as Banqi.DefaultBanqi;
-                                                    // UIData
-                                                    Banqi.DefaultBanqiUI.UIData defaultBanqiUIData = this.data.defaultGameTypeUI.newOrOld<Banqi.DefaultBanqiUI.UIData>();
+                                                    break;
+                                                case GameType.Type.Banqi:
                                                     {
-                                                        EditData<Banqi.DefaultBanqi> editDefaultBanqi = defaultBanqiUIData.editDefaultBanqi.v;
-                                                        if (editDefaultBanqi != null)
+                                                        Banqi.DefaultBanqi defaultBanqi = defaultGameType as Banqi.DefaultBanqi;
+                                                        // UIData
+                                                        Banqi.DefaultBanqiUI.UIData defaultBanqiUIData = this.data.defaultGameTypeUI.newOrOld<Banqi.DefaultBanqiUI.UIData>();
                                                         {
-                                                            // origin
-                                                            editDefaultBanqi.origin.v = new ReferenceData<Banqi.DefaultBanqi>((Banqi.DefaultBanqi)originDefaultGameType);
-                                                            // show
-                                                            editDefaultBanqi.show.v = new ReferenceData<Banqi.DefaultBanqi>(defaultBanqi);
-                                                            // compare
-                                                            editDefaultBanqi.compare.v = new ReferenceData<Banqi.DefaultBanqi>((Banqi.DefaultBanqi)compareDefaultGameType);
-                                                            // canEdit
-                                                            editDefaultBanqi.canEdit.v = editDefaultGameDataFactory.canEdit.v;
-                                                            // editType
-                                                            editDefaultBanqi.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            EditData<Banqi.DefaultBanqi> editDefaultBanqi = defaultBanqiUIData.editDefaultBanqi.v;
+                                                            if (editDefaultBanqi != null)
+                                                            {
+                                                                // origin
+                                                                editDefaultBanqi.origin.v = new ReferenceData<Banqi.DefaultBanqi>((Banqi.DefaultBanqi)originDefaultGameType);
+                                                                // show
+                                                                editDefaultBanqi.show.v = new ReferenceData<Banqi.DefaultBanqi>(defaultBanqi);
+                                                                // compare
+                                                                editDefaultBanqi.compare.v = new ReferenceData<Banqi.DefaultBanqi>((Banqi.DefaultBanqi)compareDefaultGameType);
+                                                                // canEdit
+                                                                editDefaultBanqi.canEdit.v = editDefaultGameDataFactory.canEdit.v;
+                                                                // editType
+                                                                editDefaultBanqi.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editDefaultBanqi null: " + this);
+                                                            }
+                                                            defaultBanqiUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultBanqi null: " + this);
-                                                        }
-                                                        defaultBanqiUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        this.data.defaultGameTypeUI.v = defaultBanqiUIData;
                                                     }
-                                                    this.data.defaultGameTypeUI.v = defaultBanqiUIData;
-                                                }
-                                                break;
+                                                    break;
 
-                                            case GameType.Type.Weiqi:
-                                                {
-                                                    Weiqi.DefaultWeiqi defaultWeiqi = defaultGameType as Weiqi.DefaultWeiqi;
-                                                    // UIData
-                                                    Weiqi.DefaultWeiqiUI.UIData defaultWeiqiUIData = this.data.defaultGameTypeUI.newOrOld<Weiqi.DefaultWeiqiUI.UIData>();
+                                                case GameType.Type.Weiqi:
                                                     {
-                                                        EditData<Weiqi.DefaultWeiqi> editDefaultWeiqi = defaultWeiqiUIData.editDefaultWeiqi.v;
-                                                        if (editDefaultWeiqi != null)
+                                                        Weiqi.DefaultWeiqi defaultWeiqi = defaultGameType as Weiqi.DefaultWeiqi;
+                                                        // UIData
+                                                        Weiqi.DefaultWeiqiUI.UIData defaultWeiqiUIData = this.data.defaultGameTypeUI.newOrOld<Weiqi.DefaultWeiqiUI.UIData>();
                                                         {
-                                                            // origin
-                                                            editDefaultWeiqi.origin.v = new ReferenceData<Weiqi.DefaultWeiqi>((Weiqi.DefaultWeiqi)originDefaultGameType);
-                                                            // show
-                                                            editDefaultWeiqi.show.v = new ReferenceData<Weiqi.DefaultWeiqi>(defaultWeiqi);
-                                                            // compare
-                                                            editDefaultWeiqi.compare.v = new ReferenceData<Weiqi.DefaultWeiqi>((Weiqi.DefaultWeiqi)compareDefaultGameType);
-                                                            // canEdit
-                                                            editDefaultWeiqi.canEdit.v = editDefaultGameDataFactory.canEdit.v;
-                                                            // editType
-                                                            editDefaultWeiqi.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            EditData<Weiqi.DefaultWeiqi> editDefaultWeiqi = defaultWeiqiUIData.editDefaultWeiqi.v;
+                                                            if (editDefaultWeiqi != null)
+                                                            {
+                                                                // origin
+                                                                editDefaultWeiqi.origin.v = new ReferenceData<Weiqi.DefaultWeiqi>((Weiqi.DefaultWeiqi)originDefaultGameType);
+                                                                // show
+                                                                editDefaultWeiqi.show.v = new ReferenceData<Weiqi.DefaultWeiqi>(defaultWeiqi);
+                                                                // compare
+                                                                editDefaultWeiqi.compare.v = new ReferenceData<Weiqi.DefaultWeiqi>((Weiqi.DefaultWeiqi)compareDefaultGameType);
+                                                                // canEdit
+                                                                editDefaultWeiqi.canEdit.v = editDefaultGameDataFactory.canEdit.v;
+                                                                // editType
+                                                                editDefaultWeiqi.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editDefaultWeiqi null: " + this);
+                                                            }
+                                                            defaultWeiqiUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultWeiqi null: " + this);
-                                                        }
-                                                        defaultWeiqiUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        this.data.defaultGameTypeUI.v = defaultWeiqiUIData;
                                                     }
-                                                    this.data.defaultGameTypeUI.v = defaultWeiqiUIData;
-                                                }
-                                                break;
-                                            case GameType.Type.SHOGI:
-                                                {
-                                                    Shogi.DefaultShogi defaultShogi = defaultGameType as Shogi.DefaultShogi;
-                                                    // UIData
-                                                    Shogi.DefaultShogiUI.UIData defaultShogiUIData = this.data.defaultGameTypeUI.newOrOld<Shogi.DefaultShogiUI.UIData>();
+                                                    break;
+                                                case GameType.Type.SHOGI:
                                                     {
-                                                        EditData<Shogi.DefaultShogi> editDefaultShogi = defaultShogiUIData.editDefaultShogi.v;
-                                                        if (editDefaultShogi != null)
+                                                        Shogi.DefaultShogi defaultShogi = defaultGameType as Shogi.DefaultShogi;
+                                                        // UIData
+                                                        Shogi.DefaultShogiUI.UIData defaultShogiUIData = this.data.defaultGameTypeUI.newOrOld<Shogi.DefaultShogiUI.UIData>();
                                                         {
-                                                            // origin
-                                                            editDefaultShogi.origin.v = new ReferenceData<Shogi.DefaultShogi>((Shogi.DefaultShogi)originDefaultGameType);
-                                                            // show
-                                                            editDefaultShogi.show.v = new ReferenceData<Shogi.DefaultShogi>(defaultShogi);
-                                                            // compare
-                                                            editDefaultShogi.compare.v = new ReferenceData<Shogi.DefaultShogi>((Shogi.DefaultShogi)compareDefaultGameType);
-                                                            // canEdit
-                                                            editDefaultShogi.canEdit.v = editDefaultGameDataFactory.canEdit.v;
-                                                            // editType
-                                                            editDefaultShogi.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            EditData<Shogi.DefaultShogi> editDefaultShogi = defaultShogiUIData.editDefaultShogi.v;
+                                                            if (editDefaultShogi != null)
+                                                            {
+                                                                // origin
+                                                                editDefaultShogi.origin.v = new ReferenceData<Shogi.DefaultShogi>((Shogi.DefaultShogi)originDefaultGameType);
+                                                                // show
+                                                                editDefaultShogi.show.v = new ReferenceData<Shogi.DefaultShogi>(defaultShogi);
+                                                                // compare
+                                                                editDefaultShogi.compare.v = new ReferenceData<Shogi.DefaultShogi>((Shogi.DefaultShogi)compareDefaultGameType);
+                                                                // canEdit
+                                                                editDefaultShogi.canEdit.v = editDefaultGameDataFactory.canEdit.v;
+                                                                // editType
+                                                                editDefaultShogi.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editDefaultShogi null: " + this);
+                                                            }
+                                                            defaultShogiUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultShogi null: " + this);
-                                                        }
-                                                        defaultShogiUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        this.data.defaultGameTypeUI.v = defaultShogiUIData;
                                                     }
-                                                    this.data.defaultGameTypeUI.v = defaultShogiUIData;
-                                                }
-                                                break;
-                                            case GameType.Type.Reversi:
-                                                {
-                                                    Reversi.DefaultReversi defaultReversi = defaultGameType as Reversi.DefaultReversi;
-                                                    // UIData
-                                                    Reversi.DefaultReversiUI.UIData defaultReversiUIData = this.data.defaultGameTypeUI.newOrOld<Reversi.DefaultReversiUI.UIData>();
+                                                    break;
+                                                case GameType.Type.Reversi:
                                                     {
-                                                        EditData<Reversi.DefaultReversi> editDefaultReversi = defaultReversiUIData.editDefaultReversi.v;
-                                                        if (editDefaultReversi != null)
+                                                        Reversi.DefaultReversi defaultReversi = defaultGameType as Reversi.DefaultReversi;
+                                                        // UIData
+                                                        Reversi.DefaultReversiUI.UIData defaultReversiUIData = this.data.defaultGameTypeUI.newOrOld<Reversi.DefaultReversiUI.UIData>();
                                                         {
-                                                            // origin
-                                                            editDefaultReversi.origin.v = new ReferenceData<Reversi.DefaultReversi>((Reversi.DefaultReversi)originDefaultGameType);
-                                                            // show
-                                                            editDefaultReversi.show.v = new ReferenceData<Reversi.DefaultReversi>(defaultReversi);
-                                                            // compare
-                                                            editDefaultReversi.compare.v = new ReferenceData<Reversi.DefaultReversi>((Reversi.DefaultReversi)compareDefaultGameType);
-                                                            // canEdit
-                                                            editDefaultReversi.canEdit.v = editDefaultGameDataFactory.canEdit.v;
-                                                            // editType
-                                                            editDefaultReversi.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            EditData<Reversi.DefaultReversi> editDefaultReversi = defaultReversiUIData.editDefaultReversi.v;
+                                                            if (editDefaultReversi != null)
+                                                            {
+                                                                // origin
+                                                                editDefaultReversi.origin.v = new ReferenceData<Reversi.DefaultReversi>((Reversi.DefaultReversi)originDefaultGameType);
+                                                                // show
+                                                                editDefaultReversi.show.v = new ReferenceData<Reversi.DefaultReversi>(defaultReversi);
+                                                                // compare
+                                                                editDefaultReversi.compare.v = new ReferenceData<Reversi.DefaultReversi>((Reversi.DefaultReversi)compareDefaultGameType);
+                                                                // canEdit
+                                                                editDefaultReversi.canEdit.v = editDefaultGameDataFactory.canEdit.v;
+                                                                // editType
+                                                                editDefaultReversi.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editDefaultReversi null: " + this);
+                                                            }
+                                                            defaultReversiUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultReversi null: " + this);
-                                                        }
-                                                        defaultReversiUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        this.data.defaultGameTypeUI.v = defaultReversiUIData;
                                                     }
-                                                    this.data.defaultGameTypeUI.v = defaultReversiUIData;
-                                                }
-                                                break;
-                                            case GameType.Type.Gomoku:
-                                                {
-                                                    Gomoku.DefaultGomoku defaultGomoku = defaultGameType as Gomoku.DefaultGomoku;
-                                                    // UIData
-                                                    Gomoku.DefaultGomokuUI.UIData defaultGomokuUIData = this.data.defaultGameTypeUI.newOrOld<Gomoku.DefaultGomokuUI.UIData>();
+                                                    break;
+                                                case GameType.Type.Gomoku:
                                                     {
-                                                        EditData<Gomoku.DefaultGomoku> editDefaultGomoku = defaultGomokuUIData.editDefaultGomoku.v;
-                                                        if (editDefaultGomoku != null)
+                                                        Gomoku.DefaultGomoku defaultGomoku = defaultGameType as Gomoku.DefaultGomoku;
+                                                        // UIData
+                                                        Gomoku.DefaultGomokuUI.UIData defaultGomokuUIData = this.data.defaultGameTypeUI.newOrOld<Gomoku.DefaultGomokuUI.UIData>();
                                                         {
-                                                            // origin
-                                                            editDefaultGomoku.origin.v = new ReferenceData<Gomoku.DefaultGomoku>((Gomoku.DefaultGomoku)originDefaultGameType);
-                                                            // show
-                                                            editDefaultGomoku.show.v = new ReferenceData<Gomoku.DefaultGomoku>(defaultGomoku);
-                                                            // compare
-                                                            editDefaultGomoku.compare.v = new ReferenceData<Gomoku.DefaultGomoku>((Gomoku.DefaultGomoku)compareDefaultGameType);
-                                                            // canEdit
-                                                            editDefaultGomoku.canEdit.v = editDefaultGameDataFactory.canEdit.v;
-                                                            // editType
-                                                            editDefaultGomoku.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            EditData<Gomoku.DefaultGomoku> editDefaultGomoku = defaultGomokuUIData.editDefaultGomoku.v;
+                                                            if (editDefaultGomoku != null)
+                                                            {
+                                                                // origin
+                                                                editDefaultGomoku.origin.v = new ReferenceData<Gomoku.DefaultGomoku>((Gomoku.DefaultGomoku)originDefaultGameType);
+                                                                // show
+                                                                editDefaultGomoku.show.v = new ReferenceData<Gomoku.DefaultGomoku>(defaultGomoku);
+                                                                // compare
+                                                                editDefaultGomoku.compare.v = new ReferenceData<Gomoku.DefaultGomoku>((Gomoku.DefaultGomoku)compareDefaultGameType);
+                                                                // canEdit
+                                                                editDefaultGomoku.canEdit.v = editDefaultGameDataFactory.canEdit.v;
+                                                                // editType
+                                                                editDefaultGomoku.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editDefaultGomoku null: " + this);
+                                                            }
+                                                            defaultGomokuUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultGomoku null: " + this);
-                                                        }
-                                                        defaultGomokuUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        this.data.defaultGameTypeUI.v = defaultGomokuUIData;
                                                     }
-                                                    this.data.defaultGameTypeUI.v = defaultGomokuUIData;
-                                                }
-                                                break;
-                                            case GameType.Type.InternationalDraught:
-                                                {
-                                                    InternationalDraught.DefaultInternationalDraught defaultInternationalDraught = defaultGameType as InternationalDraught.DefaultInternationalDraught;
-                                                    // UIData
-                                                    InternationalDraught.DefaultInternationalDraughtUI.UIData defaultInternationalDraughtUIData = this.data.defaultGameTypeUI.newOrOld<InternationalDraught.DefaultInternationalDraughtUI.UIData>();
+                                                    break;
+                                                case GameType.Type.InternationalDraught:
                                                     {
-                                                        EditData<InternationalDraught.DefaultInternationalDraught> editDefaultInternationalDraught = defaultInternationalDraughtUIData.editDefaultInternationalDraught.v;
-                                                        if (editDefaultInternationalDraught != null)
+                                                        InternationalDraught.DefaultInternationalDraught defaultInternationalDraught = defaultGameType as InternationalDraught.DefaultInternationalDraught;
+                                                        // UIData
+                                                        InternationalDraught.DefaultInternationalDraughtUI.UIData defaultInternationalDraughtUIData = this.data.defaultGameTypeUI.newOrOld<InternationalDraught.DefaultInternationalDraughtUI.UIData>();
                                                         {
-                                                            // origin
-                                                            editDefaultInternationalDraught.origin.v = new ReferenceData<InternationalDraught.DefaultInternationalDraught>((InternationalDraught.DefaultInternationalDraught)originDefaultGameType);
-                                                            // show
-                                                            editDefaultInternationalDraught.show.v = new ReferenceData<InternationalDraught.DefaultInternationalDraught>(defaultInternationalDraught);
-                                                            // compare
-                                                            editDefaultInternationalDraught.compare.v = new ReferenceData<InternationalDraught.DefaultInternationalDraught>((InternationalDraught.DefaultInternationalDraught)compareDefaultGameType);
-                                                            // canEdit
-                                                            editDefaultInternationalDraught.canEdit.v = editDefaultGameDataFactory.canEdit.v;
-                                                            // editType
-                                                            editDefaultInternationalDraught.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            EditData<InternationalDraught.DefaultInternationalDraught> editDefaultInternationalDraught = defaultInternationalDraughtUIData.editDefaultInternationalDraught.v;
+                                                            if (editDefaultInternationalDraught != null)
+                                                            {
+                                                                // origin
+                                                                editDefaultInternationalDraught.origin.v = new ReferenceData<InternationalDraught.DefaultInternationalDraught>((InternationalDraught.DefaultInternationalDraught)originDefaultGameType);
+                                                                // show
+                                                                editDefaultInternationalDraught.show.v = new ReferenceData<InternationalDraught.DefaultInternationalDraught>(defaultInternationalDraught);
+                                                                // compare
+                                                                editDefaultInternationalDraught.compare.v = new ReferenceData<InternationalDraught.DefaultInternationalDraught>((InternationalDraught.DefaultInternationalDraught)compareDefaultGameType);
+                                                                // canEdit
+                                                                editDefaultInternationalDraught.canEdit.v = editDefaultGameDataFactory.canEdit.v;
+                                                                // editType
+                                                                editDefaultInternationalDraught.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editDefaultInternationalDraught null: " + this);
+                                                            }
+                                                            defaultInternationalDraughtUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultInternationalDraught null: " + this);
-                                                        }
-                                                        defaultInternationalDraughtUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        this.data.defaultGameTypeUI.v = defaultInternationalDraughtUIData;
                                                     }
-                                                    this.data.defaultGameTypeUI.v = defaultInternationalDraughtUIData;
-                                                }
-                                                break;
-                                            case GameType.Type.EnglishDraught:
-                                                {
-                                                    EnglishDraught.DefaultEnglishDraught defaultEnglishDraught = defaultGameType as EnglishDraught.DefaultEnglishDraught;
-                                                    // UIData
-                                                    EnglishDraught.DefaultEnglishDraughtUI.UIData defaultEnglishDraughtUIData = this.data.defaultGameTypeUI.newOrOld<EnglishDraught.DefaultEnglishDraughtUI.UIData>();
+                                                    break;
+                                                case GameType.Type.EnglishDraught:
                                                     {
-                                                        EditData<EnglishDraught.DefaultEnglishDraught> editDefaultEnglishDraught = defaultEnglishDraughtUIData.editDefaultEnglishDraught.v;
-                                                        if (editDefaultEnglishDraught != null)
+                                                        EnglishDraught.DefaultEnglishDraught defaultEnglishDraught = defaultGameType as EnglishDraught.DefaultEnglishDraught;
+                                                        // UIData
+                                                        EnglishDraught.DefaultEnglishDraughtUI.UIData defaultEnglishDraughtUIData = this.data.defaultGameTypeUI.newOrOld<EnglishDraught.DefaultEnglishDraughtUI.UIData>();
                                                         {
-                                                            // origin
-                                                            editDefaultEnglishDraught.origin.v = new ReferenceData<EnglishDraught.DefaultEnglishDraught>((EnglishDraught.DefaultEnglishDraught)originDefaultGameType);
-                                                            // show
-                                                            editDefaultEnglishDraught.show.v = new ReferenceData<EnglishDraught.DefaultEnglishDraught>(defaultEnglishDraught);
-                                                            // compare
-                                                            editDefaultEnglishDraught.compare.v = new ReferenceData<EnglishDraught.DefaultEnglishDraught>((EnglishDraught.DefaultEnglishDraught)compareDefaultGameType);
-                                                            // canEdit
-                                                            editDefaultEnglishDraught.canEdit.v = editDefaultGameDataFactory.canEdit.v;
-                                                            // editType
-                                                            editDefaultEnglishDraught.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            EditData<EnglishDraught.DefaultEnglishDraught> editDefaultEnglishDraught = defaultEnglishDraughtUIData.editDefaultEnglishDraught.v;
+                                                            if (editDefaultEnglishDraught != null)
+                                                            {
+                                                                // origin
+                                                                editDefaultEnglishDraught.origin.v = new ReferenceData<EnglishDraught.DefaultEnglishDraught>((EnglishDraught.DefaultEnglishDraught)originDefaultGameType);
+                                                                // show
+                                                                editDefaultEnglishDraught.show.v = new ReferenceData<EnglishDraught.DefaultEnglishDraught>(defaultEnglishDraught);
+                                                                // compare
+                                                                editDefaultEnglishDraught.compare.v = new ReferenceData<EnglishDraught.DefaultEnglishDraught>((EnglishDraught.DefaultEnglishDraught)compareDefaultGameType);
+                                                                // canEdit
+                                                                editDefaultEnglishDraught.canEdit.v = editDefaultGameDataFactory.canEdit.v;
+                                                                // editType
+                                                                editDefaultEnglishDraught.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editDefaultEnglishDraught null: " + this);
+                                                            }
+                                                            defaultEnglishDraughtUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultEnglishDraught null: " + this);
-                                                        }
-                                                        defaultEnglishDraughtUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        this.data.defaultGameTypeUI.v = defaultEnglishDraughtUIData;
                                                     }
-                                                    this.data.defaultGameTypeUI.v = defaultEnglishDraughtUIData;
-                                                }
-                                                break;
-                                            case GameType.Type.RussianDraught:
-                                                {
-                                                    RussianDraught.DefaultRussianDraught defaultRussianDraught = defaultGameType as RussianDraught.DefaultRussianDraught;
-                                                    // UIData
-                                                    RussianDraught.DefaultRussianDraughtUI.UIData defaultRussianDraughtUIData = this.data.defaultGameTypeUI.newOrOld<RussianDraught.DefaultRussianDraughtUI.UIData>();
+                                                    break;
+                                                case GameType.Type.RussianDraught:
                                                     {
-                                                        EditData<RussianDraught.DefaultRussianDraught> editDefaultRussianDraught = defaultRussianDraughtUIData.editDefaultRussianDraught.v;
-                                                        if (editDefaultRussianDraught != null)
+                                                        RussianDraught.DefaultRussianDraught defaultRussianDraught = defaultGameType as RussianDraught.DefaultRussianDraught;
+                                                        // UIData
+                                                        RussianDraught.DefaultRussianDraughtUI.UIData defaultRussianDraughtUIData = this.data.defaultGameTypeUI.newOrOld<RussianDraught.DefaultRussianDraughtUI.UIData>();
                                                         {
-                                                            // origin
-                                                            editDefaultRussianDraught.origin.v = new ReferenceData<RussianDraught.DefaultRussianDraught>((RussianDraught.DefaultRussianDraught)originDefaultGameType);
-                                                            // show
-                                                            editDefaultRussianDraught.show.v = new ReferenceData<RussianDraught.DefaultRussianDraught>(defaultRussianDraught);
-                                                            // compare
-                                                            editDefaultRussianDraught.compare.v = new ReferenceData<RussianDraught.DefaultRussianDraught>((RussianDraught.DefaultRussianDraught)compareDefaultGameType);
-                                                            // canEdit
-                                                            editDefaultRussianDraught.canEdit.v = editDefaultGameDataFactory.canEdit.v;
-                                                            // editType
-                                                            editDefaultRussianDraught.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            EditData<RussianDraught.DefaultRussianDraught> editDefaultRussianDraught = defaultRussianDraughtUIData.editDefaultRussianDraught.v;
+                                                            if (editDefaultRussianDraught != null)
+                                                            {
+                                                                // origin
+                                                                editDefaultRussianDraught.origin.v = new ReferenceData<RussianDraught.DefaultRussianDraught>((RussianDraught.DefaultRussianDraught)originDefaultGameType);
+                                                                // show
+                                                                editDefaultRussianDraught.show.v = new ReferenceData<RussianDraught.DefaultRussianDraught>(defaultRussianDraught);
+                                                                // compare
+                                                                editDefaultRussianDraught.compare.v = new ReferenceData<RussianDraught.DefaultRussianDraught>((RussianDraught.DefaultRussianDraught)compareDefaultGameType);
+                                                                // canEdit
+                                                                editDefaultRussianDraught.canEdit.v = editDefaultGameDataFactory.canEdit.v;
+                                                                // editType
+                                                                editDefaultRussianDraught.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editDefaultRussianDraught null: " + this);
+                                                            }
+                                                            defaultRussianDraughtUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultRussianDraught null: " + this);
-                                                        }
-                                                        defaultRussianDraughtUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        this.data.defaultGameTypeUI.v = defaultRussianDraughtUIData;
                                                     }
-                                                    this.data.defaultGameTypeUI.v = defaultRussianDraughtUIData;
-                                                }
-                                                break;
-                                            case GameType.Type.ChineseCheckers:
-                                                {
-                                                    ChineseCheckers.DefaultChineseCheckers defaultChineseCheckers = defaultGameType as ChineseCheckers.DefaultChineseCheckers;
-                                                    // UIData
-                                                    ChineseCheckers.DefaultChineseCheckersUI.UIData defaultChineseCheckersUIData = this.data.defaultGameTypeUI.newOrOld<ChineseCheckers.DefaultChineseCheckersUI.UIData>();
+                                                    break;
+                                                case GameType.Type.ChineseCheckers:
                                                     {
-                                                        EditData<ChineseCheckers.DefaultChineseCheckers> editDefaultChineseCheckers = defaultChineseCheckersUIData.editDefaultChineseCheckers.v;
-                                                        if (editDefaultChineseCheckers != null)
+                                                        ChineseCheckers.DefaultChineseCheckers defaultChineseCheckers = defaultGameType as ChineseCheckers.DefaultChineseCheckers;
+                                                        // UIData
+                                                        ChineseCheckers.DefaultChineseCheckersUI.UIData defaultChineseCheckersUIData = this.data.defaultGameTypeUI.newOrOld<ChineseCheckers.DefaultChineseCheckersUI.UIData>();
                                                         {
-                                                            // origin
-                                                            editDefaultChineseCheckers.origin.v = new ReferenceData<ChineseCheckers.DefaultChineseCheckers>((ChineseCheckers.DefaultChineseCheckers)originDefaultGameType);
-                                                            // show
-                                                            editDefaultChineseCheckers.show.v = new ReferenceData<ChineseCheckers.DefaultChineseCheckers>(defaultChineseCheckers);
-                                                            // compare
-                                                            editDefaultChineseCheckers.compare.v = new ReferenceData<ChineseCheckers.DefaultChineseCheckers>((ChineseCheckers.DefaultChineseCheckers)compareDefaultGameType);
-                                                            // canEdit
-                                                            editDefaultChineseCheckers.canEdit.v = editDefaultGameDataFactory.canEdit.v;
-                                                            // editType
-                                                            editDefaultChineseCheckers.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            EditData<ChineseCheckers.DefaultChineseCheckers> editDefaultChineseCheckers = defaultChineseCheckersUIData.editDefaultChineseCheckers.v;
+                                                            if (editDefaultChineseCheckers != null)
+                                                            {
+                                                                // origin
+                                                                editDefaultChineseCheckers.origin.v = new ReferenceData<ChineseCheckers.DefaultChineseCheckers>((ChineseCheckers.DefaultChineseCheckers)originDefaultGameType);
+                                                                // show
+                                                                editDefaultChineseCheckers.show.v = new ReferenceData<ChineseCheckers.DefaultChineseCheckers>(defaultChineseCheckers);
+                                                                // compare
+                                                                editDefaultChineseCheckers.compare.v = new ReferenceData<ChineseCheckers.DefaultChineseCheckers>((ChineseCheckers.DefaultChineseCheckers)compareDefaultGameType);
+                                                                // canEdit
+                                                                editDefaultChineseCheckers.canEdit.v = editDefaultGameDataFactory.canEdit.v;
+                                                                // editType
+                                                                editDefaultChineseCheckers.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editDefaultChineseCheckers null: " + this);
+                                                            }
+                                                            defaultChineseCheckersUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultChineseCheckers null: " + this);
-                                                        }
-                                                        defaultChineseCheckersUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        this.data.defaultGameTypeUI.v = defaultChineseCheckersUIData;
                                                     }
-                                                    this.data.defaultGameTypeUI.v = defaultChineseCheckersUIData;
-                                                }
-                                                break;
+                                                    break;
 
-                                            case GameType.Type.MineSweeper:
-                                                {
-                                                    MineSweeper.DefaultMineSweeper defaultMineSweeper = defaultGameType as MineSweeper.DefaultMineSweeper;
-                                                    // UIData
-                                                    MineSweeper.DefaultMineSweeperUI.UIData defaultMineSweeperUIData = this.data.defaultGameTypeUI.newOrOld<MineSweeper.DefaultMineSweeperUI.UIData>();
+                                                case GameType.Type.MineSweeper:
                                                     {
-                                                        EditData<MineSweeper.DefaultMineSweeper> editDefaultMineSweeper = defaultMineSweeperUIData.editDefaultMineSweeper.v;
-                                                        if (editDefaultMineSweeper != null)
+                                                        MineSweeper.DefaultMineSweeper defaultMineSweeper = defaultGameType as MineSweeper.DefaultMineSweeper;
+                                                        // UIData
+                                                        MineSweeper.DefaultMineSweeperUI.UIData defaultMineSweeperUIData = this.data.defaultGameTypeUI.newOrOld<MineSweeper.DefaultMineSweeperUI.UIData>();
                                                         {
-                                                            // origin
-                                                            editDefaultMineSweeper.origin.v = new ReferenceData<MineSweeper.DefaultMineSweeper>((MineSweeper.DefaultMineSweeper)originDefaultGameType);
-                                                            // show
-                                                            editDefaultMineSweeper.show.v = new ReferenceData<MineSweeper.DefaultMineSweeper>(defaultMineSweeper);
-                                                            // compare
-                                                            editDefaultMineSweeper.compare.v = new ReferenceData<MineSweeper.DefaultMineSweeper>((MineSweeper.DefaultMineSweeper)compareDefaultGameType);
-                                                            // canEdit
-                                                            editDefaultMineSweeper.canEdit.v = editDefaultGameDataFactory.canEdit.v;
-                                                            // editType
-                                                            editDefaultMineSweeper.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            EditData<MineSweeper.DefaultMineSweeper> editDefaultMineSweeper = defaultMineSweeperUIData.editDefaultMineSweeper.v;
+                                                            if (editDefaultMineSweeper != null)
+                                                            {
+                                                                // origin
+                                                                editDefaultMineSweeper.origin.v = new ReferenceData<MineSweeper.DefaultMineSweeper>((MineSweeper.DefaultMineSweeper)originDefaultGameType);
+                                                                // show
+                                                                editDefaultMineSweeper.show.v = new ReferenceData<MineSweeper.DefaultMineSweeper>(defaultMineSweeper);
+                                                                // compare
+                                                                editDefaultMineSweeper.compare.v = new ReferenceData<MineSweeper.DefaultMineSweeper>((MineSweeper.DefaultMineSweeper)compareDefaultGameType);
+                                                                // canEdit
+                                                                editDefaultMineSweeper.canEdit.v = editDefaultGameDataFactory.canEdit.v;
+                                                                // editType
+                                                                editDefaultMineSweeper.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editDefaultMineSweeper null: " + this);
+                                                            }
+                                                            defaultMineSweeperUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultMineSweeper null: " + this);
-                                                        }
-                                                        defaultMineSweeperUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        this.data.defaultGameTypeUI.v = defaultMineSweeperUIData;
                                                     }
-                                                    this.data.defaultGameTypeUI.v = defaultMineSweeperUIData;
-                                                }
-                                                break;
-                                            case GameType.Type.Hex:
-                                                {
-                                                    HEX.DefaultHex defaultHex = defaultGameType as HEX.DefaultHex;
-                                                    // UIData
-                                                    HEX.DefaultHexUI.UIData defaultHexUIData = this.data.defaultGameTypeUI.newOrOld<HEX.DefaultHexUI.UIData>();
+                                                    break;
+                                                case GameType.Type.Hex:
                                                     {
-                                                        EditData<HEX.DefaultHex> editDefaultHex = defaultHexUIData.editDefaultHex.v;
-                                                        if (editDefaultHex != null)
+                                                        HEX.DefaultHex defaultHex = defaultGameType as HEX.DefaultHex;
+                                                        // UIData
+                                                        HEX.DefaultHexUI.UIData defaultHexUIData = this.data.defaultGameTypeUI.newOrOld<HEX.DefaultHexUI.UIData>();
                                                         {
-                                                            // origin
-                                                            editDefaultHex.origin.v = new ReferenceData<HEX.DefaultHex>((HEX.DefaultHex)originDefaultGameType);
-                                                            // show
-                                                            editDefaultHex.show.v = new ReferenceData<HEX.DefaultHex>(defaultHex);
-                                                            // compare
-                                                            editDefaultHex.compare.v = new ReferenceData<HEX.DefaultHex>((HEX.DefaultHex)compareDefaultGameType);
-                                                            // canEdit
-                                                            editDefaultHex.canEdit.v = editDefaultGameDataFactory.canEdit.v;
-                                                            // editType
-                                                            editDefaultHex.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            EditData<HEX.DefaultHex> editDefaultHex = defaultHexUIData.editDefaultHex.v;
+                                                            if (editDefaultHex != null)
+                                                            {
+                                                                // origin
+                                                                editDefaultHex.origin.v = new ReferenceData<HEX.DefaultHex>((HEX.DefaultHex)originDefaultGameType);
+                                                                // show
+                                                                editDefaultHex.show.v = new ReferenceData<HEX.DefaultHex>(defaultHex);
+                                                                // compare
+                                                                editDefaultHex.compare.v = new ReferenceData<HEX.DefaultHex>((HEX.DefaultHex)compareDefaultGameType);
+                                                                // canEdit
+                                                                editDefaultHex.canEdit.v = editDefaultGameDataFactory.canEdit.v;
+                                                                // editType
+                                                                editDefaultHex.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editDefaultHex null: " + this);
+                                                            }
+                                                            defaultHexUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultHex null: " + this);
-                                                        }
-                                                        defaultHexUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        this.data.defaultGameTypeUI.v = defaultHexUIData;
                                                     }
-                                                    this.data.defaultGameTypeUI.v = defaultHexUIData;
-                                                }
-                                                break;
-                                            case GameType.Type.Solitaire:
-                                                {
-                                                    Solitaire.DefaultSolitaire defaultSolitaire = defaultGameType as Solitaire.DefaultSolitaire;
-                                                    // UIData
-                                                    Solitaire.DefaultSolitaireUI.UIData defaultSolitaireUIData = this.data.defaultGameTypeUI.newOrOld<Solitaire.DefaultSolitaireUI.UIData>();
+                                                    break;
+                                                case GameType.Type.Solitaire:
                                                     {
-                                                        EditData<Solitaire.DefaultSolitaire> editDefaultSolitaire = defaultSolitaireUIData.editDefaultSolitaire.v;
-                                                        if (editDefaultSolitaire != null)
+                                                        Solitaire.DefaultSolitaire defaultSolitaire = defaultGameType as Solitaire.DefaultSolitaire;
+                                                        // UIData
+                                                        Solitaire.DefaultSolitaireUI.UIData defaultSolitaireUIData = this.data.defaultGameTypeUI.newOrOld<Solitaire.DefaultSolitaireUI.UIData>();
                                                         {
-                                                            // origin
-                                                            editDefaultSolitaire.origin.v = new ReferenceData<Solitaire.DefaultSolitaire>((Solitaire.DefaultSolitaire)originDefaultGameType);
-                                                            // show
-                                                            editDefaultSolitaire.show.v = new ReferenceData<Solitaire.DefaultSolitaire>(defaultSolitaire);
-                                                            // compare
-                                                            editDefaultSolitaire.compare.v = new ReferenceData<Solitaire.DefaultSolitaire>((Solitaire.DefaultSolitaire)compareDefaultGameType);
-                                                            // canEdit
-                                                            editDefaultSolitaire.canEdit.v = editDefaultGameDataFactory.canEdit.v;
-                                                            // editType
-                                                            editDefaultSolitaire.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            EditData<Solitaire.DefaultSolitaire> editDefaultSolitaire = defaultSolitaireUIData.editDefaultSolitaire.v;
+                                                            if (editDefaultSolitaire != null)
+                                                            {
+                                                                // origin
+                                                                editDefaultSolitaire.origin.v = new ReferenceData<Solitaire.DefaultSolitaire>((Solitaire.DefaultSolitaire)originDefaultGameType);
+                                                                // show
+                                                                editDefaultSolitaire.show.v = new ReferenceData<Solitaire.DefaultSolitaire>(defaultSolitaire);
+                                                                // compare
+                                                                editDefaultSolitaire.compare.v = new ReferenceData<Solitaire.DefaultSolitaire>((Solitaire.DefaultSolitaire)compareDefaultGameType);
+                                                                // canEdit
+                                                                editDefaultSolitaire.canEdit.v = editDefaultGameDataFactory.canEdit.v;
+                                                                // editType
+                                                                editDefaultSolitaire.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editDefaultSolitaire null: " + this);
+                                                            }
+                                                            defaultSolitaireUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultSolitaire null: " + this);
-                                                        }
-                                                        defaultSolitaireUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        this.data.defaultGameTypeUI.v = defaultSolitaireUIData;
                                                     }
-                                                    this.data.defaultGameTypeUI.v = defaultSolitaireUIData;
-                                                }
-                                                break;
-                                            case GameType.Type.Sudoku:
-                                                {
-                                                    Sudoku.DefaultSudoku defaultSudoku = defaultGameType as Sudoku.DefaultSudoku;
-                                                    // UIData
-                                                    Sudoku.DefaultSudokuUI.UIData defaultSudokuUIData = this.data.defaultGameTypeUI.newOrOld<Sudoku.DefaultSudokuUI.UIData>();
+                                                    break;
+                                                case GameType.Type.Sudoku:
                                                     {
-                                                        EditData<Sudoku.DefaultSudoku> editDefaultSudoku = defaultSudokuUIData.editDefaultSudoku.v;
-                                                        if (editDefaultSudoku != null)
+                                                        Sudoku.DefaultSudoku defaultSudoku = defaultGameType as Sudoku.DefaultSudoku;
+                                                        // UIData
+                                                        Sudoku.DefaultSudokuUI.UIData defaultSudokuUIData = this.data.defaultGameTypeUI.newOrOld<Sudoku.DefaultSudokuUI.UIData>();
                                                         {
-                                                            // origin
-                                                            editDefaultSudoku.origin.v = new ReferenceData<Sudoku.DefaultSudoku>((Sudoku.DefaultSudoku)originDefaultGameType);
-                                                            // show
-                                                            editDefaultSudoku.show.v = new ReferenceData<Sudoku.DefaultSudoku>(defaultSudoku);
-                                                            // compare
-                                                            editDefaultSudoku.compare.v = new ReferenceData<Sudoku.DefaultSudoku>((Sudoku.DefaultSudoku)compareDefaultGameType);
-                                                            // canEdit
-                                                            editDefaultSudoku.canEdit.v = editDefaultGameDataFactory.canEdit.v;
-                                                            // editType
-                                                            editDefaultSudoku.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            EditData<Sudoku.DefaultSudoku> editDefaultSudoku = defaultSudokuUIData.editDefaultSudoku.v;
+                                                            if (editDefaultSudoku != null)
+                                                            {
+                                                                // origin
+                                                                editDefaultSudoku.origin.v = new ReferenceData<Sudoku.DefaultSudoku>((Sudoku.DefaultSudoku)originDefaultGameType);
+                                                                // show
+                                                                editDefaultSudoku.show.v = new ReferenceData<Sudoku.DefaultSudoku>(defaultSudoku);
+                                                                // compare
+                                                                editDefaultSudoku.compare.v = new ReferenceData<Sudoku.DefaultSudoku>((Sudoku.DefaultSudoku)compareDefaultGameType);
+                                                                // canEdit
+                                                                editDefaultSudoku.canEdit.v = editDefaultGameDataFactory.canEdit.v;
+                                                                // editType
+                                                                editDefaultSudoku.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editDefaultSudoku null: " + this);
+                                                            }
+                                                            defaultSudokuUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultSudoku null: " + this);
-                                                        }
-                                                        defaultSudokuUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        this.data.defaultGameTypeUI.v = defaultSudokuUIData;
                                                     }
-                                                    this.data.defaultGameTypeUI.v = defaultSudokuUIData;
-                                                }
-                                                break;
-                                            case GameType.Type.Khet:
-                                                {
-                                                    Khet.DefaultKhet defaultKhet = defaultGameType as Khet.DefaultKhet;
-                                                    // UIData
-                                                    Khet.DefaultKhetUI.UIData defaultKhetUIData = this.data.defaultGameTypeUI.newOrOld<Khet.DefaultKhetUI.UIData>();
+                                                    break;
+                                                case GameType.Type.Khet:
                                                     {
-                                                        EditData<Khet.DefaultKhet> editDefaultKhet = defaultKhetUIData.editDefaultKhet.v;
-                                                        if (editDefaultKhet != null)
+                                                        Khet.DefaultKhet defaultKhet = defaultGameType as Khet.DefaultKhet;
+                                                        // UIData
+                                                        Khet.DefaultKhetUI.UIData defaultKhetUIData = this.data.defaultGameTypeUI.newOrOld<Khet.DefaultKhetUI.UIData>();
                                                         {
-                                                            // origin
-                                                            editDefaultKhet.origin.v = new ReferenceData<Khet.DefaultKhet>((Khet.DefaultKhet)originDefaultGameType);
-                                                            // show
-                                                            editDefaultKhet.show.v = new ReferenceData<Khet.DefaultKhet>(defaultKhet);
-                                                            // compare
-                                                            editDefaultKhet.compare.v = new ReferenceData<Khet.DefaultKhet>((Khet.DefaultKhet)compareDefaultGameType);
-                                                            // canEdit
-                                                            editDefaultKhet.canEdit.v = editDefaultGameDataFactory.canEdit.v;
-                                                            // editType
-                                                            editDefaultKhet.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            EditData<Khet.DefaultKhet> editDefaultKhet = defaultKhetUIData.editDefaultKhet.v;
+                                                            if (editDefaultKhet != null)
+                                                            {
+                                                                // origin
+                                                                editDefaultKhet.origin.v = new ReferenceData<Khet.DefaultKhet>((Khet.DefaultKhet)originDefaultGameType);
+                                                                // show
+                                                                editDefaultKhet.show.v = new ReferenceData<Khet.DefaultKhet>(defaultKhet);
+                                                                // compare
+                                                                editDefaultKhet.compare.v = new ReferenceData<Khet.DefaultKhet>((Khet.DefaultKhet)compareDefaultGameType);
+                                                                // canEdit
+                                                                editDefaultKhet.canEdit.v = editDefaultGameDataFactory.canEdit.v;
+                                                                // editType
+                                                                editDefaultKhet.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editDefaultKhet null: " + this);
+                                                            }
+                                                            defaultKhetUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultKhet null: " + this);
-                                                        }
-                                                        defaultKhetUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        this.data.defaultGameTypeUI.v = defaultKhetUIData;
                                                     }
-                                                    this.data.defaultGameTypeUI.v = defaultKhetUIData;
-                                                }
-                                                break;
-                                            case GameType.Type.NineMenMorris:
-                                                {
-                                                    NineMenMorris.DefaultNineMenMorris defaultNineMenMorris = defaultGameType as NineMenMorris.DefaultNineMenMorris;
-                                                    // UIData
-                                                    NineMenMorris.DefaultNineMenMorrisUI.UIData defaultNineMenMorrisUIData = this.data.defaultGameTypeUI.newOrOld<NineMenMorris.DefaultNineMenMorrisUI.UIData>();
+                                                    break;
+                                                case GameType.Type.NineMenMorris:
                                                     {
-                                                        EditData<NineMenMorris.DefaultNineMenMorris> editDefaultNineMenMorris = defaultNineMenMorrisUIData.editDefaultNineMenMorris.v;
-                                                        if (editDefaultNineMenMorris != null)
+                                                        NineMenMorris.DefaultNineMenMorris defaultNineMenMorris = defaultGameType as NineMenMorris.DefaultNineMenMorris;
+                                                        // UIData
+                                                        NineMenMorris.DefaultNineMenMorrisUI.UIData defaultNineMenMorrisUIData = this.data.defaultGameTypeUI.newOrOld<NineMenMorris.DefaultNineMenMorrisUI.UIData>();
                                                         {
-                                                            // origin
-                                                            editDefaultNineMenMorris.origin.v = new ReferenceData<NineMenMorris.DefaultNineMenMorris>((NineMenMorris.DefaultNineMenMorris)originDefaultGameType);
-                                                            // show
-                                                            editDefaultNineMenMorris.show.v = new ReferenceData<NineMenMorris.DefaultNineMenMorris>(defaultNineMenMorris);
-                                                            // compare
-                                                            editDefaultNineMenMorris.compare.v = new ReferenceData<NineMenMorris.DefaultNineMenMorris>((NineMenMorris.DefaultNineMenMorris)compareDefaultGameType);
-                                                            // canEdit
-                                                            editDefaultNineMenMorris.canEdit.v = editDefaultGameDataFactory.canEdit.v;
-                                                            // editType
-                                                            editDefaultNineMenMorris.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            EditData<NineMenMorris.DefaultNineMenMorris> editDefaultNineMenMorris = defaultNineMenMorrisUIData.editDefaultNineMenMorris.v;
+                                                            if (editDefaultNineMenMorris != null)
+                                                            {
+                                                                // origin
+                                                                editDefaultNineMenMorris.origin.v = new ReferenceData<NineMenMorris.DefaultNineMenMorris>((NineMenMorris.DefaultNineMenMorris)originDefaultGameType);
+                                                                // show
+                                                                editDefaultNineMenMorris.show.v = new ReferenceData<NineMenMorris.DefaultNineMenMorris>(defaultNineMenMorris);
+                                                                // compare
+                                                                editDefaultNineMenMorris.compare.v = new ReferenceData<NineMenMorris.DefaultNineMenMorris>((NineMenMorris.DefaultNineMenMorris)compareDefaultGameType);
+                                                                // canEdit
+                                                                editDefaultNineMenMorris.canEdit.v = editDefaultGameDataFactory.canEdit.v;
+                                                                // editType
+                                                                editDefaultNineMenMorris.editType.v = editDefaultGameDataFactory.editType.v;
+                                                            }
+                                                            else
+                                                            {
+                                                                Debug.LogError("editDefaultNineMenMorris null: " + this);
+                                                            }
+                                                            defaultNineMenMorrisUIData.showType.v = UIRectTransform.ShowType.HeadLess;
                                                         }
-                                                        else
-                                                        {
-                                                            Debug.LogError("editDefaultNineMenMorris null: " + this);
-                                                        }
-                                                        defaultNineMenMorrisUIData.showType.v = UIRectTransform.ShowType.HeadLess;
+                                                        this.data.defaultGameTypeUI.v = defaultNineMenMorrisUIData;
                                                     }
-                                                    this.data.defaultGameTypeUI.v = defaultNineMenMorrisUIData;
-                                                }
-                                                break;
-                                            default:
-                                                Debug.LogError("Don't process: " + defaultGameType + "; " + this);
-                                                break;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("defaultGameType null: " + this);
-                                    }
-                                }
-                                // useRule
-                                {
-                                    RequestChangeBoolUI.UIData useRule = this.data.useRule.v;
-                                    if (useRule != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<bool>.UpdateData updateData = useRule.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = show.useRule.v;
-                                            updateData.canRequestChange.v = editDefaultGameDataFactory.canEdit.v;
-                                            updateData.serverState.v = serverState;
+                                                    break;
+                                                default:
+                                                    Debug.LogError("Don't process: " + defaultGameType + "; " + this);
+                                                    break;
+                                            }
                                         }
                                         else
                                         {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                useRule.showDifferent.v = true;
-                                                useRule.compare.v = compare.useRule.v;
-                                            }
-                                            else
-                                            {
-                                                useRule.showDifferent.v = false;
-                                            }
+                                            Debug.LogError("defaultGameType null: " + this);
                                         }
                                     }
                                     else
                                     {
-                                        Debug.LogError("useRule null: " + this);
+                                        Debug.LogError("show null");
                                     }
                                 }
+                                RequestChange.RefreshUI(this.data.useRule.v, editDefaultGameDataFactory, serverState, needReset, editData => editData.useRule.v);
                             }
-                            // reset?
-                            if (needReset)
-                            {
-                                needReset = false;
-                                // gameType
-                                {
-                                    RequestChangeEnumUI.UIData gameType = this.data.gameType.v;
-                                    if (gameType != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = gameType.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = GameType.getEnableIndex(show.getGameTypeType());
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("gameType null: " + this);
-                                    }
-                                }
-                                // useRule
-                                {
-                                    RequestChangeBoolUI.UIData useRule = this.data.useRule.v;
-                                    if (useRule != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<bool>.UpdateData updateData = useRule.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = show.useRule.v;
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("useRule null: " + this);
-                                    }
-                                }
-                            }
+                            needReset = false;
                         }
-                    }
-                    else
-                    {
-                        Debug.LogError("show null: " + this);
                     }
                 }
                 else

@@ -128,117 +128,19 @@ namespace InternationalDraught
                     if (editDefaultInternationalDraught != null)
                     {
                         editDefaultInternationalDraught.update();
-                        // get show
-                        DefaultInternationalDraught show = editDefaultInternationalDraught.show.v.data;
-                        DefaultInternationalDraught compare = editDefaultInternationalDraught.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editDefaultInternationalDraught.compareOtherType.v.data != null)
-                                    {
-                                        if (editDefaultInternationalDraught.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("different null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editDefaultInternationalDraught);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editDefaultInternationalDraught);
                                 // set origin
                                 {
-                                    // variant
-                                    {
-                                        RequestChangeEnumUI.UIData variant = this.data.variant.v;
-                                        if (variant != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = variant.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.variant.v;
-                                                updateData.canRequestChange.v = editDefaultInternationalDraught.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    variant.showDifferent.v = true;
-                                                    variant.compare.v = compare.variant.v;
-                                                }
-                                                else
-                                                {
-                                                    variant.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("variant null: " + this);
-                                        }
-                                    }
+                                    RequestChange.RefreshUI(this.data.variant.v, editDefaultInternationalDraught, serverState, needReset, editData => editData.variant.v);
                                 }
-                                // reset?
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                    // variant
-                                    {
-                                        RequestChangeEnumUI.UIData variant = this.data.variant.v;
-                                        if (variant != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<int>.UpdateData updateData = variant.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.variant.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("boardSize null: " + this);
-                                        }
-                                    }
-                                }
+                                needReset = false;
                             }
                             // miniGameDataUIData
                             if (miniGameDataDirty)
@@ -272,7 +174,18 @@ namespace InternationalDraught
                                                 InternationalDraught internationalDraught = gameData.gameType.newOrOld<InternationalDraught>();
                                                 {
                                                     // Make new internationalDraught to update
-                                                    InternationalDraught newInternationalDraught = (InternationalDraught)show.makeDefaultGameType();
+                                                    InternationalDraught newInternationalDraught = null;
+                                                    {
+                                                        DefaultInternationalDraught show = editDefaultInternationalDraught.show.v.data;
+                                                        if (show != null)
+                                                        {
+                                                            newInternationalDraught = show.makeDefaultGameType() as InternationalDraught;
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("show null");
+                                                        }
+                                                    }
                                                     // Copy
                                                     DataUtils.copyData(internationalDraught, newInternationalDraught);
                                                 }
@@ -283,10 +196,6 @@ namespace InternationalDraught
                                 }
                                 this.data.miniGameDataUIData.v = miniGameDataUIData;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
                         }
                         // UI
                         {

@@ -164,7 +164,7 @@ public class RequestChange
         }
     }
 
-    public static void RefreshUI<T, K>(UIData<T> requestChange, EditData<K> editData, Server.State.Type serverState, bool needReset, Func<K, T> getValue, bool canEdit) where K : Data
+    public static void RefreshUIWithCanEdit<T, K>(UIData<T> requestChange, EditData<K> editData, Server.State.Type serverState, bool needReset, Func<K, T> getValue, bool canEdit) where K : Data
     {
         if (editData != null)
         {

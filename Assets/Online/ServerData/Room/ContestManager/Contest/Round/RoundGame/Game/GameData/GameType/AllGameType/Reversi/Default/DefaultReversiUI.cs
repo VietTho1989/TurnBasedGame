@@ -60,7 +60,7 @@ namespace Reversi
 
         #region Refresh
 
-        private bool needReset = true;
+        protected bool needReset = true;
         private bool miniGameDataDirty = true;
 
         public override void refresh()
@@ -74,64 +74,19 @@ namespace Reversi
                     if (editDefaultReversi != null)
                     {
                         editDefaultReversi.update();
-                        // get show
-                        DefaultReversi show = editDefaultReversi.show.v.data;
-                        DefaultReversi compare = editDefaultReversi.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editDefaultReversi.compareOtherType.v.data != null)
-                                    {
-                                        if (editDefaultReversi.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editDefaultReversi);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editDefaultReversi);
                                 // set origin
                                 {
-                                    if (compare != null)
-                                    {
-                                        Debug.LogError("serverState: " + serverState + "; " + this);
-                                    }
+
                                 }
-                                // reset?
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                }
+                                needReset = false;
                             }
                             // miniGameDataUIData
                             if (miniGameDataDirty)
@@ -165,7 +120,18 @@ namespace Reversi
                                                 Reversi reversi = gameData.gameType.newOrOld<Reversi>();
                                                 {
                                                     // Make new reversi to update
-                                                    Reversi newReversi = show.makeDefaultGameType() as Reversi;
+                                                    Reversi newReversi = null;
+                                                    {
+                                                        DefaultReversi show = editDefaultReversi.show.v.data;
+                                                        if (show != null)
+                                                        {
+                                                            newReversi = show.makeDefaultGameType() as Reversi;
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.LogError("show null");
+                                                        }
+                                                    }
                                                     // Copy
                                                     DataUtils.copyData(reversi, newReversi);
                                                 }
@@ -176,10 +142,6 @@ namespace Reversi
                                 }
                                 this.data.miniGameDataUIData.v = miniGameDataUIData;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("show null: " + this);
                         }
                         // UI
                         {

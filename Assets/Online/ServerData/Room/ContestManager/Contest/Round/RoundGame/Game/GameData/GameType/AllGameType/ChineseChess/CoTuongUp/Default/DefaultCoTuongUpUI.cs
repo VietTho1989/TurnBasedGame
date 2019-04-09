@@ -214,231 +214,21 @@ namespace CoTuongUp
                     if (editDefaultCoTuongUp != null)
                     {
                         editDefaultCoTuongUp.update();
-                        // get show
-                        DefaultCoTuongUp show = editDefaultCoTuongUp.show.v.data;
-                        DefaultCoTuongUp compare = editDefaultCoTuongUp.compare.v.data;
-                        if (show != null)
+                        // UI
                         {
                             // different
-                            if (lbTitle != null)
-                            {
-                                bool isDifferent = false;
-                                {
-                                    if (editDefaultCoTuongUp.compareOtherType.v.data != null)
-                                    {
-                                        if (editDefaultCoTuongUp.compareOtherType.v.data.GetType() != show.GetType())
-                                        {
-                                            isDifferent = true;
-                                        }
-                                    }
-                                }
-                                lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                            }
-                            else
-                            {
-                                Debug.LogError("differentIndicator null: " + this);
-                            }
+                            RequestChange.ShowDifferentTitle(lbTitle, editDefaultCoTuongUp);
                             // request
                             {
                                 // get server state
-                                Server.State.Type serverState = Server.State.Type.Connect;
-                                {
-                                    Server server = show.findDataInParent<Server>();
-                                    if (server != null)
-                                    {
-                                        if (server.state.v != null)
-                                        {
-                                            serverState = server.state.v.getType();
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("server state null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server null: " + this);
-                                    }
-                                }
+                                Server.State.Type serverState = RequestChange.GetServerState(editDefaultCoTuongUp);
                                 // set origin
                                 {
-                                    // allowViewCapture
-                                    {
-                                        RequestChangeBoolUI.UIData allowViewCapture = this.data.allowViewCapture.v;
-                                        if (allowViewCapture != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = allowViewCapture.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.allowViewCapture.v;
-                                                updateData.canRequestChange.v = editDefaultCoTuongUp.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    allowViewCapture.showDifferent.v = true;
-                                                    allowViewCapture.compare.v = compare.allowViewCapture.v;
-                                                }
-                                                else
-                                                {
-                                                    allowViewCapture.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("allowViewCapture null: " + this);
-                                        }
-                                    }
-                                    // allowWatcherViewHidden
-                                    {
-                                        RequestChangeBoolUI.UIData allowWatcherViewHidden = this.data.allowWatcherViewHidden.v;
-                                        if (allowWatcherViewHidden != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = allowWatcherViewHidden.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.allowWatcherViewHidden.v;
-                                                updateData.canRequestChange.v = editDefaultCoTuongUp.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    allowWatcherViewHidden.showDifferent.v = true;
-                                                    allowWatcherViewHidden.compare.v = compare.allowWatcherViewHidden.v;
-                                                }
-                                                else
-                                                {
-                                                    allowWatcherViewHidden.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("allowWatcherViewHidden null: " + this);
-                                        }
-                                    }
-                                    // allowOnlyFlip
-                                    {
-                                        RequestChangeBoolUI.UIData allowOnlyFlip = this.data.allowOnlyFlip.v;
-                                        if (allowOnlyFlip != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = allowOnlyFlip.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.origin.v = show.allowOnlyFlip.v;
-                                                updateData.canRequestChange.v = editDefaultCoTuongUp.canEdit.v;
-                                                updateData.serverState.v = serverState;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                            // compare
-                                            {
-                                                if (compare != null)
-                                                {
-                                                    allowOnlyFlip.showDifferent.v = true;
-                                                    allowOnlyFlip.compare.v = compare.allowOnlyFlip.v;
-                                                }
-                                                else
-                                                {
-                                                    allowOnlyFlip.showDifferent.v = false;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("allowOnlyFlip null: " + this);
-                                        }
-                                    }
+                                    RequestChange.RefreshUI(this.data.allowViewCapture.v, editDefaultCoTuongUp, serverState, needReset, editData => editData.allowViewCapture.v);
+                                    RequestChange.RefreshUI(this.data.allowWatcherViewHidden.v, editDefaultCoTuongUp, serverState, needReset, editData => editData.allowWatcherViewHidden.v);
+                                    RequestChange.RefreshUI(this.data.allowOnlyFlip.v, editDefaultCoTuongUp, serverState, needReset, editData => editData.allowOnlyFlip.v);
                                 }
-                                // reset?
-                                if (needReset)
-                                {
-                                    needReset = false;
-                                    // allowViewCapture
-                                    {
-                                        RequestChangeBoolUI.UIData allowViewCapture = this.data.allowViewCapture.v;
-                                        if (allowViewCapture != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = allowViewCapture.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.allowViewCapture.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("allowViewCapture null: " + this);
-                                        }
-                                    }
-                                    // allowWatcherViewHidden
-                                    {
-                                        RequestChangeBoolUI.UIData allowWatcherViewHidden = this.data.allowWatcherViewHidden.v;
-                                        if (allowWatcherViewHidden != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = allowWatcherViewHidden.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.allowWatcherViewHidden.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("allowWatcherViewHidden null: " + this);
-                                        }
-                                    }
-                                    // allowOnlyFlip
-                                    {
-                                        RequestChangeBoolUI.UIData allowOnlyFlip = this.data.allowOnlyFlip.v;
-                                        if (allowOnlyFlip != null)
-                                        {
-                                            // update
-                                            RequestChangeUpdate<bool>.UpdateData updateData = allowOnlyFlip.updateData.v;
-                                            if (updateData != null)
-                                            {
-                                                updateData.current.v = show.allowOnlyFlip.v;
-                                                updateData.changeState.v = Data.ChangeState.None;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("updateData null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("allowOnlyFlip null: " + this);
-                                        }
-                                    }
-                                }
+                                needReset = false;
                             }
                             // miniGameDataUIData
                             if (miniGameDataDirty)
@@ -472,34 +262,46 @@ namespace CoTuongUp
                                                 // Find coTuongUp
                                                 CoTuongUp coTuongUp = gameData.gameType.newOrOld<CoTuongUp>();
                                                 {
-                                                    CoTuongUp defaultCoTuongUp = (CoTuongUp)show.makeDefaultGameType();
+                                                    // find new
+                                                    CoTuongUp newCoTuongUp = null;
                                                     {
-                                                        if (defaultCoTuongUp.nodes.vs.Count > 0)
+                                                        DefaultCoTuongUp show = editDefaultCoTuongUp.show.v.data;
+                                                        if (show != null)
                                                         {
-                                                            Node node = defaultCoTuongUp.nodes.vs[defaultCoTuongUp.nodes.vs.Count - 1];
-                                                            for (int i = 0; i < node.pieces.vs.Count; i++)
+                                                            newCoTuongUp = (CoTuongUp)show.makeDefaultGameType();
                                                             {
-                                                                byte piece = node.pieces.vs[i];
-                                                                if (Common.Visibility.isHide(piece))
+                                                                if (newCoTuongUp.nodes.vs.Count > 0)
                                                                 {
-                                                                    if (Common.getPieceSide(piece) == Common.Side.Red)
+                                                                    Node node = newCoTuongUp.nodes.vs[newCoTuongUp.nodes.vs.Count - 1];
+                                                                    for (int i = 0; i < node.pieces.vs.Count; i++)
                                                                     {
-                                                                        node.pieces.set(i, Common.HP);
+                                                                        byte piece = node.pieces.vs[i];
+                                                                        if (Common.Visibility.isHide(piece))
+                                                                        {
+                                                                            if (Common.getPieceSide(piece) == Common.Side.Red)
+                                                                            {
+                                                                                node.pieces.set(i, Common.HP);
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                node.pieces.set(i, Common.hp);
+                                                                            }
+                                                                        }
                                                                     }
-                                                                    else
-                                                                    {
-                                                                        node.pieces.set(i, Common.hp);
-                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    Debug.LogError("why node count 0: " + this);
                                                                 }
                                                             }
                                                         }
                                                         else
                                                         {
-                                                            Debug.LogError("why node count 0: " + this);
+                                                            Debug.LogError("show nul");
                                                         }
                                                     }
                                                     // Copy
-                                                    DataUtils.copyData(coTuongUp, defaultCoTuongUp);
+                                                    DataUtils.copyData(coTuongUp, newCoTuongUp);
                                                 }
                                                 gameData.gameType.v = coTuongUp;
                                             }
@@ -508,10 +310,6 @@ namespace CoTuongUp
                                 }
                                 this.data.miniGameDataUIData.v = miniGameDataUIData;
                             }
-                        }
-                        else
-                        {
-                            Debug.LogError("defaultCoTuongUp null: " + this);
                         }
                         // UI
                         {

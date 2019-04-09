@@ -223,9 +223,9 @@ public class AccountDeviceUI : UIHaveTransformDataBehavior<AccountDeviceUI.UIDat
                         // request
                         Server.State.Type serverState = RequestChange.GetServerState(editAccountDevice);
                         {
-                            RequestChange.RefreshUI(this.data.imei.v, editAccountDevice, serverState, needReset, editData => editData.imei.v, false);
-                            RequestChange.RefreshUI(this.data.deviceName.v, editAccountDevice, serverState, needReset, editData => editData.deviceName.v, false);
-                            RequestChange.RefreshUI(this.data.deviceType.v, editAccountDevice, serverState, needReset, editData => editData.deviceType.v, false);
+                            RequestChange.RefreshUIWithCanEdit(this.data.imei.v, editAccountDevice, serverState, needReset, editData => editData.imei.v, false);
+                            RequestChange.RefreshUIWithCanEdit(this.data.deviceName.v, editAccountDevice, serverState, needReset, editData => editData.deviceName.v, false);
+                            RequestChange.RefreshUIWithCanEdit(this.data.deviceType.v, editAccountDevice, serverState, needReset, editData => editData.deviceType.v, false);
                             RequestChange.RefreshUI(this.data.customName.v, editAccountDevice, serverState, needReset, editData => editData.customName.v);
                             RequestChange.RefreshUI(this.data.avatarUrl.v, editAccountDevice, serverState, needReset, editData => editData.avatarUrl.v);
                         }

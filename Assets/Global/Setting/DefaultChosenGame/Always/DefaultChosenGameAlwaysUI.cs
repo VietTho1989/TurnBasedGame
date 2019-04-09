@@ -124,126 +124,24 @@ public class DefaultChosenGameAlwaysUI : UIHaveTransformDataBehavior<DefaultChos
                 if (editDefaultChosenGameAlways != null)
                 {
                     editDefaultChosenGameAlways.update();
-                    // get show
-                    DefaultChosenGameAlways show = editDefaultChosenGameAlways.show.v.data;
-                    DefaultChosenGameAlways compare = editDefaultChosenGameAlways.compare.v.data;
-                    if (show != null)
+                    // UI
                     {
                         // different
-                        if (lbTitle != null)
-                        {
-                            bool isDifferent = false;
-                            {
-                                if (editDefaultChosenGameAlways.compareOtherType.v.data != null)
-                                {
-                                    if (editDefaultChosenGameAlways.compareOtherType.v.data.GetType() != show.GetType())
-                                    {
-                                        isDifferent = true;
-                                    }
-                                }
-                            }
-                            lbTitle.color = isDifferent ? UIConstants.DifferentIndicatorColor : UIConstants.NormalTitleColor;
-                        }
-                        else
-                        {
-                            Debug.LogError("different null: " + this);
-                        }
+                        RequestChange.ShowDifferentTitle(lbTitle, editDefaultChosenGameAlways);
                         // request
                         {
                             // get server state
                             Server.State.Type serverState = Server.State.Type.Connect;
-                            {
-                                /*Server server = show.findDataInParent<Server>();
-                                if (server != null)
-                                {
-                                    if (server.state.v != null)
-                                    {
-                                        serverState = server.state.v.getType();
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("server state null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("server null: " + this);
-                                }*/
-                            }
                             // set origin
                             {
                                 // gameType
                                 {
-                                    RequestChangeEnumUI.UIData gameType = this.data.gameType.v;
-                                    if (gameType != null)
-                                    {
-                                        // options
-                                        {
-                                            gameType.options.copyList(GameType.GetEnableTypeString());
-                                        }
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = gameType.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.origin.v = GameType.getEnableIndex(show.gameType.v);
-                                            updateData.canRequestChange.v = editDefaultChosenGameAlways.canEdit.v;
-                                            updateData.serverState.v = serverState;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                        // compare
-                                        {
-                                            if (compare != null)
-                                            {
-                                                gameType.showDifferent.v = true;
-                                                gameType.compare.v = GameType.getEnableIndex(compare.gameType.v);
-                                            }
-                                            else
-                                            {
-                                                gameType.showDifferent.v = false;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("gameType null: " + this);
-                                    }
+                                    RequestChangeEnumUI.RefreshOptions(this.data.gameType.v, GameType.GetEnableTypeString());
+                                    RequestChange.RefreshUI(this.data.gameType.v, editDefaultChosenGameAlways, serverState, needReset, editData => GameType.getEnableIndex(editData.gameType.v));
                                 }
                             }
-                            // reset?
-                            if (needReset)
-                            {
-                                needReset = false;
-                                // variant
-                                {
-                                    RequestChangeEnumUI.UIData gameType = this.data.gameType.v;
-                                    if (gameType != null)
-                                    {
-                                        // update
-                                        RequestChangeUpdate<int>.UpdateData updateData = gameType.updateData.v;
-                                        if (updateData != null)
-                                        {
-                                            updateData.current.v = GameType.getEnableIndex(show.gameType.v);
-                                            updateData.changeState.v = Data.ChangeState.None;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("updateData null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("gameType null: " + this);
-                                    }
-                                }
-                            }
+                            needReset = false;
                         }
-                    }
-                    else
-                    {
-                        Debug.LogError("show null: " + this);
                     }
                     // UI
                     {
