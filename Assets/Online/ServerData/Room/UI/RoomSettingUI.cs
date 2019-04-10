@@ -9,7 +9,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
 
     #region UIData
 
-    public class UIData : Data
+    public class UIData : Data, EditDataUI.UIData<Room>
     {
 
         public VP<EditData<Room>> editRoom;
@@ -230,6 +230,15 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
             return isProcess;
         }
 
+        #region implement interface
+
+        public EditData<Room> getEditData()
+        {
+            return this.editRoom.v;
+        }
+
+        #endregion
+
     }
 
     #endregion
@@ -323,89 +332,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                                     RequestChangeEnumUI.RefreshOptions(this.data.chatInGame.v, Room.getChatInGameStr());
                                     RequestChange.RefreshUI(this.data.chatInGame.v, editRoom, serverState, needReset, editData => (int)editData.chatInGame.v);
                                 }
-                                // changeRights
-                                {
-                                    ChangeRightsUI.UIData changeRights = this.data.changeRights.v;
-                                    if (changeRights != null)
-                                    {
-                                        EditData<ChangeRights> editChangeRights = changeRights.editChangeRights.v;
-                                        if (editChangeRights != null)
-                                        {
-                                            // origin
-                                            {
-                                                ChangeRights originChangeRights = null;
-                                                {
-                                                    Room originRoom = editRoom.origin.v.data;
-                                                    if (originRoom != null)
-                                                    {
-                                                        originChangeRights = originRoom.changeRights.v;
-                                                    }
-                                                    else
-                                                    {
-                                                        Debug.LogError("originRoom null: " + this);
-                                                    }
-                                                }
-                                                editChangeRights.origin.v = new ReferenceData<ChangeRights>(originChangeRights);
-                                            }
-                                            // show
-                                            {
-                                                ChangeRights showChangeRights = null;
-                                                {
-                                                    Room showRoom = editRoom.show.v.data;
-                                                    if (showRoom != null)
-                                                    {
-                                                        showChangeRights = showRoom.changeRights.v;
-                                                    }
-                                                    else
-                                                    {
-                                                        Debug.LogError("showRoom null: " + this);
-                                                    }
-                                                }
-                                                editChangeRights.show.v = new ReferenceData<ChangeRights>(showChangeRights);
-                                            }
-                                            // compare
-                                            {
-                                                ChangeRights compareChangeRights = null;
-                                                {
-                                                    Room compareRoom = editRoom.compare.v.data;
-                                                    if (compareRoom != null)
-                                                    {
-                                                        compareChangeRights = compareRoom.changeRights.v;
-                                                    }
-                                                    else
-                                                    {
-                                                        // Debug.LogError("compareChangeRights null: " + this);
-                                                    }
-                                                }
-                                                editChangeRights.compare.v = new ReferenceData<ChangeRights>(compareChangeRights);
-                                            }
-                                            // compare other type
-                                            {
-                                                ChangeRights compareOtherTypeChangeRights = null;
-                                                {
-                                                    Room compareOtherTypeRoom = (Room)editRoom.compareOtherType.v.data;
-                                                    if (compareOtherTypeRoom != null)
-                                                    {
-                                                        compareOtherTypeChangeRights = compareOtherTypeRoom.changeRights.v;
-                                                    }
-                                                }
-                                                editChangeRights.compareOtherType.v = new ReferenceData<Data>(compareOtherTypeChangeRights);
-                                            }
-                                            // canEdit
-                                            editChangeRights.canEdit.v = editRoom.canEdit.v;
-                                            // editType
-                                            editChangeRights.editType.v = editRoom.editType.v;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("editChangeRights null: " + this);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("changeRights null: " + this);
-                                    }
-                                }
+                                EditDataUI.RefreshChildUI(this.data, this.data.changeRights.v, editData => editData.changeRights.v);
                             }
                             needReset = false;
                         }

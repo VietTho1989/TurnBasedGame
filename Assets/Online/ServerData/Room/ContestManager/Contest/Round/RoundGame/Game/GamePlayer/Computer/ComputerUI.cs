@@ -8,7 +8,7 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
 
     #region UIData
 
-    public class UIData : InformUI
+    public class UIData : InformUI, EditDataUI.UIData<Computer>
     {
 
         public VP<EditData<Computer>> editComputer;
@@ -126,6 +126,15 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
             return GamePlayer.Inform.Type.Computer;
         }
 
+        #region implement interface
+
+        public EditData<Computer> getEditData()
+        {
+            return this.editComputer.v;
+        }
+
+        #endregion
+
     }
 
     #endregion
@@ -212,87 +221,18 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
                             RequestChange.RefreshUI(this.data.avatarUrl.v, editComputer, serverState, needReset, editData => editData.avatarUrl.v);
                             // AIUIData
                             {
-                                AIUI.UIData ai = this.data.aiUIData.v;
-                                if (ai != null)
+                                EditDataUI.RefreshChildUI(this.data, this.data.aiUIData.v, editData => editData.ai.v);
+                                // // aiUIDataShowType
                                 {
-                                    EditData<Computer.AI> editComputerAI = ai.editAI.v;
-                                    if (editComputerAI != null)
+                                    AIUI.UIData ai = this.data.aiUIData.v;
+                                    if (ai != null)
                                     {
-                                        // origin
-                                        {
-                                            Computer.AI origin = null;
-                                            {
-                                                Computer originComputer = editComputer.origin.v.data;
-                                                if (originComputer != null)
-                                                {
-                                                    origin = originComputer.ai.v;
-                                                }
-                                                else
-                                                {
-                                                    Debug.LogError("originComputer null: " + this);
-                                                }
-                                            }
-                                            editComputerAI.origin.v = new ReferenceData<Computer.AI>(origin);
-                                        }
-                                        // show
-                                        {
-                                            Computer.AI showComputerAI = null;
-                                            {
-                                                Computer showComputer = editComputer.show.v.data;
-                                                if (showComputer != null)
-                                                {
-                                                    showComputerAI = showComputer.ai.v;
-                                                }
-                                                else
-                                                {
-                                                    Debug.LogError("showComputer null: " + this);
-                                                }
-                                            }
-                                            editComputerAI.show.v = new ReferenceData<Computer.AI>(showComputerAI);
-                                        }
-                                        // compare
-                                        {
-                                            Computer.AI compareComputerAI = null;
-                                            {
-                                                Computer compareComputer = editComputer.compare.v.data;
-                                                if (compareComputer != null)
-                                                {
-                                                    compareComputerAI = compareComputer.ai.v;
-                                                }
-                                                else
-                                                {
-                                                    // Debug.LogError("compareComputer null: " + this);
-                                                }
-                                            }
-                                            editComputerAI.compare.v = new ReferenceData<Computer.AI>(compareComputerAI);
-                                        }
-                                        // compare other type
-                                        {
-                                            Computer.AI compareOtherTypeComputerAI = null;
-                                            {
-                                                Computer compareOtherTypeComputer = (Computer)editComputer.compareOtherType.v.data;
-                                                if (compareOtherTypeComputer != null)
-                                                {
-                                                    compareOtherTypeComputerAI = compareOtherTypeComputer.ai.v;
-                                                }
-                                            }
-                                            editComputerAI.compareOtherType.v = new ReferenceData<Data>(compareOtherTypeComputerAI);
-                                        }
-                                        // canEdit
-                                        editComputerAI.canEdit.v = editComputer.canEdit.v;
-                                        // editType
-                                        editComputerAI.editType.v = editComputer.editType.v;
+                                        ai.subShowType.v = this.data.aiUIDataShowType.v;
                                     }
                                     else
                                     {
-                                        Debug.LogError("editComputerAI null: " + this);
+                                        Debug.LogError("aiUIData null: " + this);
                                     }
-                                    // aiUIDataShowType
-                                    ai.subShowType.v = this.data.aiUIDataShowType.v;
-                                }
-                                else
-                                {
-                                    Debug.LogError("aiUIData null: " + this);
                                 }
                             }
                             // avatar

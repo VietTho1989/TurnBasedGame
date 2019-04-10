@@ -8,7 +8,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
 
     #region UIData
 
-    public class UIData : Data
+    public class UIData : Data, EditDataUI.UIData<User>
     {
 
         public VP<EditData<User>> editUser;
@@ -174,6 +174,15 @@ public class UserUI : UIBehavior<UserUI.UIData>
             }
             return isProcess;
         }
+
+        #region implement interface
+
+        public EditData<User> getEditData()
+        {
+            return this.editUser.v;
+        }
+
+        #endregion
 
     }
 
@@ -407,89 +416,7 @@ public class UserUI : UIBehavior<UserUI.UIData>
                         Server.State.Type serverState = RequestChange.GetServerState(editUser);
                         // set origin
                         {
-                            // human
-                            {
-                                HumanUI.UIData humanUIData = this.data.human.v;
-                                if (humanUIData != null)
-                                {
-                                    EditData<Human> editHuman = humanUIData.editHuman.v;
-                                    if (editHuman != null)
-                                    {
-                                        // origin
-                                        {
-                                            Human originHuman = null;
-                                            {
-                                                User originUser = editUser.origin.v.data;
-                                                if (originUser != null)
-                                                {
-                                                    originHuman = originUser.human.v;
-                                                }
-                                                else
-                                                {
-                                                    Debug.LogError("originUser null: " + this);
-                                                }
-                                            }
-                                            editHuman.origin.v = new ReferenceData<Human>(originHuman);
-                                        }
-                                        // show
-                                        {
-                                            Human showHuman = null;
-                                            {
-                                                User showUser = editUser.show.v.data;
-                                                if (showUser != null)
-                                                {
-                                                    showHuman = showUser.human.v;
-                                                }
-                                                else
-                                                {
-                                                    Debug.LogError("showUser null: " + this);
-                                                }
-                                            }
-                                            editHuman.show.v = new ReferenceData<Human>(showHuman);
-                                        }
-                                        // compare
-                                        {
-                                            Human compareHuman = null;
-                                            {
-                                                User compareUser = editUser.compare.v.data;
-                                                if (compareUser != null)
-                                                {
-                                                    compareHuman = compareUser.human.v;
-                                                }
-                                                else
-                                                {
-                                                    Debug.LogError("compareUser null: " + this);
-                                                }
-                                            }
-                                            editHuman.compare.v = new ReferenceData<Human>(compareHuman);
-                                        }
-                                        // compare other type
-                                        {
-                                            Human compareOtherTypeHuman = null;
-                                            {
-                                                User compareOtherTypeUser = (User)editUser.compareOtherType.v.data;
-                                                if (compareOtherTypeUser != null)
-                                                {
-                                                    compareOtherTypeHuman = compareOtherTypeUser.human.v;
-                                                }
-                                            }
-                                            editHuman.compareOtherType.v = new ReferenceData<Data>(compareOtherTypeHuman);
-                                        }
-                                        // canEdit
-                                        editHuman.canEdit.v = editUser.canEdit.v;
-                                        // editType
-                                        editHuman.editType.v = editUser.editType.v;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("editHuman null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("accountUIData null: " + this);
-                                }
-                            }
+                            EditDataUI.RefreshChildUI(this.data, this.data.human.v, editData => editData.human.v);
                             // role
                             {
                                 bool canRequestChange = false;

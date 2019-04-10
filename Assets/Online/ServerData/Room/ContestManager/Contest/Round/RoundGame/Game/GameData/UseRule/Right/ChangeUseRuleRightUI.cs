@@ -8,7 +8,7 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
 
     #region UIData
 
-    public class UIData : Data
+    public class UIData : Data, EditDataUI.UIData<ChangeUseRuleRight>
     {
 
         public VP<EditData<ChangeUseRuleRight>> editChangeUseRuleRight;
@@ -175,6 +175,15 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
                 this.needAccept = new VP<RequestChangeBoolUI.UIData>(this, (byte)Property.needAccept, new RequestChangeBoolUI.UIData());
                 this.needAccept.v.updateData.v.request.v = makeRequestChangeNeedAccept;
             }
+        }
+
+        #endregion
+
+        #region implement base
+
+        public EditData<ChangeUseRuleRight> getEditData()
+        {
+            return this.editChangeUseRuleRight.v;
         }
 
         #endregion

@@ -7,7 +7,7 @@ public class AIUI : UIHaveTransformDataBehavior<AIUI.UIData>
 
     #region UIData
 
-    public class UIData : Data
+    public class UIData : Data, EditDataUI.UIData<Computer.AI>
     {
 
         public VP<EditData<Computer.AI>> editAI;
@@ -41,6 +41,15 @@ public class AIUI : UIHaveTransformDataBehavior<AIUI.UIData>
             this.editAI = new VP<EditData<Computer.AI>>(this, (byte)Property.editAI, new EditData<Computer.AI>());
             this.sub = new VP<Sub>(this, (byte)Property.sub, null);
             this.subShowType = new VP<UIRectTransform.ShowType>(this, (byte)Property.subShowType, UIRectTransform.ShowType.Normal);
+        }
+
+        #endregion
+
+        #region implement interface
+
+        public EditData<Computer.AI> getEditData()
+        {
+            return this.editAI.v;
         }
 
         #endregion

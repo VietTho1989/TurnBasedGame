@@ -10,7 +10,7 @@ namespace GameManager.Match.Swap
 
         #region UIData
 
-        public class UIData : Data
+        public class UIData : Data, EditDataUI.UIData<ChangeGamePlayerRight>
         {
 
             public VP<EditData<ChangeGamePlayerRight>> editChangeGamePlayerRight;
@@ -177,6 +177,15 @@ namespace GameManager.Match.Swap
                     this.onlyAdminNeed = new VP<RequestChangeBoolUI.UIData>(this, (byte)Property.onlyAdminNeed, new RequestChangeBoolUI.UIData());
                     this.onlyAdminNeed.v.updateData.v.request.v = makeRequestChangeOnlyAdminNeed;
                 }
+            }
+
+            #endregion
+
+            #region implement base
+
+            public EditData<ChangeGamePlayerRight> getEditData()
+            {
+                return this.editChangeGamePlayerRight.v;
             }
 
             #endregion

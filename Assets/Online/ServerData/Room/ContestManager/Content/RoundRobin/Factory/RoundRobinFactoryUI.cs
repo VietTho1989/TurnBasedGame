@@ -10,7 +10,7 @@ namespace GameManager.Match.RoundRobin
 
         #region UIData
 
-        public class UIData : ContestManagerContentFactoryUI.UIData.Sub
+        public class UIData : ContestManagerContentFactoryUI.UIData.Sub, EditDataUI.UIData<RoundRobinFactory>
         {
 
             public VP<EditData<RoundRobinFactory>> editRoundRobinFactory;
@@ -150,6 +150,15 @@ namespace GameManager.Match.RoundRobin
                 return isProcess;
             }
 
+            #region implement interface
+
+            public EditData<RoundRobinFactory> getEditData()
+            {
+                return this.editRoundRobinFactory.v;
+            }
+
+            #endregion
+
         }
 
         #endregion
@@ -206,89 +215,7 @@ namespace GameManager.Match.RoundRobin
                                 Server.State.Type serverState = RequestChange.GetServerState(editRoundRobinFactory);
                                 // set origin
                                 {
-                                    // singleContestFactory
-                                    {
-                                        SingleContestFactoryUI.UIData singleContestFactory = this.data.singleContestFactory.v;
-                                        if (singleContestFactory != null)
-                                        {
-                                            EditData<SingleContestFactory> editSingleContestFactory = singleContestFactory.editSingleContestFactory.v;
-                                            if (editSingleContestFactory != null)
-                                            {
-                                                // origin
-                                                {
-                                                    SingleContestFactory originSingleContestFactory = null;
-                                                    {
-                                                        RoundRobinFactory originRoundRobinFactory = editRoundRobinFactory.origin.v.data;
-                                                        if (originRoundRobinFactory != null)
-                                                        {
-                                                            originSingleContestFactory = originRoundRobinFactory.singleContestFactory.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("originSingleContestFactory null: " + this);
-                                                        }
-                                                    }
-                                                    editSingleContestFactory.origin.v = new ReferenceData<SingleContestFactory>(originSingleContestFactory);
-                                                }
-                                                // show
-                                                {
-                                                    SingleContestFactory showSingleContestFactory = null;
-                                                    {
-                                                        RoundRobinFactory showRoundRobinFactory = editRoundRobinFactory.show.v.data;
-                                                        if (showRoundRobinFactory != null)
-                                                        {
-                                                            showSingleContestFactory = showRoundRobinFactory.singleContestFactory.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("showRoundRobinFactory null: " + this);
-                                                        }
-                                                    }
-                                                    editSingleContestFactory.show.v = new ReferenceData<SingleContestFactory>(showSingleContestFactory);
-                                                }
-                                                // compare
-                                                {
-                                                    SingleContestFactory compareSingleContestFactory = null;
-                                                    {
-                                                        RoundRobinFactory compareRoundRobinFactory = editRoundRobinFactory.compare.v.data;
-                                                        if (compareRoundRobinFactory != null)
-                                                        {
-                                                            compareSingleContestFactory = compareRoundRobinFactory.singleContestFactory.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("compareRoundRobinFactory null: " + this);
-                                                        }
-                                                    }
-                                                    editSingleContestFactory.compare.v = new ReferenceData<SingleContestFactory>(compareSingleContestFactory);
-                                                }
-                                                // compare other type
-                                                {
-                                                    SingleContestFactory compareOtherTypeSingleContestFactory = null;
-                                                    {
-                                                        RoundRobinFactory compareOtherTypeRoundRobinFactory = (RoundRobinFactory)editRoundRobinFactory.compareOtherType.v.data;
-                                                        if (compareOtherTypeRoundRobinFactory != null)
-                                                        {
-                                                            compareOtherTypeSingleContestFactory = compareOtherTypeRoundRobinFactory.singleContestFactory.v;
-                                                        }
-                                                    }
-                                                    editSingleContestFactory.compareOtherType.v = new ReferenceData<Data>(compareOtherTypeSingleContestFactory);
-                                                }
-                                                // canEdit
-                                                editSingleContestFactory.canEdit.v = editRoundRobinFactory.canEdit.v;
-                                                // editType
-                                                editSingleContestFactory.editType.v = editRoundRobinFactory.editType.v;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("editSingleContestFactory null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("singleContestFactory null: " + this);
-                                        }
-                                    }
+                                    EditDataUI.RefreshChildUI(this.data, this.data.singleContestFactory.v, editData => editData.singleContestFactory.v);
                                     RequestChange.RefreshUI(this.data.teamCount.v, editRoundRobinFactory, serverState, needReset, editData => editData.teamCount.v);
                                     RequestChange.RefreshUI(this.data.needReturnRound.v, editRoundRobinFactory, serverState, needReset, editData => editData.needReturnRound.v);
                                 }

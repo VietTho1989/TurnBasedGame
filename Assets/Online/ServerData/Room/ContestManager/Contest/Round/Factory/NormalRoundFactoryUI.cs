@@ -10,7 +10,7 @@ namespace GameManager.Match
 
         #region UIData
 
-        public class UIData : SingleContestFactoryUI.UIData.RoundFactoryUI
+        public class UIData : SingleContestFactoryUI.UIData.RoundFactoryUI, EditDataUI.UIData<NormalRoundFactory>
         {
 
             public VP<EditData<NormalRoundFactory>> editNormalRoundFactory;
@@ -228,6 +228,15 @@ namespace GameManager.Match
                 return isProcess;
             }
 
+            #region implement interface
+
+            public EditData<NormalRoundFactory> getEditData()
+            {
+                return this.editNormalRoundFactory.v;
+            }
+
+            #endregion
+
         }
 
         #endregion
@@ -295,89 +304,7 @@ namespace GameManager.Match
                                 Server.State.Type serverState = RequestChange.GetServerState(editNormalRoundFactory);
                                 // set origin
                                 {
-                                    // gameFactory
-                                    {
-                                        GameFactoryUI.UIData gameFactory = this.data.gameFactory.v;
-                                        if (gameFactory != null)
-                                        {
-                                            EditData<GameFactory> editGameFactory = gameFactory.editGameFactory.v;
-                                            if (editGameFactory != null)
-                                            {
-                                                // origin
-                                                {
-                                                    GameFactory originGameFactory = null;
-                                                    {
-                                                        NormalRoundFactory originNormalRoundFactory = editNormalRoundFactory.origin.v.data;
-                                                        if (originNormalRoundFactory != null)
-                                                        {
-                                                            originGameFactory = originNormalRoundFactory.gameFactory.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("originNormalRoundFactory null: " + this);
-                                                        }
-                                                    }
-                                                    editGameFactory.origin.v = new ReferenceData<GameFactory>(originGameFactory);
-                                                }
-                                                // show
-                                                {
-                                                    GameFactory showGameFactory = null;
-                                                    {
-                                                        NormalRoundFactory showNormalRoundFactory = editNormalRoundFactory.show.v.data;
-                                                        if (showNormalRoundFactory != null)
-                                                        {
-                                                            showGameFactory = showNormalRoundFactory.gameFactory.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("showNormalRoundFactory null: " + this);
-                                                        }
-                                                    }
-                                                    editGameFactory.show.v = new ReferenceData<GameFactory>(showGameFactory);
-                                                }
-                                                // compare
-                                                {
-                                                    GameFactory compareGameFactory = null;
-                                                    {
-                                                        NormalRoundFactory compareNormalRoundFactory = editNormalRoundFactory.compare.v.data;
-                                                        if (compareNormalRoundFactory != null)
-                                                        {
-                                                            compareGameFactory = compareNormalRoundFactory.gameFactory.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            // Debug.LogError ("compareNormalRoundFactory null: " + this);
-                                                        }
-                                                    }
-                                                    editGameFactory.compare.v = new ReferenceData<GameFactory>(compareGameFactory);
-                                                }
-                                                // compare other type
-                                                {
-                                                    GameFactory compareOtherTypeGameFactory = null;
-                                                    {
-                                                        NormalRoundFactory compareOtherTypeNormalRoundFactory = (NormalRoundFactory)editNormalRoundFactory.compareOtherType.v.data;
-                                                        if (compareOtherTypeNormalRoundFactory != null)
-                                                        {
-                                                            compareOtherTypeGameFactory = compareOtherTypeNormalRoundFactory.gameFactory.v;
-                                                        }
-                                                    }
-                                                    editGameFactory.compareOtherType.v = new ReferenceData<Data>(compareOtherTypeGameFactory);
-                                                }
-                                                // canEdit
-                                                editGameFactory.canEdit.v = editNormalRoundFactory.canEdit.v;
-                                                // editType
-                                                editGameFactory.editType.v = editNormalRoundFactory.editType.v;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("editGameFactory null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("gameFactory null: " + this);
-                                        }
-                                    }
+                                    EditDataUI.RefreshChildUI(this.data, this.data.gameFactory.v, editData => editData.gameFactory.v);
                                     RequestChange.RefreshUI(this.data.isChangeSideBetweenRound.v, editNormalRoundFactory, serverState, needReset, editData => editData.isChangeSideBetweenRound.v);
                                     RequestChange.RefreshUI(this.data.isSwitchPlayer.v, editNormalRoundFactory, serverState, needReset, editData => editData.isSwitchPlayer.v);
                                     RequestChange.RefreshUI(this.data.isDifferentInTeam.v, editNormalRoundFactory, serverState, needReset, editData => editData.isDifferentInTeam.v);

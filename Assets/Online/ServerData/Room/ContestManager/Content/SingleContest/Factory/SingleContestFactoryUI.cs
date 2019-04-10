@@ -10,7 +10,7 @@ namespace GameManager.Match
 
         #region UIData
 
-        public class UIData : ContestManagerContentFactoryUI.UIData.Sub
+        public class UIData : ContestManagerContentFactoryUI.UIData.Sub, EditDataUI.UIData<SingleContestFactory>
         {
 
             public VP<EditData<SingleContestFactory>> editSingleContestFactory;
@@ -285,6 +285,15 @@ namespace GameManager.Match
                 }
                 return isProcess;
             }
+
+            #region implement base
+
+            public EditData<SingleContestFactory> getEditData()
+            {
+                return this.editSingleContestFactory.v;
+            }
+
+            #endregion
 
         }
 

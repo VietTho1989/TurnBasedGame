@@ -10,7 +10,7 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
 
     #region UIData
 
-    public class UIData : Data
+    public class UIData : Data, EditDataUI.UIData<GameFactory>
     {
 
         public VP<EditData<GameFactory>> editGameFactory;
@@ -135,6 +135,16 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
             }
             return isProcess;
         }
+
+        #region implement interface
+
+        public EditData<GameFactory> getEditData()
+        {
+            return this.editGameFactory.v;
+        }
+
+        #endregion
+
     }
 
     #endregion

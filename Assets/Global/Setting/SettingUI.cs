@@ -8,7 +8,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
 
     #region UIData
 
-    public class UIData : Data
+    public class UIData : Data, EditDataUI.UIData<Setting>
     {
 
         public VP<EditData<Setting>> editSetting;
@@ -614,6 +614,15 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
 
         #endregion
 
+        #region implement base
+
+        public EditData<Setting> getEditData()
+        {
+            return this.editSetting.v;
+        }
+
+        #endregion
+
     }
 
     #endregion
@@ -740,89 +749,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         RequestChange.RefreshUI(this.data.confirmQuit.v, editSetting, serverState, needReset, editData => editData.confirmQuit.v);
                         RequestChange.RefreshUI(this.data.showLastMove.v, editSetting, serverState, needReset, editData => editData.showLastMove.v);
                         RequestChange.RefreshUI(this.data.viewUrlImage.v, editSetting, serverState, needReset, editData => editData.viewUrlImage.v);
-                        // animationSetting
-                        {
-                            AnimationSettingUI.UIData animationSetting = this.data.animationSetting.v;
-                            if (animationSetting != null)
-                            {
-                                EditData<AnimationSetting> editAnimationSetting = animationSetting.editAnimationSetting.v;
-                                if (editAnimationSetting != null)
-                                {
-                                    // origin
-                                    {
-                                        AnimationSetting originAnimationSetting = null;
-                                        {
-                                            Setting originSetting = editSetting.origin.v.data;
-                                            if (originSetting != null)
-                                            {
-                                                originAnimationSetting = originSetting.animationSetting.v;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("originSetting null: " + this);
-                                            }
-                                        }
-                                        editAnimationSetting.origin.v = new ReferenceData<AnimationSetting>(originAnimationSetting);
-                                    }
-                                    // show
-                                    {
-                                        AnimationSetting showAnimationSetting = null;
-                                        {
-                                            Setting showSetting = editSetting.show.v.data;
-                                            if (showSetting != null)
-                                            {
-                                                showAnimationSetting = showSetting.animationSetting.v;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("showSetting null: " + this);
-                                            }
-                                        }
-                                        editAnimationSetting.show.v = new ReferenceData<AnimationSetting>(showAnimationSetting);
-                                    }
-                                    // compare
-                                    {
-                                        AnimationSetting compareAnimationSetting = null;
-                                        {
-                                            Setting compareSetting = editSetting.compare.v.data;
-                                            if (compareSetting != null)
-                                            {
-                                                compareAnimationSetting = compareSetting.animationSetting.v;
-                                            }
-                                            else
-                                            {
-                                                // Debug.LogError("compareSetting null: " + this);
-                                            }
-                                        }
-                                        editAnimationSetting.compare.v = new ReferenceData<AnimationSetting>(compareAnimationSetting);
-                                    }
-                                    // compare other type
-                                    {
-                                        AnimationSetting compareOtherTypeAnimationSetting = null;
-                                        {
-                                            Setting compareOtherTypeSetting = (Setting)editSetting.compareOtherType.v.data;
-                                            if (compareOtherTypeSetting != null)
-                                            {
-                                                compareOtherTypeAnimationSetting = compareOtherTypeSetting.animationSetting.v;
-                                            }
-                                        }
-                                        editAnimationSetting.compareOtherType.v = new ReferenceData<Data>(compareOtherTypeAnimationSetting);
-                                    }
-                                    // canEdit
-                                    editAnimationSetting.canEdit.v = editSetting.canEdit.v;
-                                    // editType
-                                    editAnimationSetting.editType.v = editSetting.editType.v;
-                                }
-                                else
-                                {
-                                    Debug.LogError("editAnimationSetting null: " + this);
-                                }
-                            }
-                            else
-                            {
-                                Debug.LogError("animationSetting null: " + this);
-                            }
-                        }
+                        EditDataUI.RefreshChildUI(this.data, this.data.animationSetting.v, editData => editData.animationSetting.v);
                         RequestChange.RefreshUI(this.data.maxThinkCount.v, editSetting, serverState, needReset, setting => setting.maxThinkCount.v);
 
                         // defaultChosenGameType

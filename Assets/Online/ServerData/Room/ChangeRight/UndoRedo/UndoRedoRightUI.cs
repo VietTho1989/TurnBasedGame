@@ -10,7 +10,7 @@ namespace Rights
 
         #region UIData
 
-        public class UIData : Data
+        public class UIData : Data, EditDataUI.UIData<UndoRedoRight>
         {
 
             public VP<EditData<UndoRedoRight>> editUndoRedoRight;
@@ -147,6 +147,15 @@ namespace Rights
                     }
                 }
                 this.limitUIData = new VP<Limit.UIData>(this, (byte)Property.limitUIData, null);
+            }
+
+            #endregion
+
+            #region implement base
+
+            public EditData<UndoRedoRight> getEditData()
+            {
+                return this.editUndoRedoRight.v;
             }
 
             #endregion

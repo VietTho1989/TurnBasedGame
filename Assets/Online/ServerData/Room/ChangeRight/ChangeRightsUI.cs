@@ -11,7 +11,7 @@ namespace Rights
 
         #region UIData
 
-        public class UIData : Data
+        public class UIData : Data, EditDataUI.UIData<ChangeRights>
         {
 
             public VP<EditData<ChangeRights>> editChangeRights;
@@ -38,6 +38,15 @@ namespace Rights
                 this.undoRedoRight = new VP<UndoRedoRightUI.UIData>(this, (byte)Property.undoRedoRight, new UndoRedoRightUI.UIData());
                 this.changeGamePlayerRight = new VP<ChangeGamePlayerRightUI.UIData>(this, (byte)Property.changeGamePlayerRight, new ChangeGamePlayerRightUI.UIData());
                 this.changeUseRuleRight = new VP<ChangeUseRuleRightUI.UIData>(this, (byte)Property.changeUseRuleRight, new ChangeUseRuleRightUI.UIData());
+            }
+
+            #endregion
+
+            #region implement base
+
+            public EditData<ChangeRights> getEditData()
+            {
+                return this.editChangeRights.v;
             }
 
             #endregion
@@ -87,255 +96,9 @@ namespace Rights
                                 Server.State.Type serverState = RequestChange.GetServerState(editChangeRights);
                                 // set origin
                                 {
-                                    // undoRedoRight
-                                    {
-                                        UndoRedoRightUI.UIData undoRedoRight = this.data.undoRedoRight.v;
-                                        if (undoRedoRight != null)
-                                        {
-                                            EditData<UndoRedoRight> editUndoRedoRight = undoRedoRight.editUndoRedoRight.v;
-                                            if (editUndoRedoRight != null)
-                                            {
-                                                // origin
-                                                {
-                                                    UndoRedoRight originUndoRedoRight = null;
-                                                    {
-                                                        ChangeRights originChangeRights = editChangeRights.origin.v.data;
-                                                        if (originChangeRights != null)
-                                                        {
-                                                            originUndoRedoRight = originChangeRights.undoRedoRight.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("originChangeRights null: " + this);
-                                                        }
-                                                    }
-                                                    editUndoRedoRight.origin.v = new ReferenceData<UndoRedoRight>(originUndoRedoRight);
-                                                }
-                                                // show
-                                                {
-                                                    UndoRedoRight showUndoRedoRight = null;
-                                                    {
-                                                        ChangeRights showChangeRights = editChangeRights.show.v.data;
-                                                        if (showChangeRights != null)
-                                                        {
-                                                            showUndoRedoRight = showChangeRights.undoRedoRight.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("showChangeRights null: " + this);
-                                                        }
-                                                    }
-                                                    editUndoRedoRight.show.v = new ReferenceData<UndoRedoRight>(showUndoRedoRight);
-                                                }
-                                                // compare
-                                                {
-                                                    UndoRedoRight compareUndoRedoRight = null;
-                                                    {
-                                                        ChangeRights compareChangeRights = editChangeRights.compare.v.data;
-                                                        if (compareChangeRights != null)
-                                                        {
-                                                            compareUndoRedoRight = compareChangeRights.undoRedoRight.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            // Debug.LogError ("compareChangeRights null: " + this);
-                                                        }
-                                                    }
-                                                    editUndoRedoRight.compare.v = new ReferenceData<UndoRedoRight>(compareUndoRedoRight);
-                                                }
-                                                // compare other type
-                                                {
-                                                    UndoRedoRight compareOtherTypeUndoRedoRight = null;
-                                                    {
-                                                        ChangeRights compareOtherTypeChangeRights = (ChangeRights)editChangeRights.compareOtherType.v.data;
-                                                        if (compareOtherTypeChangeRights != null)
-                                                        {
-                                                            compareOtherTypeUndoRedoRight = compareOtherTypeChangeRights.undoRedoRight.v;
-                                                        }
-                                                    }
-                                                    editUndoRedoRight.compareOtherType.v = new ReferenceData<Data>(compareOtherTypeUndoRedoRight);
-                                                }
-                                                // canEdit
-                                                editUndoRedoRight.canEdit.v = editChangeRights.canEdit.v;
-                                                // editType
-                                                editUndoRedoRight.editType.v = editChangeRights.editType.v;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("editChangeRights null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("gameFactory null: " + this);
-                                        }
-                                    }
-                                    // changeGamePlayerRight
-                                    {
-                                        ChangeGamePlayerRightUI.UIData changeGamePlayerRight = this.data.changeGamePlayerRight.v;
-                                        if (changeGamePlayerRight != null)
-                                        {
-                                            EditData<ChangeGamePlayerRight> editChangeGamePlayerRight = changeGamePlayerRight.editChangeGamePlayerRight.v;
-                                            if (editChangeGamePlayerRight != null)
-                                            {
-                                                // origin
-                                                {
-                                                    ChangeGamePlayerRight originChangeGamePlayerRight = null;
-                                                    {
-                                                        ChangeRights originChangeRights = editChangeRights.origin.v.data;
-                                                        if (originChangeRights != null)
-                                                        {
-                                                            originChangeGamePlayerRight = originChangeRights.changeGamePlayerRight.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("originChangeRights null: " + this);
-                                                        }
-                                                    }
-                                                    editChangeGamePlayerRight.origin.v = new ReferenceData<ChangeGamePlayerRight>(originChangeGamePlayerRight);
-                                                }
-                                                // show
-                                                {
-                                                    ChangeGamePlayerRight showChangeGamePlayerRight = null;
-                                                    {
-                                                        ChangeRights showChangeRights = editChangeRights.show.v.data;
-                                                        if (showChangeRights != null)
-                                                        {
-                                                            showChangeGamePlayerRight = showChangeRights.changeGamePlayerRight.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("showChangeRights null: " + this);
-                                                        }
-                                                    }
-                                                    editChangeGamePlayerRight.show.v = new ReferenceData<ChangeGamePlayerRight>(showChangeGamePlayerRight);
-                                                }
-                                                // compare
-                                                {
-                                                    ChangeGamePlayerRight compareChangeGamePlayerRight = null;
-                                                    {
-                                                        ChangeRights compareChangeRights = editChangeRights.compare.v.data;
-                                                        if (compareChangeRights != null)
-                                                        {
-                                                            compareChangeGamePlayerRight = compareChangeRights.changeGamePlayerRight.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            // Debug.LogError ("compareChangeRights null: " + this);
-                                                        }
-                                                    }
-                                                    editChangeGamePlayerRight.compare.v = new ReferenceData<ChangeGamePlayerRight>(compareChangeGamePlayerRight);
-                                                }
-                                                // compare other type
-                                                {
-                                                    ChangeGamePlayerRight compareOtherTypeChangeGamePlayerRight = null;
-                                                    {
-                                                        ChangeRights compareOtherTypeChangeRights = (ChangeRights)editChangeRights.compareOtherType.v.data;
-                                                        if (compareOtherTypeChangeRights != null)
-                                                        {
-                                                            compareOtherTypeChangeGamePlayerRight = compareOtherTypeChangeRights.changeGamePlayerRight.v;
-                                                        }
-                                                    }
-                                                    editChangeGamePlayerRight.compareOtherType.v = new ReferenceData<Data>(compareOtherTypeChangeGamePlayerRight);
-                                                }
-                                                // canEdit
-                                                editChangeGamePlayerRight.canEdit.v = editChangeRights.canEdit.v;
-                                                // editType
-                                                editChangeGamePlayerRight.editType.v = editChangeRights.editType.v;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("editChangeRights null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("changeGamePlayerRight null: " + this);
-                                        }
-                                    }
-                                    // changeUseRuleRight
-                                    {
-                                        ChangeUseRuleRightUI.UIData changeUseRuleRight = this.data.changeUseRuleRight.v;
-                                        if (changeUseRuleRight != null)
-                                        {
-                                            EditData<ChangeUseRuleRight> editChangeUseRuleRight = changeUseRuleRight.editChangeUseRuleRight.v;
-                                            if (editChangeUseRuleRight != null)
-                                            {
-                                                // origin
-                                                {
-                                                    ChangeUseRuleRight originChangeUseRuleRight = null;
-                                                    {
-                                                        ChangeRights originChangeRights = editChangeRights.origin.v.data;
-                                                        if (originChangeRights != null)
-                                                        {
-                                                            originChangeUseRuleRight = originChangeRights.changeUseRuleRight.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("originChangeRights null: " + this);
-                                                        }
-                                                    }
-                                                    editChangeUseRuleRight.origin.v = new ReferenceData<ChangeUseRuleRight>(originChangeUseRuleRight);
-                                                }
-                                                // show
-                                                {
-                                                    ChangeUseRuleRight showChangeUseRuleRight = null;
-                                                    {
-                                                        ChangeRights showChangeRights = editChangeRights.show.v.data;
-                                                        if (showChangeRights != null)
-                                                        {
-                                                            showChangeUseRuleRight = showChangeRights.changeUseRuleRight.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("showChangeRights null: " + this);
-                                                        }
-                                                    }
-                                                    editChangeUseRuleRight.show.v = new ReferenceData<ChangeUseRuleRight>(showChangeUseRuleRight);
-                                                }
-                                                // compare
-                                                {
-                                                    ChangeUseRuleRight compareChangeUseRuleRight = null;
-                                                    {
-                                                        ChangeRights compareChangeRights = editChangeRights.compare.v.data;
-                                                        if (compareChangeRights != null)
-                                                        {
-                                                            compareChangeUseRuleRight = compareChangeRights.changeUseRuleRight.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            // Debug.LogError ("compareChangeRights null: " + this);
-                                                        }
-                                                    }
-                                                    editChangeUseRuleRight.compare.v = new ReferenceData<ChangeUseRuleRight>(compareChangeUseRuleRight);
-                                                }
-                                                // compare other type
-                                                {
-                                                    ChangeUseRuleRight compareOtherTypeChangeUseRuleRight = null;
-                                                    {
-                                                        ChangeRights compareOtherTypeChangeRights = (ChangeRights)editChangeRights.compareOtherType.v.data;
-                                                        if (compareOtherTypeChangeRights != null)
-                                                        {
-                                                            compareOtherTypeChangeUseRuleRight = compareOtherTypeChangeRights.changeUseRuleRight.v;
-                                                        }
-                                                    }
-                                                    editChangeUseRuleRight.compareOtherType.v = new ReferenceData<Data>(compareOtherTypeChangeUseRuleRight);
-                                                }
-                                                // canEdit
-                                                editChangeUseRuleRight.canEdit.v = editChangeRights.canEdit.v;
-                                                // editType
-                                                editChangeUseRuleRight.editType.v = editChangeRights.editType.v;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("editChangeRights null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("changeUseRuleRight null: " + this);
-                                        }
-                                    }
+                                    EditDataUI.RefreshChildUI(this.data, this.data.undoRedoRight.v, editData => editData.undoRedoRight.v);
+                                    EditDataUI.RefreshChildUI(this.data, this.data.changeGamePlayerRight.v, editData => editData.changeGamePlayerRight.v);
+                                    EditDataUI.RefreshChildUI(this.data, this.data.changeUseRuleRight.v, editData => editData.changeUseRuleRight.v);
                                 }
                             }
                             needReset = false;

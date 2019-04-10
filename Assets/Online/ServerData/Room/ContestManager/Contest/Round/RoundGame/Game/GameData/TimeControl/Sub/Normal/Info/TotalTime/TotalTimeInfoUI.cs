@@ -10,7 +10,7 @@ namespace TimeControl.Normal
 
         #region UIData
 
-        public class UIData : Data
+        public class UIData : Data, EditDataUI.UIData<TotalTimeInfo>
         {
 
             public VP<EditData<TotalTimeInfo>> editTotalTimeInfo;
@@ -44,6 +44,15 @@ namespace TimeControl.Normal
                 this.editTotalTimeInfo = new VP<EditData<TotalTimeInfo>>(this, (byte)Property.editTotalTimeInfo, new EditData<TotalTimeInfo>());
                 this.showType = new VP<UIRectTransform.ShowType>(this, (byte)Property.showType, UIRectTransform.ShowType.Normal);
                 this.sub = new VP<Sub>(this, (byte)Property.sub, null);
+            }
+
+            #endregion
+
+            #region implement interface
+
+            public EditData<TotalTimeInfo> getEditData()
+            {
+                return this.editTotalTimeInfo.v;
             }
 
             #endregion

@@ -10,7 +10,7 @@ namespace TimeControl.Normal
 
         #region UIData
 
-        public class UIData : Data
+        public class UIData : Data, EditDataUI.UIData<TimePerTurnInfo>
         {
 
             public VP<EditData<TimePerTurnInfo>> editTimePerTurnInfo;
@@ -44,6 +44,15 @@ namespace TimeControl.Normal
                 this.editTimePerTurnInfo = new VP<EditData<TimePerTurnInfo>>(this, (byte)Property.editTimePerTurnInfo, new EditData<TimePerTurnInfo>());
                 this.showType = new VP<UIRectTransform.ShowType>(this, (byte)Property.showType, UIRectTransform.ShowType.Normal);
                 this.sub = new VP<Sub>(this, (byte)Property.sub, null);
+            }
+
+            #endregion
+
+            #region implement interface
+
+            public EditData<TimePerTurnInfo> getEditData()
+            {
+                return this.editTimePerTurnInfo.v;
             }
 
             #endregion

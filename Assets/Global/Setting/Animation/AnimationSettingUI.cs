@@ -8,7 +8,7 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
 
     #region UIData
 
-    public class UIData : Data
+    public class UIData : Data, EditDataUI.UIData<AnimationSetting>
     {
 
         public VP<EditData<AnimationSetting>> editAnimationSetting;
@@ -162,6 +162,15 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
                 // event
                 this.maxWaitAnimationCount.v.updateData.v.request.v = makeRequestChangeMaxWaitAnimationCount;
             }
+        }
+
+        #endregion
+
+        #region implement base
+
+        public EditData<AnimationSetting> getEditData()
+        {
+            return this.editAnimationSetting.v;
         }
 
         #endregion

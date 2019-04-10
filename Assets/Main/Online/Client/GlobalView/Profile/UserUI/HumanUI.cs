@@ -9,7 +9,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
 
     #region UIData
 
-    public class UIData : InformUI
+    public class UIData : InformUI, EditDataUI.UIData<Human>
     {
 
         public VP<EditData<Human>> editHuman;
@@ -265,6 +265,15 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
             return GamePlayer.Inform.Type.Human;
         }
 
+        #region implement interface
+
+        public EditData<Human> getEditData()
+        {
+            return this.editHuman.v;
+        }
+
+        #endregion
+
     }
 
     #endregion
@@ -342,89 +351,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                         // set origin
                         {
                             RequestChange.RefreshUIWithCanEdit(this.data.playerId.v, editHuman, serverState, needReset, editData => (int)editData.playerId.v, false);
-                            // account
-                            {
-                                AccountUI.UIData accountUIData = this.data.account.v;
-                                if (accountUIData != null)
-                                {
-                                    EditData<Account> editAccount = accountUIData.editAccount.v;
-                                    if (editAccount != null)
-                                    {
-                                        // origin
-                                        {
-                                            Account originAccount = null;
-                                            {
-                                                Human originHuman = editHuman.origin.v.data;
-                                                if (originHuman != null)
-                                                {
-                                                    originAccount = originHuman.account.v;
-                                                }
-                                                else
-                                                {
-                                                    Debug.LogError("originHuman null: " + this);
-                                                }
-                                            }
-                                            editAccount.origin.v = new ReferenceData<Account>(originAccount);
-                                        }
-                                        // show
-                                        {
-                                            Account showAccount = null;
-                                            {
-                                                Human showHuman = editHuman.show.v.data;
-                                                if (showHuman != null)
-                                                {
-                                                    showAccount = showHuman.account.v;
-                                                }
-                                                else
-                                                {
-                                                    Debug.LogError("showAccount null: " + this);
-                                                }
-                                            }
-                                            editAccount.show.v = new ReferenceData<Account>(showAccount);
-                                        }
-                                        // compare
-                                        {
-                                            Account compareAccount = null;
-                                            {
-                                                Human compareHuman = editHuman.compare.v.data;
-                                                if (compareHuman != null)
-                                                {
-                                                    compareAccount = compareHuman.account.v;
-                                                }
-                                                else
-                                                {
-                                                    // Debug.LogError("compareAccount null: " + this);
-                                                }
-                                            }
-                                            editAccount.compare.v = new ReferenceData<Account>(compareAccount);
-                                        }
-                                        // compare other type
-                                        {
-                                            Account compareOtherTypeAccount = null;
-                                            {
-                                                Human compareOtherTypeHuman = (Human)editHuman.compareOtherType.v.data;
-                                                if (compareOtherTypeHuman != null)
-                                                {
-                                                    compareOtherTypeAccount = compareOtherTypeHuman.account.v;
-                                                }
-                                            }
-                                            editAccount.compareOtherType.v = new ReferenceData<Data>(compareOtherTypeAccount);
-                                        }
-                                        // canEdit
-                                        editAccount.canEdit.v = editHuman.canEdit.v;
-                                        // editType
-                                        editAccount.editType.v = editHuman.editType.v;
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("editHuman null: " + this);
-                                    }
-                                }
-                                else
-                                {
-                                    Debug.LogError("accountUIData null: " + this);
-                                }
-                            }
+                            EditDataUI.RefreshChildUI(this.data, this.data.account.v, editData => editData.account.v);
                             RequestChange.RefreshUI(this.data.email.v, editHuman, serverState, needReset, editData => editData.email.v);
                             RequestChange.RefreshUI(this.data.phoneNumber.v, editHuman, serverState, needReset, editData => editData.phoneNumber.v);
                             RequestChange.RefreshUI(this.data.status.v, editHuman, serverState, needReset, editData => editData.status.v);

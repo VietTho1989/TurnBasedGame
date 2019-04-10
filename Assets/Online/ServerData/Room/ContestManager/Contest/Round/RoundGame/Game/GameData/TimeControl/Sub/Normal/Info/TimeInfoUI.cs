@@ -10,7 +10,7 @@ namespace TimeControl.Normal
 
         #region UIData
 
-        public class UIData : Data
+        public class UIData : Data, EditDataUI.UIData<TimeInfo>
         {
 
             public VP<EditData<TimeInfo>> editTimeInfo;
@@ -219,6 +219,15 @@ namespace TimeControl.Normal
 
             #endregion
 
+            #region implement interface
+
+            public EditData<TimeInfo> getEditData()
+            {
+                return this.editTimeInfo.v;
+            }
+
+            #endregion
+
         }
 
         #endregion
@@ -295,86 +304,17 @@ namespace TimeControl.Normal
                                     }
                                     // timePerTurn
                                     {
-                                        TimePerTurnInfoUI.UIData timerPerTurn = this.data.timePerTurn.v;
-                                        if (timerPerTurn != null)
+                                        EditDataUI.RefreshChildUI(this.data, this.data.timePerTurn.v, editData => editData.timePerTurn.v);
+                                        // showType
                                         {
-                                            EditData<TimePerTurnInfo> editTimePerTurnInfo = timerPerTurn.editTimePerTurnInfo.v;
-                                            if (editTimePerTurnInfo != null)
+                                            if (this.data.timePerTurn.v != null)
                                             {
-                                                // origin
-                                                {
-                                                    TimePerTurnInfo originTimePerTurn = null;
-                                                    {
-                                                        TimeInfo originTimeInfo = editTimeInfo.origin.v.data;
-                                                        if (originTimeInfo != null)
-                                                        {
-                                                            originTimePerTurn = originTimeInfo.timePerTurn.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("originTimeInfo null: " + this);
-                                                        }
-                                                    }
-                                                    editTimePerTurnInfo.origin.v = new ReferenceData<TimePerTurnInfo>(originTimePerTurn);
-                                                }
-                                                // show
-                                                {
-                                                    TimePerTurnInfo showTimePerTurn = null;
-                                                    {
-                                                        TimeInfo showTimeInfo = editTimeInfo.show.v.data;
-                                                        if (showTimeInfo != null)
-                                                        {
-                                                            showTimePerTurn = showTimeInfo.timePerTurn.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("showTimeInfo null: " + this);
-                                                        }
-                                                    }
-                                                    editTimePerTurnInfo.show.v = new ReferenceData<TimePerTurnInfo>(showTimePerTurn);
-                                                }
-                                                // compare
-                                                {
-                                                    TimePerTurnInfo compareTimePerTurn = null;
-                                                    {
-                                                        TimeInfo compareTimeInfo = editTimeInfo.compare.v.data;
-                                                        if (compareTimeInfo != null)
-                                                        {
-                                                            compareTimePerTurn = compareTimeInfo.timePerTurn.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            // Debug.LogError ("compareTimeInfo null: " + this);
-                                                        }
-                                                    }
-                                                    editTimePerTurnInfo.compare.v = new ReferenceData<TimePerTurnInfo>(compareTimePerTurn);
-                                                }
-                                                // compare other type
-                                                {
-                                                    TimePerTurnInfo compareOtherTypeTimePerTurn = null;
-                                                    {
-                                                        TimeInfo compareOtherTypeTimeInfo = (TimeInfo)editTimeInfo.compareOtherType.v.data;
-                                                        if (compareOtherTypeTimeInfo != null)
-                                                        {
-                                                            compareOtherTypeTimePerTurn = compareOtherTypeTimeInfo.timePerTurn.v;
-                                                        }
-                                                    }
-                                                    editTimePerTurnInfo.compareOtherType.v = new ReferenceData<Data>(compareOtherTypeTimePerTurn);
-                                                }
-                                                // canEdit
-                                                editTimePerTurnInfo.canEdit.v = editTimeInfo.canEdit.v;
-                                                // editType
-                                                editTimePerTurnInfo.editType.v = editTimeInfo.editType.v;
+                                                this.data.timePerTurn.v.showType.v = UIRectTransform.ShowType.HeadLess;
                                             }
                                             else
                                             {
-                                                Debug.LogError("editTimePerTurnInfo null: " + this);
+                                                Debug.LogError("timePerTurn null");
                                             }
-                                            timerPerTurn.showType.v = UIRectTransform.ShowType.HeadLess;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("timePerTurn null: " + this);
                                         }
                                     }
                                     // totalTimeType
@@ -384,86 +324,18 @@ namespace TimeControl.Normal
                                     }
                                     // totalTime
                                     {
-                                        TotalTimeInfoUI.UIData totalTime = this.data.totalTime.v;
-                                        if (totalTime != null)
+                                        EditDataUI.RefreshChildUI(this.data, this.data.totalTime.v, editData => editData.totalTime.v);
+                                        // showType
                                         {
-                                            EditData<TotalTimeInfo> editTotalTimeInfo = totalTime.editTotalTimeInfo.v;
-                                            if (editTotalTimeInfo != null)
+                                            TotalTimeInfoUI.UIData totalTime = this.data.totalTime.v;
+                                            if (totalTime != null)
                                             {
-                                                // origin
-                                                {
-                                                    TotalTimeInfo originTotalTime = null;
-                                                    {
-                                                        TimeInfo originTimeInfo = editTimeInfo.origin.v.data;
-                                                        if (originTimeInfo != null)
-                                                        {
-                                                            originTotalTime = originTimeInfo.totalTime.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("originTimeInfo null: " + this);
-                                                        }
-                                                    }
-                                                    editTotalTimeInfo.origin.v = new ReferenceData<TotalTimeInfo>(originTotalTime);
-                                                }
-                                                // show
-                                                {
-                                                    TotalTimeInfo showTotalTime = null;
-                                                    {
-                                                        TimeInfo showTimeInfo = editTimeInfo.show.v.data;
-                                                        if (showTimeInfo != null)
-                                                        {
-                                                            showTotalTime = showTimeInfo.totalTime.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            // Debug.LogError ("showTimeInfo null: " + this);
-                                                        }
-                                                    }
-                                                    editTotalTimeInfo.show.v = new ReferenceData<TotalTimeInfo>(showTotalTime);
-                                                }
-                                                // compare
-                                                {
-                                                    TotalTimeInfo compareTotalTime = null;
-                                                    {
-                                                        TimeInfo compareTimeInfo = editTimeInfo.compare.v.data;
-                                                        if (compareTimeInfo != null)
-                                                        {
-                                                            compareTotalTime = compareTimeInfo.totalTime.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            // Debug.LogError ("compareTimeInfo null: " + this);
-                                                        }
-                                                    }
-                                                    editTotalTimeInfo.compare.v = new ReferenceData<TotalTimeInfo>(compareTotalTime);
-                                                }
-                                                // compare other type
-                                                {
-                                                    TotalTimeInfo compareOtherTypeTotalTime = null;
-                                                    {
-                                                        TimeInfo compareOtherTypeTimeInfo = (TimeInfo)editTimeInfo.compareOtherType.v.data;
-                                                        if (compareOtherTypeTimeInfo != null)
-                                                        {
-                                                            compareOtherTypeTotalTime = compareOtherTypeTimeInfo.totalTime.v;
-                                                        }
-                                                    }
-                                                    editTotalTimeInfo.compareOtherType.v = new ReferenceData<Data>(compareOtherTypeTotalTime);
-                                                }
-                                                // canEdit
-                                                editTotalTimeInfo.canEdit.v = editTimeInfo.canEdit.v;
-                                                // editType
-                                                editTotalTimeInfo.editType.v = editTimeInfo.editType.v;
+                                                totalTime.showType.v = UIRectTransform.ShowType.HeadLess;
                                             }
                                             else
                                             {
-                                                Debug.LogError("editTotalTimeInfo null: " + this);
+                                                Debug.LogError("totalTime null");
                                             }
-                                            totalTime.showType.v = UIRectTransform.ShowType.HeadLess;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("timePerTurn null: " + this);
                                         }
                                     }
                                     // overTimePerTurnType
@@ -473,86 +345,18 @@ namespace TimeControl.Normal
                                     }
                                     // overTimePerTurn
                                     {
-                                        TimePerTurnInfoUI.UIData overTimePerTurn = this.data.overTimePerTurn.v;
-                                        if (overTimePerTurn != null)
+                                        EditDataUI.RefreshChildUI(this.data, this.data.overTimePerTurn.v, editData => editData.overTimePerTurn.v);
+                                        // showType
                                         {
-                                            EditData<TimePerTurnInfo> editOverTimePerTurnInfo = overTimePerTurn.editTimePerTurnInfo.v;
-                                            if (editOverTimePerTurnInfo != null)
+                                            TimePerTurnInfoUI.UIData overTimePerTurn = this.data.overTimePerTurn.v;
+                                            if (overTimePerTurn != null)
                                             {
-                                                // origin
-                                                {
-                                                    TimePerTurnInfo originOverTimePerTurn = null;
-                                                    {
-                                                        TimeInfo originTimeInfo = editTimeInfo.origin.v.data;
-                                                        if (originTimeInfo != null)
-                                                        {
-                                                            originOverTimePerTurn = originTimeInfo.overTimePerTurn.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("originTimeInfo null: " + this);
-                                                        }
-                                                    }
-                                                    editOverTimePerTurnInfo.origin.v = new ReferenceData<TimePerTurnInfo>(originOverTimePerTurn);
-                                                }
-                                                // show
-                                                {
-                                                    TimePerTurnInfo showOverTimePerTurn = null;
-                                                    {
-                                                        TimeInfo showTimeInfo = editTimeInfo.show.v.data;
-                                                        if (showTimeInfo != null)
-                                                        {
-                                                            showOverTimePerTurn = showTimeInfo.overTimePerTurn.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("showTimeInfo null: " + this);
-                                                        }
-                                                    }
-                                                    editOverTimePerTurnInfo.show.v = new ReferenceData<TimePerTurnInfo>(showOverTimePerTurn);
-                                                }
-                                                // compare
-                                                {
-                                                    TimePerTurnInfo compareOverTimePerTurn = null;
-                                                    {
-                                                        TimeInfo compareTimeInfo = editTimeInfo.compare.v.data;
-                                                        if (compareTimeInfo != null)
-                                                        {
-                                                            compareOverTimePerTurn = compareTimeInfo.overTimePerTurn.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            // Debug.LogError ("compareTimeInfo null: " + this);
-                                                        }
-                                                    }
-                                                    editOverTimePerTurnInfo.compare.v = new ReferenceData<TimePerTurnInfo>(compareOverTimePerTurn);
-                                                }
-                                                // compare other type
-                                                {
-                                                    TimePerTurnInfo compareOtherTypeOverTimePerTurn = null;
-                                                    {
-                                                        TimeInfo compareOtherTypeTimeInfo = (TimeInfo)editTimeInfo.compareOtherType.v.data;
-                                                        if (compareOtherTypeTimeInfo != null)
-                                                        {
-                                                            compareOtherTypeOverTimePerTurn = compareOtherTypeTimeInfo.overTimePerTurn.v;
-                                                        }
-                                                    }
-                                                    editOverTimePerTurnInfo.compareOtherType.v = new ReferenceData<Data>(compareOtherTypeOverTimePerTurn);
-                                                }
-                                                // canEdit
-                                                editOverTimePerTurnInfo.canEdit.v = editTimeInfo.canEdit.v;
-                                                // editType
-                                                editOverTimePerTurnInfo.editType.v = editTimeInfo.editType.v;
+                                                overTimePerTurn.showType.v = UIRectTransform.ShowType.HeadLess;
                                             }
                                             else
                                             {
-                                                Debug.LogError("editOverTimePerTurnInfo null: " + this);
+                                                Debug.LogError("overTimePerTurn null");
                                             }
-                                            overTimePerTurn.showType.v = UIRectTransform.ShowType.HeadLess;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("timePerTurn null: " + this);
                                         }
                                     }
                                     RequestChange.RefreshUI(this.data.lagCompensation.v, editTimeInfo, serverState, needReset, editData => editData.lagCompensation.v);
@@ -570,34 +374,7 @@ namespace TimeControl.Normal
                                 float bgY = deltaY;
                                 float bgHeight = 0;
                                 // type
-                                {
-                                    if (this.data.timePerTurnType.v != null)
-                                    {
-                                        UIRectTransform.SetPosY(this.data.timePerTurnType.v, UIConstants.RequestEnumRect, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2);
-                                        if (lbTimePerTurnType != null)
-                                        {
-                                            lbTimePerTurnType.gameObject.SetActive(true);
-                                            UIRectTransform.SetPosY((RectTransform)lbTimePerTurnType.transform, deltaY);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("lbTimePerTurnType null: " + this);
-                                        }
-                                        bgHeight += UIConstants.ItemHeight;
-                                        deltaY += UIConstants.ItemHeight;
-                                    }
-                                    else
-                                    {
-                                        if (lbTimePerTurnType != null)
-                                        {
-                                            lbTimePerTurnType.gameObject.SetActive(false);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("lbTimePerTurnType null");
-                                        }
-                                    }
-                                }
+                                UIUtils.SetLabelContentPositionBg(lbTimePerTurnType, this.data.timePerTurnType.v, ref deltaY, ref bgHeight);
                                 // UI
                                 {
                                     float height = UIRectTransform.SetPosY(this.data.timePerTurn.v, deltaY);

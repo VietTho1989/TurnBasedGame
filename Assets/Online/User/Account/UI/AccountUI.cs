@@ -7,7 +7,7 @@ public class AccountUI : UIHaveTransformDataBehavior<AccountUI.UIData>
 
     #region UIData
 
-    public class UIData : Data
+    public class UIData : Data, EditDataUI.UIData<Account>
     {
 
         public VP<EditData<Account>> editAccount;
@@ -57,6 +57,15 @@ public class AccountUI : UIHaveTransformDataBehavior<AccountUI.UIData>
             this.accountAvatar = new VP<AccountAvatarUI.UIData>(this, (byte)Property.accountAvatar, new AccountAvatarUI.UIData());
             this.sub = new VP<Sub>(this, (byte)Property.sub, null);
             this.subNeedHeader = new VP<bool>(this, (byte)Property.subNeedHeader, true);
+        }
+
+        #endregion
+
+        #region implement interface
+
+        public EditData<Account> getEditData()
+        {
+            return this.editAccount.v;
         }
 
         #endregion

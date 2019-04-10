@@ -10,7 +10,7 @@ namespace GameManager.Match.Elimination
 
         #region UIData
 
-        public class UIData : ContestManagerContentFactoryUI.UIData.Sub
+        public class UIData : ContestManagerContentFactoryUI.UIData.Sub, EditDataUI.UIData<EliminationFactory>
         {
 
             public VP<EditData<EliminationFactory>> editEliminationFactory;
@@ -164,6 +164,15 @@ namespace GameManager.Match.Elimination
                 return isProcess;
             }
 
+            #region implement interface
+
+            public EditData<EliminationFactory> getEditData()
+            {
+                return this.editEliminationFactory.v;
+            }
+
+            #endregion
+
         }
 
         #endregion
@@ -220,89 +229,7 @@ namespace GameManager.Match.Elimination
                                 Server.State.Type serverState = RequestChange.GetServerState(editEliminationFactory);
                                 // set origin
                                 {
-                                    // singleContestFactory
-                                    {
-                                        SingleContestFactoryUI.UIData singleContestFactory = this.data.singleContestFactory.v;
-                                        if (singleContestFactory != null)
-                                        {
-                                            EditData<SingleContestFactory> editSingleContestFactory = singleContestFactory.editSingleContestFactory.v;
-                                            if (editSingleContestFactory != null)
-                                            {
-                                                // origin
-                                                {
-                                                    SingleContestFactory originSingleContestFactory = null;
-                                                    {
-                                                        EliminationFactory originEliminationFactory = editEliminationFactory.origin.v.data;
-                                                        if (originEliminationFactory != null)
-                                                        {
-                                                            originSingleContestFactory = originEliminationFactory.singleContestFactory.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("originSingleContestFactory null: " + this);
-                                                        }
-                                                    }
-                                                    editSingleContestFactory.origin.v = new ReferenceData<SingleContestFactory>(originSingleContestFactory);
-                                                }
-                                                // show
-                                                {
-                                                    SingleContestFactory showSingleContestFactory = null;
-                                                    {
-                                                        EliminationFactory showEliminationFactory = editEliminationFactory.show.v.data;
-                                                        if (showEliminationFactory != null)
-                                                        {
-                                                            showSingleContestFactory = showEliminationFactory.singleContestFactory.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("showEliminationFactory null: " + this);
-                                                        }
-                                                    }
-                                                    editSingleContestFactory.show.v = new ReferenceData<SingleContestFactory>(showSingleContestFactory);
-                                                }
-                                                // compare
-                                                {
-                                                    SingleContestFactory compareSingleContestFactory = null;
-                                                    {
-                                                        EliminationFactory compareEliminationFactory = editEliminationFactory.compare.v.data;
-                                                        if (compareEliminationFactory != null)
-                                                        {
-                                                            compareSingleContestFactory = compareEliminationFactory.singleContestFactory.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            // Debug.LogError ("compareEliminationFactory null: " + this);
-                                                        }
-                                                    }
-                                                    editSingleContestFactory.compare.v = new ReferenceData<SingleContestFactory>(compareSingleContestFactory);
-                                                }
-                                                // compare other type
-                                                {
-                                                    SingleContestFactory compareOtherTypeSingleContestFactory = null;
-                                                    {
-                                                        EliminationFactory compareOtherTypeEliminationFactory = (EliminationFactory)editEliminationFactory.compareOtherType.v.data;
-                                                        if (compareOtherTypeEliminationFactory != null)
-                                                        {
-                                                            compareOtherTypeSingleContestFactory = compareOtherTypeEliminationFactory.singleContestFactory.v;
-                                                        }
-                                                    }
-                                                    editSingleContestFactory.compareOtherType.v = new ReferenceData<Data>(compareOtherTypeSingleContestFactory);
-                                                }
-                                                // canEdit
-                                                editSingleContestFactory.canEdit.v = editEliminationFactory.canEdit.v;
-                                                // editType
-                                                editSingleContestFactory.editType.v = editEliminationFactory.editType.v;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("editSingleContestFactory null: " + this);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("singleContestFactory null: " + this);
-                                        }
-                                    }
+                                    EditDataUI.RefreshChildUI(this.data, this.data.singleContestFactory.v, editData => editData.singleContestFactory.v);
                                     RequestChange.RefreshUI(this.data.initTeamCountLength.v, editEliminationFactory, serverState, needReset, editData => editData.initTeamCounts.vs.Count);
                                     // initTeamCounts
                                     {

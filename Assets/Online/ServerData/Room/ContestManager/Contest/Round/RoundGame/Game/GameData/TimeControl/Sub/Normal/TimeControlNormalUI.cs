@@ -11,7 +11,7 @@ namespace TimeControl.Normal
 
         #region UIData
 
-        public class UIData : TimeControlUI.UIData.Sub
+        public class UIData : TimeControlUI.UIData.Sub, EditDataUI.UIData<TimeControlNormal>
         {
 
             public VP<EditData<TimeControlNormal>> editTimeControlNormal;
@@ -62,6 +62,15 @@ namespace TimeControl.Normal
                 return isProcess;
             }
 
+            #region implement interface
+
+            public EditData<TimeControlNormal> getEditData()
+            {
+                return this.editTimeControlNormal.v;
+            }
+
+            #endregion
+
         }
 
         #endregion
@@ -104,90 +113,7 @@ namespace TimeControl.Normal
                                 Server.State.Type serverState = RequestChange.GetServerState(editTimeControlNormal);
                                 // set origin
                                 {
-                                    // generalInfo
-                                    {
-                                        TimeInfoUI.UIData generalInfo = this.data.generalInfo.v;
-                                        if (generalInfo != null)
-                                        {
-                                            EditData<TimeInfo> editGeneralInfo = generalInfo.editTimeInfo.v;
-                                            if (editGeneralInfo != null)
-                                            {
-                                                // origin
-                                                {
-                                                    TimeInfo originTimeInfo = null;
-                                                    {
-                                                        TimeControlNormal originTimeControlNormal = editTimeControlNormal.origin.v.data;
-                                                        if (originTimeControlNormal != null)
-                                                        {
-                                                            originTimeInfo = originTimeControlNormal.generalInfo.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("originTimeControlNormal null: " + this);
-                                                        }
-                                                    }
-                                                    editGeneralInfo.origin.v = new ReferenceData<TimeInfo>(originTimeInfo);
-                                                }
-                                                // show
-                                                {
-                                                    TimeInfo showTimeInfo = null;
-                                                    {
-                                                        TimeControlNormal showTimeControlNormal = editTimeControlNormal.show.v.data;
-                                                        if (showTimeControlNormal != null)
-                                                        {
-                                                            showTimeInfo = showTimeControlNormal.generalInfo.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError("showTimeControlNormal null: " + this);
-                                                        }
-                                                    }
-                                                    editGeneralInfo.show.v = new ReferenceData<TimeInfo>(showTimeInfo);
-                                                }
-                                                // compare
-                                                {
-                                                    TimeInfo compareTimeInfo = null;
-                                                    {
-                                                        TimeControlNormal compareTimeControlNormal = editTimeControlNormal.compare.v.data;
-                                                        if (compareTimeControlNormal != null)
-                                                        {
-                                                            compareTimeInfo = compareTimeControlNormal.generalInfo.v;
-                                                        }
-                                                        else
-                                                        {
-                                                            // Debug.LogError ("compareTimeControlNormal null: " + this);
-                                                        }
-                                                    }
-                                                    editGeneralInfo.compare.v = new ReferenceData<TimeInfo>(compareTimeInfo);
-                                                }
-                                                // compare other type
-                                                {
-                                                    TimeInfo compareOtherTypeTimeInfo = null;
-                                                    {
-                                                        TimeControlNormal compareOtherTypeTimeControlNormal = (TimeControlNormal)editTimeControlNormal.compareOtherType.v.data;
-                                                        if (compareOtherTypeTimeControlNormal != null)
-                                                        {
-                                                            compareOtherTypeTimeInfo = compareOtherTypeTimeControlNormal.generalInfo.v;
-                                                        }
-                                                    }
-                                                    editGeneralInfo.compareOtherType.v = new ReferenceData<Data>(compareOtherTypeTimeInfo);
-                                                }
-                                                // canEdit
-                                                editGeneralInfo.canEdit.v = editTimeControlNormal.canEdit.v;
-                                                // editType
-                                                editGeneralInfo.editType.v = editTimeControlNormal.editType.v;
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("editGeneralInfo null: " + this);
-                                            }
-                                            generalInfo.showType.v = UIRectTransform.ShowType.HeadLess;
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("generalInfo null");
-                                        }
-                                    }
+                                    EditDataUI.RefreshChildUI(this.data, this.data.generalInfo.v, editData => editData.generalInfo.v);
                                 }
                                 needReset = false;
                             }
