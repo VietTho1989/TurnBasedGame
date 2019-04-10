@@ -468,33 +468,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                     // header
                     UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                     // playerId
-                    {
-                        if (this.data.playerId.v != null)
-                        {
-                            if (lbPlayerId != null)
-                            {
-                                lbPlayerId.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbPlayerId.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbPlayerId null");
-                            }
-                            UIRectTransform.SetPosY(this.data.playerId.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbPlayerId != null)
-                            {
-                                lbPlayerId.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbPlayerId null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbPlayerId, this.data.playerId.v, ref deltaY);
                     // account
                     {
                         float bgY = deltaY;
@@ -517,145 +491,15 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                         }
                     }
                     // email
-                    {
-                        if (this.data.email.v != null)
-                        {
-                            if (lbEmail != null)
-                            {
-                                lbEmail.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbEmail.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbEmail null");
-                            }
-                            UIRectTransform.SetPosY(this.data.email.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbEmail != null)
-                            {
-                                lbEmail.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbEmail null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbEmail, this.data.email.v, ref deltaY);
                     // phoneNumber
-                    {
-                        if (this.data.phoneNumber.v != null)
-                        {
-                            if (lbPhoneNumber != null)
-                            {
-                                lbPhoneNumber.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbPhoneNumber.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbPhoneNumber null");
-                            }
-                            UIRectTransform.SetPosY(this.data.phoneNumber.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbPhoneNumber != null)
-                            {
-                                lbPhoneNumber.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbPhoneNumber null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbPhoneNumber, this.data.phoneNumber.v, ref deltaY);
                     // status
-                    {
-                        if (this.data.status.v != null)
-                        {
-                            if (lbStatus != null)
-                            {
-                                lbStatus.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbStatus.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbStatus null");
-                            }
-                            UIRectTransform.SetPosY(this.data.status.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbStatus != null)
-                            {
-                                lbStatus.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbStatus null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbStatus, this.data.status.v, ref deltaY);
                     // birthday
-                    {
-                        if (this.data.birthday.v != null)
-                        {
-                            if (lbBirthday != null)
-                            {
-                                lbBirthday.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbBirthday.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbBirthday null");
-                            }
-                            UIRectTransform.SetPosY(this.data.birthday.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbBirthday != null)
-                            {
-                                lbBirthday.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbBirthday null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbBirthday, this.data.birthday.v, ref deltaY);
                     // sex
-                    {
-                        if (this.data.sex.v != null)
-                        {
-                            if (lbSex != null)
-                            {
-                                lbSex.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbSex.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbSex null");
-                            }
-                            UIRectTransform.SetPosY(this.data.sex.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbSex != null)
-                            {
-                                lbSex.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbSex null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbSex, this.data.sex.v, ref deltaY);
                     // ban
                     {
                         if (this.data.ban.v != null)

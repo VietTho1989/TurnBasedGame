@@ -99,10 +99,6 @@ namespace Makruk
                 txtTitle.add(Language.Type.vi, "Mặc Định Cờ Thái");
                 txtChess960.add(Language.Type.vi, "Chess960");
             }
-            // rect
-            {
-                chess960Rect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-            }
         }
 
         #endregion
@@ -218,33 +214,7 @@ namespace Makruk
                                 deltaY += UIConstants.DefaultMiniGameDataUISize;
                             }
                             // chess960
-                            {
-                                if (this.data.chess960.v != null)
-                                {
-                                    if (lbChess960 != null)
-                                    {
-                                        lbChess960.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY(lbChess960.rectTransform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbChess960 null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.chess960.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbChess960 != null)
-                                    {
-                                        lbChess960.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbChess960 null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbChess960, this.data.chess960.v, ref deltaY);
                             // Set
                             UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                         }
@@ -294,7 +264,6 @@ namespace Makruk
         public MiniGameDataUI miniGameDataUIPrefab;
 
         public RequestChangeBoolUI requestBoolPrefab;
-        public static readonly UIRectTransform chess960Rect = new UIRectTransform(UIConstants.RequestBoolRect);
 
         private Server server = null;
 
@@ -370,7 +339,7 @@ namespace Makruk
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.chess960:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, chess960Rect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

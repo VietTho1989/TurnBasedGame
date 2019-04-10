@@ -533,44 +533,11 @@ namespace GameManager.Match
                             }
                         }
                         // isChangeSideBetweenRound
-                        {
-                            if (lbIsChangeSideBetweenRound != null)
-                            {
-                                UIRectTransform.SetPosY((RectTransform)lbIsChangeSideBetweenRound.transform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbIsChangeSizeBetweenRound null");
-                            }
-                            UIRectTransform.SetPosY(this.data.isChangeSideBetweenRound.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
+                        UIUtils.SetLabelContentPosition(lbIsChangeSideBetweenRound, this.data.isChangeSideBetweenRound.v, ref deltaY);
                         // isSwitchPlayer
-                        {
-                            if (lbIsSwitchPlayer != null)
-                            {
-                                UIRectTransform.SetPosY((RectTransform)lbIsSwitchPlayer.transform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbIsSwithchPlayer null");
-                            }
-                            UIRectTransform.SetPosY(this.data.isSwitchPlayer.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
+                        UIUtils.SetLabelContentPosition(lbIsSwitchPlayer, this.data.isSwitchPlayer.v, ref deltaY);
                         // isDifferentInTeam
-                        {
-                            if (lbIsDifferentInTeam != null)
-                            {
-                                UIRectTransform.SetPosY((RectTransform)lbIsDifferentInTeam.transform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbIsDifferentInTeam null");
-                            }
-                            UIRectTransform.SetPosY(this.data.isDifferentInTeam.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
+                        UIUtils.SetLabelContentPosition(lbIsDifferentInTeam, this.data.isDifferentInTeam.v, ref deltaY);
                         // calculateScore
                         {
                             float bgY = deltaY;

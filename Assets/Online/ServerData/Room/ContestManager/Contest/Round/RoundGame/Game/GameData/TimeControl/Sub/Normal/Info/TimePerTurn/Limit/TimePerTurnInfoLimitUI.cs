@@ -96,11 +96,6 @@ namespace TimeControl.Normal
                 txtTitle.add(Language.Type.vi, "Giới Hạn Thời Gian Mỗi Lượt");
                 txtPerTurn.add(Language.Type.vi, "Mỗi lượt");
             }
-            // rect
-            {
-                // perTurnRect
-                perTurnRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -141,33 +136,7 @@ namespace TimeControl.Normal
                             // header
                             UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                             // perTurn
-                            {
-                                if (this.data.perTurn.v != null)
-                                {
-                                    if (lbPerTurn != null)
-                                    {
-                                        lbPerTurn.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY(lbPerTurn.rectTransform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbPerTurn null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.perTurn.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbPerTurn != null)
-                                    {
-                                        lbPerTurn.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbPerTurn null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbPerTurn, this.data.perTurn.v, ref deltaY);
                             // set
                             UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                         }
@@ -215,7 +184,6 @@ namespace TimeControl.Normal
         #region implement callBacks
 
         public RequestChangeFloatUI requestFloatPrefab;
-        private static readonly UIRectTransform perTurnRect = new UIRectTransform(UIConstants.RequestRect);
 
         private Server server = null;
 
@@ -289,7 +257,7 @@ namespace TimeControl.Normal
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.perTurn:
-                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, perTurnRect);
+                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

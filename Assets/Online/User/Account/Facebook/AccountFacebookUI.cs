@@ -119,86 +119,11 @@ public class AccountFacebookUI : UIHaveTransformDataBehavior<AccountFacebookUI.U
                     // header
                     UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                     // userId
-                    {
-                        if (this.data.userId.v != null)
-                        {
-                            if (lbUserId != null)
-                            {
-                                lbUserId.gameObject.SetActive(true);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbUserId null");
-                            }
-                            UIRectTransform.SetPosY(this.data.userId.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbUserId != null)
-                            {
-                                lbUserId.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbUserId null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbUserId, this.data.userId.v, ref deltaY);
                     // firstName
-                    {
-                        if (this.data.firstName.v != null)
-                        {
-                            if (lbFirstName != null)
-                            {
-                                lbFirstName.gameObject.SetActive(true);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbFirstName null");
-                            }
-                            UIRectTransform.SetPosY(this.data.firstName.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbFirstName != null)
-                            {
-                                lbFirstName.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbFirstName null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbFirstName, this.data.firstName.v, ref deltaY);
                     // lastName
-                    {
-                        if (this.data.lastName.v != null)
-                        {
-                            if (lbLastName != null)
-                            {
-                                lbLastName.gameObject.SetActive(true);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbLastName null");
-                            }
-                            UIRectTransform.SetPosY(this.data.lastName.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbLastName != null)
-                            {
-                                lbLastName.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbLastName null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbLastName, this.data.lastName.v, ref deltaY);
                     // set
                     UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                 }

@@ -242,145 +242,15 @@ public class AccountDeviceUI : UIHaveTransformDataBehavior<AccountDeviceUI.UIDat
                     // header
                     UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                     // imei
-                    {
-                        if (this.data.imei.v != null)
-                        {
-                            if (lbImei != null)
-                            {
-                                lbImei.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbImei.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbImei null");
-                            }
-                            UIRectTransform.SetPosY(this.data.imei.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbImei != null)
-                            {
-                                lbImei.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbImei null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbImei, this.data.imei.v, ref deltaY);
                     // deviceName
-                    {
-                        if (this.data.deviceName.v != null)
-                        {
-                            if (lbDeviceName != null)
-                            {
-                                lbDeviceName.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbDeviceName.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbDeviceName null");
-                            }
-                            UIRectTransform.SetPosY(this.data.deviceName.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbDeviceName != null)
-                            {
-                                lbDeviceName.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbDeviceName null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbDeviceName, this.data.deviceName.v, ref deltaY);
                     // deviceType
-                    {
-                        if (this.data.deviceType.v != null)
-                        {
-                            if (lbDeviceType != null)
-                            {
-                                lbDeviceType.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbDeviceType.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbDeviceType null");
-                            }
-                            UIRectTransform.SetPosY(this.data.deviceType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbDeviceType != null)
-                            {
-                                lbDeviceType.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbDeviceType null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbDeviceType, this.data.deviceType.v, ref deltaY);
                     // customName
-                    {
-                        if (this.data.customName.v != null)
-                        {
-                            if (lbCustomName != null)
-                            {
-                                lbCustomName.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbCustomName.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbCustomName null");
-                            }
-                            UIRectTransform.SetPosY(this.data.customName.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbCustomName != null)
-                            {
-                                lbCustomName.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbCustomName null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbCustomName, this.data.customName.v, ref deltaY);
                     // avatarUrl
-                    {
-                        if (this.data.avatarUrl.v != null)
-                        {
-                            if (lbAvatarUrl != null)
-                            {
-                                lbAvatarUrl.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbAvatarUrl.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbAvatarUrl null");
-                            }
-                            UIRectTransform.SetPosY(this.data.avatarUrl.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbAvatarUrl != null)
-                            {
-                                lbAvatarUrl.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbAvatarUrl null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbAvatarUrl, this.data.avatarUrl.v, ref deltaY);
                     // set
                     UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                 }

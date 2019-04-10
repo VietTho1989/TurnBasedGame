@@ -210,13 +210,6 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
             txtNeedAdmin.add(Language.Type.vi, "Cần admin");
             txtNeedAccept.add(Language.Type.vi, "Cần chấp nhận");
         }
-        // rect
-        {
-            canChangeRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-            onlyAdminRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-            needAdminRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-            needAcceptRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-        }
     }
 
     #endregion
@@ -254,6 +247,22 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
                         }
                         needReset = false;
                     }
+                }
+                // UI
+                {
+                    float deltaY = 0;
+                    // header
+                    deltaY += UIConstants.HeaderHeight;
+                    // canChange
+                    UIUtils.SetLabelContentPosition(lbCanChange, this.data.canChange.v, ref deltaY);
+                    // onlyAdmin
+                    UIUtils.SetLabelContentPosition(lbOnlyAdmin, this.data.onlyAdmin.v, ref deltaY);
+                    // needAdmin
+                    UIUtils.SetLabelContentPosition(lbNeedAdmin, this.data.needAdmin.v, ref deltaY);
+                    // needAccept
+                    UIUtils.SetLabelContentPosition(lbNeedAccept, this.data.needAccept.v, ref deltaY);
+                    // set height
+                    UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                 }
                 // txt
                 {
@@ -319,11 +328,6 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
     #endregion
 
     #region implement callBacks
-
-    private static readonly UIRectTransform canChangeRect = new UIRectTransform(UIConstants.RequestBoolRect);
-    private static readonly UIRectTransform onlyAdminRect = new UIRectTransform(UIConstants.RequestBoolRect);
-    private static readonly UIRectTransform needAdminRect = new UIRectTransform(UIConstants.RequestBoolRect);
-    private static readonly UIRectTransform needAcceptRect = new UIRectTransform(UIConstants.RequestBoolRect);
 
     public RequestChangeBoolUI requestBoolPrefab;
 
@@ -403,16 +407,16 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.canChange:
-                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, canChangeRect);
+                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                 break;
                             case UIData.Property.onlyAdmin:
-                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, onlyAdminRect);
+                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                 break;
                             case UIData.Property.needAdmin:
-                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, needAdminRect);
+                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                 break;
                             case UIData.Property.needAccept:
-                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, needAcceptRect);
+                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);

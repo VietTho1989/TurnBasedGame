@@ -188,61 +188,9 @@ namespace HEX
                         // header
                         UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                         // limitTime
-                        {
-                            if (this.data.limitTime.v != null)
-                            {
-                                if (lbLimitTime != null)
-                                {
-                                    lbLimitTime.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbLimitTime.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbLimitTime null");
-                                }
-                                UIRectTransform.SetPosY(this.data.limitTime.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbLimitTime != null)
-                                {
-                                    lbLimitTime.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbLimitTime null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbLimitTime, this.data.limitTime.v, ref deltaY);
                         // firstMoveCenter
-                        {
-                            if (this.data.firstMoveCenter.v != null)
-                            {
-                                if (lbFirstMoveCenter != null)
-                                {
-                                    lbFirstMoveCenter.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbFirstMoveCenter.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbFirstMoveCenter null");
-                                }
-                                UIRectTransform.SetPosY(this.data.firstMoveCenter.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbFirstMoveCenter != null)
-                                {
-                                    lbFirstMoveCenter.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbFirstMoveCenter null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbFirstMoveCenter, this.data.firstMoveCenter.v, ref deltaY);
                         // set
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }

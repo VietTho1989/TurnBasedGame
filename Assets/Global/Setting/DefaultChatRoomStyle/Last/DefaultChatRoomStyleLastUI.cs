@@ -183,61 +183,9 @@ public class DefaultChatRoomStyleLastUI : UIHaveTransformDataBehavior<DefaultCha
                         // header
                         UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                         // visibility
-                        {
-                            if (this.data.visibility.v != null)
-                            {
-                                if (lbVisibility != null)
-                                {
-                                    lbVisibility.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbVisibility.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbVisibility null");
-                                }
-                                UIRectTransform.SetPosY(this.data.visibility.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbVisibility != null)
-                                {
-                                    lbVisibility.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbVisibility null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbVisibility, this.data.visibility.v, ref deltaY);
                         // style
-                        {
-                            if (this.data.style.v != null)
-                            {
-                                if (lbStyle != null)
-                                {
-                                    lbStyle.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbStyle.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbStyle null");
-                                }
-                                UIRectTransform.SetPosY(this.data.style.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbStyle != null)
-                                {
-                                    lbStyle.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbStyle null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbStyle, this.data.style.v, ref deltaY);
                         // Set
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }

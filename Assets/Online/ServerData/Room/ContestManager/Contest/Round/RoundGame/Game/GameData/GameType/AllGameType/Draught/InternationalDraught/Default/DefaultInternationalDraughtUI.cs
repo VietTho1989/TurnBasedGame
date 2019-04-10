@@ -104,10 +104,6 @@ namespace InternationalDraught
                 txtTitle.add(Language.Type.vi, "Mặc Định Cờ Đam Kiểu Quốc Tế");
                 txtVariant.add(Language.Type.vi, "Thể loại");
             }
-            // rect
-            {
-                variantRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -208,33 +204,7 @@ namespace InternationalDraught
                                 deltaY += UIConstants.DefaultMiniGameDataUISize;
                             }
                             // variant
-                            {
-                                if (this.data.variant.v != null)
-                                {
-                                    if (lbVariant != null)
-                                    {
-                                        lbVariant.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY(lbVariant.rectTransform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbVariant null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.variant.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbVariant != null)
-                                    {
-                                        lbVariant.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbVariant null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbVariant, this.data.variant.v, ref deltaY);
                             // Set
                             UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                         }
@@ -284,7 +254,6 @@ namespace InternationalDraught
         public MiniGameDataUI miniGameDataUIPrefab;
 
         public RequestChangeEnumUI requestEnumPrefab;
-        public static readonly UIRectTransform variantRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
         private Server server = null;
 
@@ -361,7 +330,7 @@ namespace InternationalDraught
                             {
                                 case UIData.Property.variant:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, variantRect);
+                                        UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                     }
                                     break;
                                 default:

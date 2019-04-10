@@ -367,33 +367,7 @@ namespace GameManager.Match
                     {
                         float deltaY = UIConstants.HeaderHeight;
                         // randomTeamIndex
-                        {
-                            if (this.data.randomTeamIndex.v != null)
-                            {
-                                if (lbRandomTeamIndex != null)
-                                {
-                                    lbRandomTeamIndex.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbRandomTeamIndex.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbRandomTeamIndex null");
-                                }
-                                UIRectTransform.SetPosY(this.data.randomTeamIndex.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbRandomTeamIndex != null)
-                                {
-                                    lbRandomTeamIndex.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbRandomTeamIndex null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbRandomTeamIndex, this.data.randomTeamIndex.v, ref deltaY);
                         // sub
                         {
                             float bgY = deltaY;

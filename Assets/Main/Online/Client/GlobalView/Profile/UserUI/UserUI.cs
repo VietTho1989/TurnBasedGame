@@ -586,89 +586,12 @@ public class UserUI : UIBehavior<UserUI.UIData>
                             }
                         }
                         // role
-                        {
-                            if (this.data.role.v != null)
-                            {
-                                if (lbRole != null)
-                                {
-                                    lbRole.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbRole.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbRole null");
-                                }
-                                UIRectTransform.SetPosY(this.data.role.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbRole != null)
-                                {
-                                    lbRole.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbRole null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbRole, this.data.role.v, ref deltaY);
                         // ipAddress
-                        {
-                            if (this.data.ipAddress.v != null)
-                            {
-                                if (lbIpAddress != null)
-                                {
-                                    lbIpAddress.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbIpAddress.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbIpAddress null");
-                                }
-                                UIRectTransform.SetPosY(this.data.ipAddress.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbIpAddress != null)
-                                {
-                                    lbIpAddress.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbIpAddress null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbIpAddress, this.data.ipAddress.v, ref deltaY);
                         // registerTime
-                        {
-                            if (this.data.registerTime.v != null)
-                            {
-                                if (lbRegisterTime != null)
-                                {
-                                    lbRegisterTime.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbRegisterTime.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbRegisterTime null");
-                                }
-                                UIRectTransform.SetPosY(this.data.registerTime.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbRegisterTime != null)
-                                {
-                                    lbRegisterTime.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbRegisterTime null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbRegisterTime, this.data.registerTime.v, ref deltaY);
+                        // set height
                         if (contentContainer != null)
                         {
                             UIRectTransform.SetHeight((RectTransform)contentContainer, deltaY);

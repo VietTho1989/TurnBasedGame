@@ -282,13 +282,6 @@ namespace TimeControl
                     txtHourglass.add(Language.Type.vi, "Đồng Hồ Cát");
                 }
             }
-            // rect
-            {
-                isEnableRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2);
-                aiCanTimeOutRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2);
-                useRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2);
-                subTypeRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2);
-            }
         }
 
         #endregion
@@ -471,89 +464,11 @@ namespace TimeControl
                             // header
                             UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                             // isEnable
-                            {
-                                if (this.data.isEnable.v != null)
-                                {
-                                    if (lbIsEnable != null)
-                                    {
-                                        lbIsEnable.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY(lbIsEnable.rectTransform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbIsEnable null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.isEnable.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbIsEnable != null)
-                                    {
-                                        lbIsEnable.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbIsEnable null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbIsEnable, this.data.isEnable.v, ref deltaY);
                             // aiCanTimeOut
-                            {
-                                if (this.data.aiCanTimeOut.v != null)
-                                {
-                                    if (lbAICanTimeOut != null)
-                                    {
-                                        lbAICanTimeOut.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY(lbAICanTimeOut.rectTransform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbAICanTimeOut null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.aiCanTimeOut.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbAICanTimeOut != null)
-                                    {
-                                        lbAICanTimeOut.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbAICanTimeOut null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbAICanTimeOut, this.data.aiCanTimeOut.v, ref deltaY);
                             // use
-                            {
-                                if (this.data.use.v != null)
-                                {
-                                    if (lbUse != null)
-                                    {
-                                        lbUse.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY(lbUse.rectTransform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbUse null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.use.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbUse != null)
-                                    {
-                                        lbUse.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbUse null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbUse, this.data.use.v, ref deltaY);
                             // sub
                             {
                                 float bgY = deltaY;
@@ -682,11 +597,6 @@ namespace TimeControl
         public TimeControlNormalUI timeControlNormalPrefab;
         public TimeControlHourGlassUI timeControlHourGlassPrefab;
 
-        private static readonly UIRectTransform isEnableRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        private static readonly UIRectTransform aiCanTimeOutRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        private static readonly UIRectTransform useRect = new UIRectTransform(UIConstants.RequestEnumRect);
-        private static readonly UIRectTransform subTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
-
         private Server server = null;
 
         public override void onAddCallBack<T>(T data)
@@ -763,10 +673,10 @@ namespace TimeControl
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.isEnable:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, isEnableRect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 case UIData.Property.aiCanTimeOut:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, aiCanTimeOutRect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -792,10 +702,10 @@ namespace TimeControl
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.use:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefeb, this.transform, useRect);
+                                    UIUtils.Instantiate(requestChange, requestEnumPrefeb, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 case UIData.Property.subType:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefeb, this.transform, subTypeRect);
+                                    UIUtils.Instantiate(requestChange, requestEnumPrefeb, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

@@ -716,33 +716,7 @@ namespace TimeControl.Normal
                                 }
                             }
                             // lagCompensation
-                            {
-                                if (this.data.lagCompensation.v != null)
-                                {
-                                    UIRectTransform.SetPosY(this.data.lagCompensation.v, UIConstants.RequestRect, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2);
-                                    if (lbLagCompensation != null)
-                                    {
-                                        lbLagCompensation.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY((RectTransform)lbLagCompensation.transform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbLagCompensation null: " + this);
-                                    }
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbLagCompensation != null)
-                                    {
-                                        lbLagCompensation.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbLagCompensation null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbLagCompensation, this.data.lagCompensation.v, ref deltaY);
                             // set
                             UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                         }

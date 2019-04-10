@@ -493,6 +493,190 @@ public class UIUtils
 
     #endregion
 
+    #region setLabelPositionWithBg
+
+    public static void SetLabelContentPositionBg(Text label, RequestChangeBoolUI.UIData requestChangeBoolUIData, ref float deltaY, ref float bgHeight)
+    {
+        if (requestChangeBoolUIData != null)
+        {
+            if (label != null)
+            {
+                label.gameObject.SetActive(true);
+                UIRectTransform.SetPosY(label.rectTransform, deltaY);
+            }
+            else
+            {
+                Debug.LogError("label null");
+            }
+            UIRectTransform.SetPosY(requestChangeBoolUIData, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
+            bgHeight += UIConstants.ItemHeight;
+            deltaY += UIConstants.ItemHeight;
+        }
+        else
+        {
+            if (label != null)
+            {
+                label.gameObject.SetActive(false);
+            }
+            else
+            {
+                Debug.LogError("label null");
+            }
+        }
+    }
+
+    public static void SetLabelContentPositionBg(Text label, RequestChangeEnumUI.UIData requestChangeEnumUIData, ref float deltaY, ref float bgHeight)
+    {
+        if (requestChangeEnumUIData != null)
+        {
+            if (label != null)
+            {
+                label.gameObject.SetActive(true);
+                UIRectTransform.SetPosY(label.rectTransform, deltaY);
+            }
+            else
+            {
+                Debug.LogError("label null");
+            }
+            UIRectTransform.SetPosY(requestChangeEnumUIData, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+            bgHeight += UIConstants.ItemHeight;
+            deltaY += UIConstants.ItemHeight;
+        }
+        else
+        {
+            if (label != null)
+            {
+                label.gameObject.SetActive(false);
+            }
+            else
+            {
+                Debug.LogError("label null");
+            }
+        }
+    }
+
+    public static void SetLabelContentPositionBg(Text label, RequestChangeFloatUI.UIData requestChangeFloatUIData, ref float deltaY, ref float bgHeight)
+    {
+        if (requestChangeFloatUIData != null)
+        {
+            if (label != null)
+            {
+                label.gameObject.SetActive(true);
+                UIRectTransform.SetPosY(label.rectTransform, deltaY);
+            }
+            else
+            {
+                Debug.LogError("label null");
+            }
+            UIRectTransform.SetPosY(requestChangeFloatUIData, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+            bgHeight += UIConstants.ItemHeight;
+            deltaY += UIConstants.ItemHeight;
+        }
+        else
+        {
+            if (label != null)
+            {
+                label.gameObject.SetActive(false);
+            }
+            else
+            {
+                Debug.LogError("label null");
+            }
+        }
+    }
+
+    public static void SetLabelContentPositionBg(Text label, RequestChangeIntUI.UIData requestChangeIntUIData, ref float deltaY, ref float bgHeight)
+    {
+        if (requestChangeIntUIData != null)
+        {
+            if (label != null)
+            {
+                label.gameObject.SetActive(true);
+                UIRectTransform.SetPosY(label.rectTransform, deltaY);
+            }
+            else
+            {
+                Debug.LogError("label null");
+            }
+            UIRectTransform.SetPosY(requestChangeIntUIData, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+            bgHeight += UIConstants.ItemHeight;
+            deltaY += UIConstants.ItemHeight;
+        }
+        else
+        {
+            if (label != null)
+            {
+                label.gameObject.SetActive(false);
+            }
+            else
+            {
+                Debug.LogError("label null");
+            }
+        }
+    }
+
+    public static void SetLabelContentPositionBg(Text label, RequestChangeLongUI.UIData requestChangeLongUIData, ref float deltaY, ref float bgHeight)
+    {
+        if (requestChangeLongUIData != null)
+        {
+            if (label != null)
+            {
+                label.gameObject.SetActive(true);
+                UIRectTransform.SetPosY(label.rectTransform, deltaY);
+            }
+            else
+            {
+                Debug.LogError("label null");
+            }
+            UIRectTransform.SetPosY(requestChangeLongUIData, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
+            bgHeight += UIConstants.ItemHeight;
+            deltaY += UIConstants.ItemHeight;
+        }
+        else
+        {
+            if (label != null)
+            {
+                label.gameObject.SetActive(false);
+            }
+            else
+            {
+                Debug.LogError("label null");
+            }
+        }
+    }
+
+    public static void SetLabelContentPositionBg(Text label, RequestChangeStringUI.UIData requestChangeStringUIData, ref float deltaY, ref float bgHeight)
+    {
+        if (requestChangeStringUIData != null)
+        {
+            if (label != null)
+            {
+                label.gameObject.SetActive(true);
+                UIRectTransform.SetPosY(label.rectTransform, deltaY);
+            }
+            else
+            {
+                Debug.LogError("label null");
+            }
+            UIRectTransform.SetPosY(requestChangeStringUIData, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+            bgHeight += UIConstants.ItemHeight;
+            deltaY += UIConstants.ItemHeight;
+        }
+        else
+        {
+            if (label != null)
+            {
+                label.gameObject.SetActive(false);
+            }
+            else
+            {
+                Debug.LogError("label null");
+            }
+        }
+    }
+
+    #endregion
+
     #endregion
 
 }

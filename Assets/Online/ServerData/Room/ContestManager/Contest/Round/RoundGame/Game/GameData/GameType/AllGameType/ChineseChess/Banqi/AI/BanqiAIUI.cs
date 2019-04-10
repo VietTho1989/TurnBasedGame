@@ -139,33 +139,7 @@ namespace Banqi
                         // header
                         UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                         // depth
-                        {
-                            if (this.data.depth.v != null)
-                            {
-                                if (lbDepth != null)
-                                {
-                                    lbDepth.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbDepth.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbDepth null");
-                                }
-                                UIRectTransform.SetPosY(this.data.depth.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbDepth != null)
-                                {
-                                    lbDepth.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbDepth null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbDepth, this.data.depth.v, ref deltaY);
                         // Set
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }

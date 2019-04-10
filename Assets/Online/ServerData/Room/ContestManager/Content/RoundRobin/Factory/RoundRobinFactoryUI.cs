@@ -303,34 +303,12 @@ namespace GameManager.Match.RoundRobin
                     // UI Size
                     {
                         float deltaY = UIConstants.HeaderHeight;
+                        // teamCount
+                        UIUtils.SetLabelContentPosition(lbTeamCount, this.data.teamCount.v, ref deltaY);
+                        // needReturnRound
+                        UIUtils.SetLabelContentPosition(lbNeedReturnRound, this.data.needReturnRound.v, ref deltaY);
                         // singleContestFactory
                         deltaY += UIRectTransform.SetPosY(this.data.singleContestFactory.v, deltaY);
-                        // teamCount
-                        {
-                            if (lbTeamCount != null)
-                            {
-                                UIRectTransform.SetPosY(lbTeamCount.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTeamCount null");
-                            }
-                            UIRectTransform.SetPosY(this.data.teamCount.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        // needReturnRound
-                        {
-                            if (lbNeedReturnRound != null)
-                            {
-                                UIRectTransform.SetPosY(lbNeedReturnRound.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbNeedReturnRound null");
-                            }
-                            UIRectTransform.SetPosY(this.data.needReturnRound.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
                         // set
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }
@@ -384,9 +362,6 @@ namespace GameManager.Match.RoundRobin
         public SingleContestFactoryUI singleContestFactoryPrefab;
         public RequestChangeIntUI requestIntPrefab;
         public RequestChangeBoolUI requestBoolPrefab;
-
-        private static readonly UIRectTransform teamCountRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform needReturnRoundRect = new UIRectTransform(UIConstants.RequestBoolRect);
 
         private Server server = null;
 
@@ -463,7 +438,7 @@ namespace GameManager.Match.RoundRobin
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.teamCount:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, teamCountRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -490,7 +465,7 @@ namespace GameManager.Match.RoundRobin
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.needReturnRound:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, needReturnRoundRect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

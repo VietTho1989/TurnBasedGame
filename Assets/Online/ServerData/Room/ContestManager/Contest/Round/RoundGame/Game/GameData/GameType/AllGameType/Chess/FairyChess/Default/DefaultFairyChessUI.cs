@@ -272,61 +272,9 @@ namespace FairyChess
                                     deltaY += UIConstants.DefaultMiniGameDataUISize;
                                 }
                                 // variantType
-                                {
-                                    if (this.data.variantType.v != null)
-                                    {
-                                        if (lbVariantType != null)
-                                        {
-                                            lbVariantType.gameObject.SetActive(true);
-                                            UIRectTransform.SetPosY(lbVariantType.rectTransform, deltaY);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("lbVariantType null");
-                                        }
-                                        UIRectTransform.SetPosY(this.data.variantType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                                        deltaY += UIConstants.ItemHeight;
-                                    }
-                                    else
-                                    {
-                                        if (lbVariantType != null)
-                                        {
-                                            lbVariantType.gameObject.SetActive(false);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("lbVariantType null");
-                                        }
-                                    }
-                                }
+                                UIUtils.SetLabelContentPosition(lbVariantType, this.data.variantType.v, ref deltaY);
                                 // chess960
-                                {
-                                    if (this.data.chess960.v != null)
-                                    {
-                                        if (lbChess960 != null)
-                                        {
-                                            lbChess960.gameObject.SetActive(true);
-                                            UIRectTransform.SetPosY(lbChess960.rectTransform, deltaY);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("lbChess960 null");
-                                        }
-                                        UIRectTransform.SetPosY(this.data.chess960.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                                        deltaY += UIConstants.ItemHeight;
-                                    }
-                                    else
-                                    {
-                                        if (lbChess960 != null)
-                                        {
-                                            lbChess960.gameObject.SetActive(false);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("lbChess960 null");
-                                        }
-                                    }
-                                }
+                                UIUtils.SetLabelContentPosition(lbChess960, this.data.chess960.v, ref deltaY);
                                 // Set
                                 UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                             }

@@ -34,8 +34,11 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
     private const string Setting_ConfirmQuit = "Setting_ConfirmQuit";
     private const string Setting_ShowLastMove = "Setting_ShowLastMove";
     private const string Setting_ViewUrlImage = "Setting_ViewUrlImage";
-    // private const string Setting_AnimationSetting = "Setting_AnimationSetting";
     private const string Setting_MaxThinkCount = "Setting_MaxThinkCount";
+
+    private const string Setting_ContentTextSize = "Setting_ContentTextSize";
+    private const string Setting_TitleTextSize = "Setting_TitleTextSize";
+    private const string Setting_LabelTextSize = "Setting_LabelTextSize";
 
     private HashSet<byte> settingUpdateNames = new HashSet<byte>();
 
@@ -109,6 +112,12 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                 Setting.get().viewUrlImage.v = PlayerPrefs.GetInt(Setting_ViewUrlImage, 1) != 0;
                 // maxThinkCount
                 Setting.get().maxThinkCount.v = PlayerPrefs.GetInt(Setting_MaxThinkCount, 12);
+                // textSize
+                {
+                    Setting.get().contentTextSize.v = PlayerPrefs.GetInt(Setting_ContentTextSize, Setting.DefaultContentTextSize);
+                    Setting.get().titleTextSize.v = PlayerPrefs.GetInt(Setting_TitleTextSize, Setting.DefaultTitleTextSize);
+                    Setting.get().labelTextSize.v = PlayerPrefs.GetInt(Setting_LabelTextSize, Setting.DefaultLabelTextSize);
+                }
 
                 // defaultChosenGameType
                 {
@@ -267,6 +276,24 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                                 case Setting.Property.maxThinkCount:
                                     {
                                         PlayerPrefs.SetInt(Setting_MaxThinkCount, Setting.get().maxThinkCount.v);
+                                        needSave = true;
+                                    }
+                                    break;
+                                case Setting.Property.contentTextSize:
+                                    {
+                                        PlayerPrefs.SetInt(Setting_ContentTextSize, Setting.get().contentTextSize.v);
+                                        needSave = true;
+                                    }
+                                    break;
+                                case Setting.Property.titleTextSize:
+                                    {
+                                        PlayerPrefs.SetInt(Setting_TitleTextSize, Setting.get().titleTextSize.v);
+                                        needSave = true;
+                                    }
+                                    break;
+                                case Setting.Property.labelTextSize:
+                                    {
+                                        PlayerPrefs.SetInt(Setting_LabelTextSize, Setting.get().labelTextSize.v);
                                         needSave = true;
                                     }
                                     break;
@@ -477,6 +504,24 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         needUpdateDefaultChatRoomStyleType = true;
+                        dirty = true;
+                    }
+                    break;
+                case Setting.Property.contentTextSize:
+                    {
+                        settingUpdateNames.Add(wrapProperty.n);
+                        dirty = true;
+                    }
+                    break;
+                case Setting.Property.titleTextSize:
+                    {
+                        settingUpdateNames.Add(wrapProperty.n);
+                        dirty = true;
+                    }
+                    break;
+                case Setting.Property.labelTextSize:
+                    {
+                        settingUpdateNames.Add(wrapProperty.n);
                         dirty = true;
                     }
                     break;

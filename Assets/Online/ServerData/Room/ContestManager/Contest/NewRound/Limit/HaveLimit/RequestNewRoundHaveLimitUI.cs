@@ -157,11 +157,6 @@ namespace GameManager.Match
                 txtMaxRound.add(Language.Type.vi, "Số vòng tối đa");
                 txtEnoughScoreStop.add(Language.Type.vi, "Đủ điểm thì dừng");
             }
-            // rect
-            {
-                maxRoundRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                enoughScoreStopRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-            }
         }
 
         #endregion
@@ -203,61 +198,9 @@ namespace GameManager.Match
                             // Header
                             UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                             // maxRound
-                            {
-                                if (this.data.maxRound.v != null)
-                                {
-                                    if (lbMaxRound != null)
-                                    {
-                                        UIRectTransform.SetPosY(lbMaxRound.rectTransform, deltaY);
-                                        lbMaxRound.gameObject.SetActive(true);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbMaxRound null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.maxRound.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbMaxRound != null)
-                                    {
-                                        lbMaxRound.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbMaxRound null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbMaxRound, this.data.maxRound.v, ref deltaY);
                             // enoughScoreStop
-                            {
-                                if (this.data.enoughScoreStop.v != null)
-                                {
-                                    if (lbEnoughScoreStop != null)
-                                    {
-                                        UIRectTransform.SetPosY(lbEnoughScoreStop.rectTransform, deltaY);
-                                        lbEnoughScoreStop.gameObject.SetActive(true);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbEnoughScoreStop null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.enoughScoreStop.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbEnoughScoreStop != null)
-                                    {
-                                        lbEnoughScoreStop.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbEnoughScoreStop null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbEnoughScoreStop, this.data.enoughScoreStop.v, ref deltaY);
                             // set
                             UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                         }
@@ -312,9 +255,6 @@ namespace GameManager.Match
 
         public RequestChangeIntUI requestIntPrefab;
         public RequestChangeBoolUI requestBoolPrefab;
-
-        private static readonly UIRectTransform maxRoundRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform enoughScoreStopRect = new UIRectTransform(UIConstants.RequestBoolRect);
 
         private Server server = null;
 
@@ -390,7 +330,7 @@ namespace GameManager.Match
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.maxRound:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, maxRoundRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -417,7 +357,7 @@ namespace GameManager.Match
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.enoughScoreStop:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, enoughScoreStopRect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

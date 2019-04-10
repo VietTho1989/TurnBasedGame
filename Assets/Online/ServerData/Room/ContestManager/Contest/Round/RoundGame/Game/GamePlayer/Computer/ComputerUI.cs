@@ -316,33 +316,7 @@ public class ComputerUI : UIBehavior<ComputerUI.UIData>
                         // header
                         UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                         // name
-                        {
-                            if (this.data.name.v != null)
-                            {
-                                if (lbName != null)
-                                {
-                                    lbName.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbName.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbName null");
-                                }
-                                UIRectTransform.SetPosY(this.data.name.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbName != null)
-                                {
-                                    lbName.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbName null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbName, this.data.name.v, ref deltaY);
                         // avatar, avatarUrl
                         {
                             if (this.data.avatarUrl.v != null)

@@ -290,117 +290,13 @@ namespace Khet
                         // header
                         UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                         // infinite
-                        {
-                            if (this.data.infinite.v != null)
-                            {
-                                if (lbInfinite != null)
-                                {
-                                    lbInfinite.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbInfinite.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbInfinite null");
-                                }
-                                UIRectTransform.SetPosY(this.data.infinite.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbInfinite != null)
-                                {
-                                    lbInfinite.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbInfinite null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbInfinite, this.data.infinite.v, ref deltaY);
                         // moveTime
-                        {
-                            if (this.data.moveTime.v != null)
-                            {
-                                if (lbMoveTime != null)
-                                {
-                                    lbMoveTime.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbMoveTime.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbMoveTime null");
-                                }
-                                UIRectTransform.SetPosY(this.data.moveTime.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbMoveTime != null)
-                                {
-                                    lbMoveTime.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbInfinitte null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbMoveTime, this.data.moveTime.v, ref deltaY);
                         // depth
-                        {
-                            if (this.data.depth.v != null)
-                            {
-                                if (lbDepth != null)
-                                {
-                                    lbDepth.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbDepth.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbDepth null");
-                                }
-                                UIRectTransform.SetPosY(this.data.depth.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbDepth != null)
-                                {
-                                    lbDepth.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbDepth null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbDepth, this.data.depth.v, ref deltaY);
                         // pickBestMove
-                        {
-                            if (this.data.pickBestMove.v != null)
-                            {
-                                if (lbPickBestMove != null)
-                                {
-                                    lbPickBestMove.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbPickBestMove.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbPickBestMove null");
-                                }
-                                UIRectTransform.SetPosY(this.data.pickBestMove.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbPickBestMove != null)
-                                {
-                                    lbPickBestMove.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbPickBestMove null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbPickBestMove, this.data.pickBestMove.v, ref deltaY);
                         // set
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }

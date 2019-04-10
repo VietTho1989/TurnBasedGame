@@ -192,12 +192,6 @@ namespace Solitaire
                 txtMaxClosedCount.add(Language.Type.vi, "Max closed count");
                 txtFastMode.add(Language.Type.vi, "Kiểu nhanh");
             }
-            // rect
-            {
-                multiThreadedRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                maxClosedCountRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                fastModeRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-            }
         }
 
         #endregion
@@ -242,89 +236,11 @@ namespace Solitaire
                         // header
                         UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                         // multiThreaded
-                        {
-                            if (this.data.multiThreaded.v != null)
-                            {
-                                if (lbMultiThreaded != null)
-                                {
-                                    lbMultiThreaded.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbMultiThreaded.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbMultiThreaded null");
-                                }
-                                UIRectTransform.SetPosY(this.data.multiThreaded.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbMultiThreaded != null)
-                                {
-                                    lbMultiThreaded.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbMultiThreaded null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbMultiThreaded, this.data.multiThreaded.v, ref deltaY);
                         // maxClosedCount
-                        {
-                            if (this.data.maxClosedCount.v != null)
-                            {
-                                if (lbMaxClosedCount != null)
-                                {
-                                    lbMaxClosedCount.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbMaxClosedCount.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbMaxClosedCount null");
-                                }
-                                UIRectTransform.SetPosY(this.data.maxClosedCount.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbMaxClosedCount != null)
-                                {
-                                    lbMaxClosedCount.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbMaxClosedCount null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbMaxClosedCount, this.data.maxClosedCount.v, ref deltaY);
                         // fastMode
-                        {
-                            if (this.data.fastMode.v != null)
-                            {
-                                if (lbFastMode != null)
-                                {
-                                    lbFastMode.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbFastMode.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbFastMode null");
-                                }
-                                UIRectTransform.SetPosY(this.data.fastMode.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbFastMode != null)
-                                {
-                                    lbFastMode.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbFastMode null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbFastMode, this.data.fastMode.v, ref deltaY);
                         // set
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }
@@ -383,10 +299,6 @@ namespace Solitaire
         #endregion
 
         #region implement callBacks
-
-        private static readonly UIRectTransform multiThreadedRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform maxClosedCountRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform fastModeRect = new UIRectTransform(UIConstants.RequestBoolRect);
 
         public RequestChangeIntUI requestIntPrefab;
         public RequestChangeBoolUI requestBoolPrefab;
@@ -465,10 +377,10 @@ namespace Solitaire
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.multiThreaded:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, multiThreadedRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.maxClosedCount:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, maxClosedCountRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -494,7 +406,7 @@ namespace Solitaire
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.fastMode:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, fastModeRect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

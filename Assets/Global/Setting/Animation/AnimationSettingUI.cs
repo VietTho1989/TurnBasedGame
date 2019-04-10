@@ -234,6 +234,18 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
                 {
                     Debug.LogError("editAnimationSetting null: " + this);
                 }
+                // UI
+                {
+                    float deltaY = 0;
+                    // header
+                    deltaY += UIConstants.HeaderHeight;
+                    // scale
+                    UIUtils.SetLabelContentPosition(lbScale, this.data.scale.v, ref deltaY);
+                    // fastForward
+                    UIUtils.SetLabelContentPosition(lbFastForward, this.data.fastForward.v, ref deltaY);
+                    // maxWaitAnimationCount
+                    UIUtils.SetLabelContentPosition(lbMaxWaitAnimationCount, this.data.maxWaitAnimationCount.v, ref deltaY);
+                }
                 // txt
                 {
                     if (lbTitle != null)
@@ -293,10 +305,6 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
     public RequestChangeFloatUI requestFloatPrefab;
     public RequestChangeBoolUI requestBoolPrefab;
     public RequestChangeIntUI requestIntPrefab;
-
-    private static readonly UIRectTransform scaleRect = new UIRectTransform(UIConstants.RequestRect, UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-    private static readonly UIRectTransform fastForwardRect = new UIRectTransform(UIConstants.RequestBoolRect, UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-    private static readonly UIRectTransform maxWaitAnimationCountRect = new UIRectTransform(UIConstants.RequestRect, UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
 
     // private Server server = null;
 
@@ -372,7 +380,7 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.scale:
-                                UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, scaleRect);
+                                UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, UIConstants.RequestRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -399,7 +407,7 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.fastForward:
-                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, fastForwardRect);
+                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -426,7 +434,7 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.maxWaitAnimationCount:
-                                UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, maxWaitAnimationCountRect);
+                                UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);

@@ -364,145 +364,15 @@ namespace NineMenMorris
                         // header
                         UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                         // MaxNormal
-                        {
-                            if (this.data.MaxNormal.v != null)
-                            {
-                                if (lbMaxNormal != null)
-                                {
-                                    lbMaxNormal.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbMaxNormal.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbMaxNormal null");
-                                }
-                                UIRectTransform.SetPosY(this.data.MaxNormal.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbMaxNormal != null)
-                                {
-                                    lbMaxNormal.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbMaxNormal null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbMaxNormal, this.data.MaxNormal.v, ref deltaY);
                         // MaxPositioning
-                        {
-                            if (this.data.MaxPositioning.v != null)
-                            {
-                                if (lbMaxPositioning != null)
-                                {
-                                    lbMaxPositioning.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbMaxPositioning.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbMaxPositioning null");
-                                }
-                                UIRectTransform.SetPosY(this.data.MaxPositioning.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbMaxPositioning != null)
-                                {
-                                    lbMaxPositioning.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbMaxPositioning null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbMaxPositioning, this.data.MaxPositioning.v, ref deltaY);
                         // MaxBlackAndWhite3
-                        {
-                            if (this.data.MaxBlackAndWhite3.v != null)
-                            {
-                                if (lbMaxBlackAndWhite3 != null)
-                                {
-                                    lbMaxBlackAndWhite3.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbMaxBlackAndWhite3.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbMaxBlackAndWhite3 null");
-                                }
-                                UIRectTransform.SetPosY(this.data.MaxBlackAndWhite3.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbMaxBlackAndWhite3 != null)
-                                {
-                                    lbMaxBlackAndWhite3.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbMaxBlackAndWhite3 null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbMaxBlackAndWhite3, this.data.MaxBlackAndWhite3.v, ref deltaY);
                         // MaxBlackOrWhite3
-                        {
-                            if (this.data.MaxBlackOrWhite3.v != null)
-                            {
-                                if (lbMaxBlackOrWhite3 != null)
-                                {
-                                    lbMaxBlackOrWhite3.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbMaxBlackOrWhite3.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbMaxBlackOrWhite3 null");
-                                }
-                                UIRectTransform.SetPosY(this.data.MaxBlackOrWhite3.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbMaxBlackOrWhite3 != null)
-                                {
-                                    lbMaxBlackOrWhite3.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbMaxBlackOrWhite3 null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbMaxBlackOrWhite3, this.data.MaxBlackOrWhite3.v, ref deltaY);
                         // pickBestMove
-                        {
-                            if (this.data.pickBestMove.v != null)
-                            {
-                                if (lbPickBestMove != null)
-                                {
-                                    lbPickBestMove.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbPickBestMove.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbPickBestMove null");
-                                }
-                                UIRectTransform.SetPosY(this.data.pickBestMove.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbPickBestMove != null)
-                                {
-                                    lbPickBestMove.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbPickBestMove null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbPickBestMove, this.data.pickBestMove.v, ref deltaY);
                         // set
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }

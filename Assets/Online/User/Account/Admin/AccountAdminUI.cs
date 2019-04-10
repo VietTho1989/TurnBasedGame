@@ -177,61 +177,9 @@ public class AccountAdminUI : UIHaveTransformDataBehavior<AccountAdminUI.UIData>
                     // header
                     UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                     // customName
-                    {
-                        if (this.data.customName.v != null)
-                        {
-                            if (lbCustomName != null)
-                            {
-                                lbCustomName.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbCustomName.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbCustomName null");
-                            }
-                            UIRectTransform.SetPosY(this.data.customName.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbCustomName != null)
-                            {
-                                lbCustomName.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbCustomName null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbCustomName, this.data.customName.v, ref deltaY);
                     // avatarUrl
-                    {
-                        if (this.data.avatarUrl.v != null)
-                        {
-                            if (lbAvatarUrl != null)
-                            {
-                                lbAvatarUrl.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbAvatarUrl.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbAvatarUrl null");
-                            }
-                            UIRectTransform.SetPosY(this.data.avatarUrl.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbAvatarUrl != null)
-                            {
-                                lbAvatarUrl.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbAvatarUrl null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbAvatarUrl, this.data.avatarUrl.v, ref deltaY);
                     // set
                     UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                 }

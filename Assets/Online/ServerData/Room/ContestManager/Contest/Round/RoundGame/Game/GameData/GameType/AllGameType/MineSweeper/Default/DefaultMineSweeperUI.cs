@@ -311,14 +311,6 @@ namespace MineSweeper
                 txtMaxK.add(Language.Type.vi, "Mật độ mìn tối đa");
                 txtAllowWatchBomb.add(Language.Type.vi, "Cho phép người xem thấy bom");
             }
-            // rect
-            {
-                NRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                MRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                minKRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                maxKRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                allowWatchBombRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 4 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-            }
         }
 
         #endregion
@@ -423,145 +415,15 @@ namespace MineSweeper
                                 deltaY += UIConstants.DefaultMiniGameDataUISize;
                             }
                             // N
-                            {
-                                if (this.data.N.v != null)
-                                {
-                                    if (lbN != null)
-                                    {
-                                        lbN.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY(lbN.rectTransform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbN null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.N.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbN != null)
-                                    {
-                                        lbN.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbN null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbN, this.data.N.v, ref deltaY);
                             // M
-                            {
-                                if (this.data.M.v != null)
-                                {
-                                    if (lbM != null)
-                                    {
-                                        lbM.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY(lbM.rectTransform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbM null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.M.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbM != null)
-                                    {
-                                        lbM.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbM null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbM, this.data.M.v, ref deltaY);
                             // minK
-                            {
-                                if (this.data.minK.v != null)
-                                {
-                                    if (lbMinK != null)
-                                    {
-                                        lbMinK.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY(lbMinK.rectTransform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbMinK null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.minK.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbMinK != null)
-                                    {
-                                        lbMinK.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbMinK null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbMinK, this.data.minK.v, ref deltaY);
                             // maxK
-                            {
-                                if (this.data.maxK.v != null)
-                                {
-                                    if (lbMaxK != null)
-                                    {
-                                        lbMaxK.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY(lbMaxK.rectTransform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbMaxK null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.maxK.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbMaxK != null)
-                                    {
-                                        lbMaxK.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbMaxK null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbMaxK, this.data.maxK.v, ref deltaY);
                             // allowWatchBomb
-                            {
-                                if (this.data.allowWatchBomb.v != null)
-                                {
-                                    if (lbAllowWatchBomb != null)
-                                    {
-                                        lbAllowWatchBomb.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY(lbAllowWatchBomb.rectTransform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbAllowWatchBomb null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.allowWatchBomb.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbAllowWatchBomb != null)
-                                    {
-                                        lbAllowWatchBomb.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbAllowWatchBom null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbAllowWatchBomb, this.data.allowWatchBomb.v, ref deltaY);
                             // Set
                             UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                         }

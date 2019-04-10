@@ -178,12 +178,6 @@ namespace Rights
                 txtNeedAdmin.add(Language.Type.vi, "Cần admin");
                 txtLimitType.add(Language.Type.vi, "Loại giới hạn");
             }
-            // rect
-            {
-                needAcceptRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                needAdminRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                limitTypeRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -349,22 +343,15 @@ namespace Rights
                     {
                         float deltaY = UIConstants.HeaderHeight;
                         // needAccept
-                        {
-                            deltaY += UIConstants.ItemHeight;
-                        }
+                        UIUtils.SetLabelContentPosition(lbNeedAccept, this.data.needAccept.v, ref deltaY);
                         // needAdmin
-                        {
-                            deltaY += UIConstants.ItemHeight;
-                        }
+                        UIUtils.SetLabelContentPosition(lbNeedAdmin, this.data.needAdmin.v, ref deltaY);
                         // limit
                         {
                             float bgY = deltaY;
                             float bgHeight = 0;
                             // type
-                            {
-                                bgHeight += UIConstants.ItemHeight;
-                                deltaY += UIConstants.ItemHeight;
-                            }
+                            UIUtils.SetLabelContentPositionBg(lbLimitType, this.data.limitType.v, ref deltaY, ref bgHeight);
                             // UI
                             {
                                 float height = UIRectTransform.SetPosY(this.data.limitUIData.v, deltaY);
@@ -440,10 +427,6 @@ namespace Rights
         #endregion
 
         #region implement callBacks
-
-        private static readonly UIRectTransform needAcceptRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        private static readonly UIRectTransform needAdminRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        private static readonly UIRectTransform limitTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
         public RequestChangeBoolUI requestBoolPrefab;
         public RequestChangeEnumUI requestEnumPrefab;
@@ -527,10 +510,10 @@ namespace Rights
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.needAccept:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, needAcceptRect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 case UIData.Property.needAdmin:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, needAdminRect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -557,7 +540,7 @@ namespace Rights
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.limitType:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, limitTypeRect);
+                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

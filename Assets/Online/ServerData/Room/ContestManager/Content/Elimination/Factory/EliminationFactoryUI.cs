@@ -439,21 +439,8 @@ namespace GameManager.Match.Elimination
                     // UI Size
                     {
                         float deltaY = UIConstants.HeaderHeight;
-                        // singleContestFactory
-                        deltaY += UIRectTransform.SetPosY(this.data.singleContestFactory.v, deltaY);
                         // initTeamCountLength
-                        {
-                            if (lbInitTeamCountLength != null)
-                            {
-                                UIRectTransform.SetPosY(lbInitTeamCountLength.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbInitTeamCountLength null");
-                            }
-                            UIRectTransform.SetPosY(this.data.initTeamCountLength.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
+                        UIUtils.SetLabelContentPosition(lbInitTeamCountLength, this.data.initTeamCountLength.v, ref deltaY);
                         // initTeamCounts
                         {
                             if (lbInitTeamCounts != null)
@@ -470,6 +457,8 @@ namespace GameManager.Match.Elimination
                                 deltaY += UIConstants.ItemHeight;
                             }
                         }
+                        // singleContestFactory
+                        deltaY += UIRectTransform.SetPosY(this.data.singleContestFactory.v, deltaY);
                         // set
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }
@@ -522,9 +511,6 @@ namespace GameManager.Match.Elimination
 
         public SingleContestFactoryUI singleContestFactoryPrefab;
         public RequestChangeIntUI requestIntPrefab;
-
-        private static readonly UIRectTransform initTeamCountLengthRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform initTeamCountsRect = new UIRectTransform(UIConstants.RequestRect);
 
         private Server server = null;
 
@@ -601,10 +587,10 @@ namespace GameManager.Match.Elimination
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.initTeamCountLength:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, initTeamCountLengthRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.initTeamCounts:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, initTeamCountsRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

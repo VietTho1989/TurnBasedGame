@@ -139,33 +139,7 @@ namespace Janggi
                         // header
                         UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                         // maxVisitCount
-                        {
-                            if (this.data.maxVisitCount.v != null)
-                            {
-                                if (lbMaxVisitCount != null)
-                                {
-                                    lbMaxVisitCount.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbMaxVisitCount.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbMaxVisitCount null");
-                                }
-                                UIRectTransform.SetPosY(this.data.maxVisitCount.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbMaxVisitCount != null)
-                                {
-                                    lbMaxVisitCount.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbMaxVisitCount null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbMaxVisitCount, this.data.maxVisitCount.v, ref deltaY);
                         // set
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }

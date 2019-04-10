@@ -200,6 +200,20 @@ public class RoomAdapter : SRIA<RoomAdapter.UIData, RoomHolder.UIData>
                                 switch (sortData.sortType.v)
                                 {
                                     case SortData.SortType.None:
+                                        {
+                                            rooms.Sort(delegate (Room p1, Room p2)
+                                            {
+                                                if (p1 == null)
+                                                {
+                                                    return -1;
+                                                }
+                                                if (p2 == null)
+                                                {
+                                                    return 1;
+                                                }
+                                                return -p1.uid.CompareTo(p2.uid);
+                                            });
+                                        }
                                         break;
                                     case SortData.SortType.Name:
                                         {

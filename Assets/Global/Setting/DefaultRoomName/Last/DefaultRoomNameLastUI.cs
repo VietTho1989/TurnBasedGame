@@ -131,33 +131,7 @@ public class DefaultRoomNameLastUI : UIHaveTransformDataBehavior<DefaultRoomName
                         // header
                         UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                         // roomName
-                        {
-                            if (this.data.roomName.v != null)
-                            {
-                                if (lbRoomName != null)
-                                {
-                                    lbRoomName.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbRoomName.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbRoomName null");
-                                }
-                                UIRectTransform.SetPosY(this.data.roomName.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbRoomName != null)
-                                {
-                                    lbRoomName.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbRoomName null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbRoomName, this.data.roomName.v, ref deltaY);
                         // Set
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }

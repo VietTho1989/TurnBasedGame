@@ -106,10 +106,6 @@ namespace Rights
                 txtTitle.add(Language.Type.vi, "Có Giới Hạn");
                 txtLimit.add(Language.Type.vi, "Giời hạn");
             }
-            // rect
-            {
-                limitRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -150,33 +146,7 @@ namespace Rights
                             // header
                             UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                             // limit
-                            {
-                                if (this.data.limit.v != null)
-                                {
-                                    if (lbLimit != null)
-                                    {
-                                        UIRectTransform.SetPosY(lbLimit.rectTransform, deltaY);
-                                        lbLimit.gameObject.SetActive(true);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbLimit null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.limit.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbLimit != null)
-                                    {
-                                        lbLimit.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbLimit null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbLimit, this.data.limit.v, ref deltaY);
                             // set
                             UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                         }
@@ -224,8 +194,6 @@ namespace Rights
         #region implement callBacks
 
         public RequestChangeIntUI requestIntPrefab;
-
-        private static readonly UIRectTransform limitRect = new UIRectTransform(UIConstants.RequestRect);
 
         private Server server = null;
 
@@ -300,7 +268,7 @@ namespace Rights
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.limit:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, limitRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

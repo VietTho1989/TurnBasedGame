@@ -148,11 +148,6 @@ namespace TimeControl.HourGlass
                 txtInitTime.add(Language.Type.vi, "Thời gian ban đầu");
                 txtLagCompensation.add(Language.Type.vi, "Bồi thường lag");
             }
-            // rect
-            {
-                initTimeRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                lagCompensationRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -191,61 +186,10 @@ namespace TimeControl.HourGlass
                             // header
                             UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                             // initTime
-                            {
-                                if (this.data.initTime.v != null)
-                                {
-                                    if (lbInitTime != null)
-                                    {
-                                        UIRectTransform.SetPosY(lbInitTime.rectTransform, deltaY);
-                                        lbInitTime.gameObject.SetActive(true);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbInitTime null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.initTime.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbInitTime != null)
-                                    {
-                                        lbInitTime.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbInitTime null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbInitTime, this.data.initTime.v, ref deltaY);
                             // lagCompensation
-                            {
-                                if (this.data.lagCompensation.v != null)
-                                {
-                                    if (lbLagCompensation != null)
-                                    {
-                                        UIRectTransform.SetPosY(lbLagCompensation.rectTransform, deltaY);
-                                        lbLagCompensation.gameObject.SetActive(true);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbLagCompensation null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.lagCompensation.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbLagCompensation != null)
-                                    {
-                                        lbLagCompensation.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbLagCompensation null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbLagCompensation, this.data.lagCompensation.v, ref deltaY);
+                            // set height
                             UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                         }
                         // txt
@@ -301,9 +245,6 @@ namespace TimeControl.HourGlass
         #region implement callBacks
 
         public RequestChangeFloatUI requestFloatPrefab;
-
-        private static readonly UIRectTransform initTimeRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform lagCompensationRect = new UIRectTransform(UIConstants.RequestRect);
 
         private Server server = null;
 
@@ -379,12 +320,12 @@ namespace TimeControl.HourGlass
                             {
                                 case UIData.Property.initTime:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, initTimeRect);
+                                        UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 case UIData.Property.lagCompensation:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, lagCompensationRect);
+                                        UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 default:

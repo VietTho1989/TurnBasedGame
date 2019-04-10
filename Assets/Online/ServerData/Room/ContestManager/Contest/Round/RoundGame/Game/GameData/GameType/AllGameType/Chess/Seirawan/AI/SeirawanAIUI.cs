@@ -246,89 +246,11 @@ namespace Seirawan
                         // header
                         UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                         // depth
-                        {
-                            if (this.data.depth.v != null)
-                            {
-                                if (lbDepth != null)
-                                {
-                                    lbDepth.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbDepth.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbDepth null");
-                                }
-                                UIRectTransform.SetPosY(this.data.depth.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbDepth != null)
-                                {
-                                    lbDepth.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbDepth null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbDepth, this.data.depth.v, ref deltaY);
                         // skillLevel
-                        {
-                            if (this.data.skillLevel.v != null)
-                            {
-                                if (lbSkillLevel != null)
-                                {
-                                    lbSkillLevel.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbSkillLevel.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbSkillLevel null");
-                                }
-                                UIRectTransform.SetPosY(this.data.skillLevel.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbSkillLevel != null)
-                                {
-                                    lbSkillLevel.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbSkillLevel null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbSkillLevel, this.data.skillLevel.v, ref deltaY);
                         // duration
-                        {
-                            if (this.data.duration.v != null)
-                            {
-                                if (lbDuration != null)
-                                {
-                                    lbDuration.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbDuration.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbDuration null");
-                                }
-                                UIRectTransform.SetPosY(this.data.duration.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbDuration != null)
-                                {
-                                    lbDuration.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbDuration null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbDuration, this.data.duration.v, ref deltaY);
                         // Set
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }

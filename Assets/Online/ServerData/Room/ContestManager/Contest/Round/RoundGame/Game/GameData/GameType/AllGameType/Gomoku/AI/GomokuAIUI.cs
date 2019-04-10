@@ -249,89 +249,11 @@ namespace Gomoku
                         // header
                         UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                         // searchDepth
-                        {
-                            if (this.data.searchDepth.v != null)
-                            {
-                                if (lbSearchDepth != null)
-                                {
-                                    lbSearchDepth.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbSearchDepth.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbSearchDepth null");
-                                }
-                                UIRectTransform.SetPosY(this.data.searchDepth.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbSearchDepth != null)
-                                {
-                                    lbSearchDepth.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbSearchDepth null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbSearchDepth, this.data.searchDepth.v, ref deltaY);
                         // timeLimit
-                        {
-                            if (this.data.timeLimit.v != null)
-                            {
-                                if (lbTimeLimit != null)
-                                {
-                                    lbTimeLimit.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbTimeLimit.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbTimeLimit null");
-                                }
-                                UIRectTransform.SetPosY(this.data.timeLimit.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbTimeLimit != null)
-                                {
-                                    lbTimeLimit.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbTimeLimit null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbTimeLimit, this.data.timeLimit.v, ref deltaY);
                         // level
-                        {
-                            if (this.data.level.v != null)
-                            {
-                                if (lbLevel != null)
-                                {
-                                    lbLevel.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbLevel.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbLevel null");
-                                }
-                                UIRectTransform.SetPosY(this.data.level.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbLevel != null)
-                                {
-                                    lbLevel.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbLevel null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbLevel, this.data.level.v, ref deltaY);
                         // set
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }

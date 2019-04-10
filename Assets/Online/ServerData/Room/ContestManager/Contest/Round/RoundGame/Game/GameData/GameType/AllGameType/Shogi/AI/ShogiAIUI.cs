@@ -335,145 +335,15 @@ namespace Shogi
                         // header
                         UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                         // depth
-                        {
-                            if (this.data.depth.v != null)
-                            {
-                                if (lbDepth != null)
-                                {
-                                    lbDepth.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbDepth.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbDepth null");
-                                }
-                                UIRectTransform.SetPosY(this.data.depth.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbDepth != null)
-                                {
-                                    lbDepth.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbDepth null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbDepth, this.data.depth.v, ref deltaY);
                         // skillLevel
-                        {
-                            if (this.data.skillLevel.v != null)
-                            {
-                                if (lbSkillLevel != null)
-                                {
-                                    lbSkillLevel.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbSkillLevel.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbSkillLevel null");
-                                }
-                                UIRectTransform.SetPosY(this.data.skillLevel.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbSkillLevel != null)
-                                {
-                                    lbSkillLevel.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbSkillLevel null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbSkillLevel, this.data.skillLevel.v, ref deltaY);
                         // mr
-                        {
-                            if (this.data.mr.v != null)
-                            {
-                                if (lbMr != null)
-                                {
-                                    lbMr.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbMr.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbMr null");
-                                }
-                                UIRectTransform.SetPosY(this.data.mr.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbMr != null)
-                                {
-                                    lbMr.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbMr null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbMr, this.data.mr.v, ref deltaY);
                         // duration
-                        {
-                            if (this.data.duration.v != null)
-                            {
-                                if (lbDuration != null)
-                                {
-                                    lbDuration.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbDuration.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbDuration null");
-                                }
-                                UIRectTransform.SetPosY(this.data.duration.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbDuration != null)
-                                {
-                                    lbDuration.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbDuration null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbDuration, this.data.duration.v, ref deltaY);
                         // useBook
-                        {
-                            if (this.data.useBook.v != null)
-                            {
-                                if (lbUseBook != null)
-                                {
-                                    lbUseBook.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbUseBook.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbUseBook null");
-                                }
-                                UIRectTransform.SetPosY(this.data.useBook.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbUseBook != null)
-                                {
-                                    lbUseBook.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbUseBook null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbUseBook, this.data.useBook.v, ref deltaY);
                         // set
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }

@@ -109,10 +109,6 @@ namespace Solitaire
                 txtTitle.add(Language.Type.vi, "Mặc Định Solitaire");
                 txtDrawCount.add(Language.Type.vi, "Số lá bài rút");
             }
-            // rect
-            {
-                drawCountRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -214,33 +210,7 @@ namespace Solitaire
                                 deltaY += UIConstants.DefaultMiniGameDataUISize;
                             }
                             // drawCount
-                            {
-                                if (this.data.drawCount.v != null)
-                                {
-                                    if (lbDrawCount != null)
-                                    {
-                                        lbDrawCount.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY(lbDrawCount.rectTransform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbDrawCount null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.drawCount.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbDrawCount != null)
-                                    {
-                                        lbDrawCount.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbDrawCount null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbDrawCount, this.data.drawCount.v, ref deltaY);
                             // Set
                             UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                         }
@@ -290,7 +260,6 @@ namespace Solitaire
         public MiniGameDataUI miniGameDataUIPrefab;
 
         public RequestChangeIntUI requestIntPrefab;
-        public static readonly UIRectTransform drawCountRect = new UIRectTransform(UIConstants.RequestRect);
 
         private Server server = null;
 
@@ -365,7 +334,7 @@ namespace Solitaire
                             {
                                 case UIData.Property.drawCount:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, drawCountRect);
+                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 default:

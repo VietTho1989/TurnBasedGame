@@ -96,10 +96,6 @@ namespace TimeControl.Normal
                 txtTitle.add(Language.Type.vi, "Tổng Thời Gian Giới Hạn");
                 txtTotalTime.add(Language.Type.vi, "Tổng thời gian");
             }
-            // rect
-            {
-                totalTimeRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2);
-            }
         }
 
         #endregion
@@ -140,33 +136,7 @@ namespace TimeControl.Normal
                             // header
                             UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                             // totalTime
-                            {
-                                if (this.data.totalTime.v != null)
-                                {
-                                    if (lbTotalTime != null)
-                                    {
-                                        UIRectTransform.SetPosY(lbTotalTime.rectTransform, deltaY);
-                                        lbTotalTime.gameObject.SetActive(true);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbTotalTime null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.totalTime.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbTotalTime != null)
-                                    {
-                                        lbTotalTime.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbTotalTime null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbTotalTime, this.data.totalTime.v, ref deltaY);
                             // set
                             UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                         }
@@ -215,7 +185,6 @@ namespace TimeControl.Normal
         #region implement callBacks
 
         public RequestChangeFloatUI requestFloatPrefab;
-        private static readonly UIRectTransform totalTimeRect = new UIRectTransform(UIConstants.RequestRect);
 
         private Server server = null;
 
@@ -289,7 +258,7 @@ namespace TimeControl.Normal
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.totalTime:
-                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, totalTimeRect);
+                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

@@ -316,89 +316,11 @@ namespace CoTuongUp
                                 deltaY += UIConstants.DefaultMiniGameDataUISize;
                             }
                             // allowViewCapture
-                            {
-                                if (this.data.allowViewCapture.v != null)
-                                {
-                                    if (lbAllowViewCapture != null)
-                                    {
-                                        lbAllowViewCapture.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY(lbAllowViewCapture.rectTransform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbAllowViewCapture null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.allowViewCapture.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbAllowViewCapture != null)
-                                    {
-                                        lbAllowViewCapture.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbAllowViewCapture null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbAllowViewCapture, this.data.allowViewCapture.v, ref deltaY);
                             // allowWatcherViewHidden
-                            {
-                                if (this.data.allowWatcherViewHidden.v != null)
-                                {
-                                    if (lbAllowWatcherViewHidden != null)
-                                    {
-                                        lbAllowWatcherViewHidden.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY(lbAllowWatcherViewHidden.rectTransform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbAllowWatcherViewHidden null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.allowWatcherViewHidden.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbAllowWatcherViewHidden != null)
-                                    {
-                                        lbAllowWatcherViewHidden.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbAllowWatcherViewHidden null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbAllowWatcherViewHidden, this.data.allowWatcherViewHidden.v, ref deltaY);
                             // allowOnlyFlip
-                            {
-                                if (this.data.allowOnlyFlip.v != null)
-                                {
-                                    if (lbAllowOnlyFlip != null)
-                                    {
-                                        lbAllowOnlyFlip.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY(lbAllowOnlyFlip.rectTransform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbAllowOnlyFlip null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.allowOnlyFlip.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbAllowOnlyFlip != null)
-                                    {
-                                        lbAllowOnlyFlip.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbAllowOnlyFlip null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbAllowOnlyFlip, this.data.allowOnlyFlip.v, ref deltaY);
                             // Set
                             UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                         }

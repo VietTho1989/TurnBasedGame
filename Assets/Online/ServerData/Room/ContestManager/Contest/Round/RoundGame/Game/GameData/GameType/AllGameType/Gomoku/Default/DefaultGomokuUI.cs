@@ -109,10 +109,6 @@ namespace Gomoku
                 txtTitle.add(Language.Type.vi, "Mặc Định Cờ Caro");
                 txtBoardSize.add(Language.Type.vi, "Kích thước bàn cờ");
             }
-            // rect
-            {
-                boardSizeRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -214,33 +210,7 @@ namespace Gomoku
                                 deltaY += UIConstants.DefaultMiniGameDataUISize;
                             }
                             // boardSize
-                            {
-                                if (this.data.boardSize.v != null)
-                                {
-                                    if (lbBoardSize != null)
-                                    {
-                                        lbBoardSize.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY(lbBoardSize.rectTransform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbBoardSize null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.boardSize.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbBoardSize != null)
-                                    {
-                                        lbBoardSize.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbBoardSize null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbBoardSize, this.data.boardSize.v, ref deltaY);
                             // Set
                             UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                         }
@@ -290,7 +260,6 @@ namespace Gomoku
         public MiniGameDataUI miniGameDataUIPrefab;
 
         public RequestChangeIntUI requestIntPrefab;
-        public static readonly UIRectTransform boardSizeRect = new UIRectTransform(UIConstants.RequestRect);
 
         private Server server = null;
 
@@ -367,7 +336,7 @@ namespace Gomoku
                             {
                                 case UIData.Property.boardSize:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, boardSizeRect);
+                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 default:

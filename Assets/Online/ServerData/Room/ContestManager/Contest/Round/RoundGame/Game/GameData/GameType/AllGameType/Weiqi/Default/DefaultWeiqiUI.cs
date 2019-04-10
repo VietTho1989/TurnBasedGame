@@ -259,13 +259,6 @@ namespace Weiqi
                 txtRule.add(Language.Type.vi, "Luật");
                 txtHandicap.add(Language.Type.vi, "Chấp");
             }
-            // rect
-            {
-                sizeRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                komiRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                ruleRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                handicapRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -392,117 +385,13 @@ namespace Weiqi
                                 deltaY += UIConstants.DefaultMiniGameDataUISize;
                             }
                             // size
-                            {
-                                if (this.data.size.v != null)
-                                {
-                                    if (lbSize != null)
-                                    {
-                                        lbSize.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY(lbSize.rectTransform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbSize null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.size.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbSize != null)
-                                    {
-                                        lbSize.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbSize null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbSize, this.data.size.v, ref deltaY);
                             // komi
-                            {
-                                if (this.data.komi.v != null)
-                                {
-                                    if (lbKomi != null)
-                                    {
-                                        lbKomi.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY(lbKomi.rectTransform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbKomi null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.komi.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbKomi != null)
-                                    {
-                                        lbKomi.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbKomi null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbKomi, this.data.komi.v, ref deltaY);
                             // rule
-                            {
-                                if (this.data.rule.v != null)
-                                {
-                                    if (lbRule != null)
-                                    {
-                                        lbRule.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY(lbRule.rectTransform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbRule null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.rule.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbRule != null)
-                                    {
-                                        lbRule.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbRule null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbRule, this.data.rule.v, ref deltaY);
                             // handicap
-                            {
-                                if (this.data.handicap.v != null)
-                                {
-                                    if (lbHandicap != null)
-                                    {
-                                        lbHandicap.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY(lbHandicap.rectTransform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbHandicap null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.handicap.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbHandicap != null)
-                                    {
-                                        lbHandicap.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbHandicap null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbHandicap, this.data.handicap.v, ref deltaY);
                             // Set
                             UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                         }
@@ -582,11 +471,6 @@ namespace Weiqi
         public RequestChangeFloatUI requestFloatPrefab;
         public RequestChangeEnumUI requestEnumPrefab;
 
-        private static readonly UIRectTransform sizeRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform komiRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform ruleRect = new UIRectTransform(UIConstants.RequestEnumRect);
-        private static readonly UIRectTransform handicapRect = new UIRectTransform(UIConstants.RequestRect);
-
         private Server server = null;
 
         public override void onAddCallBack<T>(T data)
@@ -664,10 +548,10 @@ namespace Weiqi
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.size:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, sizeRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.handicap:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, handicapRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -693,7 +577,7 @@ namespace Weiqi
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.komi:
-                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, komiRect);
+                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -719,7 +603,7 @@ namespace Weiqi
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.rule:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, ruleRect);
+                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

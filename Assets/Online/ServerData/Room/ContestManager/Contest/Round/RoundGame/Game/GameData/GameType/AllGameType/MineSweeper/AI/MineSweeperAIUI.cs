@@ -143,33 +143,7 @@ namespace MineSweeper
                         // header
                         UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                         // firstMoveType
-                        {
-                            if (this.data.firstMoveType.v != null)
-                            {
-                                if (lbFirstMoveType != null)
-                                {
-                                    lbFirstMoveType.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbFirstMoveType.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbFirstMoveType null");
-                                }
-                                UIRectTransform.SetPosY(this.data.firstMoveType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbFirstMoveType != null)
-                                {
-                                    lbFirstMoveType.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbFirstMoveType null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbFirstMoveType, this.data.firstMoveType.v, ref deltaY);
                         // set
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }

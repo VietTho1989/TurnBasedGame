@@ -686,18 +686,7 @@ namespace GameManager.Match
                     {
                         float deltaY = UIConstants.HeaderHeight;
                         // playerPerTeam
-                        {
-                            if (lbPlayerPerTeam != null)
-                            {
-                                UIRectTransform.SetPosY((RectTransform)lbPlayerPerTeam.transform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbPlayerPerTeam null");
-                            }
-                            UIRectTransform.SetPosY(this.data.playerPerTeam.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
+                        UIUtils.SetLabelContentPosition(lbPlayerPerTeam, this.data.playerPerTeam.v, ref deltaY);
                         // roundFactory
                         {
                             float bgY = deltaY;

@@ -382,6 +382,38 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
 
         #endregion
 
+        #region labelTextSize
+
+        public VP<RequestChangeIntUI.UIData> labelTextSize;
+
+        public void makeRequestChangeLabelTextSize(RequestChangeUpdate<int>.UpdateData update, int newLabelTextSize)
+        {
+            // Find
+            Setting setting = null;
+            {
+                EditData<Setting> editSetting = this.editSetting.v;
+                if (editSetting != null)
+                {
+                    setting = editSetting.show.v.data;
+                }
+                else
+                {
+                    Debug.LogError("editSetting null: " + this);
+                }
+            }
+            // Process
+            if (setting != null)
+            {
+                setting.labelTextSize.v = Mathf.Clamp(newLabelTextSize, Setting.MinLabelTextSize, Setting.MaxLabelTextSize);
+            }
+            else
+            {
+                Debug.LogError("setting null: " + this);
+            }
+        }
+
+        #endregion
+
         #region Constructor
 
         public enum Property
@@ -406,7 +438,8 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
             defaultChatRoomStyleUIData,
 
             contentTextSize,
-            titleTextSize
+            titleTextSize,
+            labelTextSize
         }
 
         public UIData() : base()
@@ -561,6 +594,21 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     }
                     this.titleTextSize.v.updateData.v.request.v = makeRequestChangeTitleTextSize;
                 }
+                // labelTextSize
+                {
+                    this.labelTextSize = new VP<RequestChangeIntUI.UIData>(this, (byte)Property.labelTextSize, new RequestChangeIntUI.UIData());
+                    // have limit
+                    {
+                        IntLimit.Have have = new IntLimit.Have();
+                        {
+                            have.uid = this.labelTextSize.v.limit.makeId();
+                            have.min.v = Setting.MinLabelTextSize;
+                            have.max.v = Setting.MaxLabelTextSize;
+                        }
+                        this.labelTextSize.v.limit.v = have;
+                    }
+                    this.labelTextSize.v.updateData.v.request.v = makeRequestChangeLabelTextSize;
+                }
             }
         }
 
@@ -617,6 +665,9 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
     public Text lbTitleTextSize;
     private static readonly TxtLanguage txtTitleTextSize = new TxtLanguage("Title text size");
 
+    public Text lbLabelTextSize;
+    private static readonly TxtLanguage txtLabelTextSize = new TxtLanguage("Label text size");
+
     static SettingUI()
     {
         // txt
@@ -646,6 +697,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 txtTextSizeTitle.add(Language.Type.vi, "Kích Thước Chữ");
                 txtContentTextSize.add(Language.Type.vi, "Kích thước chữ nội dung");
                 txtTitleTextSize.add(Language.Type.vi, "Kích thước chữ tiêu đề");
+                txtLabelTextSize.add(Language.Type.vi, "Kích thước chữ nhãn");
             }
         }
         // rect
@@ -1154,6 +1206,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         {
                             RequestChange.RefreshUI(this.data.contentTextSize.v, editSetting, serverState, needReset, editData => editData.contentTextSize.v);
                             RequestChange.RefreshUI(this.data.titleTextSize.v, editSetting, serverState, needReset, editData => editData.titleTextSize.v);
+                            RequestChange.RefreshUI(this.data.labelTextSize.v, editSetting, serverState, needReset, editData => editData.labelTextSize.v);
                         }
                     }
                     needReset = false;
@@ -1164,173 +1217,19 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 }
                 // UISize
                 {
-                    float deltaY = UIConstants.HeaderHeight;
+                    float deltaY = 0;
                     // header
-                    {
-                        if (this.data.showType.v == UIRectTransform.ShowType.HeadLess)
-                        {
-                            deltaY = 0;
-                            if (lbTitle != null)
-                            {
-                                lbTitle.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null");
-                            }
-                        }
-                        else
-                        {
-                            if (lbTitle != null)
-                            {
-                                lbTitle.gameObject.SetActive(true);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbTitle null");
-                            }
-                        }
-                    }
+                    UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                     // language
-                    {
-                        if (this.data.language.v != null)
-                        {
-                            if (lbLanguage != null)
-                            {
-                                lbLanguage.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbLanguage.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbLanguage null");
-                            }
-                            UIRectTransform.SetPosY(this.data.language.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbLanguage != null)
-                            {
-                                lbLanguage.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbLanguage null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbLanguage, this.data.language.v, ref deltaY);
                     // style
-                    {
-                        if (this.data.style.v != null)
-                        {
-                            if (lbStyle != null)
-                            {
-                                lbStyle.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbStyle.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbStyle null");
-                            }
-                            UIRectTransform.SetPosY(this.data.style.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbStyle != null)
-                            {
-                                lbStyle.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbStyle null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbStyle, this.data.style.v, ref deltaY);
                     // confirmQuit
-                    {
-                        if (this.data.confirmQuit.v != null)
-                        {
-                            if (lbConfirmQuit != null)
-                            {
-                                lbConfirmQuit.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbConfirmQuit.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbConfirmQuit null");
-                            }
-                            UIRectTransform.SetPosY(this.data.confirmQuit.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbConfirmQuit != null)
-                            {
-                                lbConfirmQuit.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbConfirmQuit null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbConfirmQuit, this.data.confirmQuit.v, ref deltaY);
                     // showLastMove
-                    {
-                        if (this.data.showLastMove.v != null)
-                        {
-                            if (lbShowLastMove != null)
-                            {
-                                lbShowLastMove.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbShowLastMove.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbShowLastMove null");
-                            }
-                            UIRectTransform.SetPosY(this.data.showLastMove.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbShowLastMove != null)
-                            {
-                                lbShowLastMove.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbShowLastMove null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbShowLastMove, this.data.showLastMove.v, ref deltaY);
                     // viewUrlImage
-                    {
-                        if (this.data.viewUrlImage.v != null)
-                        {
-                            if (lbViewUrlImage != null)
-                            {
-                                lbViewUrlImage.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbViewUrlImage.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbViewUrlImage null");
-                            }
-                            UIRectTransform.SetPosY(this.data.viewUrlImage.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbViewUrlImage != null)
-                            {
-                                lbViewUrlImage.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbViewUrlImage null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbViewUrlImage, this.data.viewUrlImage.v, ref deltaY);
                     // animationSetting
                     {
                         float bgY = deltaY;
@@ -1353,66 +1252,13 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         }
                     }
                     // maxThinkCount
-                    {
-                        if (this.data.maxThinkCount.v != null)
-                        {
-                            if (lbMaxThinkCount != null)
-                            {
-                                lbMaxThinkCount.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbMaxThinkCount.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbMaxThinkCount null");
-                            }
-                            UIRectTransform.SetPosY(this.data.maxThinkCount.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbMaxThinkCount != null)
-                            {
-                                lbMaxThinkCount.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbMaxThinkCount null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbMaxThinkCount, this.data.maxThinkCount.v, ref deltaY);
                     // defaultChosenGame
                     {
                         float bgY = deltaY;
                         float bgHeight = 0;
                         // type
-                        {
-                            if (this.data.defaultChosenGameType.v != null)
-                            {
-                                if (lbDefaultChosenGameType != null)
-                                {
-                                    lbDefaultChosenGameType.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbDefaultChosenGameType.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbDefaultChosenGameType null");
-                                }
-                                UIRectTransform.SetPosY(this.data.defaultChosenGameType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                                bgHeight += UIConstants.ItemHeight;
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbDefaultChosenGameType != null)
-                                {
-                                    lbDefaultChosenGameType.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbDefaultChosenGameType null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPositionBg(lbDefaultChosenGameType, this.data.defaultChosenGameType.v, ref deltaY, ref bgHeight);
                         // UI
                         {
                             float height = UIRectTransform.SetPosY(this.data.defaultChosenGameUIData.v, deltaY);
@@ -1435,34 +1281,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         float bgY = deltaY;
                         float bgHeight = 0;
                         // type
-                        {
-                            if (this.data.defaultRoomNameType.v != null)
-                            {
-                                if (lbDefaultRoomNameType != null)
-                                {
-                                    lbDefaultRoomNameType.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbDefaultRoomNameType.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbDefaultRoomNameType null");
-                                }
-                                UIRectTransform.SetPosY(this.data.defaultRoomNameType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                                bgHeight += UIConstants.ItemHeight;
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbDefaultRoomNameType != null)
-                                {
-                                    lbDefaultRoomNameType.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbDefaultRoomNameType null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPositionBg(lbDefaultRoomNameType, this.data.defaultRoomNameType.v, ref deltaY, ref bgHeight);
                         // UI
                         {
                             float height = UIRectTransform.SetPosY(this.data.defaultRoomNameUIData.v, deltaY);
@@ -1485,34 +1304,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         float bgY = deltaY;
                         float bgHeight = 0;
                         // type
-                        {
-                            if (this.data.defaultChatRoomStyleType.v != null)
-                            {
-                                if (lbDefaultChatRoomStyleType != null)
-                                {
-                                    lbDefaultChatRoomStyleType.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbDefaultChatRoomStyleType.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbDefaultChatRoomStyleType null");
-                                }
-                                UIRectTransform.SetPosY(this.data.defaultChatRoomStyleType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                                bgHeight += UIConstants.ItemHeight;
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbDefaultChatRoomStyleType != null)
-                                {
-                                    lbDefaultChatRoomStyleType.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbDefaultChatRoomStyleType null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPositionBg(lbDefaultChatRoomStyleType, this.data.defaultChatRoomStyleType.v, ref deltaY, ref bgHeight);
                         // UI
                         {
                             float height = UIRectTransform.SetPosY(this.data.defaultChatRoomStyleUIData.v, deltaY);
@@ -1548,61 +1340,11 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                             }
                         }
                         // contentTextSize
-                        {
-                            if (this.data.contentTextSize.v != null)
-                            {
-                                if (lbContentTextSize != null)
-                                {
-                                    lbContentTextSize.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbContentTextSize.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbContentTextSize null");
-                                }
-                                UIRectTransform.SetPosY(this.data.contentTextSize.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbContentTextSize != null)
-                                {
-                                    lbContentTextSize.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbContentTextSize null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPositionBg(lbContentTextSize, this.data.contentTextSize.v, ref deltaY, ref bgHeight);
                         // titleTextSize
-                        {
-                            if (this.data.titleTextSize.v != null)
-                            {
-                                if (lbTitleTextSize != null)
-                                {
-                                    lbTitleTextSize.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbTitleTextSize.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbTitleTextSize null");
-                                }
-                                UIRectTransform.SetPosY(this.data.titleTextSize.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbTitleTextSize != null)
-                                {
-                                    lbTitleTextSize.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbTitleTextSize null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPositionBg(lbTitleTextSize, this.data.titleTextSize.v, ref deltaY, ref bgHeight);
+                        // labelTextSize
+                        UIUtils.SetLabelContentPositionBg(lbLabelTextSize, this.data.labelTextSize.v, ref deltaY, ref bgHeight);
                         // bg
                         if (bgTextSize != null)
                         {
@@ -1738,6 +1480,15 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         {
                             Debug.LogError("lbTitleTextSize null");
                         }
+                        if (lbLabelTextSize != null)
+                        {
+                            lbLabelTextSize.text = txtLabelTextSize.get();
+                            Setting.get().setLabelTextSize(lbLabelTextSize);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbLabelTextSize null");
+                        }
                     }
                 }
             }
@@ -1807,6 +1558,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 }
                 uiData.contentTextSize.allAddCallBack(this);
                 uiData.titleTextSize.allAddCallBack(this);
+                uiData.labelTextSize.allAddCallBack(this);
             }
             dirty = true;
             return;
@@ -1927,7 +1679,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 dirty = true;
                 return;
             }
-            // maxThinkCount, contentTextSize, titleTextSize
+            // maxThinkCount, contentTextSize, titleTextSize, labelTextSize
             if (data is RequestChangeIntUI.UIData)
             {
                 RequestChangeIntUI.UIData requestChange = data as RequestChangeIntUI.UIData;
@@ -1945,6 +1697,9 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                                 UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                 break;
                             case UIData.Property.titleTextSize:
+                                UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                break;
+                            case UIData.Property.labelTextSize:
                                 UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                 break;
                             default:
@@ -2102,6 +1857,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 }
                 uiData.contentTextSize.allRemoveCallBack(this);
                 uiData.titleTextSize.allRemoveCallBack(this);
+                uiData.labelTextSize.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
             return;
@@ -2165,7 +1921,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 }
                 return;
             }
-            // maxThinkCount, contentTextSize, titleTextSize
+            // maxThinkCount, contentTextSize, titleTextSize, labelTextSize
             if (data is RequestChangeIntUI.UIData)
             {
                 RequestChangeIntUI.UIData requestChange = data as RequestChangeIntUI.UIData;
@@ -2386,6 +2142,12 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         dirty = true;
                     }
                     break;
+                case UIData.Property.labelTextSize:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
@@ -2496,7 +2258,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
             {
                 return;
             }
-            // maxThinkCount, contentTextSize, titleTextSize
+            // maxThinkCount, contentTextSize, titleTextSize, labelTextSize
             if (wrapProperty.p is RequestChangeIntUI.UIData)
             {
                 return;

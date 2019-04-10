@@ -829,6 +829,10 @@ public class InformGameMessageUI : UIBehavior<InformGameMessageUI.UIData>
                             case ChatRoom.Property.messages:
                                 dirty = true;
                                 break;
+                            case ChatRoom.Property.editMax:
+                                break;
+                            case ChatRoom.Property.maxId:
+                                break;
                             case ChatRoom.Property.chatViewers:
                                 {
                                     ValueChangeUtils.replaceCallBack(this, syncs);

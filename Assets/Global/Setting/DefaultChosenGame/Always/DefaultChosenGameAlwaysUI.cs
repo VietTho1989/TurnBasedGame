@@ -149,33 +149,7 @@ public class DefaultChosenGameAlwaysUI : UIHaveTransformDataBehavior<DefaultChos
                         // header
                         UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                         // gameType
-                        {
-                            if (this.data.gameType.v != null)
-                            {
-                                if (lbGameType != null)
-                                {
-                                    lbGameType.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbGameType.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbGameType null");
-                                }
-                                UIRectTransform.SetPosY(this.data.gameType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbGameType != null)
-                                {
-                                    lbGameType.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbGameType null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbGameType, this.data.gameType.v, ref deltaY);
                         // Set
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }

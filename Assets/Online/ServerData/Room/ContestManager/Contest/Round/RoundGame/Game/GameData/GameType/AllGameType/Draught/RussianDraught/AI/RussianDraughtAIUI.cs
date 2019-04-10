@@ -202,61 +202,9 @@ namespace RussianDraught
                         // header
                         UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                         // timeLimit
-                        {
-                            if (this.data.timeLimit.v != null)
-                            {
-                                if (lbTimeLimit != null)
-                                {
-                                    lbTimeLimit.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbTimeLimit.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbTimeLimit null");
-                                }
-                                UIRectTransform.SetPosY(this.data.timeLimit.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbTimeLimit != null)
-                                {
-                                    lbTimeLimit.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbTimeLimit null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbTimeLimit, this.data.timeLimit.v, ref deltaY);
                         // pickBestMove
-                        {
-                            if (this.data.pickBestMove.v != null)
-                            {
-                                if (lbPickBestMove != null)
-                                {
-                                    lbPickBestMove.gameObject.SetActive(true);
-                                    UIRectTransform.SetPosY(lbPickBestMove.rectTransform, deltaY);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbPickBestMove null");
-                                }
-                                UIRectTransform.SetPosY(this.data.pickBestMove.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                deltaY += UIConstants.ItemHeight;
-                            }
-                            else
-                            {
-                                if (lbPickBestMove != null)
-                                {
-                                    lbPickBestMove.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    Debug.LogError("lbPickBestMove null");
-                                }
-                            }
-                        }
+                        UIUtils.SetLabelContentPosition(lbPickBestMove, this.data.pickBestMove.v, ref deltaY);
                         // set
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }

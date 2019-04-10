@@ -151,11 +151,6 @@ namespace EnglishDraught
                 txtThreeMoveRandom.add(Language.Type.vi, "Ba nước đầu ngẫu nhiên");
                 txtMaxPly.add(Language.Type.vi, "Số nước đi không tiến triễn sẽ hoà cờ");
             }
-            // rect
-            {
-                threeMoveRandomRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                maxPlyRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -261,61 +256,9 @@ namespace EnglishDraught
                                 deltaY += UIConstants.DefaultMiniGameDataUISize;
                             }
                             // threeMoveRandom
-                            {
-                                if (this.data.threeMoveRandom.v != null)
-                                {
-                                    if (lbThreeMoveRandom != null)
-                                    {
-                                        lbThreeMoveRandom.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY(lbThreeMoveRandom.rectTransform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbThreeMoveRandom null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.threeMoveRandom.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbThreeMoveRandom != null)
-                                    {
-                                        lbThreeMoveRandom.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbThreeMoveRandom null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbThreeMoveRandom, this.data.threeMoveRandom.v, ref deltaY);
                             // maxPly
-                            {
-                                if (this.data.maxPly.v != null)
-                                {
-                                    if (lbMaxPly != null)
-                                    {
-                                        lbMaxPly.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY(lbMaxPly.rectTransform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbMaxPly null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.maxPly.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbMaxPly != null)
-                                    {
-                                        lbMaxPly.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbMaxPly null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbMaxPly, this.data.maxPly.v, ref deltaY);
                             // Set
                             UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                         }
@@ -375,9 +318,6 @@ namespace EnglishDraught
 
         public RequestChangeBoolUI requestBoolPrefab;
         public RequestChangeIntUI requestIntPrefab;
-
-        public static readonly UIRectTransform threeMoveRandomRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        public static readonly UIRectTransform maxPlyRect = new UIRectTransform(UIConstants.RequestRect);
 
         private Server server = null;
 
@@ -455,7 +395,7 @@ namespace EnglishDraught
                             {
                                 case UIData.Property.threeMoveRandom:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, threeMoveRandomRect);
+                                        UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     }
                                     break;
                                 default:
@@ -483,7 +423,7 @@ namespace EnglishDraught
                             {
                                 case UIData.Property.maxPly:
                                     {
-                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, maxPlyRect);
+                                        UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     }
                                     break;
                                 default:

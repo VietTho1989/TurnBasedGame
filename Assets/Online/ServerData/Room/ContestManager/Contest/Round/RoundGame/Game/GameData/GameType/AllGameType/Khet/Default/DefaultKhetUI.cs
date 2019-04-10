@@ -107,10 +107,6 @@ namespace Khet
                 txtTitle.add(Language.Type.vi, "Mặc Định Khet");
                 txtStartPos.add(Language.Type.vi, "Vị trí bắt đầu");
             }
-            // rect
-            {
-                startPosRect.setPosY(UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-            }
         }
 
         #endregion
@@ -210,33 +206,7 @@ namespace Khet
                                     deltaY += UIConstants.DefaultMiniGameDataUISize;
                                 }
                                 // startPos
-                                {
-                                    if (this.data.startPos.v != null)
-                                    {
-                                        if (lbStartPos != null)
-                                        {
-                                            lbStartPos.gameObject.SetActive(true);
-                                            UIRectTransform.SetPosY(lbStartPos.rectTransform, deltaY);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("lbChess960 null");
-                                        }
-                                        UIRectTransform.SetPosY(this.data.startPos.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                                        deltaY += UIConstants.ItemHeight;
-                                    }
-                                    else
-                                    {
-                                        if (lbStartPos != null)
-                                        {
-                                            lbStartPos.gameObject.SetActive(false);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("lbChess960 null");
-                                        }
-                                    }
-                                }
+                                UIUtils.SetLabelContentPosition(lbStartPos, this.data.startPos.v, ref deltaY);
                                 // Set
                                 UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                             }
@@ -281,7 +251,6 @@ namespace Khet
         public MiniGameDataUI miniGameDataUIPrefab;
 
         public RequestChangeEnumUI requestEnumPrefab;
-        public static readonly UIRectTransform startPosRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
         private Server server = null;
 
@@ -357,7 +326,7 @@ namespace Khet
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.startPos:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, startPosRect);
+                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

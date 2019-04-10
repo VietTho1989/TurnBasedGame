@@ -613,117 +613,13 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                     // header
                     UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                     // changeType
-                    {
-                        if (this.data.changeType.v != null)
-                        {
-                            if (lbChangeType != null)
-                            {
-                                lbChangeType.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbChangeType.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbChangeType null");
-                            }
-                            UIRectTransform.SetPosY(this.data.changeType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbChangeType != null)
-                            {
-                                lbChangeType.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("lbChangeType null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbChangeType, this.data.changeType.v, ref deltaY);
                     // email
-                    {
-                        if (this.data.email.v != null)
-                        {
-                            if (lbEmail != null)
-                            {
-                                lbEmail.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbEmail.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("email null");
-                            }
-                            UIRectTransform.SetPosY(this.data.email.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbEmail != null)
-                            {
-                                lbEmail.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("email null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbEmail, this.data.email.v, ref deltaY);
                     // password
-                    {
-                        if (this.data.password.v != null)
-                        {
-                            if (lbPassword != null)
-                            {
-                                lbPassword.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbPassword.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("password null");
-                            }
-                            UIRectTransform.SetPosY(this.data.password.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbPassword != null)
-                            {
-                                lbPassword.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("password null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbPassword, this.data.password.v, ref deltaY);
                     // retypePassword
-                    {
-                        if (this.data.retypePassword.v != null)
-                        {
-                            if (lbRetypePassword != null)
-                            {
-                                lbRetypePassword.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbRetypePassword.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("retypePassword null");
-                            }
-                            UIRectTransform.SetPosY(this.data.retypePassword.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbRetypePassword != null)
-                            {
-                                lbRetypePassword.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("retypePassword null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbRetypePassword, this.data.retypePassword.v, ref deltaY);
                     // btnChangePassword
                     {
                         if (btnChangePassword != null)
@@ -741,61 +637,9 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                         }
                     }
                     // customName
-                    {
-                        if (this.data.customName.v != null)
-                        {
-                            if (lbCustomName != null)
-                            {
-                                lbCustomName.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbCustomName.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("customName null");
-                            }
-                            UIRectTransform.SetPosY(this.data.customName.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbCustomName != null)
-                            {
-                                lbCustomName.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("customName null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbCustomName, this.data.customName.v, ref deltaY);
                     // avatarUrl
-                    {
-                        if (this.data.avatarUrl.v != null)
-                        {
-                            if (lbAvatarUrl != null)
-                            {
-                                lbAvatarUrl.gameObject.SetActive(true);
-                                UIRectTransform.SetPosY(lbAvatarUrl.rectTransform, deltaY);
-                            }
-                            else
-                            {
-                                Debug.LogError("avatarUrl null");
-                            }
-                            UIRectTransform.SetPosY(this.data.avatarUrl.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                            deltaY += UIConstants.ItemHeight;
-                        }
-                        else
-                        {
-                            if (lbAvatarUrl != null)
-                            {
-                                lbAvatarUrl.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.LogError("avatarUrl null");
-                            }
-                        }
-                    }
+                    UIUtils.SetLabelContentPosition(lbAvatarUrl, this.data.avatarUrl.v, ref deltaY);
                     // set
                     UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                 }

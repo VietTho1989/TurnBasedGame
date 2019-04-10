@@ -221,89 +221,11 @@ namespace GameManager.Match
                             // header
                             UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                             // winScore
-                            {
-                                if (this.data.winScore.v != null)
-                                {
-                                    if (lbWinScore != null)
-                                    {
-                                        UIRectTransform.SetPosY(lbWinScore.rectTransform, deltaY);
-                                        lbWinScore.gameObject.SetActive(true);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbWinScore null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.winScore.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbWinScore != null)
-                                    {
-                                        lbWinScore.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbWinScore null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbWinScore, this.data.winScore.v, ref deltaY);
                             // loseScore
-                            {
-                                if (this.data.loseScore.v != null)
-                                {
-                                    if (lbLoseScore != null)
-                                    {
-                                        UIRectTransform.SetPosY(lbLoseScore.rectTransform, deltaY);
-                                        lbLoseScore.gameObject.SetActive(true);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbLoseScore null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.loseScore.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbLoseScore != null)
-                                    {
-                                        lbLoseScore.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbLoseScore null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbLoseScore, this.data.loseScore.v, ref deltaY);
                             // drawScore
-                            {
-                                if (this.data.drawScore.v != null)
-                                {
-                                    if (lbDrawScore != null)
-                                    {
-                                        UIRectTransform.SetPosY(lbDrawScore.rectTransform, deltaY);
-                                        lbDrawScore.gameObject.SetActive(true);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbDrawScore null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.drawScore.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbDrawScore != null)
-                                    {
-                                        lbDrawScore.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbDrawScore null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPosition(lbDrawScore, this.data.drawScore.v, ref deltaY);
                             // set
                             UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                         }

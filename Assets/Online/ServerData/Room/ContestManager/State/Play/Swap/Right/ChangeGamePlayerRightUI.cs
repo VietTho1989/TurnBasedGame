@@ -212,13 +212,6 @@ namespace GameManager.Match.Swap
                 txtNeedAdminAccept.add(Language.Type.vi, "Cần admin chấp nhận");
                 txtOnlyAdminNeed.add(Language.Type.vi, "Chỉ cần admin");
             }
-            // rect
-            {
-                canChangeRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                canChangePlayerLeftRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                needAdminAcceptRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-                onlyAdminNeedRect.setPosY(UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-            }
         }
 
         #endregion
@@ -256,6 +249,22 @@ namespace GameManager.Match.Swap
                             }
                             needReset = false;
                         }
+                    }
+                    // UI
+                    {
+                        float deltaY = 0;
+                        // header
+                        deltaY += UIConstants.HeaderHeight;
+                        // canChange
+                        UIUtils.SetLabelContentPosition(lbCanChange, this.data.canChange.v, ref deltaY);
+                        // canChangePlayerLeft
+                        UIUtils.SetLabelContentPosition(lbCanChangePlayerLeft, this.data.canChangePlayerLeft.v, ref deltaY);
+                        // needAdminAccept
+                        UIUtils.SetLabelContentPosition(lbNeedAdminAccept, this.data.needAdminAccept.v, ref deltaY);
+                        // onlyAdminNeed
+                        UIUtils.SetLabelContentPosition(lbOnlyAdminNeed, this.data.onlyAdminNeed.v, ref deltaY);
+                        // set height
+                        UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }
                     // txt
                     {
@@ -321,11 +330,6 @@ namespace GameManager.Match.Swap
         #endregion
 
         #region implement callBacks
-
-        private static readonly UIRectTransform canChangeRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        private static readonly UIRectTransform canChangePlayerLeftRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        private static readonly UIRectTransform needAdminAcceptRect = new UIRectTransform(UIConstants.RequestBoolRect);
-        private static readonly UIRectTransform onlyAdminNeedRect = new UIRectTransform(UIConstants.RequestBoolRect);
 
         public RequestChangeBoolUI requestBoolPrefab;
 
@@ -405,16 +409,16 @@ namespace GameManager.Match.Swap
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.canChange:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, canChangeRect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 case UIData.Property.canChangePlayerLeft:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, canChangePlayerLeftRect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 case UIData.Property.needAdminAccept:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, needAdminAcceptRect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 case UIData.Property.onlyAdminNeed:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, onlyAdminNeedRect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
