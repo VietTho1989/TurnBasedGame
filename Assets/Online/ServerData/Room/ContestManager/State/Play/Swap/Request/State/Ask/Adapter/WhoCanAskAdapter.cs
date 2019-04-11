@@ -8,260 +8,302 @@ using frame8.ScrollRectItemsAdapter.Util.Drawer;
 
 namespace GameManager.Match.Swap
 {
-	public class WhoCanAskAdapter : SRIA<WhoCanAskAdapter.UIData, WhoCanAskHolder.UIData>
-	{
+    public class WhoCanAskAdapter : SRIA<WhoCanAskAdapter.UIData, WhoCanAskHolder.UIData>
+    {
 
-		#region UIData
+        #region UIData
 
-		[Serializable]
-		public class UIData : BaseParams
-		{
+        [Serializable]
+        public class UIData : BaseParams
+        {
 
-			public VP<ReferenceData<SwapRequestStateAsk>> swapRequestStateAsk;
+            public VP<ReferenceData<SwapRequestStateAsk>> swapRequestStateAsk;
 
-			public LP<WhoCanAskHolder.UIData> holders;
+            public LP<WhoCanAskHolder.UIData> holders;
 
-			#region Constructor
+            #region Constructor
 
-			public enum Property
-			{
-				swapRequestStateAsk,
-				holders
-			}
+            public enum Property
+            {
+                swapRequestStateAsk,
+                holders
+            }
 
-			public UIData() : base()
-			{
-				this.swapRequestStateAsk = new VP<ReferenceData<SwapRequestStateAsk>>(this, (byte)Property.swapRequestStateAsk, new ReferenceData<SwapRequestStateAsk>(null));
-				this.holders = new LP<WhoCanAskHolder.UIData>(this, (byte)Property.holders);
-			}
+            public UIData() : base()
+            {
+                this.swapRequestStateAsk = new VP<ReferenceData<SwapRequestStateAsk>>(this, (byte)Property.swapRequestStateAsk, new ReferenceData<SwapRequestStateAsk>(null));
+                this.holders = new LP<WhoCanAskHolder.UIData>(this, (byte)Property.holders);
+            }
 
-			#endregion
+            #endregion
 
-			[NonSerialized]
-			public List<Human> humans = new List<Human>();
+            [NonSerialized]
+            public List<Human> humans = new List<Human>();
 
-			public void reset()
-			{
-				this.humans.Clear();
-			}
+            public void reset()
+            {
+                this.humans.Clear();
+            }
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		#region Adapter
+        #region Adapter
 
-		public WhoCanAskHolder holderPrefab;
+        public WhoCanAskHolder holderPrefab;
 
-		protected override WhoCanAskHolder.UIData CreateViewsHolder (int itemIndex)
-		{
-			WhoCanAskHolder.UIData uiData = new WhoCanAskHolder.UIData();
-			{
-				// add
-				{
-					uiData.uid = this.data.holders.makeId ();
-					this.data.holders.add (uiData);
-				}
-				// MakeUI
-				if (holderPrefab != null) {
-					uiData.Init (holderPrefab.gameObject, itemIndex);
-				} else {
-					Debug.LogError ("holderPrefab null: " + this);
-				}
-			}
-			return uiData;
-		}
+        protected override WhoCanAskHolder.UIData CreateViewsHolder(int itemIndex)
+        {
+            WhoCanAskHolder.UIData uiData = new WhoCanAskHolder.UIData();
+            {
+                // add
+                {
+                    uiData.uid = this.data.holders.makeId();
+                    this.data.holders.add(uiData);
+                }
+                // MakeUI
+                if (holderPrefab != null)
+                {
+                    uiData.Init(holderPrefab.gameObject, itemIndex);
+                }
+                else
+                {
+                    Debug.LogError("holderPrefab null: " + this);
+                }
+            }
+            return uiData;
+        }
 
-		protected override void UpdateViewsHolder (WhoCanAskHolder.UIData newOrRecycled)
-		{
-			newOrRecycled.updateView (_Params);
-		}
+        protected override void UpdateViewsHolder(WhoCanAskHolder.UIData newOrRecycled)
+        {
+            newOrRecycled.updateView(_Params);
+        }
 
-		#endregion
+        #endregion
 
-		#region Refresh
+        #region Refresh
 
-		public GameObject noHumans;
+        public GameObject noHumans;
 
-		public override void refresh ()
-		{
-			if (dirty) {
-				if (this.Initialized) {
-					dirty = false;
-					if (this.data != null) {
-						SwapRequestStateAsk swapRequestStateAsk = this.data.swapRequestStateAsk.v.data;
-						if (swapRequestStateAsk != null) {
-							List<Human> humans = new List<Human> ();
-							// get
-							{
-								humans.AddRange (swapRequestStateAsk.whoCanAsks.vs);
-							}
-							// Make list
-							{
-								int min = Mathf.Min (humans.Count, _Params.humans.Count);
-								// Update
-								{
-									for (int i = 0; i < min; i++) {
-										if (humans[i] != _Params.humans [i]) {
-											// change param
-											_Params.humans [i] = humans [i];
-											// Update holder
-											foreach (WhoCanAskHolder.UIData holder in this.data.holders.vs) {
-												if (holder.ItemIndex == i) {
-													holder.human.v = new ReferenceData<Human> (humans [i]);
-													break;
-												}
-											}
-										}
-									}
-								}
-								// Add or Remove
-								{
-									if (humans.Count > min) {
-										// Add
-										int insertCount = humans.Count - min;
-										List<Human> addItems = humans.GetRange (min, insertCount);
-										_Params.humans.AddRange (addItems);
-										InsertItems (min, insertCount, false, false);
-									} else {
-										// Remove
-										int deleteCount = _Params.humans.Count - min;
-										if (deleteCount > 0) {
-											RemoveItems (min, deleteCount, false, false);
-											_Params.humans.RemoveRange (min, deleteCount);
-										}
-									}
-								}
-							}
-							// NoHumans
-							{
-								if (noHumans != null) {
-									bool haveAny = false;
-									{
-										foreach (WhoCanAskHolder.UIData holder in this.data.holders.vs) {
-											if (holder.human.v.data != null) {
-												WhoCanAskHolder holderUI = holder.findCallBack<WhoCanAskHolder> ();
-												if (holderUI != null) {
-													if (holderUI.gameObject.activeSelf) {
-														haveAny = true;
-														break;
-													}
-												} else {
-													Debug.LogError ("holderUI null: " + this);
-												}
-											}
-										}
-									}
-									noHumans.SetActive (!haveAny);
-								} else {
-									Debug.LogError ("noHumans null: " + this);
-								}
-							}
-						} else {
-							Debug.LogError ("swapRequestStateAsk null: " + this);
-						}
-					} else {
-						Debug.LogError ("data null: " + this);
-					}
-				} else {
-					Debug.LogError ("not initalized: " + this);
-				}
-			}
-		}
+        public override void refresh()
+        {
+            if (dirty)
+            {
+                if (this.Initialized)
+                {
+                    dirty = false;
+                    if (this.data != null)
+                    {
+                        SwapRequestStateAsk swapRequestStateAsk = this.data.swapRequestStateAsk.v.data;
+                        if (swapRequestStateAsk != null)
+                        {
+                            List<Human> humans = new List<Human>();
+                            // get
+                            {
+                                humans.AddRange(swapRequestStateAsk.whoCanAsks.vs);
+                            }
+                            // Make list
+                            {
+                                int min = Mathf.Min(humans.Count, _Params.humans.Count);
+                                // Update
+                                {
+                                    for (int i = 0; i < min; i++)
+                                    {
+                                        if (humans[i] != _Params.humans[i])
+                                        {
+                                            // change param
+                                            _Params.humans[i] = humans[i];
+                                            // Update holder
+                                            foreach (WhoCanAskHolder.UIData holder in this.data.holders.vs)
+                                            {
+                                                if (holder.ItemIndex == i)
+                                                {
+                                                    holder.human.v = new ReferenceData<Human>(humans[i]);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                // Add or Remove
+                                {
+                                    if (humans.Count > min)
+                                    {
+                                        // Add
+                                        int insertCount = humans.Count - min;
+                                        List<Human> addItems = humans.GetRange(min, insertCount);
+                                        _Params.humans.AddRange(addItems);
+                                        InsertItems(min, insertCount, false, false);
+                                    }
+                                    else
+                                    {
+                                        // Remove
+                                        int deleteCount = _Params.humans.Count - min;
+                                        if (deleteCount > 0)
+                                        {
+                                            RemoveItems(min, deleteCount, false, false);
+                                            _Params.humans.RemoveRange(min, deleteCount);
+                                        }
+                                    }
+                                }
+                            }
+                            // NoHumans
+                            {
+                                if (noHumans != null)
+                                {
+                                    bool haveAny = false;
+                                    {
+                                        foreach (WhoCanAskHolder.UIData holder in this.data.holders.vs)
+                                        {
+                                            if (holder.human.v.data != null)
+                                            {
+                                                WhoCanAskHolder holderUI = holder.findCallBack<WhoCanAskHolder>();
+                                                if (holderUI != null)
+                                                {
+                                                    if (holderUI.gameObject.activeSelf)
+                                                    {
+                                                        haveAny = true;
+                                                        break;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError("holderUI null: " + this);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    noHumans.SetActive(!haveAny);
+                                }
+                                else
+                                {
+                                    Debug.LogError("noHumans null: " + this);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("swapRequestStateAsk null: " + this);
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("data null: " + this);
+                    }
+                }
+                else
+                {
+                    Debug.LogError("not initalized: " + this);
+                }
+            }
+        }
 
-		public override bool isShouldDisableUpdate ()
-		{
-			return true;
-		}
+        public override bool isShouldDisableUpdate()
+        {
+            return true;
+        }
 
-		#endregion
+        #endregion
 
-		#region implement callBacks
+        #region implement callBacks
 
-		public override void onAddCallBack<T> (T data)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Child
-				{
-					uiData.swapRequestStateAsk.allAddCallBack (this);
-				}
-				dirty = true;
-				return;
-			}
-			// Child
-			if (data is SwapRequestStateAsk) {
-				// reset
-				{
-					if (this.data != null) {
-						this.data.reset ();
-					} else {
-						Debug.LogError ("data null: " + this);
-					}
-				}
-				dirty = true;
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onAddCallBack<T>(T data)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Child
+                {
+                    uiData.swapRequestStateAsk.allAddCallBack(this);
+                }
+                dirty = true;
+                return;
+            }
+            // Child
+            if (data is SwapRequestStateAsk)
+            {
+                // reset
+                {
+                    if (this.data != null)
+                    {
+                        this.data.reset();
+                    }
+                    else
+                    {
+                        Debug.LogError("data null: " + this);
+                    }
+                }
+                dirty = true;
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onRemoveCallBack<T> (T data, bool isHide)
-		{
-			if (data is UIData) {
-				UIData uiData = data as UIData;
-				// Child
-				{
-					uiData.swapRequestStateAsk.allRemoveCallBack (this);
-				}
-				this.setDataNull (uiData);
-				return;
-			}
-			// Child
-			if (data is SwapRequestStateAsk) {
-				return;
-			}
-			Debug.LogError ("Don't process: " + data + "; " + this);
-		}
+        public override void onRemoveCallBack<T>(T data, bool isHide)
+        {
+            if (data is UIData)
+            {
+                UIData uiData = data as UIData;
+                // Child
+                {
+                    uiData.swapRequestStateAsk.allRemoveCallBack(this);
+                }
+                this.setDataNull(uiData);
+                return;
+            }
+            // Child
+            if (data is SwapRequestStateAsk)
+            {
+                return;
+            }
+            Debug.LogError("Don't process: " + data + "; " + this);
+        }
 
-		public override void onUpdateSync<T> (WrapProperty wrapProperty, List<Sync<T>> syncs)
-		{
-			if (WrapProperty.checkError (wrapProperty)) {
-				return;
-			}
-			if (wrapProperty.p is UIData) {
-				switch ((UIData.Property)wrapProperty.n) {
-				case UIData.Property.swapRequestStateAsk:
-					{
-						ValueChangeUtils.replaceCallBack (this, syncs);
-						dirty = true;
-					}
-					break;
-				case UIData.Property.holders:
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			// Child
-			if (wrapProperty.p is SwapRequestStateAsk) {
-				switch ((SwapRequestStateAsk.Property)wrapProperty.n) {
-				case SwapRequestStateAsk.Property.whoCanAsks:
-					dirty = true;
-					break;
-				case SwapRequestStateAsk.Property.accepts:
-					break;
-				default:
-					Debug.LogError ("Don't process: " + wrapProperty + "; " + this);
-					break;
-				}
-				return;
-			}
-			Debug.LogError ("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
-		}
+        public override void onUpdateSync<T>(WrapProperty wrapProperty, List<Sync<T>> syncs)
+        {
+            if (WrapProperty.checkError(wrapProperty))
+            {
+                return;
+            }
+            if (wrapProperty.p is UIData)
+            {
+                switch ((UIData.Property)wrapProperty.n)
+                {
+                    case UIData.Property.swapRequestStateAsk:
+                        {
+                            ValueChangeUtils.replaceCallBack(this, syncs);
+                            dirty = true;
+                        }
+                        break;
+                    case UIData.Property.holders:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Child
+            if (wrapProperty.p is SwapRequestStateAsk)
+            {
+                switch ((SwapRequestStateAsk.Property)wrapProperty.n)
+                {
+                    case SwapRequestStateAsk.Property.whoCanAsks:
+                        dirty = true;
+                        break;
+                    case SwapRequestStateAsk.Property.accepts:
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
+        }
 
-		#endregion
+        #endregion
 
-	}
+    }
 }

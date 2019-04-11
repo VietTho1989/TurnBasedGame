@@ -123,7 +123,9 @@ public class ChatMessage : Data
 
             UndoRedoRequest,
             RequestDraw,
-            GamePlayerState
+            GamePlayerState,
+            RequestChangeUseRule,
+            SwapPlayer
         }
 
         public abstract Type getType();

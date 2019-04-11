@@ -259,35 +259,41 @@ namespace GameManager.Match.Swap
                 // Process
                 if (correctInform)
                 {
-                    // make new request
-                    SwapRequest swapRequest = new SwapRequest();
+                    // message
                     {
-                        swapRequest.uid = this.swapRequests.makeId();
-                        // state
-                        {
-                            if (swapRequest.state.v is SwapRequestStateAsk)
-                            {
-                                SwapRequestStateAsk swapRequestStateAsk = swapRequest.state.v as SwapRequestStateAsk;
-                                swapRequestStateAsk.accepts.add(userId);
-                            }
-                            else
-                            {
-                                Debug.LogError("why not state ask: " + this);
-                            }
-                        }
-                        swapRequest.teamIndex.v = teamIndex;
-                        swapRequest.playerIndex.v = playerIndex;
-                        // inform
-                        {
-                            Human human = new Human();
-                            {
-                                human.uid = swapRequest.inform.makeId();
-                                human.playerId.v = newHumanId;
-                            }
-                            swapRequest.inform.v = human;
-                        }
+                        SwapPlayerMessage.Add(this, userId, SwapPlayerMessage.Action.Ask, teamIndex, playerIndex, GamePlayer.Inform.Type.Human, newHumanId);
                     }
-                    this.swapRequests.add(swapRequest);
+                    // make new request
+                    {
+                        SwapRequest swapRequest = new SwapRequest();
+                        {
+                            swapRequest.uid = this.swapRequests.makeId();
+                            // state
+                            {
+                                if (swapRequest.state.v is SwapRequestStateAsk)
+                                {
+                                    SwapRequestStateAsk swapRequestStateAsk = swapRequest.state.v as SwapRequestStateAsk;
+                                    swapRequestStateAsk.accepts.add(userId);
+                                }
+                                else
+                                {
+                                    Debug.LogError("why not state ask: " + this);
+                                }
+                            }
+                            swapRequest.teamIndex.v = teamIndex;
+                            swapRequest.playerIndex.v = playerIndex;
+                            // inform
+                            {
+                                Human human = new Human();
+                                {
+                                    human.uid = swapRequest.inform.makeId();
+                                    human.playerId.v = newHumanId;
+                                }
+                                swapRequest.inform.v = human;
+                            }
+                        }
+                        this.swapRequests.add(swapRequest);
+                    }
                 }
             }
             else
@@ -374,34 +380,40 @@ namespace GameManager.Match.Swap
                 // Process
                 if (correctInform)
                 {
-                    // make new request
-                    SwapRequest swapRequest = new SwapRequest();
+                    // message
                     {
-                        swapRequest.uid = this.swapRequests.makeId();
-                        // state
-                        {
-                            if (swapRequest.state.v is SwapRequestStateAsk)
-                            {
-                                SwapRequestStateAsk swapRequestStateAsk = swapRequest.state.v as SwapRequestStateAsk;
-                                swapRequestStateAsk.accepts.add(userId);
-                            }
-                            else
-                            {
-                                Debug.LogError("why not state ask: " + this);
-                            }
-                        }
-                        swapRequest.teamIndex.v = teamIndex;
-                        swapRequest.playerIndex.v = playerIndex;
-                        // inform
-                        {
-                            Computer computer = DataUtils.cloneData(newComputer) as Computer;
-                            {
-                                computer.uid = swapRequest.inform.makeId();
-                            }
-                            swapRequest.inform.v = computer;
-                        }
+                        SwapPlayerMessage.Add(this, userId, SwapPlayerMessage.Action.Ask, teamIndex, playerIndex, GamePlayer.Inform.Type.Computer, 0);
                     }
-                    this.swapRequests.add(swapRequest);
+                    // make new request
+                    {
+                        SwapRequest swapRequest = new SwapRequest();
+                        {
+                            swapRequest.uid = this.swapRequests.makeId();
+                            // state
+                            {
+                                if (swapRequest.state.v is SwapRequestStateAsk)
+                                {
+                                    SwapRequestStateAsk swapRequestStateAsk = swapRequest.state.v as SwapRequestStateAsk;
+                                    swapRequestStateAsk.accepts.add(userId);
+                                }
+                                else
+                                {
+                                    Debug.LogError("why not state ask: " + this);
+                                }
+                            }
+                            swapRequest.teamIndex.v = teamIndex;
+                            swapRequest.playerIndex.v = playerIndex;
+                            // inform
+                            {
+                                Computer computer = DataUtils.cloneData(newComputer) as Computer;
+                                {
+                                    computer.uid = swapRequest.inform.makeId();
+                                }
+                                swapRequest.inform.v = computer;
+                            }
+                        }
+                        this.swapRequests.add(swapRequest);
+                    }
                 }
             }
             else

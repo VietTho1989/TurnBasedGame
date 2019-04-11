@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.IO;
 using FileSystem;
-using Chess.NoneRule;
+using GameManager.Match.Swap;
 
 public class GlobalInit : MonoBehaviour
 {
@@ -18,7 +18,7 @@ public class GlobalInit : MonoBehaviour
 
         // MakeIdentity
         {
-            // DataMakeIdentityUtils.makeIdentity(typeof(ChessCustomFen));
+            // DataMakeIdentityUtils.makeIdentity(typeof(SwapPlayerMessage));
         }
 
         // Set AssetManager

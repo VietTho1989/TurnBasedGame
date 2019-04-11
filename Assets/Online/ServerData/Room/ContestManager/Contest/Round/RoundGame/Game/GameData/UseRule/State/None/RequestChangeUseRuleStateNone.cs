@@ -93,6 +93,9 @@ public class RequestChangeUseRuleStateNone : RequestChangeUseRule.State
             RequestChangeUseRule requestChangeUseRule = this.findDataInParent<RequestChangeUseRule>();
             if (requestChangeUseRule != null)
             {
+                // message
+                RequestChangeUseRuleMessage.Add(this, userId, RequestChangeUseRuleMessage.Action.Ask);
+                // make state
                 RequestChangeUseRuleStateAsk ask = new RequestChangeUseRuleStateAsk();
                 {
                     ask.uid = requestChangeUseRule.state.makeId();

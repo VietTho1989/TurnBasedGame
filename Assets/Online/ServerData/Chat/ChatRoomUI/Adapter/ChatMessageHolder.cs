@@ -4,6 +4,7 @@ using frame8.Logic.Misc.Visual.UI.ScrollRectItemsAdapter;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using GameManager.Match.Swap;
 
 public class ChatMessageHolder : SriaHolderBehavior<ChatMessageHolder.UIData>
 {
@@ -171,6 +172,28 @@ public class ChatMessageHolder : SriaHolderBehavior<ChatMessageHolder.UIData>
                                     this.data.sub.v = gamePlayerStateMessageUIData;
                                 }
                                 break;
+                            case ChatMessage.Content.Type.RequestChangeUseRule:
+                                {
+                                    RequestChangeUseRuleMessage requestChangeUseRuleMessage = content as RequestChangeUseRuleMessage;
+                                    // UIData
+                                    RequestChangeUseRuleMessageUI.UIData requestChangeUseRuleMessageUIData = this.data.sub.newOrOld<RequestChangeUseRuleMessageUI.UIData>();
+                                    {
+                                        requestChangeUseRuleMessageUIData.requestChangeUseRuleMessage.v = new ReferenceData<RequestChangeUseRuleMessage>(requestChangeUseRuleMessage);
+                                    }
+                                    this.data.sub.v = requestChangeUseRuleMessageUIData;
+                                }
+                                break;
+                            case ChatMessage.Content.Type.SwapPlayer:
+                                {
+                                    SwapPlayerMessage swapPlayerMessage = content as SwapPlayerMessage;
+                                    // UIData
+                                    SwapPlayerMessageUI.UIData swapPlayerMessageUIData = this.data.sub.newOrOld<SwapPlayerMessageUI.UIData>();
+                                    {
+                                        swapPlayerMessageUIData.swapPlayerMessage.v = new ReferenceData<SwapPlayerMessage>(swapPlayerMessage);
+                                    }
+                                    this.data.sub.v = swapPlayerMessageUIData;
+                                }
+                                break;
                             default:
                                 Debug.LogError("unknown type: " + chatMessage.content.v.getType() + "; " + this);
                                 break;
@@ -205,6 +228,8 @@ public class ChatMessageHolder : SriaHolderBehavior<ChatMessageHolder.UIData>
     public UndoRedoRequestMessageUI undoRedoRequestMessagePrefab;
     public RequestDrawMessageUI requestDrawMessagePrefab;
     public GamePlayerStateMessageUI gamePlayerStateMessagePrefab;
+    public RequestChangeUseRuleMessageUI requestChangeUseRuleMessagePrefab;
+    public SwapPlayerMessageUI swapPlayerMessagePrefab;
 
     public override void onAddCallBack<T>(T data)
     {
@@ -279,6 +304,18 @@ public class ChatMessageHolder : SriaHolderBehavior<ChatMessageHolder.UIData>
                             {
                                 GamePlayerStateMessageUI.UIData gamePlayerStateMessageUIData = sub as GamePlayerStateMessageUI.UIData;
                                 UIUtils.Instantiate(gamePlayerStateMessageUIData, gamePlayerStateMessagePrefab, this.transform);
+                            }
+                            break;
+                        case ChatMessage.Content.Type.RequestChangeUseRule:
+                            {
+                                RequestChangeUseRuleMessageUI.UIData requestChangeUseRuleMessageUIData = sub as RequestChangeUseRuleMessageUI.UIData;
+                                UIUtils.Instantiate(requestChangeUseRuleMessageUIData, requestChangeUseRuleMessagePrefab, this.transform);
+                            }
+                            break;
+                        case ChatMessage.Content.Type.SwapPlayer:
+                            {
+                                SwapPlayerMessageUI.UIData swapPlayerMessageUIData = sub as SwapPlayerMessageUI.UIData;
+                                UIUtils.Instantiate(swapPlayerMessageUIData, swapPlayerMessagePrefab, this.transform);
                             }
                             break;
                         default:
@@ -365,6 +402,18 @@ public class ChatMessageHolder : SriaHolderBehavior<ChatMessageHolder.UIData>
                             {
                                 GamePlayerStateMessageUI.UIData gamePlayerStateMessageUIData = sub as GamePlayerStateMessageUI.UIData;
                                 gamePlayerStateMessageUIData.removeCallBackAndDestroy(typeof(GamePlayerStateMessageUI));
+                            }
+                            break;
+                        case ChatMessage.Content.Type.RequestChangeUseRule:
+                            {
+                                RequestChangeUseRuleMessageUI.UIData requestChangeUseRuleMessageUIData = sub as RequestChangeUseRuleMessageUI.UIData;
+                                requestChangeUseRuleMessageUIData.removeCallBackAndDestroy(typeof(RequestChangeUseRuleMessageUI));
+                            }
+                            break;
+                        case ChatMessage.Content.Type.SwapPlayer:
+                            {
+                                SwapPlayerMessageUI.UIData swapPlayerMessageUIData = sub as SwapPlayerMessageUI.UIData;
+                                swapPlayerMessageUIData.removeCallBackAndDestroy(typeof(SwapPlayerMessageUI));
                             }
                             break;
                         default:

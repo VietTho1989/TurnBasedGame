@@ -276,6 +276,35 @@ namespace GameManager.Match.Swap
             }
             if (canAccept)
             {
+                // message
+                {
+                    // get inform
+                    int teamIndex = 0;
+                    int playerIndex = 0;
+                    GamePlayer.Inform.Type type = GamePlayer.Inform.Type.Human;
+                    uint humanId = 0;
+                    {
+                        SwapRequest swapRequest = this.findDataInParent<SwapRequest>();
+                        if (swapRequest != null)
+                        {
+                            teamIndex = swapRequest.teamIndex.v;
+                            playerIndex = swapRequest.playerIndex.v;
+                            type = swapRequest.inform.v.getType();
+                            if (type == GamePlayer.Inform.Type.Human)
+                            {
+                                Human human = swapRequest.inform.v as Human;
+                                humanId = human.playerId.v;
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("swapRequest null");
+                        }
+                    }
+                    // add
+                    SwapPlayerMessage.Add(this, userId, SwapPlayerMessage.Action.Accept, teamIndex, playerIndex, type, humanId);
+                }
+                // state
                 this.accepts.add(userId);
             }
         }
@@ -350,6 +379,27 @@ namespace GameManager.Match.Swap
                 SwapRequest swapRequest = this.findDataInParent<SwapRequest>();
                 if (swapRequest != null)
                 {
+                    // message
+                    {
+                        // get inform
+                        int teamIndex = 0;
+                        int playerIndex = 0;
+                        GamePlayer.Inform.Type type = GamePlayer.Inform.Type.Human;
+                        uint humanId = 0;
+                        {
+                            teamIndex = swapRequest.teamIndex.v;
+                            playerIndex = swapRequest.playerIndex.v;
+                            type = swapRequest.inform.v.getType();
+                            if (type == GamePlayer.Inform.Type.Human)
+                            {
+                                Human human = swapRequest.inform.v as Human;
+                                humanId = human.playerId.v;
+                            }
+                        }
+                        // add
+                        SwapPlayerMessage.Add(this, userId, SwapPlayerMessage.Action.Refuse, teamIndex, playerIndex, type, humanId);
+                    }
+                    // state
                     SwapRequestStateCancel swapRequestStateCancel = new SwapRequestStateCancel();
                     {
                         swapRequestStateCancel.uid = swapRequest.state.makeId();
