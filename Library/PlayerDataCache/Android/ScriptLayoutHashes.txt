@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-/Users/viettho/Desktop/NewProject/TurnbaseGame/HundredGamesMaster.apk
+/Users/viettho/Desktop/NewProject/TurnbaseGame/Three
 SceneListBegin?
 Assets/Main/MainScene.unity
 SceneListEnd?

@@ -76,7 +76,7 @@ android {
         targetSdkVersion 28
         applicationId 'com.doanviettho.hundredgamesmaster'
         ndk {
-            abiFilters 'armeabi-v7a', 'x86'
+            abiFilters 
         }
         versionCode 1
         versionName '1.0'
@@ -107,7 +107,17 @@ android {
 
     packagingOptions {
         doNotStrip '*/armeabi-v7a/*.so'
+        doNotStrip '*/arm64-v8a/*.so'
         doNotStrip '*/x86/*.so'
+    }
+
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'armeabi-v7a', 'arm64-v8a', 'x86'
+            universalApk false
+        }
     }
 
     bundle {
@@ -119,6 +129,19 @@ android {
         }
         abi {
             enableSplit = true
+        }
+    }
+}
+
+ext.abiCodes = ['armeabi-v7a': 1, 'arm64-v8a': 2, 'x86': 3]
+
+import com.android.build.OutputFile
+
+android.applicationVariants.all { variant ->
+    variant.outputs.each { output ->
+        def baseAbiVersionCode = project.ext.abiCodes.get(output.getFilter(OutputFile.ABI))
+        if (baseAbiVersionCode != null) {
+            output.versionCodeOverride = baseAbiVersionCode * 100000 + variant.versionCode
         }
     }
 }
