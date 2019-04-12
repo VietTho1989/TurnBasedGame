@@ -124,6 +124,8 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
 
     #region refresh
 
+    public Button btnBack;
+
     public override void refresh()
     {
         if (dirty)
@@ -131,6 +133,10 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
             dirty = false;
             if (this.data != null)
             {
+                // btnBack
+                {
+                    UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                }
                 // btnViewAds
                 {
                     if (btnViewAds != null)
@@ -382,10 +388,16 @@ public class HomeUI : UIBehavior<HomeUI.UIData>
                 case Setting.Property.style:
                     break;
                 case Setting.Property.contentTextSize:
+                    dirty = true;
                     break;
                 case Setting.Property.titleTextSize:
+                    dirty = true;
                     break;
                 case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
+                    dirty = true;
                     break;
                 case Setting.Property.showLastMove:
                     break;

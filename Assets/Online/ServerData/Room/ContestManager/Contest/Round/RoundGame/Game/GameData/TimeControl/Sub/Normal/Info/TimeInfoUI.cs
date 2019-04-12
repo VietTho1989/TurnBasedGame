@@ -397,34 +397,7 @@ namespace TimeControl.Normal
                                 float bgY = deltaY;
                                 float bgHeight = 0;
                                 // type
-                                {
-                                    if (this.data.totalTimeType.v != null)
-                                    {
-                                        UIRectTransform.SetPosY(this.data.totalTimeType.v, UIConstants.RequestEnumRect, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2);
-                                        if (lbTotalTimeType != null)
-                                        {
-                                            lbTotalTimeType.gameObject.SetActive(true);
-                                            UIRectTransform.SetPosY((RectTransform)lbTotalTimeType.transform, deltaY);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("lbTotalTimeType null: " + this);
-                                        }
-                                        bgHeight += UIConstants.ItemHeight;
-                                        deltaY += UIConstants.ItemHeight;
-                                    }
-                                    else
-                                    {
-                                        if (lbTotalTimeType != null)
-                                        {
-                                            lbTotalTimeType.gameObject.SetActive(false);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("lbTotalTimeType null");
-                                        }
-                                    }
-                                }
+                                UIUtils.SetLabelContentPositionBg(lbTotalTimeType, this.data.totalTimeType.v, ref deltaY, ref bgHeight);
                                 // UI
                                 {
                                     float height = UIRectTransform.SetPosY(this.data.totalTime.v, deltaY);
@@ -447,34 +420,7 @@ namespace TimeControl.Normal
                                 float bgY = deltaY;
                                 float bgHeight = 0;
                                 // Type
-                                {
-                                    if (this.data.overTimePerTurnType.v != null)
-                                    {
-                                        UIRectTransform.SetPosY(this.data.overTimePerTurnType.v, UIConstants.RequestEnumRect, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2);
-                                        if (lbOverTimePerTurnType != null)
-                                        {
-                                            lbOverTimePerTurnType.gameObject.SetActive(true);
-                                            UIRectTransform.SetPosY((RectTransform)lbOverTimePerTurnType.transform, deltaY);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("lbOverTimePerTurnType null: " + this);
-                                        }
-                                        bgHeight += UIConstants.ItemHeight;
-                                        deltaY += UIConstants.ItemHeight;
-                                    }
-                                    else
-                                    {
-                                        if (lbOverTimePerTurnType != null)
-                                        {
-                                            lbOverTimePerTurnType.gameObject.SetActive(false);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("lbOverTimePerTurnType null");
-                                        }
-                                    }
-                                }
+                                UIUtils.SetLabelContentPositionBg(lbOverTimePerTurnType, this.data.overTimePerTurnType.v, ref deltaY, ref bgHeight);
                                 // UI
                                 {
                                     float height = UIRectTransform.SetPosY(this.data.overTimePerTurn.v, deltaY);
@@ -651,13 +597,13 @@ namespace TimeControl.Normal
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.timePerTurnType:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform);
+                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 case UIData.Property.totalTimeType:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform);
+                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 case UIData.Property.overTimePerTurnType:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform);
+                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -739,7 +685,7 @@ namespace TimeControl.Normal
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.lagCompensation:
-                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform);
+                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -950,6 +896,8 @@ namespace TimeControl.Normal
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.style:
+                        break;
                     case Setting.Property.contentTextSize:
                         dirty = true;
                         break;
@@ -957,6 +905,9 @@ namespace TimeControl.Normal
                         dirty = true;
                         break;
                     case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

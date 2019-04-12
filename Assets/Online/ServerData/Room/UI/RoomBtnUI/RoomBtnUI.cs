@@ -172,6 +172,13 @@ namespace GameManager.Match
                         // btnBack
                         UIRectTransform.SetSiblingIndex(this.data.btnBack.v, 0);
                     }
+                    // UI
+                    {
+                        // btnBack
+                        {
+                            // TODO Can hoan thien
+                        }
+                    }
                 }
                 else
                 {
@@ -513,6 +520,18 @@ namespace GameManager.Match
                         dirty = true;
                         break;
                     case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
+                        dirty = true;
                         break;
                     case Setting.Property.showLastMove:
                         break;

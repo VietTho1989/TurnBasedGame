@@ -148,13 +148,13 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
     public Text tvReset;
 
     public RectTransform settingUIScrollView;
-    private static readonly UIRectTransform scrollRectImmediately = UIRectTransform.CreateFullRect(0, 0, UIConstants.HeaderHeight, 0);
-    private static readonly UIRectTransform scrollRectLater = UIRectTransform.CreateFullRect(0, 0, UIConstants.HeaderHeight, UIConstants.ItemHeight);
 
     public GameObject refreshContainer;
 
     public ScrollRect settingScrollRect;
     private bool firstInit = false;
+
+    public Button btnBack;
 
     public override void refresh()
     {
@@ -199,150 +199,169 @@ public class ShowSettingUI : UIBehavior<ShowSettingUI.UIData>
                         Debug.LogError("settingUIData null: " + this);
                     }
                 }
-                // btn
+                // UI
                 {
-                    EditData<Setting> editSetting = this.data.settingUIData.v.editSetting.v;
-                    if (editSetting != null)
+                    // btnBack
+                    UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                    // title
+                    if (tvSetting != null)
                     {
-                        // editType
+                        UIRectTransform.SetHeight(tvSetting.rectTransform, Setting.get().getButtonSize());
+                    }
+                    else
+                    {
+                        Debug.LogError("tvSetting null");
+                    }
+                    // requestEditType
+                    {
+                        requestEditTypeRect.sizeDelta = new Vector2(requestEditTypeRect.sizeDelta.x, Setting.get().getButtonSize());
+                        UIRectTransform.Set(this.data.requestEditType.v, requestEditTypeRect);
+                    }
+                    // btn
+                    {
+                        EditData<Setting> editSetting = this.data.settingUIData.v.editSetting.v;
+                        if (editSetting != null)
                         {
-                            RequestChangeEnumUI.UIData requestEditType = this.data.requestEditType.v;
-                            if (requestEditType != null)
+                            // editType
                             {
-                                // options
+                                RequestChangeEnumUI.UIData requestEditType = this.data.requestEditType.v;
+                                if (requestEditType != null)
                                 {
-                                    Data.RefreshStrEditType(requestEditType);
-                                }
-                                // origin
-                                RequestChangeUpdate<int>.UpdateData updateData = requestEditType.updateData.v;
-                                if (updateData != null)
-                                {
-                                    updateData.canRequestChange.v = true;
-                                    updateData.origin.v = (int)editSetting.editType.v;
+                                    // options
+                                    {
+                                        Data.RefreshStrEditType(requestEditType);
+                                    }
+                                    // origin
+                                    RequestChangeUpdate<int>.UpdateData updateData = requestEditType.updateData.v;
+                                    if (updateData != null)
+                                    {
+                                        updateData.canRequestChange.v = true;
+                                        updateData.origin.v = (int)editSetting.editType.v;
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("updateData null: " + this);
+                                    }
                                 }
                                 else
                                 {
-                                    Debug.LogError("updateData null: " + this);
+                                    Debug.LogError("requestEditType null");
                                 }
                             }
-                            else
+                            // scrollRect
                             {
-                                Debug.LogError("requestEditType null");
+                                if (settingUIScrollView != null)
+                                {
+                                    switch (editSetting.editType.v)
+                                    {
+                                        case Data.EditType.Immediate:
+                                            {
+                                                UIRectTransform.CreateFullRect(0, 0, Setting.get().getButtonSize(), 0).set(settingUIScrollView);
+                                            }
+                                            break;
+                                        case Data.EditType.Later:
+                                            {
+                                                UIRectTransform.CreateFullRect(0, 0, Setting.get().getButtonSize(), UIConstants.ItemHeight).set(settingUIScrollView);
+                                            }
+                                            break;
+                                        default:
+                                            Debug.LogError("unknown editType: " + editSetting.editType.v);
+                                            break;
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.LogError("settingUIScrollView null");
+                                }
                             }
-                        }
-                        // scrollRect
-                        {
-                            if (settingUIScrollView != null)
+                            // btn
+                            if (btnApply != null && tvApply != null && btnReset != null && tvReset != null)
                             {
                                 switch (editSetting.editType.v)
                                 {
-                                    case Data.EditType.Immediate:
+                                    case EditData<Setting>.EditType.Immediate:
                                         {
-                                            scrollRectImmediately.set(settingUIScrollView);
+                                            editSetting.compare.v = new ReferenceData<Setting>(null);
+                                            btnApply.gameObject.SetActive(false);
+                                            btnReset.gameObject.SetActive(false);
                                         }
                                         break;
-                                    case Data.EditType.Later:
+                                    case EditData<Setting>.EditType.Later:
                                         {
-                                            scrollRectLater.set(settingUIScrollView);
-                                        }
-                                        break;
-                                    default:
-                                        Debug.LogError("unknown editType: " + editSetting.editType.v);
-                                        break;
-                                }
-                            }
-                            else
-                            {
-                                Debug.LogError("settingUIScrollView null");
-                            }
-                        }
-                        // btn
-                        if (btnApply != null && tvApply != null && btnReset != null && tvReset != null)
-                        {
-                            switch (editSetting.editType.v)
-                            {
-                                case EditData<Setting>.EditType.Immediate:
-                                    {
-                                        editSetting.compare.v = new ReferenceData<Setting>(null);
-                                        btnApply.gameObject.SetActive(false);
-                                        btnReset.gameObject.SetActive(false);
-                                    }
-                                    break;
-                                case EditData<Setting>.EditType.Later:
-                                    {
-                                        // compare
-                                        {
-                                            editSetting.compare.v = new ReferenceData<Setting>(editSetting.origin.v.data);
-                                        }
-                                        btnApply.gameObject.SetActive(true);
-                                        btnReset.gameObject.SetActive(true);
-                                        // check is different
-                                        bool isDifferent = false;
-                                        {
-                                            Setting origin = editSetting.origin.v.data;
-                                            Setting show = editSetting.show.v.data;
-                                            if (origin != null && show != null)
+                                            // compare
                                             {
-                                                if (origin != show)
+                                                editSetting.compare.v = new ReferenceData<Setting>(editSetting.origin.v.data);
+                                            }
+                                            btnApply.gameObject.SetActive(true);
+                                            btnReset.gameObject.SetActive(true);
+                                            // check is different
+                                            bool isDifferent = false;
+                                            {
+                                                Setting origin = editSetting.origin.v.data;
+                                                Setting show = editSetting.show.v.data;
+                                                if (origin != null && show != null)
                                                 {
-                                                    if (DataUtils.IsDifferent(origin, show))
+                                                    if (origin != show)
                                                     {
-                                                        isDifferent = true;
+                                                        if (DataUtils.IsDifferent(origin, show))
+                                                        {
+                                                            isDifferent = true;
+                                                        }
+                                                        // Debug.LogError ("find different: " + isDifferent);
                                                     }
-                                                    // Debug.LogError ("find different: " + isDifferent);
+                                                    else
+                                                    {
+                                                        Debug.LogError("the same: " + this);
+                                                    }
                                                 }
                                                 else
                                                 {
-                                                    Debug.LogError("the same: " + this);
+                                                    Debug.LogError("origin, show null: " + this);
+                                                }
+                                            }
+                                            // process
+                                            if (isDifferent)
+                                            {
+                                                // apply
+                                                {
+                                                    btnApply.interactable = true;
+                                                    tvApply.text = txtApply.get();
+                                                }
+                                                // reset
+                                                {
+                                                    btnReset.interactable = true;
+                                                    tvReset.text = txtReset.get();
                                                 }
                                             }
                                             else
                                             {
-                                                Debug.LogError("origin, show null: " + this);
+                                                // apply
+                                                {
+                                                    btnApply.interactable = false;
+                                                    tvApply.text = txtCannotApply.get();
+                                                }
+                                                // reset
+                                                {
+                                                    btnReset.interactable = false;
+                                                    tvReset.text = txtCannotReset.get();
+                                                }
                                             }
                                         }
-                                        // process
-                                        if (isDifferent)
-                                        {
-                                            // apply
-                                            {
-                                                btnApply.interactable = true;
-                                                tvApply.text = txtApply.get();
-                                            }
-                                            // reset
-                                            {
-                                                btnReset.interactable = true;
-                                                tvReset.text = txtReset.get();
-                                            }
-                                        }
-                                        else
-                                        {
-                                            // apply
-                                            {
-                                                btnApply.interactable = false;
-                                                tvApply.text = txtCannotApply.get();
-                                            }
-                                            // reset
-                                            {
-                                                btnReset.interactable = false;
-                                                tvReset.text = txtCannotReset.get();
-                                            }
-                                        }
-                                    }
-                                    break;
-                                default:
-                                    Debug.LogError("unknown editType: " + editSetting.editType.v + "; " + this);
-                                    break;
+                                        break;
+                                    default:
+                                        Debug.LogError("unknown editType: " + editSetting.editType.v + "; " + this);
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("btn null: " + this);
                             }
                         }
                         else
                         {
-                            Debug.LogError("btn null: " + this);
+                            Debug.LogError("editSetting null");
                         }
-                    }
-                    else
-                    {
-                        Debug.LogError("editSetting null");
                     }
                 }
                 // adsManager

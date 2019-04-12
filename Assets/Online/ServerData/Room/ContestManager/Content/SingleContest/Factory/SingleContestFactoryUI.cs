@@ -693,7 +693,9 @@ namespace GameManager.Match
                     }
                     // UISize
                     {
-                        float deltaY = UIConstants.HeaderHeight;
+                        float deltaY = 0;
+                        // header
+                        UIUtils.SetHeaderPosition(lbTitle, UIRectTransform.ShowType.Normal, ref deltaY);
                         // playerPerTeam
                         UIUtils.SetLabelContentPosition(lbPlayerPerTeam, this.data.playerPerTeam.v, ref deltaY);
                         // roundFactory
@@ -701,34 +703,7 @@ namespace GameManager.Match
                             float bgY = deltaY;
                             float bgHeight = 0;
                             // type
-                            {
-                                if (this.data.roundFactoryType.v != null)
-                                {
-                                    if (lbRoundFactoryType != null)
-                                    {
-                                        lbRoundFactoryType.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY((RectTransform)lbRoundFactoryType.transform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbRoundFactoryType null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.roundFactoryType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                                    bgHeight += UIConstants.ItemHeight;
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbRoundFactoryType != null)
-                                    {
-                                        lbRoundFactoryType.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbRoundFactoryType null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPositionBg(lbRoundFactoryType, this.data.roundFactoryType.v, ref deltaY, ref bgHeight);
                             // UI
                             {
                                 float roundFactoryHeight = UIRectTransform.SetPosY(this.data.roundFactoryUI.v, deltaY);
@@ -925,14 +900,6 @@ namespace GameManager.Match
         public CalculateScoreSumUI calculateScoreSumPrefab;
         public CalculateScoreWinLoseDrawUI calculateScoreWinLoseDrawPrefab;
 
-        private static readonly UIRectTransform playerPerTeamRect = new UIRectTransform(UIConstants.RequestRect);
-
-        private static readonly UIRectTransform roundFactoryTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
-
-        private static readonly UIRectTransform newRoundLimitTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
-
-        private static readonly UIRectTransform calculateScoreTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
-
         private Server server = null;
 
         public override void onAddCallBack<T>(T data)
@@ -1021,7 +988,7 @@ namespace GameManager.Match
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.playerPerTeam:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, playerPerTeamRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -1048,13 +1015,13 @@ namespace GameManager.Match
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.roundFactoryType:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, roundFactoryTypeRect);
+                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 case UIData.Property.newRoundLimitType:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, newRoundLimitTypeRect);
+                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 case UIData.Property.calculateScoreType:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, calculateScoreTypeRect);
+                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -1425,6 +1392,8 @@ namespace GameManager.Match
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.style:
+                        break;
                     case Setting.Property.contentTextSize:
                         dirty = true;
                         break;
@@ -1432,6 +1401,9 @@ namespace GameManager.Match
                         dirty = true;
                         break;
                     case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

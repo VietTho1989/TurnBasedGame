@@ -87,6 +87,8 @@ public class MenuOnlineUI : UIBehavior<MenuOnlineUI.UIData>
 
     #region Refresh
 
+    public Button btnBack;
+
     public override void refresh()
     {
         if (dirty)
@@ -94,11 +96,17 @@ public class MenuOnlineUI : UIBehavior<MenuOnlineUI.UIData>
             dirty = false;
             if (this.data != null)
             {
+                // UI
+                {
+                    UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                    UIRectTransform.SetTitleTransform(lbTitle);
+                }
                 // txt
                 {
                     if (lbTitle != null)
                     {
                         lbTitle.text = txtTitle.get();
+                        Setting.get().setTitleTextSize(lbTitle);
                     }
                     else
                     {
@@ -143,9 +151,7 @@ public class MenuOnlineUI : UIBehavior<MenuOnlineUI.UIData>
         if (data is MenuOnlineUI.UIData)
         {
             // Setting
-            {
-                Setting.get().addCallBack(this);
-            }
+            Setting.get().addCallBack(this);
             dirty = true;
             return;
         }
@@ -202,6 +208,20 @@ public class MenuOnlineUI : UIBehavior<MenuOnlineUI.UIData>
             switch ((Setting.Property)wrapProperty.n)
             {
                 case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
                     dirty = true;
                     break;
                 case Setting.Property.showLastMove:

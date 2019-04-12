@@ -110,7 +110,9 @@ namespace Rights
                     }
                     // UISize
                     {
-                        float deltaY = UIConstants.HeaderHeight;
+                        float deltaY = 0;
+                        // header
+                        UIUtils.SetHeaderPosition(lbTitle, UIRectTransform.ShowType.Normal, ref deltaY);
                         // undoRedoRight
                         {
                             float bgY = deltaY;
@@ -484,6 +486,9 @@ namespace Rights
                         dirty = true;
                         break;
                     case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

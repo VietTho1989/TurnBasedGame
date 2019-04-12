@@ -147,14 +147,10 @@ public class MainUI : UIBehavior<MainUI.UIData>
 
     #region txt
 
-    public Text tvSetting;
-    private static readonly TxtLanguage txtSetting = new TxtLanguage("Setting");
-    private static readonly TxtLanguage txtHideSetting = new TxtLanguage("Hide Setting");
 
     static MainUI()
     {
-        txtSetting.add(Language.Type.vi, "Thiết Lập");
-        txtHideSetting.add(Language.Type.vi, "Giấu Thiết Lập");
+
     }
 
     #endregion
@@ -168,20 +164,6 @@ public class MainUI : UIBehavior<MainUI.UIData>
             dirty = false;
             if (this.data != null)
             {
-                // tvSetting
-                {
-                    if (tvSetting != null)
-                    {
-                        // tvSetting.text = (this.data.showSettingUIData.v == null) ? 
-                        //	txtSetting.get ("Setting")
-                        //	: txtHideSetting.get ("Hide Setting");
-                        tvSetting.text = "";
-                    }
-                    else
-                    {
-                        Debug.LogError("tvSetting null: " + this);
-                    }
-                }
                 // UI Sibling
                 {
                     int siblingIndex = 0;
@@ -504,6 +486,18 @@ public class MainUI : UIBehavior<MainUI.UIData>
                     dirty = true;
                     break;
                 case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
+                    dirty = true;
                     break;
                 case Setting.Property.showLastMove:
                     break;

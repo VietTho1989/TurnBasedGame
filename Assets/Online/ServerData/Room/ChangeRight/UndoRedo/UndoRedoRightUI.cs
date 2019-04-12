@@ -350,7 +350,9 @@ namespace Rights
                     }
                     // UI Size
                     {
-                        float deltaY = UIConstants.HeaderHeight;
+                        float deltaY = 0;
+                        // header
+                        UIUtils.SetHeaderPosition(lbTitle, UIRectTransform.ShowType.Normal, ref deltaY);
                         // needAccept
                         UIUtils.SetLabelContentPosition(lbNeedAccept, this.data.needAccept.v, ref deltaY);
                         // needAdmin
@@ -758,6 +760,8 @@ namespace Rights
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.style:
+                        break;
                     case Setting.Property.contentTextSize:
                         dirty = true;
                         break;
@@ -765,6 +769,9 @@ namespace Rights
                         dirty = true;
                         break;
                     case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

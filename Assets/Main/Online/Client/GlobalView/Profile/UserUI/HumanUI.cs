@@ -556,14 +556,6 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
     public RequestChangeEnumUI requestEnumPrefab;
     public BanUI banPrefab;
 
-    private static readonly UIRectTransform playerIdRect = new UIRectTransform(UIConstants.RequestRect);
-    // public Transform accountContainer;
-    private static readonly UIRectTransform emailRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform phoneNumberRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform statusRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform birthdayRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform sexRect = new UIRectTransform(UIConstants.RequestEnumRect);
-
     private Server server = null;
 
     public override void onAddCallBack<T>(T data)
@@ -644,7 +636,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.playerId:
-                                UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, playerIdRect);
+                                UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -671,16 +663,16 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.email:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, emailRect);
+                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.phoneNumber:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, phoneNumberRect);
+                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.status:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, statusRect);
+                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.birthday:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, birthdayRect);
+                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -707,7 +699,7 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.sex:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, sexRect);
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -971,6 +963,8 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                 case Setting.Property.language:
                     dirty = true;
                     break;
+                case Setting.Property.style:
+                    break;
                 case Setting.Property.contentTextSize:
                     dirty = true;
                     break;
@@ -978,6 +972,9 @@ public class HumanUI : UIHaveTransformDataBehavior<HumanUI.UIData>
                     dirty = true;
                     break;
                 case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
                     dirty = true;
                     break;
                 case Setting.Property.showLastMove:

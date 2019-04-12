@@ -197,7 +197,6 @@ public class DefaultChosenGameAlwaysUI : UIHaveTransformDataBehavior<DefaultChos
     #region implement callBacks
 
     public RequestChangeEnumUI requestEnumPrefab;
-    public static readonly UIRectTransform gameTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
     public override void onAddCallBack<T>(T data)
     {
@@ -254,7 +253,7 @@ public class DefaultChosenGameAlwaysUI : UIHaveTransformDataBehavior<DefaultChos
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.gameType:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, gameTypeRect);
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -365,6 +364,8 @@ public class DefaultChosenGameAlwaysUI : UIHaveTransformDataBehavior<DefaultChos
                 case Setting.Property.language:
                     dirty = true;
                     break;
+                case Setting.Property.style:
+                    break;
                 case Setting.Property.contentTextSize:
                     dirty = true;
                     break;
@@ -374,7 +375,8 @@ public class DefaultChosenGameAlwaysUI : UIHaveTransformDataBehavior<DefaultChos
                 case Setting.Property.labelTextSize:
                     dirty = true;
                     break;
-                case Setting.Property.style:
+                case Setting.Property.buttonSize:
+                    dirty = true;
                     break;
                 case Setting.Property.showLastMove:
                     break;

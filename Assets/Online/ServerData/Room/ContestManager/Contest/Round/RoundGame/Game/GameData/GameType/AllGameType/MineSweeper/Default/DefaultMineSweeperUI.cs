@@ -512,12 +512,6 @@ namespace MineSweeper
         public RequestChangeFloatUI requestFloatPrefab;
         public RequestChangeBoolUI requestBoolPrefab;
 
-        private static readonly UIRectTransform NRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform MRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform minKRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform maxKRect = new UIRectTransform(UIConstants.RequestRect);
-        private static readonly UIRectTransform allowWatchBombRect = new UIRectTransform(UIConstants.RequestBoolRect);
-
         private Server server = null;
 
         public override void onAddCallBack<T>(T data)
@@ -597,10 +591,10 @@ namespace MineSweeper
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.N:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, NRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.M:
-                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, MRect);
+                                    UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -627,10 +621,10 @@ namespace MineSweeper
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.minK:
-                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, minKRect);
+                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 case UIData.Property.maxK:
-                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, maxKRect);
+                                    UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, UIConstants.RequestRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -657,7 +651,7 @@ namespace MineSweeper
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.allowWatchBomb:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, allowWatchBombRect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -908,6 +902,8 @@ namespace MineSweeper
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.style:
+                        break;
                     case Setting.Property.contentTextSize:
                         dirty = true;
                         break;
@@ -915,6 +911,9 @@ namespace MineSweeper
                         dirty = true;
                         break;
                     case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

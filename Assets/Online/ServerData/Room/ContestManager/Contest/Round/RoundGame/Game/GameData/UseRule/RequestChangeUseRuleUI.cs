@@ -225,7 +225,7 @@ public class RequestChangeUseRuleUI : UIBehavior<RequestChangeUseRuleUI.UIData>
                     {
                         float deltaY = 0;
                         // header
-                        deltaY += UIConstants.HeaderHeight;
+                        UIUtils.SetHeaderPosition(lbTitle, UIRectTransform.ShowType.Normal, ref deltaY);
                         // sub
                         deltaY += UIRectTransform.SetPosY(this.data.sub.v, deltaY);
                         // bottom

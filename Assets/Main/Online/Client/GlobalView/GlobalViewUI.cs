@@ -213,12 +213,57 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 
     #endregion
 
+    #region txt, rect
+
+    static GlobalViewUI()
+    {
+        // rect
+        {
+            // chatRoomNewMessageCountRect
+            {
+                // anchoredPosition: (105.0, 0.0); anchorMin: (0.0, 1.0); anchorMax: (0.0, 1.0); pivot: (0.0, 1.0);
+                // offsetMin: (105.0, -15.0); offsetMax: (120.0, 0.0); sizeDelta: (15.0, 15.0);
+                chatRoomNewMessageCountRect.anchoredPosition = new Vector3(105.0f, 0.0f, 0.0f);
+                chatRoomNewMessageCountRect.anchorMin = new Vector2(0.0f, 1.0f);
+                chatRoomNewMessageCountRect.anchorMax = new Vector2(0.0f, 1.0f);
+                chatRoomNewMessageCountRect.pivot = new Vector2(0.0f, 1.0f);
+                chatRoomNewMessageCountRect.offsetMin = new Vector2(105.0f, -15.0f);
+                chatRoomNewMessageCountRect.offsetMax = new Vector2(120.0f, 0.0f);
+                chatRoomNewMessageCountRect.sizeDelta = new Vector2(15.0f, 15.0f);
+            }
+            // friendListNewMessageCountRect
+            {
+                friendListNewMessageCountRect.anchoredPosition = new Vector3(135.0f, 0.0f, 0.0f);
+                friendListNewMessageCountRect.anchorMin = new Vector2(0.0f, 1.0f);
+                friendListNewMessageCountRect.anchorMax = new Vector2(0.0f, 1.0f);
+                friendListNewMessageCountRect.pivot = new Vector2(0.0f, 1.0f);
+                friendListNewMessageCountRect.offsetMin = new Vector2(135.0f, -15.0f);
+                friendListNewMessageCountRect.offsetMax = new Vector2(150.0f, 0.0f);
+                friendListNewMessageCountRect.sizeDelta = new Vector2(15.0f, 15.0f);
+            }
+            // profileNewMessageCountRect
+            {
+                profileNewMessageCountRect.anchoredPosition = new Vector3(165.0f, 0.0f, 0.0f);
+                profileNewMessageCountRect.anchorMin = new Vector2(0.0f, 1.0f);
+                profileNewMessageCountRect.anchorMax = new Vector2(0.0f, 1.0f);
+                profileNewMessageCountRect.pivot = new Vector2(0.0f, 1.0f);
+                profileNewMessageCountRect.offsetMin = new Vector2(165.0f, -15.0f);
+                profileNewMessageCountRect.offsetMax = new Vector2(180.0f, 0.0f);
+                profileNewMessageCountRect.sizeDelta = new Vector2(15.0f, 15.0f);
+            }
+        }
+    }
+
+    #endregion
+
     #region Refresh
 
     public Button btnRooms;
     public Button btnChats;
     public Button btnFriends;
     public Button btnProfile;
+
+    public RectTransform btnBackground;
 
     public override void refresh()
     {
@@ -592,6 +637,75 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                 {
                     Debug.LogError("server null");
                 }
+                // UI
+                {
+                    float buttonSize = Setting.get().getButtonSize();
+                    UIRectTransform.SetButtonTopLeftTransform(btnRooms, 2 * buttonSize);
+                    UIRectTransform.SetButtonTopLeftTransform(btnChats, 3 * buttonSize);
+                    UIRectTransform.SetButtonTopLeftTransform(btnFriends, 4 * buttonSize);
+                    UIRectTransform.SetButtonTopLeftTransform(btnProfile, 5 * buttonSize);
+                    // newMessage
+                    {
+                        // chatRoomNewMessageUIData
+                        {
+                            // set rect
+                            {
+                                chatRoomNewMessageCountRect.anchoredPosition.x = 4 * buttonSize - 15;
+                                chatRoomNewMessageCountRect.offsetMin.x = 4 * buttonSize - 15;
+                                chatRoomNewMessageCountRect.offsetMax.x = 4 * buttonSize;
+                            }
+                            UIRectTransform.Set(this.data.chatRoomNewMessageCountUIData.v, chatRoomNewMessageCountRect);
+                        }
+                        // friendListNewMessageCountUIData
+                        {
+                            // set rect
+                            {
+                                friendListNewMessageCountRect.anchoredPosition.x = 5 * buttonSize - 15;
+                                friendListNewMessageCountRect.offsetMin.x = 5 * buttonSize - 15;
+                                friendListNewMessageCountRect.offsetMax.x = 5 * buttonSize;
+                            }
+                            UIRectTransform.Set(this.data.friendListNewMessageCountUIData.v, friendListNewMessageCountRect);
+                        }
+                        // profileNewMessageCountUIData
+                        {
+                            // set rect
+                            {
+                                profileNewMessageCountRect.anchoredPosition.x = 6 * buttonSize - 15;
+                                profileNewMessageCountRect.offsetMin.x = 6 * buttonSize - 15;
+                                profileNewMessageCountRect.offsetMax.x = 6 * buttonSize;
+                            }
+                            UIRectTransform.Set(this.data.profileNewMessageCountUIData.v, profileNewMessageCountRect);
+                        }
+                    }
+                    // btnBackground
+                    {
+                        UIRectTransform rect = new UIRectTransform();
+                        {
+                            // anchoredPosition: (60.0, 0.0); anchorMin: (0.0, 1.0); anchorMax: (0.0, 1.0); pivot: (0.0, 1.0);
+                            // offsetMin: (60.0, -30.0); offsetMax: (180.0, 0.0); sizeDelta: (120.0, 30.0);
+                            rect.anchoredPosition = new Vector3(2 * buttonSize, 0.0f, 0.0f);
+                            rect.anchorMin = new Vector2(0.0f, 1.0f);
+                            rect.anchorMax = new Vector2(0.0f, 1.0f);
+                            rect.pivot = new Vector2(0.0f, 1.0f);
+                            rect.offsetMin = new Vector2(2 * buttonSize, -buttonSize);
+                            rect.offsetMax = new Vector2(6 * buttonSize, 0.0f);
+                            rect.sizeDelta = new Vector2(4 * buttonSize, buttonSize);
+                        }
+                        rect.set(btnBackground);
+                    }
+                    // content
+                    {
+                        // make
+                        UIRectTransform contentRect = UIRectTransform.CreateFullRect(0, 0, buttonSize, 0);
+                        // set
+                        {
+                            UIRectTransform.Set(this.data.rooms.v, contentRect);
+                            UIRectTransform.Set(this.data.chats.v, contentRect);
+                            UIRectTransform.Set(this.data.friends.v, contentRect);
+                            UIRectTransform.Set(this.data.profile.v, contentRect);
+                        }
+                    }
+                }
             }
             else
             {
@@ -607,56 +721,12 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
 
     #endregion
 
-    #region txt, rect
-
-    static GlobalViewUI()
-    {
-        // rect
-        {
-            // chatRoomNewMessageCountRect
-            {
-                // anchoredPosition: (105.0, 0.0); anchorMin: (0.0, 1.0); anchorMax: (0.0, 1.0); pivot: (0.0, 1.0);
-                // offsetMin: (105.0, -15.0); offsetMax: (120.0, 0.0); sizeDelta: (15.0, 15.0);
-                chatRoomNewMessageCountRect.anchoredPosition = new Vector3(105.0f, 0.0f, 0.0f);
-                chatRoomNewMessageCountRect.anchorMin = new Vector2(0.0f, 1.0f);
-                chatRoomNewMessageCountRect.anchorMax = new Vector2(0.0f, 1.0f);
-                chatRoomNewMessageCountRect.pivot = new Vector2(0.0f, 1.0f);
-                chatRoomNewMessageCountRect.offsetMin = new Vector2(105.0f, -15.0f);
-                chatRoomNewMessageCountRect.offsetMax = new Vector2(120.0f, 0.0f);
-                chatRoomNewMessageCountRect.sizeDelta = new Vector2(15.0f, 15.0f);
-            }
-            // friendListNewMessageCountRect
-            {
-                friendListNewMessageCountRect.anchoredPosition = new Vector3(135.0f, 0.0f, 0.0f);
-                friendListNewMessageCountRect.anchorMin = new Vector2(0.0f, 1.0f);
-                friendListNewMessageCountRect.anchorMax = new Vector2(0.0f, 1.0f);
-                friendListNewMessageCountRect.pivot = new Vector2(0.0f, 1.0f);
-                friendListNewMessageCountRect.offsetMin = new Vector2(135.0f, -15.0f);
-                friendListNewMessageCountRect.offsetMax = new Vector2(150.0f, 0.0f);
-                friendListNewMessageCountRect.sizeDelta = new Vector2(15.0f, 15.0f);
-            }
-            // profileNewMessageCountRect
-            {
-                profileNewMessageCountRect.anchoredPosition = new Vector3(165.0f, 0.0f, 0.0f);
-                profileNewMessageCountRect.anchorMin = new Vector2(0.0f, 1.0f);
-                profileNewMessageCountRect.anchorMax = new Vector2(0.0f, 1.0f);
-                profileNewMessageCountRect.pivot = new Vector2(0.0f, 1.0f);
-                profileNewMessageCountRect.offsetMin = new Vector2(165.0f, -15.0f);
-                profileNewMessageCountRect.offsetMax = new Vector2(180.0f, 0.0f);
-                profileNewMessageCountRect.sizeDelta = new Vector2(15.0f, 15.0f);
-            }
-        }
-    }
-
-    #endregion
-
     #region implement callBacks
 
     public GlobalRoomsUI roomsPrefab;
     public GlobalChatUI chatsPrefab;
     public GlobalFriendsUI friendsPrefab;
     public GlobalProfileUI profilePrefab;
-    private static readonly UIRectTransform contentRect = UIRectTransform.CreateFullRect(0, 0, UIConstants.HeaderHeight, 0);
 
     public ChatRoomNewMessageCountUI chatRoomNewMessageCountPrefab;
     private static readonly UIRectTransform chatRoomNewMessageCountRect = new UIRectTransform();
@@ -740,7 +810,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                 GlobalRoomsUI.UIData rooms = data as GlobalRoomsUI.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(rooms, roomsPrefab, this.transform, contentRect);
+                    UIUtils.Instantiate(rooms, roomsPrefab, this.transform);
                 }
                 dirty = true;
                 return;
@@ -754,7 +824,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                         GlobalChatUI.UIData chats = data as GlobalChatUI.UIData;
                         // UI
                         {
-                            UIUtils.Instantiate(chats, chatsPrefab, this.transform, contentRect);
+                            UIUtils.Instantiate(chats, chatsPrefab, this.transform);
                         }
                         // Child
                         {
@@ -788,7 +858,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                     GlobalFriendsUI.UIData friends = data as GlobalFriendsUI.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(friends, friendsPrefab, this.transform, contentRect);
+                        UIUtils.Instantiate(friends, friendsPrefab, this.transform);
                     }
                     dirty = true;
                     return;
@@ -811,7 +881,7 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                     GlobalProfileUI.UIData profile = data as GlobalProfileUI.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(profile, profilePrefab, this.transform, contentRect);
+                        UIUtils.Instantiate(profile, profilePrefab, this.transform);
                     }
                     dirty = true;
                     return;
@@ -1049,6 +1119,18 @@ public class GlobalViewUI : UIBehavior<GlobalViewUI.UIData>
                     dirty = true;
                     break;
                 case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
+                    dirty = true;
                     break;
                 case Setting.Property.showLastMove:
                     break;

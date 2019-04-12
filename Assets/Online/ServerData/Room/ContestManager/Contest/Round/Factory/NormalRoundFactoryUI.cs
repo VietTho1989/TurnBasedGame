@@ -437,7 +437,9 @@ namespace GameManager.Match
                     }
                     // UI Size
                     {
-                        float deltaY = UIConstants.HeaderHeight;
+                        float deltaY = 0;
+                        // header
+                        UIUtils.SetHeaderPosition(lbTitle, UIRectTransform.ShowType.Normal, ref deltaY);
                         // gameFactory
                         {
                             float bgY = deltaY;
@@ -983,6 +985,8 @@ namespace GameManager.Match
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.style:
+                        break;
                     case Setting.Property.contentTextSize:
                         dirty = true;
                         break;
@@ -990,6 +994,9 @@ namespace GameManager.Match
                         dirty = true;
                         break;
                     case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

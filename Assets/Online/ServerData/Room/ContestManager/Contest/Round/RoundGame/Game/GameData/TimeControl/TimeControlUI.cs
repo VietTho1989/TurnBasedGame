@@ -474,33 +474,7 @@ namespace TimeControl
                                 float bgY = deltaY;
                                 float bgHeight = 0;
                                 // type
-                                {
-                                    if (this.data.subType.v != null)
-                                    {
-                                        if (lbSubType != null)
-                                        {
-                                            lbSubType.gameObject.SetActive(true);
-                                            UIRectTransform.SetPosY(lbSubType.rectTransform, deltaY);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("lbSubType null");
-                                        }
-                                        UIRectTransform.SetPosY(this.data.subType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                                        deltaY += UIConstants.ItemHeight;
-                                    }
-                                    else
-                                    {
-                                        if (lbSubType != null)
-                                        {
-                                            lbSubType.gameObject.SetActive(false);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("lbSubType null");
-                                        }
-                                    }
-                                }
+                                UIUtils.SetLabelContentPositionBg(lbSubType, this.data.subType.v, ref deltaY, ref bgHeight);
                                 // UI
                                 {
                                     float height = UIRectTransform.SetPosY(this.data.sub.v, deltaY);
@@ -732,37 +706,23 @@ namespace TimeControl
                                 case TimeControl.Sub.Type.Normal:
                                     {
                                         TimeControlNormalUI.UIData timeControlNormal = sub as TimeControlNormalUI.UIData;
-                                        TimeControlNormalUI timeControlNormalUI = (TimeControlNormalUI)UIUtils.Instantiate(timeControlNormal, timeControlNormalPrefab, this.transform);
-                                        if (timeControlNormalUI != null)
-                                        {
-                                            UIRectTransform.SetPosY((RectTransform)timeControlNormalUI.transform, UIConstants.HeaderHeight + 4 * UIConstants.ItemHeight);
-                                            timeControlNormalUI.transformData.addCallBack(this);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("timeControlNormalUI null");
-                                        }
+                                        UIUtils.Instantiate(timeControlNormal, timeControlNormalPrefab, this.transform);
                                     }
                                     break;
                                 case TimeControl.Sub.Type.HourGlass:
                                     {
                                         TimeControlHourGlassUI.UIData timeControlHourGlass = sub as TimeControlHourGlassUI.UIData;
-                                        TimeControlHourGlassUI timeControlHourGlassUI = (TimeControlHourGlassUI)UIUtils.Instantiate(timeControlHourGlass, timeControlHourGlassPrefab, this.transform);
-                                        if (timeControlHourGlassUI != null)
-                                        {
-                                            UIRectTransform.SetPosY((RectTransform)timeControlHourGlassUI.transform, UIConstants.HeaderHeight + 4 * UIConstants.ItemHeight);
-                                            timeControlHourGlassUI.transformData.addCallBack(this);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("timeControlNormalUI null");
-                                        }
+                                        UIUtils.Instantiate(timeControlHourGlass, timeControlHourGlassPrefab, this.transform);
                                     }
                                     break;
                                 default:
                                     Debug.LogError("unknown type: " + sub.getType() + "; " + this);
                                     break;
                             }
+                        }
+                        // Child
+                        {
+                            TransformData.AddCallBack(sub, this);
                         }
                         dirty = true;
                         return;
@@ -859,44 +819,24 @@ namespace TimeControl
                     if (data is UIData.Sub)
                     {
                         UIData.Sub sub = data as UIData.Sub;
+                        // Child
+                        {
+                            TransformData.RemoveCallBack(sub, this);
+                        }
                         // UI
                         {
                             switch (sub.getType())
                             {
                                 case TimeControl.Sub.Type.Normal:
                                     {
-                                        TimeControlNormalUI.UIData timeControlNormal = sub as TimeControlNormalUI.UIData;
-                                        // Child
-                                        {
-                                            TimeControlNormalUI timeControlNormalUI = timeControlNormal.findCallBack<TimeControlNormalUI>();
-                                            if (timeControlNormalUI != null)
-                                            {
-                                                timeControlNormalUI.transformData.removeCallBack(this);
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("timeControlNormalUI null");
-                                            }
-                                        }
-                                        timeControlNormal.removeCallBackAndDestroy(typeof(TimeControlNormalUI));
+                                        TimeControlNormalUI.UIData timeControlNormalUIData = sub as TimeControlNormalUI.UIData;
+                                        timeControlNormalUIData.removeCallBackAndDestroy(typeof(TimeControlNormalUI));
                                     }
                                     break;
                                 case TimeControl.Sub.Type.HourGlass:
                                     {
-                                        TimeControlHourGlassUI.UIData timeControlHourGlass = sub as TimeControlHourGlassUI.UIData;
-                                        // Child
-                                        {
-                                            TimeControlHourGlassUI timeControlHourGlassUI = timeControlHourGlass.findCallBack<TimeControlHourGlassUI>();
-                                            if (timeControlHourGlassUI != null)
-                                            {
-                                                timeControlHourGlassUI.transformData.removeCallBack(this);
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError("timeControlHourGlassUI null");
-                                            }
-                                        }
-                                        timeControlHourGlass.removeCallBackAndDestroy(typeof(TimeControlHourGlassUI));
+                                        TimeControlHourGlassUI.UIData timeControlHourGlassUIData = sub as TimeControlHourGlassUI.UIData;
+                                        timeControlHourGlassUIData.removeCallBackAndDestroy(typeof(TimeControlHourGlassUI));
                                     }
                                     break;
                                 default:
@@ -979,6 +919,8 @@ namespace TimeControl
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.style:
+                        break;
                     case Setting.Property.contentTextSize:
                         dirty = true;
                         break;
@@ -986,6 +928,9 @@ namespace TimeControl
                         dirty = true;
                         break;
                     case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

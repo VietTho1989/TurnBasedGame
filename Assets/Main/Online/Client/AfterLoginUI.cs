@@ -137,33 +137,7 @@ public class AfterLoginUI : UIBehavior<AfterLoginUI.UIData>
 
     static AfterLoginUI()
     {
-        // rect
-        {
-            // btnBackRect
-            {
-                // anchoredPosition: (0.0, 0.0); anchorMin: (0.0, 1.0); anchorMax: (0.0, 1.0); pivot: (0.0, 1.0); 
-                // offsetMin: (0.0, -30.0); offsetMax: (30.0, 0.0); sizeDelta: (30.0, 30.0);
-                btnBackRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
-                btnBackRect.anchorMin = new Vector2(0.0f, 1.0f);
-                btnBackRect.anchorMax = new Vector2(0.0f, 1.0f);
-                btnBackRect.pivot = new Vector2(0.0f, 1.0f);
-                btnBackRect.offsetMin = new Vector2(0.0f, -30.0f);
-                btnBackRect.offsetMax = new Vector2(30.0f, 0.0f);
-                btnBackRect.sizeDelta = new Vector2(30.0f, 30.0f);
-            }
-            // stateRect
-            {
-                // anchoredPosition: (150.0, 0.0); anchorMin: (0.0, 1.0); anchorMax: (0.0, 1.0); pivot: (0.0, 1.0);
-                // offsetMin: (150.0, -30.0); offsetMax: (180.0, 0.0); sizeDelta: (30.0, 30.0);
-                stateRect.anchoredPosition = new Vector3(30.0f, 0.0f);
-                stateRect.anchorMin = new Vector2(0.0f, 1.0f);
-                stateRect.anchorMax = new Vector2(0.0f, 1.0f);
-                stateRect.pivot = new Vector2(0.0f, 1.0f);
-                stateRect.offsetMin = new Vector2(30.0f, -30.0f);
-                stateRect.offsetMax = new Vector2(60.0f, 0.0f);
-                stateRect.sizeDelta = new Vector2(30.0f, 30.0f);
-            }
-        }
+
     }
 
     #endregion
@@ -291,6 +265,12 @@ public class AfterLoginUI : UIBehavior<AfterLoginUI.UIData>
                             Debug.LogError("confirmBackContainer null");
                         }
                     }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        UIRectTransform.SetButtonTopLeftTransform(this.data.btnBack.v);
+                        UIRectTransform.SetButtonTopLeftTransform(this.data.state.v, buttonSize);
+                    }
                 }
                 else
                 {
@@ -327,16 +307,16 @@ public class AfterLoginUI : UIBehavior<AfterLoginUI.UIData>
     public GlobalBanUI globalBanPrefab;
 
     public AfterLoginMainBtnBackUI btnBackPrefab;
-    private static readonly UIRectTransform btnBackRect = new UIRectTransform();
 
     public GlobalStateUI statePrefab;
-    private static readonly UIRectTransform stateRect = new UIRectTransform();
 
     public override void onAddCallBack<T>(T data)
     {
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Setting
+            Setting.get().addCallBack(this);
             // Child
             {
                 uiData.server.allAddCallBack(this);
@@ -344,6 +324,12 @@ public class AfterLoginUI : UIBehavior<AfterLoginUI.UIData>
                 uiData.btnBack.allAddCallBack(this);
                 uiData.state.allAddCallBack(this);
             }
+            dirty = true;
+            return;
+        }
+        // Setting
+        if(data is Setting)
+        {
             dirty = true;
             return;
         }
@@ -411,7 +397,7 @@ public class AfterLoginUI : UIBehavior<AfterLoginUI.UIData>
                 AfterLoginMainBtnBackUI.UIData btnBack = data as AfterLoginMainBtnBackUI.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(btnBack, btnBackPrefab, this.transform, btnBackRect);
+                    UIUtils.Instantiate(btnBack, btnBackPrefab, this.transform);
                 }
                 dirty = true;
                 return;
@@ -421,7 +407,7 @@ public class AfterLoginUI : UIBehavior<AfterLoginUI.UIData>
                 GlobalStateUI.UIData state = data as GlobalStateUI.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(state, statePrefab, this.transform, stateRect);
+                    UIUtils.Instantiate(state, statePrefab, this.transform);
                 }
                 dirty = true;
                 return;
@@ -435,6 +421,8 @@ public class AfterLoginUI : UIBehavior<AfterLoginUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Setting
+            Setting.get().removeCallBack(this);
             // Child
             {
                 uiData.server.allRemoveCallBack(this);
@@ -443,6 +431,11 @@ public class AfterLoginUI : UIBehavior<AfterLoginUI.UIData>
                 uiData.state.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
+            return;
+        }
+        // Setting
+        if(data is Setting)
+        {
             return;
         }
         // Child
@@ -555,6 +548,49 @@ public class AfterLoginUI : UIBehavior<AfterLoginUI.UIData>
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
                     }
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Setting
+        if(wrapProperty.p is Setting)
+        {
+            switch ((Setting.Property)wrapProperty.n)
+            {
+                case Setting.Property.language:
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.confirmQuit:
+                    break;
+                case Setting.Property.showLastMove:
+                    break;
+                case Setting.Property.viewUrlImage:
+                    break;
+                case Setting.Property.animationSetting:
+                    break;
+                case Setting.Property.maxThinkCount:
+                    break;
+                case Setting.Property.defaultChosenGame:
+                    break;
+                case Setting.Property.defaultRoomName:
+                    break;
+                case Setting.Property.defaultChatRoomStyle:
                     break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

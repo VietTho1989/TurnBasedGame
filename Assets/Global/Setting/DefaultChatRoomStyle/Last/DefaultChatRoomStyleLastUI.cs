@@ -242,8 +242,6 @@ public class DefaultChatRoomStyleLastUI : UIHaveTransformDataBehavior<DefaultCha
     #region implement callBacks
 
     public RequestChangeEnumUI requestEnumPrefab;
-    public static readonly UIRectTransform visibilityRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    public static readonly UIRectTransform styleRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
     public override void onAddCallBack<T>(T data)
     {
@@ -301,10 +299,10 @@ public class DefaultChatRoomStyleLastUI : UIHaveTransformDataBehavior<DefaultCha
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.visibility:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, visibilityRect);
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.style:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, styleRect);
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -422,6 +420,8 @@ public class DefaultChatRoomStyleLastUI : UIHaveTransformDataBehavior<DefaultCha
                 case Setting.Property.language:
                     dirty = true;
                     break;
+                case Setting.Property.style:
+                    break;
                 case Setting.Property.contentTextSize:
                     dirty = true;
                     break;
@@ -431,7 +431,8 @@ public class DefaultChatRoomStyleLastUI : UIHaveTransformDataBehavior<DefaultCha
                 case Setting.Property.labelTextSize:
                     dirty = true;
                     break;
-                case Setting.Property.style:
+                case Setting.Property.buttonSize:
+                    dirty = true;
                     break;
                 case Setting.Property.showLastMove:
                     break;

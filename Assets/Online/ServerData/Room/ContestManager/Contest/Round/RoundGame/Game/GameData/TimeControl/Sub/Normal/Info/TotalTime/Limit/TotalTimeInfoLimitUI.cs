@@ -238,12 +238,10 @@ namespace TimeControl.Normal
                             return;
                         }
                         // Parent
+                        if (data is Server)
                         {
-                            if (data is Server)
-                            {
-                                dirty = true;
-                                return;
-                            }
+                            dirty = true;
+                            return;
                         }
                     }
                 }
@@ -323,11 +321,9 @@ namespace TimeControl.Normal
                             return;
                         }
                         // Parent
+                        if (data is Server)
                         {
-                            if (data is Server)
-                            {
-                                return;
-                            }
+                            return;
                         }
                     }
                 }
@@ -383,6 +379,8 @@ namespace TimeControl.Normal
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.style:
+                        break;
                     case Setting.Property.contentTextSize:
                         dirty = true;
                         break;
@@ -390,6 +388,9 @@ namespace TimeControl.Normal
                         dirty = true;
                         break;
                     case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

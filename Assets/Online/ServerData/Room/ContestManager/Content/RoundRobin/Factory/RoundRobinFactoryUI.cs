@@ -229,7 +229,9 @@ namespace GameManager.Match.RoundRobin
                     }
                     // UI Size
                     {
-                        float deltaY = UIConstants.HeaderHeight;
+                        float deltaY = 0;
+                        // header
+                        UIUtils.SetHeaderPosition(lbTitle, UIRectTransform.ShowType.Normal, ref deltaY);
                         // teamCount
                         UIUtils.SetLabelContentPosition(lbTeamCount, this.data.teamCount.v, ref deltaY);
                         // needReturnRound
@@ -583,6 +585,8 @@ namespace GameManager.Match.RoundRobin
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.style:
+                        break;
                     case Setting.Property.contentTextSize:
                         dirty = true;
                         break;
@@ -590,6 +594,9 @@ namespace GameManager.Match.RoundRobin
                         dirty = true;
                         break;
                     case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

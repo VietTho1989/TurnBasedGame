@@ -485,7 +485,61 @@ public class UIRectTransform
 
     #region headerHeight
 
-    public static void SetButtonTopLeftTransform(Button button)
+    #region setButtonTopLeft
+
+    public static void SetButtonTopLeftTransform(Data data, float x = 0)
+    {
+        if (data != null)
+        {
+            RectTransform rectTransform = (RectTransform)Data.FindTransform(data);
+            if (rectTransform != null)
+            {
+                SetButtonTopLeftTransform(rectTransform, x);
+            }
+            else
+            {
+                Debug.LogError("rectTransform null");
+            }
+        }
+        else
+        {
+            Debug.LogError("data null");
+        }
+    }
+
+    public static void SetButtonTopLeftTransform(MonoBehaviour button, float x = 0)
+    {
+        if (button != null)
+        {
+            SetButtonTopLeftTransform((RectTransform)button.transform, x);
+        }
+        else
+        {
+            Debug.LogError("button null");
+        }
+    }
+
+    private static void SetButtonTopLeftTransform(RectTransform rectTransform, float x = 0)
+    {
+        UIRectTransform rect = new UIRectTransform();
+        {
+            // anchoredPosition: (60.0, 0.0); anchorMin: (0.0, 1.0); anchorMax: (0.0, 1.0); pivot: (0.0, 1.0);
+            //  offsetMin: (60.0, -30.0); offsetMax: (90.0, 0.0); sizeDelta: (30.0, 30.0);
+            float buttonSize = Setting.get().buttonSize.v;
+            rect.anchoredPosition = new Vector3(x, 0.0f, 0.0f);
+            rect.anchorMin = new Vector2(0.0f, 1.0f);
+            rect.anchorMax = new Vector2(0.0f, 1.0f);
+            rect.pivot = new Vector2(0.0f, 1.0f);
+            rect.offsetMin = new Vector2(x, -buttonSize);
+            rect.offsetMax = new Vector2(x + buttonSize, 0.0f);
+            rect.sizeDelta = new Vector2(buttonSize, buttonSize);
+        }
+        rect.set(rectTransform);
+    }
+
+    #endregion
+
+    public static void SetButtonTopRightTransform(MonoBehaviour button)
     {
         if (button != null)
         {
@@ -495,11 +549,11 @@ public class UIRectTransform
                 // offsetMin: (0.0, -30.0); offsetMax: (30.0, 0.0); sizeDelta: (30.0, 30.0);
                 float buttonSize = Setting.get().buttonSize.v;
                 rect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
-                rect.anchorMin = new Vector2(0.0f, 1.0f);
-                rect.anchorMax = new Vector2(0.0f, 1.0f);
-                rect.pivot = new Vector2(0.0f, 1.0f);
-                rect.offsetMin = new Vector2(0.0f, -buttonSize);
-                rect.offsetMax = new Vector2(buttonSize, 0.0f);
+                rect.anchorMin = new Vector2(1.0f, 1.0f);
+                rect.anchorMax = new Vector2(1.0f, 1.0f);
+                rect.pivot = new Vector2(1.0f, 1.0f);
+                rect.offsetMin = new Vector2(-buttonSize, -buttonSize);
+                rect.offsetMax = new Vector2(0.0f, 0.0f);
                 rect.sizeDelta = new Vector2(buttonSize, buttonSize);
             }
             rect.set((RectTransform)button.transform);
@@ -510,9 +564,16 @@ public class UIRectTransform
         }
     }
 
-    public static void SetTitleTransform(Text title)
+    public static void SetTitleTransform(Text lbTitle)
     {
-
+        if (lbTitle != null)
+        {
+            UIRectTransform.SetHeight((RectTransform)lbTitle.rectTransform, Setting.get().getButtonSize());
+        }
+        else
+        {
+            Debug.LogError("lbTitle null");
+        }
     }
 
     #endregion

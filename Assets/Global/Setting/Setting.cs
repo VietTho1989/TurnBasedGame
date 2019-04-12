@@ -107,9 +107,9 @@ public class Setting : Data
 
     #region buttonSize
 
-    public const float DefaultButtonSize = 30;
+    public const float DefaultButtonSize = UIConstants.HeaderHeight;
     public const float MinButtonSize = 20;
-    public const float MaxButtonSize = 50;
+    public const float MaxButtonSize = 60;
 
     public VP<float> buttonSize;
 

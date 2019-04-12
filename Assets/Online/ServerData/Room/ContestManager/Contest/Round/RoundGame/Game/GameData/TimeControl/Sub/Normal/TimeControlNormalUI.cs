@@ -124,9 +124,7 @@ namespace TimeControl.Normal
                             // header
                             UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                             // generalInfo
-                            {
-                                deltaY += UIRectTransform.SetPosY(this.data.generalInfo.v, deltaY);
-                            }
+                            deltaY += UIRectTransform.SetPosY(this.data.generalInfo.v, deltaY);
                             // set
                             UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                         }
@@ -385,6 +383,20 @@ namespace TimeControl.Normal
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

@@ -560,7 +560,9 @@ namespace Ads
                     }
                     // UI
                     {
-                        float deltaY = UIConstants.HeaderHeight;
+                        float deltaY = 0;
+                        // header
+                        UIUtils.SetHeaderPosition(lbTitle, UIRectTransform.ShowType.Normal, ref deltaY);
                         // videoType
                         UIUtils.SetLabelContentPosition(lbVideoType, this.data.videoType.v, ref deltaY);
                         // showBtnViewAds
@@ -1065,6 +1067,8 @@ namespace Ads
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.style:
+                        break;
                     case Setting.Property.contentTextSize:
                         dirty = true;
                         break;
@@ -1074,7 +1078,8 @@ namespace Ads
                     case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
-                    case Setting.Property.style:
+                    case Setting.Property.buttonSize:
+                        dirty = true;
                         break;
                     case Setting.Property.showLastMove:
                         break;

@@ -124,6 +124,8 @@ public class ServerOnlineUI : UIBehavior<ServerOnlineUI.UIData>
 
     public GameObject contentContainer;
 
+    public Button btnBack;
+
     public override void refresh()
     {
         if (dirty)
@@ -153,6 +155,11 @@ public class ServerOnlineUI : UIBehavior<ServerOnlineUI.UIData>
                     {
                         Debug.LogError("contentContainer null: " + this);
                     }
+                }
+                // UI
+                {
+                    UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                    UIRectTransform.SetTitleTransform(lbTitle);
                 }
                 // txt
                 {
@@ -305,6 +312,8 @@ public class ServerOnlineUI : UIBehavior<ServerOnlineUI.UIData>
                 case Setting.Property.language:
                     dirty = true;
                     break;
+                case Setting.Property.style:
+                    break;
                 case Setting.Property.contentTextSize:
                     dirty = true;
                     break;
@@ -312,6 +321,9 @@ public class ServerOnlineUI : UIBehavior<ServerOnlineUI.UIData>
                     dirty = true;
                     break;
                 case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
                     dirty = true;
                     break;
                 case Setting.Property.showLastMove:

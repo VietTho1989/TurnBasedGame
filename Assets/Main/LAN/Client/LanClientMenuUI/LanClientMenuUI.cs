@@ -155,6 +155,9 @@ public class LanClientMenuUI : UIBehavior<LanClientMenuUI.UIData>
     private float time = 0;
     private bool alreadyInit = false;
 
+    public Button btnBack;
+    public RectTransform discoveryServerListContainer;
+
     public override void refresh()
     {
         if (dirty)
@@ -186,6 +189,7 @@ public class LanClientMenuUI : UIBehavior<LanClientMenuUI.UIData>
                 if (lbTitle != null)
                 {
                     lbTitle.text = txtTitle.get();
+                    Setting.get().setTitleTextSize(lbTitle);
                 }
                 else
                 {
@@ -212,6 +216,16 @@ public class LanClientMenuUI : UIBehavior<LanClientMenuUI.UIData>
                 else
                 {
                     Debug.LogError("tvNoLan null");
+                }
+                // UI
+                {
+                    UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                    UIRectTransform.SetTitleTransform(lbTitle);
+                    // discoveryServerListContainer
+                    {
+                        UIRectTransform rect = UIRectTransform.CreateFullRect(0, 0, Setting.get().getButtonSize(), 0);
+                        rect.set(discoveryServerListContainer);
+                    }
                 }
             }
             else
@@ -364,6 +378,20 @@ public class LanClientMenuUI : UIBehavior<LanClientMenuUI.UIData>
             switch ((Setting.Property)wrapProperty.n)
             {
                 case Setting.Property.language:
+                    dirty = true;
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
                     dirty = true;
                     break;
                 case Setting.Property.showLastMove:

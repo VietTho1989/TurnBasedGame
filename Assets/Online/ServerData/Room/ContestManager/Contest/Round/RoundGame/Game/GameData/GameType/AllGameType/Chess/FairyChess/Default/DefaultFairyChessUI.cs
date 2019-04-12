@@ -330,10 +330,8 @@ namespace FairyChess
         public MiniGameDataUI miniGameDataUIPrefab;
 
         public RequestChangeEnumUI requestEnumPrefab;
-        private static readonly UIRectTransform variantTypeRect = new UIRectTransform(UIConstants.RequestEnumRect, UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
 
         public RequestChangeBoolUI requestBoolPrefab;
-        private static readonly UIRectTransform chess960Rect = new UIRectTransform(UIConstants.RequestBoolRect, UIConstants.HeaderHeight + UIConstants.DefaultMiniGameDataUISize + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
 
         private Server server = null;
 
@@ -411,7 +409,7 @@ namespace FairyChess
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.variantType:
-                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, variantTypeRect);
+                                    UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -438,7 +436,7 @@ namespace FairyChess
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.chess960:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, chess960Rect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -656,6 +654,8 @@ namespace FairyChess
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.style:
+                        break;
                     case Setting.Property.contentTextSize:
                         dirty = true;
                         break;
@@ -663,6 +663,9 @@ namespace FairyChess
                         dirty = true;
                         break;
                     case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

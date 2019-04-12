@@ -280,12 +280,10 @@ namespace TimeControl.Normal
                             return;
                         }
                         // Parent
+                        if (data is Server)
                         {
-                            if (data is Server)
-                            {
-                                dirty = true;
-                                return;
-                            }
+                            dirty = true;
+                            return;
                         }
                     }
                 }
@@ -367,11 +365,9 @@ namespace TimeControl.Normal
                             return;
                         }
                         // Parent
+                        if (data is Server)
                         {
-                            if (data is Server)
-                            {
-                                return;
-                            }
+                            return;
                         }
                     }
                 }
@@ -443,6 +439,20 @@ namespace TimeControl.Normal
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

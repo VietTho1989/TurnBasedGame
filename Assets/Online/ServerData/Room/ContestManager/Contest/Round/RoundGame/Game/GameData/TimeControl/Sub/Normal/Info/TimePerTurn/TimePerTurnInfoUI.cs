@@ -193,9 +193,7 @@ namespace TimeControl.Normal
                         // header
                         UIUtils.SetHeaderPosition(lbTitle, this.data.showType.v, ref deltaY);
                         // sub
-                        {
-                            deltaY += UIRectTransform.SetPosY(this.data.sub.v, deltaY);
-                        }
+                        deltaY += UIRectTransform.SetPosY(this.data.sub.v, deltaY);
                         // set
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                     }
@@ -448,6 +446,8 @@ namespace TimeControl.Normal
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.style:
+                        break;
                     case Setting.Property.contentTextSize:
                         dirty = true;
                         break;
@@ -455,6 +455,9 @@ namespace TimeControl.Normal
                         dirty = true;
                         break;
                     case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

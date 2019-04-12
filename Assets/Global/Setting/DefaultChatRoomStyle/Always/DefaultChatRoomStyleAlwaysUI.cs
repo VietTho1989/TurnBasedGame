@@ -422,6 +422,8 @@ public class DefaultChatRoomStyleAlwaysUI : UIHaveTransformDataBehavior<DefaultC
                 case Setting.Property.language:
                     dirty = true;
                     break;
+                case Setting.Property.style:
+                    break;
                 case Setting.Property.contentTextSize:
                     dirty = true;
                     break;
@@ -431,7 +433,8 @@ public class DefaultChatRoomStyleAlwaysUI : UIHaveTransformDataBehavior<DefaultC
                 case Setting.Property.labelTextSize:
                     dirty = true;
                     break;
-                case Setting.Property.style:
+                case Setting.Property.buttonSize:
+                    dirty = true;
                     break;
                 case Setting.Property.showLastMove:
                     break;

@@ -365,7 +365,9 @@ namespace GameManager.Match.Elimination
                     }
                     // UI Size
                     {
-                        float deltaY = UIConstants.HeaderHeight;
+                        float deltaY = 0;
+                        // header
+                        UIUtils.SetHeaderPosition(lbTitle, UIRectTransform.ShowType.Normal, ref deltaY);
                         // initTeamCountLength
                         UIUtils.SetLabelContentPosition(lbInitTeamCountLength, this.data.initTeamCountLength.v, ref deltaY);
                         // initTeamCounts
@@ -698,6 +700,8 @@ namespace GameManager.Match.Elimination
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.style:
+                        break;
                     case Setting.Property.contentTextSize:
                         dirty = true;
                         break;
@@ -705,6 +709,9 @@ namespace GameManager.Match.Elimination
                         dirty = true;
                         break;
                     case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

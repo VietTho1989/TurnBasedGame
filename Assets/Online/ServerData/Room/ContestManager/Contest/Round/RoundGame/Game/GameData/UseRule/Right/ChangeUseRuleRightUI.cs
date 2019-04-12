@@ -261,7 +261,7 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
                 {
                     float deltaY = 0;
                     // header
-                    deltaY += UIConstants.HeaderHeight;
+                    UIUtils.SetHeaderPosition(lbTitle, UIRectTransform.ShowType.Normal, ref deltaY);
                     // canChange
                     UIUtils.SetLabelContentPosition(lbCanChange, this.data.canChange.v, ref deltaY);
                     // onlyAdmin
@@ -569,6 +569,8 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
                 case Setting.Property.language:
                     dirty = true;
                     break;
+                case Setting.Property.style:
+                    break;
                 case Setting.Property.contentTextSize:
                     dirty = true;
                     break;
@@ -576,6 +578,9 @@ public class ChangeUseRuleRightUI : UIHaveTransformDataBehavior<ChangeUseRuleRig
                     dirty = true;
                     break;
                 case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
                     dirty = true;
                     break;
                 case Setting.Property.showLastMove:

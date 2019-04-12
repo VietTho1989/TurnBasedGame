@@ -247,7 +247,7 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
                 {
                     float deltaY = 0;
                     // header
-                    deltaY += UIConstants.HeaderHeight;
+                    UIUtils.SetHeaderPosition(lbTitle, UIRectTransform.ShowType.Normal, ref deltaY);
                     // scale
                     UIUtils.SetLabelContentPosition(lbScale, this.data.scale.v, ref deltaY);
                     // fastForward
@@ -599,6 +599,8 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
                 case Setting.Property.language:
                     dirty = true;
                     break;
+                case Setting.Property.style:
+                    break;
                 case Setting.Property.contentTextSize:
                     dirty = true;
                     break;
@@ -608,7 +610,8 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
                 case Setting.Property.labelTextSize:
                     dirty = true;
                     break;
-                case Setting.Property.style:
+                case Setting.Property.buttonSize:
+                    dirty = true;
                     break;
                 case Setting.Property.showLastMove:
                     break;

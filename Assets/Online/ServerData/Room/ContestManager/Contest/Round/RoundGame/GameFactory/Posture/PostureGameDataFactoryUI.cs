@@ -183,11 +183,6 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
             txtEdit.add(Language.Type.vi, "Chỉnh sửa");
             txtUseRule.add(Language.Type.vi, "Dùng luật");
         }
-        // rect
-        {
-            gameTypeRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-            useRuleRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + UIConstants.DefaultMiniGameDataUISize + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-        }
     }
 
     #endregion
@@ -288,6 +283,34 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                         Debug.LogError("btnEdit null");
                     }
                 }
+                // UI
+                {
+                    float deltaY = 0;
+                    // header
+                    UIUtils.SetHeaderPosition(lbTitle, UIRectTransform.ShowType.Normal, ref deltaY);
+                    // gameType
+                    UIUtils.SetLabelContentPosition(lbGameType, this.data.gameType.v, ref deltaY);
+                    // miniGameDataUIData
+                    {
+                        UIRectTransform.SetPosY(this.data.miniGameDataUI.v, deltaY + UIConstants.DefaultMiniGameDataUIPadding);
+                        // btnEdit
+                        {
+                            if (btnEdit != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnEdit.transform, deltaY + (UIConstants.DefaultMiniGameDataUISize - 50) / 2.0f);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnEdit null");
+                            }
+                        }
+                        deltaY += UIConstants.DefaultMiniGameDataUISize;
+                    }
+                    // useRule
+                    UIUtils.SetLabelContentPosition(lbUseRule, this.data.useRule.v, ref deltaY);
+                    // set height
+                    UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                }
                 // txt
                 {
                     if (lbTitle != null)
@@ -349,9 +372,6 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
 
     public RequestChangeBoolUI requestBoolPrefab;
     public RequestChangeEnumUI requestEnumPrefab;
-
-    private static readonly UIRectTransform gameTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform useRuleRect = new UIRectTransform(UIConstants.RequestBoolRect);
 
     private Server server = null;
 
@@ -437,7 +457,7 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.gameType:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, gameTypeRect);
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -513,7 +533,7 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.useRule:
-                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, useRuleRect);
+                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -694,6 +714,8 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                 case Setting.Property.language:
                     dirty = true;
                     break;
+                case Setting.Property.style:
+                    break;
                 case Setting.Property.contentTextSize:
                     dirty = true;
                     break;
@@ -701,6 +723,9 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                     dirty = true;
                     break;
                 case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
                     dirty = true;
                     break;
                 case Setting.Property.showLastMove:

@@ -344,27 +344,34 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                 }
                 // UI Size
                 {
-                    float deltaY = UIConstants.HeaderHeight;
+                    float deltaY = 0;
+                    // header
+                    UIUtils.SetHeaderPosition(lbTitle, UIRectTransform.ShowType.Normal, ref deltaY);
                     // name
-                    {
-                        deltaY += UIConstants.ItemHeight;
-                    }
+                    UIUtils.SetLabelContentPosition(lbName, this.data.name.v, ref deltaY);
                     // freeze
                     {
+                        // lb
+                        if (lbFreeze != null)
+                        {
+                            UIRectTransform.SetPosY(lbFreeze.rectTransform, deltaY);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbFreeze null");
+                        }
+                        // uiData
+                        {
+                            UIRectTransform.SetPosY(this.data.roomStateUIData.v, deltaY + (UIConstants.ItemHeight - 30) / 2.0f);
+                        }
                         deltaY += UIConstants.ItemHeight;
                     }
                     // allowHint
-                    {
-                        deltaY += UIConstants.ItemHeight;
-                    }
+                    UIUtils.SetLabelContentPosition(lbAllowHint, this.data.allowHint.v, ref deltaY);
                     // allowLoadHistory
-                    {
-                        deltaY += UIConstants.ItemHeight;
-                    }
+                    UIUtils.SetLabelContentPosition(lbAllowLoadHistory, this.data.allowLoadHistory.v, ref deltaY);
                     // chatInGame
-                    {
-                        deltaY += UIConstants.ItemHeight;
-                    }
+                    UIUtils.SetLabelContentPosition(lbChatInGame, this.data.chatInGame.v, ref deltaY);
                     // changeRights
                     {
                         float bgY = deltaY;
@@ -471,19 +478,6 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
     public RequestChangeEnumUI requestEnumPrefab;
     public ChangeRightsUI changeRightsPrefab;
 
-    private static readonly UIRectTransform nameRect = new UIRectTransform(UIConstants.RequestEnumRect,
-        UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight +
-        (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-    private static readonly UIRectTransform allowHintRect = new UIRectTransform(UIConstants.RequestEnumRect,
-        UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight +
-        (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-    private static readonly UIRectTransform allowLoadHistoryRect = new UIRectTransform(UIConstants.RequestBoolRect,
-        UIConstants.HeaderHeight + 3 * UIConstants.ItemHeight +
-        (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-    private static readonly UIRectTransform chatInGameRect = new UIRectTransform(UIConstants.RequestEnumRect,
-        UIConstants.HeaderHeight + 4 * UIConstants.ItemHeight +
-        (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-
     private Server server = null;
 
     public override void onAddCallBack<T>(T data)
@@ -562,7 +556,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.name:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, nameRect);
+                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -599,10 +593,10 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.allowHint:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, allowHintRect);
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.chatInGame:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, chatInGameRect);
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -629,7 +623,7 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.allowLoadHistory:
-                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, allowLoadHistoryRect);
+                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -860,6 +854,8 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                 case Setting.Property.language:
                     dirty = true;
                     break;
+                case Setting.Property.style:
+                    break;
                 case Setting.Property.contentTextSize:
                     dirty = true;
                     break;
@@ -867,6 +863,9 @@ public class RoomSettingUI : UIHaveTransformDataBehavior<RoomSettingUI.UIData>
                     dirty = true;
                     break;
                 case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
                     dirty = true;
                     break;
                 case Setting.Property.showLastMove:

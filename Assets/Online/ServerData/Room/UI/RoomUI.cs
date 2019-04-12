@@ -415,6 +415,26 @@ public class RoomUI : UIBehavior<RoomUI.UIData>
                             Debug.LogError("freezeOverlay null");
                         }
                     }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().buttonSize.v;
+                        // roombtn
+                        {
+                            roomBtnRect.anchoredPosition = new Vector3(-3*buttonSize/2, 0.0f, 0.0f);
+                            roomBtnRect.anchorMin = new Vector2(0.0f, 1.0f);
+                            roomBtnRect.anchorMax = new Vector2(1.0f, 1.0f);
+                            roomBtnRect.pivot = new Vector2(0.5f, 1.0f);
+                            roomBtnRect.offsetMin = new Vector2(0.0f, -buttonSize);
+                            roomBtnRect.offsetMax = new Vector2(-3*buttonSize, 0.0f);
+                            roomBtnRect.sizeDelta = new Vector2(-3*buttonSize, buttonSize);
+                            UIRectTransform.Set(this.data.roomBtnUIData.v, roomBtnRect);
+                        }
+                        // contestManager
+                        {
+                            UIRectTransform rect = UIRectTransform.CreateFullRect(0, 0, buttonSize, 0);
+                            UIRectTransform.Set(this.data.contestManagerUIData.v, rect);
+                        }
+                    }
                 }
                 else
                 {
@@ -459,6 +479,8 @@ public class RoomUI : UIBehavior<RoomUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Setting
+            Setting.get().addCallBack(this);
             // Child
             {
                 uiData.room.allAddCallBack(this);
@@ -468,6 +490,12 @@ public class RoomUI : UIBehavior<RoomUI.UIData>
                 uiData.chooseContestManagerUIData.allAddCallBack(this);
                 uiData.roomUserInformUI.allAddCallBack(this);
             }
+            dirty = true;
+            return;
+        }
+        // Setting
+        if(data is Setting)
+        {
             dirty = true;
             return;
         }
@@ -561,6 +589,8 @@ public class RoomUI : UIBehavior<RoomUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Setting
+            Setting.get().removeCallBack(this);
             // Child
             {
                 uiData.room.allRemoveCallBack(this);
@@ -571,6 +601,11 @@ public class RoomUI : UIBehavior<RoomUI.UIData>
                 uiData.roomUserInformUI.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
+            return;
+        }
+        // Setting
+        if(data is Setting)
+        {
             return;
         }
         // Child
@@ -693,6 +728,49 @@ public class RoomUI : UIBehavior<RoomUI.UIData>
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
                     }
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Setting
+        if(wrapProperty.p is Setting)
+        {
+            switch ((Setting.Property)wrapProperty.n)
+            {
+                case Setting.Property.language:
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.confirmQuit:
+                    break;
+                case Setting.Property.showLastMove:
+                    break;
+                case Setting.Property.viewUrlImage:
+                    break;
+                case Setting.Property.animationSetting:
+                    break;
+                case Setting.Property.maxThinkCount:
+                    break;
+                case Setting.Property.defaultChosenGame:
+                    break;
+                case Setting.Property.defaultRoomName:
+                    break;
+                case Setting.Property.defaultChatRoomStyle:
                     break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

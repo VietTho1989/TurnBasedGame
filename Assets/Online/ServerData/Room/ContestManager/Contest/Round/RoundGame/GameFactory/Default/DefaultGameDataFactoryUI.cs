@@ -160,10 +160,6 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
             txtGameType.add(Language.Type.vi, "Loại game");
             txtUseRule.add(Language.Type.vi, "Dùng luật");
         }
-        // rect
-        {
-            gameTypeRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-        }
     }
 
     #endregion
@@ -933,16 +929,15 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                 }
                 // UI size
                 {
-                    float deltaY = UIConstants.HeaderHeight;
+                    float deltaY = 0;
+                    // header
+                    UIUtils.SetHeaderPosition(lbTitle, UIRectTransform.ShowType.Normal, ref deltaY);
                     // gameType
                     {
                         float bgY = deltaY;
                         float bgHeight = 0;
                         // type
-                        {
-                            bgHeight += UIConstants.ItemHeight;
-                            deltaY += UIConstants.ItemHeight;
-                        }
+                        UIUtils.SetLabelContentPositionBg(lbGameType, this.data.gameType.v, ref deltaY, ref bgHeight);
                         // UI
                         {
                             float height = UIRectTransform.SetPosY(this.data.defaultGameTypeUI.v, deltaY);
@@ -961,18 +956,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                         }
                     }
                     // useRule
-                    {
-                        if (lbUseRule != null)
-                        {
-                            UIRectTransform.SetPosY((RectTransform)lbUseRule.transform, deltaY);
-                        }
-                        else
-                        {
-                            Debug.LogError("lbUseRule null");
-                        }
-                        UIRectTransform.SetPosY(this.data.useRule.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2);
-                        deltaY += UIConstants.ItemHeight;
-                    }
+                    UIUtils.SetLabelContentPosition(lbUseRule, this.data.useRule.v, ref deltaY);
                     // set height
                     UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                 }
@@ -1055,9 +1039,6 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
     public RequestChangeBoolUI requestBoolPrefab;
     public RequestChangeEnumUI requestEnumPrefab;
 
-    private static readonly UIRectTransform gameTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform useRuleRect = new UIRectTransform(UIConstants.RequestBoolRect);
-
     private Server server = null;
 
     public override void onAddCallBack<T>(T data)
@@ -1132,7 +1113,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.gameType:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, gameTypeRect);
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -1327,7 +1308,7 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.useRule:
-                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, useRuleRect);
+                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -1641,6 +1622,8 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                 case Setting.Property.language:
                     dirty = true;
                     break;
+                case Setting.Property.style:
+                    break;
                 case Setting.Property.contentTextSize:
                     dirty = true;
                     break;
@@ -1648,6 +1631,9 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                     dirty = true;
                     break;
                 case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
                     dirty = true;
                     break;
                 case Setting.Property.showLastMove:

@@ -346,6 +346,8 @@ public class DefaultRoomNameAlwaysUI : UIHaveTransformDataBehavior<DefaultRoomNa
                 case Setting.Property.language:
                     dirty = true;
                     break;
+                case Setting.Property.style:
+                    break;
                 case Setting.Property.contentTextSize:
                     dirty = true;
                     break;
@@ -355,7 +357,8 @@ public class DefaultRoomNameAlwaysUI : UIHaveTransformDataBehavior<DefaultRoomNa
                 case Setting.Property.labelTextSize:
                     dirty = true;
                     break;
-                case Setting.Property.style:
+                case Setting.Property.buttonSize:
+                    dirty = true;
                     break;
                 case Setting.Property.showLastMove:
                     break;

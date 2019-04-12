@@ -1310,9 +1310,10 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         {
                             if (lbTextSizeTitle != null)
                             {
+                                float headerHeight = Setting.get().getButtonSize();
                                 UIRectTransform.SetPosY(lbTextSizeTitle.rectTransform, deltaY);
-                                bgHeight += UIConstants.HeaderHeight;
-                                deltaY += UIConstants.HeaderHeight;
+                                bgHeight += headerHeight;
+                                deltaY += headerHeight;
                             }
                             else
                             {

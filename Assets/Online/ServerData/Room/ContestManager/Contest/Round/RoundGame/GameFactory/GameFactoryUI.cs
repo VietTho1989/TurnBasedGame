@@ -172,10 +172,6 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                 txtPosture.add(Language.Type.vi, "Cờ Thế");
             }
         }
-        // rect
-        {
-            gameDataFactoryTypeRect.setPosY(UIConstants.HeaderHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2);
-        }
     }
 
     #endregion
@@ -427,16 +423,15 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                 }
                 // UISize
                 {
-                    float deltaY = UIConstants.HeaderHeight;
+                    float deltaY = 0;
+                    // header
+                    UIUtils.SetHeaderPosition(lbTitle, UIRectTransform.ShowType.Normal, ref deltaY);
                     // gameDataFactory
                     {
                         float bgY = deltaY;
                         float bgHeight = 0;
                         // type
-                        {
-                            bgHeight += UIConstants.ItemHeight;
-                            deltaY += UIConstants.ItemHeight;
-                        }
+                        UIUtils.SetLabelContentPositionBg(lbGameDataFactoryType, this.data.gameDataFactoryType.v, ref deltaY, ref bgHeight);
                         // UI
                         {
                             float height = UIRectTransform.SetPosY(this.data.gameDataFactoryUIData.v, deltaY);
@@ -520,7 +515,6 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
     public PostureGameDataFactoryUI postureGameDataFactoryPrefab;
 
     public RequestChangeEnumUI requestEnumPrefab;
-    private static readonly UIRectTransform gameDataFactoryTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
     public TimeControlUI timeControlPrefab;
 
@@ -598,7 +592,7 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.gameDataFactoryType:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, gameDataFactoryTypeRect);
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -863,6 +857,8 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                 case Setting.Property.language:
                     dirty = true;
                     break;
+                case Setting.Property.style:
+                    break;
                 case Setting.Property.contentTextSize:
                     dirty = true;
                     break;
@@ -870,6 +866,9 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                     dirty = true;
                     break;
                 case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
                     dirty = true;
                     break;
                 case Setting.Property.showLastMove:

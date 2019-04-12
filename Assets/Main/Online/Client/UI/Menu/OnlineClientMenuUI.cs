@@ -121,6 +121,8 @@ public class OnlineClientMenuUI : UIBehavior<OnlineClientMenuUI.UIData>
 
     private bool firstInit = false;
 
+    public Button btnBack;
+
     public override void refresh()
     {
         if (dirty)
@@ -153,11 +155,17 @@ public class OnlineClientMenuUI : UIBehavior<OnlineClientMenuUI.UIData>
                         }
                     }
                 }
+                // UI
+                {
+                    UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                    UIRectTransform.SetTitleTransform(lbTitle);
+                }
                 // txt
                 {
                     if (lbTitle != null)
                     {
                         lbTitle.text = txtTitle.get();
+                        Setting.get().setTitleTextSize(lbTitle);
                     }
                     else
                     {
@@ -297,6 +305,18 @@ public class OnlineClientMenuUI : UIBehavior<OnlineClientMenuUI.UIData>
                     dirty = true;
                     break;
                 case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
+                    dirty = true;
                     break;
                 case Setting.Property.showLastMove:
                     break;

@@ -524,6 +524,9 @@ public class RequestChangeIntUI : UIBehavior<RequestChangeIntUI.UIData>
                 case Setting.Property.labelTextSize:
                     dirty = true;
                     break;
+                case Setting.Property.buttonSize:
+                    dirty = true;
+                    break;
                 case Setting.Property.confirmQuit:
                     break;
                 case Setting.Property.showLastMove:

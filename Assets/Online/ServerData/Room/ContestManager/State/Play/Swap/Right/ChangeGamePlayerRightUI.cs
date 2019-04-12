@@ -263,7 +263,7 @@ namespace GameManager.Match.Swap
                     {
                         float deltaY = 0;
                         // header
-                        deltaY += UIConstants.HeaderHeight;
+                        UIUtils.SetHeaderPosition(lbTitle, UIRectTransform.ShowType.Normal, ref deltaY);
                         // canChange
                         UIUtils.SetLabelContentPosition(lbCanChange, this.data.canChange.v, ref deltaY);
                         // canChangePlayerLeft
@@ -580,6 +580,9 @@ namespace GameManager.Match.Swap
                         dirty = true;
                         break;
                     case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.confirmQuit:

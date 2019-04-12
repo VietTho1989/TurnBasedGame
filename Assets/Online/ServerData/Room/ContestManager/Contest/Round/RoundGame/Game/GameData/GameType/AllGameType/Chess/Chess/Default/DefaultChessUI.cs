@@ -260,7 +260,6 @@ namespace Chess
         public MiniGameDataUI miniGameDataUIPrefab;
 
         public RequestChangeBoolUI requestBoolPrefab;
-        public static readonly UIRectTransform chess960Rect = new UIRectTransform(UIConstants.RequestBoolRect);
 
         private Server server = null;
 
@@ -336,7 +335,7 @@ namespace Chess
                             switch ((UIData.Property)wrapProperty.n)
                             {
                                 case UIData.Property.chess960:
-                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, chess960Rect);
+                                    UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                     break;
                                 default:
                                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -538,6 +537,8 @@ namespace Chess
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.style:
+                        break;
                     case Setting.Property.contentTextSize:
                         dirty = true;
                         break;
@@ -545,6 +546,9 @@ namespace Chess
                         dirty = true;
                         break;
                     case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

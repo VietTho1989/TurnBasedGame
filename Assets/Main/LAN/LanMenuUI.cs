@@ -86,6 +86,8 @@ public class LanMenuUI : UIBehavior<LanMenuUI.UIData>
 
     #region Refresh
 
+    public Button btnBack;
+
     public override void refresh()
     {
         if (dirty)
@@ -93,6 +95,11 @@ public class LanMenuUI : UIBehavior<LanMenuUI.UIData>
             dirty = false;
             if (this.data != null)
             {
+                // UI
+                {
+                    UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                    UIRectTransform.SetTitleTransform(lbTitle);
+                }
                 // txt
                 {
                     if (lbTitle != null)

@@ -454,7 +454,7 @@ public class RequestDrawStateAcceptUI : UIHaveTransformDataBehavior<RequestDrawS
                     {
                         float deltaY = 0;
                         // header
-                        deltaY += UIConstants.HeaderHeight;
+                        UIUtils.SetHeaderPosition(lbTitle, UIRectTransform.ShowType.Normal, ref deltaY);
                         // whoCanAskAdapter
                         deltaY += UIRectTransform.SetPosY(this.data.whoCanAskAdapter.v, deltaY);
                         // btn

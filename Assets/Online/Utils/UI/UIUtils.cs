@@ -269,15 +269,17 @@ public class UIUtils
         {
             case UIRectTransform.ShowType.Normal:
                 {
+                    float headerHeight = Setting.get().getButtonSize();
                     if (lbTitle != null)
                     {
                         lbTitle.gameObject.SetActive(true);
+                        UIRectTransform.SetHeight(lbTitle.rectTransform, headerHeight);
                     }
                     else
                     {
                         Debug.LogError("lbTitle null");
                     }
-                    deltaY += UIConstants.HeaderHeight;
+                    deltaY += headerHeight;
                 }
                 break;
             case UIRectTransform.ShowType.HeadLess:
