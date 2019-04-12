@@ -1,6 +1,7 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 [System.Serializable]
 public class UIRectTransform
@@ -478,6 +479,40 @@ public class UIRectTransform
             rect.sizeDelta = new Vector2(-paddingLeft - paddingRight, height);
         }
         return rect;
+    }
+
+    #endregion
+
+    #region headerHeight
+
+    public static void SetButtonTopLeftTransform(Button button)
+    {
+        if (button != null)
+        {
+            UIRectTransform rect = new UIRectTransform();
+            {
+                // anchoredPosition: (0.0, 0.0); anchorMin: (0.0, 1.0); anchorMax: (0.0, 1.0); pivot: (0.0, 1.0);
+                // offsetMin: (0.0, -30.0); offsetMax: (30.0, 0.0); sizeDelta: (30.0, 30.0);
+                float buttonSize = Setting.get().buttonSize.v;
+                rect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                rect.anchorMin = new Vector2(0.0f, 1.0f);
+                rect.anchorMax = new Vector2(0.0f, 1.0f);
+                rect.pivot = new Vector2(0.0f, 1.0f);
+                rect.offsetMin = new Vector2(0.0f, -buttonSize);
+                rect.offsetMax = new Vector2(buttonSize, 0.0f);
+                rect.sizeDelta = new Vector2(buttonSize, buttonSize);
+            }
+            rect.set((RectTransform)button.transform);
+        }
+        else
+        {
+            Debug.LogError("button null");
+        }
+    }
+
+    public static void SetTitleTransform(Text title)
+    {
+
     }
 
     #endregion

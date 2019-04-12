@@ -414,6 +414,38 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
 
         #endregion
 
+        #region buttonSize
+
+        public VP<RequestChangeFloatUI.UIData> buttonSize;
+
+        public void makeRequestChangeButtonSize(RequestChangeUpdate<float>.UpdateData update, float newButtonSize)
+        {
+            // Find
+            Setting setting = null;
+            {
+                EditData<Setting> editSetting = this.editSetting.v;
+                if (editSetting != null)
+                {
+                    setting = editSetting.show.v.data;
+                }
+                else
+                {
+                    Debug.LogError("editSetting null: " + this);
+                }
+            }
+            // Process
+            if (setting != null)
+            {
+                setting.buttonSize.v = Mathf.Clamp(newButtonSize, Setting.MinButtonSize, Setting.MaxButtonSize);
+            }
+            else
+            {
+                Debug.LogError("setting null: " + this);
+            }
+        }
+
+        #endregion
+
         #region Constructor
 
         public enum Property
@@ -439,7 +471,8 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
 
             contentTextSize,
             titleTextSize,
-            labelTextSize
+            labelTextSize,
+            buttonSize
         }
 
         public UIData() : base()
@@ -609,6 +642,21 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                     }
                     this.labelTextSize.v.updateData.v.request.v = makeRequestChangeLabelTextSize;
                 }
+                // buttonSize
+                {
+                    this.buttonSize = new VP<RequestChangeFloatUI.UIData>(this, (byte)Property.buttonSize, new RequestChangeFloatUI.UIData());
+                    // have limit
+                    {
+                        FloatLimit.Have have = new FloatLimit.Have();
+                        {
+                            have.uid = this.buttonSize.v.limit.makeId();
+                            have.min.v = Setting.MinButtonSize;
+                            have.max.v = Setting.MaxButtonSize;
+                        }
+                        this.buttonSize.v.limit.v = have;
+                    }
+                    this.buttonSize.v.updateData.v.request.v = makeRequestChangeButtonSize;
+                }
             }
         }
 
@@ -677,6 +725,9 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
     public Text lbLabelTextSize;
     private static readonly TxtLanguage txtLabelTextSize = new TxtLanguage("Label text size");
 
+    public Text lbButtonSize;
+    private static readonly TxtLanguage txtButtonSize = new TxtLanguage("Button size");
+
     static SettingUI()
     {
         // txt
@@ -707,6 +758,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 txtContentTextSize.add(Language.Type.vi, "Kích thước chữ nội dung");
                 txtTitleTextSize.add(Language.Type.vi, "Kích thước chữ tiêu đề");
                 txtLabelTextSize.add(Language.Type.vi, "Kích thước chữ nhãn");
+                txtButtonSize.add(Language.Type.vi, "Kích thước nút");
             }
         }
         // rect
@@ -1134,6 +1186,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                             RequestChange.RefreshUI(this.data.contentTextSize.v, editSetting, serverState, needReset, editData => editData.contentTextSize.v);
                             RequestChange.RefreshUI(this.data.titleTextSize.v, editSetting, serverState, needReset, editData => editData.titleTextSize.v);
                             RequestChange.RefreshUI(this.data.labelTextSize.v, editSetting, serverState, needReset, editData => editData.labelTextSize.v);
+                            RequestChange.RefreshUI(this.data.buttonSize.v, editSetting, serverState, needReset, editData => editData.buttonSize.v);
                         }
                     }
                     needReset = false;
@@ -1272,6 +1325,8 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         UIUtils.SetLabelContentPositionBg(lbTitleTextSize, this.data.titleTextSize.v, ref deltaY, ref bgHeight);
                         // labelTextSize
                         UIUtils.SetLabelContentPositionBg(lbLabelTextSize, this.data.labelTextSize.v, ref deltaY, ref bgHeight);
+                        // buttonSize
+                        UIUtils.SetLabelContentPositionBg(lbButtonSize, this.data.buttonSize.v, ref deltaY, ref bgHeight);
                         // bg
                         if (bgTextSize != null)
                         {
@@ -1416,6 +1471,15 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         {
                             Debug.LogError("lbLabelTextSize null");
                         }
+                        if (lbButtonSize != null)
+                        {
+                            lbButtonSize.text = txtButtonSize.get();
+                            Setting.get().setLabelTextSize(lbButtonSize);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbButtonSize null");
+                        }
                     }
                 }
             }
@@ -1439,6 +1503,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
     public RequestChangeBoolUI requestBoolPrefab;
     public AnimationSettingUI animationSettingPrefab;
     public RequestChangeIntUI requestIntPrefab;
+    public RequestChangeFloatUI requestFloatPrefab;
 
     public DefaultChosenGameLastUI defaultChosenGameLastPrefab;
     public DefaultChosenGameAlwaysUI defaultChosenGameAlwaysPrefab;
@@ -1486,6 +1551,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 uiData.contentTextSize.allAddCallBack(this);
                 uiData.titleTextSize.allAddCallBack(this);
                 uiData.labelTextSize.allAddCallBack(this);
+                uiData.buttonSize.allAddCallBack(this);
             }
             dirty = true;
             return;
@@ -1628,6 +1694,33 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                                 break;
                             case UIData.Property.labelTextSize:
                                 UIUtils.Instantiate(requestChange, requestIntPrefab, this.transform, UIConstants.RequestRect);
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("wrapProperty null: " + this);
+                    }
+                }
+                dirty = true;
+                return;
+            }
+            // buttonSize
+            if (data is RequestChangeFloatUI.UIData)
+            {
+                RequestChangeFloatUI.UIData requestChange = data as RequestChangeFloatUI.UIData;
+                // UI
+                {
+                    WrapProperty wrapProperty = requestChange.p;
+                    if (wrapProperty != null)
+                    {
+                        switch ((UIData.Property)wrapProperty.n)
+                        {
+                            case UIData.Property.buttonSize:
+                                UIUtils.Instantiate(requestChange, requestFloatPrefab, this.transform, UIConstants.RequestRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -1785,6 +1878,7 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 uiData.contentTextSize.allRemoveCallBack(this);
                 uiData.titleTextSize.allRemoveCallBack(this);
                 uiData.labelTextSize.allRemoveCallBack(this);
+                uiData.buttonSize.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
             return;
@@ -1855,6 +1949,16 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                 // UI
                 {
                     requestChange.removeCallBackAndDestroy(typeof(RequestChangeIntUI));
+                }
+                return;
+            }
+            // buttonSize
+            if (data is RequestChangeFloatUI.UIData)
+            {
+                RequestChangeFloatUI.UIData requestChange = data as RequestChangeFloatUI.UIData;
+                // UI
+                {
+                    requestChange.removeCallBackAndDestroy(typeof(RequestChangeFloatUI));
                 }
                 return;
             }
@@ -2075,6 +2179,12 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         dirty = true;
                     }
                     break;
+                case UIData.Property.buttonSize:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
@@ -2139,6 +2249,9 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
                         case Setting.Property.labelTextSize:
                             dirty = true;
                             break;
+                        case Setting.Property.buttonSize:
+                            dirty = true;
+                            break;
                         case Setting.Property.confirmQuit:
                             dirty = true;
                             break;
@@ -2187,6 +2300,11 @@ public class SettingUI : UIHaveTransformDataBehavior<SettingUI.UIData>
             }
             // maxThinkCount, contentTextSize, titleTextSize, labelTextSize
             if (wrapProperty.p is RequestChangeIntUI.UIData)
+            {
+                return;
+            }
+            // buttonSize
+            if (wrapProperty.p is RequestChangeFloatUI.UIData)
             {
                 return;
             }

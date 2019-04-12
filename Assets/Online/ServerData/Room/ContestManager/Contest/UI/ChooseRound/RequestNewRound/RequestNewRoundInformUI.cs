@@ -76,6 +76,7 @@ namespace GameManager.Match
             if (dirty)
             {
                 dirty = false;
+                // Debug.LogError("requestNewRoundInformUI refresh");
                 if (this.data != null)
                 {
                     RequestNewRound requestNewRound = this.data.requestNewRound.v.data;
@@ -407,6 +408,7 @@ namespace GameManager.Match
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                                 break;
                         }
+                        Debug.LogError("requestNewRoundInformUI transformData dirty");
                         return;
                     }
                 }

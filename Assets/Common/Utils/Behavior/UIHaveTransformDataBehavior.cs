@@ -76,8 +76,9 @@ public abstract class UIHaveTransformDataBehavior<K> : UIBehavior<K>, HaveTransf
 
     private void transformDataClear()
     {
+        // Debug.LogError("transformData clear: " + this);
         transformData.callBacks.Clear();
-        // transformData.reset();
+        transformData.reset();
     }
 
     #endregion
@@ -93,6 +94,12 @@ public abstract class UIHaveTransformDataBehavior<K> : UIBehavior<K>, HaveTransf
     public override void LateUpdate()
     {
         base.LateUpdate();
+        updateTransformData();
+    }
+
+    public override void onStart()
+    {
+        base.onStart();
         updateTransformData();
     }
 

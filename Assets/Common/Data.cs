@@ -381,6 +381,27 @@ public abstract class Data : AddCallBackInterface
         return ret;
     }
 
+    public HaveTransformData findTransformData()
+    {
+        HaveTransformData ret = null;
+        {
+            for (int i = this.callBacks.Count - 1; i >= 0; i--)
+            {
+                ValueChangeCallBack callBack = this.callBacks[i];
+                if (typeof(HaveTransformData).IsAssignableFrom(callBack.GetType()))
+                {
+                    HaveTransformData haveTransformData = (HaveTransformData)callBack;
+                    if (haveTransformData.getDataHaveTransformData() == this)
+                    {
+                        ret = haveTransformData;
+                        break;
+                    }
+                }
+            }
+        }
+        return ret;
+    }
+
     #region get information
 
     #region serch information

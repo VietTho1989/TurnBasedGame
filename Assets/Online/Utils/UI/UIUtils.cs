@@ -232,22 +232,7 @@ public class UIUtils
         if (data != null)
         {
             // find
-            HaveTransformData ui = null;
-            {
-                for (int i = data.callBacks.Count - 1; i >= 0; i--)
-                {
-                    ValueChangeCallBack callBack = data.callBacks[i];
-                    if (typeof(HaveTransformData).IsAssignableFrom(callBack.GetType()))
-                    {
-                        HaveTransformData haveTransformData = (HaveTransformData)callBack;
-                        if (haveTransformData.getDataHaveTransformData() == data)
-                        {
-                            ui = haveTransformData;
-                            break;
-                        }
-                    }
-                }
-            }
+            HaveTransformData ui = data.findTransformData();
             // process
             if (ui != null)
             {

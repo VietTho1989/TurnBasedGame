@@ -39,6 +39,7 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
     private const string Setting_ContentTextSize = "Setting_ContentTextSize";
     private const string Setting_TitleTextSize = "Setting_TitleTextSize";
     private const string Setting_LabelTextSize = "Setting_LabelTextSize";
+    private const string Setting_ButtonSize = "Setting_ButtonSize";
 
     private HashSet<byte> settingUpdateNames = new HashSet<byte>();
 
@@ -117,6 +118,7 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                     Setting.get().contentTextSize.v = PlayerPrefs.GetInt(Setting_ContentTextSize, Setting.DefaultContentTextSize);
                     Setting.get().titleTextSize.v = PlayerPrefs.GetInt(Setting_TitleTextSize, Setting.DefaultTitleTextSize);
                     Setting.get().labelTextSize.v = PlayerPrefs.GetInt(Setting_LabelTextSize, Setting.DefaultLabelTextSize);
+                    Setting.get().buttonSize.v = PlayerPrefs.GetFloat(Setting_ButtonSize, Setting.DefaultButtonSize);
                 }
 
                 // defaultChosenGameType
@@ -294,6 +296,12 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                                 case Setting.Property.labelTextSize:
                                     {
                                         PlayerPrefs.SetInt(Setting_LabelTextSize, Setting.get().labelTextSize.v);
+                                        needSave = true;
+                                    }
+                                    break;
+                                case Setting.Property.buttonSize:
+                                    {
+                                        PlayerPrefs.SetFloat(Setting_ButtonSize, Setting.get().buttonSize.v);
                                         needSave = true;
                                     }
                                     break;
@@ -520,6 +528,12 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                     }
                     break;
                 case Setting.Property.labelTextSize:
+                    {
+                        settingUpdateNames.Add(wrapProperty.n);
+                        dirty = true;
+                    }
+                    break;
+                case Setting.Property.buttonSize:
                     {
                         settingUpdateNames.Add(wrapProperty.n);
                         dirty = true;

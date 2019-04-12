@@ -237,7 +237,7 @@ namespace GameManager.Match
         public Swap.SwapUI swapUIPrefab;
 
         public RoomUserListUI roomUserListPrefab;
-        private static readonly UIRectTransform roomUserListRect = UIRectTransform.CreateCenterRect(400, 400);
+        private static readonly UIRectTransform roomUserListRect = UIRectTransform.CreateCenterRect(400, 400, 0, 30);
 
         public override void onAddCallBack<T>(T data)
         {

@@ -105,6 +105,21 @@ public class Setting : Data
 
     #endregion
 
+    #region buttonSize
+
+    public const float DefaultButtonSize = 30;
+    public const float MinButtonSize = 20;
+    public const float MaxButtonSize = 50;
+
+    public VP<float> buttonSize;
+
+    public float getButtonSize()
+    {
+        return Mathf.Clamp(this.buttonSize.v, MinButtonSize, MaxButtonSize);
+    }
+
+    #endregion
+
     #endregion
 
     public VP<bool> confirmQuit;
@@ -277,6 +292,7 @@ public class Setting : Data
         contentTextSize,
         titleTextSize,
         labelTextSize,
+        buttonSize,
 
         confirmQuit,
         showLastMove,
@@ -297,6 +313,7 @@ public class Setting : Data
             this.contentTextSize = new VP<int>(this, (byte)Property.contentTextSize, DefaultContentTextSize);
             this.titleTextSize = new VP<int>(this, (byte)Property.titleTextSize, DefaultTitleTextSize);
             this.labelTextSize = new VP<int>(this, (byte)Property.labelTextSize, DefaultLabelTextSize);
+            this.buttonSize = new VP<float>(this, (byte)Property.buttonSize, DefaultButtonSize);
         }
         this.confirmQuit = new VP<bool>(this, (byte)Property.confirmQuit, true);
         this.showLastMove = new VP<bool> (this, (byte)Property.showLastMove, true);

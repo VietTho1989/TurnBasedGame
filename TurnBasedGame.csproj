@@ -3859,6 +3859,9 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UndoRedo\UndoRedoRequest.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UndoRedo\UndoRedoRequestIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UndoRedo\UndoRedoRequestUpdate.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UseRule\Message\RequestChangeUseRuleMessage.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UseRule\Message\RequestChangeUseRuleMessageIdentity.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UseRule\Message\RequestChangeUseRuleMessageUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UseRule\RequestChangeUseRule.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UseRule\RequestChangeUseRuleIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\Contest\Round\RoundGame\Game\GameData\UseRule\RequestChangeUseRuleUI.cs" />
@@ -4175,7 +4178,9 @@
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Play\State\Normal\ContestManagerStatePlayNormal.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Play\State\Normal\ContestManagerStatePlayNormalIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Play\State\Normal\ContestManagerStatePlayNormalUpdate.cs" />
-    <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Play\Swap\Message\SwapMessage.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Play\Swap\Message\SwapPlayerMessage.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Play\Swap\Message\SwapPlayerMessageIdentity.cs" />
+    <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Play\Swap\Message\SwapPlayerMessageUI.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Play\Swap\Request\State\Accept\SwapRequestStateAccept.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Play\Swap\Request\State\Accept\SwapRequestStateAcceptIdentity.cs" />
     <Compile Include="Assets\Online\ServerData\Room\ContestManager\State\Play\Swap\Request\State\Accept\SwapRequestStateAcceptUI.cs" />

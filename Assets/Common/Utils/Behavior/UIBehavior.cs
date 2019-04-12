@@ -65,10 +65,19 @@ public abstract class UIBehavior<K> : GameBehavior<K>, TrashMan.DespawnInterface
         refresh();
     }
 
+    #region start
+
     private void Start()
+    {
+        onStart();
+    }
+
+    public virtual void onStart()
     {
         refresh();
     }
+
+    #endregion
 
     public virtual void OnGUI()
     {

@@ -17,6 +17,7 @@ public class UserAdapter : SRIA<UserAdapter.UIData, UserHolder.UIData>
     [Serializable]
     public class UIData : BaseParams
     {
+
         public VP<ReferenceData<Server>> server;
 
         public VP<ListShow> listShow;

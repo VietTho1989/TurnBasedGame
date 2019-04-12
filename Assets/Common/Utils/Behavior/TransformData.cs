@@ -102,7 +102,7 @@ public class TransformData : Data
     {
         if (data != null)
         {
-            HaveTransformData haveTransformData = data.findCallBack<HaveTransformData>();
+            HaveTransformData haveTransformData = data.findTransformData();
             if (haveTransformData != null)
             {
                 haveTransformData.getTransformData().addCallBack(callBack);
@@ -122,7 +122,7 @@ public class TransformData : Data
     {
         if (data != null)
         {
-            HaveTransformData haveTransformData = data.findCallBack<HaveTransformData>();
+            HaveTransformData haveTransformData = data.findTransformData();
             if (haveTransformData != null)
             {
                 haveTransformData.getTransformData().removeCallBack(callBack);

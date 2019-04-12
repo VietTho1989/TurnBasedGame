@@ -103,7 +103,7 @@ namespace GameManager.Match
                     chooseRoundAdapterRect.sizeDelta = new Vector2(0.0f, 300.0f);
                 }
                 // requestNewRoundInformRect
-                {
+                /*{
                     // anchoredPosition: (0.0, -330.0); anchorMin: (0.0, 1.0); anchorMax: (1.0, 1.0); pivot: (0.5, 1.0);
                     // offsetMin: (0.0, -390.0); offsetMax: (0.0, -330.0); sizeDelta: (0.0, 60.0);
                     requestNewRoundInformRect.anchoredPosition = new Vector3(0.0f, -330.0f);
@@ -113,7 +113,7 @@ namespace GameManager.Match
                     requestNewRoundInformRect.offsetMin = new Vector2(0.0f, -390.0f);
                     requestNewRoundInformRect.offsetMax = new Vector2(0.0f, -330.0f);
                     requestNewRoundInformRect.sizeDelta = new Vector2(0.0f, 60.0f);
-                }
+                }*/
             }
         }
 
@@ -209,7 +209,7 @@ namespace GameManager.Match
         private static readonly UIRectTransform chooseRoundAdapterRect = new UIRectTransform();
 
         public RequestNewRoundInformUI requestNewRoundInformPrefab;
-        private static readonly UIRectTransform requestNewRoundInformRect = new UIRectTransform();
+        // private static readonly UIRectTransform requestNewRoundInformRect = new UIRectTransform();
 
         public override void onAddCallBack<T>(T data)
         {
@@ -257,7 +257,7 @@ namespace GameManager.Match
                         RequestNewRoundInformUI.UIData requestNewRoundInformUIData = data as RequestNewRoundInformUI.UIData;
                         // UI
                         {
-                            UIUtils.Instantiate(requestNewRoundInformUIData, requestNewRoundInformPrefab, this.transform, requestNewRoundInformRect);
+                            UIUtils.Instantiate(requestNewRoundInformUIData, requestNewRoundInformPrefab, this.transform); //, requestNewRoundInformRect);
                         }
                         // Child
                         {
@@ -269,6 +269,7 @@ namespace GameManager.Match
                     // Child
                     if(data is TransformData)
                     {
+                        Debug.LogError("add transformData callBack");
                         dirty = true;
                         return;
                     }
@@ -440,6 +441,7 @@ namespace GameManager.Match
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                                 break;
                         }
+                        Debug.LogError("transform data dirty");
                         return;
                     }
                 }
