@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 
 namespace Shatranj.UseRule
 {
@@ -74,13 +74,16 @@ namespace Shatranj.UseRule
         #region txt
 
         public Text lbTitle;
+
+        public Button btnCancel;
         public Text tvCancel;
 
         #endregion
 
         #region Refresh
 
-        public Transform contentContainer;
+        public RectTransform contentContainer;
+        public RectTransform scrollRect;
 
         public override void refresh()
         {
@@ -211,11 +214,48 @@ namespace Shatranj.UseRule
                             this.data.btnChosenMoves.remove(oldBntChoseMoves[i]);
                         }
                     }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        float deltaY = 0;
+                        // header
+                        {
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            deltaY += buttonSize;
+                        }
+                        // scrollRect
+                        {
+                            UIRectTransform.SetPosY(scrollRect, deltaY);
+                            deltaY += 80;
+                        }
+                        // btnCancel
+                        {
+                            if (btnCancel != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnCancel.transform, deltaY + 10);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnCancel null");
+                            }
+                            deltaY += 50;
+                        }
+                        // set height
+                        if (contentContainer != null)
+                        {
+                            UIRectTransform.SetHeight(contentContainer, deltaY);
+                        }
+                        else
+                        {
+                            Debug.LogError("contentContainer null");
+                        }
+                    }
                     // txt
                     {
                         if (lbTitle != null)
                         {
                             lbTitle.text = ClickPosTxt.txtClickDestChooseTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -249,51 +289,6 @@ namespace Shatranj.UseRule
         public override bool isShouldDisableUpdate()
         {
             return true;
-        }
-
-        public void onClickMove(ShatranjMove shatranjMove)
-        {
-            if (this.data != null)
-            {
-                ClientInput clientInput = InputUI.UIData.findClientInput(this.data);
-                if (clientInput != null)
-                {
-                    clientInput.makeSend(shatranjMove);
-                }
-                else
-                {
-                    Debug.LogError("clientInput null: " + this);
-                }
-            }
-            else
-            {
-                Debug.LogError("data null: " + this);
-            }
-        }
-
-        public void onClickCancel()
-        {
-            Debug.LogError("onClickCancel: " + this);
-            if (this.data != null)
-            {
-                ShowUI.UIData showUI = this.data.findDataInParent<ShowUI.UIData>();
-                if (showUI != null)
-                {
-                    ClickPieceUI.UIData clickPieceUIData = new ClickPieceUI.UIData();
-                    {
-                        clickPieceUIData.uid = showUI.sub.makeId();
-                    }
-                    showUI.sub.v = clickPieceUIData;
-                }
-                else
-                {
-                    Debug.LogError("showUI null: " + this);
-                }
-            }
-            else
-            {
-                Debug.LogError("data null: " + this);
-            }
         }
 
         #endregion
@@ -475,6 +470,18 @@ namespace Shatranj.UseRule
                         break;
                     case Setting.Property.style:
                         break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
+                        dirty = true;
+                        break;
                     case Setting.Property.showLastMove:
                         break;
                     case Setting.Property.viewUrlImage:
@@ -556,6 +563,51 @@ namespace Shatranj.UseRule
         }
 
         #endregion
+
+        public void onClickMove(ShatranjMove shatranjMove)
+        {
+            if (this.data != null)
+            {
+                ClientInput clientInput = InputUI.UIData.findClientInput(this.data);
+                if (clientInput != null)
+                {
+                    clientInput.makeSend(shatranjMove);
+                }
+                else
+                {
+                    Debug.LogError("clientInput null: " + this);
+                }
+            }
+            else
+            {
+                Debug.LogError("data null: " + this);
+            }
+        }
+
+        public void onClickCancel()
+        {
+            Debug.LogError("onClickCancel: " + this);
+            if (this.data != null)
+            {
+                ShowUI.UIData showUI = this.data.findDataInParent<ShowUI.UIData>();
+                if (showUI != null)
+                {
+                    ClickPieceUI.UIData clickPieceUIData = new ClickPieceUI.UIData();
+                    {
+                        clickPieceUIData.uid = showUI.sub.makeId();
+                    }
+                    showUI.sub.v = clickPieceUIData;
+                }
+                else
+                {
+                    Debug.LogError("showUI null: " + this);
+                }
+            }
+            else
+            {
+                Debug.LogError("data null: " + this);
+            }
+        }
 
     }
 }

@@ -76,7 +76,7 @@ namespace RussianDraught.NoneRule
         #region Refresh
 
         public GameObject ivSelect;
-        public Transform contentContainer;
+        public RectTransform contentContainer;
 
         public override void refresh()
         {
@@ -264,6 +264,11 @@ namespace RussianDraught.NoneRule
                         break;
                     case Setting.Property.labelTextSize:
                         dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.confirmQuit:
                         break;
                     case Setting.Property.showLastMove:
                         break;

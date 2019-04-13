@@ -70,13 +70,16 @@ namespace FairyChess.UseRule
         #region txt
 
         public Text lbTitle;
+
+        public Button btnCancel;
         public Text tvCancel;
 
         #endregion
 
         #region Refresh
 
-        public Transform contentContainer;
+        public RectTransform contentContainer;
+        public RectTransform scrollRect;
 
         public override void refresh()
         {
@@ -187,6 +190,38 @@ namespace FairyChess.UseRule
                         for (int i = 0; i < oldBntChoseMoves.Count; i++)
                         {
                             this.data.btnChosenMoves.remove(oldBntChoseMoves[i]);
+                        }
+                    }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        float deltaY = 0;
+                        // header
+                        {
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            deltaY += buttonSize;
+                        }
+                        // scrollRect
+                        {
+                            UIRectTransform.SetPosY(scrollRect, deltaY);
+                            deltaY += 80;
+                        }
+                        // btnCancel
+                        {
+                            if (btnCancel != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnCancel.transform, deltaY + 10);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnCancel null");
+                            }
+                            deltaY += 50;
+                        }
+                        // setHeight
+                        if (contentContainer != null)
+                        {
+                            UIRectTransform.SetHeight(contentContainer, deltaY);
                         }
                     }
                     // txt
@@ -390,6 +425,8 @@ namespace FairyChess.UseRule
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.style:
+                        break;
                     case Setting.Property.contentTextSize:
                         dirty = true;
                         break;
@@ -399,7 +436,10 @@ namespace FairyChess.UseRule
                     case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
-                    case Setting.Property.style:
+                    case Setting.Property.buttonSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.confirmQuit:
                         break;
                     case Setting.Property.showLastMove:
                         break;

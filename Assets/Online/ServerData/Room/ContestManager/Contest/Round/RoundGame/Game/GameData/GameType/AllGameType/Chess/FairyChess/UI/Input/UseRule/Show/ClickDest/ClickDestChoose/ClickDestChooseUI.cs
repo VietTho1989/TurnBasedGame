@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 
 namespace FairyChess.UseRule
 {
@@ -74,13 +74,16 @@ namespace FairyChess.UseRule
         #region txt
 
         public Text lbTitle;
+
+        public Button btnCancel;
         public Text tvCancel;
 
         #endregion
 
         #region Refresh
 
-        public Transform contentContainer;
+        public RectTransform contentContainer;
+        public RectTransform scrollRect;
 
         public override void refresh()
         {
@@ -211,11 +214,48 @@ namespace FairyChess.UseRule
                             this.data.btnChosenMoves.remove(oldBntChoseMoves[i]);
                         }
                     }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        float deltaY = 0;
+                        // header
+                        {
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            deltaY += buttonSize;
+                        }
+                        // scrollRect
+                        {
+                            UIRectTransform.SetPosY(scrollRect, deltaY);
+                            deltaY += 80;
+                        }
+                        // btnCancel
+                        {
+                            if (btnCancel != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnCancel.transform, deltaY + 10);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnCancel null");
+                            }
+                            deltaY += 50;
+                        }
+                        // set height
+                        if (contentContainer != null)
+                        {
+                            UIRectTransform.SetHeight(contentContainer, deltaY);
+                        }
+                        else
+                        {
+                            Debug.LogError("contentContainer null");
+                        }
+                    }
                     // txt
                     {
                         if (lbTitle != null)
                         {
                             lbTitle.text = ClickPosTxt.txtClickDestChooseTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -374,7 +414,6 @@ namespace FairyChess.UseRule
                 // clickDestUIData
                 if (data is ClickDestUI.UIData)
                 {
-                    // ClickDestUI.UIData clickDestUIData = data as ClickDestUI.UIData;
                     return;
                 }
             }
@@ -383,6 +422,7 @@ namespace FairyChess.UseRule
                 if (data is BtnChosenMoveUI.UIData)
                 {
                     BtnChosenMoveUI.UIData btnChoseMoveUIData = data as BtnChosenMoveUI.UIData;
+                    // UI
                     {
                         btnChoseMoveUIData.removeCallBackAndDestroy(typeof(BtnChosenMoveUI));
                     }
@@ -429,6 +469,20 @@ namespace FairyChess.UseRule
                         dirty = true;
                         break;
                     case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.confirmQuit:
                         break;
                     case Setting.Property.showLastMove:
                         break;

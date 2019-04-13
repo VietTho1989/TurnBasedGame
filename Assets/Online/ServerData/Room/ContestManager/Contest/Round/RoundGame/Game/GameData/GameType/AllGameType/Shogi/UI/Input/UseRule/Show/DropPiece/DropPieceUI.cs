@@ -70,13 +70,16 @@ namespace Shogi.UseRule
         #region txt
 
         public Text lbTitle;
+
+        public Button btnCancel;
         public Text tvCancel;
 
         #endregion
 
         #region Refresh
 
-        public Transform contentContainer;
+        public RectTransform contentContainer;
+        public RectTransform scrollRect;
 
         public override void refresh()
         {
@@ -187,6 +190,42 @@ namespace Shogi.UseRule
                         foreach (BtnChosenMoveUI.UIData oldBtnChoseMove in oldBtnChoseMoves)
                         {
                             this.data.btnChosenMoves.remove(oldBtnChoseMove);
+                        }
+                    }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        float deltaY = 0;
+                        // header
+                        {
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            deltaY += buttonSize;
+                        }
+                        // scrollRect
+                        {
+                            UIRectTransform.SetPosY(scrollRect, deltaY);
+                            deltaY += 80;
+                        }
+                        // btnCancel
+                        {
+                            if (btnCancel != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnCancel.transform, deltaY + 10);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnCancel null");
+                            }
+                            deltaY += 50;
+                        }
+                        // set height
+                        if (contentContainer != null)
+                        {
+                            UIRectTransform.SetHeight(contentContainer, deltaY);
+                        }
+                        else
+                        {
+                            Debug.LogError("contentContainer null");
                         }
                     }
                     // txt
@@ -392,6 +431,8 @@ namespace Shogi.UseRule
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.style:
+                        break;
                     case Setting.Property.contentTextSize:
                         dirty = true;
                         break;
@@ -401,7 +442,8 @@ namespace Shogi.UseRule
                     case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
-                    case Setting.Property.style:
+                    case Setting.Property.buttonSize:
+                        dirty = true;
                         break;
                     case Setting.Property.showLastMove:
                         break;

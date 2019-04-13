@@ -133,6 +133,8 @@ public class SaveUI : UIBehavior<SaveUI.UIData>
 
     public InputField edtName;
 
+    public Button btnBack;
+
     public override void refresh()
     {
         if (dirty)
@@ -155,6 +157,36 @@ public class SaveUI : UIBehavior<SaveUI.UIData>
                         else
                         {
                             Debug.LogError("confirmSaveContainer null");
+                        }
+                    }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        // header
+                        {
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                            // btnSaveData
+                            {
+                                {
+                                    btnSaveDataRect.offsetMin.y = -buttonSize;
+                                    btnSaveDataRect.sizeDelta.y = buttonSize;
+                                }
+                                UIRectTransform.Set(this.data.btnSaveData.v, btnSaveDataRect);
+                            }
+                        }
+                        // edtName
+                        if (edtName != null)
+                        {
+                            UIRectTransform.SetPosY((RectTransform)edtName.transform, buttonSize + 10);
+                        }
+                        else
+                        {
+                            Debug.LogError("edtName null");
+                        }
+                        // fileSystemBrowser
+                        {
+                            UIRectTransform.Set(this.data.fileSystemBrowser.v, CreateFileSystemBrowserRect());
                         }
                     }
                     // txt
@@ -216,7 +248,10 @@ public class SaveUI : UIBehavior<SaveUI.UIData>
     #region implement callBacks
 
     public FileSystemBrowserUI fileSystemBrowserPrefab;
-    private static readonly UIRectTransform fileSystemBrowserRect = UIRectTransform.CreateFullRect(0, 0, 80, 0);
+    private static UIRectTransform CreateFileSystemBrowserRect()
+    {
+        return UIRectTransform.CreateFullRect(0, 0, Setting.get().getButtonSize() + 50, 0);
+    }
 
     public BtnSaveDataUI btnSaveDataPrefab;
     private static readonly UIRectTransform btnSaveDataRect = new UIRectTransform();
@@ -251,7 +286,7 @@ public class SaveUI : UIBehavior<SaveUI.UIData>
                 FileSystemBrowserUI.UIData fileSystemBrowserUIData = data as FileSystemBrowserUI.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(fileSystemBrowserUIData, fileSystemBrowserPrefab, this.transform, fileSystemBrowserRect);
+                    UIUtils.Instantiate(fileSystemBrowserUIData, fileSystemBrowserPrefab, this.transform, CreateFileSystemBrowserRect());
                 }
                 dirty = true;
                 return;
@@ -325,6 +360,7 @@ public class SaveUI : UIBehavior<SaveUI.UIData>
             switch ((UIData.Property)wrapProperty.n)
             {
                 case UIData.Property.needSaveData:
+                    dirty = true;
                     break;
                 case UIData.Property.fileSystemBrowser:
                     {
@@ -352,6 +388,8 @@ public class SaveUI : UIBehavior<SaveUI.UIData>
                 case Setting.Property.language:
                     dirty = true;
                     break;
+                case Setting.Property.style:
+                    break;
                 case Setting.Property.contentTextSize:
                     dirty = true;
                     break;
@@ -359,6 +397,9 @@ public class SaveUI : UIBehavior<SaveUI.UIData>
                     dirty = true;
                     break;
                 case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
                     dirty = true;
                     break;
                 case Setting.Property.showLastMove:
