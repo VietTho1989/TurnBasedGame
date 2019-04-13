@@ -60,7 +60,6 @@ public class BtnGameChatUI : UIBehavior<BtnGameChatUI.UIData>
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
-                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {

@@ -129,6 +129,40 @@ public class ContestManagerBtnUI : UIBehavior<ContestManagerBtnUI.UIData>
                     UIRectTransform.SetActive(this.data.btnRoomUser.v, isPlaying);
                     UIRectTransform.SetActive(this.data.btnSetting.v, isPlaying);
                 }
+                // btn
+                {
+                    float buttonSize = Setting.get().buttonSize.v;
+                    // btnChat
+                    {
+                        {
+                            btnChatRect.anchoredPosition.x = 0 * buttonSize;
+                            btnChatRect.offsetMin = new Vector2(0 * buttonSize, -buttonSize / 2);
+                            btnChatRect.offsetMax = new Vector2(1 * buttonSize, buttonSize / 2);
+                            btnChatRect.sizeDelta = new Vector2(buttonSize, buttonSize);
+                        }
+                        UIRectTransform.Set(this.data.btnChat.v, btnChatRect);
+                    }
+                    // btnRoomUser
+                    {
+                        {
+                            btnRoomUserRect.anchoredPosition.x = 1 * buttonSize;
+                            btnRoomUserRect.offsetMin = new Vector2(1 * buttonSize, -buttonSize / 2);
+                            btnRoomUserRect.offsetMax = new Vector2(2 * buttonSize, buttonSize / 2);
+                            btnRoomUserRect.sizeDelta = new Vector2(buttonSize, buttonSize);
+                        }
+                        UIRectTransform.Set(this.data.btnRoomUser.v, btnRoomUserRect);
+                    }
+                    // btnSetting
+                    {
+                        {
+                            btnSettingRect.anchoredPosition.x = 2 * buttonSize;
+                            btnSettingRect.offsetMin = new Vector2(2 * buttonSize, -buttonSize / 2);
+                            btnSettingRect.offsetMax = new Vector2(3 * buttonSize, buttonSize / 2);
+                            btnSettingRect.sizeDelta = new Vector2(buttonSize, buttonSize);
+                        }
+                        UIRectTransform.Set(this.data.btnSetting.v, btnSettingRect);
+                    }
+                }
             }
             else
             {
@@ -162,6 +196,8 @@ public class ContestManagerBtnUI : UIBehavior<ContestManagerBtnUI.UIData>
         if(data is UIData)
         {
             UIData uiData = data as UIData;
+            // Setting
+            Setting.get().addCallBack(this);
             // Parent
             {
                 DataUtils.addParentCallBack(uiData, this, ref this.contestManagerUIData);
@@ -172,6 +208,12 @@ public class ContestManagerBtnUI : UIBehavior<ContestManagerBtnUI.UIData>
                 uiData.btnRoomUser.allAddCallBack(this);
                 uiData.btnSetting.allAddCallBack(this);
             }
+            dirty = true;
+            return;
+        }
+        // Setting
+        if(data is Setting)
+        {
             dirty = true;
             return;
         }
@@ -222,6 +264,8 @@ public class ContestManagerBtnUI : UIBehavior<ContestManagerBtnUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Setting
+            Setting.get().removeCallBack(this);
             // Parent
             {
                 DataUtils.removeParentCallBack(uiData, this, ref this.contestManagerUIData);
@@ -233,6 +277,11 @@ public class ContestManagerBtnUI : UIBehavior<ContestManagerBtnUI.UIData>
                 uiData.btnSetting.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
+            return;
+        }
+        // Setting
+        if(data is Setting)
+        {
             return;
         }
         // Parent
@@ -300,6 +349,49 @@ public class ContestManagerBtnUI : UIBehavior<ContestManagerBtnUI.UIData>
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
                     }
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Setting
+        if(wrapProperty.p is Setting)
+        {
+            switch ((Setting.Property)wrapProperty.n)
+            {
+                case Setting.Property.language:
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.confirmQuit:
+                    break;
+                case Setting.Property.showLastMove:
+                    break;
+                case Setting.Property.viewUrlImage:
+                    break;
+                case Setting.Property.animationSetting:
+                    break;
+                case Setting.Property.maxThinkCount:
+                    break;
+                case Setting.Property.defaultChosenGame:
+                    break;
+                case Setting.Property.defaultRoomName:
+                    break;
+                case Setting.Property.defaultChatRoomStyle:
                     break;
                 default:
                     Debug.LogError("Don't process: " + wrapProperty + "; " + this);

@@ -174,9 +174,22 @@ namespace GameManager.Match
                     }
                     // UI
                     {
+                        float buttonSize = Setting.get().getButtonSize();
                         // btnBack
                         {
-                            // TODO Can hoan thien
+                            UIRectTransform rect = new UIRectTransform();
+                            {
+                                // anchoredPosition: (0.0, 0.0); anchorMin: (0.0, 0.0); anchorMax: (0.0, 1.0); pivot: (0.0, 0.5);
+                                // offsetMin: (0.0, 0.0); offsetMax: (30.0, 0.0); sizeDelta: (30.0, 0.0);
+                                rect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                                rect.anchorMin = new Vector2(0.0f, 0.0f);
+                                rect.anchorMax = new Vector2(0.0f, 1.0f);
+                                rect.pivot = new Vector2(0.0f, 0.5f);
+                                rect.offsetMin = new Vector2(0.0f, 0.0f);
+                                rect.offsetMax = new Vector2(buttonSize, 0.0f);
+                                rect.sizeDelta = new Vector2(buttonSize, 0.0f);
+                            }
+                            UIRectTransform.Set(this.data.btnBack.v, rect);
                         }
                     }
                 }

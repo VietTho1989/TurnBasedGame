@@ -154,6 +154,7 @@ namespace GameManager.Match
         #region Refresh
 
         public Text tvPlayerName;
+        public Button btnBack;
 
         public override void refresh()
         {
@@ -317,6 +318,78 @@ namespace GameManager.Match
                     {
 
                     }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().buttonSize.v;
+                        float deltaY = 0;
+                        // header
+                        {
+                            UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            deltaY += buttonSize;
+                        }
+                        // tvTeamIndex
+                        {
+                            if (tvTeamIndex != null)
+                            {
+                                UIRectTransform.SetPosY(tvTeamIndex.rectTransform, deltaY + 10);
+                                deltaY += 40;
+                            }
+                            else
+                            {
+                                Debug.LogError("tvTeamIndex null");
+                            }
+                        }
+                        // tvPlayerIndex
+                        {
+                            if (tvPlayerIndex != null)
+                            {
+                                UIRectTransform.SetPosY(tvPlayerIndex.rectTransform, deltaY + 10);
+                                deltaY += 40;
+                            }
+                            else
+                            {
+                                Debug.LogError("tvPlayerIndex null");
+                            }
+                        }
+                        // playerName
+                        {
+                            if (tvPlayerName != null)
+                            {
+                                UIRectTransform.SetPosY(tvPlayerName.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("tvPlayerName null");
+                            }
+                            UIRectTransform.SetPosY(this.data.avatar.v, deltaY + 5);
+                            deltaY += 50;
+                        }
+                        // subContainer
+                        {
+                            if (subContainer != null)
+                            {
+                                UIRectTransform.SetPosY(subContainer, deltaY);
+                                deltaY += 250;
+                            }
+                            else
+                            {
+                                Debug.LogError("subContainer null");
+                            }
+                        }
+                        // set contentContainer
+                        {
+                            if (contentContainer != null)
+                            {
+                                UIRectTransform rect = UIRectTransform.CreateCenterRect(360, deltaY);
+                                rect.set(contentContainer);
+                            }
+                            else
+                            {
+                                Debug.LogError("contentContainer null");
+                            }
+                        }
+                    }
                     // txt
                     {
                         if (lbTitle != null)
@@ -354,7 +427,7 @@ namespace GameManager.Match
 
         #region implement callBacks
 
-        public Transform contentContainer;
+        public RectTransform contentContainer;
 
         public InformAvatarUI avatarPrefab;
         private static readonly UIRectTransform avatarRect = new UIRectTransform();
@@ -364,7 +437,7 @@ namespace GameManager.Match
 
         public AdminEditLobbyPlayerUI adminEditPrefab;
         public NormalEditLobbyPlayerUI normalEditPrefab;
-        public Transform subContainer;
+        public RectTransform subContainer;
 
         private RoomCheckChangeAdminChange<LobbyPlayer> roomCheckAdminChange = new RoomCheckChangeAdminChange<LobbyPlayer>();
 
@@ -713,6 +786,8 @@ namespace GameManager.Match
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.style:
+                        break;
                     case Setting.Property.contentTextSize:
                         dirty = true;
                         break;
@@ -720,6 +795,9 @@ namespace GameManager.Match
                         dirty = true;
                         break;
                     case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

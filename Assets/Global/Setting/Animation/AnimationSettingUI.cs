@@ -254,6 +254,8 @@ public class AnimationSettingUI : UIHaveTransformDataBehavior<AnimationSettingUI
                     UIUtils.SetLabelContentPosition(lbFastForward, this.data.fastForward.v, ref deltaY);
                     // maxWaitAnimationCount
                     UIUtils.SetLabelContentPosition(lbMaxWaitAnimationCount, this.data.maxWaitAnimationCount.v, ref deltaY);
+                    // set height
+                    UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                 }
                 // txt
                 {
