@@ -85,9 +85,11 @@ namespace FileSystem
         public Text lbName;
         private static readonly TxtLanguage txtName = new TxtLanguage("New name");
 
+        public Button btnOK;
         public Text tvOK;
         private static readonly TxtLanguage txtOK = new TxtLanguage("OK");
 
+        public Button btnCancel;
         public Text tvCancel;
         private static readonly TxtLanguage txtCancel = new TxtLanguage("Cancel");
 
@@ -197,6 +199,58 @@ namespace FileSystem
                     {
                         Debug.LogError("file null: " + this);
                     }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        float deltaY = 0;
+                        // header
+                        {
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            deltaY += buttonSize;
+                        }
+                        // name
+                        {
+                            if (lbName != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)lbName.rectTransform, deltaY + 5);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbName null");
+                            }
+                            UIRectTransform.SetPosY(this.data.name.v, deltaY + 5);
+                            deltaY += 40;
+                        }
+                        // btn
+                        {
+                            if (btnOK != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnOK.transform, deltaY + 10);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnOK null");
+                            }
+                            if (btnCancel != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnCancel.transform, deltaY + 10);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnCancel null");
+                            }
+                            deltaY += 50;
+                        }
+                        // set height
+                        if (contentContainer != null)
+                        {
+                            UIRectTransform.SetHeight(contentContainer, deltaY);
+                        }
+                        else
+                        {
+                            Debug.LogError("contentContainer null");
+                        }
+                    }
                     // txt
                     {
                         if (lbTitle != null)
@@ -252,7 +306,7 @@ namespace FileSystem
         #region implement callBacks
 
         public RequestChangeStringUI requestStringPrefab;
-        public Transform contentContainer;
+        public RectTransform contentContainer;
         private static readonly UIRectTransform nameRect = new UIRectTransform();
 
         public override void onAddCallBack<T>(T data)
@@ -370,6 +424,8 @@ namespace FileSystem
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.style:
+                        break;
                     case Setting.Property.contentTextSize:
                         dirty = true;
                         break;
@@ -377,6 +433,9 @@ namespace FileSystem
                         dirty = true;
                         break;
                     case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

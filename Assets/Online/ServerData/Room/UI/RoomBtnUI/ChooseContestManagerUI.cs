@@ -77,18 +77,6 @@ namespace GameManager.Match
             txtTitle.add(Language.Type.vi, "Chọn Giải Đấu");
             // rect
             {
-                // chooseContestManagerRect
-                {
-                    // anchoredPosition: (0.0, -30.0); anchorMin: (0.0, 1.0); anchorMax: (1.0, 1.0); pivot: (0.5, 1.0);
-                    // offsetMin: (0.0, -330.0); offsetMax: (0.0, -30.0); sizeDelta: (0.0, 300.0);
-                    chooseContestManagerAdapterRect.anchoredPosition = new Vector3(0.0f, -30.0f, 0.0f);
-                    chooseContestManagerAdapterRect.anchorMin = new Vector2(0.0f, 1.0f);
-                    chooseContestManagerAdapterRect.anchorMax = new Vector2(1.0f, 1.0f);
-                    chooseContestManagerAdapterRect.pivot = new Vector2(0.5f, 1.0f);
-                    chooseContestManagerAdapterRect.offsetMin = new Vector2(0.0f, -310.0f);
-                    chooseContestManagerAdapterRect.offsetMax = new Vector2(0.0f, -30.0f);
-                    chooseContestManagerAdapterRect.sizeDelta = new Vector2(0.0f, 280.0f);
-                }
                 // contestManagerInformRect
                 {
                     // anchoredPosition: (0.0, -330.0); anchorMin: (0.0, 1.0); anchorMax: (1.0, 1.0); pivot: (0.5, 1.0);
@@ -107,6 +95,8 @@ namespace GameManager.Match
         #endregion
 
         #region Refresh
+
+        public Button btnBack;
 
         public override void refresh()
         {
@@ -172,11 +162,31 @@ namespace GameManager.Match
                     {
                         Debug.LogError("room null: " + this);
                     }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        // header
+                        {
+                            UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                        }
+                        // adapter
+                        {
+                            UIRectTransform rect = UIRectTransform.CreateFullRect(0, 0, buttonSize, 90);
+                            UIRectTransform.Set(this.data.chooseContestManagerAdapter.v, rect);
+                        }
+                        // set position
+                        {
+                            UIRectTransform rect = UIRectTransform.CreateCenterRect(400, 400, 0, (60 - buttonSize) / 2);
+                            rect.set((RectTransform)this.transform);
+                        }
+                    }
                     // txt
                     {
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -201,7 +211,6 @@ namespace GameManager.Match
         #region implement callBacks
 
         public ChooseContestManagerAdapter chooseContestManagerAdapterPrefab;
-        private static readonly UIRectTransform chooseContestManagerAdapterRect = new UIRectTransform();
 
         public ContestManagerInformUI contestManagerInformPrefab;
         private static readonly UIRectTransform contestManagerInformRect = new UIRectTransform();
@@ -265,7 +274,7 @@ namespace GameManager.Match
                     ChooseContestManagerAdapter.UIData chooseContestManagerAdapterUIData = data as ChooseContestManagerAdapter.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(chooseContestManagerAdapterUIData, chooseContestManagerAdapterPrefab, this.transform, chooseContestManagerAdapterRect);
+                        UIUtils.Instantiate(chooseContestManagerAdapterUIData, chooseContestManagerAdapterPrefab, this.transform, UIRectTransform.CreateFullRect(0, 0, Setting.get().getButtonSize(), 90));
                     }
                     dirty = true;
                     return;
@@ -395,6 +404,22 @@ namespace GameManager.Match
                 {
                     case Setting.Property.language:
                         dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.confirmQuit:
                         break;
                     case Setting.Property.showLastMove:
                         break;

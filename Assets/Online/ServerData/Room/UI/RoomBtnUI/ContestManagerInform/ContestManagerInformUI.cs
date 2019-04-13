@@ -94,7 +94,6 @@ namespace GameManager.Match
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get() + " " + (contestManager.index.v + 1);
-                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {

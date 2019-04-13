@@ -428,6 +428,20 @@ namespace Posture
                         }
                         UIRectTransform.SetSiblingIndex(this.data.fileSystemBrowser.v, 3);
                     }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        // header
+                        {
+                            UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            UIRectTransform.SetButtonTopRightTransformWidthHeight(btnLoad, 120, buttonSize);
+                        }
+                        // adapter
+                        {
+                            UIRectTransform.Set(this.data.fileSystemBrowser.v, CreateFileSystemBrowserRect());
+                        }
+                    }
                     // txt
                     {
                         if (lbTitle != null)
@@ -458,7 +472,11 @@ namespace Posture
         #region implement callBacks
 
         public FileSystemBrowserUI fileSystemBrowserPrefab;
-        private static readonly UIRectTransform fileSystemBrowserRect = UIRectTransform.CreateFullRect(0, 0, UIConstants.HeaderHeight, 0);
+
+        private static UIRectTransform CreateFileSystemBrowserRect()
+        {
+            return UIRectTransform.CreateFullRect(0, 0, Setting.get().getButtonSize(), 0);
+        }
 
         public override void onAddCallBack<T>(T data)
         {
@@ -490,7 +508,7 @@ namespace Posture
                         FileSystemBrowserUI.UIData fileSystemBrowserUIData = data as FileSystemBrowserUI.UIData;
                         // UI
                         {
-                            UIUtils.Instantiate(fileSystemBrowserUIData, fileSystemBrowserPrefab, this.transform, fileSystemBrowserRect);
+                            UIUtils.Instantiate(fileSystemBrowserUIData, fileSystemBrowserPrefab, this.transform, CreateFileSystemBrowserRect());
                         }
                         // Child
                         {
@@ -639,6 +657,8 @@ namespace Posture
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.style:
+                        break;
                     case Setting.Property.contentTextSize:
                         dirty = true;
                         break;
@@ -646,6 +666,9 @@ namespace Posture
                         dirty = true;
                         break;
                     case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

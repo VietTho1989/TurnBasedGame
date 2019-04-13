@@ -211,11 +211,35 @@ namespace Posture
                             Debug.LogError("bgState null");
                         }
                     }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        // header
+                        {
+                            UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            UIRectTransform.SetButtonTopRightTransformWidthHeight(btnRefresh, 80, buttonSize);
+                        }
+                        // adapter
+                        UIRectTransform.Set(this.data.adapter.v, CreateAdapterRect());
+                        // bgState
+                        {
+                            if (bgState != null)
+                            {
+                                CreateAdapterRect().set(bgState.rectTransform);
+                            }
+                            else
+                            {
+                                Debug.LogError("bgState null");
+                            }
+                        }
+                    }
                     // txt
                     {
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -248,7 +272,10 @@ namespace Posture
         #region implement callBacks
 
         public ChoosePostureAdapter adapterPrefab;
-        private static readonly UIRectTransform adapterRect = UIRectTransform.CreateFullRect(0, 0, 30, 0);
+        private static UIRectTransform CreateAdapterRect()
+        {
+            return UIRectTransform.CreateFullRect(0, 0, Setting.get().getButtonSize(), 0);
+        }
 
         public override void onAddCallBack<T>(T data)
         {
@@ -280,7 +307,7 @@ namespace Posture
                 ChoosePostureAdapter.UIData adapter = data as ChoosePostureAdapter.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(adapter, adapterPrefab, this.transform, adapterRect);
+                    UIUtils.Instantiate(adapter, adapterPrefab, this.transform, CreateAdapterRect());
                 }
                 dirty = true;
                 return;
@@ -359,6 +386,20 @@ namespace Posture
                 switch ((Setting.Property)wrapProperty.n)
                 {
                     case Setting.Property.language:
+                        dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

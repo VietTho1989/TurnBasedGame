@@ -193,7 +193,6 @@ public class RoomUI : UIBehavior<RoomUI.UIData>
                 roomBtnRect.offsetMax = new Vector2(-90.0f, 0.0f);
                 roomBtnRect.sizeDelta = new Vector2(-90.0f, 30.0f);
             }
-            chooseContestManagerRect.setPosY(-15.0f);
         }
     }
 
@@ -464,7 +463,6 @@ public class RoomUI : UIBehavior<RoomUI.UIData>
     private static readonly UIRectTransform contestManagerRect = UIRectTransform.CreateFullRect(0, 0, UIConstants.HeaderHeight, 0);
 
     public ChooseContestManagerUI chooseContestManagerPrefab;
-    private static readonly UIRectTransform chooseContestManagerRect = UIRectTransform.CreateCenterRect(400, 400);
 
     public RequestNewContestManagerUI requestNewContestManagerPrefab;
     private static readonly UIRectTransform requestNewContestManagerRect = UIRectTransform.CreateFullRect(0, 0, 30, 0);
@@ -565,7 +563,7 @@ public class RoomUI : UIBehavior<RoomUI.UIData>
                 ChooseContestManagerUI.UIData chooseContestManagerUIData = data as ChooseContestManagerUI.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(chooseContestManagerUIData, chooseContestManagerPrefab, this.transform, chooseContestManagerRect);
+                    UIUtils.Instantiate(chooseContestManagerUIData, chooseContestManagerPrefab, this.transform);
                 }
                 dirty = true;
                 return;

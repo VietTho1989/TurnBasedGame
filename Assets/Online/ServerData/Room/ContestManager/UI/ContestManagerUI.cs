@@ -402,6 +402,20 @@ namespace GameManager.Match
                             UIRectTransform.SetSiblingIndex(this.data.sub.v, 1);
                             UIRectTransform.SetSiblingIndex(this.data.roomChat.v, 2);
                         }
+                        // UI
+                        {
+                            float buttonSize = Setting.get().buttonSize.v;
+                            // btn
+                            {
+                                {
+                                    btnRect.anchoredPosition = new Vector3(0.0f, buttonSize, 0.0f);
+                                    btnRect.offsetMin = new Vector2(-3 * buttonSize, 0.0f);
+                                    btnRect.offsetMax = new Vector2(0.0f, buttonSize);
+                                    btnRect.sizeDelta = new Vector2(3 * buttonSize, buttonSize);
+                                }
+                                UIRectTransform.Set(this.data.btns.v, btnRect);
+                            }
+                        }
                     }
                     else
                     {
@@ -438,6 +452,8 @@ namespace GameManager.Match
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Setting
+                Setting.get().addCallBack(this);
                 // Child
                 {
                     uiData.contestManager.allAddCallBack(this);
@@ -445,6 +461,12 @@ namespace GameManager.Match
                     uiData.btns.allAddCallBack(this);
                     uiData.roomChat.allAddCallBack(this);
                 }
+                dirty = true;
+                return;
+            }
+            // Setting
+            if(data is Setting)
+            {
                 dirty = true;
                 return;
             }
@@ -546,6 +568,8 @@ namespace GameManager.Match
             if (data is UIData)
             {
                 UIData uiData = data as UIData;
+                // Setting
+                Setting.get().removeCallBack(this);
                 // Child
                 {
                     uiData.contestManager.allRemoveCallBack(this);
@@ -554,6 +578,11 @@ namespace GameManager.Match
                     uiData.roomChat.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
+                return;
+            }
+            // Setting
+            if(data is Setting)
+            {
                 return;
             }
             // Child
@@ -655,6 +684,49 @@ namespace GameManager.Match
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
                         }
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
+                }
+                return;
+            }
+            // Setting
+            if(wrapProperty.p is Setting)
+            {
+                switch ((Setting.Property)wrapProperty.n)
+                {
+                    case Setting.Property.language:
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.confirmQuit:
+                        break;
+                    case Setting.Property.showLastMove:
+                        break;
+                    case Setting.Property.viewUrlImage:
+                        break;
+                    case Setting.Property.animationSetting:
+                        break;
+                    case Setting.Property.maxThinkCount:
+                        break;
+                    case Setting.Property.defaultChosenGame:
+                        break;
+                    case Setting.Property.defaultRoomName:
+                        break;
+                    case Setting.Property.defaultChatRoomStyle:
                         break;
                     default:
                         Debug.LogError("Don't process: " + wrapProperty + "; " + this);

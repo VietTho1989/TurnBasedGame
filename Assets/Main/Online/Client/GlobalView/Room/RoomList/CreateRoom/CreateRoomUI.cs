@@ -211,9 +211,6 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
     public Text lbPassword;
     private static readonly TxtLanguage txtPassword = new TxtLanguage("Password");
 
-    public Text tvCancel;
-    private static readonly TxtLanguage txtCancel = new TxtLanguage("Cancel");
-
     static CreateRoomUI()
     {
         // txt
@@ -222,26 +219,19 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
             txtGameType.add(Language.Type.vi, "Chọn trò");
             txtRoomName.add(Language.Type.vi, "Tên phòng");
             txtPassword.add(Language.Type.vi, "Mật khẩu");
-            txtCancel.add(Language.Type.vi, "Huỷ Bỏ");
         }
         // rect
         {
-            // gameTypeRect
-            gameTypeRect.setPosY(UIConstants.HeaderHeight + 0 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-            // roomNameRect
-            roomNameRect.setPosY(UIConstants.HeaderHeight + 1 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-            // passwordRect
-            passwordRect.setPosY(UIConstants.HeaderHeight + 2 * UIConstants.ItemHeight + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
             // btnCreateRoomRect
             {
                 // anchoredPosition: (-80.0, -220.0); anchorMin: (0.5, 1.0); anchorMax: (0.5, 1.0); pivot: (0.5, 1.0);
                 // offsetMin: (-160.0, -250.0); offsetMax: (0.0, -220.0); sizeDelta: (160.0, 30.0);
-                btnCreateRoomRect.anchoredPosition = new Vector3(-80.0f, -225.0f, 0f);
+                btnCreateRoomRect.anchoredPosition = new Vector3(0, -225.0f, 0f);
                 btnCreateRoomRect.anchorMin = new Vector2(0.5f, 1.0f);
                 btnCreateRoomRect.anchorMax = new Vector2(0.5f, 1.0f);
                 btnCreateRoomRect.pivot = new Vector2(0.5f, 1.0f);
-                btnCreateRoomRect.offsetMin = new Vector2(-160.0f, -255f);
-                btnCreateRoomRect.offsetMax = new Vector2(0.0f, -225.0f);
+                btnCreateRoomRect.offsetMin = new Vector2(-80.0f, -255f);
+                btnCreateRoomRect.offsetMax = new Vector2(80.0f, -225.0f);
                 btnCreateRoomRect.sizeDelta = new Vector2(160.0f, 30.0f);
             }
         }
@@ -252,6 +242,8 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
     #region Refresh
 
     private bool needReset = true;
+
+    public Button btnBack;
 
     public override void refresh()
     {
@@ -289,6 +281,33 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
                 else
                 {
                     Debug.LogError("editCreateRoom null: " + this);
+                }
+                // UI
+                {
+                    float buttonSize = Setting.get().getButtonSize();
+                    float deltaY = 0;
+                    // header
+                    {
+                        UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                        UIRectTransform.SetTitleTransform(lbTitle);
+                        deltaY += buttonSize;
+                    }
+                    // gameType
+                    UIUtils.SetLabelContentPosition(lbGameType, this.data.gameType.v, ref deltaY);
+                    // roomName
+                    UIUtils.SetLabelContentPosition(lbRoomName, this.data.roomName.v, ref deltaY);
+                    // password
+                    UIUtils.SetLabelContentPosition(lbPassword, this.data.password.v, ref deltaY);
+                    // bottom
+                    {
+                        UIRectTransform.SetPosY(this.data.btnCreateRoom.v, deltaY + 15);
+                        deltaY += 60;
+                    }
+                    // set height
+                    {
+                        UIRectTransform rect = UIRectTransform.CreateCenterRect(400, deltaY);
+                        UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                    }
                 }
                 // txt
                 {
@@ -328,14 +347,6 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
                     {
                         Debug.LogError("lbPassword null: " + this);
                     }
-                    if (tvCancel != null)
-                    {
-                        tvCancel.text = txtCancel.get();
-                    }
-                    else
-                    {
-                        Debug.LogError("tvCancel null: " + this);
-                    }
                 }
             }
             else
@@ -356,10 +367,6 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
 
     public RequestChangeEnumUI requestEnumPrefab;
     public RequestChangeStringUI requestStringPrefab;
-
-    private static readonly UIRectTransform gameTypeRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform roomNameRect = new UIRectTransform(UIConstants.RequestEnumRect);
-    private static readonly UIRectTransform passwordRect = new UIRectTransform(UIConstants.RequestEnumRect);
 
     public BtnCreateRoomUI btnCreateRoomPrefab;
     private static readonly UIRectTransform btnCreateRoomRect = new UIRectTransform();
@@ -439,7 +446,7 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.gameType:
-                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, gameTypeRect);
+                                UIUtils.Instantiate(requestChange, requestEnumPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -465,10 +472,10 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
                         switch ((UIData.Property)wrapProperty.n)
                         {
                             case UIData.Property.roomName:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, roomNameRect);
+                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             case UIData.Property.password:
-                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, passwordRect);
+                                UIUtils.Instantiate(requestChange, requestStringPrefab, this.transform, UIConstants.RequestEnumRect);
                                 break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
@@ -639,6 +646,8 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
                 case Setting.Property.language:
                     dirty = true;
                     break;
+                case Setting.Property.style:
+                    break;
                 case Setting.Property.contentTextSize:
                     dirty = true;
                     break;
@@ -646,6 +655,9 @@ public class CreateRoomUI : UIBehavior<CreateRoomUI.UIData>
                     dirty = true;
                     break;
                 case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
                     dirty = true;
                     break;
                 case Setting.Property.showLastMove:

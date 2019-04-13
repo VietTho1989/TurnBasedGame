@@ -137,6 +137,46 @@ namespace Posture
 
         #endregion
 
+        #region txt, rect
+
+        public Text lbTitle;
+        private static readonly TxtLanguage txtTitle = new TxtLanguage("Edit Posture Game Data");
+
+        public Button btnPosture;
+        public Text tvPosture;
+        private static readonly TxtLanguage txtPosture = new TxtLanguage("Posture");
+
+        public Button btnLoad;
+        public Text tvLoad;
+        private static readonly TxtLanguage txtLoad = new TxtLanguage("Load");
+
+        static EditPostureGameDataUI()
+        {
+            // txt
+            {
+                txtTitle.add(Language.Type.vi, "Chỉnh Sửa Dữ Liệu Cờ Thế");
+                txtPosture.add(Language.Type.vi, "Thế Cờ");
+                txtLoad.add(Language.Type.vi, "Tải");
+            }
+            // rect
+            {
+                // btnSetRect
+                {
+                    // anchoredPosition: (0.0, 0.0); anchorMin: (1.0, 1.0); anchorMax: (1.0, 1.0); pivot: (1.0, 1.0);
+                    // offsetMin: (-120.0, -30.0); offsetMax: (0.0, 0.0); sizeDelta: (120.0, 30.0);
+                    btnSetRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                    btnSetRect.anchorMin = new Vector2(1.0f, 1.0f);
+                    btnSetRect.anchorMax = new Vector2(1.0f, 1.0f);
+                    btnSetRect.pivot = new Vector2(1.0f, 1.0f);
+                    btnSetRect.offsetMin = new Vector2(-120.0f, -30.0f);
+                    btnSetRect.offsetMax = new Vector2(0.0f, 0.0f);
+                    btnSetRect.sizeDelta = new Vector2(120.0f, 30.0f);
+                }
+            }
+        }
+
+        #endregion
+
         #region Refresh
 
         public void makeNewGame(GameData needSetGameData)
@@ -253,43 +293,7 @@ namespace Posture
             }
         }
 
-        #region txt, rect
-
-        public Text lbTitle;
-        private static readonly TxtLanguage txtTitle = new TxtLanguage("Edit Posture Game Data");
-
-        public Text tvPosture;
-        private static readonly TxtLanguage txtPosture = new TxtLanguage("Posture");
-
-        public Text tvLoad;
-        private static readonly TxtLanguage txtLoad = new TxtLanguage("Load");
-
-        static EditPostureGameDataUI()
-        {
-            // txt
-            {
-                txtTitle.add(Language.Type.vi, "Chỉnh Sửa Dữ Liệu Cờ Thế");
-                txtPosture.add(Language.Type.vi, "Thế Cờ");
-                txtLoad.add(Language.Type.vi, "Tải");
-            }
-            // rect
-            {
-                // btnSetRect
-                {
-                    // anchoredPosition: (0.0, 0.0); anchorMin: (1.0, 1.0); anchorMax: (1.0, 1.0); pivot: (1.0, 1.0);
-                    // offsetMin: (-120.0, -30.0); offsetMax: (0.0, 0.0); sizeDelta: (120.0, 30.0);
-                    btnSetRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
-                    btnSetRect.anchorMin = new Vector2(1.0f, 1.0f);
-                    btnSetRect.anchorMax = new Vector2(1.0f, 1.0f);
-                    btnSetRect.pivot = new Vector2(1.0f, 1.0f);
-                    btnSetRect.offsetMin = new Vector2(-120.0f, -30.0f);
-                    btnSetRect.offsetMax = new Vector2(0.0f, 0.0f);
-                    btnSetRect.sizeDelta = new Vector2(120.0f, 30.0f);
-                }
-            }
-        }
-
-        #endregion
+        public Button btnBack;
 
         public override void refresh()
         {
@@ -407,6 +411,46 @@ namespace Posture
                     {
                         Debug.LogError("postureGameDataFactory null: " + this);
                     }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        // header
+                        {
+                            UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                        }
+                        // btnPosture
+                        if (btnPosture != null)
+                        {
+                            UIRectTransform.SetPosY((RectTransform)btnPosture.transform, buttonSize);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnPosture null");
+                        }
+                        // btnLoad
+                        if (btnLoad != null)
+                        {
+                            UIRectTransform.SetPosY((RectTransform)btnLoad.transform, buttonSize);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnLoad null");
+                        }
+                        // gameUI
+                        {
+                            UIRectTransform gameUIRect = UIRectTransform.CreateFullRect(0, 0, buttonSize + 30, 0);
+                            UIRectTransform.Set(this.data.gameUIData.v, gameUIRect);
+                        }
+                        // btnSet
+                        {
+                            {
+                                btnSetRect.offsetMin.y = -buttonSize;
+                                btnSetRect.sizeDelta.y = buttonSize;
+                            }
+                            UIRectTransform.Set(this.data.btnSet.v, btnSetRect);
+                        }
+                    }
                     // txt
                     {
                         if (lbTitle != null)
@@ -453,7 +497,6 @@ namespace Posture
         #region implement callBacks
 
         public GameUI gameUIPrefab;
-        private static readonly UIRectTransform gameUIRect = UIRectTransform.CreateFullRect(0, 0, 60, 0);
 
         public BtnSetEditPostureGameData btnSetPrefab;
         private static readonly UIRectTransform btnSetRect = new UIRectTransform();
@@ -510,7 +553,7 @@ namespace Posture
                         GameUI.UIData gameUIData = data as GameUI.UIData;
                         // UI
                         {
-                            UIUtils.Instantiate(gameUIData, gameUIPrefab, this.transform, gameUIRect);
+                            UIUtils.Instantiate(gameUIData, gameUIPrefab, this.transform, UIRectTransform.CreateFullRect(0, 0, Setting.get().getButtonSize() + 30, 0));
                         }
                         // Child
                         {
@@ -730,6 +773,8 @@ namespace Posture
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.style:
+                        break;
                     case Setting.Property.contentTextSize:
                         dirty = true;
                         break;
@@ -737,6 +782,9 @@ namespace Posture
                         dirty = true;
                         break;
                     case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

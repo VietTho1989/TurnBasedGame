@@ -69,9 +69,11 @@ namespace FileSystem
         public Text tvPlaceHolder;
         private static readonly TxtLanguage txtPlaceHolder = new TxtLanguage("Enter folder name...");
 
+        public Button btnOk;
         public Text tvOK;
         private static readonly TxtLanguage txtOK = new TxtLanguage("OK");
 
+        public Button btnCancel;
         public Text tvCancel;
         private static readonly TxtLanguage txtCancel = new TxtLanguage("Cancel");
 
@@ -89,6 +91,7 @@ namespace FileSystem
         #region Refresh
 
         public InputField edtName;
+        public RectTransform contentContainer;
 
         public override void refresh()
         {
@@ -97,6 +100,65 @@ namespace FileSystem
                 dirty = false;
                 if (this.data != null)
                 {
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        float deltaY = 0;
+                        // header
+                        {
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            deltaY += buttonSize;
+                        }
+                        // edtName
+                        {
+                            if (lbName != null)
+                            {
+                                UIRectTransform.SetPosY(lbName.rectTransform, deltaY + 10);
+                            }
+                            else
+                            {
+                                Debug.LogError("lbName null");
+                            }
+                            if (edtName != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)edtName.transform, deltaY + 10);
+                            }
+                            else
+                            {
+                                Debug.LogError("edtName null");
+                            }
+                            deltaY += 40;
+                        }
+                        // btn
+                        {
+                            if (btnOk != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnOk.transform, deltaY + 20);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnOK null");
+                            }
+                            if (btnCancel != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnCancel.transform, deltaY + 20);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnCancel null");
+                            }
+                            deltaY += 70;
+                        }
+                        // setHeight
+                        if (contentContainer != null)
+                        {
+                            UIRectTransform.SetHeight(contentContainer, deltaY);
+                        }
+                        else
+                        {
+                            Debug.LogError("contentContainer null");
+                        }
+                    }
                     // txt
                     {
                         if (lbTitle != null)
@@ -180,9 +242,7 @@ namespace FileSystem
             if (data is UIData)
             {
                 // Setting
-                {
-                    Setting.get().addCallBack(this);
-                }
+                Setting.get().addCallBack(this);
                 dirty = true;
                 return;
             }
@@ -202,10 +262,6 @@ namespace FileSystem
                 UIData uiData = data as UIData;
                 // Setting
                 Setting.get().removeCallBack(this);
-                // Child
-                {
-
-                }
                 this.setDataNull(uiData);
                 return;
             }
@@ -241,6 +297,8 @@ namespace FileSystem
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.style:
+                        break;
                     case Setting.Property.contentTextSize:
                         dirty = true;
                         break;
@@ -248,6 +306,9 @@ namespace FileSystem
                         dirty = true;
                         break;
                     case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

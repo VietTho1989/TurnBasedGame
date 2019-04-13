@@ -538,7 +538,10 @@ namespace GameManager.Match
                                 Debug.LogError("btnSetting null");
                             }
                             // teamAdapterLobby
-                            UIRectTransform.Set(this.data.teamAdapter.v, teamAdapterLargeRect);
+                            {
+                                UpdateTeamAdapterLargeRect();
+                                UIRectTransform.Set(this.data.teamAdapter.v, teamAdapterLargeRect);
+                            }
                         }
                     }
                     // btStart
@@ -552,6 +555,33 @@ namespace GameManager.Match
                             btnStartRect.sizeDelta = new Vector2(3 * buttonSize, buttonSize);
                         }
                         UIRectTransform.Set(this.data.btnStart.v, btnStartRect);
+                    }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        // btnSetting
+                        {
+                            if (btnSetting != null)
+                            {
+                                UIRectTransform rect = new UIRectTransform();
+                                {
+                                    // anchoredPosition: (0.0, 0.0); anchorMin: (1.0, 1.0); anchorMax: (1.0, 1.0); pivot: (1.0, 1.0);
+                                    // offsetMin: (-30.0, -30.0); offsetMax: (0.0, 0.0); sizeDelta: (30.0, 30.0);
+                                    rect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                                    rect.anchorMin = new Vector2(1.0f, 1.0f);
+                                    rect.anchorMax = new Vector2(1.0f, 1.0f);
+                                    rect.pivot = new Vector2(1.0f, 1.0f);
+                                    rect.offsetMin = new Vector2(-buttonSize, -buttonSize);
+                                    rect.offsetMax = new Vector2(0.0f, 0.0f);
+                                    rect.sizeDelta = new Vector2(buttonSize, buttonSize);
+                                }
+                                rect.set((RectTransform)btnSetting.transform);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnSetting null");
+                            }
+                        }
                     }
                 }
                 else
@@ -586,6 +616,17 @@ namespace GameManager.Match
         public LobbyTeamAdapter teamAdapterPrefab;
         private static readonly UIRectTransform teamAdapterRect = new UIRectTransform();
         private static readonly UIRectTransform teamAdapterLargeRect = new UIRectTransform();
+
+        private static void UpdateTeamAdapterLargeRect()
+        {
+            float buttonSize = Setting.get().getButtonSize();
+            // rect
+            {
+                teamAdapterLargeRect.anchoredPosition.x = -buttonSize / 2;
+                teamAdapterLargeRect.offsetMax.x = -buttonSize;
+                teamAdapterLargeRect.sizeDelta.x = -buttonSize;
+            }
+        }
 
         public EditLobbyPlayerUI editLobbyPlayerPrefab;
         public Transform editLobbyPlayerContainer;
@@ -729,6 +770,7 @@ namespace GameManager.Match
                     LobbyTeamAdapter.UIData teamAdapter = data as LobbyTeamAdapter.UIData;
                     // UI
                     {
+                        UpdateTeamAdapterLargeRect();
                         UIUtils.Instantiate(teamAdapter, teamAdapterPrefab, this.transform, teamAdapterLargeRect);
                     }
                     dirty = true;

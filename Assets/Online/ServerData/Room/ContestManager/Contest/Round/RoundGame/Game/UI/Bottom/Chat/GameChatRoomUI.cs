@@ -223,6 +223,25 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
                             Debug.LogError("bgNotAllowChat null");
                         }
                     }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        float deltaY = 0;
+                        // header
+                        {
+                            UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            deltaY += buttonSize;
+                        }
+                        // chatRoom
+                        {
+                            UIRectTransform rect = UIRectTransform.CreateFullRect(0, 0, buttonSize, 0);
+                            UIRectTransform.Set(this.data.chatRoomUIData.v, rect);
+                            deltaY += 180;
+                        }
+                        // set height
+                        UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                    }
                     // txt
                     {
                         if (lbTitle != null)
@@ -266,7 +285,6 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
     #region implement callBacks
 
     public ChatRoomUI chatRoomPrefab;
-    private static readonly UIRectTransform chatRoomRect = UIRectTransform.CreateFullRect(0, 0, UIConstants.HeaderHeight, 0);
 
     public ShowAnimationUI showAnimationUI;
 
@@ -362,7 +380,7 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
                 ChatRoomUI.UIData chatRoomUIData = data as ChatRoomUI.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(chatRoomUIData, chatRoomPrefab, this.transform, chatRoomRect);
+                    UIUtils.Instantiate(chatRoomUIData, chatRoomPrefab, this.transform);
                 }
                 dirty = true;
                 return;
@@ -543,6 +561,9 @@ public class GameChatRoomUI : UIBehavior<GameChatRoomUI.UIData>
                     dirty = true;
                     break;
                 case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
                     dirty = true;
                     break;
                 case Setting.Property.showLastMove:

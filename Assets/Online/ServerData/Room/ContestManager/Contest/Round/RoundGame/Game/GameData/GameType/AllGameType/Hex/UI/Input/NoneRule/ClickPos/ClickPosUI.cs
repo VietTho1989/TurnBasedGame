@@ -80,6 +80,8 @@ namespace HEX.NoneRule
         public GameObject ivSelect;
         public Transform contentContainer;
 
+        public Button btnBack;
+
         public Button btnSetPiece;
         public Button btnMove;
         public Button btnEndTurn;
@@ -149,7 +151,11 @@ namespace HEX.NoneRule
                     {
                         float deltaY = 0;
                         // header
-                        deltaY += 30 + 10;
+                        {
+                            UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            deltaY += Setting.get().getButtonSize() + 10;
+                        }
                         // btnSetPiece
                         {
                             if (btnSetPiece != null && btnSetPiece.gameObject.activeSelf)
@@ -401,6 +407,8 @@ namespace HEX.NoneRule
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.style:
+                        break;
                     case Setting.Property.contentTextSize:
                         dirty = true;
                         break;
@@ -410,7 +418,8 @@ namespace HEX.NoneRule
                     case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
-                    case Setting.Property.style:
+                    case Setting.Property.buttonSize:
+                        dirty = true;
                         break;
                     case Setting.Property.showLastMove:
                         break;

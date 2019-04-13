@@ -68,10 +68,19 @@ namespace CoTuongUp.NoneRule
 
         public Text lbTitle;
 
+        public Button btnSetPiece;
         public Text tvSetPiece;
+
+        public Button btnFlip;
         public Text tvFlip;
+
+        public Button btnMove;
         public Text tvMove;
+
+        public Button btnEndTurn;
         public Text tvEndTurn;
+
+        public Button btnClear;
         public Text tvClear;
 
         #endregion
@@ -81,11 +90,7 @@ namespace CoTuongUp.NoneRule
         public GameObject ivSelect;
         public Transform contentContainer;
 
-        public Button btnSetPiece;
-        public Button btnFlip;
-        public Button btnMove;
-        public Button btnEndTurn;
-        public Button btnClear;
+        public Button btnBack;
 
         public override void refresh()
         {
@@ -185,7 +190,11 @@ namespace CoTuongUp.NoneRule
                     {
                         float deltaY = 0;
                         // header
-                        deltaY += 30 + 10;
+                        {
+                            UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            deltaY += Setting.get().getButtonSize() + 10;
+                        }
                         // btnSetPiece
                         {
                             if (btnSetPiece != null && btnSetPiece.gameObject.activeSelf)
@@ -482,6 +491,8 @@ namespace CoTuongUp.NoneRule
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.style:
+                        break;
                     case Setting.Property.contentTextSize:
                         dirty = true;
                         break;
@@ -491,7 +502,8 @@ namespace CoTuongUp.NoneRule
                     case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
-                    case Setting.Property.style:
+                    case Setting.Property.buttonSize:
+                        dirty = true;
                         break;
                     case Setting.Property.showLastMove:
                         break;
