@@ -44,10 +44,9 @@ public class UIUtils
                 UIBehavior<T> old = data.findCallBack<UIBehavior<T>>(prefab.GetType());
                 if (old == null)
                 {
-                    /*UIBehavior<T> newUI = TrashMan.normalSpawnUI (prefab, transform, data);
-					return newUI;*/
                     UIBehavior<T> newUI = TrashMan.normalSpawn(prefab, transform);
                     newUI.setData(data);
+                    data.uiGameObject = newUI.gameObject;
                     return newUI;
                 }
                 else
@@ -83,6 +82,7 @@ public class UIUtils
                     UIBehavior<T> newUI = TrashMan.normalSpawn(prefab, transform);
                     newUI.setData(data);
                     uiRectTransform.set((RectTransform)newUI.transform);
+                    data.uiGameObject = newUI.gameObject;
                     return newUI;
                 }
                 else
@@ -116,6 +116,7 @@ public class UIUtils
                     UIBehavior<T> newUI = TrashMan.normalSpawn(prefab, transform);
                     newUI.setData(data);
                     newUI.transform.SetSiblingIndex(siblingIndex);
+                    data.uiGameObject = newUI.gameObject;
                     return newUI;
                 }
                 else

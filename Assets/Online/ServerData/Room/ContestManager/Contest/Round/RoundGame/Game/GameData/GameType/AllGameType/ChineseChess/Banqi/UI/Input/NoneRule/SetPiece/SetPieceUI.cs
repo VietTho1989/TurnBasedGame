@@ -162,7 +162,10 @@ namespace Banqi.NoneRule
         }
 
         public GameObject ivSelect;
-        public Transform contentContainer;
+        public RectTransform contentContainer;
+
+        public Button btnBack;
+        public Button btnChoose;
 
         public override void refresh()
         {
@@ -210,6 +213,75 @@ namespace Banqi.NoneRule
                         else
                         {
                             Debug.LogError("imgSelect null: " + this);
+                        }
+                    }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        float deltaY = 0;
+                        // header
+                        {
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                            deltaY += buttonSize;
+                            deltaY += 10;
+                        }
+                        // drColor
+                        {
+                            if (drColor != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)drColor.transform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("drColor null");
+                            }
+                            deltaY += 40;
+                        }
+                        // drType
+                        {
+                            if (drType != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)drType.transform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("drType null");
+                            }
+                            deltaY += 40;
+                        }
+                        // tgFaceUp
+                        {
+                            if (tgFaceUp != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)tgFaceUp.transform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("tgFaceUp null");
+                            }
+                            deltaY += 30;
+                        }
+                        // btnChoose
+                        {
+                            if (btnChoose != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnChoose.transform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnChoose null");
+                            }
+                            deltaY += 40;
+                        }
+                        // height
+                        if (contentContainer != null)
+                        {
+                            UIRectTransform.SetHeight(contentContainer, deltaY);
+                        }
+                        else
+                        {
+                            Debug.LogError("contentContainer null");
                         }
                     }
                     // txt
@@ -356,6 +428,9 @@ namespace Banqi.NoneRule
                         dirty = true;
                         break;
                     case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

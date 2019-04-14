@@ -73,9 +73,13 @@ namespace Shogi.NoneRule
 
         #region Refresh
 
-        public Transform contentContainer;
+        public RectTransform contentContainer;
+
+        public Button btnBack;
 
         public InputField edtPieceCount;
+
+        public Button btnSet;
 
         public override void refresh()
         {
@@ -84,6 +88,55 @@ namespace Shogi.NoneRule
                 dirty = false;
                 if (this.data != null)
                 {
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        float deltaY = 0;
+                        // header
+                        {
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                            deltaY += buttonSize;
+                        }
+                        // adapter
+                        {
+                            UIRectTransform.SetPosY(this.data.setHandAdapter.v, deltaY + 10);
+                            deltaY += 10 + 60 + 10;
+                        }
+                        // edtPieceCount
+                        {
+                            if (edtPieceCount != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)edtPieceCount.transform, deltaY);
+                                deltaY += 40;
+                            }
+                            else
+                            {
+                                Debug.LogError("edtPieceCount null");
+                            }
+                        }
+                        // btnSet
+                        {
+                            if (btnSet != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnSet.transform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnSet null");
+                            }
+                            deltaY += 40;
+                        }
+                        // height
+                        if (contentContainer != null)
+                        {
+                            UIRectTransform.SetHeight(contentContainer, deltaY);
+                        }
+                        else
+                        {
+                            Debug.LogError("contentContainer null");
+                        }
+                    }
                     // txt
                     {
                         if (lbTitle != null)
@@ -275,6 +328,9 @@ namespace Shogi.NoneRule
                         dirty = true;
                         break;
                     case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:

@@ -149,6 +149,11 @@ public abstract class UIBehavior<K> : GameBehavior<K>, TrashMan.DespawnInterface
         return this.transform;
     }
 
+    public System.Type getDataType()
+    {
+        return typeof(K);
+    }
+
     public Data getData()
     {
         return this.data;

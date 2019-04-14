@@ -349,25 +349,44 @@ public abstract class Data : AddCallBackInterface
         return default(T);
     }
 
+    #region Transform
+
+    public GameObject uiGameObject = null;
+
     public static Transform FindTransform(Data data)
     {
         Transform ret = null;
         {
             if (data != null)
             {
-                for (int i = data.callBacks.Count - 1; i >= 0; i--)
+                if (data.uiGameObject != null)
+                {
+                    ret = data.uiGameObject.transform;
+                }
+                else
+                {
+                    Debug.LogError("uiGameObject null");
+                }
+                /*for (int i = data.callBacks.Count - 1; i >= 0; i--)
                 {
                     ValueChangeCallBack callBack = data.callBacks[i];
                     if (typeof(HaveTransformInterface).IsAssignableFrom(callBack.GetType()))
                     {
                         HaveTransformInterface haveTransformInterface = (HaveTransformInterface)callBack;
+                        // TODO Test
+                        {
+                            if(data is Chess.NoneRule.ChoosePieceAdapter.UIData)
+                            {
+                                Debug.LogError("test: " + data + ", " + haveTransformInterface);
+                            }
+                        }
                         if (haveTransformInterface.getData() == data)
                         {
                             ret = haveTransformInterface.getTransform();
                             break;
                         }
                     }
-                }
+                }*/
             }
             else
             {
@@ -380,6 +399,8 @@ public abstract class Data : AddCallBackInterface
         }
         return ret;
     }
+
+    #endregion
 
     public HaveTransformData findTransformData()
     {

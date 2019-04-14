@@ -1,8 +1,8 @@
 ﻿<Properties StartupConfiguration="{C7988ED3-3E56-93B2-44AA-2E444D521841}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Draught/RussianDraught/UI/Input/NoneRule/SetPiece/SetPieceUI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Chess/FairyChess/UI/Input/NoneRule/SetHand/SetHandUI.cs">
     <Files>
-      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Draught/RussianDraught/UI/Input/NoneRule/SetPiece/SetPieceUI.cs" Line="110" Column="3" />
-      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/ClickPosTxt.cs" Line="25" Column="44" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Chess/FairyChess/UI/Input/NoneRule/SetHand/SetHandUI.cs" Line="123" Column="30" />
+      <File FileName="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GameData/GameType/AllGameType/Shogi/UI/Input/NoneRule/SetHand/SetHandUI.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
@@ -11,7 +11,6 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GamePlayer/UI/GamePlayerUI/GamePlayerUI.cs" relfile="Assets/Online/ServerData/Room/ContestManager/Contest/Round/RoundGame/Game/GamePlayer/UI/GamePlayerUI/GamePlayerUI.cs" line="900" column="1" />
-      <Breakpoint file="/Users/viettho/Desktop/NewProject/TurnBasedGame/Assets/Online/ServerData/Room/ContestManager/State/Lobby/UI/ContestManagerStateLobbyUI.cs" relfile="Assets/Online/ServerData/Room/ContestManager/State/Lobby/UI/ContestManagerStateLobbyUI.cs" line="248" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />

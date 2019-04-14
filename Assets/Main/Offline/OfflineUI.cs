@@ -109,6 +109,18 @@ public class OfflineUI : UIBehavior<OfflineUI.UIData>
 
     #endregion
 
+    #region txt
+
+    public Text lbTitle;
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Play Offline");
+
+    static OfflineUI()
+    {
+        txtTitle.add(Language.Type.vi, "Chơi Offline");
+    }
+
+    #endregion
+
     #region Refresh
 
     public GameObject contentContainer;
@@ -148,6 +160,19 @@ public class OfflineUI : UIBehavior<OfflineUI.UIData>
                 // UI
                 {
                     UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                    UIRectTransform.SetTitleTransform(lbTitle);
+                }
+                // txt
+                {
+                    if (lbTitle != null)
+                    {
+                        lbTitle.text = txtTitle.get();
+                        Setting.get().setTitleTextSize(lbTitle);
+                    }
+                    else
+                    {
+                        Debug.LogError("lbTitle null");
+                    }
                 }
             }
             else
@@ -286,6 +311,7 @@ public class OfflineUI : UIBehavior<OfflineUI.UIData>
             switch ((Setting.Property)wrapProperty.n)
             {
                 case Setting.Property.language:
+                    dirty = true;
                     break;
                 case Setting.Property.style:
                     break;

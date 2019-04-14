@@ -22,6 +22,7 @@ public class ClickPosTxt
 
     public static readonly TxtLanguage txtSetPieceTitle = new TxtLanguage("Choose Piece To Set");
 
+    public const float setPieceChoosePieceAdapterHeight = 60;
     public static readonly UIRectTransform setPieceChoosePieceAdapterRect = new UIRectTransform();
 
     #endregion
@@ -93,9 +94,9 @@ public class ClickPosTxt
                 setPieceChoosePieceAdapterRect.anchorMin = new Vector2(0.0f, 1.0f);
                 setPieceChoosePieceAdapterRect.anchorMax = new Vector2(1.0f, 1.0f);
                 setPieceChoosePieceAdapterRect.pivot = new Vector2(0.5f, 1.0f);
-                setPieceChoosePieceAdapterRect.offsetMin = new Vector2(0.0f, -100.0f);
+                setPieceChoosePieceAdapterRect.offsetMin = new Vector2(0.0f, -40.0f - setPieceChoosePieceAdapterHeight);
                 setPieceChoosePieceAdapterRect.offsetMax = new Vector2(0.0f, -40.0f);
-                setPieceChoosePieceAdapterRect.sizeDelta = new Vector2(0.0f, 60.0f);
+                setPieceChoosePieceAdapterRect.sizeDelta = new Vector2(0.0f, setPieceChoosePieceAdapterHeight);
             }
         }
         // setHand

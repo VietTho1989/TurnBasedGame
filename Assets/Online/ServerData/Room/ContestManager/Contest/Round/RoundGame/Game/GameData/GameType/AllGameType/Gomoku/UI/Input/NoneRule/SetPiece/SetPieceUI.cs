@@ -76,7 +76,9 @@ namespace Gomoku.NoneRule
         #region Refresh
 
         public GameObject ivSelect;
-        public Transform contentContainer;
+        public RectTransform contentContainer;
+
+        public Button btnBack;
 
         public override void refresh()
         {
@@ -121,6 +123,31 @@ namespace Gomoku.NoneRule
                         else
                         {
                             Debug.LogError("imgSelect null: " + this);
+                        }
+                    }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        float deltaY = 0;
+                        // header
+                        {
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                            deltaY += buttonSize;
+                        }
+                        // adapter
+                        {
+                            UIRectTransform.SetPosY(this.data.choosePieceAdapter.v, deltaY + 10);
+                            deltaY += ClickPosTxt.setPieceChoosePieceAdapterHeight + 10;
+                        }
+                        // height
+                        if (contentContainer != null)
+                        {
+                            UIRectTransform.SetHeight(contentContainer, deltaY);
+                        }
+                        else
+                        {
+                            Debug.LogError("contentContainer null");
                         }
                     }
                     // txt
@@ -331,6 +358,9 @@ namespace Gomoku.NoneRule
                         dirty = true;
                         break;
                     case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
                         dirty = true;
                         break;
                     case Setting.Property.showLastMove:
