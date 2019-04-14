@@ -237,7 +237,6 @@ namespace GameManager.Match
         public Swap.SwapUI swapUIPrefab;
 
         public RoomUserListUI roomUserListPrefab;
-        private static readonly UIRectTransform roomUserListRect = UIRectTransform.CreateCenterRect(400, 400, 0, 30);
 
         public override void onAddCallBack<T>(T data)
         {
@@ -310,7 +309,7 @@ namespace GameManager.Match
                     RoomUserListUI.UIData roomUserListUIData = data as RoomUserListUI.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(roomUserListUIData, roomUserListPrefab, this.transform, roomUserListRect);
+                        UIUtils.Instantiate(roomUserListUIData, roomUserListPrefab, this.transform);
                     }
                     dirty = true;
                     return;

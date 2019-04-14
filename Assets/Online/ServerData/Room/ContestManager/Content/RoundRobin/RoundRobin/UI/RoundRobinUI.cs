@@ -230,15 +230,8 @@ namespace GameManager.Match.RoundRobin
         #region implement callBacks
 
         public RoundContestUI roundContestPrefab;
-        private static readonly UIRectTransform roundContestRect = UIConstants.FullParent;
 
         public ChooseRoundContestUI chooseRoundContestPrefab;
-        private static readonly UIRectTransform chooseRoundContestRect = UIRectTransform.CreateCenterRect(400, 400);
-
-        static RoundRobinUI()
-        {
-            chooseRoundContestRect.setPosY(-30);
-        }
 
         private RoomUI.UIData roomUIData = null;
 
@@ -309,7 +302,7 @@ namespace GameManager.Match.RoundRobin
                     RoundContestUI.UIData roundContestUIData = data as RoundContestUI.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(roundContestUIData, roundContestPrefab, this.transform, roundContestRect);
+                        UIUtils.Instantiate(roundContestUIData, roundContestPrefab, this.transform, UIConstants.FullParent);
                     }
                     dirty = true;
                     return;
@@ -319,7 +312,7 @@ namespace GameManager.Match.RoundRobin
                     ChooseRoundContestUI.UIData chooseRoundContestUIData = data as ChooseRoundContestUI.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(chooseRoundContestUIData, chooseRoundContestPrefab, this.transform, chooseRoundContestRect);
+                        UIUtils.Instantiate(chooseRoundContestUIData, chooseRoundContestPrefab, this.transform);
                     }
                     dirty = true;
                     return;

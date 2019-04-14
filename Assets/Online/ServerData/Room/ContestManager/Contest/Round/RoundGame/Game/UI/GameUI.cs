@@ -482,7 +482,6 @@ public class GameUI : UIBehavior<GameUI.UIData>
     public Transform saveRecordContainer;
 
     public GameInformationUI gameSettingPrefab;
-    private static readonly UIRectTransform gameSettingRect = UIRectTransform.CreateCenterRect(400, 400, 0, 30);
 
     private ContestManagerUI.UIData contestManagerUIData = null;
 
@@ -652,7 +651,7 @@ public class GameUI : UIBehavior<GameUI.UIData>
                 GameInformationUI.UIData gameSettingUIData = data as GameInformationUI.UIData;
                 // UI
                 {
-                    UIUtils.Instantiate(gameSettingUIData, gameSettingPrefab, this.transform, gameSettingRect);
+                    UIUtils.Instantiate(gameSettingUIData, gameSettingPrefab, this.transform);
                 }
                 dirty = true;
                 return;

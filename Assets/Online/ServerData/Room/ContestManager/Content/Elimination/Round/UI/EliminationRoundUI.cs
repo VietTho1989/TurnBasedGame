@@ -83,10 +83,7 @@ namespace GameManager.Match.Elimination
 
         static EliminationRoundUI()
         {
-            // rect
-            {
-                chooseBracketRect.setPosY(-30);
-            }
+
         }
 
         #endregion
@@ -300,7 +297,6 @@ namespace GameManager.Match.Elimination
         private static readonly UIRectTransform bracketRect = UIConstants.FullParent;
 
         public ChooseBracketUI chooseBracketPrefab;
-        private static readonly UIRectTransform chooseBracketRect = UIRectTransform.CreateCenterRect(400, 400);
 
         private RoomUI.UIData roomUIData = null;
 
@@ -395,7 +391,7 @@ namespace GameManager.Match.Elimination
                     ChooseBracketUI.UIData chooseBracketUIData = data as ChooseBracketUI.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(chooseBracketUIData, chooseBracketPrefab, this.transform, chooseBracketRect);
+                        UIUtils.Instantiate(chooseBracketUIData, chooseBracketPrefab, this.transform);
                     }
                     dirty = true;
                     return;

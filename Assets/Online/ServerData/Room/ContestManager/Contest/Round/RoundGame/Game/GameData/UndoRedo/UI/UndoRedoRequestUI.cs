@@ -180,6 +180,10 @@ public class UndoRedoRequestUI : UIBehavior<UndoRedoRequestUI.UIData>
                         Debug.LogError("btnBack null");
                     }
                 }
+                // btnBack
+                {
+                    UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                }
                 // UI
                 {
                     float deltaY = 0;
@@ -215,12 +219,20 @@ public class UndoRedoRequestUI : UIBehavior<UndoRedoRequestUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Setting
+            Setting.get().addCallBack(this);
             // Child
             {
                 uiData.undoRedoRequest.allAddCallBack(this);
                 uiData.sub.allAddCallBack(this);
                 uiData.showAnimation.allAddCallBack(this);
             }
+            dirty = true;
+            return;
+        }
+        // Setting
+        if(data is Setting)
+        {
             dirty = true;
             return;
         }
@@ -297,6 +309,8 @@ public class UndoRedoRequestUI : UIBehavior<UndoRedoRequestUI.UIData>
         if (data is UIData)
         {
             UIData uiData = data as UIData;
+            // Setting
+            Setting.get().removeCallBack(this);
             // Child
             {
                 uiData.undoRedoRequest.allRemoveCallBack(this);
@@ -304,6 +318,11 @@ public class UndoRedoRequestUI : UIBehavior<UndoRedoRequestUI.UIData>
                 uiData.showAnimation.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
+            return;
+        }
+        // Setting
+        if(data is Setting)
+        {
             return;
         }
         // Child
@@ -399,7 +418,50 @@ public class UndoRedoRequestUI : UIBehavior<UndoRedoRequestUI.UIData>
                     }
                     break;
                 default:
-                    Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                    break;
+            }
+            return;
+        }
+        // Setting
+        if(wrapProperty.p is Setting)
+        {
+            switch ((Setting.Property)wrapProperty.n)
+            {
+                case Setting.Property.language:
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.confirmQuit:
+                    break;
+                case Setting.Property.showLastMove:
+                    break;
+                case Setting.Property.viewUrlImage:
+                    break;
+                case Setting.Property.animationSetting:
+                    break;
+                case Setting.Property.maxThinkCount:
+                    break;
+                case Setting.Property.defaultChosenGame:
+                    break;
+                case Setting.Property.defaultRoomName:
+                    break;
+                case Setting.Property.defaultChatRoomStyle:
+                    break;
+                default:
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
             return;

@@ -136,6 +136,10 @@ public class RoomUserInformUI : UIBehavior<RoomUserInformUI.UIData>
 
     #region Refresh
 
+    public Button btnBack;
+    public RectTransform humanUIScrollView;
+    public RectTransform bgCannotBeKicked;
+
     public override void refresh()
     {
         if (dirty)
@@ -187,6 +191,62 @@ public class RoomUserInformUI : UIBehavior<RoomUserInformUI.UIData>
                 {
                     Debug.LogError("roomUser null: " + this);
                 }
+                // UI
+                {
+                    float buttonSize = Setting.get().getButtonSize();
+                    float deltaY = 0;
+                    // header
+                    {
+                        UIRectTransform.SetTitleTransform(lbTitle);
+                        UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                        deltaY += buttonSize;
+                    }
+                    // humanScrollView
+                    {
+                        if (humanUIScrollView != null)
+                        {
+                            UIRectTransform.SetPosY(humanUIScrollView, deltaY);
+                        }
+                        else
+                        {
+                            Debug.LogError("humanUIScrollView null");
+                        }
+                        deltaY += 200;
+                    }
+                    // bottom
+                    {
+                        UIRectTransform.SetPosY(this.data.userMakeFriend.v, deltaY);
+                        if (bgCannotBeKicked != null)
+                        {
+                            UIRectTransform.SetPosY(bgCannotBeKicked, deltaY + 60);
+                        }
+                        else
+                        {
+                            Debug.LogError("bgCannotBeKicked null");
+                        }
+                        if (tvCannotBeKicked != null)
+                        {
+                            UIRectTransform.SetPosY(tvCannotBeKicked.rectTransform, deltaY + 60);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvCannotBeKicked null");
+                        }
+                        UIRectTransform.SetPosY(this.data.kickUI.v, deltaY + 60);
+                        deltaY += 100;
+                    }
+                    // setHeight
+                    {
+                        if (contentContainer != null)
+                        {
+                            UIRectTransform.SetHeight(contentContainer, deltaY);
+                        }
+                        else
+                        {
+                            Debug.LogError("contentContainer null");
+                        }
+                    }
+                }
                 // txt
                 {
                     if (lbTitle != null)
@@ -211,6 +271,7 @@ public class RoomUserInformUI : UIBehavior<RoomUserInformUI.UIData>
                             }
                         }
                         lbTitle.text = userName;// txtTitle.get ("Room User Information");
+                        Setting.get().setTitleTextSize(lbTitle);
                     }
                     else
                     {
@@ -245,7 +306,7 @@ public class RoomUserInformUI : UIBehavior<RoomUserInformUI.UIData>
     public HumanUI humanPrefab;
     public Transform humanContainer;
 
-    public Transform contentContainer;
+    public RectTransform contentContainer;
 
     public UserMakeFriendUI userMakeFriendPrefab;
     private static readonly UIRectTransform userMakeFriendRect = new UIRectTransform();
@@ -423,6 +484,22 @@ public class RoomUserInformUI : UIBehavior<RoomUserInformUI.UIData>
             {
                 case Setting.Property.language:
                     dirty = true;
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.confirmQuit:
                     break;
                 case Setting.Property.showLastMove:
                     break;

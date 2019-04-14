@@ -76,6 +76,8 @@ namespace GameManager.Match.RoundRobin
 
         #region Refresh
 
+        public Button btnBack;
+
         public override void refresh()
         {
             if (dirty)
@@ -103,11 +105,30 @@ namespace GameManager.Match.RoundRobin
                     {
                         Debug.LogError("roundRobin null: " + this);
                     }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        float deltaY = 0;
+                        // header
+                        {
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                            deltaY += buttonSize;
+                        }
+                        // adapter
+                        deltaY += UIRectTransform.SetPosY(this.data.chooseRoundContestAdapter.v, deltaY);
+                        // set
+                        {
+                            UIRectTransform rect = UIRectTransform.CreateCenterRect(400, deltaY, 0, 30);
+                            rect.set((RectTransform)this.transform);
+                        }
+                    }
                     // txt
                     {
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -132,7 +153,6 @@ namespace GameManager.Match.RoundRobin
         #region implement callBacks
 
         public ChooseRoundContestAdapter chooseRoundContestAdapterPrefab;
-        private static readonly UIRectTransform chooseRoundContestAdapterRect = UIRectTransform.CreateFullRect(0, 0, UIConstants.HeaderHeight, 0);
 
         public override void onAddCallBack<T>(T data)
         {
@@ -167,7 +187,7 @@ namespace GameManager.Match.RoundRobin
                     ChooseRoundContestAdapter.UIData chooseRoundContestAdapterUIData = data as ChooseRoundContestAdapter.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(chooseRoundContestAdapterUIData, chooseRoundContestAdapterPrefab, this.transform, chooseRoundContestAdapterRect);
+                        UIUtils.Instantiate(chooseRoundContestAdapterUIData, chooseRoundContestAdapterPrefab, this.transform);
                     }
                     dirty = true;
                     return;
@@ -250,6 +270,22 @@ namespace GameManager.Match.RoundRobin
                 {
                     case Setting.Property.language:
                         dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.confirmQuit:
                         break;
                     case Setting.Property.showLastMove:
                         break;

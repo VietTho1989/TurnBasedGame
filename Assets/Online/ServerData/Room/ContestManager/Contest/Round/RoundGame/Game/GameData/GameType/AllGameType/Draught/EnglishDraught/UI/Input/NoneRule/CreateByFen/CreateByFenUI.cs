@@ -77,6 +77,11 @@ namespace EnglishDraught.NoneRule
 
         private bool firstInit = false;
 
+        public RectTransform contentContainer;
+        public Button btnBack;
+        public Button btnPaste;
+        public Button btnCreate;
+
         public override void refresh()
         {
             if (dirty)
@@ -117,6 +122,58 @@ namespace EnglishDraught.NoneRule
                         else
                         {
                             Debug.LogError("edtFen null");
+                        }
+                    }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        float deltaY = 0;
+                        // header
+                        {
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                            deltaY += buttonSize;
+                        }
+                        // fen
+                        {
+                            if (edtFen != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)edtFen.transform, deltaY + 10);
+                            }
+                            else
+                            {
+                                Debug.LogError("edtFen null");
+                            }
+                            if (btnPaste != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnPaste.transform, deltaY + 10);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnPaste null");
+                            }
+                            deltaY += 50;
+                        }
+                        // btnCreate
+                        {
+                            if (btnCreate != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnCreate.transform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnCreate null");
+                            }
+                            deltaY += 40;
+                        }
+                        // set height
+                        if (contentContainer != null)
+                        {
+                            UIRectTransform.SetHeight(contentContainer, deltaY);
+                        }
+                        else
+                        {
+                            Debug.LogError("contentContainer null");
                         }
                     }
                     // txt
@@ -241,6 +298,8 @@ namespace EnglishDraught.NoneRule
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.style:
+                        break;
                     case Setting.Property.contentTextSize:
                         dirty = true;
                         break;
@@ -250,7 +309,8 @@ namespace EnglishDraught.NoneRule
                     case Setting.Property.labelTextSize:
                         dirty = true;
                         break;
-                    case Setting.Property.style:
+                    case Setting.Property.buttonSize:
+                        dirty = true;
                         break;
                     case Setting.Property.showLastMove:
                         break;

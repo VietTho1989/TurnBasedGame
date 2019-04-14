@@ -133,6 +133,68 @@ public class UIRectTransform
         return ret;
     }
 
+    #region setPosX
+
+    public static float SetPosX(RectTransform rectTransform, float posX)
+    {
+        float ret = 0;
+        {
+            if (rectTransform.anchorMin.x == 0.0f
+            && rectTransform.anchorMax.x == 0.0f
+            && rectTransform.pivot.x == 0.0f)
+            {
+                rectTransform.anchoredPosition = new Vector2(posX, rectTransform.anchoredPosition.y);
+                rectTransform.offsetMin = new Vector2(posX, rectTransform.offsetMin.y);
+                rectTransform.offsetMax = new Vector2(posX + rectTransform.sizeDelta.x, rectTransform.offsetMax.y);
+                ret = rectTransform.rect.width;
+            }
+        }
+        return ret;
+    }
+
+    public static float SetPosX(Data data, float posX)
+    {
+        float ret = 0;
+        if (data != null)
+        {
+            RectTransform rectTransform = (RectTransform)Data.FindTransform(data);
+            if (rectTransform != null)
+            {
+                SetPosX(rectTransform, posX);
+                ret = rectTransform.rect.width;
+            }
+            else
+            {
+                Debug.LogError("rectTransform null");
+            }
+        }
+        else
+        {
+            // Debug.LogError("data null");
+        }
+        return ret;
+    }
+
+    public static void SetWidth(RectTransform rectTransform, float size)
+    {
+        // Debug.LogError("setHeight: " + size);
+        if (rectTransform.anchorMin.x == 0.0f
+            && rectTransform.anchorMax.x == 0.0f
+            && rectTransform.pivot.x == 0.0f)
+        {
+            rectTransform.offsetMin = new Vector2(rectTransform.anchoredPosition.x - size, rectTransform.offsetMin.y);
+            rectTransform.sizeDelta = new Vector2(size, rectTransform.sizeDelta.y);
+        }
+        else
+        {
+            Debug.LogError("unknown rect type: " + UIRectTransform.PrintRectTransform(rectTransform));
+        }
+    }
+
+    #endregion
+
+    #region setPosY
+
     public void setPosY(float posY)
     {
         // RequestIntLongFloatRect, RequestEnumRect
@@ -318,6 +380,25 @@ public class UIRectTransform
         {
             Debug.LogError("unknown rect type: " + UIRectTransform.PrintRectTransform(rectTransform));
         }
+    }
+
+    #endregion
+
+    public static UIRectTransform CreateTopBottomRect(float height)
+    {
+        UIRectTransform rect = new UIRectTransform();
+        {
+            // anchoredPosition: (0.0, 0.0); anchorMin: (0.0, 1.0); anchorMax: (1.0, 1.0); pivot: (0.5, 1.0);
+            // offsetMin: (0.0, -300.0); offsetMax: (0.0, 0.0); sizeDelta: (0.0, 300.0);
+            rect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+            rect.anchorMin = new Vector2(0.0f, 1.0f);
+            rect.anchorMax = new Vector2(1.0f, 1.0f);
+            rect.pivot = new Vector2(0.5f, 1.0f);
+            rect.offsetMin = new Vector2(0.0f, -height);
+            rect.offsetMax = new Vector2(0.0f, 0.0f);
+            rect.sizeDelta = new Vector2(0.0f, 300.0f);
+        }
+        return rect;
     }
 
     public static UIRectTransform CreateFullRect(float left, float right, float top, float bottom)

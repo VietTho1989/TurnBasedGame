@@ -244,12 +244,6 @@ namespace GameManager.Match.RoundRobin
         public RoundRobinUI roundRobinPrefab;
 
         public ChooseRoundRobinUI chooseRoundRobinPrefab;
-        private static readonly UIRectTransform chooseRoundRobinRect = UIRectTransform.CreateCenterRect(400, 400);
-
-        static RoundRobinContentUI()
-        {
-            chooseRoundRobinRect.setPosY(-30);
-        }
 
         public RequestNewRoundRobinUI requestNewRoundRobinPrefab;
 
@@ -322,7 +316,7 @@ namespace GameManager.Match.RoundRobin
                     ChooseRoundRobinUI.UIData chooseRoundRobinUIData = data as ChooseRoundRobinUI.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(chooseRoundRobinUIData, chooseRoundRobinPrefab, this.transform, chooseRoundRobinRect);
+                        UIUtils.Instantiate(chooseRoundRobinUIData, chooseRoundRobinPrefab, this.transform);
                     }
                     dirty = true;
                     return;

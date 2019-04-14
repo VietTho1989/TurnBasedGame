@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace GameManager.Match.RoundRobin
 {
-    public class BtnRoundRobinUI : UIBehavior<BtnRoundRobinUI.UIData>
+    public class BtnRoundRobinUI : UIHaveTransformDataBehavior<BtnRoundRobinUI.UIData>
     {
 
         #region UIData

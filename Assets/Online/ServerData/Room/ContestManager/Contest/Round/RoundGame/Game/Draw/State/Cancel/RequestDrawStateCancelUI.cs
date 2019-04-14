@@ -48,7 +48,7 @@ public class RequestDrawStateCancelUI : UIHaveTransformDataBehavior<RequestDrawS
     #region txt
 
     public Text lbTitle;
-    public static readonly TxtLanguage txtTitle = new TxtLanguage("Request draw is cancelled");
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Request draw is cancelled");
 
     static RequestDrawStateCancelUI()
     {
@@ -66,11 +66,24 @@ public class RequestDrawStateCancelUI : UIHaveTransformDataBehavior<RequestDrawS
             dirty = false;
             if (this.data != null)
             {
+                // UI
+                {
+                    float buttonSize = Setting.get().getButtonSize();
+                    float deltaY = 0;
+                    // header
+                    {
+                        UIRectTransform.SetTitleTransform(lbTitle);
+                        deltaY += buttonSize;
+                    }
+                    // set height
+                    UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                }
                 // txt
                 {
                     if (lbTitle != null)
                     {
                         lbTitle.text = txtTitle.get();
+                        Setting.get().setTitleTextSize(lbTitle);
                     }
                     else
                     {
@@ -167,7 +180,7 @@ public class RequestDrawStateCancelUI : UIHaveTransformDataBehavior<RequestDrawS
                     }
                     break;
                 default:
-                    Debug.LogError("unknown wrapProperty: " + wrapProperty + "; " + this);
+                    Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                     break;
             }
             return;
@@ -179,6 +192,22 @@ public class RequestDrawStateCancelUI : UIHaveTransformDataBehavior<RequestDrawS
             {
                 case Setting.Property.language:
                     dirty = true;
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.confirmQuit:
                     break;
                 case Setting.Property.showLastMove:
                     break;

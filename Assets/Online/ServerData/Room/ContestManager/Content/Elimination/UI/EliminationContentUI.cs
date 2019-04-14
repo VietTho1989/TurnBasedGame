@@ -293,12 +293,6 @@ namespace GameManager.Match.Elimination
         public EliminationRoundUI eliminationRoundPrefab;
 
         public ChooseEliminationRoundUI chooseEliminationRoundPrefab;
-        private static readonly UIRectTransform chooseEliminationRoundRect = UIRectTransform.CreateCenterRect(400, 400);
-
-        static EliminationContentUI()
-        {
-            chooseEliminationRoundRect.setPosY(-30);
-        }
 
         public RequestNewEliminationRoundUI requestNewEliminationRoundPrefab;
 
@@ -396,7 +390,7 @@ namespace GameManager.Match.Elimination
                     ChooseEliminationRoundUI.UIData chooseEliminationRoundUIData = data as ChooseEliminationRoundUI.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(chooseEliminationRoundUIData, chooseEliminationRoundPrefab, this.transform, chooseEliminationRoundRect);
+                        UIUtils.Instantiate(chooseEliminationRoundUIData, chooseEliminationRoundPrefab, this.transform);
                     }
                     dirty = true;
                     return;

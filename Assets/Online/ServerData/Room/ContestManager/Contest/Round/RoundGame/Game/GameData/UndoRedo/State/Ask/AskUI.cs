@@ -425,11 +425,66 @@ namespace UndoRedo
                     {
                         Debug.LogError("ask null: " + this);
                     }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        float deltaY = 0;
+                        // header
+                        {
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            deltaY += buttonSize;
+                        }
+                        // tvRequestInform
+                        {
+                            if (tvRequestInform != null)
+                            {
+                                UIRectTransform.SetPosY(tvRequestInform.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("tvRequestInform null");
+                            }
+                            deltaY += 30;
+                        }
+                        // whoCanAskAdapter
+                        deltaY += UIRectTransform.SetPosY(this.data.whoCanAskAdapter.v, deltaY);
+                        // btn
+                        {
+                            if (btnAccept != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnAccept.transform, deltaY + 10);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnAccept null");
+                            }
+                            if (btnCancel != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnCancel.transform, deltaY + 10);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnCancel null");
+                            }
+                            if (tvCannotAnswer != null)
+                            {
+                                UIRectTransform.SetPosY(tvCannotAnswer.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("tvCannotAnswer null");
+                            }
+                            deltaY += 50;
+                        }
+                        // setHeight
+                        UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                    }
                     // txt
                     {
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -677,6 +732,22 @@ namespace UndoRedo
                 {
                     case Setting.Property.language:
                         dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.confirmQuit:
                         break;
                     case Setting.Property.showLastMove:
                         break;

@@ -88,10 +88,6 @@ namespace GameManager.Match.Elimination
         static BracketUI()
         {
             txtNoBracketContest.add(Language.Type.vi, "Không có trận đấu nào");
-            // rect
-            {
-                chooseBracketContestRect.setPosY(-30);
-            }
         }
 
         #endregion
@@ -326,7 +322,6 @@ namespace GameManager.Match.Elimination
         private static readonly UIRectTransform bracketContestRect = UIConstants.FullParent;
 
         public ChooseBracketContestUI chooseBracketContestPrefab;
-        private static readonly UIRectTransform chooseBracketContestRect = UIRectTransform.CreateCenterRect(400, 400);
 
         private RoomUI.UIData roomUIData = null;
 
@@ -415,7 +410,7 @@ namespace GameManager.Match.Elimination
                     ChooseBracketContestUI.UIData chooseBracketContestUIData = data as ChooseBracketContestUI.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(chooseBracketContestUIData, chooseBracketContestPrefab, this.transform, chooseBracketContestRect);
+                        UIUtils.Instantiate(chooseBracketContestUIData, chooseBracketContestPrefab, this.transform);
                     }
                     dirty = true;
                     return;

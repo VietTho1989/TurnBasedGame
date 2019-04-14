@@ -97,6 +97,7 @@ namespace GameManager.Match
 
         #region Refresh
 
+        public Button btnContestManager;
         public Text tvContestManager;
 
         public override void refresh()
@@ -175,6 +176,7 @@ namespace GameManager.Match
                     // UI
                     {
                         float buttonSize = Setting.get().getButtonSize();
+                        float deltaX = 0;
                         // btnBack
                         {
                             UIRectTransform rect = new UIRectTransform();
@@ -190,6 +192,37 @@ namespace GameManager.Match
                                 rect.sizeDelta = new Vector2(buttonSize, 0.0f);
                             }
                             UIRectTransform.Set(this.data.btnBack.v, rect);
+                            deltaX += buttonSize;
+                        }
+                        // btnContestManager
+                        {
+                            if (btnContestManager != null)
+                            {
+                                deltaX += UIRectTransform.SetPosX((RectTransform)btnContestManager.transform, deltaX);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnContestManager null");
+                            }
+                        }
+                        // subs
+                        {
+                            foreach(UIData.Sub sub in this.data.subs.vs)
+                            {
+                                Debug.LogError("setPositionX: " + deltaX + ", " + sub);
+                                deltaX += UIRectTransform.SetPosX(sub, deltaX);
+                            }
+                        }
+                        // set width
+                        {
+                            if (subContainer != null)
+                            {
+                                UIRectTransform.SetWidth(subContainer, deltaX);
+                            }
+                            else
+                            {
+                                Debug.LogError("subContainer null");
+                            }
                         }
                     }
                 }
@@ -221,7 +254,7 @@ namespace GameManager.Match
         public BtnEliminationRoundUI btnEliminationRoundPrefab;
         public BtnBracketUI btnBracketPrefab;
 
-        public Transform subContainer;
+        public RectTransform subContainer;
 
         private RoomUI.UIData roomUIData = null;
 
@@ -303,62 +336,75 @@ namespace GameManager.Match
                     dirty = true;
                     return;
                 }
-                if (data is UIData.Sub)
+                // sub
                 {
-                    UIData.Sub sub = data as UIData.Sub;
-                    // UI
+                    if (data is UIData.Sub)
                     {
-                        switch (sub.getType())
+                        UIData.Sub sub = data as UIData.Sub;
+                        // UI
                         {
-                            case UIData.Sub.Type.Contest:
-                                {
-                                    BtnContestUI.UIData btnContestUIData = sub as BtnContestUI.UIData;
-                                    UIUtils.Instantiate(btnContestUIData, btnContestPrefab, subContainer);
-                                }
-                                break;
-                            case UIData.Sub.Type.Round:
-                                {
-                                    BtnRoundUI.UIData btnRoundUIData = sub as BtnRoundUI.UIData;
-                                    UIUtils.Instantiate(btnRoundUIData, btnRoundPrefab, subContainer);
-                                }
-                                break;
-                            case UIData.Sub.Type.RoundRobinContent:
-                                {
-                                    BtnRoundRobinContentUI.UIData btnRoundRobinContentUIData = sub as BtnRoundRobinContentUI.UIData;
-                                    UIUtils.Instantiate(btnRoundRobinContentUIData, btnRoundRobinContentPrefab, subContainer);
-                                }
-                                break;
-                            case UIData.Sub.Type.RoundRobin:
-                                {
-                                    BtnRoundRobinUI.UIData btnRoundRobinUIData = sub as BtnRoundRobinUI.UIData;
-                                    UIUtils.Instantiate(btnRoundRobinUIData, btnRoundRobinPrefab, subContainer);
-                                }
-                                break;
-                            case UIData.Sub.Type.EliminationContent:
-                                {
-                                    BtnEliminationContentUI.UIData btnEliminationContentUIData = sub as BtnEliminationContentUI.UIData;
-                                    UIUtils.Instantiate(btnEliminationContentUIData, btnEliminationContentPrefab, subContainer);
-                                }
-                                break;
-                            case UIData.Sub.Type.EliminationRound:
-                                {
-                                    BtnEliminationRoundUI.UIData btnEliminationRoundUIData = sub as BtnEliminationRoundUI.UIData;
-                                    UIUtils.Instantiate(btnEliminationRoundUIData, btnEliminationRoundPrefab, subContainer);
-                                }
-                                break;
-                            case UIData.Sub.Type.Bracket:
-                                {
-                                    BtnBracketUI.UIData btnBracketUIData = sub as BtnBracketUI.UIData;
-                                    UIUtils.Instantiate(btnBracketUIData, btnBracketPrefab, subContainer);
-                                }
-                                break;
-                            default:
-                                Debug.LogError("unknown type: " + sub.getType() + "; " + this);
-                                break;
+                            switch (sub.getType())
+                            {
+                                case UIData.Sub.Type.Contest:
+                                    {
+                                        BtnContestUI.UIData btnContestUIData = sub as BtnContestUI.UIData;
+                                        UIUtils.Instantiate(btnContestUIData, btnContestPrefab, subContainer);
+                                    }
+                                    break;
+                                case UIData.Sub.Type.Round:
+                                    {
+                                        BtnRoundUI.UIData btnRoundUIData = sub as BtnRoundUI.UIData;
+                                        UIUtils.Instantiate(btnRoundUIData, btnRoundPrefab, subContainer);
+                                    }
+                                    break;
+                                case UIData.Sub.Type.RoundRobinContent:
+                                    {
+                                        BtnRoundRobinContentUI.UIData btnRoundRobinContentUIData = sub as BtnRoundRobinContentUI.UIData;
+                                        UIUtils.Instantiate(btnRoundRobinContentUIData, btnRoundRobinContentPrefab, subContainer);
+                                    }
+                                    break;
+                                case UIData.Sub.Type.RoundRobin:
+                                    {
+                                        BtnRoundRobinUI.UIData btnRoundRobinUIData = sub as BtnRoundRobinUI.UIData;
+                                        UIUtils.Instantiate(btnRoundRobinUIData, btnRoundRobinPrefab, subContainer);
+                                    }
+                                    break;
+                                case UIData.Sub.Type.EliminationContent:
+                                    {
+                                        BtnEliminationContentUI.UIData btnEliminationContentUIData = sub as BtnEliminationContentUI.UIData;
+                                        UIUtils.Instantiate(btnEliminationContentUIData, btnEliminationContentPrefab, subContainer);
+                                    }
+                                    break;
+                                case UIData.Sub.Type.EliminationRound:
+                                    {
+                                        BtnEliminationRoundUI.UIData btnEliminationRoundUIData = sub as BtnEliminationRoundUI.UIData;
+                                        UIUtils.Instantiate(btnEliminationRoundUIData, btnEliminationRoundPrefab, subContainer);
+                                    }
+                                    break;
+                                case UIData.Sub.Type.Bracket:
+                                    {
+                                        BtnBracketUI.UIData btnBracketUIData = sub as BtnBracketUI.UIData;
+                                        UIUtils.Instantiate(btnBracketUIData, btnBracketPrefab, subContainer);
+                                    }
+                                    break;
+                                default:
+                                    Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                                    break;
+                            }
                         }
+                        // Child
+                        {
+                            TransformData.AddCallBack(sub, this);
+                        }
+                        dirty = true;
+                        return;
                     }
-                    dirty = true;
-                    return;
+                    // Child
+                    if(data is TransformData)
+                    {
+                        dirty = true;
+                        return;
+                    }
                 }
             }
             Debug.LogError("Don't process: " + data + "; " + this);
@@ -436,61 +482,73 @@ namespace GameManager.Match
                     }
                     return;
                 }
-                if (data is UIData.Sub)
+                // sub
                 {
-                    UIData.Sub sub = data as UIData.Sub;
-                    // UI
+                    if (data is UIData.Sub)
                     {
-                        switch (sub.getType())
+                        UIData.Sub sub = data as UIData.Sub;
+                        // Child
                         {
-                            case UIData.Sub.Type.Contest:
-                                {
-                                    BtnContestUI.UIData btnContestUIData = sub as BtnContestUI.UIData;
-                                    btnContestUIData.removeCallBackAndDestroy(typeof(BtnContestUI));
-                                }
-                                break;
-                            case UIData.Sub.Type.Round:
-                                {
-                                    BtnRoundUI.UIData btnRoundUIData = sub as BtnRoundUI.UIData;
-                                    btnRoundUIData.removeCallBackAndDestroy(typeof(BtnRoundUI));
-                                }
-                                break;
-                            case UIData.Sub.Type.RoundRobinContent:
-                                {
-                                    BtnRoundRobinContentUI.UIData btnRoundRobinContentUIData = sub as BtnRoundRobinContentUI.UIData;
-                                    btnRoundRobinContentUIData.removeCallBackAndDestroy(typeof(BtnRoundRobinContentUI));
-                                }
-                                break;
-                            case UIData.Sub.Type.RoundRobin:
-                                {
-                                    BtnRoundRobinUI.UIData btnRoundRobinUIData = sub as BtnRoundRobinUI.UIData;
-                                    btnRoundRobinUIData.removeCallBackAndDestroy(typeof(BtnRoundRobinUI));
-                                }
-                                break;
-                            case UIData.Sub.Type.EliminationContent:
-                                {
-                                    BtnEliminationContentUI.UIData btnEliminationContentUIData = sub as BtnEliminationContentUI.UIData;
-                                    btnEliminationContentUIData.removeCallBackAndDestroy(typeof(BtnEliminationContentUI));
-                                }
-                                break;
-                            case UIData.Sub.Type.EliminationRound:
-                                {
-                                    BtnEliminationRoundUI.UIData btnEliminationRoundUIData = sub as BtnEliminationRoundUI.UIData;
-                                    btnEliminationRoundUIData.removeCallBackAndDestroy(typeof(BtnEliminationRoundUI));
-                                }
-                                break;
-                            case UIData.Sub.Type.Bracket:
-                                {
-                                    BtnBracketUI.UIData btnBracketUIData = sub as BtnBracketUI.UIData;
-                                    btnBracketUIData.removeCallBackAndDestroy(typeof(BtnBracketUI));
-                                }
-                                break;
-                            default:
-                                Debug.LogError("unknown type: " + sub.getType() + "; " + this);
-                                break;
+                            TransformData.RemoveCallBack(sub, this);
                         }
+                        // UI
+                        {
+                            switch (sub.getType())
+                            {
+                                case UIData.Sub.Type.Contest:
+                                    {
+                                        BtnContestUI.UIData btnContestUIData = sub as BtnContestUI.UIData;
+                                        btnContestUIData.removeCallBackAndDestroy(typeof(BtnContestUI));
+                                    }
+                                    break;
+                                case UIData.Sub.Type.Round:
+                                    {
+                                        BtnRoundUI.UIData btnRoundUIData = sub as BtnRoundUI.UIData;
+                                        btnRoundUIData.removeCallBackAndDestroy(typeof(BtnRoundUI));
+                                    }
+                                    break;
+                                case UIData.Sub.Type.RoundRobinContent:
+                                    {
+                                        BtnRoundRobinContentUI.UIData btnRoundRobinContentUIData = sub as BtnRoundRobinContentUI.UIData;
+                                        btnRoundRobinContentUIData.removeCallBackAndDestroy(typeof(BtnRoundRobinContentUI));
+                                    }
+                                    break;
+                                case UIData.Sub.Type.RoundRobin:
+                                    {
+                                        BtnRoundRobinUI.UIData btnRoundRobinUIData = sub as BtnRoundRobinUI.UIData;
+                                        btnRoundRobinUIData.removeCallBackAndDestroy(typeof(BtnRoundRobinUI));
+                                    }
+                                    break;
+                                case UIData.Sub.Type.EliminationContent:
+                                    {
+                                        BtnEliminationContentUI.UIData btnEliminationContentUIData = sub as BtnEliminationContentUI.UIData;
+                                        btnEliminationContentUIData.removeCallBackAndDestroy(typeof(BtnEliminationContentUI));
+                                    }
+                                    break;
+                                case UIData.Sub.Type.EliminationRound:
+                                    {
+                                        BtnEliminationRoundUI.UIData btnEliminationRoundUIData = sub as BtnEliminationRoundUI.UIData;
+                                        btnEliminationRoundUIData.removeCallBackAndDestroy(typeof(BtnEliminationRoundUI));
+                                    }
+                                    break;
+                                case UIData.Sub.Type.Bracket:
+                                    {
+                                        BtnBracketUI.UIData btnBracketUIData = sub as BtnBracketUI.UIData;
+                                        btnBracketUIData.removeCallBackAndDestroy(typeof(BtnBracketUI));
+                                    }
+                                    break;
+                                default:
+                                    Debug.LogError("unknown type: " + sub.getType() + "; " + this);
+                                    break;
+                            }
+                        }
+                        return;
                     }
-                    return;
+                    // Child
+                    if(data is TransformData)
+                    {
+                        return;
+                    }
                 }
             }
             Debug.LogError("Don't process: " + data + "; " + this);
@@ -672,9 +730,44 @@ namespace GameManager.Match
                 {
                     return;
                 }
-                if (wrapProperty.p is UIData.Sub)
+                // sub
                 {
-                    return;
+                    if (wrapProperty.p is UIData.Sub)
+                    {
+                        return;
+                    }
+                    // Child
+                    if(wrapProperty.p is TransformData)
+                    {
+                        switch ((TransformData.Property)wrapProperty.n)
+                        {
+                            case TransformData.Property.anchoredPosition:
+                                break;
+                            case TransformData.Property.anchorMin:
+                                break;
+                            case TransformData.Property.anchorMax:
+                                break;
+                            case TransformData.Property.pivot:
+                                break;
+                            case TransformData.Property.offsetMin:
+                                break;
+                            case TransformData.Property.offsetMax:
+                                break;
+                            case TransformData.Property.sizeDelta:
+                                break;
+                            case TransformData.Property.rotation:
+                                break;
+                            case TransformData.Property.scale:
+                                break;
+                            case TransformData.Property.size:
+                                dirty = true;
+                                break;
+                            default:
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                                break;
+                        }
+                        return;
+                    }
                 }
             }
             Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);

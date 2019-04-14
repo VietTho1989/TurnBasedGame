@@ -33,7 +33,9 @@ namespace UndoRedo
 
             public abstract class Sub : Data
             {
+
                 public abstract RequestInform.Type getType();
+
             }
 
             public VP<Sub> sub;
@@ -243,13 +245,32 @@ namespace UndoRedo
                     }
                     // UI
                     {
+                        float buttonSize = Setting.get().getButtonSize();
                         float deltaY = 0;
                         // header
-                        deltaY += UIConstants.HeaderHeight;
+                        {
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            deltaY += buttonSize;
+                        }
                         // requestType
-                        deltaY += UIConstants.ItemHeight;
+                        UIUtils.SetLabelContentPosition(lbRequestType, this.data.requestType.v, ref deltaY);
                         // sub
-                        deltaY += UIRectTransform.SetPosY(this.data.sub.v, deltaY);
+                        if (this.data.sub.v != null)
+                        {
+                            deltaY += UIRectTransform.SetPosY(this.data.sub.v, deltaY);
+                        }
+                        else
+                        {
+                            if (tvCannotRequest != null)
+                            {
+                                UIRectTransform.SetPosY(tvCannotRequest.rectTransform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("tvCannotRequest null");
+                            }
+                            deltaY += 50;
+                        }
                         // set
                         // Debug.LogError("noneUI height: " + deltaY);
                         UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
@@ -259,6 +280,7 @@ namespace UndoRedo
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -267,6 +289,7 @@ namespace UndoRedo
                         if (lbRequestType != null)
                         {
                             lbRequestType.text = txtRequestType.get();
+                            Setting.get().setLabelTextSize(lbRequestType);
                         }
                         else
                         {
@@ -567,6 +590,22 @@ namespace UndoRedo
                 {
                     case Setting.Property.language:
                         dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.confirmQuit:
                         break;
                     case Setting.Property.showLastMove:
                         break;

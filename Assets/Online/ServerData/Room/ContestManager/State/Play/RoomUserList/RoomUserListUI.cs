@@ -144,11 +144,30 @@ public class RoomUserListUI : UIBehavior<RoomUserListUI.UIData>
                         UIRectTransform.SetSiblingIndex(this.data.roomUserAdapter.v, 2);
                         UIRectTransform.SetSiblingIndex(this.data.userInformUIData.v, 3);
                     }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        float deltaY = 0;
+                        // header
+                        {
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                            deltaY += buttonSize;
+                        }
+                        // adapter
+                        deltaY += UIRectTransform.SetPosY(this.data.roomUserAdapter.v, deltaY);
+                        // set
+                        {
+                            UIRectTransform rect = UIRectTransform.CreateCenterRect(400, deltaY, 0, 30);
+                            rect.set((RectTransform)this.transform);
+                        }
+                    }
                     // txt
                     {
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -178,7 +197,7 @@ public class RoomUserListUI : UIBehavior<RoomUserListUI.UIData>
     #region implement callBacks
 
     public RoomUserAdapter roomUserAdapterPrefab;
-    private static readonly UIRectTransform roomUserAdapterRect = UIRectTransform.CreateFullRect(0, 0, UIConstants.HeaderHeight, 0);
+    private static readonly UIRectTransform roomUserAdapterRect = UIRectTransform.CreateTopBottomRect(370);
 
     public RoomUserInformUI roomUserInformPrefab;
     private static readonly UIRectTransform roomUserInformRect = UIConstants.FullParent;
@@ -314,6 +333,20 @@ public class RoomUserListUI : UIBehavior<RoomUserListUI.UIData>
                     dirty = true;
                     break;
                 case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.confirmQuit:
                     break;
                 case Setting.Property.showLastMove:
                     break;

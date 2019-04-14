@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace GameManager.Match.Elimination
 {
-    public class BtnBracketUI : UIBehavior<BtnBracketUI.UIData>
+    public class BtnBracketUI : UIHaveTransformDataBehavior<BtnBracketUI.UIData>
     {
 
         #region UIData

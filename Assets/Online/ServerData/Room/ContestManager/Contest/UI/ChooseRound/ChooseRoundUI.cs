@@ -102,24 +102,14 @@ namespace GameManager.Match
                     chooseRoundAdapterRect.offsetMax = new Vector2(0.0f, -30.0f);
                     chooseRoundAdapterRect.sizeDelta = new Vector2(0.0f, 300.0f);
                 }
-                // requestNewRoundInformRect
-                /*{
-                    // anchoredPosition: (0.0, -330.0); anchorMin: (0.0, 1.0); anchorMax: (1.0, 1.0); pivot: (0.5, 1.0);
-                    // offsetMin: (0.0, -390.0); offsetMax: (0.0, -330.0); sizeDelta: (0.0, 60.0);
-                    requestNewRoundInformRect.anchoredPosition = new Vector3(0.0f, -330.0f);
-                    requestNewRoundInformRect.anchorMin = new Vector2(0.0f, 1.0f);
-                    requestNewRoundInformRect.anchorMax = new Vector2(1.0f, 1.0f);
-                    requestNewRoundInformRect.pivot = new Vector2(0.5f, 1.0f);
-                    requestNewRoundInformRect.offsetMin = new Vector2(0.0f, -390.0f);
-                    requestNewRoundInformRect.offsetMax = new Vector2(0.0f, -330.0f);
-                    requestNewRoundInformRect.sizeDelta = new Vector2(0.0f, 60.0f);
-                }*/
             }
         }
 
         #endregion
 
         #region Refresh
+
+        public Button btnBack;
 
         public override void refresh()
         {
@@ -157,10 +147,17 @@ namespace GameManager.Match
                         }
                         // UI
                         {
-                            float deltaY = 30;
+                            float buttonSize = Setting.get().getButtonSize();
+                            float deltaY = 0;
+                            // header
+                            {
+                                UIRectTransform.SetTitleTransform(lbTitle);
+                                UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                                deltaY += buttonSize;
+                            }
                             // adapter
-                            deltaY += 300;// UIRectTransform.SetPosY(this.data.chooseRoundAdapter.v, deltaY);
-                                          // requestNewRound
+                            deltaY += UIRectTransform.SetPosY(this.data.chooseRoundAdapter.v, deltaY);
+                            // requestNewRound
                             deltaY += UIRectTransform.SetPosY(this.data.requestNewRoundInformUIData.v, deltaY);
                             Debug.LogError("chooseRoundUI: " + deltaY);
                             // set
@@ -177,6 +174,7 @@ namespace GameManager.Match
                             if (lbTitle != null)
                             {
                                 lbTitle.text = txtTitle.get();
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -209,7 +207,6 @@ namespace GameManager.Match
         private static readonly UIRectTransform chooseRoundAdapterRect = new UIRectTransform();
 
         public RequestNewRoundInformUI requestNewRoundInformPrefab;
-        // private static readonly UIRectTransform requestNewRoundInformRect = new UIRectTransform();
 
         public override void onAddCallBack<T>(T data)
         {
@@ -269,7 +266,6 @@ namespace GameManager.Match
                     // Child
                     if(data is TransformData)
                     {
-                        Debug.LogError("add transformData callBack");
                         dirty = true;
                         return;
                     }
@@ -380,6 +376,22 @@ namespace GameManager.Match
                 {
                     case Setting.Property.language:
                         dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.confirmQuit:
                         break;
                     case Setting.Property.showLastMove:
                         break;

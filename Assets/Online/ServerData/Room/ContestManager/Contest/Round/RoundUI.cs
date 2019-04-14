@@ -209,12 +209,6 @@ namespace GameManager.Match
         private static readonly UIRectTransform roundGameRect = UIConstants.FullParent;
 
         public ChooseRoundGameUI chooseRoundGamePrefab;
-        private static readonly UIRectTransform chooseRoundGameRect = UIRectTransform.CreateCenterRect(400, 400);
-
-        static RoundUI()
-        {
-            chooseRoundGameRect.setPosY(-30);
-        }
 
         private RoomUI.UIData roomUIData = null;
 
@@ -284,7 +278,7 @@ namespace GameManager.Match
                     ChooseRoundGameUI.UIData chooseRoundGameUIData = data as ChooseRoundGameUI.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(chooseRoundGameUIData, chooseRoundGamePrefab, this.transform, chooseRoundGameRect);
+                        UIUtils.Instantiate(chooseRoundGameUIData, chooseRoundGamePrefab, this.transform);
                     }
                     dirty = true;
                     return;

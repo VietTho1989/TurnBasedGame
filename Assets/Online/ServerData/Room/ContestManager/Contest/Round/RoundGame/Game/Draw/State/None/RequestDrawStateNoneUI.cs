@@ -212,11 +212,44 @@ public class RequestDrawStateNoneUI : UIHaveTransformDataBehavior<RequestDrawSta
                 {
                     Debug.LogError("requestDrawStateNone null");
                 }
+                // UI
+                {
+                    float buttonSize = Setting.get().getButtonSize();
+                    float deltaY = 0;
+                    // header
+                    {
+                        UIRectTransform.SetTitleTransform(lbTitle);
+                        deltaY += buttonSize;
+                    }
+                    // content
+                    {
+                        if (btnRequestDraw != null)
+                        {
+                            UIRectTransform.SetPosY((RectTransform)btnRequestDraw.transform, deltaY + 10);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnRequestDraw null");
+                        }
+                        if (tvCannotRequest != null)
+                        {
+                            UIRectTransform.SetPosY(tvCannotRequest.rectTransform, deltaY);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvCannotRequest null");
+                        }
+                        deltaY += 50;
+                    }
+                    // set height
+                    UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                }
                 // txt
                 {
                     if (lbTitle != null)
                     {
                         lbTitle.text = txtTitle.get();
+                        Setting.get().setTitleTextSize(lbTitle);
                     }
                     else
                     {
@@ -496,6 +529,22 @@ public class RequestDrawStateNoneUI : UIHaveTransformDataBehavior<RequestDrawSta
             {
                 case Setting.Property.language:
                     dirty = true;
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.confirmQuit:
                     break;
                 case Setting.Property.showLastMove:
                     break;

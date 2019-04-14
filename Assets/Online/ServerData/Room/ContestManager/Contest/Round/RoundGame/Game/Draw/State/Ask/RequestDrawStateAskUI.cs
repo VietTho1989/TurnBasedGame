@@ -449,11 +449,50 @@ public class RequestDrawStateAskUI : UIHaveTransformDataBehavior<RequestDrawStat
                 {
                     Debug.LogError("requestDrawStateAsk null");
                 }
+                // UI
+                {
+                    float deltaY = 0;
+                    // header
+                    UIUtils.SetHeaderPosition(lbTitle, UIRectTransform.ShowType.Normal, ref deltaY);
+                    // whoCanAskAdapter
+                    deltaY += UIRectTransform.SetPosY(this.data.whoCanAskAdapter.v, deltaY);
+                    // btn
+                    {
+                        if (btnAccept != null)
+                        {
+                            UIRectTransform.SetPosY((RectTransform)btnAccept.transform, deltaY + 10);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnAccept null");
+                        }
+                        if (btnRefuse != null)
+                        {
+                            UIRectTransform.SetPosY((RectTransform)btnRefuse.transform, deltaY + 10);
+                        }
+                        else
+                        {
+                            Debug.LogError("btnRefuse null");
+                        }
+                        if (tvCannotAnswer != null)
+                        {
+                            UIRectTransform.SetPosY(tvCannotAnswer.rectTransform, deltaY);
+                        }
+                        else
+                        {
+                            Debug.LogError("tvCannotAnswer null");
+                        }
+                        deltaY += 50;
+                    }
+                    // set size
+                    UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
+                }
                 // txt
                 {
                     if (lbTitle != null)
                     {
                         lbTitle.text = txtTitle.get();
+                        Setting.get().setTitleTextSize(lbTitle);
                     }
                     else
                     {
@@ -746,6 +785,20 @@ public class RequestDrawStateAskUI : UIHaveTransformDataBehavior<RequestDrawStat
                     dirty = true;
                     break;
                 case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.confirmQuit:
                     break;
                 case Setting.Property.showLastMove:
                     break;

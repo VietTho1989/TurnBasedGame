@@ -76,6 +76,8 @@ namespace GameManager.Match.Elimination
 
         #region Refresh
 
+        public Button btnBack;
+
         public override void refresh()
         {
             if (dirty)
@@ -103,11 +105,30 @@ namespace GameManager.Match.Elimination
                     {
                         Debug.LogError("eliminationContent null: " + this);
                     }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        float deltaY = 0;
+                        // header
+                        {
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                            deltaY += buttonSize;
+                        }
+                        // adapter
+                        deltaY += UIRectTransform.SetPosY(this.data.chooseEliminationRoundAdapter.v, deltaY);
+                        // set
+                        {
+                            UIRectTransform rect = UIRectTransform.CreateCenterRect(400, deltaY, 0, 30);
+                            rect.set((RectTransform)this.transform);
+                        }
+                    }
                     // txt
                     {
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -132,7 +153,6 @@ namespace GameManager.Match.Elimination
         #region implement callBacks
 
         public ChooseEliminationRoundAdapter chooseEliminationRoundAdapterPrefab;
-        private static readonly UIRectTransform chooseEliminationRoundAdapterRect = UIRectTransform.CreateFullRect(0, 0, UIConstants.HeaderHeight, 0);
 
         public override void onAddCallBack<T>(T data)
         {
@@ -167,7 +187,7 @@ namespace GameManager.Match.Elimination
                     ChooseEliminationRoundAdapter.UIData chooseEliminationRoundAdapterUIData = data as ChooseEliminationRoundAdapter.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(chooseEliminationRoundAdapterUIData, chooseEliminationRoundAdapterPrefab, this.transform, chooseEliminationRoundAdapterRect);
+                        UIUtils.Instantiate(chooseEliminationRoundAdapterUIData, chooseEliminationRoundAdapterPrefab, this.transform);
                     }
                     dirty = true;
                     return;
@@ -250,6 +270,22 @@ namespace GameManager.Match.Elimination
                 {
                     case Setting.Property.language:
                         dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.confirmQuit:
                         break;
                     case Setting.Property.showLastMove:
                         break;

@@ -111,6 +111,8 @@ public class GameInformationUI : UIBehavior<GameInformationUI.UIData>
     public Image bgGameTypeInformation;
     public Image bgRoomSetting;
 
+    public Button btnBack;
+
     public override void refresh()
     {
         if (dirty)
@@ -249,6 +251,34 @@ public class GameInformationUI : UIBehavior<GameInformationUI.UIData>
                         // set
                         UIRectTransform.SetHeight(contentContainer, deltaY);
                     }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        float deltaY = 0;
+                        // header
+                        {
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                            deltaY += buttonSize;
+                        }
+                        // scrollRect
+                        {
+                            if (contentScrollRect != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)contentScrollRect.transform, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("scrollRect null");
+                            }
+                            deltaY += 370;
+                        }
+                        // set
+                        {
+                            UIRectTransform rect = UIRectTransform.CreateCenterRect(400, deltaY, 0, 30);
+                            rect.set((RectTransform)this.transform);
+                        }
+                    }
                     // firstSet
                     {
                         if (firstSet)
@@ -269,6 +299,7 @@ public class GameInformationUI : UIBehavior<GameInformationUI.UIData>
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -553,6 +584,20 @@ public class GameInformationUI : UIBehavior<GameInformationUI.UIData>
                     break;
                 case Setting.Property.style:
                     break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.confirmQuit:
+                    break; 
                 case Setting.Property.showLastMove:
                     break;
                 case Setting.Property.viewUrlImage:

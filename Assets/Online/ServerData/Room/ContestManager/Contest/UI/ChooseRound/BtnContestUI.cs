@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace GameManager.Match
 {
-    public class BtnContestUI : UIBehavior<BtnContestUI.UIData>
+    public class BtnContestUI : UIHaveTransformDataBehavior<BtnContestUI.UIData>
     {
 
         #region UIData

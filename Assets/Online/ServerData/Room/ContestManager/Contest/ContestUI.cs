@@ -250,7 +250,6 @@ namespace GameManager.Match
         private static readonly UIRectTransform requestNewRoundRect = UIConstants.FullParent;
 
         public ChooseRoundUI chooseRoundPrefab;
-        // private static readonly UIRectTransform chooseRoundRect = UIRectTransform.CreateCenterRect(400, 400, 0, 30);
 
         private RoomUI.UIData roomUIData = null;
 

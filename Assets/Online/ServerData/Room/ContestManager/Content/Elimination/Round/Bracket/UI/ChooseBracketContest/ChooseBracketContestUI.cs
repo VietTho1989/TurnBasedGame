@@ -76,6 +76,8 @@ namespace GameManager.Match.Elimination
 
         #region Refresh
 
+        public Button btnBack;
+
         public override void refresh()
         {
             if (dirty)
@@ -98,11 +100,30 @@ namespace GameManager.Match.Elimination
                                 Debug.LogError("chooseBracketContestAdapter null: " + this);
                             }
                         }
+                        // UI
+                        {
+                            float buttonSize = Setting.get().getButtonSize();
+                            float deltaY = 0;
+                            // header
+                            {
+                                UIRectTransform.SetTitleTransform(lbTitle);
+                                UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                                deltaY += buttonSize;
+                            }
+                            // adapter
+                            deltaY += UIRectTransform.SetPosY(this.data.chooseBracketContestAdapter.v, deltaY);
+                            // set
+                            {
+                                UIRectTransform rect = UIRectTransform.CreateCenterRect(400, deltaY, 0, 30);
+                                rect.set((RectTransform)this.transform);
+                            }
+                        }
                         // txt
                         {
                             if (lbTitle != null)
                             {
                                 lbTitle.text = txtTitle.get();
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -132,7 +153,6 @@ namespace GameManager.Match.Elimination
         #region implement callBacks
 
         public ChooseBracketContestAdapter chooseBracketContestAdapterPrefab;
-        private static readonly UIRectTransform chooseBracketContestAdapterRect = UIRectTransform.CreateFullRect(0, 0, 30, 0);
 
         public override void onAddCallBack<T>(T data)
         {
@@ -167,7 +187,7 @@ namespace GameManager.Match.Elimination
                     ChooseBracketContestAdapter.UIData chooseBracketContestAdapterUIData = data as ChooseBracketContestAdapter.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(chooseBracketContestAdapterUIData, chooseBracketContestAdapterPrefab, this.transform, chooseBracketContestAdapterRect);
+                        UIUtils.Instantiate(chooseBracketContestAdapterUIData, chooseBracketContestAdapterPrefab, this.transform);
                     }
                     dirty = true;
                     return;
@@ -250,6 +270,22 @@ namespace GameManager.Match.Elimination
                 {
                     case Setting.Property.language:
                         dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.confirmQuit:
                         break;
                     case Setting.Property.showLastMove:
                         break;
