@@ -132,6 +132,9 @@ public class GameHistoryUI : UIBehavior<GameHistoryUI.UIData>
 
     #region txt
 
+    public Text lbTitle;
+    private static readonly TxtLanguage txtTitle = new TxtLanguage("Game History");
+
     private static readonly TxtLanguage txtView = new TxtLanguage("View History");
     private static readonly TxtLanguage txtCannotView = new TxtLanguage("Not Load History");
 
@@ -139,6 +142,7 @@ public class GameHistoryUI : UIBehavior<GameHistoryUI.UIData>
     {
         // txt
         {
+            txtTitle.add(Language.Type.vi, "Lịch Sử");
             txtView.add(Language.Type.vi, "Xem Lịch Sử");
             txtCannotView.add(Language.Type.vi, "Chưa tải lịch sử");
         }
@@ -162,6 +166,8 @@ public class GameHistoryUI : UIBehavior<GameHistoryUI.UIData>
     #endregion
 
     #region Refresh
+
+    public Button btnBack;
 
     public Button btnView;
     public Text tvView;
@@ -220,6 +226,59 @@ public class GameHistoryUI : UIBehavior<GameHistoryUI.UIData>
                             Debug.LogError("btnLoadHistoryUIData null: " + this);
                         }
                     }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        float deltaY = 0;
+                        // header
+                        {
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                            deltaY += buttonSize;
+                        }
+                        // btnView
+                        {
+                            if (btnView != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnView.transform, deltaY + 10);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnView null");
+                            }
+                            deltaY += 40;
+                        }
+                        // btnLoadHistory
+                        {
+                            UIRectTransform.SetPosY(this.data.btnLoadHistoryUIData.v, deltaY + 10);
+                            deltaY += 40;
+                        }
+                        // bottomMargin
+                        deltaY += 10;
+                        // set height
+                        {
+                            if (contentContainer != null)
+                            {
+                                UIRectTransform.SetHeight(contentContainer, deltaY);
+                            }
+                            else
+                            {
+                                Debug.LogError("contentContainer null");
+                            }
+                        }
+                    }
+                    // txt
+                    {
+                        if (lbTitle != null)
+                        {
+                            lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
+                        }
+                        else
+                        {
+                            Debug.LogError("lbTitle null");
+                        }
+                    }
                 }
                 else
                 {
@@ -246,7 +305,7 @@ public class GameHistoryUI : UIBehavior<GameHistoryUI.UIData>
     private static readonly UIRectTransform viewSaveDataRect = UIRectTransform.CreateFullRect(30, 30, 30, 30);
 
     public BtnLoadHistoryUI btnLoadHistoryPrefab;
-    public Transform contentContainer;
+    public RectTransform contentContainer;
     private static readonly UIRectTransform btnLoadHistoryRect = new UIRectTransform();
 
     public ShowAnimationUI showAnimationUI;
@@ -438,6 +497,22 @@ public class GameHistoryUI : UIBehavior<GameHistoryUI.UIData>
             {
                 case Setting.Property.language:
                     dirty = true;
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.confirmQuit:
                     break;
                 case Setting.Property.showLastMove:
                     break;

@@ -222,11 +222,22 @@ public class ViewSaveDataUI : UIBehavior<ViewSaveDataUI.UIData>
                         UIRectTransform.SetActive(this.data.sub.v, false);
                     }
                 }
+                // UI
+                {
+                    // header
+                    {
+                        UIRectTransform.SetTitleTransform(lbTitle);
+                        UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                    }
+                    // sub
+                    UIRectTransform.Set(this.data.sub.v, CreateViewSaveGameRect());
+                }
                 // txt
                 {
                     if (lbTitle != null)
                     {
                         lbTitle.text = txtTitle.get();
+                        Setting.get().setTitleTextSize(lbTitle);
                     }
                     else
                     {
@@ -251,7 +262,11 @@ public class ViewSaveDataUI : UIBehavior<ViewSaveDataUI.UIData>
     #region implement callBacks
 
     public ViewSaveGameUI viewSaveGamePrefab;
-    private static readonly UIRectTransform viewSaveGameRect = UIRectTransform.CreateFullRect(10, 10, 30, 0);
+
+    private static UIRectTransform CreateViewSaveGameRect()
+    {
+        return UIRectTransform.CreateFullRect(10, 10, Setting.get().getButtonSize(), 0);
+    }
 
     public override void onAddCallBack<T>(T data)
     {
@@ -284,7 +299,7 @@ public class ViewSaveDataUI : UIBehavior<ViewSaveDataUI.UIData>
                     case UIData.Sub.Type.Game:
                         {
                             ViewSaveGameUI.UIData viewSaveGameUIData = sub as ViewSaveGameUI.UIData;
-                            UIUtils.Instantiate(viewSaveGameUIData, viewSaveGamePrefab, this.transform, viewSaveGameRect);
+                            UIUtils.Instantiate(viewSaveGameUIData, viewSaveGamePrefab, this.transform, CreateViewSaveGameRect());
                         }
                         break;
                     default:
@@ -373,6 +388,22 @@ public class ViewSaveDataUI : UIBehavior<ViewSaveDataUI.UIData>
             {
                 case Setting.Property.language:
                     dirty = true;
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.confirmQuit:
                     break;
                 case Setting.Property.showLastMove:
                     break;

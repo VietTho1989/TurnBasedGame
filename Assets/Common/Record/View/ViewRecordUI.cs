@@ -227,11 +227,22 @@ namespace Record
                             }
                         }
                     }
+                    // UI
+                    {
+                        // header
+                        {
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                        }
+                        // sub
+                        UIRectTransform.Set(this.data.sub.v, CreateSubRect());
+                    }
                     // txt
                     {
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -256,7 +267,11 @@ namespace Record
         #region implement callBacks
 
         public ViewGameRecordUI viewGameRecordPrefab;
-        private static readonly UIRectTransform subRect = UIRectTransform.CreateFullRect(0, 0, 30, 30);
+
+        private static UIRectTransform CreateSubRect()
+        {
+            return UIRectTransform.CreateFullRect(0, 0, Setting.get().getButtonSize(), 30);
+        }
 
         public ViewRecordControllerUI viewRecordControllerPrefab;
         private static readonly UIRectTransform viewRecordControllerRect = new UIRectTransform();
@@ -294,7 +309,7 @@ namespace Record
                             case UIData.Sub.Type.Game:
                                 {
                                     ViewGameRecordUI.UIData viewGameRecordUIData = sub as ViewGameRecordUI.UIData;
-                                    UIUtils.Instantiate(viewGameRecordUIData, viewGameRecordPrefab, contentContainer, subRect);
+                                    UIUtils.Instantiate(viewGameRecordUIData, viewGameRecordPrefab, contentContainer, CreateSubRect());
                                 }
                                 break;
                             default:
@@ -412,6 +427,22 @@ namespace Record
                 {
                     case Setting.Property.language:
                         dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.confirmQuit:
                         break;
                     case Setting.Property.showLastMove:
                         break;

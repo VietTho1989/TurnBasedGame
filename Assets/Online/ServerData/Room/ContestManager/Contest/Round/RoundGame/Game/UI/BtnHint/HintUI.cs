@@ -179,8 +179,15 @@ namespace Hint
 
         #region Refresh
 
+        public Button btnBack;
+
+        public Button btnShowHint;
+
         public Toggle tgAutoHint;
-        public Transform contentContainer;
+
+        public Button btnEditHint;
+
+        public RectTransform contentContainer;
 
         public override void refresh()
         {
@@ -192,7 +199,8 @@ namespace Hint
                     // visibility
                     {
                         // contentContainer
-                        if(contentContainer!=null){
+                        if (contentContainer != null)
+                        {
                             contentContainer.gameObject.SetActive(this.data.visibility.v == UIData.Visibility.Show);
                         }
                         else
@@ -247,11 +255,69 @@ namespace Hint
                             // Debug.LogError ("editHintAIUIData null: " + this);
                         }
                     }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        float deltaY = 0;
+                        // header
+                        {
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                            deltaY += buttonSize;
+                        }
+                        // btnShowHint
+                        {
+                            if (btnShowHint != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnShowHint.transform, deltaY + 10);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnShowHint null");
+                            }
+                            UIRectTransform.SetPosY(this.data.state.v, deltaY + 10);
+                            deltaY += 40;
+                        }
+                        // tgAuto
+                        {
+                            if (tgAutoHint != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)tgAutoHint.transform, deltaY + 10);
+                            }
+                            else
+                            {
+                                Debug.LogError("tgAutoHint null");
+                            }
+                            deltaY += 40;
+                        }
+                        // btnEditHint
+                        {
+                            if (btnEditHint != null)
+                            {
+                                UIRectTransform.SetPosY((RectTransform)btnEditHint.transform, deltaY + 10);
+                            }
+                            else
+                            {
+                                Debug.LogError("btnEditHint null");
+                            }
+                            deltaY += 50;
+                        }
+                        // set height
+                        if (contentContainer != null)
+                        {
+                            UIRectTransform.SetHeight(contentContainer, deltaY);
+                        }
+                        else
+                        {
+                            Debug.LogError("contentContainer null");
+                        }
+                    }
                     // txt
                     {
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -402,7 +468,7 @@ namespace Hint
                     EditHintAIUI.UIData editHintAIUIData = data as EditHintAIUI.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(editHintAIUIData, editHintAIPrefab,this.transform);
+                        UIUtils.Instantiate(editHintAIUIData, editHintAIPrefab, this.transform);
                     }
                     dirty = true;
                     return;
@@ -591,6 +657,22 @@ namespace Hint
                     case Setting.Property.language:
                         dirty = true;
                         break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.confirmQuit:
+                        break;
                     case Setting.Property.showLastMove:
                         break;
                     case Setting.Property.viewUrlImage:
@@ -776,5 +858,6 @@ namespace Hint
                 Debug.LogError("data null: " + this);
             }
         }
+
     }
 }

@@ -384,7 +384,7 @@ namespace Mirror
                 }
                 else
                 {
-                    Debug.LogError("identity null");
+                    // Debug.LogError("identity null");
                 }
             }
             NetworkIdentity.spawned.Clear();

@@ -543,11 +543,74 @@ public class LoadDataUI : UIBehavior<LoadDataUI.UIData>
                     UIRectTransform.SetSiblingIndex(this.data.viewSaveDataUIData.v, 5);
                     UIRectTransform.SetSiblingIndex(this.data.viewRecordUIData.v, 6);
                 }
+                // UI
+                {
+                    float buttonSize = Setting.get().getButtonSize();
+                    // header
+                    {
+                        UIRectTransform.SetTitleTransform(lbTitle);
+                        UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                        // btnLoad
+                        {
+                            // btnLoad
+                            {
+                                if (btnLoad != null)
+                                {
+                                    UIRectTransform rect = new UIRectTransform();
+                                    {
+                                        // anchoredPosition: (0.0, 0.0); anchorMin: (1.0, 1.0); anchorMax: (1.0, 1.0); pivot: (1.0, 1.0);
+                                        // offsetMin: (-90.0, -30.0); offsetMax: (0.0, 0.0); sizeDelta: (90.0, 30.0);
+                                        rect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                                        rect.anchorMin = new Vector2(1.0f, 1.0f);
+                                        rect.anchorMax = new Vector2(1.0f, 1.0f);
+                                        rect.pivot = new Vector2(1.0f, 1.0f);
+                                        rect.offsetMin = new Vector2(-90.0f, -buttonSize);
+                                        rect.offsetMax = new Vector2(0.0f, 0.0f);
+                                        rect.sizeDelta = new Vector2(90.0f, buttonSize);
+                                    }
+                                    rect.set((RectTransform)btnLoad.transform);
+                                }
+                                else
+                                {
+                                    Debug.LogError("btnLoad null");
+                                }
+                            }
+                            // btnRecord
+                            {
+                                if (btnRecord != null)
+                                {
+                                    UIRectTransform rect = new UIRectTransform();
+                                    {
+                                        // anchoredPosition: (-90.0, 0.0); anchorMin: (1.0, 1.0); anchorMax: (1.0, 1.0); pivot: (1.0, 1.0);
+                                        // offsetMin: (-180.0, -30.0); offsetMax: (-90.0, 0.0); sizeDelta: (90.0, 30.0);
+                                        rect.anchoredPosition = new Vector3(-90.0f, 0.0f, 0.0f);
+                                        rect.anchorMin = new Vector2(1.0f, 1.0f);
+                                        rect.anchorMax = new Vector2(1.0f, 1.0f);
+                                        rect.pivot = new Vector2(1.0f, 1.0f);
+                                        rect.offsetMin = new Vector2(-180.0f, -buttonSize);
+                                        rect.offsetMax = new Vector2(-90.0f, 0.0f);
+                                        rect.sizeDelta = new Vector2(90.0f, buttonSize);
+                                    }
+                                    rect.set((RectTransform)btnRecord.transform);
+                                }
+                                else
+                                {
+                                    Debug.LogError("btnRecord null");
+                                }
+                            }
+                        }
+                    }
+                    // fileSystemBrowser
+                    {
+                        UIRectTransform.Set(this.data.fileSystemBrowser.v, CreateFileSystemBrowserRect());
+                    }
+                }
                 // txt
                 {
                     if (lbTitle != null)
                     {
                         lbTitle.text = txtTitle.get();
+                        Setting.get().setTitleTextSize(lbTitle);
                     }
                     else
                     {
@@ -572,7 +635,11 @@ public class LoadDataUI : UIBehavior<LoadDataUI.UIData>
     #region implement callBacks
 
     public FileSystemBrowserUI fileSystemBrowserPrefab;
-    private static readonly UIRectTransform fileSystemBrowserRect = UIRectTransform.CreateFullRect(0, 0, 30, 0);
+
+    private static UIRectTransform CreateFileSystemBrowserRect()
+    {
+        return UIRectTransform.CreateFullRect(0, 0, Setting.get().getButtonSize(), 0);
+    }
 
     public ViewSaveDataUI viewSaveDataPrefab;
 
@@ -617,7 +684,7 @@ public class LoadDataUI : UIBehavior<LoadDataUI.UIData>
                     FileSystemBrowserUI.UIData fileSystemBrowserUIData = data as FileSystemBrowserUI.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(fileSystemBrowserUIData, fileSystemBrowserPrefab, this.transform, fileSystemBrowserRect);
+                        UIUtils.Instantiate(fileSystemBrowserUIData, fileSystemBrowserPrefab, this.transform, CreateFileSystemBrowserRect());
                     }
                     // Child
                     {
@@ -859,6 +926,22 @@ public class LoadDataUI : UIBehavior<LoadDataUI.UIData>
             {
                 case Setting.Property.language:
                     dirty = true;
+                    break;
+                case Setting.Property.style:
+                    break;
+                case Setting.Property.contentTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.titleTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.labelTextSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.confirmQuit:
                     break;
                 case Setting.Property.showLastMove:
                     break;

@@ -207,9 +207,12 @@ namespace FileSystem
                                 if (firstInit)
                                 {
                                     firstInit = false;
+                                    // this.ScrollTo(dirs.Count - 1);
+                                    Debug.LogError("smotthScroll");
+                                    // this.SmoothScrollTo(dirs.Count - 1, 0.3f, 0, 0f, null, true);
                                     // Debug.LogError("firstScroll: " + dirs.Count);
                                     // this.SmoothScrollTo(dirs.Count - 1, 0.3f, 0, 0f, null, true);
-                                    // StartCoroutine(TaskScrollToBottom(dirs.Count));
+                                    StartCoroutine(TaskScrollToBottom(dirs.Count));
                                 }
                             }
                             // txt
@@ -250,14 +253,15 @@ namespace FileSystem
 
         public IEnumerator TaskScrollToBottom(int dirCount)
         {
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.5f);
             if (this.data != null)
             {
                 int index = dirCount - 1;
                 if (index > 0)
                 {
                     // this.SmoothScrollTo(index, 0.3f, 1, 1f, null, true);
-                    this.ScrollTo(index, 1f, 1f);
+                    this.ScrollTo(index, 1, 1);
+                    // this.ScrollTo(index, 1f, 1f);
                 }
                 else
                 {

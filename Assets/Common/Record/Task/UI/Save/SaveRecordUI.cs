@@ -110,10 +110,28 @@ namespace Record
 
         static SaveRecordUI()
         {
-            txtSave.add(Language.Type.vi, "Lưu");
-            txtSaving.add(Language.Type.vi, "Đang lưu...");
-            txtTitle.add(Language.Type.vi, "Lưu Trữ Bản Ghi");
-            txtPlaceHolder.add(Language.Type.vi, "Điền tên file");
+            // txt
+            {
+                txtSave.add(Language.Type.vi, "Lưu");
+                txtSaving.add(Language.Type.vi, "Đang lưu...");
+                txtTitle.add(Language.Type.vi, "Lưu Trữ Bản Ghi");
+                txtPlaceHolder.add(Language.Type.vi, "Điền tên file");
+            }
+            // rect
+            {
+                // btnSaveRecordRect
+                {
+                    // anchoredPosition: (0.0, 0.0); anchorMin: (1.0, 1.0); anchorMax: (1.0, 1.0); pivot: (1.0, 1.0);
+                    // offsetMin: (-120.0, -30.0); offsetMax: (0.0, 0.0); sizeDelta: (120.0, 30.0);
+                    btnSaveRecordRect.anchoredPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                    btnSaveRecordRect.anchorMin = new Vector2(1.0f, 1.0f);
+                    btnSaveRecordRect.anchorMax = new Vector2(1.0f, 1.0f);
+                    btnSaveRecordRect.pivot = new Vector2(1.0f, 1.0f);
+                    btnSaveRecordRect.offsetMin = new Vector2(-120.0f, -30.0f);
+                    btnSaveRecordRect.offsetMax = new Vector2(0.0f, 0.0f);
+                    btnSaveRecordRect.sizeDelta = new Vector2(120.0f, 30.0f);
+                }
+            }
         }
 
         #endregion
@@ -247,11 +265,49 @@ namespace Record
                         UIRectTransform.SetSiblingIndex(this.data.fileSystemBrowser.v, 4);
                         UIRectTransform.SetSiblingIndex(this.data.confirmSave.v, 5);
                     }
+                    // UI
+                    {
+                        float buttonSize = Setting.get().getButtonSize();
+                        // header
+                        {
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                            // btnSaveRecord
+                            {
+                                if (btnSave != null)
+                                {
+                                    {
+                                        btnSaveRecordRect.offsetMin.y = -buttonSize;
+                                        btnSaveRecordRect.sizeDelta.y = buttonSize;
+                                    }
+                                    btnSaveRecordRect.set((RectTransform)btnSave.transform);
+                                }
+                                else
+                                {
+                                    Debug.LogError("btnSave null");
+                                }
+                            }
+                        }
+                        // edtName
+                        if (edtName != null)
+                        {
+                            UIRectTransform.SetPosY((RectTransform)edtName.transform, buttonSize + 10);
+                        }
+                        else
+                        {
+                            Debug.LogError("edtName null");
+                        }
+                        // fileSystemBrowser
+                        {
+                            UIRectTransform.Set(this.data.fileSystemBrowser.v, CreateFileSystemBrowserRect());
+                        }
+                    }
                     // txt
                     {
                         if (lbTitle != null)
                         {
                             lbTitle.text = txtTitle.get();
+                            Setting.get().setTitleTextSize(lbTitle);
                         }
                         else
                         {
@@ -260,10 +316,26 @@ namespace Record
                         if (tvPlaceHolder != null)
                         {
                             tvPlaceHolder.text = txtPlaceHolder.get();
+                            Setting.get().setContentTextSize(tvPlaceHolder);
                         }
                         else
                         {
                             Debug.LogError("tvPlaceHolder null: " + this);
+                        }
+                        if (edtName != null)
+                        {
+                            if (edtName.textComponent != null)
+                            {
+                                Setting.get().setContentTextSize(edtName.textComponent);
+                            }
+                            else
+                            {
+                                Debug.LogError("textComponent null");
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("edtName null");
                         }
                     }
                 }
@@ -284,7 +356,13 @@ namespace Record
         #region implement callBacks
 
         public FileSystemBrowserUI fileSystemBrowserPrefab;
-        private static readonly UIRectTransform fileSystemBrowserRect = UIRectTransform.CreateFullRect(0, 0, 80, 0);
+
+        private static UIRectTransform CreateFileSystemBrowserRect()
+        {
+            return UIRectTransform.CreateFullRect(0, 0, Setting.get().getButtonSize() + 50, 0);
+        }
+
+        private static readonly UIRectTransform btnSaveRecordRect = new UIRectTransform();
 
         public ConfirmSaveRecordUI confirmSaveRecordPrefab;
 
@@ -317,7 +395,7 @@ namespace Record
                     FileSystemBrowserUI.UIData fileSystemBrowserUIData = data as FileSystemBrowserUI.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(fileSystemBrowserUIData, fileSystemBrowserPrefab, this.transform, fileSystemBrowserRect);
+                        UIUtils.Instantiate(fileSystemBrowserUIData, fileSystemBrowserPrefab, this.transform, CreateFileSystemBrowserRect());
                     }
                     dirty = true;
                     return;
@@ -441,6 +519,22 @@ namespace Record
                 {
                     case Setting.Property.language:
                         dirty = true;
+                        break;
+                    case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.confirmQuit:
                         break;
                     case Setting.Property.showLastMove:
                         break;

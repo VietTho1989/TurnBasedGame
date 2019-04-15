@@ -223,9 +223,14 @@ public class RequestChangeUseRuleUI : UIBehavior<RequestChangeUseRuleUI.UIData>
                     }
                     // UI
                     {
+                        float buttonSize = Setting.get().getButtonSize();
                         float deltaY = 0;
                         // header
-                        UIUtils.SetHeaderPosition(lbTitle, UIRectTransform.ShowType.Normal, ref deltaY);
+                        {
+                            UIRectTransform.SetTitleTransform(lbTitle);
+                            UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                            deltaY += buttonSize;
+                        }
                         // sub
                         deltaY += UIRectTransform.SetPosY(this.data.sub.v, deltaY);
                         // bottom
@@ -536,6 +541,8 @@ public class RequestChangeUseRuleUI : UIBehavior<RequestChangeUseRuleUI.UIData>
                 case Setting.Property.language:
                     dirty = true;
                     break;
+                case Setting.Property.style:
+                    break;
                 case Setting.Property.contentTextSize:
                     dirty = true;
                     break;
@@ -544,6 +551,11 @@ public class RequestChangeUseRuleUI : UIBehavior<RequestChangeUseRuleUI.UIData>
                     break;
                 case Setting.Property.labelTextSize:
                     dirty = true;
+                    break;
+                case Setting.Property.buttonSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.confirmQuit:
                     break;
                 case Setting.Property.showLastMove:
                     break;

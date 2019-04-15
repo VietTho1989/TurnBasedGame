@@ -80,6 +80,8 @@ namespace GameManager.Match.Swap
 
         #region Refresh
 
+        public Button btnBack;
+
         public override void refresh()
         {
             if (dirty)
@@ -169,11 +171,34 @@ namespace GameManager.Match.Swap
                                 Debug.LogError("swapPlayerInformUIData null: " + this);
                             }
                         }
+                        // UI
+                        {
+                            float buttonSize = Setting.get().getButtonSize();
+                            float deltaY = 0;
+                            // header
+                            {
+                                UIRectTransform.SetTitleTransform(lbTitle);
+                                UIRectTransform.SetButtonTopLeftTransform(btnBack);
+                                deltaY += buttonSize;
+                            }
+                            // content
+                            {
+                                UIRectTransform.Set(this.data.swapTeamAdapter.v, CreateSwapTeamAdapterRect());
+                                UIRectTransform.Set(this.data.swapPlayerInformUIData.v, CreateSwapPlayerInformRect());
+                                deltaY += 370;
+                            }
+                            // set height
+                            {
+                                UIRectTransform rect = UIRectTransform.CreateCenterRect(400, deltaY, 0, 30);
+                                rect.set((RectTransform)this.transform);
+                            }
+                        }
                         // txt
                         {
                             if (lbTitle != null)
                             {
                                 lbTitle.text = txtTitle.get();
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -203,10 +228,16 @@ namespace GameManager.Match.Swap
         #region implement callBacks
 
         public SwapTeamAdapter swapTeamAdapterPrefab;
-        private static readonly UIRectTransform swapTeamAdapterRect = UIRectTransform.CreateFullRect(0, 240, UIConstants.HeaderHeight, 0);
+        private static UIRectTransform CreateSwapTeamAdapterRect()
+        {
+            return UIRectTransform.CreateFullRect(0, 280, Setting.get().getButtonSize(), 0);
+        }
 
         public SwapPlayerInformUI swapPlayerInformPrefab;
-        private static readonly UIRectTransform swapPlayerInformRect = UIRectTransform.CreateFullRect(120, 0, UIConstants.HeaderHeight, 0);
+        private static UIRectTransform CreateSwapPlayerInformRect()
+        {
+            return UIRectTransform.CreateFullRect(120, 0, Setting.get().getButtonSize(), 0);
+        }
 
         private ContestManagerStatePlay contestManagerStatePlay = null;
         private ContestManagerStatePlayTeamCheckChange<ContestManagerStatePlay> contestManagerStatePlayTeamCheckChange = new ContestManagerStatePlayTeamCheckChange<ContestManagerStatePlay>();
@@ -273,7 +304,7 @@ namespace GameManager.Match.Swap
                     SwapTeamAdapter.UIData swapTeamAdapterUIData = data as SwapTeamAdapter.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(swapTeamAdapterUIData, swapTeamAdapterPrefab, this.transform, swapTeamAdapterRect);
+                        UIUtils.Instantiate(swapTeamAdapterUIData, swapTeamAdapterPrefab, this.transform, CreateSwapTeamAdapterRect());
                     }
                     dirty = true;
                     return;
@@ -283,7 +314,7 @@ namespace GameManager.Match.Swap
                     SwapPlayerInformUI.UIData swapPlayerInformUIData = data as SwapPlayerInformUI.UIData;
                     // UI
                     {
-                        UIUtils.Instantiate(swapPlayerInformUIData, swapPlayerInformPrefab, this.transform, swapPlayerInformRect);
+                        UIUtils.Instantiate(swapPlayerInformUIData, swapPlayerInformPrefab, this.transform, CreateSwapPlayerInformRect());
                     }
                     dirty = true;
                     return;
@@ -410,6 +441,20 @@ namespace GameManager.Match.Swap
                         dirty = true;
                         break;
                     case Setting.Property.style:
+                        break;
+                    case Setting.Property.contentTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.titleTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.labelTextSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.buttonSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.confirmQuit:
                         break;
                     case Setting.Property.showLastMove:
                         break;
