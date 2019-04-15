@@ -726,34 +726,7 @@ namespace GameManager.Match
                             float bgY = deltaY;
                             float bgHeight = 0;
                             // type
-                            {
-                                if (this.data.newRoundLimitType.v != null)
-                                {
-                                    if (lbNewRoundLimitType != null)
-                                    {
-                                        lbNewRoundLimitType.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY((RectTransform)lbNewRoundLimitType.transform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbNewRoundLimitType null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.newRoundLimitType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                                    bgHeight += UIConstants.ItemHeight;
-                                    deltaY += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbNewRoundLimitType != null)
-                                    {
-                                        lbNewRoundLimitType.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbNewRoundLimitType null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPositionBg(lbNewRoundLimitType, this.data.newRoundLimitType.v, ref deltaY, ref bgHeight);
                             // UI
                             {
                                 float height = UIRectTransform.SetPosY(this.data.newRoundLimitUI.v, deltaY);
@@ -1405,6 +1378,11 @@ namespace GameManager.Match
                         break;
                     case Setting.Property.buttonSize:
                         dirty = true;
+                        break;
+                    case Setting.Property.itemSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.confirmQuit:
                         break;
                     case Setting.Property.showLastMove:
                         break;

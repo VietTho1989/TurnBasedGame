@@ -1636,6 +1636,11 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                 case Setting.Property.buttonSize:
                     dirty = true;
                     break;
+                case Setting.Property.itemSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.confirmQuit:
+                    break;
                 case Setting.Property.showLastMove:
                     break;
                 case Setting.Property.viewUrlImage:

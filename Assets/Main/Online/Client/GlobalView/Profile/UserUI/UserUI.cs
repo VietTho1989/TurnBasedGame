@@ -1044,6 +1044,11 @@ public class UserUI : UIBehavior<UserUI.UIData>
                 case Setting.Property.labelTextSize:
                     dirty = true;
                     break;
+                case Setting.Property.itemSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.confirmQuit:
+                    break;
                 case Setting.Property.showLastMove:
                     break;
                 case Setting.Property.viewUrlImage:

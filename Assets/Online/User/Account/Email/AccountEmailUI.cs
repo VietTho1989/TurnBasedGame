@@ -1069,6 +1069,8 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                 case Setting.Property.language:
                     dirty = true;
                     break;
+                case Setting.Property.style:
+                    break;
                 case Setting.Property.contentTextSize:
                     dirty = true;
                     break;
@@ -1080,6 +1082,11 @@ public class AccountEmailUI : UIHaveTransformDataBehavior<AccountEmailUI.UIData>
                     break;
                 case Setting.Property.buttonSize:
                     dirty = true;
+                    break;
+                case Setting.Property.itemSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.confirmQuit:
                     break;
                 case Setting.Property.showLastMove:
                     break;

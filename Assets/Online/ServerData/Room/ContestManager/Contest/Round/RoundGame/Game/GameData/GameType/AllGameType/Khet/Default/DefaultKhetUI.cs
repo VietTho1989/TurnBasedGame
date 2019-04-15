@@ -215,6 +215,7 @@ namespace Khet
                                 if (lbTitle != null)
                                 {
                                     lbTitle.text = txtTitle.get();
+                                    Setting.get().setTitleTextSize(lbTitle);
                                 }
                                 else
                                 {
@@ -223,6 +224,7 @@ namespace Khet
                                 if (lbStartPos != null)
                                 {
                                     lbStartPos.text = txtStartPos.get();
+                                    Setting.get().setLabelTextSize(lbStartPos);
                                 }
                                 else
                                 {
@@ -541,6 +543,11 @@ namespace Khet
                         break;
                     case Setting.Property.buttonSize:
                         dirty = true;
+                        break;
+                    case Setting.Property.itemSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.confirmQuit:
                         break;
                     case Setting.Property.showLastMove:
                         break;

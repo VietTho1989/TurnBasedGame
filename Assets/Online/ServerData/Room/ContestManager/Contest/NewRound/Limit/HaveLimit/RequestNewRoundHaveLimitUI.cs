@@ -209,6 +209,7 @@ namespace GameManager.Match
                             if (lbTitle != null)
                             {
                                 lbTitle.text = txtTitle.get();
+                                Setting.get().setTitleTextSize(lbTitle);
                             }
                             else
                             {
@@ -217,6 +218,7 @@ namespace GameManager.Match
                             if (lbMaxRound != null)
                             {
                                 lbMaxRound.text = txtMaxRound.get();
+                                Setting.get().setLabelTextSize(lbMaxRound);
                             }
                             else
                             {
@@ -225,6 +227,7 @@ namespace GameManager.Match
                             if (lbEnoughScoreStop != null)
                             {
                                 lbEnoughScoreStop.text = txtEnoughScoreStop.get();
+                                Setting.get().setLabelTextSize(lbEnoughScoreStop);
                             }
                             else
                             {
@@ -513,6 +516,11 @@ namespace GameManager.Match
                         break;
                     case Setting.Property.buttonSize:
                         dirty = true;
+                        break;
+                    case Setting.Property.itemSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.confirmQuit:
                         break;
                     case Setting.Property.showLastMove:
                         break;

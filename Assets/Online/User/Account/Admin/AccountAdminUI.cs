@@ -452,6 +452,11 @@ public class AccountAdminUI : UIHaveTransformDataBehavior<AccountAdminUI.UIData>
                 case Setting.Property.buttonSize:
                     dirty = true;
                     break;
+                case Setting.Property.itemSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.confirmQuit:
+                    break;
                 case Setting.Property.showLastMove:
                     break;
                 case Setting.Property.viewUrlImage:

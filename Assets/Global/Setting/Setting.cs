@@ -120,6 +120,21 @@ public class Setting : Data
 
     #endregion
 
+    #region itemSize
+
+    public const float DefaultItemSize = UIConstants.ItemHeight;
+    public const float MinItemSize = 50;
+    public const float MaxItemSize = 80;
+
+    public VP<float> itemSize;
+
+    public float getItemSize()
+    {
+        return Mathf.Clamp(this.itemSize.v, MinItemSize, MaxItemSize);
+    }
+
+    #endregion
+
     #endregion
 
     public VP<bool> confirmQuit;
@@ -293,6 +308,7 @@ public class Setting : Data
         titleTextSize,
         labelTextSize,
         buttonSize,
+        itemSize,
 
         confirmQuit,
         showLastMove,
@@ -314,6 +330,7 @@ public class Setting : Data
             this.titleTextSize = new VP<int>(this, (byte)Property.titleTextSize, DefaultTitleTextSize);
             this.labelTextSize = new VP<int>(this, (byte)Property.labelTextSize, DefaultLabelTextSize);
             this.buttonSize = new VP<float>(this, (byte)Property.buttonSize, DefaultButtonSize);
+            this.itemSize = new VP<float>(this, (byte)Property.itemSize, DefaultItemSize);
         }
         this.confirmQuit = new VP<bool>(this, (byte)Property.confirmQuit, true);
         this.showLastMove = new VP<bool> (this, (byte)Property.showLastMove, true);

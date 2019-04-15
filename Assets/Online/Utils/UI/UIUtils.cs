@@ -309,17 +309,19 @@ public class UIUtils
     {
         if (requestChangeBoolUIData != null)
         {
+            float itemHeight = Setting.get().getItemSize();
             if (label != null)
             {
                 label.gameObject.SetActive(true);
                 UIRectTransform.SetPosY(label.rectTransform, deltaY);
+                UIRectTransform.SetHeight(label.rectTransform, itemHeight);
             }
             else
             {
                 Debug.LogError("label null");
             }
-            UIRectTransform.SetPosY(requestChangeBoolUIData, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-            deltaY += UIConstants.ItemHeight;
+            UIRectTransform.SetPosY(requestChangeBoolUIData, deltaY + (itemHeight - UIConstants.RequestBoolDim) / 2.0f);
+            deltaY += itemHeight;
         }
         else
         {
@@ -338,17 +340,19 @@ public class UIUtils
     {
         if (requestChangeEnumUIData != null)
         {
+            float itemHeight = Setting.get().getItemSize();
             if (label != null)
             {
                 label.gameObject.SetActive(true);
                 UIRectTransform.SetPosY(label.rectTransform, deltaY);
+                UIRectTransform.SetHeight(label.rectTransform, itemHeight);
             }
             else
             {
                 Debug.LogError("label null");
             }
-            UIRectTransform.SetPosY(requestChangeEnumUIData, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-            deltaY += UIConstants.ItemHeight;
+            UIRectTransform.SetPosY(requestChangeEnumUIData, deltaY + (itemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+            deltaY += itemHeight;
         }
         else
         {
@@ -367,17 +371,19 @@ public class UIUtils
     {
         if (requestChangeFloatUIData != null)
         {
+            float itemHeight = Setting.get().getItemSize();
             if (label != null)
             {
                 label.gameObject.SetActive(true);
                 UIRectTransform.SetPosY(label.rectTransform, deltaY);
+                UIRectTransform.SetHeight(label.rectTransform, itemHeight);
             }
             else
             {
                 Debug.LogError("label null");
             }
-            UIRectTransform.SetPosY(requestChangeFloatUIData, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            deltaY += UIConstants.ItemHeight;
+            UIRectTransform.SetPosY(requestChangeFloatUIData, deltaY + (itemHeight - UIConstants.RequestHeight) / 2.0f);
+            deltaY += itemHeight;
         }
         else
         {
@@ -396,17 +402,19 @@ public class UIUtils
     {
         if (requestChangeIntUIData != null)
         {
+            float itemHeight = Setting.get().getItemSize();
             if (label != null)
             {
                 label.gameObject.SetActive(true);
                 UIRectTransform.SetPosY(label.rectTransform, deltaY);
+                UIRectTransform.SetHeight(label.rectTransform, itemHeight);
             }
             else
             {
                 Debug.LogError("label null");
             }
-            UIRectTransform.SetPosY(requestChangeIntUIData, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            deltaY += UIConstants.ItemHeight;
+            UIRectTransform.SetPosY(requestChangeIntUIData, deltaY + (itemHeight - UIConstants.RequestHeight) / 2.0f);
+            deltaY += itemHeight;
         }
         else
         {
@@ -425,17 +433,19 @@ public class UIUtils
     {
         if (requestChangeLongUIData != null)
         {
+            float itemHeight = Setting.get().getItemSize();
             if (label != null)
             {
                 label.gameObject.SetActive(true);
                 UIRectTransform.SetPosY(label.rectTransform, deltaY);
+                UIRectTransform.SetHeight(label.rectTransform, itemHeight);
             }
             else
             {
                 Debug.LogError("label null");
             }
-            UIRectTransform.SetPosY(requestChangeLongUIData, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            deltaY += UIConstants.ItemHeight;
+            UIRectTransform.SetPosY(requestChangeLongUIData, deltaY + (itemHeight - UIConstants.RequestHeight) / 2.0f);
+            deltaY += itemHeight;
         }
         else
         {
@@ -454,17 +464,19 @@ public class UIUtils
     {
         if (requestChangeStringUIData != null)
         {
+            float itemHeight = Setting.get().getItemSize();
             if (label != null)
             {
                 label.gameObject.SetActive(true);
                 UIRectTransform.SetPosY(label.rectTransform, deltaY);
+                UIRectTransform.SetHeight(label.rectTransform, itemHeight);
             }
             else
             {
                 Debug.LogError("label null");
             }
-            UIRectTransform.SetPosY(requestChangeStringUIData, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-            deltaY += UIConstants.ItemHeight;
+            UIRectTransform.SetPosY(requestChangeStringUIData, deltaY + (itemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+            deltaY += itemHeight;
         }
         else
         {
@@ -487,18 +499,20 @@ public class UIUtils
     {
         if (requestChangeBoolUIData != null)
         {
+            float itemHeight = Setting.get().getItemSize();
             if (label != null)
             {
                 label.gameObject.SetActive(true);
                 UIRectTransform.SetPosY(label.rectTransform, deltaY);
+                UIRectTransform.SetHeight(label.rectTransform, itemHeight);
             }
             else
             {
                 Debug.LogError("label null");
             }
-            UIRectTransform.SetPosY(requestChangeBoolUIData, deltaY + (UIConstants.ItemHeight - UIConstants.RequestBoolDim) / 2.0f);
-            bgHeight += UIConstants.ItemHeight;
-            deltaY += UIConstants.ItemHeight;
+            UIRectTransform.SetPosY(requestChangeBoolUIData, deltaY + (itemHeight - UIConstants.RequestBoolDim) / 2.0f);
+            bgHeight += itemHeight;
+            deltaY += itemHeight;
         }
         else
         {
@@ -517,18 +531,20 @@ public class UIUtils
     {
         if (requestChangeEnumUIData != null)
         {
+            float itemHeight = Setting.get().getItemSize();
             if (label != null)
             {
                 label.gameObject.SetActive(true);
                 UIRectTransform.SetPosY(label.rectTransform, deltaY);
+                UIRectTransform.SetHeight(label.rectTransform, itemHeight);
             }
             else
             {
                 Debug.LogError("label null");
             }
-            UIRectTransform.SetPosY(requestChangeEnumUIData, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-            bgHeight += UIConstants.ItemHeight;
-            deltaY += UIConstants.ItemHeight;
+            UIRectTransform.SetPosY(requestChangeEnumUIData, deltaY + (itemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+            bgHeight += itemHeight;
+            deltaY += itemHeight;
         }
         else
         {
@@ -547,18 +563,20 @@ public class UIUtils
     {
         if (requestChangeFloatUIData != null)
         {
+            float itemHeight = Setting.get().getItemSize();
             if (label != null)
             {
                 label.gameObject.SetActive(true);
                 UIRectTransform.SetPosY(label.rectTransform, deltaY);
+                UIRectTransform.SetHeight(label.rectTransform, itemHeight);
             }
             else
             {
                 Debug.LogError("label null");
             }
-            UIRectTransform.SetPosY(requestChangeFloatUIData, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            bgHeight += UIConstants.ItemHeight;
-            deltaY += UIConstants.ItemHeight;
+            UIRectTransform.SetPosY(requestChangeFloatUIData, deltaY + (itemHeight - UIConstants.RequestHeight) / 2.0f);
+            bgHeight += itemHeight;
+            deltaY += itemHeight;
         }
         else
         {
@@ -577,18 +595,20 @@ public class UIUtils
     {
         if (requestChangeIntUIData != null)
         {
+            float itemHeight = Setting.get().getItemSize();
             if (label != null)
             {
                 label.gameObject.SetActive(true);
                 UIRectTransform.SetPosY(label.rectTransform, deltaY);
+                UIRectTransform.SetHeight(label.rectTransform, itemHeight);
             }
             else
             {
                 Debug.LogError("label null");
             }
-            UIRectTransform.SetPosY(requestChangeIntUIData, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            bgHeight += UIConstants.ItemHeight;
-            deltaY += UIConstants.ItemHeight;
+            UIRectTransform.SetPosY(requestChangeIntUIData, deltaY + (itemHeight - UIConstants.RequestHeight) / 2.0f);
+            bgHeight += itemHeight;
+            deltaY += itemHeight;
         }
         else
         {
@@ -607,18 +627,20 @@ public class UIUtils
     {
         if (requestChangeLongUIData != null)
         {
+            float itemHeight = Setting.get().getItemSize();
             if (label != null)
             {
                 label.gameObject.SetActive(true);
                 UIRectTransform.SetPosY(label.rectTransform, deltaY);
+                UIRectTransform.SetHeight(label.rectTransform, itemHeight);
             }
             else
             {
                 Debug.LogError("label null");
             }
-            UIRectTransform.SetPosY(requestChangeLongUIData, deltaY + (UIConstants.ItemHeight - UIConstants.RequestHeight) / 2.0f);
-            bgHeight += UIConstants.ItemHeight;
-            deltaY += UIConstants.ItemHeight;
+            UIRectTransform.SetPosY(requestChangeLongUIData, deltaY + (itemHeight - UIConstants.RequestHeight) / 2.0f);
+            bgHeight += itemHeight;
+            deltaY += itemHeight;
         }
         else
         {
@@ -637,18 +659,20 @@ public class UIUtils
     {
         if (requestChangeStringUIData != null)
         {
+            float itemHeight = Setting.get().getItemSize();
             if (label != null)
             {
                 label.gameObject.SetActive(true);
                 UIRectTransform.SetPosY(label.rectTransform, deltaY);
+                UIRectTransform.SetHeight(label.rectTransform, itemHeight);
             }
             else
             {
                 Debug.LogError("label null");
             }
-            UIRectTransform.SetPosY(requestChangeStringUIData, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-            bgHeight += UIConstants.ItemHeight;
-            deltaY += UIConstants.ItemHeight;
+            UIRectTransform.SetPosY(requestChangeStringUIData, deltaY + (itemHeight - UIConstants.RequestEnumHeight) / 2.0f);
+            bgHeight += itemHeight;
+            deltaY += itemHeight;
         }
         else
         {

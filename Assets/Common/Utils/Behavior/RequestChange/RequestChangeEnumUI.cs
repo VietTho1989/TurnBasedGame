@@ -390,6 +390,10 @@ public class RequestChangeEnumUI : UIBehavior<RequestChangeEnumUI.UIData>
                 case Setting.Property.labelTextSize:
                     dirty = true;
                     break;
+                case Setting.Property.buttonSize:
+                    break;
+                case Setting.Property.itemSize:
+                    break;
                 case Setting.Property.confirmQuit:
                     break;
                 case Setting.Property.showLastMove:

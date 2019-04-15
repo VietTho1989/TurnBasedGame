@@ -604,6 +604,8 @@ public class AccountDeviceUI : UIHaveTransformDataBehavior<AccountDeviceUI.UIDat
                 case Setting.Property.language:
                     dirty = true;
                     break;
+                case Setting.Property.style:
+                    break;
                 case Setting.Property.contentTextSize:
                     dirty = true;
                     break;
@@ -615,6 +617,11 @@ public class AccountDeviceUI : UIHaveTransformDataBehavior<AccountDeviceUI.UIDat
                     break;
                 case Setting.Property.buttonSize:
                     dirty = true;
+                    break;
+                case Setting.Property.itemSize:
+                    dirty = true;
+                    break;
+                case Setting.Property.confirmQuit:
                     break;
                 case Setting.Property.showLastMove:
                     break;

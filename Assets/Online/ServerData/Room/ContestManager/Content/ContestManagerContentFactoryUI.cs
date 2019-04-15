@@ -375,34 +375,7 @@ namespace GameManager.Match
                             float bgY = deltaY;
                             float bgHeight = 0;
                             // contentType
-                            {
-                                if (this.data.contentType.v != null)
-                                {
-                                    if (lbContentType != null)
-                                    {
-                                        lbContentType.gameObject.SetActive(true);
-                                        UIRectTransform.SetPosY(lbContentType.rectTransform, deltaY);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbContentType null");
-                                    }
-                                    UIRectTransform.SetPosY(this.data.contentType.v, deltaY + (UIConstants.ItemHeight - UIConstants.RequestEnumHeight) / 2.0f);
-                                    deltaY += UIConstants.ItemHeight;
-                                    bgHeight += UIConstants.ItemHeight;
-                                }
-                                else
-                                {
-                                    if (lbContentType != null)
-                                    {
-                                        lbContentType.gameObject.SetActive(false);
-                                    }
-                                    else
-                                    {
-                                        Debug.LogError("lbContentType null");
-                                    }
-                                }
-                            }
+                            UIUtils.SetLabelContentPositionBg(lbContentType, this.data.contentType.v, ref deltaY, ref bgHeight);
                             // sub
                             {
                                 float subHeight = UIRectTransform.SetPosY(this.data.sub.v, deltaY);
@@ -828,6 +801,11 @@ namespace GameManager.Match
                         break;
                     case Setting.Property.buttonSize:
                         dirty = true;
+                        break;
+                    case Setting.Property.itemSize:
+                        dirty = true;
+                        break;
+                    case Setting.Property.confirmQuit:
                         break;
                     case Setting.Property.showLastMove:
                         break;

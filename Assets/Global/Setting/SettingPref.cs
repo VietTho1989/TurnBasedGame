@@ -40,6 +40,7 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
     private const string Setting_TitleTextSize = "Setting_TitleTextSize";
     private const string Setting_LabelTextSize = "Setting_LabelTextSize";
     private const string Setting_ButtonSize = "Setting_ButtonSize";
+    private const string Setting_ItemSize = "Setting_ItemSize";
 
     private HashSet<byte> settingUpdateNames = new HashSet<byte>();
 
@@ -118,7 +119,53 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                     Setting.get().contentTextSize.v = PlayerPrefs.GetInt(Setting_ContentTextSize, Setting.DefaultContentTextSize);
                     Setting.get().titleTextSize.v = PlayerPrefs.GetInt(Setting_TitleTextSize, Setting.DefaultTitleTextSize);
                     Setting.get().labelTextSize.v = PlayerPrefs.GetInt(Setting_LabelTextSize, Setting.DefaultLabelTextSize);
-                    Setting.get().buttonSize.v = PlayerPrefs.GetFloat(Setting_ButtonSize, Setting.DefaultButtonSize);
+                    // buttonSize
+                    {
+                        float defaultButtonSize = Setting.DefaultButtonSize;
+                        {
+                            float width = Screen.width;
+                            float height = Screen.height;
+                            if (width > 0 && height > 0)
+                            {
+                                float ratio = height > width ? height / width : width / height;
+                                if (ratio <= 5 / 4.0f)
+                                {
+                                    defaultButtonSize = 30;
+                                }
+                                else if (ratio <= 4 / 3.0f)
+                                {
+                                    defaultButtonSize = 32;
+                                }
+                                else if (ratio <= 3 / 2.0f)
+                                {
+                                    defaultButtonSize = 32;
+                                }
+                                else if (ratio <= 16 / 10.0f)
+                                {
+                                    defaultButtonSize = 36;
+                                }
+                                else if (ratio <= 16 / 9.0f)
+                                {
+                                    defaultButtonSize = 40;
+                                }
+                                else
+                                {
+                                    defaultButtonSize = 45;
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("why width, height = 0: " + width + ", " + height);
+                            }
+                            // correct defaultButtonSize
+                            {
+                                defaultButtonSize = Mathf.Clamp(defaultButtonSize, 30, 50);
+                            }
+                            Debug.LogError("defaultButtonSize: " + defaultButtonSize + ", " + width + ", " + height);
+                        }
+                        Setting.get().buttonSize.v = PlayerPrefs.GetFloat(Setting_ButtonSize, defaultButtonSize);
+                    }
+                    Setting.get().itemSize.v = PlayerPrefs.GetFloat(Setting_ItemSize, Setting.DefaultItemSize);
                 }
 
                 // defaultChosenGameType
@@ -302,6 +349,12 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                                 case Setting.Property.buttonSize:
                                     {
                                         PlayerPrefs.SetFloat(Setting_ButtonSize, Setting.get().buttonSize.v);
+                                        needSave = true;
+                                    }
+                                    break;
+                                case Setting.Property.itemSize:
+                                    {
+                                        PlayerPrefs.SetFloat(Setting_ItemSize, Setting.get().itemSize.v);
                                         needSave = true;
                                     }
                                     break;
@@ -534,6 +587,12 @@ public class SettingPref : MonoBehaviour, ValueChangeCallBack
                     }
                     break;
                 case Setting.Property.buttonSize:
+                    {
+                        settingUpdateNames.Add(wrapProperty.n);
+                        dirty = true;
+                    }
+                    break;
+                case Setting.Property.itemSize:
                     {
                         settingUpdateNames.Add(wrapProperty.n);
                         dirty = true;
