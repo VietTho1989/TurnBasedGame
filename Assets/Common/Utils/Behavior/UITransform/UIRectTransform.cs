@@ -396,7 +396,7 @@ public class UIRectTransform
             rect.pivot = new Vector2(0.5f, 1.0f);
             rect.offsetMin = new Vector2(0.0f, -height);
             rect.offsetMax = new Vector2(0.0f, 0.0f);
-            rect.sizeDelta = new Vector2(0.0f, 300.0f);
+            rect.sizeDelta = new Vector2(0.0f, height);
         }
         return rect;
     }

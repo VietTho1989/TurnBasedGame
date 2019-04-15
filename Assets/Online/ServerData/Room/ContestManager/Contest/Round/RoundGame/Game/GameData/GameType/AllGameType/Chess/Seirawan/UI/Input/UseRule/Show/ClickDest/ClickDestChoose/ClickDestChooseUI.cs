@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Seirawan.UseRule
 {
-    public class ClickDestChooseUI : UIBehavior<ClickDestChooseUI.UIData>, BtnChosenMoveUI.OnClick
+    public class ClickDestChooseUI : UIBehavior<ClickDestChooseUI.UIData>, BtnChosenMoveHolder.OnClick
     {
 
         #region UIData
@@ -17,7 +17,7 @@ namespace Seirawan.UseRule
 
             public VP<int> y;
 
-            public LP<BtnChosenMoveUI.UIData> btnChosenMoves;
+            public VP<BtnChosenMoveAdapter.UIData> btnChosenMoveAdapter;
 
             #region Constructor
 
@@ -25,14 +25,14 @@ namespace Seirawan.UseRule
             {
                 x,
                 y,
-                btnChosenMoves
+                btnChosenMoveAdapter
             }
 
             public UIData() : base()
             {
                 this.x = new VP<int>(this, (byte)Property.x, 0);
                 this.y = new VP<int>(this, (byte)Property.y, 0);
-                this.btnChosenMoves = new LP<BtnChosenMoveUI.UIData>(this, (byte)Property.btnChosenMoves);
+                this.btnChosenMoveAdapter = new VP<BtnChosenMoveAdapter.UIData>(this, (byte)Property.btnChosenMoveAdapter, null);
             }
 
             #endregion
@@ -83,7 +83,6 @@ namespace Seirawan.UseRule
         #region Refresh
 
         public RectTransform contentContainer;
-        public RectTransform scrollRect;
 
         public override void refresh()
         {
@@ -167,52 +166,24 @@ namespace Seirawan.UseRule
                     }
                     else
                     {
-                        List<BtnChosenMoveUI.UIData> oldBntChoseMoves = new List<BtnChosenMoveUI.UIData>();
-                        // get olds
-                        oldBntChoseMoves.AddRange(this.data.btnChosenMoves.vs);
-                        // Update
+                        // adapter
+                        BtnChosenMoveAdapter.UIData btnChosenMoveAdapterUIData = this.data.btnChosenMoveAdapter.newOrOld<BtnChosenMoveAdapter.UIData>();
                         {
-                            for (int i = 0; i < seirawanMoves.Count; i++)
+                            // moves
                             {
-                                SeirawanMove seirawanMove = seirawanMoves[i];
-                                // Find bntChoseMoveUI
-                                BtnChosenMoveUI.UIData btnChoseMoveUIData = null;
+                                List<ReferenceData<SeirawanMove>> referenceSeirawanMoves = new List<ReferenceData<SeirawanMove>>();
                                 {
-                                    // Find old
-                                    if (oldBntChoseMoves.Count > 0)
+                                    foreach (SeirawanMove seirawanMove in seirawanMoves)
                                     {
-                                        btnChoseMoveUIData = oldBntChoseMoves[0];
-                                        oldBntChoseMoves.RemoveAt(0);
-                                    }
-                                    // Make new
-                                    if (btnChoseMoveUIData == null)
-                                    {
-                                        btnChoseMoveUIData = new BtnChosenMoveUI.UIData();
-                                        {
-                                            btnChoseMoveUIData.uid = this.data.btnChosenMoves.makeId();
-                                        }
-                                        this.data.btnChosenMoves.add(btnChoseMoveUIData);
+                                        referenceSeirawanMoves.Add(new ReferenceData<SeirawanMove>(seirawanMove));
                                     }
                                 }
-                                // Update Property
-                                if (btnChoseMoveUIData != null)
-                                {
-                                    // seirawanMove
-                                    btnChoseMoveUIData.seirawanMove.v = new ReferenceData<SeirawanMove>(seirawanMove);
-                                    // onClick
-                                    btnChoseMoveUIData.onClick.v = this;
-                                }
-                                else
-                                {
-                                    Debug.LogError("btnChoseMoveUIData null: " + this);
-                                }
+                                btnChosenMoveAdapterUIData.moves.copyList(referenceSeirawanMoves);
                             }
+                            // onClick
+                            btnChosenMoveAdapterUIData.onClick.v = this;
                         }
-                        // Remove old
-                        for (int i = 0; i < oldBntChoseMoves.Count; i++)
-                        {
-                            this.data.btnChosenMoves.remove(oldBntChoseMoves[i]);
-                        }
+                        this.data.btnChosenMoveAdapter.v = btnChosenMoveAdapterUIData;
                     }
                     // UI
                     {
@@ -223,9 +194,9 @@ namespace Seirawan.UseRule
                             UIRectTransform.SetTitleTransform(lbTitle);
                             deltaY += buttonSize;
                         }
-                        // scrollRect
+                        // adapter
                         {
-                            UIRectTransform.SetPosY(scrollRect, deltaY);
+                            UIRectTransform.SetPosY(this.data.btnChosenMoveAdapter.v, deltaY);
                             deltaY += 80;
                         }
                         // btnCancel
@@ -295,8 +266,7 @@ namespace Seirawan.UseRule
 
         #region Refresh
 
-        public BtnChosenMoveUI btnChoseMovePrefab;
-        public Transform btnChoseMovesContainter;
+        public BtnChosenMoveAdapter btnChoseMoveAdapterPrefab;
 
         private ShowUI.UIData showUIData = null;
         private ClickDestUI.UIData clickDestUIData = null;
@@ -315,7 +285,7 @@ namespace Seirawan.UseRule
                 }
                 // Child
                 {
-                    uiData.btnChosenMoves.allAddCallBack(this);
+                    uiData.btnChosenMoveAdapter.allAddCallBack(this);
                 }
                 dirty = true;
                 return;
@@ -354,16 +324,15 @@ namespace Seirawan.UseRule
                 }
             }
             // Child
+            if (data is BtnChosenMoveAdapter.UIData)
             {
-                if (data is BtnChosenMoveUI.UIData)
+                BtnChosenMoveAdapter.UIData btnChoseMoveAdapterUIData = data as BtnChosenMoveAdapter.UIData;
+                // UI
                 {
-                    BtnChosenMoveUI.UIData btnChoseMoveUIData = data as BtnChosenMoveUI.UIData;
-                    {
-                        UIUtils.Instantiate(btnChoseMoveUIData, btnChoseMovePrefab, btnChoseMovesContainter);
-                    }
-                    dirty = true;
-                    return;
+                    UIUtils.Instantiate(btnChoseMoveAdapterUIData, btnChoseMoveAdapterPrefab, contentContainer, UIRectTransform.CreateTopBottomRect(80));
                 }
+                dirty = true;
+                return;
             }
             Debug.LogError("Don't process: " + data + "; " + this);
         }
@@ -382,7 +351,7 @@ namespace Seirawan.UseRule
                 }
                 // Child
                 {
-                    uiData.btnChosenMoves.allRemoveCallBack(this);
+                    uiData.btnChosenMoveAdapter.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
                 return;
@@ -417,15 +386,14 @@ namespace Seirawan.UseRule
                 }
             }
             // Child
+            if (data is BtnChosenMoveAdapter.UIData)
             {
-                if (data is BtnChosenMoveUI.UIData)
+                BtnChosenMoveAdapter.UIData btnChoseMoveAdapterUIData = data as BtnChosenMoveAdapter.UIData;
+                // UI
                 {
-                    BtnChosenMoveUI.UIData btnChoseMoveUIData = data as BtnChosenMoveUI.UIData;
-                    {
-                        btnChoseMoveUIData.removeCallBackAndDestroy(typeof(BtnChosenMoveUI));
-                    }
-                    return;
+                    btnChoseMoveAdapterUIData.removeCallBackAndDestroy(typeof(BtnChosenMoveAdapter));
                 }
+                return;
             }
             Debug.LogError("Don't process: " + data + "; " + this);
         }
@@ -446,7 +414,7 @@ namespace Seirawan.UseRule
                     case UIData.Property.y:
                         dirty = true;
                         break;
-                    case UIData.Property.btnChosenMoves:
+                    case UIData.Property.btnChosenMoveAdapter:
                         {
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
@@ -551,11 +519,9 @@ namespace Seirawan.UseRule
                 }
             }
             // Child
+            if (wrapProperty.p is BtnChosenMoveAdapter.UIData)
             {
-                if (wrapProperty.p is BtnChosenMoveUI.UIData)
-                {
-                    return;
-                }
+                return;
             }
             Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
         }

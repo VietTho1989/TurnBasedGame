@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Shatranj.UseRule
 {
-    public class ClickDestChooseUI : UIBehavior<ClickDestChooseUI.UIData>, BtnChosenMoveUI.OnClick
+    public class ClickDestChooseUI : UIBehavior<ClickDestChooseUI.UIData>, BtnChosenMoveHolder.OnClick
     {
 
         #region UIData
@@ -17,7 +17,7 @@ namespace Shatranj.UseRule
 
             public VP<int> y;
 
-            public LP<BtnChosenMoveUI.UIData> btnChosenMoves;
+            public VP<BtnChosenMoveAdapter.UIData> btnChosenMoveAdapter;
 
             #region Constructor
 
@@ -25,14 +25,14 @@ namespace Shatranj.UseRule
             {
                 x,
                 y,
-                btnChosenMoves
+                btnChosenMoveAdapter
             }
 
             public UIData() : base()
             {
                 this.x = new VP<int>(this, (byte)Property.x, 0);
                 this.y = new VP<int>(this, (byte)Property.y, 0);
-                this.btnChosenMoves = new LP<BtnChosenMoveUI.UIData>(this, (byte)Property.btnChosenMoves);
+                this.btnChosenMoveAdapter = new VP<BtnChosenMoveAdapter.UIData>(this, (byte)Property.btnChosenMoveAdapter, null);
             }
 
             #endregion
@@ -83,7 +83,6 @@ namespace Shatranj.UseRule
         #region Refresh
 
         public RectTransform contentContainer;
-        public RectTransform scrollRect;
 
         public override void refresh()
         {
@@ -167,52 +166,24 @@ namespace Shatranj.UseRule
                     }
                     else
                     {
-                        List<BtnChosenMoveUI.UIData> oldBntChoseMoves = new List<BtnChosenMoveUI.UIData>();
-                        // get olds
-                        oldBntChoseMoves.AddRange(this.data.btnChosenMoves.vs);
-                        // Update
+                        // adapter
+                        BtnChosenMoveAdapter.UIData btnChosenMoveAdapterUIData = this.data.btnChosenMoveAdapter.newOrOld<BtnChosenMoveAdapter.UIData>();
                         {
-                            for (int i = 0; i < shatranjMoves.Count; i++)
+                            // moves
                             {
-                                ShatranjMove shatranjMove = shatranjMoves[i];
-                                // Find bntChoseMoveUI
-                                BtnChosenMoveUI.UIData btnChoseMoveUIData = null;
+                                List<ReferenceData<ShatranjMove>> referenceShatranjMoves = new List<ReferenceData<ShatranjMove>>();
                                 {
-                                    // Find old
-                                    if (oldBntChoseMoves.Count > 0)
+                                    foreach (ShatranjMove shatranjMove in shatranjMoves)
                                     {
-                                        btnChoseMoveUIData = oldBntChoseMoves[0];
-                                        oldBntChoseMoves.RemoveAt(0);
-                                    }
-                                    // Make new
-                                    if (btnChoseMoveUIData == null)
-                                    {
-                                        btnChoseMoveUIData = new BtnChosenMoveUI.UIData();
-                                        {
-                                            btnChoseMoveUIData.uid = this.data.btnChosenMoves.makeId();
-                                        }
-                                        this.data.btnChosenMoves.add(btnChoseMoveUIData);
+                                        referenceShatranjMoves.Add(new ReferenceData<ShatranjMove>(shatranjMove));
                                     }
                                 }
-                                // Update Property
-                                if (btnChoseMoveUIData != null)
-                                {
-                                    // shatranjMove
-                                    btnChoseMoveUIData.shatranjMove.v = new ReferenceData<ShatranjMove>(shatranjMove);
-                                    // onClick
-                                    btnChoseMoveUIData.onClick.v = this;
-                                }
-                                else
-                                {
-                                    Debug.LogError("btnChoseMoveUIData null: " + this);
-                                }
+                                btnChosenMoveAdapterUIData.moves.copyList(referenceShatranjMoves);
                             }
+                            // onClick
+                            btnChosenMoveAdapterUIData.onClick.v = this;
                         }
-                        // Remove old
-                        for (int i = 0; i < oldBntChoseMoves.Count; i++)
-                        {
-                            this.data.btnChosenMoves.remove(oldBntChoseMoves[i]);
-                        }
+                        this.data.btnChosenMoveAdapter.v = btnChosenMoveAdapterUIData;
                     }
                     // UI
                     {
@@ -223,9 +194,9 @@ namespace Shatranj.UseRule
                             UIRectTransform.SetTitleTransform(lbTitle);
                             deltaY += buttonSize;
                         }
-                        // scrollRect
+                        // adapter
                         {
-                            UIRectTransform.SetPosY(scrollRect, deltaY);
+                            UIRectTransform.SetPosY(this.data.btnChosenMoveAdapter.v, deltaY);
                             deltaY += 80;
                         }
                         // btnCancel
@@ -295,8 +266,7 @@ namespace Shatranj.UseRule
 
         #region Refresh
 
-        public BtnChosenMoveUI btnChoseMovePrefab;
-        public Transform btnChoseMovesContainter;
+        public BtnChosenMoveAdapter btnChoseMoveAdapterPrefab;
 
         private ShowUI.UIData showUIData = null;
         private ClickDestUI.UIData clickDestUIData = null;
@@ -315,7 +285,7 @@ namespace Shatranj.UseRule
                 }
                 // Child
                 {
-                    uiData.btnChosenMoves.allAddCallBack(this);
+                    uiData.btnChosenMoveAdapter.allAddCallBack(this);
                 }
                 dirty = true;
                 return;
@@ -349,22 +319,20 @@ namespace Shatranj.UseRule
                 // clickDestUIData
                 if (data is ClickDestUI.UIData)
                 {
-                    // ClickDestUI.UIData clickDestUIData = data as ClickDestUI.UIData;
                     dirty = true;
                     return;
                 }
             }
             // Child
+            if (data is BtnChosenMoveAdapter.UIData)
             {
-                if (data is BtnChosenMoveUI.UIData)
+                BtnChosenMoveAdapter.UIData btnChoseMoveAdapterUIData = data as BtnChosenMoveAdapter.UIData;
+                // UI
                 {
-                    BtnChosenMoveUI.UIData btnChoseMoveUIData = data as BtnChosenMoveUI.UIData;
-                    {
-                        UIUtils.Instantiate(btnChoseMoveUIData, btnChoseMovePrefab, btnChoseMovesContainter);
-                    }
-                    dirty = true;
-                    return;
+                    UIUtils.Instantiate(btnChoseMoveAdapterUIData, btnChoseMoveAdapterPrefab, contentContainer, UIRectTransform.CreateTopBottomRect(80));
                 }
+                dirty = true;
+                return;
             }
             Debug.LogError("Don't process: " + data + "; " + this);
         }
@@ -383,7 +351,7 @@ namespace Shatranj.UseRule
                 }
                 // Child
                 {
-                    uiData.btnChosenMoves.allRemoveCallBack(this);
+                    uiData.btnChosenMoveAdapter.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
                 return;
@@ -414,20 +382,18 @@ namespace Shatranj.UseRule
                 // clickDestUIData
                 if (data is ClickDestUI.UIData)
                 {
-                    // ClickDestUI.UIData clickDestUIData = data as ClickDestUI.UIData;
                     return;
                 }
             }
             // Child
+            if (data is BtnChosenMoveAdapter.UIData)
             {
-                if (data is BtnChosenMoveUI.UIData)
+                BtnChosenMoveAdapter.UIData btnChoseMoveAdapterUIData = data as BtnChosenMoveAdapter.UIData;
+                // UI
                 {
-                    BtnChosenMoveUI.UIData btnChoseMoveUIData = data as BtnChosenMoveUI.UIData;
-                    {
-                        btnChoseMoveUIData.removeCallBackAndDestroy(typeof(BtnChosenMoveUI));
-                    }
-                    return;
+                    btnChoseMoveAdapterUIData.removeCallBackAndDestroy(typeof(BtnChosenMoveAdapter));
                 }
+                return;
             }
             Debug.LogError("Don't process: " + data + "; " + this);
         }
@@ -448,7 +414,7 @@ namespace Shatranj.UseRule
                     case UIData.Property.y:
                         dirty = true;
                         break;
-                    case UIData.Property.btnChosenMoves:
+                    case UIData.Property.btnChosenMoveAdapter:
                         {
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
@@ -553,11 +519,9 @@ namespace Shatranj.UseRule
                 }
             }
             // Child
+            if (wrapProperty.p is BtnChosenMoveAdapter.UIData)
             {
-                if (wrapProperty.p is BtnChosenMoveUI.UIData)
-                {
-                    return;
-                }
+                return;
             }
             Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
         }

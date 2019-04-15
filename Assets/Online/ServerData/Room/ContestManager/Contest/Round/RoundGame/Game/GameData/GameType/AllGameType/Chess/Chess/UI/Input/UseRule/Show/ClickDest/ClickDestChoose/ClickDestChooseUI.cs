@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Chess.UseRule
 {
-    public class ClickDestChooseUI : UIBehavior<ClickDestChooseUI.UIData>, BtnChosenMoveUI.OnClick
+    public class ClickDestChooseUI : UIBehavior<ClickDestChooseUI.UIData>, BtnChosenMoveHolder.OnClick
     {
 
         #region UIData
@@ -17,7 +17,7 @@ namespace Chess.UseRule
 
             public VP<int> y;
 
-            public LP<BtnChosenMoveUI.UIData> btnChosenMoves;
+            public VP<BtnChosenMoveAdapter.UIData> btnChosenMoveAdapter;
 
             #region Constructor
 
@@ -25,14 +25,14 @@ namespace Chess.UseRule
             {
                 x,
                 y,
-                btnChosenMoves
+                btnChosenMoveAdapter
             }
 
             public UIData() : base()
             {
                 this.x = new VP<int>(this, (byte)Property.x, 0);
                 this.y = new VP<int>(this, (byte)Property.y, 0);
-                this.btnChosenMoves = new LP<BtnChosenMoveUI.UIData>(this, (byte)Property.btnChosenMoves);
+                this.btnChosenMoveAdapter = new VP<BtnChosenMoveAdapter.UIData>(this, (byte)Property.btnChosenMoveAdapter, null);
             }
 
             #endregion
@@ -83,7 +83,6 @@ namespace Chess.UseRule
         #region Refresh
 
         public RectTransform contentContainer;
-        public RectTransform scrollRect;
 
         public override void refresh()
         {
@@ -167,52 +166,24 @@ namespace Chess.UseRule
                     }
                     else
                     {
-                        List<BtnChosenMoveUI.UIData> oldBntChoseMoves = new List<BtnChosenMoveUI.UIData>();
-                        // get olds
-                        oldBntChoseMoves.AddRange(this.data.btnChosenMoves.vs);
-                        // Update
+                        // adapter
+                        BtnChosenMoveAdapter.UIData btnChosenMoveAdapterUIData = this.data.btnChosenMoveAdapter.newOrOld<BtnChosenMoveAdapter.UIData>();
                         {
-                            for (int i = 0; i < chessMoves.Count; i++)
+                            // moves
                             {
-                                ChessMove chessMove = chessMoves[i];
-                                // Find bntChoseMoveUI
-                                BtnChosenMoveUI.UIData btnChoseMoveUIData = null;
+                                List<ReferenceData<ChessMove>> referenceChessMoves = new List<ReferenceData<ChessMove>>();
                                 {
-                                    // Find old
-                                    if (oldBntChoseMoves.Count > 0)
+                                    foreach (ChessMove chessMove in chessMoves)
                                     {
-                                        btnChoseMoveUIData = oldBntChoseMoves[0];
-                                        oldBntChoseMoves.RemoveAt(0);
-                                    }
-                                    // Make new
-                                    if (btnChoseMoveUIData == null)
-                                    {
-                                        btnChoseMoveUIData = new BtnChosenMoveUI.UIData();
-                                        {
-                                            btnChoseMoveUIData.uid = this.data.btnChosenMoves.makeId();
-                                        }
-                                        this.data.btnChosenMoves.add(btnChoseMoveUIData);
+                                        referenceChessMoves.Add(new ReferenceData<ChessMove>(chessMove));
                                     }
                                 }
-                                // Update Property
-                                if (btnChoseMoveUIData != null)
-                                {
-                                    // chessMove
-                                    btnChoseMoveUIData.chessMove.v = new ReferenceData<ChessMove>(chessMove);
-                                    // onClick
-                                    btnChoseMoveUIData.onClick.v = this;
-                                }
-                                else
-                                {
-                                    Debug.LogError("btnChoseMoveUIData null: " + this);
-                                }
+                                btnChosenMoveAdapterUIData.moves.copyList(referenceChessMoves);
                             }
+                            // onClick
+                            btnChosenMoveAdapterUIData.onClick.v = this;
                         }
-                        // Remove old
-                        for (int i = 0; i < oldBntChoseMoves.Count; i++)
-                        {
-                            this.data.btnChosenMoves.remove(oldBntChoseMoves[i]);
-                        }
+                        this.data.btnChosenMoveAdapter.v = btnChosenMoveAdapterUIData;
                     }
                     // UI
                     {
@@ -223,9 +194,9 @@ namespace Chess.UseRule
                             UIRectTransform.SetTitleTransform(lbTitle);
                             deltaY += buttonSize;
                         }
-                        // scrollRect
+                        // adapter
                         {
-                            UIRectTransform.SetPosY(scrollRect, deltaY);
+                            UIRectTransform.SetPosY(this.data.btnChosenMoveAdapter.v, deltaY);
                             deltaY += 80;
                         }
                         // btnCancel
@@ -295,8 +266,7 @@ namespace Chess.UseRule
 
         #region Refresh
 
-        public BtnChosenMoveUI btnChoseMovePrefab;
-        public Transform btnChoseMovesContainter;
+        public BtnChosenMoveAdapter btnChoseMoveAdapterPrefab;
 
         private ShowUI.UIData showUIData = null;
         private ClickDestUI.UIData clickDestUIData = null;
@@ -315,7 +285,7 @@ namespace Chess.UseRule
                 }
                 // Child
                 {
-                    uiData.btnChosenMoves.allAddCallBack(this);
+                    uiData.btnChosenMoveAdapter.allAddCallBack(this);
                 }
                 dirty = true;
                 return;
@@ -354,16 +324,15 @@ namespace Chess.UseRule
                 }
             }
             // Child
+            if (data is BtnChosenMoveAdapter.UIData)
             {
-                if (data is BtnChosenMoveUI.UIData)
+                BtnChosenMoveAdapter.UIData btnChoseMoveAdapterUIData = data as BtnChosenMoveAdapter.UIData;
+                // UI
                 {
-                    BtnChosenMoveUI.UIData btnChoseMoveUIData = data as BtnChosenMoveUI.UIData;
-                    {
-                        UIUtils.Instantiate(btnChoseMoveUIData, btnChoseMovePrefab, btnChoseMovesContainter);
-                    }
-                    dirty = true;
-                    return;
+                    UIUtils.Instantiate(btnChoseMoveAdapterUIData, btnChoseMoveAdapterPrefab, contentContainer, UIRectTransform.CreateTopBottomRect(80));
                 }
+                dirty = true;
+                return;
             }
             Debug.LogError("Don't process: " + data + "; " + this);
         }
@@ -382,7 +351,7 @@ namespace Chess.UseRule
                 }
                 // Child
                 {
-                    uiData.btnChosenMoves.allRemoveCallBack(this);
+                    uiData.btnChosenMoveAdapter.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
                 return;
@@ -417,16 +386,14 @@ namespace Chess.UseRule
                 }
             }
             // Child
+            if (data is BtnChosenMoveAdapter.UIData)
             {
-                if (data is BtnChosenMoveUI.UIData)
+                BtnChosenMoveAdapter.UIData btnChoseMoveAdapterUIData = data as BtnChosenMoveAdapter.UIData;
+                // UI
                 {
-                    BtnChosenMoveUI.UIData btnChoseMoveUIData = data as BtnChosenMoveUI.UIData;
-                    // UI
-                    {
-                        btnChoseMoveUIData.removeCallBackAndDestroy(typeof(BtnChosenMoveUI));
-                    }
-                    return;
+                    btnChoseMoveAdapterUIData.removeCallBackAndDestroy(typeof(BtnChosenMoveAdapter));
                 }
+                return;
             }
             Debug.LogError("Don't process: " + data + "; " + this);
         }
@@ -447,7 +414,7 @@ namespace Chess.UseRule
                     case UIData.Property.y:
                         dirty = true;
                         break;
-                    case UIData.Property.btnChosenMoves:
+                    case UIData.Property.btnChosenMoveAdapter:
                         {
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
@@ -554,11 +521,9 @@ namespace Chess.UseRule
                 }
             }
             // Child
+            if (wrapProperty.p is BtnChosenMoveAdapter.UIData)
             {
-                if (wrapProperty.p is BtnChosenMoveUI.UIData)
-                {
-                    return;
-                }
+                return;
             }
             Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
         }

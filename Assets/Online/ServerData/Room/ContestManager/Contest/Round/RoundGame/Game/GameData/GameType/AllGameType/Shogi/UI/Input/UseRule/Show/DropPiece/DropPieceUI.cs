@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 
 namespace Shogi.UseRule
 {
-    public class DropPieceUI : UIBehavior<DropPieceUI.UIData>, BtnChosenMoveUI.OnClick
+    public class DropPieceUI : UIBehavior<DropPieceUI.UIData>, BtnChosenMoveHolder.OnClick
     {
 
         #region UIData
@@ -15,20 +15,20 @@ namespace Shogi.UseRule
 
             public VP<Common.Square> square;
 
-            public LP<BtnChosenMoveUI.UIData> btnChosenMoves;
+            public VP<BtnChosenMoveAdapter.UIData> btnChosenMoveAdapter;
 
             #region Constructor
 
             public enum Property
             {
                 square,
-                btnChosenMoves
+                btnChosenMoveAdapter
             }
 
             public UIData() : base()
             {
                 this.square = new VP<Common.Square>(this, (byte)Property.square, Common.Square.SQ11);
-                this.btnChosenMoves = new LP<BtnChosenMoveUI.UIData>(this, (byte)Property.btnChosenMoves);
+                this.btnChosenMoveAdapter = new VP<BtnChosenMoveAdapter.UIData>(this, (byte)Property.btnChosenMoveAdapter, null);
             }
 
             #endregion
@@ -79,7 +79,6 @@ namespace Shogi.UseRule
         #region Refresh
 
         public RectTransform contentContainer;
-        public RectTransform scrollRect;
 
         public override void refresh()
         {
@@ -145,52 +144,24 @@ namespace Shogi.UseRule
                     }
                     else
                     {
-                        List<BtnChosenMoveUI.UIData> oldBtnChoseMoves = new List<BtnChosenMoveUI.UIData>();
-                        // get olds
-                        oldBtnChoseMoves.AddRange(this.data.btnChosenMoves.vs);
-                        // Update
+                        // adapter
+                        BtnChosenMoveAdapter.UIData btnChosenMoveAdapterUIData = this.data.btnChosenMoveAdapter.newOrOld<BtnChosenMoveAdapter.UIData>();
                         {
-                            for (int i = 0; i < shogiMoves.Count; i++)
+                            // moves
                             {
-                                ShogiMove shogiMove = shogiMoves[i];
-                                // Find bntChoseMoveUI
-                                BtnChosenMoveUI.UIData btnChoseMoveUIData = null;
+                                List<ReferenceData<ShogiMove>> referenceShogiMoves = new List<ReferenceData<ShogiMove>>();
                                 {
-                                    // Find old
-                                    if (oldBtnChoseMoves.Count > 0)
+                                    foreach (ShogiMove shogiMove in shogiMoves)
                                     {
-                                        btnChoseMoveUIData = oldBtnChoseMoves[0];
-                                        oldBtnChoseMoves.RemoveAt(0);
-                                    }
-                                    // Make new
-                                    if (btnChoseMoveUIData == null)
-                                    {
-                                        btnChoseMoveUIData = new BtnChosenMoveUI.UIData();
-                                        {
-                                            btnChoseMoveUIData.uid = this.data.btnChosenMoves.makeId();
-                                        }
-                                        this.data.btnChosenMoves.add(btnChoseMoveUIData);
+                                        referenceShogiMoves.Add(new ReferenceData<ShogiMove>(shogiMove));
                                     }
                                 }
-                                // Update Property
-                                if (btnChoseMoveUIData != null)
-                                {
-                                    // chessMove
-                                    btnChoseMoveUIData.shogiMove.v = new ReferenceData<ShogiMove>(shogiMove);
-                                    // onClick
-                                    btnChoseMoveUIData.onClick.v = this;
-                                }
-                                else
-                                {
-                                    Debug.LogError("btnChoseMoveUIData null: " + this);
-                                }
+                                btnChosenMoveAdapterUIData.moves.copyList(referenceShogiMoves);
                             }
+                            // onClick
+                            btnChosenMoveAdapterUIData.onClick.v = this;
                         }
-                        // Remove old
-                        foreach (BtnChosenMoveUI.UIData oldBtnChoseMove in oldBtnChoseMoves)
-                        {
-                            this.data.btnChosenMoves.remove(oldBtnChoseMove);
-                        }
+                        this.data.btnChosenMoveAdapter.v = btnChosenMoveAdapterUIData;
                     }
                     // UI
                     {
@@ -201,9 +172,9 @@ namespace Shogi.UseRule
                             UIRectTransform.SetTitleTransform(lbTitle);
                             deltaY += buttonSize;
                         }
-                        // scrollRect
+                        // adapter
                         {
-                            UIRectTransform.SetPosY(scrollRect, deltaY);
+                            UIRectTransform.SetPosY(this.data.btnChosenMoveAdapter.v, deltaY);
                             deltaY += 80;
                         }
                         // btnCancel
@@ -273,8 +244,7 @@ namespace Shogi.UseRule
 
         #region implement callBacks
 
-        public BtnChosenMoveUI btnChoseMovePrefab;
-        public Transform btnChoseMovesContainter;
+        public BtnChosenMoveAdapter btnChoseMoveAdapterPrefab;
 
         private ShowUI.UIData showUIData = null;
 
@@ -291,7 +261,7 @@ namespace Shogi.UseRule
                 }
                 // Child
                 {
-                    uiData.btnChosenMoves.allAddCallBack(this);
+                    uiData.btnChosenMoveAdapter.allAddCallBack(this);
                 }
                 dirty = true;
                 return;
@@ -325,17 +295,15 @@ namespace Shogi.UseRule
                 }
             }
             // Child
+            if (data is BtnChosenMoveAdapter.UIData)
             {
-                if (data is BtnChosenMoveUI.UIData)
+                BtnChosenMoveAdapter.UIData btnChoseMoveAdapterUIData = data as BtnChosenMoveAdapter.UIData;
+                // UI
                 {
-                    BtnChosenMoveUI.UIData btnChoseMoveUIData = data as BtnChosenMoveUI.UIData;
-                    // UI
-                    {
-                        UIUtils.Instantiate(btnChoseMoveUIData, btnChoseMovePrefab, btnChoseMovesContainter);
-                    }
-                    dirty = true;
-                    return;
+                    UIUtils.Instantiate(btnChoseMoveAdapterUIData, btnChoseMoveAdapterPrefab, contentContainer, UIRectTransform.CreateTopBottomRect(80));
                 }
+                dirty = true;
+                return;
             }
             Debug.LogError("Don't process: " + data + "; " + this);
         }
@@ -353,7 +321,7 @@ namespace Shogi.UseRule
                 }
                 // Child
                 {
-                    uiData.btnChosenMoves.allRemoveCallBack(this);
+                    uiData.btnChosenMoveAdapter.allRemoveCallBack(this);
                 }
                 this.setDataNull(uiData);
                 return;
@@ -384,16 +352,14 @@ namespace Shogi.UseRule
                 }
             }
             // Child
+            if (data is BtnChosenMoveAdapter.UIData)
             {
-                if (data is BtnChosenMoveUI.UIData)
+                BtnChosenMoveAdapter.UIData btnChoseMoveAdapterUIData = data as BtnChosenMoveAdapter.UIData;
+                // UI
                 {
-                    BtnChosenMoveUI.UIData btnChoseMoveUIData = data as BtnChosenMoveUI.UIData;
-                    // UI
-                    {
-                        btnChoseMoveUIData.removeCallBackAndDestroy(typeof(BtnChosenMoveUI));
-                    }
-                    return;
+                    btnChoseMoveAdapterUIData.removeCallBackAndDestroy(typeof(BtnChosenMoveAdapter));
                 }
+                return;
             }
             Debug.LogError("Don't process: " + data + "; " + this);
         }
@@ -411,7 +377,7 @@ namespace Shogi.UseRule
                     case UIData.Property.square:
                         dirty = true;
                         break;
-                    case UIData.Property.btnChosenMoves:
+                    case UIData.Property.btnChosenMoveAdapter:
                         {
                             ValueChangeUtils.replaceCallBack(this, syncs);
                             dirty = true;
@@ -498,11 +464,9 @@ namespace Shogi.UseRule
                 }
             }
             // Child
+            if (wrapProperty.p is BtnChosenMoveAdapter.UIData)
             {
-                if (wrapProperty.p is BtnChosenMoveUI.UIData)
-                {
-                    return;
-                }
+                return;
             }
             Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);
         }
