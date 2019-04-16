@@ -47,6 +47,8 @@ namespace Weiqi
         public Image bgTiles;
         public RectTransform bgColor;
 
+        public GameObject[] stars;
+
         public override void refresh()
         {
             if (dirty)
@@ -118,6 +120,45 @@ namespace Weiqi
                     else
                     {
                         Debug.LogError("bgColor null");
+                    }
+                    // stars
+                    {
+                        if (stars != null)
+                        {
+                            if (stars.Length == 9)
+                            {
+                                if (this.data.size.v == 19)
+                                {
+                                    foreach (GameObject star in stars)
+                                    {
+                                        star.SetActive(true);
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < 9; i++)
+                                    {
+                                        GameObject star = stars[i];
+                                        if (i == 4)
+                                        {
+                                            star.SetActive(this.data.size.v % 2 == 1);
+                                        }
+                                        else
+                                        {
+                                            star.SetActive(false);
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogError("stars length not 9");
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError("stars null");
+                        }
                     }
                 }
                 else
