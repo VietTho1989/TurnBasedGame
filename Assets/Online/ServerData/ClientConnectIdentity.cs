@@ -1280,6 +1280,34 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
+    [Command]
+    public void CmdGameFactoryChangeUseRule(uint networkIdentityId, uint userId, bool newUseRule)
+    {
+        GameFactoryIdentity gameFactoryIdentity = GetDataIdentity<GameFactoryIdentity>(networkIdentityId);
+        if (gameFactoryIdentity != null)
+        {
+            gameFactoryIdentity.changeUseRule(userId, newUseRule);
+        }
+        else
+        {
+            Debug.LogError("Identity null");
+        }
+    }
+
+    [Command]
+    public void CmdGameFactoryChangeBlindFold(uint networkIdentityId, uint userId, bool newBlindFold)
+    {
+        GameFactoryIdentity gameFactoryIdentity = GetDataIdentity<GameFactoryIdentity>(networkIdentityId);
+        if (gameFactoryIdentity != null)
+        {
+            gameFactoryIdentity.changeBlindFold(userId, newBlindFold);
+        }
+        else
+        {
+            Debug.LogError("Identity null");
+        }
+    }
+
     #endregion
 
     #region PostureGameDataFactory
@@ -1371,37 +1399,10 @@ public class ClientConnectIdentity : NetworkBehaviour
         }
     }
 
-    [Command]
-    public void CmdDefaultGameDataFactoryChangeUseRule(uint networkIdentityId, uint userId, bool newUseRule)
-    {
-        DefaultGameDataFactoryIdentity defaultGameDataFactoryIdentity = GetDataIdentity<DefaultGameDataFactoryIdentity>(networkIdentityId);
-        if (defaultGameDataFactoryIdentity != null)
-        {
-            defaultGameDataFactoryIdentity.changeUseRule(userId, newUseRule);
-        }
-        else
-        {
-            Debug.LogError("Identity null");
-        }
-    }
-
     #endregion
 
     #region PostureGameDataFactory
 
-    [Command]
-    public void CmdPostureGameDataFactoryChangeUseRule(uint networkIdentityId, uint userId, bool newUseRule)
-    {
-        PostureGameDataFactoryIdentity postureGameDataFactoryIdentity = GetDataIdentity<PostureGameDataFactoryIdentity>(networkIdentityId);
-        if (postureGameDataFactoryIdentity != null)
-        {
-            postureGameDataFactoryIdentity.changeUseRule(userId, newUseRule);
-        }
-        else
-        {
-            Debug.LogError("Identity null");
-        }
-    }
 
     #endregion
 
@@ -4344,6 +4345,52 @@ public class ClientConnectIdentity : NetworkBehaviour
         if (requestChangeUseRuleStateAskIdentity != null)
         {
             requestChangeUseRuleStateAskIdentity.refuse(userId);
+        }
+        else
+        {
+            Debug.LogError("Identity null");
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////// RequestChangeBlindFold ////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    [Command]
+    public void CmdRequestChangeBlindFoldStateNoneChange(uint networkIdentityId, uint userId)
+    {
+        RequestChangeBlindFoldStateNoneIdentity requestChangeBlindFoldStateNoneIdentity = GetDataIdentity<RequestChangeBlindFoldStateNoneIdentity>(networkIdentityId);
+        if (requestChangeBlindFoldStateNoneIdentity != null)
+        {
+            requestChangeBlindFoldStateNoneIdentity.change(userId);
+        }
+        else
+        {
+            Debug.LogError("Identity null");
+        }
+    }
+
+    [Command]
+    public void CmdRequestChangeBlindFoldStateAskAccept(uint networkIdentityId, uint userId)
+    {
+        RequestChangeBlindFoldStateAskIdentity requestChangeBlindFoldStateAskIdentity = GetDataIdentity<RequestChangeBlindFoldStateAskIdentity>(networkIdentityId);
+        if (requestChangeBlindFoldStateAskIdentity != null)
+        {
+            requestChangeBlindFoldStateAskIdentity.accept(userId);
+        }
+        else
+        {
+            Debug.LogError("Identity null");
+        }
+    }
+
+    [Command]
+    public void CmdRequestChangeBlindFoldStateAskRefuse(uint networkIdentityId, uint userId)
+    {
+        RequestChangeBlindFoldStateAskIdentity requestChangeBlindFoldStateAskIdentity = GetDataIdentity<RequestChangeBlindFoldStateAskIdentity>(networkIdentityId);
+        if (requestChangeBlindFoldStateAskIdentity != null)
+        {
+            requestChangeBlindFoldStateAskIdentity.refuse(userId);
         }
         else
         {

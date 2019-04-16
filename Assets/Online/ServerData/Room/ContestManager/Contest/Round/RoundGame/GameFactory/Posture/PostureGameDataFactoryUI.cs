@@ -59,38 +59,6 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
 
         public VP<MiniGameDataUI.UIData> miniGameDataUI;
 
-        #region useRule
-
-        public VP<RequestChangeBoolUI.UIData> useRule;
-
-        public void makeRequestChangeUseRule(RequestChangeUpdate<bool>.UpdateData update, bool newUseRule)
-        {
-            // Find
-            PostureGameDataFactory postureGameDataFactory = null;
-            {
-                EditData<PostureGameDataFactory> editPostureGameDataFactory = this.editPostureGameDataFactory.v;
-                if (editPostureGameDataFactory != null)
-                {
-                    postureGameDataFactory = editPostureGameDataFactory.show.v.data;
-                }
-                else
-                {
-                    Debug.LogError("editPostureGameDataFactory null: " + this);
-                }
-            }
-            // Process
-            if (postureGameDataFactory != null)
-            {
-                postureGameDataFactory.requestChangeUseRule(Server.getProfileUserId(postureGameDataFactory), newUseRule);
-            }
-            else
-            {
-                Debug.LogError("postureGameDataFactory null: " + this);
-            }
-        }
-
-        #endregion
-
         #region Constructor
 
         public enum Property
@@ -98,8 +66,7 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
             editPostureGameDataFactory,
             gameType,
             editPostureGameData,
-            miniGameDataUI,
-            useRule
+            miniGameDataUI
         }
 
         public UIData() : base()
@@ -119,12 +86,6 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
             }
             this.editPostureGameData = new VP<EditPostureGameDataUI.UIData>(this, (byte)Property.editPostureGameData, null);
             this.miniGameDataUI = new VP<MiniGameDataUI.UIData>(this, (byte)Property.miniGameDataUI, new MiniGameDataUI.UIData());
-            // useRule
-            {
-                this.useRule = new VP<RequestChangeBoolUI.UIData>(this, (byte)Property.useRule, new RequestChangeBoolUI.UIData());
-                // event
-                this.useRule.v.updateData.v.request.v = makeRequestChangeUseRule;
-            }
         }
 
         #endregion
@@ -171,9 +132,6 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
     public Text tvEdit;
     private static readonly TxtLanguage txtEdit = new TxtLanguage("Edit");
 
-    public Text lbUseRule;
-    private static readonly TxtLanguage txtUseRule = new TxtLanguage("Use rule");
-
     static PostureGameDataFactoryUI()
     {
         // txt
@@ -181,7 +139,6 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
             txtTitle.add(Language.Type.vi, "Cách tạo thế cờ");
             txtGameType.add(Language.Type.vi, "Loại game");
             txtEdit.add(Language.Type.vi, "Chỉnh sửa");
-            txtUseRule.add(Language.Type.vi, "Dùng luật");
         }
     }
 
@@ -219,7 +176,6 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                                     RequestChangeEnumUI.RefreshOptions(this.data.gameType.v, GameType.GetEnableTypeString());
                                     RequestChange.RefreshUI(this.data.gameType.v, editPostureGameDataFactory, serverState, needReset, editData => GameType.getEnableIndex(editData.getGameTypeType()));
                                 }
-                                RequestChange.RefreshUI(this.data.useRule.v, editPostureGameDataFactory, serverState, needReset, editData => editData.useRule.v);
                             }
                             needReset = false;
                         }
@@ -306,8 +262,6 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                         }
                         deltaY += UIConstants.DefaultMiniGameDataUISize;
                     }
-                    // useRule
-                    UIUtils.SetLabelContentPosition(lbUseRule, this.data.useRule.v, ref deltaY);
                     // set height
                     UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                 }
@@ -339,15 +293,6 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                     {
                         Debug.LogError("tvEdit null: " + this);
                     }
-                    if (lbUseRule != null)
-                    {
-                        lbUseRule.text = txtUseRule.get();
-                        Setting.get().setLabelTextSize(lbUseRule);
-                    }
-                    else
-                    {
-                        Debug.LogError("lbUseRule null: " + this);
-                    }
                 }
             }
             else
@@ -370,7 +315,6 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
 
     public EditPostureGameDataUI editPostureGameDataPrefab;
 
-    public RequestChangeBoolUI requestBoolPrefab;
     public RequestChangeEnumUI requestEnumPrefab;
 
     private Server server = null;
@@ -388,7 +332,6 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                 uiData.gameType.allAddCallBack(this);
                 uiData.editPostureGameData.allAddCallBack(this);
                 uiData.miniGameDataUI.allAddCallBack(this);
-                uiData.useRule.allAddCallBack(this);
             }
             dirty = true;
             return;
@@ -521,33 +464,6 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                 dirty = true;
                 return;
             }
-            // useRule
-            if (data is RequestChangeBoolUI.UIData)
-            {
-                RequestChangeBoolUI.UIData requestChange = data as RequestChangeBoolUI.UIData;
-                // UI
-                {
-                    WrapProperty wrapProperty = requestChange.p;
-                    if (wrapProperty != null)
-                    {
-                        switch ((UIData.Property)wrapProperty.n)
-                        {
-                            case UIData.Property.useRule:
-                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
-                                break;
-                            default:
-                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        Debug.LogError("wrapProperty null: " + this);
-                    }
-                }
-                dirty = true;
-                return;
-            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -565,7 +481,6 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                 uiData.gameType.allRemoveCallBack(this);
                 uiData.editPostureGameData.allRemoveCallBack(this);
                 uiData.miniGameDataUI.allRemoveCallBack(this);
-                uiData.useRule.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
             return;
@@ -646,16 +561,6 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                 }
                 return;
             }
-            // useRule
-            if (data is RequestChangeBoolUI.UIData)
-            {
-                RequestChangeBoolUI.UIData requestChange = data as RequestChangeBoolUI.UIData;
-                // UI
-                {
-                    requestChange.removeCallBackAndDestroy(typeof(RequestChangeBoolUI));
-                }
-                return;
-            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -689,12 +594,6 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                     }
                     break;
                 case UIData.Property.miniGameDataUI:
-                    {
-                        ValueChangeUtils.replaceCallBack(this, syncs);
-                        dirty = true;
-                    }
-                    break;
-                case UIData.Property.useRule:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
@@ -797,9 +696,6 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
                                     dirty = true;
                                 }
                                 break;
-                            case PostureGameDataFactory.Property.useRule:
-                                dirty = true;
-                                break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                                 break;
@@ -849,11 +745,6 @@ public class PostureGameDataFactoryUI : UIHaveTransformDataBehavior<PostureGameD
             }
             // miniGameDataUI
             if (wrapProperty.p is MiniGameDataUI.UIData)
-            {
-                return;
-            }
-            // useRule
-            if (wrapProperty.p is RequestChangeBoolUI.UIData)
             {
                 return;
             }

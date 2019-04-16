@@ -64,6 +64,70 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
 
         #endregion
 
+        #region useRule
+
+        public VP<RequestChangeBoolUI.UIData> useRule;
+
+        public void makeRequestChangeUseRule(RequestChangeUpdate<bool>.UpdateData update, bool newUseRule)
+        {
+            // Find
+            GameFactory gameFactory = null;
+            {
+                EditData<GameFactory> editGameFactory = this.editGameFactory.v;
+                if (editGameFactory != null)
+                {
+                    gameFactory = editGameFactory.show.v.data;
+                }
+                else
+                {
+                    Debug.LogError("editGameFactory null: " + this);
+                }
+            }
+            // Process
+            if (gameFactory != null)
+            {
+                gameFactory.requestChangeUseRule(Server.getProfileUserId(gameFactory), newUseRule);
+            }
+            else
+            {
+                Debug.LogError("gameFactory null: " + this);
+            }
+        }
+
+        #endregion
+
+        #region blindFold
+
+        public VP<RequestChangeBoolUI.UIData> blindFold;
+
+        public void makeRequestChangeBlindFold(RequestChangeUpdate<bool>.UpdateData update, bool newBlindFold)
+        {
+            // Find
+            GameFactory gameFactory = null;
+            {
+                EditData<GameFactory> editGameFactory = this.editGameFactory.v;
+                if (editGameFactory != null)
+                {
+                    gameFactory = editGameFactory.show.v.data;
+                }
+                else
+                {
+                    Debug.LogError("editGameFactory null: " + this);
+                }
+            }
+            // Process
+            if (gameFactory != null)
+            {
+                gameFactory.requestChangeBlindFold(Server.getProfileUserId(gameFactory), newBlindFold);
+            }
+            else
+            {
+                Debug.LogError("gameFactory null: " + this);
+            }
+        }
+
+        #endregion
+
         #region timeControl
 
         public VP<TimeControlUI.UIData> timeControl;
@@ -77,6 +141,8 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
             editGameFactory,
             gameDataFactoryType,
             gameDataFactoryUIData,
+            useRule,
+            blindFold,
             timeControl
         }
 
@@ -96,6 +162,16 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                 }
             }
             this.gameDataFactoryUIData = new VP<GameDataFactoryUIData>(this, (byte)Property.gameDataFactoryUIData, null);
+            // useRule
+            {
+                this.useRule = new VP<RequestChangeBoolUI.UIData>(this, (byte)Property.useRule, new RequestChangeBoolUI.UIData());
+                this.useRule.v.updateData.v.request.v = makeRequestChangeUseRule;
+            }
+            // blindFold
+            {
+                this.blindFold = new VP<RequestChangeBoolUI.UIData>(this, (byte)Property.blindFold, new RequestChangeBoolUI.UIData());
+                this.blindFold.v.updateData.v.request.v = makeRequestChangeBlindFold;
+            }
             this.timeControl = new VP<TimeControlUI.UIData>(this, (byte)Property.timeControl, new TimeControlUI.UIData());
         }
 
@@ -160,6 +236,12 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
     private static readonly TxtLanguage txtDefault = new TxtLanguage("Default");
     private static readonly TxtLanguage txtPosture = new TxtLanguage("Posture");
 
+    public Text lbUseRule;
+    private static readonly TxtLanguage txtUseRule = new TxtLanguage("Use rule");
+
+    public Text lbBlindFold;
+    private static readonly TxtLanguage txtBlindFold = new TxtLanguage("Blindfold");
+
     static GameFactoryUI()
     {
         // txt
@@ -171,6 +253,8 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                 txtDefault.add(Language.Type.vi, "Mặc Định");
                 txtPosture.add(Language.Type.vi, "Cờ Thế");
             }
+            txtUseRule.add(Language.Type.vi, "Dùng luật");
+            txtBlindFold.add(Language.Type.vi, "Cờ mù");
         }
     }
 
@@ -327,8 +411,9 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                                     {
                                         Debug.LogError("show null");
                                     }
-
                                 }
+                                RequestChange.RefreshUI(this.data.useRule.v, editGameFactory, serverState, needReset, editData => editData.useRule.v);
+                                RequestChange.RefreshUI(this.data.blindFold.v, editGameFactory, serverState, needReset, editData => editData.blindFold.v);
                                 // timeControl
                                 {
                                     TimeControlUI.UIData timeControl = this.data.timeControl.v;
@@ -449,6 +534,10 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                             Debug.LogError("bgGameDataFactory null");
                         }
                     }
+                    // useRule
+                    UIUtils.SetLabelContentPosition(lbUseRule, this.data.useRule.v, ref deltaY);
+                    // blindFold
+                    UIUtils.SetLabelContentPosition(lbBlindFold, this.data.blindFold.v, ref deltaY);
                     // timeControlUI
                     {
                         float bgY = deltaY;
@@ -493,6 +582,24 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                     {
                         Debug.LogError("lbGameDataFactoryType null: " + this);
                     }
+                    if (lbUseRule != null)
+                    {
+                        lbUseRule.text = txtUseRule.get();
+                        Setting.get().setLabelTextSize(lbUseRule);
+                    }
+                    else
+                    {
+                        Debug.LogError("lbUseRule null: " + this);
+                    }
+                    if (lbBlindFold != null)
+                    {
+                        lbBlindFold.text = txtBlindFold.get();
+                        Setting.get().setLabelTextSize(lbBlindFold);
+                    }
+                    else
+                    {
+                        Debug.LogError("lbBlindFold null: " + this);
+                    }
                 }
             }
             else
@@ -515,6 +622,7 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
     public PostureGameDataFactoryUI postureGameDataFactoryPrefab;
 
     public RequestChangeEnumUI requestEnumPrefab;
+    public RequestChangeBoolUI requestBoolPrefab;
 
     public TimeControlUI timeControlPrefab;
 
@@ -532,6 +640,8 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                 uiData.editGameFactory.allAddCallBack(this);
                 uiData.gameDataFactoryType.allAddCallBack(this);
                 uiData.gameDataFactoryUIData.allAddCallBack(this);
+                uiData.useRule.allAddCallBack(this);
+                uiData.blindFold.allAddCallBack(this);
                 uiData.timeControl.allAddCallBack(this);
             }
             dirty = true;
@@ -607,59 +717,85 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                 dirty = true;
                 return;
             }
-            // UIData
+            if (data is UIData.GameDataFactoryUIData)
             {
-                if (data is UIData.GameDataFactoryUIData)
+                UIData.GameDataFactoryUIData gameDataFactoryUIData = data as UIData.GameDataFactoryUIData;
+                // UI
                 {
-                    UIData.GameDataFactoryUIData gameDataFactoryUIData = data as UIData.GameDataFactoryUIData;
-                    // UI
+                    switch (gameDataFactoryUIData.getType())
                     {
-                        switch (gameDataFactoryUIData.getType())
+                        case GameDataFactory.Type.Default:
+                            {
+                                DefaultGameDataFactoryUI.UIData defaultGameDataUIData = gameDataFactoryUIData as DefaultGameDataFactoryUI.UIData;
+                                DefaultGameDataFactoryUI defaultGameDataFactoryUI = (DefaultGameDataFactoryUI)UIUtils.Instantiate(defaultGameDataUIData, defaultGameDataFactoryPrefab, this.transform);
+                            }
+                            break;
+                        case GameDataFactory.Type.Posture:
+                            {
+                                PostureGameDataFactoryUI.UIData postureGameDataFactoryUIData = gameDataFactoryUIData as PostureGameDataFactoryUI.UIData;
+                                PostureGameDataFactoryUI postureGameDataFactoryUI = (PostureGameDataFactoryUI)UIUtils.Instantiate(postureGameDataFactoryUIData, postureGameDataFactoryPrefab, this.transform);
+                            }
+                            break;
+                        default:
+                            Debug.LogError("unknown type: " + gameDataFactoryUIData.getType() + "; " + this);
+                            break;
+                    }
+                }
+                // Child
+                {
+                    TransformData.AddCallBack(gameDataFactoryUIData, this);
+                }
+                dirty = true;
+                return;
+            }
+            if (data is RequestChangeBoolUI.UIData)
+            {
+                RequestChangeBoolUI.UIData requestChange = data as RequestChangeBoolUI.UIData;
+                // UI
+                {
+                    WrapProperty wrapProperty = requestChange.p;
+                    if (wrapProperty != null)
+                    {
+                        switch ((UIData.Property)wrapProperty.n)
                         {
-                            case GameDataFactory.Type.Default:
-                                {
-                                    DefaultGameDataFactoryUI.UIData defaultGameDataUIData = gameDataFactoryUIData as DefaultGameDataFactoryUI.UIData;
-                                    DefaultGameDataFactoryUI defaultGameDataFactoryUI = (DefaultGameDataFactoryUI)UIUtils.Instantiate(defaultGameDataUIData, defaultGameDataFactoryPrefab, this.transform);
-                                }
+                            case UIData.Property.useRule:
+                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                 break;
-                            case GameDataFactory.Type.Posture:
-                                {
-                                    PostureGameDataFactoryUI.UIData postureGameDataFactoryUIData = gameDataFactoryUIData as PostureGameDataFactoryUI.UIData;
-                                    PostureGameDataFactoryUI postureGameDataFactoryUI = (PostureGameDataFactoryUI)UIUtils.Instantiate(postureGameDataFactoryUIData, postureGameDataFactoryPrefab, this.transform);
-                                }
+                            case UIData.Property.blindFold:
+                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
                                 break;
                             default:
-                                Debug.LogError("unknown type: " + gameDataFactoryUIData.getType() + "; " + this);
+                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                                 break;
                         }
                     }
-                    // Child
+                    else
                     {
-                        TransformData.AddCallBack(gameDataFactoryUIData, this);
+                        Debug.LogError("wrapProperty null: " + this);
                     }
-                    dirty = true;
-                    return;
                 }
-                if (data is TimeControlUI.UIData)
+                dirty = true;
+                return;
+            }
+            if (data is TimeControlUI.UIData)
+            {
+                TimeControlUI.UIData timeControlUIData = data as TimeControlUI.UIData;
+                // UI
                 {
-                    TimeControlUI.UIData timeControlUIData = data as TimeControlUI.UIData;
-                    // UI
-                    {
-                        UIUtils.Instantiate(timeControlUIData, timeControlPrefab, this.transform);
-                    }
-                    // Child
-                    {
-                        TransformData.AddCallBack(timeControlUIData, this);
-                    }
-                    dirty = true;
-                    return;
+                    UIUtils.Instantiate(timeControlUIData, timeControlPrefab, this.transform);
                 }
                 // Child
-                if (data is TransformData)
                 {
-                    dirty = true;
-                    return;
+                    TransformData.AddCallBack(timeControlUIData, this);
                 }
+                dirty = true;
+                return;
+            }
+            // Child
+            if (data is TransformData)
+            {
+                dirty = true;
+                return;
             }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
@@ -677,6 +813,8 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                 uiData.editGameFactory.allRemoveCallBack(this);
                 uiData.gameDataFactoryType.allRemoveCallBack(this);
                 uiData.gameDataFactoryUIData.allRemoveCallBack(this);
+                uiData.useRule.allRemoveCallBack(this);
+                uiData.blindFold.allRemoveCallBack(this);
                 uiData.timeControl.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
@@ -730,80 +868,87 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                 }
                 return;
             }
-            // UIData
+            if (data is UIData.GameDataFactoryUIData)
             {
-                if (data is UIData.GameDataFactoryUIData)
-                {
-                    UIData.GameDataFactoryUIData gameDataFactoryUIData = data as UIData.GameDataFactoryUIData;
-                    // Child
-                    {
-                        TransformData.RemoveCallBack(gameDataFactoryUIData, this);
-                    }
-                    // UI
-                    {
-                        switch (gameDataFactoryUIData.getType())
-                        {
-                            case GameDataFactory.Type.Default:
-                                {
-                                    DefaultGameDataFactoryUI.UIData defaultGameDataFactoryUIData = gameDataFactoryUIData as DefaultGameDataFactoryUI.UIData;
-                                    // Child
-                                    {
-                                        DefaultGameDataFactoryUI defaultGameDataFactoryUI = defaultGameDataFactoryUIData.findCallBack<DefaultGameDataFactoryUI>();
-                                        if (defaultGameDataFactoryUI != null)
-                                        {
-                                            defaultGameDataFactoryUI.transformData.removeCallBack(this);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("defaultGameDataFactoryUI null");
-                                        }
-                                    }
-                                    defaultGameDataFactoryUIData.removeCallBackAndDestroy(typeof(DefaultGameDataFactoryUI));
-                                }
-                                break;
-                            case GameDataFactory.Type.Posture:
-                                {
-                                    PostureGameDataFactoryUI.UIData postureGameDataFactoryUIData = gameDataFactoryUIData as PostureGameDataFactoryUI.UIData;
-                                    // Child
-                                    {
-                                        PostureGameDataFactoryUI postureGameDataFactoryUI = postureGameDataFactoryUIData.findCallBack<PostureGameDataFactoryUI>();
-                                        if (postureGameDataFactoryUI != null)
-                                        {
-                                            postureGameDataFactoryUI.transformData.removeCallBack(this);
-                                        }
-                                        else
-                                        {
-                                            Debug.LogError("postureGameDataFactoryUI null");
-                                        }
-                                    }
-                                    postureGameDataFactoryUIData.removeCallBackAndDestroy(typeof(PostureGameDataFactoryUI));
-                                }
-                                break;
-                            default:
-                                Debug.LogError("unknown type: " + gameDataFactoryUIData.getType() + "; " + this);
-                                break;
-                        }
-                    }
-                    return;
-                }
-                if (data is TimeControlUI.UIData)
-                {
-                    TimeControlUI.UIData timeControlUIData = data as TimeControlUI.UIData;
-                    // Child
-                    {
-                        TransformData.RemoveCallBack(timeControlUIData, this);
-                    }
-                    // UI
-                    {
-                        timeControlUIData.removeCallBackAndDestroy(typeof(TimeControlUI));
-                    }
-                    return;
-                }
+                UIData.GameDataFactoryUIData gameDataFactoryUIData = data as UIData.GameDataFactoryUIData;
                 // Child
-                if (data is TransformData)
                 {
-                    return;
+                    TransformData.RemoveCallBack(gameDataFactoryUIData, this);
                 }
+                // UI
+                {
+                    switch (gameDataFactoryUIData.getType())
+                    {
+                        case GameDataFactory.Type.Default:
+                            {
+                                DefaultGameDataFactoryUI.UIData defaultGameDataFactoryUIData = gameDataFactoryUIData as DefaultGameDataFactoryUI.UIData;
+                                // Child
+                                {
+                                    DefaultGameDataFactoryUI defaultGameDataFactoryUI = defaultGameDataFactoryUIData.findCallBack<DefaultGameDataFactoryUI>();
+                                    if (defaultGameDataFactoryUI != null)
+                                    {
+                                        defaultGameDataFactoryUI.transformData.removeCallBack(this);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("defaultGameDataFactoryUI null");
+                                    }
+                                }
+                                defaultGameDataFactoryUIData.removeCallBackAndDestroy(typeof(DefaultGameDataFactoryUI));
+                            }
+                            break;
+                        case GameDataFactory.Type.Posture:
+                            {
+                                PostureGameDataFactoryUI.UIData postureGameDataFactoryUIData = gameDataFactoryUIData as PostureGameDataFactoryUI.UIData;
+                                // Child
+                                {
+                                    PostureGameDataFactoryUI postureGameDataFactoryUI = postureGameDataFactoryUIData.findCallBack<PostureGameDataFactoryUI>();
+                                    if (postureGameDataFactoryUI != null)
+                                    {
+                                        postureGameDataFactoryUI.transformData.removeCallBack(this);
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError("postureGameDataFactoryUI null");
+                                    }
+                                }
+                                postureGameDataFactoryUIData.removeCallBackAndDestroy(typeof(PostureGameDataFactoryUI));
+                            }
+                            break;
+                        default:
+                            Debug.LogError("unknown type: " + gameDataFactoryUIData.getType() + "; " + this);
+                            break;
+                    }
+                }
+                return;
+            }
+            // useRule, blindFold
+            if (data is RequestChangeBoolUI.UIData)
+            {
+                RequestChangeBoolUI.UIData requestChange = data as RequestChangeBoolUI.UIData;
+                // UI
+                {
+                    requestChange.removeCallBackAndDestroy(typeof(RequestChangeBoolUI));
+                }
+                return;
+            }
+            if (data is TimeControlUI.UIData)
+            {
+                TimeControlUI.UIData timeControlUIData = data as TimeControlUI.UIData;
+                // Child
+                {
+                    TransformData.RemoveCallBack(timeControlUIData, this);
+                }
+                // UI
+                {
+                    timeControlUIData.removeCallBackAndDestroy(typeof(TimeControlUI));
+                }
+                return;
+            }
+            // Child
+            if (data is TransformData)
+            {
+                return;
             }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
@@ -832,6 +977,18 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                     }
                     break;
                 case UIData.Property.gameDataFactoryUIData:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.useRule:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
+                case UIData.Property.blindFold:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
@@ -940,6 +1097,12 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                             case GameFactory.Property.gameDataFactory:
                                 dirty = true;
                                 break;
+                            case GameFactory.Property.useRule:
+                                dirty = true;
+                                break;
+                            case GameFactory.Property.blindFold:
+                                dirty = true;
+                                break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                                 break;
@@ -947,12 +1110,10 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
                         return;
                     }
                     // Parent
+                    if (wrapProperty.p is Server)
                     {
-                        if (wrapProperty.p is Server)
-                        {
-                            Server.State.OnUpdateSyncStateChange(wrapProperty, this);
-                            return;
-                        }
+                        Server.State.OnUpdateSyncStateChange(wrapProperty, this);
+                        return;
                     }
                 }
             }
@@ -960,48 +1121,50 @@ public class GameFactoryUI : UIHaveTransformDataBehavior<GameFactoryUI.UIData>
             {
                 return;
             }
-            // UIData
+            if (wrapProperty.p is UIData.GameDataFactoryUIData)
             {
-                if (wrapProperty.p is UIData.GameDataFactoryUIData)
+                return;
+            }
+            // useRule, blindFold
+            if (wrapProperty.p is RequestChangeBoolUI.UIData)
+            {
+                return;
+            }
+            if (wrapProperty.p is TimeControlUI.UIData)
+            {
+                return;
+            }
+            // Child
+            if (wrapProperty.p is TransformData)
+            {
+                switch ((TransformData.Property)wrapProperty.n)
                 {
-                    return;
+                    case TransformData.Property.anchoredPosition:
+                        break;
+                    case TransformData.Property.anchorMin:
+                        break;
+                    case TransformData.Property.anchorMax:
+                        break;
+                    case TransformData.Property.pivot:
+                        break;
+                    case TransformData.Property.offsetMin:
+                        break;
+                    case TransformData.Property.offsetMax:
+                        break;
+                    case TransformData.Property.sizeDelta:
+                        break;
+                    case TransformData.Property.rotation:
+                        break;
+                    case TransformData.Property.scale:
+                        break;
+                    case TransformData.Property.size:
+                        dirty = true;
+                        break;
+                    default:
+                        Debug.LogError("Don't process: " + wrapProperty + "; " + this);
+                        break;
                 }
-                if (wrapProperty.p is TimeControlUI.UIData)
-                {
-                    return;
-                }
-                // Child
-                if (wrapProperty.p is TransformData)
-                {
-                    switch ((TransformData.Property)wrapProperty.n)
-                    {
-                        case TransformData.Property.anchoredPosition:
-                            break;
-                        case TransformData.Property.anchorMin:
-                            break;
-                        case TransformData.Property.anchorMax:
-                            break;
-                        case TransformData.Property.pivot:
-                            break;
-                        case TransformData.Property.offsetMin:
-                            break;
-                        case TransformData.Property.offsetMax:
-                            break;
-                        case TransformData.Property.sizeDelta:
-                            break;
-                        case TransformData.Property.rotation:
-                            break;
-                        case TransformData.Property.scale:
-                            break;
-                        case TransformData.Property.size:
-                            dirty = true;
-                            break;
-                        default:
-                            Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                            break;
-                    }
-                    return;
-                }
+                return;
             }
         }
         Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);

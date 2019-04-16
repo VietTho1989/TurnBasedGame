@@ -194,69 +194,16 @@ public class DefaultGameDataFactory : GameDataFactory
 
     #endregion
 
-    #region UserRule
-
-    public VP<bool> useRule;
-
-    public void requestChangeUseRule(uint userId, bool newUseRule)
-    {
-        Data.NeedRequest needRequest = this.isNeedRequestServerByNetworkIdentity();
-        if (needRequest.canRequest)
-        {
-            if (!needRequest.needIdentity)
-            {
-                this.changeUseRule(userId, newUseRule);
-            }
-            else
-            {
-                DataIdentity dataIdentity = null;
-                if (DataIdentity.clientMap.TryGetValue(this, out dataIdentity))
-                {
-                    if (dataIdentity is DefaultGameDataFactoryIdentity)
-                    {
-                        DefaultGameDataFactoryIdentity defaultGameDataFactoryIdentity = dataIdentity as DefaultGameDataFactoryIdentity;
-                        defaultGameDataFactoryIdentity.requestChangeUseRule(userId, newUseRule);
-                    }
-                    else
-                    {
-                        Debug.LogError("Why isn't correct identity");
-                    }
-                }
-                else
-                {
-                    Debug.LogError("cannot find dataIdentity");
-                }
-            }
-        }
-        else
-        {
-            Debug.LogError("You cannot request");
-        }
-    }
-
-    public void changeUseRule(uint userId, bool newUseRule)
-    {
-        // Process
-        if (GameManager.Match.ContestManagerStateLobby.IsCanChange(this, userId))
-        {
-            this.useRule.v = newUseRule;
-        }
-    }
-
-    #endregion
-
     #region Constructor
 
     public enum Property
     {
-        defaultGameType,
-        useRule
+        defaultGameType
     }
 
     public DefaultGameDataFactory() : base()
     {
         this.defaultGameType = new VP<DefaultGameType>(this, (byte)Property.defaultGameType, new Xiangqi.DefaultXiangqi());
-        this.useRule = new VP<bool>(this, (byte)Property.useRule, true);
     }
 
     #endregion
@@ -268,7 +215,6 @@ public class DefaultGameDataFactory : GameDataFactory
 
     public override void initGameData(GameData gameData)
     {
-        gameData.useRule.v = this.useRule.v;
         // gameType
         {
             // find gameType

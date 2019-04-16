@@ -483,8 +483,6 @@ namespace GameManager.Match
                                                         case DefaultGameDataFactory.Property.defaultGameType:
                                                             this.notifyChange();
                                                             break;
-                                                        case DefaultGameDataFactory.Property.useRule:
-                                                            break;
                                                         default:
                                                             Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                                                             break;
@@ -500,8 +498,6 @@ namespace GameManager.Match
                                                                 ValueChangeUtils.replaceCallBack(this, syncs);
                                                                 this.notifyChange();
                                                             }
-                                                            break;
-                                                        case PostureGameDataFactory.Property.useRule:
                                                             break;
                                                         default:
                                                             Debug.LogError("Don't process: " + wrapProperty + "; " + this);

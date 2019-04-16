@@ -26,6 +26,8 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
 
         public VP<RequestChangeUseRuleUI.UIData> requestChangeUseRule;
 
+        public VP<RequestChangeBlindFoldUI.UIData> requestChangeBlindFold;
+
         public VP<PerspectiveUI.UIData> perspectiveUIData;
 
         public VP<GamePlayerListUI.UIData> gamePlayerList;
@@ -61,6 +63,7 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
             hintUI,
             allowInput,
             requestChangeUseRule,
+            requestChangeBlindFold,
             perspectiveUIData,
             gamePlayerList,
             informGameMessage,
@@ -79,6 +82,7 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
             this.hintUI = new VP<HintUI.UIData>(this, (byte)Property.hintUI, new HintUI.UIData());
             this.allowInput = new VP<bool>(this, (byte)Property.allowInput, false);
             this.requestChangeUseRule = new VP<RequestChangeUseRuleUI.UIData>(this, (byte)Property.requestChangeUseRule, null);
+            this.requestChangeBlindFold = new VP<RequestChangeBlindFoldUI.UIData>(this, (byte)Property.requestChangeBlindFold, null);
             this.perspectiveUIData = new VP<PerspectiveUI.UIData>(this, (byte)Property.perspectiveUIData, null);
             this.gamePlayerList = new VP<GamePlayerListUI.UIData>(this, (byte)Property.gamePlayerList, new GamePlayerListUI.UIData());
             this.informGameMessage = new VP<InformGameMessageUI.UIData>(this, (byte)Property.informGameMessage, new InformGameMessageUI.UIData());
@@ -143,6 +147,19 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
                     else
                     {
                         // Debug.LogError ("requestChangeUseRule null: " + this);
+                    }
+                }
+                // requestChangeBlindFold
+                if (!isProcess)
+                {
+                    RequestChangeBlindFoldUI.UIData requestChangeBlindFold = this.requestChangeBlindFold.v;
+                    if (requestChangeBlindFold != null)
+                    {
+                        isProcess = requestChangeBlindFold.processEvent(e);
+                    }
+                    else
+                    {
+                        // Debug.LogError ("requestChangeBlindFold null: " + this);
                     }
                 }
                 // perspectiveUIData
@@ -249,6 +266,18 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
                             // Debug.LogError("requestChangeUseRuleUIData null");
                         }
                     }
+                    // requestChangeBlindFold
+                    {
+                        RequestChangeBlindFoldUI.UIData requestChangeBlindFoldUIData = this.data.requestChangeBlindFold.v;
+                        if (requestChangeBlindFoldUIData != null)
+                        {
+                            requestChangeBlindFoldUIData.requestChangeBlindFold.v = new ReferenceData<RequestChangeBlindFold>(gameData.requestChangeBlindFold.v);
+                        }
+                        else
+                        {
+                            // Debug.LogError("requestChangeBlindFoldUIData null");
+                        }
+                    }
                     // perspectiveUIData
                     {
                         PerspectiveUI.UIData perspectiveUIData = this.data.perspectiveUIData.v;
@@ -349,6 +378,7 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
                         UIRectTransform.SetSiblingIndex(this.data.perspectiveUIData.v, 4);
                         UIRectTransform.SetSiblingIndex(this.data.hintUI.v, 5);
                         UIRectTransform.SetSiblingIndex(this.data.requestChangeUseRule.v, 6);
+                        UIRectTransform.SetSiblingIndex(this.data.requestChangeBlindFold.v, 7);
                     }
                     // UI Size
                     {
@@ -401,6 +431,7 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
     public PerspectiveUI perspectivePrefab;
 
     public RequestChangeUseRuleUI requestChangeUseRulePrefab;
+    public RequestChangeBlindFoldUI requestChangeBlindFoldPrefab;
 
     public GamePlayerListUI gamePlayerListPrefab;
     public InformGameMessageUI informGameMessagePrefab;
@@ -421,6 +452,7 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
                 uiData.board.allAddCallBack(this);
                 uiData.hintUI.allAddCallBack(this);
                 uiData.requestChangeUseRule.allAddCallBack(this);
+                uiData.requestChangeBlindFold.allAddCallBack(this);
                 uiData.perspectiveUIData.allAddCallBack(this);
                 uiData.gamePlayerList.allAddCallBack(this);
                 uiData.informGameMessage.allAddCallBack(this);
@@ -492,6 +524,16 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
                 dirty = true;
                 return;
             }
+            if (data is RequestChangeBlindFoldUI.UIData)
+            {
+                RequestChangeBlindFoldUI.UIData requestChangeBlindFoldUIData = data as RequestChangeBlindFoldUI.UIData;
+                // UI
+                {
+                    UIUtils.Instantiate(requestChangeBlindFoldUIData, requestChangeBlindFoldPrefab, this.transform);
+                }
+                dirty = true;
+                return;
+            }
             if (data is PerspectiveUI.UIData)
             {
                 PerspectiveUI.UIData perspectiveUIData = data as PerspectiveUI.UIData;
@@ -547,6 +589,7 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
                 uiData.board.allRemoveCallBack(this);
                 uiData.hintUI.allRemoveCallBack(this);
                 uiData.requestChangeUseRule.allRemoveCallBack(this);
+                uiData.requestChangeBlindFold.allRemoveCallBack(this);
                 uiData.perspectiveUIData.allRemoveCallBack(this);
                 uiData.gamePlayerList.allRemoveCallBack(this);
                 uiData.informGameMessage.allRemoveCallBack(this);
@@ -615,6 +658,15 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
                 // UI
                 {
                     requestChangeUseRuleUIData.removeCallBackAndDestroy(typeof(RequestChangeUseRuleUI));
+                }
+                return;
+            }
+            if (data is RequestChangeBlindFoldUI.UIData)
+            {
+                RequestChangeBlindFoldUI.UIData requestChangeBlindFoldUIData = data as RequestChangeBlindFoldUI.UIData;
+                // UI
+                {
+                    requestChangeBlindFoldUIData.removeCallBackAndDestroy(typeof(RequestChangeBlindFoldUI));
                 }
                 return;
             }
@@ -696,6 +748,12 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
                         dirty = true;
                     }
                     break;
+                case UIData.Property.requestChangeBlindFold:
+                    {
+                        ValueChangeUtils.replaceCallBack(this, syncs);
+                        dirty = true;
+                    }
+                    break;
                 case UIData.Property.perspectiveUIData:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
@@ -739,6 +797,11 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
                         case GameData.Property.useRule:
                             break;
                         case GameData.Property.requestChangeUseRule:
+                            dirty = true;
+                            break;
+                        case GameData.Property.blindFold:
+                            break;
+                        case GameData.Property.requestChangeBlindFold:
                             dirty = true;
                             break;
                         case GameData.Property.turn:
@@ -824,6 +887,10 @@ public class GameDataUI : UIHaveTransformDataBehavior<GameDataUI.UIData>
                 return;
             }
             if (wrapProperty.p is RequestChangeUseRuleUI.UIData)
+            {
+                return;
+            }
+            if (wrapProperty.p is RequestChangeBlindFoldUI.UIData)
             {
                 return;
             }

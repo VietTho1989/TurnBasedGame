@@ -183,6 +183,17 @@ public class ChatMessageHolder : SriaHolderBehavior<ChatMessageHolder.UIData>
                                     this.data.sub.v = requestChangeUseRuleMessageUIData;
                                 }
                                 break;
+                            case ChatMessage.Content.Type.RequestChangeBlindFold:
+                                {
+                                    RequestChangeBlindFoldMessage requestChangeBlindFoldMessage = content as RequestChangeBlindFoldMessage;
+                                    // UIData
+                                    RequestChangeBlindFoldMessageUI.UIData requestChangeBlindFoldMessageUIData = this.data.sub.newOrOld<RequestChangeBlindFoldMessageUI.UIData>();
+                                    {
+                                        requestChangeBlindFoldMessageUIData.requestChangeBlindFoldMessage.v = new ReferenceData<RequestChangeBlindFoldMessage>(requestChangeBlindFoldMessage);
+                                    }
+                                    this.data.sub.v = requestChangeBlindFoldMessageUIData;
+                                }
+                                break;
                             case ChatMessage.Content.Type.SwapPlayer:
                                 {
                                     SwapPlayerMessage swapPlayerMessage = content as SwapPlayerMessage;
@@ -229,6 +240,7 @@ public class ChatMessageHolder : SriaHolderBehavior<ChatMessageHolder.UIData>
     public RequestDrawMessageUI requestDrawMessagePrefab;
     public GamePlayerStateMessageUI gamePlayerStateMessagePrefab;
     public RequestChangeUseRuleMessageUI requestChangeUseRuleMessagePrefab;
+    public RequestChangeBlindFoldMessageUI requestChangeBlindFoldMessagePrefab;
     public SwapPlayerMessageUI swapPlayerMessagePrefab;
 
     public override void onAddCallBack<T>(T data)
@@ -310,6 +322,12 @@ public class ChatMessageHolder : SriaHolderBehavior<ChatMessageHolder.UIData>
                             {
                                 RequestChangeUseRuleMessageUI.UIData requestChangeUseRuleMessageUIData = sub as RequestChangeUseRuleMessageUI.UIData;
                                 UIUtils.Instantiate(requestChangeUseRuleMessageUIData, requestChangeUseRuleMessagePrefab, this.transform);
+                            }
+                            break;
+                        case ChatMessage.Content.Type.RequestChangeBlindFold:
+                            {
+                                RequestChangeBlindFoldMessageUI.UIData requestChangeBlindFoldMessageUIData = sub as RequestChangeBlindFoldMessageUI.UIData;
+                                UIUtils.Instantiate(requestChangeBlindFoldMessageUIData, requestChangeBlindFoldMessagePrefab, this.transform);
                             }
                             break;
                         case ChatMessage.Content.Type.SwapPlayer:
@@ -408,6 +426,12 @@ public class ChatMessageHolder : SriaHolderBehavior<ChatMessageHolder.UIData>
                             {
                                 RequestChangeUseRuleMessageUI.UIData requestChangeUseRuleMessageUIData = sub as RequestChangeUseRuleMessageUI.UIData;
                                 requestChangeUseRuleMessageUIData.removeCallBackAndDestroy(typeof(RequestChangeUseRuleMessageUI));
+                            }
+                            break;
+                        case ChatMessage.Content.Type.RequestChangeBlindFold:
+                            {
+                                RequestChangeBlindFoldMessageUI.UIData requestChangeBlindFoldMessageUIData = sub as RequestChangeBlindFoldMessageUI.UIData;
+                                requestChangeBlindFoldMessageUIData.removeCallBackAndDestroy(typeof(RequestChangeBlindFoldMessageUI));
                             }
                             break;
                         case ChatMessage.Content.Type.SwapPlayer:

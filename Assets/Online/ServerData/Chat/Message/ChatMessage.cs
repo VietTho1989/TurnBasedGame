@@ -125,6 +125,7 @@ public class ChatMessage : Data
             RequestDraw,
             GamePlayerState,
             RequestChangeUseRule,
+            RequestChangeBlindFold,
             SwapPlayer
         }
 

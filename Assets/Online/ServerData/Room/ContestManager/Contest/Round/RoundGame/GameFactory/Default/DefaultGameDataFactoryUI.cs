@@ -55,46 +55,13 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
 
         public VP<DefaultGameTypeUI> defaultGameTypeUI;
 
-        #region useRule
-
-        public VP<RequestChangeBoolUI.UIData> useRule;
-
-        public void makeRequestChangeUseRule(RequestChangeUpdate<bool>.UpdateData update, bool newUseRule)
-        {
-            // Find
-            DefaultGameDataFactory defaultGameDataFactory = null;
-            {
-                EditData<DefaultGameDataFactory> editDefaultGameDataFactory = this.editDefaultGameDataFactory.v;
-                if (editDefaultGameDataFactory != null)
-                {
-                    defaultGameDataFactory = editDefaultGameDataFactory.show.v.data;
-                }
-                else
-                {
-                    Debug.LogError("editDefaultGameDataFactory null: " + this);
-                }
-            }
-            // Process
-            if (defaultGameDataFactory != null)
-            {
-                defaultGameDataFactory.requestChangeUseRule(Server.getProfileUserId(defaultGameDataFactory), newUseRule);
-            }
-            else
-            {
-                Debug.LogError("defaultGameDataFactory null: " + this);
-            }
-        }
-
-        #endregion
-
         #region Constructor
 
         public enum Property
         {
             editDefaultGameDataFactory,
             gameType,
-            defaultGameTypeUI,
-            useRule
+            defaultGameTypeUI
         }
 
         public UIData() : base()
@@ -113,12 +80,6 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                 }
             }
             this.defaultGameTypeUI = new VP<DefaultGameTypeUI>(this, (byte)Property.defaultGameTypeUI, null);
-            // useRule
-            {
-                this.useRule = new VP<RequestChangeBoolUI.UIData>(this, (byte)Property.useRule, new RequestChangeBoolUI.UIData());
-                // event
-                this.useRule.v.updateData.v.request.v = makeRequestChangeUseRule;
-            }
         }
 
         #endregion
@@ -149,16 +110,12 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
     public Text lbGameType;
     private static readonly TxtLanguage txtGameType = new TxtLanguage("Game type");
 
-    public Text lbUseRule;
-    private static readonly TxtLanguage txtUseRule = new TxtLanguage("Use rule");
-
     static DefaultGameDataFactoryUI()
     {
         // txt
         {
             txtTitle.add(Language.Type.vi, "Cách Tạo Dữ Liệu Game Mặc Định");
             txtGameType.add(Language.Type.vi, "Loại game");
-            txtUseRule.add(Language.Type.vi, "Dùng luật");
         }
     }
 
@@ -917,7 +874,6 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                                         Debug.LogError("show null");
                                     }
                                 }
-                                RequestChange.RefreshUI(this.data.useRule.v, editDefaultGameDataFactory, serverState, needReset, editData => editData.useRule.v);
                             }
                             needReset = false;
                         }
@@ -955,8 +911,6 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                             Debug.LogError("bgGameType null");
                         }
                     }
-                    // useRule
-                    UIUtils.SetLabelContentPosition(lbUseRule, this.data.useRule.v, ref deltaY);
                     // set height
                     UIRectTransform.SetHeight((RectTransform)this.transform, deltaY);
                 }
@@ -979,15 +933,6 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                     else
                     {
                         Debug.LogError("lbGameType null: " + this);
-                    }
-                    if (lbUseRule != null)
-                    {
-                        lbUseRule.text = txtUseRule.get();
-                        Setting.get().setLabelTextSize(lbUseRule);
-                    }
-                    else
-                    {
-                        Debug.LogError("lbUseRule null: " + this);
                     }
                 }
             }
@@ -1036,7 +981,6 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
     public Khet.DefaultKhetUI defaultKhetUIPrefab;
     public NineMenMorris.DefaultNineMenMorrisUI defaultNineMenMorrisUIPrefab;
 
-    public RequestChangeBoolUI requestBoolPrefab;
     public RequestChangeEnumUI requestEnumPrefab;
 
     private Server server = null;
@@ -1053,7 +997,6 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                 uiData.editDefaultGameDataFactory.allAddCallBack(this);
                 uiData.gameType.allAddCallBack(this);
                 uiData.defaultGameTypeUI.allAddCallBack(this);
-                uiData.useRule.allAddCallBack(this);
             }
             dirty = true;
             return;
@@ -1093,12 +1036,10 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                         return;
                     }
                     // Parent
+                    if (data is Server)
                     {
-                        if (data is Server)
-                        {
-                            dirty = true;
-                            return;
-                        }
+                        dirty = true;
+                        return;
                     }
                 }
             }
@@ -1297,32 +1238,6 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                     return;
                 }
             }
-            if (data is RequestChangeBoolUI.UIData)
-            {
-                RequestChangeBoolUI.UIData requestChange = data as RequestChangeBoolUI.UIData;
-                // UI
-                {
-                    WrapProperty wrapProperty = requestChange.p;
-                    if (wrapProperty != null)
-                    {
-                        switch ((UIData.Property)wrapProperty.n)
-                        {
-                            case UIData.Property.useRule:
-                                UIUtils.Instantiate(requestChange, requestBoolPrefab, this.transform, UIConstants.RequestBoolRect);
-                                break;
-                            default:
-                                Debug.LogError("Don't process: " + wrapProperty + "; " + this);
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        Debug.LogError("wrapProperty null: " + this);
-                    }
-                }
-                dirty = true;
-                return;
-            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -1339,7 +1254,6 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                 uiData.editDefaultGameDataFactory.allRemoveCallBack(this);
                 uiData.gameType.allRemoveCallBack(this);
                 uiData.defaultGameTypeUI.allRemoveCallBack(this);
-                uiData.useRule.allRemoveCallBack(this);
             }
             this.setDataNull(uiData);
             return;
@@ -1375,11 +1289,9 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                         return;
                     }
                     // Parent
+                    if (data is Server)
                     {
-                        if (data is Server)
-                        {
-                            return;
-                        }
+                        return;
                     }
                 }
             }
@@ -1561,15 +1473,6 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                     return;
                 }
             }
-            if (data is RequestChangeBoolUI.UIData)
-            {
-                RequestChangeBoolUI.UIData requestChange = data as RequestChangeBoolUI.UIData;
-                // UI
-                {
-                    requestChange.removeCallBackAndDestroy(typeof(RequestChangeBoolUI));
-                }
-                return;
-            }
         }
         Debug.LogError("Don't process: " + data + "; " + this);
     }
@@ -1597,12 +1500,6 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                     }
                     break;
                 case UIData.Property.defaultGameTypeUI:
-                    {
-                        ValueChangeUtils.replaceCallBack(this, syncs);
-                        dirty = true;
-                    }
-                    break;
-                case UIData.Property.useRule:
                     {
                         ValueChangeUtils.replaceCallBack(this, syncs);
                         dirty = true;
@@ -1702,9 +1599,6 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                             case DefaultGameDataFactory.Property.defaultGameType:
                                 dirty = true;
                                 break;
-                            case DefaultGameDataFactory.Property.useRule:
-                                dirty = true;
-                                break;
                             default:
                                 Debug.LogError("Don't process: " + wrapProperty + "; " + this);
                                 break;
@@ -1712,12 +1606,10 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                         return;
                     }
                     // Parent
+                    if (wrapProperty.p is Server)
                     {
-                        if (wrapProperty.p is Server)
-                        {
-                            Server.State.OnUpdateSyncStateChange(wrapProperty, this);
-                            return;
-                        }
+                        Server.State.OnUpdateSyncStateChange(wrapProperty, this);
+                        return;
                     }
                 }
             }
@@ -1763,10 +1655,6 @@ public class DefaultGameDataFactoryUI : UIHaveTransformDataBehavior<DefaultGameD
                     }
                     return;
                 }
-            }
-            if (wrapProperty.p is RequestChangeBoolUI.UIData)
-            {
-                return;
             }
         }
         Debug.LogError("Don't process: " + wrapProperty + "; " + syncs + "; " + this);

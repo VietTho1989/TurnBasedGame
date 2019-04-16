@@ -157,68 +157,16 @@ public class PostureGameDataFactory : GameDataFactory
 
     #endregion
 
-    #region UseRule
-
-    public VP<bool> useRule;
-
-    public void requestChangeUseRule(uint userId, bool newUseRule)
-    {
-        Data.NeedRequest needRequest = this.isNeedRequestServerByNetworkIdentity();
-        if (needRequest.canRequest)
-        {
-            if (!needRequest.needIdentity)
-            {
-                this.changeUseRule(userId, newUseRule);
-            }
-            else
-            {
-                DataIdentity dataIdentity = null;
-                if (DataIdentity.clientMap.TryGetValue(this, out dataIdentity))
-                {
-                    if (dataIdentity is PostureGameDataFactoryIdentity)
-                    {
-                        PostureGameDataFactoryIdentity postureGameDataFactoryIdentity = dataIdentity as PostureGameDataFactoryIdentity;
-                        postureGameDataFactoryIdentity.requestChangeUseRule(userId, newUseRule);
-                    }
-                    else
-                    {
-                        Debug.LogError("Why isn't correct identity");
-                    }
-                }
-                else
-                {
-                    Debug.LogError("cannot find dataIdentity");
-                }
-            }
-        }
-        else
-        {
-            Debug.LogError("You cannot request");
-        }
-    }
-
-    public void changeUseRule(uint userId, bool newUseRule)
-    {
-        if (GameManager.Match.ContestManagerStateLobby.IsCanChange(this, userId))
-        {
-            this.useRule.v = newUseRule;
-        }
-    }
-
-    #endregion
-
     #region Constructor
 
     public enum Property
     {
-        gameData,
-        useRule
+        gameData
     }
 
     public PostureGameDataFactory() : base()
     {
         this.gameData = new VP<GameData>(this, (byte)Property.gameData, new GameData());
-        this.useRule = new VP<bool>(this, (byte)Property.useRule, true);
     }
 
     #endregion
@@ -232,7 +180,6 @@ public class PostureGameDataFactory : GameDataFactory
     {
         DataUtils.copyData(gameData, this.gameData.v);
         {
-            gameData.useRule.v = this.useRule.v;
             // gameType
             // useRule
             // turn

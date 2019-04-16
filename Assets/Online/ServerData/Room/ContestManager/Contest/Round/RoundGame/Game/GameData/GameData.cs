@@ -40,6 +40,35 @@ public class GameData : Data
 
     #endregion
 
+    #region blindFold
+
+    public VP<bool> blindFold;
+
+    public static bool IsBlindFold(Data data)
+    {
+        if (data != null)
+        {
+            GameData gameData = data.findDataInParent<GameData>();
+            if (gameData != null)
+            {
+                return gameData.blindFold.v;
+            }
+            else
+            {
+                Debug.LogError("gameData null: " + data);
+            }
+        }
+        else
+        {
+            Debug.LogError("data null: " + data);
+        }
+        return true;
+    }
+
+    public VP<RequestChangeBlindFold> requestChangeBlindFold;
+
+    #endregion
+
     #region Turn
 
     public VP<Turn> turn;
@@ -79,8 +108,13 @@ public class GameData : Data
     public enum Property
     {
         gameType,
+
         useRule,
         requestChangeUseRule,
+
+        blindFold,
+        requestChangeBlindFold,
+
         turn,
         timeControl,
         lastMove,
@@ -90,11 +124,33 @@ public class GameData : Data
     public GameData() : base()
     {
         this.gameType = new VP<GameType>(this, (byte)Property.gameType, new Xiangqi.Xiangqi());
+        // useRule
         {
-            this.useRule = new VP<bool>(this, (byte)Property.useRule, true);
-            this.useRule.nh = 0;
+            // value
+            {
+                this.useRule = new VP<bool>(this, (byte)Property.useRule, true);
+                this.useRule.nh = 0;
+            }
+            // request
+            {
+                this.requestChangeUseRule = new VP<RequestChangeUseRule>(this, (byte)Property.requestChangeUseRule, new RequestChangeUseRule());
+                this.requestChangeUseRule.nh = 0;
+            }
         }
-        this.requestChangeUseRule = new VP<RequestChangeUseRule>(this, (byte)Property.requestChangeUseRule, new RequestChangeUseRule());
+        // blindFold
+        {
+            // value
+            {
+                this.blindFold = new VP<bool>(this, (byte)Property.blindFold, true);
+                this.blindFold.nh = 0;
+            }
+            // request
+            {
+                this.requestChangeBlindFold = new VP<RequestChangeBlindFold>(this, (byte)Property.requestChangeBlindFold, new RequestChangeBlindFold());
+                this.requestChangeBlindFold.nh = 0;
+            }
+        }
+        // turn
         {
             this.turn = new VP<Turn>(this, (byte)Property.turn, new Turn());
             this.turn.nh = 0;
